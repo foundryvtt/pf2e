@@ -1,0 +1,118 @@
+<div class="form-group">
+    <label>{{data.level.label}}</label>
+    <select name="data.level.value" data-dtype="{{data.level.type}}">
+        {{#select data.level.value}}
+        {{#each spellLevels as |name lvl|}}
+        <option value="{{lvl}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.spellType.label}}</label>
+    <select name="data.spellType.value" data-dtype="{{data.spellType.type}}">
+        {{#select data.spellType.value}}
+        {{#each spellTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.school.label}}</label>
+    <select name="data.school.value" data-dtype="{{data.school.type}}">
+        {{#select data.school.value}}
+        {{#each spellSchools as |name sch|}}
+        <option value="{{sch}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.damage.label}}</label>
+    <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.damageType.label}}</label>
+    <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
+        {{#select data.damageType.value}}
+        <option value=""></option>
+        {{#each damageTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.save.label}}</label>
+    <select name="data.save.value" data-dtype="{{data.save.type}}">
+        {{#select data.save.value}}
+        <option value=""></option>
+        {{#each abilities as |ability a|}}
+        <option value="{{a}}">{{ability.label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.components.label}}</label>
+    <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="{{data.components.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.materials.label}}</label>
+    <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="{{data.materials.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.target.label}}</label>
+    <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="{{data.target.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.range.label}}</label>
+    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.time.label}}</label>
+    <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="{{data.time.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.duration.label}}</label>
+    <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="{{data.duration.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.concentration.label}}</label>
+    <input type="checkbox" name="data.concentration.value" value="1" data-dtype="{{data.concentration.type}}" {{checked data.concentration.value}}/>
+</div>
+
+ <div class="form-group">
+    <label>{{data.ritual.label}}</label>
+    <input type="checkbox" name="data.ritual.value" value="1" data-dtype="{{data.ritual.type}}" {{checked data.ritual.value}}/>
+</div>
+
+<div class="form-group">
+    <label>{{data.ability.label}}</label>
+    <select name="data.ability.value" data-dtype="{{data.ability.type}}">
+        {{#select data.ability.value}}
+        <option value=""></option>
+        {{#each abilities as |ability a|}}
+        <option value="{{a}}">{{ability.label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+ <div class="form-group">
+    <label>{{data.prepared.label}}</label>
+    <input type="checkbox" name="data.prepared.value" value="1" data-dtype="Boolean" {{checked data.prepared.value}}/>
+</div>

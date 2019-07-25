@@ -1,0 +1,17 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <ol class="trait-list">
+        {{#each choices as |choice key|}}
+        <li>
+            <label>
+                <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
+                <span>{{choice.label}}</span>
+            </label>
+        </li>
+        {{/each}}
+    </ol>
+    <div class="form-group-stacked">
+        <label>Special:</label>
+        <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
+    </div>
+    <button type="submit" name="submit" value="1"><i class="far fa-save"></i> Update Actor</button>
+</form>

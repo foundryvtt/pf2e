@@ -1,0 +1,16 @@
+<ol class="abilities-list">
+{{#each data.abilities as |ability id|}}
+    <li class="ability" data-ability="{{id}}">
+        <input type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.proficient}}"
+               data-dtype="Number"/>
+        <a class="ability-proficiency" title="{{ability.hover}}">{{{ability.icon}}}</a>
+        <h4 class="ability-name rollable">{{ability.label}}</h4>
+        <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+        <span class="ability-score" title="Ability Score">
+            <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}"
+                   data-dtype="Number" placeholder="10"/>
+        </span>
+        <span class="ability-save" title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
+    </li>
+{{/each}}
+</ol>

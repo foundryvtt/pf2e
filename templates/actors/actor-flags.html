@@ -1,0 +1,35 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<p class="notes">{{localize 'DND5E.FlagsInstructions'}}</p>
+
+    {{#each flags as |fs section|}}
+    <h3 class="flags-section">{{localize section}}</h3>
+    {{#each fs as |flag key|}}
+
+    <div class="form-group">
+        <label>{{localize flag.name}}</label>
+
+        {{#if flag.isCheckbox}}
+        <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked flag.value}}/>
+
+        {{else if flag.isSelect}}
+        <select name="{{key}}" data-dtype="{{flag.type}}">
+            {{#select flag.value}}
+            {{#each flag.choices as |v k|}}
+            <option value="{{k}}">{{localize v}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+
+        {{else}}
+        <input type="text" name="{{key}}" value="{{flag.value}}" placeholder="{{flag.placeholder}}" data-dtype="{{flag.type}}"/>
+        {{/if}}
+
+        <p class="notes">{{flag.hint}}</p>
+    </div>
+    {{/each}}
+    {{/each}}
+
+    <button type="submit" name="submit">
+        <i class="far fa-save"></i> {{localize 'DND5E.FlagsSave'}}
+    </button>
+</form>

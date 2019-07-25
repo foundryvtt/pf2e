@@ -1,0 +1,22 @@
+<form>
+    <div class="form-group">
+        <label>Formula</label>
+        <input type="text" name="formula" value="{{formula}}" disabled/>
+    </div>
+
+    <div class="form-group">
+        <label>Ability Modifier</label>
+        <select name="ability">
+        {{#select data.ability}}
+        {{#each data.abilities as |ability a|}}
+        <option value="{{a}}">{{ability.label}}</option>
+        {{/each}}
+        {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Situational Bonus?</label>
+        <input type="text" name="bonus" value="" placeholder="e.g. +1d4"/>
+    </div>
+</form>

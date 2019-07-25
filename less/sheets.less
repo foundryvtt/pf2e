@@ -1,0 +1,48 @@
+@import "./variables.less";
+
+
+@headerHeight: 44px;
+
+
+/* ----------------------------------------- */
+/*  Sheet Structure
+/* ----------------------------------------- */
+
+.dnd5e.sheet {
+  .window-content {
+    padding: 5px;
+    font-size: 13px;
+    overflow-y: hidden;
+  }
+
+  // Header structure
+  .sheet-header {
+    .flexrow();
+    flex: 0 0 100%;
+    height: @headerHeight;
+
+    h1 {
+      margin: 0;
+      border: none;
+
+      > input {
+        height: @headerHeight - 4px;
+        width: 100%;
+        margin: 2px;
+        .nodesto();
+        font-size: 36px;
+        border: none;
+      }
+    }
+  }
+
+  // Body structure
+  .sheet-body {
+    height: calc(100% - @headerHeight);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+}

@@ -1,0 +1,87 @@
+<div class="form-group trait-size">
+    <label>{{data.traits.size.label}}</label>
+    <select name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
+        {{#select data.traits.size.value}}
+        {{#each actorSizes as |label size|}}
+            <option value="{{size}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group trait-perception">
+    <label>{{data.traits.perception.label}}</label>
+    <input type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
+           value="{{data.traits.perception.value}}" placeholder="Value"/>
+</div>
+
+<div class="form-group-stacked">
+    <label>{{data.traits.senses.label}}</label>
+    <input type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
+           value="{{data.traits.senses.value}}" placeholder="None"/>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits.languages">
+        {{data.traits.languages.label}}
+        <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list">
+    {{#each data.traits.languages.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits.di">
+        {{data.traits.di.label}}
+        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list">
+    {{#each data.traits.di.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits.dr">
+        {{data.traits.dr.label}}
+        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list">
+    {{#each data.traits.dr.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits.dv">
+        {{data.traits.dv.label}}
+        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list">
+    {{#each data.traits.dv.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits.ci">
+        {{data.traits.ci.label}}
+        <a class="trait-selector" data-options="conditionTypes"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list">
+    {{#each data.traits.ci.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="form-group configure-flags">
+    <label>Special Traits</label>
+    <i class="fas fa-cog"></i>
+</div>

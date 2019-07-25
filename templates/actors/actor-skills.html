@@ -1,0 +1,11 @@
+<ol class="skills-list">
+{{#each data.skills as |skill s|}}
+    <li class="skill" data-skill="{{s}}">
+        <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
+        <a class="skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
+        <h4 class="skill-name rollable">{{skill.label}}</h4>
+        <span class="skill-ability">{{skill.ability}}</span>
+        <span class="skill-mod">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+    </li>
+{{/each}}
+</ol>

@@ -1,0 +1,28 @@
+<section class="class-levels">
+    <header class="class-header">
+        <h3>Class Levels</h3>
+        {{#if owner}}
+        <a class="item-create" data-type="class" data-levels="1"><i class="fa fa-plus"></i> Add</a>
+        {{/if}}
+    </header>
+
+    <ol class="class-list inventory-list directory-list">
+        {{#each actor.classes}}
+        <li class="item" data-item-id="{{this.id}}">
+            <header class="item-header">
+                <h4 class="class-name">{{this.name}}</h4>
+                <span class="class-levels">{{this.data.levels.value}}</span>
+            </header>
+            <div class="class-subclass">
+                <h5>{{this.data.subclass.value}}</h5>
+                {{#if ../owner}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                </div>
+                {{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+</section>

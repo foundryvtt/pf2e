@@ -1,0 +1,20 @@
+<form>
+    <div class="form-group">
+        <label>Formula</label>
+        <input type="text" name="formula" value="{{formula}}" disabled/>
+    </div>
+    <div class="form-group">
+        <label>Situational Bonus?</label>
+        <input type="text" name="bonus" value="" placeholder="e.g. +1d4"/>
+    </div>
+    <div class="form-group">
+        <label>Roll Mode</label>
+        <select name="rollMode">
+        {{#select rollMode}}
+        {{#each rollModes as |label mode|}}
+            <option value="{{mode}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+        </select>
+    </div>
+</form>

@@ -1,0 +1,42 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <!-- ITEM SHEET HEADER -->
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </header>
+
+    <!-- ITEM SHEET CONTENT -->
+    <article class="sheet-content">
+
+        <!-- ITEM SHEET SIDEBAR -->
+        {{#if hasSidebar}}
+        <section class="sheet-sidebar">
+            {{> (sidebarTemplate)}}
+        </section>
+        {{/if}}
+
+        <!-- ITEM SHEET BODY -->
+        <section class="sheet-body">
+
+            <nav class="sheet-tabs tabs" data-tab-container="primary">
+                <a class="item active" data-tab="description">Description</a>
+                {{#if hasDetails}}
+                <a class="item" data-tab="details">Details</a>
+                {{/if}}
+            </nav>
+
+            <!-- Item Description -->
+            <div class="tab item-description active" data-tab="description">
+                {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+            </div>
+
+            <!-- Item Details -->
+            {{#if hasDetails}}
+            <div class="tab item-details" data-tab="details">
+                {{> (detailsTemplate)}}
+            </div>
+            {{/if}}
+        </section>
+    </article>
+</form>

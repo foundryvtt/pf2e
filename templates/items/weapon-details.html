@@ -1,0 +1,81 @@
+<div class="form-group">
+    <label>{{data.weaponType.label}}</label>
+    <select name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
+        {{#select data.weaponType.value}}
+        <option value=""></option>
+        {{#each weaponTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.bonus.label}}</label>
+    <input type="text" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="{{data.bonus.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.damage.label}}</label>
+    <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.damageType.label}}</label>
+    <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
+        {{#select data.damageType.value}}
+        <option value=""></option>
+        {{#each damageTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.damage2.label}}</label>
+    <input type="text" name="data.damage2.value" value="{{data.damage2.value}}" data-dtype="{{data.damage2.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.damage2Type.label}}</label>
+    <select name="data.damage2Type.value" data-dtype="{{data.damage2Type.type}}">
+        {{#select data.damage2Type.value}}
+        <option value=""></option>
+        {{#each damageTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.range.label}}</label>
+    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.ability.label}}</label>
+    <select name="data.ability.value" data-dtype="{{data.ability.type}}">
+        {{#select data.ability.value}}
+        {{#each abilities as |ability a|}}
+        <option value="{{a}}">{{ability.label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+ <div class="form-group">
+    <label>{{data.proficient.label}}</label>
+    <input type="checkbox" name="data.proficient.value" value="1" data-dtype="{{data.proficient.type}}" {{checked data.proficient.value}}/>
+</div>
+
+ <div class="form-group">
+    <label>{{data.attuned.label}}</label>
+    <input type="checkbox" name="data.attuned.value" value="1" data-dtype="{{data.attuned.type}}" {{checked data.attuned.value}}/>
+</div>
+
+<div class="form-group-stacked">
+    <label>{{data.properties.label}}</label>
+    <input type="text" name="data.properties.value" value="{{data.properties.value}}" data-dtype="{{data.properties.type}}"/>
+</div>

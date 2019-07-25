@@ -1,0 +1,36 @@
+<h4 class="sidebar-summary">Weapon Summary</h4>
+
+<div class="inventory-details">
+    <div class="form-group">
+        <label>Quantity</label>
+        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="{{data.quantity.type}}"/>
+    </div>
+
+    <div class="form-group">
+        <label>Weight</label>
+        <input type="text" name="data.weight.value" value="{{data.weight.value}}" data-dtype="{{data.weight.type}}"/>
+    </div>
+
+    <div class="form-group">
+        <label>Price</label>
+        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+    </div>
+</div>
+
+{{#if weaponProperties.length }}
+<ol class="item-tags">
+{{#each weaponProperties}}
+    <li class="tag">{{this}}</li>
+{{/each}}
+</ol>
+{{/if}}
+
+<ol class="item-tags">
+    {{#if data.proficient.value}}
+    <li class="tag">Proficient</li>
+    {{/if}}
+
+    {{#if data.attuned.value}}
+    <li class="tag">Attuned</li>
+    {{/if}}
+</ol>
