@@ -21,11 +21,13 @@ class ActorSheetPF2e extends ActorSheet {
     const sheetData = super.getData();
     console.log("sheetData: ", sheetData);
 
-    // Ability proficiency
-/*     for ( let abl of Object.values(sheetData.data.abilities)) {
-      abl.icon = this._getProficiencyIcon(abl.proficient);
-      abl.hover = CONFIG.proficiencyLevels[abl.proficient];
-    } */
+    // Save proficiency
+    sheetData.data.attributes.fortitude.icon = this._getProficiencyIcon(sheetData.data.attributes.fortitude.rank);
+    sheetData.data.attributes.reflex.icon = this._getProficiencyIcon(sheetData.data.attributes.reflex.rank);
+    sheetData.data.attributes.will.icon = this._getProficiencyIcon(sheetData.data.attributes.will.rank);
+    sheetData.data.attributes.fortitude.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.fortitude.rank];
+    sheetData.data.attributes.reflex.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.reflex.rank];
+    sheetData.data.attributes.will.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.will.rank];
 
     // Update skill labels
 /*     for ( let skl of Object.values(sheetData.data.skills)) {
@@ -104,15 +106,16 @@ class ActorSheetPF2e extends ActorSheet {
    * Get the font-awesome icon used to display a certain level of skill proficiency
    * @private
    */
-/*   _getProficiencyIcon(level) {
+  _getProficiencyIcon(level) {
     const icons = {
-      0: '<i class="far fa-circle"></i>',
-      0.5: '<i class="fas fa-adjust"></i>',
-      1: '<i class="fas fa-check"></i>',
-      2: '<i class="fas fa-check-double"></i>'
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="far fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      3: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-circle"></i>',
+      4: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i>'
     };
     return icons[level];
-  } */
+  }
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
@@ -152,8 +155,8 @@ class ActorSheetPF2e extends ActorSheet {
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
-/* 
-    // Ability Proficiency
+
+/*     // Ability Proficiency
     html.find('.ability-proficiency').click(ev => {
       let field = $(ev.currentTarget).siblings('input[type="hidden"]');
       this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
@@ -164,20 +167,20 @@ class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
       let ability = event.currentTarget.parentElement.getAttribute("data-ability");
       this.actor.rollAbility(ability, {event: event});
-    });
+    }); */
 
     // Toggle Skill Proficiency
-    html.find('.skill-proficiency').click(ev => this._onCycleSkillProficiency(ev));
+    html.find('.proficiency-rank').click(ev => this._onCycleSkillProficiency(ev));
 
-    // Roll Skill Checks
+/*     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
       this.actor.rollSkill(ev, skl);
     });
 
     // Trait Selector
-    html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
- */
+    html.find('.trait-selector').click(ev => this._onTraitSelector(ev)); */
+
     /* -------------------------------------------- */
     /*  Inventory
     /* -------------------------------------------- */
@@ -234,18 +237,18 @@ class ActorSheetPF2e extends ActorSheet {
    * Handle cycling proficiency in a Skill
    * @private
    */
-/*   _onCycleSkillProficiency(event) {
+  _onCycleSkillProficiency(event) {
     event.preventDefault();
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
     let level = parseFloat(field.val());
-    const levels = [0, 1, 0.5, 2];
+    const levels = [0, 1, 2, 3, 4];
     let idx = levels.indexOf(level),
         newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
 
     // Update the field value and save the form
     field.val(newLevel);
     this._onSubmit(event);
-  } */
+  }
 
   /* -------------------------------------------- */
 

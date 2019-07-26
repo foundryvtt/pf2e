@@ -19,6 +19,9 @@ class ActorPF2e extends Actor {
       abl.mod = Math.floor((abl.value - 10) / 2);
       //abl.save = abl.mod + ((abl.proficient || 0) * data.attributes.prof.value);
     }
+    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value;
+    data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value;
+    data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value;
 
     // Skill modifiers
 /*     for (let skl of Object.values(data.skills)) {

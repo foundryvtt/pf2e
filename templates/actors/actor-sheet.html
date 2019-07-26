@@ -48,7 +48,7 @@
             <!-- ************************ ATTRIBUTES ************************ -->
             <!-- > public/systems/pf2e/templates/actors/actor-attributes.html -->
             <div class="primary-attributes">
-                <div class="attribute">
+<!--                 <div class="attribute">
                     <h4 class="attribute-name">Hit Points</h4>
                     <div class="attribute-value">
                         <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
@@ -63,7 +63,7 @@
                         <input name="data.attributes.hp.tempmax" type="text" class="temphp" placeholder="+Max"
                                value="{{data.attributes.hp.tempmax}}" data-dtype="{{data.attributes.hp.type}}"/>
                     </footer>
-                </div>
+                </div> -->
             
 <!--                 <div class="attribute">
                     <h4 class="attribute-name">Armor Class</h4>
@@ -159,18 +159,18 @@
                     </footer>
                 </div> -->
             
-                <div class="attribute">
+<!--                 <div class="attribute">
                     <h4 class="attribute-name">Speed</h4>
                     <div class="attribute-value">
                         <span class="flex0">  </span>
                         <input name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
                                data-dtype="{{data.attributes.speed.type}}" placeholder="0"/>
                     </div>
-<!--                     <footer class="attribute-footer">
+                    <footer class="attribute-footer">
                         <input type="text" class="speed" name="data.attributes.speed.special" placeholder="Swim / Fly"
                                data-dtype="{{data.attributes.speed.type}}" value="{{data.attributes.speed.special}}"/>
-                    </footer> -->
-                </div>
+                    </footer>
+                </div> -->
             </div>
 
             <!-- ************************ END ATTRIBUTES ************************ -->
@@ -208,14 +208,13 @@
 
     <!-- SHEET NAVIGATION -->
     <nav class="sheet-navigation">
-        <nav class="sheet-tabs tabs sidebar" data-group="sidebar">
+<!--         <nav class="sheet-tabs tabs sidebar" data-group="sidebar">
             <a class="item active" data-tab="abilities">Abilities</a>
-<!--             <a class="item" data-tab="skills">Skills</a>
-            <a class="item" data-tab="traits">Traits</a> -->
-        </nav>
-        <nav class="sheet-tabs tabs content" data-group="primary">
+        </nav> -->
+        <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="inventory">Inventory</a>
             <a class="item" data-tab="spellbook">Spellbook</a>
+            <a class="item" data-tab="skills">Skills</a>
             <a class="item" data-tab="feats">Feats</a>
             <a class="item active" data-tab="biography">Biography</a>
         </nav>
@@ -228,9 +227,92 @@
         <section class="sheet-sidebar sidebar">
 
             <!-- ABILITY SCORES -->
-            <div class="tab abilities" data-group="sidebar" data-tab="abilities">
-                <!-- > public/systems/dnd5e/templates/actors/actor-abilities.html
-                > public/systems/pf2e/templates/actors/actor-classes.html -->
+            <div class="abilities" data-group="sidebar" data-tab="abilities">
+                
+                <h3 class="ability-title">Defenses</h3>
+                <ol class="defense-list">
+                    <li class="defense" data-ability="fortitude">
+                        <h4 class="defense-name">Fortitude</h4>
+<!--                         <span class="defense-score" title="Fortitude">
+                            <input name="data.attributes.fortitude.value" type="text" value="{{data.attributes.fortitude.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span> -->
+                        <span class="defense-score" title="Fortitude">{{numberFormat data.attributes.fortitude.value decimals=0 sign=false}}</span>
+                        <h4 class="proficiency-name">Rank</h4>
+                        <input type="hidden" name="data.attributes.fortitude.rank" value="{{data.attributes.fortitude.rank}}" data-dtype="Number"/>
+                        <span class="proficiency-rank" title="{{data.attributes.fortitude.hover}}">{{{data.attributes.fortitude.icon}}}</span>
+                    </li>
+                    <li class="defense" data-ability="ac">
+                        <h4 class="defense-name">AC</h4>
+                        <span class="defense-score" title="AC">
+                            <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </li>
+                    <li class="defense" data-ability="reflex">
+                        <h4 class="defense-name">Reflex</h4>
+                        <!-- <span class="defense-score" title="Reflex">
+                            <input name="data.attributes.reflex.value" type="text" value="{{data.attributes.reflex.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span> -->
+                        <span class="defense-score" title="Reflex">{{numberFormat data.attributes.reflex.value decimals=0 sign=false}}</span>
+                        <h4 class="proficiency-name">Rank</h4>
+                        <input type="hidden" name="data.attributes.reflex.rank" value="{{data.attributes.reflex.rank}}" data-dtype="Number"/>
+                        <span class="proficiency-rank" title="{{data.attributes.reflex.hover}}">{{{data.attributes.reflex.icon}}}</span>
+                    </li>
+                    <li class="defense" data-ability="shield">
+                        <h4 class="defense-name">Shield</h4>
+                        <span class="defense-score" title="Shield">
+                            <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                                    data-dtype="String" placeholder="+0"/>
+                        </span>
+                    </li>
+                    <li class="defense" data-ability="will">
+                        <h4 class="defense-name">Will</h4>
+<!--                         <span class="defense-score" title="Will">
+                            <input name="data.attributes.will.value" type="text" value="{{data.attributes.will.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span> -->
+                        <span class="defense-score" title="Will">{{numberFormat data.attributes.will.value decimals=0 sign=false}}</span>
+                        <h4 class="proficiency-name">Rank</h4>
+                        <input type="hidden" name="data.attributes.will.rank" value="{{data.attributes.will.rank}}" data-dtype="Number"/>
+                        <span class="proficiency-rank" title="{{data.attributes.will.hover}}">{{{data.attributes.will.icon}}}</span>
+                    </li>
+
+                    
+                    <li class="defense" data-ability="speed">
+                        <h4 class="defense-name">Speed</h4>
+                        <span class="defense-score" title="Speed">
+                            <input name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
+                                    data-dtype="String" placeholder="25 ft"/>
+                        </span>
+<!--                         <span class="defense-score" title="Hit Points">
+                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                                    data-dtype="{{data.attributes.hp.type}}" placeholder="10"/>
+                        </span> -->
+
+<!--                         <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                               data-dtype="{{data.attributes.hp.type}}" placeholder="10"/>
+                        <span class="flex0"> / </span>
+                        <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                               data-dtype="{{data.attributes.hp.type}}" placeholder="10"/> -->
+
+                        <!-- <input name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
+                               data-dtype="{{data.attributes.speed.type}}" placeholder="0"/> -->
+                    </li>
+                </ol>
+                
+<!--                 <h3 class="ability-title">Armor Class</h3>
+                <ol class="defense-list">
+                    <li class="ability" data-ability="{{id}}">
+                        <h4 class="ability-name">AC</h4>
+                    </li>
+                    <li class="ability" data-ability="{{id}}">
+                        <h4 class="ability-name">TAC</h4>
+                    </li>
+                </ol> -->
+
+                <h3 class="ability-title">Ability Scores</h3>
                 <ol class="abilities-list">
                     {{#each data.abilities as |ability id|}}
                         <li class="ability" data-ability="{{id}}">
@@ -444,6 +526,10 @@
 
             <!-- BIOGRAPHY -->
             <!-- > public/systems/pf2e/templates/actors/actor-biography.html -->
+            <div class="tab biography" data-group="primary" data-tab="biography">
+                <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+                {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+            </div>
         </section>
     </section>
 </form>

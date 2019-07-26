@@ -120,10 +120,11 @@ CONFIG.featTypes = {
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
-  0: "Not Proficient",
-  1: "Proficient",
-  0.5: "Jack of all Trades",
-  2: "Expertise"
+  0: "Not Trained",
+  1: "Trained",
+  2: "Expert",
+  3: "Master",
+  4: "Legendary"
 };
 
 // Creature Sizes
