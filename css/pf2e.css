@@ -91,7 +91,8 @@
 .pf2e.sheet form input[type="text"]:hover,
 .pf2e.sheet form input[type="text"]:focus {
   border: 1px solid #111;
-  box-shadow: 0 0 8px red;
+  /* box-shadow: 0 0 8px red; */
+  box-shadow: 0 0 10px rgb(0, 0, 90);
 }
 .pf2e.sheet form select {
   font-size: 10px;
@@ -122,11 +123,12 @@
 }
 .pf2e.sheet form.editable .rollable:hover {
   color: #000;
-  text-shadow: 0 0 10px red;
+  text-shadow: 0 0 10px rgb(0, 0, 90);
+  /* text-shadow: 0 0 10px red; */
   cursor: pointer;
 }
 .pf2e.sheet form .sheet-tabs {
-  height: 32px;
+  height: 30px;
 }
 .pf2e.sheet form .sheet-tabs > .item {
   line-height: 24px;
@@ -257,7 +259,7 @@
 }
 .pf2e.actor .sheet-navigation {
   border-top: 1px solid #b75b5b;
-  border-bottom: 1px solid #b75b5b;
+  border-bottom: 1px solid rgb(69,74,124);
 }
 .pf2e.actor .sheet-navigation .sheet-tabs > .item {
   border-radius: 5px 5px 0 0;
@@ -265,7 +267,9 @@
 .pf2e.actor .sheet-navigation .sheet-tabs > .item.active {
   border: 1px solid #666;
   border-bottom: none;
-  box-shadow: 0 0 10px inset #ff6400;
+  /* box-shadow: 0 0 10px inset #ff6400; */
+  background: rgb(69,74,124);
+  color: #fff;
   text-shadow: none;
 }
 .pf2e.actor .sheet-header {
@@ -519,7 +523,7 @@
   object-fit: contain;
 }
 .pf2e.actor .sheet-sidebar {
-  border-right: 1px solid #b75b5b;
+  border-right: 1px solid rgb(69,74,124);
 }
 .pf2e.actor .sheet-sidebar .tab {
   height: 100%;
@@ -528,8 +532,8 @@
 }
 .pf2e.actor .abilities .defense-list {
   display: grid;
-  grid: "defense defense" 52px / 50%;
-  grid-auto-rows: 52px;
+  grid: "defense defense" 50px / 50% auto;
+  grid-auto-rows: 50px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -538,7 +542,7 @@
   grid-row-start: auto;
   align-self: center;
   display: grid;
-  grid: "name name" 14px "score rank" 30px / 33% auto;
+  grid: "name name name" 14px "score rank item" 30px / 30px 55px 24px;
 }
 .pf2e.actor .abilities .defense .defense-name {
   grid-area: name;
@@ -576,7 +580,7 @@
   font-size: 13px;
   color: #fff;
   justify-self: start;
-  width: 70%;
+  width: 55px;
   text-align: center;
 }
 .pf2e.actor .abilities .defense .proficiency-rank {
@@ -585,12 +589,30 @@
   align-self: end;
   background: #fff;
   border: 1px solid #444;
-  line-height: 13px;
+  line-height: 16px;
   font-size: 13px;
   /* color: #fff; */
   justify-self: start;
-  width: 70%;
+  width: 55px;
   text-align: center;
+}
+.pf2e.actor .abilities .defense .defense-item {
+  grid-area: item;
+  align-self: center;
+  justify-self: start;
+  flex: 0 0 36px;
+  height: 36px;
+}
+.pf2e.actor .abilities .defense .defense-item > input {
+  width: 20px;
+  height: 20px;
+  margin: 3px;
+  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
+  font-size: 12px;
+  color: #444;
+  text-align: center;
+  background: #fff;
+  border: 1px solid;
 }
 .pf2e.actor .abilities .ability-title {
   flex: 0 0 24px;
@@ -607,8 +629,8 @@
 }
 .pf2e.actor .abilities .abilities-list {
   display: grid;
-  grid: "ability ability" 52px / 50%;
-  grid-auto-rows: 52px;
+  grid: "ability ability" 50px / 50%;
+  grid-auto-rows: 50px;
   list-style: none;
   margin: 0;
   padding: 0;

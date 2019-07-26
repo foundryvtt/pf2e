@@ -14,14 +14,16 @@ class ActorPF2e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     //else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
-    // Ability modifiers and saves
+    // Ability modifiers
     for (let abl of Object.values(data.abilities)) {
       abl.mod = Math.floor((abl.value - 10) / 2);
-      //abl.save = abl.mod + ((abl.proficient || 0) * data.attributes.prof.value);
     }
-    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value;
-    data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value;
-    data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value;
+
+    // Saves
+    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value + data.attributes.fortitude.item;
+    data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value + data.attributes.reflex.item;
+    data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value + data.attributes.will.item;
+    data.attributes.perception.value = data.abilities.wis.mod + (data.attributes.perception.rank * 2) + data.details.level.value + data.attributes.perception.item;
 
     // Skill modifiers
 /*     for (let skl of Object.values(data.skills)) {
