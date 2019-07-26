@@ -522,8 +522,8 @@
   top: 2px;
 }
 .pf2e.actor img.sheet-profile {
-  border: none;
-  border-right: 1px solid #b75b5b;
+  /* border: none; */
+  border: 1px solid #b75b5b;
   object-fit: contain;
 }
 .pf2e.actor .sheet-sidebar {
@@ -544,14 +544,15 @@
 }
 .pf2e.actor .abilities .ac-list {
   display: grid;
-  grid: "defense defense" 70px / 50% auto;
-  grid-auto-rows: 50px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  grid: "score cap item" 35px "score armor penalty" 35px / 70px auto auto;
+  margin: unset;
+  padding: unset;
 }
 .pf2e.actor .abilities .armor-class {
-  grid-row-start: auto;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
   align-self: center;
   background: #fff;
   height: 64px;
@@ -560,8 +561,6 @@
   border-radius: 33px;
   font-size: 42px;
   text-align: center;
-  /* display: grid;
-  grid: "name name name" 14px "score rank item" 30px / 30px 55px 24px; */
 }
 .pf2e.actor .abilities .defense {
   grid-row-start: auto;
