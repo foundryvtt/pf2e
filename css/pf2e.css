@@ -213,8 +213,12 @@
   float: right;
   width: calc(100% - 220px);
 }
+.pf2e.actor .floatright {
+  float: right;
+  /* width: calc(100% - 220px); */
+}
 .pf2e.actor .sheet-upper {
-  width: 100%;
+/*   width: 100%; */
   height: 268px;
 }
 .pf2e.actor .sheet-upper .sheet-header {
@@ -537,6 +541,27 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+.pf2e.actor .abilities .ac-list {
+  display: grid;
+  grid: "defense defense" 70px / 50% auto;
+  grid-auto-rows: 50px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pf2e.actor .abilities .armor-class {
+  grid-row-start: auto;
+  align-self: center;
+  background: #fff;
+  height: 64px;
+  width: 64px;
+  border: 1px solid;
+  border-radius: 33px;
+  font-size: 42px;
+  text-align: center;
+  /* display: grid;
+  grid: "name name name" 14px "score rank item" 30px / 30px 55px 24px; */
 }
 .pf2e.actor .abilities .defense {
   grid-row-start: auto;
