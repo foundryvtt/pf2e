@@ -32,13 +32,59 @@
             
             <h3 class="ability-title">Armor Class</h3>
             <ol class="ac-list">                
-                <span class="armor-class" title="AC">
+                <span class="armor-class" title="Armor Class">
                     <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
                             data-dtype="Number" placeholder="10"/>
+                </span>
+                <h4 class="ac-dex pf-title">Dex/Cap</h4>
+                <span class="ac-dex pf-value pf-small" title="Your DEX mod capped at your armor value">
+                    <input name="data.attributes.ac.dex" type="text" value="{{data.attributes.ac.dex}}"
+                            data-dtype="Number" placeholder="0"/>
+                </span>
+                <h4 class="ac-item pf-title">Item</h4>
+                <span class="ac-item pf-value pf-small" title="Item bonus to your AC">
+                    <input name="data.attributes.ac.item" type="text" value="{{data.attributes.ac.item}}"
+                            data-dtype="Number" placeholder="0"/>
+                </span>
+                <h4 class="ac-armor-type pf-title">Equiped Armor</h4>
+                <span class="ac-armor-type pf-value pf-small" title="The armor you have are wearing">
+                    <input name="data.attributes.ac.armor" type="text" value="{{data.attributes.ac.armor}}"
+                            data-dtype="String" placeholder="Leather Armor"/>
                 </span>
             </ol>
 
             <h3 class="ability-title">Hit Points</h3>
+            <ol class="hp-list">                
+                    <h4 class="hp-current pf-title">Current HP</h4>
+                    <span class="hp-current pf-value pf-large" title="Your current hit points">
+                        <input name="data.attributes.hp.current" type="text" value="{{data.attributes.hp.current}}"
+                                data-dtype="Number" placeholder="10"/>
+                    </span>
+                    <h4 class="hp-max pf-title">Max HP</h4>
+                    <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                            <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    <h4 class="hp-temp pf-title">Temp</h4>
+                    <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
+                        <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
+                                data-dtype="Number" placeholder="0"/>
+                    </span>
+                    <h4 class="hp-dying pf-title">Dying</h4>
+                    <span class="hp-dying pf-value pf-small" title="Your current level of Dying">
+                        <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
+                                data-dtype="Number" placeholder="0"/>
+                    </span>
+                    <h4 class="hp-wounds pf-title">Wounds</h4>
+                    <span class="hp-wounds pf-value pf-small" title="Your current level of Wounds">
+                        <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
+                                data-dtype="Number" placeholder="0"/>
+                    </span>
+                    <span class="hp-conditions pf-value" title="Conditions affecting you">
+                        <input name="data.attributes.hp.conditions" type="text" value="{{data.attributes.hp.conditions}}"
+                                data-dtype="String" placeholder=""/>
+                    </span>
+                </ol>
             
             <h3 class="ability-title">Defensive Proficiencies</h3>
             <ol class="defense-list">

@@ -542,11 +542,46 @@
   margin: 0;
   padding: 0;
 }
+.pf2e.actor .pf-title {
+  background: #b75b5b;
+  height: 16px;
+  border: 1px solid #000;
+  text-align: center;
+  align-self: start;
+  margin-top: 1px;
+  color: #fff;
+}
+.pf2e.actor .pf-value {
+    background: #fff;
+    border: 1px solid;
+    text-align: center;
+    margin-top: 16px;
+}
+.pf2e.actor .pf-small {
+  height: 20px;
+}
+.pf2e.actor .pf-large {
+  font-size: 26px;
+  height: 32px;
+}
 .pf2e.actor .abilities .ac-list {
   display: grid;
-  grid: "score cap item" 35px "score armor penalty" 35px / 70px auto auto;
+  grid: "score dex item" 38px "score armor armor" 35px / 73px 73px 73px;
   margin: unset;
   padding: unset;
+}
+.pf2e.actor .abilities .ac-list > * {
+  width: 60px;
+}
+.pf2e.actor .abilities .ac-list .ac-dex {
+  grid-area: dex;
+}
+.pf2e.actor .abilities .ac-list .ac-item {
+  grid-area: item;
+}
+.pf2e.actor .abilities .ac-list .ac-armor-type {
+  grid-area: armor;
+  width: 133px;
 }
 .pf2e.actor .abilities .armor-class {
   grid-row-start: 1;
@@ -562,6 +597,64 @@
   font-size: 42px;
   text-align: center;
 }
+.pf2e.actor .abilities .hp-list {
+  display: grid;
+  grid: "current temp dying wounds" 50px "max condition condition condition" 50px  / 73px 49px 49px 49px;
+  margin: unset;
+  padding: unset;
+}
+.pf2e.actor .abilities .hp-list > * {
+  width: 46px;
+}
+.pf2e.actor .abilities .hp-list .hp-temp {
+  grid-area: temp;
+}
+.pf2e.actor .abilities .hp-list .hp-dying {
+  grid-area: dying;
+}
+.pf2e.actor .abilities .hp-list .hp-wounds {
+  grid-area: wounds;
+}
+.pf2e.actor .abilities .hp-list .hp-current {
+  grid-area: current;
+}
+.pf2e.actor .abilities .hp-list .hp-max {
+  grid-area: max;
+}
+.pf2e.actor .abilities .hp-list .hp-current,
+.pf2e.actor .abilities .hp-list .hp-max {
+  width: 64px;
+}
+
+/* .pf2e.actor .abilities .hp-current-value,
+.pf2e.actor .abilities .hp-max-value {
+  background: #fff;
+  height: 32px;
+  width: 64px;
+  border: 1px solid;
+  font-size: 26px;
+  text-align: center;
+} */
+/* .pf2e.actor .abilities .hp-list .hp-temp-title,
+.pf2e.actor .abilities .hp-list .hp-dying-title,
+.pf2e.actor .abilities .hp-list .hp-wounds-title {
+  background: #b75b5b;
+  height: 16px;
+  border: 1px solid #000;
+  text-align: center;
+  align-self: start;
+  margin-top: 1px;
+  color: #fff;
+}
+.pf2e.actor .abilities .hp-list .hp-temp-value,
+.pf2e.actor .abilities .hp-list .hp-dying-value,
+.pf2e.actor .abilities .hp-list .hp-wounds-value {
+  height: 20px;
+  background: #fff;
+  align-self: end;
+  border: 1px solid;
+  text-align: center;
+} */
 .pf2e.actor .abilities .defense {
   grid-row-start: auto;
   align-self: center;
@@ -606,6 +699,7 @@
   justify-self: start;
   width: 55px;
   text-align: center;
+  margin-top: -1px;
 }
 .pf2e.actor .abilities .defense .proficiency-rank {
   letter-spacing: -3px;
@@ -613,8 +707,8 @@
   align-self: end;
   background: #fff;
   border: 1px solid #444;
-  line-height: 16px;
-  font-size: 13px;
+  line-height: 17px;
+  font-size: 14px;
   /* color: #fff; */
   justify-self: start;
   width: 55px;
