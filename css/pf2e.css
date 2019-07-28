@@ -277,7 +277,7 @@
   text-shadow: none;
 }
 .pf2e.actor .sheet-header {
-  border-bottom: 1px solid #b75b5b;
+  border-bottom: 1px solid rgb(69,74,124);
 }
 .pf2e.actor .sheet-header h1 {
   margin: 0;
@@ -542,20 +542,36 @@
   margin: 0;
   padding: 0;
 }
+.pf2e.actor .pf-heading {
+  /* flex: 0 0 24px; */
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+  background: rgb(69,74,124);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  /* border-top: 1px solid #b75b5b; */
+}
 .pf2e.actor .pf-title {
+  /* grid-area: auto; */
   background: #b75b5b;
   height: 16px;
   border: 1px solid #000;
   text-align: center;
   align-self: start;
-  margin-top: 1px;
+  margin-bottom: -1px;
   color: #fff;
 }
 .pf2e.actor .pf-value {
-    background: #fff;
-    border: 1px solid;
-    text-align: center;
-    margin-top: 16px;
+  /* grid-area: auto;   */
+  background: #fff;
+  border: 1px solid;
+  text-align: center;
+}
+.pf2e.actor .pf-container {
+  grid: "title" 15px "value" auto / auto
 }
 .pf2e.actor .pf-small {
   height: 20px;
@@ -566,12 +582,13 @@
 }
 .pf2e.actor .abilities .ac-list {
   display: grid;
-  grid: "score dex item" 38px "score armor armor" 35px / 73px 73px 73px;
+  grid: "score dex item" 38px "score armor armor" 38px / 73px 73px 73px;
   margin: unset;
+  margin-top: 1px;
   padding: unset;
 }
 .pf2e.actor .abilities .ac-list > * {
-  width: 60px;
+  width: 60px;  
 }
 .pf2e.actor .abilities .ac-list .ac-dex {
   grid-area: dex;
@@ -601,6 +618,7 @@
   display: grid;
   grid: "current temp dying wounds" 50px "max condition condition condition" 50px  / 73px 49px 49px 49px;
   margin: unset;
+  margin-top: 1px; 
   padding: unset;
 }
 .pf2e.actor .abilities .hp-list > * {
@@ -625,7 +643,49 @@
 .pf2e.actor .abilities .hp-list .hp-max {
   width: 64px;
 }
+.pf2e.actor .abilities .hp-list .hp-conditions {
+  grid-area: condition;
+  width: 143px;
+}
+.pf2e.actor .bio-container {
+  display: grid;
+  grid: "image bio" 220px / 220px auto;
+  margin: unset;
+  padding: unset;  
+}
+.pf2e.actor .biography .sheet-profile {
+  grid-area: image;
+}
+.pf2e.actor .biography .bio-list {
+  grid-area: bio;
+  display: grid;
+  grid: "bio" 40px / auto auto;
+  grid-auto-rows: 40px;
+}
+.pf2e.actor .biography .bio-list > * {
+  width: 80px;
+}
+.pf2e.actor .biography .bio-list .bio-appearance,
+.pf2e.actor .biography .bio-list .bio-attitude {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 170px;
+}
 
+.pf2e.actor .biography .bio-list .bio-appearance > input,
+.pf2e.actor .biography .bio-list .bio-attitude > input {
+  text-align: start;
+  word-break: break-all;
+}
+
+.pf2e.actor .biography .editor {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  height: 380px;
+  padding-left: 8px;
+}
 /* .pf2e.actor .abilities .hp-current-value,
 .pf2e.actor .abilities .hp-max-value {
   background: #fff;
@@ -741,7 +801,7 @@
   background: rgb(69,74,124);
   text-align: center;
   margin: 0;
-  margin-top: 4px;
+  /* margin-top: 4px; */
   padding: 0;
   /* border-top: 1px solid #b75b5b; */
 }
@@ -981,10 +1041,11 @@
   color: #111;
   text-shadow: 0 0 10px #ff6400;
 }
-.pf2e.actor .biography .editor {
+/* .pf2e.actor .biography .editor {
   height: 380px;
   padding-left: 8px;
-}
+} */
+/* ###################### BIO ################################## */
 .pf2e.actor.npc-sheet .biography .editor {
   height: 465px;
 }

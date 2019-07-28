@@ -30,63 +30,83 @@
         <!-- ABILITY SCORES -->
         <div class="abilities" data-group="sidebar" data-tab="abilities">
             
-            <h3 class="ability-title">Armor Class</h3>
+            <h3 class="ac-title pf-heading">Armor Class</h3>
             <ol class="ac-list">                
                 <span class="armor-class" title="Armor Class">
                     <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
                             data-dtype="Number" placeholder="10"/>
-                </span>
-                <h4 class="ac-dex pf-title">Dex/Cap</h4>
-                <span class="ac-dex pf-value pf-small" title="Your DEX mod capped at your armor value">
-                    <input name="data.attributes.ac.dex" type="text" value="{{data.attributes.ac.dex}}"
-                            data-dtype="Number" placeholder="0"/>
-                </span>
-                <h4 class="ac-item pf-title">Item</h4>
-                <span class="ac-item pf-value pf-small" title="Item bonus to your AC">
-                    <input name="data.attributes.ac.item" type="text" value="{{data.attributes.ac.item}}"
-                            data-dtype="Number" placeholder="0"/>
-                </span>
-                <h4 class="ac-armor-type pf-title">Equiped Armor</h4>
-                <span class="ac-armor-type pf-value pf-small" title="The armor you have are wearing">
-                    <input name="data.attributes.ac.armor" type="text" value="{{data.attributes.ac.armor}}"
-                            data-dtype="String" placeholder="Leather Armor"/>
-                </span>
+                </span>            
+                <div class="ac-dex pf-container">
+                    <h4 class="ac-dex pf-title">Dex/Cap</h4>
+                    <span class="ac-dex pf-value pf-small" title="Your DEX mod capped at your armor value">
+                        <input name="data.attributes.ac.dex" type="text" value="{{data.attributes.ac.dex}}"
+                                data-dtype="Number" placeholder="0"/>
+                    </span>
+                </div>
+                <div class="ac-item pf-container">
+                    <h4 class="ac-item pf-title">Item</h4>
+                    <span class="ac-item pf-value pf-small" title="Item bonus to your AC">
+                        <input name="data.attributes.ac.item" type="text" value="{{data.attributes.ac.item}}"
+                                data-dtype="Number" placeholder="0"/>
+                    </span>
+                </div>
+                <div class="ac-armor-type pf-container">
+                    <h4 class="ac-armor-type pf-title">Equiped Armor</h4>
+                    <span class="ac-armor-type pf-value pf-small" title="The armor you have are wearing">
+                        <input name="data.attributes.ac.armor" type="text" value="{{data.attributes.ac.armor}}"
+                                data-dtype="String" placeholder="Leather Armor"/>
+                    </span>
+                </div>
             </ol>
 
-            <h3 class="ability-title">Hit Points</h3>
+            <h3 class="hp-title pf-heading">Hit Points</h3>
             <ol class="hp-list">                
-                    <h4 class="hp-current pf-title">Current HP</h4>
-                    <span class="hp-current pf-value pf-large" title="Your current hit points">
-                        <input name="data.attributes.hp.current" type="text" value="{{data.attributes.hp.current}}"
-                                data-dtype="Number" placeholder="10"/>
-                    </span>
-                    <h4 class="hp-max pf-title">Max HP</h4>
-                    <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                    <div class="hp-current pf-container">
+                        <h4 class="hp-current pf-title">Current HP</h4>
+                        <span class="hp-current pf-value pf-large" title="Your current hit points">
+                            <input name="data.attributes.hp.current" type="text" value="{{data.attributes.hp.current}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>
+                    <div class="hp-max pf-container">
+                        <h4 class="hp-max pf-title">Max HP</h4>
+                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
                             <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
-                    <h4 class="hp-temp pf-title">Temp</h4>
-                    <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
-                        <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
-                                data-dtype="Number" placeholder="0"/>
-                    </span>
-                    <h4 class="hp-dying pf-title">Dying</h4>
-                    <span class="hp-dying pf-value pf-small" title="Your current level of Dying">
-                        <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
-                                data-dtype="Number" placeholder="0"/>
-                    </span>
-                    <h4 class="hp-wounds pf-title">Wounds</h4>
-                    <span class="hp-wounds pf-value pf-small" title="Your current level of Wounds">
-                        <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
-                                data-dtype="Number" placeholder="0"/>
-                    </span>
-                    <span class="hp-conditions pf-value" title="Conditions affecting you">
-                        <input name="data.attributes.hp.conditions" type="text" value="{{data.attributes.hp.conditions}}"
-                                data-dtype="String" placeholder=""/>
-                    </span>
+                    </div>
+                    <div class="hp-temp pf-container">
+                        <h4 class="hp-temp pf-title">Temp</h4>
+                        <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
+                            <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="hp-dying pf-container">
+                        <h4 class="hp-dying pf-title">Dying</h4>
+                        <span class="hp-dying pf-value pf-small" title="Your current level of Dying">
+                            <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="hp-wounds pf-container">
+                        <h4 class="hp-wounds pf-title">Wounds</h4>
+                        <span class="hp-wounds pf-value pf-small" title="Your current level of Wounds">
+                            <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="hp-conditions pf-container">
+                        <h4 class="hp-conditions pf-title">Conditions</h4>
+                        <span class="hp-conditions pf-value" title="Conditions affecting you">                            
+                            <input name="data.attributes.hp.conditions" type="text" value="{{data.attributes.hp.conditions}}"
+                                    data-dtype="String" placeholder=""/>
+                        </span>
+                    </div>
                 </ol>
+                
             
-            <h3 class="ability-title">Defensive Proficiencies</h3>
+            <h3 class="defense-title pf-heading">Defensive Proficiencies</h3>
             <ol class="defense-list">
                 <li class="defense" data-ability="fortitude">
                     <h4 class="defense-name">Fortitude</h4>
@@ -163,7 +183,7 @@
             </ol>
             
 
-            <h3 class="ability-title">Ability Scores</h3>
+            <h3 class="abilities-title pf-heading">Ability Scores</h3>
             <ol class="abilities-list">
                 {{#each data.abilities as |ability id|}}
                     <li class="ability" data-ability="{{id}}">
@@ -587,7 +607,69 @@
             <!-- BIOGRAPHY -->
             <!-- > public/systems/pf2e/templates/actors/actor-biography.html -->
             <div class="tab biography" data-group="primary" data-tab="biography">
-                <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+                <div class="bio-container">
+                    <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+
+                    <ol class="bio-list">                
+                        <div class="bio-size pf-container">
+                            <h4 class="bio-size pf-title">Size</h4>
+                            <span class="bio-size pf-value pf-small" title="The size of your character">
+                                <input name="data.details.size.value" type="text" value="{{data.details.size.value}}"
+                                        data-dtype="String" placeholder="Medium"/>
+                            </span>
+                        </div>
+                        <div class="bio-age pf-container">
+                                <h4 class="bio-age pf-title">Age</h4>
+                                <span class="bio-age pf-value pf-small" title="The age of your character">
+                                    <input name="data.details.age.value" type="text" value="{{data.details.age.value}}"
+                                            data-dtype="String" placeholder=""/>
+                                </span>
+                            </div>
+                        <div class="bio-height pf-container">
+                            <h4 class="bio-height pf-title">Height</h4>
+                            <span class="bio-height pf-value pf-small" title="Your height">
+                                <input name="data.details.height.value" type="text" value="{{data.details.height.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                        <div class="bio-weight pf-container">
+                            <h4 class="bio-weight pf-title">Weight</h4>
+                            <span class="bio-weight pf-value pf-small" title="Your weight">
+                                <input name="data.details.weight.value" type="text" value="{{data.details.weight.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                        <div class="bio-alignment pf-container">
+                            <h4 class="bio-alignment pf-title">Alignment</h4>
+                            <span class="bio-alignment pf-value pf-small" title="Your alignment">                            
+                                <input name="data.details.alignment.value" type="text" value="{{data.details.alignment.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                        <div class="bio-gender pf-container">
+                            <h4 class="bio-gender pf-title">Gender</h4>
+                            <span class="bio-gender pf-value pf-small" title="Your gender">                            
+                                <input name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                        <div class="bio-appearance pf-container">
+                            <h4 class="bio-appearance pf-title">Appearance</h4>
+                            <span class="bio-appearance pf-value pf-small" title="Your appearance">                            
+                                <input name="data.details.appearance.value" type="text" value="{{data.details.appearance.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                        <div class="bio-attitude pf-container">
+                            <h4 class="bio-attitude pf-title">Attitude</h4>
+                            <span class="bio-attitude pf-value pf-small" title="Your attitude">                            
+                                <input name="data.details.attitude.value" type="text" value="{{data.details.attitude.value}}"
+                                        data-dtype="String" placeholder=""/>
+                            </span>
+                        </div>
+                    </ol>
+                </div>
+                <h3 class="character-notes pf-heading">Character Notes</h3>
                 {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
             </div>
         </section>
