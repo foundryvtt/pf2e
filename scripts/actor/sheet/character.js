@@ -77,6 +77,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       "bonus": { label: "Bonus Feats", feats: [] },
     };
 
+    // Actions
+    const actions = {
+      "action": { label: "Actions", actions: [] },
+      "reaction": { label: "Reactions", actions: [] },
+      "free": { label: "Free Actions", actions: [] }
+    };
+
     // Classes
     const classes = [];
 
@@ -93,6 +100,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
         totalWeight += i.totalWeight;
+
+        // Do I need to change this so it works with different types of Strikes?
+        if (i.type === "weapon") {
+          actions["action"].actions.push(i);
+        }
       }
 
       // Spells
@@ -106,8 +118,18 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       // Feats
       else if ( i.type === "feat" ) {
-        feats[i.data.featType.value].feats.push(i);
+        let featType = i.data.featType.value || "bonus";
+        let actionType = i.data.actionType.value || "passive";
+        
+        feats[featType].feats.push(i);
+        if ( Object.keys(actions).includes(actionType) ) actions[actionType].actions.push(i);
+
         //feats.push(i);
+      }
+
+      // Actions
+      if ( Object.keys(actions).includes(i.type) ) {
+        actions[i.type].actions.push(i);
       }
       /* else if ( Object.keys(feats).includes(i.type) ) feats[i.type].feats.push(i); */
     }
@@ -116,6 +138,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.inventory = inventory;
     actorData.spellbook = spellbook;
     actorData.feats = feats;
+    actorData.actions = actions;
     actorData.classes = classes;
 
     // Inventory encumbrance

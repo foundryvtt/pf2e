@@ -242,7 +242,7 @@
 
             <!-- ************************ ATTRIBUTES ************************ -->
             <!-- > public/systems/pf2e/templates/actors/actor-attributes.html -->
-            <div class="primary-attributes">
+           <!--  <div class="primary-attributes"> -->
 <!--                 <div class="attribute">
                     <h4 class="attribute-name">Hit Points</h4>
                     <div class="attribute-value">
@@ -293,9 +293,9 @@
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}"/>
                     </footer>
                 </div> -->
-            </div>
+         <!--    </div> -->
             
-            <div class="primary-attributes">
+           <!--  <div class="primary-attributes"> -->
 <!--                 <div class="attribute">
                     <h4 class="attribute-name">Hit Dice</h4>
                     <div class="attribute-value">
@@ -366,12 +366,12 @@
                                data-dtype="{{data.attributes.speed.type}}" value="{{data.attributes.speed.special}}"/>
                     </footer>
                 </div> -->
-            </div>
+           <!--  </div> -->
 
             <!-- ************************ END ATTRIBUTES ************************ -->
 
             <!-- STATUS EFFECTS -->
-            <div class="statuses">
+           <!--  <div class="statuses"> -->
                 <!-- <div class="status death">
                     <h4>Death Saves</h4>
                     <div class="status-value">
@@ -397,7 +397,37 @@
                                {{checked data.attributes.inspiration.value}}/>
                     </div>
                 </div> -->
-            </div>
+           <!--  </div> -->
+
+           <ol class="actions-list inventory-list directory-list">
+                {{#each actor.actions as |section sid|}}
+                    <li class="item inventory-header">
+                        <h3 class="item-name">{{section.label}}</h3>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Action" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{#each section.actions as |action aid|}}
+                    <li class="item" data-item-id="{{action.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{action.img}})"></div>
+                            <h4>
+                                {{action.name}}
+                            </h4>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+            </ol>
+
         </section>
     </section>
 
@@ -607,11 +637,11 @@
                             <h3 class="item-name">{{section.label}}</h3>
                             {{#if ../owner}}
                             <div class="item-controls">
-                                <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                                <a class="item-control item-create" title="Create Feat" data-type="feat"><i class="fas fa-plus"></i> Add</a>
                             </div>
                             {{/if}}
                         </li>
-                        {{#each section.feats as |feat iid|}}
+                        {{#each section.feats as |feat fid|}}
                         <li class="item" data-item-id="{{feat.id}}">
                             <div class="item-name rollable">
                                 <div class="item-image" style="background-image: url({{feat.img}})"></div>

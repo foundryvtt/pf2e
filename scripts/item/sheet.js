@@ -61,6 +61,7 @@ class ItemSheetPF2e extends ItemSheet {
     // Feat types
     else if ( type === "feat" ) {
       data.featTypes = CONFIG.featTypes;
+      data.actionTypes = CONFIG.actionTypes;
       data.featTags = [
         data.data.target.value,
         data.data.time.value

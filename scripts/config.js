@@ -111,11 +111,19 @@ CONFIG.spellLevels = {
 
 // Feat Types
 CONFIG.featTypes = {
+  "bonus": "Bonus Feat",
   "ancestry": "Ancestry Feat",
   "skill": "Skill Feat",
   "general": "General Feat",
-  "class": "Class Feat",
-  "bonus": "Bonus Feat"
+  "class": "Class Feat"  
+};
+
+// Feat Types
+CONFIG.actionTypes = {
+  "passive": "Passive",
+  "action": "Action",
+  "reaction": "Reaction",
+  "free": "Free Action"
 };
 
 // Proficiency Multipliers
