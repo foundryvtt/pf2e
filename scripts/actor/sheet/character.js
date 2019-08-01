@@ -54,14 +54,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * Organize and classify Items for Character sheets
    * @private
    */
-  /* _prepareItems(actorData) {
+  _prepareItems(actorData) {
 
     // Inventory
     const inventory = {
       weapon: { label: "Weapons", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
-      tool: { label: "Tools", items: [] },
       backpack: { label: "Backpack", items: [] },
     };
 
@@ -69,7 +68,14 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const spellbook = {};
 
     // Feats
-    const feats = [];
+    //const feats = [];
+    const feats = {
+      "ancestry": { label: "Ancestry Feats and Abilities", feats: [] },
+      "skill": { label: "Skill Feats", feats: [] },
+      "general": { label: "General Feats", feats: [] },
+      "class": { label: "Class Feats and Abilities", feats: [] },
+      "bonus": { label: "Bonus Feats", feats: [] },
+    };
 
     // Classes
     const classes = [];
@@ -99,7 +105,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Feats
-      else if ( i.type === "feat" ) feats.push(i);
+      else if ( i.type === "feat" ) {
+        feats[i.data.featType.value].feats.push(i);
+        //feats.push(i);
+      }
+      /* else if ( Object.keys(feats).includes(i.type) ) feats[i.type].feats.push(i); */
     }
 
     // Assign and return
@@ -109,8 +119,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.classes = classes;
 
     // Inventory encumbrance
-    actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
-  } */
+    //actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
+  }
 
   /* -------------------------------------------- */
 

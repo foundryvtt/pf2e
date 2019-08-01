@@ -1,7 +1,7 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-class Item5e extends Item {
+class ItemPF2e extends Item {
 
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
@@ -10,7 +10,7 @@ class Item5e extends Item {
   async roll() {
 
     // Basic template rendering data
-    const template = `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`
+    const template = `public/systems/pf2e/templates/chat/${this.data.type}-card.html`
     const token = this.actor.token;
     const templateData = {
       actor: this.actor,
@@ -46,9 +46,17 @@ class Item5e extends Item {
   /* -------------------------------------------- */
 
   getChatData(htmlOptions) {
-    const data = this[`_${this.data.type}ChatData`]();
-    data.description.value = enrichHTML(data.description.value, htmlOptions);
-    return data;
+    let itemType = this.data.type;
+    
+    if (itemType.substr(itemType.length -4) === "Feat") {
+      const data = this[`_featChatData`]();
+      data.description.value = enrichHTML(data.description.value, htmlOptions);
+      return data;
+    } else {
+      const data = this[`_${itemType}ChatData`]();
+      data.description.value = enrichHTML(data.description.value, htmlOptions);
+      return data;
+    }
   }
 
   /* -------------------------------------------- */
@@ -389,7 +397,7 @@ class Item5e extends Item {
       event: event,
       parts: parts,
       data: rollData,
-      template: "public/systems/dnd5e/templates/chat/tool-roll-dialog.html",
+      template: "public/systems/pf2e/templates/chat/tool-roll-dialog.html",
       title: title,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,
@@ -550,8 +558,8 @@ class Item5e extends Item {
   }
 }
 
-// Assign Item5e class to CONFIG
-CONFIG.Item.entityClass = Item5e;
+// Assign ItemPF2e class to CONFIG
+CONFIG.Item.entityClass = ItemPF2e;
 
 
 /**
@@ -566,27 +574,27 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
   options["Apply Damage"] = {
     icon: '<i class="fas fa-user-minus"></i>',
     condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 1)
+    callback: li => ActorPF2e.applyDamage(li, 1)
   };
 
   // Apply Healing to Token
   options["Apply Healing"] = {
     icon: '<i class="fas fa-user-plus"></i>',
     condition: canApply,
-    callback: li => Actor5e.applyDamage(li, -1)
+    callback: li => ActorPF2e.applyDamage(li, -1)
   };
 
   // Apply Double-Damage
   options["Double Damage"] = {
     icon: '<i class="fas fa-user-injured"></i>',
     condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 2)
+    callback: li => ActorPF2e.applyDamage(li, 2)
   };
 
   // Apply Half-Damage
   options["Half Damage"] = {
     icon: '<i class="fas fa-user-shield"></i>',
     condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 0.5)
+    callback: li => ActorPF2e.applyDamage(li, 0.5)
   }
 });

@@ -1,13 +1,13 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-class ItemSheet5e extends ItemSheet {
+class ItemSheetPF2e extends ItemSheet {
 	static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  options.width = 520;
 	  options.height = 460;
-	  options.classes = options.classes.concat(["dnd5e", "item"]);
-	  options.template = `public/systems/dnd5e/templates/items/item-sheet.html`;
+	  options.classes = options.classes.concat(["pf2e", "item"]);
+	  options.template = `public/systems/pf2e/templates/items/item-sheet.html`;
 	  options.resizable = false;
 	  return options;
   }
@@ -27,9 +27,9 @@ class ItemSheet5e extends ItemSheet {
     mergeObject(data, {
       type: type,
       hasSidebar: true,
-      sidebarTemplate: () => `public/systems/dnd5e/templates/items/${type}-sidebar.html`,
+      sidebarTemplate: () => `public/systems/pf2e/templates/items/${type}-sidebar.html`,
       hasDetails: ["consumable", "equipment", "feat", "spell", "weapon"].includes(type),
-      detailsTemplate: () => `public/systems/dnd5e/templates/items/${type}-details.html`
+      detailsTemplate: () => `public/systems/pf2e/templates/items/${type}-details.html`
     });
 
     // Damage types
@@ -115,7 +115,7 @@ class ItemSheet5e extends ItemSheet {
 }
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html, data) => Item5e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html, data) => ItemPF2e.chatListeners(html));
 
 // Override CONFIG
-CONFIG.Item.sheetClass = ItemSheet5e;
+CONFIG.Item.sheetClass = ItemSheetPF2e;

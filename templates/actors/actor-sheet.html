@@ -439,7 +439,7 @@
                     <li class="item inventory-header">
                         <h3 class="item-name">{{section.label}}</h3>
                         <span class="item-quantity">Qty.</span>
-                        <span class="item-weight">Wt.</span>
+                        <span class="item-weight">Bulk</span>
                         {{#if ../owner}}
                         <div class="item-controls">
                             <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -570,15 +570,15 @@
             <!-- FEATS -->
             <div class="tab feats" data-group="primary" data-tab="feats">
                 <ol class="feats-list inventory-list directory-list">
-                    <li class="item inventory-header">
+<!--                     <li class="item inventory-header">
                         <div class="item-name flexrow">
-                            <h3>Ability Name</h3>
+                            <h3>Feat Name</h3>
                         </div>
                         <div class="ability-req">Requirements</div>
 
                         {{#if owner}}
                         <div class="item-controls">
-                            <a class="item-control item-create" title="Create Ability" data-type="feat" data-featType="passive">
+                            <a class="item-control item-create" title="Create Feat" data-type="feat" data-featType="passive">
                                 <i class="fas fa-plus"></i> Add</a>
                         </div>
                         {{/if}}
@@ -600,7 +600,35 @@
                         </div>
                         {{/if}}
                     </li>
+                    {{/each}} -->
+
+                    {{#each actor.feats as |section sid|}}
+                        <li class="item inventory-header">
+                            <h3 class="item-name">{{section.label}}</h3>
+                            {{#if ../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{#each section.feats as |feat iid|}}
+                        <li class="item" data-item-id="{{feat.id}}">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url({{feat.img}})"></div>
+                                <h4>
+                                    {{feat.name}}
+                                </h4>
+                            </div>
+                            {{#if ../../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{/each}}
                     {{/each}}
+
                 </ol>
             </div>
 

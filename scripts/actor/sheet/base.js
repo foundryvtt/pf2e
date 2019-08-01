@@ -52,7 +52,7 @@ class ActorSheetPF2e extends ActorSheet {
     this._prepareTraits(sheetData.data["traits"]); */
 
     // Prepare owned items
-/*     this._prepareItems(sheetData.actor); */
+    this._prepareItems(sheetData.actor);
 
     // Return data to the sheet
     return sheetData;
@@ -89,7 +89,7 @@ class ActorSheetPF2e extends ActorSheet {
    * @param {Object} spell        The spell data being prepared
    * @private
    */
-/*   _prepareSpell(actorData, spellbook, spell) {
+  _prepareSpell(actorData, spellbook, spell) {
     let lvl = spell.data.level.value || 0,
         isNPC = this.actorType === "npc";
 
@@ -109,7 +109,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Add the spell to the spellbook at the appropriate level
     spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
     spellbook[lvl].spells.push(spell);
-  } */
+  }
 
   /* -------------------------------------------- */
 
@@ -158,7 +158,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Item summaries
-    /* html.find('.item .item-name h4').click(event => this._onItemSummary(event)); */
+    html.find('.item .item-name h4').click(event => this._onItemSummary(event));
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -195,7 +195,7 @@ class ActorSheetPF2e extends ActorSheet {
     /* -------------------------------------------- */
     /*  Inventory
     /* -------------------------------------------- */
-/* 
+
     // Create New Item
     html.find('.item-create').click(ev => this._onItemCreate(ev));
 
@@ -237,7 +237,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.prepared-toggle').click(ev => {
       this.options.showUnpreparedSpells = !this.options.showUnpreparedSpells;
       this.render()
-    }); */
+    });
   }
 
   /* -------------------------------------------- */
@@ -263,14 +263,14 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-/*   _onDragItemStart(event) {
+  _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
       id: itemId
     }));
-  } */
+  }
 
   /* -------------------------------------------- */
 
@@ -278,12 +278,12 @@ class ActorSheetPF2e extends ActorSheet {
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
    * @private
    */
-/*   _onItemRoll(event) {
+  _onItemRoll(event) {
     event.preventDefault();
     let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
         item = this.actor.getOwnedItem(itemId);
     item.roll();
-  } */
+  }
 
   /* -------------------------------------------- */
 
@@ -291,7 +291,7 @@ class ActorSheetPF2e extends ActorSheet {
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
    * @private
    */
-/*   _onItemSummary(event) {
+  _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
         item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
@@ -310,7 +310,7 @@ class ActorSheetPF2e extends ActorSheet {
       div.slideDown(200);
     }
     li.toggleClass("expanded");
-  } */
+  }
 
 
   /* -------------------------------------------- */
@@ -319,13 +319,13 @@ class ActorSheetPF2e extends ActorSheet {
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @private
    */
-/*   _onItemCreate(event) {
+  _onItemCreate(event) {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, {renderSheet: true});
-  } */
+  }
 
   /* -------------------------------------------- */
 

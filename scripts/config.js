@@ -111,11 +111,11 @@ CONFIG.spellLevels = {
 
 // Feat Types
 CONFIG.featTypes = {
-  "passive": "Passive Ability",
-  "attack": "Ability Attack",
-  "ability": "Generic Action",
-  "legendary": "Legendary Action",
-  "lair": "Lair Action"
+  "ancestry": "Ancestry Feat",
+  "skill": "Skill Feat",
+  "general": "General Feat",
+  "class": "Class Feat",
+  "bonus": "Bonus Feat"
 };
 
 // Proficiency Multipliers
