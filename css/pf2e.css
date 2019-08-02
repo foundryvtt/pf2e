@@ -556,19 +556,26 @@
 }
 .pf2e.actor .pf-title {
   /* grid-area: auto; */
-  background: #b75b5b;
+  background: #5f0100;
   height: 16px;
-  border: 1px solid #000;
+  border: 1px solid #5f0100;
   text-align: center;
   align-self: start;
   margin-bottom: -1px;
   color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .pf2e.actor .pf-value {
   /* grid-area: auto;   */
   background: #fff;
-  border: 1px solid;
+  border: 1px solid #5f0100;
   text-align: center;
+}
+.pf2e.actor .pf-rank {
+  letter-spacing: -3px;
+  font-size: 14px;
+  line-height: 14px;
 }
 .pf2e.actor .pf-container {
   grid: "title" 15px "value" auto / auto
@@ -967,41 +974,85 @@
 .pf2e.actor .skills .skills-list {
   margin: 0;
   padding: 0;
-  list-style: none;
+  /* list-style: none; */
+  display: grid;
+  grid: "skill skill" 36px / 50% 50%;
+  grid-auto-rows: 36px;
 }
 .pf2e.actor .skills .skill {
-  display: flex;
+  grid-area: auto;
+  display: grid;
+  grid: "value name rank item armor" 100% /  25px auto 42px 42px 20px;
+/*   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   height: 21px;
-  line-height: 21px;
-  border-bottom: 1px solid #b75b5b;
-  font-size: 13px;
+  line-height: 21px; */
+  /* border-bottom: 1px solid #b75b5b; */
+  /* font-size: 13px; */
+}
+.pf2e.actor .skills .skill .skill-container {
+  display: grid;
+  grid: "title" 12px "value" 16px / auto;
+  background: #b75b5b;
+  height: 32px;
+  align-self: center;
+}
+.pf2e.actor .skills .skill .skill-container .skill-proficiency {
+  font-size: 11px
+}
+.pf2e.actor .skills .skill .skill-container > * {
+  width: 40px;
 }
 .pf2e.actor .skills .skill > * {
   flex: 1;
 }
 .pf2e.actor .skills .skill .skill-name {
   margin: 0;
+  align-self: center;
+  background: #b75b5b;
+  line-height: 32px;
+  color: white;
 }
-.pf2e.actor .skills .skill .skill-proficiency {
+/* .pf2e.actor .skills .skill .skill-proficiency {
   text-align: left;
   flex: 0 0 20px;
   padding-left: 3px;
+} */
+.pf2e.actor .skills .skill .skill-proficiency {
+  margin-top: 2px;
 }
-.pf2e.actor .skills .skill .skill-proficiency i.fa-circle {
-  font-size: 10px;
+.pf2e.actor .skills .skill .skill-item  {
+  margin-top: 2px;
+  font-size: 11px;
 }
 .pf2e.actor .skills .skill .skill-ability {
   flex: 0 0 36px;
   color: #666;
   text-align: right;
   margin-right: 4px;
+}.pf2e.actor .skills .skill .skill-ability {
+  flex: 0 0 36px;
+  color: #666;
+  text-align: right;
+  margin-right: 4px;
 }
-.pf2e.actor .skills .skill .skill-mod {
-  flex: 0 0 28px;
+.pf2e.actor .skills .skill .skill-armor {
+  align-self: center;
+  background: #b75b5b;
+  line-height: 32px;
+  color: white;
+  width: 16px;
+  margin: unset;
+}
+.pf2e.actor .skills .skill .skill-score {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 28px;
   text-align: center;
+  align-self: center;
+  background: #b75b5b;
+  color: white;
 }
 .pf2e.actor.locked .ability-proficiency,
 .pf2e.actor.locked .skill-proficiency {
@@ -1171,6 +1222,18 @@
   line-height: 16px;
   padding: 0.25em 0.5em;
   border-top: 1px solid #b75b5b;
+}
+.pf2e.actor .inventory-list .action-header h3 {
+  font-size: 24px;
+  margin: 0;
+  padding-left: 32px;
+  text-align: center;
+  /* font-weight: bold; */
+}
+.pf2e.actor .inventory-list .action-header .item-controls a.item-create {
+  width: 100%;
+  color: #fff;
+  background: rgb(69,74,124);
 }
 .pf2e.actor .inventory-list .inventory-header {
   font-weight: 700;
@@ -1402,7 +1465,7 @@
 }
 .pf2e.item form .sheet-sidebar .sidebar-summary {
   flex: 0 0 28px;
-  line-height: 28px;
+  line-height: 29px;
   margin: 0 0 0.5em;
   text-align: center;
   border-bottom: 1px solid #b75b5b;

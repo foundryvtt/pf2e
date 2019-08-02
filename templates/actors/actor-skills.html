@@ -1,11 +1,46 @@
 <ol class="skills-list">
 {{#each data.skills as |skill s|}}
     <li class="skill" data-skill="{{s}}">
-        <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
+
+        <!-- <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
         <a class="skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
         <h4 class="skill-name rollable">{{skill.label}}</h4>
         <span class="skill-ability">{{skill.ability}}</span>
-        <span class="skill-mod">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+        <span class="skill-mod">{{numberFormat skill.mod decimals=0 sign=true}}</span> -->
+
+        <span class="skill-score" title="{{skill.label}}">{{skill.value}}</span>
+        <h4 class="skill-name rollable">{{skill.label}}</h4>
+        
+        <div class="skill-container">
+            <h4 class="skill-proficiency pf-title">Rank</h4>
+            <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
+            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{skill.hover}}">{{{skill.icon}}}</span>
+        </div>
+        <div class="skill-container">
+            <h4 class="skill-item pf-title">Item</h4>
+            <span class="skill-item pf-value" title="Item">
+                <input name="data.skills.{{s}}.item" type="text" value="{{skill.item}}"
+                        data-dtype="Number" placeholder="+0"/>
+            </span>
+        </div>
+        {{#if skill.armor}}
+        <h4 class="skill-armor" title="Armor Check Penalty"><i class="fas fa-shield-alt"></i></h4>
+        {{/if}}
+
     </li>
 {{/each}}
 </ol>
+
+
+
+<!--     <li class="defense" data-ability="reflex">
+        <h4 class="defense-name">Reflex</h4>
+        <span class="defense-score rollable" title="Reflex">{{numberFormat data.attributes.reflex.value decimals=0 sign=false}}</span>
+        <h4 class="proficiency-name">Rank</h4>
+        <input type="hidden" name="data.attributes.reflex.rank" value="{{data.attributes.reflex.rank}}" data-dtype="Number"/>
+        <span class="proficiency-rank" title="{{data.attributes.reflex.hover}}">{{{data.attributes.reflex.icon}}}</span>
+        <span class="defense-item" title="Item">
+            <input name="data.attributes.reflex.item" type="text" value="{{data.attributes.reflex.item}}"
+                    data-dtype="Number" placeholder="+0"/>
+        </span>
+    </li> -->

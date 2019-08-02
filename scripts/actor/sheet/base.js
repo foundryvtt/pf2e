@@ -41,11 +41,11 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.heavy.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.heavy.rank];
 
     // Update skill labels
-/*     for ( let skl of Object.values(sheetData.data.skills)) {
+    for ( let skl of Object.values(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-      skl.icon = this._getProficiencyIcon(skl.value);
+      skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.value];
-    } */
+    }
 
     // Update traits
 /*     sheetData["actorSizes"] = CONFIG.actorSizes;
@@ -181,7 +181,7 @@ class ActorSheetPF2e extends ActorSheet {
     }); */
 
     // Toggle Skill Proficiency
-    html.find('.proficiency-rank').click(ev => this._onCycleSkillProficiency(ev));
+    html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
 
 /*     // Roll Skill Checks
     html.find('.skill-name').click(ev => {

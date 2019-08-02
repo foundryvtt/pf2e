@@ -20,16 +20,21 @@ class ActorPF2e extends Actor {
     }
 
     // Saves
-    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value + data.attributes.fortitude.item;
+    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank ? (data.attributes.fortitude.rank * 2) + data.details.level.value : 0) + data.attributes.fortitude.item;
+    
+    //data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value + data.attributes.fortitude.item;
     data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value + data.attributes.reflex.item;
     data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value + data.attributes.will.item;
     data.attributes.perception.value = data.abilities.wis.mod + (data.attributes.perception.rank * 2) + data.details.level.value + data.attributes.perception.item;
 
     // Skill modifiers
-/*     for (let skl of Object.values(data.skills)) {
-      skl.value = parseFloat(skl.value || 0);
-      skl.mod = data.abilities[skl.ability].mod + Math.floor(skl.value * data.attributes.prof.value);
-    } */
+    for (let skl of Object.values(data.skills)) {
+      //skl.value = parseFloat(skl.value || 0);
+      let proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
+      skl.mod = data.abilities[skl.ability].mod;
+      skl.value = data.abilities[skl.ability].mod + proficiency + skl.item;
+      // I need to include armor check penalty
+    }
 
     // Attributes
     data.attributes.init.mod = data.abilities.dex.mod + (data.attributes.init.value || 0);
