@@ -30,10 +30,18 @@ class ActorPF2e extends Actor {
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
       //skl.value = parseFloat(skl.value || 0);
-      let proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
+      let proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;      
       skl.mod = data.abilities[skl.ability].mod;
-      skl.value = data.abilities[skl.ability].mod + proficiency + skl.item;
-      // I need to include armor check penalty
+      
+      if (skl.armor) {
+        let armorCheckPenalty = skl.armor ? data.attributes.ac.check : 0;
+        skl.value = data.abilities[skl.ability].mod + proficiency + skl.item + armorCheckPenalty;
+        skl.math = `${skl.ability}(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item}) + armor check penalty(${armorCheckPenalty})`;
+      } else {
+        skl.value = data.abilities[skl.ability].mod + proficiency + skl.item;
+        skl.math = `${skl.ability}(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item})`;
+      }
+      
     }
 
     // Attributes

@@ -536,8 +536,8 @@
 }
 .pf2e.actor .abilities .defense-list {
   display: grid;
-  grid: "defense defense" 50px / 50% auto;
-  grid-auto-rows: 50px;
+  grid: "defense" 40px / auto;
+  grid-auto-rows: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -578,7 +578,9 @@
   line-height: 14px;
 }
 .pf2e.actor .pf-container {
-  grid: "title" 15px "value" auto / auto
+  grid: "title" 15px "value" auto / auto;
+  margin-top: 2px;
+  justify-self: center;
 }
 .pf2e.actor .pf-small {
   height: 20px;
@@ -589,24 +591,37 @@
 }
 .pf2e.actor .abilities .ac-list {
   display: grid;
-  grid: "score dex item" 38px "score armor armor" 38px / 73px 73px 73px;
+  grid: "score items" 38px "score items" 38px / 73px auto;
   margin: unset;
   margin-top: 1px;
   padding: unset;
 }
-.pf2e.actor .abilities .ac-list > * {
-  width: 60px;  
+.pf2e.actor .abilities .ac-grid {
+  display: grid;
+  grid: "item item item" 32px / 33% 33% 33%;
+  margin: unset;
+  margin-top: 1px;
+  padding: unset;
+  background: #b75b5b;
+  height: 32px;
 }
-.pf2e.actor .abilities .ac-list .ac-dex {
-  grid-area: dex;
+/* .pf2e.actor .abilities .ac-list > * {
+  width: 60px;  
+} */
+.pf2e.actor .abilities .ac-list .ac-value {
+  height: 16px;
+  font-size: 12px;
+  width: 46px;
 }
 .pf2e.actor .abilities .ac-list .ac-item {
-  grid-area: item;
+  height: 13px;
+  font-size: 11px;
+  width: 46px;
 }
-.pf2e.actor .abilities .ac-list .ac-armor-type {
+/* .pf2e.actor .abilities .ac-list .ac-armor-type {
   grid-area: armor;
   width: 133px;
-}
+} */
 .pf2e.actor .abilities .armor-class {
   grid-row-start: 1;
   grid-row-end: 3;
@@ -620,6 +635,23 @@
   border-radius: 33px;
   font-size: 42px;
   text-align: center;
+}
+.pf2e.actor .abilities .shield-value {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  align-self: end;
+  justify-self: end;
+  height: 26px;
+  width: 26px;
+  background: #fff;
+  border: 1px solid;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 14px;
+  margin-right: 2px;
+  margin-bottom: 2px;
 }
 .pf2e.actor .abilities .hp-list {
   display: grid;
@@ -726,23 +758,30 @@
   grid-row-start: auto;
   align-self: center;
   display: grid;
-  grid: "name name name" 14px "score rank item" 30px / 30px 55px 24px;
+  grid: "score name rank item" 32px / 30px auto 52px 52px;
+  background: #b75b5b;
+  margin-right: 4px;
 }
 .pf2e.actor .abilities .defense .defense-name {
-  grid-area: name;
-  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
-  font-size: 12px;
-  color: #444;
+  grid-area: auto;
   margin: 0;
+  background: #b75b5b;
+  color: white;
+  align-self: center;
+  font-size: 15px;
+}
+.pf2e.actor .abilities .defense .defense-container {
+  background: #b75b5b;
+  width: 48px;
+  margin-top: 2px;
 }
 .pf2e.actor .abilities .defense .defense-score {
-  grid-area: score;  
-  /* justify-self: right; */
+  grid-area: auto;  
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 28px;
-  /* flex: 0 0 36px;
-  height: 36px; */
   text-align: center;
+  background: #b75b5b;
+  color: white;
 }
 .pf2e.actor .abilities .defense .defense-score > input {
   width: 30px;
@@ -750,54 +789,30 @@
   margin: 3px;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 28px;
-  /* color: #444; */
   text-align: center;
   background: #fff;
   border: 1px solid;
 }
 .pf2e.actor .abilities .defense .proficiency-name {
-  grid-area: rank;
-  align-self: start;
-  background: #b75b5b;
-  border: 1px solid #444;
-  line-height: 13px;
-  font-size: 13px;
-  color: #fff;
-  justify-self: start;
-  width: 55px;
-  text-align: center;
-  margin-top: -1px;
+  grid-area: auto;
+  font-size: 11px;
+  height: 13px;
 }
 .pf2e.actor .abilities .defense .proficiency-rank {
   letter-spacing: -3px;
-  grid-area: rank;
-  align-self: end;
-  background: #fff;
-  border: 1px solid #444;
-  line-height: 17px;
-  font-size: 14px;
-  /* color: #fff; */
-  justify-self: start;
-  width: 55px;
-  text-align: center;
+  grid-area: auto;
+  height: 16px;
+  font-size: 12px;
 }
 .pf2e.actor .abilities .defense .defense-item {
-  grid-area: item;
-  align-self: center;
-  justify-self: start;
-  flex: 0 0 36px;
-  height: 36px;
+  grid-area: auto;
+  font-size: 11px;
+  height: 13px;
 }
-.pf2e.actor .abilities .defense .defense-item > input {
-  width: 20px;
-  height: 20px;
-  margin: 3px;
-  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
+.pf2e.actor .abilities .defense .defense-item-value {
+  grid-area: auto;
+  height: 16px;
   font-size: 12px;
-  color: #444;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
 }
 .pf2e.actor .abilities .ability-title {
   flex: 0 0 24px;
