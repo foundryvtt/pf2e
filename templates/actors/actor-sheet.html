@@ -146,8 +146,8 @@
             
             <h3 class="defense-title pf-heading">Core Proficiencies</h3>
             <ol class="defense-list">
-                <li class="defense" data-ability="fortitude">
-                    <span class="defense-score rollable" title="Fortitude">{{numberFormat data.attributes.fortitude.value decimals=0 sign=false}}</span>
+                <!-- <li class="defense" data-ability="fortitude">
+                    <span class="defense-score rollable" title="{{data.attributes.fortitude.breakdown}}">{{numberFormat data.attributes.fortitude.value decimals=0 sign=false}}</span>
                     <h4 class="defense-name">Fortitude</h4>                    
                     <div class="defense-container">
                         <h4 class="proficiency-name pf-title">Rank</h4>
@@ -161,15 +161,15 @@
                                     data-dtype="Number" placeholder="+0"/>
                         </span>
                     </div>
-                </li>
+                </li> -->
 <!--                 <li class="defense" data-ability="unarmored">
                     <h4 class="defense-name">Unarmored</h4>
                     <h4 class="proficiency-name">Rank</h4>
                     <input type="hidden" name="data.attributes.unarmored.rank" value="{{data.attributes.unarmored.rank}}" data-dtype="Number"/>
                     <span class="proficiency-rank proficiency-click" title="{{data.attributes.unarmored.hover}}">{{{data.attributes.unarmored.icon}}}</span>
                 </li> -->
-                <li class="defense" data-ability="reflex">
-                    <span class="defense-score rollable" title="Reflex">{{numberFormat data.attributes.reflex.value decimals=0 sign=false}}</span>
+                <!-- <li class="defense" data-ability="reflex">
+                    <span class="defense-score rollable" title="{{data.attributes.reflex.breakdown}}">{{numberFormat data.attributes.reflex.value decimals=0 sign=false}}</span>
                     <h4 class="defense-name">Reflex</h4>                    
                     <div class="defense-container">
                         <h4 class="proficiency-name pf-title">Rank</h4>
@@ -183,15 +183,15 @@
                                     data-dtype="Number" placeholder="+0"/>
                         </span>
                     </div>
-                </li>
+                </li> -->
 <!--                 <li class="defense" data-ability="light">
                     <h4 class="defense-name">Light Armor</h4>
                     <h4 class="proficiency-name">Rank</h4>
                     <input type="hidden" name="data.attributes.light.rank" value="{{data.attributes.light.rank}}" data-dtype="Number"/>
                     <span class="proficiency-rank proficiency-click" title="{{data.attributes.light.hover}}">{{{data.attributes.light.icon}}}</span>
                 </li> -->
-                <li class="defense" data-ability="will">
-                    <span class="defense-score rollable" title="Will">{{numberFormat data.attributes.will.value decimals=0 sign=false}}</span>
+                <!-- <li class="defense" data-ability="will">
+                    <span class="defense-score rollable" title="{{data.attributes.will.breakdown}}">{{numberFormat data.attributes.will.value decimals=0 sign=false}}</span>
                     <h4 class="defense-name">Will</h4>                    
                     <div class="defense-container">
                         <h4 class="proficiency-name pf-title">Rank</h4>
@@ -205,15 +205,15 @@
                                     data-dtype="Number" placeholder="+0"/>
                         </span>
                     </div>
-                </li>
+                </li> -->
 <!--                 <li class="defense" data-ability="medium">
                     <h4 class="defense-name">Medium Armor</h4>
                     <h4 class="proficiency-name">Rank</h4>
                     <input type="hidden" name="data.attributes.medium.rank" value="{{data.attributes.medium.rank}}" data-dtype="Number"/>
                     <span class="proficiency-rank proficiency-click" title="{{data.attributes.medium.hover}}">{{{data.attributes.medium.icon}}}</span>
                 </li> -->
-                <li class="defense" data-ability="perception">
-                    <span class="defense-score rollable" title="Perception">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
+                <!-- <li class="defense" data-ability="perception">
+                    <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
                     <h4 class="defense-name">Perception</h4>                    
                     <div class="defense-container">
                         <h4 class="proficiency-name pf-title">Rank</h4>
@@ -227,13 +227,34 @@
                                     data-dtype="Number" placeholder="+0"/>
                         </span>
                     </div>  
-                </li>
+                </li> -->
 <!--                 <li class="defense" data-ability="heavy">
                     <h4 class="defense-name">Heavy Armor</h4>
                     <h4 class="proficiency-name">Rank</h4>
                     <input type="hidden" name="data.attributes.heavy.rank" value="{{data.attributes.heavy.rank}}" data-dtype="Number"/>
                     <span class="proficiency-rank proficiency-click" title="{{data.attributes.heavy.hover}}">{{{data.attributes.heavy.icon}}}</span>
                 </li> -->
+
+                {{#each data.saves as |save sid|}}
+                    <li class="defense" data-ability="{{sid}}">
+                        <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
+                        <h4 class="defense-name rollable">{{save.label}}</h4>                    
+                        <div class="defense-container">
+                            <h4 class="proficiency-name pf-title">Rank</h4>
+                            <input type="hidden" name="data.saves.{{sid}}.rank" value="{{save.rank}}" data-dtype="Number"/>
+                            <span class="proficiency-rank proficiency-click pf-value" title="{{save.hover}}">{{{save.icon}}}</span>
+                        </div>
+                        <div class="defense-container">
+                            <h4 class="defense-item pf-title">Item</h4>
+                            <span class="defense-item-value pf-value" title="Item">
+                                <input name="data.saves.{{sid}}.item" type="text" value="{{save.item}}"
+                                        data-dtype="Number" placeholder="+0"/>
+                            </span>
+                        </div>  
+                    </li>
+                {{/each}}
+
+
             </ol>
             
 

@@ -22,23 +22,29 @@ class ActorSheetPF2e extends ActorSheet {
     console.log("sheetData: ", sheetData);
 
     // Save proficiency
-    sheetData.data.attributes.fortitude.icon = this._getProficiencyIcon(sheetData.data.attributes.fortitude.rank);
+/*     sheetData.data.attributes.fortitude.icon = this._getProficiencyIcon(sheetData.data.attributes.fortitude.rank);
     sheetData.data.attributes.reflex.icon = this._getProficiencyIcon(sheetData.data.attributes.reflex.rank);
     sheetData.data.attributes.will.icon = this._getProficiencyIcon(sheetData.data.attributes.will.rank);
-    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
+    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank); */
     sheetData.data.attributes.unarmored.icon = this._getProficiencyIcon(sheetData.data.attributes.unarmored.rank);
     sheetData.data.attributes.light.icon = this._getProficiencyIcon(sheetData.data.attributes.light.rank);
     sheetData.data.attributes.medium.icon = this._getProficiencyIcon(sheetData.data.attributes.medium.rank);
     sheetData.data.attributes.heavy.icon = this._getProficiencyIcon(sheetData.data.attributes.heavy.rank);
 
-    sheetData.data.attributes.fortitude.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.fortitude.rank];
+/*     sheetData.data.attributes.fortitude.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.fortitude.rank];
     sheetData.data.attributes.reflex.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.reflex.rank];
     sheetData.data.attributes.will.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.will.rank];
-    sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank]; */
     sheetData.data.attributes.unarmored.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.unarmored.rank];
     sheetData.data.attributes.light.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.light.rank];
     sheetData.data.attributes.medium.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.medium.rank];
     sheetData.data.attributes.heavy.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.heavy.rank];
+
+    // Update save labels
+    for ( let save of Object.values(sheetData.data.saves)) {
+      save.icon = this._getProficiencyIcon(save.rank);
+      save.hover = CONFIG.proficiencyLevels[save.rank];
+    }
 
     // Update skill labels
     for ( let skl of Object.values(sheetData.data.skills)) {

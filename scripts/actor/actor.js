@@ -20,26 +20,29 @@ class ActorPF2e extends Actor {
     }
 
     // Saves
-    data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank ? (data.attributes.fortitude.rank * 2) + data.details.level.value : 0) + data.attributes.fortitude.item;
-    
+    for (let save of Object.values(data.saves)) {
+      let proficiency = save.rank ? (save.rank * 2) + data.details.level.value : 0;
+      save.value = data.abilities[save.ability].mod + proficiency + save.item;
+      save.breakdown = `${save.ability} modifier(${data.abilities[save.ability].mod}) + proficiency(${proficiency}) + item bonus(${save.item})`;
+    }
     //data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value + data.attributes.fortitude.item;
-    data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value + data.attributes.reflex.item;
+   /*  data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value + data.attributes.reflex.item;
     data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value + data.attributes.will.item;
-    data.attributes.perception.value = data.abilities.wis.mod + (data.attributes.perception.rank * 2) + data.details.level.value + data.attributes.perception.item;
+    data.attributes.perception.value = data.abilities.wis.mod + (data.attributes.perception.rank * 2) + data.details.level.value + data.attributes.perception.item; */
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
       //skl.value = parseFloat(skl.value || 0);
       let proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;      
       skl.mod = data.abilities[skl.ability].mod;
-      
+
       if (skl.armor) {
-        let armorCheckPenalty = skl.armor ? data.attributes.ac.check : 0;
+        let armorCheckPenalty = skl.armor ? (data.attributes.ac.check || 0) : 0;
         skl.value = data.abilities[skl.ability].mod + proficiency + skl.item + armorCheckPenalty;
-        skl.math = `${skl.ability}(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item}) + armor check penalty(${armorCheckPenalty})`;
+        skl.breakdown = `${skl.ability} modifier(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item}) + armor check penalty(${armorCheckPenalty})`;
       } else {
         skl.value = data.abilities[skl.ability].mod + proficiency + skl.item;
-        skl.math = `${skl.ability}(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item})`;
+        skl.breakdown = `${skl.ability} modifier(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item})`;
       }
       
     }
