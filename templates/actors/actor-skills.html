@@ -27,17 +27,38 @@
         </li>
     {{/each}}
 </ol>
-<ol class="lores-list ">
+
+    <!-- <li class="item item-header"> -->
+<!--         <h3 class="item-name pf-heading pf-actions">Lore Skills</h3>
+        {{#if owner}}
+        <div class="item-controls">
+            <a class="item-control item-create" title="Create Action" data-type="lore"><i class="fas fa-plus"></i> Add</a>
+        </div>
+        {{/if}} -->
+    <!-- </li> -->
+
+        <ol class="lore-header inventory-header directory-list">
+            
+                <li class="item action-header">
+                    <h3 class="item-name pf-heading pf-actions">Lore Skills</h3>
+                    {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="Create Action" data-type="lore"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li>
+            
+        </ol>
+
+
+
+
+<ol class="lores-list">
     <!-- Lore Skills -->
     
-        <li class="item skill-header">
-            <h3 class="item-name pf-heading pf-actions">Lore Skills</h3>
-            {{#if owner}}
-            <div class="item-controls">
-                <a class="item-control item-create" title="Create Action" data-type="lore"><i class="fas fa-plus"></i> Add</a>
-            </div>
-            {{/if}}
-        </li>
+        
+            
+        
         {{#each actor.lores as |lore lid|}}
 <!--         <li class="item" data-item-id="{{lore.id}}">
             <div class="item-name rollable">
@@ -55,19 +76,19 @@
         </li> -->
         <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
 
-                <span class="skill-score" title="{{lore.breakdown}}">{{lore.value}}</span>
+                <span class="skill-score" title="{{lore.data.breakdown}}">{{lore.data.value}}</span>
                 <h4 class="skill-name rollable">{{lore.name}}</h4>
                 
                 <div class="skill-container">
                     <h4 class="skill-proficiency pf-title">Rank</h4>
-                    <input type="hidden" name="data.items.{{lid}}.rank" value="{{lore.rank}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{lore.hover}}">{{{lore.icon}}}</span>
+                    <input type="hidden" name="data.items.{{lid}}.data.proficient.value" value="{{lore.data.proficient.value}}" data-dtype="Number"/>
+                    <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{lore.data.hover}}">{{{lore.data.icon}}}</span>
                 </div>
                 <div class="skill-container">
                     <h4 class="skill-item pf-title">Item</h4>
                     <span class="skill-item pf-value" title="Item">
-                        <input name="data.items.{{lid}}.item" type="text" value="{{lore.item}}"
-                                data-dtype="Number" placeholder="+0"/>
+                        <!-- <input name="data.items.{{lid}}.data.item.value" type="text" value="{{lore.data.itemBonus}}"
+                                data-dtype="Number" placeholder="+0"/> -->
                     </span>
                 </div>
                 

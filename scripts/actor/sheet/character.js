@@ -132,6 +132,17 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       // Lore Skills
       else if ( i.type === "lore" ) {
+
+        i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
+        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value )];
+
+        let proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;      
+        let modifier = actorData.data.abilities["int"].mod;
+        let itemBonus = Number((i.data.item || {}).value || 0);
+        i.data.itemBonus = itemBonus;
+        i.data.value = modifier + proficiency + itemBonus;
+        i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
+
         lores.push(i);
       }
 

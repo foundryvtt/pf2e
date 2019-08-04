@@ -77,6 +77,11 @@ class ItemSheetPF2e extends ItemSheet {
     else if ( type === "tool" ) {
       data.proficiencies = CONFIG.proficiencyLevels;
     }
+
+    // Lore-specific data
+    else if ( type === "lore" ) {
+      data.proficiencies = CONFIG.proficiencyLevels;
+    }
     return data;
   }
 

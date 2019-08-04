@@ -72,6 +72,7 @@ Hooks.once("init", () => {
     "public/systems/pf2e/templates/items/equipment-sidebar.html",
     "public/systems/pf2e/templates/items/feat-details.html",
     "public/systems/pf2e/templates/items/feat-sidebar.html",
+    "public/systems/pf2e/templates/items/lore-sidebar.html",
     "public/systems/pf2e/templates/items/spell-details.html",
     "public/systems/pf2e/templates/items/spell-sidebar.html",
     "public/systems/pf2e/templates/items/tool-sidebar.html",
