@@ -25,10 +25,6 @@ class ActorPF2e extends Actor {
       save.value = data.abilities[save.ability].mod + proficiency + save.item;
       save.breakdown = `${save.ability} modifier(${data.abilities[save.ability].mod}) + proficiency(${proficiency}) + item bonus(${save.item})`;
     }
-    //data.attributes.fortitude.value = data.abilities.con.mod + (data.attributes.fortitude.rank * 2) + data.details.level.value + data.attributes.fortitude.item;
-   /*  data.attributes.reflex.value = data.abilities.dex.mod + (data.attributes.reflex.rank * 2) + data.details.level.value + data.attributes.reflex.item;
-    data.attributes.will.value = data.abilities.wis.mod + (data.attributes.will.rank * 2) + data.details.level.value + data.attributes.will.item;
-    data.attributes.perception.value = data.abilities.wis.mod + (data.attributes.perception.rank * 2) + data.details.level.value + data.attributes.perception.item; */
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
@@ -48,8 +44,8 @@ class ActorPF2e extends Actor {
     }
 
     // Attributes
-    data.attributes.init.mod = data.abilities.dex.mod + (data.attributes.init.value || 0);
-    data.attributes.ac.min = 10 + data.abilities.dex.mod;
+/*     data.attributes.init.mod = data.abilities.dex.mod + (data.attributes.init.value || 0);
+    data.attributes.ac.min = 10 + data.abilities.dex.mod; */
 
     // Spell DC
     /* let spellAbl = data.attributes.spellcasting.value || "int";
@@ -57,7 +53,7 @@ class ActorPF2e extends Actor {
     data.attributes.spelldc.value = 8 + data.attributes.prof.value + data.abilities[spellAbl].mod + bonusDC; */
 
     // TODO: Migrate trait storage format
-    /* const map = {
+    const map = {
       "dr": CONFIG.damageTypes,
       "di": CONFIG.damageTypes,
       "dv": CONFIG.damageTypes,
@@ -69,7 +65,7 @@ class ActorPF2e extends Actor {
       if (!( trait.value instanceof Array )) {
         trait.value = TraitSelector5e._backCompat(trait.value, choices);
       }
-    } */
+    }
 
     // Return the prepared Actor data
     return actorData;

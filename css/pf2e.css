@@ -552,12 +552,15 @@
   text-align: center;
   margin: 0;
   padding: 0;
-  /* border-top: 1px solid #b75b5b; */
-}.pf2e.actor .pf-redbackground {
+}
+.pf2e.actor .pf-redbackground {
   background: #b75b5b;
   color: white;
   height: 32px;
   margin-top: 2px;
+}
+.pf2e.actor .pf-indent {
+  text-indent: 10px;
 }
 .pf2e.actor .pf-title {
   /* grid-area: auto; */
@@ -580,7 +583,7 @@
 .pf2e.actor .pf-rank {
   letter-spacing: -3px;
   font-size: 14px;
-  line-height: 14px;
+  line-height: 16px;
 }
 .pf2e.actor .pf-container {
   grid: "title" 15px "value" auto / auto;
@@ -598,8 +601,9 @@
   display: grid;
   grid: "score items" 38px "score items" 38px / 73px auto;
   margin: unset;
-  margin-top: 1px;
+  /* margin-top: 1px; */
   padding: unset;
+  background: #b75b5b;
 }
 .pf2e.actor .abilities .ac-grid {
   display: grid;
@@ -705,9 +709,23 @@
   display: grid;
   grid: "bio" 40px / auto auto;
   grid-auto-rows: 40px;
+  margin: unset;
+  padding: unset;
+  background: #b75b5b;
+}
+.pf2e.actor .biography .bio-3way {
+  display: grid;
+  grid: "bio" 40px / 33% 33% 33%;
+  grid-auto-rows: 40px;
+  margin: unset;
+  padding: unset;
+  /* background: #b75b5b; */
+}
+.pf2e.actor .biography .bio-3way > * {
+  width: 94px;
 }
 .pf2e.actor .biography .bio-list > * {
-  width: 80px;
+  width: 94px;
 }
 .pf2e.actor .biography .bio-list .bio-appearance,
 .pf2e.actor .biography .bio-list .bio-attitude {
@@ -1004,41 +1022,38 @@
   padding: 0;
   /* list-style: none; */
 }
+.pf2e.actor .skills .martial {
+  grid-area: auto;
+  display: grid;
+  grid: "name rank space" 100% /  auto 46px 20px;
+}
 .pf2e.actor .skills .skill {
   grid-area: auto;
   display: grid;
-  grid: "value name rank item armor" 100% /  25px auto 42px 42px 20px;
-/*   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 21px;
-  line-height: 21px; */
-  /* border-bottom: 1px solid #b75b5b; */
-  /* font-size: 13px; */
+  grid: "value name rank item armor" 100% /  25px auto 46px 46px 20px;
 }
 .pf2e.actor .lores-list .item {
   grid-area: auto;
   display: grid;
-  grid: "value name rank item armor" 36px /  32px auto 42px 42px 20px;
+  grid: "value name rank item armor" 36px /  32px auto 46px 46px 20px;
 }
 .pf2e.actor .skill-container .item-item {
-  height: 14px;  
+  height: 16px;  
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .pf2e.actor .skills .skill-container {
   display: grid;
-  grid: "title" 12px "value" 16px / auto;
+  grid: "title" 12px "value" 18px / auto;
   background: #b75b5b;
   height: 32px;
   align-self: center;
 }
 .pf2e.actor .skills .skill-container .skill-proficiency {
-  font-size: 11px
+  font-size: 12px
 }
 .pf2e.actor .skills .skill-container > * {
-  width: 40px;
+  width: 43px;
 }
 .pf2e.actor .skills .skill > *,
 .pf2e.actor .skills .item > * {
@@ -1198,7 +1213,7 @@
   flex: 1;
 }
 .pf2e.actor .inventory-header .item .item-name {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;

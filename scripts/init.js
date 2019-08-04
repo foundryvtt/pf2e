@@ -55,11 +55,15 @@ Hooks.once("init", () => {
   // Pre-load templates
   loadTemplates([
 
-    // Actor Sheet Partials
+    // Actor Sheet Partials (Tabs)
+    "public/systems/pf2e/templates/actors/tabs/actor-biography.html",
+    "public/systems/pf2e/templates/actors/tabs/actor-feats.html",
+    "public/systems/pf2e/templates/actors/tabs/actor-skills.html",
+    "public/systems/pf2e/templates/actors/tabs/actor-spellbook.html",
+
+    // Actor Sheet Partials (Legacy)
     "public/systems/pf2e/templates/actors/actor-attributes.html",
-    "public/systems/pf2e/templates/actors/actor-abilities.html",
-    "public/systems/pf2e/templates/actors/actor-biography.html",
-    "public/systems/pf2e/templates/actors/actor-skills.html",
+    "public/systems/pf2e/templates/actors/actor-abilities.html",    
     "public/systems/pf2e/templates/actors/actor-traits.html",
     "public/systems/pf2e/templates/actors/actor-classes.html",
 

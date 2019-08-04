@@ -21,24 +21,11 @@ class ActorSheetPF2e extends ActorSheet {
     const sheetData = super.getData();
     console.log("sheetData: ", sheetData);
 
-    // Save proficiency
-/*     sheetData.data.attributes.fortitude.icon = this._getProficiencyIcon(sheetData.data.attributes.fortitude.rank);
-    sheetData.data.attributes.reflex.icon = this._getProficiencyIcon(sheetData.data.attributes.reflex.rank);
-    sheetData.data.attributes.will.icon = this._getProficiencyIcon(sheetData.data.attributes.will.rank);
-    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank); */
-    sheetData.data.attributes.unarmored.icon = this._getProficiencyIcon(sheetData.data.attributes.unarmored.rank);
-    sheetData.data.attributes.light.icon = this._getProficiencyIcon(sheetData.data.attributes.light.rank);
-    sheetData.data.attributes.medium.icon = this._getProficiencyIcon(sheetData.data.attributes.medium.rank);
-    sheetData.data.attributes.heavy.icon = this._getProficiencyIcon(sheetData.data.attributes.heavy.rank);
-
-/*     sheetData.data.attributes.fortitude.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.fortitude.rank];
-    sheetData.data.attributes.reflex.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.reflex.rank];
-    sheetData.data.attributes.will.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.will.rank];
-    sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank]; */
-    sheetData.data.attributes.unarmored.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.unarmored.rank];
-    sheetData.data.attributes.light.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.light.rank];
-    sheetData.data.attributes.medium.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.medium.rank];
-    sheetData.data.attributes.heavy.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.heavy.rank];
+    // Update martial skill labels
+    for ( let skl of Object.values(sheetData.data.martial)) {
+      skl.icon = this._getProficiencyIcon(skl.rank);
+      skl.hover = CONFIG.proficiencyLevels[skl.rank];
+    }
 
     // Update save labels
     for ( let save of Object.values(sheetData.data.saves)) {
@@ -54,8 +41,8 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update traits
-/*     sheetData["actorSizes"] = CONFIG.actorSizes;
-    this._prepareTraits(sheetData.data["traits"]); */
+    sheetData["actorSizes"] = CONFIG.actorSizes;
+    this._prepareTraits(sheetData.data["traits"]);
 
     // Prepare owned items
     this._prepareItems(sheetData.actor);
@@ -66,7 +53,7 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-/*   _prepareTraits(traits) {
+  _prepareTraits(traits) {
     const map = {
       "dr": CONFIG.damageTypes,
       "di": CONFIG.damageTypes,
@@ -84,7 +71,7 @@ class ActorSheetPF2e extends ActorSheet {
       // Add custom entry
       if ( trait.custom ) trait.selected["custom"] = trait.custom;
     }
-  } */
+  }
 
   /* -------------------------------------------- */
 
@@ -126,10 +113,10 @@ class ActorSheetPF2e extends ActorSheet {
   _getProficiencyIcon(level) {
     const icons = {
       0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="far fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-circle"></i>',
-      4: '<i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i><i class="far fa-check-circle"></i>'
+      1: '<i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i>',
+      4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>'
     };
     return icons[level];
   }
@@ -189,14 +176,14 @@ class ActorSheetPF2e extends ActorSheet {
     // Toggle Skill Proficiency
     html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
 
-/*     // Roll Skill Checks
-    html.find('.skill-name').click(ev => {
+    // Roll Skill Checks
+/*     html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
       this.actor.rollSkill(ev, skl);
     });
-
+ */
     // Trait Selector
-    html.find('.trait-selector').click(ev => this._onTraitSelector(ev)); */
+    html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -335,7 +322,7 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-/*   _onTraitSelector(event) {
+  _onTraitSelector(event) {
     event.preventDefault();
     let a = $(event.currentTarget);
     const options = {
@@ -344,7 +331,7 @@ class ActorSheetPF2e extends ActorSheet {
       choices: CONFIG[a.attr("data-options")]
     };
     new TraitSelector5e(this.actor, options).render(true)
-  } */
+  }
 }
 
 Actors.unregisterSheet("core", ActorSheet);

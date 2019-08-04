@@ -222,12 +222,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     super.activateListeners(html);
     if ( !this.options.editable ) return;
 
-/*     // Short and Long Rest
-    html.find('.short-rest').click(this._onShortRest.bind(this));
-    html.find('.long-rest').click(this._onLongRest.bind(this));
+    // Short and Long Rest
+/*     html.find('.short-rest').click(this._onShortRest.bind(this));
+    html.find('.long-rest').click(this._onLongRest.bind(this)); */
     
     // Configure Special Flags
-    html.find('.configure-flags').click(this._onConfigureFlags.bind(this)); */
+    /* html.find('.configure-flags').click(this._onConfigureFlags.bind(this)); */
   }
 
   /* -------------------------------------------- */
@@ -238,8 +238,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 /*   _onConfigureFlags(event) {
     event.preventDefault();
     new ActorSheetFlags(this.actor).render(true);
-  }
- */
+  } */
+
   /* -------------------------------------------- */
 
   /**
