@@ -85,7 +85,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
 
     // Classes
-    const classes = [];
+    /* const classes = []; */
+
+    // Skills
+    const lores = [];
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
@@ -127,6 +130,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         //feats.push(i);
       }
 
+      // Lore Skills
+      else if ( i.type === "lore" ) {
+        lores.push(i);
+      }
+
       // Actions
       if ( Object.keys(actions).includes(i.type) ) {
         actions[i.type].actions.push(i);
@@ -139,7 +147,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.spellbook = spellbook;
     actorData.feats = feats;
     actorData.actions = actions;
-    actorData.classes = classes;
+    actorData.lores = lores;
+    //actorData.classes = classes;
 
     // Inventory encumbrance
     //actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);

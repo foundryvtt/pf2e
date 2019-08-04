@@ -994,7 +994,13 @@
   grid: "skill skill" 36px / 50% 50%;
   grid-auto-rows: 36px;
 }
-.pf2e.actor .skills .skill {
+.pf2e.actor .skills .lores-list {
+  margin: 0;
+  padding: 0;
+  /* list-style: none; */
+}
+.pf2e.actor .skills .skill,
+.pf2e.actor .lores-list .item {
   grid-area: auto;
   display: grid;
   grid: "value name rank item armor" 100% /  25px auto 42px 42px 20px;
@@ -1007,23 +1013,28 @@
   /* border-bottom: 1px solid #b75b5b; */
   /* font-size: 13px; */
 }
-.pf2e.actor .skills .skill .skill-container {
+.pf2e.actor .lores-list .item .item-name {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+.pf2e.actor .skills .skill-container {
   display: grid;
   grid: "title" 12px "value" 16px / auto;
   background: #b75b5b;
   height: 32px;
   align-self: center;
 }
-.pf2e.actor .skills .skill .skill-container .skill-proficiency {
+.pf2e.actor .skills .skill-container .skill-proficiency {
   font-size: 11px
 }
-.pf2e.actor .skills .skill .skill-container > * {
+.pf2e.actor .skills .skill-container > * {
   width: 40px;
 }
-.pf2e.actor .skills .skill > * {
+.pf2e.actor .skills .skill > *,
+.pf2e.actor .skills .item > * {
   flex: 1;
 }
-.pf2e.actor .skills .skill .skill-name {
+.pf2e.actor .skills .skill-name {
   margin: 0;
   align-self: center;
   background: #b75b5b;
@@ -1035,25 +1046,25 @@
   flex: 0 0 20px;
   padding-left: 3px;
 } */
-.pf2e.actor .skills .skill .skill-proficiency {
+.pf2e.actor .skills .skill-proficiency {
   margin-top: 2px;
 }
-.pf2e.actor .skills .skill .skill-item  {
+.pf2e.actor .skills .skill-item  {
   margin-top: 2px;
   font-size: 11px;
 }
-.pf2e.actor .skills .skill .skill-ability {
+.pf2e.actor .skills .skill-ability {
   flex: 0 0 36px;
   color: #666;
   text-align: right;
   margin-right: 4px;
-}.pf2e.actor .skills .skill .skill-ability {
+}.pf2e.actor .skills .skill-ability {
   flex: 0 0 36px;
   color: #666;
   text-align: right;
   margin-right: 4px;
 }
-.pf2e.actor .skills .skill .skill-armor {
+.pf2e.actor .skills .skill-armor {
   align-self: center;
   background: #b75b5b;
   line-height: 32px;
@@ -1061,7 +1072,7 @@
   width: 16px;
   margin: unset;
 }
-.pf2e.actor .skills .skill .skill-score {
+.pf2e.actor .skills .skill-score {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 28px;
   text-align: center;

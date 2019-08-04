@@ -1,26 +1,85 @@
+<h3 class="item-name pf-heading pf-actions">Core Skills</h3>
 <ol class="skills-list">
-{{#each data.skills as |skill s|}}
-    <li class="skill" data-skill="{{s}}">
 
-        <span class="skill-score" title="{{skill.breakdown}}">{{skill.value}}</span>
-        <h4 class="skill-name rollable">{{skill.label}}</h4>
-        
-        <div class="skill-container">
-            <h4 class="skill-proficiency pf-title">Rank</h4>
-            <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{skill.hover}}">{{{skill.icon}}}</span>
-        </div>
-        <div class="skill-container">
-            <h4 class="skill-item pf-title">Item</h4>
-            <span class="skill-item pf-value" title="Item">
-                <input name="data.skills.{{s}}.item" type="text" value="{{skill.item}}"
-                        data-dtype="Number" placeholder="+0"/>
-            </span>
-        </div>
-        {{#if skill.armor}}
-        <h4 class="skill-armor" title="Armor Check Penalty"><i class="fas fa-shield-alt"></i></h4>
-        {{/if}}
+    <!-- Core Skills -->
+    {{#each data.skills as |skill s|}}
+        <li class="skill" data-skill="{{s}}">
 
-    </li>
-{{/each}}
+            <span class="skill-score" title="{{skill.breakdown}}">{{skill.value}}</span>
+            <h4 class="skill-name rollable">{{skill.label}}</h4>
+            
+            <div class="skill-container">
+                <h4 class="skill-proficiency pf-title">Rank</h4>
+                <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
+                <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{skill.hover}}">{{{skill.icon}}}</span>
+            </div>
+            <div class="skill-container">
+                <h4 class="skill-item pf-title">Item</h4>
+                <span class="skill-item pf-value" title="Item">
+                    <input name="data.skills.{{s}}.item" type="text" value="{{skill.item}}"
+                            data-dtype="Number" placeholder="+0"/>
+                </span>
+            </div>
+            {{#if skill.armor}}
+            <h4 class="skill-armor" title="Armor Check Penalty"><i class="fas fa-shield-alt"></i></h4>
+            {{/if}}
+
+        </li>
+    {{/each}}
+</ol>
+<ol class="lores-list ">
+    <!-- Lore Skills -->
+    
+        <li class="item skill-header">
+            <h3 class="item-name pf-heading pf-actions">Lore Skills</h3>
+            {{#if owner}}
+            <div class="item-controls">
+                <a class="item-control item-create" title="Create Action" data-type="lore"><i class="fas fa-plus"></i> Add</a>
+            </div>
+            {{/if}}
+        </li>
+        {{#each actor.lores as |lore lid|}}
+<!--         <li class="item" data-item-id="{{lore.id}}">
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{lore.img}})"></div>
+                <h4>
+                    {{lore.name}}
+                </h4>
+            </div>
+            {{#if ../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/if}}
+        </li> -->
+        <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
+
+                <span class="skill-score" title="{{lore.breakdown}}">{{lore.value}}</span>
+                <h4 class="skill-name rollable">{{lore.name}}</h4>
+                
+                <div class="skill-container">
+                    <h4 class="skill-proficiency pf-title">Rank</h4>
+                    <input type="hidden" name="data.items.{{lid}}.rank" value="{{lore.rank}}" data-dtype="Number"/>
+                    <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{lore.hover}}">{{{lore.icon}}}</span>
+                </div>
+                <div class="skill-container">
+                    <h4 class="skill-item pf-title">Item</h4>
+                    <span class="skill-item pf-value" title="Item">
+                        <input name="data.items.{{lid}}.item" type="text" value="{{lore.item}}"
+                                data-dtype="Number" placeholder="+0"/>
+                    </span>
+                </div>
+                
+                {{#if ../owner}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                </div>
+                {{/if}}
+            </li>
+
+        {{/each}}
+    
+
 </ol>
