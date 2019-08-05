@@ -80,11 +80,12 @@ class ActorPF2e extends Actor {
 
     // Level, experience, and proficiency
     data.details.level.value = parseInt(data.details.level.value);
-    data.details.xp.max = this.getLevelExp(data.details.level.value || 1);
-    let prior = this.getLevelExp(data.details.level.value - 1 || 0),
-          req = data.details.xp.max - prior;
-    data.details.xp.pct = Math.min(Math.round((data.details.xp.value -prior) * 100 / req), 99.5);
-    data.attributes.prof.value = Math.floor((data.details.level.value + 7) / 4);
+    //data.details.xp.max = this.getLevelExp(data.details.level.value || 1);
+    data.details.xp.max = 1000;
+    /* let prior = this.getLevelExp(data.details.level.value - 1 || 0),
+          req = data.details.xp.max - prior; */
+    data.details.xp.pct = Math.min(Math.round((data.details.xp.value) * 100 / 1000), 99.5);
+    //data.attributes.prof.value = Math.floor((data.details.level.value + 7) / 4);
   }
 
   /* -------------------------------------------- */
@@ -107,11 +108,11 @@ class ActorPF2e extends Actor {
    * @param level {Number}  The desired level
    * @return {Number}       The XP required
    */
-  getLevelExp(level) {
+ /*  getLevelExp(level) {
     const levels = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000,
       120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
     return levels[Math.min(level, levels.length - 1)];
-  }
+  } */
 
   /* -------------------------------------------- */
 
@@ -151,7 +152,7 @@ class ActorPF2e extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  /* rollSkill(event, skillName) {
+  rollSkill(event, skillName) {
     let skl = this.data.data.skills[skillName],
       parts = ["@mod"],
       flavor = `${skl.label} Skill Check`;
@@ -160,11 +161,33 @@ class ActorPF2e extends Actor {
     Dice5e.d20Roll({
       event: event,
       parts: parts,
-      data: {mod: skl.mod},
+      data: {mod: skl.value},
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });
-  } */
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a Save Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollSave(event, saveName) {
+    let save = this.data.data.saves[saveName],
+      parts = ["@mod"],
+      flavor = `${save.label} Save Check`;
+
+    // Call the roll helper utility
+    Dice5e.d20Roll({
+      event: event,
+      parts: parts,
+      data: {mod: save.value},
+      title: flavor,
+      speaker: ChatMessage.getSpeaker({actor: this}),
+    });
+  }
 
   /* -------------------------------------------- */
 
@@ -174,7 +197,7 @@ class ActorPF2e extends Actor {
    * @param {String}abilityId     The ability id (e.g. "str")
    * @param {Object} options      Options which configure how ability tests or saving throws are rolled
    */
-  /* rollAbility(abilityId, options) {
+/*   rollAbility(abilityId, options) {
     let abl = this.data.data.abilities[abilityId];
     new Dialog({
       title: `${abl.label} Ability Check`,

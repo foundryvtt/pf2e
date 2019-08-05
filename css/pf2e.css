@@ -553,6 +553,10 @@
   margin: 0;
   padding: 0;
 }
+.pf2e.actor .pf-bluelist {
+  color: #fff;
+  background: rgb(69,74,124);
+}
 .pf2e.actor .pf-redbackground {
   background: #b75b5b;
   color: white;
@@ -722,7 +726,7 @@
   grid-auto-rows: 40px;
   margin: unset;
   padding: unset;
-  /* background: #b75b5b; */
+  background: #b75b5b;
 }
 .pf2e.actor .biography .bio-3way > * {
   width: 125px;
@@ -788,7 +792,7 @@
   background: #b75b5b;
   margin-right: 4px;
 }
-.pf2e.actor .abilities .defense .defense-name {
+.pf2e.actor .abilities .defense .save-name {
   grid-area: auto;
   margin: 0;
   background: #b75b5b;
@@ -1358,7 +1362,8 @@
 .pf2e.actor .inventory-list .inventory-header {
   font-weight: 700;
   line-height: 20px;
-  background: rgba(0, 0, 0, 0.05);
+  /* background: rgba(0, 0, 0, 0.05); */
+  background: rgb(69,74,124);
 }
 .pf2e.actor .inventory-list .inventory-header h3 {
   font-size: 1em;
@@ -1368,10 +1373,14 @@
 }
 .pf2e.actor .inventory-list .inventory-header .item-quantity,
 .pf2e.actor .inventory-list .inventory-header .item-weight {
-  color: #111;
+  color: white;
 }
 .pf2e.actor .inventory-list .inventory-header .item-controls a.item-create {
   width: 100%;
+  color: white;
+}
+.pf2e.actor .inventory-list .inventory-header > * {
+  color: white;
 }
 .pf2e.actor.character-sheet .inventory-list {
   height: calc(100% - 42px);
@@ -1441,9 +1450,13 @@
 .pf2e.actor .spellbook .spellcasting-ability select {
   flex: 1;
 }
-.pf2e.actor .spellbook .spellbook-header .spell-school,
-.pf2e.actor .spellbook .spellbook-header .spell-action {
-  color: inherit;
+.pf2e.actor .spellbook .inventory-list .item .spell-school-header,
+.pf2e.actor .spellbook .inventory-list .item .spell-action-header {
+  color: white;
+  flex: 1;
+  font-size: 12px;
+  text-align: center;
+  border-right: 1px solid #b75b5b;
 }
 .pf2e.actor .spellbook .prepared-toggle {
   flex: 0 0 20px;
@@ -1469,6 +1482,17 @@
   flex: 0 0 24px;
   font-size: 12px;
   text-align: center;
+}
+.pf2e.actor .spellbook .item .spell-slots-input,
+.pf2e.actor .spellbook .item .spell-max-input {
+  flex: 0 0 24px;
+  font-size: 12px;
+  text-align: center;
+  background: white;
+  border: 1px solid;
+  border-radius: 17px;
+  height: 18px;
+  margin-top: 1px;
 }
 .pf2e.actor .spellbook .item .spell-max {
   border-right: 1px solid #b75b5b;

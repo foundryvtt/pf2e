@@ -19,11 +19,11 @@
                     <h3>{{section.label}}</h3>
 
                     {{#unless section.isCantrip}}
-                    <span class="spell-slots">
+                    <span class="spell-slots-input">
                         <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
                     </span>
                     <span class="flex0"> / </span>
-                    <span class="spell-max">
+                    <span class="spell-max-input">
                         <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
                     </span>
                     {{else}}
@@ -33,8 +33,8 @@
                     {{/unless}}
                 </div>
 
-                <div class="spell-school">School</div>
-                <div class="spell-action">Action</div>
+                <div class="spell-school-header">School</div>
+                <div class="spell-action-header">Action</div>
 
                 {{#if ../owner}}
                 <div class="item-controls">
@@ -72,7 +72,7 @@
         {{else}}
             <li class="item inventory-header spellbook-header spellbook-empty">
                 {{#if owner}}
-                <div class="item-controls">
+                <div class="item-controls pf-bluelist">
                     <a class="item-control item-create" title="Create Spell" data-type="spell"
                        data-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spell</a>
                 </div>

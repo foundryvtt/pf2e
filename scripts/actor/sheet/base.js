@@ -167,28 +167,28 @@ class ActorSheetPF2e extends ActorSheet {
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
 
-/*     // Ability Proficiency
-    html.find('.ability-proficiency').click(ev => {
+    // Ability Proficiency
+/*     html.find('.ability-proficiency').click(ev => {
       let field = $(ev.currentTarget).siblings('input[type="hidden"]');
       this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
-    });
-
-    // Ability Checks
-    html.find('.ability-name').click(event => {
-      event.preventDefault();
-      let ability = event.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(ability, {event: event});
     }); */
+
+    // Roll Save Checks
+    html.find('.save-name').click(ev => {
+      ev.preventDefault();
+      let save = ev.currentTarget.parentElement.getAttribute("data-save");
+      this.actor.rollSave(ev, save);
+    });
 
     // Toggle Skill Proficiency
     html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
 
     // Roll Skill Checks
-/*     html.find('.skill-name').click(ev => {
+    html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
       this.actor.rollSkill(ev, skl);
     });
- */
+
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 

@@ -148,9 +148,9 @@
             <ol class="defense-list">
                 
                 {{#each data.saves as |save sid|}}
-                    <li class="defense" data-ability="{{sid}}">
+                    <li class="defense" data-save="{{sid}}">
                         <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
-                        <h4 class="defense-name rollable">{{save.label}}</h4>                    
+                        <h4 class="save-name rollable">{{save.label}}</h4>                    
                         <div class="defense-container">
                             <h4 class="proficiency-name pf-title">Prof</h4>
                             <input type="hidden" name="data.saves.{{sid}}.rank" value="{{save.rank}}" data-dtype="Number"/>
