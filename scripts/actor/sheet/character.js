@@ -70,10 +70,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Feats
     //const feats = [];
     const feats = {
-      "ancestry": { label: "Ancestry Feats and Abilities", feats: [] },
+      "ancestry": { label: "Ancestry Feats", feats: [] },
       "skill": { label: "Skill Feats", feats: [] },
       "general": { label: "General Feats", feats: [] },
-      "class": { label: "Class Feats and Abilities", feats: [] },
+      "class": { label: "Class Feats", feats: [] },
       "bonus": { label: "Bonus Feats", feats: [] },
     };
 

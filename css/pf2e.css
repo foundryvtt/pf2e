@@ -562,6 +562,9 @@
 .pf2e.actor .pf-indent {
   text-indent: 10px;
 }
+.pf2e.actor .pf-width-100 {
+  width: 100%;
+}
 .pf2e.actor .pf-title {
   /* grid-area: auto; */
   background: #5f0100;
@@ -722,7 +725,7 @@
   /* background: #b75b5b; */
 }
 .pf2e.actor .biography .bio-3way > * {
-  width: 94px;
+  width: 125px;
 }
 .pf2e.actor .biography .bio-list > * {
   width: 94px;
@@ -1132,6 +1135,11 @@
   margin: 0;
   padding: 0;
 }
+.pf2e.actor .traits-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .pf2e.actor .traits .configure-flags i.fas {
   float: right;
   margin-right: 3px;
@@ -1268,6 +1276,13 @@
 }
 .pf2e.actor .inventory-list .item .item-name {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+.pf2e.actor .inventory-list .item .feat-name {
+  /* display: flex; */
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;

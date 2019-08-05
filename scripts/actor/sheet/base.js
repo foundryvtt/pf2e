@@ -111,11 +111,18 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getProficiencyIcon(level) {
-    const icons = {
+/*     const icons = {
       0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
       1: '<i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
       2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
       3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i>',
+      4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>'
+    }; */
+    const icons = {
+      0: '',
+      1: '<i class="fas fa-check-circle"></i>',
+      2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
+      3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
       4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>'
     };
     return icons[level];

@@ -1,46 +1,15 @@
 <div class="tab feats" data-group="primary" data-tab="feats">
-        <ol class="feats-list inventory-list directory-list">
-<!--                     <li class="item inventory-header">
-                <div class="item-name flexrow">
-                    <h3>Feat Name</h3>
-                </div>
-                <div class="ability-req">Requirements</div>
-
-                {{#if owner}}
-                <div class="item-controls">
-                    <a class="item-control item-create" title="Create Feat" data-type="feat" data-featType="passive">
-                        <i class="fas fa-plus"></i> Add</a>
-                </div>
-                {{/if}}
-            </li>
-
-            {{#each actor.feats as |item i|}}
-            <li class="item" data-item-id="{{item.id}}">
-                <div class="item-name rollable">
-                    <div class="item-image" style="background-image: url({{item.img}})"></div>
-                    <h4>{{item.name}}{{#if item.data.uses.max}} <span class="feat-uses">({{item.data.uses.value}} / {{item.data.uses.max}}){{/if}}</span></h4>
-                </div>
-
-                <div class="ability-req">{{item.data.requirements.value}}</div>
-
-                {{#if ../owner}}
-                <div class="item-controls">
-                    <a class="item-control item-edit" title="Edit Ability"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="Delete Ability"><i class="fas fa-trash"></i></a>
-                </div>
-                {{/if}}
-            </li>
-            {{/each}} -->
-
+        <ol class="actions-list inventory-list directory-list">
             {{#each actor.feats as |section sid|}}
-                <li class="item inventory-header">
-                    <h3 class="item-name">{{section.label}}</h3>
+                <li class="item action-header">
+                    <h3 class="feat-name pf-heading pf-actions">{{section.label}}</h3>
                     {{#if ../owner}}
                     <div class="item-controls">
                         <a class="item-control item-create" title="Create Feat" data-type="feat"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     {{/if}}
                 </li>
+
                 {{#each section.feats as |feat fid|}}
                 <li class="item" data-item-id="{{feat.id}}">
                     <div class="item-name rollable">
