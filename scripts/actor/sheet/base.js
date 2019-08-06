@@ -341,8 +341,13 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
-    data["name"] = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;    
-    mergeObject(data, {"data.featType.value": data.featType});
+    
+    if (data.type === "feat") {
+        data["name"] = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;    
+      mergeObject(data, {"data.featType.value": data.featType});
+    } else {
+      data["name"] = `New ${data.type.capitalize()}`;    
+    }
     this.actor.createOwnedItem(data, {renderSheet: true});
   }
 
