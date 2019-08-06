@@ -38,11 +38,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     if (hp.tempmax === 0) delete hp.tempmax;
 
     // Resources
-    let res = sheetData.data.resources;
+/*     let res = sheetData.data.resources;
     if (res.primary && res.primary.value === 0) delete res.primary.value;
     if (res.primary && res.primary.max === 0) delete res.primary.max;
     if (res.secondary && res.secondary.value === 0) delete res.secondary.value;
-    if (res.secondary && res.secondary.max === 0) delete res.secondary.max;
+    if (res.secondary && res.secondary.max === 0) delete res.secondary.max; */
 
     // Return data for rendering
     return sheetData;
@@ -59,6 +59,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Inventory
     const inventory = {
       weapon: { label: "Weapons", items: [] },
+      armor: { label: "Armor", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
       backpack: { label: "Backpack", items: [] },
@@ -88,7 +89,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const lores = [];
 
     // Iterate through items, allocating to containers
-    let totalWeight = 0;
+    //let totalWeight = 0;
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
 
@@ -99,7 +100,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
-        totalWeight += i.totalWeight;
+        //totalWeight += i.totalWeight;
 
         // Do I need to change this so it works with different types of Strikes?
         if (i.type === "weapon") {
@@ -139,11 +140,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.itemBonus = itemBonus;
         i.data.value = modifier + proficiency + itemBonus;
         i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
-
-        // Update Item Data
-/*         let item = this.actor.items.find(itm => { return itm.id === i.id });
-        item.data.value = i.data.value;
-        this.actor.updateOwnedItem(item); */
 
         lores.push(i);
       }

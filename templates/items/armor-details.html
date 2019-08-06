@@ -1,0 +1,59 @@
+
+<div class="form-group">
+    <label>{{data.armorType.label}}</label>
+    <select name="data.armorType.value" data-dtype="{{data.armorType.type}}">
+        {{#select data.armorType.value}}
+        <option value=""></option>
+        {{#each armorTypes as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.armor.label}}</label>
+    <input type="text" name="data.armor.value" value="{{data.armor.value}}" data-dtype="{{data.armor.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.dex.label}}</label>
+    <input type="text" name="data.dex.value" value="{{data.dex.value}}" data-dtype="{{data.dex.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.check.label}}</label>
+    <input type="text" name="data.check.value" value="{{data.check.value}}" data-dtype="{{data.check.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.speed.label}}</label>
+    <input type="text" name="data.speed.value" value="{{data.speed.value}}" data-dtype="{{data.speed.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.strength.label}}</label>
+    <input type="text" name="data.strength.value" value="{{data.strength.value}}" data-dtype="{{data.strength.type}}"/>
+</div>
+
+<div class="form-group">
+    <label>{{data.group.label}}</label>
+    <select name="data.group.value" data-dtype="{{data.group.type}}">
+        {{#select data.group.value}}
+        <option value=""></option>
+        {{#each armorGroups as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{data.traits.label}}</label>
+    <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/>
+</div>
+
+ <div class="form-group">
+    <label>{{data.equipped.label}}</label>
+    <input type="checkbox" name="data.equipped.value" value="1" data-dtype="{{data.equipped.type}}" {{checked data.equipped.value}}/>
+</div>

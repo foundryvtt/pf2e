@@ -28,7 +28,7 @@ class ItemSheetPF2e extends ItemSheet {
       type: type,
       hasSidebar: true,
       sidebarTemplate: () => `public/systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon"].includes(type),
+      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor"].includes(type),
       detailsTemplate: () => `public/systems/pf2e/templates/items/${type}-details.html`
     });
 
@@ -55,7 +55,11 @@ class ItemSheetPF2e extends ItemSheet {
     // Weapon Data
     else if ( this.item.type === "weapon" ) {
       data.weaponTypes = CONFIG.weaponTypes;
-      data.weaponProperties = this._formatWeaponProperties(data.data);
+      data.weaponGroups = CONFIG.weaponGroups;
+      data.weaponHands = CONFIG.weaponHands;
+      data.weaponRange = CONFIG.weaponRange;
+      data.weaponReload = CONFIG.weaponReload;
+      data.weaponTraits = this._formatWeaponTraits(data.data);
     }
 
     // Feat types
@@ -69,8 +73,14 @@ class ItemSheetPF2e extends ItemSheet {
     }
 
     // Equipment data
-    else if ( type === "equipment" ) {
+/*     else if ( type === "equipment" ) {
       data.armorTypes = CONFIG.armorTypes;
+    } */
+
+    // Armor data
+    else if ( type === "armor" ) {
+      data.armorTypes = CONFIG.armorTypes;
+      data.armorGroups = CONFIG.armorGroups;
     }
 
     // Tool-specific data
@@ -96,9 +106,9 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  _formatWeaponProperties(data) {
-    if ( !data.properties.value ) return [];
-    return data.properties.value.split(",").map(p => p.trim());
+  _formatWeaponTraits(data) {
+    if ( !data.traits.value ) return [];
+    return data.traits.value.split(",").map(p => p.trim());
   }
 
   /* -------------------------------------------- */

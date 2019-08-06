@@ -23,13 +23,29 @@ CONFIG.healingTypes = {
 
 // Weapon Types
 CONFIG.weaponTypes = {
-  "simpleM": "Simple Melee",
-  "simpleR": "Simple Ranged",
-  "martialM": "Martial Melee",
-  "martialR": "Martial Ranged",
-  "natural": "Natural",
-  "improv": "Improvised",
-  "ammo": "Ammunition"
+  "simple": "Simple Weapon",
+  "martial": "Martial Weapon",
+  "advanced": "Advanced Weapon",
+  "unarmed": "Unarmed Attack"
+};
+
+// Weapon Types
+CONFIG.weaponGroups = {
+  "club": "Club",
+  "knife": "Knife",
+  "brawling": "Brawling",
+  "spear": "Spear",
+  "sword": "Sword",
+  "axe": "Axe",
+  "flail": "Flail",
+  "polearm": "Polearm",
+  "pick": "Pick",
+  "hammer": "Hammer",
+  "shield": "Shield",
+  "dart": "Dart",
+  "bow": "Bow",
+  "sling": "Sling",
+  "bomb": "Bomb"
 };
 
 // Weapon Properties
@@ -46,25 +62,60 @@ CONFIG.weaponProperties = {
   "rch": "Reach"
 };
 
-// Equipment Types
+// Weapon Hands 
+CONFIG.weaponHands = {
+  "1": "One",
+  "1+": "One Plus",
+  "2": "Two"
+};
+
+// Weapon Range 
+CONFIG.weaponRange = {
+  "melee": "Melee",
+  "reach": "Reach",
+  "20": "20 ft.",
+  "30": "30 ft.",
+  "40": "40 ft.",
+  "60": "60 ft.",
+  "80": "80 ft.",
+  "100": "100 ft.",
+  "120": "120 ft.",
+  "140": "140 ft."
+};
+
+// Weapon Reload 
+CONFIG.weaponReload = {
+  "-": "-",
+  "0": "0",
+  "1": "1",
+  "2": "2",
+  "3": "3",
+};
+
+// Armor Types
 CONFIG.armorTypes = {
-  "clothing": "Clothing",
+  "unarmored": "Unarmored",
   "light": "Light Armor",
   "medium": "Medium Armor",
-  "heavy": "Heavy Armor",
-  "bonus": "Magical Bonus",
-  "natural": "Natural Armor",
-  "shield": "Shield"
+  "heavy": "Heavy Armor"
+};
+
+// Armor Groups
+CONFIG.armorGroups = {
+  "leather": "Leather",
+  "composite": "Composite",
+  "chain": "Chain",
+  "plate": "Plate"
 };
 
 // Consumable Types
 CONFIG.consumableTypes = {
+  "ammo": "Ammunition",
   "potion": "Potion",
-  "poison": "Poison",
+  "oil": "Oil",
   "scroll": "Scroll",
-  "wand": "Wand",
-  "rod": "Rod",
-  "trinket": "Trinket"
+  "talasman": "Talasman",
+  "other": "Other"
 };
 
 

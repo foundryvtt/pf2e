@@ -240,16 +240,11 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Lore Item Rolling
     html.find('.item .lore-name').click(event => {
-      //this._onItemRoll(event);
-      /* let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
-      this.actor.rollSkill(ev, skl); */
-      event.preventDefault();
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
-          item = this.actor.getOwnedItem(itemId);
-      //item.roll();
-      this.actor.rollLoreSkill(event, item);
-    });
-      
+    event.preventDefault();
+    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+        item = this.actor.getOwnedItem(itemId);
+    this.actor.rollLoreSkill(event, item);
+    });      
 
     // Re-render the sheet when toggling visibility of spells
     html.find('.prepared-toggle').click(ev => {

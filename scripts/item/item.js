@@ -46,17 +46,28 @@ class ItemPF2e extends Item {
   /* -------------------------------------------- */
 
   getChatData(htmlOptions) {
-    let itemType = this.data.type;
-    
-    if (itemType.substr(itemType.length -4) === "Feat") {
-      const data = this[`_featChatData`]();
-      data.description.value = enrichHTML(data.description.value, htmlOptions);
-      return data;
-    } else {
-      const data = this[`_${itemType}ChatData`]();
-      data.description.value = enrichHTML(data.description.value, htmlOptions);
-      return data;
-    }
+    let itemType = this.data.type;  
+    const data = this[`_${itemType}ChatData`]();
+    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    return data;    
+  }
+
+  /* -------------------------------------------- */
+
+  _armorChatData() {
+    const data = duplicate(this.data.data);
+    const properties = [
+      CONFIG.armorTypes[data.armorType.value],
+      CONFIG.armorGroups[data.group.value],
+      "+" + data.armor.value + " AC Bonus",
+      data.dex.value + " Dex Cap",
+      data.check.value + " Check Penalty",
+      data.speed.value + " Speed Penalty",
+      data.traits.value,
+      data.equipped.value ? "Equipped" : null
+    ];
+    data.properties = properties.filter(p => p !== null);
+    return data;
   }
 
   /* -------------------------------------------- */
@@ -64,10 +75,7 @@ class ItemPF2e extends Item {
   _equipmentChatData() {
     const data = duplicate(this.data.data);
     const properties = [
-      CONFIG.armorTypes[data.armorType.value],
-      data.armor.value + " AC",
       data.equipped.value ? "Equipped" : null,
-      data.stealth.value ? "Stealth Disadv." : null,
     ];
     data.properties = properties.filter(p => p !== null);
     return data;
@@ -80,7 +88,7 @@ class ItemPF2e extends Item {
     const properties = [
       data.range.value,
       CONFIG.weaponTypes[data.weaponType.value],
-      data.proficient.value ? "" : "Not Proficient"
+      CONFIG.weaponGroups[data.group.value]
     ];
     data.properties = properties.filter(p => !!p);
     return data;
