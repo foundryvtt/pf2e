@@ -166,7 +166,7 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-    // Feat button actions
+/*     // Feat button actions
     data.isSave = data.save.value !== "";
     if ( data.isSave ) {
       let abl = data.ability.value || ad.attributes.spellcasting.value || "str";
@@ -175,15 +175,12 @@ class ItemPF2e extends Item {
     }
 
     // Feat attack attributes
-    data.isAttack = data.featType.value === "attack";
+    data.isAttack = data.featType.value === "attack"; */
 
     // Feat properties
     const props = [
-      data.requirements.value,
-      data.target.value,
-      data.range.value,
-      data.time.value,
-      data.duration.value
+      data.level.value,
+      data.traits.value
     ];
     data.properties = props.filter(p => p);
     return data;

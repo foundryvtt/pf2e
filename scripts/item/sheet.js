@@ -63,8 +63,8 @@ class ItemSheetPF2e extends ItemSheet {
       data.featTypes = CONFIG.featTypes;
       data.actionTypes = CONFIG.actionTypes;
       data.featTags = [
-        data.data.target.value,
-        data.data.time.value
+        data.data.level.value,
+        data.data.traits.value
       ].filter(t => !!t);
     }
 

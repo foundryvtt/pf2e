@@ -33,6 +33,10 @@ class ActorSheetPF2e extends ActorSheet {
       save.hover = CONFIG.proficiencyLevels[save.rank];
     }
 
+    // Update proficiency label
+    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
+    sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
+
     // Update skill labels
     for ( let skl of Object.values(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
@@ -164,14 +168,8 @@ class ActorSheetPF2e extends ActorSheet {
     if (!this.options.editable) return;
 
     /* -------------------------------------------- */
-    /*  Abilities, Skills, and Traits
+    /*  Attributes, Skills, Saves and Traits
      /* -------------------------------------------- */
-
-    // Ability Proficiency
-/*     html.find('.ability-proficiency').click(ev => {
-      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
-      this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
-    }); */
 
     // Roll Save Checks
     html.find('.save-name').click(ev => {
@@ -180,14 +178,21 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollSave(ev, save);
     });
 
-    // Toggle Skill Proficiency
-    html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
+    // Roll Attribute Checks
+    html.find('.attribute-name').click(ev => {
+      ev.preventDefault();
+      let attribute = ev.currentTarget.parentElement.getAttribute("data-attribute");
+      this.actor.rollAttribute(ev, attribute);
+    });  
 
     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
       this.actor.rollSkill(ev, skl);
     });
+
+    // Toggle Skill Proficiency
+    html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
 
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
@@ -232,6 +237,19 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Item Rolling
     html.find('.item .item-image').click(event => this._onItemRoll(event));
+
+    // Lore Item Rolling
+    html.find('.item .lore-name').click(event => {
+      //this._onItemRoll(event);
+      /* let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
+      this.actor.rollSkill(ev, skl); */
+      event.preventDefault();
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+          item = this.actor.getOwnedItem(itemId);
+      //item.roll();
+      this.actor.rollLoreSkill(event, item);
+    });
+      
 
     // Re-render the sheet when toggling visibility of spells
     html.find('.prepared-toggle').click(ev => {
@@ -323,7 +341,8 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
-    data["name"] = `New ${data.type.capitalize()}`;
+    data["name"] = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;    
+    mergeObject(data, {"data.featType.value": data.featType});
     this.actor.createOwnedItem(data, {renderSheet: true});
   }
 

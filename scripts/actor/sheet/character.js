@@ -84,9 +84,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       "free": { label: "Free Actions", actions: [] }
     };
 
-    // Classes
-    /* const classes = []; */
-
     // Skills
     const lores = [];
 
@@ -143,6 +140,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.value = modifier + proficiency + itemBonus;
         i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
+        // Update Item Data
+/*         let item = this.actor.items.find(itm => { return itm.id === i.id });
+        item.data.value = i.data.value;
+        this.actor.updateOwnedItem(item); */
+
         lores.push(i);
       }
 
@@ -159,7 +161,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
-    //actorData.classes = classes;
 
     // Inventory encumbrance
     //actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);

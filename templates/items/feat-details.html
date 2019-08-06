@@ -21,85 +21,19 @@
     </div>
 
 <div class="form-group">
-    <label>{{data.requirements.label}}</label>
-    <input type="text" name="data.requirements.value" value="{{data.requirements.value}}"
-           data-dtype="{{data.requirements.type}}"/>
+    <label>{{data.prerequisites.label}}</label>
+    <input type="text" name="data.prerequisites.value" value="{{data.prerequisites.value}}"
+           data-dtype="{{data.prerequisites.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.ability.label}}</label>
-    <select name="data.ability.value" data-dtype="{{data.ability.type}}">
-        {{#select data.ability.value}}
-        <option value=""></option>
-        {{#each abilities as |ability a|}}
-        <option value="{{a}}">{{ability.label}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
+    <label>{{data.level.label}}</label>
+    <input type="text" name="data.level.value" value="{{data.level.value}}"
+            data-dtype="{{data.level.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.damage.label}}</label>
-    <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
-</div>
-
-<div class="form-group">
-    <label>{{data.damageType.label}}</label>
-    <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
-        {{#select data.damageType.value}}
-        <option value=""></option>
-        {{#each damageTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{data.save.label}}</label>
-    <select name="data.save.value" data-dtype="{{data.save.type}}">
-        {{#select data.save.value}}
-        <option value=""></option>
-        {{#each abilities as |ability a|}}
-        <option value="{{a}}">{{ability.label}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{data.target.label}}</label>
-    <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="{{data.target.type}}"/>
-</div>
-
-<div class="form-group">
-    <label>{{data.range.label}}</label>
-    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
-</div>
-
-<div class="form-group">
-    <label>{{data.time.label}}</label>
-    <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="{{data.time.type}}"/>
-</div>
-
-<div class="form-group">
-    <label>{{data.duration.label}}</label>
-    <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="{{data.duration.type}}"/>
-</div>
-
-<div class="form-group">
-    <label>{{data.uses.label}}</label>
-    <div class="feat-uses flexrow">
-        <select name="data.uses.type" data-dtype="String">
-            {{#select data.uses.type}}
-            <option value=""></option>
-            <option value="sr">Short Rest</option>
-            <option value="lr">Long Rest</option>
-            <option value="day">Day</option>
-            {{/select}}
-        </select>
-        <input type="text" name="data.uses.value" value="{{data.uses.value}}" data-dtype="Number"/>
-        <span class="sep">/</span>
-        <input type="text" name="data.uses.max" value="{{data.uses.max}}" data-dtype="Number"/>
-    </div>
+    <label>{{data.traits.label}}</label>
+    <input type="text" name="data.traits.value" value="{{data.traits.value}}"
+            data-dtype="{{data.traits.type}}"/>
 </div>

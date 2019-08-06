@@ -26,6 +26,11 @@ class ActorPF2e extends Actor {
       save.breakdown = `${save.ability} modifier(${data.abilities[save.ability].mod}) + proficiency(${proficiency}) + item bonus(${save.item})`;
     }
 
+    // Perception
+    let proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
+    data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
+    data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
+
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
       //skl.value = parseFloat(skl.value || 0);
@@ -158,7 +163,7 @@ class ActorPF2e extends Actor {
       flavor = `${skl.label} Skill Check`;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       data: {mod: skl.value},
@@ -170,6 +175,26 @@ class ActorPF2e extends Actor {
   /* -------------------------------------------- */
 
   /**
+   * Roll a Lore (Item) Skill Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollLoreSkill(event, item) {
+    let parts = ["@mod"],
+      flavor = `${item.name} Skill Check`;
+
+    // Call the roll helper utility
+    DicePF2e.d20Roll({
+      event: event,
+      parts: parts,
+      data: {mod: item.data.data.value},
+      title: flavor,
+      speaker: ChatMessage.getSpeaker({actor: this}),
+    });
+  }
+
+  /* -------------------------------------------- */
+  /**
    * Roll a Save Check
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
@@ -180,10 +205,32 @@ class ActorPF2e extends Actor {
       flavor = `${save.label} Save Check`;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       data: {mod: save.value},
+      title: flavor,
+      speaker: ChatMessage.getSpeaker({actor: this}),
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a Attribute Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollAttribute(event, attributeName) {
+    let skl = this.data.data.attributes[attributeName],
+      parts = ["@mod"],
+      flavor = `${skl.label} skl Check`;
+
+    // Call the roll helper utility
+    DicePF2e.d20Roll({
+      event: event,
+      parts: parts,
+      data: {mod: skl.value},
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });
@@ -229,7 +276,7 @@ class ActorPF2e extends Actor {
         flavor = `${abl.label} Ability Test`;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: options.event,
       parts: parts,
       data: {mod: abl.mod},
@@ -252,7 +299,7 @@ class ActorPF2e extends Actor {
         flavor = `${abl.label} Saving Throw`;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: options.event,
       parts: parts,
       data: {mod: abl.save},
@@ -278,7 +325,7 @@ class ActorPF2e extends Actor {
     if ( rollData.attributes.hd.value === 0 ) throw new Error(`${this.name} has no Hit Dice remaining!`);
 
     // Call the roll helper utility
-    return Dice5e.damageRoll({
+    return DicePF2e.damageRoll({
       event: new Event("hitDie"),
       parts: parts,
       data: rollData,

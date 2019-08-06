@@ -143,7 +143,29 @@
                     </div> -->
                 </ol>
                 
-            
+            <h3 class="defense-title pf-heading">Perception</h3>
+            <ol class="defense-list">                
+                    
+                    <li class="defense" data-attribute="perception">
+                        <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
+                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                    
+                        <div class="defense-container">
+                            <h4 class="proficiency-name pf-title">Prof</h4>
+                            <input type="hidden" name="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}" data-dtype="Number"/>
+                            <span class="proficiency-rank proficiency-click pf-value" title="{{data.attributes.perception.hover}}">{{{data.attributes.perception.icon}}}</span>
+                        </div>
+                        <div class="defense-container">
+                            <h4 class="defense-item pf-title">Item</h4>
+                            <span class="defense-item-value pf-value" title="Item">
+                                <input name="data.attributes.perception.item" type="text" value="{{data.attributes.perception.item}}"
+                                        data-dtype="Number" placeholder="+0"/>
+                            </span>
+                        </div>  
+                    </li>
+                
+            </ol>
+
+
             <h3 class="defense-title pf-heading">Saves</h3>
             <ol class="defense-list">
                 
@@ -165,8 +187,6 @@
                         </div>  
                     </li>
                 {{/each}}
-
-
             </ol>
             
 

@@ -1,7 +1,7 @@
-class Dice5e {
+class DicePF2e {
 
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing core PF2e "d20 rolls"
    *
    * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
    * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
@@ -29,11 +29,11 @@ class Dice5e {
       let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
       if (adv === 1) {
         parts[0] = ["2d20kh"];
-        flav = `${title} (Advantage)`;
+        flav = `${title} (Fortune)`;
       }
       else if (adv === -1) {
         parts[0] = ["2d20kl"];
-        flav = `${title} (Disadvantage)`;
+        flav = `${title} (Misfortune)`;
       }
 
       // Don't include situational bonus unless it is defined
@@ -75,14 +75,14 @@ class Dice5e {
           content: dlg,
           buttons: {
             advantage: {
-              label: "Advantage",
+              label: "Fortune",
               callback: () => adv = 1
             },
             normal: {
               label: "Normal",
             },
             disadvantage: {
-              label: "Disadvantage",
+              label: "Misfortune",
               callback: () => adv = -1
             }
           },
