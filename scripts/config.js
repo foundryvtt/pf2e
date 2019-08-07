@@ -15,6 +15,13 @@ CONFIG.damageTypes = {
   "thunder": "Thunder"
 };
 
+// Weapon Damage Types
+CONFIG.weaponDamage = {
+  "bludgeoning": "Bludgeoning",
+  "piercing": "Piercing",
+  "slashing": "Slashing"
+};
+
 // Healing Types
 CONFIG.healingTypes = {
   "healing": "Healing",
@@ -67,6 +74,32 @@ CONFIG.weaponHands = {
   "1": "One",
   "1+": "One Plus",
   "2": "Two"
+};
+
+// Item Bonus 
+CONFIG.itemBonuses = {
+  "-2": "-2",
+  "0": "0",
+  "1": "+1",
+  "2": "+2",
+  "3": "+3"
+};
+
+// Damage Dice 
+CONFIG.damageDice = {
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4"
+};
+
+// Damage Die 
+CONFIG.damageDie = {
+  "d4": "d4",
+  "d6": "d6",
+  "d8": "d8",
+  "d10": "d10",
+  "d12": "d12"
 };
 
 // Weapon Range 

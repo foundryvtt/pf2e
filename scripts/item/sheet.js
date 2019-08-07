@@ -56,7 +56,10 @@ class ItemSheetPF2e extends ItemSheet {
     else if ( this.item.type === "weapon" ) {
       data.weaponTypes = CONFIG.weaponTypes;
       data.weaponGroups = CONFIG.weaponGroups;
-      data.weaponHands = CONFIG.weaponHands;
+      data.itemBonuses = CONFIG.itemBonuses;
+      data.damageDie = CONFIG.damageDie;
+      data.damageDice = CONFIG.damageDice;
+      data.weaponDamage = CONFIG.weaponDamage;
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;
       data.weaponTraits = this._formatWeaponTraits(data.data);
