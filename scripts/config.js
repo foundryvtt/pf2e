@@ -78,11 +78,11 @@ CONFIG.weaponHands = {
 
 // Item Bonus 
 CONFIG.itemBonuses = {
-  "-2": "-2",
+  "-2": "Shoddy (-2)",
   "0": "0",
-  "1": "+1",
-  "2": "+2",
-  "3": "+3"
+  "1": "+1 Weapon Potency",
+  "2": "+2 Weapon Potency",
+  "3": "+3 Weapon Potency"
 };
 
 // Damage Dice 
