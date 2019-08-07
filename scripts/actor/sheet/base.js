@@ -59,10 +59,10 @@ class ActorSheetPF2e extends ActorSheet {
 
   _prepareTraits(traits) {
     const map = {
-      "dr": CONFIG.damageTypes,
+/*       "dr": CONFIG.damageTypes,
       "di": CONFIG.damageTypes,
       "dv": CONFIG.damageTypes,
-      "ci": CONFIG.conditionTypes,
+      "ci": CONFIG.conditionTypes, */
       "languages": CONFIG.languages
     };
     for ( let [t, choices] of Object.entries(map) ) {
@@ -236,7 +236,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Item Rolling
-    html.find('.item .item-image').click(event => this._onItemRoll(event));
+    //html.find('.item .item-image').click(event => this._onItemRoll(event));
 
     // Lore Item Rolling
     html.find('.item .lore-name').click(event => {

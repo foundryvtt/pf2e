@@ -26,10 +26,24 @@ class ActorPF2e extends Actor {
       save.breakdown = `${save.ability} modifier(${data.abilities[save.ability].mod}) + proficiency(${proficiency}) + item bonus(${save.item})`;
     }
 
+    // Martial
+    for (let skl of Object.values(data.martial)) {
+      let proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
+      skl.value = proficiency;
+      skl.breakdown = `proficiency(${proficiency})`;
+    }
+
     // Perception
     let proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
     data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
+
+    // Spell DC
+    let spellProficiency = data.attributes.spelldc.rank ? (data.attributes.spelldc.rank * 2) + data.details.level.value : 0;
+    let spellAbl = data.attributes.spellcasting.value || "int";
+    data.attributes.spelldc.value = data.abilities[spellAbl].mod + spellProficiency + data.attributes.spelldc.item;
+    data.attributes.spelldc.breakdown = `${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
+
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {

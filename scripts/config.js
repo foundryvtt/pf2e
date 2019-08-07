@@ -56,18 +56,45 @@ CONFIG.weaponGroups = {
 };
 
 // Weapon Properties
-CONFIG.weaponProperties = {
-  "thr": "Thrown",
-  "amm": "Ammunition",
-  "fir": "Firearm",
-  "rel": "Reload",
-  "two": "Two-Handed",
-  "fin": "Finesse",
-  "lgt": "Light",
-  "ver": "Versatile",
-  "hvy": "Heavy",
-  "rch": "Reach"
+CONFIG.weaponTraits = {
+  "agile": "Agile",
+  "attached": "Attached",
+  "backstabber": "Backstabber",
+  "backswing": "Backswing",
+  "deadly": "Deadly",
+  "disarm": "Disarm",
+  "dwarf": "Dwarf",
+  "elf": "Elf",
+  "fatal": "Fatal",
+  "finesse": "Finesse",
+  "forceful": "Forceful",
+  "free-hand": "Free-Hand",
+  "gnome": "Gnome",
+  "goblin": "Goblin",
+  "grapple": "Grapple",
+  "halfling": "Halfling",
+  "jousting": "Jousting",
+  "monk": "Monk",
+  "nonlethal": "Nonlethal",
+  "orc": "Orc",
+  "parry": "Parry",
+  "propulsive": "Propulsive",
+  "range": "Range",
+  "ranged": "Ranged",
+  "reach": "Reach",
+  "shove": "Shove",
+  "sweep": "Sweep",
+  "tethered": "Tethered",
+  "thrown": "Thrown",
+  "trip": "Trip",
+  "twin": "Twin",
+  "two-hand": "Two-Hand",
+  "unarmed": "Unarmed",
+  "versatile": "Versatile",
+  "volley": "Volley"
 };
+
+                                   
 
 // Weapon Hands 
 CONFIG.weaponHands = {

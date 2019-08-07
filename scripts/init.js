@@ -58,6 +58,7 @@ Hooks.once("init", () => {
     // Actor Sheet Partials (Tabs)
     "public/systems/pf2e/templates/actors/tabs/actor-biography.html",
     "public/systems/pf2e/templates/actors/tabs/actor-feats.html",
+    "public/systems/pf2e/templates/actors/tabs/actor-inventory.html",
     "public/systems/pf2e/templates/actors/tabs/actor-skills.html",
     "public/systems/pf2e/templates/actors/tabs/actor-spellbook.html",
 

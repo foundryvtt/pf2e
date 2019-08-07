@@ -62,7 +62,8 @@ class ItemSheetPF2e extends ItemSheet {
       data.weaponDamage = CONFIG.weaponDamage;
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;
-      data.weaponTraits = this._formatWeaponTraits(data.data);
+      data.weaponTraits = data.data.traits.value
+      //data.weaponTraits = this._formatWeaponTraits(data.data);
     }
 
     // Feat types
@@ -116,6 +117,19 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
+  _onTraitSelector(event) {
+    event.preventDefault();
+    let a = $(event.currentTarget);
+    const options = {
+      name: a.parents("label").attr("for"),
+      title: a.parent().text().trim(),
+      choices: CONFIG[a.attr("data-options")]
+    };
+    new TraitSelector5e(this.item, options).render(true)
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Activate listeners for interactive item sheet events
    */
@@ -130,6 +144,9 @@ class ItemSheetPF2e extends ItemSheet {
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
+
+    // Trait Selector
+    html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
   }
 }
 

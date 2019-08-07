@@ -200,7 +200,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll a Weapon Attack
-   * Rely upon the Dice5e.d20Roll logic for the core implementation
+   * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollWeaponAttack(event) {
     if ( this.type !== "weapon" ) throw "Wrong item type!";
@@ -209,15 +209,16 @@ class ItemPF2e extends Item {
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
-        parts = ["@item.bonus.value", `@abilities.${abl}.mod`, "@attributes.prof.value"],
+        prof = itemData.weaponType.value || "simple",
+        parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`],
         title = `${this.name} - Attack Roll`;
     rollData.item = itemData;
-    if ( !itemData.proficient.value ) parts.pop();
+    //if ( !itemData.proficient.value ) parts.pop();
 
     // TODO: Incorporate Elven Accuracy
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       actor: this.actor,
@@ -236,7 +237,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll Weapon Damage
-   * Rely upon the Dice5e.damageRoll logic for the core implementation
+   * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollWeaponDamage(event, alternate=false) {
     if ( this.type !== "weapon" ) throw "Wrong item type!";
@@ -244,9 +245,10 @@ class ItemPF2e extends Item {
     // Get data
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
+        weaponDamage = itemData.damage.dice + itemData.damage.die,
         abl = itemData.ability.value || "str",
-        parts = [alternate ? itemData.damage2.value : itemData.damage.value, `@abilities.${abl}.mod`],
-        dtype = CONFIG.damageTypes[alternate ? itemData.damage2Type.value : itemData.damageType.value];
+        parts = [weaponDamage, `@abilities.${abl}.mod`],
+        dtype = CONFIG.damageTypes[itemData.damage.damageType];
 
     // Append damage type to title
     let title = `${this.name} - Damage`;
@@ -254,7 +256,7 @@ class ItemPF2e extends Item {
 
     // Call the roll helper utility
     rollData.item = itemData;
-    Dice5e.damageRoll({
+    DicePF2e.damageRoll({
       event: event,
       parts: parts,
       actor: this.actor,
@@ -273,7 +275,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll Spell Damage
-   * Rely upon the Dice5e.d20Roll logic for the core implementation
+   * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollSpellAttack(event) {
     if ( this.type !== "spell" ) throw "Wrong item type!";
@@ -281,12 +283,12 @@ class ItemPF2e extends Item {
     // Prepare roll data
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
-        parts = [`@abilities.${abl}.mod`, "@attributes.prof.value"],
+        //abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
+        parts = ["@attributes.spelldc.value", "@attributes.spelldc.item"],
         title = `${this.name} - Spell Attack Roll`;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       data: rollData,
@@ -304,7 +306,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll Spell Damage
-   * Rely upon the Dice5e.damageRoll logic for the core implementation
+   * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollSpellDamage(event) {
     if ( this.type !== "spell" ) throw "Wrong item type!";
@@ -326,7 +328,7 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     // Call the roll helper utility
-    Dice5e.damageRoll({
+    DicePF2e.damageRoll({
       event: event,
       parts: parts,
       data: rollData,
@@ -395,7 +397,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll a Tool Check
-   * Rely upon the Dice5e.d20Roll logic for the core implementation
+   * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollToolCheck(event) {
     if ( this.type !== "tool" ) throw "Wrong item type!";
@@ -409,7 +411,7 @@ class ItemPF2e extends Item {
     rollData["proficiency"] = Math.floor((this.data.data.proficient.value || 0) * rollData.attributes.prof.value);
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       data: rollData,
@@ -440,7 +442,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll a Feat Attack
-   * Rely upon the Dice5e.d20Roll logic for the core implementation
+   * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollFeatAttack(event) {
     if ( this.type !== "feat" ) throw "Wrong item type!";
@@ -454,7 +456,7 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     // Call the roll helper utility
-    Dice5e.d20Roll({
+    DicePF2e.d20Roll({
       event: event,
       parts: parts,
       data: rollData,
@@ -472,7 +474,7 @@ class ItemPF2e extends Item {
 
   /**
    * Roll Feat Damage
-   * Rely upon the Dice5e.damageRoll logic for the core implementation
+   * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollFeatDamage(event) {
     if ( this.type !== "feat" ) throw "Wrong item type!";
@@ -493,7 +495,7 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     // Call the roll helper utility
-    Dice5e.damageRoll({
+    DicePF2e.damageRoll({
       event: event,
       parts: parts,
       data: rollData,

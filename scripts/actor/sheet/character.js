@@ -320,3 +320,76 @@ Actors.registerSheet("pf2e", ActorSheetPF2eCharacter, {
 });
 
 
+// hooks into different sheet via their rendering
+//Hooks.on(`renderActorSheetPF2eNPC`, (app, html, data) => { addItemSheetButtons(app, html, data); });
+Hooks.on(`renderActorSheetPF2eCharacter`, (app, html, data) => { addItemSheetButtons(app, html, data); });
+
+
+
+/**
+ * this function adds the buttons and their functionality to the sheet
+ * @param {String} triggeringElement - this is the html selector string that opens the description - mostly optional for different sheetclasses
+ * @param {String} buttonContainer - this is the html selector string to which the buttons will be prepended - mostly optional for different sheetclasses
+ */
+function addItemSheetButtons(app, html, data, triggeringElement = '', buttonContainer = '') {
+    // setting default element selectors
+    if (triggeringElement === '') triggeringElement = '.item .item-name h4';
+    if (buttonContainer === '') buttonContainer = '.item-properties';
+
+    // adding an event for when the description is shown
+    html.find(triggeringElement).click(event => {
+        let li = $(event.currentTarget).parents(".item");
+        let item = app.object.getOwnedItem(Number(li.attr("data-item-id")));
+        let chatData = item.getChatData();
+
+        if (!li.hasClass("expanded")) return;  // this is a way to not continue if the items description is not shown, but its only a minor gain to do this while it may break this module in sheets that dont use "expanded"
+
+        // Create the buttons
+        let buttons = $(`<div class="item-buttons"></div>`);
+        switch (item.data.type) {
+            case 'weapon':
+                //let attackBonus = 
+                buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
+                if (item.data.data.damage.die) buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);
+                break;
+            case 'spell':
+                if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
+                if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
+                if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}</button></span>`);
+                break;
+            case 'consumable':
+                if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">Use ${item.name}</button></span>`);
+                break;
+            case 'tool':
+                buttons.append(`<span class="tag"><button data-action="toolCheck" data-ability="${chatData.ability.value}">Use ${item.name}</button></span>`);
+                break;
+
+        }
+
+        // adding the buttons to the sheet
+        targetHTML = $(event.target.parentNode.parentNode)
+        targetHTML.find(buttonContainer).prepend(buttons);
+
+        //html.find(buttonContainer).prepend(buttons);
+
+        // adding click event for all buttons
+        buttons.find('button').click(ev => {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            // which function gets called depends on the type of button stored in the dataset attribute action
+            switch (ev.target.dataset.action) {
+                case 'weaponAttack': item.rollWeaponAttack(ev); break;
+                case 'weaponDamage': item.rollWeaponDamage(ev); break;
+                case 'weaponDamage2': item.rollWeaponDamage(ev, true); break;
+                case 'spellAttack': item.rollSpellAttack(ev); break;
+                case 'spellDamage': item.rollSpellDamage(ev); break;
+                case 'featAttack': item.rollFeatAttack(ev); break;
+                case 'featDamage': item.rollFeatDamage(ev); break;
+                case 'consume': item.rollConsumable(ev); break;
+                case 'toolCheck': item.rollToolCheck(ev); break;
+            }            
+        });
+
+    });
+};
