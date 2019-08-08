@@ -238,7 +238,8 @@
 }
 .pf2e.actor .sheet-lower {
   width: 100%;
-  height: calc(100% - 48px - 220px - 32px);
+  
+  height: calc(100% - 48px);
 }
 .pf2e.actor .sheet-lower .sheet-content {
   height: 100%;
@@ -1023,13 +1024,24 @@
 .pf2e.actor .class-levels .class-list .item .class-subclass .item-controls a {
   text-align: right;
 }
-.pf2e.actor .skills .skills-list {
+.pf2e.actor .skills .skills-list,
+.pf2e.actor .spellbook .skills-list {
   margin: 0;
   padding: 0;
   /* list-style: none; */
   display: grid;
   grid: "skill skill" 36px / 50% 50%;
   grid-auto-rows: 36px;
+}
+.pf2e.actor .spellbook .skill {
+  grid-area: auto;
+  display: grid;
+  grid: "value name rank item" 100% /  35px auto 46px 46px;
+}
+.pf2e.actor .pf-three-grid {
+  grid-area: auto;
+  display: grid;
+  grid: "one two three" 100% /  auto 90px 20px;
 }
 .pf2e.actor .skills .lores-list {
   margin: 0;
@@ -1056,24 +1068,29 @@
   margin-top: 2px;
   font-size: 12px;
 }
-.pf2e.actor .skills .skill-container {
+.pf2e.actor .skills .skill-container,
+.pf2e.actor .spellbook .skill-container {
   display: grid;
   grid: "title" 12px "value" 18px / auto;
   background: #b75b5b;
   height: 32px;
   align-self: center;
 }
-.pf2e.actor .skills .skill-container .skill-proficiency {
+.pf2e.actor .skills .skill-container .skill-proficiency,
+.pf2e.actor .spellbook .skill-container .skill-proficiency {
   font-size: 12px
 }
-.pf2e.actor .skills .skill-container > * {
+.pf2e.actor .skills .skill-container > *,
+.pf2e.actor .spellbook .skill-container > * {
   width: 43px;
 }
 .pf2e.actor .skills .skill > *,
-.pf2e.actor .skills .item > * {
+.pf2e.actor .skills .item > *,
+.pf2e.actor .spellbook .skill > * {
   flex: 1;
 }
-.pf2e.actor .skills .skill-name {
+.pf2e.actor .skills .skill-name,
+.pf2e.actor .spellbook .skill-name {
   margin: 0;
   align-self: center;
   background: #b75b5b;
@@ -1092,10 +1109,12 @@
   flex: 0 0 20px;
   padding-left: 3px;
 } */
-.pf2e.actor .skills .skill-proficiency {
+.pf2e.actor .skills .skill-proficiency,
+.pf2e.actor .spellbook .skill-proficiency {
   margin-top: 2px;
 }
-.pf2e.actor .skills .skill-item  {
+.pf2e.actor .skills .skill-item,
+.pf2e.actor .spellbook .skill-item  {
   margin-top: 2px;
   font-size: 11px;
 }
@@ -1118,7 +1137,8 @@
   width: 16px;
   margin: unset;
 }
-.pf2e.actor .skills .skill-score {
+.pf2e.actor .skills .skill-score,
+.pf2e.actor .spellbook .skill-score {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 28px;
   text-align: center;
@@ -1306,9 +1326,9 @@
   justify-content: flex-start;
   cursor: pointer;
 }
-.pf2e.actor .inventory-list .item .item-name > * {
+/* .pf2e.actor .inventory-list .item .item-name > * {
   flex: 1;
-}
+} */
 .pf2e.actor .inventory-list .item .item-name .item-image {
   flex: 0 0 24px;
   margin-right: 6px;
@@ -1474,8 +1494,8 @@
 }
 .pf2e.actor .spellbook .prepared-toggle {
   flex: 0 0 20px;
-  line-height: 20px;
-  margin-left: 5px;
+/*   line-height: 20px;
+  margin-left: 5px; */
 }
 .pf2e.actor .spellbook .inventory-list {
   height: calc(100% - 28px);

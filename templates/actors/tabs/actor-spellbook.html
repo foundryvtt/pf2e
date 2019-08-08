@@ -1,5 +1,46 @@
 <div class="tab spellbook" data-group="primary" data-tab="spellbook">
-        <div class="form-group spellcasting-ability">
+
+    <h3 class="item-name pf-heading pf-actions">Spellcasting</h3>
+        <ol class="skills-list">
+                <li class="skill" data-skill="spelldc">
+
+                    <span class="skill-score" title="{{data.attributes.spelldc.breakdown}}">{{data.attributes.spelldc.value}}</span>
+                    <h4 class="skill-name rollable">{{data.attributes.spelldc.label}}</h4>
+                    
+                    <div class="skill-container">
+                        <h4 class="skill-proficiency pf-title">Prof</h4>
+                        <input type="hidden" name="data.attributes.spelldc.rank" value="{{data.attributes.spelldc.rank}}" data-dtype="Number"/>
+                        <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{data.attributes.spelldc.hover}}">{{{data.attributes.spelldc.icon}}}</span>
+                    </div>
+                    <div class="skill-container">
+                        <h4 class="skill-item pf-title">Item</h4>
+                        <span class="skill-item pf-value" title="Item">
+                            <input name="data.attributes.spelldc.item" type="text" value="{{data.attributes.spelldc.item}}"
+                                    data-dtype="Number" placeholder="+0"/>
+                        </span>
+                    </div>
+    
+                </li>
+                <li class="pf-three-grid" data-skill="spelldc">
+                    <label class="skill-name">Spell Ability</label>
+                    <div class="skill-name">
+                        <select name="data.attributes.spellcasting.value" data-type="String">
+                            {{#select data.attributes.spellcasting.value}}
+                            <option value="">None</option>
+                            {{#each data.abilities as |abl a|}}
+                            <option value="{{a}}">{{abl.label}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                    <a class="skill-name prepared-toggle" title="Toggle Spell Visibility"><i class="fas fa-haykal"></i></a>
+                </li>
+
+
+        </ol>
+
+
+<!--         <div class="form-group spellcasting-ability">
             <label>Spellcasting Ability</label>
             <select name="data.attributes.spellcasting.value" data-type="String">
                 {{#select data.attributes.spellcasting.value}}
@@ -10,7 +51,7 @@
                 {{/select}}
             </select>
             <a class="prepared-toggle" title="Toggle Spell Visibility"><i class="fas fa-haykal"></i></a>
-        </div>
+        </div> -->
 
         <ol class="inventory-list directory-list">
         {{#each actor.spellbook as |section lvl|}}
