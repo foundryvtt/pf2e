@@ -7,7 +7,7 @@ Hooks.once("init", () => {
   /**
    * Register diagonal movement rule setting
    */
-  /* game.settings.register("dnd5e", "diagonalMovement", {
+/*   game.settings.register("pf2e", "diagonalMovement", {
     name: "SETTINGS.5eDiagN",
     hint: "SETTINGS.5eDiagL",
     scope: "world",
