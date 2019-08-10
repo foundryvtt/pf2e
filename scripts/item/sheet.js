@@ -21,6 +21,7 @@ class ItemSheetPF2e extends ItemSheet {
   getData() {
     const data = super.getData();
     data['abilities'] = game.system.template.actor.data.abilities;
+    data['saves'] = game.system.template.actor.data.saves;
 
     // Sheet display details
     const type = this.item.type;

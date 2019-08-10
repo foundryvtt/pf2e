@@ -5,14 +5,21 @@ CONFIG.damageTypes = {
   "cold": "Cold",
   "fire": "Fire",
   "force": "Force",
-  "lightning": "Lightning",
-  "necrotic": "Necrotic",
+  "electricity": "Electricity",
+  "sonic": "Sonic",
+  "negative": "Negative",
   "piercing": "Piercing",
   "poison": "Poison",
   "psychic": "Psychic",
-  "radiant": "Radiant",
+  "positive": "Positive",
+  "bleed": "Bleed",
+  "mental": "Mental",
+  "precision": "Precision",
   "slashing": "Slashing",
-  "thunder": "Thunder"
+  "chaotic": "Chaotic",
+  "lawful": "Lawful",
+  "good": "Good",
+  "evil": "Evil"
 };
 
 // Weapon Damage Types
@@ -178,6 +185,52 @@ CONFIG.consumableTypes = {
   "other": "Other"
 };
 
+// Spell Traits
+CONFIG.spellTraits = {
+  "attack": "Attack",
+  "disease": "Disease",
+  "polymorph": "Polymorph",
+  "incapacitation": "Incapacitation",
+  "uncommon": "Uncommon",
+  "rare": "Rare",
+  "plant": "Plant",
+  "teleportation": "Teleportation",
+  "illusion": "Illusion",
+  "visual": "Visual",
+  "emotion": "Emotion",
+  "darkness": "Darkness",
+  "death": "Death",
+  "scrying": "Scrying"
+}
+
+// Feat Traits
+CONFIG.featTraits = {
+  "general": "General",
+  "skill": "Skill",
+  "dwarf": "Dwarf",
+  "elf": "Elf",
+  "gnome": "Gnome",
+  "goblin": "Goblin",
+  "halfling": "Halfling",
+  "human": "Human",  
+  "alchemist": "Alchemist",
+  "barbarian": "Barbarian",
+  "bard": "Bard",
+  "champion": "Champion",
+  "cleric": "Cleric",
+  "druid": "Druid",
+  "fighter": "Fighter",
+  "monk": "Monk",
+  "ranger": "Ranger",
+  "rogue": "Rogue",
+  "sorcere": "Sorcere",
+  "wizard": "Wizard",
+  "fortune": "Fortune",
+  "healing": "Healing",
+  "manipulate": "Manipulate",
+  "downtime": "Downtime",
+  "secret": "Secret"
+}
 
 // Spell Components
 CONFIG.spellComponents = {
@@ -192,6 +245,14 @@ CONFIG.spellTypes = {
   "save": "Saving Throw",
   "heal": "Healing",
   "utility": "Utility"
+};
+
+// Spell Traditions
+CONFIG.spellTraditions = {
+  "arcane": "Arcane",
+  "divine": "Divine",
+  "occult": "Occult",
+  "primal": "Primal"
 };
 
 // Spell Schools

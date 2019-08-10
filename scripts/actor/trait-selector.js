@@ -33,7 +33,8 @@ class TraitSelector5e extends FormApplication {
 
     // Get current values
     let attr = getProperty(this.object.data, this.attribute);
-	  if ( typeof attr.value === "string" ) attr.value = this.constructor._backCompat(attr.value, this.options.choices);
+    if ( typeof attr.value === "string" ) attr.value = this.constructor._backCompat(attr.value, this.options.choices);
+    if (!attr.value) attr.value = "";
 
 	  // Populate choices
     const choices = duplicate(this.options.choices);

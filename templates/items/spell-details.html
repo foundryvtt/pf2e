@@ -21,6 +21,19 @@
 </div>
 
 <div class="form-group">
+    <label for="data.traditions">
+        {{data.traditions.label}}
+        <a class="trait-selector" data-options="spellTraditions"><i class="fas fa-edit"></i></a>
+    </label>
+    <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
+    <ul class="traits-list">
+        {{#each data.traditions.value as |v k|}}
+            <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group">
     <label>{{data.school.label}}</label>
     <select name="data.school.value" data-dtype="{{data.school.type}}">
         {{#select data.school.value}}
@@ -53,7 +66,7 @@
     <select name="data.save.value" data-dtype="{{data.save.type}}">
         {{#select data.save.value}}
         <option value=""></option>
-        {{#each abilities as |ability a|}}
+        {{#each saves as |ability a|}}
         <option value="{{a}}">{{ability.label}}</option>
         {{/each}}
         {{/select}}
@@ -91,8 +104,8 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.concentration.label}}</label>
-    <input type="checkbox" name="data.concentration.value" value="1" data-dtype="{{data.concentration.type}}" {{checked data.concentration.value}}/>
+    <label>{{data.sustained.label}}</label>
+    <input type="checkbox" name="data.sustained.value" value="1" data-dtype="{{data.sustained.type}}" {{checked data.sustained.value}}/>
 </div>
 
  <div class="form-group">
@@ -115,4 +128,17 @@
  <div class="form-group">
     <label>{{data.prepared.label}}</label>
     <input type="checkbox" name="data.prepared.value" value="1" data-dtype="Boolean" {{checked data.prepared.value}}/>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits">
+        {{data.traits.label}}
+        <a class="trait-selector" data-options="spellTraits"><i class="fas fa-edit"></i></a>
+    </label>
+    <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
+    <ul class="traits-list">
+        {{#each data.traits.value as |v k|}}
+            <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
 </div>

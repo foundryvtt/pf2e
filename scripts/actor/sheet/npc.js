@@ -1,10 +1,10 @@
 
 
-class ActorSheet5eNPC extends ActorSheet5e {
+class ActorSheetPF2eNPC extends ActorSheetPF2e {
 	static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {
-      classes: options.classes.concat(["dnd5e", "actor", "npc-sheet"]),
+      classes: options.classes.concat(["pf2e", "actor", "npc-sheet"]),
       width: 650,
       height: 680,
       showUnpreparedSpells: true
@@ -19,7 +19,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/dnd5e/templates/actors/";
+    const path = "public/systems/pf2e/templates/actors/";
     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
     return path + "npc-sheet.html";
   }
@@ -33,9 +33,9 @@ class ActorSheet5eNPC extends ActorSheet5e {
     const sheetData = super.getData();
 
     // Level and CR
-    let cr = sheetData.data.details.cr;
+/*     let cr = sheetData.data.details.cr;
     let crs = {0: "0", 0.125: "1/8", 0.25: "1/4", 0.5: "1/2"};
-    cr["str"] = (cr.value >= 1) ? String(cr.value) : crs[cr.value] || 0;
+    cr["str"] = (cr.value >= 1) ? String(cr.value) : crs[cr.value] || 0; */
 
     // Return data for rendering
     return sheetData;
@@ -128,7 +128,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
 }
 
 // Register NPC Sheet
-Actors.registerSheet("dnd5e", ActorSheet5eNPC, {
+Actors.registerSheet("pf2e", ActorSheetPF2eNPC, {
   types: ["npc"],
   makeDefault: true
 });

@@ -12,7 +12,7 @@ class ActorPF2e extends Actor {
 
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
-    //else if ( actorData.type === "npc" ) this._prepareNPCData(data);
+    else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
     // Ability modifiers
     for (let abl of Object.values(data.abilities)) {
@@ -42,7 +42,8 @@ class ActorPF2e extends Actor {
     let spellProficiency = data.attributes.spelldc.rank ? (data.attributes.spelldc.rank * 2) + data.details.level.value : 0;
     let spellAbl = data.attributes.spellcasting.value || "int";
     data.attributes.spelldc.value = data.abilities[spellAbl].mod + spellProficiency + data.attributes.spelldc.item;
-    data.attributes.spelldc.breakdown = `${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
+    data.attributes.spelldc.dc = data.attributes.spelldc.value + 10
+    data.attributes.spelldc.breakdown = `10 + ${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
 
 
     // Skill modifiers
@@ -112,13 +113,15 @@ class ActorPF2e extends Actor {
   /**
    * Prepare NPC type specific data
    */
-  /* _prepareNPCData(data) {
+  _prepareNPCData(data) {
 
     // CR, kill exp, and proficiency
-    data.details.cr.value = parseFloat(data.details.cr.value) || 0;
+/*     data.details.cr.value = parseFloat(data.details.cr.value) || 0;
     data.details.xp.value = this.getCRExp(data.details.cr.value);
-    data.attributes.prof.value = Math.floor((Math.max(data.details.cr.value, 1) + 7) / 4);
-  } */
+    data.attributes.prof.value = Math.floor((Math.max(data.details.cr.value, 1) + 7) / 4); */
+
+    
+  }
 
   /* -------------------------------------------- */
 

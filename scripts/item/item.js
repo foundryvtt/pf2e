@@ -142,9 +142,10 @@ class ItemPF2e extends Item {
 
     // Spell saving throw text and DC
     data.isSave = data.spellType.value === "save";
-    if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
+    //if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
+    if ( data.ability.value ) data.save.dc = ad.attributes.spelldc.dc;
     else data.save.dc = ad.attributes.spelldc.value;
-    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    data.save.str = data.save.value ? this.actor.data.data.saves[data.save.value].label : "";
 
     // Spell attack labels
     data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
@@ -158,7 +159,7 @@ class ItemPF2e extends Item {
       data.target.value,
       data.time.value,
       data.duration.value,
-      data.concentration.value ? "Concentration" : null,
+      data.sustained.value ? "Concentration" : null,
       data.ritual.value ? "Ritual" : null
     ];
     data.properties = props.filter(p => p !== null);

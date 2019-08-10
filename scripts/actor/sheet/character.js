@@ -323,6 +323,7 @@ Actors.registerSheet("pf2e", ActorSheetPF2eCharacter, {
 // hooks into different sheet via their rendering
 //Hooks.on(`renderActorSheetPF2eNPC`, (app, html, data) => { addItemSheetButtons(app, html, data); });
 Hooks.on(`renderActorSheetPF2eCharacter`, (app, html, data) => { addItemSheetButtons(app, html, data); });
+Hooks.on(`renderBetterNPCActor5eSheet`, (app, html, data) => { addItemSheetButtons(app, html, data, '.item .npc-item-name'); });
 
 
 
