@@ -20,8 +20,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
    */
   get template() {
     const path = "public/systems/pf2e/templates/actors/";
-    if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
-    return path + "npc-sheet.html";
+    return path + "limited-sheet.html";
+/*     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
+    return path + "npc-sheet.html"; */
   }
 
   /* -------------------------------------------- */
@@ -31,11 +32,6 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
    */
   getData() {
     const sheetData = super.getData();
-
-    // Level and CR
-/*     let cr = sheetData.data.details.cr;
-    let crs = {0: "0", 0.125: "1/8", 0.25: "1/4", 0.5: "1/2"};
-    cr["str"] = (cr.value >= 1) ? String(cr.value) : crs[cr.value] || 0; */
 
     // Return data for rendering
     return sheetData;
@@ -95,12 +91,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     if ( !this.options.editable ) return;
 
     /* Roll NPC HP */
-    html.find('.npc-roll-hp').click(ev => {
+/*     html.find('.npc-roll-hp').click(ev => {
       let ad = this.actor.data.data;
       let hp = new Roll(ad.attributes.hp.formula).roll().total;
       AudioHelper.play({src: CONFIG.sounds.dice});
       this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
-    });
+    }); */
   }
 
   /* -------------------------------------------- */
@@ -111,7 +107,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
    * @param formData {Object}   The object of validated form data with which to update the object
    * @private
    */
-  _updateObject(event, formData) {
+/*   _updateObject(event, formData) {
 
     // Format NPC Challenge Rating
     if (this.actor.data.type === "npc") {
@@ -124,7 +120,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
-  }
+  } */
 }
 
 // Register NPC Sheet

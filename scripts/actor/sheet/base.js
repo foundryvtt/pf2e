@@ -19,7 +19,6 @@ class ActorSheetPF2e extends ActorSheet {
    */
   getData() {
     const sheetData = super.getData();
-    console.log("sheetData: ", sheetData);
 
     // Update martial skill labels
     for ( let skl of Object.values(sheetData.data.martial)) {
@@ -120,13 +119,6 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getProficiencyIcon(level) {
-/*     const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="far fa-circle"></i>',
-      4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>'
-    }; */
     const icons = {
       0: '',
       1: '<i class="fas fa-check-circle"></i>',
@@ -167,7 +159,9 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Item summaries
-    html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+    html.find('.item .item-name h4').click(event => {
+      this._onItemSummary(event)
+    });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -241,7 +235,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Item Rolling
-    //html.find('.item .item-image').click(event => this._onItemRoll(event));
+    html.find('.item .item-image').click(event => this._onItemRoll(event));
 
     // Lore Item Rolling
     html.find('.item .lore-name').click(event => {
@@ -324,10 +318,60 @@ class ActorSheetPF2e extends ActorSheet {
       let props = $(`<div class="item-properties"></div>`);
       chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       div.append(props);
+
+      let buttons = $(`<div class="item-buttons"></div>`);
+      switch (item.data.type) {
+          case 'action':
+              if (chatData.weapon.value) {    
+                if (chatData.weapon.value) {
+                  buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
+                  buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);                  
+                } 
+              }
+              break;
+          case 'weapon':
+              buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
+              buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);              
+              break;
+          case 'spell':
+              if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
+              if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
+              if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}</button></span>`);
+              break;
+          case 'consumable':
+              if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">Use ${item.name}</button></span>`);
+              break;
+          case 'tool':
+              buttons.append(`<span class="tag"><button data-action="toolCheck" data-ability="${chatData.ability.value}">Use ${item.name}</button></span>`);
+              break;
+      }
+
+      div.append(buttons);
+
+      buttons.find('button').click(ev => {
+          ev.preventDefault();
+          ev.stopPropagation();
+
+          // which function gets called depends on the type of button stored in the dataset attribute action
+          switch (ev.target.dataset.action) {
+              case 'weaponAttack': item.rollWeaponAttack(ev); break;
+              case 'weaponDamage': item.rollWeaponDamage(ev); break;
+              case 'spellAttack': item.rollSpellAttack(ev); break;
+              case 'spellDamage': item.rollSpellDamage(ev); break;
+              case 'featAttack': item.rollFeatAttack(ev); break;
+              case 'featDamage': item.rollFeatDamage(ev); break;
+              case 'consume': item.rollConsumable(ev); break;
+              case 'toolCheck': item.rollToolCheck(ev); break;
+          }            
+      });
+
       li.append(div.hide());
       div.slideDown(200);
     }
     li.toggleClass("expanded");
+  
+
+  
   }
 
 
@@ -343,9 +387,13 @@ class ActorSheetPF2e extends ActorSheet {
         data = duplicate(header.dataset);
     
     if (data.type === "feat") {
-        data["name"] = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;    
+      data["name"] = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;    
       mergeObject(data, {"data.featType.value": data.featType});
-    } else {
+    } else if (data.type === "action") {
+      data["name"] = `New ${data.actionType.capitalize()}`;    
+      mergeObject(data, {"data.actionType.value": data.actionType});
+    }
+    else {
       data["name"] = `New ${data.type.capitalize()}`;    
     }
     this.actor.createOwnedItem(data, {renderSheet: true});
@@ -367,32 +415,4 @@ class ActorSheetPF2e extends ActorSheet {
 
 Actors.unregisterSheet("core", ActorSheet);
 
-
-
-/* -------------------------------------------- */
-
-
-/**
- * A helper Dialog subclass for rolling Hit Dice on short rest
- * @type {Dialog}
- */
-/* class ShortRestDialog extends Dialog {
-  constructor(actor, dialogData, options) {
-    super(dialogData, options);
-    this.actor = actor;
-  }
-
-  activateListeners(html) {
-    super.activateListeners(html);
-    let btn = html.find("#roll-hd");
-    if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
-    btn.click(ev => {
-      event.preventDefault();
-      let fml = ev.target.form.hd.value;
-      this.actor.rollHitDie(fml).then(roll => {
-        if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
-      });
-    })
-  }
-} */
 

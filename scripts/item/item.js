@@ -195,6 +195,29 @@ class ItemPF2e extends Item {
     return data;
   }
 
+  _actionChatData() {
+    const data = duplicate(this.data.data),
+          ad = this.actor.data.data;
+
+/*     // Feat button actions
+    data.isSave = data.save.value !== "";
+    if ( data.isSave ) {
+      let abl = data.ability.value || ad.attributes.spellcasting.value || "str";
+      data.save.dc = 8 + ad.abilities[abl].mod + ad.attributes.prof.value;
+      data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    }
+
+    // Feat attack attributes
+    data.isAttack = data.featType.value === "attack"; */
+
+    // Feat properties
+    const props = [
+      data.traits.value
+    ];
+    data.properties = props.filter(p => p);
+    return data;
+  }
+
   /* -------------------------------------------- */
   /*  Roll Attacks
   /* -------------------------------------------- */
@@ -204,7 +227,13 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollWeaponAttack(event) {
-    if ( this.type !== "weapon" ) throw "Wrong item type!";
+    if ( this.type === "action" ) {
+      let itemId = parseInt(this.data.data.weapon.value),
+          item = this.actor.getOwnedItem(itemId);
+      item.rollWeaponAttack(event);
+      return;
+    }
+    else if ( this.type !== "weapon" ) throw "Wrong item type!";
 
     // Prepare roll data
     let itemData = this.data.data,
@@ -241,7 +270,13 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollWeaponDamage(event, alternate=false) {
-    if ( this.type !== "weapon" ) throw "Wrong item type!";
+    if ( this.type === "action" ) {
+      let itemId = parseInt(this.data.data.weapon.value),
+          item = this.actor.getOwnedItem(itemId);
+      item.rollWeaponDamage(event);
+      return;
+    } 
+    else if ( this.type !== "weapon" ) throw "Wrong item type!";
 
     // Get data
     let itemData = this.data.data,

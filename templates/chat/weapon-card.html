@@ -1,4 +1,4 @@
-<div class="dnd5e chat-card weapon-card" data-actor-id="{{actor._id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="pf2e chat-card weapon-card" data-actor-id="{{actor._id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
         <h3>{{item.name}}</h3>
@@ -8,8 +8,7 @@
 
     <div class="card-buttons">
         <button data-action="weaponAttack">Attack</button>
-        {{#if data.damage.value}}<button data-action="weaponDamage">Damage</button>{{/if}}
-        {{#if data.damage2.value}}<button data-action="weaponDamage2">Alt. Damage</button>{{/if}}
+        <button data-action="weaponDamage">Damage</button>
     </div>
 
     <footer class="card-footer">

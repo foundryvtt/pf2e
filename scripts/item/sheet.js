@@ -29,7 +29,7 @@ class ItemSheetPF2e extends ItemSheet {
       type: type,
       hasSidebar: true,
       sidebarTemplate: () => `public/systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor"].includes(type),
+      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor", "action"].includes(type),
       detailsTemplate: () => `public/systems/pf2e/templates/items/${type}-details.html`
     });
 
@@ -70,9 +70,24 @@ class ItemSheetPF2e extends ItemSheet {
     // Feat types
     else if ( type === "feat" ) {
       data.featTypes = CONFIG.featTypes;
-      data.actionTypes = CONFIG.actionTypes;
+      data.featActionTypes = CONFIG.featActionTypes;
       data.featTags = [
         data.data.level.value,
+        data.data.traits.value
+      ].filter(t => !!t);
+    }
+
+    // Action types
+    else if ( type === "action" ) {
+      //data.featTypes = CONFIG.featTypes;
+      //data["weapons"] = game.system.template.item.data.weapon;
+      let actorWeapons = [];
+      for ( let i of this.actor.data.items ) {
+        if (i.type === "weapon") actorWeapons.push(i);
+      }
+      data["weapons"] = actorWeapons;
+      data.actionTypes = CONFIG.actionTypes;
+      data.actionTags = [
         data.data.traits.value
       ].filter(t => !!t);
     }

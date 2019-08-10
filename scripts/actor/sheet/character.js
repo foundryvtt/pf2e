@@ -37,13 +37,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     if (hp.temp === 0) delete hp.temp;
     if (hp.tempmax === 0) delete hp.tempmax;
 
-    // Resources
-/*     let res = sheetData.data.resources;
-    if (res.primary && res.primary.value === 0) delete res.primary.value;
-    if (res.primary && res.primary.max === 0) delete res.primary.max;
-    if (res.secondary && res.secondary.value === 0) delete res.secondary.value;
-    if (res.secondary && res.secondary.max === 0) delete res.secondary.max; */
-
     // Return data for rendering
     return sheetData;
   }
@@ -69,7 +62,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const spellbook = {};
 
     // Feats
-    //const feats = [];
     const feats = {
       "ancestry": { label: "Ancestry Feats", feats: [] },
       "skill": { label: "Skill Feats", feats: [] },
@@ -101,11 +93,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
         //totalWeight += i.totalWeight;
-
-        // Do I need to change this so it works with different types of Strikes?
-        if (i.type === "weapon") {
-          actions["action"].actions.push(i);
-        }
       }
 
       // Spells
@@ -127,8 +114,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
           i.feat = true; 
           actions[actionType].actions.push(i);
         }
-
-        //feats.push(i);
       }
 
       // Lore Skills
@@ -148,10 +133,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Actions
-      if ( Object.keys(actions).includes(i.type) ) {
-        actions[i.type].actions.push(i);
+      if ( i.type === "action" ) {
+        let actionType = i.data.actionType.value || "action";
+        if (actionType != "passive") actions[actionType].actions.push(i);       
       }
-      /* else if ( Object.keys(feats).includes(i.type) ) feats[i.type].feats.push(i); */
     }
 
     // Assign and return
@@ -222,98 +207,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     super.activateListeners(html);
     if ( !this.options.editable ) return;
 
-    // Short and Long Rest
-/*     html.find('.short-rest').click(this._onShortRest.bind(this));
-    html.find('.long-rest').click(this._onLongRest.bind(this)); */
-    
-    // Configure Special Flags
-    /* html.find('.configure-flags').click(this._onConfigureFlags.bind(this)); */
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Handle click events for the Traits tab button to configure special Character Flags
-   */
-/*   _onConfigureFlags(event) {
-    event.preventDefault();
-    new ActorSheetFlags(this.actor).render(true);
-  } */
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a short rest, calling the relevant function on the Actor instance
-   * @private
-   */
-  /* _onShortRest(event) {
-    event.preventDefault();
-    let hd0 = this.actor.data.data.attributes.hd.value,
-        hp0 = this.actor.data.data.attributes.hp.value;
-    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
-      new ShortRestDialog(this.actor, {
-        title: "Short Rest",
-        content: html,
-        buttons: {
-          rest: {
-            icon: '<i class="fas fa-bed"></i>',
-            label: "Rest",
-            callback: dlg => {
-              this.actor.shortRest();
-              let dhd = hd0 - this.actor.data.data.attributes.hd.value,
-                  dhp = this.actor.data.data.attributes.hp.value - hp0;
-              let msg = `${this.actor.name} takes a short rest spending ${dhd} Hit Dice to recover ${dhp} Hit Points.`;
-              ChatMessage.create({
-                user: game.user._id,
-                speaker: {actor: this.actor, alias: this.actor.name},
-                content: msg
-              });
-            }
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: "Cancel"
-          },
-        },
-        default: 'rest'
-      }).render(true);
-    });
-  } */
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a long rest, calling the relevant function on the Actor instance
-   * @private
-   */
-  /* _onLongRest(event) {
-    event.preventDefault();
-    new Dialog({
-      title: "Long Rest",
-      content: '<p>Take a long rest?</p><p>On a long rest you will recover hit points, half your maximum hit dice, ' +
-        'primary or secondary resources, and spell slots per day.</p>',
-      buttons: {
-        rest: {
-          icon: '<i class="fas fa-bed"></i>',
-          label: "Rest",
-          callback: dlg => {
-            let update = this.actor.longRest();
-            let msg = `${this.actor.name} takes a long rest and recovers ${update.dhp} Hit Points and ${update.dhd} Hit Dice.`;
-            ChatMessage.create({
-              user: game.user._id,
-              speaker: {actor: this.actor, alias: this.actor.name},
-              content: msg
-            });
-          }
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel"
-        },
-      },
-      default: 'rest'
-    }).render(true);
-  } */
 }
 
 // Register Character Sheet
@@ -321,79 +216,3 @@ Actors.registerSheet("pf2e", ActorSheetPF2eCharacter, {
   types: ["character"],
   makeDefault: true
 });
-
-
-// hooks into different sheet via their rendering
-//Hooks.on(`renderActorSheetPF2eNPC`, (app, html, data) => { addItemSheetButtons(app, html, data); });
-Hooks.on(`renderActorSheetPF2eCharacter`, (app, html, data) => { addItemSheetButtons(app, html, data); });
-Hooks.on(`renderBetterNPCActor5eSheet`, (app, html, data) => { addItemSheetButtons(app, html, data, '.item .npc-item-name'); });
-
-
-
-/**
- * this function adds the buttons and their functionality to the sheet
- * @param {String} triggeringElement - this is the html selector string that opens the description - mostly optional for different sheetclasses
- * @param {String} buttonContainer - this is the html selector string to which the buttons will be prepended - mostly optional for different sheetclasses
- */
-function addItemSheetButtons(app, html, data, triggeringElement = '', buttonContainer = '') {
-    // setting default element selectors
-    if (triggeringElement === '') triggeringElement = '.item .item-name h4';
-    if (buttonContainer === '') buttonContainer = '.item-properties';
-
-    // adding an event for when the description is shown
-    html.find(triggeringElement).click(event => {
-        let li = $(event.currentTarget).parents(".item");
-        let item = app.object.getOwnedItem(Number(li.attr("data-item-id")));
-        let chatData = item.getChatData();
-
-        if (!li.hasClass("expanded")) return;  // this is a way to not continue if the items description is not shown, but its only a minor gain to do this while it may break this module in sheets that dont use "expanded"
-
-        // Create the buttons
-        let buttons = $(`<div class="item-buttons"></div>`);
-        switch (item.data.type) {
-            case 'weapon':
-                //let attackBonus = 
-                buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
-                if (item.data.data.damage.die) buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);
-                break;
-            case 'spell':
-                if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
-                if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
-                if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}</button></span>`);
-                break;
-            case 'consumable':
-                if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">Use ${item.name}</button></span>`);
-                break;
-            case 'tool':
-                buttons.append(`<span class="tag"><button data-action="toolCheck" data-ability="${chatData.ability.value}">Use ${item.name}</button></span>`);
-                break;
-
-        }
-
-        // adding the buttons to the sheet
-        targetHTML = $(event.target.parentNode.parentNode)
-        targetHTML.find(buttonContainer).prepend(buttons);
-
-        //html.find(buttonContainer).prepend(buttons);
-
-        // adding click event for all buttons
-        buttons.find('button').click(ev => {
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
-                case 'weaponAttack': item.rollWeaponAttack(ev); break;
-                case 'weaponDamage': item.rollWeaponDamage(ev); break;
-                case 'weaponDamage2': item.rollWeaponDamage(ev, true); break;
-                case 'spellAttack': item.rollSpellAttack(ev); break;
-                case 'spellDamage': item.rollSpellDamage(ev); break;
-                case 'featAttack': item.rollFeatAttack(ev); break;
-                case 'featDamage': item.rollFeatDamage(ev); break;
-                case 'consume': item.rollConsumable(ev); break;
-                case 'toolCheck': item.rollToolCheck(ev); break;
-            }            
-        });
-
-    });
-};

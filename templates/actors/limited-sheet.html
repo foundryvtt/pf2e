@@ -7,15 +7,113 @@
         </h1>
     </header>
 
+<!-- SIDEBAR -->
+<section class="sheet-sidebar sidebar">
+
+        <!-- ABILITY SCORES -->
+        <div class="abilities" data-group="sidebar" data-tab="abilities">
+            
+            <h3 class="ac-title pf-heading">Defences</h3>
+            <ol class="npc-defence-list">                
+                <span class="armor-class" title="Armor Class">
+                    <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                </span>
+                <span class="shield-value" title="Shield Bonus">
+                    <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                            data-dtype="Number" placeholder="+0"/>
+                </span> 
+                <div class="hp-current pf-container">
+                        <h4 class="hp-current pf-title">Current HP</h4>
+                        <span class="hp-current pf-value pf-large" title="Your current hit points">
+                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>
+                    <div class="hp-max pf-container">
+                        <h4 class="hp-max pf-title">Max HP</h4>
+                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                            <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>             
+            </ol>
+
+<!--             <h3 class="hp-title pf-heading">Hit Points</h3>
+            <ol class="hp-list">                
+                    <div class="hp-current pf-container">
+                        <h4 class="hp-current pf-title">Current HP</h4>
+                        <span class="hp-current pf-value pf-large" title="Your current hit points">
+                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>
+                    <div class="hp-max pf-container">
+                        <h4 class="hp-max pf-title">Max HP</h4>
+                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                            <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>
+                    <div class="hp-temp pf-container">
+                        <h4 class="hp-temp pf-title">Temp</h4>
+                        <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
+                            <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
+                </ol> -->
+                
+            <h3 class="defense-title pf-heading">Perception</h3>
+            <ol class="defense-list">                
+                    
+                    <li class="defense" data-attribute="perception">
+                        <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
+                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                     
+                    </li>
+                
+            </ol>
+
+
+            <h3 class="defense-title pf-heading">Saves</h3>
+            <ol class="defense-list">
+                
+                {{#each data.saves as |save sid|}}
+                    <li class="defense" data-save="{{sid}}">
+                        <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
+                        <h4 class="save-name rollable">{{save.label}}</h4>                    
+                    </li>
+                {{/each}}
+            </ol>
+            
+
+<!--             <h3 class="abilities-title pf-heading">Ability Scores</h3>
+            <ol class="abilities-list">
+                {{#each data.abilities as |ability id|}}
+                    <li class="ability" data-ability="{{id}}">
+                        <h4 class="ability-name">{{ability.label}}</h4>
+                        <span class="ability-id" title="Ability">{{id}}</span>
+                        <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+                        <span class="ability-score" title="Score">
+                            <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}"
+                                   data-dtype="Number" placeholder="10"/>
+                        </span>
+                        
+                    </li>
+                {{/each}}
+            </ol> -->
+        </div>
+    </section>
+
     <!-- BODY -->
-    <section class="sheet-body">
+    <section class="sheet-body content">
         <div class="tab biography">
             {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
         </div>
     </section>
 
     <!-- SIDEBAR -->
-    <section class="sheet-sidebar">
+<!--     <section class="sheet-sidebar sidebar">
         <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
-    </section>
+    </section> -->
 </form>

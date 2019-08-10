@@ -292,9 +292,16 @@ CONFIG.featTypes = {
   "class": "Class Feat"  
 };
 
-// Feat Types
-CONFIG.actionTypes = {
+// Feat Action Types
+CONFIG.featActionTypes = {
   "passive": "Passive",
+  "action": "Action",
+  "reaction": "Reaction",
+  "free": "Free Action"
+};
+
+// Action Action Types
+CONFIG.actionTypes = {
   "action": "Action",
   "reaction": "Reaction",
   "free": "Free Action"

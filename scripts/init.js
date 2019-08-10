@@ -70,6 +70,8 @@ Hooks.once("init", () => {
     "public/systems/pf2e/templates/actors/actor-classes.html",
 
     // Item Sheet Partials
+    "public/systems/pf2e/templates/items/action-details.html",
+    "public/systems/pf2e/templates/items/action-sidebar.html",
     "public/systems/pf2e/templates/items/armor-details.html",
     "public/systems/pf2e/templates/items/armor-sidebar.html",
     "public/systems/pf2e/templates/items/backpack-sidebar.html",
