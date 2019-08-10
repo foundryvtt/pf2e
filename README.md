@@ -10,6 +10,10 @@ Please Note:
 - This is a fork of the dnd5e system so there may still be references to dnd5e in places and the assets from 5e are included for now (I plan to use them soon).
 - If you find any issues or have any feedback please let me know.
 
+Known Issues:
+- AC is not automatically calculated, Just enter it in the input field.
+- Critical damage is not calculated currently.
+
 ### FVTT Version:
 - Tested with FVTT v0.3.4.
 
