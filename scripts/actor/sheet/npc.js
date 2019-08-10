@@ -48,9 +48,15 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Actions
     const features = {
       weapons: {label: "Weapons", items: [], type: "weapon" },
-      actions: { label: "Actions", items: [], type: "feat" },
-      passive: { label: "Features", items: [], type: "feat" },
       equipment: { label: "Equipment", items: [], type: "equipment" }
+    };
+
+    // Actions
+    const actions = {
+      "action": { label: "Actions", actions: [] },
+      "reaction": { label: "Reactions", actions: [] },
+      "free": { label: "Free Actions", actions: [] },
+      "passive": { label: "Passive Actions", actions: [] },
     };
 
     // Spellbook
@@ -65,14 +71,15 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
       // Features
       else if ( i.type === "weapon" ) features.weapons.items.push(i);
-      else if ( i.type === "feat" ) {
-        if ( i.data.featType.value === "passive" ) features.passive.items.push(i);
-        else features.actions.items.push(i);
+      else if ( i.type === "action" ) {
+        let actionType = i.data.actionType.value || "action";
+        actions[actionType].actions.push(i);       
       }
-      else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
+      else if (["equipment", "armor", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
     }
 
     // Assign and return
+    actorData.actions = actions;
     actorData.features = features;
     actorData.spellbook = spellbook;
   }

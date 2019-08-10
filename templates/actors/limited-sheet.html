@@ -38,38 +38,16 @@
                         </span>
                     </div>             
             </ol>
-
-<!--             <h3 class="hp-title pf-heading">Hit Points</h3>
-            <ol class="hp-list">                
-                    <div class="hp-current pf-container">
-                        <h4 class="hp-current pf-title">Current HP</h4>
-                        <span class="hp-current pf-value pf-large" title="Your current hit points">
-                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
-                                    data-dtype="Number" placeholder="10"/>
-                        </span>
-                    </div>
-                    <div class="hp-max pf-container">
-                        <h4 class="hp-max pf-title">Max HP</h4>
-                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
-                            <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
-                                    data-dtype="Number" placeholder="10"/>
-                        </span>
-                    </div>
-                    <div class="hp-temp pf-container">
-                        <h4 class="hp-temp pf-title">Temp</h4>
-                        <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
-                            <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
-                                    data-dtype="Number" placeholder="0"/>
-                        </span>
-                    </div>
-                </ol> -->
-                
+               
             <h3 class="defense-title pf-heading">Perception</h3>
             <ol class="defense-list">                
                     
-                    <li class="defense" data-attribute="perception">
-                        <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
-                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                     
+                    <li class="npc-defense" data-attribute="perception">
+                        <span class="defense-score">
+                        <input name="data.attributes.perception.value" type="text" value="{{data.attributes.perception.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                             
                     </li>
                 
             </ol>
@@ -79,37 +57,114 @@
             <ol class="defense-list">
                 
                 {{#each data.saves as |save sid|}}
-                    <li class="defense" data-save="{{sid}}">
-                        <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
+                    <li class="npc-defense" data-save="{{sid}}">
+                        <span class="defense-score" title="{{save.breakdown}}">
+                                <input name="data.saves.{{sid}}.value" type="text" value="{{save.value}}"
+                                data-dtype="Number" placeholder="10"/>
+                        </span>
                         <h4 class="save-name rollable">{{save.label}}</h4>                    
                     </li>
                 {{/each}}
             </ol>
-            
 
-<!--             <h3 class="abilities-title pf-heading">Ability Scores</h3>
-            <ol class="abilities-list">
-                {{#each data.abilities as |ability id|}}
-                    <li class="ability" data-ability="{{id}}">
-                        <h4 class="ability-name">{{ability.label}}</h4>
-                        <span class="ability-id" title="Ability">{{id}}</span>
-                        <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-                        <span class="ability-score" title="Score">
-                            <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}"
-                                   data-dtype="Number" placeholder="10"/>
+            <h3 class="defense-title pf-heading">Traits</h3>
+            <ol class="bio-list">                
+                    
+                    <div class="bio-item trait-size pf-container">    
+                            <label class="pf-title">{{data.traits.size.label}}</label>
+                            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
+                                {{#select data.traits.size.value}}
+                                {{#each actorSizes as |label size|}}
+                                    <option value="{{size}}">{{label}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>                        
+                    </div>
+                    
+                    <div class="npc-bio-item trait-size pf-container">
+                        <label class="pf-title">Speed</label>
+                        <span class="pf-value pf-small pf-width-100" title="Your characters speed">
+                            <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
+                                value="{{data.attributes.speed.value}}" placeholder="None"/>
                         </span>
-                        
-                    </li>
-                {{/each}}
-            </ol> -->
+                    </div>
+                
+            </ol>
+            <h3 class="defense-title pf-heading" for="data.traits.skills">
+                Skills
+                <!-- <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a> -->
+            </h3>
+            
         </div>
     </section>
 
     <!-- BODY -->
     <section class="sheet-body content">
-        <div class="tab biography">
-            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
-        </div>
+        
+            <!-- Actions -->
+            <ol class="actions-list inventory-list directory-list">
+                {{#each actor.actions as |section sid|}}
+                    <li class="item action-header">
+                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Action" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{#each section.actions as |action aid|}}
+                    <li class="item" data-item-id="{{action.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{action.img}})"></div>
+                            <h4>
+                                {{action.name}}
+                            </h4>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            {{#unless action.feat}}
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            {{/unless}}
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+            </ol>
+
+            <!-- Inventory -->
+<!--             <ol class="actions-list inventory-list directory-list">
+                {{#each actor.features as |section sid|}}
+                    <li class="item action-header">
+                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Feature" data-type="{{sid}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{#each section.actions as |action aid|}}
+                    <li class="item" data-item-id="{{action.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{action.img}})"></div>
+                            <h4>
+                                {{action.name}}
+                            </h4>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            {{#unless action.feat}}
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            {{/unless}}
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+            </ol> -->
+        
     </section>
 
     <!-- SIDEBAR -->

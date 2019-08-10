@@ -124,13 +124,13 @@ class DicePF2e {
     let roll = () => {
       let roll = new Roll(parts.join("+"), data),
           flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if ( crit ) {
+/*       if ( crit ) {
         console.log(data);
-        let add = actor && actor.getFlag("dnd5e", "savageAttacks") ? 1 : 0;
+        let add = actor;
         let mult = 2;
         roll.alter(add, mult);
         flav = `${title} (Critical)`;
-      }
+      } */
 
       // Execute the roll and send it to chat
       roll.toMessage({
