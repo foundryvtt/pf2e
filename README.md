@@ -2,8 +2,6 @@
 
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
-![example](preview.gif)
-
 ### PF2e Version
 v0.21: This is the initial alpha release of the Pathfinder Second Edition system.
 
