@@ -140,6 +140,7 @@ CONFIG.damageDie = {
 CONFIG.weaponRange = {
   "melee": "Melee",
   "reach": "Reach",
+  "10": "10 ft.",
   "20": "20 ft.",
   "30": "30 ft.",
   "40": "40 ft.",

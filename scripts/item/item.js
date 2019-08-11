@@ -59,10 +59,10 @@ class ItemPF2e extends Item {
     const properties = [
       CONFIG.armorTypes[data.armorType.value],
       CONFIG.armorGroups[data.group.value],
-      "+" + data.armor.value + " AC Bonus",
-      data.dex.value + " Dex Cap",
-      data.check.value + " Check Penalty",
-      data.speed.value + " Speed Penalty",
+      "+" + (data.armor.value ? data.armor.value : 0) + " AC Bonus",
+      (data.dex.value || 0) + " Dex Cap",
+      (data.check.value || 0) + " Check Penalty",
+      (data.speed.value || 0) + " Speed Penalty",
       data.traits.value,
       data.equipped.value ? "Equipped" : null
     ];

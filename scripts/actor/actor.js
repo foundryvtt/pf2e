@@ -102,6 +102,10 @@ class ActorPF2e extends Actor {
    */
   _prepareNPCData(data) {
 
+    // As we only capture the NPCs Spell DC attribute, we need to calculate the Spell Attack Roll.
+    // see sidebar on p298 of pf2e core rulebook. 
+    data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
+
   }
 
   /* -------------------------------------------- */

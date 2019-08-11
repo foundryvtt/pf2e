@@ -20,7 +20,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
    */
   get template() {
     const path = "public/systems/pf2e/templates/actors/";
-    return path + "limited-sheet.html";
+    return path + "npc-sheet.html";
 /*     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
     return path + "npc-sheet.html"; */
   }
