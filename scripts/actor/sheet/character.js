@@ -110,7 +110,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         let actionType = i.data.actionType.value || "passive";
         
         feats[featType].feats.push(i);
-        if ( Object.keys(actions).includes(actionType) && (!actionType === "passive")) {
+        if ( Object.keys(actions).includes(actionType)) {
           i.feat = true; 
           actions[actionType].actions.push(i);
         }
