@@ -237,6 +237,28 @@ class ActorSheetPF2e extends ActorSheet {
     // Item Rolling
     html.find('.item .item-image').click(event => this._onItemRoll(event));
 
+    // Melee Rolling
+    html.find('button').click(ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+          //item = this.actor.items.find(i => { return i.id === itemId });
+          item = this.actor.getOwnedItem(itemId);
+
+      // which function gets called depends on the type of button stored in the dataset attribute action
+      switch (ev.target.dataset.action) {
+          case 'weaponAttack': item.rollWeaponAttack(ev); break;
+          case 'weaponDamage': item.rollWeaponDamage(ev); break;
+          case 'spellAttack': item.rollSpellAttack(ev); break;
+          case 'spellDamage': item.rollSpellDamage(ev); break;
+          case 'featAttack': item.rollFeatAttack(ev); break;
+          case 'featDamage': item.rollFeatDamage(ev); break;
+          case 'consume': item.rollConsumable(ev); break;
+          case 'toolCheck': item.rollToolCheck(ev); break;
+      }            
+    });
+
     // Lore Item Rolling
     html.find('.item .lore-name').click(event => {
     event.preventDefault();
@@ -316,7 +338,7 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       let div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       let props = $(`<div class="item-properties"></div>`);
-      chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       div.append(props);
 
       let buttons = $(`<div class="item-buttons"></div>`);
@@ -392,6 +414,9 @@ class ActorSheetPF2e extends ActorSheet {
     } else if (data.type === "action") {
       data["name"] = `New ${data.actionType.capitalize()}`;    
       mergeObject(data, {"data.actionType.value": data.actionType});
+    } else if (data.type === "melee") {
+      data["name"] = `New ${data.actionType.capitalize()}`;    
+      mergeObject(data, {"data.weaponType.value": data.actionType});
     }
     else {
       data["name"] = `New ${data.type.capitalize()}`;    

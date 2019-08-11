@@ -563,6 +563,18 @@
   margin: 0;
   padding: 0;
 }
+.pf2e.actor .pf-sub-category {
+  /* flex: 0 0 24px; */
+  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 20px;
+  color: #fff;
+  background: #b75b5b;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
 .pf2e.actor .pf-bluelist {
   color: #fff;
   background: rgb(69,74,124);
@@ -1344,17 +1356,20 @@
 .pf2e.actor .inventory-header .item > * {
   flex: 1;
 }
-.pf2e.actor .inventory-header .item .item-name {
+.pf2e.actor .inventory-header .item .item-name,
+.pf2e.actor .inventory-header .item .melee-name {
   /* display: flex; */
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   cursor: pointer;
 }
-.pf2e.actor .inventory-header .item .item-name > * {
+.pf2e.actor .inventory-header .item .item-name > *,
+.pf2e.actor .inventory-header .item .melee-name > * {
   flex: 1;
 }
-.pf2e.actor .inventory-header .item .item-name h4 {
+.pf2e.actor .inventory-header .item .item-name h4,
+.pf2e.actor .inventory-header .item .melee-name h4 {
   flex: 2;
   margin: 0;
 }
@@ -1398,7 +1413,8 @@
 .pf2e.actor .inventory-list .item > * {
   flex: 1;
 }
-.pf2e.actor .inventory-list .item .item-name {
+.pf2e.actor .inventory-list .item .item-name,
+.pf2e.actor .inventory-list .item .melee-name {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -1415,13 +1431,15 @@
 /* .pf2e.actor .inventory-list .item .item-name > * {
   flex: 1;
 } */
-.pf2e.actor .inventory-list .item .item-name .item-image {
+.pf2e.actor .inventory-list .item .item-name .item-image,
+.pf2e.actor .inventory-list .item .melee-name .item-image {
   flex: 0 0 24px;
   margin-right: 6px;
   background-size: 24px;
   background-repeat: no-repeat;
 }
-.pf2e.actor .inventory-list .item .item-name h4 {
+.pf2e.actor .inventory-list .item .item-name h4,
+.pf2e.actor .inventory-list .item .melee-name h4 {
   flex: 2;
   margin: 0;
 }
@@ -1484,6 +1502,12 @@
   line-height: 20px;
   /* background: rgba(0, 0, 0, 0.05); */
   background: rgb(69,74,124);
+}
+.pf2e.actor .inventory-list .inventory-header.sub-category {
+  font-weight: 700;
+  line-height: 20px;
+  /* background: rgba(0, 0, 0, 0.05); */
+  background: #b75b5b;
 }
 .pf2e.actor .inventory-list .inventory-header h3 {
   font-size: 1em;
@@ -1586,25 +1610,26 @@
 .pf2e.actor .spellbook .inventory-list {
   height: calc(100% - 28px);
 }
-.pf2e.actor .spellbook .item .item-name {
+.pf2e.actor .spellbook .item .item-name,
+.pf2e.actor .spellbook .item .melee-name {
   flex: 2;
 }
-.pf2e.actor .spellbook .item .spell-school,
-.pf2e.actor .spellbook .item .spell-action {
+.pf2e.actor .item .spell-school,
+.pf2e.actor .item .spell-action {
   flex: 1;
   font-size: 12px;
   color: #666;
   text-align: center;
   border-right: 1px solid #b75b5b;
 }
-.pf2e.actor .spellbook .item .spell-slots,
-.pf2e.actor .spellbook .item .spell-max {
+.pf2e.actor .item .spell-slots,
+.pf2e.actor .item .spell-max {
   flex: 0 0 24px;
   font-size: 12px;
   text-align: center;
 }
-.pf2e.actor .spellbook .item .spell-slots-input,
-.pf2e.actor .spellbook .item .spell-max-input {
+.pf2e.actor .item .spell-slots-input,
+.pf2e.actor .item .spell-max-input {
   flex: 0 0 24px;
   font-size: 12px;
   text-align: center;
@@ -1614,10 +1639,10 @@
   height: 18px;
   margin-top: 1px;
 }
-.pf2e.actor .spellbook .item .spell-max {
+.pf2e.actor .item .spell-max {
   border-right: 1px solid #b75b5b;
 }
-.pf2e.actor .spellbook .spellbook-empty .item-controls {
+.pf2e.actor .spellbook-empty .item-controls {
   flex: 1;
 }
 .pf2e.actor.character-sheet .spellbook .item-controls {
@@ -1904,4 +1929,13 @@
 }
 .pf2e.sheet .item-buttons span {
   padding:0;
+}
+.pf2e.sheet .melee-buttons button {
+  font-size: 10px;
+  line-height: 12px;
+  margin: 0;
+}
+.pf2e.sheet .melee-buttons span {
+  padding:0;
+  margin-top: 3px;
 }

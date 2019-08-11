@@ -29,7 +29,7 @@ class ItemSheetPF2e extends ItemSheet {
       type: type,
       hasSidebar: true,
       sidebarTemplate: () => `public/systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor", "action"].includes(type),
+      hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor", "action", "melee"].includes(type),
       detailsTemplate: () => `public/systems/pf2e/templates/items/${type}-details.html`
     });
 
@@ -64,6 +64,18 @@ class ItemSheetPF2e extends ItemSheet {
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;
       data.weaponTraits = data.data.traits.value
+      //data.weaponTraits = this._formatWeaponTraits(data.data);
+    }
+
+    // Melee Data
+    else if ( this.item.type === "melee" ) {
+      data.hasSidebar = false;
+      data.detailsActive = true;
+/*       data.itemBonuses = CONFIG.itemBonuses;
+      data.damageDie = CONFIG.damageDie; */
+      //data.damageDice = CONFIG.damageDice;
+      data.weaponDamage = CONFIG.damageTypes;
+      //data.weaponTraits = data.data.traits.value
       //data.weaponTraits = this._formatWeaponTraits(data.data);
     }
 

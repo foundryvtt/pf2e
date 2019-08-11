@@ -305,7 +305,8 @@ CONFIG.featActionTypes = {
 CONFIG.actionTypes = {
   "action": "Action",
   "reaction": "Reaction",
-  "free": "Free Action"
+  "free": "Free Action",
+  "passive": "Passive"
 };
 
 // Proficiency Multipliers

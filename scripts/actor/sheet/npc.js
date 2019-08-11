@@ -46,9 +46,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
   _prepareItems(actorData) {
 
     // Actions
-    const features = {
-      weapons: {label: "Weapons", items: [], type: "weapon" },
-      equipment: { label: "Equipment", items: [], type: "equipment" }
+    const attacks = {
+      melee: {label: "Melee", items: [], type: "melee" },
+      ranged: { label: "Ranged", items: [], type: "melee" }
     };
 
     // Actions
@@ -69,18 +69,24 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       // Spells
       if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
-      // Features
-      else if ( i.type === "weapon" ) features.weapons.items.push(i);
+      // Attacks
+      else if ( i.type === "melee" ) {
+        let weaponType = (i.data.weaponType || {}).value || "melee";
+        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        attacks[weaponType].items.push(i);
+      }
+
+      // Actions
       else if ( i.type === "action" ) {
         let actionType = i.data.actionType.value || "action";
         actions[actionType].actions.push(i);       
       }
-      else if (["equipment", "armor", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
+      /* else if (["ranged"].includes(i.type)) attacks.equipment.items.push(i); */
     }
 
     // Assign and return
     actorData.actions = actions;
-    actorData.features = features;
+    actorData.attacks = attacks;
     actorData.spellbook = spellbook;
   }
 

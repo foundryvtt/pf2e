@@ -90,10 +90,11 @@
                     </div>
                 
             </ol>
-            <h3 class="defense-title pf-heading" for="data.traits.skills">
-                Skills
-                <!-- <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a> -->
-            </h3>
+<!--             <h3 class="defense-title pf-heading" for="data.traits.skills">
+                Image
+                <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a>
+            </h3> -->
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
             
         </div>
     </section>
@@ -102,10 +103,11 @@
     <section class="sheet-body content">
         
             <!-- Actions -->
+            <h3 class="item-name pf-heading pf-actions">Actions</h3>
             <ol class="actions-list inventory-list directory-list">
                 {{#each actor.actions as |section sid|}}
-                    <li class="item action-header">
-                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
+                    <li class="item inventory-header sub-category spellbook-header">
+                        <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
                         {{#if ../owner}}
                         <div class="item-controls">
                             <a class="item-control item-create" title="Create Action" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -133,23 +135,37 @@
                 {{/each}}
 
 
-                <!-- Inventory -->
-                {{#each actor.features as |section sid|}}
-                    <li class="item action-header">
-                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
+                <!-- Attacks -->
+                <h3 class="item-name pf-heading pf-actions">Attacks</h3>
+                <ol class="npc-defense-list">     
+                    <li class="npc-defense" data-attribute="simple">
+                        <span class="defense-score">
+                        <input name="data.martial.simple.value" type="text" value="{{data.martial.simple.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="attribute-name">Base Attack Value</h4>                             
+                    </li>
+                </ol>
+                {{#each actor.attacks as |section sid|}}
+                    <li class="item inventory-header sub-category spellbook-header">
+                        <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
                         {{#if ../owner}}
                         <div class="item-controls">
-                            <a class="item-control item-create" title="Create Feature" data-type="{{section.type}}"><i class="fas fa-plus"></i> Add</a>
+                            <a class="item-control item-create" title="Create Attack" data-type="melee" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
                         </div>
                         {{/if}}
                     </li>
                     {{#each section.items as |item iid|}}
                     <li class="item" data-item-id="{{item.id}}">
-                        <div class="item-name rollable">
+                        <div class="melee-name rollable">
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
                             <h4>
                                 {{item.name}}
                             </h4>
+                            <div class="melee-buttons">
+                                <span class="tag"><button data-action="weaponAttack">Attack (+{{item.data.bonus.total}})</button></span>
+                                <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.die}})</button></span>
+                            </div>
                         </div>
                         {{#if ../../owner}}
                         <div class="item-controls">
@@ -177,7 +193,7 @@
                 </ol>
 
                 {{#each actor.spellbook as |section lvl|}}
-                <li class="item inventory-header spellbook-header">
+                <li class="item inventory-header sub-category spellbook-header">
                     <div class="item-name flexrow">
                         <h3>{{section.label}}</h3>
     
@@ -196,8 +212,8 @@
                         {{/unless}}
                     </div>
     
-                    <!-- <div class="spell-school-header">School</div> -->
-                    <div class="spell-action-header">Action</div>
+                    <!-- <div class="spell-school-header">School</div>
+                    <div class="spell-action-header">Action</div> -->
     
                     {{#if ../owner}}
                     <div class="item-controls">
@@ -214,8 +230,8 @@
                         <h4>{{item.name}}</h4>
                     </div>
     
-                    <!-- <div class="spell-school">{{item.data.school.str}}</div> -->
-                    <div class="spell-action">{{item.data.time.value}}</div>
+                    <!-- <div class="spell-school">{{item.data.school.str}}</div>
+                    <div class="spell-action">{{item.data.time.value}}</div> -->
     
                     {{#if ../../owner}}
                     <div class="item-controls">

@@ -94,6 +94,18 @@ class ItemPF2e extends Item {
     return data;
   }
 
+    /* -------------------------------------------- */
+
+    _meleeChatData() {
+      const data = duplicate(this.data.data);
+/*       const properties = [
+        CONFIG.weaponTypes[data.weaponType.value],
+        CONFIG.weaponGroups[data.group.value]
+      ];
+      data.properties = properties.filter(p => !!p); */
+      return data;
+    }
+
   /* -------------------------------------------- */
 
   _consumableChatData() {
@@ -233,7 +245,7 @@ class ItemPF2e extends Item {
       item.rollWeaponAttack(event);
       return;
     }
-    else if ( this.type !== "weapon" ) throw "Wrong item type!";
+    else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
 
     // Prepare roll data
     let itemData = this.data.data,
@@ -242,6 +254,10 @@ class ItemPF2e extends Item {
         prof = itemData.weaponType.value || "simple",
         parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`],
         title = `${this.name} - Attack Roll`;
+
+    if (this.type === "melee") {
+      parts = ["@item.bonus.value", `@martial.simple.value`];
+    }
     rollData.item = itemData;
     //if ( !itemData.proficient.value ) parts.pop();
 
@@ -276,7 +292,8 @@ class ItemPF2e extends Item {
       item.rollWeaponDamage(event);
       return;
     } 
-    else if ( this.type !== "weapon" ) throw "Wrong item type!";
+    else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
+    //else if ( this.type !== "weapon" ) throw "Wrong item type!";
 
     // Get data
     let itemData = this.data.data,
@@ -285,6 +302,11 @@ class ItemPF2e extends Item {
         abl = itemData.ability.value || "str",
         parts = [weaponDamage, `@abilities.${abl}.mod`],
         dtype = CONFIG.damageTypes[itemData.damage.damageType];
+
+    if (this.type === "melee") {
+      weaponDamage = itemData.damage.die;
+      parts = [weaponDamage];
+    }
 
     // Append damage type to title
     let title = `${this.name} - Damage`;

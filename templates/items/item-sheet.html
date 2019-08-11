@@ -20,10 +20,16 @@
         <section class="sheet-body">
 
             <nav class="sheet-tabs tabs" data-tab-container="primary">
-                <a class="item active" data-tab="description">Description</a>
-                {{#if hasDetails}}
-                <a class="item" data-tab="details">Details</a>
+                {{#if detailsActive}}
+                    <a class="item " data-tab="description">Description</a>
+                    <a class="item active" data-tab="details">Details</a>
                 {{/if}}
+                {{#unless detailsActive}}
+                <a class="item active" data-tab="description">Description</a>
+                    {{#if hasDetails}}
+                        <a class="item" data-tab="details">Details</a>
+                    {{/if}}
+                {{/unless}}
             </nav>
 
             <!-- Item Description -->
