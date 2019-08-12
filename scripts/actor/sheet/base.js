@@ -129,6 +129,25 @@ class ActorSheetPF2e extends ActorSheet {
     return icons[level];
   }
 
+    /* -------------------------------------------- */
+
+  /**
+   * Get the font-awesome icon used to display a certain level of skill proficiency
+   * @private
+   */
+  _getActionImg(action) {
+    const img = {
+      0: "icons/svg/mystery-man.svg",
+      1: "systems/pf2e/icons/actions/OneAction.png",
+      2: "systems/pf2e/icons/actions/TwoActions.png",
+      3: "systems/pf2e/icons/actions/ThreeActions.png",
+      "free": "systems/pf2e/icons/actions/FreeAction.png",
+      "reaction": "systems/pf2e/icons/actions/Reaction.png",
+      "passive": "icons/svg/mystery-man.svg",
+    };
+    return img[action];
+  }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */

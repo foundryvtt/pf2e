@@ -79,6 +79,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       // Actions
       else if ( i.type === "action" ) {
         let actionType = i.data.actionType.value || "action";
+        let actionImg = 0;
+        if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+        else if (actionType === "reaction") actionImg = "reaction";
+        else if (actionType === "free") actionImg = "free";
+        else if (actionType === "passive") actionImg = "passive";
+        i.img = this._getActionImg(actionImg);
         actions[actionType].actions.push(i);       
       }
       /* else if (["ranged"].includes(i.type)) attacks.equipment.items.push(i); */

@@ -99,6 +99,7 @@ class ItemSheetPF2e extends ItemSheet {
       }
       data["weapons"] = actorWeapons;
       data.actionTypes = CONFIG.actionTypes;
+      data.actionsNumber = CONFIG.actionsNumber;
       data.actionTags = [
         data.data.traits.value
       ].filter(t => !!t);

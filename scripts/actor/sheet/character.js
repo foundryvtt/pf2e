@@ -111,7 +111,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         
         feats[featType].feats.push(i);
         if ( Object.keys(actions).includes(actionType)) {
-          i.feat = true; 
+          i.feat = true;
+          let actionImg = 0;
+          if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+          else if (actionType === "reaction") actionImg = "reaction";
+          else if (actionType === "free") actionImg = "free";
+          i.img = this._getActionImg(actionImg);
           actions[actionType].actions.push(i);
         }
       }
@@ -135,6 +140,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Actions
       if ( i.type === "action" ) {
         let actionType = i.data.actionType.value || "action";
+        let actionImg = 0;
+        if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+        else if (actionType === "reaction") actionImg = "reaction";
+        else if (actionType === "free") actionImg = "free";
+        else if (actionType === "passive") actionImg = "passive";
+        i.img = this._getActionImg(actionImg);
         if (actionType === "passive") actions["free"].actions.push(i);
         else actions[actionType].actions.push(i);       
       }

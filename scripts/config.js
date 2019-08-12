@@ -309,6 +309,14 @@ CONFIG.actionTypes = {
   "passive": "Passive"
 };
 
+// Actions Number
+CONFIG.actionsNumber = {
+  "1": "One",
+  "2": "Two",
+  "3": "Three"
+};
+
+
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
   0: "Not Trained",
