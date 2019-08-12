@@ -113,7 +113,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         if ( Object.keys(actions).includes(actionType)) {
           i.feat = true;
           let actionImg = 0;
-          if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+          if (actionType === "action") actionImg = parseInt((i.data.actions || {}).value) || 1;
           else if (actionType === "reaction") actionImg = "reaction";
           else if (actionType === "free") actionImg = "free";
           i.img = this._getActionImg(actionImg);
