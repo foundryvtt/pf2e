@@ -206,6 +206,10 @@ CONFIG.spellTraits = {
 
 // Feat Traits
 CONFIG.featTraits = {
+  "attack": "Attack",
+  "move": "Move",
+  "manipulate": "Manipulate",
+  "concentrate": "Concentrate",
   "general": "General",
   "skill": "Skill",
   "dwarf": "Dwarf",
