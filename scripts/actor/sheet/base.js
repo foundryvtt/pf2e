@@ -132,7 +132,7 @@ class ActorSheetPF2e extends ActorSheet {
     /* -------------------------------------------- */
 
   /**
-   * Get the font-awesome icon used to display a certain level of skill proficiency
+   * Get the action image to use for a particular action type.
    * @private
    */
   _getActionImg(action) {

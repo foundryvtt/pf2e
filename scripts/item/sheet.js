@@ -97,6 +97,15 @@ class ItemSheetPF2e extends ItemSheet {
       for ( let i of this.actor.data.items ) {
         if (i.type === "weapon") actorWeapons.push(i);
       }
+
+      let actionType = data.data.actionType.value || "action";
+      let actionImg = 0;
+      if (actionType === "action") actionImg = parseInt(data.data.actions.value) || 1;
+      else if (actionType === "reaction") actionImg = "reaction";
+      else if (actionType === "free") actionImg = "free";
+      else if (actionType === "passive") actionImg = "passive";
+      data.item.img = this._getActionImg(actionImg);
+
       data["weapons"] = actorWeapons;
       data.actionTypes = CONFIG.actionTypes;
       data.actionsNumber = CONFIG.actionsNumber;
@@ -155,6 +164,25 @@ class ItemSheetPF2e extends ItemSheet {
       choices: CONFIG[a.attr("data-options")]
     };
     new TraitSelector5e(this.item, options).render(true)
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the action image to use for a particular action type.
+   * @private
+   */
+  _getActionImg(action) {
+    const img = {
+      0: "icons/svg/mystery-man.svg",
+      1: "systems/pf2e/icons/actions/OneAction.png",
+      2: "systems/pf2e/icons/actions/TwoActions.png",
+      3: "systems/pf2e/icons/actions/ThreeActions.png",
+      "free": "systems/pf2e/icons/actions/FreeAction.png",
+      "reaction": "systems/pf2e/icons/actions/Reaction.png",
+      "passive": "icons/svg/mystery-man.svg",
+    };
+    return img[action];
   }
 
   /* -------------------------------------------- */
