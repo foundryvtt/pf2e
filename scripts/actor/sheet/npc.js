@@ -80,7 +80,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       else if ( i.type === "action" ) {
         let actionType = i.data.actionType.value || "action";
         let actionImg = 0;
-        if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+        //if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
+        if (actionType === "action") actionImg = parseInt((i.data.actions || {}).value) || 1;
         else if (actionType === "reaction") actionImg = "reaction";
         else if (actionType === "free") actionImg = "free";
         else if (actionType === "passive") actionImg = "passive";

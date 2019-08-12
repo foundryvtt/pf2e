@@ -100,7 +100,7 @@ class ItemSheetPF2e extends ItemSheet {
 
       let actionType = data.data.actionType.value || "action";
       let actionImg = 0;
-      if (actionType === "action") actionImg = parseInt(data.data.actions.value) || 1;
+      if (actionType === "action") actionImg = parseInt((data.data.actions || {}).value) || 1;
       else if (actionType === "reaction") actionImg = "reaction";
       else if (actionType === "free") actionImg = "free";
       else if (actionType === "passive") actionImg = "passive";
