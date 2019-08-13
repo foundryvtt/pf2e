@@ -117,16 +117,15 @@ class DicePF2e {
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static damageRoll({event={}, parts, actor, data, template, title, speaker, flavor, critical=true, onClose, dialogOptions}) {
+  static damageRoll({event={}, parts, actor, data, template, title, speaker, flavor, critical=false, onClose, dialogOptions}) {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
     let roll = () => {
       let roll = new Roll(parts.join("+"), data),
           flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-/*       if ( crit ) {
-        console.log(data);
-        let add = actor;
+      /* if ( crit ) {
+        let add = 0;
         let mult = 2;
         roll.alter(add, mult);
         flav = `${title} (Critical)`;
@@ -188,6 +187,26 @@ class DicePF2e {
       });
     });
   }
+
+
+  alter(add, multiply) {
+    let rgx = new RegExp(Roll.diceRgx, 'g');
+    if ( this._rolled ) throw new Error("You may not alter a Roll which has already been rolled");
+
+    // Update dice roll terms
+    this.terms = this.terms.map(t => {
+      return t.replace(rgx, (match, nd, d, mods) => {
+        nd = (nd * (multiply || 1)) + (add || 0);
+        mods = mods || "";
+        return nd + "d" + d + mods;
+      })
+    });
+
+    // Update the formula
+    this._formula = this.terms.join(" ");
+    return this;
+  }
+
 }
 
 /**
@@ -201,3 +220,5 @@ Hooks.on("renderChatMessage", (message, data, html) => {
     else if (d.total === 1) html.find(".dice-total").addClass("failure");
   }
 });
+
+

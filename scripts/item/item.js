@@ -85,11 +85,22 @@ class ItemPF2e extends Item {
 
   _weaponChatData() {
     const data = duplicate(this.data.data);
-    const properties = [
-      data.range.value,
-      CONFIG.weaponTypes[data.weaponType.value],
+    let traits = [];
+    if ((data.traits.value || []).length != 0) {
+      traits = duplicate(data.traits.value);
+      for(var i = 0 ; i < traits.length ; i++){
+        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+      } 
+    }
+
+    let properties = [
+      (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
+      //CONFIG.weaponTypes[data.weaponType.value],
       CONFIG.weaponGroups[data.group.value]
     ];
+
+    if (traits.length != 0) properties = properties.concat(traits);
+    
     data.properties = properties.filter(p => !!p);
     return data;
   }
@@ -187,22 +198,21 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-/*     // Feat button actions
-    data.isSave = data.save.value !== "";
-    if ( data.isSave ) {
-      let abl = data.ability.value || ad.attributes.spellcasting.value || "str";
-      data.save.dc = 8 + ad.abilities[abl].mod + ad.attributes.prof.value;
-      data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    let traits = [];
+    if ((data.traits.value || []).length != 0) {
+      traits = duplicate(data.traits.value);
+      for(var i = 0 ; i < traits.length ; i++){
+        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+      } 
     }
 
-    // Feat attack attributes
-    data.isAttack = data.featType.value === "attack"; */
-
     // Feat properties
-    const props = [
-      data.level.value,
-      data.traits.value
+    let props = [
+      `Level ${data.level.value || 0}`,
+      data.actionType.value ? CONFIG.actionTypes[data.actionType.value] : null
     ];
+    if (traits.length != 0) props = props.concat(traits);
+
     data.properties = props.filter(p => p);
     return data;
   }
@@ -211,21 +221,24 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-/*     // Feat button actions
-    data.isSave = data.save.value !== "";
-    if ( data.isSave ) {
-      let abl = data.ability.value || ad.attributes.spellcasting.value || "str";
-      data.save.dc = 8 + ad.abilities[abl].mod + ad.attributes.prof.value;
-      data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    let traits = [];
+    if ((data.traits.value || []).length != 0) {
+      traits = duplicate(data.traits.value);
+      for(var i = 0 ; i < traits.length ; i++){
+        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+      } 
     }
 
-    // Feat attack attributes
-    data.isAttack = data.featType.value === "attack"; */
+    let associatedWeapon = null;
+    if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
 
     // Feat properties
-    const props = [
-      data.traits.value
+    let props = [
+      CONFIG.actionTypes[data.actionType.value],
+      associatedWeapon ? `Weapon: ${associatedWeapon.name}` : null
     ];
+    if (traits.length != 0) props = props.concat(traits);
+
     data.properties = props.filter(p => p);
     return data;
   }
@@ -248,7 +261,8 @@ class ItemPF2e extends Item {
     else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
 
     // Prepare roll data
-    let itemData = this.data.data,
+    //let itemData = this.data.data,
+    let itemData = this.getChatData(),
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         prof = itemData.weaponType.value || "simple",
@@ -299,9 +313,25 @@ class ItemPF2e extends Item {
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
         weaponDamage = itemData.damage.dice + itemData.damage.die,
-        abl = itemData.ability.value || "str",
+        //abl = itemData.ability.value || "str",
+        abl = "str",
         parts = [weaponDamage, `@abilities.${abl}.mod`],
         dtype = CONFIG.damageTypes[itemData.damage.damageType];
+
+    // Check if the damage roll is using a ranged weapon, if so apply propulsive or thrown weapon trait rules.
+    if ( parseInt(itemData.range.value) > 0) {
+      if ((itemData.traits.value || []).includes("propulsive")) {
+        
+        if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
+          parts.pop();
+          let halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
+          parts.push(halfStr);
+        }          
+        
+      }
+      else if (!(itemData.traits.value || []).includes("thrown")) 
+        parts.pop();
+    }
 
     if (this.type === "melee") {
       weaponDamage = itemData.damage.die;
