@@ -37,6 +37,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     if (hp.temp === 0) delete hp.temp;
     if (hp.tempmax === 0) delete hp.tempmax;
 
+    // Spell Details
+    sheetData["magicTraditions"] = CONFIG.magicTraditions;
+    sheetData["preparationType"] = CONFIG.preparationType;
+    if ((sheetData.data.attributes.prepared || {}).value === "prepared") sheetData.data["preparedSpells"] = true;
+    else sheetData.data["preparedSpells"] = false;
+
+
     // Return data for rendering
     return sheetData;
   }

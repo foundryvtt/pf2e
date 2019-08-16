@@ -101,8 +101,6 @@ CONFIG.weaponTraits = {
   "volley": "Volley"
 };
 
-                                   
-
 // Weapon Hands 
 CONFIG.weaponHands = {
   "1": "One",
@@ -184,6 +182,20 @@ CONFIG.consumableTypes = {
   "scroll": "Scroll",
   "talasman": "Talasman",
   "other": "Other"
+};
+
+// Magic Traditon
+CONFIG.magicTraditions = {
+  "arcane": "Arcane",
+  "occult": "Occult",
+  "divine": "Divine",
+  "primal": "Primal"
+};
+
+// Preparation Type
+CONFIG.preparationType = {
+  "prepared": "Prepared",
+  "spontaneous": "Spontaneous"
 };
 
 // Spell Traits

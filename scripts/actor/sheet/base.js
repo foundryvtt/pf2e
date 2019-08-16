@@ -103,6 +103,7 @@ class ActorSheetPF2e extends ActorSheet {
       isCantrip: lvl === 0,
       label: CONFIG.spellLevels[lvl],
       spells: [],
+      prepared: [],
       uses: actorData.data.spells["spell"+lvl].value || 0,
       slots: actorData.data.spells["spell"+lvl].max || 0
     };
@@ -204,7 +205,7 @@ class ActorSheetPF2e extends ActorSheet {
     });  
 
     // Roll Skill Checks
-    html.find('.skill-name').click(ev => {
+    html.find('.skill-name.rollable').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
       this.actor.rollSkill(ev, skl);
     });

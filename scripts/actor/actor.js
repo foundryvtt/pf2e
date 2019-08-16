@@ -76,6 +76,24 @@ class ActorPF2e extends Actor {
     data.attributes.spelldc.dc = data.attributes.spelldc.value + 10
     data.attributes.spelldc.breakdown = `10 + ${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
 
+    // Prepared Spell Slots
+    for (let spl of Object.values(data.spells)) {
+      if (spl.max) {
+        spl["prepared"] = spl["prepared"] || [];
+        for(var i = 0; i < spl.max; i++){
+          spl.prepared[i] = spl.prepared[i] || {
+            label: "Empty Slot",
+            spellId: null,
+            spell: {}            
+          }
+        }
+        if (spl.prepared.length > spl.max) {
+          for (let i = 0; i < spl.prepared.length - spl.max; i++) {
+            i.pop();
+          }
+        }
+      }
+    }
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {

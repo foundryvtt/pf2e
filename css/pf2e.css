@@ -1141,6 +1141,12 @@
   display: grid;
   grid: "one two three" 100% /  auto 90px 20px;
 }
+.pf2e.actor .pf-two-grid {
+  grid-area: auto;
+  display: grid;
+  /* grid: "one two three" 100% /  auto 90px 20px; */
+  grid: "one two" 100% /  auto 90px;
+}
 .pf2e.actor .skills .lores-list {
   margin: 0;
   padding: 0;
@@ -1187,9 +1193,16 @@
 .pf2e.actor .spellbook .skill > * {
   flex: 1;
 }
-.pf2e.actor .skills .skill-name,
+.pf2e.actor .skills .skill-name {
+  margin: 0;
+  align-self: center;
+  background: #b75b5b;
+  line-height: 32px;
+  color: white;
+}
 .pf2e.actor .spellbook .skill-name {
   margin: 0;
+  text-align: center;
   align-self: center;
   background: #b75b5b;
   line-height: 32px;
