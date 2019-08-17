@@ -158,6 +158,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
     }
 
+    // Add prepared spells to spellbook
+    this._preparedSpellSlots(actorData, spellbook);
+
     // Assign and return
     actorData.inventory = inventory;
     actorData.spellbook = spellbook;

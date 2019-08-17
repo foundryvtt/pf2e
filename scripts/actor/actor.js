@@ -81,11 +81,7 @@ class ActorPF2e extends Actor {
       if (spl.max) {
         spl["prepared"] = spl["prepared"] || [];
         for(var i = 0; i < spl.max; i++){
-          spl.prepared[i] = spl.prepared[i] || {
-            label: "Empty Slot",
-            spellId: null,
-            spell: {}            
-          }
+          spl.prepared[i] = spl.prepared[i] || null;
         }
         if (spl.prepared.length > spl.max) {
           for (let i = 0; i < spl.prepared.length - spl.max; i++) {
@@ -212,6 +208,41 @@ class ActorPF2e extends Actor {
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });
+  }
+
+   /* -------------------------------------------- */
+
+  /**
+   * Prepare Spell SLot
+   * Saves the prepared spell slot data to the actor
+   * @param spellLevel {String}   The level of the spell slot
+   * @param spellSlot {String}    The number of the spell slot 
+   * @param spell {String}        The item details for the spell
+   */
+  allocatePreparedSpellSlot(spellLevel, spellSlot, spell) {
+    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
+        updateObject = {};
+
+    updateObject[key] = spell;
+    
+    this.update(updateObject);
+  }
+
+     /* -------------------------------------------- */
+
+  /**
+   * Remove Spell Slot
+   * Removes the spell from the saved spell slot data for the actor
+   * @param spellLevel {String}   The level of the spell slot
+   * @param spellSlot {String}    The number of the spell slot    * 
+   */
+  removePreparedSpellSlot(spellLevel, spellSlot, spell) {
+    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
+        updateObject = {};
+
+    updateObject[key] = null;
+    
+    this.update(updateObject); 
   }
 
   /* -------------------------------------------- */

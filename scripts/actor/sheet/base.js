@@ -104,13 +104,55 @@ class ActorSheetPF2e extends ActorSheet {
       label: CONFIG.spellLevels[lvl],
       spells: [],
       prepared: [],
-      uses: actorData.data.spells["spell"+lvl].value || 0,
-      slots: actorData.data.spells["spell"+lvl].max || 0
+      uses: parseInt(actorData.data.spells["spell"+lvl].value) || 0,
+      slots: parseInt(actorData.data.spells["spell"+lvl].max) || 0
     };
 
     // Add the spell to the spellbook at the appropriate level
     spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
     spellbook[lvl].spells.push(spell);
+  }
+
+
+    /* -------------------------------------------- */
+
+  /**
+   * Insert prepared spells into the spellbook object when rendering the character sheet
+   * @param {Object} actorData    The Actor data being prepared
+   * @param {Object} spellbook    The spellbook data being prepared
+   * @private
+   */
+  _preparedSpellSlots(actorData, spellbook) {
+    //let isNPC = this.actorType === "npc";
+
+    for (let [key, spl] of Object.entries(spellbook)) {
+      if (spl.slots > 0) {
+      
+        for(var i = 0; i < spl.slots; i++){
+          let actorSlot = actorData.data.spells["spell"+key].prepared[i];
+          if (actorSlot) {
+            actorSlot["prepared"] = true;
+            actorSlot.data.school.str = CONFIG.spellSchools[actorSlot.data.school.value];
+            spl.prepared[i] = actorSlot;
+          } else {
+            // if there is no prepared spell for this slot then make it empty.
+            // also need to make the html check for an empty slot and hide/show appropriate columns 
+            spl.prepared[i] = {
+              name: "Empty Slot",
+              id: null,
+              prepared: false          
+            }
+          }
+          
+        }
+        if (spl.prepared.length > spl.slots) {
+          for (let i = 0; i < spl.prepared.length - spl.slots; i++) {
+            i.pop();
+          }
+        }
+      }
+    }
+
   }
 
   /* -------------------------------------------- */
@@ -144,7 +186,7 @@ class ActorSheetPF2e extends ActorSheet {
       3: "systems/pf2e/icons/actions/ThreeActions.png",
       "free": "systems/pf2e/icons/actions/FreeAction.png",
       "reaction": "systems/pf2e/icons/actions/Reaction.png",
-      "passive": "icons/svg/mystery-man.svg",
+      "passive": "systems/pf2e/icons/actions/Passive.png",
     };
     return img[action];
   }
@@ -212,6 +254,23 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Toggle Skill Proficiency
     html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
+
+    // Prepare Spell Slot
+    html.find('.prepare-click').click(ev => {
+      let itemId = 10,
+          slotId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+          spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl")),
+          spell = this.actor.items.find(i => { return i.id === itemId });
+
+          this.actor.allocatePreparedSpellSlot(spellLvl, slotId, spell);
+    });
+    
+    // Remove Spell Slot
+    html.find('.item-unprepare').click(ev => {
+      let slotId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+          spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl"));
+      this.actor.removePreparedSpellSlot(spellLvl, slotId);
+    });
 
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
