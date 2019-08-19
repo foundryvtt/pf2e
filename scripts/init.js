@@ -3,55 +3,7 @@
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-
-  /**
-   * Register diagonal movement rule setting
-   */
-/*   game.settings.register("pf2e", "diagonalMovement", {
-    name: "SETTINGS.5eDiagN",
-    hint: "SETTINGS.5eDiagL",
-    scope: "world",
-    config: true,
-    default: "555",
-    type: String,
-    choices: {
-      "555": "SETTINGS.5eDiagPHB",
-      "5105": "SETTINGS.5eDiagDMG"
-    },
-    onChange: rule => canvas.grid.diagonalRule = rule
-  }); */
-
-  /**
-   * Register Initiative formula setting
-   */
-  /* function _set5eInitiative(tiebreaker) {
-    CONFIG.initiative.tiebreaker = tiebreaker;
-    CONFIG.initiative.decimals = tiebreaker ? 2 : 0;
-    if ( ui.combat && ui.combat._rendered ) ui.combat.render();
-  }
-  game.settings.register("dnd5e", "initiativeDexTiebreaker", {
-    name: "SETTINGS.5eInitTBN",
-    hint: "SETTINGS.5eInitTBL",
-    scope: "world",
-    config: true,
-    default: true,
-    type: Boolean,
-    onChange: enable => _set5eInitiative(enable)
-  });
-  _set5eInitiative(game.settings.get("dnd5e", "initiativeDexTiebreaker")); */
-
-  /**
-   * Require Currency Carrying Weight
-   */
-  /* game.settings.register("dnd5e", "currencyWeight", {
-    name: "SETTINGS.5eCurWtN",
-    hint: "SETTINGS.5eCurWtL",
-    scope: "world",
-    config: true,
-    default: true,
-    type: Boolean
-  }); */
-
+  
   // Pre-load templates
   loadTemplates([
 
@@ -125,15 +77,14 @@ Hooks.once("init", () => {
   } */
 });
 
-
 /**
- * Activate certain behaviors on Canvas Initialization hook
+ * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
  */
-/* Hooks.on("canvasInit", () => {
+Hooks.on("canvasInit", async () => {
 
-  // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
-
+  /**
+   * Double every other diagonal movement
+   */
   SquareGrid.prototype.measureDistance = function(p0, p1) {
     let gs = canvas.dimensions.size,
         ray = new Ray(p0, p1),
@@ -144,14 +95,9 @@ Hooks.once("init", () => {
     let nDiagonal = Math.min(nx, ny),
         nStraight = Math.abs(ny - nx);
 
-    // Alternative DMG Movement
-    if ( this.parent.diagonalRule === "5105" ) {
-      let nd10 = Math.floor(nDiagonal / 2);
-      let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
-      return spaces * canvas.dimensions.distance;
-    }
+    let nd10 = Math.floor(nDiagonal / 2);
+    let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
+    return spaces * canvas.dimensions.distance;  
 
-    // Standard PHB Movement
-    else return (nStraight + nDiagonal) * canvas.scene.data.gridDistance;
   }
-}); */
+});
