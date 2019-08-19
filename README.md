@@ -3,14 +3,14 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.21: This is the initial alpha release of the Pathfinder Second Edition system.
+v0.310: This is the initial alpha release of the Pathfinder Second Edition system.
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
 - This is a fork of the dnd5e system so there may still be references to dnd5e in places and the assets from 5e are included for now (I plan to use them soon).
 - If you find any issues or have any feedback please let me know.
 
-Known Issues:
+Known Issues (see project issues for full issues list):
 - AC is not automatically calculated, Just enter it in the input field.
 - Critical damage is not calculated currently.
 
