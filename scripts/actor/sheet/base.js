@@ -95,8 +95,8 @@ class ActorSheetPF2e extends ActorSheet {
         isNPC = this.actorType === "npc";
 
     // Determine whether to show the spell
-    let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
-    if ( !showSpell ) return;
+/*     let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
+    if ( !showSpell ) return; */
 
     // Extend the Spellbook level
     spellbook[lvl] = spellbook[lvl] || {
@@ -138,7 +138,7 @@ class ActorSheetPF2e extends ActorSheet {
             // if there is no prepared spell for this slot then make it empty.
             // also need to make the html check for an empty slot and hide/show appropriate columns 
             spl.prepared[i] = {
-              name: "Empty Slot",
+              name: "Empty Slot (drag spell here)",
               id: null,
               prepared: false          
             }
@@ -267,7 +267,7 @@ class ActorSheetPF2e extends ActorSheet {
     
     // Remove Spell Slot
     html.find('.item-unprepare').click(ev => {
-      let slotId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+      let slotId = Number($(ev.currentTarget).parents(".item").attr("data-slot-id")),
           spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl"));
       this.actor.removePreparedSpellSlot(spellLvl, slotId);
     });
@@ -388,6 +388,33 @@ class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   /**
+   * Extend the base _onDrop method to handle dragging spells onto spell slots.
+   * @private
+   */
+  async _onDrop(event) {
+    
+    // get the item type of the drop target
+    let dropType = $(event.target).parents(".item").attr("data-item-type");
+
+    // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
+    if (dropType === "spellSlot") {
+      let dragData = event.dataTransfer.getData("text/plain"),
+          dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
+          
+      if (dragItem.data.type === "spell") {
+        let dropID = Number($(event.target).parents(".item").attr("data-item-id")),
+            spellLvl = Number($(event.target).parents(".item").attr("data-spell-lvl"));
+
+        this.actor.allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data);
+      }
+    }
+
+    super._onDrop(event)
+}
+
+  /* -------------------------------------------- */
+
+  /**
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
    * @private
    */
@@ -496,6 +523,9 @@ class ActorSheetPF2e extends ActorSheet {
     } else if (data.type === "melee") {
       data["name"] = `New ${data.actionType.capitalize()}`;    
       mergeObject(data, {"data.weaponType.value": data.actionType});
+    } else if (data.type === "spell") {
+      data["name"] = `New  Level ${data.level} ${data.type.capitalize()}`;    
+      mergeObject(data, {"data.level.value": data.level});
     }
     else {
       data["name"] = `New ${data.type.capitalize()}`;    

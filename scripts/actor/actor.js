@@ -73,6 +73,7 @@ class ActorPF2e extends Actor {
     let spellProficiency = data.attributes.spelldc.rank ? (data.attributes.spelldc.rank * 2) + data.details.level.value : 0;
     let spellAbl = data.attributes.spellcasting.value || "int";
     data.attributes.spelldc.value = data.abilities[spellAbl].mod + spellProficiency + data.attributes.spelldc.item;
+    data.attributes.spelldc.mod = data.abilities[spellAbl].mod;
     data.attributes.spelldc.dc = data.attributes.spelldc.value + 10
     data.attributes.spelldc.breakdown = `10 + ${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
 

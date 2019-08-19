@@ -42,6 +42,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData["preparationType"] = CONFIG.preparationType;
     if ((sheetData.data.attributes.prepared || {}).value === "prepared") sheetData.data["preparedSpells"] = true;
     else sheetData.data["preparedSpells"] = false;
+    sheetData["showUnpreparedSpells"] = sheetData.options.showUnpreparedSpells
 
 
     // Return data for rendering
