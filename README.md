@@ -22,12 +22,14 @@ Known Issues (see project issues for full issues list):
 To install the system, follow these instructions:
 
 1. [Download the zip file](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/raw/master/pf2e.zip) included in the system directory.
-2. Extract the included folder to `public/systems` in your Foundry Virtual Tabletop installation folder.
+2. Extract the included folder to `public/systems` in your Foundry Virtual Tabletop installation folder. NOTE: the folder must be named `pf2e`. 
 3. Restart Foundry Virtual Tabletop.  
 
 ### Shoutouts
 
-A huge thanks to @fyjham https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and @FS#5443 for pointing me to it).
+A huge thanks to:
+- @fyjham https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and @FS#5443 for pointing me to it).
+- @MooMan and @Edmond for the wfrp4e system which I used for inspiration on my inventory onDrop method.
 
 ### Feedback
 
