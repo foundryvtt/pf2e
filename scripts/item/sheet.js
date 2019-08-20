@@ -211,4 +211,8 @@ class ItemSheetPF2e extends ItemSheet {
 Hooks.on('renderChatLog', (log, html, data) => ItemPF2e.chatListeners(html));
 
 // Override CONFIG
-CONFIG.Item.sheetClass = ItemSheetPF2e;
+//CONFIG.Item.sheetClass = ItemSheetPF2e;
+
+// Register Item Sheet
+Items.unregisterSheet("core", ItemSheet);
+Items.registerSheet("pf2e", ItemSheetPF2e, {makeDefault: true});
