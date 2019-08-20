@@ -189,7 +189,8 @@ CONFIG.magicTraditions = {
   "arcane": "Arcane",
   "occult": "Occult",
   "divine": "Divine",
-  "primal": "Primal"
+  "primal": "Primal",
+  "focus": "Focus"
 };
 
 // Preparation Type
