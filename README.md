@@ -25,6 +25,10 @@ To install the system, follow these instructions:
 2. Extract the included folder to `public/systems` in your Foundry Virtual Tabletop installation folder.
 3. Restart Foundry Virtual Tabletop.  
 
+### Shoutouts
+
+A huge thanks to @fyjham https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and @FS#5443 for pointing me to it).
+
 ### Feedback
 
 If you have any suggestions or feedback, please contact me on discord (hooking#0492)
