@@ -30,6 +30,7 @@ To install the system, follow these instructions:
 A huge thanks to:
 - @fyjham https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and @FS#5443 for pointing me to it).
 - @MooMan and @Edmond for the wfrp4e system which I used for inspiration on my inventory onDrop method.
+- Felix#6196 for the creation of Spell Browser and kind permission to allow me to incorporate it into this system.
 
 ### Feedback
 
