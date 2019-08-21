@@ -275,6 +275,10 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
+    // Spell Browser
+    html.find('.spell-create').click(ev => spellBrowser.render(true));
+    
+
     /* -------------------------------------------- */
     /*  Inventory
     /* -------------------------------------------- */

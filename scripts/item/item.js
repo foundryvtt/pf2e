@@ -168,7 +168,7 @@ class ItemPF2e extends Item {
     //if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
     if ( data.isSave ) data.save.dc = ad.attributes.spelldc.dc;
     else data.save.dc = ad.attributes.spelldc.value;
-    data.save.str = data.save.value ? this.actor.data.data.saves[data.save.value].label : "";
+    data.save.str = data.save.value ? this.actor.data.data.saves[data.save.value.toLowerCase()].label : "";
 
     // Spell attack labels
     data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";

@@ -1532,7 +1532,8 @@
 .pf2e.actor .inventory-list .inventory-header .item-weight {
   color: white;
 }
-.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create {
+.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create,
+.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-create {
   width: 100%;
   color: white;
 }
@@ -1951,4 +1952,166 @@
 .pf2e.sheet .melee-buttons span {
   padding:0;
   margin-top: 3px;
+}
+/* ----------------------------------------- */
+/*  Spell Browser
+/* ----------------------------------------- */
+/*  core foundry changes  */
+#compendium.flexcolumn.active {
+  display: flex;
+  flex-direction: column;
+}
+#compendium.flexcolumn > .directory-list {
+  width: 100%;
+  height: auto;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+#compendium.flexcolumn > .directory-footer {
+  height: auto;
+}
+#compendium.flexcolumn > .directory-footer > * {
+  margin-top: 5px;
+}
+
+#compendium.flexcolumn .spell-browser-btn {
+  margin-left:2%;
+  margin-right:0;
+}
+
+#compendium .directory-footer {
+  display:block;
+}
+
+/*  spellbrowser  */
+/*  resizing  */
+.spell-browser-window {
+  resize:both;
+  overflow:auto;
+  /*min-width:600px;
+  min-height:350px;*/
+  max-width:1100px;
+  max-height:90vh;
+}
+
+.spell-browser {
+  display:flex;
+  min-height:100px;
+}
+
+.spell-browser-window .window-content {
+  overflow-y: hidden!important;
+}
+
+/*  filter area */
+.spell-browser .control-area {
+  position:sticky;
+  display: block;
+  min-width: 250px;
+  width: 300px;
+  padding-right:5px;
+  overflow:auto;
+}
+
+.spell-browser .filtercontainer {    
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding:2px;
+}
+
+.spell-browser .filtercontainer h3 {
+  margin:0;
+  cursor:pointer;
+}
+
+
+.spell-browser dl {
+  margin: 5px 0;
+}
+
+.spell-browser dt {
+  display:inline-block;
+  width:40%;
+  padding-left:5px;
+}
+#levelfilter dt, #classfilter dt, #schoolfilter dt {
+  width:10%;
+}
+
+.spell-browser dd {
+  display:inline-block;
+  width:58%;
+  margin-left:0;
+}
+#levelfilter dd, #classfilter dd, #schoolfilter dd  {
+  width:88%;
+}
+
+.spell-browser dd select {
+  width:100%;
+}
+
+.spell-browser #tagfilter input {
+  width:100%;
+  height:1.6em;
+}
+
+.spell-browser .hint {
+  font-size: 12px;   
+  border: 1px solid #00ff0547;
+  border-radius: 5px;
+  padding:3px;
+}
+
+/*  spell list  */
+.spell-browser ul {
+  float:right;
+  display: block;
+  min-width: 335px;
+  width: 785px;
+  margin:0;
+  height: 100%;
+  overflow:auto;
+}
+
+.spell-browser .spell {
+  cursor:default;
+  vertical-align: middle;
+  line-height:32px;
+  margin:2px 0;
+}
+
+.spell-browser .spell-image {
+  max-width:32px;
+  height:32px;
+}
+
+.spell-browser .spell-level {
+  text-align:center;
+  font-weight:900;
+  max-width:18px;
+  height:32px;
+}
+
+.spell-browser .spell-name {
+  height:32px;
+  padding-left:5px;
+}
+
+.spell-browser .spell-tags {
+  text-align:right;
+  margin-right:3px;
+  font-weight:900;
+  max-width:100px;
+  height:32px;
+}
+
+.spell-browser .spacer {
+  display:inline-block;
+  min-width:5px;
+} 
+.spell-browser .spacer-large {
+  display:inline-block;
+  min-width:15px;
 }

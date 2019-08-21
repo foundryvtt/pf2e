@@ -1,0 +1,96 @@
+<div class="spell-browser">
+    <div class="control-area">
+        <div class="filtercontainer" id="tagfilter">            
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
+            <div class="hint" style="display:none;">
+                You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
+            </div>
+            <dl id="sorter">
+                <dt>Sort by:</dt>
+                <dd><select class="null" name="sortorder">
+                    <option value="true" selected>Name</option>
+                    <option value="false">Level</option>
+                </select></dd>
+            </dl>                    
+            <dl id="timefilter">
+                <dt>Castingtime:</dt>
+                <dd><select class="" name="timefilter">
+                    <option value="null" selected>-</option>
+                    {{#each times as |time key|}}
+                    <option value="{{time}}">{{time}}</option>
+                    {{/each}}
+                </select></dd>
+            </dl>            
+        </div>
+        <div class="filtercontainer" id="classfilter">
+            <h3>Traditions</h3>
+            <dl>
+                {{#each traditions as |tradition key|}}
+                <dt><input type="checkbox" name="traditions-{{key}}"></dt><dd>{{tradition}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="levelfilter">
+            <h3>Level</h3>
+            <dl style="display:none;">
+                <dt><input type="checkbox" name="level-0"></dt><dd>Cantrip</dd>
+                <dt><input type="checkbox" name="level-1"></dt><dd>Level 1</dd>
+                <dt><input type="checkbox" name="level-2"></dt><dd>Level 2</dd>
+                <dt><input type="checkbox" name="level-3"></dt><dd>Level 3</dd>
+                <dt><input type="checkbox" name="level-4"></dt><dd>Level 4</dd>
+                <dt><input type="checkbox" name="level-5"></dt><dd>Level 5</dd>
+                <dt><input type="checkbox" name="level-6"></dt><dd>Level 6</dd>
+                <dt><input type="checkbox" name="level-7"></dt><dd>Level 7</dd>
+                <dt><input type="checkbox" name="level-8"></dt><dd>Level 8</dd>
+                <dt><input type="checkbox" name="level-9"></dt><dd>Level 9</dd>
+                <dt><input type="checkbox" name="level-10"></dt><dd>Level 10</dd>
+                <dt><input type="checkbox" name="level-11"></dt><dd>Focus</dd>
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
+            <h3>Class</h3>
+            <dl style="display:none;">
+                {{#each classes as |class key|}}
+                <dt><input type="checkbox" name="class-{{key}}"></dt><dd>{{class}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="schoolfilter">
+            <h3>School</h3>
+            <dl style="display:none;">
+                {{#each schools as |school key|}}
+                <dt><input type="checkbox" name="school-{{key}}"></dt><dd>{{school}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+    </div>
+    <ul>
+        {{#each spells as |spell id|}}
+        <li class="spell flexrow draggable" data-entry-compendium="{{spell.compendium}}" data-entry-id="{{spell._id}}">
+            <div class="spell-image">
+                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32"/>
+            </div>
+            {{#unless spell.data.time.img}}
+            <div class="spell-image" style="margin-left: 5px;">
+                
+            </div> 
+            {{else}}
+            <div class="spell-image" style="margin-left: 5px;">
+                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.level.value}}" width="32" height="32"/>
+            </div> 
+            {{/unless}}
+            <div class="spell-name">
+                <span class="item-edit" ><a>{{spell.name}}</a></span>
+            </div>
+            <div class="spell-tags">
+                <span title="Spell level">{{spell.data.level.formated}}</span>
+            </div>
+            
+            {{#each spell.data as |attrib id|}}
+                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
+            {{/each}}
+        </li>
+        {{/each}}
+    </ul>
+
+</div>

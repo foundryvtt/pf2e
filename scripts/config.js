@@ -273,6 +273,22 @@ CONFIG.featTraits = {
   "secret": "Secret"
 }
 
+// Class Traits
+CONFIG.classTraits = {
+  "alchemist": "Alchemist",
+  "barbarian": "Barbarian",
+  "bard": "Bard",
+  "champion": "Champion",
+  "cleric": "Cleric",
+  "druid": "Druid",
+  "fighter": "Fighter",
+  "monk": "Monk",
+  "ranger": "Ranger",
+  "rogue": "Rogue",
+  "sorcerer": "Sorcerer",
+  "wizard": "Wizard"
+}
+
 // Spell Components
 CONFIG.spellComponents = {
   "V": "Verbal",
