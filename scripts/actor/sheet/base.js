@@ -246,6 +246,13 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollAttribute(ev, attribute);
     });  
 
+    // Roll Attribute Checks
+    html.find('.ability-name').click(ev => {
+      ev.preventDefault();
+      let ability = ev.currentTarget.parentElement.getAttribute("data-ability");
+      this.actor.rollAbility(ev, ability);
+    });
+
     // Roll Skill Checks
     html.find('.skill-name.rollable').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
