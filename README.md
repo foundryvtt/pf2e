@@ -3,7 +3,7 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.310: This is the initial alpha release of the Pathfinder Second Edition system.
+v0.321: This is the initial alpha release of the Pathfinder Second Edition system.
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
@@ -15,7 +15,7 @@ Known Issues (see project issues for full issues list):
 - Critical damage is not calculated currently.
 
 ### FVTT Version:
-- Tested with FVTT v0.3.4.
+- Tested with FVTT v0.3.5.
 
 ### Installation Instructions
 
@@ -28,9 +28,10 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
-- @fyjham https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and @FS#5443 for pointing me to it).
-- @MooMan and @Edmond for the wfrp4e system which I used for inspiration on my inventory onDrop method.
-- Felix#6196 for the creation of Spell Browser and kind permission to allow me to incorporate it into this system.
+- @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
+- Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
+- fryguy#3851 for contributing to the project with improvements to the NPC sheet!
+- Moo Man#7518  and CatoThe1stElder#9725 for the wfrp4e system which I used for inspiration on my inventory onDrop method.
 
 ### Feedback
 
