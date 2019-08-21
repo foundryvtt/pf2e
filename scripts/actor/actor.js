@@ -11,8 +11,15 @@ class ActorPF2e extends Actor {
     const data = actorData.data;
 
     // Ability modifiers
-    for (let abl of Object.values(data.abilities)) {
-      abl.mod = Math.floor((abl.value - 10) / 2);
+    if (actorData.type === "npc") {
+      for (let abl of Object.values(data.abilities)) {
+        if (!abl.mod) abl.mod = 0;
+        abl.value = abl.mod * 2 + 10;
+      }
+    } else {
+      for (let abl of Object.values(data.abilities)) {
+        abl.mod = Math.floor((abl.value - 10) / 2);
+      }
     }
 
     // Prepare Character data
@@ -184,6 +191,26 @@ class ActorPF2e extends Actor {
       event: event,
       parts: parts,
       data: {mod: save.value},
+      title: flavor,
+      speaker: ChatMessage.getSpeaker({actor: this}),
+    });
+  }
+
+  /**
+   * Roll an Ability Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollAbility(event, abilityName) {
+    let skl = this.data.data.abilities[abilityName],
+      parts = ["@mod"],
+      flavor = `${skl.label} Check`;
+
+    // Call the roll helper utility
+    DicePF2e.d20Roll({
+      event: event,
+      parts: parts,
+      data: {mod: skl.value},
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });
