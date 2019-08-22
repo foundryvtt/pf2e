@@ -62,6 +62,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Spellbook
     const spellbook = {};
 
+    // Skills
+    const lores = [];
+
     // Iterate through items, allocating to containers
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
@@ -90,13 +93,29 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         
         actions[actionType].actions.push(i);       
       }
-      /* else if (["ranged"].includes(i.type)) attacks.equipment.items.push(i); */
+
+      // Lore Skills
+      else if ( i.type === "lore" ) {
+
+        /* i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
+        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value )];
+
+        let proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;      
+        let modifier = actorData.data.abilities["int"].mod;
+        let itemBonus = Number((i.data.item || {}).value || 0);
+        i.data.itemBonus = itemBonus;
+        i.data.value = modifier + proficiency + itemBonus;
+        i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`; */
+
+        lores.push(i);
+      }
     }
 
     // Assign and return
     actorData.actions = actions;
     actorData.attacks = attacks;
     actorData.spellbook = spellbook;
+    actorData.lores = lores;
   }
 
 
