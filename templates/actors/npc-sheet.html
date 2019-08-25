@@ -283,15 +283,18 @@
                         <a class="item-control item-create pf-heading" title="Create Skill" data-type="lore"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     {{/if}}
-                </li>   -->                  
+                </li> -->                    
 
                 <!-- Skill List -->
                 <!-- Note: I'm likely going to need to heavily modify lore as an item type or create a new item type for NPC skills. -->
 <!--                 {{#each actor.lores as |lore lid|}}
-                <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
+                    <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
 
-                        <div class="item-name rollable">
-                            <div class="item-image" style="background-image: url({{lore.img}})"></div>
+                        <div class="skill-input">
+                            <input name="item-value" data-item-id="{{lore.id}}" type="text" data-dtype="Number" value="{{lore.data.value}}" />
+                        </div>
+                        
+                        <div class="npc-skill-name rollable">
                             <h4>
                                 {{lore.data.value}} {{lore.name}}
                             </h4>

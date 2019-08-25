@@ -387,10 +387,20 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  _onDragItemStart(event) {
+/*   _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
+      actorId: this.actor._id,
+      id: itemId
+    }));
+  } */
+  _onDragItemStart(event) {
+    const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
+    const item = this.actor.getOwnedItem(itemId);
+	  event.dataTransfer.setData("text/plain", JSON.stringify({
+      type: "Item",
+      data: item.data,
       actorId: this.actor._id,
       id: itemId
     }));

@@ -142,10 +142,12 @@ class ItemPF2e extends Item {
 
   _loreChatData() {
     const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label,
-        prof = data.proficient.value || 0;
-    const properties = [abl, CONFIG.proficiencyLevels[prof]];
-    data.properties = properties.filter(p => p !== null);
+    if (this.actor.data.type != "npc") {
+      let abl = this.actor.data.data.abilities[data.ability.value].label,
+          prof = data.proficient.value || 0;
+      const properties = [abl, CONFIG.proficiencyLevels[prof]];
+      data.properties = properties.filter(p => p !== null);
+    } 
     return data;
   }
 
