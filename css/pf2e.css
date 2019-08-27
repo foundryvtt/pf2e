@@ -883,11 +883,11 @@
   border: 1px solid;
 }
 .pf2e.actor .item .skill-input > input {
-  width: 24px;
-  height: 24px;
-  margin: 3px;
+  width: 22px;
+  height: 22px;
+  margin: 1px;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
   background: #fff;
   border: 1px solid;
@@ -975,8 +975,14 @@
   /* border-top: 1px solid #b75b5b; */
 }
 .pf2e.actor .npc-abilities .abilities-list {
-  display: grid;
+/*   display: grid;
   grid: "ability ability ability ability ability ability" 54px / 16.6%;
+  grid-auto-rows: 54px;
+  list-style: none;
+  margin: 0;
+  padding: 0; */
+  display: grid;
+  grid: 38px 38px / 33.3% 33.3% 33.3%;
   grid-auto-rows: 54px;
   list-style: none;
   margin: 0;
@@ -1010,6 +1016,18 @@
   line-height: 26px;
   color: #666;
   text-align: center;
+}
+.pf2e.actor .npc-abilities .ability .ability-mod .ability-input {
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 28px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-left: 18px;
 }
 .pf2e.actor .npc-abilities .ability .ability-name {
   margin: 2px;
@@ -1088,7 +1106,7 @@
   color: #666;
   text-align: center;
 }
-.pf2e.actor .npc-abilities .ability .ability-name,
+.pf2e.actor .npc-abilities .npc-defense .ability-name,
 .pf2e.actor .abilities .ability .ability-id {
   flex: 0 0 24px;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;

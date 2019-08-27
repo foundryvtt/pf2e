@@ -210,7 +210,7 @@ class ActorPF2e extends Actor {
     DicePF2e.d20Roll({
       event: event,
       parts: parts,
-      data: {mod: skl.value},
+      data: {mod: skl.mod},
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });

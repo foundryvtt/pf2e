@@ -246,7 +246,7 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollAttribute(ev, attribute);
     });  
 
-    // Roll Attribute Checks
+    // Roll Ability Checks
     html.find('.ability-name').click(ev => {
       ev.preventDefault();
       let ability = ev.currentTarget.parentElement.getAttribute("data-ability");
@@ -327,7 +327,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Item Rolling
     html.find('.item .item-image').click(event => this._onItemRoll(event));
 
-    // Melee Rolling
+    // NPC Weapon Rolling
     html.find('button').click(ev => {
       ev.preventDefault();
       ev.stopPropagation();
@@ -547,6 +547,12 @@ class ActorSheetPF2e extends ActorSheet {
     } else if (data.type === "spell") {
       data["name"] = `New  Level ${data.level} ${data.type.capitalize()}`;    
       mergeObject(data, {"data.level.value": data.level});
+    } else if (data.type === "lore") {
+      if (this.actorType === "npc") {
+        data["name"] = `New Skill`;
+        data["img"] = "/icons/svg/d20-black.svg";
+      }
+      else data["name"] = `New ${data.type.capitalize()}`; 
     }
     else {
       data["name"] = `New ${data.type.capitalize()}`;    
