@@ -83,6 +83,7 @@ class ItemSheetPF2e extends ItemSheet {
     else if ( type === "feat" ) {
       data.featTypes = CONFIG.featTypes;
       data.featActionTypes = CONFIG.featActionTypes;
+      data.actionsNumber = CONFIG.actionsNumber;
       data.featTags = [
         data.data.level.value,
         data.data.traits.value
@@ -94,9 +95,11 @@ class ItemSheetPF2e extends ItemSheet {
       //data.featTypes = CONFIG.featTypes;
       //data["weapons"] = game.system.template.item.data.weapon;
       let actorWeapons = [];
-      for ( let i of this.actor.data.items ) {
-        if (i.type === "weapon") actorWeapons.push(i);
-      }
+      if (this.actor) {
+        for ( let i of this.actor.data.items ) {
+          if (i.type === "weapon") actorWeapons.push(i);
+        }
+      }    
 
       let actionType = data.data.actionType.value || "action";
       let actionImg = 0;
