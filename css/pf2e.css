@@ -157,7 +157,7 @@
 /* ---------------------------------------- */
 .pf2e.actor {
   min-width: 650px;
-  min-height: 650px;
+  min-height: 450px;
   /* NPC Sheet Adjustments */
   /* ---------------------------------------- */
   /*  Navigation Tabs
@@ -242,13 +242,15 @@
   height: calc(100% - 48px);
 }
 .pf2e.actor .sheet-lower .sheet-content {
-  height: 100%;
+  height: calc(100% - 32px);
 }
 .pf2e.actor .sheet-sidebar {
-  height: 100%;
+  height: calc(100% - 48px);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .pf2e.actor .sheet-sidebar > * {
   flex: 1;
@@ -804,7 +806,7 @@
   grid-row-end: 3;
   grid-column-start: 1;
   grid-column-end: 3;
-  height: 380px;
+  height: 230px;
   padding-left: 8px;
 }
 /* .pf2e.actor .abilities .hp-current-value,
@@ -1244,6 +1246,7 @@
   display: grid;
   grid: "value name rank item armor" 100% /  25px auto 46px 46px 20px;
 }
+.pf2e.actor .actions-list .lores-list .item,
 .pf2e.actor .lores-list .item {
   grid-area: auto;
   display: grid;
@@ -1495,8 +1498,13 @@
   padding: 0;
   height: 100%;
   overflow-y: auto;
-  /* Inventory Item */
-  /* Inventory Header */
+}
+.pf2e.actor .overflow-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
 }
 .pf2e.actor .inventory-list .item {
   display: flex;
@@ -1626,7 +1634,8 @@
   color: white;
 }
 .pf2e.actor.character-sheet .inventory-list {
-  height: calc(100% - 42px);
+  /* height: calc(100% - 42px); */
+  height: 100%;
 }
 .pf2e.actor .encumbrance {
   background: rgba(0, 0, 0, 0.1);
@@ -1707,7 +1716,7 @@
   margin-left: 5px; */
 }
 .pf2e.actor .spellbook .inventory-list {
-  height: calc(100% - 130px);
+  height: calc(100% - 96px);
 }
 .pf2e.actor .spellbook .item .item-name,
 .pf2e.actor .spellbook .item .melee-name {
