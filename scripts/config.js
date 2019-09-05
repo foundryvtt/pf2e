@@ -64,6 +64,8 @@ CONFIG.weaponGroups = {
 
 // Weapon Properties
 CONFIG.weaponTraits = {
+  "uncommon": "Uncommon",
+  "rare": "Rare",
   "agile": "Agile",
   "attached": "Attached",
   "backstabber": "Backstabber",
@@ -202,9 +204,9 @@ CONFIG.preparationType = {
 
 // Spell Traits
 CONFIG.spellTraits = {
-  "attack": "Attack",
   "uncommon": "Uncommon",
   "rare": "Rare",
+  "attack": "Attack",
   "disease": "Disease",
   "polymorph": "Polymorph",
   "incapacitation": "Incapacitation",
@@ -243,6 +245,8 @@ CONFIG.spellTraits = {
 
 // Feat Traits
 CONFIG.featTraits = {
+  "uncommon": "Uncommon",
+  "rare": "Rare",
   "attack": "Attack",
   "move": "Move",
   "manipulate": "Manipulate",
