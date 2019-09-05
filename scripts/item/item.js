@@ -102,6 +102,9 @@ class ItemPF2e extends Item {
 
     if (traits.length != 0) properties = properties.concat(traits);
     
+    let isAgile = (data.traits.value || []).includes("agile");
+    data.map2 = isAgile ? '-4' : '-5';
+    data.map3 = isAgile ? '-8' : '-10';
     data.properties = properties.filter(p => !!p);
     return data;
   }
@@ -254,29 +257,36 @@ class ItemPF2e extends Item {
    * Roll a Weapon Attack
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollWeaponAttack(event) {
+  rollWeaponAttack(event, multiAttackPenalty) {
     if ( this.type === "action" ) {
       let itemId = parseInt(this.data.data.weapon.value),
           item = this.actor.getOwnedItem(itemId);
-      item.rollWeaponAttack(event);
+      item.rollWeaponAttack(event, multiAttackPenalty);
       return;
     }
     else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
 
     // Prepare roll data
     //let itemData = this.data.data,
-    let itemData = this.getChatData(),
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || "str",
-        prof = itemData.weaponType.value || "simple",
-        parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`],
-        title = `${this.name} - Attack Roll`;
+    let itemData = this.getChatData();
+    let rollData = duplicate(this.actor.data.data);
+    let isAgile = (itemData.traits.value || []).includes("agile");
+    let isFinesse = (itemData.traits.value || []).includes("finesse");
+    let abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? "dex" : (itemData.ability.value || "str"));
+    let prof = itemData.weaponType.value || "simple";
+    let parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`];
+    let title = `${this.name} - Attack Roll` + ((multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : "");
 
     if (this.type === "melee") {
       parts = ["@item.bonus.value", `@martial.simple.value`];
     }
     rollData.item = itemData;
     //if ( !itemData.proficient.value ) parts.pop();
+
+    if (multiAttackPenalty == 2)
+      parts.push(isAgile ? "-4" : "-5");
+    else if (multiAttackPenalty == 3)
+      parts.push(isAgile ? "-8" : "-10");
 
     // TODO: Incorporate Elven Accuracy
 
@@ -647,6 +657,8 @@ class ItemPF2e extends Item {
 
       // Weapon attack
       if ( action === "weaponAttack" ) item.rollWeaponAttack(ev);
+      else if ( action === "weaponAttack2" ) item.rollWeaponAttack(ev, 2);
+      else if ( action === "weaponAttack3" ) item.rollWeaponAttack(ev, 3);
       else if ( action === "weaponDamage" ) item.rollWeaponDamage(ev);
       else if ( action === "weaponDamage2" ) item.rollWeaponDamage(ev, true);
 
