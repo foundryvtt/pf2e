@@ -80,7 +80,7 @@
                                     data-dtype="Number" placeholder="0"/>
                         </span>              
                     </div>
-                    <div class="ac-item pf-container">
+<!--                     <div class="ac-item pf-container">
                         <h4 class="ac-item pf-title" title="The shields max Hit Points and Broken Threshold"> Max</h4>
                         <span class="ac-value pf-value pf-small" title="The shields max Hit Points and Broken Threshold">
                             <input name="data.attributes.shield.maxhp" type="text" value="{{data.attributes.shield.maxhp}}"
@@ -88,17 +88,25 @@
                         </span>
                     </div>
                     <div class="ac-item pf-container">
-                            <h4 class="ac-item pf-title" title="The shields current Hit Points">Current</h4>
-                            <span class="ac-value pf-value pf-small" title="The shields current Hit Points">
-                                <input name="data.attributes.shield.hp" type="text" value="{{data.attributes.shield.hp}}"
-                                        data-dtype="Number" placeholder="0"/>
-                            </span>
-                        </div>
+                        <h4 class="ac-item pf-title" title="The shields current Hit Points">Current</h4>
+                        <span class="ac-value pf-value pf-small" title="The shields current Hit Points">
+                            <input name="data.attributes.shield.hp" type="text" value="{{data.attributes.shield.hp}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div> -->
                 </li>  
             </ol>
 
             <h3 class="hp-title pf-heading">Hit Points</h3>
-            <ol class="hp-list">                
+            <ol class="hp-list">
+                <li class="li-three-grid">
+                    <div class="hp-temp pf-container">
+                        <h4 class="hp-temp pf-title">Temp HP</h4>
+                        <span class="hp-temp pf-value pf-large" title="The amount of temporary hit points you have">
+                            <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
                     <div class="hp-current pf-container">
                         <h4 class="hp-current pf-title">Current HP</h4>
                         <span class="hp-current pf-value pf-large" title="Your current hit points">
@@ -113,27 +121,38 @@
                                     data-dtype="Number" placeholder="10"/>
                         </span>
                     </div>
-                    <div class="hp-temp pf-container">
-                        <h4 class="hp-temp pf-title">Temp</h4>
-                        <span class="hp-temp pf-value pf-small" title="The amount of temporary hit points you have">
-                            <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
+                </li>
+                <li class="li-four-grid">
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Your shields current Hit Points">S.Current</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your shields current Hit Points">
+                            <input name="data.attributes.shield.hp" type="text" value="{{data.attributes.shield.hp}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
-                    <div class="hp-dying pf-container">
-                        <h4 class="hp-dying pf-title">Dying</h4>
-                        <span class="hp-dying pf-value pf-small" title="Your current level of Dying">
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Your shields max Hit Points and Broken Threshold">S.Max</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your shields max Hit Points and Broken Threshold">
+                            <input name="data.attributes.shield.maxhp" type="text" value="{{data.attributes.shield.maxhp}}"
+                                    data-dtype="String" placeholder="0"/>
+                        </span>
+                    </div>
+
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title">Dying</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your current level of Dying">
                             <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
-                    <div class="hp-wounds pf-container">
-                        <h4 class="hp-wounds pf-title">Wounds</h4>
-                        <span class="hp-wounds pf-value pf-small" title="Your current level of Wounds">
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title">Wounds</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your current level of Wounds">
                             <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
+                </li>
 <!--                     <div class="hp-conditions pf-container">
                         <h4 class="hp-conditions pf-title">Conditions</h4>
                         <span class="hp-conditions pf-value" title="Conditions affecting you">                            
