@@ -94,6 +94,21 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         actions[actionType].actions.push(i);       
       }
 
+      // Feats
+      else if ( i.type === "feat" ) {
+        let actionType = i.data.actionType.value || "passive";
+        
+        if ( Object.keys(actions).includes(actionType)) {
+          i.feat = true;
+          let actionImg = 0;
+          if (actionType === "action") actionImg = parseInt((i.data.actions || {}).value) || 1;
+          else if (actionType === "reaction") actionImg = "reaction";
+          else if (actionType === "free") actionImg = "free";
+          i.img = this._getActionImg(actionImg);
+          actions[actionType].actions.push(i);
+        }
+      }
+
       // Lore Skills
       else if ( i.type === "lore" ) {
 
