@@ -3,7 +3,7 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.321: This is the initial alpha release of the Pathfinder Second Edition system.
+v0.331: This is the initial alpha release of the Pathfinder Second Edition system.
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
@@ -15,15 +15,16 @@ Known Issues (see project issues for full issues list):
 - Critical damage is not calculated currently.
 
 ### FVTT Version:
-- Tested with FVTT v0.3.5.
+- Tested with FVTT v0.3.6.
 
 ### Installation Instructions
 
 To install the system, follow these instructions:
 
-1. [Download the zip file](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/raw/master/pf2e.zip) included in the system directory.
-2. Extract the included folder to `public/systems` in your Foundry Virtual Tabletop installation folder. NOTE: the folder must be named `pf2e`. 
-3. Restart Foundry Virtual Tabletop.  
+1. Start FVTT and browse to the Game Systems tab in the Configuration and Setup menu
+2. Select the Install System button and enter the following URL: https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/raw/master/system.json
+3. Click Install and wait for installation to complete
+4. Create a new world using the PF2e system.
 
 ### Shoutouts
 
