@@ -70,7 +70,16 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       i.img = i.img || DEFAULT_TOKEN;
 
       // Spells
-      if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
+      if ( i.type === "spell" ) {
+        let spellType = i.data.time.value;
+        
+        // format spell level for display
+        if (spellType === "reaction") i.img = this._getActionImg("reaction");
+        else if (spellType === "free") i.img = this._getActionImg("free");
+        else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
+
+        this._prepareSpell(actorData, spellbook, i);
+      }
 
       // Attacks
       else if ( i.type === "melee" ) {
