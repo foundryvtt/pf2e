@@ -196,7 +196,6 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
-        console.log(`skill ${skill.name}: `, skill);
       }
     });
   }

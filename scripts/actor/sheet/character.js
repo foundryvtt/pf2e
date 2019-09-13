@@ -89,7 +89,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const lores = [];
 
     // Iterate through items, allocating to containers
-    //let totalWeight = 0;
+    let totalWeight = 0;
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
 
@@ -97,10 +97,16 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if ( Object.keys(inventory).includes(i.type) ) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+        if (i.data.weight.value === "L" || i.data.weight.value === "l") {
+          i.totalWeight = "L";
+          totalWeight += i.data.quantity.value * 0.1;
+        } else {
+          i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+          totalWeight += i.totalWeight;
+        }
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
-        //totalWeight += i.totalWeight;
+        
       }
 
       // Spells
