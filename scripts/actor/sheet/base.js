@@ -101,6 +101,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Extend the Spellbook level
     spellbook[lvl] = spellbook[lvl] || {
       isCantrip: lvl === 0,
+      isFocus: lvl === 11,
       label: CONFIG.spellLevels[lvl],
       spells: [],
       prepared: [],
