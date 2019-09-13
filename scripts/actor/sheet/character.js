@@ -100,9 +100,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         if (i.data.weight.value === "L" || i.data.weight.value === "l") {
           i.totalWeight = "L";
           totalWeight += i.data.quantity.value * 0.1;
-        } else {
+        } else if (parseInt(i.data.weight.value)) {
           i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
           totalWeight += i.totalWeight;
+        }
+        else {
+          i.totalWeight = "-";
         }
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
@@ -176,7 +179,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.lores = lores;
 
     // Inventory encumbrance
-    //actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
+    actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
   }
 
   /* -------------------------------------------- */
@@ -192,37 +195,36 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @return {Object}               An object describing the character's encumbrance level
    * @private
    */
-  /* _computeEncumbrance(totalWeight, actorData) {
+  _computeEncumbrance(totalWeight, actorData) {
 
     // Encumbrance classes
-    let mod = {
+/*     let mod = {
       tiny: 0.5,
       sm: 1,
       med: 1,
       lg: 2,
       huge: 4,
       grg: 8
-    }[actorData.data.traits.size.value] || 1;
+    }[actorData.data.traits.size.value] || 1; */
 
     // Apply Powerful Build feat
-    if ( this.actor.getFlag("dnd5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8);
+    /* if ( this.actor.getFlag("dnd5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8); */
 
     // Add Currency Weight
-    if ( game.settings.get("dnd5e", "currencyWeight") ) {
-      const currency = actorData.data.currency;
-      const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
-      totalWeight += numCoins / 50;
-    }
+    const currency = actorData.data.currency;
+    const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
+    totalWeight += Math.floor(numCoins / 1000);
+  
 
     // Compute Encumbrance percentage
     const enc = {
-      max: actorData.data.abilities.str.value * 15 * mod,
-      value: Math.round(totalWeight * 10) / 10,
+      max: actorData.data.abilities.str.mod + 5,
+      value: Math.floor(totalWeight),
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     enc.encumbered = enc.pct > (2/3);
     return enc;
-  } */
+  }
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers

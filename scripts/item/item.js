@@ -26,7 +26,8 @@ class ItemPF2e extends Item {
         actor: this.actor._id,
         token: this.actor.token,
         alias: this.actor.name
-      }
+      },
+      type: CHAT_MESSAGE_TYPES.OTHER
     };
 
     // Toggle default roll mode
