@@ -40,7 +40,8 @@ class ItemSheetPF2e extends ItemSheet {
 
     // Consumable Data
     if ( type === "consumable" ) {
-      data.consumableTypes = CONFIG.consumableTypes
+      data.consumableTypes = CONFIG.consumableTypes;
+      data.bulkTypes = CONFIG.bulkTypes;
     }
 
     // Spell Data
@@ -63,7 +64,8 @@ class ItemSheetPF2e extends ItemSheet {
       data.weaponDamage = CONFIG.weaponDamage;
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;
-      data.weaponTraits = data.data.traits.value
+      data.weaponTraits = data.data.traits.value;
+      data.bulkTypes = CONFIG.bulkTypes;
       //data.weaponTraits = this._formatWeaponTraits(data.data);
     }
 
@@ -118,14 +120,20 @@ class ItemSheetPF2e extends ItemSheet {
     }
 
     // Equipment data
-/*     else if ( type === "equipment" ) {
-      data.armorTypes = CONFIG.armorTypes;
-    } */
+    else if ( type === "equipment" ) {
+      data.bulkTypes = CONFIG.bulkTypes;
+    }
+
+    // Backpack data
+    else if ( type === "backpack" ) {
+      data.bulkTypes = CONFIG.bulkTypes;
+    }
 
     // Armor data
     else if ( type === "armor" ) {
       data.armorTypes = CONFIG.armorTypes;
       data.armorGroups = CONFIG.armorGroups;
+      data.bulkTypes = CONFIG.bulkTypes;
     }
 
     // Tool-specific data
