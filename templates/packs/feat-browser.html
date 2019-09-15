@@ -12,7 +12,7 @@
                     <option value="false">Level</option>
                 </select></dd>
             </dl>                    
-            <dl id="timefilter">
+<!--             <dl id="timefilter">
                 <dt>Castingtime:</dt>
                 <dd><select class="" name="timefilter">
                     <option value="null" selected>-</option>
@@ -20,20 +20,19 @@
                     <option value="{{time}}">{{time}}</option>
                     {{/each}}
                 </select></dd>
-            </dl>            
+            </dl>    -->         
         </div>
-        <div class="filtercontainer" id="classfilter">
+<!--         <div class="filtercontainer" id="classfilter">
             <h3>Traditions</h3>
             <dl>
                 {{#each traditions as |tradition key|}}
                 <dt><input type="checkbox" name="traditions-{{key}}"></dt><dd>{{tradition}}</dd>
                 {{/each}}
             </dl>
-        </div>
+        </div> -->
         <div class="filtercontainer" id="levelfilter">
             <h3>Level</h3>
-            <dl>
-                <dt><input type="checkbox" name="level-0"></dt><dd>Cantrip</dd>
+            <dl style="display:none;">
                 <dt><input type="checkbox" name="level-1"></dt><dd>Level 1</dd>
                 <dt><input type="checkbox" name="level-2"></dt><dd>Level 2</dd>
                 <dt><input type="checkbox" name="level-3"></dt><dd>Level 3</dd>
@@ -44,49 +43,74 @@
                 <dt><input type="checkbox" name="level-8"></dt><dd>Level 8</dd>
                 <dt><input type="checkbox" name="level-9"></dt><dd>Level 9</dd>
                 <dt><input type="checkbox" name="level-10"></dt><dd>Level 10</dd>
-                <dt><input type="checkbox" name="level-11"></dt><dd>Focus</dd>
+                <dt><input type="checkbox" name="level-11"></dt><dd>Level 11</dd>
+                <dt><input type="checkbox" name="level-12"></dt><dd>Level 12</dd>
+                <dt><input type="checkbox" name="level-13"></dt><dd>Level 13</dd>
+                <dt><input type="checkbox" name="level-14"></dt><dd>Level 14</dd>
+                <dt><input type="checkbox" name="level-15"></dt><dd>Level 15</dd>
+                <dt><input type="checkbox" name="level-16"></dt><dd>Level 16</dd>
+                <dt><input type="checkbox" name="level-17"></dt><dd>Level 17</dd>
+                <dt><input type="checkbox" name="level-18"></dt><dd>Level 18</dd>
+                <dt><input type="checkbox" name="level-19"></dt><dd>Level 19</dd>
+                <dt><input type="checkbox" name="level-20"></dt><dd>Level 20</dd>
             </dl>
         </div>
         <div class="filtercontainer" id="classfilter">
-            <h3>Class</h3>
+            <h3>Class Feats</h3>
             <dl style="display:none;">
-                {{#each classes as |class key|}}
+                {{#each featClasses as |class key|}}
                 <dt><input type="checkbox" name="class-{{key}}"></dt><dd>{{class}}</dd>
                 {{/each}}
             </dl>
         </div>
-        <div class="filtercontainer" id="schoolfilter">
+        <div class="filtercontainer" id="skillfilter">
+            <h3>Skill Feats</h3>
+            <dl style="display:none;">
+                {{#each featSkills as |skill key|}}
+                <dt><input type="checkbox" name="skill-{{key}}"></dt><dd>{{skill}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="ancestryfilter">
+            <h3>Ancestry Feats</h3>
+            <dl style="display:none;">
+                {{#each featAncestry as |ancestry key|}}
+                <dt><input type="checkbox" name="ancestry-{{key}}"></dt><dd>{{ancestry}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+<!--         <div class="filtercontainer" id="schoolfilter">
             <h3>School</h3>
             <dl style="display:none;">
                 {{#each schools as |school key|}}
                 <dt><input type="checkbox" name="school-{{key}}"></dt><dd>{{school}}</dd>
                 {{/each}}
             </dl>
-        </div>
+        </div> -->
     </div>
     <ul>
-        {{#each spells as |spell id|}}
-        <li class="spell flexrow draggable" data-entry-compendium="{{spell.compendium}}" data-entry-id="{{spell._id}}" data-item-category="spells">
+        {{#each feats as |feat id|}}
+        <li class="spell flexrow draggable" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats">
             <div class="spell-image">
-                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32"/>
+                <img class="" src="{{feat.img}}" title="{{feat.name}}" width="32" height="32"/>
             </div>
-            {{#unless spell.data.time.img}}
+            {{#unless feat.data.actionType.img}}
             <div class="spell-image" style="margin-left: 5px;">
                 
             </div> 
             {{else}}
             <div class="spell-image" style="margin-left: 5px;">
-                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.level.value}}" width="32" height="32"/>
+                <img class="" src="{{feat.data.actionType.img}}" title="{{feat.data.level.value}}" width="32" height="32"/>
             </div> 
             {{/unless}}
             <div class="spell-name">
-                <span class="item-edit" ><a>{{spell.name}}</a></span>
+                <span class="item-edit" ><a>{{feat.name}}</a></span>
             </div>
             <div class="spell-tags">
-                <span title="Spell level">{{spell.data.level.formated}}</span>
+                <span title="Feat level">{{feat.data.level.formated}}</span>
             </div>
             
-            {{#each spell.data as |attrib id|}}
+            {{#each feat.data as |attrib id|}}
                 <input type="hidden" name="{{id}}" value="{{attrib.value}}">
             {{/each}}
         </li>

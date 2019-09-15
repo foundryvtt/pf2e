@@ -251,6 +251,7 @@ CONFIG.featTraits = {
   "move": "Move",
   "manipulate": "Manipulate",
   "concentrate": "Concentrate",
+  "rage": "Rage",
   "general": "General",
   "skill": "Skill",
   "dwarf": "Dwarf",
@@ -335,6 +336,37 @@ CONFIG.classTraits = {
   "rogue": "Rogue",
   "sorcerer": "Sorcerer",
   "wizard": "Wizard"
+}
+
+// Ancestry Traits
+CONFIG.ancestryTraits = {
+  "dwarf": "Dwarf",
+  "elf": "Elf",
+  "gnome": "Gnome",
+  "goblin": "Goblin",
+  "halfling": "Halfling",
+  "human": "Human"
+}
+
+// Skill List
+CONFIG.skillList = {
+  "acrobatics": "Acrobatics",
+  "arcana": "Arcana",
+  "athletics": "Athletics",
+  "crafting": "Crafting",
+  "deception": "Deception",
+  "diplomacy": "Diplomacy",
+  "intimidation": "Intimidation",
+  "medicine": "Medicine",
+  "nature": "Nature",
+  "occultism": "Occultism",
+  "performance": "Performance",
+  "religion": "Religion",
+  "society": "Society",
+  "stealth": "Stealth",
+  "survival": "Survival",
+  "thievery": "Thievery",
+  "lore": "Lore"
 }
 
 // Spell Components
