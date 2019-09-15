@@ -3,7 +3,10 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.331: This is the initial alpha release of the Pathfinder Second Edition system.
+v0.337: This is the initial alpha release of the Pathfinder Second Edition system.
+
+Patch Notes:
+*  v0.337: Added Feat Browser
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
