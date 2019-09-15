@@ -270,7 +270,7 @@ CONFIG.featTraits = {
   "monk": "Monk",
   "ranger": "Ranger",
   "rogue": "Rogue",
-  "sorcere": "Sorcere",
+  "sorcerer": "Sorcerer",
   "wizard": "Wizard",
   "fortune": "Fortune",
   "healing": "Healing",
