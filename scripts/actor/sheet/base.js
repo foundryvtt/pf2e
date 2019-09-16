@@ -340,6 +340,8 @@ class ActorSheetPF2e extends ActorSheet {
       // which function gets called depends on the type of button stored in the dataset attribute action
       switch (ev.target.dataset.action) {
           case 'weaponAttack': item.rollWeaponAttack(ev); break;
+          case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
+          case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
           case 'weaponDamage': item.rollWeaponDamage(ev); break;
           case 'spellAttack': item.rollSpellAttack(ev); break;
           case 'spellDamage': item.rollSpellDamage(ev); break;
@@ -475,12 +477,17 @@ class ActorSheetPF2e extends ActorSheet {
               if (chatData.weapon.value) {    
                 if (chatData.weapon.value) {
                   buttons.append(`<span class="tag"><button data-action="weaponAttack">Strike</button></span>`);
+                  buttons.append(`<span class="tag"><button data-action="weaponAttack2">2</button></span>`);
+                  buttons.append(`<span class="tag"><button data-action="weaponAttack3">3</button></span>`);
                   buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);                  
                 } 
               }
               break;
           case 'weapon':
+              let isAgile = (item.data.data.traits.value || []).includes("agile");
               buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
+              buttons.append(`<span class="tag"><button data-action="weaponAttack2">${isAgile?'-4':'-5'}</button></span>`);
+              buttons.append(`<span class="tag"><button data-action="weaponAttack3">${isAgile?'-8':'-10'}</button></span>`);
               buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);              
               break;
           case 'spell':
@@ -505,6 +512,8 @@ class ActorSheetPF2e extends ActorSheet {
           // which function gets called depends on the type of button stored in the dataset attribute action
           switch (ev.target.dataset.action) {
               case 'weaponAttack': item.rollWeaponAttack(ev); break;
+              case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
+              case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
               case 'weaponDamage': item.rollWeaponDamage(ev); break;
               case 'spellAttack': item.rollSpellAttack(ev); break;
               case 'spellDamage': item.rollSpellDamage(ev); break;
