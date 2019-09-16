@@ -3,9 +3,10 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.338: This is the initial alpha release of the Pathfinder Second Edition system.
+This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.340: Merged in fix for NPC skills from fryguy#3851 AND improvements for multi-attack penalties from FS#5443. Huge thanks to both of you!
 *  v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
 *  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
 *  v0.337: Added Feat Browser
@@ -34,6 +35,7 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
+- FS#5443 for the addition of multi-attack buttons!
 - Overdox#9174 for contributing hugely to the SRD compendium packs!
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
 - Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
