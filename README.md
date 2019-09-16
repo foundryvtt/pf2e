@@ -18,8 +18,6 @@ Known Issues (see project issues for full issues list):
 - AC is not automatically calculated, Just enter it in the input field.
 - Critical damage is not calculated currently.
 
-![example](preview.gif)
-
 ### FVTT Version:
 - Tested with FVTT v0.3.6.
 
@@ -35,6 +33,7 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
+- Overdox#9174 for contributing hugely to the SRD compendium packs!
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
 - Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
 - fryguy#3851 for contributing to the project with improvements to the NPC sheet!
