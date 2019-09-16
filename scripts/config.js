@@ -176,7 +176,8 @@ CONFIG.armorTypes = {
   "unarmored": "Unarmored",
   "light": "Light Armor",
   "medium": "Medium Armor",
-  "heavy": "Heavy Armor"
+  "heavy": "Heavy Armor",
+  "shield": "Shield"
 };
 
 // Armor Groups
