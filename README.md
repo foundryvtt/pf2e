@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 v0.338: This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
 *  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
 *  v0.337: Added Feat Browser
 
