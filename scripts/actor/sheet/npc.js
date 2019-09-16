@@ -174,7 +174,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     html.find('.skill-input').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      itemToEdit.data.value = Number(event.target.value);
+      itemToEdit.data.mod.value = Number(event.target.value);
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       let skills = this.actor.items.filter(i => i.type == "lore")
