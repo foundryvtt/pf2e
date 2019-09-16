@@ -72,7 +72,13 @@
                 {{#each actor.lores as |lore lid|}}
                 <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
 
-                        <span class="skill-score" title="{{lore.data.breakdown}}">{{lore.data.value}}</span>
+                        {{#if lore.data.mod }}
+                            {{#if lore.data.mod.value }}
+                                <span class="skill-score" title="{{lore.data.breakdown}}">{{lore.data.mod.value}}</span>        
+                            {{/if}}
+                        {{else}}
+                            <span class="skill-score" title="{{lore.data.breakdown}}">{{lore.data.value}}</span>
+                        {{/if}}
                         <h4 class="item-name lore-name rollable">{{lore.name}}</h4>
                         
                         <div class="skill-container">
