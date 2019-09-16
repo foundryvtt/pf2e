@@ -474,7 +474,7 @@ class ActorSheetPF2e extends ActorSheet {
           case 'action':
               if (chatData.weapon.value) {    
                 if (chatData.weapon.value) {
-                  buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
+                  buttons.append(`<span class="tag"><button data-action="weaponAttack">Strike</button></span>`);
                   buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);                  
                 } 
               }
