@@ -3,7 +3,7 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-v0.338: This is the initial alpha release of the Pathfinder Second Edition system.
+This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
 *  v0.340: Merged in fix for NPC skills from fryguy#3851 AND improvements for multi-attack penalties from FS#5443. Huge thanks to both of you!
