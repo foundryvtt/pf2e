@@ -18,8 +18,6 @@ Known Issues (see project issues for full issues list):
 - AC is not automatically calculated, Just enter it in the input field.
 - Critical damage is not calculated currently.
 
-![example](preview.gif)
-
 ### FVTT Version:
 - Tested with FVTT v0.3.6.
 
