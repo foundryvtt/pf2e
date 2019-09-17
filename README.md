@@ -7,7 +7,7 @@ This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
 *  v0.341: Added Deadly d6 and Jousting d6 weapon traits
-*  v0.340: Merged in fix for NPC skills from fryguy#3851 AND improvements for multi-attack penalties from FS#5443. Huge thanks to both of you!
+*  v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
 *  v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
 *  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
 *  v0.337: Added Feat Browser
