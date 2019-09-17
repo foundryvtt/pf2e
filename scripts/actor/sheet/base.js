@@ -226,6 +226,11 @@ class ActorSheetPF2e extends ActorSheet {
       this._onItemSummary(event)
     });
 
+    // NPC Attack summaries
+    html.find('.item .melee-name h4').click(event => {
+      this._onItemSummary(event)
+    });
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -261,7 +266,8 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Toggle Skill Proficiency
-    html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
+    //html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
+    html.find('.proficiency-click').on("click contextmenu", this._onCycleSkillProficiency.bind(this));
 
     // Prepare Spell Slot
     html.find('.prepare-click').click(ev => {
@@ -353,12 +359,40 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Lore Item Rolling
-    html.find('.item .lore-name').click(event => {
+    html.find('.item .lore-score-rollable').click(event => {
     event.preventDefault();
     let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
         item = this.actor.getOwnedItem(itemId);
     this.actor.rollLoreSkill(event, item);
     });      
+
+    // Lore Item Bonus Input
+    html.find('.lore-item-input').focusout(async event => {
+      //let itemId = Number(event.target.attributes["data-item-id"].value);
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.item.value = Number(event.target.value);
+
+      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
+      let skills = this.actor.items.filter(i => i.type == "lore")
+      for(let skill of skills)
+      {
+        await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
+
+    html.find('.item-name').focusout(async event => {
+      let itemId = Number(event.target.attributes["data-item-id"].value);
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.name = event.target.value;
+
+      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
+      let skills = this.actor.items.filter(i => i.type == "lore")
+      for(let skill of skills)
+      {
+        await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
 
     // Re-render the sheet when toggling visibility of spells
     html.find('.prepared-toggle').click(ev => {
@@ -378,15 +412,36 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleSkillProficiency(event) {
     event.preventDefault();
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
+
+    // Get the skill type (used to determine if this is a Lore skill)
+    let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+
+    // Get the current level and the array of levels
     let level = parseFloat(field.val());
     const levels = [0, 1, 2, 3, 4];
-    let idx = levels.indexOf(level),
-        newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
+    let idx = levels.indexOf(level)
+    let newLevel = "";
+
+    // Toggle next level - forward on click, backwards on right
+    if ( event.type === "click" ) {
+      newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
+    } else if ( event.type === "contextmenu" ) {
+      newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
+    }
 
     // Update the field value and save the form
-    field.val(newLevel);
-    this._onSubmit(event);
+    if (skillType === "lore") {
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.proficient.value = newLevel;
+      this.actor.updateOwnedItem(itemToEdit, true);
+    } else {
+      field.val(newLevel);
+      this._onSubmit(event);
+    }
   }
+
+
 
   /* -------------------------------------------- */
 

@@ -84,7 +84,10 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       // Attacks
       else if ( i.type === "melee" ) {
         let weaponType = (i.data.weaponType || {}).value || "melee";
+        let isAgile = (i.data.traits.value || []).includes("agile");
         i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        i.data.isAgile = isAgile;
+
         attacks[weaponType].items.push(i);
       }
 
@@ -184,12 +187,10 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       }
     });
 
-    html.find('.item-name').focusout(async event => {
+/*     html.find('.item-name').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.name = event.target.value;
-/*       if (!this.skillUpdateFlag)
-        return; */
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       let skills = this.actor.items.filter(i => i.type == "lore")
@@ -197,7 +198,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       {
         await this.actor.updateOwnedItem(skill, true);      
       }
-    });
+    }); */
   }
 
   /* -------------------------------------------- */

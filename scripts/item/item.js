@@ -90,7 +90,8 @@ class ItemPF2e extends Item {
     if ((data.traits.value || []).length != 0) {
       traits = duplicate(data.traits.value);
       for(var i = 0 ; i < traits.length ; i++){
-        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+        //traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+        traits[i] = CONFIG.weaponTraits[traits[i]];
       } 
     }
 
@@ -118,6 +119,27 @@ class ItemPF2e extends Item {
         CONFIG.weaponGroups[data.group.value]
       ];
       data.properties = properties.filter(p => !!p); */
+      let traits = [];
+      if ((data.traits.value || []).length != 0) {
+        traits = duplicate(data.traits.value);
+        for(var i = 0 ; i < traits.length ; i++){
+          //traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
+          traits[i] = CONFIG.weaponTraits[traits[i]];
+        } 
+      }
+
+      let properties = [
+        (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
+        //CONFIG.weaponTypes[data.weaponType.value],
+        CONFIG.damageTypes[data.damage.damageType]
+      ];
+
+      if (traits.length != 0) properties = properties.concat(traits);
+      
+      let isAgile = (data.traits.value || []).includes("agile");
+      data.map2 = isAgile ? '-4' : '-5';
+      data.map3 = isAgile ? '-8' : '-10';
+      data.properties = properties.filter(p => !!p);
       return data;
     }
 

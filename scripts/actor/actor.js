@@ -163,13 +163,19 @@ class ActorPF2e extends Actor {
    */
   rollLoreSkill(event, item) {
     let parts = ["@mod"],
-      flavor = `${item.name} Skill Check`;
+      flavor = `${item.name} Skill Check`,
+      i = item.data;
+
+    let proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + this.data.data.details.level.value : 0;      
+    let modifier = this.data.data.abilities["int"].mod;
+    let itemBonus = Number((i.data.item || {}).value || 0);
+    let rollMod = modifier + proficiency + itemBonus;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event: event,
       parts: parts,
-      data: {mod: item.data.data.value},
+      data: {mod: rollMod},
       title: flavor,
       speaker: ChatMessage.getSpeaker({actor: this}),
     });
