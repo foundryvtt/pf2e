@@ -13,11 +13,11 @@ v0.344:
 * Added Multi-Attack Penalty buttons to NPC sheet
 * Added Item Summary for NPC attackts
 
-v0.341: Added Deadly d6 and Jousting d6 weapon traits
-v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
-v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
-v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
-v0.337: Added Feat Browser
+* v0.341: Added Deadly d6 and Jousting d6 weapon traits
+* v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
+* v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
+* v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
+* v0.337: Added Feat Browser
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
