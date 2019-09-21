@@ -6,6 +6,11 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+v0.346:
+*  Added additional console messages when loading compendium packs into the Compendium Browser for observability
+*  Fixed setting menu for the Compendium Browser so it modifies both feat and spell settings
+
+
 v0.345:
 *  Added trait descriptions to all traits that display when hovered over a trait in item summaries
 *  Added color coding to tags to represent if they have additional information or not
