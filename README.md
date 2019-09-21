@@ -6,6 +6,11 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+v0.345:
+*  Added trait descriptions to all traits that display when hovered over a trait in item summaries
+*  Added color coding to tags to represent if they have additional information or not
+*  Removed less configuration
+
 v0.344: 
 * Fixed lore proficiencies so they can be cycled from the character sheet 
 * Fixed lore name and item bonus so it can be edited from the character sheet; also removed the edit button. 
@@ -13,9 +18,13 @@ v0.344:
 * Added Multi-Attack Penalty buttons to NPC sheet
 * Added Item Summary for NPC attackts
 
-Previous Patch Notes:
-* v0.341: Added Deadly d6 and Jousting d6 weapon traits
+v0.341:
+* Added Deadly d6 and Jousting d6 weapon traits 
+
+v0.340:
 * v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
+
+Prior patches:
 * v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
 * v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
 * v0.337: Added Feat Browser
