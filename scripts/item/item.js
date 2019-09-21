@@ -68,6 +68,8 @@ class ItemPF2e extends Item {
       data.equipped.value ? "Equipped" : null
     ];
     data.properties = properties.filter(p => p !== null);
+
+    data.traits = null;
     return data;
   }
 
@@ -86,27 +88,38 @@ class ItemPF2e extends Item {
 
   _weaponChatData() {
     const data = duplicate(this.data.data);
-    let traits = [];
-    if ((data.traits.value || []).length != 0) {
-      traits = duplicate(data.traits.value);
-      for(var i = 0 ; i < traits.length ; i++){
-        //traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
-        traits[i] = CONFIG.weaponTraits[traits[i]];
+    let traits = [];  
+    if ((data.traits.value || []).length != 0) {      
+      for(var i = 0 ; i < data.traits.value.length ; i++){
+        let traitsObject = {
+          "label": CONFIG.weaponTraits[data.traits.value[i]],
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+        };        
+        traits.push(traitsObject);
       } 
     }
 
     let properties = [
-      (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
+      //(parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
       //CONFIG.weaponTypes[data.weaponType.value],
-      CONFIG.weaponGroups[data.group.value]
+      //CONFIG.weaponGroups[data.group.value]
     ];
 
-    if (traits.length != 0) properties = properties.concat(traits);
+    if (data.group.value) {
+      data.critSpecialization = {
+        "label": CONFIG.weaponGroups[data.group.value],
+        "description": CONFIG.weaponDescriptions[data.group.value]}
+    }
+
+/*     if (traits.length != 0) {
+      properties = properties.concat(traits);
+    } */
     
     let isAgile = (data.traits.value || []).includes("agile");
     data.map2 = isAgile ? '-4' : '-5';
     data.map3 = isAgile ? '-8' : '-10';
     data.properties = properties.filter(p => !!p);
+    data.traits = traits.filter(p => !!p);
     return data;
   }
 
@@ -214,6 +227,19 @@ class ItemPF2e extends Item {
       data.ritual.value ? "Ritual" : null
     ];
     data.properties = props.filter(p => p !== null);
+
+    let traits = [];  
+    if ((data.traits.value || []).length != 0) {      
+      for(var i = 0 ; i < data.traits.value.length ; i++){
+        let traitsObject = {
+          "label": data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+        };        
+        traits.push(traitsObject);
+      } 
+    }
+    data.traits = traits.filter(p => p);
+
     return data;
   }
 
@@ -226,22 +252,34 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-    let traits = [];
+/*     let traits = [];
     if ((data.traits.value || []).length != 0) {
       traits = duplicate(data.traits.value);
       for(var i = 0 ; i < traits.length ; i++){
         traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
       } 
-    }
+    } */
 
     // Feat properties
     let props = [
       `Level ${data.level.value || 0}`,
       data.actionType.value ? CONFIG.actionTypes[data.actionType.value] : null
     ];
-    if (traits.length != 0) props = props.concat(traits);
+    //if (traits.length != 0) props = props.concat(traits);
 
     data.properties = props.filter(p => p);
+
+    let traits = [];  
+    if ((data.traits.value || []).length != 0) {      
+      for(var i = 0 ; i < data.traits.value.length ; i++){
+        let traitsObject = {
+          "label": CONFIG.featTraits[data.traits.value[i]],
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+        };        
+        traits.push(traitsObject);
+      } 
+    }
+    data.traits = traits.filter(p => p);
     return data;
   }
 
@@ -249,13 +287,13 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-    let traits = [];
+    /* let traits = [];
     if ((data.traits.value || []).length != 0) {
       traits = duplicate(data.traits.value);
       for(var i = 0 ; i < traits.length ; i++){
         traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
       } 
-    }
+    } */
 
     let associatedWeapon = null;
     if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
@@ -265,9 +303,22 @@ class ItemPF2e extends Item {
       CONFIG.actionTypes[data.actionType.value],
       associatedWeapon ? `Weapon: ${associatedWeapon.name}` : null
     ];
-    if (traits.length != 0) props = props.concat(traits);
+    //if (traits.length != 0) props = props.concat(traits);
 
     data.properties = props.filter(p => p);
+
+    let traits = [];  
+    if ((data.traits.value || []).length != 0) {      
+      for(var i = 0 ; i < data.traits.value.length ; i++){
+        let traitsObject = {
+          "label": CONFIG.featTraits[data.traits.value[i]],
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+        };        
+        traits.push(traitsObject);
+      } 
+    }
+    data.traits = traits.filter(p => p);
+
     return data;
   }
 

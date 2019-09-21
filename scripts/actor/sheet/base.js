@@ -524,6 +524,9 @@ class ActorSheetPF2e extends ActorSheet {
       let div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       let props = $(`<div class="item-properties"></div>`);
       if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`)
+      if (chatData.traits) chatData.traits.forEach(p => props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`));
+
       div.append(props);
 
       let buttons = $(`<div class="item-buttons"></div>`);
