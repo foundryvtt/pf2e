@@ -10,56 +10,6 @@ class ItemBrowserPF2e extends Application {
     constructor(app) {
         super(app);
         
-        // load settings
-        /* Hooks.on('ready', e => {
-            // creating game setting container
-            game.settings.register("SpellBrowser", "settings", {
-                name: "Spell Browser Settings",
-                hint: "Settings to exclude packs from loading",
-                default: "",
-                type: String,
-                scope: 'world',
-                onChange: settings => {
-                    this.settings = JSON.parse(settings);
-                }
-            });
-
-            // load settings from container
-            let settings = game.settings.get('SpellBrowser', 'settings');
-            if (settings == '') { // if settings are empty create the settings data
-                console.log("Spell Browser | Creating settings");
-                settings = {};
-                for (let compendium of game.packs) {
-                    if (compendium['metadata']['entity'] == "Item") {
-                        settings[compendium.collection] = {
-                            load: true,
-                            name: `${compendium['metadata']['label']} (${compendium.collection})`
-                        };
-                    }
-                }
-                game.settings.set('SpellBrowser', 'settings', JSON.stringify(settings));
-            } else { // if settings do exist, reload and apply them to make sure they conform with current compendium
-                console.log("Spell Browser | Loading settings"); 
-                let loadedSettings = JSON.parse(settings);
-                settings = {};
-                for (let compendium of game.packs) {
-                    if (compendium['metadata']['entity'] == "Item") {
-                        settings[compendium.collection] = {
-                            // add entry for each item compendium, that is turned on if no settings for it exist already
-                            load: loadedSettings[compendium.collection] == undefined ? true : loadedSettings[compendium.collection].load,
-                            name: compendium['metadata']['label']
-                        };
-                    }
-                }
-            }
-            this.settings = settings;
-            this.settingsChanged = false;
-            this.loadSpells().then(obj => {
-                this.spells = obj
-            });
-        });
-        this.hookCompendiumList(); */
-
         this.filters = {
             text: '',
             ritual: 'null',
@@ -85,178 +35,7 @@ class ItemBrowserPF2e extends Application {
         return options;
     }
 
-    /* hookCompendiumList() {
-        Hooks.on('renderCompendiumDirectory', (app, html, data) => {
-
-            // Spell Browser Buttons
-            const importButton = $(`<button class="spell-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Spell Browser</button>`);
-            const settingsButton = $('<button class="spell-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
-            
-            // Feat Browser Buttons
-            const featImportButton = $(`<button class="feat-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Feat Browser</button>`);
-            const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
-
-
-            // slight diffrence in used buttons and layout depending on gm status
-            html.find('.roll20-npc-import-list-btn').remove();
-            html.find('.roll20-npc-import-list-settings-btn').remove();
-
-            if (game.user.isGM) {
-                html.find('.directory-footer').append(importButton);
-                html.find('.directory-footer').append(settingsButton);
-                html.find('.directory-footer').append(featImportButton);
-                html.find('.directory-footer').append(featSettingsButton);
-            } else {
-                // adding to directory-list since the footer doesn't exist if the user is not gm
-                html.find('.directory-list').append(importButton);
-                html.find('.directory-list').append(featImportButton);
-            }
-
-            // Handle button clicks
-            importButton.click(ev => {
-                ev.preventDefault();
-                this.render(true);
-            });
-            featImportButton.click(ev => {
-                ev.preventDefault();
-                featBrowser.render(true);
-            });
-
-            if (game.user.isGM) { // only add settings click event if the button exists
-                settingsButton.mousedown(ev => {
-                    let rightClick = ev.which === 3;
-                    if (rightClick) {
-                        this.resetSettings();
-                    } else {
-                        this.openSettings();
-                    }
-                });
-                featSettingsButton.mousedown(ev => {
-                    let rightClick = ev.which === 3;
-                    if (rightClick) {
-                        featBrowser.resetSettings();
-                    } else {
-                        featBrowser.openSettings();
-                    }
-                });
-            }
-        });
-    } */
-
-/*     async getData() {
-        if (this.spells == undefined || this.settingsChanged == true) {
-            // spells will be stored locally to not require full loading each time the browser is opened
-            this.spells = await this.loadSpells();
-            this.settingsChanged = false;
-        }
-
-        let data = {};
-        data.spells = this.spells;
-        data.classes = this.classes;
-        data.times = this.times;
-        data.schools = this.schools;
-        data.traditions = this.traditions;
-
-        return data;
-    } */
-
-    /* async loadSpells() {
-        console.log('Spell Browser | Started loading spells');
-        
-        let foundSpells = '';
-        let unfoundSpells = '';
-
-        let spells = {};
-        let classesArr = [];
-        let traditionsArr = [];
-        let schoolsArr = [];
-        let timeArr = [];
-
-        for (let pack of game.packs) {
-            if (pack['metadata']['entity'] == "Item" && this.settings[pack.collection].load) {
-                await pack.getContent().then(content => {
-                    for (let spell of content) {
-                        spell = spell.data;
-                        if (spell.type == 'spell') {
-
-                            // record the pack the spell was read from
-                            spell.compendium = pack.collection;
-
-                            // format spell level for display
-                            if (spell.data.level.value === 0) spell.data.level.formated = "C";
-                            else if (spell.data.level.value === 11) spell.data.level.formated = "F";
-                            else spell.data.level.formated = spell.data.level.value;
-
-                            // determining classes that can use the spell
-                            let classList = Object.keys(CONFIG.classTraits),
-                                classIntersection = classList.filter(x => spell.data.traits.value.includes(x));
-
-                            if (classIntersection.length !== 0) {
-                                if (classesArr.includes(classIntersection) === false) {
-                                    classesArr.push(classIntersection);
-                                }
-                                spell.data.classes = { value: classIntersection };
-                            }
-
-                            // recording casting times
-                            if (spell.data.time.value !== undefined) {
-                                let time = spell.data.time.value.toLowerCase();
-                                if (time.indexOf("reaction") != -1) time = "reaction";
-                                if (time != '' && timeArr.includes(time) === false) {
-                                    timeArr.push(time);
-                                }
-                            }
-
-                            // format spell level for display
-                            if (spell.data.time.value === "reaction") spell.data.time.img = this._getActionImg("reaction");
-                            else if (spell.data.time.value === "free") spell.data.time.img = this._getActionImg("free");
-                            else if (parseInt(spell.data.time.value)) spell.data.time.img = this._getActionImg(parseInt(spell.data.time.value));
-
-                            // add spell to spells array
-                            spells[(spell._id)] = spell;
-
-                            // recording schools
-                            if (spell.data.school.value !== undefined) {
-                                if (schoolsArr.includes(spell.data.school.value) === false) {
-                                    schoolsArr.push(spell.data.school.value);
-                                }
-                            }
-                            spells[(spell._id)] = spell;
-                        }
-                    }
-                });
-            }
-        }
-        if (unfoundSpells !== '') {
-            console.log(`Spell Browser | List of Spells that don't have a class assosiated to them:`);
-            console.log(unfoundSpells);
-        }
-
-        //  sorting and assigning better class names
-        let classesObj = {}
-        classesArr = classesArr.sort();
-        for (let classStr of classesArr) {
-            //let fixedClassName = classStr.replace('revisited', ' revisited').toLowerCase().replace(/(^|\s)([a-z])/g, function (m, p1, p2) { return p1 + p2.toUpperCase(); });
-            classesObj[classStr] = CONFIG.classTraits[classStr];
-        }
-
-        // sorting and assigning proper school names
-        let schoolsObj = {}
-        schoolsArr = schoolsArr.sort();
-        for (let school of schoolsArr) {
-            schoolsObj[school] = CONFIG.spellSchools[school];
-        }
-
-        this.traditions = CONFIG.spellTraditions;
-        this.classes = classesObj;
-        this.times = timeArr.sort();
-        this.schools = schoolsObj;
-        console.log('Spell Browser | Finished loading spells');
-        return spells;
-    } */
-
     activateListeners(html) {
-        //$(html).css('min-height', $(html.find('.control-area')).height() + 'px');
 
         // show spell card
         html.find('.item-edit').click(ev => {
@@ -539,6 +318,58 @@ class ItemBrowserPF2e extends Application {
         };
         return img[action];
     }
+
+    openSettings() {
+
+        // Generate HTML for settings menu
+            // Spell Browser
+        let content = '<h2> Spell Browser</h2>';
+        content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any spells</p>';
+        for (let key in this.settings) {
+            content += `<div><input type=checkbox data-browser-type="spell" name="${key}" ${spellBrowser.settings[key].load?'checked=true':''}><label>${spellBrowser.settings[key].name}</label></div>`;
+        }
+
+            // Feat Browser
+        content += '<h2> Feat Browser</h2>';
+        content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any feats</p>';
+        for (let key in this.settings) {
+            content += `<div><input type=checkbox data-browser-type="feat" name="${key}" ${featBrowser.settings[key].load?'checked=true':''}><label>${featBrowser.settings[key].name}</label></div>`;
+        }
+        
+        let d = new Dialog({
+            title: "Compendium Browser settings",
+            content: content+'<br>',
+            buttons: {
+                save: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: "Save",
+                    callback: html => {
+                        
+                    }
+                },
+            },
+            default:'save',
+            close: html => {
+                let inputs = html.find('input');
+                for (let input of inputs) {
+                    let browserType = $(input).attr("data-browser-type");
+                    if (browserType === "spell") spellBrowser.settings[input.name].load = input.checked;
+                    else if (browserType === "feat") featBrowser.settings[input.name].load = input.checked;
+                }
+                console.log("PF2e System | Compendium Browser | Saving new Settings");
+                //write Spell Browser settings
+                game.settings.set('SpellBrowser', 'settings', JSON.stringify(spellBrowser.settings));
+                //write Feat Browser settings
+                game.settings.set('FeatBrowser', 'settings', JSON.stringify(featBrowser.settings));
+                
+                this.settingsChanged = true;
+/*                 this.loadSpells().then(obj => {
+                    this.spells = obj
+                }); */
+            }
+        }, { width: "300px" });
+        d.render(true);
+    }
 }
 
 class SpellBrowserPF2e extends ItemBrowserPF2e {
@@ -563,7 +394,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
             // load settings from container
             let settings = game.settings.get('SpellBrowser', 'settings');
             if (settings == '') { // if settings are empty create the settings data
-                console.log("Spell Browser | Creating settings");
+                console.log("PF2e System | Spell Browser | Creating settings");
                 settings = {};
                 for (let compendium of game.packs) {
                     if (compendium['metadata']['entity'] == "Item") {
@@ -575,7 +406,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
                 }
                 game.settings.set('SpellBrowser', 'settings', JSON.stringify(settings));
             } else { // if settings do exist, reload and apply them to make sure they conform with current compendium
-                console.log("Spell Browser | Loading settings"); 
+                console.log("PF2e System | Spell Browser | Loading settings"); 
                 let loadedSettings = JSON.parse(settings);
                 settings = {};
                 for (let compendium of game.packs) {
@@ -596,17 +427,6 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         });
         this.hookCompendiumList();
 
-/*         this.filters = {
-            text: '',
-            ritual: 'null',
-            concentration: 'null',
-            castingtime: 'null',
-            level: {},
-            class: {},
-            skill: {},
-            school: {},
-            traditions: {}
-        } */
     }
 
     static get defaultOptions() {
@@ -661,12 +481,6 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
             this.settingsChanged = false;
         }
 
-/*         if (this.feats == undefined || this.settingsChanged == true) {
-            // feats will be stored locally to not require full loading each time the browser is opened
-            this.feats = await this.loadFeats();
-            this.settingsChanged = false;
-        } */
-
         let data = {};
         data.spells = this.spells;
         data.classes = this.classes;
@@ -674,15 +488,11 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         data.schools = this.schools;
         data.traditions = this.traditions;
 
-/*         data.feats = this.feats;
-        data.featClasses = this.featClasses;
-        data.featSkills = this.featSkills;
-        data.featTimes = this.featTimes; */
         return data;
     }
 
     async loadSpells() {
-        console.log('Spell Browser | Started loading spells');
+        console.log('PF2e System | Spell Browser | Started loading spells');
         
         let foundSpells = '';
         let unfoundSpells = '';
@@ -695,7 +505,9 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
 
         for (let pack of game.packs) {
             if (pack['metadata']['entity'] == "Item" && this.settings[pack.collection].load) {
+                console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - Loading`);
                 await pack.getContent().then(content => {
+                    console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - ${content.length} entries found`);
                     for (let spell of content) {
                         spell = spell.data;
                         if (spell.type == 'spell') {
@@ -745,11 +557,14 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
                             spells[(spell._id)] = spell;
                         }
                     }
+
+                    console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - Loaded`);
+
                 });
             }
         }
         if (unfoundSpells !== '') {
-            console.log(`Spell Browser | List of Spells that don't have a class assosiated to them:`);
+            console.log(`PF2e System | Spell Browser | List of Spells that don't have a class assosiated to them:`);
             console.log(unfoundSpells);
         }
 
@@ -772,75 +587,8 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         this.classes = classesObj;
         this.times = timeArr.sort();
         this.schools = schoolsObj;
-        console.log('Spell Browser | Finished loading spells');
+        console.log('PF2e System | Spell Browser | Finished loading spells');
         return spells;
-    }
-
-    openSettings() {
-        let content = '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any spells</p>';
-        for (let key in this.settings) {
-            content += `<div><input type=checkbox name="${key}" ${this.settings[key].load?'checked=true':''}><label>${this.settings[key].name}</label></div>`;
-        }
-        
-        let d = new Dialog({
-            title: "Spell Browser settings",
-            content: content+'<br>',
-            buttons: {
-                save: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: "Save",
-                    callback: html => {
-                        
-                    }
-                },
-            },
-            default:'save',
-            close: html => {
-                let inputs = html.find('input');
-                for (let input of inputs) {
-                    this.settings[input.name].load = input.checked;
-                }
-                console.log("Spell Browser | Saving new Settings");
-                game.settings.set('SpellBrowser', 'settings', JSON.stringify(this.settings));
-                this.settingsChanged = true;
-                this.loadSpells().then(obj => {
-                    this.spells = obj
-                });
-            }
-        }, { width: "300px" });
-        d.render(true);
-    }
-
-    resetSettings() {
-        let d = new Dialog({
-            title: "Spell Browser settings",
-            content: "Reset settings to default?",
-            buttons: {
-                yes: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: "Continue",
-                    callback: html => {
-                        console.log("Spell Browser | Creating settings");
-                        let settings = {};
-                        for (let compendium of game.packs) {
-                            if (compendium['metadata']['entity'] == "Item") {
-                                settings[compendium.collection] = {
-                                    load: true,
-                                    name: `${compendium['metadata']['label']} (${compendium.collection})`
-                                };
-                            }
-                        }
-                        game.settings.set('SpellBrowser', 'settings', JSON.stringify(settings));
-                        this.settings = settings;
-                    }
-                },
-                no: {
-                    icon: '<i class="fas fa-ban"></i>',
-                    label: "Continue"
-                }
-            }
-        });
-        d.render(true);
     }
 
 }
@@ -911,19 +659,6 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
             });
         });
         this.hookCompendiumList();
-
-/*         this.filters = {
-            text: '',
-            ritual: 'null',
-            concentration: 'null',
-            castingtime: 'null',
-            level: {},
-            class: {},
-            skill: {},
-            ancestry: {},
-            school: {},
-            traditions: {}
-        } */
     }
 
     hookCompendiumList() {
@@ -947,25 +682,10 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
                 this.render(true);
             });
 
-/*             if (game.user.isGM) { // only add settings click event if the button exists
-                featSettingsButton.mousedown(ev => {
-                    let rightClick = ev.which === 3;
-                    if (rightClick) {
-                        this.resetSettings();
-                    } else {
-                        this.openSettings();
-                    }
-                });
-            } */
         });
     }
 
     async getData() {
-/*         if (this.spells == undefined || this.settingsChanged == true) {
-            // spells will be stored locally to not require full loading each time the browser is opened
-            this.spells = await this.loadSpells();
-            this.settingsChanged = false;
-        } */
 
         if (this.feats == undefined || this.settingsChanged == true) {
             // feats will be stored locally to not require full loading each time the browser is opened
@@ -974,11 +694,6 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
         }
 
         let data = {};
-/*         data.spells = this.spells; */
-/*         data.classes = this.classes; */
-/*         data.times = this.times; */
-/*         data.schools = this.schools;
-        data.traditions = this.traditions; */
 
         data.feats = this.feats;
         data.featClasses = this.featClasses;
@@ -989,7 +704,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     }
 
     async loadFeats() {
-        console.log('Spell Browser | Started loading feats');
+        console.log('PF2e System | Feat Browser | Started loading feats');
         
         let feats = {};
         let classesArr = [];
@@ -999,7 +714,9 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 
         for (let pack of game.packs) {
             if (pack['metadata']['entity'] == "Item" && this.settings[pack.collection].load) {
+                console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - Loading`);
                 await pack.getContent().then(content => {
+                    console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - ${content.length} entries found`);
                     for (let feat of content) {
                         feat = feat.data;
                         if (feat.type == 'feat') {
@@ -1079,6 +796,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 
                         }
                     }
+                    console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - Loaded`);
                 });
             }
         }
@@ -1102,76 +820,10 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
         this.featAncestry = ancestryObj;
         this.featTimes = timeArr.sort();
         //this.schools = schoolsObj;
-        console.log('Spell Browser | Finished loading feats');
+        console.log('PF2e System | Feat Browser | Finished loading feats');
         return feats;
     }
 
-    openSettings() {
-        let content = '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any feats</p>';
-        for (let key in this.settings) {
-            content += `<div><input type=checkbox name="${key}" ${this.settings[key].load?'checked=true':''}><label>${this.settings[key].name}</label></div>`;
-        }
-        
-        let d = new Dialog({
-            title: "Feat Browser settings",
-            content: content+'<br>',
-            buttons: {
-                save: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: "Save",
-                    callback: html => {
-                        
-                    }
-                },
-            },
-            default:'save',
-            close: html => {
-                let inputs = html.find('input');
-                for (let input of inputs) {
-                    this.settings[input.name].load = input.checked;
-                }
-                console.log("Feat Browser | Saving new Settings");
-                game.settings.set('FeatBrowser', 'settings', JSON.stringify(this.settings));
-                this.settingsChanged = true;
-                this.loadFeats().then(obj => {
-                    this.feats = obj
-                });
-            }
-        }, { width: "300px" });
-        d.render(true);
-    }
-
-    resetSettings() {
-        let d = new Dialog({
-            title: "Feat Browser settings",
-            content: "Reset settings to default?",
-            buttons: {
-                yes: {
-                    icon: '<i class="fas fa-check"></i>',
-                    label: "Continue",
-                    callback: html => {
-                        console.log("Feat Browser | Creating settings");
-                        let settings = {};
-                        for (let compendium of game.packs) {
-                            if (compendium['metadata']['entity'] == "Item") {
-                                settings[compendium.collection] = {
-                                    load: true,
-                                    name: `${compendium['metadata']['label']} (${compendium.collection})`
-                                };
-                            }
-                        }
-                        game.settings.set('FeatBrowser', 'settings', JSON.stringify(settings));
-                        this.settings = settings;
-                    }
-                },
-                no: {
-                    icon: '<i class="fas fa-ban"></i>',
-                    label: "Continue"
-                }
-            }
-        });
-        d.render(true);
-    }
 }
 
 let spellBrowser = new SpellBrowserPF2e();
