@@ -7,6 +7,10 @@ This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
 v0.346:
+*  Added Weapons SRD compendium pack (Thanks Overdox!)
+
+
+v0.346:
 *  Added additional console messages when loading compendium packs into the Compendium Browser for observability
 *  Fixed setting menu for the Compendium Browser so it modifies both feat and spell settings
 
