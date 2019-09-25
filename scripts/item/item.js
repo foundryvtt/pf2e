@@ -133,11 +133,20 @@ class ItemPF2e extends Item {
       ];
       data.properties = properties.filter(p => !!p); */
       let traits = [];
-      if ((data.traits.value || []).length != 0) {
+/*       if ((data.traits.value || []).length != 0) {
         traits = duplicate(data.traits.value);
         for(var i = 0 ; i < traits.length ; i++){
           //traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
           traits[i] = CONFIG.weaponTraits[traits[i]];
+        } 
+      } */
+      if ((data.traits.value || []).length != 0) {      
+        for(var i = 0 ; i < data.traits.value.length ; i++){
+          let traitsObject = {
+            "label": CONFIG.weaponTraits[data.traits.value[i]],
+            "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+          };        
+          traits.push(traitsObject);
         } 
       }
 
@@ -147,12 +156,13 @@ class ItemPF2e extends Item {
         CONFIG.damageTypes[data.damage.damageType]
       ];
 
-      if (traits.length != 0) properties = properties.concat(traits);
+      //if (traits.length != 0) properties = properties.concat(traits);
       
       let isAgile = (data.traits.value || []).includes("agile");
       data.map2 = isAgile ? '-4' : '-5';
       data.map3 = isAgile ? '-8' : '-10';
       data.properties = properties.filter(p => !!p);
+      data.traits = traits.filter(p => !!p);
       return data;
     }
 

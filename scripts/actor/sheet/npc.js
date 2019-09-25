@@ -47,8 +47,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     // Actions
     const attacks = {
-      melee: {label: "Melee", items: [], type: "melee" },
-      ranged: { label: "Ranged", items: [], type: "melee" }
+      melee: {label: "NPC Melee Attack", items: [], type: "melee" },
+      ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
+      weapon: { label: "Compendium Weapon", items: [], type: "weapon" }
     };
 
     // Actions
@@ -68,7 +69,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Iterate through items, allocating to containers
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
-
+      
       // Spells
       if ( i.type === "spell" ) {
         let spellType = i.data.time.value;
@@ -81,7 +82,17 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         this._prepareSpell(actorData, spellbook, i);
       }
 
-      // Attacks
+      // Weapons
+      else if ( i.type === "weapon" ) {
+        //let weaponType = (i.data.weaponType || {}).value || "weapon";
+        let isAgile = (i.data.traits.value || []).includes("agile");
+        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        i.data.isAgile = isAgile;
+
+        attacks["weapon"].items.push(i);
+      }
+
+      // NPC Generic Attacks
       else if ( i.type === "melee" ) {
         let weaponType = (i.data.weaponType || {}).value || "melee";
         let isAgile = (i.data.traits.value || []).includes("agile");
