@@ -6,6 +6,12 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+v0.348:
+*  Fixed spell tags to accurately display details about the spell
+*  Added the ability to modify the area of a spell
+*  Added the font Pathfinder2eActions.ttf (thanks u/baughberick (https://www.reddit.com/user/baughberick/))
+
+
 v0.346:
 *  Added Weapons SRD compendium pack (Thanks Overdox!)
 
