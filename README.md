@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes v0.349:
+*  v0.349: Fix for NPC psuedo-lore skill rolls. Thanks FS#5443!
 *  v0.349: Added ability to give NPCs weapons of a player characters type. This allows NPCs to use a special magic weapon that a PC can then pick up.
 *  v0.349: Fixed traits for NPC attacks
 *  v0.349: Fixed negligible bulk items not being an available option for consumables, backpack or equipment.
