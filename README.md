@@ -5,44 +5,33 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 ### PF2e Version
 This is the initial alpha release of the Pathfinder Second Edition system.
 
-Patch Notes:
-v0.348:
-*  Fixed spell tags to accurately display details about the spell
-*  Added the ability to modify the area of a spell
-*  Added the font Pathfinder2eActions.ttf (thanks u/baughberick (https://www.reddit.com/user/baughberick/))
+Patch Notes v0.349:
+*  v0.349: Added ability to give NPCs weapons of a player characters type. This allows NPCs to use a special magic weapon that a PC can then pick up.
+*  v0.349: Fixed traits for NPC attacks
+*  v0.349: Fixed negligible bulk items not being an available option for consumables, backpack or equipment.
 
+Patch Notes v0.349:
+*  v0.348: Fixed spell tags to accurately display details about the spell
+*  v0.348: Added the ability to modify the area of a spell
+*  v0.348: Added the font Pathfinder2eActions.ttf (thanks u/baughberick (https://www.reddit.com/user/baughberick/))
 
-v0.346:
-*  Added Weapons SRD compendium pack (Thanks Overdox!)
-
-
-v0.346:
-*  Added additional console messages when loading compendium packs into the Compendium Browser for observability
-*  Fixed setting menu for the Compendium Browser so it modifies both feat and spell settings
-
-
-v0.345:
-*  Added trait descriptions to all traits that display when hovered over a trait in item summaries
-*  Added color coding to tags to represent if they have additional information or not
-*  Removed less configuration
-
-v0.344: 
-* Fixed lore proficiencies so they can be cycled from the character sheet 
-* Fixed lore name and item bonus so it can be edited from the character sheet; also removed the edit button. 
-* Fixed issue with lore skill information not being saved on world restart. 
-* Added Multi-Attack Penalty buttons to NPC sheet
-* Added Item Summary for NPC attackts
-
-v0.341:
-* Added Deadly d6 and Jousting d6 weapon traits 
-
-v0.340:
-* v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
-
-Prior patches:
-* v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
-* v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
-* v0.337: Added Feat Browser
+Prior patch changes:
+*  v0.346: Added Weapons SRD compendium pack (Thanks Overdox!)
+*  v0.346: Added additional console messages when loading compendium packs into the Compendium Browser for observability
+*  v0.346: Fixed setting menu for the Compendium Browser so it modifies both feat and spell settings
+*  v0.345: Added trait descriptions to all traits that display when hovered over a trait in item summaries
+*  v0.345: Added color coding to tags to represent if they have additional information or not
+*  v0.345: Removed less configuration
+*  v0.344: Fixed lore proficiencies so they can be cycled from the character sheet 
+*  v0.344: Fixed lore name and item bonus so it can be edited from the character sheet; also removed the edit button. 
+*  v0.344: Fixed issue with lore skill information not being saved on world restart. 
+*  v0.344: Added Multi-Attack Penalty buttons to NPC sheet
+*  v0.344: Added Item Summary for NPC attackts
+*  v0.341: Added Deadly d6 and Jousting d6 weapon traits 
+*  v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
+*  v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
+*  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
+*  v0.337: Added Feat Browser
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
