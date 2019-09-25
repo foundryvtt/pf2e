@@ -209,7 +209,7 @@ class ItemPF2e extends Item {
     //if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
     if ( data.isSave ) data.save.dc = ad.attributes.spelldc.dc;
     else data.save.dc = ad.attributes.spelldc.value;
-    data.save.str = data.save.value ? this.actor.data.data.saves[data.save.value.toLowerCase()].label : "";
+    data.save.str = data.save.value ? (this.actor.data.data.saves[data.save.value.toLowerCase()] || {}).label : "";
 
     // Spell attack labels
     data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
@@ -217,14 +217,13 @@ class ItemPF2e extends Item {
 
     // Combine properties
     const props = [
-      CONFIG.spellSchools[data.school.value],
-      CONFIG.spellLevels[data.level.value],
-      data.components.value + " Components",
-      data.target.value,
-      data.time.value,
-      data.duration.value ? data.duration.value: null,
-      data.sustained.value ? "Concentration" : null,
-      data.ritual.value ? "Ritual" : null
+      "Spell: " + CONFIG.spellLevels[data.level.value],
+      "Components: " + data.components.value,
+      data.range.value ? "Range: " + data.range.value : null,
+      data.target.value ? "Target: " + data.target.value : null,
+      data.area.value ? `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}` : null,
+      data.time.value ? "Actions: " + data.time.value : null,
+      data.duration.value ? "Duration: " + data.duration.value : null,
     ];
     data.properties = props.filter(p => p !== null);
 
@@ -239,6 +238,12 @@ class ItemPF2e extends Item {
       } 
     }
     data.traits = traits.filter(p => p);
+    //Toggling this off for now
+/*     data.area = data.area.value ? {
+      "label": `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}`,
+      "areaType": data.area.areaType,
+      "size": data.area.value
+    } : null; */
 
     return data;
   }

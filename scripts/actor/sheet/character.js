@@ -7,7 +7,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       classes: options.classes.concat(["pf2e", "actor", "character-sheet"]),
       width: 650,
       height: 720,
-      showUnpreparedSpells: true
+      showUnpreparedSpells: false
     });
 	  return options;
   }

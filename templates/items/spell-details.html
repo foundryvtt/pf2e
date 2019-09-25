@@ -88,6 +88,33 @@
     <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="{{data.target.type}}"/>
 </div>
 
+<!-- <div class="form-group">
+    <label>{{data.area.label}}</label>
+    <input type="text" name="data.area.value" value="{{data.area.value}}" data-dtype="{{data.area.type}}"/>
+</div> -->
+
+<div class="form-group">
+    <label>{{data.area.label}}</label>
+    <div class="details-container-two-columns">
+        <select name="data.area.value" data-dtype="Number">
+            {{#select data.area.value}}
+            <option value=""></option>
+            {{#each areaSizes as |name type|}}
+            <option value="{{type}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <select name="data.area.areaType" data-dtype="String">
+            {{#select data.area.areaType}}
+            <option value=""></option>
+            {{#each areaTypes as |name type|}}
+            <option value="{{type}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</div>
+
 <div class="form-group">
     <label>{{data.range.label}}</label>
     <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>

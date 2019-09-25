@@ -524,10 +524,19 @@ class ActorSheetPF2e extends ActorSheet {
       let div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       let props = $(`<div class="item-properties"></div>`);
       if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
-      if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`)
+      if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`);
       if (chatData.traits) chatData.traits.forEach(p => props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`));
 
+      if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
+
       div.append(props);
+
+/*       props.find('.area-tool').click(ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        this._onAreaEffect(ev);
+      }) */
 
       let buttons = $(`<div class="item-buttons"></div>`);
       switch (item.data.type) {
@@ -551,7 +560,7 @@ class ActorSheetPF2e extends ActorSheet {
           case 'spell':
               if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
               if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
-              if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}</button></span>`);
+              if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
               break;
           case 'consumable':
               if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">Use ${item.name}</button></span>`);
@@ -640,8 +649,112 @@ class ActorSheetPF2e extends ActorSheet {
     };
     new TraitSelector5e(this.actor, options).render(true)
   }
+
+  _onAreaEffect(event) {
+
+    let areaType = $(event.currentTarget).attr("data-area-areaType");
+    let areaSize = Number($(event.currentTarget).attr("data-area-size"));
+    
+    let tool = "cone";
+    if (areaType === "burst") tool = "circle";
+    else if (areaType === "emanation") tool = "rect";
+    else if (areaType === "line") tool = "ray";
+    
+    // Delete any existing templates for this actor.
+    let templateData = this.actor.getFlag("pf2e", "areaEffectId") || null;
+    let templateScene = null;
+    if (templateData) {
+      templateScene = this.actor.getFlag("pf2e", "areaEffectScene") || null;
+      this.actor.setFlag("pf2e", "areaEffectId", null);
+      this.actor.setFlag("pf2e", "areaEffectScene", null);  
+
+      console.log(`PF2e | Existing MeasuredTemplate ${templateData.id} from Scene ${templateScene} found`);
+      if (canvas.templates.objects.children) {
+        for (let placeable of canvas.templates.objects.children) {
+          console.log(`PF2e | Placeable Found - id: ${placeable.data.id}, scene: ${canvas.scene._id}, type: ${placeable.__proto__.constructor.name}`)
+          if (placeable.data.id === templateData.id & canvas.scene._id === templateScene & placeable.__proto__.constructor.name === "MeasuredTemplate") {
+            console.log(`PF2e | Deleting MeasuredTemplate ${templateData.id} from Scene ${templateScene}`);
+      
+            let existingTemplate = new MeasuredTemplate(templateData, templateScene);
+            existingTemplate.delete(templateScene);
+          }
+        }
+      }
+
+    }
+
+    // data to pull in dynamically
+    let x,
+        y;
+
+    let data = {};
+    let gridWidth = canvas.grid.grid.w;
+    
+    if (areaType === "emanation" || areaType === "cone") {
+      if (canvas.tokens.controlled.length > 1) {
+        ui.notifications.info(`Please select a single target token`);
+      } else if (canvas.tokens.controlled.length === 0) {
+        ui.notifications.info(`Please select a target token`);
+      } else {
+        let t = canvas.tokens.controlled[0];
+        let rotation = t.data.rotation,
+            width = t.data.width;
+          
+        x = t.data.x;
+        y = t.data.y;
+        
+        // Cone placement logic
+        if (tool === "cone") {
+          if (rotation < 0) rotation = 360 + rotation;
+          if (rotation < 35) {
+            x = x + (gridWidth / 2);
+            y = y + (gridWidth);
+          } else if (rotation < 55) {
+            y = y + (gridWidth);
+          } else if (rotation < 125) {
+            y = y + (gridWidth / 2);
+          }else if (rotation < 145) {
+            y = y;
+          } else if (rotation < 215) {
+            x = x + (gridWidth / 2);
+          } else if (rotation < 235) {
+            x = x + (gridWidth);
+          } else if (rotation < 305) {
+            x = x + (gridWidth);
+            y = y + (gridWidth / 2);
+          }else if (rotation < 325) {
+            x = x + (gridWidth);
+            y = y + (gridWidth);
+          } else {
+            x = x + (gridWidth / 2);
+            y = y + (gridWidth);
+          }
+          rotation = rotation + 90;
+          
+          data = {t: tool, x: x, y: y, distance: areaSize, direction: rotation, fillColor: game.user.data.color || "#FF0000"};
+        } else if (tool === "rect") {
+          x = x - (gridWidth * (areaSize / 5));
+          y = y - (gridWidth * (areaSize / 5));        
+          rotation = 45;
+
+          let rectSide = areaSize + (width * 5) + areaSize;
+          let distance = Math.sqrt(Math.pow(rectSide, 2) + Math.pow(rectSide, 2));
+          data = {t: tool, x: x, y: y, distance: distance, direction: rotation, fillColor: game.user.data.color || "#FF0000"};
+        }
+
+        // Create the template
+        MeasuredTemplate.create(canvas.scene._id, data).then(results => {
+          templateData = results.data;
+
+          // Save MeasuredTemplate information to actor flags
+          this.actor.setFlag("pf2e", "areaEffectId", templateData);
+          this.actor.setFlag("pf2e", "areaEffectScene", canvas.scene._id);                
+        });
+
+      }
+    }
+  }
 }
 
 Actors.unregisterSheet("core", ActorSheet);
-
 

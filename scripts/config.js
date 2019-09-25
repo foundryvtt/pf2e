@@ -550,6 +550,27 @@ CONFIG.featTraits = {
   "mental": "Mental"
 }
 
+// Area Types
+CONFIG.areaTypes = {
+  "burst": "Burst",
+  "cone": "Cone",
+  "emanation": "Emanation",
+  "line": "Line"
+}
+
+// Area Size
+CONFIG.areaSizes = {
+  5: "5 Foot",
+  10: "10 Foot",
+  15: "15 Foot",
+  20: "20 Foot",
+  30: "30 Foot",
+  40: "40 Foot",
+  50: "50 Foot",
+  60: "60 Foot",
+  120: "120 Foot"
+}
+
 // Class Traits
 CONFIG.classTraits = {
   "alchemist": "Alchemist",
