@@ -10,7 +10,7 @@ Patch Notes v0.349:
 *  v0.349: Fixed traits for NPC attacks
 *  v0.349: Fixed negligible bulk items not being an available option for consumables, backpack or equipment.
 
-Patch Notes v0.349:
+Patch Notes v0.348:
 *  v0.348: Fixed spell tags to accurately display details about the spell
 *  v0.348: Added the ability to modify the area of a spell
 *  v0.348: Added the font Pathfinder2eActions.ttf (thanks u/baughberick (https://www.reddit.com/user/baughberick/))
