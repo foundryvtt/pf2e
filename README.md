@@ -5,6 +5,9 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 ### PF2e Version
 This is the initial alpha release of the Pathfinder Second Edition system.
 
+Patch Notes v0.350:
+*  v0.350: Added chat button to allow setting initiative for selected tokens.
+
 Patch Notes v0.349:
 *  v0.349: Fix for NPC psuedo-lore skill rolls. Thanks FS#5443!
 *  v0.349: Added ability to give NPCs weapons of a player characters type. This allows NPCs to use a special magic weapon that a PC can then pick up.
