@@ -213,12 +213,36 @@ class DicePF2e {
  * Highlight critical success or failure on d20 rolls
  */
 Hooks.on("renderChatMessage", (message, data, html) => {
-  if ( !message.isRoll || !message.roll.parts.length ) return;
-  let d = message.roll.parts[0];
-  if ( d instanceof Die && d.faces === 20 ) {
-    if (d.total === 20) html.find(".dice-total").addClass("success");
-    else if (d.total === 1) html.find(".dice-total").addClass("failure");
+
+  if ( !message.isRoll) return
+
+  if ( message.roll.parts.length ) {
+    let d = message.roll.parts[0];
+    if ( d instanceof Die && d.faces === 20 ) {
+      if (d.total === 20) html.find(".dice-total").addClass("success");
+      else if (d.total === 1) html.find(".dice-total").addClass("failure");
+    }
   }
+
+  if (message.roll.parts[0].faces == 20 ) {
+    if ( game.system.id === "pf2e" && message.data.flavor.endsWith("Skill Check")) {
+      let btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
+
+      const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="Click to set initiative to selected token(s)."></i></button>`);
+      
+      const btnContainer = $('<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>');
+      btnContainer.append(setInitiativeButton);
+      
+      html.find('.dice-total').append(btnContainer);
+
+      setInitiativeButton.click(ev => {
+          ev.stopPropagation(); 
+          CONFIG.Actor.entityClass.setCombatantInitiative(html);
+      });
+    }
+  }
+
+
 });
 
 

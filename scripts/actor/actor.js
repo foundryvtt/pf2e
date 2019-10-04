@@ -232,7 +232,7 @@ class ActorPF2e extends Actor {
   rollAttribute(event, attributeName) {
     let skl = this.data.data.attributes[attributeName],
       parts = ["@mod"],
-      flavor = `${skl.label} skl Check`;
+      flavor = `${skl.label} Skill Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -301,6 +301,34 @@ class ActorPF2e extends Actor {
         "data.attributes.hp.temp": tmp - dt,
         "data.attributes.hp.value": Math.clamped(hp.value - (value - dt), 0, hp.max)
       }));
+    }
+    return Promise.all(promises);
+  }
+
+  /**
+   * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
+   *
+   * @param {HTMLElement} roll    The chat entry which contains the roll data
+   * @return {Promise}
+   */
+  static async setCombatantInitiative(roll) {
+    let value = parseFloat(roll.find('.dice-total').text());
+    const promises = [];
+    for ( let t of canvas.tokens.controlled ) {
+      
+      let combatant = game.combat.getCombatantByToken(t.data.id)
+/*       let a = t.actor,
+          hp = a.data.data.attributes.hp,
+          tmp = parseInt(hp.temp || 0),
+          dt = value > 0 ? Math.min(tmp, value) : 0; */
+
+      promises.push(
+        game.combat.setInitiative(combatant.id, value)
+/*         t.actor.update({
+          "data.attributes.hp.temp": tmp - dt,
+          "data.attributes.hp.value": Math.clamped(hp.value - (value - dt), 0, hp.max)
+        }) */
+      );
     }
     return Promise.all(promises);
   }
