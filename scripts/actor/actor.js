@@ -321,17 +321,9 @@ class ActorPF2e extends Actor {
     for ( let t of canvas.tokens.controlled ) {
       
       let combatant = game.combat.getCombatantByToken(t.data.id)
-/*       let a = t.actor,
-          hp = a.data.data.attributes.hp,
-          tmp = parseInt(hp.temp || 0),
-          dt = value > 0 ? Math.min(tmp, value) : 0; */
 
       promises.push(
         game.combat.setInitiative(combatant.id, value)
-/*         t.actor.update({
-          "data.attributes.hp.temp": tmp - dt,
-          "data.attributes.hp.value": Math.clamped(hp.value - (value - dt), 0, hp.max)
-        }) */
       );
     }
     return Promise.all(promises);
