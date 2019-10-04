@@ -170,6 +170,10 @@ class ActorPF2e extends Actor {
     let modifier = this.data.data.abilities["int"].mod;
     let itemBonus = Number((i.data.item || {}).value || 0);
     let rollMod = modifier + proficiency + itemBonus;
+    //Override roll calculation if this is an NPC "lore" skill
+    if(item.actor && !item.actor.isPC){
+      rollMod = i.data.mod.value;
+    }
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
