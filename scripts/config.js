@@ -719,6 +719,14 @@ CONFIG.proficiencyLevels = {
   4: "Legendary"
 };
 
+// Hero Points
+CONFIG.heroPointLevels = {
+  0: "Zero Hero Points",
+  1: "One Hero Point",
+  2: "Two Hero Points",
+  3: "Three Hero Points"
+};
+
 // Creature Sizes
 CONFIG.actorSizes = {
   "tiny": "Tiny",
