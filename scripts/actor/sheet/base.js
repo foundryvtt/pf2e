@@ -41,8 +41,13 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
     // Update spell DC label
-    sheetData.data.attributes.spelldc.icon = this._getProficiencyIcon(sheetData.data.attributes.spelldc.rank);
-    sheetData.data.attributes.spelldc.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.spelldc.rank];
+    if (sheetData.data.attributes.spellcasting.entry) {
+      for ( let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
+        entry.spelldc.icon = this._getProficiencyIcon(entry.spelldc.rank);
+        entry.spelldc.hover = CONFIG.proficiencyLevels[entry.spelldc.rank];
+      }
+    }
+ 
 
 
     // Update skill labels
@@ -316,6 +321,8 @@ class ActorSheetPF2e extends ActorSheet {
     // Spell Browser
     html.find('.spell-create').click(ev => spellBrowser.render(true));
     
+    // Add Spellcasting Entry
+    html.find('.spellcasting-create').click(ev => this._createSpellcastingEntry(ev));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -686,6 +693,54 @@ class ActorSheetPF2e extends ActorSheet {
       data["name"] = `New ${data.type.capitalize()}`;    
     }
     this.actor.createOwnedItem(data, {renderSheet: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle creating a new spellcasting entry for the actor
+   * @private
+   */
+
+  _createSpellcastingEntry(event) {
+    event.preventDefault();
+
+    let entries = this.actor.data.data.attributes.spellcasting.entry || {};
+
+    let spellcastingEntity = {
+      "ability": {
+        "type": "String",
+        "label": "Spellcasting Ability",
+        "value": ""
+      },
+      "spelldc": {
+        "type": "String",
+        "label": "Class DC",
+        "item": 0
+      },
+      "tradition": {
+        "type": "String",
+        "label": "Magic Tradition",
+        "value": ""
+      },
+      "prepared": {
+        "type": "String",
+        "label": "Preperation Type",
+        "value": ""
+      }
+    }
+
+    entries[this._generateUUIDv4()] = spellcastingEntity;
+
+    console.log("PF2e | Spellcasting Entries: ",  entries)
+    this.actor.update({"data.attributes.spellcasting.entry": entries});    
+
+  }
+
+  _generateUUIDv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
   }
 
   /* -------------------------------------------- */

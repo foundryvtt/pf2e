@@ -40,8 +40,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Spell Details
     sheetData["magicTraditions"] = CONFIG.magicTraditions;
     sheetData["preparationType"] = CONFIG.preparationType;
-    if ((sheetData.data.attributes.prepared || {}).value === "prepared") sheetData.data["preparedSpells"] = true;
-    else sheetData.data["preparedSpells"] = false;
+    if (sheetData.data.attributes.spellcasting.entry) {
+      for (let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
+        if ((entry.prepared || {}).value === "prepared") entry.prepared["preparedSpells"] = true;
+        else entry.prepared["preparedSpells"] = false;
+      }
+    }
+
     sheetData["showUnpreparedSpells"] = sheetData.options.showUnpreparedSpells
 
 
@@ -177,6 +182,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
+
 
     // Inventory encumbrance
     actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
