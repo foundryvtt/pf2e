@@ -37,6 +37,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     if (hp.temp === 0) delete hp.temp;
     if (hp.tempmax === 0) delete hp.tempmax;
 
+    // Update hero points label
+    sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
+    sheetData.data.attributes.heroPoints.hover = CONFIG.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
+
     // Spell Details
     sheetData["magicTraditions"] = CONFIG.magicTraditions;
     sheetData["preparationType"] = CONFIG.preparationType;

@@ -32,10 +32,6 @@ class ActorSheetPF2e extends ActorSheet {
       save.hover = CONFIG.proficiencyLevels[save.rank];
     }
 
-    // Update hero points label
-    sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
-    sheetData.data.attributes.heroPoints.hover = CONFIG.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
-
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
