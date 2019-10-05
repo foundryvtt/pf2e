@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
 *  v0.351: Added Hero Points to character sheets
 
 Prior patch changes:
