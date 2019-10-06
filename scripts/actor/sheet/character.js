@@ -73,6 +73,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Spellbook
     const spellbook = {};
+    for (let spellcastingEntry of Object.keys(actorData.data.attributes.spellcasting.entry || {})) {
+      spellbook[spellcastingEntry] = {};
+    }
+    let spellbookUnsorted = {};
 
     // Feats
     const feats = {
@@ -118,7 +122,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Spells
-      else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
+      else if ( i.type === "spell" ) {
+        if ( Object.keys(spellbook).includes(i.data.spellcastingEntry)) {
+          this._prepareSpell(actorData, spellbook[i.data.spellcastingEntry], i);
+        } else {
+          this._prepareSpell(actorData, spellbookUnsorted, i);
+        }       
+      }
 
       // Classes
       else if ( i.type === "class" ) {
@@ -178,10 +188,15 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Assign and return
     actorData.inventory = inventory;
-    actorData.spellbook = spellbook;
+    actorData.spellbook = spellbookUnsorted;
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
+
+/*     for (let splentry of Object.keys(spellbook)) {
+      actorData.data.attributes.spellcasting.entry[splentry].spellbook = spellbook[splentry];
+    } */
+
 
 
     // Inventory encumbrance

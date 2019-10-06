@@ -415,13 +415,15 @@ CONFIG.magicTraditions = {
   "occult": "Occult",
   "divine": "Divine",
   "primal": "Primal",
-  "focus": "Focus"
+  "focus": "Focus",
+  "ritual": "Ritual",
 };
 
 // Preparation Type
 CONFIG.preparationType = {
   "prepared": "Prepared",
-  "spontaneous": "Spontaneous"
+  "spontaneous": "Spontaneous",
+  "innate": "Innate"
 };
 
 // Spell Traits
