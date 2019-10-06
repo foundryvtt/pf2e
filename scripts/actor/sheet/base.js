@@ -173,6 +173,22 @@ class ActorSheetPF2e extends ActorSheet {
     return icons[level];
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Get the font-awesome icon used to display hero points
+   * @private
+   */
+  _getHeroPointsIcon(level) {
+    const icons = {
+      0: '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
+      1: '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
+      2: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>',
+      3: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>'
+    };
+    return icons[level];
+  }
+
     /* -------------------------------------------- */
 
   /**
@@ -268,6 +284,10 @@ class ActorSheetPF2e extends ActorSheet {
     // Toggle Skill Proficiency
     //html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
     html.find('.proficiency-click').on("click contextmenu", this._onCycleSkillProficiency.bind(this));
+
+    // Toggle Hero Points
+    //html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
+    html.find('.heroPoints-click').on("click contextmenu", this._onCycleHeroPoints.bind(this));
 
     // Prepare Spell Slot
     html.find('.prepare-click').click(ev => {
@@ -441,7 +461,34 @@ class ActorSheetPF2e extends ActorSheet {
     }
   }
 
+  /**
+   * Handle cycling of Hero Points
+   * @private
+   */
+  _onCycleHeroPoints(event) {
+    event.preventDefault();
+    let field = $(event.currentTarget).siblings('input[type="hidden"]');
 
+    // Get the skill type (used to determine if this is a Lore skill)
+    //let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+
+    // Get the current level and the array of levels
+    let level = parseFloat(field.val());
+    const levels = [0, 1, 2, 3];
+    let idx = levels.indexOf(level)
+    let newLevel = "";
+
+    // Toggle next level - forward on click, backwards on right
+    if ( event.type === "click" ) {
+      newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
+    } else if ( event.type === "contextmenu" ) {
+      newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
+    }
+
+    // Update the field value and save the form
+    field.val(newLevel);
+    this._onSubmit(event);    
+  }
 
   /* -------------------------------------------- */
 

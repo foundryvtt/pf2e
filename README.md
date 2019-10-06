@@ -5,21 +5,19 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 ### PF2e Version
 This is the initial alpha release of the Pathfinder Second Edition system.
 
-Patch Notes v0.350:
-*  v0.350: Added chat button to allow setting initiative for selected tokens.
+Patch Notes:
+*  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
+*  v0.351: Added Hero Points to character sheets
 
-Patch Notes v0.349:
+Prior patch changes:
+*  v0.350: Added chat button to allow setting initiative for selected tokens.
 *  v0.349: Fix for NPC psuedo-lore skill rolls. Thanks FS#5443!
 *  v0.349: Added ability to give NPCs weapons of a player characters type. This allows NPCs to use a special magic weapon that a PC can then pick up.
 *  v0.349: Fixed traits for NPC attacks
 *  v0.349: Fixed negligible bulk items not being an available option for consumables, backpack or equipment.
-
-Patch Notes v0.348:
 *  v0.348: Fixed spell tags to accurately display details about the spell
 *  v0.348: Added the ability to modify the area of a spell
 *  v0.348: Added the font Pathfinder2eActions.ttf (thanks u/baughberick (https://www.reddit.com/user/baughberick/))
-
-Prior patch changes:
 *  v0.346: Added Weapons SRD compendium pack (Thanks Overdox!)
 *  v0.346: Added additional console messages when loading compendium packs into the Compendium Browser for observability
 *  v0.346: Fixed setting menu for the Compendium Browser so it modifies both feat and spell settings
