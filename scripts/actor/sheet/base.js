@@ -45,6 +45,8 @@ class ActorSheetPF2e extends ActorSheet {
       for ( let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
         entry.spelldc.icon = this._getProficiencyIcon(entry.spelldc.rank);
         entry.spelldc.hover = CONFIG.proficiencyLevels[entry.spelldc.rank];
+        entry.tradition.title = CONFIG.magicTraditions[entry.tradition.value];
+        entry.prepared.title = CONFIG.preparationType[entry.prepared.value];
       }
     }
  
@@ -323,6 +325,9 @@ class ActorSheetPF2e extends ActorSheet {
     
     // Add Spellcasting Entry
     html.find('.spellcasting-create').click(ev => this._createSpellcastingEntry(ev));
+
+    // Remove Spellcasting Entry
+    html.find('.spellcasting-remove').click(ev => this._removeSpellcastingEntry(ev));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -706,41 +711,119 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
 
     let entries = this.actor.data.data.attributes.spellcasting.entry || {};
+ 
+    let magicTradition = "arcane";
+    let spellcastingType = "innate";
 
-    let spellcastingEntity = {
-      "ability": {
-        "type": "String",
-        "label": "Spellcasting Ability",
-        "value": ""
-      },
-      "spelldc": {
-        "type": "String",
-        "label": "Class DC",
-        "item": 0
-      },
-      "tradition": {
-        "type": "String",
-        "label": "Magic Tradition",
-        "value": ""
-      },
-      "prepared": {
-        "type": "String",
-        "label": "Preperation Type",
-        "value": ""
-      }
-    }
+    // Render modal dialog
+    let template = "public/systems/pf2e/templates/actors/spellcasting-dialog.html";
+    let title = "Select Spellcasting Entry Details"
+    let dialogOptions = {
+      width: 300,
+      top: event.clientY - 80,
+      left: window.innerWidth - 710
+    };
+    let dialogData = {
+      magicTradition: magicTradition,
+      magicTraditions: CONFIG.magicTraditions,
+      spellcastingType: spellcastingType,
+      spellcastingTypes: CONFIG.preparationType
+    };
+    renderTemplate(template, dialogData).then(dlg => {
+      new Dialog({
+          title: title,
+          content: dlg,
+          buttons: {
+            create: {
+              label: "Create",
+            }
+          },
+          default: "create",
+          close: html => {
+            //if ( onClose ) onClose(html, parts, data);
+            magicTradition = html.find('[name="magicTradition"]').val();
+            if (magicTradition === "ritual" || magicTradition === "focus") {
+              spellcastingType = "";
+            } else {
+              spellcastingType = html.find('[name="spellcastingType"]').val();
+            }
 
-    entries[this._generateUUIDv4()] = spellcastingEntity;
+            // Define new spellcasting entry
+            let spellcastingEntity = {
+              "ability": {
+                "type": "String",
+                "label": "Spellcasting Ability",
+                "value": ""
+              },
+              "spelldc": {
+                "type": "String",
+                "label": "Class DC",
+                "item": 0
+              },
+              "tradition": {
+                "type": "String",
+                "label": "Magic Tradition",
+                "value": magicTradition
+              },
+              "prepared": {
+                "type": "String",
+                "label": "Spellcasting Type",
+                "value": spellcastingType
+              }
+            }
 
-    console.log("PF2e | Spellcasting Entries: ",  entries)
-    this.actor.update({"data.attributes.spellcasting.entry": entries});    
-
+            let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
+            let entry = {};
+            entry[key] = spellcastingEntity;
+            this.actor.update(entry); 
+          }
+        }, dialogOptions).render(true);
+    });       
   }
 
-  _generateUUIDv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an existing spellcasting entry for the actor
+   * @private
+   */
+
+  _removeSpellcastingEntry(event) {
+    event.preventDefault();
+    let header = event.currentTarget,
+        data = duplicate(header.dataset);
+
+    let primaryKey = data.type;
+
+    // Render confirmation modal dialog    
+    renderTemplate('public/systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
+      new Dialog({
+        title: "Delete Confirmation",
+        content: html,
+        buttons: {
+          Yes: {
+            icon: '<i class="fa fa-check"></i>',
+            label: "Yes",
+            callback: dlg => {
+
+              console.log("PF2e | Spellcasting Entry: ",  this.actor.data.data.attributes.spellcasting.entry)
+           
+              let entries = duplicate(this.actor.data.data.attributes.spellcasting.entry);
+              delete entries[primaryKey];
+
+              console.log("PF2e | Spellcasting Entries: ",  entries)
+
+              this.actor.update({"data.attributes.spellcasting.entry": entries}); 
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel"
+          },
+        },
+        default: 'Yes'
+      }).render(true)
+    });
   }
 
   /* -------------------------------------------- */
