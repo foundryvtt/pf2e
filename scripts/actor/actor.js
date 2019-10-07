@@ -91,10 +91,8 @@ class ActorPF2e extends Actor {
         for(var i = 0; i < spl.max; i++){
           spl.prepared[i] = spl.prepared[i] || null;
         }
-        if (spl.prepared.length > spl.max) {
-          for (let i = 0; i < spl.prepared.length - spl.max; i++) {
-            i.pop();
-          }
+        while (spl.prepared.length > spl.max) {
+          spl.prepared.pop();
         }
       }
     }
