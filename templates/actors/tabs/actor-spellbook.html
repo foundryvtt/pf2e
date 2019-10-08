@@ -1,32 +1,33 @@
 <div class="tab spellbook" data-group="primary" data-tab="spellbook">
 
     
-            
-            {{#each actor.data.attributes.spellcasting.entry as |entry id|}}  
+        <ol class="spellcastingEntry-list directory-list">
+            {{#each actor.spellcastingEntries as |entry eid|}}  
+            <li class="item" data-skill="spelldc" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
                 <!-- <h3 class="item-name pf-heading pf-actions">{{{entry.tradition.title}}} {{{entry.prepared.title}}} Spells</h3> -->
-                <div class="item action-header" style="display:flex;">
-                    <h3 class="item-name pf-heading pf-actions" style="padding-left: 32px;">{{{entry.tradition.title}}} {{{entry.prepared.title}}} Spells</h3>
+                <div class="action-header" style="display:flex;" >
+                    <h3 class="item-name pf-heading pf-actions" style="padding-left: 32px;">{{{entry.name}}}</h3>
                     {{#if ../owner}}
-                    <div class="item-controls">
-                        <a class="item-control spellcasting-remove" title="Remove Spellcasting Entry" data-type="{{id}}"><i class="fas fa-minus"></i> Remove</a>
+                    <div class="item-controls" style="display: flex;">
+                        <a class="item-control item-delete" title="Remove Spellcasting Entry" data-type="{{eid}}"><i class="fas fa-minus"></i> Del</a>
                     </div>
                     {{/if}}
                 </div>
                 <ol class="skills-list">
-                    <li class="skill" data-skill="spelldc">
+                    <li class="skill-grid" data-skill="spelldc">
 
-                        <span class="skill-score" title="{{entry.spelldc.breakdown}}">{{entry.spelldc.dc}}</span>
+                        <span class="skill-score" title="{{entry.data.spelldc.breakdown}}">{{entry.data.spelldc.dc}}</span>
                         <h4 class="skill-name">Spell DC</h4>
                         
                         <div class="skill-container">
                             <h4 class="skill-proficiency pf-title">Prof</h4>
-                            <input type="hidden" name="data.attributes.spellcasting.entry.{{id}}.spelldc.rank" value="{{entry.spelldc.rank}}" data-dtype="Number"/>
-                            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{entry.spelldc.hover}}">{{{entry.spelldc.icon}}}</span>
+                            <input type="hidden" name="data.items.{{eid}}.data.proficient.value" value="{{entry.data.proficient.value}}" data-dtype="Number"/>
+                            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{entry.data.spelldc.hover}}">{{{entry.data.spelldc.icon}}}</span>
                         </div>
                         <div class="skill-container">
                             <h4 class="skill-item pf-title">Item</h4>
-                            <span class="skill-item pf-value" title="Item">
-                                <input name="data.attributes.spellcasting.entry.{{id}}.spelldc.item" type="text" value="{{entry.spelldc.item}}"
+                            <span class="skill-item pf-value item-value-input" title="Item">
+                                <input type="text" value="{{entry.data.item.value}}"
                                         data-dtype="Number" placeholder="+0"/>
                             </span>
                         </div>
@@ -35,8 +36,8 @@
                     <li class="pf-two-grid" data-skill="spelldc">
                         <label class="skill-name">Spell Ability</label>
                         <div class="skill-name">
-                            <select name="data.attributes.spellcasting.entry.{{id}}.ability.value" data-type="String">
-                                {{#select entry.ability.value}}
+                            <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
+                                {{#select entry.data.ability.value}}
                                 <option value="">None</option>
                                 {{#each ../data.abilities as |abl a|}}
                                 <option value="{{a}}">{{abl.label}}</option>
@@ -74,8 +75,9 @@
                     </li> -->
 
                 </ol>
+            </li>
 
-            <!-- {{#unless entry.prepared.preparedSpells}}
+            {{#unless entry.prepared.preparedSpells}}
             <ol class="inventory-list directory-list">
                     {{#each entry.spellbook as |section lvl|}}
                         <li class="item inventory-header spellbook-header">
@@ -134,7 +136,7 @@
                             {{#if ../owner}}
                             <div class="item-controls pf-bluelist">
                                 <a class="item-control spell-create" title="Create Spell" data-type="spell"
-                                    data-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spell</a>
+                                    data-level="{{lvl}}" data-location="{{entry.id}}"><i class="fas fa-plus"></i> Add Spell</a>
                             </div>
                             {{/if}}
                         </li>
@@ -142,12 +144,13 @@
                 </ol>
             {{else}}
                 > public/systems/pf2e/templates/actors/tabs/actor-spellbook-prepared.html}}
-            {{/unless}} -->
+            {{/unless}}
 
 
         {{/each}}
+    </ol>
 
-            <ol class="skills-list">
+            <ol class="spellcastingEntry-list">
                 <li class="item inventory-header spellbook-header spellbook-empty">
                     {{#if owner}}
                     <div class="item-controls pf-bluelist">

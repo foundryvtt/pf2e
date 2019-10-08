@@ -40,12 +40,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Spell Details
     sheetData["magicTraditions"] = CONFIG.magicTraditions;
     sheetData["preparationType"] = CONFIG.preparationType;
-    if (sheetData.data.attributes.spellcasting.entry) {
+/*     if (sheetData.data.attributes.spellcasting.entry) {
       for (let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
         if ((entry.prepared || {}).value === "prepared") entry.prepared["preparedSpells"] = true;
         else entry.prepared["preparedSpells"] = false;
       }
-    }
+    } */
 
     sheetData["showUnpreparedSpells"] = sheetData.options.showUnpreparedSpells
 
@@ -72,11 +72,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
 
     // Spellbook
-    const spellbook = {};
-    for (let spellcastingEntry of Object.keys(actorData.data.attributes.spellcasting.entry || {})) {
-      spellbook[spellcastingEntry] = {};
-    }
-    let spellbookUnsorted = {};
+    //const spellbook = {};
+    const spellbooks = [];
+    spellbooks["unassigned"] = {};
+
+    // Spellcasting Entries
+    const spellcastingEntries = [];
 
     // Feats
     const feats = {
@@ -123,11 +124,33 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       // Spells
       else if ( i.type === "spell" ) {
-        if ( Object.keys(spellbook).includes(i.data.spellcastingEntry)) {
-          this._prepareSpell(actorData, spellbook[i.data.spellcastingEntry], i);
+        if (i.data.location.value) {
+          spellbooks[i.data.location.value] = spellbooks[i.data.location.value] || {};
+          this._prepareSpell(actorData, spellbooks[i.data.location.value], i);                    
         } else {
-          this._prepareSpell(actorData, spellbookUnsorted, i);
-        }       
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+        }
+      }
+
+      // Spellcasting Entries
+      else if ( i.type === "spellcastingEntry" ) {
+
+        let spellProficiency = i.data.proficient.value ? (i.data.proficient.value * 2) + actorData.data.details.level.value : 0;
+        let spellAbl = i.data.ability.value || "int";
+        i.data.spelldc.value = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
+        i.data.spelldc.dc = i.data.spelldc.value + 10
+        i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
+
+        i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficient.value);
+        i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficient.value];
+        i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
+        i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
+        if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
+        else i.data.prepared["preparedSpells"] = false;
+  
+        spellcastingEntries.push(i);      
+                
       }
 
       // Classes
@@ -183,15 +206,22 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
     }
 
-    // Add prepared spells to spellbook
-    this._preparedSpellSlots(actorData, spellbook);
+    
 
     // Assign and return
     actorData.inventory = inventory;
-    actorData.spellbook = spellbookUnsorted;
+    //actorData.spellbook = spellbook;
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
+
+    actorData.spellcastingEntries = spellcastingEntries;
+    for (let entry of spellcastingEntries) {
+      // Add prepared spells to spellbook
+      //this._preparedSpellSlots(actorData, spellbooks[entry]);
+
+      entry.spellbook = spellbooks[entry.id];      
+    }
 
 /*     for (let splentry of Object.keys(spellbook)) {
       actorData.data.attributes.spellcasting.entry[splentry].spellbook = spellbook[splentry];

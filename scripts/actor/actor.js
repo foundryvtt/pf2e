@@ -75,18 +75,6 @@ class ActorPF2e extends Actor {
     let proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
     data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
-
-    // Spell DC
-    if (data.attributes.spellcasting.entry) {
-      for (let entry of Object.values(data.attributes.spellcasting.entry || {})) {
-        let spellProficiency = entry.spelldc.rank ? (entry.spelldc.rank * 2) + data.details.level.value : 0;
-        let spellAbl = entry.ability.value || "int";
-        entry.spelldc.value = data.abilities[spellAbl].mod + spellProficiency + entry.spelldc.item;
-        entry.spelldc.mod = data.abilities[spellAbl].mod;
-        entry.spelldc.dc = entry.spelldc.value + 10
-        entry.spelldc.breakdown = `10 + ${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${entry.spelldc.item})`;    
-      }
-    }
     
     // Prepared Spell Slots
     for (let spl of Object.values(data.spells)) {

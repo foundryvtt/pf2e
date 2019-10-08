@@ -40,18 +40,6 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
-    // Update spell DC label
-    if (sheetData.data.attributes.spellcasting.entry) {
-      for ( let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
-        entry.spelldc.icon = this._getProficiencyIcon(entry.spelldc.rank);
-        entry.spelldc.hover = CONFIG.proficiencyLevels[entry.spelldc.rank];
-        entry.tradition.title = CONFIG.magicTraditions[entry.tradition.value];
-        entry.prepared.title = CONFIG.preparationType[entry.prepared.value];
-      }
-    }
- 
-
-
     // Update skill labels
     for ( let skl of Object.values(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
@@ -321,8 +309,9 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
     // Spell Browser
-    html.find('.spell-create').click(ev => spellBrowser.render(true));
-    
+    //html.find('.spell-create').click(ev => spellBrowser.render(true));
+    html.find('.spell-create').click(ev => this._onItemCreate(ev));
+
     // Add Spellcasting Entry
     html.find('.spellcasting-create').click(ev => this._createSpellcastingEntry(ev));
 
@@ -402,28 +391,46 @@ class ActorSheetPF2e extends ActorSheet {
     this.actor.rollLoreSkill(event, item);
     });      
 
-    // Lore Item Bonus Input
-    html.find('.lore-item-input').focusout(async event => {
+    // Update Item Bonus on an actor.item input
+    html.find('.item-value-input').focusout(async event => {
+      event.preventDefault();
       //let itemId = Number(event.target.attributes["data-item-id"].value);
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.item.value = Number(event.target.value);
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
       }
     });
 
+    // Update Item Name
     html.find('.item-name').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.name = event.target.value;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
+      for(let skill of skills)
+      {
+        await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
+
+    // Modify select element
+    html.find('.ability-select').change(async event => {
+      event.preventDefault();
+      //let itemId = Number(event.target.attributes["data-item-id"].value);
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.ability.value = event.target.value;
+
+      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
@@ -450,7 +457,7 @@ class ActorSheetPF2e extends ActorSheet {
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
 
     // Get the skill type (used to determine if this is a Lore skill)
-    let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+    let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
 
     // Get the current level and the array of levels
     let level = parseFloat(field.val());
@@ -471,6 +478,11 @@ class ActorSheetPF2e extends ActorSheet {
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.proficient.value = newLevel;
       this.actor.updateOwnedItem(itemToEdit, true);
+    } else if (skillType === "spellcastingEntry") {
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.proficient.value = newLevel;
+      this.actor.updateOwnedItem(itemToEdit, true);
     } else {
       field.val(newLevel);
       this._onSubmit(event);
@@ -486,7 +498,7 @@ class ActorSheetPF2e extends ActorSheet {
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
 
     // Get the skill type (used to determine if this is a Lore skill)
-    //let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+    //let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
 
     // Get the current level and the array of levels
     let level = parseFloat(field.val());
@@ -685,8 +697,14 @@ class ActorSheetPF2e extends ActorSheet {
       data["name"] = `New ${data.actionType.capitalize()}`;    
       mergeObject(data, {"data.weaponType.value": data.actionType});
     } else if (data.type === "spell") {
+
       data["name"] = `New  Level ${data.level} ${data.type.capitalize()}`;    
-      mergeObject(data, {"data.level.value": data.level});
+      mergeObject(data, {
+        "data.level.value": data.level,
+        "data.location.value": data.location
+      });
+    
+    
     } else if (data.type === "lore") {
       if (this.actorType === "npc") {
         data["name"] = `New Skill`;
@@ -710,7 +728,7 @@ class ActorSheetPF2e extends ActorSheet {
   _createSpellcastingEntry(event) {
     event.preventDefault();
 
-    let entries = this.actor.data.data.attributes.spellcasting.entry || {};
+    //let entries = this.actor.data.data.attributes.spellcasting.entry || {};
  
     let magicTradition = "arcane";
     let spellcastingType = "innate";
@@ -741,11 +759,14 @@ class ActorSheetPF2e extends ActorSheet {
           default: "create",
           close: html => {
             //if ( onClose ) onClose(html, parts, data);
+            let name = "";
             magicTradition = html.find('[name="magicTradition"]').val();
             if (magicTradition === "ritual" || magicTradition === "focus") {
               spellcastingType = "";
+              name = `${CONFIG.magicTraditions[magicTradition]} Spells`
             } else {
               spellcastingType = html.find('[name="spellcastingType"]').val();
+              name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`
             }
 
             // Define new spellcasting entry
@@ -772,10 +793,18 @@ class ActorSheetPF2e extends ActorSheet {
               }
             }
 
-            let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
+            let data = {
+              "name": name,
+              "type": "spellcastingEntry",
+              "data": spellcastingEntity
+            }
+
+            this.actor.createOwnedItem(data, {renderSheet: true});
+
+/*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
             let entry = {};
             entry[key] = spellcastingEntity;
-            this.actor.update(entry); 
+            this.actor.update(entry);  */
           }
         }, dialogOptions).render(true);
     });       

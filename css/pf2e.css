@@ -1246,7 +1246,7 @@
   grid: "skill skill" 36px / 50% 50%;
   grid-auto-rows: 36px;
 }
-.pf2e.actor .spellbook .skill {
+.pf2e.actor .spellbook .skill-grid {
   grid-area: auto;
   display: grid;
   grid: "value name rank item" 100% /  35px auto 46px 46px;
@@ -1309,7 +1309,7 @@
 }
 .pf2e.actor .skills .skill > *,
 .pf2e.actor .skills .item > *,
-.pf2e.actor .spellbook .skill > * {
+.pf2e.actor .spellbook .skill-grid > * {
   flex: 1;
 }
 .pf2e.actor .skills .skill-name {
@@ -1341,11 +1341,6 @@
   line-height: 32px;
   color: white;
 }
-/* .pf2e.actor .skills .skill .skill-proficiency {
-  text-align: left;
-  flex: 0 0 20px;
-  padding-left: 3px;
-} */
 .pf2e.actor .skills .skill-proficiency,
 .pf2e.actor .spellbook .skill-proficiency {
   margin-top: 2px;
@@ -1540,6 +1535,13 @@
   height: 100%;
   overflow-y: auto;
 }
+.pf2e.actor .spellcastingEntry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* height: 100%; */
+  overflow-y: auto;
+}
 .pf2e.actor .overflow-list {
   list-style: none;
   margin: 0;
@@ -1641,7 +1643,7 @@
   /* font-weight: bold; */
 }
 .pf2e.actor .action-header .item-controls a.item-create,
-.pf2e.actor .action-header .item-controls a.spellcasting-remove {
+.pf2e.actor .action-header .item-controls a.item-delete {
   width: 100%;
   color: #fff;
   background: var(--primary-background);
