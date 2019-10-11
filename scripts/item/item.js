@@ -92,8 +92,8 @@ class ItemPF2e extends Item {
     if ((data.traits.value || []).length != 0) {      
       for(var i = 0 ; i < data.traits.value.length ; i++){
         let traitsObject = {
-          "label": CONFIG.weaponTraits[data.traits.value[i]],
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+          "label": CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
         };        
         traits.push(traitsObject);
       } 
@@ -143,8 +143,8 @@ class ItemPF2e extends Item {
       if ((data.traits.value || []).length != 0) {      
         for(var i = 0 ; i < data.traits.value.length ; i++){
           let traitsObject = {
-            "label": CONFIG.weaponTraits[data.traits.value[i]],
-            "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+            "label": CONFIG.weaponTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+            "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
           };        
           traits.push(traitsObject);
         } 
@@ -242,7 +242,7 @@ class ItemPF2e extends Item {
       for(var i = 0 ; i < data.traits.value.length ; i++){
         let traitsObject = {
           "label": data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
         };        
         traits.push(traitsObject);
       } 
@@ -288,8 +288,8 @@ class ItemPF2e extends Item {
     if ((data.traits.value || []).length != 0) {      
       for(var i = 0 ; i < data.traits.value.length ; i++){
         let traitsObject = {
-          "label": CONFIG.featTraits[data.traits.value[i]],
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+          "label": CONFIG.featTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
         };        
         traits.push(traitsObject);
       } 
@@ -326,8 +326,8 @@ class ItemPF2e extends Item {
     if ((data.traits.value || []).length != 0) {      
       for(var i = 0 ; i < data.traits.value.length ; i++){
         let traitsObject = {
-          "label": CONFIG.featTraits[data.traits.value[i]],
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]]
+          "label": CONFIG.featTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
         };        
         traits.push(traitsObject);
       } 
