@@ -214,11 +214,17 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
+    let spellcastingEntry = this.actor.getOwnedItem(Number(data.location.value)),
+        spellDC = spellcastingEntry.data.data.spelldc.dc,
+        spellAttack = spellcastingEntry.data.data.spelldc.value;
+
     // Spell saving throw text and DC
     data.isSave = data.spellType.value === "save";
-    //if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
-    if ( data.isSave ) data.save.dc = ad.attributes.spelldc.dc;
-    else data.save.dc = ad.attributes.spelldc.value;
+    
+    if ( data.isSave ) {
+      data.save.dc = spellDC
+    }
+    else data.save.dc = spellAttack;
     data.save.str = data.save.value ? (this.actor.data.data.saves[data.save.value.toLowerCase()] || {}).label : "";
 
     // Spell attack labels
@@ -472,8 +478,9 @@ class ItemPF2e extends Item {
     // Prepare roll data
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
-        //abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
-        parts = ["@attributes.spelldc.value", "@attributes.spelldc.item"],
+        spellcastingEntry = this.actor.getOwnedItem(Number(itemData.location.value)),
+        spellAttack = spellcastingEntry.data.data.spelldc.value,
+        parts = [spellAttack],
         title = `${this.name} - Spell Attack Roll`;
 
     // Call the roll helper utility

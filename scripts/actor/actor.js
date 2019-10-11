@@ -320,6 +320,42 @@ class ActorPF2e extends Actor {
     }
     return Promise.all(promises);
   }
+
+  /* -------------------------------------------- */
+  /* Owned Item Management
+  /* -------------------------------------------- */
+
+  /**
+   * This method extends the base importItemFromCollection functionality provided in the base actor entity 
+   * 
+   * Import a new owned Item from a compendium collection
+   * The imported Item is then added to the Actor as an owned item.
+   *
+   * @param collection {String}     The name of the pack from which to import
+   * @param entryId {String}        The ID of the compendium entry to import
+   */
+  importItemFromCollection(collection, entryId, location) {
+
+    // if location parameter missing, then use the super method
+    if (location == null) {
+      console.log("PF2e | importItemFromCollection: ", entryId);
+      super.importItemFromCollection(collection, entryId);
+      return;
+    }
+
+    const pack = game.packs.find(p => p.collection === collection);
+    if ( pack.metadata.entity !== "Item" ) return;
+    return pack.getEntity(entryId).then(ent => {
+      console.log(`${vtt} | Importing Item ${ent.name} from ${collection}`);
+      if (ent.type === "spell") {
+        ent.data.data.location = {
+          "value": location
+        };
+      }
+      delete ent.data._id;
+      return this.createOwnedItem(ent.data, true);
+    });
+  }
 }
 
 // Assign the actor class to the CONFIG

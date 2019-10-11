@@ -529,6 +529,9 @@ class ActorSheetPF2e extends ActorSheet {
     }));
   } */
   _onDragItemStart(event) {
+    const itemType = event.currentTarget.getAttribute("data-item-type");
+    if (itemType === "spellcastingEntry") return;
+
     const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
     const item = this.actor.getOwnedItem(itemId);
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
@@ -548,10 +551,11 @@ class ActorSheetPF2e extends ActorSheet {
   async _onDrop(event) {
     
     // get the item type of the drop target
-    let dropType = $(event.target).parents(".item").attr("data-item-type");
+    let dropSlotType = $(event.target).parents(".item").attr("data-item-type");
+    let dropContainerType = $(event.target).parents(".item-container").attr("data-item-type");
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
-    if (dropType === "spellSlot") {
+    if (dropSlotType === "spellSlot") {
       let dragData = event.dataTransfer.getData("text/plain"),
           dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
           
@@ -561,10 +565,35 @@ class ActorSheetPF2e extends ActorSheet {
 
         this.actor.allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data);
       }
+    } else if (dropContainerType === "spellcastingEntry") { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
+      let dragData = JSON.parse(event.dataTransfer.getData("text/plain")),
+          dragItem = this.actor.getOwnedItem(dragData.id);
+
+          // if the dragged item is a spell
+          if (dragItem.data.type === "spell") {
+            let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+            
+            if (Number.isInteger(dropID)) {
+              dragItem.data.data.location.value = dropID;
+
+              // Update Actor
+              await this.actor.updateOwnedItem(dragItem.data, true);
+            }
+          }
+
+          // else if the dragged item is from a compendium pack.
+          else if (dragData.pack) {
+            let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+
+            this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
+            return;
+          }
     }
 
     super._onDrop(event)
 }
+
+
 
   /* -------------------------------------------- */
 
@@ -819,30 +848,37 @@ class ActorSheetPF2e extends ActorSheet {
 
   _removeSpellcastingEntry(event) {
     event.preventDefault();
-    let header = event.currentTarget,
-        data = duplicate(header.dataset);
 
-    let primaryKey = data.type;
+    let li = $(event.currentTarget).parents(".item"),
+        itemId = Number(li.attr("data-item-id")),
+        item = this.actor.getOwnedItem(itemId);
 
     // Render confirmation modal dialog    
     renderTemplate('public/systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
       new Dialog({
         title: "Delete Confirmation",
         content: html,
+        data: item,
         buttons: {
           Yes: {
             icon: '<i class="fa fa-check"></i>',
             label: "Yes",
             callback: dlg => {
+              
+              console.log("PF2e | Deleting Spell Container: ", item.name)
+              // Delete all child objects
+              for (let i of this.actor.data.items) {
+                if (i.type === "spell")             
+                  if (Number(i.data.location.value) === itemId) {
+                    console.log("PF2e | Deleting child item: ", i.name)
+                    this.actor.deleteOwnedItem(i.id);
+                  }
+              }
 
-              console.log("PF2e | Spellcasting Entry: ",  this.actor.data.data.attributes.spellcasting.entry)
-           
-              let entries = duplicate(this.actor.data.data.attributes.spellcasting.entry);
-              delete entries[primaryKey];
-
-              console.log("PF2e | Spellcasting Entries: ",  entries)
-
-              this.actor.update({"data.attributes.spellcasting.entry": entries}); 
+              
+              // Delete item container
+              /* this.actor.deleteOwnedItem(itemId);
+              li.slideUp(200, () => this.render(false)); */
             }
           },
           cancel: {

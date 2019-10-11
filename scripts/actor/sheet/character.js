@@ -137,9 +137,14 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
         let spellProficiency = i.data.proficient.value ? (i.data.proficient.value * 2) + actorData.data.details.level.value : 0;
         let spellAbl = i.data.ability.value || "int";
-        i.data.spelldc.value = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
-        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-        i.data.spelldc.dc = i.data.spelldc.value + 10
+        let spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+        if (i.data.spelldc.value != spellAttack) {
+          i.data.spelldc.value = spellAttack;
+          i.data.spelldc.dc = spellAttack + 10
+          i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
+          this.actor.updateOwnedItem(i, true);
+        }
+        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
 
         i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficient.value);
@@ -215,7 +220,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.actions = actions;
     actorData.lores = lores;
 
-    actorData.spellcastingEntries = spellcastingEntries;
+    
     for (let entry of spellcastingEntries) {
       // Add prepared spells to spellbook
       //this._preparedSpellSlots(actorData, spellbooks[entry]);
@@ -223,10 +228,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       entry.spellbook = spellbooks[entry.id];      
     }
 
-/*     for (let splentry of Object.keys(spellbook)) {
-      actorData.data.attributes.spellcasting.entry[splentry].spellbook = spellbook[splentry];
-    } */
-
+    actorData.spellcastingEntries = spellcastingEntries;
 
 
     // Inventory encumbrance

@@ -3,13 +3,13 @@
     
         <ol class="spellcastingEntry-list directory-list">
             {{#each actor.spellcastingEntries as |entry eid|}}  
-            <li class="item" data-skill="spelldc" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
+            <li class="item item-container" data-skill="spelldc" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
                 <!-- <h3 class="item-name pf-heading pf-actions">{{{entry.tradition.title}}} {{{entry.prepared.title}}} Spells</h3> -->
                 <div class="action-header" style="display:flex;" >
                     <h3 class="item-name pf-heading pf-actions" style="padding-left: 32px;">{{{entry.name}}}</h3>
                     {{#if ../owner}}
-                    <div class="item-controls" style="display: flex;">
-                        <a class="item-control item-delete" title="Remove Spellcasting Entry" data-type="{{eid}}"><i class="fas fa-minus"></i> Del</a>
+                    <div class="item-controls" style="display: flex; background: var(--primary-background); color: white;">
+                        <a class="item-control spellcasting-remove" title="Remove Spellcasting Entry" data-type="{{eid}}" style="align-self: center;"><i class="fas fa-minus"></i> Del</a>
                     </div>
                     {{/if}}
                 </div>
@@ -75,12 +75,12 @@
                     </li> -->
 
                 </ol>
-            </li>
+            
 
             {{#unless entry.prepared.preparedSpells}}
-            <ol class="inventory-list directory-list">
+            <ol class="inventory-list directory-list" style="margin-bottom: 2px">
                     {{#each entry.spellbook as |section lvl|}}
-                        <li class="item inventory-header spellbook-header">
+                        <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);">
                             <div class="item-name flexrow">
                                 <h3>{{section.label}}</h3>
                 
@@ -102,10 +102,10 @@
                             <div class="spell-school-header">School</div>
                             <div class="spell-action-header">Action</div>
                 
-                            {{#if ../owner}}
+                            {{#if ../../owner}}
                             <div class="item-controls">
                                 <a class="item-control spell-create" title="Create Spell" data-type="spell"
-                                    data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
+                                    data-level="{{lvl}}" data-location="{{entry.id}}"><i class="fas fa-plus"></i> Add</a>
                             </div>
                             {{/if}}
                         </li>
@@ -121,7 +121,7 @@
                             <div class="spell-school">{{item.data.school.str}}</div>
                             <div class="spell-action">{{item.data.time.value}}</div>
                 
-                            {{#if ../../owner}}
+                            {{#if ../../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
@@ -134,7 +134,7 @@
                     {{else}}
                         <li class="item inventory-header spellbook-header spellbook-empty">
                             {{#if ../owner}}
-                            <div class="item-controls pf-bluelist">
+                            <div class="item-controls pf-bluelist pf-add-item-row" style="flex: 1; background: var(--secondary-background);">
                                 <a class="item-control spell-create" title="Create Spell" data-type="spell"
                                     data-level="{{lvl}}" data-location="{{entry.id}}"><i class="fas fa-plus"></i> Add Spell</a>
                             </div>
@@ -145,6 +145,7 @@
             {{else}}
                 > public/systems/pf2e/templates/actors/tabs/actor-spellbook-prepared.html}}
             {{/unless}}
+        </li>
 
 
         {{/each}}
@@ -153,7 +154,7 @@
             <ol class="spellcastingEntry-list">
                 <li class="item inventory-header spellbook-header spellbook-empty">
                     {{#if owner}}
-                    <div class="item-controls pf-bluelist">
+                    <div class="item-controls pf-bluelist pf-add-item-row">
                         <a class="item-control spellcasting-create" title="Create Spell" data-type="spell"
                             data-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spellcasting Entry</a>
                     </div>
