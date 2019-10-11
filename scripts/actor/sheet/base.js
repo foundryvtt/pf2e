@@ -572,7 +572,12 @@ class ActorSheetPF2e extends ActorSheet {
       let props = $(`<div class="item-properties"></div>`);
       if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`);
-      if (chatData.traits) chatData.traits.forEach(p => props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`));
+      
+      // append traits (only style the tags if they contain description data)
+      if (chatData.traits) chatData.traits.forEach(p => {
+        if (p.description) props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`);
+        else props.append(`<span class="tag">${p.label}</span>`);        
+      });
 
       if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
