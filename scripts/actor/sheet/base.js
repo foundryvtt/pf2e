@@ -581,6 +581,20 @@ class ActorSheetPF2e extends ActorSheet {
             }
           }
 
+          // else if the dragged item is from another actor and is the data is explicitly provided
+          if ( dragData.data ) {
+            if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
+              if ( dragData.actorId === this.actor.id ) return;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
+              
+              let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+              dragData.data.data.location = {
+                "value": dropID
+              }
+              this.actor.createOwnedItem(dragData.data);
+              return;
+            }
+          }
+
           // else if the dragged item is from a compendium pack.
           else if (dragData.pack) {
             let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
@@ -853,6 +867,8 @@ class ActorSheetPF2e extends ActorSheet {
         itemId = Number(li.attr("data-item-id")),
         item = this.actor.getOwnedItem(itemId);
 
+    let dlg;
+
     // Render confirmation modal dialog    
     renderTemplate('public/systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
       new Dialog({
@@ -863,22 +879,25 @@ class ActorSheetPF2e extends ActorSheet {
           Yes: {
             icon: '<i class="fa fa-check"></i>',
             label: "Yes",
-            callback: dlg => {
+            callback: dlg = async () => {
               
               console.log("PF2e | Deleting Spell Container: ", item.name)
               // Delete all child objects
+              let itemsToDelete = [];
               for (let i of this.actor.data.items) {
                 if (i.type === "spell")             
                   if (Number(i.data.location.value) === itemId) {
-                    console.log("PF2e | Deleting child item: ", i.name)
-                    this.actor.deleteOwnedItem(i.id);
+                    itemsToDelete.push(i.id);
                   }
               }
 
+              for (let d of itemsToDelete) {
+                await this.actor.deleteOwnedItem(d);
+              }
               
               // Delete item container
-              /* this.actor.deleteOwnedItem(itemId);
-              li.slideUp(200, () => this.render(false)); */
+              this.actor.deleteOwnedItem(itemId);
+              li.slideUp(200, () => this.render(false));
             }
           },
           cancel: {

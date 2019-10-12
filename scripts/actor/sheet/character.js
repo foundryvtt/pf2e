@@ -215,7 +215,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Assign and return
     actorData.inventory = inventory;
-    //actorData.spellbook = spellbook;
+    if (Object.keys(spellbooks.unassigned).length) actorData.orphanedSpells = true;
+    actorData.orphanedSpellbook = spellbooks["unassigned"];
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
