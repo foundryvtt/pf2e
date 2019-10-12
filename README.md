@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.354: Added support for spell saving throws of type "basic"
 *  v0.353: (FS#5443) Fixed bug with manual /roll 1d20 rolls not working. Thanks!!
 *  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
 *  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)
