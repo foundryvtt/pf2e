@@ -77,7 +77,7 @@ class ActorPF2e extends Actor {
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
     
     // Prepared Spell Slots
-    for (let spl of Object.values(data.spells)) {
+/*     for (let spl of Object.values(data.spells)) {
       if (spl.max) {
         spl["prepared"] = spl["prepared"] || [];
         for(var i = 0; i < spl.max; i++){
@@ -89,7 +89,7 @@ class ActorPF2e extends Actor {
           }
         }
       }
-    }
+    } */
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
@@ -240,40 +240,9 @@ class ActorPF2e extends Actor {
     });
   }
 
-   /* -------------------------------------------- */
 
-  /**
-   * Prepare Spell SLot
-   * Saves the prepared spell slot data to the actor
-   * @param spellLevel {String}   The level of the spell slot
-   * @param spellSlot {String}    The number of the spell slot 
-   * @param spell {String}        The item details for the spell
-   */
-  allocatePreparedSpellSlot(spellLevel, spellSlot, spell) {
-    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
-        updateObject = {};
 
-    updateObject[key] = spell;
-    
-    this.update(updateObject);
-  }
 
-     /* -------------------------------------------- */
-
-  /**
-   * Remove Spell Slot
-   * Removes the spell from the saved spell slot data for the actor
-   * @param spellLevel {String}   The level of the spell slot
-   * @param spellSlot {String}    The number of the spell slot    * 
-   */
-  removePreparedSpellSlot(spellLevel, spellSlot, spell) {
-    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
-        updateObject = {};
-
-    updateObject[key] = null;
-    
-    this.update(updateObject); 
-  }
 
   /* -------------------------------------------- */
 

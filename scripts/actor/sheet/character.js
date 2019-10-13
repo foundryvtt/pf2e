@@ -123,10 +123,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Spells
-      else if ( i.type === "spell" ) {
+      else if ( i.type === "spell" ) {        
         if (i.data.location.value) {
-          spellbooks[i.data.location.value] = spellbooks[i.data.location.value] || {};
-          this._prepareSpell(actorData, spellbooks[i.data.location.value], i);                    
+          let location = Number(i.data.location.value);
+          spellbooks[location] = spellbooks[location] || {};
+          this._prepareSpell(actorData, spellbooks[location], i);                    
         } else {
           this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
         }
@@ -215,17 +216,20 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Assign and return
     actorData.inventory = inventory;
-    if (Object.keys(spellbooks.unassigned).length) actorData.orphanedSpells = true;
-    actorData.orphanedSpellbook = spellbooks["unassigned"];
+    // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
+    if (Object.keys(spellbooks.unassigned).length) {
+      actorData.orphanedSpells = true;
+      actorData.orphanedSpellbook = spellbooks["unassigned"];
+    } 
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
 
     
     for (let entry of spellcastingEntries) {
-      // Add prepared spells to spellbook
-      //this._preparedSpellSlots(actorData, spellbooks[entry]);
-
+      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      }
       entry.spellbook = spellbooks[entry.id];      
     }
 
