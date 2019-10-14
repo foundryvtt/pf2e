@@ -32,10 +32,6 @@ class ActorSheetPF2e extends ActorSheet {
       save.hover = CONFIG.proficiencyLevels[save.rank];
     }
 
-    // Update hero points label
-    sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
-    sheetData.data.attributes.heroPoints.hover = CONFIG.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
-
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
@@ -738,7 +734,12 @@ class ActorSheetPF2e extends ActorSheet {
       let props = $(`<div class="item-properties"></div>`);
       if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`);
-      if (chatData.traits) chatData.traits.forEach(p => props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`));
+      
+      // append traits (only style the tags if they contain description data)
+      if (chatData.traits) chatData.traits.forEach(p => {
+        if (p.description) props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`);
+        else props.append(`<span class="tag">${p.label}</span>`);        
+      });
 
       if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
@@ -771,7 +772,7 @@ class ActorSheetPF2e extends ActorSheet {
               buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);              
               break;
           case 'spell':
-              if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
+              if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
               if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
               if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
               break;

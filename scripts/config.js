@@ -568,6 +568,12 @@ CONFIG.areaTypes = {
   "line": "Line"
 }
 
+// Spell Saves
+/* CONFIG.spellBasic = {
+  "": "",
+  "basic": "Basic"
+} */
+
 // Area Size
 CONFIG.areaSizes = {
   5: "5 Foot",

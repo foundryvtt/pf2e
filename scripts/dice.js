@@ -225,7 +225,7 @@ Hooks.on("renderChatMessage", (message, data, html) => {
   }
 
   if (message.roll.parts[0].faces == 20 ) {
-    if ( game.system.id === "pf2e" && message.data.flavor.endsWith("Skill Check")) {
+    if ( game.system.id === "pf2e" && message.data && message.data.flavor && message.data.flavor.endsWith("Skill Check")) {
       let btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
 
       const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="Click to set initiative to selected token(s)."></i></button>`);

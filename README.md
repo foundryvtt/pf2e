@@ -6,9 +6,15 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.351: Added Hero Points to character sheets
+*  v0.353: (FS#5443) Fixed bug with manual /roll 1d20 rolls not working. Thanks!!
+*  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
+*  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)
+*  v0.353: (fryguy#3851) for fixing an issue with prepared spells not being removed correctly. Thanks!!
+
 
 Prior patch changes:
+*  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
+*  v0.351: Added Hero Points to character sheets
 *  v0.350: Added chat button to allow setting initiative for selected tokens.
 *  v0.349: Fix for NPC psuedo-lore skill rolls. Thanks FS#5443!
 *  v0.349: Added ability to give NPCs weapons of a player characters type. This allows NPCs to use a special magic weapon that a PC can then pick up.
