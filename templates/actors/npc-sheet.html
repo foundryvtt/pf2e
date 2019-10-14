@@ -265,7 +265,7 @@
 
                 <!-- <ol class="spellcastingEntry-list directory-list" style="height: auto;"> -->
                     {{#each actor.spellcastingEntries as |entry eid|}}  
-                        <li class="item action-header item-container" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                             <!-- <div class="action-header"> -->
                                 {{#if entry.data.prepared.preparedSpells}}
                                     <a class="skill-name prepared-toggle" title="Toggle Spell Visibility" style="line-height: 24px; background: var(--primary-background); color: white;"><i class="fas fa-haykal"></i></a>
@@ -277,7 +277,7 @@
                                 </div>
                                 {{/if}}
                         </li>
-                        <li class="item action-header item-container" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                             <!-- </div> -->
                             <ol class="npc-defense-list" style="grid: 'dc attack' 40px;">
                                 <li class="npc-defense" data-spelldc-attribute="dc">
@@ -302,7 +302,7 @@
                                     </li>                                
                             </ol>
                         </li>
-                        <li class="item action-header item-container" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
 
                             {{#unless entry.data.prepared.preparedSpells}}
 
@@ -311,7 +311,8 @@
             
                                     <!-- Add section for each spell level -->
                                     {{#each entry.spellbook as |section lvl|}}
-                                        <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{lvl}}">
+                                        <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{lvl}}" 
+                                            data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                             <div class="item-name flexrow">
                                                 <h3>{{section.label}}</h3>
                                 
@@ -343,7 +344,7 @@
                                 
                                         <!-- Add spell items for each spell level -->
                                         {{#each section.spells as |item i|}}
-                                        <li class="item" data-item-id="{{item.id}}">
+                                        <li class="item item-container" data-item-id="{{item.id}}" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                             <div class="item-name rollable">
                                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                 <h4>{{item.name}}</h4>
@@ -364,7 +365,7 @@
                                 
                                     {{else}}
                                         <!-- Add Spells Row -->
-                                        <li class="item inventory-header spellbook-header spellbook-empty">
+                                        <li class="item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                             {{#if ../owner}}
                                             <div class="item-controls pf-bluelist pf-add-item-row" style="flex: 1; background: var(--secondary-background);">
                                                 <a class="item-control spell-create" title="Create Spell" data-type="spell"
@@ -381,7 +382,8 @@
             
                                 <!-- Add section for each level -->
                                 {{#each entry.spellbook as |section lvl|}}
-                                    <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{lvl}}">
+                                    <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{lvl}}" 
+                                        data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                         <div class="item-name flexrow">
                                             <h3>{{section.label}}</h3>
                             
@@ -415,7 +417,7 @@
                                         {{#each section.prepared as |item i|}}
                                         
                                             {{#if item.prepared}}    
-                                                <li class="item" data-item-id="{{item.id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry.id}}">
+                                                <li class="item item-container" data-item-id="{{item.id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry.id}}" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                                     <div class="item-name">                    
                                                         <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                         <h4>{{item.name}}</h4>
@@ -432,7 +434,7 @@
                                                     {{/if}}
                                                 </li>
                                             {{else}}
-                                                <li class="item" data-item-id="{{i}}" data-spell-lvl="{{lvl}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}">
+                                                <li class="item item-container" data-item-id="{{i}}" data-spell-lvl="{{lvl}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                                     <div class="item-name" style="padding-left:30px;">
                                                         <h4>{{item.name}}</h4>
                                                     </div>
@@ -492,7 +494,7 @@
                 
                                 {{else}}
                                 <!-- Add spells row -->
-                                <li class="item inventory-header spellbook-header spellbook-empty">
+                                <li class="item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                                     {{#if ../owner}}
                                     <div class="item-controls pf-bluelist pf-add-item-row" style="flex: 1; background: var(--secondary-background);">
                                         <a class="item-control spell-create" title="Create Spell" data-type="spell"
@@ -504,7 +506,7 @@
                         <!-- </ol> -->
 
 
-                    {{/unless}}
+                        {{/unless}}
 
 
 
@@ -525,6 +527,7 @@
 
 
                         </li>
+
                     <!-- for each actor.spellcastingEntry -->
                     {{/each}}
                 <!-- </ol> -->

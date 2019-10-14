@@ -3,7 +3,7 @@
     
         <ol class="spellcastingEntry-list directory-list">
             {{#each actor.spellcastingEntries as |entry eid|}}  
-            <li class="item item-container" data-skill="spelldc" data-item-type="spellcastingEntry" data-item-id="{{entry.id}}">
+            <li class="item item-container" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
                 <div class="action-header" style="display:flex;" >
                     {{#if entry.data.prepared.preparedSpells}}
                         <a class="skill-name prepared-toggle" title="Toggle Spell Visibility" style="line-height: 24px; background: var(--primary-background);"><i class="fas fa-haykal"></i></a>
@@ -16,7 +16,7 @@
                     {{/if}}
                 </div>
                 <ol class="skills-list">
-                    <li class="skill-grid" data-skill="spelldc">
+                    <li class="skill-grid">
 
                         <span class="skill-score" title="{{entry.data.spelldc.breakdown}}">{{entry.data.spelldc.dc}}</span>
                         <h4 class="skill-name">Spell DC</h4>
@@ -35,7 +35,7 @@
                         </div>
         
                     </li>
-                    <li class="pf-two-grid" data-skill="spelldc">
+                    <li class="pf-two-grid">
                         <label class="skill-name">Spell Ability</label>
                         <div class="skill-name">
                             <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">

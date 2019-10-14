@@ -162,6 +162,15 @@ class ActorSheetPF2e extends ActorSheet {
   async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
 
     let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
+
+    // If NPC, then update icons to action icons.
+    let isNPC = this.actorType === "npc";
+    if (isNPC) {
+      let spellType = spell.data.time.value;          
+      if (spellType === "reaction") spell.img = this._getActionImg("reaction");
+      else if (spellType === "free") spell.img = this._getActionImg("free");
+      else if (parseInt(spellType)) spell.img = this._getActionImg(parseInt(spellType));
+    }
     
     spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
     await this.actor.updateOwnedItem(spellcastingEntry, true);  
@@ -507,7 +516,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.prepared-toggle').click(async event => {
       event.preventDefault();
       
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"))
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-container-id"))
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit["showUnpreparedSpells"] = itemToEdit["showUnpreparedSpells"] ? false : true;
 
@@ -629,7 +638,7 @@ class ActorSheetPF2e extends ActorSheet {
     
     // get the item type of the drop target
     let dropSlotType = $(event.target).parents(".item").attr("data-item-type");
-    let dropContainerType = $(event.target).parents(".item-container").attr("data-item-type");
+    let dropContainerType = $(event.target).parents(".item-container").attr("data-container-type");
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === "spellSlot") {
@@ -643,13 +652,15 @@ class ActorSheetPF2e extends ActorSheet {
 
         this._allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data, entryId);
       }
-    } else if (dropContainerType === "spellcastingEntry") { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
+    } 
+    
+    if (dropContainerType === "spellcastingEntry") { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
       let dragData = JSON.parse(event.dataTransfer.getData("text/plain")),
           dragItem = this.actor.getOwnedItem(dragData.id);
 
           // if the dragged item is a spell
           if (dragItem.data.type === "spell") {
-            let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
             
             if (Number.isInteger(dropID)) {
               dragItem.data.data.location.value = dropID;
@@ -664,7 +675,7 @@ class ActorSheetPF2e extends ActorSheet {
             if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
               if ( dragData.actorId === this.actor.id ) return;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
               
-              let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+              let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
               dragData.data.data.location = {
                 "value": dropID
               }
@@ -675,7 +686,7 @@ class ActorSheetPF2e extends ActorSheet {
 
           // else if the dragged item is from a compendium pack.
           else if (dragData.pack) {
-            let dropID = Number($(event.target).parents(".item-container").attr("data-item-id"));
+            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
 
             this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
             return;
@@ -960,7 +971,7 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
 
     let li = $(event.currentTarget).parents(".item"),
-        itemId = Number(li.attr("data-item-id")),
+        itemId = Number(li.attr("data-container-id")),
         item = this.actor.getOwnedItem(itemId);
 
     let dlg;
