@@ -713,8 +713,21 @@ class ActorSheetPF2e extends ActorSheet {
   _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parent().parent(),
-        item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
-        chatData = item.getChatData({secrets: this.actor.owner});
+        itemId = Number(li.attr("data-item-id")),
+        itemData = this.actor.items.find(i => i.id === Number(itemId)),
+        item;
+    
+    if (itemData.type === "spellcastingEntry") return;
+
+    try {
+      item = this.actor.getOwnedItem(itemId);
+      if (!item.type) return;
+    }
+    catch (err) {
+      return false;
+    }
+
+    let chatData = item.getChatData({secrets: this.actor.owner});
 
     // Toggle summary
     if ( li.hasClass("expanded") ) {
