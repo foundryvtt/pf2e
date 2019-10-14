@@ -163,11 +163,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
                 
       }
 
-      // Classes
+/*       // Classes
       else if ( i.type === "class" ) {
         classes.push(i);
         classes.sort((a, b) => b.levels > a.levels);
-      }
+      } */
 
       // Feats
       else if ( i.type === "feat" ) {

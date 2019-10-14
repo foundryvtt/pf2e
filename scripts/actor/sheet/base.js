@@ -439,7 +439,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update Item Name
-    html.find('.item-name').focusout(async event => {
+    html.find('.item-name-input').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.name = event.target.value;
