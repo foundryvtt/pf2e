@@ -75,3 +75,7 @@ A huge thanks to:
 ### Feedback
 
 If you have any suggestions or feedback, please contact me on discord (hooking#0492)
+
+### License
+
+This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).

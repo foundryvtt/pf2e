@@ -236,8 +236,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     html.find('.spelldc-input').focusout(async event => {
       event.preventDefault();
       
-      let li = $(event.currentTarget).parents(".item"),
-          itemId = Number(li.attr("data-item-id")),
+      let li = $(event.currentTarget).parents(".item-container"),
+          itemId = Number(li.attr("data-container-id")),
           spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute");
 
       if (spelldcType === "dc" || spelldcType === "value") {

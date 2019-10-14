@@ -516,7 +516,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.prepared-toggle').click(async event => {
       event.preventDefault();
       
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-container-id"))
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"))
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit["showUnpreparedSpells"] = itemToEdit["showUnpreparedSpells"] ? false : true;
 
