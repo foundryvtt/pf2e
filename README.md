@@ -6,10 +6,10 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.400: Spellcasting Entries Feature - Added support for multiple spellcasing entries
-*  v0.400: Spellcasting Entries Feature - Proficiency rank, item bonus and ability are saved per entry
-*  v0.400: Spellcasting Entries Feature - NPCs can now have prepared type spell entries
-*  v0.400: Spellcasting Entries Feature - Output skill proficiency of player when rolling a skill check
+*  v0.411: Spellcasting Entries Feature - Added support for multiple spellcasing entries
+*  v0.411: Spellcasting Entries Feature - Proficiency rank, item bonus and ability are saved per entry
+*  v0.411: Spellcasting Entries Feature - NPCs can now have prepared type spell entries
+*  v0.411: Spellcasting Entries Feature - Output skill proficiency of player when rolling a skill check
 
 
 Prior patch changes:
