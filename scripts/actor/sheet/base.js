@@ -349,7 +349,9 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
     // Spell Browser
-    //html.find('.spell-create').click(ev => spellBrowser.render(true));
+    html.find('.spell-browse').click(ev => spellBrowser.render(true));
+
+    // Spell Create
     html.find('.spell-create').click(ev => this._onItemCreate(ev));
 
     // Add Spellcasting Entry
@@ -436,8 +438,15 @@ class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
       //let itemId = Number(event.target.attributes["data-item-id"].value);
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      itemToEdit.data.item.value = Number(event.target.value);
+      let itemToEdit = this.actor.items.find(i => i.id === itemId);
+
+      if (itemToEdit) {
+        itemToEdit.data.item.value = Number(event.target.value);
+      } else {
+        itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+        itemToEdit = this.actor.items.find(i => i.id === itemId);
+        itemToEdit.data.item.value = Number(event.target.value);
+      }
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
@@ -500,7 +509,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.ability-select').change(async event => {
       event.preventDefault();
       //let itemId = Number(event.target.attributes["data-item-id"].value);
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.ability.value = event.target.value;
 
