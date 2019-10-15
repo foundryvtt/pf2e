@@ -140,7 +140,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Spellcasting Entries
       else if ( i.type === "spellcastingEntry" ) {
 
-        let spellProficiency = i.data.proficient.value ? (i.data.proficient.value * 2) + actorData.data.details.level.value : 0;
+        let spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
         let spellAbl = i.data.ability.value || "int";
         let spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
         if (i.data.spelldc.value != spellAttack) {
@@ -152,8 +152,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
 
-        i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficient.value);
-        i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficient.value];
+        i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
+        i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficiency.value];
         i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
         i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
         if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;

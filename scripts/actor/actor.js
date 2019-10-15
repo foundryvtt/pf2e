@@ -131,8 +131,9 @@ class ActorPF2e extends Actor {
    */
   rollSkill(event, skillName) {
     let skl = this.data.data.skills[skillName],
-      parts = ["@mod"],
-      flavor = `${skl.label} Skill Check`;
+        rank = CONFIG.proficiencyLevels[skl.rank],
+        parts = ["@mod"],
+        flavor = `${rank} ${skl.label} Skill Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({

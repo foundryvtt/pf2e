@@ -6,13 +6,14 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.400 Spellcasting Entries Feature: Output skill proficiency of player when rolling a skill check
+
+
+Prior patch changes:
 *  v0.353: (FS#5443) Fixed bug with manual /roll 1d20 rolls not working. Thanks!!
 *  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
 *  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)
 *  v0.353: (fryguy#3851) for fixing an issue with prepared spells not being removed correctly. Thanks!!
-
-
-Prior patch changes:
 *  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
 *  v0.351: Added Hero Points to character sheets
 *  v0.350: Added chat button to allow setting initiative for selected tokens.
@@ -50,7 +51,7 @@ Known Issues (see project issues for full issues list):
 - Critical damage is not calculated currently.
 
 ### FVTT Version:
-- Tested with FVTT v0.3.7.
+- Tested with FVTT v0.3.8.
 
 ### Installation Instructions
 

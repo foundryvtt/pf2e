@@ -1,9 +1,264 @@
+(async () => {
+
+  async function isCanvasReady() {
+		return new Promise(resolve => {
+			Hooks.once('canvasReady', resolve);
+		});
+	}
+
+  class PF2eActorSchema {
+    static get worldVersion() {
+      return 0.356;
+    }
+
+    static get allActorsVersion() {
+      let version = []
+      for (let actor of game.actors.entities) {      
+        version.push({
+          "name": actor.data.name,
+          "type": actor.data.type,
+          "id": actor.data._id,
+          "schema": actor.data.data.schema.version.value,
+        })
+      }
+      return version;
+    }
+
+    static async updataActor(actor, version) {
+      let actorData = actor.data;
+      let deltaData = {};
+
+      const isGM = game.user.isGM;
+
+      if (!isGM) return;
+
+/*       if (actorData.data.schema.version.value === version) {
+        console.log(`PF2e System | NOT UPDATING | Actor ${actorData._id} (${actorData.name}) schema matches ${version}`);
+        return; // No update needed
+      }
+      else if (actorData.data.schema.version.value > version) {
+        console.log(`PF2e System | NOT UPDATING | Actor ${actorData._id} (${actorData.name}) schema is greater than ${version}`);
+        return; // No update needed
+      } */
+
+      console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+
+      // get changes for this version
+      if (version >= 0.357) {
+
+        /* 
+        * 
+        * Add Spellcasting Entry Item 
+        * 
+        */
+        let magicTradition = actorData.data.attributes.tradition.value,
+            spellcastingType = actorData.data.attributes.prepared.value,
+            proficiency = actorData.data.attributes.spelldc.rank,
+            item = actorData.data.attributes.spelldc.item,
+            ability = actorData.data.attributes.spellcasting.value,
+            name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`;
+
+        if (typeof magicTradition === "undefined" || typeof spellcastingType === "undefined" ) {
+          name = "Spells";
+        }
+
+        if (typeof spellcastingType === "undefined" ) {
+          spellcastingType = "innate";
+        }
+
+        // Define new spellcasting entry
+        let spellcastingEntity = {
+          "ability": {
+            "type": "String",
+            "label": "Spellcasting Ability",
+            "value": ability
+          },
+          "item": {
+            "type": "Number",
+            "label": "Item Bonus",
+            "value": item
+          },
+          "tradition": {
+            "type": "String",
+            "label": "Magic Tradition",
+            "value": magicTradition
+          },
+          "prepared": {
+            "type": "String",
+            "label": "Spellcasting Type",
+            "value": spellcastingType
+          },
+          "proficiency": {
+            "type": "Number",
+            "label": "Proficiency Level",
+            "value": proficiency
+          },
+          "slots": {
+            "slot0": {
+              "type": "Number",
+              "label": "Cantrip",
+              "prepared": actorData.data.spells.spell0.prepared ? actorData.data.spells.spell0.prepared : [],
+              "max": actorData.data.spells.spell0.max ? actorData.data.spells.spell0.max : "0"
+            },
+            "slot1": {
+              "type": "Number",
+              "label": "1st Level",
+              "prepared": actorData.data.spells.spell1.prepared ? actorData.data.spells.spell1.prepared : [],
+              "max": actorData.data.spells.spell1.max ? actorData.data.spells.spell1.max : "0",
+              "value": actorData.data.spells.spell1.value ? actorData.data.spells.spell1.value : "0"
+            },
+            "slot2": {
+              "type": "Number",
+              "label": "2nd Level",
+              "prepared": actorData.data.spells.spell2.prepared ? actorData.data.spells.spell2.prepared : [],
+              "max": actorData.data.spells.spell2.max ? actorData.data.spells.spell2.max : "0",
+              "value": actorData.data.spells.spell2.value ? actorData.data.spells.spell2.value : "0"
+            },
+            "slot3": {
+              "type": "Number",
+              "label": "3rd Level",
+              "prepared": actorData.data.spells.spell3.prepared ? actorData.data.spells.spell3.prepared : [],
+              "max": actorData.data.spells.spell3.max ? actorData.data.spells.spell3.max : "0",
+              "value": actorData.data.spells.spell3.value ? actorData.data.spells.spell3.value : "0"
+            },
+            "slot4": {
+              "type": "Number",
+              "label": "4th Level",
+              "prepared": actorData.data.spells.spell4.prepared ? actorData.data.spells.spell4.prepared : [],
+              "max": actorData.data.spells.spell4.max ? actorData.data.spells.spell4.max : "0",
+              "value": actorData.data.spells.spell4.value ? actorData.data.spells.spell4.value : "0"
+            },
+            "slot5": {
+              "type": "Number",
+              "label": "5th Level",
+              "prepared": actorData.data.spells.spell5.prepared ? actorData.data.spells.spell5.prepared : [],
+              "max": actorData.data.spells.spell5.max ? actorData.data.spells.spell5.max : "0",
+              "value": actorData.data.spells.spell5.value ? actorData.data.spells.spell5.value : "0"
+            },
+            "slot6": {
+              "type": "Number",
+              "label": "6th Level",
+              "prepared": actorData.data.spells.spell6.prepared ? actorData.data.spells.spell6.prepared : [],
+              "max": actorData.data.spells.spell6.max ? actorData.data.spells.spell6.max : "0",
+              "value": actorData.data.spells.spell6.value ? actorData.data.spells.spell6.value : "0"
+            },
+            "slot7": {
+              "type": "Number",
+              "label": "7th Level",
+              "prepared": actorData.data.spells.spell7.prepared ? actorData.data.spells.spell7.prepared : [],
+              "max": actorData.data.spells.spell7.max ? actorData.data.spells.spell7.max : "0",
+              "value": actorData.data.spells.spell7.value ? actorData.data.spells.spell7.value : "0"
+            },
+            "slot8": {
+              "type": "Number",
+              "label": "8th Level",
+              "prepared": actorData.data.spells.spell8.prepared ? actorData.data.spells.spell8.prepared : [],
+              "max": actorData.data.spells.spell8.max ? actorData.data.spells.spell8.max : "0",
+              "value": actorData.data.spells.spell8.value ? actorData.data.spells.spell8.value : "0"
+            },
+            "slot9": {
+              "type": "Number",
+              "label": "9th Level",
+              "prepared": actorData.data.spells.spell9.prepared ? actorData.data.spells.spell9.prepared : [],
+              "max": actorData.data.spells.spell9.max ? actorData.data.spells.spell9.max : "0",
+              "value": actorData.data.spells.spell9.value ? actorData.data.spells.spell9.value : "0"
+            }        ,
+            "slot10": {
+              "type": "Number",
+              "label": "10th Level",
+              "prepared": actorData.data.spells.spell10.prepared ? actorData.data.spells.spell10.prepared : [],
+              "max": actorData.data.spells.spell10.max ? actorData.data.spells.spell10.max : "0",
+              "value": actorData.data.spells.spell10.value ? actorData.data.spells.spell10.value : "0"
+            },
+            "slot11": {
+              "type": "Number",
+              "label": "Focus",
+              "prepared": actorData.data.spells.spell11.prepared ? actorData.data.spells.spell11.prepared : [],
+              "max": actorData.data.spells.spell11.max ? actorData.data.spells.spell11.max : "0",
+              "value": actorData.data.spells.spell11.value ? actorData.data.spells.spell11.value : "0"
+            }
+          }
+        }
+
+        let itemData = {
+          "name": name,
+          "type": "spellcastingEntry",
+          "data": spellcastingEntity
+        }
+
+        /* 
+        * Update Nature to use Wisdom
+        */      
+        if (actorData.data.skills.nat.ability === "int") {
+          let key = "data.skills.nat.ability";
+          deltaData[key] = "wis";
+        }
+
+        /* 
+        * Update Actors schema version
+        */
+        deltaData["data.schema.version.value"] = version;
+
+        //this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
+
+        // apply changes to actor
+        console.log(`PF2e System | Adding Spellcasting Entry to ${actorData._id} (${actorData.name})`);
+        await actor.createOwnedItem(itemData, {renderSheet: false}).then(async spellcastingEntry => {
+          console.log(`PF2e System | Spellcasting Entry Item Location:`, spellcastingEntry.data.id)
+          let location = spellcastingEntry.data.id;
+          for (let i of actorData.items) {
+            if (i.type === "spell") {
+              console.log(`PF2e System | Updating ${actorData._id} (${actorData.name}): Item ${i.name}`);
+              i.data.location.value = location;
+              await actor.updateOwnedItem(i, true);
+            }
+          }
+        });
+
+        await actor.update(deltaData);
+        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${version}`);
+      }
+
+    }
+  }
+
+  await isCanvasReady();
+
+  game.settings.register("pf2e", "worldSchemaVersion", {
+    name: "Actor Schema Version",
+    hint: "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",
+    scope: "world",
+    config: true,
+    default: 0,
+    type: Number
+  })
+
+  const isGM = game.user.isGM;
+        
+
+  if (isGM) {
+    const systemSchemaVersion = Number(game.system.data.schema),
+          worldSchemaVersion = Number(game.settings.get("pf2e", "worldSchemaVersion"));
+
+    if (systemSchemaVersion > worldSchemaVersion) {
+      for (let actor of game.actors.entities) {
+        PF2eActorSchema.updataActor(actor, systemSchemaVersion);
+      } 
+      game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
+    } else {
+      console.log(`PF2e System | World Schema matches System Schema. No migration required`)
+    }
+  }
+
+})();
 
 /**
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
   
+  
+
   // Pre-load templates
   loadTemplates([
 
@@ -44,6 +299,10 @@ Hooks.once("init", () => {
     "public/systems/pf2e/templates/items/weapon-details.html",
     "public/systems/pf2e/templates/items/weapon-sidebar.html"
   ]);
+
+
+
+
 
   /* -------------------------------------------- */
 

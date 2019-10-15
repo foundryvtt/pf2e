@@ -544,6 +544,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Get the skill type (used to determine if this is a Lore skill)
     let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
+    let containerType = $(event.currentTarget).parents(".item-container").attr("data-container-type");
 
     // Get the current level and the array of levels
     let level = parseFloat(field.val());
@@ -564,10 +565,10 @@ class ActorSheetPF2e extends ActorSheet {
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.proficient.value = newLevel;
       this.actor.updateOwnedItem(itemToEdit, true);
-    } else if (skillType === "spellcastingEntry") {
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+    } else if (containerType === "spellcastingEntry") {
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      itemToEdit.data.proficient.value = newLevel;
+      itemToEdit.data.proficiency.value = newLevel;
       this.actor.updateOwnedItem(itemToEdit, true);
     } else {
       field.val(newLevel);

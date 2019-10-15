@@ -720,7 +720,7 @@ CONFIG.actionsNumber = {
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
-  0: "Not Trained",
+  0: "Untrained",
   1: "Trained",
   2: "Expert",
   3: "Master",
