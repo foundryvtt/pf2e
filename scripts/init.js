@@ -44,7 +44,7 @@
       console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
 
       // get changes for this version
-      if (version >= 0.357) {
+      if (version == 0.411) {
 
         /* 
         * 
@@ -58,11 +58,16 @@
             ability = actorData.data.attributes.spellcasting.value,
             name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`;
 
-        if (typeof magicTradition === "undefined" || typeof spellcastingType === "undefined" ) {
-          name = "Spells";
+        if (typeof magicTradition === "undefined" || magicTradition === "" ) {
+          if (actorData.type === "character") {
+            name = "Class DC";
+            magicTradition = "focus";
+          } else {
+            name = "Spells";
+          }          
         }
 
-        if (typeof spellcastingType === "undefined" ) {
+        if (typeof spellcastingType === "undefined" || spellcastingType === "") {
           spellcastingType = "innate";
         }
 

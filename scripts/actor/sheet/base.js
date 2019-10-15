@@ -616,7 +616,7 @@ class ActorSheetPF2e extends ActorSheet {
     }));
   } */
   _onDragItemStart(event) {
-    const itemType = event.currentTarget.getAttribute("data-item-type");
+    const itemType = event.currentTarget.getAttribute("data-container-type");
     if (itemType === "spellcastingEntry") return;
 
     const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
