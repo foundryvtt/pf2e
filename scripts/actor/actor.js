@@ -75,17 +75,9 @@ class ActorPF2e extends Actor {
     let proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
     data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
-
-    // Spell DC
-    let spellProficiency = data.attributes.spelldc.rank ? (data.attributes.spelldc.rank * 2) + data.details.level.value : 0;
-    let spellAbl = data.attributes.spellcasting.value || "int";
-    data.attributes.spelldc.value = data.abilities[spellAbl].mod + spellProficiency + data.attributes.spelldc.item;
-    data.attributes.spelldc.mod = data.abilities[spellAbl].mod;
-    data.attributes.spelldc.dc = data.attributes.spelldc.value + 10
-    data.attributes.spelldc.breakdown = `10 + ${spellAbl} modifier(${data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${data.attributes.spelldc.item})`;
-
+    
     // Prepared Spell Slots
-    for (let spl of Object.values(data.spells)) {
+/*     for (let spl of Object.values(data.spells)) {
       if (spl.max) {
         spl["prepared"] = spl["prepared"] || [];
         for(var i = 0; i < spl.max; i++){
@@ -95,7 +87,7 @@ class ActorPF2e extends Actor {
           spl.prepared.pop();
         }
       }
-    }
+    } */
 
     // Skill modifiers
     for (let skl of Object.values(data.skills)) {
@@ -139,8 +131,9 @@ class ActorPF2e extends Actor {
    */
   rollSkill(event, skillName) {
     let skl = this.data.data.skills[skillName],
-      parts = ["@mod"],
-      flavor = `${skl.label} Skill Check`;
+        rank = CONFIG.proficiencyLevels[skl.rank],
+        parts = ["@mod"],
+        flavor = `${rank} ${skl.label} Skill Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -246,40 +239,9 @@ class ActorPF2e extends Actor {
     });
   }
 
-   /* -------------------------------------------- */
 
-  /**
-   * Prepare Spell SLot
-   * Saves the prepared spell slot data to the actor
-   * @param spellLevel {String}   The level of the spell slot
-   * @param spellSlot {String}    The number of the spell slot 
-   * @param spell {String}        The item details for the spell
-   */
-  allocatePreparedSpellSlot(spellLevel, spellSlot, spell) {
-    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
-        updateObject = {};
 
-    updateObject[key] = spell;
-    
-    this.update(updateObject);
-  }
 
-     /* -------------------------------------------- */
-
-  /**
-   * Remove Spell Slot
-   * Removes the spell from the saved spell slot data for the actor
-   * @param spellLevel {String}   The level of the spell slot
-   * @param spellSlot {String}    The number of the spell slot    * 
-   */
-  removePreparedSpellSlot(spellLevel, spellSlot, spell) {
-    let key = `data.spells.spell${spellLevel}.prepared.${spellSlot}`,
-        updateObject = {};
-
-    updateObject[key] = null;
-    
-    this.update(updateObject); 
-  }
 
   /* -------------------------------------------- */
 
@@ -325,6 +287,42 @@ class ActorPF2e extends Actor {
       );
     }
     return Promise.all(promises);
+  }
+
+  /* -------------------------------------------- */
+  /* Owned Item Management
+  /* -------------------------------------------- */
+
+  /**
+   * This method extends the base importItemFromCollection functionality provided in the base actor entity 
+   * 
+   * Import a new owned Item from a compendium collection
+   * The imported Item is then added to the Actor as an owned item.
+   *
+   * @param collection {String}     The name of the pack from which to import
+   * @param entryId {String}        The ID of the compendium entry to import
+   */
+  importItemFromCollection(collection, entryId, location) {
+
+    // if location parameter missing, then use the super method
+    if (location == null) {
+      console.log("PF2e | importItemFromCollection: ", entryId);
+      super.importItemFromCollection(collection, entryId);
+      return;
+    }
+
+    const pack = game.packs.find(p => p.collection === collection);
+    if ( pack.metadata.entity !== "Item" ) return;
+    return pack.getEntity(entryId).then(ent => {
+      console.log(`${vtt} | Importing Item ${ent.name} from ${collection}`);
+      if (ent.type === "spell") {
+        ent.data.data.location = {
+          "value": location
+        };
+      }
+      delete ent.data._id;
+      return this.createOwnedItem(ent.data, true);
+    });
   }
 }
 

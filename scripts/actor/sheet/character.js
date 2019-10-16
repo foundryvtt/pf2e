@@ -44,8 +44,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Spell Details
     sheetData["magicTraditions"] = CONFIG.magicTraditions;
     sheetData["preparationType"] = CONFIG.preparationType;
-    if ((sheetData.data.attributes.prepared || {}).value === "prepared") sheetData.data["preparedSpells"] = true;
-    else sheetData.data["preparedSpells"] = false;
+/*     if (sheetData.data.attributes.spellcasting.entry) {
+      for (let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
+        if ((entry.prepared || {}).value === "prepared") entry.prepared["preparedSpells"] = true;
+        else entry.prepared["preparedSpells"] = false;
+      }
+    } */
+
     sheetData["showUnpreparedSpells"] = sheetData.options.showUnpreparedSpells
 
 
@@ -71,7 +76,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
 
     // Spellbook
-    const spellbook = {};
+    //const spellbook = {};
+    const spellbooks = [];
+    spellbooks["unassigned"] = {};
+
+    // Spellcasting Entries
+    const spellcastingEntries = [];
 
     // Feats
     const feats = {
@@ -117,13 +127,47 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Spells
-      else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
+      else if ( i.type === "spell" ) {        
+        if (i.data.location.value) {
+          let location = Number(i.data.location.value);
+          spellbooks[location] = spellbooks[location] || {};
+          this._prepareSpell(actorData, spellbooks[location], i);                    
+        } else {
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+        }
+      }
 
-      // Classes
+      // Spellcasting Entries
+      else if ( i.type === "spellcastingEntry" ) {
+
+        let spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
+        let spellAbl = i.data.ability.value || "int";
+        let spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+        if (i.data.spelldc.value != spellAttack) {
+          i.data.spelldc.value = spellAttack;
+          i.data.spelldc.dc = spellAttack + 10
+          i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
+          this.actor.updateOwnedItem(i, true);
+        }
+        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
+        i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
+
+        i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
+        i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficiency.value];
+        i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
+        i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
+        if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
+        else i.data.prepared["preparedSpells"] = false;
+  
+        spellcastingEntries.push(i);      
+                
+      }
+
+/*       // Classes
       else if ( i.type === "class" ) {
         classes.push(i);
         classes.sort((a, b) => b.levels > a.levels);
-      }
+      } */
 
       // Feats
       else if ( i.type === "feat" ) {
@@ -172,15 +216,29 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
     }
 
-    // Add prepared spells to spellbook
-    this._preparedSpellSlots(actorData, spellbook);
+    
 
     // Assign and return
     actorData.inventory = inventory;
-    actorData.spellbook = spellbook;
+    // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
+    if (Object.keys(spellbooks.unassigned).length) {
+      actorData.orphanedSpells = true;
+      actorData.orphanedSpellbook = spellbooks["unassigned"];
+    } 
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
+
+    
+    for (let entry of spellcastingEntries) {
+      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      }
+      entry.spellbook = spellbooks[entry.id];      
+    }
+
+    actorData.spellcastingEntries = spellcastingEntries;
+
 
     // Inventory encumbrance
     actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);

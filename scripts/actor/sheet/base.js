@@ -36,11 +36,6 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
-    // Update spell DC label
-    sheetData.data.attributes.spelldc.icon = this._getProficiencyIcon(sheetData.data.attributes.spelldc.rank);
-    sheetData.data.attributes.spelldc.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.spelldc.rank];
-
-
     // Update skill labels
     for ( let skl of Object.values(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
@@ -91,12 +86,13 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _prepareSpell(actorData, spellbook, spell) {
-    let lvl = spell.data.level.value || 0,
-        isNPC = this.actorType === "npc";
+    let lvl = Number(spell.data.level.value) || 0,
+        isNPC = this.actorType === "npc",
+        spellcastingEntry = "";
 
-    // Determine whether to show the spell
-/*     let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
-    if ( !showSpell ) return; */
+        if (spell.data.location.value) {
+          spellcastingEntry = this.actor.items.find(i => { return i.id === Number(spell.data.location.value) });;
+        }
 
     // Extend the Spellbook level
     spellbook[lvl] = spellbook[lvl] || {
@@ -105,8 +101,8 @@ class ActorSheetPF2e extends ActorSheet {
       label: CONFIG.spellLevels[lvl],
       spells: [],
       prepared: [],
-      uses: parseInt(actorData.data.spells["spell"+lvl].value) || 0,
-      slots: parseInt(actorData.data.spells["spell"+lvl].max) || 0
+      uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots["slot"+lvl].value) || 0 : 0,
+      slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots["slot"+lvl].max) || 0 : 0
     };
 
     // Add the spell to the spellbook at the appropriate level
@@ -119,25 +115,24 @@ class ActorSheetPF2e extends ActorSheet {
 
   /**
    * Insert prepared spells into the spellbook object when rendering the character sheet
-   * @param {Object} actorData    The Actor data being prepared
-   * @param {Object} spellbook    The spellbook data being prepared
+   * @param {Object} spellcastingEntry    The spellcasting entry data being prepared
+   * @param {Object} spellbook            The spellbook data being prepared
    * @private
    */
-  _preparedSpellSlots(actorData, spellbook) {
+  _preparedSpellSlots(spellcastingEntry, spellbook) {
     //let isNPC = this.actorType === "npc";
 
     for (let [key, spl] of Object.entries(spellbook)) {
       if (spl.slots > 0) {
       
         for(var i = 0; i < spl.slots; i++){
-          let actorSlot = actorData.data.spells["spell"+key].prepared[i];
-          if (actorSlot) {
-            actorSlot["prepared"] = true;
-            actorSlot.data.school.str = CONFIG.spellSchools[actorSlot.data.school.value];
-            spl.prepared[i] = actorSlot;
+          let entrySlot = ((spellcastingEntry.data.slots["slot"+key] || {}).prepared || {})[i] || null;
+          if (entrySlot) {
+            entrySlot["prepared"] = true;
+            entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
+            spl.prepared[i] = entrySlot;
           } else {
             // if there is no prepared spell for this slot then make it empty.
-            // also need to make the html check for an empty slot and hide/show appropriate columns 
             spl.prepared[i] = {
               name: "Empty Slot (drag spell here)",
               id: null,
@@ -153,6 +148,48 @@ class ActorSheetPF2e extends ActorSheet {
         }
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare Spell SLot
+   * Saves the prepared spell slot data to the actor
+   * @param spellLevel {String}   The level of the spell slot
+   * @param spellSlot {String}    The number of the spell slot 
+   * @param spell {String}        The item details for the spell
+   */
+  async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
+
+    let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
+
+    // If NPC, then update icons to action icons.
+    let isNPC = this.actorType === "npc";
+    if (isNPC) {
+      let spellType = spell.data.time.value;          
+      if (spellType === "reaction") spell.img = this._getActionImg("reaction");
+      else if (spellType === "free") spell.img = this._getActionImg("free");
+      else if (parseInt(spellType)) spell.img = this._getActionImg(parseInt(spellType));
+    }
+    
+    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
+    await this.actor.updateOwnedItem(spellcastingEntry, true);  
+
+  }
+
+       /* -------------------------------------------- */
+
+  /**
+   * Remove Spell Slot
+   * Removes the spell from the saved spell slot data for the actor
+   * @param spellLevel {String}   The level of the spell slot
+   * @param spellSlot {String}    The number of the spell slot    * 
+   */
+  async _removePreparedSpellSlot(spellLevel, spellSlot, entryId) {
+    let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
+
+    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = null;
+    await this.actor.updateOwnedItem(spellcastingEntry, true); 
 
   }
 
@@ -294,24 +331,34 @@ class ActorSheetPF2e extends ActorSheet {
       let itemId = 10,
           slotId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
           spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl")),
+          entryId = Number($(ev.currentTarget).parents(".item").attr("data-entry-id")),
           spell = this.actor.items.find(i => { return i.id === itemId });
 
-          this.actor.allocatePreparedSpellSlot(spellLvl, slotId, spell);
+          this.actor.allocatePreparedSpellSlot(spellLvl, slotId, spell, entryId);
     });
     
     // Remove Spell Slot
     html.find('.item-unprepare').click(ev => {
       let slotId = Number($(ev.currentTarget).parents(".item").attr("data-slot-id")),
-          spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl"));
-      this.actor.removePreparedSpellSlot(spellLvl, slotId);
+          spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl")),
+          entryId = Number($(ev.currentTarget).parents(".item").attr("data-entry-id"));
+      this._removePreparedSpellSlot(spellLvl, slotId, entryId);
     });
 
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
     // Spell Browser
-    html.find('.spell-create').click(ev => spellBrowser.render(true));
-    
+    html.find('.spell-browse').click(ev => spellBrowser.render(true));
+
+    // Spell Create
+    html.find('.spell-create').click(ev => this._onItemCreate(ev));
+
+    // Add Spellcasting Entry
+    html.find('.spellcasting-create').click(ev => this._createSpellcastingEntry(ev));
+
+    // Remove Spellcasting Entry
+    html.find('.spellcasting-remove').click(ev => this._removeSpellcastingEntry(ev));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -386,39 +433,110 @@ class ActorSheetPF2e extends ActorSheet {
     this.actor.rollLoreSkill(event, item);
     });      
 
-    // Lore Item Bonus Input
-    html.find('.lore-item-input').focusout(async event => {
+    // Update Item Bonus on an actor.item input
+    html.find('.item-value-input').focusout(async event => {
+      event.preventDefault();
       //let itemId = Number(event.target.attributes["data-item-id"].value);
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      itemToEdit.data.item.value = Number(event.target.value);
+      let itemToEdit = this.actor.items.find(i => i.id === itemId);
+
+      if (itemToEdit) {
+        itemToEdit.data.item.value = Number(event.target.value);
+      } else {
+        itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+        itemToEdit = this.actor.items.find(i => i.id === itemId);
+        itemToEdit.data.item.value = Number(event.target.value);
+      }
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
       }
     });
 
-    html.find('.item-name').focusout(async event => {
+    // Update Item Name
+    html.find('.item-name-input').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.name = event.target.value;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
       }
     });
 
+    
+    // Update used slots for Spell Items
+    html.find('.spell-slots-input').focusout(async event => {
+      event.preventDefault();
+      
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+          slotLvl = Number($(event.currentTarget).parents(".item").attr("data-level"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.slots["slot" + slotLvl].value = Number(event.target.value);
+
+      // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
+      let items = this.actor.items.filter(i => i.type == itemToEdit.type)
+      for(let item of items)
+      {
+        await this.actor.updateOwnedItem(item, true);      
+      }
+    });
+
+    // Update max slots for Spell Items
+    html.find('.spell-max-input').focusout(async event => {
+      event.preventDefault();
+      
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+          slotLvl = Number($(event.currentTarget).parents(".item").attr("data-level"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.slots["slot" + slotLvl].max = Number(event.target.value);
+
+      // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
+      let items = this.actor.items.filter(i => i.type == itemToEdit.type)
+      for(let item of items)
+      {
+        await this.actor.updateOwnedItem(item, true);      
+      }
+    });
+
+    // Modify select element
+    html.find('.ability-select').change(async event => {
+      event.preventDefault();
+      //let itemId = Number(event.target.attributes["data-item-id"].value);
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.ability.value = event.target.value;
+
+      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
+      let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
+      for(let skill of skills)
+      {
+        await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
+
+    // Update max slots for Spell Items
+    html.find('.prepared-toggle').click(async event => {
+      event.preventDefault();
+      
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"))
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit["showUnpreparedSpells"] = itemToEdit["showUnpreparedSpells"] ? false : true;
+
+      await this.actor.updateOwnedItem(itemToEdit, true); 
+    });
+
     // Re-render the sheet when toggling visibility of spells
-    html.find('.prepared-toggle').click(ev => {
+/*     html.find('.prepared-toggle').click(ev => {
       this.options.showUnpreparedSpells = !this.options.showUnpreparedSpells;
       this.render()
-    });
+    }); */
   }
 
   /* -------------------------------------------- */
@@ -434,7 +552,8 @@ class ActorSheetPF2e extends ActorSheet {
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
 
     // Get the skill type (used to determine if this is a Lore skill)
-    let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+    let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
+    let containerType = $(event.currentTarget).parents(".item-container").attr("data-container-type");
 
     // Get the current level and the array of levels
     let level = parseFloat(field.val());
@@ -455,6 +574,11 @@ class ActorSheetPF2e extends ActorSheet {
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.proficient.value = newLevel;
       this.actor.updateOwnedItem(itemToEdit, true);
+    } else if (containerType === "spellcastingEntry") {
+      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.proficiency.value = newLevel;
+      this.actor.updateOwnedItem(itemToEdit, true);
     } else {
       field.val(newLevel);
       this._onSubmit(event);
@@ -470,7 +594,7 @@ class ActorSheetPF2e extends ActorSheet {
     let field = $(event.currentTarget).siblings('input[type="hidden"]');
 
     // Get the skill type (used to determine if this is a Lore skill)
-    //let skillType = $(event.currentTarget).parents(".item").attr("data-skill-type");
+    //let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
 
     // Get the current level and the array of levels
     let level = parseFloat(field.val());
@@ -501,6 +625,9 @@ class ActorSheetPF2e extends ActorSheet {
     }));
   } */
   _onDragItemStart(event) {
+    const itemType = event.currentTarget.getAttribute("data-container-type");
+    if (itemType === "spellcastingEntry") return;
+
     const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
     const item = this.actor.getOwnedItem(itemId);
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
@@ -520,23 +647,66 @@ class ActorSheetPF2e extends ActorSheet {
   async _onDrop(event) {
     
     // get the item type of the drop target
-    let dropType = $(event.target).parents(".item").attr("data-item-type");
+    let dropSlotType = $(event.target).parents(".item").attr("data-item-type");
+    let dropContainerType = $(event.target).parents(".item-container").attr("data-container-type");
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
-    if (dropType === "spellSlot") {
+    if (dropSlotType === "spellSlot") {
       let dragData = event.dataTransfer.getData("text/plain"),
           dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
           
       if (dragItem.data.type === "spell") {
         let dropID = Number($(event.target).parents(".item").attr("data-item-id")),
-            spellLvl = Number($(event.target).parents(".item").attr("data-spell-lvl"));
+            spellLvl = Number($(event.target).parents(".item").attr("data-spell-lvl")),
+            entryId = Number($(event.target).parents(".item").attr("data-entry-id"));
 
-        this.actor.allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data);
+        this._allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data, entryId);
       }
+    } 
+    
+    if (dropContainerType === "spellcastingEntry") { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
+      let dragData = JSON.parse(event.dataTransfer.getData("text/plain")),
+          dragItem = this.actor.getOwnedItem(dragData.id);
+
+          // if the dragged item is a spell
+          if (dragItem.data.type === "spell") {
+            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+            
+            if (Number.isInteger(dropID)) {
+              dragItem.data.data.location.value = dropID;
+
+              // Update Actor
+              await this.actor.updateOwnedItem(dragItem.data, true);
+            }
+          }
+
+          // else if the dragged item is from another actor and is the data is explicitly provided
+          if ( dragData.data ) {
+            if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
+              if ( dragData.actorId === this.actor.id ) return;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
+              
+              let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+              dragData.data.data.location = {
+                "value": dropID
+              }
+              this.actor.createOwnedItem(dragData.data);
+              return false;
+            }
+          }
+
+          // else if the dragged item is from a compendium pack.
+          else if (dragData.pack) {
+            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+
+            this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
+            return false;
+          }
     }
 
     super._onDrop(event)
 }
+
+
 
   /* -------------------------------------------- */
 
@@ -559,9 +729,22 @@ class ActorSheetPF2e extends ActorSheet {
    */
   _onItemSummary(event) {
     event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
-        item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
-        chatData = item.getChatData({secrets: this.actor.owner});
+    let li = $(event.currentTarget).parent().parent(),
+        itemId = Number(li.attr("data-item-id")),
+        itemData = this.actor.items.find(i => i.id === Number(itemId)),
+        item;
+    
+    if (itemData.type === "spellcastingEntry") return;
+
+    try {
+      item = this.actor.getOwnedItem(itemId);
+      if (!item.type) return;
+    }
+    catch (err) {
+      return false;
+    }
+
+    let chatData = item.getChatData({secrets: this.actor.owner});
 
     // Toggle summary
     if ( li.hasClass("expanded") ) {
@@ -610,7 +793,7 @@ class ActorSheetPF2e extends ActorSheet {
               buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);              
               break;
           case 'spell':
-              if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} (${chatData.save.str})</span>`);
+              if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
               if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">Attack</button></span>`);
               if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
               break;
@@ -674,8 +857,14 @@ class ActorSheetPF2e extends ActorSheet {
       data["name"] = `New ${data.actionType.capitalize()}`;    
       mergeObject(data, {"data.weaponType.value": data.actionType});
     } else if (data.type === "spell") {
+
       data["name"] = `New  Level ${data.level} ${data.type.capitalize()}`;    
-      mergeObject(data, {"data.level.value": data.level});
+      mergeObject(data, {
+        "data.level.value": data.level,
+        "data.location.value": Number(data.location)
+      });
+    
+    
     } else if (data.type === "lore") {
       if (this.actorType === "npc") {
         data["name"] = `New Skill`;
@@ -687,6 +876,155 @@ class ActorSheetPF2e extends ActorSheet {
       data["name"] = `New ${data.type.capitalize()}`;    
     }
     this.actor.createOwnedItem(data, {renderSheet: true});
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle creating a new spellcasting entry for the actor
+   * @private
+   */
+
+  _createSpellcastingEntry(event) {
+    event.preventDefault();
+
+    //let entries = this.actor.data.data.attributes.spellcasting.entry || {};
+ 
+    let magicTradition = "arcane";
+    let spellcastingType = "innate";
+
+    // Render modal dialog
+    let template = "public/systems/pf2e/templates/actors/spellcasting-dialog.html";
+    let title = "Select Spellcasting Entry Details"
+    let dialogOptions = {
+      width: 300,
+      top: event.clientY - 80,
+      left: window.innerWidth - 710
+    };
+    let dialogData = {
+      magicTradition: magicTradition,
+      magicTraditions: CONFIG.magicTraditions,
+      spellcastingType: spellcastingType,
+      spellcastingTypes: CONFIG.preparationType
+    };
+    renderTemplate(template, dialogData).then(dlg => {
+      new Dialog({
+          title: title,
+          content: dlg,
+          buttons: {
+            create: {
+              label: "Create",
+            }
+          },
+          default: "create",
+          close: html => {
+            //if ( onClose ) onClose(html, parts, data);
+            let name = "";
+            magicTradition = html.find('[name="magicTradition"]').val();
+            if (magicTradition === "ritual" || magicTradition === "focus") {
+              spellcastingType = "";
+              name = `${CONFIG.magicTraditions[magicTradition]} Spells`
+            } else {
+              spellcastingType = html.find('[name="spellcastingType"]').val();
+              name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`
+            }
+
+            // Define new spellcasting entry
+            let spellcastingEntity = {
+              "ability": {
+                "type": "String",
+                "label": "Spellcasting Ability",
+                "value": ""
+              },
+              "spelldc": {
+                "type": "String",
+                "label": "Class DC",
+                "item": 0
+              },
+              "tradition": {
+                "type": "String",
+                "label": "Magic Tradition",
+                "value": magicTradition
+              },
+              "prepared": {
+                "type": "String",
+                "label": "Spellcasting Type",
+                "value": spellcastingType
+              }
+            }
+
+            let data = {
+              "name": name,
+              "type": "spellcastingEntry",
+              "data": spellcastingEntity
+            }
+
+            this.actor.createOwnedItem(data, {renderSheet: true});
+
+/*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
+            let entry = {};
+            entry[key] = spellcastingEntity;
+            this.actor.update(entry);  */
+          }
+        }, dialogOptions).render(true);
+    });       
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle removing an existing spellcasting entry for the actor
+   * @private
+   */
+
+  _removeSpellcastingEntry(event) {
+    event.preventDefault();
+
+    let li = $(event.currentTarget).parents(".item"),
+        itemId = Number(li.attr("data-container-id")),
+        item = this.actor.getOwnedItem(itemId);
+
+    let dlg;
+
+    // Render confirmation modal dialog    
+    renderTemplate('public/systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
+      new Dialog({
+        title: "Delete Confirmation",
+        content: html,
+        data: item,
+        buttons: {
+          Yes: {
+            icon: '<i class="fa fa-check"></i>',
+            label: "Yes",
+            callback: dlg = async () => {
+              
+              console.log("PF2e | Deleting Spell Container: ", item.name)
+              // Delete all child objects
+              let itemsToDelete = [];
+              for (let i of this.actor.data.items) {
+                if (i.type === "spell")             
+                  if (Number(i.data.location.value) === itemId) {
+                    itemsToDelete.push(i.id);
+                  }
+              }
+
+              for (let d of itemsToDelete) {
+                await this.actor.deleteOwnedItem(d);
+              }
+              
+              // Delete item container
+              this.actor.deleteOwnedItem(itemId);
+              li.slideUp(200, () => this.render(false));
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel"
+          },
+        },
+        default: 'Yes'
+      }).render(true)
+    });
   }
 
   /* -------------------------------------------- */
