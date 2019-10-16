@@ -645,6 +645,7 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   async _onDrop(event) {
+    event.preventDefault();
     
     // get the item type of the drop target
     let dropSlotType = $(event.target).parents(".item").attr("data-item-type");

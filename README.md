@@ -50,7 +50,6 @@ Please Note:
 - If you find any issues or have any feedback please let me know.
 
 Known Issues (see project issues for full issues list):
-- v0.411: Dragging spell items from a compendium does not work in Firefox
 - AC is not automatically calculated, Just enter it in the input field.
 - Critical damage is not calculated currently.
 
