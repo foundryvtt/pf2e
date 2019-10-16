@@ -15,40 +15,42 @@
                     </div>
                     {{/if}}
                 </div>
-                <ol class="skills-list">
-                    <li class="skill-grid">
+                {{#unless entry.data.tradition.ritual}}
+                    <ol class="skills-list">
+                        <li class="skill-grid">
 
-                        <span class="skill-score" title="{{entry.data.spelldc.breakdown}}">{{entry.data.spelldc.dc}}</span>
-                        <h4 class="skill-name">Spell DC</h4>
-                        
-                        <div class="skill-container">
-                            <h4 class="skill-proficiency pf-title">Prof</h4>
-                            <input type="hidden" name="data.items.{{eid}}.data.proficiency.value" value="{{entry.data.proficiency.value}}" data-dtype="Number"/>
-                            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{entry.data.spelldc.hover}}">{{{entry.data.spelldc.icon}}}</span>
-                        </div>
-                        <div class="skill-container">
-                            <h4 class="skill-item pf-title">Item</h4>
-                            <span class="skill-item pf-value item-value-input" title="Item">
-                                <input type="text" name="data.items.{{eid}}.data.item.value" value="{{entry.data.item.value}}"
-                                        data-dtype="Number" placeholder="+0"/>
-                            </span>
-                        </div>
-        
-                    </li>
-                    <li class="pf-two-grid">
-                        <label class="skill-name">Spell Ability</label>
-                        <div class="skill-name">
-                            <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
-                                {{#select entry.data.ability.value}}
-                                <option value="">None</option>
-                                {{#each ../data.abilities as |abl a|}}
-                                <option value="{{a}}">{{abl.label}}</option>
-                                {{/each}}
-                                {{/select}}
-                            </select>
-                        </div>
-                    </li>
-                </ol>
+                            <span class="skill-score" title="{{entry.data.spelldc.breakdown}}">{{entry.data.spelldc.dc}}</span>
+                            <h4 class="skill-name">Spell DC</h4>
+                            
+                            <div class="skill-container">
+                                <h4 class="skill-proficiency pf-title">Prof</h4>
+                                <input type="hidden" name="data.items.{{eid}}.data.proficiency.value" value="{{entry.data.proficiency.value}}" data-dtype="Number"/>
+                                <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{entry.data.spelldc.hover}}">{{{entry.data.spelldc.icon}}}</span>
+                            </div>
+                            <div class="skill-container">
+                                <h4 class="skill-item pf-title">Item</h4>
+                                <span class="skill-item pf-value item-value-input" title="Item">
+                                    <input type="text" name="data.items.{{eid}}.data.item.value" value="{{entry.data.item.value}}"
+                                            data-dtype="Number" placeholder="+0"/>
+                                </span>
+                            </div>
+            
+                        </li>
+                        <li class="pf-two-grid">
+                            <label class="skill-name">Spell Ability</label>
+                            <div class="skill-name">
+                                <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
+                                    {{#select entry.data.ability.value}}
+                                    <option value="">None</option>
+                                    {{#each ../data.abilities as |abl a|}}
+                                    <option value="{{a}}">{{abl.label}}</option>
+                                    {{/each}}
+                                    {{/select}}
+                                </select>
+                            </div>
+                        </li>
+                    </ol>
+                {{/unless}}
             
             
             {{#unless entry.data.prepared.preparedSpells}}
@@ -62,18 +64,20 @@
                                 <div class="item-name flexrow">
                                     <h3>{{section.label}}</h3>
                     
-                                    {{#unless section.isCantrip}}
-                                    <span class="spell-slots-input">
-                                        <input type="text" name="entry.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
-                                    </span>
-                                    <span class="flex0"> / </span>
-                                    <span class="spell-max-input">
-                                        <input type="text" name="entry.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
-                                    </span>
-                                    {{else}}
-                                    <span class="spell-slots">&infin;</span>
-                                    <span class="flex0"> / </span>
-                                    <span class="spell-max">&infin;</span>
+                                    {{#unless entry.data.tradition.ritual}}
+                                        {{#unless section.isCantrip}}
+                                        <span class="spell-slots-input">
+                                            <input type="text" name="entry.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                        </span>
+                                        <span class="flex0"> / </span>
+                                        <span class="spell-max-input">
+                                            <input type="text" name="entry.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                        </span>
+                                        {{else}}
+                                        <span class="spell-slots">&infin;</span>
+                                        <span class="flex0"> / </span>
+                                        <span class="spell-max">&infin;</span>
+                                        {{/unless}}
                                     {{/unless}}
                                 </div>
                     

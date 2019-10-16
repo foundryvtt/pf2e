@@ -922,7 +922,10 @@ class ActorSheetPF2e extends ActorSheet {
             //if ( onClose ) onClose(html, parts, data);
             let name = "";
             magicTradition = html.find('[name="magicTradition"]').val();
-            if (magicTradition === "ritual" || magicTradition === "focus") {
+            if (magicTradition === "ritual") {
+              spellcastingType = "";
+              name = `${CONFIG.magicTraditions[magicTradition]}s`
+            } else if (magicTradition === "focus") {
               spellcastingType = "";
               name = `${CONFIG.magicTraditions[magicTradition]} Spells`
             } else {

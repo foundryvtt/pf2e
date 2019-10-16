@@ -156,8 +156,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficiency.value];
         i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
         i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
+        // Check if prepared spellcasting type and set Boolean
         if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
         else i.data.prepared["preparedSpells"] = false;
+        // Check if Ritual spellcasting tradtion and set Boolean
+        if ((i.data.tradition || {}).value === "ritual") i.data.tradition["ritual"] = true;
+        else i.data.tradition["ritual"] = false;
   
         spellcastingEntries.push(i);      
                 
