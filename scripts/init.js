@@ -41,11 +41,13 @@
         return; // No update needed
       } */
 
-      console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+      const worldSchemaVersion = Number(game.settings.get("pf2e", "worldSchemaVersion"));
+
+      
 
       // get changes for this version
-      if (version == 0.411) {
-
+      if (version === 0.411 && worldSchemaVersion === 0) {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
         /* 
         * 
         * Add Spellcasting Entry Item 

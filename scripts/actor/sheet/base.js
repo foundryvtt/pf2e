@@ -690,7 +690,7 @@ class ActorSheetPF2e extends ActorSheet {
                 "value": dropID
               }
               this.actor.createOwnedItem(dragData.data);
-              return;
+              return false;
             }
           }
 
@@ -699,7 +699,7 @@ class ActorSheetPF2e extends ActorSheet {
             let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
 
             this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
-            return;
+            return false;
           }
     }
 
