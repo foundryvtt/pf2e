@@ -684,7 +684,7 @@ class ActorSheetPF2e extends ActorSheet {
           // else if the dragged item is from another actor and is the data is explicitly provided
           if ( dragData.data ) {
             if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
-              if ( dragData.actorId === this.actor.id ) return;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
+              if ( dragData.actorId === this.actor.id ) return false;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
               
               let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
               dragData.data.data.location = {
