@@ -6,14 +6,17 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.354: Added support for spell saving throws of type "basic"
+*  v0.411: Spellcasting Entries Feature - Added support for multiple spellcasing entries
+*  v0.411: Spellcasting Entries Feature - Proficiency rank, item bonus and ability are saved per entry
+*  v0.411: Spellcasting Entries Feature - NPCs can now have prepared type spell entries
+*  v0.411: Spellcasting Entries Feature - Output skill proficiency of player when rolling a skill check
+
+
+Prior patch changes:
 *  v0.353: (FS#5443) Fixed bug with manual /roll 1d20 rolls not working. Thanks!!
 *  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
 *  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)
 *  v0.353: (fryguy#3851) for fixing an issue with prepared spells not being removed correctly. Thanks!!
-
-
-Prior patch changes:
 *  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
 *  v0.351: Added Hero Points to character sheets
 *  v0.350: Added chat button to allow setting initiative for selected tokens.
@@ -47,11 +50,12 @@ Please Note:
 - If you find any issues or have any feedback please let me know.
 
 Known Issues (see project issues for full issues list):
+- v0.411: Dragging spell items from a compendium does not work in Firefox
 - AC is not automatically calculated, Just enter it in the input field.
 - Critical damage is not calculated currently.
 
 ### FVTT Version:
-- Tested with FVTT v0.3.7.
+- Tested with FVTT v0.3.8.
 
 ### Installation Instructions
 
@@ -76,3 +80,7 @@ A huge thanks to:
 ### Feedback
 
 If you have any suggestions or feedback, please contact me on discord (hooking#0492)
+
+### License
+
+This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).

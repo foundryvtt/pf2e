@@ -61,7 +61,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     };
 
     // Spellbook
-    const spellbook = {};
+    //const spellbook = {};
+    const spellbooks = [];
+    spellbooks["unassigned"] = {};
+
+    // Spellcasting Entries
+    const spellcastingEntries = [];
 
     // Skills
     const lores = [];
@@ -79,7 +84,23 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         else if (spellType === "free") i.img = this._getActionImg("free");
         else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
 
-        this._prepareSpell(actorData, spellbook, i);
+        //this._prepareSpell(actorData, spellbook, i);
+        if (i.data.location.value) {
+          let location = Number(i.data.location.value);
+          spellbooks[location] = spellbooks[location] || {};
+          this._prepareSpell(actorData, spellbooks[location], i);                    
+        } else {
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+        }
+      }
+
+      // Spellcasting Entries
+      else if ( i.type === "spellcastingEntry" ) {
+
+        if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
+        else i.data.prepared["preparedSpells"] = false;
+  
+        spellcastingEntries.push(i);                      
       }
 
       // Weapons
@@ -152,8 +173,22 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Assign and return
     actorData.actions = actions;
     actorData.attacks = attacks;
-    actorData.spellbook = spellbook;
     actorData.lores = lores;
+
+    if (Object.keys(spellbooks.unassigned).length) {
+      actorData.orphanedSpells = true;
+      actorData.orphanedSpellbook = spellbooks["unassigned"];
+    } 
+
+    for (let entry of spellcastingEntries) {
+      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      }
+      entry.spellbook = spellbooks[entry.id];      
+    }
+
+    actorData.spellcastingEntries = spellcastingEntries;
+
   }
 
 
@@ -195,6 +230,26 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       for(let skill of skills)
       {
         await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
+
+    html.find('.spelldc-input').focusout(async event => {
+      event.preventDefault();
+      
+      let li = $(event.currentTarget).parents(".item-container"),
+          itemId = Number(li.attr("data-container-id")),
+          spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute");
+
+      if (spelldcType === "dc" || spelldcType === "value") {
+        const itemToEdit = this.actor.items.find(i => i.id === itemId);
+        itemToEdit.data.spelldc[spelldcType] = Number(event.target.value);
+
+        // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
+        let items = this.actor.items.filter(i => i.type == itemToEdit.type)
+        for(let item of items)
+        {
+          await this.actor.updateOwnedItem(item, true);      
+        }
       }
     });
 
