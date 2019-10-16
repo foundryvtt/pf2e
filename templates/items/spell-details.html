@@ -63,6 +63,13 @@
 
 <div class="form-group">
     <label>{{data.save.label}}</label>
+    <div class="details-container-two-columns">
+    <select name="data.save.basic" data-dtype="{{data.save.type}}">
+        {{#select data.save.basic}}
+        <option value=""></option>
+        <option value="basic">basic</option>
+        {{/select}}
+    </select>
     <select name="data.save.value" data-dtype="{{data.save.type}}">
         {{#select data.save.value}}
         <option value=""></option>
@@ -71,6 +78,7 @@
         {{/each}}
         {{/select}}
     </select>
+    </div>
 </div>
 
 <div class="form-group">

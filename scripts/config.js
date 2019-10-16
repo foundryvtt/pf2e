@@ -415,13 +415,15 @@ CONFIG.magicTraditions = {
   "occult": "Occult",
   "divine": "Divine",
   "primal": "Primal",
-  "focus": "Focus"
+  "focus": "Focus",
+  "ritual": "Ritual",
 };
 
 // Preparation Type
 CONFIG.preparationType = {
   "prepared": "Prepared",
-  "spontaneous": "Spontaneous"
+  "spontaneous": "Spontaneous",
+  "innate": "Innate"
 };
 
 // Spell Traits
@@ -565,6 +567,12 @@ CONFIG.areaTypes = {
   "emanation": "Emanation",
   "line": "Line"
 }
+
+// Spell Saves
+/* CONFIG.spellBasic = {
+  "": "",
+  "basic": "Basic"
+} */
 
 // Area Size
 CONFIG.areaSizes = {
@@ -712,7 +720,7 @@ CONFIG.actionsNumber = {
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
-  0: "Not Trained",
+  0: "Untrained",
   1: "Trained",
   2: "Expert",
   3: "Master",

@@ -9,7 +9,7 @@
 :root {
   --primary-background: rgb(69,74,124);
   --secondary-background: #b75b5b;
-  --tertiary-background: #5f0100;
+  --tertiary-background: darkred;
 }
 /* Nodesto Font */
 .nodesto {
@@ -590,6 +590,13 @@
   color: #fff;
   background: var(--primary-background);
 }
+.pf2e.actor .pf-add-item-row {
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  font-size: 10px;
+  background: var(--primary-background);
+}
 .pf2e.actor .pf-redbackground {
   background: var(--secondary-background);
   color: white;
@@ -872,7 +879,7 @@
   grid-row-start: auto;
   align-self: center;
   display: grid;
-  grid: "score name rank item" 32px / 40px auto 52px 52px;
+  grid: "score name" 32px / 40px auto;
   background: var(--secondary-background);
   margin-right: 4px;
 }
@@ -1246,7 +1253,7 @@
   grid: "skill skill" 36px / 50% 50%;
   grid-auto-rows: 36px;
 }
-.pf2e.actor .spellbook .skill {
+.pf2e.actor .spellbook .skill-grid {
   grid-area: auto;
   display: grid;
   grid: "value name rank item" 100% /  35px auto 46px 46px;
@@ -1309,7 +1316,7 @@
 }
 .pf2e.actor .skills .skill > *,
 .pf2e.actor .skills .item > *,
-.pf2e.actor .spellbook .skill > * {
+.pf2e.actor .spellbook .skill-grid > * {
   flex: 1;
 }
 .pf2e.actor .skills .skill-name {
@@ -1341,11 +1348,6 @@
   line-height: 32px;
   color: white;
 }
-/* .pf2e.actor .skills .skill .skill-proficiency {
-  text-align: left;
-  flex: 0 0 20px;
-  padding-left: 3px;
-} */
 .pf2e.actor .skills .skill-proficiency,
 .pf2e.actor .spellbook .skill-proficiency {
   margin-top: 2px;
@@ -1515,10 +1517,12 @@
   flex: 2;
   margin: 0;
 }
-.pf2e.actor .inventory-header .item .item-controls {
+.pf2e.actor .inventory-header .item .item-controls,
+.pf2e.actor .action-header .item-controls {
   flex: 0 0 44px;
 }
-.pf2e.actor .inventory-header .item .item-controls a {
+.pf2e.actor .inventory-header .item .item-controls a,
+.pf2e.actor .action-header .item-controls a {
   display: block;
   float: left;
   width: 44px;
@@ -1538,6 +1542,21 @@
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow-y: auto;
+  margin-bottom: 2px;
+}
+.pf2e.actor .spellcastingEntry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+.pf2e.actor .singleColumn-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* height: calc(100% - 20px); */
   overflow-y: auto;
 }
 .pf2e.actor .overflow-list {
@@ -1617,7 +1636,8 @@
 .pf2e.actor .inventory-list .item .item-controls {
   flex: 0 0 44px;
 }
-.pf2e.actor .inventory-list .item .item-controls a {
+.pf2e.actor .inventory-list .item .item-controls a,
+.pf2e.actor .item.action-header .item-controls a {
   display: block;
   float: left;
   width: 22px;
@@ -1639,7 +1659,8 @@
   text-align: center;
   /* font-weight: bold; */
 }
-.pf2e.actor .inventory-list .action-header .item-controls a.item-create {
+.pf2e.actor .action-header .item-controls a.item-create,
+.pf2e.actor .action-header .item-controls a.item-delete {
   width: 100%;
   color: #fff;
   background: var(--primary-background);
@@ -1666,9 +1687,13 @@
 .pf2e.actor .inventory-list .inventory-header .item-weight {
   color: white;
 }
-.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create,
-.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-create {
+.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create {
   width: 100%;
+  color: white;
+}
+.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-create,
+.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-browse {
+  /* width: 100%; */
   color: white;
 }
 .pf2e.actor .inventory-list .inventory-header > * {
