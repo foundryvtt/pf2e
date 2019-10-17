@@ -509,8 +509,9 @@ class ItemPF2e extends Item {
 
     // Get data
     let itemData = this.data.data,
+        spellcastingEntry = this.actor.getOwnedItem(Number(itemData.location.value)),
         rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
+        abl = spellcastingEntry.data.data.ability.value || "int",
         parts = [itemData.damage.value],
         isHeal = itemData.spellType.value === "heal",
         dtype = CONFIG.damageTypes[itemData.damageType.value];
@@ -522,6 +523,8 @@ class ItemPF2e extends Item {
     // Add item to roll data
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
+
+    if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
 
     // Call the roll helper utility
     DicePF2e.damageRoll({

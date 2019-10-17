@@ -91,15 +91,15 @@
     <ul>
         {{#each feats as |feat id|}}
         <li class="spell flexrow draggable" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats">
-            <div class="spell-image">
+<!--             <div class="spell-image">
                 <img class="" src="{{feat.img}}" title="{{feat.name}}" width="32" height="32"/>
-            </div>
+            </div> -->
             {{#unless feat.data.actionType.img}}
-            <div class="spell-image" style="margin-left: 5px;">
+            <div class="spell-image">
                 
             </div> 
             {{else}}
-            <div class="spell-image" style="margin-left: 5px;">
+            <div class="spell-image">
                 <img class="" src="{{feat.data.actionType.img}}" title="{{feat.data.level.value}}" width="32" height="32"/>
             </div> 
             {{/unless}}

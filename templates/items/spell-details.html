@@ -45,8 +45,20 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.damage.label}}</label>
-    <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+    <label>{{data.damage.label}}</label>    
+    <div class="details-container-two-columns">
+        <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+<!--         <select name="data.damage.applyMod" data-dtype="Boolean">
+            {{#select data.damage.applyMod}}
+            <option value=""></option>
+            <option value="true">+ Ability Mod</option>
+            {{/select}}
+        </select> -->
+        <div style="display: flex; align-self: center;">
+            <label style="flex: 4;">+ Ability Mod</label>
+            <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="{{data.damage.applyMod}}" {{checked data.damage.applyMod}} style="flex: 1; margin: 0;"/>
+        </div>
+    </div>
 </div>
 
 <div class="form-group">

@@ -276,8 +276,6 @@ Hooks.once("init", () => {
     "public/systems/pf2e/templates/actors/tabs/actor-inventory.html",
     "public/systems/pf2e/templates/actors/tabs/actor-skills.html",
     "public/systems/pf2e/templates/actors/tabs/actor-spellbook.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-spellbook-prepared.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-spellbook-spontaneous.html",
 
     // Actor Sheet Partials (Legacy)
     "public/systems/pf2e/templates/actors/actor-attributes.html",

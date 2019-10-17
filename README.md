@@ -6,6 +6,9 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.413: Added a "+ Ability Mod" checkbox when editing spell damage details which applies the appropriate ability modifier to damage for the spellcasting entry.
+*  v0.413: Fixed Sorcerer feats not being shown in the Feat Browser
+*  v0.413: Added search icon on feat tab that opens the Feat Browser directly.
 *  v0.412: Tidied up UI for spellcasting entries of type Ritual (more to come here)
 *  v0.411: Spellcasting Entries Feature - Added support for multiple spellcasing entries
 *  v0.411: Spellcasting Entries Feature - Proficiency rank, item bonus and ability are saved per entry

@@ -348,6 +348,9 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
+    // Feat Browser
+    html.find('.feat-browse').click(ev => featBrowser.render(true));
+
     // Spell Browser
     html.find('.spell-browse').click(ev => spellBrowser.render(true));
 
@@ -359,6 +362,11 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Remove Spellcasting Entry
     html.find('.spellcasting-remove').click(ev => this._removeSpellcastingEntry(ev));
+
+    // toggle visibility of filter containers
+    html.find('.hide-container-toggle').click(ev => {
+      $(ev.target).parent().siblings().toggle(100, e => { });
+     });
 
     /* -------------------------------------------- */
     /*  Inventory
