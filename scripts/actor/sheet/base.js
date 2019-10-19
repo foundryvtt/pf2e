@@ -90,7 +90,7 @@ class ActorSheetPF2e extends ActorSheet {
         isNPC = this.actorType === "npc",
         spellcastingEntry = "";
 
-        if (spell.data.location.value) {
+        if ((spell.data.location || {}).value) {
           spellcastingEntry = this.actor.items.find(i => { return i.id === Number(spell.data.location.value) });;
         }
 
@@ -633,17 +633,19 @@ class ActorSheetPF2e extends ActorSheet {
     }));
   } */
   _onDragItemStart(event) {
-    const itemType = event.currentTarget.getAttribute("data-container-type");
-    if (itemType === "spellcastingEntry") return;
+    //const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
+    const itemId = event.currentTarget.getAttribute("data-item-id");
+    const containerType = event.currentTarget.getAttribute("data-container-type");
 
-    const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-    const item = this.actor.getOwnedItem(itemId);
-	  event.dataTransfer.setData("text/plain", JSON.stringify({
-      type: "Item",
-      data: item.data,
-      actorId: this.actor._id,
-      id: itemId
-    }));
+    if (itemId) {
+      const item = this.actor.getOwnedItem(Number(itemId));
+	    event.dataTransfer.setData("text/plain", JSON.stringify({
+        type: "Item",
+        data: item.data,
+        actorId: this.actor._id,
+        id: itemId
+      }));
+    } else if (containerType === "spellcastingEntry") return;
   }
 
   /* -------------------------------------------- */
@@ -682,7 +684,7 @@ class ActorSheetPF2e extends ActorSheet {
             let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
             
             if (Number.isInteger(dropID)) {
-              dragItem.data.data.location.value = dropID;
+              dragItem.data.data.location = {"value": dropID};
 
               // Update Actor
               await this.actor.updateOwnedItem(dragItem.data, true);

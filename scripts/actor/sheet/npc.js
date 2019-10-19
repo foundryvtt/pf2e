@@ -85,7 +85,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
 
         //this._prepareSpell(actorData, spellbook, i);
-        if (i.data.location.value) {
+        if ((i.data.location || {}).value) {
           let location = Number(i.data.location.value);
           spellbooks[location] = spellbooks[location] || {};
           this._prepareSpell(actorData, spellbooks[location], i);                    
@@ -99,6 +99,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
         if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
         else i.data.prepared["preparedSpells"] = false;
+        // Check if Ritual spellcasting tradtion and set Boolean
+        if ((i.data.tradition || {}).value === "ritual") i.data.tradition["ritual"] = true;
+        else i.data.tradition["ritual"] = false;
   
         spellcastingEntries.push(i);                      
       }

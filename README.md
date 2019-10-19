@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.414: Fixed issue with NPC spell drag/drop
 *  v0.413: Added a "+ Ability Mod" checkbox when editing spell damage details which applies the appropriate ability modifier to damage for the spellcasting entry.
 *  v0.413: Fixed Sorcerer feats not being shown in the Feat Browser
 *  v0.413: Added search icon on feat tab that opens the Feat Browser directly.
