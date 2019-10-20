@@ -801,7 +801,8 @@ class ActorSheetPF2e extends ActorSheet {
               buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
               buttons.append(`<span class="tag"><button data-action="weaponAttack2">${isAgile?'-4':'-5'}</button></span>`);
               buttons.append(`<span class="tag"><button data-action="weaponAttack3">${isAgile?'-8':'-10'}</button></span>`);
-              buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);              
+              buttons.append(`<span class="tag"><button data-action="weaponDamage">Damage</button></span>`);
+              buttons.append(`<span class="tag"><button data-action="weaponDamageCritical">Critical</button></span>`);              
               break;
           case 'spell':
               if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
@@ -828,6 +829,7 @@ class ActorSheetPF2e extends ActorSheet {
               case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
               case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
               case 'weaponDamage': item.rollWeaponDamage(ev); break;
+              case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
               case 'spellAttack': item.rollSpellAttack(ev); break;
               case 'spellDamage': item.rollSpellDamage(ev); break;
               case 'featAttack': item.rollFeatAttack(ev); break;

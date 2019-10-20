@@ -64,6 +64,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.itemBonuses = CONFIG.itemBonuses;
       data.damageDie = CONFIG.damageDie;
       data.damageDice = CONFIG.damageDice;
+      data.conditionTypes = CONFIG.conditionTypes;
       data.weaponDamage = CONFIG.weaponDamage;
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;

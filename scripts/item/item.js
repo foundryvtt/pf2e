@@ -406,7 +406,8 @@ class ItemPF2e extends Item {
    * Roll Weapon Damage
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
-  rollWeaponDamage(event, alternate=false) {
+  rollWeaponDamage(event, critical=false) {
+    // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
     if ( this.type === "action" ) {
       let itemId = parseInt(this.data.data.weapon.value),
           item = this.actor.getOwnedItem(itemId);
@@ -414,16 +415,49 @@ class ItemPF2e extends Item {
       return;
     } 
     else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
-    //else if ( this.type !== "weapon" ) throw "Wrong item type!";
+    
 
-    // Get data
+    // Get item and actor data and format it for the damage roll
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
         weaponDamage = itemData.damage.dice + itemData.damage.die,
-        //abl = itemData.ability.value || "str",
         abl = "str",
-        parts = [weaponDamage, `@abilities.${abl}.mod`],
-        dtype = CONFIG.damageTypes[itemData.damage.damageType];
+        abilityMod = rollData.abilities[abl].mod,
+        parts = [weaponDamage, abilityMod],
+        dtype = CONFIG.damageTypes[itemData.damage.damageType],
+        critTrait = "",
+        critDie = "";
+
+    // If this damage roll is a critical, apply critical damage and effects
+    if (critical === true) {
+      // Check if deadly or fatal traits present
+      let traits = itemData.traits.value,
+          len = traits.length,
+          regex = `(\\bdeadly\\b|\\bfatal\\b)?-(d\\d+)`;
+
+      for (let i = 0; i < len; i++) {
+        if (traits[i].match(regex)) {          
+          critTrait = traits[i].match(regex)[1];
+          critDie = traits[i].match(regex)[2];
+        }        
+      }
+
+      if (critTrait === "deadly") {
+        weaponDamage = (Number(itemData.damage.dice) * 2) + itemData.damage.die;
+        let deadlyDice = itemData.damage.dice ? itemData.damage.dice : 1,
+            deadlyDamage = deadlyDice + critDie;
+        abilityMod = Number(abilityMod) * 2;
+        parts = [weaponDamage, deadlyDamage, abilityMod];        
+      } else if (critTrait === "fatal") {
+        weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
+        abilityMod = Number(abilityMod) * 2;
+        parts = [weaponDamage, abilityMod];
+      } else {
+        weaponDamage = (Number(itemData.damage.dice) * 2) + itemData.damage.die;
+        abilityMod = Number(abilityMod) * 2;
+        parts = [weaponDamage, abilityMod];
+      }
+    }
 
     // Check if the damage roll is using a ranged weapon, if so apply propulsive or thrown weapon trait rules.
     if ( parseInt(itemData.range.value) > 0) {
@@ -432,7 +466,8 @@ class ItemPF2e extends Item {
         if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
           parts.pop();
           let halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
-          parts.push(halfStr);
+          if (critical) parts.push(halfStr * 2);
+          else parts.push(halfStr);
         }          
         
       }
@@ -440,13 +475,14 @@ class ItemPF2e extends Item {
         parts.pop();
     }
 
+    // if this is an NPC attack, use the damage defined in the itemData
     if (this.type === "melee") {
       weaponDamage = itemData.damage.die;
       parts = [weaponDamage];
     }
 
     // Append damage type to title
-    let title = `${this.name} - Damage`;
+    let title = critical ? `Critical ${critTrait.toUpperCase()} Damage: ${this.name}` : `Damage: ${this.name}`;
     if ( dtype ) title += ` (${dtype})`;
 
     // Call the roll helper utility
