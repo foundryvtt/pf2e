@@ -88,14 +88,31 @@ class ItemPF2e extends Item {
 
   _weaponChatData() {
     const data = duplicate(this.data.data);
-    let traits = [];  
+    let traits = [],
+        itemTraits = data.traits.value,
+        versatileTrait = false,
+        versatileType = "",
+        twohandedTrait = false,
+        twohandedDie = "",
+        versatileRegex = `(\\bversatile\\b)-([s]|[b]|[p])`,
+        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`;
+
     if ((data.traits.value || []).length != 0) {      
       for(var i = 0 ; i < data.traits.value.length ; i++){
         let traitsObject = {
           "label": CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
           "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
         };        
-        traits.push(traitsObject);
+        traits.push(traitsObject);        
+
+        // Check if two-handed trait is present
+        if (itemTraits[i].match(twohandedRegex)) {
+          twohandedTrait = true;
+          twohandedDie = itemTraits[i].match(twohandedRegex)[2];
+        } else if (itemTraits[i].match(versatileRegex)) {
+          versatileTrait = true;
+          versatileType = (itemTraits[i].match(versatileRegex)[2]).toLowerCase();
+        } 
       } 
     }
 
@@ -111,13 +128,12 @@ class ItemPF2e extends Item {
         "description": CONFIG.weaponDescriptions[data.group.value]}
     }
 
-/*     if (traits.length != 0) {
-      properties = properties.concat(traits);
-    } */
     
     let isAgile = (data.traits.value || []).includes("agile");
     data.map2 = isAgile ? '-4' : '-5';
     data.map3 = isAgile ? '-8' : '-10';
+    data.isTwohanded = twohandedTrait ? true : false;
+    data.wieldedTwoHands = data.hands.value ? true : false;
     data.properties = properties.filter(p => !!p);
     data.traits = traits.filter(p => !!p);
     return data;
@@ -420,30 +436,53 @@ class ItemPF2e extends Item {
     // Get item and actor data and format it for the damage roll
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
-        weaponDamage = itemData.damage.dice + itemData.damage.die,
+        rollDie = itemData.damage.die,
+        //weaponDamage = itemData.damage.dice + rollDie,
         abl = "str",
-        abilityMod = rollData.abilities[abl].mod,
-        parts = [weaponDamage, abilityMod],
-        dtype = CONFIG.damageTypes[itemData.damage.damageType],
-        critTrait = "",
-        critDie = "";
+        //abilityMod = rollData.abilities[abl].mod,
+        //parts = [weaponDamage, abilityMod],
+        dtype = CONFIG.damageTypes[itemData.damage.damageType];
+        
 
+    // Get detailed trait information from item
+    let traits = itemData.traits.value,
+        critTrait = "",
+        critDie = "",
+        twohandedTrait = false,
+        twohandedDie = "",
+        len = traits.length,
+        critRegex = `(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)`,
+        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`;
+
+    for (let i = 0; i < len; i++) {
+      if (traits[i].match(critRegex)) {          
+        critTrait = traits[i].match(critRegex)[1];
+        critDie = traits[i].match(critRegex)[2];
+      } else if (traits[i].match(twohandedRegex)) {
+        twohandedTrait = true;
+        twohandedDie = traits[i].match(twohandedRegex)[2];
+      }      
+    }
+
+    // Apply two-handed damage rule
+    if (twohandedTrait && itemData.hands.value) {
+      /* weaponDamage = Number(itemData.damage.dice) + twohandedDie;
+      abilityMod = rollData.abilities[abl].mod;
+      parts = [weaponDamage, abilityMod]; */
+      rollDie = twohandedDie;
+    }
+
+    let weaponDamage = itemData.damage.dice + rollDie,
+        abilityMod = rollData.abilities[abl].mod,
+        parts = [weaponDamage, abilityMod];
+    
     // If this damage roll is a critical, apply critical damage and effects
     if (critical === true) {
       // Check if deadly or fatal traits present
-      let traits = itemData.traits.value,
-          len = traits.length,
-          regex = `(\\bdeadly\\b|\\bfatal\\b)?-(d\\d+)`;
-
-      for (let i = 0; i < len; i++) {
-        if (traits[i].match(regex)) {          
-          critTrait = traits[i].match(regex)[1];
-          critDie = traits[i].match(regex)[2];
-        }        
-      }
+      
 
       if (critTrait === "deadly") {
-        weaponDamage = (Number(itemData.damage.dice) * 2) + itemData.damage.die;
+        weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
         let deadlyDice = itemData.damage.dice ? itemData.damage.dice : 1,
             deadlyDamage = deadlyDice + critDie;
         abilityMod = Number(abilityMod) * 2;
@@ -453,7 +492,7 @@ class ItemPF2e extends Item {
         abilityMod = Number(abilityMod) * 2;
         parts = [weaponDamage, abilityMod];
       } else {
-        weaponDamage = (Number(itemData.damage.dice) * 2) + itemData.damage.die;
+        weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
         abilityMod = Number(abilityMod) * 2;
         parts = [weaponDamage, abilityMod];
       }

@@ -766,7 +766,6 @@ class ActorSheetPF2e extends ActorSheet {
       let props = $(`<div class="item-properties"></div>`);
       if (chatData.properties) chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`);
-      
       // append traits (only style the tags if they contain description data)
       if (chatData.traits) chatData.traits.forEach(p => {
         if (p.description) props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`);
@@ -777,7 +776,7 @@ class ActorSheetPF2e extends ActorSheet {
 
       div.append(props);
 
-/*       props.find('.area-tool').click(ev => {
+      /* props.find('.area-tool').click(ev => {
         ev.preventDefault();
         ev.stopPropagation();
 
@@ -798,6 +797,10 @@ class ActorSheetPF2e extends ActorSheet {
               break;
           case 'weapon':
               let isAgile = (item.data.data.traits.value || []).includes("agile");
+              if (chatData.isTwohanded) {
+                if (chatData.wieldedTwoHands) buttons.append(`<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>`);
+                else buttons.append(`<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>`);
+              } 
               buttons.append(`<span class="tag"><button data-action="weaponAttack">Attack</button></span>`);
               buttons.append(`<span class="tag"><button data-action="weaponAttack2">${isAgile?'-4':'-5'}</button></span>`);
               buttons.append(`<span class="tag"><button data-action="weaponAttack3">${isAgile?'-8':'-10'}</button></span>`);
@@ -825,6 +828,10 @@ class ActorSheetPF2e extends ActorSheet {
 
           // which function gets called depends on the type of button stored in the dataset attribute action
           switch (ev.target.dataset.action) {
+              case 'toggleHands': 
+                item.data.data.hands.value = item.data.data.hands.value ? false : true;
+                this.actor.updateOwnedItem(item.data, true);
+                break;
               case 'weaponAttack': item.rollWeaponAttack(ev); break;
               case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
               case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
