@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.416: (fryguy#3851) Fixed weapon compendium pack to align with new traits convetion. Thanks!!
 *  v0.415: Added "Critical" button to item summary
 *  v0.415: Added support for Fatal and Deadly weapon traits when rolling critical damage
 *  v0.414: Fixed issue with NPC spell drag/drop
