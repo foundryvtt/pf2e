@@ -437,10 +437,9 @@ class ItemPF2e extends Item {
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
         rollDie = itemData.damage.die,
-        //weaponDamage = itemData.damage.dice + rollDie,
         abl = "str",
-        //abilityMod = rollData.abilities[abl].mod,
-        //parts = [weaponDamage, abilityMod],
+        abilityMod = rollData.abilities[abl].mod,
+        parts = [],
         dtype = CONFIG.damageTypes[itemData.damage.damageType];
         
 
@@ -450,10 +449,13 @@ class ItemPF2e extends Item {
         critDie = "",
         twohandedTrait = false,
         twohandedDie = "",
+        thrownTrait = false,
         len = traits.length,
         critRegex = `(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)`,
-        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`;
+        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`,
+        thrownRegex = `(\\bthrown\\b)-(\\d+)`;
 
+    // Find detailed trait information
     for (let i = 0; i < len; i++) {
       if (traits[i].match(critRegex)) {          
         critTrait = traits[i].match(critRegex)[1];
@@ -461,58 +463,74 @@ class ItemPF2e extends Item {
       } else if (traits[i].match(twohandedRegex)) {
         twohandedTrait = true;
         twohandedDie = traits[i].match(twohandedRegex)[2];
+      } else if (traits[i].match(thrownRegex)) {
+        thrownTrait = true;
       }      
     }
 
-    // Apply two-handed damage rule
+    // If weapon has two-hand trait and wielded in two hands, apply the appropriate damage die
     if (twohandedTrait && itemData.hands.value) {
-      /* weaponDamage = Number(itemData.damage.dice) + twohandedDie;
-      abilityMod = rollData.abilities[abl].mod;
-      parts = [weaponDamage, abilityMod]; */
       rollDie = twohandedDie;
     }
 
-    let weaponDamage = itemData.damage.dice + rollDie,
-        abilityMod = rollData.abilities[abl].mod,
-        parts = [weaponDamage, abilityMod];
+    // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
+    let weaponDamage = itemData.damage.dice + rollDie;    
+    parts = [weaponDamage];
     
     // If this damage roll is a critical, apply critical damage and effects
     if (critical === true) {
-      // Check if deadly or fatal traits present
-      
-
       if (critTrait === "deadly") {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
         let deadlyDice = itemData.damage.dice ? itemData.damage.dice : 1,
             deadlyDamage = deadlyDice + critDie;
-        abilityMod = Number(abilityMod) * 2;
-        parts = [weaponDamage, deadlyDamage, abilityMod];        
+        parts = [weaponDamage, deadlyDamage];        
       } else if (critTrait === "fatal") {
         weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
-        abilityMod = Number(abilityMod) * 2;
-        parts = [weaponDamage, abilityMod];
+        parts = [weaponDamage];
       } else {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        abilityMod = Number(abilityMod) * 2;
-        parts = [weaponDamage, abilityMod];
+        parts = [weaponDamage];
       }
     }
 
-    // Check if the damage roll is using a ranged weapon, if so apply propulsive or thrown weapon trait rules.
-    if ( parseInt(itemData.range.value) > 0) {
-      if ((itemData.traits.value || []).includes("propulsive")) {
-        
+    // Add abilityMod to the damage roll.
+    if ( itemData.range.value === "melee" || itemData.range.value === "reach" || itemData.range.value == "") { // if a melee attack
+      if (critical) parts.push(abilityMod * 2);
+      else parts.push(abilityMod)
+    } else { // else if a ranged attack
+      if ((itemData.traits.value || []).includes("propulsive")) {        
         if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
-          parts.pop();
           let halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
           if (critical) parts.push(halfStr * 2);
           else parts.push(halfStr);
-        }          
-        
+        }
       }
-      else if (!(itemData.traits.value || []).includes("thrown")) 
-        parts.pop();
-    }
+      else if (thrownTrait) { 
+        if (critical) parts.push(abilityMod * 2);
+        else parts.push(abilityMod)
+      }
+    } 
+
+    // Add property rune damage
+    
+      // add strike damage
+      if (itemData.property1.dice && itemData.property1.die && itemData.property1.damageType) {
+        if (critical) {
+          let propertyDamage = (Number(itemData.property1.dice) * 2) + itemData.property1.die;
+          parts.push(propertyDamage)
+        } else {
+          let propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
+          parts.push(propertyDamage)
+        }        
+      }
+      // add critical damage
+      if (itemData.property1.critDice && itemData.property1.critDie && itemData.property1.critDamageType) {
+        if (critical) {
+          let propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
+          parts.push(propertyDamage)
+        }
+      }
+    
 
     // if this is an NPC attack, use the damage defined in the itemData
     if (this.type === "melee") {
@@ -520,7 +538,7 @@ class ItemPF2e extends Item {
       parts = [weaponDamage];
     }
 
-    // Append damage type to title
+    // Set the title of the roll
     let critTitle = critTrait ? critTrait.toUpperCase() : "";
     let title = critical ? `Critical ${critTitle} Damage: ${this.name}` : `Damage: ${this.name}`;
     if ( dtype ) title += ` (${dtype})`;
