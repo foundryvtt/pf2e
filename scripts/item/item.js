@@ -482,7 +482,8 @@ class ItemPF2e extends Item {
     }
 
     // Append damage type to title
-    let title = critical ? `Critical ${critTrait.toUpperCase()} Damage: ${this.name}` : `Damage: ${this.name}`;
+    let critTitle = critTrait ? critTrait.toUpperCase() : "";
+    let title = critical ? `Critical ${critTitle} Damage: ${this.name}` : `Damage: ${this.name}`;
     if ( dtype ) title += ` (${dtype})`;
 
     // Call the roll helper utility
