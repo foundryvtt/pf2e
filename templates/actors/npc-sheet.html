@@ -252,11 +252,11 @@
                                                 {{#unless entry.data.tradition.ritual}}
                                                     {{#unless section.isCantrip}}
                                                     <span class="spell-slots-input">
-                                                        <input type="text" name="entry.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                                        <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
                                                     </span>
                                                     <span class="flex0"> / </span>
                                                     <span class="spell-max-input">
-                                                        <input type="text" name="entry.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                        <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
                                                     </span>
                                                     {{else}}
                                                     <span class="spell-slots">&infin;</span>
@@ -328,15 +328,15 @@
                             
                                             {{#if section.isFocus}}
                                             <span class="spell-slots-input">
-                                                <input type="text" name="entry.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
                                             </span>
                                             <span class="flex0"> / </span>
                                             <span class="spell-max-input">
-                                                <input type="text" name="entry.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
                                             </span>
                                             {{else}}
                                             <span class="spell-max-input">
-                                                <input type="text" name="entry.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
                                             </span>
                                             {{/if}}
                                         </div>
