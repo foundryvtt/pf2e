@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.421: Added Consumables and Adventuring Gear SRD compendium packs. Thanks Overdox#9174!!
 *  v0.419: Fixed bug with form data validation for spell slot inputs on multiple spellcasting entries
 *  v0.418: Added support for Property Runes on weapons (damage and crit).
 *  v0.417: Added support for Two-Hand weapon trait and the ability to toggle between one-hand and two.

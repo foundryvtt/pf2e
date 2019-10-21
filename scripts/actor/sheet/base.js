@@ -348,6 +348,54 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
+    // Button to convert all images in a compendium pack to base64 encoded.
+    /* html.find('.pack-img-convert').click(async ev => {
+
+      // This is the HTML to add to the pack-img-convert application.
+      // <canvas id="canvas" width=64 height=64></canvas>
+
+      var canvas=document.getElementById("canvas");
+      var ctx=canvas.getContext("2d");
+      var maxW=64;
+      var maxH=64;    
+    
+      function handleFiles(imgURL, callback) {
+        var img = new Image;
+        img.onload = function() {
+          var iw=img.width;
+          var ih=img.height;
+          var scale=Math.min((maxW/iw),(maxH/ih));
+          var iwScaled=iw*scale;
+          var ihScaled=ih*scale;
+          canvas.width=iwScaled;
+          canvas.height=ihScaled;
+          ctx.drawImage(img,0,0,iwScaled,ihScaled);
+          callback(canvas.toDataURL("image/jpeg",0.5));
+        }
+        img.src = imgURL;
+      }
+
+      //for (let pack of game.packs) {
+      const pack = game.packs.find(p => p.collection === "world.adventuringgearsrd"); 
+
+      //if (pack.metadata.name === "adventuringgearsrd"){
+      await pack.getContent().then(async content => {
+        
+        for (let item of content) {
+          let imageUrl = item.data.img,
+              imageArr = imageUrl.split("!"),
+              newUrl = 'http://localhost:30000/assets/icons/!' + imageArr[1];
+
+          handleFiles(newUrl, async base64Url => {
+            //console.log("item: ", item.id);
+            item.data.img = base64Url;
+            await pack.importEntity(item);
+            await pack.deleteEntity(item.id);
+          });          
+        }
+      });
+    }); */
+
     // Feat Browser
     html.find('.feat-browse').click(ev => featBrowser.render(true));
 

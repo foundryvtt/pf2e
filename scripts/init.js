@@ -229,6 +229,20 @@
     }
   }
 
+/*   function toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      var reader = new FileReader();
+      reader.onloadend = function() {
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+  } */
+
   await isCanvasReady();
 
   game.settings.register("pf2e", "worldSchemaVersion", {
@@ -256,6 +270,10 @@
       console.log(`PF2e System | World Schema matches System Schema. No migration required`)
     }
   }
+
+/*   toDataURL('http://localhost:30000/assets/icons/!dox/items/potions/greater_healing.jpg', function(dataUrl) {
+    console.log('RESULT:', dataUrl)
+  }) */
 
 })();
 
