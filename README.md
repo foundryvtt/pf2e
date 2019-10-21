@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.422: Overhauled the Item Browser logic and introduced new feature: Inventory Browser.
 *  v0.421: Added Consumables and Adventuring Gear SRD compendium packs. Thanks Overdox#9174!!
 *  v0.419: Fixed bug with form data validation for spell slot inputs on multiple spellcasting entries
 *  v0.418: Added support for Property Runes on weapons (damage and crit).
@@ -13,6 +14,9 @@ Patch Notes:
 *  v0.416: (fryguy#3851) Fixed weapon compendium pack to align with new traits convetion. Thanks!!
 *  v0.415: Added "Critical" button to item summary
 *  v0.415: Added support for Fatal and Deadly weapon traits when rolling critical damage
+
+
+Prior patch changes:
 *  v0.414: Fixed issue with NPC spell drag/drop
 *  v0.413: Added a "+ Ability Mod" checkbox when editing spell damage details which applies the appropriate ability modifier to damage for the spellcasting entry.
 *  v0.413: Fixed Sorcerer feats not being shown in the Feat Browser
@@ -22,9 +26,6 @@ Patch Notes:
 *  v0.411: Spellcasting Entries Feature - Proficiency rank, item bonus and ability are saved per entry
 *  v0.411: Spellcasting Entries Feature - NPCs can now have prepared type spell entries
 *  v0.411: Spellcasting Entries Feature - Output skill proficiency of player when rolling a skill check
-
-
-Prior patch changes:
 *  v0.353: (FS#5443) Fixed bug with manual /roll 1d20 rolls not working. Thanks!!
 *  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
 *  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)

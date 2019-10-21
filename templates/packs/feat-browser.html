@@ -1,6 +1,6 @@
 <div class="spell-browser">
     <div class="control-area">
-        <div class="filtercontainer" id="tagfilter">            
+        <div class="sortcontainer" id="tagfilter">            
             <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
             <div class="hint" style="display:none;">
                 You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
@@ -59,7 +59,7 @@
             <h3>Class Feats</h3>
             <dl style="display:none;">
                 {{#each featClasses as |class key|}}
-                <dt><input type="checkbox" name="class-{{key}}"></dt><dd>{{class}}</dd>
+                <dt><input type="checkbox" name="classes-{{key}}"></dt><dd>{{class}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -67,7 +67,7 @@
             <h3>Skill Feats</h3>
             <dl style="display:none;">
                 {{#each featSkills as |skill key|}}
-                <dt><input type="checkbox" name="skill-{{key}}"></dt><dd>{{skill}}</dd>
+                <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
                 {{/each}}
             </dl>
         </div>

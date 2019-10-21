@@ -1661,7 +1661,8 @@
 }
 .pf2e.actor .action-header .item-controls a.item-create,
 .pf2e.actor .action-header .item-controls a.item-delete,
-.pf2e.actor .action-header .item-controls a.feat-browse {
+.pf2e.actor .action-header .item-controls a.feat-browse,
+.pf2e.actor .inventory-header .item-controls a.inventory-browse {
   width: 100%;
   color: #fff;
   background: var(--primary-background);
@@ -2200,18 +2201,25 @@
   overflow:auto;
 }
 
-.spell-browser .filtercontainer {    
+.spell-browser .filtercontainer,
+.spell-browser .sortcontainer {    
   border: 1px solid #bbb;
   border-radius: 5px;
   margin-top: 5px;
   padding:2px;
 }
 
-.spell-browser .filtercontainer h3 {
+.spell-browser .filtercontainer h3,
+.spell-browser .sortcontainer h3 {
   margin:0;
   cursor:pointer;
 }
-
+.spell-browser .filtercontainer dt {
+  width:10%;
+}
+.spell-browser .filtercontainer dd {
+  width:88%;
+}
 
 .spell-browser dl {
   margin: 5px 0;
@@ -2222,18 +2230,18 @@
   width:40%;
   padding-left:5px;
 }
-#levelfilter dt, #classfilter dt, #schoolfilter dt, #skillfilter dt, #ancestryfilter dt {
+/* #levelfilter dt, #classfilter dt, #schoolfilter dt, #skillfilter dt, #ancestryfilter dt, #armorTypefilter dt, #traitsfilter dt {
   width:10%;
-}
+} */
 
 .spell-browser dd {
   display:inline-block;
   width:58%;
   margin-left:0;
 }
-#levelfilter dd, #classfilter dd, #schoolfilter dd, #skillfilter dd, #ancestryfilter dd  {
+/* #levelfilter dd, #classfilter dd, #schoolfilter dd, #skillfilter dd, #ancestryfilter dd, #armorTypefilter dd, #traitsfilter dd  {
   width:88%;
-}
+} */
 
 .spell-browser dd select {
   width:100%;

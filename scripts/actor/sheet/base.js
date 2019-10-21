@@ -402,6 +402,9 @@ class ActorSheetPF2e extends ActorSheet {
     // Spell Browser
     html.find('.spell-browse').click(ev => spellBrowser.render(true));
 
+    // Inventory Browser
+    html.find('.inventory-browse').click(ev => inventoryBrowser.render(true));
+
     // Spell Create
     html.find('.spell-create').click(ev => this._onItemCreate(ev));
 

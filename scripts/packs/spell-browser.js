@@ -1,5 +1,5 @@
 /**
- * SpellBrowserPF2e forked from SpellBrowser by Felix below
+ * ItemBrowserPF2e forked from SpellBrowser by Felix below
  * @author Felix M�ller aka syl3r86
  * @version 0.3
  * @source https://github.com/syl3r86/Spell-Browser
@@ -10,26 +10,32 @@ class ItemBrowserPF2e extends Application {
     constructor(app) {
         super(app);
         
-        this.filters = {
+        this.sorters = {
             text: '',
-            ritual: 'null',
-            concentration: 'null',
-            castingtime: 'null',
+            castingtime: 'null'
+        }
+
+        this.filters = {
             level: {},
-            class: {},
-            skill: {},
+            classes: {},
+            skills: {},
             ancestry: {},
             school: {},
-            traditions: {}
+            traditions: {},
+            armorType: {},
+            group: {},
+            traits: {},
+            itemTypes: {},
+            weaponType: {}
         }
     }
 
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = options.classes.concat('spell-browser-window');
-        options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
+        //options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
         //options.template = "public/systems/pf2e/templates/packs/feat-browser.html";
-        options.title = "Add a Spell";
+        options.title = "Add an Item";
         options.width = 700;
         options.height = 700;
         return options;
@@ -98,52 +104,23 @@ class ItemBrowserPF2e extends Application {
 
         // activating or deactivating filters
         html.find('input[name=textFilter]').on('change paste', ev => {
-            this.filters.text = ev.target.value;
-            this.filterSpells(html.find('li'));
-        });
-        html.find('#ritualfilter select').on('change', ev => {
-            this.filters.ritual = ev.target.value;
-            this.filterSpells(html.find('li'));
-        });
-        html.find('#concentrationfilter select').on('change', ev => {
-            this.filters.concentration = ev.target.value;
+            this.sorters.text = ev.target.value;
             this.filterSpells(html.find('li'));
         });
         html.find('#timefilter select').on('change', ev => {
-            this.filters.castingtime = ev.target.value;
+            this.sorters.castingtime = ev.target.value;
             this.filterSpells(html.find('li'));
         });
 
         // filters for level, class and school
         html.find('input[type=checkbox]').click(ev => {
-            let filterType = ev.target.name.split('-')[0];
-            let filterTarget = ev.target.name.split('-')[1];
+            let filterType = ev.target.name.split(/-(.+)/)[0];
+            let filterTarget = ev.target.name.split(/-(.+)/)[1];
             let filterValue = ev.target.checked;
-            switch (filterType) {
-                case 'level':
-                    this.filters.level[filterTarget] = filterValue;
-                    this.filters.level = this.clearObject(this.filters.level);
-                    break;
-                case 'class':
-                    this.filters.class[filterTarget] = filterValue;
-                    this.filters.class = this.clearObject(this.filters.class);
-                    break;
-                case 'skill':
-                    this.filters.skill[filterTarget] = filterValue;
-                    this.filters.skill = this.clearObject(this.filters.skill);
-                    break;
-                case 'ancestry':
-                    this.filters.ancestry[filterTarget] = filterValue;
-                    this.filters.ancestry = this.clearObject(this.filters.ancestry);
-                    break;
-                case 'school':
-                    this.filters.school[filterTarget] = filterValue;
-                    this.filters.school = this.clearObject(this.filters.school);
-                    break;
-                case 'traditions':
-                    this.filters.traditions[filterTarget] = filterValue;
-                    this.filters.traditions = this.clearObject(this.filters.traditions);
-                    break;
+
+            if (Object.keys(this.filters).includes(filterType)) {
+                this.filters[filterType][filterTarget] = filterValue;
+                this.filters[filterType] = this.clearObject(this.filters[filterType]);
             }
             this.filterSpells(html.find('li'));
         });
@@ -188,8 +165,8 @@ class ItemBrowserPF2e extends Application {
     }
 
     getFilterResult(element) {
-        if (this.filters.text != '') {
-            let strings = this.filters.text.split(',');
+        if (this.sorters.text != '') {
+            let strings = this.sorters.text.split(',');
             for (let string of strings) {
                 if (string.indexOf(':') == -1) {
                     if ($(element).find('.spell-name a')[0].innerHTML.toLowerCase().indexOf(string.toLowerCase().trim()) == -1) {
@@ -204,89 +181,29 @@ class ItemBrowserPF2e extends Application {
                 }
             }
         }
-        if(this.filters.ritual != 'null') {
-            let isRitual = $(element).find('input[name=ritual]').val();
-            if (isRitual != this.filters.ritual) {
-                return false;
-            }
-        }
-        if(this.filters.concentration != 'null') {
-            let isConcentration = $(element).find('input[name=concentration]').val();
-            if (isConcentration != this.filters.concentration) {
-                return false;
-            }
-        }
-        if(this.filters.castingtime != 'null') {
+        if(this.sorters.castingtime != 'null') {
             let castingtime = $(element).find('input[name=time]').val().toLowerCase();
-            if (castingtime != this.filters.castingtime) {
+            if (castingtime != this.sorters.castingtime) {
                 return false;
             }
         }
-        if (Object.keys(this.filters.level).length > 0) {
-            let level = $(element).find('input[name=level]').val();
-            if (!level) level = 0;
-            if (this.filters.level[level] != true) {
-                return false;
+        
+        for (let filter of Object.keys(this.filters)) {
+            if (Object.keys(this.filters[filter]).length > 0) {
+                let filteredElements = $(element).find(`input[name=${filter}]`).val();
+                let hide = true;
+                if (filteredElements != undefined) {
+                    for (let e of filteredElements.split(',')) {
+                        if (this.filters[filter][e.trim()] == true) {
+                            hide = false;
+                            break;
+                        }
+                    }
+                }            
+                if (hide) return false;
             }
         }
-        if (Object.keys(this.filters.class).length > 0) {
-            let classes = $(element).find('input[name=classes]').val();
-            let hide = true;
-            if (classes != undefined) {
-                for (let classStr of classes.split(',')) {
-                    if (this.filters.class[classStr.trim()] == true) {
-                        hide = false;
-                        break;
-                    }
-                }
-            }            
-            if (hide) return false;
-        }
-        if (Object.keys(this.filters.skill).length > 0) {
-            let skills = $(element).find('input[name=skills]').val();
-            let hide = true;
-            if (skills != undefined) {
-                for (let skillStr of skills.split(',')) {
-                    if (this.filters.skill[skillStr.trim()] == true) {
-                        hide = false;
-                        break;
-                    }
-                }
-            }            
-            if (hide) return false;
-        }
-        if (Object.keys(this.filters.ancestry).length > 0) {
-            let ancestrys = $(element).find('input[name=ancestry]').val();
-            let hide = true;
-            if (ancestrys != undefined) {
-                for (let ancestryStr of ancestrys.split(',')) {
-                    if (this.filters.ancestry[ancestryStr.trim()] == true) {
-                        hide = false;
-                        break;
-                    }
-                }
-            }            
-            if (hide) return false;
-        }
-        if (Object.keys(this.filters.traditions).length > 0) {
-            let traditions = $(element).find('input[name=traditions]').val();
-            let hide = true;
-            if (traditions != undefined) {
-                for (let traditionStr of traditions.split(',')) {
-                    if (this.filters.traditions[traditionStr.trim()] == true) {
-                        hide = false;
-                        break;
-                    }
-                }
-            }            
-            if (hide) return false;
-        }
-        if (Object.keys(this.filters.school).length > 0) {
-            let school = $(element).find('input[name=school]').val();
-            if (this.filters.school[school] != true) {
-                return false;
-            }
-        }
+
         return true;
     }
 
@@ -335,6 +252,13 @@ class ItemBrowserPF2e extends Application {
         for (let key in this.settings) {
             content += `<div><input type=checkbox data-browser-type="feat" name="${key}" ${featBrowser.settings[key].load?'checked=true':''}><label>${featBrowser.settings[key].name}</label></div>`;
         }
+
+            // Inventory Browser
+        content += '<h2> Inventory Browser</h2>';
+        content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any inventory items</p>';
+        for (let key in this.settings) {
+            content += `<div><input type=checkbox data-browser-type="inventory" name="${key}" ${inventoryBrowser.settings[key].load?'checked=true':''}><label>${inventoryBrowser.settings[key].name}</label></div>`;
+        }
         
         let d = new Dialog({
             title: "Compendium Browser settings",
@@ -355,12 +279,15 @@ class ItemBrowserPF2e extends Application {
                     let browserType = $(input).attr("data-browser-type");
                     if (browserType === "spell") spellBrowser.settings[input.name].load = input.checked;
                     else if (browserType === "feat") featBrowser.settings[input.name].load = input.checked;
+                    else if (browserType === "inventory") inventoryBrowser.settings[input.name].load = input.checked;
                 }
                 console.log("PF2e System | Compendium Browser | Saving new Settings");
                 //write Spell Browser settings
                 game.settings.set('SpellBrowser', 'settings', JSON.stringify(spellBrowser.settings));
                 //write Feat Browser settings
                 game.settings.set('FeatBrowser', 'settings', JSON.stringify(featBrowser.settings));
+                //write Feat Browser settings
+                game.settings.set('InventoryBrowser', 'settings', JSON.stringify(inventoryBrowser.settings));
                 
                 this.settingsChanged = true;
 /*                 this.loadSpells().then(obj => {
@@ -696,7 +623,8 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
         let data = {};
 
         data.feats = this.feats;
-        data.featClasses = this.featClasses;
+        //data.featClasses = this.featClasses;
+        data.featClasses = CONFIG.classTraits;
         data.featSkills = this.featSkills;
         data.featAncestry = this.featAncestry;
         data.featTimes = this.featTimes;
@@ -826,5 +754,273 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 
 }
 
+class InventoryBrowserPF2e extends ItemBrowserPF2e {
+
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.classes = options.classes.concat('spell-browser-window');
+        //options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
+        options.template = "public/systems/pf2e/templates/packs/inventory-browser.html";
+        options.title = "Add an Inventory Item";
+        options.width = 600;
+        options.height = 700;
+        return options;
+    }
+
+    constructor(app) {
+        super(app);
+        
+        // load settings
+        Hooks.on('ready', e => {
+            // creating game setting container
+            game.settings.register("InventoryBrowser", "settings", {
+                name: "Inventory Browser Settings",
+                hint: "Settings to exclude packs from loading",
+                default: "",
+                type: String,
+                scope: 'world',
+                onChange: settings => {
+                    this.settings = JSON.parse(settings);
+                }
+            });
+
+            // load settings from container
+            let settings = game.settings.get('InventoryBrowser', 'settings');
+            if (settings == '') { // if settings are empty create the settings data
+                console.log("PF2e System | Inventory Browser | Creating settings");
+                settings = {};
+                for (let compendium of game.packs) {
+                    if (compendium['metadata']['entity'] == "Item") {
+                        settings[compendium.collection] = {
+                            load: true,
+                            name: `${compendium['metadata']['label']} (${compendium.collection})`
+                        };
+                    }
+                }
+                game.settings.set('InventoryBrowser', 'settings', JSON.stringify(settings));
+            } else { // if settings do exist, reload and apply them to make sure they conform with current compendium
+                console.log("PF2e System | Inventory Browser | Loading settings"); 
+                let loadedSettings = JSON.parse(settings);
+                settings = {};
+                for (let compendium of game.packs) {
+                    if (compendium['metadata']['entity'] == "Item") {
+                        settings[compendium.collection] = {
+                            // add entry for each item compendium, that is turned on if no settings for it exist already
+                            load: loadedSettings[compendium.collection] == undefined ? true : loadedSettings[compendium.collection].load,
+                            name: compendium['metadata']['label']
+                        };
+                    }
+                }
+            }
+            this.settings = settings;
+            this.settingsChanged = false;
+            this.loadInventoryItems().then(obj => {
+                this.inventoryItems = obj
+            });
+        });
+        this.hookCompendiumList();
+    }
+
+    hookCompendiumList() {
+        Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+
+            // Inventory Browser Buttons
+            const inventoryImportButton = $(`<button class="inventory-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Inventory Browser</button>`);
+            //const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
+
+            if (game.user.isGM) {
+                html.find('.directory-footer').append(inventoryImportButton);
+                //html.find('.directory-footer').append(featSettingsButton);
+            } else {
+                // adding to directory-list since the footer doesn't exist if the user is not gm
+                html.find('.directory-list').append(inventoryImportButton);
+            }
+
+            // Handle button clicks
+            inventoryImportButton.click(ev => {
+                ev.preventDefault();
+                this.render(true);
+            });
+
+        });
+    }
+
+    async getData() {
+
+        if (this.inventoryItems == undefined || this.settingsChanged == true) {
+            // feats will be stored locally to not require full loading each time the browser is opened
+            this.inventoryItems = await this.loadInventoryItems();
+            this.settingsChanged = false;
+        }
+
+        let data = {};
+        const itemTypes = {
+            weapon: "Weapons",
+            armor: "Armor",
+            equipment: "Equipment",
+            consumable: "Consumables",
+            backpack: "Backpacks"
+        }
+
+        data.inventoryItems = this.inventoryItems;
+        //data.featClasses = this.featClasses;
+        //data.featSkills = this.featSkills;
+        //data.featAncestry = this.featAncestry;
+        //data.featTimes = this.featTimes;
+        data.armorTypes = CONFIG.armorTypes;
+        data.armorGroups = CONFIG.armorGroups;
+        data.weaponTraits = CONFIG.weaponTraits;
+        data.itemTypes = itemTypes;
+        data.weaponTypes = CONFIG.weaponTypes;
+        data.weaponGroups = CONFIG.weaponGroups;
+        return data;
+    }
+
+    async loadInventoryItems() {
+        console.log('PF2e System | Inventory Browser | Started loading feats');
+        
+        let inventoryItems = {};
+        let classesArr = [];
+        let skillsArr = [];
+        let ancestryArr = [];
+        let timeArr = [];
+
+        const itemTypes = [
+            "weapon",
+            "armor",
+            "equipment",
+            "consumable",
+            "backpack"
+        ]
+
+        for (let pack of game.packs) {
+            if (pack['metadata']['entity'] == "Item" && this.settings[pack.collection].load) {
+                console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - Loading`);
+                await pack.getContent().then(content => {
+                    console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - ${content.length} entries found`);
+                    for (let item of content) {
+                        item = item.data;
+                        if (itemTypes.includes(item.type)) {
+
+                            // record the pack the feat was read from
+                            item.compendium = pack.collection;
+
+                            // add item.type into the correct format for filtering
+                            item.data.itemTypes = { value: item.type };
+
+                            // Armor
+/*                             if (item.type === "armor") {
+                                if (item.data.armorType.value) {
+                                    item.data.armor = { value: item.data.armorType.value}
+                                }
+                                if (item.data.armorGroup.value) {
+                                    item.data.armor = { value: item.data.armorGroup.value}
+                                }
+                            } */
+
+                            // determining attributes from traits
+                            /* if (item.data.traits.value) {
+                                // determine class feats 
+                                let classList = Object.keys(CONFIG.classTraits),
+                                    classIntersection = classList.filter(x => item.data.traits.value.includes(x));
+                                    
+                                if (classIntersection.length !== 0) {
+                                    if (classesArr.includes(classIntersection) === false) {
+                                        classesArr.push(classIntersection);
+                                    }
+                                    item.data.classes = { value: classIntersection };
+                                }
+
+                                if (item.data.featType.value === "ancestry") {
+                                    let ancestryList = Object.keys(CONFIG.ancestryTraits),
+                                        ancestryIntersection = ancestryList.filter(x => item.data.traits.value.includes(x));
+                                        
+                                    if (ancestryIntersection.length !== 0) {
+                                        if (ancestryArr.includes(ancestryIntersection) === false) {
+                                            ancestryArr.push(ancestryIntersection);
+                                        }
+                                        item.data.ancestry = { value: ancestryIntersection };
+                                    } 
+                                }    
+                            } */
+
+                            // determine skill feats
+                            /* if (item.data.featType.value === "skill") {
+                            
+                                let skillList = Object.keys(CONFIG.skillList),
+                                    prerequisitesArr = item.data.prerequisites.value.split(" ");
+                                    
+                                prerequisitesArr = prerequisitesArr.map(function(y){ return y.toLowerCase() });
+
+                                let skillIntersection = skillList.filter(x => prerequisitesArr.includes(x));
+
+                                if (skillIntersection.length !== 0) {
+                                    if (skillsArr.includes(skillIntersection) === false) {
+                                        skillsArr.push(skillIntersection);
+                                    }
+                                    item.data.skills = { value: skillIntersection };
+                                }
+                            } */
+
+                            // format spell level for display
+                            //item.data.level.formated = parseInt(item.data.level.value);
+
+                            // format spell level for display
+/*                             let time = "";
+                            if (feat.data.actionType.value === "reaction") {
+                                feat.data.actionType.img = this._getActionImg("reaction");
+                                time = "reaction"
+                            } else if (feat.data.actionType.value === "free") {
+                                feat.data.actionType.img = this._getActionImg("free");
+                                time = "free"
+                            } else if (feat.data.actionType.value === "passive") {
+                                feat.data.actionType.img = this._getActionImg("passive");
+                                time = "passive"
+                            } else if (parseInt(feat.data.actions.value)) {
+                                feat.data.actionType.img = this._getActionImg(parseInt(feat.data.actions.value));
+                                time = feat.data.actions.value.toLowerCase();
+                            }
+                            if (time != "" && timeArr.includes(time) === false) {
+                                timeArr.push(time);
+                            } */
+
+
+                            // add spell to spells array
+                            inventoryItems[(item._id)] = item;
+
+                        }
+                    }
+                    console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - Loaded`);
+                });
+            }
+        }
+
+        //  sorting and assigning better class names
+/*         let classesObj = {}
+        classesArr = classesArr.sort();
+        for (let classStr of classesArr) {
+            classesObj[classStr] = CONFIG.classTraits[classStr];
+        } */
+        
+        //  sorting and assigning better ancestry names
+/*         let ancestryObj = {}
+        ancestryArr = ancestryArr.sort();
+        for (let ancestryStr of ancestryArr) {
+            ancestryObj[ancestryStr] = CONFIG.ancestryTraits[ancestryStr];
+        } */
+
+        //this.featClasses = classesObj;
+        //this.featSkills = CONFIG.skillList;
+        //this.featAncestry = ancestryObj;
+        //this.featTimes = timeArr.sort();
+
+        //this.schools = schoolsObj;
+        console.log('PF2e System | Inventory Browser | Finished loading inventory items');
+        return inventoryItems;
+    }
+
+}
+
 let spellBrowser = new SpellBrowserPF2e();
 let featBrowser = new FeatBrowserPF2e();
+let inventoryBrowser = new InventoryBrowserPF2e();
