@@ -225,7 +225,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     html.find('.skill-input').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      //const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      const itemToEdit = this.actor.getOwnedItem(itemId).data;
       itemToEdit.data.mod.value = Number(event.target.value);
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
@@ -244,7 +245,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
           spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute");
 
       if (spelldcType === "dc" || spelldcType === "value") {
-        const itemToEdit = this.actor.items.find(i => i.id === itemId);
+        //const itemToEdit = this.actor.items.find(i => i.id === itemId);
+        const itemToEdit = this.actor.getOwnedItem(itemId).data;
         itemToEdit.data.spelldc[spelldcType] = Number(event.target.value);
 
         // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
@@ -258,7 +260,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
 /*     html.find('.item-name').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      //const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      const itemToEdit = this.actor.getOwnedItem(itemId).data;
       itemToEdit.name = event.target.value;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
