@@ -387,7 +387,7 @@ class ItemPF2e extends Item {
     let parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`];
     let title = `${this.name} - Attack Roll` + ((multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : "");
 
-    if (this.type === "melee") {
+    if (this.actor.data.type === "npc") {
       parts = ["@item.bonus.value", `@martial.simple.value`];
     }
     rollData.item = itemData;
@@ -444,7 +444,7 @@ class ItemPF2e extends Item {
         
 
     // Get detailed trait information from item
-    let traits = itemData.traits.value,
+    let traits = itemData.traits.value || [],
         critTrait = "",
         critDie = "",
         twohandedTrait = false,
