@@ -414,7 +414,7 @@ class ActorSheetPF2e extends ActorSheet {
               //imageArr = imageUrl.split("!"),
               //newUrl = 'http://localhost:30000/assets/icons/!' + imageArr[1];
           
-          if (imageUrl != "icons/mystery-man.png") {
+          if (imageUrl != "icons/mystery-man.png" && !imageUrl.startsWith("data:image")) {
             handleFiles(imageUrl, async base64Url => {
               //console.log("item: ", item.id);
               item.data.img = base64Url;
