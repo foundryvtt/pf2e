@@ -10,6 +10,7 @@ Patch Notes:
 *  v0.432: Added critical rolls to weapon chat cards
 *  v0.432: Fixed bug with prepared spells after multiple spellcasting entries were added
 *  v0.432: Fixed bug when editing NPC spell DC/attack post 0.3.9
+*  v0.432: Fixed NPC attacks with compendium items
 *  v0.431: Added support for FVTT v0.3.9.
 
 
