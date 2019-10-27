@@ -122,6 +122,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
           i.totalWeight = "-";
         }
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
+        i.isTwoHanded = (i.type === "weapon") && !!((i.data.traits.value || []).find(x => x.startsWith("two-hand")));
+        i.wieldedTwoHanded = (i.type === "weapon") && (i.data.hands || {}).value;
         inventory[i.type].items.push(i);
         
       }
