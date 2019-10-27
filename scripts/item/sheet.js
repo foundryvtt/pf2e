@@ -50,6 +50,7 @@ class ItemSheetPF2e extends ItemSheet {
         spellTypes: CONFIG.spellTypes,
         spellSchools: CONFIG.spellSchools,
         spellLevels: CONFIG.spellLevels,
+        spellTraditions: CONFIG.magicTraditions,
         //spellBasic: CONFIG.spellBasic,
         spellComponents: this._formatSpellComponents(data.data),
         areaSizes: CONFIG.areaSizes,

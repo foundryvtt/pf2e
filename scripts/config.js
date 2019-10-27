@@ -443,6 +443,8 @@ CONFIG.spellTraits = {
   "death": "Death",
   "scrying": "Scrying",
   "detection": "Detection",
+  "composition": "Composition",
+  "water": "Water",
   "acid": "Acid",
   "bludgeoning": "Bludgeoning",
   "cold": "Cold",
@@ -479,6 +481,18 @@ CONFIG.spellTraits = {
   "illusion": "Illusion",
   "necromancy": "Necromancy",
   "transmutation": "Transmutation",
+  "alchemist": "Alchemist",
+  "barbarian": "Barbarian",
+  "bard": "Bard",
+  "champion": "Champion",
+  "cleric": "Cleric",
+  "druid": "Druid",
+  "fighter": "Fighter",
+  "monk": "Monk",
+  "ranger": "Ranger",
+  "rogue": "Rogue",
+  "sorcerer": "Sorcerer",
+  "wizard": "Wizard"
 }
 
 // Feat Traits

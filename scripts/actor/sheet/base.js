@@ -404,22 +404,26 @@ class ActorSheetPF2e extends ActorSheet {
       }
 
       //for (let pack of game.packs) {
-      const pack = game.packs.find(p => p.collection === "world.adventuringgearsrd"); 
+      const pack = game.packs.find(p => p.collection === "pf2e.spells-srd"); 
 
       //if (pack.metadata.name === "adventuringgearsrd"){
       await pack.getContent().then(async content => {
         
         for (let item of content) {
-          let imageUrl = item.data.img,
-              imageArr = imageUrl.split("!"),
-              newUrl = 'http://localhost:30000/assets/icons/!' + imageArr[1];
+          let imageUrl = item.data.img;
+              //imageArr = imageUrl.split("!"),
+              //newUrl = 'http://localhost:30000/assets/icons/!' + imageArr[1];
+          
+          if (imageUrl != "icons/mystery-man.png") {
+            handleFiles(imageUrl, async base64Url => {
+              //console.log("item: ", item.id);
+              item.data.img = base64Url;
+              await pack.importEntity(item);
+              await pack.deleteEntity(item.id);
+            });   
+          }
 
-          handleFiles(newUrl, async base64Url => {
-            //console.log("item: ", item.id);
-            item.data.img = base64Url;
-            await pack.importEntity(item);
-            await pack.deleteEntity(item.id);
-          });          
+       
         }
       });
     }); */

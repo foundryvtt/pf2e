@@ -6,6 +6,10 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.434: Cleaned up spell SRD data for Cantrips and levl 1 spells. Also added icons.
+*  v0.434: Added requirements attribute to spells.
+*  v0.434: Added support for rituals in Spell Browser.
+*  v0.433: (fryguy#3851) Added indicator to weapons with two-hand trait to show if they are weilded in one or two hands. Thanks!!
 *  v0.432: Fixed bug rolling attack and damage rolls on weapon chat cards post 0.3.9
 *  v0.432: Added critical rolls to weapon chat cards
 *  v0.432: Fixed bug with prepared spells after multiple spellcasting entries were added

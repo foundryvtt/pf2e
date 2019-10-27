@@ -413,7 +413,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         data.classes = this.classes;
         data.times = this.times;
         data.schools = this.schools;
-        data.traditions = this.traditions;
+        data.traditions = CONFIG.magicTraditions;
 
         return data;
     }
@@ -510,7 +510,6 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
             schoolsObj[school] = CONFIG.spellSchools[school];
         }
 
-        this.traditions = CONFIG.spellTraditions;
         this.classes = classesObj;
         this.times = timeArr.sort();
         this.schools = schoolsObj;
