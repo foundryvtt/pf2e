@@ -840,7 +840,8 @@ class ItemPF2e extends Item {
       // Get the Item
       if ( !actor ) return;
       const itemId = Number(card.attr("data-item-id"));
-      let itemData = actor.items.find(i => i.id === itemId);
+      //let itemData = actor.items.find(i => i.id === itemId);
+      let itemData = (actor.getOwnedItem(itemId) || {}).data;
       if ( !itemData ) return;
       const item = new CONFIG.Item.entityClass(itemData, {actor: actor});
 
@@ -852,7 +853,7 @@ class ItemPF2e extends Item {
       else if ( action === "weaponAttack2" ) item.rollWeaponAttack(ev, 2);
       else if ( action === "weaponAttack3" ) item.rollWeaponAttack(ev, 3);
       else if ( action === "weaponDamage" ) item.rollWeaponDamage(ev);
-      else if ( action === "weaponDamage2" ) item.rollWeaponDamage(ev, true);
+      else if ( action === "criticalDamage" ) item.rollWeaponDamage(ev, true);
 
       // Spell actions
       else if ( action === "spellAttack" ) item.rollSpellAttack(ev);

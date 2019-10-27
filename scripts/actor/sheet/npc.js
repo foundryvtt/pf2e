@@ -230,11 +230,11 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       itemToEdit.data.mod.value = Number(event.target.value);
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
-      for(let skill of skills)
-      {
-        await this.actor.updateOwnedItem(skill, true);      
-      }
+      //let skills = this.actor.items.filter(i => i.type == "lore")
+      //for(let skill of skills)
+      //{
+        await this.actor.updateOwnedItem(itemToEdit, true);      
+      //}
     });
 
     html.find('.spelldc-input').focusout(async event => {
@@ -250,11 +250,11 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         itemToEdit.data.spelldc[spelldcType] = Number(event.target.value);
 
         // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
-        let items = this.actor.items.filter(i => i.type == itemToEdit.type)
-        for(let item of items)
-        {
-          await this.actor.updateOwnedItem(item, true);      
-        }
+        //let items = this.actor.items.filter(i => i.type == itemToEdit.type)
+        //for(let item of items)
+        //{
+          await this.actor.updateOwnedItem(itemToEdit, true);      
+        //}
       }
     });
 

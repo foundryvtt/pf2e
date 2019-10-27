@@ -128,10 +128,26 @@ class ActorSheetPF2e extends ActorSheet {
       
         for(var i = 0; i < spl.slots; i++){
           let entrySlot = ((spellcastingEntry.data.slots["slot"+key] || {}).prepared || {})[i] || null;
-          if (entrySlot) {
-            entrySlot["prepared"] = true;
-            entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
-            spl.prepared[i] = entrySlot;
+          if (entrySlot && entrySlot.id) {
+            //entrySlot["prepared"] = true;
+            //entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
+            //spl.prepared[i] = entrySlot;
+            spl.prepared[i] = (this.actor.getOwnedItem(Number(entrySlot.id)) || {}).data;
+            if (spl.prepared[i]) {
+              // enrich data with spell school formatted string
+              if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
+                spl.prepared[i].data.school.str = CONFIG.spellSchools[spl.prepared[i].data.school.value];
+              }
+              spl.prepared[i]["prepared"] = true;
+            } 
+            // prepared spell not found
+            else {
+              spl.prepared[i] = {
+                name: "Empty Slot (drag spell here)",
+                id: null,
+                prepared: false          
+              }
+            }
           } else {
             // if there is no prepared spell for this slot then make it empty.
             spl.prepared[i] = {
@@ -174,7 +190,10 @@ class ActorSheetPF2e extends ActorSheet {
       else if (parseInt(spellType)) spell.img = this._getActionImg(parseInt(spellType));
     }
     
-    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
+    //spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
+    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
+      id: spell.id
+    };
     await this.actor.updateOwnedItem(spellcastingEntry, true);  
 
   }
@@ -191,7 +210,12 @@ class ActorSheetPF2e extends ActorSheet {
     //let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
     let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
 
-    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = null;
+    //spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = null;
+    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
+      name: "Empty Slot (drag spell here)",
+      id: null,
+      prepared: false 
+    };
     await this.actor.updateOwnedItem(spellcastingEntry, true); 
 
   }
