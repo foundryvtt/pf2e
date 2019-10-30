@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.437: Cleaned up spell SRD data for level 3 spells. Also added icons.
 *  v0.436: (FS#5443) Added condition links to all SRD spell entries. Thanks!!
 *  v0.435: Cleaned up spell SRD data for level 2 spells. Also added icons.
 *  v0.434: Cleaned up spell SRD data for Cantrips and level 2 spells. Also added icons.

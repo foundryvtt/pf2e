@@ -377,7 +377,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
     // Button to convert all images in a compendium pack to base64 encoded.
-    /* html.find('.pack-img-convert').click(async ev => {
+    html.find('.pack-img-convert').click(async ev => {
 
       // This is the HTML to add to the pack-img-convert application.
       // <canvas id="canvas" width=64 height=64></canvas>
@@ -403,20 +403,16 @@ class ActorSheetPF2e extends ActorSheet {
         img.src = imgURL;
       }
 
-      //for (let pack of game.packs) {
       const pack = game.packs.find(p => p.collection === "pf2e.spells-srd"); 
 
-      //if (pack.metadata.name === "adventuringgearsrd"){
       await pack.getContent().then(async content => {
         
         for (let item of content) {
-          let imageUrl = item.data.img;
-              //imageArr = imageUrl.split("!"),
-              //newUrl = 'http://localhost:30000/assets/icons/!' + imageArr[1];
+          let imageUrl = item.data.img;              
           
           if (imageUrl != "icons/mystery-man.png" && !imageUrl.startsWith("data:image")) {
             handleFiles(imageUrl, async base64Url => {
-              //console.log("item: ", item.id);
+              console.log("item: ", item.id);
               item.data.img = base64Url;
               await pack.importEntity(item);
               await pack.deleteEntity(item.id);
@@ -426,7 +422,7 @@ class ActorSheetPF2e extends ActorSheet {
        
         }
       });
-    }); */
+    });
 
     // Feat Browser
     html.find('.feat-browse').click(ev => featBrowser.render(true));
