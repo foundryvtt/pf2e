@@ -479,7 +479,8 @@ class ItemPF2e extends Item {
     if (critical === true) {
       if (critTrait === "deadly") {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        let deadlyDice = itemData.damage.dice ? itemData.damage.dice : 1,
+        let dice = itemData.damage.dice ? itemData.damage.dice : 1,
+            deadlyDice = dice > 2 ? 2 : 1, // since deadly requires a greater striking (3dX)
             deadlyDamage = deadlyDice + critDie;
         parts = [weaponDamage, deadlyDamage];        
       } else if (critTrait === "fatal") {
