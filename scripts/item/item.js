@@ -451,7 +451,11 @@ class ItemPF2e extends Item {
         len = traits.length,
         critRegex = `(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)`,
         twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`,
-        thrownRegex = `(\\bthrown\\b)-(\\d+)`;
+        thrownRegex = `(\\bthrown\\b)-(\\d+)`,
+        hasThiefRacket = this.actor.data.items.filter(e => e.type === "feat" && e.name == "Thief Racket").length > 0;
+
+    if (hasThiefRacket && rollData.abilities["dex"].mod > abilityMod)
+      abilityMod = rollData.abilities["dex"].mod;
 
     // Find detailed trait information
     for (let i = 0; i < len; i++) {
