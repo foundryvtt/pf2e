@@ -92,7 +92,7 @@ class ActorSheetPF2e extends ActorSheet {
 
         if ((spell.data.location || {}).value) {
           //spellcastingEntry = this.actor.items.find(i => { return i.id === Number(spell.data.location.value) });;
-          spellcastingEntry = this.actor.getOwnedItem(Number(spell.data.location.value)).data;
+          spellcastingEntry = (this.actor.getOwnedItem(Number(spell.data.location.value)) || {}).data;
         }
 
     // Extend the Spellbook level
