@@ -380,7 +380,6 @@ class ItemPF2e extends Item {
     //let itemData = this.data.data,
     let itemData = this.getChatData();
     let rollData = duplicate(this.actor.data.data);
-    let isAgile = (itemData.traits.value || []).includes("agile");
     let isFinesse = (itemData.traits.value || []).includes("finesse");
     let abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? "dex" : (itemData.ability.value || "str"));
     let prof = itemData.weaponType.value || "simple";
@@ -394,9 +393,9 @@ class ItemPF2e extends Item {
     //if ( !itemData.proficient.value ) parts.pop();
 
     if (multiAttackPenalty == 2)
-      parts.push(isAgile ? "-4" : "-5");
+      parts.push(itemData.map2);
     else if (multiAttackPenalty == 3)
-      parts.push(isAgile ? "-8" : "-10");
+      parts.push(itemData.map3);
 
     // TODO: Incorporate Elven Accuracy
 
@@ -441,8 +440,7 @@ class ItemPF2e extends Item {
         abilityMod = rollData.abilities[abl].mod,
         parts = [],
         dtype = CONFIG.damageTypes[itemData.damage.damageType];
-        
-
+    
     // Get detailed trait information from item
     let traits = itemData.traits.value || [],
         critTrait = "",
