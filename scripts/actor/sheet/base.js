@@ -92,7 +92,7 @@ class ActorSheetPF2e extends ActorSheet {
 
         if ((spell.data.location || {}).value) {
           //spellcastingEntry = this.actor.items.find(i => { return i.id === Number(spell.data.location.value) });;
-          spellcastingEntry = this.actor.getOwnedItem(Number(spell.data.location.value)).data;
+          spellcastingEntry = (this.actor.getOwnedItem(Number(spell.data.location.value)) || {}).data;
         }
 
     // Extend the Spellbook level
@@ -887,7 +887,7 @@ class ActorSheetPF2e extends ActorSheet {
         else props.append(`<span class="tag">${p.label}</span>`);        
       });
 
-      if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
+      //if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
       div.append(props);
 

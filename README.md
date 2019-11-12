@@ -6,6 +6,10 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.438: Fixed unhandled exception for spells that have an incorrect location set.
+
+
+Prior patch changes:
 *  v0.437: Cleaned up spell SRD data for level 3 spells. Also added icons.
 *  v0.436: (FS#5443) Added condition links to all SRD spell entries. Thanks!!
 *  v0.435: Cleaned up spell SRD data for level 2 spells. Also added icons.
@@ -19,9 +23,6 @@ Patch Notes:
 *  v0.432: Fixed bug when editing NPC spell DC/attack post 0.3.9
 *  v0.432: Fixed NPC attacks with compendium items
 *  v0.431: Added support for FVTT v0.3.9.
-
-
-Prior patch changes:
 *  v0.422: Overhauled the Item Browser logic and introduced new feature: Inventory Browser.
 *  v0.421: Added Consumables and Adventuring Gear SRD compendium packs. Thanks Overdox#9174!!
 *  v0.419: Fixed bug with form data validation for spell slot inputs on multiple spellcasting entries
