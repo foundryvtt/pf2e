@@ -380,7 +380,6 @@ class ItemPF2e extends Item {
     //let itemData = this.data.data,
     let itemData = this.getChatData();
     let rollData = duplicate(this.actor.data.data);
-    let isAgile = (itemData.traits.value || []).includes("agile");
     let isFinesse = (itemData.traits.value || []).includes("finesse");
     let abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? "dex" : (itemData.ability.value || "str"));
     let prof = itemData.weaponType.value || "simple";
@@ -394,9 +393,9 @@ class ItemPF2e extends Item {
     //if ( !itemData.proficient.value ) parts.pop();
 
     if (multiAttackPenalty == 2)
-      parts.push(isAgile ? "-4" : "-5");
+      parts.push(itemData.map2);
     else if (multiAttackPenalty == 3)
-      parts.push(isAgile ? "-8" : "-10");
+      parts.push(itemData.map3);
 
     // TODO: Incorporate Elven Accuracy
 
@@ -441,8 +440,7 @@ class ItemPF2e extends Item {
         abilityMod = rollData.abilities[abl].mod,
         parts = [],
         dtype = CONFIG.damageTypes[itemData.damage.damageType];
-        
-
+    
     // Get detailed trait information from item
     let traits = itemData.traits.value || [],
         critTrait = "",
@@ -453,7 +451,11 @@ class ItemPF2e extends Item {
         len = traits.length,
         critRegex = `(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)`,
         twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`,
-        thrownRegex = `(\\bthrown\\b)-(\\d+)`;
+        thrownRegex = `(\\bthrown\\b)-(\\d+)`,
+        hasThiefRacket = this.actor.data.items.filter(e => e.type === "feat" && e.name == "Thief Racket").length > 0;
+
+    if (hasThiefRacket && rollData.abilities["dex"].mod > abilityMod)
+      abilityMod = rollData.abilities["dex"].mod;
 
     // Find detailed trait information
     for (let i = 0; i < len; i++) {
@@ -481,7 +483,8 @@ class ItemPF2e extends Item {
     if (critical === true) {
       if (critTrait === "deadly") {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        let deadlyDice = itemData.damage.dice ? itemData.damage.dice : 1,
+        let dice = itemData.damage.dice ? itemData.damage.dice : 1,
+            deadlyDice = dice > 2 ? 2 : 1, // since deadly requires a greater striking (3dX)
             deadlyDamage = deadlyDice + critDie;
         parts = [weaponDamage, deadlyDamage];        
       } else if (critTrait === "fatal") {
