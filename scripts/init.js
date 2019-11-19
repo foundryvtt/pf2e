@@ -288,39 +288,39 @@ Hooks.once("init", () => {
   loadTemplates([
 
     // Actor Sheet Partials (Tabs)
-    "public/systems/pf2e/templates/actors/tabs/actor-actions.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-biography.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-feats.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-inventory.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-skills.html",
-    "public/systems/pf2e/templates/actors/tabs/actor-spellbook.html",
+    "systems/pf2e/templates/actors/tabs/actor-actions.html",
+    "systems/pf2e/templates/actors/tabs/actor-biography.html",
+    "systems/pf2e/templates/actors/tabs/actor-feats.html",
+    "systems/pf2e/templates/actors/tabs/actor-inventory.html",
+    "systems/pf2e/templates/actors/tabs/actor-skills.html",
+    "systems/pf2e/templates/actors/tabs/actor-spellbook.html",
 
     // Actor Sheet Partials (Legacy)
-    "public/systems/pf2e/templates/actors/actor-attributes.html",
-    "public/systems/pf2e/templates/actors/actor-abilities.html",    
-    "public/systems/pf2e/templates/actors/actor-traits.html",
-    "public/systems/pf2e/templates/actors/actor-classes.html",
+    "systems/pf2e/templates/actors/actor-attributes.html",
+    "systems/pf2e/templates/actors/actor-abilities.html",    
+    "systems/pf2e/templates/actors/actor-traits.html",
+    "systems/pf2e/templates/actors/actor-classes.html",
 
     // Item Sheet Partials
-    "public/systems/pf2e/templates/items/action-details.html",
-    "public/systems/pf2e/templates/items/action-sidebar.html",
-    "public/systems/pf2e/templates/items/armor-details.html",
-    "public/systems/pf2e/templates/items/armor-sidebar.html",
-    "public/systems/pf2e/templates/items/backpack-sidebar.html",
-    "public/systems/pf2e/templates/items/class-sidebar.html",
-    "public/systems/pf2e/templates/items/consumable-details.html",
-    "public/systems/pf2e/templates/items/consumable-sidebar.html",
-    "public/systems/pf2e/templates/items/equipment-details.html",
-    "public/systems/pf2e/templates/items/equipment-sidebar.html",
-    "public/systems/pf2e/templates/items/feat-details.html",
-    "public/systems/pf2e/templates/items/feat-sidebar.html",
-    "public/systems/pf2e/templates/items/lore-sidebar.html",
-    "public/systems/pf2e/templates/items/spell-details.html",
-    "public/systems/pf2e/templates/items/spell-sidebar.html",
-    "public/systems/pf2e/templates/items/tool-sidebar.html",
-    "public/systems/pf2e/templates/items/melee-details.html",
-    "public/systems/pf2e/templates/items/weapon-details.html",
-    "public/systems/pf2e/templates/items/weapon-sidebar.html"
+    "systems/pf2e/templates/items/action-details.html",
+    "systems/pf2e/templates/items/action-sidebar.html",
+    "systems/pf2e/templates/items/armor-details.html",
+    "systems/pf2e/templates/items/armor-sidebar.html",
+    "systems/pf2e/templates/items/backpack-sidebar.html",
+    "systems/pf2e/templates/items/class-sidebar.html",
+    "systems/pf2e/templates/items/consumable-details.html",
+    "systems/pf2e/templates/items/consumable-sidebar.html",
+    "systems/pf2e/templates/items/equipment-details.html",
+    "systems/pf2e/templates/items/equipment-sidebar.html",
+    "systems/pf2e/templates/items/feat-details.html",
+    "systems/pf2e/templates/items/feat-sidebar.html",
+    "systems/pf2e/templates/items/lore-sidebar.html",
+    "systems/pf2e/templates/items/spell-details.html",
+    "systems/pf2e/templates/items/spell-sidebar.html",
+    "systems/pf2e/templates/items/tool-sidebar.html",
+    "systems/pf2e/templates/items/melee-details.html",
+    "systems/pf2e/templates/items/weapon-details.html",
+    "systems/pf2e/templates/items/weapon-sidebar.html"
   ]);
 
 

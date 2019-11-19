@@ -8,7 +8,7 @@ class TraitSelector5e extends FormApplication {
 	  options.id = "trait-selector";
 	  options.classes = ["pf2e"];
 	  options.title = "Actor Trait Selection";
-	  options.template = "public/systems/pf2e/templates/actors/trait-selector.html";
+	  options.template = "systems/pf2e/templates/actors/trait-selector.html";
 	  options.width = 200;
 	  return options;
   }

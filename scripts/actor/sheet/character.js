@@ -19,7 +19,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/pf2e/templates/actors/";
+    const path = "systems/pf2e/templates/actors/";
     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
     return path + "actor-sheet.html";
   }
@@ -105,7 +105,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Iterate through items, allocating to containers
     let totalWeight = 0;
     for ( let i of actorData.items ) {
-      i.img = i.img || DEFAULT_TOKEN;
+      i.img = i.img || CONST.DEFAULT_TOKEN;
 
       // Inventory
       if ( Object.keys(inventory).includes(i.type) ) {

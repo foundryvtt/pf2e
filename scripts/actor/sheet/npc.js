@@ -19,7 +19,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/pf2e/templates/actors/";
+    const path = "systems/pf2e/templates/actors/";
     return path + "npc-sheet.html";
 /*     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
     return path + "npc-sheet.html"; */
@@ -73,7 +73,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     // Iterate through items, allocating to containers
     for ( let i of actorData.items ) {
-      i.img = i.img || DEFAULT_TOKEN;
+      i.img = i.img || CONST.DEFAULT_TOKEN;
       
       // Spells
       if ( i.type === "spell" ) {

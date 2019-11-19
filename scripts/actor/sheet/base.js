@@ -1029,7 +1029,7 @@ class ActorSheetPF2e extends ActorSheet {
     let spellcastingType = "innate";
 
     // Render modal dialog
-    let template = "public/systems/pf2e/templates/actors/spellcasting-dialog.html";
+    let template = "systems/pf2e/templates/actors/spellcasting-dialog.html";
     let title = "Select Spellcasting Entry Details"
     let dialogOptions = {
       width: 300,
@@ -1125,7 +1125,7 @@ class ActorSheetPF2e extends ActorSheet {
     let dlg;
 
     // Render confirmation modal dialog    
-    renderTemplate('public/systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
+    renderTemplate('systems/pf2e/templates/actors/delete-spellcasting-dialog.html').then(html => {
       new Dialog({
         title: "Delete Confirmation",
         content: html,

@@ -4,7 +4,7 @@ class ActorSheetFlags extends BaseEntitySheet {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "actor-flags",
-      template: "public/systems/dnd5e/templates/actors/actor-flags.html",
+      template: "systems/dnd5e/templates/actors/actor-flags.html",
       width: 500,
       closeOnSubmit: true
     });

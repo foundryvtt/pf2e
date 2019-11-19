@@ -62,7 +62,7 @@ class DicePF2e {
     } else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
-    template = template || "public/systems/pf2e/templates/chat/roll-dialog.html";
+    template = template || "systems/pf2e/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -152,7 +152,7 @@ class DicePF2e {
     else parts = parts.concat(["@bonus"]);
 
     // Construct dialog data
-    template = template || "public/systems/pf2e/templates/chat/roll-dialog.html";
+    template = template || "systems/pf2e/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -212,7 +212,7 @@ class DicePF2e {
 /**
  * Highlight critical success or failure on d20 rolls
  */
-Hooks.on("renderChatMessage", (message, data, html) => {
+Hooks.on("renderChatMessage", (message, html, data) => {
 
   if ( !message.isRoll) return
 

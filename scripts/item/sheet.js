@@ -7,7 +7,7 @@ class ItemSheetPF2e extends ItemSheet {
 	  options.width = 520;
 	  options.height = 460;
 	  options.classes = options.classes.concat(["pf2e", "item"]);
-	  options.template = `public/systems/pf2e/templates/items/item-sheet.html`;
+	  options.template = `systems/pf2e/templates/items/item-sheet.html`;
 	  options.resizable = false;
 	  return options;
   }
@@ -20,17 +20,17 @@ class ItemSheetPF2e extends ItemSheet {
    */
   getData() {
     const data = super.getData();
-    data['abilities'] = game.system.template.actor.data.abilities;
-    data['saves'] = game.system.template.actor.data.saves;
+    data['abilities'] = game.system.template.Actor.data.abilities;
+    data['saves'] = game.system.template.Actor.data.saves;
 
     // Sheet display details
     const type = this.item.type;
     mergeObject(data, {
       type: type,
       hasSidebar: true,
-      sidebarTemplate: () => `public/systems/pf2e/templates/items/${type}-sidebar.html`,
+      sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
       hasDetails: ["consumable", "equipment", "feat", "spell", "weapon", "armor", "action", "melee"].includes(type),
-      detailsTemplate: () => `public/systems/pf2e/templates/items/${type}-details.html`
+      detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     });
 
     // Damage types

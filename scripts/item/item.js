@@ -10,7 +10,7 @@ class ItemPF2e extends Item {
   async roll() {
 
     // Basic template rendering data
-    const template = `public/systems/pf2e/templates/chat/${this.data.type}-card.html`
+    const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`
     const token = this.actor.token;
     const templateData = {
       actor: this.actor,
@@ -27,7 +27,7 @@ class ItemPF2e extends Item {
         token: this.actor.token,
         alias: this.actor.name
       },
-      type: CHAT_MESSAGE_TYPES.OTHER
+      type: CONST.CHAT_MESSAGE_TYPES.OTHER
     };
 
     // Toggle default roll mode
@@ -711,7 +711,7 @@ class ItemPF2e extends Item {
       event: event,
       parts: parts,
       data: rollData,
-      template: "public/systems/pf2e/templates/chat/tool-roll-dialog.html",
+      template: "systems/pf2e/templates/chat/tool-roll-dialog.html",
       title: title,
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,

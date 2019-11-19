@@ -33,8 +33,8 @@ class ItemBrowserPF2e extends Application {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = options.classes.concat('spell-browser-window');
-        //options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
-        //options.template = "public/systems/pf2e/templates/packs/feat-browser.html";
+        //options.template = "systems/pf2e/templates/packs/spell-browser.html";
+        //options.template = "systems/pf2e/templates/packs/feat-browser.html";
         options.title = "Add an Item";
         options.width = 700;
         options.height = 700;
@@ -359,8 +359,8 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = options.classes.concat('spell-browser-window');
-        options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
-        //options.template = "public/systems/pf2e/templates/packs/feat-browser.html";
+        options.template = "systems/pf2e/templates/packs/spell-browser.html";
+        //options.template = "systems/pf2e/templates/packs/feat-browser.html";
         options.title = "Add a Spell";
         options.width = 700;
         options.height = 700;
@@ -525,8 +525,8 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = options.classes.concat('spell-browser-window');
-        //options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
-        options.template = "public/systems/pf2e/templates/packs/feat-browser.html";
+        //options.template = "systems/pf2e/templates/packs/spell-browser.html";
+        options.template = "systems/pf2e/templates/packs/feat-browser.html";
         options.title = "Add a Feat";
         options.width = 700;
         options.height = 700;
@@ -758,8 +758,8 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.classes = options.classes.concat('spell-browser-window');
-        //options.template = "public/systems/pf2e/templates/packs/spell-browser.html";
-        options.template = "public/systems/pf2e/templates/packs/inventory-browser.html";
+        //options.template = "systems/pf2e/templates/packs/spell-browser.html";
+        options.template = "systems/pf2e/templates/packs/inventory-browser.html";
         options.title = "Add an Inventory Item";
         options.width = 600;
         options.height = 700;
