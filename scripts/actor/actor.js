@@ -6,9 +6,15 @@ class ActorPF2e extends Actor {
   /**
    * Augment the basic actor data with additional dynamic data.
    */
-  prepareData(actorData) {
-    actorData = super.prepareData(actorData);
+  prepareData() {
+    //actorData = super.prepareData(actorData);    
+    //const data = actorData.data;
+    super.prepareData();
+
+    // Get the Actor's data object
+    const actorData = this.data;
     const data = actorData.data;
+    const flags = actorData.flags;
 
     // Ability modifiers
     if (actorData.type === "npc") {

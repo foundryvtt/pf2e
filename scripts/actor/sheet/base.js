@@ -1062,7 +1062,10 @@ class ActorSheetPF2e extends ActorSheet {
             } else if (magicTradition === "focus") {
               spellcastingType = "";
               name = `${CONFIG.magicTraditions[magicTradition]} Spells`
-            } else {
+            } else if (magicTradition === "scroll") {
+              spellcastingType = "";
+              name = `${CONFIG.magicTraditions[magicTradition]}`
+            }else {
               spellcastingType = html.find('[name="spellcastingType"]').val();
               name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`
             }

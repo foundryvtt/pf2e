@@ -417,6 +417,7 @@ CONFIG.magicTraditions = {
   "primal": "Primal",
   "focus": "Focus",
   "ritual": "Ritual",
+  "scroll": "Scrolls",
 };
 
 // Preparation Type
@@ -822,6 +823,7 @@ CONFIG.languages = {
   "aklo": "Aklo",
   "aquan": "Aquan",
   "auran": "Auran",
+  "boggard": "Boggard",
   "celestial": "Celestial",
   "draconic": "Draconic",
   "druidic": "Druidic",
@@ -832,6 +834,7 @@ CONFIG.languages = {
   "gnoll": "Gnoll",
   "halfling": "Halfling",
   "ignan": "Ignan",
+  "iruxi": "Iruxi",
   "jotun": "Jotun",
   "infernal": "Infernal",
   "orcish": "Orcish",

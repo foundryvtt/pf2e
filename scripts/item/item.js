@@ -695,7 +695,7 @@ class ItemPF2e extends Item {
    * Roll a Tool Check
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollToolCheck(event) {
+  /* rollToolCheck(event) {
     if ( this.type !== "tool" ) throw "Wrong item type!";
 
     // Prepare roll data
@@ -732,7 +732,7 @@ class ItemPF2e extends Item {
         highlightFailure: roll.parts[0].total === 1
       });
     });
-  }
+  } */
 
   /* -------------------------------------------- */
 
@@ -740,7 +740,7 @@ class ItemPF2e extends Item {
    * Roll a Feat Attack
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollFeatAttack(event) {
+  /* rollFeatAttack(event) {
     if ( this.type !== "feat" ) throw "Wrong item type!";
 
     // Prepare roll data
@@ -764,7 +764,7 @@ class ItemPF2e extends Item {
         left: window.innerWidth - 710
       }
     });
-  }
+  } */
 
   /* -------------------------------------------- */
 
