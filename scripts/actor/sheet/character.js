@@ -131,7 +131,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Spells
       else if ( i.type === "spell" ) {        
         if (i.data.location.value) {
-          let location = Number(i.data.location.value);
+          let location = i.data.location.value;
           spellbooks[location] = spellbooks[location] || {};
           this._prepareSpell(actorData, spellbooks[location], i);                    
         } else {
@@ -149,7 +149,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
           i.data.spelldc.value = spellAttack;
           i.data.spelldc.dc = spellAttack + 10
           i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-          this.actor.updateOwnedItem(i, true);
+          //this.actor.updateOwnedItem(i, true);
+          this.actor.updateEmbeddedEntity("OwnedItem", i);
         }
         i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
@@ -237,10 +238,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     
     for (let entry of spellcastingEntries) {
-      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
-        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry._id]);
       }
-      entry.spellbook = spellbooks[entry.id];      
+      entry.spellbook = spellbooks[entry._id];      
     }
 
     actorData.spellcastingEntries = spellcastingEntries;

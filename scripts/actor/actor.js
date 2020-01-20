@@ -327,7 +327,8 @@ class ActorPF2e extends Actor {
         };
       }
       delete ent.data._id;
-      return this.createOwnedItem(ent.data, true);
+      return this.createOwnedItem(ent.data);
+      //return this.createEmbeddedEntity("OwnedItem", ent.data);
     });
   }
 }

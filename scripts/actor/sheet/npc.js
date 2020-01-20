@@ -86,7 +86,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
         //this._prepareSpell(actorData, spellbook, i);
         if ((i.data.location || {}).value) {
-          let location = Number(i.data.location.value);
+          let location = i.data.location.value;
           spellbooks[location] = spellbooks[location] || {};
           this._prepareSpell(actorData, spellbooks[location], i);                    
         } else {
@@ -184,10 +184,10 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     } 
 
     for (let entry of spellcastingEntries) {
-      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
-        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry._id]);
       }
-      entry.spellbook = spellbooks[entry.id];      
+      entry.spellbook = spellbooks[entry._id];      
     }
 
     actorData.spellcastingEntries = spellcastingEntries;
@@ -218,22 +218,24 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // NPC SKill Rolling
     html.find('.item .npc-skill-name').click(event => {
       event.preventDefault();
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
           item = this.actor.getOwnedItem(itemId);
       this.actor.rollLoreSkill(event, item);
     });  
 
     html.find('.skill-input').focusout(async event => {
-      let itemId = Number(event.target.attributes["data-item-id"].value);
+      let itemId = event.target.attributes["data-item-id"].value;
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.mod.value = Number(event.target.value);
+      /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      itemToEdit.data.mod.value = Number(event.target.value); */
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       //let skills = this.actor.items.filter(i => i.type == "lore")
       //for(let skill of skills)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit, true);
+        //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit); 
+        await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.mod.value": Number(event.target.value) });        
       //}
     });
 
@@ -241,7 +243,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       event.preventDefault();
       
       let li = $(event.currentTarget).parents(".item-container"),
-          itemId = Number(li.attr("data-container-id")),
+          itemId = li.attr("data-container-id"),
           spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute");
 
       if (spelldcType === "dc" || spelldcType === "value") {
@@ -253,7 +255,14 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         //let items = this.actor.items.filter(i => i.type == itemToEdit.type)
         //for(let item of items)
         //{
-          await this.actor.updateOwnedItem(itemToEdit, true);      
+          //await this.actor.updateOwnedItem(itemToEdit, true);
+          //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit); 
+
+          let key = `data.slotdc.${spelldcType}`
+          let options = {_id: itemId};
+          options[key] = Number(event.target.value);
+
+          await this.actor.updateEmbeddedEntity("OwnedItem", options);      
         //}
       }
     });
@@ -268,7 +277,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       let skills = this.actor.items.filter(i => i.type == "lore")
       for(let skill of skills)
       {
-        await this.actor.updateOwnedItem(skill, true);      
+        await this.actor.updateOwnedItem(skill, true);
+        await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);       
       }
     }); */
   }
