@@ -62,6 +62,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     // Spellbook
     //const spellbook = {};
+    let tempSpellbook = [];
+    let spellcastingEntriesList = [];
     const spellbooks = [];
     spellbooks["unassigned"] = {};
 
@@ -77,25 +79,17 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       
       // Spells
       if ( i.type === "spell" ) {
-        let spellType = i.data.time.value;
-        
-        // format spell level for display
-        if (spellType === "reaction") i.img = this._getActionImg("reaction");
-        else if (spellType === "free") i.img = this._getActionImg("free");
-        else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
 
-        //this._prepareSpell(actorData, spellbook, i);
-        if ((i.data.location || {}).value) {
-          let location = i.data.location.value;
-          spellbooks[location] = spellbooks[location] || {};
-          this._prepareSpell(actorData, spellbooks[location], i);                    
-        } else {
-          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
-        }
+        tempSpellbook.push(i);
+
+
       }
 
       // Spellcasting Entries
       else if ( i.type === "spellcastingEntry" ) {
+
+        // collect list of entries to use later to match spells against.
+        spellcastingEntriesList.push(i._id);
 
         if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
         else i.data.prepared["preparedSpells"] = false;
@@ -172,6 +166,48 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         lores.push(i);
       }
     }
+
+
+    /*         
+        
+
+
+        //this._prepareSpell(actorData, spellbook, i);
+        if ((i.data.location || {}).value) {
+          let location = i.data.location.value;
+          spellbooks[location] = spellbooks[location] || {};
+          this._prepareSpell(actorData, spellbooks[location], i);                    
+        } else {
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+        } */
+
+        // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
+        for ( let i of tempSpellbook ) {
+
+          let spellType = i.data.time.value;
+
+          // format spell level for display
+          if (spellType === "reaction") i.img = this._getActionImg("reaction");
+          else if (spellType === "free") i.img = this._getActionImg("free");
+          else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
+
+          // check if the spell has a valid spellcasting entry assigned to the location value.
+          if (spellcastingEntriesList.includes(i.data.location.value)) {
+            let location = i.data.location.value;
+            spellbooks[location] = spellbooks[location] || {};
+            this._prepareSpell(actorData, spellbooks[location], i);                    
+          } else { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
+            let location = spellcastingEntriesList[0]; 
+            spellbooks[location] = spellbooks[location] || {};
+  
+            // Update spell to perminantly have the correct ID now
+            console.log(`PF2e System | Prepare NPC Data | Updating location for ${i.name}`);
+            this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
+  
+            this._prepareSpell(actorData, spellbooks[location], i);
+          } 
+  
+        }
 
     // Assign and return
     actorData.actions = actions;
