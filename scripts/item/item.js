@@ -230,7 +230,7 @@ class ItemPF2e extends Item {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
-    let spellcastingEntry = this.actor.getOwnedItem(Number(data.location.value)),
+    let spellcastingEntry = this.actor.getOwnedItem(data.location.value),
         spellDC = spellcastingEntry.data.data.spelldc.dc,
         spellAttack = spellcastingEntry.data.data.spelldc.value;
 
@@ -575,7 +575,7 @@ class ItemPF2e extends Item {
     // Prepare roll data
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
-        spellcastingEntry = this.actor.getOwnedItem(Number(itemData.location.value)),
+        spellcastingEntry = this.actor.getOwnedItem(itemData.location.value),
         spellAttack = spellcastingEntry.data.data.spelldc.value,
         parts = [spellAttack],
         title = `${this.name} - Spell Attack Roll`;
@@ -606,7 +606,7 @@ class ItemPF2e extends Item {
 
     // Get data
     let itemData = this.data.data,
-        spellcastingEntry = this.actor.getOwnedItem(Number(itemData.location.value)),
+        spellcastingEntry = this.actor.getOwnedItem(itemData.location.value),
         rollData = duplicate(this.actor.data.data),
         abl = spellcastingEntry.data.data.ability.value || "int",
         parts = [itemData.damage.value],
