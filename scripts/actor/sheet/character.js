@@ -77,6 +77,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Spellbook
     //const spellbook = {};
+    let tempSpellbook = [];
+    let spellcastingEntriesList = [];
     const spellbooks = [];
     spellbooks["unassigned"] = {};
 
@@ -129,18 +131,22 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Spells
-      else if ( i.type === "spell" ) {        
-        if (i.data.location.value) {
-          let location = Number(i.data.location.value);
+      else if ( i.type === "spell" ) {  
+        tempSpellbook.push(i)     ;
+/*         if (i.data.location.value) {
+          let location = i.data.location.value;
           spellbooks[location] = spellbooks[location] || {};
           this._prepareSpell(actorData, spellbooks[location], i);                    
         } else {
           this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
-        }
+        } */
       }
 
       // Spellcasting Entries
       else if ( i.type === "spellcastingEntry" ) {
+
+        // collect list of entries to use later to match spells against.
+        spellcastingEntriesList.push(i._id);
 
         let spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
         let spellAbl = i.data.ability.value || "int";
@@ -149,7 +155,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
           i.data.spelldc.value = spellAttack;
           i.data.spelldc.dc = spellAttack + 10
           i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-          this.actor.updateOwnedItem(i, true);
+          //this.actor.updateOwnedItem(i, true);
+          this.actor.updateEmbeddedEntity("OwnedItem", i);
         }
         i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
@@ -222,6 +229,29 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
     }
 
+    // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
+    for ( let i of tempSpellbook ) {
+
+        // check if the spell has a valid spellcasting entry assigned to the location value.
+        if (spellcastingEntriesList.includes(i.data.location.value)) {
+          let location = i.data.location.value;
+          spellbooks[location] = spellbooks[location] || {};
+          this._prepareSpell(actorData, spellbooks[location], i);                    
+        } else if (spellcastingEntriesList.length === 1) { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
+          let location = spellcastingEntriesList[0]; 
+          spellbooks[location] = spellbooks[location] || {};
+
+          // Update spell to perminantly have the correct ID now
+          console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
+          this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
+
+          this._prepareSpell(actorData, spellbooks[location], i);
+        } else { // else throw it in the orphaned list.
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+        } 
+
+    }
+
     
 
     // Assign and return
@@ -237,10 +267,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     
     for (let entry of spellcastingEntries) {
-      if (entry.data.prepared.preparedSpells && spellbooks[entry.id]) {
-        this._preparedSpellSlots(entry, spellbooks[entry.id]);
+      if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+        this._preparedSpellSlots(entry, spellbooks[entry._id]);
       }
-      entry.spellbook = spellbooks[entry.id];      
+      entry.spellbook = spellbooks[entry._id];      
     }
 
     actorData.spellcastingEntries = spellcastingEntries;

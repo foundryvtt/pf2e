@@ -70,13 +70,13 @@
                     
                 
                 {{#each actor.lores as |lore lid|}}
-                <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}" data-item-type="lore">
+                <li class="item" data-skill="{{s}}" data-item-id="{{lore._id}}" data-item-type="lore">
 
                         <span class="skill-score lore-score-rollable rollable" title="{{lore.data.breakdown}}">{{lore.data.value}}</span>        
 
                         <!-- <h4 class="item-name lore-name rollable">{{lore.name}}</h4> -->
                         <div class="item-name lore-name-input item-name-input" >
-                            <input name="item-name-skill-{{lore.id}}" data-item-id="{{lore.id}}" type="text" data-dtype="String" value="{{lore.name}}" style="color: white;"/>
+                            <input name="item-name-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="text" data-dtype="String" value="{{lore.name}}" style="color: white;"/>
                         </div>
 
                         

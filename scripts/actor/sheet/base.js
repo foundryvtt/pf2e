@@ -91,8 +91,7 @@ class ActorSheetPF2e extends ActorSheet {
         spellcastingEntry = "";
 
         if ((spell.data.location || {}).value) {
-          //spellcastingEntry = this.actor.items.find(i => { return i.id === Number(spell.data.location.value) });;
-          spellcastingEntry = (this.actor.getOwnedItem(Number(spell.data.location.value)) || {}).data;
+          spellcastingEntry = (this.actor.getOwnedItem(spell.data.location.value) || {}).data;
         }
 
     // Extend the Spellbook level
@@ -132,7 +131,7 @@ class ActorSheetPF2e extends ActorSheet {
             //entrySlot["prepared"] = true;
             //entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
             //spl.prepared[i] = entrySlot;
-            spl.prepared[i] = (this.actor.getOwnedItem(Number(entrySlot.id)) || {}).data;
+            spl.prepared[i] = (this.actor.getOwnedItem(entrySlot.id) || {}).data;
             if (spl.prepared[i]) {
               // enrich data with spell school formatted string
               if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
@@ -179,7 +178,7 @@ class ActorSheetPF2e extends ActorSheet {
   async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
 
     //let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
-    let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
+    //let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
 
     // If NPC, then update icons to action icons.
     let isNPC = this.actorType === "npc";
@@ -191,10 +190,16 @@ class ActorSheetPF2e extends ActorSheet {
     }
     
     //spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
-    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
+    /* spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
       id: spell.id
     };
-    await this.actor.updateOwnedItem(spellcastingEntry, true);  
+    await this.actor.updateOwnedItem(spellcastingEntry, true);  */ 
+    let key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
+    let options = {
+      _id: entryId
+    }
+    options[key] = {id: spell._id};
+    this.actor.updateEmbeddedEntity("OwnedItem", options);
 
   }
 
@@ -208,15 +213,25 @@ class ActorSheetPF2e extends ActorSheet {
    */
   async _removePreparedSpellSlot(spellLevel, spellSlot, entryId) {
     //let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
-    let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
+/*     let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
 
-    //spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = null;
     spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
       name: "Empty Slot (drag spell here)",
       id: null,
       prepared: false 
     };
-    await this.actor.updateOwnedItem(spellcastingEntry, true); 
+    await this.actor.updateOwnedItem(spellcastingEntry, true);  */
+
+    let key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
+    let options = {
+      _id: entryId
+    }
+    options[key] = {
+      name: "Empty Slot (drag spell here)",
+      id: null,
+      prepared: false 
+    };
+    this.actor.updateEmbeddedEntity("OwnedItem", options);
 
   }
 
@@ -358,7 +373,7 @@ class ActorSheetPF2e extends ActorSheet {
       let itemId = 10,
           slotId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
           spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl")),
-          entryId = Number($(ev.currentTarget).parents(".item").attr("data-entry-id")),
+          entryId = $(ev.currentTarget).parents(".item").attr("data-entry-id"),
           //spell = this.actor.items.find(i => { return i.id === itemId });
           spell = this.actor.getOwnedItem(itemId).data;
 
@@ -369,7 +384,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-unprepare').click(ev => {
       let slotId = Number($(ev.currentTarget).parents(".item").attr("data-slot-id")),
           spellLvl = Number($(ev.currentTarget).parents(".item").attr("data-spell-lvl")),
-          entryId = Number($(ev.currentTarget).parents(".item").attr("data-entry-id"));
+          entryId = $(ev.currentTarget).parents(".item").attr("data-entry-id");
       this._removePreparedSpellSlot(spellLvl, slotId, entryId);
     });
 
@@ -412,10 +427,10 @@ class ActorSheetPF2e extends ActorSheet {
           
           if (imageUrl != "icons/mystery-man.png" && !imageUrl.startsWith("data:image")) {
             handleFiles(imageUrl, async base64Url => {
-              console.log("item: ", item.id);
+              console.log("item: ", item._id);
               item.data.img = base64Url;
               await pack.importEntity(item);
-              await pack.deleteEntity(item.id);
+              await pack.deleteEntity(item._id);
             });   
           }
 
@@ -456,7 +471,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
       let Item = CONFIG.Item.entityClass;
       //const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
       const item = new Item(this.actor.getOwnedItem(itemId).data, {actor: this.actor});
@@ -466,18 +481,18 @@ class ActorSheetPF2e extends ActorSheet {
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       let li = $(ev.currentTarget).parents(".item"),
-        itemId = Number(li.attr("data-item-id"));
+        itemId = li.attr("data-item-id");
       this.actor.deleteOwnedItem(itemId);
       li.slideUp(200, () => this.render(false));
     });
 
     // Toggle Spell prepared value
     html.find('.item-prepare').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id"),
           //item = this.actor.items.find(i => { return i.id === itemId });
           item = this.actor.getOwnedItem(itemId).data;
       item.data['prepared'].value = !item.data['prepared'].value;
-      this.actor.updateOwnedItem(item);
+      this.actor.updateEmbeddedEntity("OwnedItem", item);
     });
 
     // Item Dragging
@@ -495,7 +510,7 @@ class ActorSheetPF2e extends ActorSheet {
       ev.preventDefault();
       ev.stopPropagation();
 
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id"),
           //item = this.actor.items.find(i => { return i.id === itemId });
           item = this.actor.getOwnedItem(itemId);
 
@@ -517,7 +532,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Lore Item Rolling
     html.find('.item .lore-score-rollable').click(event => {
     event.preventDefault();
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
         item = this.actor.getOwnedItem(itemId);
     this.actor.rollLoreSkill(event, item);
     });      
@@ -525,40 +540,41 @@ class ActorSheetPF2e extends ActorSheet {
     // Update Item Bonus on an actor.item input
     html.find('.item-value-input').focusout(async event => {
       event.preventDefault();
-      //let itemId = Number(event.target.attributes["data-item-id"].value);
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      
+      let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
       //let itemToEdit = this.actor.items.find(i => i.id === itemId);
-      let itemToEdit = (this.actor.getOwnedItem(itemId) || {}).data;
+      //let itemToEdit = (this.actor.getOwnedItem(itemId) || {}).data;
 
-      if (itemToEdit) {
-        itemToEdit.data.item.value = Number(event.target.value);
-      } else {
-        itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+      if (!itemId) {
+        itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id");
         //itemToEdit = this.actor.items.find(i => i.id === itemId);
-        itemToEdit = this.actor.getOwnedItem(itemId).data;
-        itemToEdit.data.item.value = Number(event.target.value);
+        //itemToEdit = this.actor.getOwnedItem(itemId).data;
+        //itemToEdit.data.item.value = Number(event.target.value);
       }
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       //let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       //for(let skill of skills)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit); 
+        //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+        await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.item.value" : Number(event.target.value) });     
       //}
     });
 
     // Update Item Name
     html.find('.item-name-input').focusout(async event => {
-      let itemId = Number(event.target.attributes["data-item-id"].value);
+      let itemId = event.target.attributes["data-item-id"].value;
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.name = event.target.value;
+      //const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      //itemToEdit.name = event.target.value;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       //let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       //for(let skill of skills)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit);
+        await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "name" : event.target.value });       
       //}
     });
 
@@ -567,17 +583,23 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.spell-slots-input').focusout(async event => {
       event.preventDefault();
       
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
           slotLvl = Number($(event.currentTarget).parents(".item").attr("data-level"));
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.slots["slot" + slotLvl].value = Number(event.target.value);
+      //const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      //itemToEdit.data.slots["slot" + slotLvl].value = Number(event.target.value);
 
       // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
       //let items = this.actor.items.filter(i => i.type == itemToEdit.type)
       //for(let item of items)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit); 
+
+            let key = `data.slots.slot${slotLvl}.value`
+            let options = {_id: itemId};
+            options[key] = Number(event.target.value);
+
+        await this.actor.updateEmbeddedEntity("OwnedItem", options);      
       //}
     });
 
@@ -585,34 +607,42 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.spell-max-input').focusout(async event => {
       event.preventDefault();
       
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
           slotLvl = Number($(event.currentTarget).parents(".item").attr("data-level"));
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.slots["slot" + slotLvl].max = Number(event.target.value);
+      //const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      //itemToEdit.data.slots["slot" + slotLvl].max = Number(event.target.value);
 
       // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
       //let items = this.actor.items.filter(i => i.type == itemToEdit.type)
       //for(let item of items)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit); 
+
+        let key = `data.slots.slot${slotLvl}.max`
+        let options = {_id: itemId};
+        options[key] = Number(event.target.value);
+
+        await this.actor.updateEmbeddedEntity("OwnedItem", options);      
       //}
     });
 
     // Modify select element
     html.find('.ability-select').change(async event => {
       event.preventDefault();
-      //let itemId = Number(event.target.attributes["data-item-id"].value);
-      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+      
+      let itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id");
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.ability.value = event.target.value;
+      //const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      //itemToEdit.data.ability.value = event.target.value;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
       //let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
       //for(let skill of skills)
       //{
-        await this.actor.updateOwnedItem(itemToEdit, true);      
+        //await this.actor.updateOwnedItem(itemToEdit); 
+        //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);   
+        await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.ability.value" : event.target.value });     
       //}
     });
 
@@ -620,12 +650,14 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.prepared-toggle').click(async event => {
       event.preventDefault();
       
-      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"))
+      let itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id")
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
       const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit["showUnpreparedSpells"] = itemToEdit["showUnpreparedSpells"] ? false : true;
+      let bool = (itemToEdit.data.showUnpreparedSpells || {}).value ? false : true;
 
-      await this.actor.updateOwnedItem(itemToEdit, true); 
+      //await this.actor.updateOwnedItem(itemToEdit);
+      //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit); 
+      await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.showUnpreparedSpells.value": bool});  
     });
 
     // Re-render the sheet when toggling visibility of spells
@@ -666,17 +698,23 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Update the field value and save the form
     if (skillType === "lore") {
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.proficient.value = newLevel;
-      this.actor.updateOwnedItem(itemToEdit, true);
+      //const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      /* itemToEdit.data.proficient.value = newLevel;
+      this.actor.updateOwnedItem(itemToEdit); */
+
+      this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.proficient.value" : newLevel });
+
     } else if (containerType === "spellcastingEntry") {
-      let itemId = Number($(event.currentTarget).parents(".item-container").attr("data-container-id"));
+      let itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id");
       //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
       itemToEdit.data.proficiency.value = newLevel;
-      this.actor.updateOwnedItem(itemToEdit, true);
+      this.actor.updateOwnedItem(itemToEdit); */
+
+      this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.proficiency.value" : newLevel });
+
     } else {
       field.val(newLevel);
       this._onSubmit(event);
@@ -715,7 +753,7 @@ class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
 /*   _onDragItemStart(event) {
-    let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
+    
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
@@ -723,12 +761,12 @@ class ActorSheetPF2e extends ActorSheet {
     }));
   } */
   _onDragItemStart(event) {
-    //const itemId = Number(event.currentTarget.getAttribute("data-item-id"));
+    
     const itemId = event.currentTarget.getAttribute("data-item-id");
     const containerType = event.currentTarget.getAttribute("data-container-type");
 
     if (itemId) {
-      const item = this.actor.getOwnedItem(Number(itemId));
+      const item = this.actor.getOwnedItem(itemId);
 	    event.dataTransfer.setData("text/plain", JSON.stringify({
         type: "Item",
         data: item.data,
@@ -754,51 +792,56 @@ class ActorSheetPF2e extends ActorSheet {
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === "spellSlot") {
       let dragData = event.dataTransfer.getData("text/plain"),
-          dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);     
-          
-      if ( dragItem && dragItem.data.type === "spell") {
-        let dropID = Number($(event.target).parents(".item").attr("data-item-id")),
+          dragItem = JSON.parse(dragData);
+          //dragItem = this.actor.getOwnedItem(dragJSON.data._id);     
+
+      //if the dragged item is from a compendium pack.
+      if (dragItem.pack) {        
+        let dropID = $(event.target).parents(".item-container").attr("data-container-id");
+        this.actor.importItemFromCollection(dragItem.pack, dragItem.id, dropID);
+        return false;
+      }
+
+      // if the dragged item is from a compendium pack.
+      if ( dragItem && dragItem.data && dragItem.data.type === "spell") {
+        let dropID = $(event.target).parents(".item").attr("data-item-id"),
             spellLvl = Number($(event.target).parents(".item").attr("data-spell-lvl")),
-            entryId = Number($(event.target).parents(".item").attr("data-entry-id"));
+            entryId = $(event.target).parents(".item").attr("data-entry-id");
 
         this._allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data, entryId);
       } 
       
-      // if the dragged item is from another actor and is the data is explicitly provided
-      if ( dragData.data ) {
-        if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
-          if ( dragData.actorId === this.actor.id ) return false;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
+      // else if the dragged item is from another actor and is the data is explicitly provided
+      else if ( dragItem.data ) {
+        if (dragItem.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
+          if ( dragItem.actorId === this.actor._id ) return false;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
           
-          let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
-          dragData.data.data.location = {
+          let dropID = $(event.target).parents(".item-container").attr("data-container-id");
+          dragItem.data.data.location = {
             "value": dropID
           }
-          this.actor.createOwnedItem(dragData.data);
+          //this.actor.createOwnedItem(dragData.data);
+          this.actor.createEmbeddedEntity("OwnedItem", dragData.data);
           return false;
         }
-      }
-      
-      // else if the dragged item is from a compendium pack.
-      else if (dragData.pack) {        
-        let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
-        this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
-        return false;
-      }
+      }      
     } 
     
     if (dropContainerType === "spellcastingEntry") { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
-      let dragData = JSON.parse(event.dataTransfer.getData("text/plain")),
-          dragItem = this.actor.getOwnedItem(dragData.id);
+      let dragData = JSON.parse(event.dataTransfer.getData("text/plain"))
+          //dragItem = this.actor.getOwnedItem(dragData._id);
 
           // if the dragged item is a spell
-          if (dragItem && dragItem.data.type === "spell") {
-            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+          if (dragData && dragData.data && dragData.data.type === "spell") {
+            let dropID = $(event.target).parents(".item-container").attr("data-container-id");
             
-            if (Number.isInteger(dropID)) {
-              dragItem.data.data.location = {"value": dropID};
+            if (dropID) {
+              dragData.data.data.location = {"value": dropID};
 
               // Update Actor
-              await this.actor.updateOwnedItem(dragItem.data, true);
+              //await this.actor.updateOwnedItem(dragItem.data, true);
+              await this.actor.updateEmbeddedEntity("OwnedItem", dragData.data); 
+              //await this.actor.updateEmbeddedEntity("OwnedItem", {_id: dragData.id, "data.data.location": {"value": dropID} });
             }
           }
 
@@ -807,18 +850,19 @@ class ActorSheetPF2e extends ActorSheet {
             if (dragData.data.type === "spell") { // check if dragged item is a spell, if not, handle with the super _onDrop method.
               if ( dragData.actorId === this.actor.id ) return false;   // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
               
-              let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+              let dropID = $(event.target).parents(".item-container").attr("data-container-id");
               dragData.data.data.location = {
                 "value": dropID
               }
-              this.actor.createOwnedItem(dragData.data);
+              //this.actor.createOwnedItem(dragData.data);
+              this.actor.createEmbeddedEntity("OwnedItem", dragData.data);
               return false;
             }
           }
 
           // else if the dragged item is from a compendium pack.
           else if (dragData.pack) {
-            let dropID = Number($(event.target).parents(".item-container").attr("data-container-id"));
+            let dropID = $(event.target).parents(".item-container").attr("data-container-id");
 
             this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
             return false;
@@ -838,7 +882,7 @@ class ActorSheetPF2e extends ActorSheet {
    */
   _onItemRoll(event) {
     event.preventDefault();
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
         item = this.actor.getOwnedItem(itemId);
     item.roll();
   }
@@ -852,7 +896,7 @@ class ActorSheetPF2e extends ActorSheet {
   _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parent().parent(),
-        itemId = Number(li.attr("data-item-id")),
+        itemId = li.attr("data-item-id"),
         itemType = li.attr("data-item-type"),
         //itemData = this.actor.items.find(i => i.id === Number(itemId)),
         //itemData = (this.actor.getOwnedItem(itemId) || {}).data,
@@ -945,7 +989,9 @@ class ActorSheetPF2e extends ActorSheet {
           switch (ev.target.dataset.action) {
               case 'toggleHands': 
                 item.data.data.hands.value = item.data.data.hands.value ? false : true;
-                this.actor.updateOwnedItem(item.data, true);
+                //this.actor.updateOwnedItem(item.data, true);
+                this.actor.updateEmbeddedEntity("OwnedItem", item.data);
+                
                 break;
               case 'weaponAttack': item.rollWeaponAttack(ev); break;
               case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
@@ -996,7 +1042,7 @@ class ActorSheetPF2e extends ActorSheet {
       data["name"] = `New  Level ${data.level} ${data.type.capitalize()}`;    
       mergeObject(data, {
         "data.level.value": data.level,
-        "data.location.value": Number(data.location)
+        "data.location.value": data.location
       });
     
     
@@ -1010,7 +1056,8 @@ class ActorSheetPF2e extends ActorSheet {
     else {
       data["name"] = `New ${data.type.capitalize()}`;    
     }
-    this.actor.createOwnedItem(data, {renderSheet: true});
+    //this.actor.createOwnedItem(data, {renderSheet: true});
+    this.actor.createEmbeddedEntity("OwnedItem", data);
   }
 
   /* -------------------------------------------- */
@@ -1100,7 +1147,8 @@ class ActorSheetPF2e extends ActorSheet {
               "data": spellcastingEntity
             }
 
-            this.actor.createOwnedItem(data, {renderSheet: true});
+            //this.actor.createOwnedItem(data, {renderSheet: true});
+            this.actor.createEmbeddedEntity("OwnedItem", data);
 
 /*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
             let entry = {};
@@ -1122,7 +1170,7 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
 
     let li = $(event.currentTarget).parents(".item"),
-        itemId = Number(li.attr("data-container-id")),
+        itemId = li.attr("data-container-id"),
         item = this.actor.getOwnedItem(itemId);
 
     let dlg;
@@ -1145,7 +1193,7 @@ class ActorSheetPF2e extends ActorSheet {
               for (let i of this.actor.data.items) {
                 if (i.type === "spell")             
                   if (Number(i.data.location.value) === itemId) {
-                    itemsToDelete.push(i.id);
+                    itemsToDelete.push(i._id);
                   }
               }
 
