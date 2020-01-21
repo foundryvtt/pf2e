@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.447: Fixed issues with orphaned spell migration and incorporated chat damage buttons as a core feature.
 *  v0.445: Added support for FVTT v0.4.5. 
 
 

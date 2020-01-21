@@ -181,6 +181,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
           this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
         } */
 
+        let embeddedEntityUpdate = [];
+
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
         for ( let i of tempSpellbook ) {
 
@@ -201,13 +203,21 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
             spellbooks[location] = spellbooks[location] || {};
   
             // Update spell to perminantly have the correct ID now
-            console.log(`PF2e System | Prepare NPC Data | Updating location for ${i.name}`);
-            this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
+            //console.log(`PF2e System | Prepare NPC Data | Updating location for ${i.name}`);
+            //this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
+            embeddedEntityUpdate.push({ "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
   
             this._prepareSpell(actorData, spellbooks[location], i);
           } 
   
         }
+
+    // Update all embedded entities that have an incorrect location.
+    if (embeddedEntityUpdate.length) {
+      console.log(`PF2e System | Prepare Actor Data | Updating location for the following embedded entities: `, embeddedEntityUpdate);
+      this.actor.updateManyEmbeddedEntities("OwnedItem", embeddedEntityUpdate);
+      ui.notifications.info(`PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.`);
+    }
 
     // Assign and return
     actorData.actions = actions;

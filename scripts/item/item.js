@@ -14,7 +14,7 @@ class ItemPF2e extends Item {
     const token = this.actor.token;
     const templateData = {
       actor: this.actor,
-      tokenId: token ? `${token.scene._id}.${token.id}` : null,
+      tokenId: token ? `${token.scene._id}.${token._id}` : null,
       item: this.data,
       data: this.getChatData()
     };
@@ -670,21 +670,22 @@ class ItemPF2e extends Item {
 
       // Deduct an item quantity
       if ( chg.value <= 1 && qty.value > 1 ) {
-        this.actor.updateOwnedItem({
-          id: this.data.id,
+        let options = {
+          "_id": this.data._id,
           'data.quantity.value': Math.max(qty.value - 1, 0),
           'data.charges.value': chg.max
-        }, true);
+        };
+        this.actor.updateEmbeddedEntity("OwnedItem", options);
       }
 
       // Optionally destroy the item
       else if ( chg.value <= 1 && qty.value <= 1 && itemData['autoDestroy'].value ) {
-        this.actor.deleteOwnedItem(this.data.id);
+        this.actor.removeEmbeddedEntity("OwnedItem", this.data._id);
       }
 
       // Deduct the remaining charges
       else {
-        this.actor.updateOwnedItem({id: this.data.id, 'data.charges.value': Math.max(chg.value - 1, 0)});
+        this.actor.updateEmbeddedEntity("OwnedItem", {_id: this.data._id, 'data.charges.value': Math.max(chg.value - 1, 0)});
       }
     }
   }
@@ -833,7 +834,7 @@ class ItemPF2e extends Item {
         else {
           const scene = game.scenes.get(sceneId);
           if ( !scene ) return;
-          let tokenData = scene.data.tokens.find(t => t.id === Number(tokenId));
+          let tokenData = scene.data.tokens.find(t => t._id === tokenId);
           if ( tokenData ) token = new Token(tokenData);
         }
         if ( !token ) return;
@@ -842,7 +843,7 @@ class ItemPF2e extends Item {
 
       // Get the Item
       if ( !actor ) return;
-      const itemId = Number(card.attr("data-item-id"));
+      const itemId = card.attr("data-item-id");
       //let itemData = actor.items.find(i => i.id === itemId);
       let itemData = (actor.getOwnedItem(itemId) || {}).data;
       if ( !itemData ) return;
