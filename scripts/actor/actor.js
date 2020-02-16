@@ -168,7 +168,7 @@ class ActorPF2e extends Actor {
     let itemBonus = Number((i.data.item || {}).value || 0);
     let rollMod = modifier + proficiency + itemBonus;
     //Override roll calculation if this is an NPC "lore" skill
-    if(item.actor && !item.actor.isPC){
+    if(item.actor && item.actor.data && item.actor.data.type === "npc"){
       rollMod = i.data.mod.value;
     }
 
