@@ -92,7 +92,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       "general": { label: "General Feats", feats: [] },
       "class": { label: "Class Feats", feats: [] },
       "bonus": { label: "Bonus Feats", feats: [] },
-      "classfeature": { label: "Class Feature", feats: [] }
+      "classfeature": { label: "Class Features", feats: [] }
     };
 
     // Actions
