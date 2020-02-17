@@ -286,7 +286,7 @@ class ActorPF2e extends Actor {
     const promises = [];
     for ( let t of canvas.tokens.controlled ) {
       
-      let combatant = game.combat.getCombatantByToken(t.data.id)
+      let combatant = game.combat.getCombatantByToken(t.id)
 
       promises.push(
         game.combat.setInitiative(combatant.id, value)
