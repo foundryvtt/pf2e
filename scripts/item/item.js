@@ -7,16 +7,18 @@ class ItemPF2e extends Item {
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
    */
-  async roll() {
+  async roll(event) {
 
     // Basic template rendering data
     const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`
     const token = this.actor.token;
+    const nearestItem = event.currentTarget.closest(".item")
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token._id}` : null,
       item: this.data,
-      data: this.getChatData()
+      data: this.getChatData(),
+      contextualItemData: nearestItem.dataset
     };
 
     // Basic chat message data
@@ -604,6 +606,9 @@ class ItemPF2e extends Item {
   rollSpellDamage(event) {
     if ( this.type !== "spell" ) throw "Wrong item type!";
 
+    const button = event.currentTarget,
+          card = button.closest('*[data-spell-lvl]');
+
     // Get data
     let itemData = this.data.data,
         spellcastingEntry = this.actor.getOwnedItem(itemData.location.value),
@@ -611,7 +616,8 @@ class ItemPF2e extends Item {
         abl = spellcastingEntry.data.data.ability.value || "int",
         parts = [itemData.damage.value],
         isHeal = itemData.spellType.value === "heal",
-        dtype = CONFIG.damageTypes[itemData.damageType.value];
+        dtype = CONFIG.damageTypes[itemData.damageType.value],
+        spellLvl = parseInt(card.dataset.spellLvl);
 
     // Append damage type to title
     let title = this.name + (isHeal ? " - Healing" : " - Damage");
@@ -622,6 +628,9 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
+    if (itemData.scaling.mode === "level" && itemData.scaling.formula !== "" && itemData.level.value < spellLvl) {
+      parts.push(`(${spellLvl - itemData.level.value})*(${itemData.scaling.formula})`)
+    }
 
     // Call the roll helper utility
     DicePF2e.damageRoll({
