@@ -845,3 +845,9 @@ CONFIG.languages = {
   "terran": "Terran",
   "undercommon": "Undercommon"
 };
+
+CONFIG.spellScalingModes = {
+  "none": "None",
+  "cantrip": "Cantrip",
+  "level": "Heightened +1"
+}
