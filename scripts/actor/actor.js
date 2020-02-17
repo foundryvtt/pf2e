@@ -289,7 +289,7 @@ class ActorPF2e extends Actor {
       let combatant = game.combat.getCombatantByToken(t.id)
 
       promises.push(
-        game.combat.setInitiative(combatant.id, value)
+        game.combat.setInitiative(combatant._id, value)
       );
     }
     return Promise.all(promises);
