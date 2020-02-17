@@ -706,7 +706,8 @@ CONFIG.featTypes = {
   "ancestry": "Ancestry Feat",
   "skill": "Skill Feat",
   "general": "General Feat",
-  "class": "Class Feat"  
+  "class": "Class Feat",
+  "classfeature": "Class Feature"
 };
 
 // Feat Action Types
