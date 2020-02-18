@@ -884,7 +884,7 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     let itemId = $(event.currentTarget).parents(".item").attr("data-item-id"),
         item = this.actor.getOwnedItem(itemId);
-    item.roll();
+    item.roll(event);
   }
 
   /* -------------------------------------------- */

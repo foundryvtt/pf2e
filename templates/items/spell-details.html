@@ -74,6 +74,18 @@
 </div>
 
 <div class="form-group">
+  <label>{{data.scaling.label}}</label>
+  <select name="data.scaling.mode">
+    {{#select data.scaling.mode}}
+    {{#each spellScalingModes as |name key|}}
+    <option value="{{key}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+  <input type="text" name="data.scaling.formula" value="{{data.scaling.formula}}" placeholder="Scaling Formula"/>
+</div>
+
+<div class="form-group">
     <label>{{data.save.label}}</label>
     <div class="details-container-two-columns">
     <select name="data.save.basic" data-dtype="{{data.save.type}}">

@@ -54,7 +54,8 @@ class ItemSheetPF2e extends ItemSheet {
         //spellBasic: CONFIG.spellBasic,
         spellComponents: this._formatSpellComponents(data.data),
         areaSizes: CONFIG.areaSizes,
-        areaTypes: CONFIG.areaTypes
+        areaTypes: CONFIG.areaTypes,
+        spellScalingModes: CONFIG.spellScalingModes
       });
     }
 
