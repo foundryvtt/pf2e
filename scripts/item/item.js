@@ -15,7 +15,7 @@ class ItemPF2e extends Item {
     const nearestItem = event.currentTarget.closest(".item")
     const templateData = {
       actor: this.actor,
-      tokenId: token ? `${token.scene._id}.${token._id}` : null,
+      tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
       data: this.getChatData(),
       contextualItemData: nearestItem.dataset
