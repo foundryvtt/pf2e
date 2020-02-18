@@ -628,8 +628,10 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
-    if (itemData.scaling.mode === "level" && itemData.scaling.formula !== "" && itemData.level.value < spellLvl) {
-      parts.push(`(${spellLvl - itemData.level.value})*(${itemData.scaling.formula})`)
+    let scaling = itemData.scaling || {}
+    if (scaling.mode === "level" && scaling.formula !== "" && itemData.level.value < spellLvl) {
+      let scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula)
+      parts.push(...scaling_parts)
     }
 
     // Call the roll helper utility
