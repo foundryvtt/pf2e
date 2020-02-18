@@ -1333,6 +1333,14 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
   }
+
+  /**
+   * Always submit on a form field change. Added because tabbing between fields
+   * wasn't working.
+   */
+  _onChangeInput(event) {
+    this._onSubmit(event);
+  }
 }
 
 Actors.unregisterSheet("core", ActorSheet);
