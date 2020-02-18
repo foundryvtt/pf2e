@@ -848,5 +848,5 @@ CONFIG.languages = {
 
 CONFIG.spellScalingModes = {
   "none": "None",
-  "level": "Heightened +1"
+  "level1": "Heightened +1"
 }
