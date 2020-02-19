@@ -13,12 +13,12 @@ class ItemPF2e extends Item {
     const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`
     const token = this.actor.token;
     const nearestItem = event.currentTarget.closest(".item")
+    this.data.contextualData = nearestItem.dataset || {}
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
-      data: this.getChatData(),
-      contextualItemData: nearestItem.dataset
+      data: this.getChatData()
     };
 
     // Basic chat message data
@@ -259,6 +259,9 @@ class ItemPF2e extends Item {
       data.time.value ? "Actions: " + data.time.value : null,
       data.duration.value ? "Duration: " + data.duration.value : null,
     ];
+    if(data.level.value < parseInt(this.data.contextualData.spellLvl)) {
+      props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`)
+    }
     data.properties = props.filter(p => p !== null);
 
     let traits = [];  
@@ -628,8 +631,15 @@ class ItemPF2e extends Item {
     rollData.item = itemData;
 
     if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
-    if (itemData.scaling.mode === "level" && itemData.scaling.formula !== "" && itemData.level.value < spellLvl) {
-      parts.push(`(${spellLvl - itemData.level.value})*(${itemData.scaling.formula})`)
+    let scaling = itemData.scaling || {}
+    if (scaling.mode === "level1" && scaling.formula !== "") {
+      if (itemData.level.value === 0) {
+        let scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula)
+        parts.push(...scaling_parts)
+      } else if (itemData.level.value < spellLvl) {
+        let scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula)
+        parts.push(...scaling_parts)
+      }
     }
 
     // Call the roll helper utility
