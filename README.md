@@ -6,14 +6,19 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.451: (Trey#9048) Added a new feature: Spell Heightening which adds a damage formula to spell damage per heightened level. 
+*  v0.451: (Trey#9048) Enabled the drag and drop of actor items onto the FVTT hotbar.
+*  v0.451: (Trey#9048) Fixed form input fields not being saved correctly when changing from one input field to another. 
+
 *  v0.450: (Trey#9048) Further fixes initiative, adds Class Features as a feat type.
 *  v0.449: (Trey#9048) Fixed actor initiative fix. Thanks!!!
 *  v0.448: Fixed lore skill mod calculation for characters.
-*  v0.447: Fixed issues with orphaned spell migration and incorporated chat damage buttons as a core feature.
-*  v0.445: Added support for FVTT v0.4.5. 
+
 
 
 Prior patch changes:
+*  v0.447: Fixed issues with orphaned spell migration and incorporated chat damage buttons as a core feature.
+*  v0.445: Added support for FVTT v0.4.5. 
 *  v0.442: Added support for FVTT v0.4.2. and added spellcasting entry of type Scroll to allow scrolls to be stored in the spellcasting tab if you wish.
 *  v0.441: Added support for FVTT v0.4.0. Please note this is the minimum support needed to get it working. A lot more work is required to bring the pf2e system in alignment with all changes.
 *  v0.439: (fryguy#3851) Added support for Thieves Racket and fixed the dice used in the Deadly weapon trait.
@@ -103,6 +108,7 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
+- Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!
 - FS#5443 for the addition of multi-attack buttons!
 - Overdox#9174 for contributing hugely to the SRD compendium packs!
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).

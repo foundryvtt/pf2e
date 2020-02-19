@@ -259,7 +259,7 @@ class ItemPF2e extends Item {
       data.time.value ? "Actions: " + data.time.value : null,
       data.duration.value ? "Duration: " + data.duration.value : null,
     ];
-    if(data.level.value < parseInt(this.data.contextualData.spellLvl)) {
+    if(data.level.value < parseInt((this.data.contextualData || {}).spellLvl)) {
       props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`)
     }
     data.properties = props.filter(p => p !== null);
