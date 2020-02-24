@@ -96,7 +96,7 @@
                     
                             <!-- Add spell items for each spell level -->
                             {{#each section.spells as |item i|}}
-                            <li class="item" data-item-id="{{item._id}}">
+                            <li class="item" data-spell-lvl="{{lvl}}" data-item-id="{{item._id}}">
                                 <div class="item-name rollable">
                                     <div class="item-image" style="background-image: url({{item.img}})"></div>
                                     <h4>{{item.name}}</h4>
@@ -226,7 +226,7 @@
                         {{else}}
                             <!-- Add spell items for each level -->
                             {{#each section.spells as |item i|}}
-                            <li class="item" data-item-id="{{item._id}}">
+                            <li class="item" data-spell-lvl="1" data-item-id="{{item._id}}">
                                 <div class="item-name rollable">
                                     <div class="item-image" style="background-image: url({{item.img}})"></div>
                                     <h4>{{item.name}}</h4>
