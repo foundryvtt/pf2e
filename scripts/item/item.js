@@ -414,7 +414,7 @@ class ItemPF2e extends Item {
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       dialogOptions: {
         width: 400,
-        top: event.clientY - 80,
+        top: event ? event.clientY - 80 : 400,
         left: window.innerWidth - 710
       }
     });
