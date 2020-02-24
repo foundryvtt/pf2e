@@ -25,7 +25,7 @@ class DicePF2e {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
-    let roll = () => {
+    let _roll = (parts, adv, form) => {
       let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
       if (adv === 1) {
         parts[0] = ["2d20kh"];
@@ -37,6 +37,7 @@ class DicePF2e {
       }
 
       // Don't include situational bonus unless it is defined
+      data['bonus'] = form ? form.find('[name="bonus"]').val() : 0;
       if (!data.bonus && parts.indexOf("@bonus") !== -1) parts.pop();
 
       // Execute the roll and send it to chat
@@ -44,22 +45,17 @@ class DicePF2e {
       roll.toMessage({
         speaker: speaker,
         flavor: flav,
-        rollMode: rollMode
+        rollMode: form ? form.find('[name="rollMode"]').val() : rollMode
       });
+      return roll;
     };
 
     // Modify the roll and handle fast-forwarding
-    let adv = 0;
     parts = ["1d20"].concat(parts);
-    if ( event.shiftKey ) return roll();
-    else if ( event.altKey ) {
-      adv = 1;
-      return roll();
-    }
-    else if ( event.ctrlKey || event.metaKey ) {
-      adv = -1;
-      return roll();
-    } else parts = parts.concat(["@bonus"]);
+    if ( event.shiftKey ) return _roll(parts, 0);
+    else if ( event.altKey ) return _roll(parts, 1);
+    else if ( event.ctrlKey || event.metaKey ) return _roll(parts, -1);
+    else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
     template = template || "systems/pf2e/templates/chat/roll-dialog.html";
@@ -69,29 +65,28 @@ class DicePF2e {
       rollMode: rollMode,
       rollModes: CONFIG.rollModes
     };
-    renderTemplate(template, dialogData).then(dlg => {
+		let roll;
+    renderTemplate(template, dialogData).then(html => {
       new Dialog({
           title: title,
-          content: dlg,
+          content: html,
           buttons: {
             advantage: {
               label: "Fortune",
-              callback: () => adv = 1
+              callback: html => roll = _roll(parts, 1, html)
             },
             normal: {
               label: "Normal",
+              callback: html => roll = _roll(parts, 0, html)
             },
             disadvantage: {
               label: "Misfortune",
-              callback: () => adv = -1
+              callback: html => roll = _roll(parts, -1, html)
             }
           },
           default: "normal",
           close: html => {
             if ( onClose ) onClose(html, parts, data);
-            rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            roll()
           }
         }, dialogOptions).render(true);
     });
@@ -121,7 +116,9 @@ class DicePF2e {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
-    let roll = () => {
+		let rolled = false;
+    let _roll = (parts, crit, form) => {
+      data['bonus'] = form ? form.find('[name="bonus"]').val() : 0;
       let roll = new Roll(parts.join("+"), data),
           flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
       /* if ( crit ) {
@@ -135,20 +132,16 @@ class DicePF2e {
       roll.toMessage({
         speaker: speaker,
         flavor: flav,
-        rollMode: rollMode
+        rollMode: form ? form.find('[name="rollMode"]').val() : rollMode
       });
+			rolled = true;
 
       // Return the Roll object
       return roll;
     };
 
     // Modify the roll and handle fast-forwarding
-    let crit = 0;
-    if ( event.shiftKey || event.ctrlKey || event.metaKey )  return roll();
-    else if ( event.altKey ) {
-      crit = 1;
-      return roll();
-    }
+    if ( event.shiftKey || event.ctrlKey || event.metaKey ) return _roll(parts, event.altKey);
     else parts = parts.concat(["@bonus"]);
 
     // Construct dialog data
@@ -161,27 +154,27 @@ class DicePF2e {
     };
 
     // Render modal dialog
+		let roll;
     return new Promise(resolve => {
-      renderTemplate(template, dialogData).then(dlg => {
+      renderTemplate(template, dialogData).then(html => {
         new Dialog({
           title: title,
-          content: dlg,
+          content: html,
           buttons: {
             critical: {
               condition: critical,
               label: "Critical Hit",
-              callback: () => crit = 1
+              callback: html => roll = _roll(parts, true, html)
             },
             normal: {
               label: critical ? "Normal" : "Roll",
+              callback: html => roll = _roll(parts, false, html)
             },
           },
           default: "normal",
           close: html => {
             if (onClose) onClose(html, parts, data);
-            rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            resolve(roll());
+            resolve(rolled ? roll : false);
           }
         }, dialogOptions).render(true);
       });
