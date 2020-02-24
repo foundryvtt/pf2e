@@ -6,18 +6,18 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.452: (@ohporter) Fixed dice roll dialogs rolling when cancelled. Thanks!
 *  v0.452: hotfix for hotbar items
 *  v0.451: (Trey#9048) Added a new feature: Spell Heightening which adds a damage formula to spell damage per heightened level. 
 *  v0.451: (Trey#9048) Enabled the drag and drop of actor items onto the FVTT hotbar.
 *  v0.451: (Trey#9048) Fixed form input fields not being saved correctly when changing from one input field to another. 
 
-*  v0.450: (Trey#9048) Further fixes initiative, adds Class Features as a feat type.
-*  v0.449: (Trey#9048) Fixed actor initiative fix. Thanks!!!
-*  v0.448: Fixed lore skill mod calculation for characters.
-
 
 
 Prior patch changes:
+*  v0.450: (Trey#9048) Further fixes initiative, adds Class Features as a feat type.
+*  v0.449: (Trey#9048) Fixed actor initiative fix. Thanks!!!
+*  v0.448: Fixed lore skill mod calculation for characters.
 *  v0.447: Fixed issues with orphaned spell migration and incorporated chat damage buttons as a core feature.
 *  v0.445: Added support for FVTT v0.4.5. 
 *  v0.442: Added support for FVTT v0.4.2. and added spellcasting entry of type Scroll to allow scrolls to be stored in the spellcasting tab if you wish.
@@ -109,6 +109,7 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
+- @ohporter for getting involved and fixing issues with the roll logic
 - Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!
 - FS#5443 for the addition of multi-attack buttons!
 - Overdox#9174 for contributing hugely to the SRD compendium packs!
