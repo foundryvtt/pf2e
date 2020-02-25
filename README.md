@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.454: (Trey#9048) Fixed an issue with focus spell heightening.
 *  v0.452: (@ohporter) Fixed dice roll dialogs rolling when cancelled. Thanks!
 *  v0.452: hotfix for hotbar items
 *  v0.451: (Trey#9048) Added a new feature: Spell Heightening which adds a damage formula to spell damage per heightened level. 
