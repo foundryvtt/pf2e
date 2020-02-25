@@ -633,7 +633,8 @@ class ItemPF2e extends Item {
     if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
     let scaling = itemData.scaling || {}
     if (scaling.mode === "level1" && scaling.formula !== "") {
-      if (itemData.level.value === 0) {
+      // Scale cantrips & focus spells automatically.
+      if (itemData.level.value === 0 || itemData.level.value === 11) {
         let scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula)
         parts.push(...scaling_parts)
       } else if (itemData.level.value < spellLvl) {
