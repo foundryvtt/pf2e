@@ -152,34 +152,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
       // Lore Skills
       else if ( i.type === "lore" ) {
-
-        /* i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
-        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value )];
-
-        let proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;      
-        let modifier = actorData.data.abilities["int"].mod;
-        let itemBonus = Number((i.data.item || {}).value || 0);
-        i.data.itemBonus = itemBonus;
-        i.data.value = modifier + proficiency + itemBonus;
-        i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`; */
-
         lores.push(i);
       }
     }
-
-
-    /*         
-        
-
-
-        //this._prepareSpell(actorData, spellbook, i);
-        if ((i.data.location || {}).value) {
-          let location = i.data.location.value;
-          spellbooks[location] = spellbooks[location] || {};
-          this._prepareSpell(actorData, spellbooks[location], i);                    
-        } else {
-          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
-        } */
 
         let embeddedEntityUpdate = [];
 
@@ -203,8 +178,6 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
             spellbooks[location] = spellbooks[location] || {};
   
             // Update spell to perminantly have the correct ID now
-            //console.log(`PF2e System | Prepare NPC Data | Updating location for ${i.name}`);
-            //this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
             embeddedEntityUpdate.push({ "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
   
             this._prepareSpell(actorData, spellbooks[location], i);
@@ -253,14 +226,6 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     super.activateListeners(html);
     if ( !this.options.editable ) return;
 
-    /* Roll NPC HP */
-/*     html.find('.npc-roll-hp').click(ev => {
-      let ad = this.actor.data.data;
-      let hp = new Roll(ad.attributes.hp.formula).roll().total;
-      AudioHelper.play({src: CONFIG.sounds.dice});
-      this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
-    }); */
-
     // NPC SKill Rolling
     html.find('.item .npc-skill-name').click(event => {
       event.preventDefault();
@@ -271,17 +236,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
     html.find('.skill-input').focusout(async event => {
       let itemId = event.target.attributes["data-item-id"].value;
-      //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.mod.value = Number(event.target.value); */
-
-      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      //let skills = this.actor.items.filter(i => i.type == "lore")
-      //for(let skill of skills)
-      //{
-        //await this.actor.updateOwnedItem(itemToEdit, true);
-        //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit); 
-        await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.mod.value": Number(event.target.value) });        
+      await this.actor.updateEmbeddedEntity("OwnedItem", {_id: itemId, "data.mod.value": Number(event.target.value) });        
       //}
     });
 
@@ -293,40 +248,18 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
           spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute");
 
       if (spelldcType === "dc" || spelldcType === "value") {
-        //const itemToEdit = this.actor.items.find(i => i.id === itemId);
         const itemToEdit = this.actor.getOwnedItem(itemId).data;
         itemToEdit.data.spelldc[spelldcType] = Number(event.target.value);
 
-        // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
-        //let items = this.actor.items.filter(i => i.type == itemToEdit.type)
-        //for(let item of items)
-        //{
-          //await this.actor.updateOwnedItem(itemToEdit, true);
-          //await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit); 
+        let key = `data.slotdc.${spelldcType}`
+        let options = {_id: itemId};
+        options[key] = Number(event.target.value);
 
-          let key = `data.slotdc.${spelldcType}`
-          let options = {_id: itemId};
-          options[key] = Number(event.target.value);
+        await this.actor.updateEmbeddedEntity("OwnedItem", options);      
 
-          await this.actor.updateEmbeddedEntity("OwnedItem", options);      
-        //}
       }
     });
 
-/*     html.find('.item-name').focusout(async event => {
-      let itemId = Number(event.target.attributes["data-item-id"].value);
-      //const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.name = event.target.value;
-
-      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "lore")
-      for(let skill of skills)
-      {
-        await this.actor.updateOwnedItem(skill, true);
-        await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);       
-      }
-    }); */
   }
 
   /* -------------------------------------------- */
