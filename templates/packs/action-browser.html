@@ -1,0 +1,62 @@
+<div class="spell-browser">
+    <div class="control-area">
+        <div class="sortcontainer" id="tagfilter">            
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
+            <div class="hint" style="display:none;">
+                You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
+            </div>
+            <dl id="sorter">
+                <dt>Sort by:</dt>
+                <dd><select class="null" name="sortorder">
+                    <option value="true" selected>Name</option>
+                </select></dd>
+            </dl>
+        </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>Trait</h3>
+            <dl>
+                {{#each actionTraits as |trait key|}}
+                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>Skill</h3>
+            <dl style="display:none;">
+                {{#each skills as |skill key|}}
+                <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>Proficiency Requirement</h3>
+            <dl style="display:none;">
+                {{#each proficiencies as |proficiency key|}}
+                <dt><input type="checkbox" name="proficiencies-{{key}}"></dt><dd>{{proficiency}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+    </div>
+    <ul>
+        {{#each actions as |item id|}}
+        <li class="spell flexrow draggable"
+          data-entry-compendium="{{item.compendium}}"
+          data-entry-id="{{item._id}}" data-item-category="actions">
+            <div class="spell-image">
+                <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32"/>
+            </div>
+            <div class="spell-name">
+                <span class="item-edit" ><a>{{item.name}}</a></span>
+            </div>
+            {{#each item.data as |attrib id|}}
+                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
+            {{/each}}
+            <input type="hidden" name="skills"
+                                 value="{{item.data.skill_requirement.skill.skill}}">
+            <input type="hidden" name="proficiencies"
+                                 value="{{item.data.skill_requirement.skill.rank}}">
+        </li>
+        {{/each}}
+    </ul>
+
+</div>

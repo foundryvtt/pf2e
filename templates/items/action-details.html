@@ -44,6 +44,26 @@
     </select>
 </div>
 
+<div class="form-group">
+  <label>{{data.skill_requirement.label}}</label>
+  <select name="data.skill_requirement.skill.skill" data-dtype="String">
+    {{#select data.skill_requirement.skill.skill}}
+    <option value=""></option>
+    {{#each skills as |label skill|}}
+    <option value="{{skill}}">{{label}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+  <select name="data.skill_requirement.skill.rank" data-dtype="data.skill_requirement.skill.type">
+    {{#select data.skill_requirement.skill.rank}}
+    <option value=""></option>
+    {{#each proficiencies as |label proficiency_value|}}
+    <option value="{{proficiency_value}}">{{label}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
 <!-- <div class="form-group">
     <label>{{data.prerequisites.label}}</label>
     <input type="text" name="data.prerequisites.value" value="{{data.prerequisites.value}}"
