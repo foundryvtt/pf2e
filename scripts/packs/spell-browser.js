@@ -26,7 +26,9 @@ class ItemBrowserPF2e extends Application {
             group: {},
             traits: {},
             itemTypes: {},
-            weaponType: {}
+            weaponType: {},
+            proficiencies: {},
+            skills: {}
         }
     }
 
@@ -259,6 +261,13 @@ class ItemBrowserPF2e extends Application {
         for (let key in this.settings) {
             content += `<div><input type=checkbox data-browser-type="inventory" name="${key}" ${inventoryBrowser.settings[key].load?'checked=true':''}><label>${inventoryBrowser.settings[key].name}</label></div>`;
         }
+
+        // Action Browser
+        content += '<h2>Action Browser</h2>';
+        content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any actions</p>';
+        for (let key in this.settings) {
+            content += `<div><input type=checkbox data-browser-type="inventory" name="${key}" ${inventoryBrowser.settings[key].load?'checked=true':''}><label>${inventoryBrowser.settings[key].name}</label></div>`;
+        }
         
         let d = new Dialog({
             title: "Compendium Browser settings",
@@ -280,6 +289,7 @@ class ItemBrowserPF2e extends Application {
                     if (browserType === "spell") spellBrowser.settings[input.name].load = input.checked;
                     else if (browserType === "feat") featBrowser.settings[input.name].load = input.checked;
                     else if (browserType === "inventory") inventoryBrowser.settings[input.name].load = input.checked;
+                    else if (browserType == "action") actionBrowser.settings[input.name].load = input.checked;
                 }
                 console.log("PF2e System | Compendium Browser | Saving new Settings");
                 //write Spell Browser settings
@@ -288,6 +298,7 @@ class ItemBrowserPF2e extends Application {
                 game.settings.set('FeatBrowser', 'settings', JSON.stringify(featBrowser.settings));
                 //write Feat Browser settings
                 game.settings.set('InventoryBrowser', 'settings', JSON.stringify(inventoryBrowser.settings));
+                game.settings.set('ActionBrowser', 'settings', JSON.stringify(actionBrowser.settings));
                 
                 this.settingsChanged = true;
 /*                 this.loadSpells().then(obj => {
@@ -907,83 +918,6 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
                             // add item.type into the correct format for filtering
                             item.data.itemTypes = { value: item.type };
 
-                            // Armor
-/*                             if (item.type === "armor") {
-                                if (item.data.armorType.value) {
-                                    item.data.armor = { value: item.data.armorType.value}
-                                }
-                                if (item.data.armorGroup.value) {
-                                    item.data.armor = { value: item.data.armorGroup.value}
-                                }
-                            } */
-
-                            // determining attributes from traits
-                            /* if (item.data.traits.value) {
-                                // determine class feats 
-                                let classList = Object.keys(CONFIG.classTraits),
-                                    classIntersection = classList.filter(x => item.data.traits.value.includes(x));
-                                    
-                                if (classIntersection.length !== 0) {
-                                    if (classesArr.includes(classIntersection) === false) {
-                                        classesArr.push(classIntersection);
-                                    }
-                                    item.data.classes = { value: classIntersection };
-                                }
-
-                                if (item.data.featType.value === "ancestry") {
-                                    let ancestryList = Object.keys(CONFIG.ancestryTraits),
-                                        ancestryIntersection = ancestryList.filter(x => item.data.traits.value.includes(x));
-                                        
-                                    if (ancestryIntersection.length !== 0) {
-                                        if (ancestryArr.includes(ancestryIntersection) === false) {
-                                            ancestryArr.push(ancestryIntersection);
-                                        }
-                                        item.data.ancestry = { value: ancestryIntersection };
-                                    } 
-                                }    
-                            } */
-
-                            // determine skill feats
-                            /* if (item.data.featType.value === "skill") {
-                            
-                                let skillList = Object.keys(CONFIG.skillList),
-                                    prerequisitesArr = item.data.prerequisites.value.split(" ");
-                                    
-                                prerequisitesArr = prerequisitesArr.map(function(y){ return y.toLowerCase() });
-
-                                let skillIntersection = skillList.filter(x => prerequisitesArr.includes(x));
-
-                                if (skillIntersection.length !== 0) {
-                                    if (skillsArr.includes(skillIntersection) === false) {
-                                        skillsArr.push(skillIntersection);
-                                    }
-                                    item.data.skills = { value: skillIntersection };
-                                }
-                            } */
-
-                            // format spell level for display
-                            //item.data.level.formated = parseInt(item.data.level.value);
-
-                            // format spell level for display
-/*                             let time = "";
-                            if (feat.data.actionType.value === "reaction") {
-                                feat.data.actionType.img = this._getActionImg("reaction");
-                                time = "reaction"
-                            } else if (feat.data.actionType.value === "free") {
-                                feat.data.actionType.img = this._getActionImg("free");
-                                time = "free"
-                            } else if (feat.data.actionType.value === "passive") {
-                                feat.data.actionType.img = this._getActionImg("passive");
-                                time = "passive"
-                            } else if (parseInt(feat.data.actions.value)) {
-                                feat.data.actionType.img = this._getActionImg(parseInt(feat.data.actions.value));
-                                time = feat.data.actions.value.toLowerCase();
-                            }
-                            if (time != "" && timeArr.includes(time) === false) {
-                                timeArr.push(time);
-                            } */
-
-
                             // add spell to spells array
                             inventoryItems[(item._id)] = item;
 
@@ -993,33 +927,156 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
                 });
             }
         }
-
-        //  sorting and assigning better class names
-/*         let classesObj = {}
-        classesArr = classesArr.sort();
-        for (let classStr of classesArr) {
-            classesObj[classStr] = CONFIG.classTraits[classStr];
-        } */
-        
-        //  sorting and assigning better ancestry names
-/*         let ancestryObj = {}
-        ancestryArr = ancestryArr.sort();
-        for (let ancestryStr of ancestryArr) {
-            ancestryObj[ancestryStr] = CONFIG.ancestryTraits[ancestryStr];
-        } */
-
-        //this.featClasses = classesObj;
-        //this.featSkills = CONFIG.skillList;
-        //this.featAncestry = ancestryObj;
-        //this.featTimes = timeArr.sort();
-
-        //this.schools = schoolsObj;
         console.log('PF2e System | Inventory Browser | Finished loading inventory items');
         return inventoryItems;
     }
 
 }
 
+
+class ActionBrowserPF2e extends ItemBrowserPF2e {
+
+    static get defaultOptions() {
+        const options = super.defaultOptions;
+        options.classes = options.classes.concat('spell-browser-window');
+        options.template = "systems/pf2e/templates/packs/action-browser.html";
+        options.title = "Add an Action";
+        options.width = 700;
+        options.height = 700;
+        return options;
+    }
+
+    constructor(app) {
+        super(app);
+
+        // load settings
+        Hooks.on('ready', e => {
+            // creating game setting container
+            game.settings.register("ActionBrowser", "settings", {
+                name: "Action Browser Settings",
+                hint: "Settings to exclude packs from loading",
+                default: "",
+                type: String,
+                scope: 'world',
+                onChange: settings => {
+                    this.settings = JSON.parse(settings);
+                }
+            });
+
+            // load settings from container
+            let settings = game.settings.get('ActionBrowser', 'settings');
+            if (settings == '') { // if settings are empty create the settings data
+                console.log("Action Browser | Creating settings");
+                settings = {};
+                for (let compendium of game.packs) {
+                    if (compendium['metadata']['entity'] == "Item") {
+                        settings[compendium.collection] = {
+                            load: true,
+                            name: `${compendium['metadata']['label']} (${compendium.collection})`
+                        };
+                    }
+                }
+                game.settings.set('ActionBrowser', 'settings', JSON.stringify(settings));
+            } else { // if settings do exist, reload and apply them to make sure they conform with current compendium
+                console.log("Action Browser | Loading settings"); 
+                let loadedSettings = JSON.parse(settings);
+                settings = {};
+                for (let compendium of game.packs) {
+                    if (compendium['metadata']['entity'] == "Item") {
+                        settings[compendium.collection] = {
+                            // add entry for each item compendium, that is turned on if no settings for it exist already
+                            load: loadedSettings[compendium.collection] == undefined ? true : loadedSettings[compendium.collection].load,
+                            name: compendium['metadata']['label']
+                        };
+                    }
+                }
+            }
+            this.settings = settings;
+            this.settingsChanged = false;
+            this.loadActions().then(obj => {
+                this.actions = obj
+            });
+        });
+        this.hookCompendiumList();
+    }
+
+    hookCompendiumList() {
+        Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+
+            // Action Browser Buttons
+            const actionImportButton = $(`<button class="feat-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Action Browser</button>`);
+
+            if (game.user.isGM) {
+                html.find('.directory-footer').append(actionImportButton);
+            } else {
+                // adding to directory-list since the footer doesn't exist if the user is not gm
+                html.find('.directory-list').append(actionImportButton);
+            }
+
+            // Handle button clicks
+            actionImportButton.click(ev => {
+                ev.preventDefault();
+                this.render(true);
+            });
+
+        });
+    }
+
+    async getData() {
+
+        if (this.actions == undefined || this.settingsChanged == true) {
+            // feats will be stored locally to not require full loading each time the browser is opened
+            this.actions = await this.loadActions();
+            this.settingsChanged = false;
+        }
+
+        let data = {};
+
+        let sortedTraits = {};
+        Object.keys(CONFIG.featTraits).sort().forEach(function(key) {
+          sortedTraits[key] = CONFIG.featTraits[key];
+        });
+
+        data.actions = this.actions;
+        data.actionTraits = sortedTraits;
+        data.skills = CONFIG.skillList;
+        data.proficiencies = CONFIG.proficiencyLevels;
+        return data;
+    }
+
+    async loadActions() {
+        console.log('PF2e System | Action Browser | Started loading feats');
+        
+        let actions = {};
+        let timeArr = [];
+
+        for (let pack of game.packs) {
+            if (pack['metadata']['entity'] == "Item" && this.settings[pack.collection].load) {
+                console.log(`PF2e System | Action Browser | ${pack.metadata.label} - Loading`);
+                await pack.getContent().then(content => {
+                    console.log(`PF2e System | Action Browser | ${pack.metadata.label} - ${content.length} entries found`);
+                    for (let action of content) {
+                        action = action.data;
+                        if (action.type == 'action') {
+                            // record the pack the feat was read from
+                            action.compendium = pack.collection;
+                            actions[(action._id)] = action;;
+
+                        }
+                    }
+                    console.log(`PF2e System | Action Browser | ${pack.metadata.label} - Loaded`);
+                });
+            }
+        }
+
+        console.log('PF2e System | Action Browser | Finished loading actions');
+        return actions;
+    }
+
+}
+
+
 let spellBrowser = new SpellBrowserPF2e();
 let featBrowser = new FeatBrowserPF2e();
 let inventoryBrowser = new InventoryBrowserPF2e();
+let actionBrowser = new ActionBrowserPF2e();
