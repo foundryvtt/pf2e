@@ -382,12 +382,14 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         Hooks.on('renderCompendiumDirectory', (app, html, data) => {
 
             // Spell Browser Buttons
+	    const grouping = $('<div class="browser-group" style="width:100%"></div>');
             const importButton = $(`<button class="spell-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Spell Browser</button>`);
             const settingsButton = $('<button class="spell-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
 
             if (game.user.isGM) {
-                html.find('.directory-footer').append(importButton);
-                html.find('.directory-footer').append(settingsButton);
+		html.find('.directory-footer').append(grouping);
+                html.find('.browser-group').append(importButton);
+                html.find('.browser-group').append(settingsButton);
             } else {
                 // adding to directory-list since the footer doesn't exist if the user is not gm
                 html.find('.directory-list').append(importButton);
@@ -606,7 +608,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
             //const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
 
             if (game.user.isGM) {
-                html.find('.directory-footer').append(featImportButton);
+                html.find('.browser-group').append(featImportButton);
                 //html.find('.directory-footer').append(featSettingsButton);
             } else {
                 // adding to directory-list since the footer doesn't exist if the user is not gm
@@ -839,7 +841,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
             //const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
 
             if (game.user.isGM) {
-                html.find('.directory-footer').append(inventoryImportButton);
+                html.find('.browser-group').append(inventoryImportButton);
                 //html.find('.directory-footer').append(featSettingsButton);
             } else {
                 // adding to directory-list since the footer doesn't exist if the user is not gm
@@ -1007,7 +1009,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
             const actionImportButton = $(`<button class="feat-browser-btn" style="max-width: ${game.user.isGM ? "84":"96"}%;"><i class="fas fa-fire"></i> Action Browser</button>`);
 
             if (game.user.isGM) {
-                html.find('.directory-footer').append(actionImportButton);
+                html.find('.browser-group').append(actionImportButton);
             } else {
                 // adding to directory-list since the footer doesn't exist if the user is not gm
                 html.find('.directory-list').append(actionImportButton);
