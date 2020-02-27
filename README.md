@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.456: (Trey#9048) Added Action Browser - a way to search and filter for actions from selected compendium packs. Thanks!
 *  v0.455: (Trey#9048) Added hover description to item chat card traits. Thanks!
 *  v0.454: (Trey#9048) Fixed an issue with focus spell heightening.
 *  v0.452: (@ohporter) Fixed dice roll dialogs rolling when cancelled. Thanks!
