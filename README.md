@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.457: (@FrisGuardian#8347) Fixed the button grouping for all of the item browser buttons. Thanks!
 *  v0.456: (Trey#9048) Added Action Browser - a way to search and filter for actions from selected compendium packs. Thanks!
 *  v0.455: (Trey#9048) Added hover description to item chat card traits. Thanks!
 *  v0.454: (Trey#9048) Fixed an issue with focus spell heightening.
@@ -112,6 +113,7 @@ To install the system, follow these instructions:
 ### Shoutouts
 
 A huge thanks to:
+- @FrisGuardian#8347 for cleaing up some of the UI in the project!
 - @ohporter for getting involved and fixing issues with the roll logic
 - Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!
 - FS#5443 for the addition of multi-attack buttons!
