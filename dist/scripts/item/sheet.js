@@ -3,13 +3,13 @@
  */
 class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
-	  const options = super.defaultOptions;
-	  options.width = 520;
-	  options.height = 460;
-	  options.classes = options.classes.concat(['pf2e', 'item']);
-	  options.template = 'systems/pf2e/templates/items/item-sheet.html';
-	  options.resizable = false;
-	  return options;
+    const options = super.defaultOptions;
+    options.width = 520;
+    options.height = 460;
+    options.classes = options.classes.concat(['pf2e', 'item']);
+    options.template = 'systems/pf2e/templates/items/item-sheet.html';
+    options.resizable = false;
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -42,25 +42,21 @@ class ItemSheetPF2e extends ItemSheet {
     if (type === 'consumable') {
       data.consumableTypes = CONFIG.consumableTypes;
       data.bulkTypes = CONFIG.bulkTypes;
-    }
-
-    // Spell Data
-    else if (type === 'spell') {
+    } else if (type === 'spell') {
+      // Spell Data
       mergeObject(data, {
         spellTypes: CONFIG.spellTypes,
         spellSchools: CONFIG.spellSchools,
         spellLevels: CONFIG.spellLevels,
         spellTraditions: CONFIG.magicTraditions,
         // spellBasic: CONFIG.spellBasic,
-        spellComponents: this._formatSpellComponents(data.data),
+        spellComponents: this.formatSpellComponents(data.data),
         areaSizes: CONFIG.areaSizes,
         areaTypes: CONFIG.areaTypes,
         spellScalingModes: CONFIG.spellScalingModes,
       });
-    }
-
-    // Weapon Data
-    else if (this.item.type === 'weapon') {
+    } else if (this.item.type === 'weapon') {
+      // Weapon Data
       data.weaponTypes = CONFIG.weaponTypes;
       data.weaponGroups = CONFIG.weaponGroups;
       data.itemBonuses = CONFIG.itemBonuses;
@@ -72,23 +68,13 @@ class ItemSheetPF2e extends ItemSheet {
       data.weaponReload = CONFIG.weaponReload;
       data.weaponTraits = data.data.traits.value;
       data.bulkTypes = CONFIG.bulkTypes;
-      // data.weaponTraits = this._formatWeaponTraits(data.data);
-    }
-
-    // Melee Data
-    else if (this.item.type === 'melee') {
+    } else if (this.item.type === 'melee') {
+      // Melee Data
       data.hasSidebar = false;
       data.detailsActive = true;
-      /*       data.itemBonuses = CONFIG.itemBonuses;
-      data.damageDie = CONFIG.damageDie; */
-      // data.damageDice = CONFIG.damageDice;
       data.weaponDamage = CONFIG.damageTypes;
-      // data.weaponTraits = data.data.traits.value
-      // data.weaponTraits = this._formatWeaponTraits(data.data);
-    }
-
-    // Feat types
-    else if (type === 'feat') {
+    } else if (type === 'feat') {
+      // Feat types
       data.featTypes = CONFIG.featTypes;
       data.featActionTypes = CONFIG.featActionTypes;
       data.actionsNumber = CONFIG.actionsNumber;
@@ -96,12 +82,8 @@ class ItemSheetPF2e extends ItemSheet {
         data.data.level.value,
         data.data.traits.value,
       ].filter((t) => !!t);
-    }
-
-    // Action types
-    else if (type === 'action') {
-      // data.featTypes = CONFIG.featTypes;
-      // data["weapons"] = game.system.template.item.data.weapon;
+    } else if (type === 'action') {
+      // Action types
       const actorWeapons = [];
       if (this.actor) {
         for (const i of this.actor.data.items) {
@@ -111,11 +93,11 @@ class ItemSheetPF2e extends ItemSheet {
 
       const actionType = data.data.actionType.value || 'action';
       let actionImg = 0;
-      if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value) || 1;
+      if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
       else if (actionType === 'reaction') actionImg = 'reaction';
       else if (actionType === 'free') actionImg = 'free';
       else if (actionType === 'passive') actionImg = 'passive';
-      data.item.img = this._getActionImg(actionImg);
+      data.item.img = this.getActionImg(actionImg);
 
       data.weapons = actorWeapons;
       data.actionTypes = CONFIG.actionTypes;
@@ -125,32 +107,22 @@ class ItemSheetPF2e extends ItemSheet {
       data.actionTags = [
         data.data.traits.value,
       ].filter((t) => !!t);
-    }
-
+    } else if (type === 'equipment') {
     // Equipment data
-    else if (type === 'equipment') {
       data.bulkTypes = CONFIG.bulkTypes;
-    }
-
-    // Backpack data
-    else if (type === 'backpack') {
+    } else if (type === 'backpack') {
+      // Backpack data
       data.bulkTypes = CONFIG.bulkTypes;
-    }
-
-    // Armor data
-    else if (type === 'armor') {
+    } else if (type === 'armor') {
+      // Armor data
       data.armorTypes = CONFIG.armorTypes;
       data.armorGroups = CONFIG.armorGroups;
       data.bulkTypes = CONFIG.bulkTypes;
-    }
-
-    // Tool-specific data
-    else if (type === 'tool') {
+    } else if (type === 'tool') {
+      // Tool-specific data
       data.proficiencies = CONFIG.proficiencyLevels;
-    }
-
-    // Lore-specific data
-    else if (type === 'lore') {
+    } else if (type === 'lore') {
+      // Lore-specific data
       data.proficiencies = CONFIG.proficiencyLevels;
     }
     return data;
@@ -158,7 +130,7 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  _formatSpellComponents(data) {
+  static formatSpellComponents(data) {
     if (!data.components.value) return [];
     const comps = data.components.value.split(',').map((c) => CONFIG.spellComponents[c.trim()] || c.trim());
     if (data.materials.value) comps.push(data.materials.value);
@@ -167,14 +139,7 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  _formatWeaponTraits(data) {
-    if (!data.traits.value) return [];
-    return data.traits.value.split(',').map((p) => p.trim());
-  }
-
-  /* -------------------------------------------- */
-
-  _onTraitSelector(event) {
+  static onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);
     const options = {
@@ -191,7 +156,7 @@ class ItemSheetPF2e extends ItemSheet {
    * Get the action image to use for a particular action type.
    * @private
    */
-  _getActionImg(action) {
+  static getActionImg(action) {
     const img = {
       0: 'icons/svg/mystery-man.svg',
       1: 'systems/pf2e/icons/actions/OneAction.png',
@@ -215,14 +180,14 @@ class ItemSheetPF2e extends ItemSheet {
     // Activate tabs
     new Tabs(html.find('.tabs'), {
       initial: this.item.data.flags._sheetTab,
-      callback: (clicked) => this.item.data.flags._sheetTab = clicked.attr('data-tab'),
+      callback(clicked) { this.item.data.flags._sheetTab = clicked.attr('data-tab'); },
     });
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change((event) => this._onSubmit(event));
 
     // Trait Selector
-    html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
+    html.find('.trait-selector').click((ev) => this.onTraitSelector(ev));
   }
 
   /**
@@ -235,7 +200,7 @@ class ItemSheetPF2e extends ItemSheet {
 }
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html, data) => ItemPF2e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
 
 // Override CONFIG
 // CONFIG.Item.sheetClass = ItemSheetPF2e;
