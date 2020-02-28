@@ -2,23 +2,21 @@
  * Override and extend the basic :class:`Item` implementation
  */
 class ItemPF2e extends Item {
-
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
    */
   async roll(event) {
-
     // Basic template rendering data
-    const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`
-    const token = this.actor.token;
-    const nearestItem = event ? event.currentTarget.closest(".item") : {};
-    this.data.contextualData = nearestItem.dataset || {}
+    const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
+    const { token } = this.actor;
+    const nearestItem = event ? event.currentTarget.closest('.item') : {};
+    this.data.contextualData = nearestItem.dataset || {};
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
-      data: this.getChatData()
+      data: this.getChatData(),
     };
 
     // Basic chat message data
@@ -27,21 +25,21 @@ class ItemPF2e extends Item {
       speaker: {
         actor: this.actor._id,
         token: this.actor.token,
-        alias: this.actor.name
+        alias: this.actor.name,
       },
-      type: CONST.CHAT_MESSAGE_TYPES.OTHER
+      type: CONST.CHAT_MESSAGE_TYPES.OTHER,
     };
 
     // Toggle default roll mode
-    let rollMode = game.settings.get("core", "rollMode");
-    if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( rollMode === "blindroll" ) chatData["blind"] = true;
+    const rollMode = game.settings.get('core', 'rollMode');
+    if (['gmroll', 'blindroll'].includes(rollMode)) chatData.whisper = ChatMessage.getWhisperIDs('GM');
+    if (rollMode === 'blindroll') chatData.blind = true;
 
     // Render the template
-    chatData["content"] = await renderTemplate(template, templateData);
+    chatData.content = await renderTemplate(template, templateData);
 
     // Create the chat message
-    return ChatMessage.create(chatData, {displaySheet: false});
+    return ChatMessage.create(chatData, { displaySheet: false });
   }
 
   /* -------------------------------------------- */
@@ -49,10 +47,10 @@ class ItemPF2e extends Item {
   /* -------------------------------------------- */
 
   getChatData(htmlOptions) {
-    let itemType = this.data.type;  
+    const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
     data.description.value = enrichHTML(data.description.value, htmlOptions);
-    return data;    
+    return data;
   }
 
   /* -------------------------------------------- */
@@ -62,14 +60,14 @@ class ItemPF2e extends Item {
     const properties = [
       CONFIG.armorTypes[data.armorType.value],
       CONFIG.armorGroups[data.group.value],
-      "+" + (data.armor.value ? data.armor.value : 0) + " AC Bonus",
-      (data.dex.value || 0) + " Dex Cap",
-      (data.check.value || 0) + " Check Penalty",
-      (data.speed.value || 0) + " Speed Penalty",
+      `+${data.armor.value ? data.armor.value : 0} AC Bonus`,
+      `${data.dex.value || 0} Dex Cap`,
+      `${data.check.value || 0} Check Penalty`,
+      `${data.speed.value || 0} Speed Penalty`,
       data.traits.value,
-      data.equipped.value ? "Equipped" : null
+      data.equipped.value ? 'Equipped' : null,
     ];
-    data.properties = properties.filter(p => p !== null);
+    data.properties = properties.filter((p) => p !== null);
 
     data.traits = null;
     return data;
@@ -80,9 +78,9 @@ class ItemPF2e extends Item {
   _equipmentChatData() {
     const data = duplicate(this.data.data);
     const properties = [
-      data.equipped.value ? "Equipped" : null,
+      data.equipped.value ? 'Equipped' : null,
     ];
-    data.properties = properties.filter(p => p !== null);
+    data.properties = properties.filter((p) => p !== null);
     return data;
   }
 
@@ -90,22 +88,22 @@ class ItemPF2e extends Item {
 
   _weaponChatData() {
     const data = duplicate(this.data.data);
-    let traits = [],
-        itemTraits = data.traits.value,
-        versatileTrait = false,
-        versatileType = "",
-        twohandedTrait = false,
-        twohandedDie = "",
-        versatileRegex = `(\\bversatile\\b)-([s]|[b]|[p])`,
-        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`;
+    const traits = [];
+    const itemTraits = data.traits.value;
+    let versatileTrait = false;
+    let versatileType = '';
+    let twohandedTrait = false;
+    let twohandedDie = '';
+    const versatileRegex = '(\\bversatile\\b)-([s]|[b]|[p])';
+    const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
 
-    if ((data.traits.value || []).length != 0) {      
-      for(var i = 0 ; i < data.traits.value.length ; i++){
-        let traitsObject = {
-          "label": CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
-        };        
-        traits.push(traitsObject);        
+    if ((data.traits.value || []).length != 0) {
+      for (let i = 0; i < data.traits.value.length; i++) {
+        const traitsObject = {
+          label: CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+        };
+        traits.push(traitsObject);
 
         // Check if two-handed trait is present
         if (itemTraits[i].match(twohandedRegex)) {
@@ -114,82 +112,83 @@ class ItemPF2e extends Item {
         } else if (itemTraits[i].match(versatileRegex)) {
           versatileTrait = true;
           versatileType = (itemTraits[i].match(versatileRegex)[2]).toLowerCase();
-        } 
-      } 
+        }
+      }
     }
 
-    let properties = [
-      //(parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-      //CONFIG.weaponTypes[data.weaponType.value],
-      //CONFIG.weaponGroups[data.group.value]
+    const properties = [
+      // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
+      // CONFIG.weaponTypes[data.weaponType.value],
+      // CONFIG.weaponGroups[data.group.value]
     ];
 
     if (data.group.value) {
       data.critSpecialization = {
-        "label": CONFIG.weaponGroups[data.group.value],
-        "description": CONFIG.weaponDescriptions[data.group.value]}
+        label: CONFIG.weaponGroups[data.group.value],
+        description: CONFIG.weaponDescriptions[data.group.value],
+      };
     }
 
-    
-    let isAgile = (data.traits.value || []).includes("agile");
+
+    const isAgile = (data.traits.value || []).includes('agile');
     data.map2 = isAgile ? '-4' : '-5';
     data.map3 = isAgile ? '-8' : '-10';
-    data.isTwohanded = twohandedTrait ? true : false;
-    data.wieldedTwoHands = data.hands.value ? true : false;
-    data.properties = properties.filter(p => !!p);
-    data.traits = traits.filter(p => !!p);
+    data.isTwohanded = !!twohandedTrait;
+    data.wieldedTwoHands = !!data.hands.value;
+    data.properties = properties.filter((p) => !!p);
+    data.traits = traits.filter((p) => !!p);
     return data;
   }
 
-    /* -------------------------------------------- */
+  /* -------------------------------------------- */
 
-    _meleeChatData() {
-      const data = duplicate(this.data.data);
-/*       const properties = [
+  _meleeChatData() {
+    const data = duplicate(this.data.data);
+    /*       const properties = [
         CONFIG.weaponTypes[data.weaponType.value],
         CONFIG.weaponGroups[data.group.value]
       ];
       data.properties = properties.filter(p => !!p); */
-      let traits = [];
-/*       if ((data.traits.value || []).length != 0) {
+    const traits = [];
+    /*       if ((data.traits.value || []).length != 0) {
         traits = duplicate(data.traits.value);
         for(var i = 0 ; i < traits.length ; i++){
           //traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
           traits[i] = CONFIG.weaponTraits[traits[i]];
-        } 
+        }
       } */
-      if ((data.traits.value || []).length != 0) {      
-        for(var i = 0 ; i < data.traits.value.length ; i++){
-          let traitsObject = {
-            "label": CONFIG.weaponTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-            "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
-          };        
-          traits.push(traitsObject);
-        } 
+    if ((data.traits.value || []).length != 0) {
+      for (let i = 0; i < data.traits.value.length; i++) {
+        const traitsObject = {
+          label: CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+        };
+        traits.push(traitsObject);
       }
-
-      let properties = [
-        (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-        //CONFIG.weaponTypes[data.weaponType.value],
-        CONFIG.damageTypes[data.damage.damageType]
-      ];
-
-      //if (traits.length != 0) properties = properties.concat(traits);
-      
-      let isAgile = (data.traits.value || []).includes("agile");
-      data.map2 = isAgile ? '-4' : '-5';
-      data.map3 = isAgile ? '-8' : '-10';
-      data.properties = properties.filter(p => !!p);
-      data.traits = traits.filter(p => !!p);
-      return data;
     }
+
+    const properties = [
+      (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
+      // CONFIG.weaponTypes[data.weaponType.value],
+      CONFIG.damageTypes[data.damage.damageType],
+    ];
+
+    // if (traits.length != 0) properties = properties.concat(traits);
+
+    const isAgile = (data.traits.value || []).includes('agile');
+    data.map2 = isAgile ? '-4' : '-5';
+    data.map3 = isAgile ? '-8' : '-10';
+    data.properties = properties.filter((p) => !!p);
+    data.traits = traits.filter((p) => !!p);
+    return data;
+  }
 
   /* -------------------------------------------- */
 
   _consumableChatData() {
     const data = duplicate(this.data.data);
     data.consumableType.str = CONFIG.consumableTypes[data.consumableType.value];
-    data.properties = [data.consumableType.str, data.charges.value + "/" + data.charges.max + " Charges"];
+    data.properties = [data.consumableType.str, `${data.charges.value}/${data.charges.max} Charges`];
     data.hasCharges = data.charges.value >= 0;
     return data;
   }
@@ -198,10 +197,10 @@ class ItemPF2e extends Item {
 
   _toolChatData() {
     const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label,
-        prof = data.proficient.value || 0;
+    const abl = this.actor.data.data.abilities[data.ability.value].label;
+    const prof = data.proficient.value || 0;
     const properties = [abl, CONFIG.proficiencyLevels[prof]];
-    data.properties = properties.filter(p => p !== null);
+    data.properties = properties.filter((p) => p !== null);
     return data;
   }
 
@@ -209,12 +208,12 @@ class ItemPF2e extends Item {
 
   _loreChatData() {
     const data = duplicate(this.data.data);
-    if (this.actor.data.type != "npc") {
-      let abl = this.actor.data.data.abilities[data.ability.value].label,
-          prof = data.proficient.value || 0;
+    if (this.actor.data.type != 'npc') {
+      const abl = this.actor.data.data.abilities[data.ability.value].label;
+      const prof = data.proficient.value || 0;
       const properties = [abl, CONFIG.proficiencyLevels[prof]];
-      data.properties = properties.filter(p => p !== null);
-    } 
+      data.properties = properties.filter((p) => p !== null);
+    }
     return data;
   }
 
@@ -229,54 +228,53 @@ class ItemPF2e extends Item {
   /* -------------------------------------------- */
 
   _spellChatData() {
-    const data = duplicate(this.data.data),
-          ad = this.actor.data.data;
+    const data = duplicate(this.data.data);
+    const ad = this.actor.data.data;
 
-    let spellcastingEntry = this.actor.getOwnedItem(data.location.value),
-        spellDC = spellcastingEntry.data.data.spelldc.dc,
-        spellAttack = spellcastingEntry.data.data.spelldc.value;
+    const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
+    const spellDC = spellcastingEntry.data.data.spelldc.dc;
+    const spellAttack = spellcastingEntry.data.data.spelldc.value;
 
     // Spell saving throw text and DC
-    data.isSave = data.spellType.value === "save";
-    
-    if ( data.isSave ) {
-      data.save.dc = spellDC
-    }
-    else data.save.dc = spellAttack;
-    data.save.str = data.save.value ? (this.actor.data.data.saves[data.save.value.toLowerCase()] || {}).label : "";
+    data.isSave = data.spellType.value === 'save';
+
+    if (data.isSave) {
+      data.save.dc = spellDC;
+    } else data.save.dc = spellAttack;
+    data.save.str = data.save.value ? (this.actor.data.data.saves[data.save.value.toLowerCase()] || {}).label : '';
 
     // Spell attack labels
-    data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
-    data.isAttack = data.spellType.value === "attack";
+    data.damageLabel = data.spellType.value === 'heal' ? 'Healing' : 'Damage';
+    data.isAttack = data.spellType.value === 'attack';
 
     // Combine properties
     const props = [
-      "Spell: " + CONFIG.spellLevels[data.level.value],
-      "Components: " + data.components.value,
-      data.range.value ? "Range: " + data.range.value : null,
-      data.target.value ? "Target: " + data.target.value : null,
+      `Spell: ${CONFIG.spellLevels[data.level.value]}`,
+      `Components: ${data.components.value}`,
+      data.range.value ? `Range: ${data.range.value}` : null,
+      data.target.value ? `Target: ${data.target.value}` : null,
       data.area.value ? `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}` : null,
-      data.time.value ? "Actions: " + data.time.value : null,
-      data.duration.value ? "Duration: " + data.duration.value : null,
+      data.time.value ? `Actions: ${data.time.value}` : null,
+      data.duration.value ? `Duration: ${data.duration.value}` : null,
     ];
-    if(data.level.value < parseInt((this.data.contextualData || {}).spellLvl)) {
-      props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`)
+    if (data.level.value < parseInt((this.data.contextualData || {}).spellLvl)) {
+      props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`);
     }
-    data.properties = props.filter(p => p !== null);
+    data.properties = props.filter((p) => p !== null);
 
-    let traits = [];  
-    if ((data.traits.value || []).length != 0) {      
-      for(var i = 0 ; i < data.traits.value.length ; i++){
-        let traitsObject = {
-          "label": data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
-        };        
+    const traits = [];
+    if ((data.traits.value || []).length != 0) {
+      for (let i = 0; i < data.traits.value.length; i++) {
+        const traitsObject = {
+          label: data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
+          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+        };
         traits.push(traitsObject);
-      } 
+      }
     }
-    data.traits = traits.filter(p => p);
-    //Toggling this off for now
-/*     data.area = data.area.value ? {
+    data.traits = traits.filter((p) => p);
+    // Toggling this off for now
+    /*     data.area = data.area.value ? {
       "label": `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}`,
       "areaType": data.area.areaType,
       "size": data.area.value
@@ -291,75 +289,75 @@ class ItemPF2e extends Item {
    * Prepare chat card data for items of the "Feat" type
    */
   _featChatData() {
-    const data = duplicate(this.data.data),
-          ad = this.actor.data.data;
+    const data = duplicate(this.data.data);
+    const ad = this.actor.data.data;
 
-/*     let traits = [];
+    /*     let traits = [];
     if ((data.traits.value || []).length != 0) {
       traits = duplicate(data.traits.value);
       for(var i = 0 ; i < traits.length ; i++){
         traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
-      } 
+      }
     } */
 
     // Feat properties
-    let props = [
+    const props = [
       `Level ${data.level.value || 0}`,
-      data.actionType.value ? CONFIG.actionTypes[data.actionType.value] : null
+      data.actionType.value ? CONFIG.actionTypes[data.actionType.value] : null,
     ];
-    //if (traits.length != 0) props = props.concat(traits);
+    // if (traits.length != 0) props = props.concat(traits);
 
-    data.properties = props.filter(p => p);
+    data.properties = props.filter((p) => p);
 
-    let traits = [];  
-    if ((data.traits.value || []).length != 0) {      
-      for(var i = 0 ; i < data.traits.value.length ; i++){
-        let traitsObject = {
-          "label": CONFIG.featTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
-        };        
+    const traits = [];
+    if ((data.traits.value || []).length != 0) {
+      for (let i = 0; i < data.traits.value.length; i++) {
+        const traitsObject = {
+          label: CONFIG.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+        };
         traits.push(traitsObject);
-      } 
+      }
     }
-    data.traits = traits.filter(p => p);
+    data.traits = traits.filter((p) => p);
     return data;
   }
 
   _actionChatData() {
-    const data = duplicate(this.data.data),
-          ad = this.actor.data.data;
+    const data = duplicate(this.data.data);
+    const ad = this.actor.data.data;
 
     /* let traits = [];
     if ((data.traits.value || []).length != 0) {
       traits = duplicate(data.traits.value);
       for(var i = 0 ; i < traits.length ; i++){
         traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
-      } 
+      }
     } */
 
     let associatedWeapon = null;
     if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
 
     // Feat properties
-    let props = [
+    const props = [
       CONFIG.actionTypes[data.actionType.value],
-      associatedWeapon ? `Weapon: ${associatedWeapon.name}` : null
+      associatedWeapon ? `Weapon: ${associatedWeapon.name}` : null,
     ];
-    //if (traits.length != 0) props = props.concat(traits);
+    // if (traits.length != 0) props = props.concat(traits);
 
-    data.properties = props.filter(p => p);
+    data.properties = props.filter((p) => p);
 
-    let traits = [];  
-    if ((data.traits.value || []).length != 0) {      
-      for(var i = 0 ; i < data.traits.value.length ; i++){
-        let traitsObject = {
-          "label": CONFIG.featTraits[data.traits.value[i]]  || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          "description": CONFIG.traitsDescriptions[data.traits.value[i]] || ""
-        };        
+    const traits = [];
+    if ((data.traits.value || []).length != 0) {
+      for (let i = 0; i < data.traits.value.length; i++) {
+        const traitsObject = {
+          label: CONFIG.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+        };
         traits.push(traitsObject);
-      } 
+      }
     }
-    data.traits = traits.filter(p => p);
+    data.traits = traits.filter((p) => p);
 
     return data;
   }
@@ -373,50 +371,48 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollWeaponAttack(event, multiAttackPenalty) {
-    if ( this.type === "action" ) {
-      let itemId = parseInt(this.data.data.weapon.value),
-          item = this.actor.getOwnedItem(itemId);
+    if (this.type === 'action') {
+      const itemId = parseInt(this.data.data.weapon.value);
+      const item = this.actor.getOwnedItem(itemId);
       item.rollWeaponAttack(event, multiAttackPenalty);
       return;
     }
-    else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
+    if (this.type !== 'weapon' && this.type !== 'melee') throw 'Wrong item type!';
 
     // Prepare roll data
-    //let itemData = this.data.data,
-    let itemData = this.getChatData();
-    let rollData = duplicate(this.actor.data.data);
-    let isFinesse = (itemData.traits.value || []).includes("finesse");
-    let abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? "dex" : (itemData.ability.value || "str"));
-    let prof = itemData.weaponType.value || "simple";
-    let parts = ["@item.bonus.value", `@abilities.${abl}.mod`, `@martial.${prof}.value`];
-    let title = `${this.name} - Attack Roll` + ((multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : "");
+    // let itemData = this.data.data,
+    const itemData = this.getChatData();
+    const rollData = duplicate(this.actor.data.data);
+    const isFinesse = (itemData.traits.value || []).includes('finesse');
+    const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
+    const prof = itemData.weaponType.value || 'simple';
+    let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
+    const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
-    if (this.actor.data.type === "npc") {
-      parts = ["@item.bonus.value", `@martial.simple.value`];
+    if (this.actor.data.type === 'npc') {
+      parts = ['@item.bonus.value', '@martial.simple.value'];
     }
     rollData.item = itemData;
-    //if ( !itemData.proficient.value ) parts.pop();
+    // if ( !itemData.proficient.value ) parts.pop();
 
-    if (multiAttackPenalty == 2)
-      parts.push(itemData.map2);
-    else if (multiAttackPenalty == 3)
-      parts.push(itemData.map3);
+    if (multiAttackPenalty == 2) parts.push(itemData.map2);
+    else if (multiAttackPenalty == 3) parts.push(itemData.map3);
 
     // TODO: Incorporate Elven Accuracy
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
-      event: event,
-      parts: parts,
+      event,
+      parts,
       actor: this.actor,
       data: rollData,
-      title: title,
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
         width: 400,
         top: event ? event.clientY - 80 : 400,
-        left: window.innerWidth - 710
-      }
+        left: window.innerWidth - 710,
+      },
     });
   }
 
@@ -426,45 +422,44 @@ class ItemPF2e extends Item {
    * Roll Weapon Damage
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
-  rollWeaponDamage(event, critical=false) {
+  rollWeaponDamage(event, critical = false) {
     // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-    if ( this.type === "action" ) {
-      let itemId = parseInt(this.data.data.weapon.value),
-          item = this.actor.getOwnedItem(itemId);
+    if (this.type === 'action') {
+      const itemId = parseInt(this.data.data.weapon.value);
+      const item = this.actor.getOwnedItem(itemId);
       item.rollWeaponDamage(event);
       return;
-    } 
-    else if ( this.type !== "weapon" && this.type !== "melee"  ) throw "Wrong item type!";
-    
+    }
+    if (this.type !== 'weapon' && this.type !== 'melee') throw 'Wrong item type!';
+
 
     // Get item and actor data and format it for the damage roll
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        rollDie = itemData.damage.die,
-        abl = "str",
-        abilityMod = rollData.abilities[abl].mod,
-        parts = [],
-        dtype = CONFIG.damageTypes[itemData.damage.damageType];
-    
-    // Get detailed trait information from item
-    let traits = itemData.traits.value || [],
-        critTrait = "",
-        critDie = "",
-        twohandedTrait = false,
-        twohandedDie = "",
-        thrownTrait = false,
-        len = traits.length,
-        critRegex = `(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)`,
-        twohandedRegex = `(\\btwo-hand\\b)-(d\\d+)`,
-        thrownRegex = `(\\bthrown\\b)-(\\d+)`,
-        hasThiefRacket = this.actor.data.items.filter(e => e.type === "feat" && e.name == "Thief Racket").length > 0;
+    const itemData = this.data.data;
+    const rollData = duplicate(this.actor.data.data);
+    let rollDie = itemData.damage.die;
+    const abl = 'str';
+    let abilityMod = rollData.abilities[abl].mod;
+    let parts = [];
+    const dtype = CONFIG.damageTypes[itemData.damage.damageType];
 
-    if (hasThiefRacket && rollData.abilities["dex"].mod > abilityMod)
-      abilityMod = rollData.abilities["dex"].mod;
+    // Get detailed trait information from item
+    const traits = itemData.traits.value || [];
+    let critTrait = '';
+    let critDie = '';
+    let twohandedTrait = false;
+    let twohandedDie = '';
+    let thrownTrait = false;
+    const len = traits.length;
+    const critRegex = '(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)';
+    const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
+    const thrownRegex = '(\\bthrown\\b)-(\\d+)';
+    const hasThiefRacket = this.actor.data.items.filter((e) => e.type === 'feat' && e.name == 'Thief Racket').length > 0;
+
+    if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
 
     // Find detailed trait information
     for (let i = 0; i < len; i++) {
-      if (traits[i].match(critRegex)) {          
+      if (traits[i].match(critRegex)) {
         critTrait = traits[i].match(critRegex)[1];
         critDie = traits[i].match(critRegex)[2];
       } else if (traits[i].match(twohandedRegex)) {
@@ -472,7 +467,7 @@ class ItemPF2e extends Item {
         twohandedDie = traits[i].match(twohandedRegex)[2];
       } else if (traits[i].match(thrownRegex)) {
         thrownTrait = true;
-      }      
+      }
     }
 
     // If weapon has two-hand trait and wielded in two hands, apply the appropriate damage die
@@ -481,18 +476,18 @@ class ItemPF2e extends Item {
     }
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-    let weaponDamage = itemData.damage.dice + rollDie;    
+    let weaponDamage = itemData.damage.dice + rollDie;
     parts = [weaponDamage];
-    
+
     // If this damage roll is a critical, apply critical damage and effects
     if (critical === true) {
-      if (critTrait === "deadly") {
+      if (critTrait === 'deadly') {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        let dice = itemData.damage.dice ? itemData.damage.dice : 1,
-            deadlyDice = dice > 2 ? 2 : 1, // since deadly requires a greater striking (3dX)
-            deadlyDamage = deadlyDice + critDie;
-        parts = [weaponDamage, deadlyDamage];        
-      } else if (critTrait === "fatal") {
+        const dice = itemData.damage.dice ? itemData.damage.dice : 1;
+        const deadlyDice = dice > 2 ? 2 : 1; // since deadly requires a greater striking (3dX)
+        const deadlyDamage = deadlyDice + critDie;
+        parts = [weaponDamage, deadlyDamage];
+      } else if (critTrait === 'fatal') {
         weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
         parts = [weaponDamage];
       } else {
@@ -502,69 +497,68 @@ class ItemPF2e extends Item {
     }
 
     // Add abilityMod to the damage roll.
-    if ( itemData.range.value === "melee" || itemData.range.value === "reach" || itemData.range.value == "") { // if a melee attack
+    if (itemData.range.value === 'melee' || itemData.range.value === 'reach' || itemData.range.value == '') { // if a melee attack
       if (critical) parts.push(abilityMod * 2);
-      else parts.push(abilityMod)
+      else parts.push(abilityMod);
     } else { // else if a ranged attack
-      if ((itemData.traits.value || []).includes("propulsive")) {        
+      if ((itemData.traits.value || []).includes('propulsive')) {
         if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
-          let halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
+          const halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
           if (critical) parts.push(halfStr * 2);
           else parts.push(halfStr);
         }
-      }
-      else if (thrownTrait) { 
+      } else if (thrownTrait) {
         if (critical) parts.push(abilityMod * 2);
-        else parts.push(abilityMod)
+        else parts.push(abilityMod);
       }
-    } 
+    }
 
     // Add property rune damage
-    
-      // add strike damage
-      if (itemData.property1.dice && itemData.property1.die && itemData.property1.damageType) {
-        if (critical) {
-          let propertyDamage = (Number(itemData.property1.dice) * 2) + itemData.property1.die;
-          parts.push(propertyDamage)
-        } else {
-          let propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
-          parts.push(propertyDamage)
-        }        
+
+    // add strike damage
+    if (itemData.property1.dice && itemData.property1.die && itemData.property1.damageType) {
+      if (critical) {
+        const propertyDamage = (Number(itemData.property1.dice) * 2) + itemData.property1.die;
+        parts.push(propertyDamage);
+      } else {
+        const propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
+        parts.push(propertyDamage);
       }
-      // add critical damage
-      if (itemData.property1.critDice && itemData.property1.critDie && itemData.property1.critDamageType) {
-        if (critical) {
-          let propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
-          parts.push(propertyDamage)
-        }
+    }
+    // add critical damage
+    if (itemData.property1.critDice && itemData.property1.critDie && itemData.property1.critDamageType) {
+      if (critical) {
+        const propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
+        parts.push(propertyDamage);
       }
-    
+    }
+
 
     // if this is an NPC attack, use the damage defined in the itemData
-    if (this.type === "melee") {
+    if (this.type === 'melee') {
       weaponDamage = itemData.damage.die;
       parts = [weaponDamage];
     }
 
     // Set the title of the roll
-    let critTitle = critTrait ? critTrait.toUpperCase() : "";
+    const critTitle = critTrait ? critTrait.toUpperCase() : '';
     let title = critical ? `Critical ${critTitle} Damage: ${this.name}` : `Damage: ${this.name}`;
-    if ( dtype ) title += ` (${dtype})`;
+    if (dtype) title += ` (${dtype})`;
 
     // Call the roll helper utility
     rollData.item = itemData;
     DicePF2e.damageRoll({
-      event: event,
-      parts: parts,
+      event,
+      parts,
       actor: this.actor,
       data: rollData,
-      title: title,
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
         width: 400,
         top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
+        left: window.innerWidth - 710,
+      },
     });
   }
 
@@ -575,28 +569,28 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollSpellAttack(event) {
-    if ( this.type !== "spell" ) throw "Wrong item type!";
+    if (this.type !== 'spell') throw 'Wrong item type!';
 
     // Prepare roll data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        spellcastingEntry = this.actor.getOwnedItem(itemData.location.value),
-        spellAttack = spellcastingEntry.data.data.spelldc.value,
-        parts = [spellAttack],
-        title = `${this.name} - Spell Attack Roll`;
+    const itemData = this.data.data;
+    const rollData = duplicate(this.actor.data.data);
+    const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
+    const spellAttack = spellcastingEntry.data.data.spelldc.value;
+    const parts = [spellAttack];
+    const title = `${this.name} - Spell Attack Roll`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
-      event: event,
-      parts: parts,
+      event,
+      parts,
       data: rollData,
-      title: title,
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
         width: 400,
         top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
+        left: window.innerWidth - 710,
+      },
     });
   }
 
@@ -607,55 +601,55 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollSpellDamage(event) {
-    if ( this.type !== "spell" ) throw "Wrong item type!";
+    if (this.type !== 'spell') throw 'Wrong item type!';
 
-    const button = event.currentTarget,
-          card = button.closest('*[data-spell-lvl]');
+    const button = event.currentTarget;
+    const card = button.closest('*[data-spell-lvl]');
 
     // Get data
-    let itemData = this.data.data,
-        spellcastingEntry = this.actor.getOwnedItem(itemData.location.value),
-        rollData = duplicate(this.actor.data.data),
-        abl = spellcastingEntry.data.data.ability.value || "int",
-        parts = [itemData.damage.value],
-        isHeal = itemData.spellType.value === "heal",
-        dtype = CONFIG.damageTypes[itemData.damageType.value],
-        spellLvl = parseInt(card.dataset.spellLvl);
+    const itemData = this.data.data;
+    const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
+    const rollData = duplicate(this.actor.data.data);
+    const abl = spellcastingEntry.data.data.ability.value || 'int';
+    const parts = [itemData.damage.value];
+    const isHeal = itemData.spellType.value === 'heal';
+    const dtype = CONFIG.damageTypes[itemData.damageType.value];
+    const spellLvl = parseInt(card.dataset.spellLvl);
 
     // Append damage type to title
-    let title = this.name + (isHeal ? " - Healing" : " - Damage");
-    if ( dtype && !isHeal ) title += ` (${dtype})`;
+    let title = this.name + (isHeal ? ' - Healing' : ' - Damage');
+    if (dtype && !isHeal) title += ` (${dtype})`;
 
     // Add item to roll data
-    rollData["mod"] = rollData.abilities[abl].mod;
+    rollData.mod = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
     if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
-    let scaling = itemData.scaling || {}
-    if (scaling.mode === "level1" && scaling.formula !== "") {
+    const scaling = itemData.scaling || {};
+    if (scaling.mode === 'level1' && scaling.formula !== '') {
       // Scale cantrips & focus spells automatically.
       if (itemData.level.value === 0 || itemData.level.value === 11) {
-        let scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula)
-        parts.push(...scaling_parts)
+        const scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula);
+        parts.push(...scaling_parts);
       } else if (itemData.level.value < spellLvl) {
-        let scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula)
-        parts.push(...scaling_parts)
+        const scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula);
+        parts.push(...scaling_parts);
       }
     }
 
     // Call the roll helper utility
     DicePF2e.damageRoll({
-      event: event,
-      parts: parts,
+      event,
+      parts,
       data: rollData,
       actor: this.actor,
-      title: title,
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
         width: 400,
         top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
+        left: window.innerWidth - 710,
+      },
     });
   }
 
@@ -665,47 +659,47 @@ class ItemPF2e extends Item {
    * Use a consumable item
    */
   rollConsumable(ev) {
-    let itemData = this.data.data;
+    const itemData = this.data.data;
 
     // Submit the roll to chat
-    let cv = itemData['consume'].value,
-        content = `Uses ${this.name}`;
-    if ( cv ) {
+    const cv = itemData.consume.value;
+    const content = `Uses ${this.name}`;
+    if (cv) {
       new Roll(cv).toMessage({
-        speaker: ChatMessage.getSpeaker({actor: this.actor}),
-        flavor: content
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: content,
       });
     } else {
       ChatMessage.create({
         user: game.user._id,
-        speaker: ChatMessage.getSpeaker({actor: this.actor}),
-        content: content
-      })
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content,
+      });
     }
 
     // Deduct consumed charges from the item
-    if ( itemData['autoUse'].value ) {
-      let qty = itemData['quantity'],
-          chg = itemData['charges'];
+    if (itemData.autoUse.value) {
+      const qty = itemData.quantity;
+      const chg = itemData.charges;
 
       // Deduct an item quantity
-      if ( chg.value <= 1 && qty.value > 1 ) {
-        let options = {
-          "_id": this.data._id,
+      if (chg.value <= 1 && qty.value > 1) {
+        const options = {
+          _id: this.data._id,
           'data.quantity.value': Math.max(qty.value - 1, 0),
-          'data.charges.value': chg.max
+          'data.charges.value': chg.max,
         };
-        this.actor.updateEmbeddedEntity("OwnedItem", options);
+        this.actor.updateEmbeddedEntity('OwnedItem', options);
       }
 
       // Optionally destroy the item
-      else if ( chg.value <= 1 && qty.value <= 1 && itemData['autoDestroy'].value ) {
-        this.actor.removeEmbeddedEntity("OwnedItem", this.data._id);
+      else if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
+        this.actor.removeEmbeddedEntity('OwnedItem', this.data._id);
       }
 
       // Deduct the remaining charges
       else {
-        this.actor.updateEmbeddedEntity("OwnedItem", {_id: this.data._id, 'data.charges.value': Math.max(chg.value - 1, 0)});
+        this.actor.updateEmbeddedEntity('OwnedItem', { _id: this.data._id, 'data.charges.value': Math.max(chg.value - 1, 0) });
       }
     }
   }
@@ -794,104 +788,103 @@ class ItemPF2e extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollFeatDamage(event) {
-    if ( this.type !== "feat" ) throw "Wrong item type!";
+    if (this.type !== 'feat') throw 'Wrong item type!';
 
     // Get data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || "str",
-        parts = [itemData.damage.value],
-        dtype = CONFIG.damageTypes[itemData.damageType.value];
+    const itemData = this.data.data;
+    const rollData = duplicate(this.actor.data.data);
+    const abl = itemData.ability.value || 'str';
+    const parts = [itemData.damage.value];
+    const dtype = CONFIG.damageTypes[itemData.damageType.value];
 
     // Append damage type to title
     let title = `${this.name} - Damage`;
-    if ( dtype ) title += ` (${dtype})`;
+    if (dtype) title += ` (${dtype})`;
 
     // Add item data to roll
-    rollData["mod"] = rollData.abilities[abl].mod;
+    rollData.mod = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
     // Call the roll helper utility
     DicePF2e.damageRoll({
-      event: event,
-      parts: parts,
+      event,
+      parts,
       data: rollData,
       actor: this.actor,
-      title: title,
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
         width: 400,
         top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
+        left: window.innerWidth - 710,
+      },
     });
   }
 
   /* -------------------------------------------- */
 
   static chatListeners(html) {
-
     // Chat card actions
-    html.on('click', '.card-buttons button', ev => {
+    html.on('click', '.card-buttons button', (ev) => {
       ev.preventDefault();
 
       // Extract card data
-      const button = $(ev.currentTarget),
-            messageId = button.parents('.message').attr("data-message-id"),
-            senderId = game.messages.get(messageId).user._id,
-            card = button.parents('.chat-card');
+      const button = $(ev.currentTarget);
+      const messageId = button.parents('.message').attr('data-message-id');
+      const senderId = game.messages.get(messageId).user._id;
+      const card = button.parents('.chat-card');
 
       // Confirm roll permission
-      if ( !game.user.isGM && ( game.user._id !== senderId )) return;
+      if (!game.user.isGM && (game.user._id !== senderId)) return;
 
       // Get the Actor from a synthetic Token
       let actor;
-      const tokenKey = card.attr("data-token-id");
-      if ( tokenKey ) {
-        const [sceneId, tokenId] = tokenKey.split(".");
+      const tokenKey = card.attr('data-token-id');
+      if (tokenKey) {
+        const [sceneId, tokenId] = tokenKey.split('.');
         let token;
-        if ( sceneId === canvas.scene._id ) token = canvas.tokens.get(tokenId);
+        if (sceneId === canvas.scene._id) token = canvas.tokens.get(tokenId);
         else {
           const scene = game.scenes.get(sceneId);
-          if ( !scene ) return;
-          let tokenData = scene.data.tokens.find(t => t._id === tokenId);
-          if ( tokenData ) token = new Token(tokenData);
+          if (!scene) return;
+          const tokenData = scene.data.tokens.find((t) => t._id === tokenId);
+          if (tokenData) token = new Token(tokenData);
         }
-        if ( !token ) return;
+        if (!token) return;
         actor = Actor.fromToken(token);
       } else actor = game.actors.get(card.attr('data-actor-id'));
 
       // Get the Item
-      if ( !actor ) return;
-      const itemId = card.attr("data-item-id");
-      //let itemData = actor.items.find(i => i.id === itemId);
-      let itemData = (actor.getOwnedItem(itemId) || {}).data;
-      if ( !itemData ) return;
-      const item = new CONFIG.Item.entityClass(itemData, {actor: actor});
+      if (!actor) return;
+      const itemId = card.attr('data-item-id');
+      // let itemData = actor.items.find(i => i.id === itemId);
+      const itemData = (actor.getOwnedItem(itemId) || {}).data;
+      if (!itemData) return;
+      const item = new CONFIG.Item.entityClass(itemData, { actor });
 
       // Get the Action
-      const action = button.attr("data-action");
+      const action = button.attr('data-action');
 
       // Weapon attack
-      if ( action === "weaponAttack" ) item.rollWeaponAttack(ev);
-      else if ( action === "weaponAttack2" ) item.rollWeaponAttack(ev, 2);
-      else if ( action === "weaponAttack3" ) item.rollWeaponAttack(ev, 3);
-      else if ( action === "weaponDamage" ) item.rollWeaponDamage(ev);
-      else if ( action === "criticalDamage" ) item.rollWeaponDamage(ev, true);
+      if (action === 'weaponAttack') item.rollWeaponAttack(ev);
+      else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);
+      else if (action === 'weaponAttack3') item.rollWeaponAttack(ev, 3);
+      else if (action === 'weaponDamage') item.rollWeaponDamage(ev);
+      else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
 
       // Spell actions
-      else if ( action === "spellAttack" ) item.rollSpellAttack(ev);
-      else if ( action === "spellDamage" ) item.rollSpellDamage(ev);
+      else if (action === 'spellAttack') item.rollSpellAttack(ev);
+      else if (action === 'spellDamage') item.rollSpellDamage(ev);
 
       // Feat actions
-      else if ( action === "featAttack" ) item.rollFeatAttack(ev);
-      else if ( action === "featDamage" ) item.rollFeatDamage(ev);
+      else if (action === 'featAttack') item.rollFeatAttack(ev);
+      else if (action === 'featDamage') item.rollFeatDamage(ev);
 
       // Consumable usage
-      else if ( action === "consume" ) item.rollConsumable(ev);
+      else if (action === 'consume') item.rollConsumable(ev);
 
       // Tool usage
-      else if ( action === "toolCheck" ) item.rollToolCheck(ev);
+      else if (action === 'toolCheck') item.rollToolCheck(ev);
     });
   }
 }
@@ -903,36 +896,35 @@ CONFIG.Item.entityClass = ItemPF2e;
 /**
  * Hook into chat log context menu to add damage application options
  */
-Hooks.on("getChatLogEntryContext", (html, options) => {
-
+Hooks.on('getChatLogEntryContext', (html, options) => {
   // Condition
-  let canApply = li => canvas.tokens.controlledTokens.length && li.find(".dice-roll").length;
+  const canApply = (li) => canvas.tokens.controlledTokens.length && li.find('.dice-roll').length;
 
   // Apply Damage to Token
-  options["Apply Damage"] = {
+  options['Apply Damage'] = {
     icon: '<i class="fas fa-user-minus"></i>',
     condition: canApply,
-    callback: li => ActorPF2e.applyDamage(li, 1)
+    callback: (li) => ActorPF2e.applyDamage(li, 1),
   };
 
   // Apply Healing to Token
-  options["Apply Healing"] = {
+  options['Apply Healing'] = {
     icon: '<i class="fas fa-user-plus"></i>',
     condition: canApply,
-    callback: li => ActorPF2e.applyDamage(li, -1)
+    callback: (li) => ActorPF2e.applyDamage(li, -1),
   };
 
   // Apply Double-Damage
-  options["Double Damage"] = {
+  options['Double Damage'] = {
     icon: '<i class="fas fa-user-injured"></i>',
     condition: canApply,
-    callback: li => ActorPF2e.applyDamage(li, 2)
+    callback: (li) => ActorPF2e.applyDamage(li, 2),
   };
 
   // Apply Half-Damage
-  options["Half Damage"] = {
+  options['Half Damage'] = {
     icon: '<i class="fas fa-user-shield"></i>',
     condition: canApply,
-    callback: li => ActorPF2e.applyDamage(li, 0.5)
-  }
+    callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+  };
 });
