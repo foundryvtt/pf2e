@@ -6,6 +6,8 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker. 
+*  v0.462: Set the placeholder for NPC perception, saves and attack bonus to 0 to reflect the actual values.
 *  v0.460: (Trey#9048) Added a new automated deployment process to build, package and publish pf2e system changes. Thanks!!!
 
 Please Note:

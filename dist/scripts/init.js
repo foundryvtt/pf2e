@@ -343,22 +343,9 @@ Hooks.once("init", () => {
   Combat.prototype._getInitiativeFormula = function(combatant) {
     const actor = combatant.actor;
     if ( !actor ) return "1d20";
-    const data = actor ? actor.data.data : {},
-          parts = ["1d20", data.attributes.perception.value];
+    const data = actor ? actor.data.data : {};
+    const parts = ["1d20", (data.attributes.perception.value || 0) ];
 
-/*     // Advantage on Initiative
-    if ( actor.getFlag("dnd5e", "initiativeAdv") ) parts[0] = "2d20kh";
-
-    // Half-Proficiency to Initiative
-    if ( actor.getFlag("dnd5e", "initiativeHalfProf") ) {
-      parts.push(Math.floor(0.5 * data.attributes.prof.value))
-    }
-
-    // Alert Bonus to Initiative
-    if ( actor.getFlag("dnd5e", "initiativeAlert") ) parts.push(5);
-
-    // Dexterity tiebreaker
-    if ( CONFIG.initiative.tiebreaker ) parts.push(data.abilities.dex.value / 100); */
     return parts.join("+");
   }
 });
