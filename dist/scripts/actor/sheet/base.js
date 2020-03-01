@@ -53,6 +53,33 @@ class ActorSheetPF2e extends ActorSheet {
     return sheetData;
   }
 
+  _findActiveList() {
+    return this.element.find('.tab.active .directory-list');
+  }
+
+  async _render(force = false, options = {}) {
+    this._saveScrollPositions();
+    await super._render(force, options);
+    this._restoreScrollPositions();
+  }
+
+  _restoreScrollPositions() {
+    const activeList = this._findActiveList();
+    if (activeList.length && this._scroll != null) {
+      activeList.prop('scrollTop', this._scroll);
+    }
+  }
+
+  /**
+   * @private
+   */
+  _saveScrollPositions() {
+    const activeList = this._findActiveList();
+    if (activeList.length) {
+      this._scroll = activeList.prop('scrollTop');
+    }
+  }
+
   /* -------------------------------------------- */
 
   _prepareTraits(traits) {
