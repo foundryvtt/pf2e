@@ -33,27 +33,24 @@ Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
  * Hook into chat log context menu to add damage application options
  */
 Hooks.on('getChatLogEntryContext', (html, options) => {
-  const canApplyDamage = (li) =>
-  {
-    const messageId = li.data().messageId
-    const message = game.messages.get(messageId)
+  const canApplyDamage = (li) => {
+    const { messageId } = li.data();
+    const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Damage")
-  }
-  const canApplyHealing = (li) =>
-  {
-    const messageId = li.data().messageId
-    const message = game.messages.get(messageId)
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Damage');
+  };
+  const canApplyHealing = (li) => {
+    const { messageId } = li.data();
+    const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Healing")
-  }
-  const canApplyInitiative = (li) =>
-  {
-    const messageId = li.data().messageId
-    const message = game.messages.get(messageId)
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Healing');
+  };
+  const canApplyInitiative = (li) => {
+    const { messageId } = li.data();
+    const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Skill Check")
-  }
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Skill Check');
+  };
 
   options.push(
     {
