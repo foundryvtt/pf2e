@@ -97,7 +97,7 @@ class ItemSheetPF2e extends ItemSheet {
       else if (actionType === 'reaction') actionImg = 'reaction';
       else if (actionType === 'free') actionImg = 'free';
       else if (actionType === 'passive') actionImg = 'passive';
-      data.item.img = this.getActionImg(actionImg);
+      data.item.img = this._getActionImg(actionImg);
 
       data.weapons = actorWeapons;
       data.actionTypes = CONFIG.actionTypes;
@@ -156,7 +156,7 @@ class ItemSheetPF2e extends ItemSheet {
    * Get the action image to use for a particular action type.
    * @private
    */
-  static getActionImg(action) {
+  static _getActionImg(action) {
     const img = {
       0: 'icons/svg/mystery-man.svg',
       1: 'systems/pf2e/icons/actions/OneAction.png',
@@ -180,7 +180,7 @@ class ItemSheetPF2e extends ItemSheet {
     // Activate tabs
     new Tabs(html.find('.tabs'), {
       initial: this.item.data.flags._sheetTab,
-      callback(clicked) { this.item.data.flags._sheetTab = clicked.attr('data-tab'); },
+      callback: (clicked) => { this.item.data.flags._sheetTab = clicked.attr('data-tab'); },
     });
 
     // Checkbox changes
