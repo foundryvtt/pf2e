@@ -266,7 +266,7 @@ class ItemBrowserPF2e extends Application {
         content += '<h2>Action Browser</h2>';
         content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any actions</p>';
         for (let key in this.settings) {
-            content += `<div><input type=checkbox data-browser-type="inventory" name="${key}" ${inventoryBrowser.settings[key].load?'checked=true':''}><label>${inventoryBrowser.settings[key].name}</label></div>`;
+            content += `<div><input type=checkbox data-browser-type="action" name="${key}" ${actionBrowser.settings[key].load?'checked=true':''}><label>${actionBrowser.settings[key].name}</label></div>`;
         }
         
         let d = new Dialog({
