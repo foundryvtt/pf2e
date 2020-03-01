@@ -36,31 +36,37 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
   // Condition
   const canApply = (li) => canvas.tokens.controlledTokens.length && li.find('.dice-roll').length;
 
-  // Apply Damage to Token
-  options['Apply Damage'] = {
-    icon: '<i class="fas fa-user-minus"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 1),
-  };
-
-  // Apply Healing to Token
-  options['Apply Healing'] = {
-    icon: '<i class="fas fa-user-plus"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, -1),
-  };
-
-  // Apply Double-Damage
-  options['Double Damage'] = {
-    icon: '<i class="fas fa-user-injured"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 2),
-  };
-
-  // Apply Half-Damage
-  options['Half Damage'] = {
-    icon: '<i class="fas fa-user-shield"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 0.5),
-  };
+  options.push(
+    {
+      name: 'Apply Damage',
+      icon: '<i class="fas fa-user-minus"></i>',
+      condition: canApply,
+      callback: (li) => ActorPF2e.applyDamage(li, 1),
+    },
+    {
+      name: 'Apply Healing',
+      icon: '<i class="fas fa-user-plus"></i>',
+      condition: canApply,
+      callback: (li) => ActorPF2e.applyDamage(li, -1),
+    },
+    {
+      name: 'Double Damage',
+      icon: '<i class="fas fa-user-injured"></i>',
+      condition: canApply,
+      callback: (li) => ActorPF2e.applyDamage(li, 2),
+    },
+    {
+      name: 'Half Damage',
+      icon: '<i class="fas fa-user-shield"></i>',
+      condition: canApply,
+      callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+    },
+    {
+      name: 'Set as Initiative',
+      icon: '<i class="fas fa-fist-raised"></i>',
+      condition: canApply,
+      callback: (li) => ActorPF2e.setCombatantInitiative(li),
+    },
+  );
+  return options;
 });
