@@ -6,6 +6,8 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.464: (Trey#9048) Incorporated eslint and started moving the pf2e system to use es6 style modules.
+*  v0.464: (Trey#9048) Fixed an issue with the Action Browser compendium pack settings
 *  v0.463: (Trey#9048) Fixed issue with out dated system.json in deployment package.
 *  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker. 
 *  v0.462: Set the placeholder for NPC perception, saves and attack bonus to 0 to reflect the actual values.
