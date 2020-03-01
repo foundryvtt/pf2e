@@ -3,12 +3,12 @@
  * @type {FormApplication}
  */
 class TraitSelector5e extends FormApplication {
-	static get defaultOptions() {
+  static get defaultOptions() {
 	  const options = super.defaultOptions;
-	  options.id = "trait-selector";
-	  options.classes = ["pf2e"];
-	  options.title = "Actor Trait Selection";
-	  options.template = "systems/pf2e/templates/actors/trait-selector.html";
+	  options.id = 'trait-selector';
+	  options.classes = ['pf2e'];
+	  options.title = 'Actor Trait Selection';
+	  options.template = 'systems/pf2e/templates/actors/trait-selector.html';
 	  options.width = 200;
 	  return options;
   }
@@ -30,26 +30,25 @@ class TraitSelector5e extends FormApplication {
    * @type {Object}
    */
   getData() {
-
     // Get current values
-    let attr = getProperty(this.object.data, this.attribute);
-    if ( typeof attr.value === "string" ) attr.value = this.constructor._backCompat(attr.value, this.options.choices);
-    if (!attr.value) attr.value = "";
+    const attr = getProperty(this.object.data, this.attribute);
+    if (typeof attr.value === 'string') attr.value = this.constructor._backCompat(attr.value, this.options.choices);
+    if (!attr.value) attr.value = '';
 
 	  // Populate choices
     const choices = duplicate(this.options.choices);
-    for ( let [k, v] of Object.entries(choices) ) {
+    for (const [k, v] of Object.entries(choices)) {
       choices[k] = {
         label: v,
-        chosen: attr.value.includes(k)
-      }
+        chosen: attr.value.includes(k),
+      };
     }
 
     // Return data
 	  return {
-	    choices: choices,
-      custom: attr.custom
-    }
+	    choices,
+      custom: attr.custom,
+    };
   }
 
   /* -------------------------------------------- */
@@ -59,14 +58,14 @@ class TraitSelector5e extends FormApplication {
    * @private
    */
   static _backCompat(current, choices) {
-    if ( !current || current.length === 0 ) return [];
-	  current = current.split(/[\s,]/).filter(t => !!t);
-    return current.map(val => {
-      for ( let [k, v] of Object.entries(choices) ) {
-        if ( val === v ) return k;
-        }
+    if (!current || current.length === 0) return [];
+	  current = current.split(/[\s,]/).filter((t) => !!t);
+    return current.map((val) => {
+      for (const [k, v] of Object.entries(choices)) {
+        if (val === v) return k;
+      }
       return null;
-    }).filter(val => !!val);
+    }).filter((val) => !!val);
   }
 
   /* -------------------------------------------- */
@@ -77,12 +76,12 @@ class TraitSelector5e extends FormApplication {
    */
   _updateObject(event, formData) {
     const choices = [];
-    for ( let [k, v] of Object.entries(formData) ) {
-      if ( v ) choices.push(k);
+    for (const [k, v] of Object.entries(formData)) {
+      if (v) choices.push(k);
     }
     this.object.update({
       [`${this.attribute}.value`]: choices,
-      [`${this.attribute}.custom`]: formData.custom
+      [`${this.attribute}.custom`]: formData.custom,
     });
   }
 }
