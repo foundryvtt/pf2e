@@ -297,6 +297,9 @@ async function packageBuild(cb, version) {
   // Ensure there is a directory to hold all the packaged versions
   await fs.ensureDir('package');
 
+  updateManifest("", version)
+  copyFiles(function() {})
+
   // Initialize the zip file
   const zipName = `${manifest.file.name}-v${version || manifest.file.version}.zip`;
   const zipFile = fs.createWriteStream(path.join('package', zipName));
@@ -305,7 +308,7 @@ async function packageBuild(cb, version) {
   zipFile.on('close', () => {
     console.log(chalk.green(zip.pointer() + ' total bytes'));
     console.log(chalk.green(`Zip file ${zipName} has been written`));
-    return cb(zipName);
+    return cb(zipName, version);
   });
 
   zip.on('error', (err) => {
@@ -327,7 +330,7 @@ async function packageBuild(cb, version) {
 /**
  * Update version and URLs in the manifest JSON
  */
-function updateManifest(zipUrl) {
+function updateManifest(zipUrl, version) {
 	const packageJson = fs.readJSONSync('package.json');
 	const config = getConfig(),
 		manifest = getManifest(),
@@ -342,7 +345,7 @@ function updateManifest(zipUrl) {
 	if (!rawURL || !repoURL)
 		throw (Error(chalk.red('Repository URLs not configured in foundryconfig.json')));
 
-  const targetVersion = nextVersion()
+  const targetVersion = version || nextVersion()
 
   console.log(`Updating version number to '${targetVersion}'`);
 
@@ -386,7 +389,7 @@ const execGit = gulp.series(gitAdd, gitCommit, gitTag);
 
 const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
 
-async function releaseAndTag(zipFile) {
+async function releaseAndTag(zipFile, version) {
   let config = getConfig();
   let token = config.gitlabToken
   let gitlabId = config.gitlabProjectId
@@ -407,7 +410,7 @@ async function releaseAndTag(zipFile) {
   console.log(parsed)
   let zipUrl = `${config.repository}${parsed.url}`
   console.log(`Uploaded to ${zipUrl}`)
-  updateManifest(zipUrl)
+  updateManifest(zipUrl, version)
   execGit()
 }
 function nextVersion() {
