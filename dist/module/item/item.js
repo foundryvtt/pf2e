@@ -1,7 +1,7 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-class ItemPF2e extends Item {
+export default class extends Item {
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
@@ -889,42 +889,4 @@ class ItemPF2e extends Item {
   }
 }
 
-// Assign ItemPF2e class to CONFIG
-CONFIG.Item.entityClass = ItemPF2e;
 
-
-/**
- * Hook into chat log context menu to add damage application options
- */
-Hooks.on('getChatLogEntryContext', (html, options) => {
-  // Condition
-  const canApply = (li) => canvas.tokens.controlledTokens.length && li.find('.dice-roll').length;
-
-  // Apply Damage to Token
-  options['Apply Damage'] = {
-    icon: '<i class="fas fa-user-minus"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 1),
-  };
-
-  // Apply Healing to Token
-  options['Apply Healing'] = {
-    icon: '<i class="fas fa-user-plus"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, -1),
-  };
-
-  // Apply Double-Damage
-  options['Double Damage'] = {
-    icon: '<i class="fas fa-user-injured"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 2),
-  };
-
-  // Apply Half-Damage
-  options['Half Damage'] = {
-    icon: '<i class="fas fa-user-shield"></i>',
-    condition: canApply,
-    callback: (li) => ActorPF2e.applyDamage(li, 0.5),
-  };
-});

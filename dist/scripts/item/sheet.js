@@ -199,9 +199,6 @@ class ItemSheetPF2e extends ItemSheet {
   }
 }
 
-// Activate global listeners
-Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
-
 // Override CONFIG
 // CONFIG.Item.sheetClass = ItemSheetPF2e;
 

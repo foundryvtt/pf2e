@@ -1,4 +1,4 @@
-export default CONFIG = {};
+export const CONFIG = {};
 // Damage Types
 CONFIG.damageTypes = {
   acid: 'Acid',
