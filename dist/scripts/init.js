@@ -30,18 +30,7 @@
       const { isGM } = game.user;
 
       if (!isGM) return;
-
-      /*       if (actorData.data.schema.version.value === version) {
-        console.log(`PF2e System | NOT UPDATING | Actor ${actorData._id} (${actorData.name}) schema matches ${version}`);
-        return; // No update needed
-      }
-      else if (actorData.data.schema.version.value > version) {
-        console.log(`PF2e System | NOT UPDATING | Actor ${actorData._id} (${actorData.name}) schema is greater than ${version}`);
-        return; // No update needed
-      } */
-
       const worldSchemaVersion = Number(game.settings.get('pf2e', 'worldSchemaVersion'));
-
 
       // get changes for this version
       if (version === 0.411 && worldSchemaVersion === 0) {
@@ -226,30 +215,7 @@
     }
   }
 
-  /*   function toDataURL(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        callback(reader.result);
-      }
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-  } */
-
   await isCanvasReady();
-
-  game.settings.register('pf2e', 'worldSchemaVersion', {
-    name: 'Actor Schema Version',
-    hint: "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",
-    scope: 'world',
-    config: true,
-    default: 0,
-    type: Number,
-  });
 
   const { isGM } = game.user;
 
@@ -267,78 +233,16 @@
       console.log('PF2e System | World Schema matches System Schema. No migration required');
     }
   }
-
-  /*   toDataURL('http://localhost:30000/assets/icons/!dox/items/potions/greater_healing.jpg', function(dataUrl) {
-    console.log('RESULT:', dataUrl)
-  }) */
 })();
 
 /**
  * Activate certain behaviors on FVTT ready hook
  */
-Hooks.once('init', () => {
-  game.pf2e = {
-    rollItemMacro,
-  };
-
-  // Pre-load templates
-  loadTemplates([
-
-    // Actor Sheet Partials (Tabs)
-    'systems/pf2e/templates/actors/tabs/actor-actions.html',
-    'systems/pf2e/templates/actors/tabs/actor-biography.html',
-    'systems/pf2e/templates/actors/tabs/actor-feats.html',
-    'systems/pf2e/templates/actors/tabs/actor-inventory.html',
-    'systems/pf2e/templates/actors/tabs/actor-skills.html',
-    'systems/pf2e/templates/actors/tabs/actor-spellbook.html',
-
-    // Actor Sheet Partials (Legacy)
-    'systems/pf2e/templates/actors/actor-attributes.html',
-    'systems/pf2e/templates/actors/actor-abilities.html',
-    'systems/pf2e/templates/actors/actor-traits.html',
-    'systems/pf2e/templates/actors/actor-classes.html',
-
-    // Item Sheet Partials
-    'systems/pf2e/templates/items/action-details.html',
-    'systems/pf2e/templates/items/action-sidebar.html',
-    'systems/pf2e/templates/items/armor-details.html',
-    'systems/pf2e/templates/items/armor-sidebar.html',
-    'systems/pf2e/templates/items/backpack-sidebar.html',
-    'systems/pf2e/templates/items/class-sidebar.html',
-    'systems/pf2e/templates/items/consumable-details.html',
-    'systems/pf2e/templates/items/consumable-sidebar.html',
-    'systems/pf2e/templates/items/equipment-details.html',
-    'systems/pf2e/templates/items/equipment-sidebar.html',
-    'systems/pf2e/templates/items/feat-details.html',
-    'systems/pf2e/templates/items/feat-sidebar.html',
-    'systems/pf2e/templates/items/lore-sidebar.html',
-    'systems/pf2e/templates/items/spell-details.html',
-    'systems/pf2e/templates/items/spell-sidebar.html',
-    'systems/pf2e/templates/items/tool-sidebar.html',
-    'systems/pf2e/templates/items/melee-details.html',
-    'systems/pf2e/templates/items/weapon-details.html',
-    'systems/pf2e/templates/items/weapon-sidebar.html',
-  ]);
-
-
-  /* -------------------------------------------- */
-
-  /**
-   * Override the default Initiative formula to customize special behaviors of the D&D5e system.
-   * Apply advantage, proficiency, or bonuses where appropriate
-   * Apply the dexterity score as a decimal tiebreaker if requested
-   * See Combat._getInitiativeFormula for more detail.
-   * @private
-   */
-  Combat.prototype._getInitiativeFormula = function(combatant) {
-    const actor = combatant.actor;
-    if ( !actor ) return "1d20";
-    const data = actor ? actor.data.data : {};
-    const parts = ["1d20", (data.attributes.perception.value || 0) ];
-
-    return parts.join("+");
-  }
-});
+// Hooks.once('init', () => {
+//   game.pf2e = {
+//     rollItemMacro,
+//   };
+// });
 
 /**
  * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)

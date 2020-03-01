@@ -17,7 +17,9 @@ module.exports = {
     $: 'readonly',
     Tabs: 'readonly',
     Hooks: 'readonly',
-    Items: 'readonly'
+    Items: 'readonly',
+    loadTemplates: 'readonly',
+    Combat: 'writable'
   },
   parserOptions: {
     ecmaVersion: 2018,
@@ -26,6 +28,7 @@ module.exports = {
   rules: {
     "no-restricted-syntax": 0,
     "no-new": 0,
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "no-console": 0
   },
 };
