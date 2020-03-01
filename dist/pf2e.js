@@ -33,38 +33,57 @@ Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
  * Hook into chat log context menu to add damage application options
  */
 Hooks.on('getChatLogEntryContext', (html, options) => {
-  // Condition
-  const canApply = (li) => canvas.tokens.controlledTokens.length && li.find('.dice-roll').length;
+  const canApplyDamage = (li) =>
+  {
+    const messageId = li.data().messageId
+    const message = game.messages.get(messageId)
+
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Damage")
+  }
+  const canApplyHealing = (li) =>
+  {
+    const messageId = li.data().messageId
+    const message = game.messages.get(messageId)
+
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Healing")
+  }
+  const canApplyInitiative = (li) =>
+  {
+    const messageId = li.data().messageId
+    const message = game.messages.get(messageId)
+
+    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes("Skill Check")
+  }
 
   options.push(
     {
       name: 'Apply Damage',
       icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApply,
+      condition: canApplyDamage,
       callback: (li) => ActorPF2e.applyDamage(li, 1),
     },
     {
       name: 'Apply Healing',
       icon: '<i class="fas fa-user-plus"></i>',
-      condition: canApply,
+      condition: canApplyHealing,
       callback: (li) => ActorPF2e.applyDamage(li, -1),
     },
     {
       name: 'Double Damage',
       icon: '<i class="fas fa-user-injured"></i>',
-      condition: canApply,
+      condition: canApplyDamage,
       callback: (li) => ActorPF2e.applyDamage(li, 2),
     },
     {
       name: 'Half Damage',
       icon: '<i class="fas fa-user-shield"></i>',
-      condition: canApply,
+      condition: canApplyDamage,
       callback: (li) => ActorPF2e.applyDamage(li, 0.5),
     },
     {
       name: 'Set as Initiative',
       icon: '<i class="fas fa-fist-raised"></i>',
-      condition: canApply,
+      condition: canApplyInitiative,
       callback: (li) => ActorPF2e.setCombatantInitiative(li),
     },
   );
