@@ -50,7 +50,7 @@ class ItemSheetPF2e extends ItemSheet {
         spellLevels: CONFIG.spellLevels,
         spellTraditions: CONFIG.magicTraditions,
         // spellBasic: CONFIG.spellBasic,
-        spellComponents: this.formatSpellComponents(data.data),
+        spellComponents: this._formatSpellComponents(data.data),
         areaSizes: CONFIG.areaSizes,
         areaTypes: CONFIG.areaTypes,
         spellScalingModes: CONFIG.spellScalingModes,
@@ -130,7 +130,7 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  static formatSpellComponents(data) {
+  _formatSpellComponents(data) {
     if (!data.components.value) return [];
     const comps = data.components.value.split(',').map((c) => CONFIG.spellComponents[c.trim()] || c.trim());
     if (data.materials.value) comps.push(data.materials.value);
@@ -139,7 +139,7 @@ class ItemSheetPF2e extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  static onTraitSelector(event) {
+  onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);
     const options = {
@@ -156,7 +156,7 @@ class ItemSheetPF2e extends ItemSheet {
    * Get the action image to use for a particular action type.
    * @private
    */
-  static _getActionImg(action) {
+  _getActionImg(action) {
     const img = {
       0: 'icons/svg/mystery-man.svg',
       1: 'systems/pf2e/icons/actions/OneAction.png',

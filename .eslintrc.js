@@ -31,6 +31,7 @@ module.exports = {
     "no-new": 0,
     "no-underscore-dangle": 0,
     "no-console": 0,
-    "import/extensions": [1, 'always']
+    "import/extensions": [1, 'always'],
+    "class-methods-use-this": 0
   },
 };
