@@ -1,13 +1,12 @@
 
-
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
-	static get defaultOptions() {
+  static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {
-      classes: options.classes.concat(["pf2e", "actor", "character-sheet"]),
+      classes: options.classes.concat(['pf2e', 'actor', 'character-sheet']),
       width: 650,
       height: 720,
-      showUnpreparedSpells: false
+      showUnpreparedSpells: false,
     });
 	  return options;
   }
@@ -19,9 +18,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @type {String}
    */
   get template() {
-    const path = "systems/pf2e/templates/actors/";
-    if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
-    return path + "actor-sheet.html";
+    const path = 'systems/pf2e/templates/actors/';
+    if (!game.user.isGM && this.actor.limited) return `${path}limited-sheet.html`;
+    return `${path}actor-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -33,7 +32,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const sheetData = super.getData();
 
     // Temporary HP
-    let hp = sheetData.data.attributes.hp;
+    const { hp } = sheetData.data.attributes;
     if (hp.temp === 0) delete hp.temp;
     if (hp.tempmax === 0) delete hp.tempmax;
 
@@ -42,16 +41,16 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData.data.attributes.heroPoints.hover = CONFIG.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
 
     // Spell Details
-    sheetData["magicTraditions"] = CONFIG.magicTraditions;
-    sheetData["preparationType"] = CONFIG.preparationType;
-/*     if (sheetData.data.attributes.spellcasting.entry) {
+    sheetData.magicTraditions = CONFIG.magicTraditions;
+    sheetData.preparationType = CONFIG.preparationType;
+    /*     if (sheetData.data.attributes.spellcasting.entry) {
       for (let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
         if ((entry.prepared || {}).value === "prepared") entry.prepared["preparedSpells"] = true;
         else entry.prepared["preparedSpells"] = false;
       }
     } */
 
-    sheetData["showUnpreparedSpells"] = sheetData.options.showUnpreparedSpells
+    sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
 
     // Return data for rendering
@@ -65,41 +64,40 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @private
    */
   _prepareItems(actorData) {
-
     // Inventory
     const inventory = {
-      weapon: { label: "Weapons", items: [] },
-      armor: { label: "Armor", items: [] },
-      equipment: { label: "Equipment", items: [] },
-      consumable: { label: "Consumables", items: [] },
-      backpack: { label: "Backpack", items: [] },
+      weapon: { label: 'Weapons', items: [] },
+      armor: { label: 'Armor', items: [] },
+      equipment: { label: 'Equipment', items: [] },
+      consumable: { label: 'Consumables', items: [] },
+      backpack: { label: 'Backpack', items: [] },
     };
 
     // Spellbook
-    //const spellbook = {};
-    let tempSpellbook = [];
-    let spellcastingEntriesList = [];
+    // const spellbook = {};
+    const tempSpellbook = [];
+    const spellcastingEntriesList = [];
     const spellbooks = [];
-    spellbooks["unassigned"] = {};
+    spellbooks.unassigned = {};
 
     // Spellcasting Entries
     const spellcastingEntries = [];
 
     // Feats
     const feats = {
-      "ancestry": { label: "Ancestry Feats", feats: [] },
-      "skill": { label: "Skill Feats", feats: [] },
-      "general": { label: "General Feats", feats: [] },
-      "class": { label: "Class Feats", feats: [] },
-      "bonus": { label: "Bonus Feats", feats: [] },
-      "classfeature": { label: "Class Features", feats: [] }
+      ancestry: { label: 'Ancestry Feats', feats: [] },
+      skill: { label: 'Skill Feats', feats: [] },
+      general: { label: 'General Feats', feats: [] },
+      class: { label: 'Class Feats', feats: [] },
+      bonus: { label: 'Bonus Feats', feats: [] },
+      classfeature: { label: 'Class Features', feats: [] },
     };
 
     // Actions
     const actions = {
-      "action": { label: "Actions", actions: [] },
-      "reaction": { label: "Reactions", actions: [] },
-      "free": { label: "Free Actions", actions: [] }
+      action: { label: 'Actions', actions: [] },
+      reaction: { label: 'Reactions', actions: [] },
+      free: { label: 'Free Actions', actions: [] },
     };
 
     // Skills
@@ -107,108 +105,103 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
-    for ( let i of actorData.items ) {
+    for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
 
       // Inventory
-      if ( Object.keys(inventory).includes(i.type) ) {
+      if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        if (i.data.weight.value === "L" || i.data.weight.value === "l") {
-          i.totalWeight = "L";
+        if (i.data.weight.value === 'L' || i.data.weight.value === 'l') {
+          i.totalWeight = 'L';
           totalWeight += i.data.quantity.value * 0.1;
         } else if (parseInt(i.data.weight.value)) {
           i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
           totalWeight += i.totalWeight;
+        } else {
+          i.totalWeight = '-';
         }
-        else {
-          i.totalWeight = "-";
-        }
-        i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
-        i.isTwoHanded = (i.type === "weapon") && !!((i.data.traits.value || []).find(x => x.startsWith("two-hand")));
-        i.wieldedTwoHanded = (i.type === "weapon") && (i.data.hands || {}).value;
+        i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
+        i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
+        i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
         inventory[i.type].items.push(i);
-        
       }
 
       // Spells
-      else if ( i.type === "spell" ) {  
-        tempSpellbook.push(i)     ;
-/*         if (i.data.location.value) {
+      else if (i.type === 'spell') {
+        tempSpellbook.push(i);
+        /*         if (i.data.location.value) {
           let location = i.data.location.value;
           spellbooks[location] = spellbooks[location] || {};
-          this._prepareSpell(actorData, spellbooks[location], i);                    
+          this._prepareSpell(actorData, spellbooks[location], i);
         } else {
-          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
+          this._prepareSpell(actorData, spellbooks["unassigned"], i);
         } */
       }
 
       // Spellcasting Entries
-      else if ( i.type === "spellcastingEntry" ) {
-
+      else if (i.type === 'spellcastingEntry') {
         // collect list of entries to use later to match spells against.
         spellcastingEntriesList.push(i._id);
 
-        let spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
-        let spellAbl = i.data.ability.value || "int";
-        let spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+        const spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
+        const spellAbl = i.data.ability.value || 'int';
+        const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
         if (i.data.spelldc.value != spellAttack) {
           i.data.spelldc.value = spellAttack;
-          i.data.spelldc.dc = spellAttack + 10
+          i.data.spelldc.dc = spellAttack + 10;
           i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-          //this.actor.updateOwnedItem(i, true);
-          this.actor.updateEmbeddedEntity("OwnedItem", i);
+          // this.actor.updateOwnedItem(i, true);
+          this.actor.updateEmbeddedEntity('OwnedItem', i);
         }
-        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;        
-        i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;  
+        i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
+        i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
 
         i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
         i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficiency.value];
         i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
         i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
         // Check if prepared spellcasting type and set Boolean
-        if ((i.data.prepared || {}).value === "prepared") i.data.prepared["preparedSpells"] = true;
-        else i.data.prepared["preparedSpells"] = false;
+        if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
+        else i.data.prepared.preparedSpells = false;
         // Check if Ritual spellcasting tradtion and set Boolean
-        if ((i.data.tradition || {}).value === "ritual") i.data.tradition["ritual"] = true;
-        else i.data.tradition["ritual"] = false;
-  
-        spellcastingEntries.push(i);      
-                
+        if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
+        else i.data.tradition.ritual = false;
+
+        spellcastingEntries.push(i);
       }
 
-/*       // Classes
+      /*       // Classes
       else if ( i.type === "class" ) {
         classes.push(i);
         classes.sort((a, b) => b.levels > a.levels);
       } */
 
       // Feats
-      else if ( i.type === "feat" ) {
-        let featType = i.data.featType.value || "bonus";
-        let actionType = i.data.actionType.value || "passive";
-        
+      else if (i.type === 'feat') {
+        const featType = i.data.featType.value || 'bonus';
+        const actionType = i.data.actionType.value || 'passive';
+
         feats[featType].feats.push(i);
-        if ( Object.keys(actions).includes(actionType)) {
+        if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
           let actionImg = 0;
-          if (actionType === "action") actionImg = parseInt((i.data.actions || {}).value) || 1;
-          else if (actionType === "reaction") actionImg = "reaction";
-          else if (actionType === "free") actionImg = "free";
+          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+          else if (actionType === 'reaction') actionImg = 'reaction';
+          else if (actionType === 'free') actionImg = 'free';
           i.img = this._getActionImg(actionImg);
           actions[actionType].actions.push(i);
         }
       }
 
       // Lore Skills
-      else if ( i.type === "lore" ) {
-
+      else if (i.type === 'lore') {
         i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
-        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value )];
+        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value)];
 
-        let proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;      
-        let modifier = actorData.data.abilities["int"].mod;
-        let itemBonus = Number((i.data.item || {}).value || 0);
+        const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
+        const modifier = actorData.data.abilities.int.mod;
+        const itemBonus = Number((i.data.item || {}).value || 0);
         i.data.itemBonus = itemBonus;
         i.data.value = modifier + proficiency + itemBonus;
         i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
@@ -217,70 +210,67 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Actions
-      if ( i.type === "action" ) {
-        let actionType = i.data.actionType.value || "action";
+      if (i.type === 'action') {
+        const actionType = i.data.actionType.value || 'action';
         let actionImg = 0;
-        if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        else if (actionType === "reaction") actionImg = "reaction";
-        else if (actionType === "free") actionImg = "free";
-        else if (actionType === "passive") actionImg = "passive";
+        if (actionType === 'action') actionImg = parseInt(i.data.actions.value) || 1;
+        else if (actionType === 'reaction') actionImg = 'reaction';
+        else if (actionType === 'free') actionImg = 'free';
+        else if (actionType === 'passive') actionImg = 'passive';
         i.img = this._getActionImg(actionImg);
-        if (actionType === "passive") actions["free"].actions.push(i);
-        else actions[actionType].actions.push(i);       
+        if (actionType === 'passive') actions.free.actions.push(i);
+        else actions[actionType].actions.push(i);
       }
     }
 
-    let embeddedEntityUpdate = [];
+    const embeddedEntityUpdate = [];
     // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
-    for ( let i of tempSpellbook ) {
+    for (const i of tempSpellbook) {
+      // check if the spell has a valid spellcasting entry assigned to the location value.
+      if (spellcastingEntriesList.includes(i.data.location.value)) {
+        const location = i.data.location.value;
+        spellbooks[location] = spellbooks[location] || {};
+        this._prepareSpell(actorData, spellbooks[location], i);
+      } else if (spellcastingEntriesList.length === 1) { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
+        const location = spellcastingEntriesList[0];
+        spellbooks[location] = spellbooks[location] || {};
 
-        // check if the spell has a valid spellcasting entry assigned to the location value.
-        if (spellcastingEntriesList.includes(i.data.location.value)) {
-          let location = i.data.location.value;
-          spellbooks[location] = spellbooks[location] || {};
-          this._prepareSpell(actorData, spellbooks[location], i);                    
-        } else if (spellcastingEntriesList.length === 1) { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
-          let location = spellcastingEntriesList[0]; 
-          spellbooks[location] = spellbooks[location] || {};
+        // Update spell to perminantly have the correct ID now
+        // console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
+        // this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
+        embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
 
-          // Update spell to perminantly have the correct ID now
-          //console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
-          //this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
-          embeddedEntityUpdate.push({ "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
-
-          this._prepareSpell(actorData, spellbooks[location], i);
-        } else { // else throw it in the orphaned list.
-          this._prepareSpell(actorData, spellbooks["unassigned"], i);                    
-        } 
-
+        this._prepareSpell(actorData, spellbooks[location], i);
+      } else { // else throw it in the orphaned list.
+        this._prepareSpell(actorData, spellbooks.unassigned, i);
+      }
     }
 
     // Update all embedded entities that have an incorrect location.
     if (embeddedEntityUpdate.length) {
-      console.log(`PF2e System | Prepare Actor Data | Updating location for the following embedded entities: `, embeddedEntityUpdate);
-      this.actor.updateManyEmbeddedEntities("OwnedItem", embeddedEntityUpdate);
-      ui.notifications.info(`PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.`);
+      console.log('PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ', embeddedEntityUpdate);
+      this.actor.updateManyEmbeddedEntities('OwnedItem', embeddedEntityUpdate);
+      ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
     }
 
-    
 
     // Assign and return
     actorData.inventory = inventory;
     // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
     if (Object.keys(spellbooks.unassigned).length) {
       actorData.orphanedSpells = true;
-      actorData.orphanedSpellbook = spellbooks["unassigned"];
-    } 
+      actorData.orphanedSpellbook = spellbooks.unassigned;
+    }
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
 
-    
-    for (let entry of spellcastingEntries) {
+
+    for (const entry of spellcastingEntries) {
       if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
         this._preparedSpellSlots(entry, spellbooks[entry._id]);
       }
-      entry.spellbook = spellbooks[entry._id];      
+      entry.spellbook = spellbooks[entry._id];
     }
 
     actorData.spellcastingEntries = spellcastingEntries;
@@ -304,9 +294,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @private
    */
   _computeEncumbrance(totalWeight, actorData) {
-
     // Encumbrance classes
-/*     let mod = {
+    /*     let mod = {
       tiny: 0.5,
       sm: 1,
       med: 1,
@@ -319,10 +308,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     /* if ( this.actor.getFlag("dnd5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8); */
 
     // Add Currency Weight
-    const currency = actorData.data.currency;
+    const { currency } = actorData.data;
     const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
     totalWeight += Math.floor(numCoins / 1000);
-  
+
 
     // Compute Encumbrance percentage
     const enc = {
@@ -330,7 +319,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       value: Math.floor(totalWeight),
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    enc.encumbered = enc.pct > (2/3);
+    enc.encumbered = enc.pct > (2 / 3);
     return enc;
   }
 
@@ -342,16 +331,14 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
-    if ( !this.options.editable ) return;
-
+    if (!this.options.editable) return;
   }
-
 }
 
 // Register Character Sheet
-Actors.registerSheet("pf2e", ActorSheetPF2eCharacter, {
-  types: ["character"],
-  makeDefault: true
+Actors.registerSheet('pf2e', ActorSheetPF2eCharacter, {
+  types: ['character'],
+  makeDefault: true,
 });
