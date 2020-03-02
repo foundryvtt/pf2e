@@ -2,9 +2,9 @@
   "name": "pf2e",
   "title": "Pathfinder 2nd Edition",
   "description": "An early alpha game system for running games of Pathfinder 2nd Edition in the Foundry VTT environment.",
-  "version": "0.4651",
+  "version": "0.500",
   "schema": 0.411,
-  "minimumCoreVersion": "0.4.5",
+  "minimumCoreVersion": "0.5.0",
   "author": "hooking, Trey",
   "esmodules": ["pf2e.js"],
   "scripts": [
@@ -85,9 +85,13 @@
       "entity": "Item"
     }
   ],
-  "languages": {
-    "en": "lang/en.json"
-  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "socket": true,
   "initiative": "1d20 + @attributes.perception.value + (@abilities.wis.value / 100)",
   "gridDistance": 5,

@@ -6,7 +6,7 @@ import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
 
 Hooks.once('init', () => {
-  console.log('PF2e | Initializing Pathfinder 2nd Edition');
+  console.log(`PF2e | Initializing Pathfinder 2nd Edition System`);
 
   CONFIG.PF2E = PF2E;
   // Temporarily overload CONFIG until we're refactored out.
