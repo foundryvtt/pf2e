@@ -307,9 +307,9 @@ export default class extends Actor {
       return;
     }
 
-    const pack = game.packs.find((p) => p.collection === collection);
-    if (pack.metadata.entity !== 'Item') return;
-    return pack.getEntity(entryId).then((ent) => {
+    const pack = game.packs.find(p => p.collection === collection);
+    if (pack.metadata.entity !== "Item") return;
+    return pack.getEntity(entryId).then(ent => {
       console.log(`${vtt} | Importing Item ${ent.name} from ${collection}`);
       if (ent.type === 'spell') {
         ent.data.data.location = {
@@ -318,8 +318,8 @@ export default class extends Actor {
       }
       delete ent.data._id;
       return this.createOwnedItem(ent.data);
-      // return this.createEmbeddedEntity("OwnedItem", ent.data);
-    });
+    });    
+
   }
 }
 

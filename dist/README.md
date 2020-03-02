@@ -6,12 +6,12 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.464: (Trey#9048) Incorporated eslint and started moving the pf2e system to use es6 style modules.
-*  v0.464: (Trey#9048) Fixed an issue with the Action Browser compendium pack settings
-*  v0.463: (Trey#9048) Fixed issue with out dated system.json in deployment package.
-*  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker. 
-*  v0.462: Set the placeholder for NPC perception, saves and attack bonus to 0 to reflect the actual values.
-*  v0.460: (Trey#9048) Added a new automated deployment process to build, package and publish pf2e system changes. Thanks!!!
+*  v0.465: (Trey#9048) Added an actions compendium.
+*  v0.465: Re-orded the filter groups in Action Browser
+*  v0.465: Added a link directly to the Action Browser from the action tab in character sheets
+*  v0.465: (Trey#9048) Saved scroll position when managing prepared spells (huge QoL improvement!!)
+*  v0.465: Fixed bug when dragging spells from a compendium onto an NPC sheet.
+
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
@@ -53,6 +53,12 @@ This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agr
 
 ### Prior Patch Changes:
 
+*  v0.464: (Trey#9048) Incorporated eslint and started moving the pf2e system to use es6 style modules.
+*  v0.464: (Trey#9048) Fixed an issue with the Action Browser compendium pack settings
+*  v0.463: (Trey#9048) Fixed issue with out dated system.json in deployment package.
+*  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker. 
+*  v0.462: Set the placeholder for NPC perception, saves and attack bonus to 0 to reflect the actual values.
+*  v0.460: (Trey#9048) Added a new automated deployment process to build, package and publish pf2e system changes. Thanks!!!
 *  v0.456: (Trey#9048) Added Action Browser - a way to search and filter for actions from selected compendium packs. Thanks!
 *  v0.455: (Trey#9048) Added hover description to item chat card traits. Thanks!
 *  v0.454: (Trey#9048) Fixed an issue with focus spell heightening.

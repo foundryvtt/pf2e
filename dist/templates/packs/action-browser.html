@@ -11,18 +11,10 @@
                     <option value="true" selected>Name</option>
                 </select></dd>
             </dl>
-        </div>
-        <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Trait</h3>
-            <dl>
-                {{#each actionTraits as |trait key|}}
-                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
-                {{/each}}
-            </dl>
-        </div>
+        </div>        
         <div class="filtercontainer" id="actionTraitfilter">
             <h3>Skill</h3>
-            <dl style="display:none;">
+            <dl>
                 {{#each skills as |skill key|}}
                 <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
                 {{/each}}
@@ -33,6 +25,14 @@
             <dl style="display:none;">
                 {{#each proficiencies as |proficiency key|}}
                 <dt><input type="checkbox" name="proficiencies-{{key}}"></dt><dd>{{proficiency}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>Trait</h3>
+            <dl style="display:none;">
+                {{#each actionTraits as |trait key|}}
+                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
                 {{/each}}
             </dl>
         </div>

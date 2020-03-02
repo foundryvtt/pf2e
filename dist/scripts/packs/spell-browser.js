@@ -1033,6 +1033,8 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
           for (let action of content) {
             action = action.data;
             if (action.type == 'action') {
+              // update icons for any passive actions
+              if (action.data.actionType.value === 'passive') action.img = this._getActionImg('passive');
               // record the pack the feat was read from
               action.compendium = pack.collection;
               actions[(action._id)] = action;

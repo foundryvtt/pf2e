@@ -459,6 +459,9 @@ class ActorSheetPF2e extends ActorSheet {
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
 
+    // Action Browser
+    html.find('.action-browse').click((ev) => actionBrowser.render(true));
+
     // Spell Browser
     html.find('.spell-browse').click((ev) => spellBrowser.render(true));
 
