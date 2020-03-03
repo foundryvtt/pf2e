@@ -25,6 +25,27 @@ Hooks.once('init', () => {
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 });
 
+/* -------------------------------------------- */
+/*  Foundry VTT Setup                           */
+/* -------------------------------------------- */
+
+/**
+ * This function runs after game data has been requested and loaded from the servers, so entities exist
+ */
+Hooks.once("setup", function() {
+
+  // Localize CONFIG objects once up-front
+  const toLocalize = [
+    "abilities", "skills", "martialSkills", "currencies", "saves"
+  ];
+  for ( let o of toLocalize ) {
+    CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {
+      obj[e[0]] = game.i18n.localize(e[1]);
+      return obj;
+    }, {});
+  }
+});
+
 // Activate global listeners
 Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
 

@@ -20,26 +20,39 @@ class ActorSheetPF2e extends ActorSheet {
     const sheetData = super.getData();
 
     // Update martial skill labels
-    for (const skl of Object.values(sheetData.data.martial)) {
+    for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.rank];
+      skl.label = CONFIG.PF2E.martialSkills[s];
     }
 
     // Update save labels
-    for (const save of Object.values(sheetData.data.saves)) {
+    for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.icon = this._getProficiencyIcon(save.rank);
       save.hover = CONFIG.proficiencyLevels[save.rank];
+      save.label = CONFIG.PF2E.saves[s];
     }
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
+    // Ability Scores
+    for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+      abl.label = CONFIG.PF2E.abilities[a];
+    }
+
     // Update skill labels
-    for (const skl of Object.values(sheetData.data.skills)) {
+    for (let [s, skl] of Object.entries(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.value];
+      skl.label = CONFIG.PF2E.skills[s];
+    }
+
+    // Currency Labels
+    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
+      currency.label = CONFIG.PF2E.currencies[c];
     }
 
     // Update traits

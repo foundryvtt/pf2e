@@ -66,11 +66,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   _prepareItems(actorData) {
     // Inventory
     const inventory = {
-      weapon: { label: 'Weapons', items: [] },
-      armor: { label: 'Armor', items: [] },
-      equipment: { label: 'Equipment', items: [] },
-      consumable: { label: 'Consumables', items: [] },
-      backpack: { label: 'Backpack', items: [] },
+      weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
+      armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
+      equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
+      consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
+      backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
     };
 
     // Spellbook
@@ -85,19 +85,19 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Feats
     const feats = {
-      ancestry: { label: 'Ancestry Feats', feats: [] },
-      skill: { label: 'Skill Feats', feats: [] },
-      general: { label: 'General Feats', feats: [] },
-      class: { label: 'Class Feats', feats: [] },
-      bonus: { label: 'Bonus Feats', feats: [] },
-      classfeature: { label: 'Class Features', feats: [] },
+      ancestry: { label: game.i18n.localize("PF2E.FeatAncestryHeader"), feats: [] },
+      skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
+      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
+      class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
+      bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
+      classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
     };
 
     // Actions
     const actions = {
-      action: { label: 'Actions', actions: [] },
-      reaction: { label: 'Reactions', actions: [] },
-      free: { label: 'Free Actions', actions: [] },
+      action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
+      reaction: { label: game.i18n.localize("PF2E.ActionsReactionsHeader"), actions: [] },
+      free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
     };
 
     // Skills
