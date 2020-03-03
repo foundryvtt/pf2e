@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{data.level.label}}</label>
+    <label>{{localize "PF2E.SpellLevelLabel"}}</label>
     <select name="data.level.value" data-dtype="{{data.level.type}}">
         {{#select data.level.value}}
         {{#each spellLevels as |name lvl|}}
@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.spellType.label}}</label>
+    <label>{{localize "PF2E.SpellTypeLabel"}}</label>
     <select name="data.spellType.value" data-dtype="{{data.spellType.type}}">
         {{#select data.spellType.value}}
         {{#each spellTypes as |name type|}}
@@ -22,7 +22,7 @@
 
 <div class="form-group">
     <label for="data.traditions">
-        {{data.traditions.label}}
+        {{localize "PF2E.SpellTraditionsLabel"}}
         <a class="trait-selector" data-options="magicTraditions"><i class="fas fa-edit"></i></a>
     </label>
     <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
@@ -34,7 +34,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.school.label}}</label>
+    <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
     <select name="data.school.value" data-dtype="{{data.school.type}}">
         {{#select data.school.value}}
         {{#each spellSchools as |name sch|}}
@@ -45,7 +45,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.damage.label}}</label>    
+    <label>{{localize "PF2E.SpellDamageLabel"}}</label>    
     <div class="details-container-two-columns">
         <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
 <!--         <select name="data.damage.applyMod" data-dtype="Boolean">
@@ -55,14 +55,14 @@
             {{/select}}
         </select> -->
         <div style="display: flex; align-self: center;">
-            <label style="flex: 4;">+ Ability Mod</label>
+            <label style="flex: 4;">{{localize "PF2E.SpellAbilityModLabel"}}</label>
             <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="{{data.damage.applyMod}}" {{checked data.damage.applyMod}} style="flex: 1; margin: 0;"/>
         </div>
     </div>
 </div>
 
 <div class="form-group">
-    <label>{{data.damageType.label}}</label>
+    <label>{{localize "PF2E.SpellDamageTypeLabel"}}</label>
     <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
         {{#select data.damageType.value}}
         <option value=""></option>
@@ -74,7 +74,7 @@
 </div>
 
 <div class="form-group">
-  <label>{{data.scaling.label}}</label>
+  <label>{{localize "PF2E.SpellScalingLabel"}}</label>
   <select name="data.scaling.mode">
     {{#select data.scaling.mode}}
     {{#each spellScalingModes as |name key|}}
@@ -86,7 +86,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.save.label}}</label>
+    <label>{{localize "PF2E.SpellSaveLabel"}}</label>
     <div class="details-container-two-columns">
     <select name="data.save.basic" data-dtype="{{data.save.type}}">
         {{#select data.save.basic}}
@@ -106,22 +106,22 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.components.label}}</label>
+    <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
     <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="{{data.components.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>Requirements</label>
+    <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
     <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="{{data.materials.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.cost.label}}</label>
+    <label>{{localize "PF2E.SpellCostLabel"}}</label>
     <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="{{data.cost.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.target.label}}</label>
+    <label>{{localize "PF2E.SpellTargetLabel"}}</label>
     <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="{{data.target.type}}"/>
 </div>
 
@@ -131,7 +131,7 @@
 </div> -->
 
 <div class="form-group">
-    <label>{{data.area.label}}</label>
+    <label>{{localize "PF2E.SpellAreaLabel"}}</label>
     <div class="details-container-two-columns">
         <select name="data.area.value" data-dtype="Number">
             {{#select data.area.value}}
@@ -153,17 +153,17 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.range.label}}</label>
+    <label>{{localize "PF2E.SpellRangeLabel"}}</label>
     <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.time.label}}</label>
+    <label>{{localize "PF2E.SpellTimeLabel"}}</label>
     <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="{{data.time.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.duration.label}}</label>
+    <label>{{localize "PF2E.SpellDurationLabel"}}</label>
     <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="{{data.duration.type}}"/>
 </div>
 
@@ -196,7 +196,7 @@
 
 <div class="form-group-stacked">
     <label for="data.traits">
-        {{data.traits.label}}
+        {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-options="spellTraits"><i class="fas fa-edit"></i></a>
     </label>
     <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->

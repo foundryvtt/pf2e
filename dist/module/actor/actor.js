@@ -118,7 +118,8 @@ export default class extends Actor {
   _prepareNPCData(data) {
     // As we only capture the NPCs Spell DC attribute, we need to calculate the Spell Attack Roll.
     // see sidebar on p298 of pf2e core rulebook.
-    data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
+    
+    //data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
   }
 
   /* -------------------------------------------- */
@@ -134,7 +135,7 @@ export default class extends Actor {
     const skl = this.data.data.skills[skillName];
     const rank = CONFIG.proficiencyLevels[skl.rank];
     const parts = ['@mod'];
-    const flavor = `${rank} ${skl.label} Skill Check`;
+    const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -186,7 +187,7 @@ export default class extends Actor {
   rollSave(event, saveName) {
     const save = this.data.data.saves[saveName];
     const parts = ['@mod'];
-    const flavor = `${save.label} Save Check`;
+    const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -206,7 +207,7 @@ export default class extends Actor {
   rollAbility(event, abilityName) {
     const skl = this.data.data.abilities[abilityName];
     const parts = ['@mod'];
-    const flavor = `${skl.label} Check`;
+    const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -228,7 +229,7 @@ export default class extends Actor {
   rollAttribute(event, attributeName) {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod'];
-    const flavor = `${skl.label} Skill Check`;
+    const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({

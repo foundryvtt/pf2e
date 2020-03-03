@@ -20,26 +20,39 @@ class ActorSheetPF2e extends ActorSheet {
     const sheetData = super.getData();
 
     // Update martial skill labels
-    for (const skl of Object.values(sheetData.data.martial)) {
+    for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.rank];
+      skl.label = CONFIG.PF2E.martialSkills[s];
     }
 
     // Update save labels
-    for (const save of Object.values(sheetData.data.saves)) {
+    for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.icon = this._getProficiencyIcon(save.rank);
       save.hover = CONFIG.proficiencyLevels[save.rank];
+      save.label = CONFIG.PF2E.saves[s];
     }
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
+    // Ability Scores
+    for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+      abl.label = CONFIG.PF2E.abilities[a];
+    }
+
     // Update skill labels
-    for (const skl of Object.values(sheetData.data.skills)) {
+    for (let [s, skl] of Object.entries(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.value];
+      skl.label = CONFIG.PF2E.skills[s];
+    }
+
+    // Currency Labels
+    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
+      currency.label = CONFIG.PF2E.currencies[c];
     }
 
     // Update traits
@@ -848,8 +861,8 @@ class ActorSheetPF2e extends ActorSheet {
       const dragData = JSON.parse(event.dataTransfer.getData('text/plain'));
       // dragItem = this.actor.getOwnedItem(dragData._id);
 
-      // if the dragged item is a spell
-      if (dragData && dragData.data && dragData.data.type === 'spell') {
+      // if the dragged item is a spell and is from the same actor
+      if (dragData && dragData.data && dragData.data.type === 'spell' && (dragData.actorId === this.actor.id)) {
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
         if (dropID) {
@@ -862,7 +875,7 @@ class ActorSheetPF2e extends ActorSheet {
         }
       }
 
-      // if the dragged item is from another actor and is the data is explicitly provided
+      // else if the dragged item is from another actor and is the data is explicitly provided
       if (dragData.data) {
         if (dragData.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
           if (dragData.actorId === this.actor.id) return false; // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
