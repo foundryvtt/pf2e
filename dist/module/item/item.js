@@ -605,6 +605,7 @@ export default class extends Item {
 
     const button = event.currentTarget;
     const card = button.closest('*[data-spell-lvl]');
+    const cardData = card ? card.dataset : {};
 
     // Get data
     const itemData = this.data.data;
@@ -614,7 +615,7 @@ export default class extends Item {
     const parts = [itemData.damage.value];
     const isHeal = itemData.spellType.value === 'heal';
     const dtype = CONFIG.damageTypes[itemData.damageType.value];
-    const spellLvl = parseInt(card.dataset.spellLvl);
+    const spellLvl = parseInt(cardData.spellLvl);
 
     // Append damage type to title
     let title = this.name + (isHeal ? ' - Healing' : ' - Damage');
