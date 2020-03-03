@@ -6,19 +6,17 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.465: (Trey#9048) Added an actions compendium.
-*  v0.465: Re-orded the filter groups in Action Browser
-*  v0.465: Added a link directly to the Action Browser from the action tab in character sheets
-*  v0.465: (Trey#9048) Saved scroll position when managing prepared spells (huge QoL improvement!!)
-*  v0.465: Fixed bug when dragging spells from a compendium onto an NPC sheet.
-
+*  v0.500: Added support for Foundry VTT v0.5.0 (please backup your world before updating)
+*  v0.500: Added support for localisation and localised most labels in all of the pf2e html temlplates as well as attribute, saves and skill names.
+*  v0.500: Fixed issues with NPC sheets and prepared spellcasting entrys
+*  v0.500: Fixed multiple issues with dragging and dropping spells onto character sheets
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
 - If you find any issues or have any feedback please let me know.
 
 ### FVTT Version:
-- Tested with FVTT v0.4.7.
+- Tested with FVTT v0.5.0.
 
 ### Installation Instructions
 
@@ -52,7 +50,11 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
 
 ### Prior Patch Changes:
-
+*  v0.465: (Trey#9048) Added an actions compendium.
+*  v0.465: Re-orded the filter groups in Action Browser
+*  v0.465: Added a link directly to the Action Browser from the action tab in character sheets
+*  v0.465: (Trey#9048) Saved scroll position when managing prepared spells (huge QoL improvement!!)
+*  v0.465: Fixed bug when dragging spells from a compendium onto an NPC sheet.
 *  v0.464: (Trey#9048) Incorporated eslint and started moving the pf2e system to use es6 style modules.
 *  v0.464: (Trey#9048) Fixed an issue with the Action Browser compendium pack settings
 *  v0.463: (Trey#9048) Fixed issue with out dated system.json in deployment package.

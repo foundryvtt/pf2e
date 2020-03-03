@@ -1,74 +1,74 @@
 <div class="tab biography" data-group="primary" data-tab="biography">
-        <h3 class="character-notes pf-heading">Character Details</h3>    
+        <h3 class="character-notes pf-heading">{{localize "PF2E.CharacterDetails"}}</h3>    
         <div class="bio-container">
             <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
 
             <ol class="bio-list">                
                 <div class="bio-item pf-container">
-                    <h4 class="bio-class pf-title">Ancestry</h4>
+                    <h4 class="bio-class pf-title">{{localize "PF2E.Ancestry"}}</h4>
                     <span class="bio-class pf-value pf-small" title="Your characters class">
                         <input name="data.details.ancestry.value" type="text" value="{{data.details.ancestry.value}}"
                                 data-dtype="String"/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-class pf-title">Heritage</h4>
+                    <h4 class="bio-class pf-title">{{localize "PF2E.Heritage"}}</h4>
                     <span class="bio-class pf-value pf-small" title="Your characters heritage">
                         <input name="data.details.heritage.value" type="text" value="{{data.details.heritage.value}}"
                                 data-dtype="String"/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-class pf-title">Background</h4>
+                    <h4 class="bio-class pf-title">{{localize "PF2E.Background"}}</h4>
                     <span class="bio-class pf-value pf-small" title="Your characters class">
                         <input name="data.details.background.value" type="text" value="{{data.details.background.value}}"
                                 data-dtype="String"/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-class pf-title">Class</h4>
+                    <h4 class="bio-class pf-title">{{localize "PF2E.Class"}}</h4>
                     <span class="bio-class pf-value pf-small" title="Your characters class">
                         <input name="data.details.class.value" type="text" value="{{data.details.class.value}}"
                                 data-dtype="String"/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                        <h4 class="bio-age pf-title">Age</h4>
+                        <h4 class="bio-age pf-title">{{localize "PF2E.Age"}}</h4>
                         <span class="bio-age pf-value pf-small" title="The age of your character">
                             <input name="data.details.age.value" type="text" value="{{data.details.age.value}}"
                                     data-dtype="String" placeholder=""/>
                         </span>
                     </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-height pf-title">Height</h4>
+                    <h4 class="bio-height pf-title">{{localize "PF2E.Height"}}</h4>
                     <span class="bio-height pf-value pf-small" title="Your height">
                         <input name="data.details.height.value" type="text" value="{{data.details.height.value}}"
                                 data-dtype="String" placeholder=""/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-weight pf-title">Weight</h4>
+                    <h4 class="bio-weight pf-title">{{localize "PF2E.Weight"}}</h4>
                     <span class="bio-weight pf-value pf-small" title="Your weight">
                         <input name="data.details.weight.value" type="text" value="{{data.details.weight.value}}"
                                 data-dtype="String" placeholder=""/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-alignment pf-title">Alignment</h4>
+                    <h4 class="bio-alignment pf-title">{{localize "PF2E.Alignment"}}</h4>
                     <span class="bio-alignment pf-value pf-small" title="Your alignment">                            
                         <input name="data.details.alignment.value" type="text" value="{{data.details.alignment.value}}"
                                 data-dtype="String" placeholder=""/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-gender pf-title">Gender</h4>
+                    <h4 class="bio-gender pf-title">{{localize "PF2E.Gender"}}</h4>
                     <span class="bio-gender pf-value pf-small" title="Your gender">                            
                         <input name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
                                 data-dtype="String" placeholder=""/>
                     </span>
                 </div>
                 <div class="bio-item pf-container">
-                    <h4 class="bio-gender pf-title">Deity</h4>
+                    <h4 class="bio-gender pf-title">{{localize "PF2E.Deity"}}</h4>
                     <span class="bio-gender pf-value pf-small" title="Your deity">                            
                         <input name="data.details.deity.value" type="text" value="{{data.details.deity.value}}"
                                 data-dtype="String" placeholder=""/>
@@ -90,11 +90,11 @@
                 </div> -->
             </ol>
         </div>
-        <h3 class="character-notes pf-heading">Character Traits</h3>
+        <h3 class="character-notes pf-heading">{{localize "PF2E.CharacterTraits"}}</h3>
         <div class="bio-3way">
                 {{> systems/pf2e/templates/actors/actor-traits.html}}
         </div>
 
-        <h3 class="character-notes pf-heading">Biography</h3>
+        <h3 class="character-notes pf-heading">{{localize "PF2E.Biography"}}</h3>
         {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
     </div>

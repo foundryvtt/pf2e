@@ -1,4 +1,63 @@
 export const CONFIG = {};
+
+// Ability labels
+CONFIG.abilities = {
+  "str": "PF2E.AbilityStr",
+  "dex": "PF2E.AbilityDex",
+  "con": "PF2E.AbilityCon",
+  "int": "PF2E.AbilityInt",
+  "wis": "PF2E.AbilityWis",
+  "cha": "PF2E.AbilityCha"
+};
+
+// Skill labels
+CONFIG.skills = {
+  "acr": "PF2E.SkillAcr",
+  "arc": "PF2E.SkillArc",
+  "ath": "PF2E.SkillAth",
+  "cra": "PF2E.SkillCra",
+  "dec": "PF2E.SkillDec",
+  "dip": "PF2E.SkillDip",
+  "itm": "PF2E.SkillItm",
+  "med": "PF2E.SkillMed",
+  "nat": "PF2E.SkillNat",
+  "occ": "PF2E.SkillOcc",
+  "prf": "PF2E.SkillPrf",
+  "rel": "PF2E.SkillRel",
+  "soc": "PF2E.SkillSoc",
+  "ste": "PF2E.SkillSte",
+  "sur": "PF2E.SkillSur",
+  "thi": "PF2E.SkillThi",
+
+};
+
+// Martial skill labels
+CONFIG.martialSkills = {
+  "unarmored": "PF2E.MartialUnarmored",
+  "light": "PF2E.MartialLight",
+  "medium": "PF2E.MartialMedium",
+  "heavy": "PF2E.MartialHeavy",
+  "simple": "PF2E.MartialSimple",
+  "martial": "PF2E.MartialMartial",
+  "advanced": "PF2E.MartialAdvanced",
+  "unarmed": "PF2E.MartialUnarmed"
+};
+
+// Saves labels
+CONFIG.saves = {
+  "reflex": "PF2E.SavesReflex",
+  "fortitude": "PF2E.SavesFortitude",
+  "will": "PF2E.SavesWill",
+};
+
+// Inventory currency labels
+CONFIG.currencies = {
+  "pp": "PF2E.CurrencyPP",
+  "gp": "PF2E.CurrencyGP",
+  "sp": "PF2E.CurrencySP",
+  "cp": "PF2E.CurrencyCP",
+};
+
 // Damage Types
 CONFIG.damageTypes = {
   acid: 'Acid',

@@ -47,7 +47,7 @@
                     </div>             
             </ol>
                
-            <h3 class="defense-title pf-heading">Perception</h3>
+            <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>
             <ol class="defense-list">                
                     
                     <li class="npc-defense" data-attribute="perception">
@@ -55,7 +55,7 @@
                         <input name="data.attributes.perception.value" type="text" value="{{data.attributes.perception.value}}"
                             data-dtype="Number" placeholder="0"/>
                         </span>
-                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                             
+                        <h4 class="attribute-name rollable">{{localize "PF2E.PerceptionLabel"}}</h4>                             
                     </li>
                 
             </ol>
@@ -201,7 +201,7 @@
                         <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                             <!-- <div class="action-header"> -->
                                 {{#if entry.data.prepared.preparedSpells}}
-                                    <a class="skill-name prepared-toggle" title="Toggle Spell Visibility" style="line-height: 24px; background: var(--primary-background); color: white;"><i class="fas fa-haykal"></i></a>
+                                    <a class="skill-name prepared-toggle" title="Toggle Spell Visibility" style="line-height: 24px; background: var(--primary-background); color: white;"><i class="fab fa-stack-overflow"></i></a>
                                 {{/if}}
                                 <h3 class="item-name pf-heading pf-actions" style="display: block; flex: 20;">{{{entry.name}}}</h3>
                                 {{#if ../owner}}
@@ -386,7 +386,7 @@
                             
                                         
                                         
-                                        {{#if entry.showUnpreparedSpells}}
+                                        {{#if entry.data.showUnpreparedSpells.value}}
                                         <h3 class="item-name pf-sub-category pf-actions" style="background: var(--tertiary-background);">Unprepared Spells</h3>
                                                 
                                         <!-- Unprepared Spells -->

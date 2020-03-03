@@ -23,7 +23,7 @@
 </div> -->
 
 <div class="form-group">
-    <label>Melee Attack Modifier</label>
+    <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
     <input type="text" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="{{data.bonus.type}}"/>
 </div>
 
@@ -39,12 +39,12 @@
 </div> -->
 
 <div class="form-group">
-    <label>Melee Damage</label>
+    <label>{{localize "PF2E.NPCWeaponDamageLabel"}}</label>
     <input type="text" name="data.damage.die" value="{{data.damage.die}}" data-dtype="{{data.damage.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>Damage Type</label>
+    <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
         <select name="data.damage.damageType" data-dtype="String">
             {{#select data.damage.damageType}}
             {{#each weaponDamage as |name type|}}
@@ -110,7 +110,7 @@
 
 <div class="form-group-stacked">
     <label for="data.traits">
-        Melee Attack Traits
+        {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-options="weaponTraits"><i class="fas fa-edit"></i></a>
     </label>
     

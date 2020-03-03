@@ -1,6 +1,6 @@
 <div class="bio-item trait-size pf-container">
     
-        <label class="pf-title">{{data.traits.size.label}}</label>
+        <label class="pf-title">{{localize "PF2E.Size"}}</label>
         <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
             {{#select data.traits.size.value}}
             {{#each actorSizes as |label size|}}
@@ -12,7 +12,7 @@
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
-    <label class="pf-title">{{data.traits.senses.label}}</label>
+    <label class="pf-title">{{localize "PF2E.Senses"}}</label>
     <span class="bio-class pf-value pf-small" title="Your characters senses">
         <input type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
             value="{{data.traits.senses.value}}" placeholder="None"/>
@@ -21,7 +21,7 @@
 
 <div class="bio-item form-group-stacked pf-container">
     <label class="pf-title" for="data.traits.languages">
-        Languages
+        {{localize "PF2E.Languages"}}
         <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value">
@@ -32,7 +32,7 @@
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
-    <label class="pf-title">Speed</label>
+    <label class="pf-title">{{localize "PF2E.Speed"}}</label>
     <span class="bio-class pf-value pf-small" title="Your characters speed">
         <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
             value="{{data.attributes.speed.value}}" placeholder="None"/>
@@ -40,63 +40,9 @@
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
-        <label class="pf-title">Speed Types</label>
+        <label class="pf-title">{{localize "PF2E.SpeedTypes"}}</label>
         <span class="bio-class pf-value pf-small" title="Aleternate movement types">
             <input type="text" name="data.attributes.speed.special" data-dtype="{{data.attributes.speed.type}}"
                 value="{{data.attributes.speed.special}}" placeholder="None"/>
         </span>
     </div>
-
-<!-- <div class="form-group-stacked pf-container">
-    <label class="pf-title" for="data.traits.di">
-        {{data.traits.di.label}}
-        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="traits-list pf-value">
-    {{#each data.traits.di.selected as |v k|}}
-        <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-    </ul>
-</div>
-
-<div class="form-group-stacked pf-container">
-    <label class="pf-title" for="data.traits.dr">
-        {{data.traits.dr.label}}
-        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="traits-list pf-value">
-    {{#each data.traits.dr.selected as |v k|}}
-        <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-    </ul>
-</div>
-
-<div class="form-group-stacked pf-container">
-    <label class="pf-title" for="data.traits.dv">
-        {{data.traits.dv.label}}
-        <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="traits-list pf-value">
-    {{#each data.traits.dv.selected as |v k|}}
-        <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-    </ul>
-</div>
-
-<div class="form-group-stacked pf-container">
-    <label class="pf-title" for="data.traits.ci">
-        {{data.traits.ci.label}}
-        <a class="trait-selector" data-options="conditionTypes"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="traits-list pf-value">
-    {{#each data.traits.ci.selected as |v k|}}
-        <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-    </ul>
-</div>
-
-<div class="form-group configure-flags pf-container">
-    <label>Special Traits</label>
-    <i class="fas fa-cog"></i>
-</div>
- -->
