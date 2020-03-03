@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{data.featType.label}}</label>
+    <label>{{localize "PF2E.FeatTypeLabel"}}</label>
     <select name="data.featType.value" data-dtype="{{data.featType.type}}">
         {{#select data.featType.value}}
         {{#each featTypes as |name type|}}
@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.actionType.label}}</label>
+    <label>{{localize "PF2E.FeatActionTypeLabel"}}</label>
     <select name="data.actionType.value" data-dtype="{{data.actionType.type}}">
         {{#select data.actionType.value}}
         {{#each featActionTypes as |name type|}}
@@ -21,7 +21,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.actions.label}}</label>
+    <label>{{localize "PF2E.FeatActionsLabel"}}</label>
     <select name="data.actions.value" data-dtype="{{data.actions.type}}">
         {{#select data.actions.value}}
         <option value=""></option>
@@ -33,13 +33,13 @@
 </div>
 
 <div class="form-group">
-    <label>{{data.prerequisites.label}}</label>
+    <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
     <input type="text" name="data.prerequisites.value" value="{{data.prerequisites.value}}"
            data-dtype="{{data.prerequisites.type}}"/>
 </div>
 
 <div class="form-group">
-    <label>{{data.level.label}}</label>
+    <label>{{localize "PF2E.FeatLevelLabel"}}</label>
     <input type="text" name="data.level.value" value="{{data.level.value}}"
             data-dtype="{{data.level.type}}"/>
 </div>
@@ -52,7 +52,7 @@
 
 <div class="form-group-stacked">
     <label for="data.traits">
-        {{data.traits.label}}
+        {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-options="featTraits"><i class="fas fa-edit"></i></a>
     </label>
     <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
