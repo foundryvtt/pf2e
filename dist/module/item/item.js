@@ -536,8 +536,15 @@ export default class extends Item {
 
     // if this is an NPC attack, use the damage defined in the itemData
     if (this.type === 'melee') {
-      weaponDamage = itemData.damage.die;
-      parts = [weaponDamage];
+      if (itemData.damageRolls && itemData.damageRolls.length) {
+        parts = []
+        itemData.damageRolls.forEach(entry => {
+          parts.push(entry.damage);
+        })
+      } else {
+        weaponDamage = itemData.damage.die;
+        parts = [weaponDamage];
+      }
     }
 
     // Set the title of the roll
