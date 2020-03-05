@@ -6,6 +6,9 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.504: Added a beastiary compendium pack!! (A huge thanks to @fs#5443 for putting in most of the hard work on this)
+*  v0.504: Fixed a lot of small issues with the NPC data model
+*  v0.504: Made several improvements to the pf2e template to support damage resistances, weaknesses, etc. different speed types and a lot of additional NPC data.
 *  v0.500: Added support for Foundry VTT v0.5.0 (please backup your world before updating)
 *  v0.500: Added support for localisation and localised most labels in all of the pf2e html temlplates as well as attribute, saves and skill names.
 *  v0.500: Fixed issues with NPC sheets and prepared spellcasting entrys

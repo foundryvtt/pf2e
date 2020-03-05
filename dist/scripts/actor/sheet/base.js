@@ -217,13 +217,13 @@ class ActorSheetPF2e extends ActorSheet {
     // let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
 
     // If NPC, then update icons to action icons.
-    const isNPC = this.actorType === 'npc';
+/*     const isNPC = this.actorType === 'npc';
     if (isNPC) {
       const spellType = spell.data.time.value;
       if (spellType === 'reaction') spell.img = this._getActionImg('reaction');
       else if (spellType === 'free') spell.img = this._getActionImg('free');
       else if (parseInt(spellType)) spell.img = this._getActionImg(parseInt(spellType));
-    }
+    } */
 
     // spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
     /* spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
