@@ -2330,3 +2330,291 @@
 button > i.far {
   pointer-events: none;
 }
+
+// Updated NPC Sheet Styles
+
+.pf2e.actor .sheet-header .charname.updatednpcsheet {
+	flex: 1.5;
+}
+.pf2e.actor .sheet-header .charlevel.updatednpcsheet {
+	flex: 1;
+}
+
+.npc-detail-text {
+    display: flex;
+    background: var(--secondary-background);
+    color: #fff;
+    flex-wrap: wrap;
+}
+
+.pf2e.sheet form .npc-detail-text input[type="text"]{
+    background: rgba(255,255,255,0.8);
+    color: black;
+    border: 1px solid black;
+}
+
+.npc-detail-text input.ac-detail {
+    /*width: 73px;*/
+}
+
+.npc-detail-text input.hp-detail {
+    /*width: 140px;*/
+}
+
+.npc-detail-text textarea {
+	height: fit-content;
+	overflow-y: hidden;
+	resize: none;
+	width: calc(100% - 2px);
+	min-height: 26px;
+	font-family: inherit;
+}
+
+.pf2e.sheet form .defense-list input.stat-detail {
+	display: flex;
+    font-size: 13px;
+    height: 18px;
+    background: rgba(183, 91, 91, 0.2);
+    color: black;
+    border: 1px solid black;
+    width: calc(100% - 4px);
+}
+
+.pf2e.actor .sheet-header .charlevel .level > input[type="checkbox"] {
+	flex: 0 0 26px;
+}
+
+.pf2e.sheet form .defense-list.stats-section {
+	grid-auto-rows: auto;
+	grid: "defense" auto;
+}
+
+.pf2e.updatedNPCSheet form .inventory-list .item .item-name h4, .pf2e.updatedNPCSheet form .inventory-list .item .melee-name h4 {
+	flex: 2;
+	line-height: 1.4em;
+	padding-top: .2em;
+}
+.pf2e.updatedNPCSheet form .inventory-list .item .melee-name div.melee-buttons {
+	display: inline-flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.pf2e.sheet form.updatedNPCSheet {
+  overflow-y: scroll;
+}
+.pf2e.sheet form.updatedNPCSheet .contentcontainer{
+  position:relative;
+  display:block;
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0));
+  z-index:2;
+}
+.pf2e.sheet form.updatedNPCSheet .bgcontainer{
+  top:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  opacity: 0.25;
+  content:"";
+  z-index:1;
+  position: absolute;
+  pointer-events: none;
+}
+.pf2e.sheet form.updatedNPCSheet .bgcontainer.hidden{
+  visibility:hidden;
+}
+/*
+  HEADER
+*/
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar {
+  display: flex;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar h1{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
+  margin-bottom:0.1em;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar .name {
+  flex: 9;
+  justify-content:flex-start;
+  font-variant: small-caps;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar .level {
+  justify-content:flex-end;
+}
+
+.pf2e.sheet form.updatedNPCSheet hr {
+  border-top:2px solid black;
+  margin-block-start: 0;
+}
+.pf2e.sheet form.updatedNPCSheet .item hr {
+  border-width:1px;
+  border-top-color:#111;
+  margin-block-start: 0.5em;
+}
+.pf2e.sheet form.updatedNPCSheet .editNPCButton {
+  display:flex;
+  justify-content:flex-end
+}
+.pf2e.sheet form.updatedNPCSheet .editNPCButton *{
+  align-self: center;
+}
+
+/*
+  TRAITS
+*/
+.traits-bar {
+  display: flex;
+  align-items: flex-start;
+}
+.traits-bar .trait {
+  background-color: #5E0000;
+  border-color: #d8c483;
+  border-style: double;
+  border-width: 2px;
+  padding: 0 1em;
+  color: white;
+  text-transform:uppercase;
+  font-family:'Teko', sans-serif;
+  padding-top:0.2em;
+  
+}
+.traits-bar .trait.alignment {
+  background-color: #5E657A;
+}
+.traits-bar .trait.size {
+ background-color: #447B5C; 
+}
+
+/*
+  Top-section
+*/
+.pf2e.sheet form.updatedNPCSheet .top-section{
+  display:flex;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-stats-container{
+  flex: 2;
+  order: 1;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container{
+  flex: 1;
+  order: 2;
+  padding-right:0.2em;
+  display:flex;
+  flex-direction:column;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container *{
+  text-align:right;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current{
+  height:24px;
+  font-size:20px;
+  display:inline-flex;
+  flex-direction:row;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current label{
+  width:auto;
+  flex:5;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current input{
+  width:auto;
+  flex:1;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container textarea{
+  resize:none;
+  flex:2;
+  
+}
+
+
+/*
+  Items
+*/
+.pf2e.sheet form.updatedNPCSheet .inventory-list{
+  height: auto;
+  border-top:1px solid var(--secondary-background);
+}
+.pf2e.sheet form.updatedNPCSheet .inventory-list .item:last-of-type{
+  //border-bottom:0;
+}
+.pf2e.sheet form.updatedNPCSheet .item .item-name.rollable .item-image, .pf2e.sheet form .item .melee-name.rollable .item-image{
+  min-height:24px;
+}
+.pf2e.sheet form.updatedNPCSheet .item .item-controls{
+  display: flex;
+  align-items: center;
+}
+/** Hide Attack headers */
+.pf2e.sheet form.updatedNPCSheet .item.inventory-header.sub-category.attack-header{
+  display: none;
+}
+.pf2e.sheet form.updatedNPCSheet .item-control:hover {
+  color: #111;
+  text-shadow: 0 0 10px #ff6400;
+}
+
+/*
+  Stats
+*/
+
+.pf2e.sheet form.updatedNPCSheet .inline-stats{
+  display: block;
+}
+.pf2e.sheet form.updatedNPCSheet .inline-stats *{
+  display: inline-flex;
+  justify-content: flex-start;
+}
+.pf2e.sheet form.updatedNPCSheet .inline-stats .stat-detail.perception:before {
+  content: "; ";
+  white-space: pre-wrap;
+}
+.pf2e.sheet form.updatedNPCSheet .inline-stats .stat-detail.speed:before {
+  content: ", ";
+  white-space: pre-wrap;
+}
+.pf2e.sheet form.updatedNPCSheet .stats-line {
+  display: block;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-list {
+}
+.pf2e.sheet form.updatedNPCSheet .stat-list * {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-list *:not(:last-of-type){
+  padding-right:0.25em;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-list:not(:last-of-type):after {
+  content: ",";
+  padding-right: 0.25em;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-list.major-stat:not(:last-of-type):after {
+  content: ";";
+  display: inline;
+}
+.pf2e.sheet form.updatedNPCSheet span .stat-title{
+  font-weight: bold;
+  margin-right: 0.2em;
+}
+.pf2e.sheet form.updatedNPCSheet span .stat-title.ability-name{
+  text-transform: capitalize;
+}
+.pf2e.sheet form.updatedNPCSheet .rollable label{
+  cursor: pointer;
+}
