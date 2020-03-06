@@ -229,7 +229,9 @@
           <label class="stat-title">Speed</label>
           <span class="stat-value">{{data.attributes.speed.value}}</span>
           {{#if hasSpeedDetails}}
-          <span class="stat-detail speed">{{data.attributes.speed.special}}</span>
+          {{#each hasSpeedDetails as |speed id|}}
+            <span class="stat-detail speed">{{speed.type}}: {{speed.value}}</span>
+          {{/each}}
           {{/if}}
       </span>
     </div>

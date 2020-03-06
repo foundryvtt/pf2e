@@ -28,6 +28,8 @@ class ItemBrowserPF2e extends Application {
       weaponType: {},
       proficiencies: {},
       skills: {},
+      actorSize: {},
+      alignment: {}
     };
   }
 
@@ -52,6 +54,18 @@ class ItemBrowserPF2e extends Application {
       const pack = game.packs.find((p) => p.collection === item.compendium);
       item = pack.getEntity(itemId).then((spell) => {
         spell.sheet.render(true);
+      });
+    });
+
+    //show actor card
+    html.find('.actor-edit').click((ev) => {
+      const actorId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
+      const actorCategory = $(ev.currentTarget).parents('.spell').attr('data-actor-category');
+      const actors = this[actorCategory];
+      let actor = actors[actorId];
+      const pack = game.packs.find((p) => p.collection === actor.compendium);
+      actor = pack.getEntity(actorId).then((npc) => {
+        npc.sheet.render(true);
       });
     });
 
@@ -912,6 +926,190 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
   }
 }
 
+class BestiaryBrowserPF2e extends ItemBrowserPF2e {
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    options.classes = options.classes.concat('spell-browser-window');
+    options.template = 'systems/pf2e/templates/packs/bestiary-browser.html';
+    options.title = 'Find an NPC in the bestiary';
+    options.width = 600;
+    options.height = 700;
+    return options;
+  }
+
+  constructor(app) {
+    super(app);
+
+    // load settings
+    Hooks.on('ready', (e) => {
+      // creating game setting container
+      game.settings.register('BestiaryBrowser', 'settings', {
+        name: 'Bestiary Browser Settings',
+        hint: 'Settings to exclude packs from loading',
+        default: '',
+        type: String,
+        scope: 'world',
+        onChange: (settings) => {
+          this.settings = JSON.parse(settings);
+        },
+      });
+
+      // load settings from container
+      let settings = game.settings.get('BestiaryBrowser', 'settings');
+      if (settings == '') { // if settings are empty create the settings data
+        console.log('PF2e System | Bestiary Browser | Creating settings');
+        settings = {};
+        for (const compendium of game.packs) {
+          if (compendium.metadata.entity == 'Actor') {
+            settings[compendium.collection] = {
+              load: true,
+              name: `${compendium.metadata.label} (${compendium.collection})`,
+            };
+          }
+        }
+        game.settings.set('BestiaryBrowser', 'settings', JSON.stringify(settings));
+      } else { // if settings do exist, reload and apply them to make sure they conform with current compendium
+        console.log('PF2e System | Bestiary Browser | Loading settings');
+        const loadedSettings = JSON.parse(settings);
+        settings = {};
+        for (const compendium of game.packs) {
+          if (compendium.metadata.entity == 'Actor') {
+            settings[compendium.collection] = {
+              // add entry for each item compendium, that is turned on if no settings for it exist already
+              load: loadedSettings[compendium.collection] == undefined ? true : loadedSettings[compendium.collection].load,
+              name: compendium.metadata.label,
+            };
+          }
+        }
+      }
+      this.settings = settings;
+      this.settingsChanged = false;
+      this.loadBestiaryActors().then((obj) => {
+        this.bestiaryActors = obj;
+      });
+    });
+    this.hookCompendiumList();
+  }
+
+  hookCompendiumList() {
+    Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+      // Bestiary Browser Buttons
+      const bestiaryImportButton = $(`<button class="bestiary-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Bestiary Browser</button>`);
+      
+      if (game.user.isGM) {
+        html.find('.browser-group').append(bestiaryImportButton);
+      } else {
+        // adding to directory-list since the footer doesn't exist if the user is not gm
+        html.find('.directory-list').append(bestiaryImportButton);
+      }
+
+      // Handle button clicks
+      bestiaryImportButton.click((ev) => {
+        ev.preventDefault();
+        this.render(true);
+      });
+    });
+  }
+
+  async getData() {
+    if (this.bestiaryActors == undefined || this.settingsChanged == true) {
+      // actors will be stored locally to not require full loading each time the browser is opened
+      this.bestiaryActors = await this.loadBestiaryActors();
+      this.settingsChanged = false;
+    }
+
+    const data = {};
+/*     const itemTypes = {
+      weapon: 'Weapons',
+      armor: 'Armor',
+      equipment: 'Equipment',
+      consumable: 'Consumables',
+      backpack: 'Backpacks',
+    }; */
+
+    data.bestiaryActors = this.bestiaryActors;
+    data.actorSize = CONFIG.actorSizes;
+    data.alignment = CONFIG.alignment;
+    data.traits = this.traits;
+    //data.inventoryItems = this.inventoryItems;
+    // data.featClasses = this.featClasses;
+    // data.featSkills = this.featSkills;
+    // data.featAncestry = this.featAncestry;
+    // data.featTimes = this.featTimes;
+/*     data.armorTypes = CONFIG.armorTypes;
+    data.armorGroups = CONFIG.armorGroups;
+    data.weaponTraits = CONFIG.weaponTraits;
+    data.itemTypes = itemTypes;
+    data.weaponTypes = CONFIG.weaponTypes;
+    data.weaponGroups = CONFIG.weaponGroups; */
+    return data;
+  }
+
+  async loadBestiaryActors() {
+    console.log('PF2e System | Bestiary Browser | Started loading actors');
+
+    const bestiaryActors = {};
+    const traitsArr = [];
+    //const skillsArr = [];
+    //const ancestryArr = [];
+    //const timeArr = [];
+
+/*     const itemTypes = [
+      'weapon',
+      'armor',
+      'equipment',
+      'consumable',
+      'backpack',
+    ]; */
+
+    for (const pack of game.packs) {
+      if (pack.metadata.entity == 'Actor' && this.settings[pack.collection].load) {
+        console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loading`);
+        await pack.getContent().then((content) => {
+          console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - ${content.length} entries found`);
+          for (let actor of content) {
+            actor = actor.data;
+
+            // record the pack the feat was read from
+            actor.compendium = pack.collection;
+            actor["filters"] = {};
+
+            actor.filters["level"] = actor.data.details.level.value;
+            actor.filters["traits"] = actor.data.traits.traits.value;
+            actor.filters["alignment"] = actor.data.details.alignment.value;
+            actor.filters["actorSize"] = actor.data.traits.size.value;
+
+            if (actor.data.traits.traits.value.length) {
+              actor.data.traits.traits.value.forEach(trait => {
+                if (!traitsArr.includes(trait)) traitsArr.push(trait);
+              })
+            }
+
+/*             if (itemTypes.includes(item.type)) {
+              // record the pack the feat was read from
+              item.compendium = pack.collection;
+
+              // add item.type into the correct format for filtering
+              item.data.itemTypes = { value: item.type };
+
+              // add spell to spells array
+              inventoryItems[(item._id)] = item;              
+            } */
+
+            // add actor to bestiaryActors object
+            bestiaryActors[actor._id] = actor
+          }
+          console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
+        });
+      }
+    }
+
+    this.traits = traitsArr.sort();
+
+    console.log('PF2e System | Bestiary Browser | Finished loading Bestiary actors');
+    return bestiaryActors;
+  }
+}
 
 class ActionBrowserPF2e extends ItemBrowserPF2e {
   static get defaultOptions() {
@@ -1054,4 +1252,5 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
 let spellBrowser = new SpellBrowserPF2e();
 let featBrowser = new FeatBrowserPF2e();
 let inventoryBrowser = new InventoryBrowserPF2e();
+let bestiaryBrowser = new BestiaryBrowserPF2e();
 let actionBrowser = new ActionBrowserPF2e();
