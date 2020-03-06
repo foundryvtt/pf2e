@@ -278,5 +278,5 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 // Register NPC Sheet
 Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
   types: ['npc'],
-  makeDefault: true,
+  makeDefault: false,
 });

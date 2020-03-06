@@ -10,9 +10,9 @@
  	get template() {
  		const path = "systems/pf2e/templates/actors/";
  		
-/*     if(this.actor.getFlag('pf2e_updatednpcsheet','editNPC.value'))
+    if(this.actor.getFlag('pf2e','editNPC.value'))
       return path + "npc-sheet.html";
-    else */
+    else
       return path + 'npc-sheet-no-edit.html';
 
  	}  
@@ -45,7 +45,7 @@
 
       //size
       sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
-      sheetData.actorTraits = sheetData.data.traits.traits.value;
+      sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
       sheetData.actorAlignment = sheetData.data.details.alignment.value;
       //languages
       sheetData.hasLanguages = false;
@@ -79,7 +79,7 @@
       sheetData.hasWeaknesses = sheetData.data.traits.dv.value.length ? sheetData.data.traits.dv.value : false;
 
       //Speed Details check
-      sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false;      
+      if (sheetData.data.attributes.speed && sheetData.data.attributes.speed.otherSpeeds) sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false;      
 
       //Spellbook
       sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false;
@@ -300,8 +300,8 @@
 		});
 
     html.find('.isNPCEditable').change((ev) => {
-      console.log("currently",this.actor.getFlag('pf2e_updatednpcsheet','editNPC'),"going to",ev.target.checked);
-      this.actor.setFlag('pf2e_updatednpcsheet','editNPC',{value: ev.target.checked});
+      console.log("currently",this.actor.getFlag('pf2e','editNPC'),"going to",ev.target.checked);
+      this.actor.setFlag('pf2e','editNPC',{value: ev.target.checked});
     });
 
 		// NPC Attack summaries
@@ -433,5 +433,5 @@ Handlebars.registerHelper('strip_tags', function(value, options) {
 // Register NPC Sheet
 Actors.registerSheet("pf2e", UpdatedNPCActorPF2ESheet, {
   types: ["npc"],
-  makeDefault: false
+  makeDefault: true
 });
