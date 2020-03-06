@@ -688,6 +688,19 @@ CONFIG.ancestryTraits = {
   human: 'Human',
 };
 
+// Alignment
+CONFIG.alignment = {
+  LG: "Lawful Good",
+  NG: "Neutral Good",
+  CG: "Chaotic Good",
+  LN: "Lawful Neutral",
+  N: "Neutral",
+  CN: "Chaotic Neutral",
+  LE: "Lawful Evil",
+  NE: "Neutral Evil",
+  CE: "Chaotic Evil"
+}
+
 // Skill List
 CONFIG.skillList = {
   acrobatics: 'Acrobatics',
