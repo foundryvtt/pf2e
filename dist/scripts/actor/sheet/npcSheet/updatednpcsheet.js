@@ -79,7 +79,7 @@
       sheetData.hasWeaknesses = sheetData.data.traits.dv.value.length ? sheetData.data.traits.dv.value : false;
 
       //Speed Details check
-      sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds;      
+      sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false;      
 
       //Spellbook
       sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false;
