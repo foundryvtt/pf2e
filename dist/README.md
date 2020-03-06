@@ -6,7 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.506: Updated beastiary to fix issue with items, damage immunities/resisstances/vulnerabilities, alignment plus more.
+*  v0.506: Updated beatiary to fix issue with items, damage immunities/resistances/vulnerabilities, alignment plus more.
 *  v0.506: Added a new read-only NPC sheet. A super huge thanks to @FS for doing 99% of the work here.
 *  v0.505: Updated beastiary to include correct images and separate NPC ranged and melee attacks.
 *  v0.504: Added a beastiary compendium pack!! (A huge thanks to @fs#5443 for putting in most of the hard work on this)
