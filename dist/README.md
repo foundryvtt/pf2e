@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.508: (@FrisGuardian#8347) Added an alchemic items compendium pack. Thanks!!
 *  v0.507: Added Bestiary Browser with a few filters and sorting options. Welcome feedback here as I can add additional filters etc.
 *  v0.507: Fixed other move speeds for NPC in the bestiary and updated the read-only sheet to show the new data.
 *  v0.506: Updated bestiary to fix issue with items, damage immunities/resistances/vulnerabilities, alignment plus more.
