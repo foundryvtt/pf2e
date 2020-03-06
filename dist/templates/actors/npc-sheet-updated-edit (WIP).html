@@ -1,0 +1,438 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <!-- HEADER -->
+    <header class="sheet-header">
+        <h1 class="charname updatednpcsheet">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
+        </h1>
+
+        <div class="charlevel updatednpcsheet">
+            <div class="level ">
+                <label>Edit NPC?</label><input class="isNPCEditable" name="flags.pf2e_updatednpcsheet.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e_updatednpcsheet.editNPC.value}}/>
+                <label>Level </label>
+                <input name="data.details.level.value" type="text" value="{{data.details.level.value}}"
+                        data-dtype="Number" placeholder="1"/>
+            </div>
+            <div class="recallknowledge">
+                <input name="flags.pf2e_updatednpcsheet.recallKnowledgeText.value" type="text" value="{{flags.pf2e_updatednpcsheet.recallKnowledgeText.value}}"
+                        data-dtype="String" placeholder="Recall Knowledge DC"/>
+            </div>
+        </div>
+    </header>
+
+<!-- SIDEBAR -->
+<section class="sheet-sidebar sidebar">
+
+        <!-- ABILITY SCORES -->
+        <div class="abilities" data-group="sidebar" data-tab="abilities">
+            
+            <h3 class="ac-title pf-heading">Defences</h3>
+            <ol class="npc-defence-list">                
+                <span class="armor-class" title="Armor Class">
+                    <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                </span>
+                <span class="shield-value" title="Shield Bonus">
+                    <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                            data-dtype="Number" placeholder="+0"/>
+                </span> 
+                <div class="hp-current pf-container">
+                        <h4 class="hp-current pf-title">Current HP</h4>
+                        <span class="hp-current pf-value pf-large" title="Your current hit points">
+                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>
+                    <div class="hp-max pf-container">
+                        <h4 class="hp-max pf-title">Max HP</h4>
+                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                            <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+                                    data-dtype="Number" placeholder="10"/>
+                        </span>
+                    </div>             
+            </ol>
+            
+            <div class="npc-detail-text">
+                <input class="ac-detail" name="data.attributes.ac.details" type="text" value="{{data.attributes.ac.details}}"
+                    data-dtype="String" placeholder="AC Special">
+                <input class="hp-detail" name="data.attributes.hp.details" type="text" value="{{data.attributes.hp.details}}"
+                    data-dtype="String" placeholder="HP Special">
+                <span>Immunities:</span>
+                <textarea class="immunities" name="data.traits.di.textValue" type="text" data-dtype="String" placeholder="Immunities">{{data.traits.di.textValue}}</textarea>
+                <span>Resistances:</span>
+                <textarea class="resistances" name="data.traits.dr.textValue" type="text" data-dtype="String" placeholder="Resistances">{{data.traits.dr.textValue}}</textarea>
+                <span>Weaknesses:</span>
+                <textarea class="weaknesses" name="data.traits.dv.textValue" type="text" data-dtype="String" placeholder="Weaknesses">{{data.traits.dv.textValue}}</textarea>
+            </div>
+
+            <h3 class="defense-title pf-heading">Senses</h3>
+            <ol class="defense-list stats-section">                
+                    
+                    <li class="npc-defense" data-attribute="perception">
+                        <span class="defense-score">
+                        <input name="data.attributes.perception.value" type="text" value="{{data.attributes.perception.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="attribute-name rollable">{{data.attributes.perception.label}}</h4>                             
+                    </li>
+                    <input class="stat-detail" name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}"
+                    data-dtype="String" placeholder="Special Senses">
+                
+            </ol>
+
+
+            <h3 class="defense-title pf-heading">Saves</h3>
+            <ol class="defense-list stats-section">
+                <input class="stat-detail" name="flags.pf2e_updatednpcsheet.allSaveDetail.value" type="text" value="{{flags.pf2e_updatednpcsheet.allSaveDetail.value}}"
+                data-dtype="String" placeholder="Saves Detail">
+                {{#each data.saves as |save sid|}}
+                    <li class="npc-defense" data-save="{{sid}}">
+                        <span class="defense-score" title="{{save.breakdown}}">
+                                <input name="data.saves.{{sid}}.value" type="text" value="{{save.value}}"
+                                data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="save-name rollable">{{save.label}}</h4>                    
+                    </li>
+                    <input class="stat-detail" name="saves.{{sid}}.saveDetail" type="text" value="{{save.saveDetail}}"
+                    data-dtype="String" placeholder="{{save.label}} circumstance mod">
+                {{/each}}
+            </ol>
+
+            <h3 class="defense-title pf-heading">Traits</h3>
+            <ol class="bio-list">                
+                    
+                    <div class="bio-item trait-size pf-container">    
+                            <label class="pf-title">{{data.traits.size.label}}</label>
+                            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
+                                {{#select data.traits.size.value}}
+                                {{#each actorSizes as |label size|}}
+                                    <option value="{{size}}">{{label}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>                        
+                    </div>
+                    
+                    <div class="npc-bio-item trait-size pf-container">
+                        <label class="pf-title">Speed</label>
+                        <span class="pf-value pf-small pf-width-100" title="Your characters speed">
+                            <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
+                                value="{{data.attributes.speed.value}}" placeholder="None"/>
+                        </span>
+                    </div>
+                
+            </ol>
+<!--             <h3 class="defense-title pf-heading" for="data.traits.skills">
+                Image
+                <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a>
+            </h3> -->
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+            
+        </div>
+    </section>
+
+    <!-- BODY -->
+    <section class="sheet-body content">
+
+            <!-- Items List -->
+            <ol class="actions-list inventory-list directory-list">
+                <!-- Action Header -->
+                <li class="item action-header">
+                    <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Actions</h3>
+                    {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="Create Action" data-type="action" data-action-type="action"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li>       
+                
+                <!-- List Actions -->
+                {{#each actor.actions as |section sid|}}
+                    {{#each section.actions as |action aid|}}
+                    <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{action.img}})"></div>
+                            <h4>
+                                {{action.name}}
+                            </h4>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>                            
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+
+
+                <!-- Attacks Header -->
+                <h3 class="item-name pf-heading pf-actions">Attacks</h3>
+                <ol class="npc-defense-list">     
+                    <li class="npc-defense" data-attribute="simple">
+                        <span class="defense-score">
+                        <input name="data.martial.simple.value" type="text" value="{{data.martial.simple.value}}"
+                            data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="attribute-name">Base Attack Value</h4>                             
+                    </li>
+                </ol>
+
+                <!-- List Attacks -->
+                {{#each actor.attacks as |section sid|}}
+                    <li class="item inventory-header sub-category spellbook-header">
+                        <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Attack" data-type="{{section.type}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{#each section.items as |item iid|}}
+                    <li class="item" data-item-id="{{item.id}}">
+                        <div class="melee-name rollable">
+                            <div class="item-image" style="background-image: url({{item.img}})"></div>
+                            <h4>
+                                {{item.name}}
+                            </h4>
+                            <div class="melee-buttons">
+                                <span class="tag"><button data-action="weaponAttack" >Strike (+{{item.data.bonus.total}})</button></span>
+                                <span class="tag"><button data-action="weaponAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                                <span class="tag"><button data-action="weaponAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                                {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.damageRolls}}
+                                    {{#each item.flags.pf2e_updatednpcsheet.damageRolls as |damageRoll dID|}}
+                                        <span class="tag"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">DMG: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>   
+                                    {{/each}}
+                                {{else}}
+                                    {{#unless item.data.damage.dice}}
+                                    <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.die}})</button></span>    
+                                    {{else}}
+                                    <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>    
+                                    {{/unless}}
+                                {{/if_all}}
+                                {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.attackEffects}}
+                                    {{#each item.flags.pf2e_updatednpcsheet.attackEffects as |attackEffect aID|}}
+                                        <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>   
+                                    {{/each}}
+                                {{/if_all}}
+                            </div>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            {{#unless action.feat}}
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            {{/unless}}
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+
+
+                <!-- Spells Header -->
+                <!-- <h3 class="item-name pf-heading pf-actions">Spellcasting</h3> -->
+                <li class="item action-header">
+                    <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Spells</h3>
+                    {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="Create Spell" data-type="spell" data-level="0"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li> 
+
+
+                <ol class="npc-defense-list">     
+                    <li class="npc-defense" data-attribute="spelldc">
+                        <span class="defense-score">
+                        <input name="data.attributes.spelldc.dc" type="text" value="{{data.attributes.spelldc.dc}}"
+                            data-dtype="Number" placeholder="10"/>
+                        </span>
+                        <h4 class="attribute-name">Spell DC</h4>                             
+                    </li>
+                </ol>
+
+                <!-- List Spells -->
+                {{#each actor.spellbook as |section lvl|}}
+                    <li class="item inventory-header sub-category spellbook-header">
+                        <div class="item-name flexrow">
+                            <h3>{{section.label}}</h3>
+        
+                            {{#unless section.isCantrip}}
+                            <span class="spell-slots-input">
+                                <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                            </span>
+                            <span class="flex0"> / </span>
+                            <span class="spell-max-input">
+                                <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                            </span>
+                            {{else}}
+                            <span class="spell-slots">&infin;</span>
+                            <span class="flex0"> / </span>
+                            <span class="spell-max">&infin;</span>
+                            {{/unless}}
+                        </div>
+        
+                        <!-- <div class="spell-school-header">School</div>
+                        <div class="spell-action-header">Action</div> -->
+        
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Spell" data-type="spell"
+                            data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+        
+                    {{#each section.spells as |item i|}}
+                    <li class="item" data-item-id="{{item.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{item.img}})"></div>
+                            <h4>{{item.name}}</h4>
+                        </div>
+        
+                        <!-- <div class="spell-school">{{item.data.school.str}}</div>
+                        <div class="spell-action">{{item.data.time.value}}</div> -->
+        
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{else}}
+<!--                     <li class="item inventory-header spellbook-header spellbook-empty">
+                        {{#if owner}}
+                        <div class="pf-sub-category">
+                            <a class="item-control item-create" title="Create Spell" data-type="spell"
+                            data-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spell</a>
+                        </div>
+                        {{/if}}
+                    </li> -->
+                {{/each}}
+
+                <!-- Skill Header -->
+                <li class="item action-header">
+                    <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Skills</h3>
+                    {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="Create Skill" data-type="lore"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li>                    
+
+                <!-- Skill List -->
+                <!-- Note: I'm likely going to need to heavily modify lore as an item type or create a new item type for NPC skills. -->
+                {{#each actor.lores as |lore lid|}}
+                    <li class="item" data-skill="{{s}}" data-item-id="{{lore.id}}">
+
+                        <div style="display: grid; grid: 24px / 28px 28px auto">
+
+                        
+                            <div class="npc-skill-name rollable">
+                                <!-- <div class="item-image" style="background-image: url({{lore.img}})"></div> -->
+                                <img class="npc-skill-image" src="{{lore.img}}" title="{{lore.name}}" height="24" width="24" style="border: none" />
+                                <!-- Roll -->
+                            </div>
+                            
+                            <div class="skill-input">
+                                <input name="item-value-skill-{{lore.id}}" data-item-id="{{lore.id}}" type="text" data-dtype="Number" value="{{lore.data.mod.value}}" placeholder="0"/>
+                            </div>
+                            
+                            <div class="item-name">
+                                <input name="item-name-skill-{{lore.id}}" data-item-id="{{lore.id}}" type="text" data-dtype="String" value="{{lore.name}}" placeholder="New Skill"/>
+                                <!-- <h4>
+                                    {{lore.data.value}} {{lore.name}}
+                                </h4> -->
+                            </div>
+                        </div>
+                                                
+                        {{#if ../owner}}
+                        <div class="item-controls" style="padding-left: 22px">
+                            <!-- <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a> -->
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
+                    </li>
+                {{/each}}
+
+            </ol>
+
+                
+            
+
+            <!-- ability scores -->
+            <div class="npc-abilities">
+                <h3 class="abilities-title pf-heading">Ability Scores</h3>
+                <ol class="abilities-list">
+                    {{#each data.abilities as |ability id|}}
+<!--                         <li class="ability" data-ability="{{id}}">
+                            <span class="ability-name rollable" title="Ability">{{id}}</span>
+                            <span class="ability-mod" title="Modifier">
+                                <div class="ability-input">
+                                    <input name="data.abilities.{{id}}.mod" type="text" value="{{numberFormat ability.mod decimals=0 sign=true}}"
+                                        data-dtype="Number" placeholder="+0"/>
+                                </div>
+                            </span>  -->    
+                            <li class="npc-defense" data-ability="{{id}}">
+                                <span class="defense-score">
+                                <input name="data.abilities.{{id}}.mod" type="text" value="{{numberFormat ability.mod decimals=0 sign=true}}"
+                                    data-dtype="Number" placeholder="+0"/>
+                                </span>
+                                <h4 class="ability-name rollable">{{id}}</h4>                             
+                            </li>        
+                        </li>
+                    {{/each}}
+                </ol>
+            </div>
+
+<!--             <li class="npc-defense" data-attribute="spelldc">
+                    <span class="defense-score">
+                    <input name="data.attributes.spelldc.dc" type="text" value="{{data.attributes.spelldc.dc}}"
+                        data-dtype="Number" placeholder="10"/>
+                    </span>
+                    <h4 class="attribute-name">Spell DC</h4>                             
+                </li> -->
+    
+
+            <!-- Inventory -->
+<!--             <ol class="actions-list inventory-list directory-list">
+                {{#each actor.features as |section sid|}}
+                    <li class="item action-header">
+                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Feature" data-type="{{sid}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{#each section.actions as |action aid|}}
+                    <li class="item" data-item-id="{{action.id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{action.img}})"></div>
+                            <h4>
+                                {{action.name}}
+                            </h4>
+                        </div>
+                        {{#if ../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            {{#unless action.feat}}
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            {{/unless}}
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+            </ol> -->
+        
+    </section>
+
+    <!-- SIDEBAR -->
+<!--     <section class="sheet-sidebar sidebar">
+        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+    </section> -->
+</form>
