@@ -210,11 +210,17 @@
                 <h4>
                     {{action.name}}
                 </h4>
-                {{#if action.data.traits.value}}
-                    {{#each action.data.traits.value as |trait tid|}}
-                        <span class="tag">{{trait}}</span>
-                    {{/each}}
-                  {{/if}}
+                <div class="melee-buttons">
+                {{#if action.traits}}
+                  {{#each action.traits as |trait tid|}}
+                    {{#if trait.description}}
+                      <span class="tag" title="{{trait.description}}" style="background: black; color: white; padding: 0 3px;">{{trait.label}}</span>
+                    {{else}}
+                      <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{/if}}
+                  {{/each}}
+                {{/if}}
+                </div>
             </div>
             {{#if ../../owner}}
             <div class="item-controls">
@@ -259,9 +265,13 @@
                     {{item.name}}
                 </h4>
                 <div class="melee-buttons">
-                  {{#if item.data.traits.value}}
-                    {{#each item.data.traits.value as |trait tid|}}
-                        <span class="tag">{{trait}}</span>
+                  {{#if item.traits}}
+                    {{#each item.traits as |trait tid|}}
+                      {{#if trait.description}}
+                        <span class="tag" title="{{trait.description}}" style="background: black; color: white; padding: 0 3px;">{{trait.label}}</span>
+                      {{else}}
+                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{/if}}
                     {{/each}}
                   {{/if}}
                     <span class="tag"><button data-action="weaponAttack" >Strike (+{{item.data.bonus.total}})</button></span>
@@ -432,6 +442,17 @@
                 <h4>
                     {{action.name}}
                 </h4>
+                <div class="melee-buttons">
+                  {{#if action.traits}}
+                    {{#each action.traits as |trait tid|}}
+                      {{#if trait.description}}
+                        <span class="tag" title="{{trait.description}}" style="background: black; color: white; padding: 0 3px;">{{trait.label}}</span>
+                      {{else}}
+                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                </div>
             </div>
             {{#if ../../owner}}
             <div class="item-controls">
