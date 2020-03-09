@@ -19,7 +19,7 @@ Please Note:
 - If you find any issues or have any feedback please let me know.
 
 ### FVTT Version:
-- Tested with FVTT v0.5.0.
+- Tested with FVTT v0.5.1.
 
 ### Installation Instructions
 
