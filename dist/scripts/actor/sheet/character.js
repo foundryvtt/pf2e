@@ -124,6 +124,15 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
+        if (i.type === 'weapon') {
+          
+          const isFinesse = (i.data.traits.value || []).includes('finesse');
+          const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (i.data.ability.value || 'str'));
+          const prof = i.data.weaponType.value || 'simple';
+          //let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
+          i.attackRoll = parseInt(i.data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
+
+        }
         inventory[i.type].items.push(i);
       }
 

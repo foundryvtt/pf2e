@@ -76,12 +76,12 @@
                 {{/each}}
             </ol>
 
-            <h3 class="defense-title pf-heading">Traits</h3>
+            <h3 class="defense-title pf-heading">Details</h3>
             <ol class="bio-list">                
                     
                     <div class="bio-item trait-size pf-container">    
-                            <label class="pf-title">{{data.traits.size.label}}</label>
-                            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
+                            <label class="pf-title">{{localize "PF2E.SizeLabel"}}</label>
+                            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="String">
                                 {{#select data.traits.size.value}}
                                 {{#each actorSizes as |label size|}}
                                     <option value="{{size}}">{{label}}</option>
@@ -93,17 +93,44 @@
                     <div class="npc-bio-item trait-size pf-container">
                         <label class="pf-title">Speed</label>
                         <span class="pf-value pf-small pf-width-100" title="Your characters speed">
-                            <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
+                            <input type="text" name="data.attributes.speed.value" data-dtype="Number"
                                 value="{{data.attributes.speed.value}}" placeholder="None"/>
                         </span>
                     </div>
-                
+
+                    <div class="bio-item trait-size pf-container">    
+                        <label class="pf-title">{{localize "PF2E.Alignment"}}</label>
+                        <select class="pf-value pf-small pf-width-100" name="data.details.alignment.value" data-dtype="String">
+                            {{#select data.details.alignment.value}}
+                            {{#each alignment as |label key|}}
+                                <option value="{{key}}">{{label}}</option>
+                            {{/each}}
+                            {{/select}}
+                        </select>                        
+                </div>
+                <div class="bio-item form-group-stacked pf-container">
+                    <label for="data.traits.traits">
+                        {{localize "PF2E.TraitsLabel"}}
+                        <a class="trait-selector" data-options="monsterTraits"><i class="fas fa-edit"></i></a>
+                    </label>
+                    <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
+                    <ul class="traits-list pf-value pf-large">
+                        {{#each data.traits.traits.value as |v k|}}
+                            <span class="tag {{k}}">{{v}}</span>
+                        {{/each}}
+                    </ul>
+                </div>
+            
+                <div class="bio-item trait-size pf-container">
+                    <label class="pf-title">Image</label>
+                    <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
+                </div>
             </ol>
 <!--             <h3 class="defense-title pf-heading" for="data.traits.skills">
                 Image
                 <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a>
             </h3> -->
-            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+            
             
         </div>
     </section>
