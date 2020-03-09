@@ -6,21 +6,13 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.510: Fixed an issue with the item sheet values for weapon abilities and spell saves which was affecting several rolls.
-*  v0.509: Fixed bug with updated NPC sheet not loading for old NPCs and added a edit toggle to easily swap between sheets.
-*  v0.508: (@FrisGuardian#8347) Added an alchemic items compendium pack. Thanks!!
-*  v0.507: Added Bestiary Browser with a few filters and sorting options. Welcome feedback here as I can add additional filters etc.
-*  v0.507: Fixed other move speeds for NPC in the bestiary and updated the read-only sheet to show the new data.
-*  v0.506: Updated bestiary to fix issue with items, damage immunities/resistances/vulnerabilities, alignment plus more.
-*  v0.506: Added a new read-only NPC sheet. A super huge thanks to @FS for doing 99% of the work here.
-*  v0.505: Updated beastiary to include correct images and separate NPC ranged and melee attacks.
-*  v0.504: Added a beastiary compendium pack!! (A huge thanks to @fs#5443 for putting in most of the hard work on this)
-*  v0.504: Fixed a lot of small issues with the NPC data model
-*  v0.504: Made several improvements to the pf2e template to support damage resistances, weaknesses, etc. different speed types and a lot of additional NPC data.
-*  v0.500: Added support for Foundry VTT v0.5.0 (please backup your world before updating)
-*  v0.500: Added support for localisation and localised most labels in all of the pf2e html temlplates as well as attribute, saves and skill names.
-*  v0.500: Fixed issues with NPC sheets and prepared spellcasting entrys
-*  v0.500: Fixed multiple issues with dragging and dropping spells onto character sheets
+*  v0.511: Set default NPC alignment to Neutral (rather than null)
+*  v0.511: Continued to add localization support for the NPC sheet
+*  v0.511: Added a attackRoll label to the item summary for PC weapons so players know the modifiers before they roll.
+*  v0.511: Enabled the modification of NPC alignment and trait information (which is reflected in the read-only NPC sheet)
+*  v0.511: Added a Bestiary Browser button to the Actor Directory tab (next to the Create Actor button)
+*  v0.511: Fixed an issue with the read-only NPC sheet when a monster had a large list of traits causing the Current HP to slide off the side of the window
+*  v0.511: added an initial imlementation of displaying NPC action and weapon traits on the read-only sheet (would like feedback here).
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
@@ -61,6 +53,21 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
 
 ### Prior Patch Changes:
+*  v0.510: Fixed an issue with the item sheet values for weapon abilities and spell saves which was affecting several rolls.
+*  v0.509: Fixed bug with updated NPC sheet not loading for old NPCs and added a edit toggle to easily swap between sheets.
+*  v0.508: (@FrisGuardian#8347) Added an alchemic items compendium pack. Thanks!!
+*  v0.507: Added Bestiary Browser with a few filters and sorting options. Welcome feedback here as I can add additional filters etc.
+*  v0.507: Fixed other move speeds for NPC in the bestiary and updated the read-only sheet to show the new data.
+*  v0.506: Updated bestiary to fix issue with items, damage immunities/resistances/vulnerabilities, alignment plus more.
+*  v0.506: Added a new read-only NPC sheet. A super huge thanks to @FS for doing 99% of the work here.
+*  v0.505: Updated beastiary to include correct images and separate NPC ranged and melee attacks.
+*  v0.504: Added a beastiary compendium pack!! (A huge thanks to @fs#5443 for putting in most of the hard work on this)
+*  v0.504: Fixed a lot of small issues with the NPC data model
+*  v0.504: Made several improvements to the pf2e template to support damage resistances, weaknesses, etc. different speed types and a lot of additional NPC data.
+*  v0.500: Added support for Foundry VTT v0.5.0 (please backup your world before updating)
+*  v0.500: Added support for localisation and localised most labels in all of the pf2e html temlplates as well as attribute, saves and skill names.
+*  v0.500: Fixed issues with NPC sheets and prepared spellcasting entrys
+*  v0.500: Fixed multiple issues with dragging and dropping spells onto character sheets
 *  v0.465: (Trey#9048) Added an actions compendium.
 *  v0.465: Re-orded the filter groups in Action Browser
 *  v0.465: Added a link directly to the Action Browser from the action tab in character sheets

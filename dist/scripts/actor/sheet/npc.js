@@ -32,6 +32,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
   getData() {
     const sheetData = super.getData();
 
+    sheetData.monsterTraits = CONFIG.monsterTraits;
     // Return data for rendering
     return sheetData;
   }
@@ -111,6 +112,19 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
         i.data.isAgile = isAgile;
 
+        // get formated traits for read-only npc sheet
+        let traits = [];
+        if ((i.data.traits.value || []).length != 0) {
+          for (let j = 0; j < i.data.traits.value.length; j++) {
+            const traitsObject = {
+              label: CONFIG.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
+              description: CONFIG.traitsDescriptions[i.data.traits.value[j]] || '',
+            };
+            traits.push(traitsObject);
+          }
+        }
+        i.traits = traits.filter((p) => !!p);
+
         attacks[weaponType].items.push(i);
       }
 
@@ -125,6 +139,22 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         else if (actionType === 'passive') actionImg = 'passive';
         i.img = this._getActionImg(actionImg);
 
+        // get formated traits for read-only npc sheet
+        let traits = [];
+        if ((i.data.traits.value || []).length != 0) {
+          for (let j = 0; j < i.data.traits.value.length; j++) {
+            const traitsObject = {
+              label: CONFIG.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
+              description: CONFIG.traitsDescriptions[i.data.traits.value[j]] || '',
+            };
+            traits.push(traitsObject);
+          }
+        }
+        if (i.data.actionType.value) traits.push({
+          label: CONFIG.weaponTraits[i.data.actionType.value] || (i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1)),
+          description: CONFIG.traitsDescriptions[i.data.actionType.value] || '',
+        });
+        i.traits = traits.filter((p) => !!p);
 
         actions[actionType].actions.push(i);
       }
