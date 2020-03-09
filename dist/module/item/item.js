@@ -88,6 +88,7 @@ export default class extends Item {
 
   _weaponChatData() {
     const data = duplicate(this.data.data);
+    const actorData = this.actor.data;
     const traits = [];
     const itemTraits = data.traits.value;
     let versatileTrait = false;
@@ -115,6 +116,12 @@ export default class extends Item {
         }
       }
     }
+
+    // calculate attackRoll modifier (for _onItemSummary)
+    const isFinesse = (data.traits.value || []).includes('finesse');
+    const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (data.ability.value || 'str'));
+    const prof = data.weaponType.value || 'simple';
+    data.attackRoll = parseInt(data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
 
     const properties = [
       // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,

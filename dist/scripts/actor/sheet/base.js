@@ -57,6 +57,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Update traits
     sheetData.actorSizes = CONFIG.actorSizes;
+    sheetData.alignment = CONFIG.alignment;
     this._prepareTraits(sheetData.data.traits);
 
     // Prepare owned items
@@ -990,7 +991,7 @@ class ActorSheetPF2e extends ActorSheet {
             if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
             else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
           }
-          buttons.append('<span class="tag"><button data-action="weaponAttack">Attack</button></span>');
+          buttons.append(`<span class="tag"><button data-action="weaponAttack">Strike (+${chatData.attackRoll})</button></span>`);
           buttons.append(`<span class="tag"><button data-action="weaponAttack2">${isAgile ? '-4' : '-5'}</button></span>`);
           buttons.append(`<span class="tag"><button data-action="weaponAttack3">${isAgile ? '-8' : '-10'}</button></span>`);
           buttons.append('<span class="tag"><button data-action="weaponDamage">Damage</button></span>');

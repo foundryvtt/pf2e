@@ -32,6 +32,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
   getData() {
     const sheetData = super.getData();
 
+    sheetData.monsterTraits = CONFIG.monsterTraits;
     // Return data for rendering
     return sheetData;
   }
