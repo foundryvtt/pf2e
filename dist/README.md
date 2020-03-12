@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.512: Fixed the calculation of weapon attack rolls with the Finesse trait
 *  v0.511: Set default NPC alignment to Neutral (rather than null)
 *  v0.511: Continued to add localization support for the NPC sheet
 *  v0.511: Added a attackRoll label to the item summary for PC weapons so players know the modifiers before they roll.

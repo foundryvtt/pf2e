@@ -142,6 +142,7 @@ export default class extends Item {
     data.map3 = isAgile ? '-8' : '-10';
     data.isTwohanded = !!twohandedTrait;
     data.wieldedTwoHands = !!data.hands.value;
+    data.isFinesse = isFinesse;
     data.properties = properties.filter((p) => !!p);
     data.traits = traits.filter((p) => !!p);
     return data;
@@ -390,7 +391,7 @@ export default class extends Item {
     // let itemData = this.data.data,
     const itemData = this.getChatData();
     const rollData = duplicate(this.actor.data.data);
-    const isFinesse = (itemData.traits.value || []).includes('finesse');
+    const isFinesse = itemData.isFinesse;
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
     let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
