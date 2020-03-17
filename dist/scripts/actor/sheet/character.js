@@ -102,6 +102,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Skills
     const lores = [];
+    const martialSkills = [];
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
@@ -124,15 +125,16 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
-        if (i.type === 'weapon') {
+/*         if (i.type === 'weapon') {
           
           const isFinesse = (i.data.traits.value || []).includes('finesse');
           const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (i.data.ability.value || 'str'));
           const prof = i.data.weaponType.value || 'simple';
           //let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
-          i.attackRoll = parseInt(i.data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
 
-        }
+          //i.attackRoll = parseInt(i.data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
+
+        } */
         inventory[i.type].items.push(i);
       }
 
@@ -218,6 +220,20 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         lores.push(i);
       }
 
+      // Martial Skills
+      else if (i.type === 'martial') {
+        i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
+        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value)];
+
+        const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
+        /* const itemBonus = Number((i.data.item || {}).value || 0);
+        i.data.itemBonus = itemBonus; */
+        i.data.value = proficiency// + itemBonus;
+        i.data.breakdown = `proficiency(${proficiency})`;
+
+        martialSkills.push(i);
+      }
+
       // Actions
       if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
@@ -273,6 +289,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.feats = feats;
     actorData.actions = actions;
     actorData.lores = lores;
+    actorData.martialSkills = martialSkills;
 
 
     for (const entry of spellcastingEntries) {

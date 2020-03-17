@@ -120,8 +120,29 @@ export default class extends Item {
     // calculate attackRoll modifier (for _onItemSummary)
     const isFinesse = (data.traits.value || []).includes('finesse');
     const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (data.ability.value || 'str'));
+    
     const prof = data.weaponType.value || 'simple';
-    data.attackRoll = parseInt(data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
+    // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
+    let proficiency = {
+      type: "default",
+      value: 0
+    };
+    if (Object.keys(CONFIG.weaponTypes).includes(prof)) {
+      proficiency.type = "martial";
+      proficiency.value = actorData.data.martial[prof].value || 0;
+    } else {
+      try {
+        let martialSkill = this.actor.getOwnedItem(prof);
+        if (martialSkill.type) {
+          proficiency.type = "skill";
+          proficiency.value = (martialSkill.data.data.proficient || {}).value ? ((martialSkill.data.data.proficient || {}).value * 2) + this.actor.data.data.details.level.value : 0;
+        }
+      } catch (err) {
+        console.log(`PF2E | Could not find martial skill for ${prof}`)
+      }
+    }
+    data.proficiency = proficiency
+    data.attackRoll = parseInt(data.bonus.value) + actorData.data.abilities[abl].mod + proficiency.value;
 
     const properties = [
       // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
@@ -394,11 +415,16 @@ export default class extends Item {
     const isFinesse = itemData.isFinesse;
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
-    let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
+    let parts = ['@item.bonus.value', `@abilities.${abl}.mod`];
+    if (itemData.proficiency.type = "skill") {
+      parts.push(itemData.proficiency.value);
+    } else {
+      parts.push(`@martial.${prof}.value`);
+    }
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
-      parts = ['@item.bonus.value', '@martial.simple.value'];
+      parts = ['@item.bonus.value'];
     }
     rollData.item = itemData;
     // if ( !itemData.proficient.value ) parts.pop();
