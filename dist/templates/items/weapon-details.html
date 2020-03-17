@@ -7,6 +7,11 @@
         <option value="{{type}}">{{name}}</option>
         {{/each}}
         {{/select}}
+        {{#select data.weaponType.value}}
+        {{#each martialSkills as |martial key|}}
+        <option value="{{martial._id}}">{{martial.name}}</option>
+        {{/each}}
+        {{/select}}
     </select>
 </div>
 

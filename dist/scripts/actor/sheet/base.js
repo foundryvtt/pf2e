@@ -24,6 +24,7 @@ class ActorSheetPF2e extends ActorSheet {
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.proficiencyLevels[skl.rank];
       skl.label = CONFIG.PF2E.martialSkills[s];
+      skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
     }
 
     // Update save labels
@@ -731,7 +732,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update the field value and save the form
-    if (skillType === 'lore') {
+    if (skillType === 'lore' || skillType === 'martial') {
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
       // const itemToEdit = this.actor.items.find(i => i.id === itemId);
       // const itemToEdit = this.actor.getOwnedItem(itemId).data;

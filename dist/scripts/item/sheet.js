@@ -56,6 +56,15 @@ class ItemSheetPF2e extends ItemSheet {
         spellScalingModes: CONFIG.spellScalingModes,
       });
     } else if (this.item.type === 'weapon') {
+      // get a list of all custom martial skills
+      const martialSkills = [];
+      if (this.actor) {
+        for (const i of this.actor.data.items) {
+          if (i.type === 'martial') martialSkills.push(i);
+        }
+      }
+      data.martialSkills = martialSkills;
+
       // Weapon Data
       data.weaponTypes = CONFIG.weaponTypes;
       data.weaponGroups = CONFIG.weaponGroups;
