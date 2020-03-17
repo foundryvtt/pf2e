@@ -6,14 +6,8 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.512: Fixed the calculation of weapon attack rolls with the Finesse trait
-*  v0.511: Set default NPC alignment to Neutral (rather than null)
-*  v0.511: Continued to add localization support for the NPC sheet
-*  v0.511: Added a attackRoll label to the item summary for PC weapons so players know the modifiers before they roll.
-*  v0.511: Enabled the modification of NPC alignment and trait information (which is reflected in the read-only NPC sheet)
-*  v0.511: Added a Bestiary Browser button to the Actor Directory tab (next to the Create Actor button)
-*  v0.511: Fixed an issue with the read-only NPC sheet when a monster had a large list of traits causing the Current HP to slide off the side of the window
-*  v0.511: added an initial imlementation of displaying NPC action and weapon traits on the read-only sheet (would like feedback here).
+*  v0.513: Added support for custom martial skills allowing characters to add martial skills for specific weapons
+
 
 Please Note:
 - Functionality is not complete with plenty of work remaining. 
@@ -54,6 +48,14 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
 
 ### Prior Patch Changes:
+*  v0.512: Fixed the calculation of weapon attack rolls with the Finesse trait
+*  v0.511: Set default NPC alignment to Neutral (rather than null)
+*  v0.511: Continued to add localization support for the NPC sheet
+*  v0.511: Added a attackRoll label to the item summary for PC weapons so players know the modifiers before they roll.
+*  v0.511: Enabled the modification of NPC alignment and trait information (which is reflected in the read-only NPC sheet)
+*  v0.511: Added a Bestiary Browser button to the Actor Directory tab (next to the Create Actor button)
+*  v0.511: Fixed an issue with the read-only NPC sheet when a monster had a large list of traits causing the Current HP to slide off the side of the window
+*  v0.511: added an initial imlementation of displaying NPC action and weapon traits on the read-only sheet (would like feedback here).
 *  v0.510: Fixed an issue with the item sheet values for weapon abilities and spell saves which was affecting several rolls.
 *  v0.509: Fixed bug with updated NPC sheet not loading for old NPCs and added a edit toggle to easily swap between sheets.
 *  v0.508: (@FrisGuardian#8347) Added an alchemic items compendium pack. Thanks!!
