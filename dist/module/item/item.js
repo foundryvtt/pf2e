@@ -416,16 +416,17 @@ export default class extends Item {
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
     let parts = ['@item.bonus.value', `@abilities.${abl}.mod`];
-    if (itemData.proficiency.type = "skill") {
-      parts.push(itemData.proficiency.value);
-    } else {
-      parts.push(`@martial.${prof}.value`);
-    }
+    
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
       parts = ['@item.bonus.value'];
+    } else if (itemData.proficiency && itemData.proficiency.type === "skill") {
+      parts.push(itemData.proficiency.value);
+    } else {
+      parts.push(`@martial.${prof}.value`);
     }
+    
     rollData.item = itemData;
     // if ( !itemData.proficient.value ) parts.pop();
 

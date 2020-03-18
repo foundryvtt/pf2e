@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.514: Fixed bug with NPC attack rolls
 *  v0.513: Added support for custom martial skills allowing characters to add martial skills for specific weapons
 
 
