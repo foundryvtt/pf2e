@@ -640,6 +640,15 @@ CONFIG.featTraits = {
   acid: 'Acid',
   interact: 'Interact',
   linguistic: 'Linguistic',
+  hobgoblin: 'Hobgoblin',
+  leshy: 'Leshy',
+  lizardfolk: 'Lizardfolk',
+  aasimar: 'Aasimar',
+  catfolk: 'Catfolk',
+  changeling: 'Changeling',
+  geniekin: 'Geniekin',
+  tiefling: 'Tiefling',
+  misfortune: 'Misfortune'
 };
 
 // Area Types
