@@ -149,6 +149,7 @@ CONFIG.weaponTraits = {
   attached: 'Attached',
   backstabber: 'Backstabber',
   backswing: 'Backswing',
+  coldiron: 'Cold Iron',
   'deadly-d6': 'Deadly d6',
   'deadly-d8': 'Deadly d8',
   'deadly-d10': 'Deadly d10',
@@ -167,6 +168,7 @@ CONFIG.weaponTraits = {
   grapple: 'Grapple',
   halfling: 'Halfling',
   'jousting-d6': 'Jousting d6',
+  magical: 'Magical',
   monk: 'Monk',
   nonlethal: 'Nonlethal',
   orc: 'Orc',
@@ -633,6 +635,11 @@ CONFIG.featTraits = {
   positive: 'Positive',
   negative: 'Negative',
   mental: 'Mental',
+  alchemical: 'Alchemical',
+  fire: 'Fire',
+  acid: 'Acid',
+  interact: 'Interact',
+  linguistic: 'Linguistic',
 };
 
 // Area Types

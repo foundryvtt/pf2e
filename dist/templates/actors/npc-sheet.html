@@ -170,6 +170,35 @@
                     {{/each}}
                 {{/each}}
 
+                <!-- Equipment Header -->
+                <li class="item action-header">
+                    <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Items</h3>
+                    {{#if owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="Create Item" data-type="equipment" data-action-type="equipment"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li>
+                <!-- List Equipment -->
+                {{#each actor.equipment as |item iid|}}
+                    
+                    <li class="item" data-item-id="{{item._id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{item.img}})"></div>
+                            <h4>
+                                {{item.name}}
+                            </h4>
+                        </div>
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>                            
+                        </div>
+                        {{/if}}
+                    </li>
+                    
+                {{/each}}
+
 
                 <!-- Attacks Header -->
                 <h3 class="item-name pf-heading pf-actions">Attacks</h3>

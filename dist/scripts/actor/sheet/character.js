@@ -335,7 +335,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Add Currency Weight
     const { currency } = actorData.data;
-    const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
+    const numCoins = Object.values(currency).reduce((val, denom) => val += parseInt(denom.value), 0);
     totalWeight += Math.floor(numCoins / 1000);
 
 

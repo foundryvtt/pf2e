@@ -6,8 +6,10 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.514: Fixed bug with NPC attack rolls
-*  v0.513: Added support for custom martial skills allowing characters to add martial skills for specific weapons
+*  v0.515: (issue #80) Fixed bug with spells not showing the correct DC in item summary or chat cards.
+*  v0.515: (issue #74) Added missing traits for actions and weapons
+*  v0.515: (issue #73) Fixes bulk from coins not calculating correctly
+*  v0.515: (issue #75) Added the ability to add, edit and remove items on NPC sheets.
 
 
 Please Note:
@@ -49,6 +51,8 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
 
 ### Prior Patch Changes:
+*  v0.514: Fixed bug with NPC attack rolls
+*  v0.513: Added support for custom martial skills allowing characters to add martial skills for specific weapons
 *  v0.512: Fixed the calculation of weapon attack rolls with the Finesse trait
 *  v0.511: Set default NPC alignment to Neutral (rather than null)
 *  v0.511: Continued to add localization support for the NPC sheet

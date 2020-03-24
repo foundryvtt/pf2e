@@ -270,7 +270,7 @@ export default class extends Item {
     if (data.isSave) {
       data.save.dc = spellDC;
     } else data.save.dc = spellAttack;
-    data.save.str = data.save.value ? (this.actor.data.data.saves[data.save.value.toLowerCase()] || {}).label : '';
+    data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
 
     // Spell attack labels
     data.damageLabel = data.spellType.value === 'heal' ? 'Healing' : 'Damage';
