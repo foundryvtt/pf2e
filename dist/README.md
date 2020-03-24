@@ -6,6 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
+*  v0.517: (issue #85) Added additional traits to feats list.
 *  v0.516: Fixed item macros not functioning correctly
 *  v0.515: (issue #80) Fixed bug with spells not showing the correct DC in item summary or chat cards.
 *  v0.515: (issue #74) Added missing traits for actions and weapons
