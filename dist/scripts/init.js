@@ -238,11 +238,11 @@
 /**
  * Activate certain behaviors on FVTT ready hook
  */
-// Hooks.once('init', () => {
-//   game.pf2e = {
-//     rollItemMacro,
-//   };
-// });
+ Hooks.once('init', () => {
+   game.pf2e = {
+     rollItemMacro,
+   };
+ });
 
 /**
  * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
