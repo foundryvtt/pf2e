@@ -648,7 +648,8 @@ CONFIG.featTraits = {
   changeling: 'Changeling',
   geniekin: 'Geniekin',
   tiefling: 'Tiefling',
-  misfortune: 'Misfortune'
+  misfortune: 'Misfortune',
+  precision: 'Precision'
 };
 
 // Area Types
