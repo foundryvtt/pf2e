@@ -556,6 +556,13 @@ CONFIG.spellTraits = {
   rogue: 'Rogue',
   sorcerer: 'Sorcerer',
   wizard: 'Wizard',
+  earth: 'Earth',
+  curse: 'Curse',
+  misfortune: 'Misfortune',
+  fungus: 'Fungus',
+  linguistic: 'Linguistic',
+  darkness: 'Darkness',
+  morph: 'Morph',
 };
 
 // Feat Traits
@@ -798,6 +805,7 @@ CONFIG.featTypes = {
   general: 'General Feat',
   class: 'Class Feat',
   classfeature: 'Class Feature',
+  archetype: 'Archetype Feat',
 };
 
 // Feat Action Types
@@ -1034,5 +1042,17 @@ CONFIG.monsterTraits = {
 
 CONFIG.spellScalingModes = {
   none: 'None',
-  level1: 'Heightened +1',
+  level1: 'Heightened (+1)',
+  level2: 'Heightened (+2)',
+  level3: 'Heightened (+3)',
+  levelsecond: 'Heightened (2nd)',
+  levelthird: 'Heightened (3rd)',
+  levelfourth: 'Heightened (4th)',
+  levelfifth: 'Heightened (5th)',
+  levelsixth: 'Heightened (6th)',
+  levelseventh: 'Heightened (7th)',
+  leveleighth: 'Heightened (8th)',
+  levelninth: 'Heightened (9th)',
+  leveltenth: 'Heightened (10th)',
+
 };
