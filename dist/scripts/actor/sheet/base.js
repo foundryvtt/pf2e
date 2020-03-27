@@ -127,7 +127,7 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _prepareSpell(actorData, spellbook, spell) {
-    const lvl = Number(spell.data.level.value) || 0;
+    const lvl = (Number(spell.data.level.value) < 11) ? Number(spell.data.level.value) : 10;
     const isNPC = this.actorType === 'npc';
     let spellcastingEntry = '';
 
@@ -897,6 +897,19 @@ class ActorSheetPF2e extends ActorSheet {
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
         this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
+        return false;
+      }
+
+      // else if the dragged item is from the item sidebar.
+      else if (dragData.id) {
+        let dragItem = game.items.get(dragData.id);
+        if (!dragItem) return;
+        const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+        dragItem.data.data.location = {
+          value: dropID,
+        };
+        
+        this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
         return false;
       }
     }

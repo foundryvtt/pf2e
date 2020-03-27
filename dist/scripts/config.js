@@ -794,7 +794,6 @@ CONFIG.spellLevels = {
   8: '8th Level',
   9: '9th Level',
   10: '10th Level',
-  11: 'Focus',
 };
 
 // Feat Types

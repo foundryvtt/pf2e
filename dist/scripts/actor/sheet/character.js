@@ -178,6 +178,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         // Check if Ritual spellcasting tradtion and set Boolean
         if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
         else i.data.tradition.ritual = false;
+        if ((i.data.tradition || {}).value === 'focus') i.data.tradition.focus = true;
+        else i.data.tradition.focus = false;
+        
 
         spellcastingEntries.push(i);
       }
