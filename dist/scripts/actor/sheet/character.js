@@ -91,6 +91,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
       bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
       classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
+      archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
     };
 
     // Actions

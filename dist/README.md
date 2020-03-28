@@ -6,8 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.520: Fixed errors loading character sheets when a spell has a level higher than 10 (or 11).
-*  v0.520: Removed focus spells as a special type of spell level. Focus spells will now need to be migrated to a separate Focus spellcasting entry
+*  v0.521: Fixed bug preventing a characters sheet from loading when the actor has an Archetype feat
 
 
 Please Note:
@@ -49,6 +48,8 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
 
 ### Prior Patch Changes:
+*  v0.520: Fixed errors loading character sheets when a spell has a level higher than 10 (or 11).
+*  v0.520: Removed focus spells as a special type of spell level. Focus spells will now need to be migrated to a separate Focus spellcasting entry
 *  v0.519: (@overdox) Added spell and feat compendium packs for Lost Omens Character Guide, Lost Omens Gods and Magic and Lost Omens World Guide.
 *  v0.519: (@overdox) Added missing spell and feat traits
 *  v0.519: (@overdox) Added settings for additional spell heitening levels (these don't do anything yet but they can be configured now and will work later)
