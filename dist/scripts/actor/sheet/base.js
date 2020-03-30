@@ -1087,7 +1087,7 @@ class ActorSheetPF2e extends ActorSheet {
       });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {
-        data.name = 'New Skill';
+        data.name = 'Skill';
         data.img = '/icons/svg/d20-black.svg';
       } else data.name = `New ${data.type.capitalize()}`;
     } else {

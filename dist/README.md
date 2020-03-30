@@ -45,7 +45,11 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 
 ### License
 
-This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
+This work is a package for the Foundry Virtual Tabletop software with the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
+All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
+The Pathfinder Second Edition system information and compendium JSON data is licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
+License information for the art used in the compendium packs distributed with this project is included in the ./packs/ folder alongside the JSON of the compendium pack.
+
 
 ### Prior Patch Changes:
 *  v0.520: Fixed errors loading character sheets when a spell has a level higher than 10 (or 11).
