@@ -6,7 +6,9 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.521: Fixed bug preventing a characters sheet from loading when the actor has an Archetype feat
+*  v0.522: Temporarily removed the Lost Omens feat and spell compendium packs due to an issue. Hopefully will have them back ASAP.
+*  v0.522: Updated license information for the project
+*  v0.522: Updated NPC skills so they are created with the name 'Skill' rather than "New skill" which takes more effort to modify
 
 
 Please Note:
@@ -52,6 +54,7 @@ License information for the art used in the compendium packs distributed with th
 
 
 ### Prior Patch Changes:
+*  v0.521: Fixed bug preventing a characters sheet from loading when the actor has an Archetype feat
 *  v0.520: Fixed errors loading character sheets when a spell has a level higher than 10 (or 11).
 *  v0.520: Removed focus spells as a special type of spell level. Focus spells will now need to be migrated to a separate Focus spellcasting entry
 *  v0.519: (@overdox) Added spell and feat compendium packs for Lost Omens Character Guide, Lost Omens Gods and Magic and Lost Omens World Guide.
