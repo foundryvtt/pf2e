@@ -49,9 +49,9 @@ If you have any suggestions or feedback, please contact me on discord (hooking#0
 ### License
 
 This work is a package for the Foundry Virtual Tabletop software with the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
-All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
-The Pathfinder Second Edition system information and compendium JSON data is licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
-License information for the art used in the compendium packs distributed with this project is included in the ./packs/ folder alongside the JSON of the compendium pack.
+* All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
+* The Pathfinder Second Edition system information and compendium JSON data is licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
+* License information for the art used in the compendium packs distributed with this project is included in the ./packs/ folder alongside the JSON of the compendium pack.
 
 ### Contributing
 
