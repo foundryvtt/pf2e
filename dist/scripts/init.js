@@ -358,7 +358,7 @@ class ConvertDialog extends Dialog {
         for (const item of content) {
           const imageUrl = item.data.img;
   
-          if (imageUrl != 'icons/mystery-man.png' && !imageUrl.startsWith('data:image')) {
+          if (imageUrl != 'icons/mystery-man.png' /* && !imageUrl.startsWith('data:image') */) {
             handleFiles(imageUrl, async (base64Url) => {
               console.log('item: ', item._id);
               item.data.img = base64Url;
