@@ -241,6 +241,7 @@
  Hooks.once('init', () => {
    game.pf2e = {
      rollItemMacro,
+     convertPackToBase64Embedded,
    };
  });
 
@@ -316,4 +317,77 @@ function rollItemMacro(itemId) {
 
   // Trigger the item roll
   return item.roll();
+}
+
+class ConvertDialog extends Dialog {
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    
+    html.find('.pack-img-convert').click(async (ev) => {
+      const canvas = document.getElementById('image-canvas');
+      const packname = $(ev.currentTarget).attr('pack-name');
+      const ctx = canvas.getContext('2d');
+      const maxW = 64;
+      const maxH = 64;
+  
+      function handleFiles(imgURL, callback) {
+        const img = new Image();
+        img.onload = function () {
+          const iw = img.width;
+          const ih = img.height;
+          const scale = Math.min((maxW / iw), (maxH / ih));
+          const iwScaled = iw * scale;
+          const ihScaled = ih * scale;
+          canvas.width = iwScaled;
+          canvas.height = ihScaled;
+          ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
+          callback(canvas.toDataURL('image/jpeg', 0.5));
+        };
+        img.src = imgURL;
+      }
+  
+      const pack = game.packs.find((p) => p.collection === packname);
+
+      if (!pack) {
+        console.error(`Pack ${packname} not found.`);
+        return
+      }
+  
+      await pack.getContent().then(async (content) => {
+        for (const item of content) {
+          const imageUrl = item.data.img;
+  
+          if (imageUrl != 'icons/mystery-man.png' && !imageUrl.startsWith('data:image')) {
+            handleFiles(imageUrl, async (base64Url) => {
+              console.log('item: ', item._id);
+              item.data.img = base64Url;
+              await pack.importEntity(item);
+              await pack.deleteEntity(item._id);
+            });
+          }
+        }
+      });
+    });
+  }
+}
+    
+async function convertPackToBase64Embedded (packname="world.bestiary-test") {
+  // This is the HTML to add to the pack-img-convert application.
+  // <canvas id="canvas" width=64 height=64></canvas>  
+
+  // Render confirmation modal dialog  
+  renderTemplate('systems/pf2e/templates/packs/convert-images.html', {packname: packname}).then((html) => {
+    new ConvertDialog({
+      title: 'Convert Pack Images',
+      content: html,
+      buttons: {
+        Close: {
+          icon: '<i class="fa fa-check"></i>',
+          label: 'Close'              
+        },        
+      },
+      default: 'Close',
+    }).render(true);
+  }); 
 }

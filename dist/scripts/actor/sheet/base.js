@@ -427,50 +427,6 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
-    // Button to convert all images in a compendium pack to base64 encoded.
-    html.find('.pack-img-convert').click(async (ev) => {
-      // This is the HTML to add to the pack-img-convert application.
-      // <canvas id="canvas" width=64 height=64></canvas>
-
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      const maxW = 64;
-      const maxH = 64;
-
-      function handleFiles(imgURL, callback) {
-        const img = new Image();
-        img.onload = function () {
-          const iw = img.width;
-          const ih = img.height;
-          const scale = Math.min((maxW / iw), (maxH / ih));
-          const iwScaled = iw * scale;
-          const ihScaled = ih * scale;
-          canvas.width = iwScaled;
-          canvas.height = ihScaled;
-          ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
-          callback(canvas.toDataURL('image/jpeg', 0.5));
-        };
-        img.src = imgURL;
-      }
-
-      const pack = game.packs.find((p) => p.collection === 'pf2e.spells-srd');
-
-      await pack.getContent().then(async (content) => {
-        for (const item of content) {
-          const imageUrl = item.data.img;
-
-          if (imageUrl != 'icons/mystery-man.png' && !imageUrl.startsWith('data:image')) {
-            handleFiles(imageUrl, async (base64Url) => {
-              console.log('item: ', item._id);
-              item.data.img = base64Url;
-              await pack.importEntity(item);
-              await pack.deleteEntity(item._id);
-            });
-          }
-        }
-      });
-    });
-
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
 
