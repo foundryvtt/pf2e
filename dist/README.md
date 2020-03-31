@@ -6,8 +6,7 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is the initial alpha release of the Pathfinder Second Edition system.
 
 Patch Notes:
-*  v0.523: Added the Lost Omens compendium packs back in now that the pack issue has been resolved.
-*  v0.522: Temporarily removed the Lost Omens feat and spell compendium packs due to an issue. Hopefully will have them back ASAP.
+*  v0.524: Created game.pf2e.convertPackToBase64Embedded(packname) function to assist with converting compendium packs to base64 encoded images.
 *  v0.522: Updated license information for the project
 *  v0.522: Updated NPC skills so they are created with the name 'Skill' rather than "New skill" which takes more effort to modify
 
