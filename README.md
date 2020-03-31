@@ -10,6 +10,7 @@ Patch Notes:
 *  v0.524: Created game.pf2e.convertPackToBase64Embedded(packname) function to assist with converting compendium packs to base64 encoded images.
 *  v0.522: Updated license information for the project
 *  v0.522: Updated NPC skills so they are created with the name 'Skill' rather than "New skill" which takes more effort to modify
+*  v0.522: (Shandyan#5980) Updated consumables compendium pack to include missing entries. Thanks for the contribution!!
 
 
 Please Note:
