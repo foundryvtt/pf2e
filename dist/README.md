@@ -3,7 +3,7 @@
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-This is the initial alpha release of the Pathfinder Second Edition system.
+This is community created release of the Pathfinder Second Edition system for the Foundry virtual table top platform.
 
 Patch Notes:
 *  v0.525: ConvertPackToBase64Embedded now supports base64 images as a source.
@@ -17,7 +17,7 @@ Please Note:
 - If you find any issues or have any feedback please let me know.
 
 ### FVTT Version:
-- Tested with FVTT v0.5.1.
+- Tested with FVTT v0.5.3.
 
 ### Installation Instructions
 
