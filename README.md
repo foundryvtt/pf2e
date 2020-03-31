@@ -28,6 +28,11 @@ To install the system, follow these instructions:
 3. Click Install and wait for installation to complete
 4. Create a new world using the PF2e system.
 
+### Recommended Modules:
+
+* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for pf2e. 
+* Token Mold: Allows you to override the default token settings for bestiary monsters if you prefer to have your bars and labels configured differently.
+
 ### Shoutouts
 
 A huge thanks to:
