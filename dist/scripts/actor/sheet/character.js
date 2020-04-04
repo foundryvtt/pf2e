@@ -101,6 +101,19 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
     };
 
+    // Read-Only Actions
+    const readonlyActions = {
+      "interaction": { label: "Interaction Actions", actions: [] },
+      "defensive": { label: "Defensive Actions", actions: [] },
+      "offensive": { label: "Offensive Actions", actions: [] },
+    }
+
+    let readonlyEquipment = [];
+
+    const attacks = {
+      weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
+    };
+
     // Skills
     const lores = [];
     const martialSkills = [];
@@ -110,6 +123,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
 
+      // Read-Only Equipment
+      if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
+        readonlyEquipment.push(i);
+        actorData.hasEquipment = true;
+      }
+      
       // Inventory
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
@@ -126,21 +145,35 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
-/*         if (i.type === 'weapon') {
+        if (i.type === 'weapon') {
           
-          const isFinesse = (i.data.traits.value || []).includes('finesse');
+          /* const isFinesse = (i.data.traits.value || []).includes('finesse');
           const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (i.data.ability.value || 'str'));
-          const prof = i.data.weaponType.value || 'simple';
+          const prof = i.data.weaponType.value || 'simple'; */
           //let parts = ['@item.bonus.value', `@abilities.${abl}.mod`, `@martial.${prof}.value`];
 
           //i.attackRoll = parseInt(i.data.bonus.value) + actorData.data.abilities[abl].mod + actorData.data.martial[prof].value;
-
-        } */
+          let item;
+          try {
+            item = this.actor.getOwnedItem(i._id);
+            i.chatData = item.getChatData({ secrets: this.actor.owner });
+          } catch (err) {
+            console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
+          }
+          attacks["weapon"].items.push(i);
+        }
         inventory[i.type].items.push(i);
       }
 
       // Spells
       else if (i.type === 'spell') {
+        let item;
+          try {
+            item = this.actor.getOwnedItem(i._id);
+            i.chatData = item.getChatData({ secrets: this.actor.owner });
+          } catch (err) {
+            console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
+          }
         tempSpellbook.push(i);
         /*         if (i.data.location.value) {
           let location = i.data.location.value;
@@ -206,6 +239,28 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
           else if (actionType === 'free') actionImg = 'free';
           i.img = this._getActionImg(actionImg);
           actions[actionType].actions.push(i);
+
+          // Read-Only Actions
+          if(i.data.actionCategory && i.data.actionCategory.value) {
+            switch(i.data.actionCategory.value){
+              case 'interaction':
+                readonlyActions.interaction.actions.push(i);
+                actorData.hasInteractionActions = true;
+              break;
+              case 'defensive':
+                readonlyActions.defensive.actions.push(i);
+                actorData.hasDefensiveActions = true;
+              break;
+              //Should be offensive but throw anything else in there too
+              default:
+                readonlyActions.offensive.actions.push(i);
+                actorData.hasOffensiveActions = true;
+            }
+          }
+          else{
+            readonlyActions.offensive.actions.push(i);
+            actorData.hasOffensiveActions = true;
+          }
         }
       }
 
@@ -249,6 +304,33 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.img = this._getActionImg(actionImg);
         if (actionType === 'passive') actions.free.actions.push(i);
         else actions[actionType].actions.push(i);
+        
+        // Read-Only Actions
+        if(i.data.actionCategory && i.data.actionCategory.value) {
+          switch(i.data.actionCategory.value){
+            case 'interaction':
+              readonlyActions.interaction.actions.push(i);
+              actorData.hasInteractionActions = true;
+            break;
+            case 'defensive':
+              readonlyActions.defensive.actions.push(i);
+              actorData.hasDefensiveActions = true;
+            break;
+            case 'offensive':
+              //if (i)
+              readonlyActions.offensive.actions.push(i);
+              actorData.hasOffensiveActions = true;
+            break;
+            //Should be offensive but throw anything else in there too
+            default:
+              readonlyActions.offensive.actions.push(i);
+              actorData.hasOffensiveActions = true;
+          }
+        }
+        else{
+          readonlyActions.offensive.actions.push(i);
+          actorData.hasOffensiveActions = true;
+        }
       }
     }
 
@@ -291,7 +373,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       actorData.orphanedSpellbook = spellbooks.unassigned;
     }
     actorData.feats = feats;
+    actorData.attacks = attacks;
     actorData.actions = actions;
+    actorData.readonlyActions = readonlyActions;
+    actorData.readonlyEquipment = readonlyEquipment;
     actorData.lores = lores;
     actorData.martialSkills = martialSkills;
 

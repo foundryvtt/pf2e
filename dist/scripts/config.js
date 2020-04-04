@@ -830,6 +830,11 @@ CONFIG.actionsNumber = {
   3: 'Three',
 };
 
+CONFIG.actionCategories = {
+  interaction: "Interaction",
+  defensive: "Defensive",
+  offensive: "Offensive",
+}
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
