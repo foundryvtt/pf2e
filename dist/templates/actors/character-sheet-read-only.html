@@ -1,12 +1,12 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
-	<div class="contentcontainer">
+	<div class="tab contentcontainer active">
       <span class="editNPCButton">
-        <label>Edit NPC?</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
+        <label>Edit Sheet?</label><input class="isSheetEditable" name="flags.pf2e.editSheet.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editSheet.value}}/>
       </span>
   
     <div class="npc-title-bar">
       <h1 class='name'>{{actor.name}}</h1>
-      <h1 class='level'>Creature {{data.details.level.value}}</h1>
+      <h1 class='level'>Level {{data.details.level.value}}</h1>
     </div>
     
     
@@ -19,8 +19,8 @@
           <label>Current HP:</label>
           <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
         </span>
-        <label>Notes/Conditions:</label>
-        <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="Write any notes for this NPC here.">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea>
+        <!-- <label>Notes/Conditions:</label>
+        <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="Write any notes for this NPC here.">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea> -->
       </div>
     
       <div class="top-stats-container">
@@ -29,11 +29,13 @@
           <!-- -->
           <!-- Put alignment flag here; add to getData() -->
           <span class="trait alignment">{{actorAlignment}}</span>
-          <span class="trait size">{{actorSize}}</span>
+          <span class="trait size">{{actorClass}}</span>
+          <span class="trait ancestory">{{actorAncestory}}</span>
+          <span class="trait background">{{actorBackground}}</span>          
           <!-- Put Trait #each here-->
-          {{#each actorTraits as |trait id|}}
+          <!-- {{#each actorTraits as |trait id|}}
           <span class="trait">{{trait}}</span>
-          {{/each}}
+          {{/each}} -->
         </div>
       
         <div class="stats-line">
@@ -61,10 +63,20 @@
         <div class="stats-line">
           <span class="inline-stats">
             <label class="stat-title">Skills</label>
+            <!-- Core Skills -->
+            {{#each data.skills as |skill sid|}}
+              {{#if skill.rank}}
+                <span class="stat-list item rollable skill" data-skill="{{sid}}">
+                  <span class="stat-minortitle skill-name rollable">{{skill.label}}</span>
+                  <span class="stat-value skill-name rollable">+{{skill.value}}</span>
+                </span>
+              {{/if}}
+            {{/each}}
+            <!-- Lore Skills -->
             {{#each actor.lores as |lore lid|}}
-            <span class="stat-list item rollable" data-skill="{{lid}}" data-item-id="{{lore._id}}">
-              <span class="stat-minortitle npc-skill-name rollable">{{lore.name}}</span>
-              <span class="stat-value npc-skill-name rollable">+{{lore.data.mod.value}}</span>
+            <span class="stat-list item rollable" data-skill="{{lid}}" data-item-id="{{lore._id}}" data-item-type="lore">
+              <span class="stat-minortitle lore-score-rollable rollable">{{lore.name}}</span>
+              <span class="stat-value lore-score-rollable rollable">+{{lore.data.value}}</span>
             </span>
             {{/each}}
           </span>
@@ -82,11 +94,11 @@
           </span>
         </div>
     
-    	{{#if hasEquipment}}
+    	{{#if actor.hasEquipment}}
         <div class="stats-line equipment">
           <span class="inline-stats">
             <label class="stat-title">Items</label>
-            {{#each actor.equipment as |item iid|}}
+            {{#each actor.readonlyEquipment as |item iid|}}
             <span class="stat-list item" data-item-id="{{item._id}}">
               <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">{{item.name}}</span>
             </span>
@@ -101,8 +113,8 @@
     <hr>
         
     <ol class="actions-list inventory-list directory-list">
-      {{#each actor.reorgActions.interaction.actions as |section sid|}}
-        {{#each section.actions as |action aid|}}
+      {{#each actor.readonlyActions.interaction.actions as |action aid|}}
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -110,14 +122,14 @@
                     {{action.name}}
                 </h4>
             </div>
-            {{#if ../../owner}}
+            {{#if ../owner}}
             <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>                            
             </div>
             {{/if}}
         </li>
-        {{/each}}
+        
    	 {{/each}}
     </ol>
     
@@ -204,8 +216,8 @@
     </div>
     
     <ol class="actions-list inventory-list directory-list">
-      {{#each actor.reorgActions.defensive.actions as |section sid|}}
-        {{#each section.actions as |action aid|}}
+      {{#each actor.readonlyActions.defensive.actions as |action aid|}}
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -224,14 +236,14 @@
                 {{/if}}
                 </div>
             </div>
-            {{#if ../../owner}}
+            {{#if ../owner}}
             <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>                            
             </div>
             {{/if}}
         </li>
-        {{/each}}
+        
    	 {{/each}}
     </ol>
     
@@ -267,8 +279,8 @@
                     {{item.name}}
                 </h4>
                 <div class="melee-buttons">
-                  {{#if item.traits}}
-                    {{#each item.traits as |trait tid|}}
+                  {{#if item.chatData.traits}}
+                    {{#each item.chatData.traits as |trait tid|}}
                       {{#if trait.description}}
                         <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
                       {{else}}
@@ -276,18 +288,20 @@
                       {{/if}}
                     {{/each}}
                   {{/if}}
-                    <span class="tag"><button data-action="weaponAttack" >Strike (+{{item.data.bonus.total}})</button></span>
-                    <span class="tag"><button data-action="weaponAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
-                    <span class="tag"><button data-action="weaponAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                    <span class="tag"><button data-action="weaponAttack" >Strike (+{{item.chatData.attackRoll}})</button></span>
+                    <span class="tag"><button data-action="weaponAttack2" >{{item.chatData.map2}}</button></span>
+                    <span class="tag"><button data-action="weaponAttack3" >{{item.chatData.map3}}</button></span>
                     {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.damageRolls}}
                         {{#each item.flags.pf2e_updatednpcsheet.damageRolls as |damageRoll dID|}}
                             <span class="tag"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">DMG: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>   
                         {{/each}}
                     {{else}}
                         {{#unless item.data.damage.dice}}
-                        <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.die}})</button></span>    
+                        <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.die}})</button></span>
+                        <span class="tag"><button data-action="weaponDamageCritical">Critical</button></span>  
                         {{else}}
                         <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>    
+                        <span class="tag"><button data-action="weaponDamageCritical">Critical</button></span>
                         {{/unless}}
                     {{/if_all}}
                     {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.attackEffects}}
@@ -311,8 +325,8 @@
     </ol>
 
     <ol class="actions-list inventory-list directory-list">
-      {{#each actor.reorgActions.offensive.actions as |section sid|}}
-        {{#each section.actions as |action aid|}}
+      {{#each actor.readonlyActions.offensive.actions as |action aid|}}
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -331,14 +345,14 @@
                   {{/if}}
                 </div>
             </div>
-            {{#if ../../owner}}
+            {{#if ../owner}}
             <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>                            
             </div>
             {{/if}}
         </li>
-        {{/each}}
+        
    	 {{/each}}
     </ol>
     
@@ -447,11 +461,12 @@
                                 <span class="spell-max">&infin;</span>
                                 {{/unless}} -->
                             </div>
+                            
             
                             <!-- <div class="spell-school-header">School</div>
                             <div class="spell-action-header">Action</div> -->
             
-                            <!-- {{#if ../../owner}}
+                           <!--  {{#if ../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-create" title="Create Spell" data-type="spell"
                                 data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
@@ -494,8 +509,8 @@
             
                             {{#if ../../../owner}}
                             <div class="item-controls">
-                                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-toggle-prepare" title="Expend Spell"><i class="fas fa-minus-square"></i></a>
+                                <!-- <a class="item-control item-unprepare" title="Remove Prepared Spell"><i class="fas fa-trash"></i></a> -->
                             </div>
                             {{/if}}
                         </li>
@@ -508,7 +523,6 @@
     <hr>
     {{/each}}
     {{/if}}
-    
     
     </div>
     <div class="bgcontainer" style="background-image: url('{{actor.img}}')"></div>

@@ -87,6 +87,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.featTypes = CONFIG.featTypes;
       data.featActionTypes = CONFIG.featActionTypes;
       data.actionsNumber = CONFIG.actionsNumber;
+      data.categories = CONFIG.actionCategories;
       data.featTags = [
         data.data.level.value,
         data.data.traits.value,
@@ -107,7 +108,7 @@ class ItemSheetPF2e extends ItemSheet {
       else if (actionType === 'free') actionImg = 'free';
       else if (actionType === 'passive') actionImg = 'passive';
       data.item.img = this._getActionImg(actionImg);
-
+      data.categories = CONFIG.actionCategories;
       data.weapons = actorWeapons;
       data.actionTypes = CONFIG.actionTypes;
       data.actionsNumber = CONFIG.actionsNumber;

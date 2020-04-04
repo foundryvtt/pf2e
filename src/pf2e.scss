@@ -8,8 +8,12 @@
 }
 :root {
   --primary-background: rgb(69,74,124);
-  --secondary-background: #b75b5b;
+/*   --secondary-background: #b75b5b;
   --tertiary-background: darkred;
+ */  
+  --secondary-background: gray;
+  --tertiary-background: rgb(69,74,124);
+  --alternate-background: darkgray;
 }
 /* Nodesto Font */
 .nodesto {
@@ -2142,6 +2146,7 @@
   font-size: 10px;
   line-height: 12px;
   margin: 0;
+  border: 1px groove darkgray;
 }
 .pf2e.sheet .melee-buttons span {
   padding:0;
@@ -2401,6 +2406,15 @@ button > i.far {
 	flex-wrap: wrap;
 }
 
+.pf2e.actor .inventory-list .item .spell-buttons {
+  flex: none;
+  display: inline-flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
@@ -2602,6 +2616,13 @@ button > i.far {
   padding-right:0.25em;
 }
 .pf2e.sheet form.updatedNPCSheet .stat-list:not(:last-of-type):after {
+  content: ",";
+  padding-right: 0.25em;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-value *:not(:last-of-type){
+  padding-right:0.25em;
+}
+.pf2e.sheet form.updatedNPCSheet .stat-value:not(:last-of-type):after {
   content: ",";
   padding-right: 0.25em;
 }
