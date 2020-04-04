@@ -564,6 +564,7 @@ class ActorSheetPF2e extends ActorSheet {
         case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
         case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
         case 'weaponDamage': item.rollWeaponDamage(ev); break;
+        case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
         case 'featAttack': item.rollFeatAttack(ev); break;

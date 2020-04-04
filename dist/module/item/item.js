@@ -481,6 +481,7 @@ export default class extends Item {
     const traits = itemData.traits.value || [];
     let critTrait = '';
     let critDie = '';
+    let bonusDamage = 0;
     let twohandedTrait = false;
     let twohandedDie = '';
     let thrownTrait = false;
@@ -510,24 +511,28 @@ export default class extends Item {
       rollDie = twohandedDie;
     }
 
+    // Add bonus damage
+    if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
+
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
     let weaponDamage = itemData.damage.dice + rollDie;
-    parts = [weaponDamage];
+    parts = [weaponDamage, bonusDamage];
 
     // If this damage roll is a critical, apply critical damage and effects
     if (critical === true) {
+      bonusDamage = bonusDamage * 2;
       if (critTrait === 'deadly') {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
         const dice = itemData.damage.dice ? itemData.damage.dice : 1;
         const deadlyDice = dice > 2 ? 2 : 1; // since deadly requires a greater striking (3dX)
         const deadlyDamage = deadlyDice + critDie;
-        parts = [weaponDamage, deadlyDamage];
+        parts = [weaponDamage, deadlyDamage, bonusDamage];
       } else if (critTrait === 'fatal') {
         weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
-        parts = [weaponDamage];
+        parts = [weaponDamage, bonusDamage];
       } else {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        parts = [weaponDamage];
+        parts = [weaponDamage, bonusDamage];
       }
     }
 
@@ -913,6 +918,7 @@ export default class extends Item {
       else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);
       else if (action === 'weaponAttack3') item.rollWeaponAttack(ev, 3);
       else if (action === 'weaponDamage') item.rollWeaponDamage(ev);
+      else if (action === 'weaponDamageCritical') item.rollWeaponDamage(ev, true);
       else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
 
       // Spell actions
