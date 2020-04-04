@@ -1,9 +1,9 @@
-# Pathfinder Second Edition System
+# PF2e System
 
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-This is community created release of the Pathfinder Second Edition system for the Foundry virtual table top platform.
+This is community created release of the PF2e system for the Foundry virtual table top platform.
 
 Patch Notes:
 *  v0.527: Added a bonus damage field to weapons which can be used for Weapon Specialization, Rage damage bonuses or anything else. 

@@ -1,11 +1,13 @@
-# Pathfinder Second Edition System
+# PF2e System
 
 This system adds support for Pathfinder Second Edition to Foundry VTT.
 
 ### PF2e Version
-This is community created release of the Pathfinder Second Edition system for the Foundry virtual table top platform.
+This is community created release of the PF2e system for the Foundry virtual table top platform.
 
 Patch Notes:
+*  v0.527: Added a bonus damage field to weapons which can be used for Weapon Specialization, Rage damage bonuses or anything else. 
+*  v0.527: Fixed the Critical button on the read-only character sheet. 
 *  v0.526: Added a read-only sheet for characters (using the same style as the read-only NPC sheet) This sheet is optional at this stage so you need to enable it in the sheet options for the actor.
 *  v0.526: Added an Action Category field for actions and feats which allows them to be grouped into Offensive, Defensive and Interactive categories. Used for display grouping in the read-only sheet.
 *  v0.526: Updated the way prepared spell slots can be marked as expended. The slot can still be cleared as normal but now the slot can also be marked as expended which puts a strikethrough on the spell name (visual only) to indicate that the spell has been used.
