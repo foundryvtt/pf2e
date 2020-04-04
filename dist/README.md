@@ -6,11 +6,14 @@ This system adds support for Pathfinder Second Edition to Foundry VTT.
 This is community created release of the Pathfinder Second Edition system for the Foundry virtual table top platform.
 
 Patch Notes:
-*  v0.525: ConvertPackToBase64Embedded now supports base64 images as a source.
-*  v0.524: Created game.pf2e.convertPackToBase64Embedded(packname) function to assist with converting compendium packs to base64 encoded images.
-*  v0.522: Updated license information for the project
-*  v0.522: Updated NPC skills so they are created with the name 'Skill' rather than "New skill" which takes more effort to modify
-*  v0.522: (Shandyan#5980) Updated consumables compendium pack to include missing entries. Thanks for the contribution!!
+*  v0.526: Added a read-only sheet for characters (using the same style as the read-only NPC sheet) This sheet is optional at this stage so you need to enable it in the sheet options for the actor.
+*  v0.526: Added an Action Category field for actions and feats which allows them to be grouped into Offensive, Defensive and Interactive categories. Used for display grouping in the read-only sheet.
+*  v0.526: Updated the way prepared spell slots can be marked as expended. The slot can still be cleared as normal but now the slot can also be marked as expended which puts a strikethrough on the spell name (visual only) to indicate that the spell has been used.
+*  v0.526: Updated the UI of the read-only sheets to make them a bit nicer. I had butchered them a bit in my initial implementation (Sorry @FS#5443!).
+*  v0.526: Added spell traits and item buttons for spells in the read-only sheets.
+*  v0.526: Changed the default theme of the pf2e system from Blue / Red / Dark Red to Blue / Grey. Hopefully it's a bit nicer on the eyes now.
+*  v0.526: Fixed a few bugs with prepared spells that were floating around still.
+*  v0.526: Implemented the first round of data quality improvements for bestiary entries. A huge thanks to @Shandyan#5980 for helping here. Sorry I haven't had time to implement all of the changes yet but they are on thier way!
 
 
 Please Note:
@@ -75,6 +78,11 @@ The project uses gulp to package the SASS/LESS files needed for a build and can 
 
 
 ### Prior Patch Changes:
+*  v0.525: ConvertPackToBase64Embedded now supports base64 images as a source.
+*  v0.524: Created game.pf2e.convertPackToBase64Embedded(packname) function to assist with converting compendium packs to base64 encoded images.
+*  v0.522: Updated license information for the project
+*  v0.522: Updated NPC skills so they are created with the name 'Skill' rather than "New skill" which takes more effort to modify
+*  v0.522: (Shandyan#5980) Updated consumables compendium pack to include missing entries. Thanks for the contribution!!
 *  v0.521: Fixed bug preventing a characters sheet from loading when the actor has an Archetype feat
 *  v0.520: Fixed errors loading character sheets when a spell has a level higher than 10 (or 11).
 *  v0.520: Removed focus spells as a special type of spell level. Focus spells will now need to be migrated to a separate Focus spellcasting entry
