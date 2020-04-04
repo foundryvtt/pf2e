@@ -171,12 +171,23 @@ class ActorSheetPF2e extends ActorSheet {
             // entrySlot["prepared"] = true;
             // entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
             // spl.prepared[i] = entrySlot;
-            spl.prepared[i] = (this.actor.getOwnedItem(entrySlot.id) || {}).data;
+            let item = this.actor.getOwnedItem(entrySlot.id);
+            spl.prepared[i] = (item || {}).data;
             if (spl.prepared[i]) {
               // enrich data with spell school formatted string
               if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
                 spl.prepared[i].data.school.str = CONFIG.spellSchools[spl.prepared[i].data.school.value];
               }
+
+              // Add chat data
+              try {
+                spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
+              } catch (err) {
+                console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
+              }
+              if (entrySlot.expended) spl.prepared[i].expended = true; 
+              else spl.prepared[i].expended = false;
+
               spl.prepared[i].prepared = true;
             }
             // prepared spell not found
@@ -267,6 +278,39 @@ class ActorSheetPF2e extends ActorSheet {
       name: 'Empty Slot (drag spell here)',
       id: null,
       prepared: false,
+    };
+    this.actor.updateEmbeddedEntity('OwnedItem', options);
+  }
+
+  /**
+   * Sets the expended state of a  Spell Slot
+   * Marks the slot as expended which is reflected in the UI
+   * @param spellLevel {String}   The level of the spell slot
+   * @param spellSlot {String}    The number of the spell slot    *
+   */
+  async _setExpendedPreparedSpellSlot(spellLevel, spellSlot, entryId, expendedState) {
+    // let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
+    /*     let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
+
+    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
+      name: "Empty Slot (drag spell here)",
+      id: null,
+      prepared: false
+    };
+    await this.actor.updateOwnedItem(spellcastingEntry, true);  */
+/*     console.log(`PF2e System | Character Sheet | Prepared spell expended state: `, expendedState);
+    console.log(`PF2e System | Character Sheet | Prepared spell spellLevel : `, spellLevel);
+    console.log(`PF2e System | Character Sheet | Prepared spell spellSlot : `, spellSlot);
+    console.log(`PF2e System | Character Sheet | Prepared spell entryId : `, entryId); */
+    let state = true;
+    if (expendedState === "true") state = false;
+
+    const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
+    const options = {
+      _id: entryId,
+    };
+    options[key] = {
+      expended: state,
     };
     this.actor.updateEmbeddedEntity('OwnedItem', options);
   }
@@ -422,6 +466,15 @@ class ActorSheetPF2e extends ActorSheet {
       const spellLvl = Number($(ev.currentTarget).parents('.item').attr('data-spell-lvl'));
       const entryId = $(ev.currentTarget).parents('.item').attr('data-entry-id');
       this._removePreparedSpellSlot(spellLvl, slotId, entryId);
+    });
+
+    // Set Expended Status of Spell Slot
+    html.find('.item-toggle-prepare').click((ev) => {
+      const slotId = Number($(ev.currentTarget).parents('.item').attr('data-slot-id'));
+      const spellLvl = Number($(ev.currentTarget).parents('.item').attr('data-spell-lvl'));
+      const entryId = $(ev.currentTarget).parents('.item').attr('data-entry-id');
+      const expendedState = $(ev.currentTarget).parents('.item').attr('data-expended-state');
+      this._setExpendedPreparedSpellSlot(spellLvl, slotId, entryId, expendedState);
     });
 
     // Trait Selector

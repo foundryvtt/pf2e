@@ -7,6 +7,12 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
         </h1>
 
+        {{#if readonlySheet}}
+        <div class="editsheet">
+            <label>Edit?</label><input class="isNPCEditable" name="flags.pf2e.editSheet.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editSheet.value}}/>
+        </div>
+        {{/if}}
+
         <div class="defense-container" style="margin-top: 5px; margin-right: 5px;">
             <h4 class="proficiency-name pf-title" style="background: var(--primary-background); border: 1px solid var(--primary-background);">{{localize "PF2E.HeroPointsLabel"}}</h4>
             <input type="hidden" name="data.attributes.heroPoints.rank" value="{{data.attributes.heroPoints.rank}}" data-dtype="Number"/>
