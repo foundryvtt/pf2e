@@ -1016,8 +1016,8 @@ class ActorSheetPF2e extends ActorSheet {
             else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
           }
           buttons.append(`<span class="tag"><button data-action="weaponAttack">Strike (+${chatData.attackRoll})</button></span>`);
-          buttons.append(`<span class="tag"><button data-action="weaponAttack2">${isAgile ? '-4' : '-5'}</button></span>`);
-          buttons.append(`<span class="tag"><button data-action="weaponAttack3">${isAgile ? '-8' : '-10'}</button></span>`);
+          buttons.append(`<span class="tag"><button data-action="weaponAttack2">${chatData.map2}</button></span>`);
+          buttons.append(`<span class="tag"><button data-action="weaponAttack3">${chatData.map3}</button></span>`);
           buttons.append('<span class="tag"><button data-action="weaponDamage">Damage</button></span>');
           buttons.append('<span class="tag"><button data-action="weaponDamageCritical">Critical</button></span>');
           break;
