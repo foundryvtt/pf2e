@@ -1,11 +1,15 @@
 # PF2e System
 
-This system adds support for Pathfinder Second Edition to Foundry VTT.
+A system created wholy through community contribution for Pathfinder Second Edition.
 
-### PF2e Version
-This is community created release of the PF2e system for the Foundry virtual table top platform.
+This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This system is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
+
+### System Version
+This is community created game system for virtual table top platforms. Currently support virtual table top platforms: 
+*  Foundry VTT.
 
 Patch Notes:
+*  v0.528: Updated licensing and usage information included in the readme.
 *  v0.527: Added a bonus damage field to weapons which can be used for Weapon Specialization, Rage damage bonuses or anything else. 
 *  v0.527: Fixed the Critical button on the read-only character sheet. 
 *  v0.526: Added a read-only sheet for characters (using the same style as the read-only NPC sheet) This sheet is optional at this stage so you need to enable it in the sheet options for the actor.
@@ -22,22 +26,12 @@ Please Note:
 - Functionality is not complete with plenty of work remaining. 
 - If you find any issues or have any feedback please let me know.
 
-### FVTT Version:
-- Tested with FVTT v0.5.3.
+### VTT Support:
+Tested with the following virtual table top platforms: 
+*  Foundry VTT v0.5.3.
 
-### Installation Instructions
-
-To install the system, follow these instructions:
-
-1. Start FVTT and browse to the Game Systems tab in the Configuration and Setup menu
-2. Select the Install System button and enter the following URL: https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/raw/master/system.json
-3. Click Install and wait for installation to complete
-4. Create a new world using the PF2e system.
-
-### Recommended Modules:
-
-* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for pf2e. 
-* Token Mold: Allows you to override the default token settings for bestiary monsters if you prefer to have your bars and labels configured differently.
+Note: The following modules are recommended with Foundry VTT:
+* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for status effects. 
 
 ### Shoutouts
 
@@ -57,12 +51,20 @@ A huge thanks to:
 
 If you have any suggestions or feedback, please contact me on discord (hooking#0492)
 
-### License
+### Licenses
 
-This work is a package for the Foundry Virtual Tabletop software with the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
-* All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
-* The Pathfinder Second Edition system information and compendium JSON data is licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
-* License information for the art used in the compendium packs distributed with this project is included in the ./packs/ folder alongside the JSON of the compendium pack.
+Project Licensing:
+*  All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
+
+
+Content Usage and Licensing:
+*  Any Pathfinder Second Edition information used under the Paizo Inc. Community Use Policy (https://paizo.com/community/communityuse)
+*  Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
+*  License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
+
+
+Virtual Table Top Platform Licenses:
+*  Foundry VTT support is covered by the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
 
 ### Contributing
 
