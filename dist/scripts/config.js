@@ -435,6 +435,13 @@ CONFIG.weaponRange = {
   140: '140 ft.',
 };
 
+// Weapon MAP
+CONFIG.weaponMAP = {
+  3: '3',
+  2: '2',
+  1: '1',
+};
+
 // Weapon Reload
 CONFIG.weaponReload = {
   '-': '-',

@@ -260,6 +260,18 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label>{{localize "PF2E.WeaponMAPLabel"}}</label>
+    <select name="data.MAP.value" data-dtype="{{data.MAP.type}}">
+        {{#select data.MAP.value}}
+        <option value=""></option>
+        {{#each weaponMAP as |name type|}}
+        <option value="{{type}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
 <div class="form-group-stacked">
     <label for="data.traits">
         {{localize "PF2E.TraitsLabel"}}
