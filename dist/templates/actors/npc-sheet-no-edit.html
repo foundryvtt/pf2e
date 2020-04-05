@@ -290,8 +290,8 @@
                         <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>    
                         {{/unless}}
                     {{/if_all}}
-                    {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.attackEffects}}
-                        {{#each item.flags.pf2e_updatednpcsheet.attackEffects as |attackEffect aID|}}
+                    {{#if_all item.data item.data.attackEffects}}
+                        {{#each item.data.attackEffects as |attackEffect aID|}}
                             <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>   
                         {{/each}}
                     {{/if_all}}

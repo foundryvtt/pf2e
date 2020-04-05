@@ -207,7 +207,7 @@
    expandAttackEffect(attackEffectName, event, triggerItem){
     let actionList = $(event.currentTarget).parents('form').find('.item.action-item');
     let toggledAnything = false;
-    let mAbilities = monsterAbilities()
+    let mAbilities = CONFIG.monsterAbilities()
     console.log("mAbilities: ", mAbilities);
     actionList.each(function (index){
       //'this' = element found
@@ -319,7 +319,7 @@
       ev.preventDefault();
       ev.stopPropagation();
 
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id"),
           drId = Number($(ev.currentTarget).attr("data-dmgRoll")),
           //item = this.actor.items.find(i => { return i.id === itemId });
           item = this.actor.getOwnedItem(itemId),
@@ -335,11 +335,11 @@
       ev.preventDefault();
       ev.stopPropagation();
 
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+      let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id"),
           aId = Number($(ev.currentTarget).attr("data-attackEffect")),
           //item = this.actor.items.find(i => { return i.id === itemId });
           item = this.actor.getOwnedItem(itemId),
-          attackEffect = item.data.flags.pf2e_updatednpcsheet.attackEffects[aId];
+          attackEffect = item.data.data.attackEffects[aId];
       console.log("clicked an attackEffect:", attackEffect, ev);
 
       // which function gets called depends on the type of button stored in the dataset attribute action
@@ -435,3 +435,4 @@ Actors.registerSheet("pf2e", UpdatedNPCActorPF2ESheet, {
   types: ["npc"],
   makeDefault: true
 });
+
