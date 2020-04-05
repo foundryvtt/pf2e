@@ -75,6 +75,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.weaponDamage = CONFIG.weaponDamage;
       data.weaponRange = CONFIG.weaponRange;
       data.weaponReload = CONFIG.weaponReload;
+      data.weaponMAP = CONFIG.weaponMAP;
       data.weaponTraits = data.data.traits.value;
       data.bulkTypes = CONFIG.bulkTypes;
     } else if (this.item.type === 'melee') {

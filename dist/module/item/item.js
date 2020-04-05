@@ -159,8 +159,24 @@ export default class extends Item {
 
 
     const isAgile = (data.traits.value || []).includes('agile');
-    data.map2 = isAgile ? '-4' : '-5';
-    data.map3 = isAgile ? '-8' : '-10';
+    const alternateMAP = (data.MAP.value);
+    if (alternateMAP == 1){
+      data.map2 = '-1';
+      data.map3 = '-2';
+    }
+    else if (alternateMAP == 2){
+      data.map2 = '-2';
+      data.map3 = '-4';
+    }
+    else if (alternateMAP == 3){
+      data.map2 = '-3';
+      data.map3 = '-6';
+    }
+    else {
+      data.map2 = isAgile ? '-4' : '-5';
+      data.map3 = isAgile ? '-8' : '-10';
+    }
+
     data.isTwohanded = !!twohandedTrait;
     data.wieldedTwoHands = !!data.hands.value;
     data.isFinesse = isFinesse;
