@@ -29,13 +29,14 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponBonusLabel"}}</label>
-    <select name="data.bonus.value" data-dtype="{{data.bonus.type}}">
+    <!-- <select name="data.bonus.value" data-dtype="{{data.bonus.type}}">
         {{#select data.bonus.value}}
         {{#each itemBonuses as |name type|}}
         <option value="{{type}}">{{name}}</option>
         {{/each}}
         {{/select}}
-    </select>
+    </select> -->
+    <input type="text" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="Number"/>
 </div>
 
 <div class="form-group">
