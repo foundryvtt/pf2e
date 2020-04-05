@@ -159,7 +159,7 @@ export default class extends Item {
 
 
     const isAgile = (data.traits.value || []).includes('agile');
-    const alternateMAP = (data.MAP.value);
+    const alternateMAP = (data.MAP || {}).value;
     if (alternateMAP == 1){
       data.map2 = '-1';
       data.map3 = '-2';
@@ -171,6 +171,14 @@ export default class extends Item {
     else if (alternateMAP == 3){
       data.map2 = '-3';
       data.map3 = '-6';
+    }
+    else if (alternateMAP == 4){
+      data.map2 = '-4';
+      data.map3 = '-8';
+    }
+    else if (alternateMAP == 5){
+      data.map2 = '-5';
+      data.map3 = '-10';
     }
     else {
       data.map2 = isAgile ? '-4' : '-5';

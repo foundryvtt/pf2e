@@ -25,6 +25,7 @@ Note: The following modules are recommended with Foundry VTT:
 ### Shoutouts
 
 A huge thanks to:
+- @Cranic#0211 for adding support for adjustable Multi-Attack Penalties on weapons
 - @FrisGuardian#8347 for cleaing up some of the UI in the project!
 - @ohporter for getting involved and fixing issues with the roll logic
 - Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!

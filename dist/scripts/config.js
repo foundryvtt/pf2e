@@ -437,9 +437,11 @@ CONFIG.weaponRange = {
 
 // Weapon MAP
 CONFIG.weaponMAP = {
-  3: '3',
-  2: '2',
-  1: '1',
+  1: '-1/-2',
+  2: '-2/-4',
+  3: '-3/-6',
+  4: '-4/-8',
+  5: '-5/-10',
 };
 
 // Weapon Reload
