@@ -29,7 +29,7 @@
                             data-dtype="Number" placeholder="10"/>
                 </span>
                 <span class="shield-value" title="Shield Bonus">
-                    <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                    <input name="data.attributes.shield.ac" type="text" value="{{data.attributes.shield.ac}}"
                             data-dtype="Number" placeholder="+0"/>
                 </span> 
                 <div class="hp-current pf-container">
@@ -46,6 +46,38 @@
                                     data-dtype="Number" placeholder="10"/>
                         </span>
                     </div>             
+            </ol>
+            <ol class="hp-list-small">
+                <li class="li-four-grid">
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Your shields current Hit Points">{{localize "PF2E.ShieldCurrentLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your shields current Hit Points">
+                            <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Your shields max Hit Points">{{localize "PF2E.ShieldMaxLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your shields max Hit Points">
+                            <input name="data.attributes.shield.max" type="text" value="{{data.attributes.shield.max}}"
+                                    data-dtype="String" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Your shields Broken Threshold">{{localize "PF2E.ShieldBTLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your shields Broken Threshold">
+                            <input name="data.attributes.shield.brokenThreshold" type="text" value="{{data.attributes.shield.brokenThreshold}}"
+                                    data-dtype="String" placeholder="0"/>
+                        </span>
+                    </div>
+                    <div class="defense-container pf-justify-center">
+                        <h4 class="defense-item pf-title" title="Shield damage is reduced by this hardness value">Hardness</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Shield damage is reduced by this hardness value">
+                            <input name="data.attributes.shield.hardness" type="text" value="{{data.attributes.shield.hardness}}"
+                                    data-dtype="Number" placeholder="0"/>
+                        </span>              
+                    </div>                    
+                </li>                
             </ol>
                
             <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>

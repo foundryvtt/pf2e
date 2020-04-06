@@ -998,10 +998,10 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       
       if (game.user.isGM) {
         html.find('.browser-group').append(bestiaryImportButton);
-      } else {
+      } /* else {
         // adding to directory-list since the footer doesn't exist if the user is not gm
         html.find('.directory-list').append(bestiaryImportButton);
-      }
+      } */
 
       // Handle button clicks
       bestiaryImportButton.click((ev) => {
@@ -1014,11 +1014,11 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       // Bestiary Browser Buttons
       const bestiaryImportButton = $(`<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`);
       
-      //if (game.user.isGM) {
+      if (game.user.isGM) {
         html.find('.browser-group').append(bestiaryImportButton);
-      //} else {
+      } //else {
         // adding to directory-list since the footer doesn't exist if the user is not gm
-        html.find('.directory-footer').append(bestiaryImportButton);
+        //html.find('.directory-footer').append(bestiaryImportButton);
       //}
 
       // Handle button clicks
