@@ -1,6 +1,6 @@
 # PF2e System
 
-A system created wholy through community contribution for Pathfinder Second Edition.
+A community contributed game system for Pathfinder Second Edition.
 
 This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This system is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
 
@@ -25,6 +25,8 @@ Note: The following modules are recommended with Foundry VTT:
 ### Shoutouts
 
 A huge thanks to:
+
+- @yeroon#2590 for the healthbar and shield bar changes
 - @Cranic#0211 for adding support for adjustable Multi-Attack Penalties on weapons
 - @FrisGuardian#8347 for cleaing up some of the UI in the project!
 - @ohporter for getting involved and fixing issues with the roll logic

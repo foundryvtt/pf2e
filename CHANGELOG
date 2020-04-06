@@ -1,4 +1,15 @@
 Patch Notes:
+*  v0.532: (@yeroon#2590) Added a new method to handle applying damage to tokens (takes damage from temp HP first then from current HP).
+*  v0.532: Fixed the data model for shields to allow the usage of a token bar for shield HP.
+*  v0.532: Updated the UI of the Actor Sheet to separate shield attributes to support the above feature. Cleaned up AC section.
+*  v0.532: (@Trey) Updated rolls to use new `toMessage` API.
+*  v0.532: (@Trey) Fixed coloring of blind crit rolls.
+*  v0.532: (@Trey) Enabled unprepared spells to be shown/hidden per spell level (rather than all or nothing)
+*  v0.532: Fixed bug when marking expended spell slots, only the highest level spell slot would work and it would mark all other slots with the same spell as expended as well.
+
+
+
+### Prior Patch Changes:
 *  v0.531: Added missing "all save" data for bestiary monsters
 *  v0.531: Slightly improved immunities list for bestiary monsters (more work to do here)
 *  v0.531: Fixed weaknesses and resistances for bestiary monsters that have multiple words and exceptions
@@ -21,9 +32,6 @@ Patch Notes:
 *  v0.526: Changed the default theme of the pf2e system from Blue / Red / Dark Red to Blue / Grey. Hopefully it's a bit nicer on the eyes now.
 *  v0.526: Fixed a few bugs with prepared spells that were floating around still.
 *  v0.526: Implemented the first round of data quality improvements for bestiary entries. A huge thanks to @Shandyan#5980 for helping here. Sorry I haven't had time to implement all of the changes yet but they are on thier way!
-
-
-### Prior Patch Changes:
 *  v0.525: ConvertPackToBase64Embedded now supports base64 images as a source.
 *  v0.524: Created game.pf2e.convertPackToBase64Embedded(packname) function to assist with converting compendium packs to base64 encoded images.
 *  v0.522: Updated license information for the project
