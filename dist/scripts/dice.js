@@ -41,11 +41,15 @@ class DicePF2e {
 
       // Execute the roll and send it to chat
       const roll = new Roll(parts.join('+'), data).roll();
-      roll.toMessage({
-        speaker,
-        flavor: flav,
-        rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
-      });
+      roll.toMessage(
+        {
+          speaker,
+          flavor: flav
+        },
+        {
+          rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+        }
+      );
       return roll;
     };
 
@@ -129,11 +133,15 @@ class DicePF2e {
       } */
 
       // Execute the roll and send it to chat
-      roll.toMessage({
-        speaker,
-        flavor: flav,
-        rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
-      });
+      roll.toMessage(
+        {
+          speaker,
+          flavor: flav,
+        },
+        {
+          rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+        },
+      );
       rolled = true;
 
       // Return the Roll object
