@@ -140,6 +140,13 @@
                     {{#each entry.spellbook as |section lvl|}}
                         <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}">
                             <div class="item-name flexrow">
+
+                            {{#if entry.data.showUnpreparedSpells.value}}
+                              <a class="skill-name level-prepared-toggle"
+                                title="Toggle Spell Visibility"
+                                style="line-height: 24px; background:
+                                var(--secondary-background);"><i class="fab fa-stack-overflow"></i></a>
+                            {{/if}}
                                 <h3>{{section.label}}</h3>
                 
                                 {{#if section.isFocus}}
@@ -208,6 +215,7 @@
                             
                             
                             {{#if entry.data.showUnpreparedSpells.value}}
+                            {{#if section.displayPrepared}}
                             <h3 class="item-name pf-sub-category pf-actions" style="background: var(--tertiary-background);">Unprepared Spells</h3>
                                     
                             <!-- Unprepared Spells -->
@@ -229,6 +237,7 @@
                                         {{/if}}
                                     </li>
                                 {{/each}}
+                            {{/if}}
                             {{/if}}
                         {{else}}
                             <!-- Add spell items for each level -->
