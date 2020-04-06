@@ -49,7 +49,7 @@ export default class extends Item {
   getChatData(htmlOptions) {
     const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
-    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
     return data;
   }
 

@@ -167,12 +167,21 @@ class ActorSheetPF2e extends ActorSheet {
       if (spl.slots > 0) {
         for (let i = 0; i < spl.slots; i++) {
           const entrySlot = ((spellcastingEntry.data.slots[`slot${key}`] || {}).prepared || {})[i] || null;
+          
           if (entrySlot && entrySlot.id) {
             // entrySlot["prepared"] = true;
             // entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
             // spl.prepared[i] = entrySlot;
             let item = this.actor.getOwnedItem(entrySlot.id);
-            spl.prepared[i] = (item || {}).data;
+            let itemCopy = duplicate(item);
+            if (entrySlot.expended) {
+              itemCopy.expended = true;               
+            }
+            else {
+              itemCopy.expended = false;
+            }
+            
+            spl.prepared[i] = itemCopy;
             if (spl.prepared[i]) {
               // enrich data with spell school formatted string
               if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
@@ -185,8 +194,7 @@ class ActorSheetPF2e extends ActorSheet {
               } catch (err) {
                 console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
               }
-              if (entrySlot.expended) spl.prepared[i].expended = true; 
-              else spl.prepared[i].expended = false;
+              
 
               spl.prepared[i].prepared = true;
             }
@@ -289,19 +297,6 @@ class ActorSheetPF2e extends ActorSheet {
    * @param spellSlot {String}    The number of the spell slot    *
    */
   async _setExpendedPreparedSpellSlot(spellLevel, spellSlot, entryId, expendedState) {
-    // let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
-    /*     let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
-
-    spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
-      name: "Empty Slot (drag spell here)",
-      id: null,
-      prepared: false
-    };
-    await this.actor.updateOwnedItem(spellcastingEntry, true);  */
-/*     console.log(`PF2e System | Character Sheet | Prepared spell expended state: `, expendedState);
-    console.log(`PF2e System | Character Sheet | Prepared spell spellLevel : `, spellLevel);
-    console.log(`PF2e System | Character Sheet | Prepared spell spellSlot : `, spellSlot);
-    console.log(`PF2e System | Character Sheet | Prepared spell entryId : `, entryId); */
     let state = true;
     if (expendedState === "true") state = false;
 
