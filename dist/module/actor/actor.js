@@ -322,20 +322,41 @@ export default class extends Actor {
     });    
 
   }
+
+    /* -------------------------------------------- */
+
+  /**
+   * Handle how changes to a Token attribute bar are applied to the Actor.
+   * This allows for game systems to override this behavior and deploy special logic.
+   * @param {string} attribute    The attribute path
+   * @param {number} value        The target attribute value
+   * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
+   * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
+   * @return {Promise}
+   */
+  async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
+    if ( attribute !== "attributes.hp" ) return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+
+    const current = getProperty(this.data.data, attribute);
+    if ( isBar ) {
+        if (isDelta) {
+          if (value < 0) {
+            if ((current.temp + value) >= 0) {
+              const newTempHp = current.temp + value;
+              this.update({[`data.attributes.hp.temp`]: newTempHp});
+              value = 0;
+            } else {
+              value = current.temp + value;
+              this.update({[`data.attributes.hp.temp`]: 0});
+            }
+          }
+          value = Math.clamped(0, Number(current.value) + value, current.max);
+        }
+        value = Math.clamped(value, 0, current.max);
+        return this.update({[`data.attributes.hp.value`]: value});
+	  } 
+  }
 }
 
 
-/**
- * Hijack Token health bar rendering to include temporary and temp-max health in the bar display
- * TODO: This should probably be replaced with a formal Token class extension
- * @private
- */
-/* const _drawBar = Token.prototype._drawBar;
-Token.prototype._drawBar = function(number, bar, data) {
-  if ( data.attribute === "attributes.hp" ) {
-    data = duplicate(data);
-    data.value += parseInt(data['temp'] || 0);
-    data.max += parseInt(data['tempmax'] || 0);
-  }
-  _drawBar.bind(this)(number, bar, data);
-}; */
+
