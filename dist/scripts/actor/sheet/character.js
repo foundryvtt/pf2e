@@ -43,13 +43,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Spell Details
     sheetData.magicTraditions = CONFIG.magicTraditions;
     sheetData.preparationType = CONFIG.preparationType;
-    /*     if (sheetData.data.attributes.spellcasting.entry) {
-      for (let entry of Object.values(sheetData.data.attributes.spellcasting.entry || {})) {
-        if ((entry.prepared || {}).value === "prepared") entry.prepared["preparedSpells"] = true;
-        else entry.prepared["preparedSpells"] = false;
-      }
-    } */
-
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
 
@@ -175,13 +168,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
             console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
           }
         tempSpellbook.push(i);
-        /*         if (i.data.location.value) {
-          let location = i.data.location.value;
-          spellbooks[location] = spellbooks[location] || {};
-          this._prepareSpell(actorData, spellbooks[location], i);
-        } else {
-          this._prepareSpell(actorData, spellbooks["unassigned"], i);
-        } */
       }
 
       // Spellcasting Entries
@@ -218,12 +204,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
         spellcastingEntries.push(i);
       }
-
-      /*       // Classes
-      else if ( i.type === "class" ) {
-        classes.push(i);
-        classes.sort((a, b) => b.levels > a.levels);
-      } */
 
       // Feats
       else if (i.type === 'feat') {

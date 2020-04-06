@@ -144,6 +144,7 @@ class ActorSheetPF2e extends ActorSheet {
       prepared: [],
       uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].value) || 0 : 0,
       slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].max) || 0 : 0,
+      displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[lvl] !== undefined ? (spellcastingEntry.data.displayLevels[lvl]) : true,
     };
 
     // Add the spell to the spellbook at the appropriate level
@@ -700,11 +701,19 @@ class ActorSheetPF2e extends ActorSheet {
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.showUnpreparedSpells.value': bool });
     });
 
-    // Re-render the sheet when toggling visibility of spells
-    /*     html.find('.prepared-toggle').click(ev => {
-      this.options.showUnpreparedSpells = !this.options.showUnpreparedSpells;
-      this.render()
-    }); */
+    html.find('.level-prepared-toggle').click(async (event) => {
+      event.preventDefault();
+
+      const parentNode = $(event.currentTarget).parents('.spellbook-header');
+      const itemId = parentNode.attr('data-item-id');
+      const lvl = parentNode.attr('data-level')
+      const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      const currentDisplayLevels = itemToEdit.data.displayLevels || {};
+      const bool = (currentDisplayLevels[lvl] === true) ? false : true;
+      currentDisplayLevels[lvl] = bool;
+      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.displayLevels': currentDisplayLevels });
+      this.render();
+    });
   }
 
   /* -------------------------------------------- */
