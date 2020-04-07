@@ -199,6 +199,14 @@ CONFIG.weaponTraits = {
   'versatile-p': 'Versatile P',
   'versatile-b': 'Versatile B',
   'volley-30': 'Volley 30 ft.',
+  abjuration: 'Abjuration',
+  conjuration: 'Conjuration',
+  divination: 'Divination',
+  enchantment: 'Enchantment',
+  evocation: 'Evocation',
+  illusion: 'Illusion',
+  necromancy: 'Necromancy',
+  transmutation: 'Transmutation',
 };
 
 // Traits Descriptions
@@ -667,7 +675,11 @@ CONFIG.featTraits = {
   geniekin: 'Geniekin',
   tiefling: 'Tiefling',
   misfortune: 'Misfortune',
-  precision: 'Precision'
+  precision: 'Precision',
+  aura: "Aura",
+  curse: "Curse",
+  earth: "Earth",
+  olfactory: "Olfactory",
 };
 
 // Area Types
@@ -960,6 +972,9 @@ CONFIG.languages = {
 };
 
 CONFIG.monsterTraits = {
+  "uncommon": 'Uncommon',
+  "rare": 'Rare',
+  "unique": "Unique",
   "aasimar": "aasimar",
   "aberration": "aberration",
   "acid": "acid",
@@ -972,8 +987,7 @@ CONFIG.monsterTraits = {
   "animal": "animal",
   "aquatic": "aquatic",
   "archon": "archon",
-  "astral": "astral",
-  "aura": "Aura",
+  "astral": "astral",  
   "azata": "azata",
   "beast": "beast",
   "boggard": "boggard",
@@ -984,7 +998,6 @@ CONFIG.monsterTraits = {
   "charau-ka": "charau-ka",
   "cold": "cold",
   "construct": "construct",
-  "curse": "Curse",
   "daemon": "daemon",
   "demon": "demon",
   "dero": "dero",
@@ -1017,6 +1030,7 @@ CONFIG.monsterTraits = {
   "gremlin": "gremlin",
   "grippli": "grippli",
   "hag": "hag",
+  "halfling": "halfling",
   "human": "human",
   "humanoid": "humanoid",
   "incorporeal": "incorporeal",
@@ -1030,7 +1044,6 @@ CONFIG.monsterTraits = {
   "mummy": "mummy",
   "mutant": "mutant",
   "nymph": "nymph",
-  "olfactory": "Olfactory",
   "ooze": "ooze",
   "orc": "orc",
   "plant": "plant",
