@@ -1015,7 +1015,8 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       const bestiaryImportButton = $(`<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`);
       
       if (game.user.isGM) {
-        html.find('.browser-group').append(bestiaryImportButton);
+        //html.find('.browser-group').append(bestiaryImportButton);
+        html.find('.directory-footer').append(bestiaryImportButton);
       } //else {
         // adding to directory-list since the footer doesn't exist if the user is not gm
         //html.find('.directory-footer').append(bestiaryImportButton);

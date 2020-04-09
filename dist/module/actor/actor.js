@@ -252,21 +252,33 @@ export default class extends Actor {
    * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
    * @return {Promise}
    */
-  static async applyDamage(roll, multiplier) {
+  static async applyDamage(roll, multiplier, attribute='attributes.hp') {
     const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-    const promises = [];
     for (const t of canvas.tokens.controlled) {
-      const a = t.actor;
-      const { hp } = a.data.data.attributes;
-      const tmp = parseInt(hp.temp || 0);
-      const dt = value > 0 ? Math.min(tmp, value) : 0;
-      promises.push(t.actor.update({
-        'data.attributes.hp.temp': tmp - dt,
-        'data.attributes.hp.value': Math.clamped(hp.value - (value - dt), 0, hp.max),
-      }));
+		const a = t.actor;
+		
+		const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
+		const message = `
+		  <div class="dice-roll">
+			<div class="dice-result">
+			  <div class="dice-total">
+			    <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${t.name} gets ${appliedResult} hit points.</span>
+			  </div>
+			</div>
+		  </div>
+		  `;
+		ChatMessage.create({
+			user: game.user._id,
+			speaker: { alias: t.name },
+			content: message,
+			type: CONST.CHAT_MESSAGE_TYPES.OTHER
+		});
+	  
+		return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
     }
-    return Promise.all(promises);
+	return;
   }
+
 
   /**
    * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
@@ -335,26 +347,52 @@ export default class extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    if ( attribute !== "attributes.hp" ) return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
-
     const current = getProperty(this.data.data, attribute);
-    if ( isBar ) {
-        if (isDelta) {
-          if (value < 0) {
-            if ((current.temp + value) >= 0) {
-              const newTempHp = current.temp + value;
+	
+    if ( attribute == 'attributes.hp' ) {
+      
+      if (isDelta) {
+        if (value < 0) {
+        if ((current.temp + value) >= 0) {
+          const newTempHp = current.temp + value;
+          this.update({[`data.attributes.hp.temp`]: newTempHp});
+          value = 0;
+        } else {
+          value = current.temp + value;
+          this.update({[`data.attributes.hp.temp`]: 0});
+        }
+        }
+        value = Math.clamped(0, Number(current.value) + value, current.max);
+      }
+      value = Math.clamped(value, 0, current.max);
+      return this.update({[`data.attributes.hp.value`]: value});
+
+    } else if ( attribute == 'attributes.shield' && isDelta ) {
+      
+      if (isDelta) {
+        if (value < 0) {
+          value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
+          const hp = this.data.data.attributes.hp;
+          if (value < 0) { //substract the value from (temp)HP as well
+            if ((hp.temp + value) >= 0) {
+              const newTempHp = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: newTempHp});
-              value = 0;
             } else {
-              value = current.temp + value;
+              const newHp = Math.clamped( ( hp.value + hp.temp + value ), 0, hp.max);
+              this.update({[`data.attributes.hp.value`]: newHp});
               this.update({[`data.attributes.hp.temp`]: 0});
             }
           }
-          value = Math.clamped(0, Number(current.value) + value, current.max);
         }
-        value = Math.clamped(value, 0, current.max);
-        return this.update({[`data.attributes.hp.value`]: value});
-	  } 
+        value = Number(current.value) + value; //apply modifier to shield hp
+      }
+      value = Math.clamped(value, 0, current.max);
+      return this.update({[`data.attributes.shield.value`]: value});
+      
+    }
+    
+    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+ 
   }
 }
 
