@@ -79,6 +79,26 @@
                     </div>                    
                 </li>                
             </ol>
+            <div class="npc-detail-text">
+                <!-- <span>Immunities:</span> -->
+                <!-- <textarea class="immunities" name="data.traits.di.value" type="text" data-dtype="String" placeholder="Immunities">{{data.traits.di.value}}</textarea> -->
+                <div class="bio-item form-group-stacked pf-container">
+                    <label class="pf-title" for="data.traits.di">
+                        <!-- {{localize "PF2E.Languages"}} -->
+                        Immunities:
+                        <a class="trait-selector" data-options="immunityTypes"><i class="fas fa-edit"></i></a>                        
+                    </label>
+                    <ul class="traits-list pf-value">
+                    {{#each data.traits.di.value as |v k|}}
+                        <span class="tag {{k}}" style="background: black;">{{v}}</span>
+                    {{/each}}
+                    </ul>
+                </div>
+<!--                 <span>Resistances:</span>
+                <textarea class="resistances" name="data.traits.dr.value" type="text" data-dtype="String" placeholder="Resistances">{{data.traits.dr.value}}</textarea>
+                <span>Weaknesses:</span>
+                <textarea class="weaknesses" name="data.traits.dv.value" type="text" data-dtype="String" placeholder="Weaknesses">{{data.traits.dv.value}}</textarea> -->
+            </div>
                
             <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>
             <ol class="defense-list">                
@@ -90,6 +110,16 @@
                         </span>
                         <h4 class="attribute-name rollable">{{localize "PF2E.PerceptionLabel"}}</h4>                             
                     </li>
+                    <div class="npc-bio-item trait-size pf-container" style="width: calc(100% - 4px); margin-right: 3px;">
+                        <label class="pf-title">Special Senses</label>
+                        <span class="pf-value pf-small pf-width-100" title="Your characters speed">
+                            <!-- <input type="text" name="data.attributes.speed.value" data-dtype="Number"
+                                value="{{data.attributes.speed.value}}" placeholder="None"/> -->
+                            <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}"
+                                data-dtype="String">
+                        </span>
+                    </div>
+                    
                 
             </ol>
 
