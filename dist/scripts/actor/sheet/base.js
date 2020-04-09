@@ -170,42 +170,45 @@ class ActorSheetPF2e extends ActorSheet {
           const entrySlot = ((spellcastingEntry.data.slots[`slot${key}`] || {}).prepared || {})[i] || null;
           
           if (entrySlot && entrySlot.id) {
-            // entrySlot["prepared"] = true;
-            // entrySlot.data.school.str = CONFIG.spellSchools[entrySlot.data.school.value];
-            // spl.prepared[i] = entrySlot;
+            //console.log(`PF2e System | Getting item: ${entrySlot.id}: `);
             let item = this.actor.getOwnedItem(entrySlot.id);
-            let itemCopy = duplicate(item);
-            if (entrySlot.expended) {
-              itemCopy.expended = true;               
-            }
-            else {
-              itemCopy.expended = false;
-            }
-            
-            spl.prepared[i] = itemCopy;
-            if (spl.prepared[i]) {
-              // enrich data with spell school formatted string
-              if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
-                spl.prepared[i].data.school.str = CONFIG.spellSchools[spl.prepared[i].data.school.value];
+            if (item) {
+              //console.log(`PF2e System | Duplicating item: ${item.name}: `, item);
+              let itemCopy = duplicate(item);
+              if (entrySlot.expended) {
+                itemCopy.expended = true;               
               }
-
-              // Add chat data
-              try {
-                spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
-              } catch (err) {
-                console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
+              else {
+                itemCopy.expended = false;
               }
               
+              spl.prepared[i] = itemCopy;
+              if (spl.prepared[i]) {
+                // enrich data with spell school formatted string
+                if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
+                  spl.prepared[i].data.school.str = CONFIG.spellSchools[spl.prepared[i].data.school.value];
+                }
 
-              spl.prepared[i].prepared = true;
-            }
-            // prepared spell not found
-            else {
-              spl.prepared[i] = {
-                name: 'Empty Slot (drag spell here)',
-                id: null,
-                prepared: false,
-              };
+                // Add chat data
+                try {
+                  spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
+                } catch (err) {
+                  console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
+                }
+                
+
+                spl.prepared[i].prepared = true;
+              }
+              // prepared spell not found
+              else {
+                spl.prepared[i] = {
+                  name: 'Empty Slot (drag spell here)',
+                  id: null,
+                  prepared: false,
+                };
+              }
+            } else {
+              console.log(`PF2e System | Could not find an item for ID: ${entrySlot.id}: `);
             }
           } else {
             // if there is no prepared spell for this slot then make it empty.
