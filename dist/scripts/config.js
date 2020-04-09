@@ -944,8 +944,11 @@ CONFIG.conditionTypes = {
 
 // Immunity Types
 CONFIG.immunityTypes = {
-  "death effects": "Death Effects",
-  magic: "Magic",
+  "death-effects": "Death Effects",
+  "critical-hits": "Critical Hits",
+  "object-immunities": "Object Immunities",
+  "precision-damage": "Precision Damage",
+  magic: "Magic",  
   blinded: 'Blinded',
   broken: 'Broken',
   clumsy: 'Clumsy',
@@ -954,6 +957,7 @@ CONFIG.immunityTypes = {
   controlled: 'Controlled',
   dazzled: 'Dazzled',
   deafened: 'Deafened',
+  disease: 'Disease',
   doomed: 'Doomed',
   drained: 'Drained',
   dying: 'Dying',
@@ -980,6 +984,7 @@ CONFIG.immunityTypes = {
   quickened: 'Quickened',
   restrained: 'Restrained',
   sickened: 'Sickened',
+  sleep: "Sleep",
   slowed: 'Slowed',
   stunned: 'Stunned',
   stupefied: 'Stupefied',
