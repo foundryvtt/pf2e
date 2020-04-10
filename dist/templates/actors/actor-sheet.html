@@ -87,7 +87,7 @@
                     </div>
                     <div class="hp-current pf-container">
                         <h4 class="hp-current pf-title" style="font-size: 12px">Shield</h4>
-                        <span class="hp-current pf-value pf-large" title="The AC bonus of your shield (when you use the raise shield action)">
+                        <span class="hp-current pf-value pf-large" title="Your current hit points">
                             <input name="data.attributes.shield.ac" type="text" value="{{data.attributes.shield.ac}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
@@ -193,6 +193,28 @@
                 
             </ol>
 
+
+            <h3 class="hp-title pf-heading">{{localize "PF2E.InitiativeHeader"}}</h3>
+            <ol class="hp-list-small" style="margin-bottom: 4px;">                
+                    
+                    <li class="li-two-grid-small" data-attribute="initiative">
+                        <div class="defense-container pf-justify-center" style="width: 80px;">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.CircumstanceBonusLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.CircumstanceBonusLabel"}} bonus">
+                                <input name="data.attributes.initiative.circumstance" type="text" value="{{data.attributes.initiative.circumstance}}"
+                                        data-dtype="Number" placeholder="+0"/>
+                            </span>
+                        </div>
+                        <div class="defense-container pf-justify-center">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.StatusBonusLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.StatusBonusLabel"}} bonus">
+                                <input name="data.attributes.initiative.status" type="text" value="{{data.attributes.initiative.status}}"
+                                        data-dtype="Number" placeholder="+0"/>
+                            </span>
+                        </div>
+                    </li>
+                
+            </ol>
 
             <h3 class="defense-title pf-heading">{{localize "PF2E.SavesHeader"}}</h3>
             <ol class="defense-list">
