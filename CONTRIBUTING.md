@@ -2,10 +2,12 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 The project uses gulp to package the SASS/LESS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 * clone the repo into a local folder in your dev environment `git clone https://gitlab.com/hooking/foundry-vtt---pathfinder-2e.git pf2e-dev`
+* install Gulp globally if you don't have it `npm install --global gulp-cli`
 * install dev dependencies with `npm install`
-* configure a `foundryconfig.json` file with `dataPath` and `systemName` attributes as follows:
-{
-    dataPath: %absolute_path_to_your_foundry_userdata_folder% (i.e. "C:\\Users\\username\\AppData\\Local\\foundryvtt" for Windows)
-    systemName: 'pf2e'
-}
-* run `gulp copy` or `gulp watch` to keep your system up to date with any coding changes you make.
+* check that Gulp is installed with a CLI version and local version by running `gulp --version` 
+* configure a `foundryconfig.json` file with `dataPath` and `systemName` attributes as below. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen.
+        {
+            dataPath: %absolute_path_to_your_foundry_userdata_folder% (i.e. "C:\\Users\\username\\AppData\\Local\\foundryvtt" for Windows)
+            systemName: 'pf2e'
+        }
+* run `gulp watch` to keep the pf2e system in your Foundry User Data Folder up to date with any coding changes you make in your dev environment.
