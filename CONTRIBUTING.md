@@ -12,4 +12,5 @@ The project uses gulp to package the SASS/LESS files needed for a build and can 
             systemName: 'pf2e'
         }
 
+* run `gulp build` to perform a one off compile/build step to setup the dist folder correctly.
 * run `gulp watch` to keep the pf2e system in your Foundry User Data Folder up to date with any coding changes you make in your dev environment.
