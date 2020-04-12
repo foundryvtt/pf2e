@@ -55,44 +55,49 @@ class DicePF2e {
 
     // Modify the roll and handle fast-forwarding
     parts = ['1d20'].concat(parts);
-    if (event.shiftKey) return _roll(parts, 0);
-    if (event.altKey) return _roll(parts, 1);
-    if (event.ctrlKey || event.metaKey) return _roll(parts, -1);
-    parts = parts.concat(['@bonus']);
+    if (event.altKey) {
+      return _roll(parts, 1); 
+    } else if (event.ctrlKey || event.metaKey) {
+      return _roll(parts, -1);
+    } else if (event.shiftKey) {
+      parts = parts.concat(['@bonus']);
 
-    // Render modal dialog
-    template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
-    const dialogData = {
-      formula: parts.join(' + '),
-      data,
-      rollMode,
-      rollModes: CONFIG.rollModes,
-    };
-    let roll;
-    renderTemplate(template, dialogData).then((html) => {
-      new Dialog({
-        title,
-        content: html,
-        buttons: {
-          advantage: {
-            label: 'Fortune',
-            callback: (html) => roll = _roll(parts, 1, html),
+      // Render modal dialog
+      template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
+      const dialogData = {
+        formula: parts.join(' + '),
+        data,
+        rollMode,
+        rollModes: CONFIG.rollModes,
+      };
+      let roll;
+      renderTemplate(template, dialogData).then((html) => {
+        new Dialog({
+          title,
+          content: html,
+          buttons: {
+            advantage: {
+              label: 'Fortune',
+              callback: (html) => roll = _roll(parts, 1, html),
+            },
+            normal: {
+              label: 'Normal',
+              callback: (html) => roll = _roll(parts, 0, html),
+            },
+            disadvantage: {
+              label: 'Misfortune',
+              callback: (html) => roll = _roll(parts, -1, html),
+            },
           },
-          normal: {
-            label: 'Normal',
-            callback: (html) => roll = _roll(parts, 0, html),
+          default: 'normal',
+          close: (html) => {
+            if (onClose) onClose(html, parts, data);
           },
-          disadvantage: {
-            label: 'Misfortune',
-            callback: (html) => roll = _roll(parts, -1, html),
-          },
-        },
-        default: 'normal',
-        close: (html) => {
-          if (onClose) onClose(html, parts, data);
-        },
-      }, dialogOptions).render(true);
-    });
+        }, dialogOptions).render(true);
+      });
+    } else {
+      return _roll(parts, 0);
+    }
   }
 
   /* -------------------------------------------- */
@@ -224,8 +229,8 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   if (message.roll.parts[0].faces == 20) {
     if (game.system.id === 'pf2e' && message.data && message.data.flavor && ( message.data.flavor.endsWith('Skill Check') || message.data.flavor.endsWith('Perception Check') ) ) {
       const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
-	  
-	  const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative")
+    
+      const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative")
       const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`);
 
       const btnContainer = $('<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>');

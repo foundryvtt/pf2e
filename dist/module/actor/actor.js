@@ -290,12 +290,38 @@ export default class extends Actor {
    * @return {Promise}
    */
   static async setCombatantInitiative(roll) {
-    let value = parseFloat(roll.find('.dice-total').text());
+    const skillRolled = roll.find('.flavor-text').text();
+    const valueRolled = parseFloat(roll.find('.dice-total').text());
+    let value = valueRolled;
     const promises = [];
     for (const t of canvas.tokens.controlled) {
       const combatant = game.combat.getCombatantByToken(t.id);
-	  value += combatant.actor.data.data.attributes.initiative.circumstance;
-	  value += combatant.actor.data.data.attributes.initiative.status;
+      if(combatant == undefined) ui.notifications.error("You haven't added this token to the Combat Tracker.");
+      const initBonus = combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      value += initBonus;
+      const message = `
+      <div class="dice-roll">
+      <div class="dice-result">
+      
+        <div class="dice-tooltip" style="display: none;">
+            <div class="dice-formula" style="background: 0;">
+              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span> + ${initBonus}</span>
+            </div>
+        </div>
+
+        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Inititive is now ${value} !</span>
+        </div>
+      </div>
+      </div>
+      `;
+      ChatMessage.create({
+        user: game.user._id,
+        speaker: { alias: t.name },
+        content: message,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER
+      });
+
       promises.push(
         game.combat.setInitiative(combatant._id, value),
       );
@@ -351,52 +377,53 @@ export default class extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-	const current = getProperty(this.data.data, attribute);
-	
-	if ( attribute == 'attributes.hp' ) {
-		
-		if (isDelta) {
-		  if (value < 0) {
-			if ((current.temp + value) >= 0) {
-			  const newTempHp = current.temp + value;
-			  this.update({[`data.attributes.hp.temp`]: newTempHp});
-			  value = 0;
-			} else {
-			  value = current.temp + value;
-			  this.update({[`data.attributes.hp.temp`]: 0});
-			}
-		  }
-		  value = Math.clamped(0, Number(current.value) + value, current.max);
-		}
-		value = Math.clamped(value, 0, current.max);
-		return this.update({[`data.attributes.hp.value`]: value});
+    const current = getProperty(this.data.data, attribute);
+    
+    if ( attribute == 'attributes.hp' ) {
+      
+      if (isDelta) {
+        if (value < 0) {
+        if ((current.temp + value) >= 0) {
+          const newTempHp = current.temp + value;
+          this.update({[`data.attributes.hp.temp`]: newTempHp});
+          value = 0;
+        } else {
+          value = current.temp + value;
+          this.update({[`data.attributes.hp.temp`]: 0});
+        }
+        }
+        value = Math.clamped(0, Number(current.value) + value, current.max);
+      }
+      value = Math.clamped(value, 0, current.max);
+      return this.update({[`data.attributes.hp.value`]: value});
 
-	} else if ( attribute == 'attributes.shield' && isDelta ) {
-		
-		if (isDelta) {
-			if (value < 0) {
-				value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
-				const hp = this.data.data.attributes.hp;
-				if (value < 0) { //substract the value from (temp)HP as well
-					if ((hp.temp + value) >= 0) {
-						const newTempHp = hp.temp + value;
-						this.update({[`data.attributes.hp.temp`]: newTempHp});
-					} else {
-						const newHp = Math.clamped( ( hp.value + hp.temp + value ), 0, hp.max);
-						this.update({[`data.attributes.hp.value`]: newHp});
-						this.update({[`data.attributes.hp.temp`]: 0});
-					}
-				}
-			}
-			value = Number(current.value) + value; //apply modifier to shield hp
-		}
-		value = Math.clamped(value, 0, current.max);
-		return this.update({[`data.attributes.shield.value`]: value});
-		
-	}
-	
-	return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    } else if ( attribute == 'attributes.shield' && isDelta ) {
+      
+      if (isDelta) {
+        if (value < 0) {
+          value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
+          const hp = this.data.data.attributes.hp;
+          if (value < 0) { //substract the value from (temp)HP as well
+            if ((hp.temp + value) >= 0) {
+              const newTempHp = hp.temp + value;
+              this.update({[`data.attributes.hp.temp`]: newTempHp});
+            } else {
+              const newHp = Math.clamped( ( hp.value + hp.temp + value ), 0, hp.max);
+              this.update({[`data.attributes.hp.value`]: newHp});
+              this.update({[`data.attributes.hp.temp`]: 0});
+            }
+          }
+        }
+        value = Number(current.value) + value; //apply modifier to shield hp
+      }
+      value = Math.clamped(value, 0, current.max);
+      return this.update({[`data.attributes.shield.value`]: value});
+      
+    }
+    
+    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
   }
+
 }
 
 
