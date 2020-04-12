@@ -79,12 +79,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Feats
     const feats = {
       ancestry: { label: game.i18n.localize("PF2E.FeatAncestryHeader"), feats: [] },
+	  ancestryfeature: { label: game.i18n.localize("PF2E.FeaturesAncestryHeader"), feats: [] },
+	  archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
+	  bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
+	  class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
+	  classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
       skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
-      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
-      class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
-      bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
-      classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
-      archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
+      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },  
     };
 
     // Actions
