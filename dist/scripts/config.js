@@ -731,8 +731,13 @@ CONFIG.ancestryTraits = {
   elf: 'Elf',
   gnome: 'Gnome',
   goblin: 'Goblin',
+  halfelf: 'Half-Elf',
   halfling: 'Halfling',
+  halforc: 'Half-Orc',
   human: 'Human',
+  hobgoblin: 'Hobgoblin',
+  leshy: 'Leshy',
+  lizardfolk: 'Lizardfolk',
 };
 
 // Alignment
@@ -828,6 +833,7 @@ CONFIG.featTypes = {
   class: 'Class Feat',
   classfeature: 'Class Feature',
   archetype: 'Archetype Feat',
+  ancestryfeature: 'Ancestry Feature',
 };
 
 // Feat Action Types
