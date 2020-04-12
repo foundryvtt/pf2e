@@ -152,19 +152,26 @@
                         </span>
                     </div>
                 </li>
-                <li class="li-two-grid-small">
-                    <div class="defense-container pf-justify-center">
+                <li class="li-four-grid" style="grid:'one two three' 32px/33% 33% 33%;">
+                    <div class="defense-container pf-justify-center" style="width: 58px;">
                         <h4 class="defense-item pf-title">{{localize "PF2E.DyingLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your current level of Dying">
-                            <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
-                                    data-dtype="Number" placeholder="0"/>
+                        <span class="defense-item-value pf-value pf-small" title="Your current level of Dying" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.dying" value="{{data.attributes.dying}}" data-dtype="Number"/>
+                            <span class="proficiency-rank dying-click pf-value" title="Your current level of Dying" style="height: 15px;">{{{data.attributes.dyingIcon}}}</span>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title">{{localize "PF2E.WoundsLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your current level of Wounds">
-                            <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
-                                    data-dtype="Number" placeholder="0"/>
+                        <span class="defense-item-value pf-value pf-small" title="Your current level of Wounded" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.wounded" value="{{data.attributes.wounded}}" data-dtype="Number"/>
+                            <span class="proficiency-rank wounded-click pf-value" title="Your current level of Wounded" style="height: 15px;">{{{data.attributes.woundedIcon}}}</span>
+                        </span>
+                    </div>
+                    <div class="defense-container pf-justify-center" style="width: 58px;">
+                        <h4 class="defense-item pf-title">{{localize "PF2E.DoomedLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="Your current level of Doomed" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.doomed" value="{{data.attributes.doomed}}" data-dtype="Number"/>
+                            <span class="proficiency-rank doomed-click pf-value" title="Your current level of Doomed" style="height: 15px;">{{{data.attributes.doomedIcon}}}</span>
                         </span>
                     </div>
                 </li>
