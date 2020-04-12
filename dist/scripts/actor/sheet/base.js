@@ -867,7 +867,7 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleWounded(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    const wounded = this.object.data.data.attributes.wounded;
+    //const wounded = this.object.data.data.attributes.wounded;
 
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
@@ -875,7 +875,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1 + wounded) , 0, 3 );
+      newLevel = Math.clamped( (level + 1 /* + wounded */) , 0, 3 );
     } else if (event.type === 'contextmenu') {
       newLevel = Math.clamped( (level - 1) , 0, 3 );
     }

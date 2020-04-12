@@ -295,8 +295,15 @@ export default class extends Actor {
     let value = valueRolled;
     const promises = [];
     for (const t of canvas.tokens.controlled) {
+      if (!game.combat) {
+        ui.notifications.error("No active encounters in the Combat Tracker.");
+        return;
+      }
       const combatant = game.combat.getCombatantByToken(t.id);
-      if(combatant == undefined) ui.notifications.error("You haven't added this token to the Combat Tracker.");
+      if(combatant == undefined) {
+        ui.notifications.error("You haven't added this token to the Combat Tracker.");
+        return;
+      }
       const initBonus = combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
       value += initBonus;
       const message = `
