@@ -4,6 +4,7 @@ import loadTemplates from './module/templates.js';
 import { initiativeFormula } from './module/combat.js';
 import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
+import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 
 Hooks.once('init', () => {
   console.log(`PF2e | Initializing Pathfinder 2nd Edition System`);
@@ -19,10 +20,15 @@ Hooks.once('init', () => {
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
 
-
+  PlayerConfigPF2e.init();
+  
   registerSettings();
   loadTemplates();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
+});
+
+Hooks.once("ready", function() {
+  PlayerConfigPF2e.activateColorScheme();
 });
 
 /* -------------------------------------------- */
