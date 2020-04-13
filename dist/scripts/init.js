@@ -212,6 +212,19 @@
         await actor.update(deltaData);
         console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${version}`);
       }
+
+      // # HOOKING PLEASE REVIEW
+      if (version >= 0.412 && typeof actorData.data.attributes.dying !== 'undefined') {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+        if (typeof actorData.data.attributes.dying !== 'object') deltaData['data.attributes.dying'] = { "value": 0, "max": 4 };
+        if (typeof actorData.data.attributes.wounded !== 'object') deltaData['data.attributes.wounded'] = { "value": 0, "max": 3 };
+        if (typeof actorData.data.attributes.doomed !== 'object') deltaData['data.attributes.doomed'] = { "value": 0, "max": 3 };
+        deltaData['data.schema.version.value'] = version;
+        
+        await actor.update(deltaData);
+        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${version}`);
+      }
+
     }
   }
 
