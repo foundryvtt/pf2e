@@ -828,6 +828,7 @@ CONFIG.featTypes = {
   class: 'Class Feat',
   classfeature: 'Class Feature',
   archetype: 'Archetype Feat',
+  ancestryfeature: 'Ancestry Feature',
 };
 
 // Feat Action Types
