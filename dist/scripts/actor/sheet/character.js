@@ -1,4 +1,3 @@
-
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
 	  const options = super.defaultOptions;
@@ -6,6 +5,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       classes: options.classes.concat(['pf2e', 'actor', 'character-sheet']),
       width: 650,
       height: 720,
+      tabs: [{navSelector: ".tabs", contentSelector: ".sheet-lower", initial: "biography"}],
       showUnpreparedSpells: false,
     });
 	  return options;
