@@ -18,13 +18,6 @@ Hooks.on("preUpdateOwnedItem", (actor, actorId, item) => {
 });
 
 Hooks.on("preDeleteOwnedItem", (actor, actorId, item) => {
-    console.log('-------------onDeleteOwnedItem-------------');
-    console.log(JSON.parse(JSON.stringify(actor)));
-	console.log(actor); //parent
-	console.log(actorId);
-	console.log(item); //options, only has the data.items[_id] string
-    console.log('-------------onDeleteOwnedItem-------------');
-
     actor.itemBehaviour(actor.getOwnedItem(item).data, false); 
 });
 
