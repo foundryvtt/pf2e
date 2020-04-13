@@ -189,12 +189,6 @@ class ItemSheetPF2e extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Activate tabs
-    new Tabs(html.find('.tabs'), {
-      initial: this.item.data.flags._sheetTab,
-      callback: (clicked) => { this.item.data.flags._sheetTab = clicked.attr('data-tab'); },
-    });
-
     // Checkbox changes
     html.find('input[type="checkbox"]').change((event) => this._onSubmit(event));
 
