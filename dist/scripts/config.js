@@ -731,8 +731,13 @@ CONFIG.ancestryTraits = {
   elf: 'Elf',
   gnome: 'Gnome',
   goblin: 'Goblin',
+  halfelf: 'Half-Elf',
   halfling: 'Halfling',
+  halforc: 'Half-Or',
   human: 'Human',
+  hobgoblin: 'Hobgoblin',
+  leshy: 'Leshy',
+  lizardfolk: 'Lizardfolk',
 };
 
 // Alignment
