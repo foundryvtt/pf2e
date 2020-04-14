@@ -480,7 +480,7 @@ CONFIG.consumableTypes = {
   potion: 'PF2E.ConsumableTypePotion',
   oil: 'PF2E.ConsumableTypeOil',
   scroll: 'PF2E.ConsumableTypeScroll',
-  talasman: 'PF2E.ConsumableTypeTalasman',
+  talasman: 'PF2E.ConsumableTypeTalisman',
   other: 'PF2E.ConsumableTypeOther',
 };
 
