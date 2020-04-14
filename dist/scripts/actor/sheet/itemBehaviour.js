@@ -9,7 +9,7 @@ Hooks.on("preCreateOwnedItem", (actor, actorId, item) => {
 });
 
 Hooks.on("preUpdateOwnedItem", (actor, actorId, item) => {
-    if (actor.getOwnedItem(item._id).data.name.trim() == item.name.trim()) return;
+    if (item._id && item.name && actor.getOwnedItem(item._id).data.name.trim() == item.name.trim()) return;
 
     // Removing old item effect
     actor.itemBehaviour(actor.getOwnedItem(item._id).data, false); 
