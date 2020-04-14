@@ -25,7 +25,7 @@ class DicePF2e {
   }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
-    const userSettingQuickD20Roll = game.user.data.flags.PF2e.settings.quickD20roll;
+    const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     const _roll = (parts, adv, form) => {
       let flav = (flavor instanceof Function) ? flavor(parts, data) : title;
       if (adv === 1) {
