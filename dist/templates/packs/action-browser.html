@@ -1,19 +1,19 @@
 <div class="spell-browser">
     <div class="control-area">
-        <div class="sortcontainer" id="tagfilter">            
-            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
             <div class="hint" style="display:none;">
-                You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
+                {{{localize "PF2E.ActionBrowserSearchHint"}}}
             </div>
             <dl id="sorter">
-                <dt>Sort by:</dt>
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
                 <dd><select class="null" name="sortorder">
-                    <option value="true" selected>Name</option>
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
                 </select></dd>
             </dl>
-        </div>        
+        </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Skill</h3>
+            <h3>{{localize "PF2E.BrowserFilterSkills"}}</h3>
             <dl>
                 {{#each skills as |skill key|}}
                 <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
@@ -21,7 +21,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Proficiency Requirement</h3>
+            <h3>{{localize "PF2E.BrowserFilterProficiencyRequirements"}}</h3>
             <dl style="display:none;">
                 {{#each proficiencies as |proficiency key|}}
                 <dt><input type="checkbox" name="proficiencies-{{key}}"></dt><dd>{{proficiency}}</dd>
@@ -29,7 +29,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Trait</h3>
+            <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each actionTraits as |trait key|}}
                 <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>

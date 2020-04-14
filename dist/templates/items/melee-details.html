@@ -41,7 +41,7 @@
 {{#if data.damageRolls}}
 {{#each data.damageRolls as |damageRoll did|}}
 <div class="form-group">
-    <label>Damage {{did}}</label>
+    <label>{{localize "PF2E.DamageLabel"}} {{did}}</label>
     <input type="text" name="data.damageRolls[did].damage" value="{{damageRoll.damage}}" data-dtype="String"/>
 </div>
 <div class="form-group">
@@ -52,7 +52,7 @@
             <option value="{{type}}">{{name}}</option>
             {{/each}}
             {{/select}}
-        </select>    
+        </select>
 </div>
 {{/each}}
 {{else}}
@@ -70,7 +70,7 @@
             <option value="{{type}}">{{name}}</option>
             {{/each}}
             {{/select}}
-        </select>    
+        </select>
 </div>
 {{/if}}
 
@@ -133,7 +133,7 @@
         {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-options="weaponTraits"><i class="fas fa-edit"></i></a>
     </label>
-    
+
     <ul class="traits-list pf-value pf-large">
         {{#each data.traits.value as |v k|}}
             <span class="tag {{k}}">{{v}}</span>
