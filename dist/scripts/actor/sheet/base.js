@@ -34,11 +34,6 @@ class ActorSheetPF2e extends ActorSheet {
       save.label = CONFIG.PF2E.saves[s];
     }
     
-    // Update dying and wounded label
-    sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
-    sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
-    sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
-    sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
