@@ -254,14 +254,22 @@ export default class extends Actor {
    */
   static async applyDamage(roll, multiplier, attribute='attributes.hp') {
 	if (canvas.tokens.controlled.length > 0) {
-		const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+    const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+    const messageSender = roll.find('.message-sender').text();
+    const flavorText = roll.find('.flavor-text').text();
 		for (const t of canvas.tokens.controlled) {
-			const a = t.actor;
-			
+      const a = t.actor;
+      
 			const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
 			const message = `
 			  <div class="dice-roll">
-				<div class="dice-result">
+        <div class="dice-result">
+          <div class="dice-tooltip" style="display: none;">
+            <div class="dice-formula" style="background: 0;">
+              <span style="font-size: 10px;">${flavorText}, by ${messageSender}
+              </span>
+            </div>
+          </div>
 				  <div class="dice-total" style="padding: 0 10px; word-break: normal;">
 					<span style="font-size: 12px; font-style:oblique; font-weight: 100;">${t.name} gets ${appliedResult} hit points.</span>
 				  </div>
@@ -309,13 +317,11 @@ export default class extends Actor {
       const message = `
       <div class="dice-roll">
       <div class="dice-result">
-      
         <div class="dice-tooltip" style="display: none;">
             <div class="dice-formula" style="background: 0;">
               <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span> + ${initBonus}</span>
             </div>
         </div>
-
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
           <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Inititive is now ${value} !</span>
         </div>

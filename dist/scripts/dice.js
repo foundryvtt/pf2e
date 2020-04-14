@@ -25,6 +25,7 @@ class DicePF2e {
   }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
+    const userSettingQuickD20Roll = game.user.data.flags.PF2e.settings.quickD20roll;
     const _roll = (parts, adv, form) => {
       let flav = (flavor instanceof Function) ? flavor(parts, data) : title;
       if (adv === 1) {
@@ -59,7 +60,7 @@ class DicePF2e {
       return _roll(parts, 1); 
     } else if (event.ctrlKey || event.metaKey) {
       return _roll(parts, -1);
-    } else if (event.shiftKey) {
+    } else if (event.shiftKey || !userSettingQuickD20Roll) {
       parts = parts.concat(['@bonus']);
 
       // Render modal dialog

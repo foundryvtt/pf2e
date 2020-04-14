@@ -1,11 +1,13 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
 	<div class="contentcontainer">
-      <span class="editNPCButton">
-        <label>Edit NPC?</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
-      </span>
   
     <div class="npc-title-bar">
       <h1 class='name'>{{actor.name}}</h1>
+        <h1 class="editNPCButton">
+          <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
+            <label>Edit NPC?</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
+          </div>
+        </h1>
       <h1 class='level'>Creature {{data.details.level.value}}</h1>
     </div>
     
