@@ -370,9 +370,9 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
       }
       this.settings = settings;
       this.settingsChanged = false;
-      this.loadSpells().then((obj) => {
+      /* this.loadSpells().then((obj) => {
         this.spells = obj;
-      });
+      }); */
     });
     this.hookCompendiumList();
   }
@@ -598,9 +598,9 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
       }
       this.settings = settings;
       this.settingsChanged = false;
-      this.loadFeats().then((obj) => {
+      /* this.loadFeats().then((obj) => {
         this.feats = obj;
-      });
+      }); */
     });
     this.hookCompendiumList();
   }
@@ -823,9 +823,9 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       }
       this.settings = settings;
       this.settingsChanged = false;
-      this.loadInventoryItems().then((obj) => {
+      /* this.loadInventoryItems().then((obj) => {
         this.inventoryItems = obj;
-      });
+      }); */
     });
     this.hookCompendiumList();
   }
@@ -984,9 +984,9 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       }
       this.settings = settings;
       this.settingsChanged = false;
-      this.loadBestiaryActors().then((obj) => {
+      /* this.loadBestiaryActors().then((obj) => {
         this.bestiaryActors = obj;
-      });
+      }); */
     });
     this.hookCompendiumList();
   }
@@ -1188,9 +1188,9 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
       }
       this.settings = settings;
       this.settingsChanged = false;
-      this.loadActions().then((obj) => {
+      /* this.loadActions().then((obj) => {
         this.actions = obj;
-      });
+      }); */
     });
     this.hookCompendiumList();
   }

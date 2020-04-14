@@ -440,17 +440,6 @@ class ActorSheetPF2e extends ActorSheet {
       e.setAttribute('style', `flex: 0 0 ${w}px`);
     });
 
-    // Activate tabs
-    html.find('.tabs').each((_, el) => {
-      const tabs = $(el);
-      const group = el.getAttribute('data-group');
-      const initial = this.actor.data.flags[`_sheetTab-${group}`];
-      new Tabs(tabs, {
-        initial,
-        callback: (clicked) => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr('data-tab'),
-      });
-    });
-
     // Item summaries
     html.find('.item .item-name h4').click((event) => {
       this._onItemSummary(event);
