@@ -486,7 +486,7 @@ CONFIG.consumableTypes = {
   potion: 'Potion',
   oil: 'Oil',
   scroll: 'Scroll',
-  talasman: 'Talasman',
+  talasman: 'Talisman',
   other: 'Other',
 };
 
