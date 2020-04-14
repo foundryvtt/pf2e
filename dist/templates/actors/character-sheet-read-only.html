@@ -1,30 +1,32 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
-    <div class="tab contentcontainer active">
-      <span class="editNPCButton">
-          <label>{{localize "PF2E.EditSheetLabel"}}</label><input class="isSheetEditable" name="flags.pf2e.editSheet.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editSheet.value}}/>
-      </span>
-
+	<div class="tab contentcontainer active">
+  
     <div class="npc-title-bar">
       <h1 class='name'>{{actor.name}}</h1>
+      <h1 class="editNPCButton">
+        <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
+          <label>{{localize "PF2E.EditLabel"}}</label><input class="isSheetEditable" name="flags.pf2e.editSheet.value" type="checkbox" data-dtype="Boolean">
+        </div>
+      </h1>
       <h1 class='level'>Level {{data.details.level.value}}</h1>
     </div>
-
-
-
+    
+    
+    
     <div class="top-section">
-
+    
       <div class="top-quick-container">
-
-        <span class="hp-current pf-large" title="{{localize "PF2E.MaxHitPointsShortLabel"}}: {{data.attributes.hp.max}}">
-            <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
-            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
+        
+        <span class="hp-current pf-large" title="MAX HP: {{data.attributes.hp.max}}">
+          <label>Current HP:</label>
+          <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
         </span>
         <!-- <label>Notes/Conditions:</label>
         <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="Write any notes for this NPC here.">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea> -->
       </div>
-
+    
       <div class="top-stats-container">
-
+      
         <div class="traits-bar">
           <!-- -->
           <!-- Put alignment flag here; add to getData() -->
@@ -37,7 +39,7 @@
           <span class="trait">{{trait}}</span>
           {{/each}} -->
         </div>
-
+      
         <div class="stats-line">
           <span class="inline-stats rollable" data-attribute="perception">
               <label class="stat-title attribute-name">{{localize "PF2E.PerceptionLabel"}}</label>
@@ -45,7 +47,7 @@
             <span class="stat-detail perception attribute-name">{{data.traits.senses.value}}</span>
           </span>
         </div>
-
+        
         {{#if hasLanguages}}
         <div class="stats-line">
           <span class="inline-stats">
@@ -58,7 +60,7 @@
           </span>
         </div>
         {{/if}}
-
+        
         {{#if hasSkills}}
         <div class="stats-line">
           <span class="inline-stats">
@@ -93,8 +95,8 @@
             {{/each}}
           </span>
         </div>
-
-        {{#if actor.hasEquipment}}
+    
+    	{{#if actor.hasEquipment}}
         <div class="stats-line equipment">
           <span class="inline-stats">
             <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
@@ -106,15 +108,15 @@
           </span>
         </div>
         {{/if}}
-
+        
       </div>
     </div>
 
     <hr>
-
+        
     <ol class="actions-list inventory-list directory-list">
       {{#each actor.readonlyActions.interaction.actions as |action aid|}}
-
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -129,12 +131,12 @@
             </div>
             {{/if}}
         </li>
-
-    {{/each}}
+        
+   	 {{/each}}
     </ol>
-
+    
     <hr>
-
+    
     <div class="stats-line">
       <span class="inline-stats">
         <span class="stat-list major-stat">
@@ -165,26 +167,26 @@
           <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
           {{/if}}
         </span>
-        {{#if hasAllSaveDetails}}
+      	{{#if hasAllSaveDetails}}
         <span class="stat-list" data-save="will">
           <label class="stat-title">{{localize "PF2E.AllSavesLabel"}}</label>
           <span class="stat-value">{{data.attributes.allSaves.value}}</span>
         </span>
-        {{/if}}
-
+      	{{/if}}
+        
       </span>
     </div>
-
+    
     <div class="stats-line">
       <span class="inline-stats">
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.HitPointsShortLabel"}}</label>
           <span class="stat-value">{{data.attributes.hp.max}}</span>
-          {{#if hasHPDetails}}
+  	      {{#if hasHPDetails}}
           <span class="stat-detail">{{data.attributes.hp.details}}</span>
           {{/if}}
         </span>
-
+        
         {{#if hasImmunities}}
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
@@ -193,7 +195,7 @@
           {{/each}}
         </span>
         {{/if}}
-
+       	
         {{#if hasResistances}}
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
@@ -202,7 +204,7 @@
           {{/each}}
         </span>
         {{/if}}
-
+        
         {{#if hasWeaknesses}}
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.WeaknessesLabel"}}</label>
@@ -211,13 +213,13 @@
           {{/each}}
         </span>
         {{/if}}
-
+        
       </span>
     </div>
-
+    
     <ol class="actions-list inventory-list directory-list">
       {{#each actor.readonlyActions.defensive.actions as |action aid|}}
-
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -243,12 +245,12 @@
             </div>
             {{/if}}
         </li>
-
-     {{/each}}
+        
+   	 {{/each}}
     </ol>
-
+    
     <hr>
-
+    
     <div class="stats-line">
       <span class="inline-stats">
           <label class="stat-title">{{localize "PF2E.Speed"}}</label>
@@ -260,7 +262,7 @@
           {{/if}}
       </span>
     </div>
-
+    
     <ol class="actions-list inventory-list directory-list">
       {{#each actor.attacks as |section sid|}}
         <li class="item inventory-header sub-category spellbook-header attack-header">
@@ -326,7 +328,7 @@
 
     <ol class="actions-list inventory-list directory-list">
       {{#each actor.readonlyActions.offensive.actions as |action aid|}}
-
+        
         <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
@@ -352,10 +354,10 @@
             </div>
             {{/if}}
         </li>
-
-     {{/each}}
+        
+   	 {{/each}}
     </ol>
-
+    
     {{#if hasSpells}}
     {{#each actor.spellcastingEntries as |entry eid|}}
     <hr>
@@ -366,7 +368,7 @@
           <span class="stat-detail speed">{{localize "PF2E.AttackLabel"}} +{{entry.data.spelldc.value}}</span>
       </span>
     </div>
-
+    
     <ol class="actions-list inventory-list directory-list">
                   <!-- List Spells -->
             {{#unless entry.data.prepared.preparedSpells}}
@@ -374,7 +376,7 @@
                     <li class="item inventory-header sub-category spellbook-header">
                         <div class="item-name flexrow">
                             <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
-
+        
 <!--                             {{#unless section.isCantrip}}
                             <span class="spell-slots-input">
                                 <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
@@ -390,10 +392,10 @@
                             <span class="spell-max">&infin;</span>
                             {{/unless}} -->
                         </div>
-
+        
                         <!-- <div class="spell-school-header">School</div>
                         <div class="spell-action-header">Action</div> -->
-
+        
 <!--                         {{#if ../owner}}
                         <div class="item-controls">
                             <a class="item-control item-create" title="Create Spell" data-type="spell"
@@ -401,14 +403,14 @@
                         </div>
                         {{/if}} -->
                     </li>
-
+        
                     {{#each section.spells as |item i|}}
                     <li class="item" data-item-id="{{item._id}}">
                         <div class="item-name rollable">
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
                             <h4>{{item.name}}</h4>
                         </div>
-
+        
                         <div class="melee-buttons spell-buttons">
                           {{#if item.chatData.traits}}
                             {{#each item.chatData.traits as |trait tid|}}
@@ -419,7 +421,7 @@
                               {{/if}}
                             {{/each}}
                           {{/if}}
-
+                            
                           {{#if item.chatData.isSave}}
                             <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
                           {{/if}}
@@ -430,7 +432,7 @@
                             <span class="tag"><button data-action="spellDamage" >{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
                           {{/if}}
                         </div>
-
+        
                         {{#if ../../../owner}}
                         <div class="item-controls">
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
@@ -445,7 +447,7 @@
                         <li class="item inventory-header sub-category spellbook-header">
                             <div class="item-name flexrow">
                                 <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
-
+            
                                 <!-- {{#unless section.isCantrip}}
                                 <span class="spell-slots-input">
                                     <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
@@ -461,10 +463,10 @@
                                 <span class="spell-max">&infin;</span>
                                 {{/unless}} -->
                             </div>
-
+            
                             <!-- <div class="spell-school-header">School</div>
                             <div class="spell-action-header">Action</div> -->
-
+            
                            <!--  {{#if ../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-create" title="Create Spell" data-type="spell"
@@ -472,7 +474,7 @@
                             </div>
                             {{/if}} -->
                         </li>
-
+            
                         {{#each section.prepared as |item i|}}
                         <li class="item" data-item-id="{{item._id}}" data-expended-state="{{item.expended}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}">
                             <div class="item-name rollable">
@@ -483,7 +485,7 @@
                                   <h4>{{item.name}}</h4>
                                 {{/if}}
                             </div>
-
+            
                             <div class="melee-buttons spell-buttons">
                               {{#if item.chatData.traits}}
                                 {{#each item.chatData.traits as |trait tid|}}
@@ -494,7 +496,7 @@
                                   {{/if}}
                                 {{/each}}
                               {{/if}}
-
+                                
                               {{#if item.chatData.isSave}}
                                 <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
                               {{/if}}
@@ -505,7 +507,7 @@
                                 <span class="tag"><button data-action="spellDamage">{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
                               {{/if}}
                             </div>
-
+            
                             {{#if ../../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-toggle-prepare" title="{{localize "PF2E.ExpendSpellTitle"}}"><i class="fas fa-minus-square"></i></a>
@@ -516,12 +518,12 @@
                         {{/each}}
                     {{/each}}
                 {{/unless}}
-
+  
     </ol>
     <hr>
     {{/each}}
     {{/if}}
-
+    
     </div>
     <div class="bgcontainer" style="background-image: url('{{actor.img}}')"></div>
 </form>

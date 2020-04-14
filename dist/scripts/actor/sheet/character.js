@@ -1,4 +1,3 @@
-
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
 	  const options = super.defaultOptions;
@@ -6,6 +5,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       classes: options.classes.concat(['pf2e', 'actor', 'character-sheet']),
       width: 650,
       height: 720,
+      tabs: [{navSelector: ".tabs", contentSelector: ".sheet-lower", initial: "biography"}],
       showUnpreparedSpells: false,
     });
 	  return options;
@@ -45,6 +45,27 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData.preparationType = CONFIG.preparationType;
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
+    // Update dying icon and container width if a data migration is not required
+    if (typeof sheetData.data.attributes.dying !== 'object') {
+      console.log(`PF2e System | Migration for data.attributes.dying required for ${sheetData.actor.name}`);
+    } else {
+      sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
+      sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);      
+    }
+
+    // Update wounded icon if a data migration is not required (perform data migration if it is)
+    if (typeof sheetData.data.attributes.wounded !== 'object') {
+      console.log(`PF2e System | Migration for data.attributes.wounded required for ${sheetData.actor.name}`);
+    } else {
+      sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
+    }
+
+    // Update doomed icon if a data migration is not required (perform data migration if it is)
+    if (typeof sheetData.data.attributes.doomed !== 'object') {
+      console.log(`PF2e System | Migration for data.attributes.doomed required for ${sheetData.actor.name}`);
+    } else {
+      sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
+    }
 
     // Return data for rendering
     return sheetData;
@@ -79,12 +100,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Feats
     const feats = {
       ancestry: { label: game.i18n.localize("PF2E.FeatAncestryHeader"), feats: [] },
+	  ancestryfeature: { label: game.i18n.localize("PF2E.FeaturesAncestryHeader"), feats: [] },
+	  archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
+	  bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
+	  class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
+	  classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
       skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
-      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
-      class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
-      bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
-      classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
-      archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
+      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },  
     };
 
     // Actions

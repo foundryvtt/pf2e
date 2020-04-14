@@ -152,28 +152,35 @@
                         </span>
                     </div>
                 </li>
-                <li class="li-two-grid-small">
-                    <div class="defense-container pf-justify-center">
+                <li class="li-four-grid" style="grid:'one two three' 32px/33% 33% 33%;">
+                    <div class="defense-container pf-justify-center" style="{{data.attributes.dying.containerWidth}}">
                         <h4 class="defense-item pf-title">{{localize "PF2E.DyingLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DyingTitle"}}">
-                            <input name="data.attributes.hp.dying" type="text" value="{{data.attributes.hp.dying}}"
-                                    data-dtype="Number" placeholder="0"/>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DyingTitle"}}" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.dying.value" value="{{data.attributes.dying.value}}" data-dtype="Number"/>
+                            <span class="proficiency-rank dying-click pf-value" title="{{localize "PF2E.DyingTitle"}}" style="height: 15px;">{{{data.attributes.dying.icon}}}</span>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title">{{localize "PF2E.WoundsLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.WoundsTitle"}}">
-                            <input name="data.attributes.hp.wounds" type="text" value="{{data.attributes.hp.wounds}}"
-                                    data-dtype="Number" placeholder="0"/>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.WoundsTitle"}}" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.wounded.value" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
+                            <span class="proficiency-rank wounded-click pf-value" title="{{localize "PF2E.WoundsTitle"}}" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
+                        </span>
+                    </div>
+                    <div class="defense-container pf-justify-center" style="width: 58px;">
+                        <h4 class="defense-item pf-title">{{localize "PF2E.DoomedLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DoomedTitle"}}" style="border-right: 0px; border-left: 0px;">
+                            <input type="hidden" name="data.attributes.doomed.value" value="{{data.attributes.doomed.value}}" data-dtype="Number"/>
+                            <span class="proficiency-rank doomed-click pf-value" title="{{localize "PF2E.DoomedTitle"}}" style="height: 15px;">{{{data.attributes.doomed.icon}}}</span>
                         </span>
                     </div>
                 </li>
-
+                
                 </ol>
-
+                
             <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>
             <ol class="defense-list">
-
+                    
                     <li class="defense" data-attribute="perception">
                         <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
                         <h4 class="attribute-name rollable">{{localize "PF2E.PerceptionLabel"}}</h4>                    
@@ -190,13 +197,13 @@
                             </span>
                         </div>
                     </li>
-
+                
             </ol>
 
 
             <h3 class="hp-title pf-heading">{{localize "PF2E.InitiativeHeader"}}</h3>
             <ol class="hp-list-small" style="margin-bottom: 4px;">
-
+                    
                     <li class="li-two-grid-small" data-attribute="initiative">
                         <div class="defense-container pf-justify-center" style="width: 80px;">
                             <h4 class="defense-item pf-title">{{localize "PF2E.CircumstanceBonusShortLabel"}}</h4>
@@ -213,12 +220,12 @@
                             </span>
                         </div>
                     </li>
-
+                
             </ol>
 
             <h3 class="defense-title pf-heading">{{localize "PF2E.SavesHeader"}}</h3>
             <ol class="defense-list">
-
+                
                 {{#each data.saves as |save sid|}}
                     <li class="defense" data-save="{{sid}}">
                         <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
@@ -238,7 +245,7 @@
                     </li>
                 {{/each}}
             </ol>
-
+            
 
             <h3 class="abilities-title pf-heading">{{localize "PF2E.AbilityScoresHeader"}}</h3>
             <ol class="abilities-list">
@@ -292,7 +299,7 @@
 
             <!-- BIOGRAPHY -->
             {{> systems/pf2e/templates/actors/tabs/actor-biography.html}}
-
+            
         </section>
     </section>
 </form>

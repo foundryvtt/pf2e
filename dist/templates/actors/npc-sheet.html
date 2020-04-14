@@ -6,14 +6,17 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
         </h1>
 
-        <div class="charlevel">
+        <div class="editsheet">
+            <label>{{localize "PF2E.EditNPCLabel"}}</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
+        </div>
+        </h1>
+        <h1 class="charlevel">
             <div class="level">
-                <label>{{localize "PF2E.EditNPCLabel"}}</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
                 <label>{{localize "PF2E.LevelLabel"}}</label>
                 <input name="data.details.level.value" type="text" value="{{data.details.level.value}}"
                         data-dtype="Number" placeholder="1"/>
             </div>
-        </div>
+        </h1>
     </header>
 
 <!-- SIDEBAR -->
@@ -21,7 +24,7 @@
 
         <!-- ABILITY SCORES -->
         <div class="abilities" data-group="sidebar" data-tab="abilities">
-
+            
             <h3 class="ac-title pf-heading">{{localize "PF2E.DefencesLabel"}}</h3>
             <ol class="npc-defence-list">
                 <span class="armor-class" title="{{localize "PF2E.ArmorClassLabel"}}">
@@ -99,10 +102,10 @@
                 <span>Weaknesses:</span>
                 <textarea class="weaknesses" name="data.traits.dv.value" type="text" data-dtype="String" placeholder="Weaknesses">{{data.traits.dv.value}}</textarea> -->
             </div>
-
+               
             <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>
             <ol class="defense-list">
-
+                    
                     <li class="npc-defense" data-attribute="perception">
                         <span class="defense-score">
                         <input name="data.attributes.perception.value" type="text" value="{{data.attributes.perception.value}}"
@@ -119,7 +122,7 @@
                                 data-dtype="String">
                         </span>
                     </div>
-
+                
             </ol>
 
 
@@ -148,7 +151,7 @@
                                 {{/select}}
                             </select>
                     </div>
-
+                    
                     <div class="npc-bio-item trait-size pf-container">
                         <label class="pf-title">{{localize "PF2E.Speed"}}</label>
                         <span class="pf-value pf-small pf-width-100" title="{{localize "PF2E.SpeedTitle"}}">
@@ -179,7 +182,7 @@
                         {{/each}}
                     </ul>
                 </div>
-
+            
                 <div class="bio-item trait-size pf-container">
                     <label class="pf-title">{{localize "PF2E.ImageLabel"}}</label>
                     <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
@@ -206,7 +209,7 @@
                     </div>
                     {{/if}}
                 </li>
-
+                
                 <!-- List Actions -->
                 {{#each actor.actions as |section sid|}}
                     {{#each section.actions as |action aid|}}
@@ -238,7 +241,7 @@
                 </li>
                 <!-- List Equipment -->
                 {{#each actor.equipment as |item iid|}}
-
+                    
                     <li class="item" data-item-id="{{item._id}}">
                         <div class="item-name rollable">
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
@@ -253,7 +256,7 @@
                         </div>
                         {{/if}}
                     </li>
-
+                    
                 {{/each}}
 
                 <!-- Attacks Header -->
@@ -327,7 +330,7 @@
                             <!-- </div> -->
                             <ol class="npc-defense-list" style="grid: 'dc attack' 40px;">
                                 <li class="npc-defense" data-spelldc-attribute="dc">
-
+            
                                     <span class="defense-score spelldc-input">
                                         <input name="data.items.{{eid}}.data.spelldc.dc" type="text" value="{{entry.data.spelldc.dc}}"
                                                 data-dtype="Number" placeholder="0"/>
@@ -349,14 +352,14 @@
 
                             <!-- Everything except prepared spells -->
                             <!-- <ol class="inventory-list directory-list" style="margin-bottom: 2px"> -->
-
+            
                                     <!-- Add section for each spell level -->
                                     {{#each entry.spellbook as |section lvl|}}
                                         <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}" 
                                             data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                             <div class="item-name flexrow">
                                                 <h3>{{section.label}}</h3>
-
+                                
                                                 {{#unless entry.data.tradition.ritual}}
                                                     {{#unless section.isCantrip}}
                                                     <span class="spell-slots-input">
@@ -373,10 +376,10 @@
                                                     {{/unless}}
                                                 {{/unless}}
                                             </div>
-
+                                
                                             <!-- <div class="spell-school-header">School</div>
                                             <div class="spell-action-header">Action</div> -->
-
+                                
                                             {{#if ../../owner}}
                                             <div class="item-controls">
                                                 <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
@@ -386,7 +389,7 @@
                                             </div>
                                             {{/if}}
                                         </li>
-
+                                
                                         <!-- Add spell items for each spell level -->
                                         {{#each section.spells as |item i|}}
                                         <li class="item item-container" data-item-id="{{item._id}}" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
@@ -394,10 +397,10 @@
                                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                 <h4>{{item.name}}</h4>
                                             </div>
-
+                                
                                             <!-- <div class="spell-school">{{item.data.school.str}}</div>
                                             <div class="spell-action">{{item.data.time.value}}</div> -->
-
+                                
                                             {{#if ../../../owner}}
                                             <div class="item-controls">
                                                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
@@ -421,17 +424,17 @@
                                     {{/each}}
                                 <!-- </ol> -->
                         {{else}}
-
+                        
                             <!-- Prepared Spells -->
                             <!-- <ol class="inventory-list directory-list"> -->
-
+            
                                 <!-- Add section for each level -->
                                 {{#each entry.spellbook as |section lvl|}}
                                     <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}" 
                                         data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                         <div class="item-name flexrow">
                                             <h3>{{section.label}}</h3>
-
+                            
                                             {{#if section.isFocus}}
                                             <span class="spell-slots-input">
                                                 <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
@@ -446,10 +449,10 @@
                                             </span>
                                             {{/if}}
                                         </div>
-
+                            
                                         <!-- <div class="spell-school-header">School</div>
                                         <div class="spell-action-header">Action</div> -->
-
+                            
                                         {{#if ../../owner}}
                                         <div class="item-controls">
                                             <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
@@ -459,20 +462,20 @@
                                         </div>
                                         {{/if}}
                                     </li>
-
+                            
                                     {{#unless section.isFocus}}
                                         {{#each section.prepared as |item i|}}
-
+                                        
                                             {{#if item.prepared}}
                                                 <li class="item item-container" data-item-id="{{item._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                                     <div class="item-name">
                                                         <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                         <h4>{{item.name}}</h4>
                                                     </div>
-
+                            
                                                     <!-- <div class="spell-school">{{item.data.school.str}}</div>
                                                     <div class="spell-action">{{item.data.time.value}}</div> -->
-
+                                    
                                                     {{#if ../../../owner}}
                                                     <div class="item-controls">
                                                         <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
@@ -487,12 +490,12 @@
                                                     </div>
                                                 </li>
                                             {{/if}}
-
+                                        
                                         {{/each}}
-
+                                        
                                         {{#if entry.data.showUnpreparedSpells.value}}
                                         <h3 class="item-name pf-sub-category pf-actions" style="background: var(--tertiary-background);">{{localize "PF2E.UnpreparedSpellsLabel"}}</h3>
-
+                                                
                                         <!-- Unprepared Spells -->
                                             {{#each section.spells as |item i|}}
                                                 <li class="item" data-item-id="{{item._id}}">
@@ -500,10 +503,10 @@
                                                         <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                         <h4>{{item.name}}</h4>
                                                     </div>
-
+                            
                                                     <!-- <div class="spell-school">{{item.data.school.str}}</div>
                                                     <div class="spell-action">{{item.data.time.value}}</div> -->
-
+                            
                                                     {{#if ../../../owner}}
                                                     <div class="item-controls">
                                                         <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
@@ -521,10 +524,10 @@
                                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                 <h4>{{item.name}}</h4>
                                             </div>
-
+                            
                                             <!-- <div class="spell-school">{{item.data.school.str}}</div>
                                             <div class="spell-action">{{item.data.time.value}}</div> -->
-
+                            
                                             {{#if ../../../owner}}
                                             <div class="item-controls">
                                                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
@@ -534,7 +537,7 @@
                                         </li>
                                         {{/each}}
                                     {{/unless}}
-
+                
                                 {{else}}
                                 <!-- Add spells row -->
                                 <li class="item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
@@ -576,7 +579,7 @@
                     <!-- for each actor.spellcastingEntry -->
                     {{/each}}
                 <!-- </ol> -->
-
+                
                 <li class="item action-header" style="display: flex;">
                     {{#if owner}}
                     <div class="item-controls pf-bluelist pf-add-item-row" style="display: flex; flex: 1;">
@@ -585,7 +588,7 @@
                     </div>
                     {{/if}}
                 </li>
-
+                
                 <!-- Skill Header -->
                 <li class="item action-header">
                     <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize "PF2E.SkillsLabel"}}</h3>
@@ -608,11 +611,11 @@
                                 <img class="npc-skill-image" src="{{lore.img}}" title="{{lore.name}}" height="24" width="24" style="border: none" />
                                 <!-- Roll -->
                             </div>
-
+                            
                             <div class="skill-input">
                                 <input name="item-value-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="text" data-dtype="Number" value="{{lore.data.mod.value}}" placeholder="0"/>
                             </div>
-
+                            
                             <div class="item-name item-name-input">
                                 <input name="item-name-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="text" data-dtype="String" value="{{lore.name}}" placeholder="{{localize "PF2E.NewSkillPlaceholder"}}"/>
                                 <!-- <h4>
@@ -620,7 +623,7 @@
                                 </h4> -->
                             </div>
                         </div>
-
+                                                
                         {{#if ../owner}}
                         <div class="item-controls" style="padding-left: 22px">
                         <!-- <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a> -->
@@ -664,7 +667,7 @@
                     </span>
                     <h4 class="attribute-name">Spell DC</h4>                             
                 </li> -->
-
+    
 
             <!-- Inventory -->
 <!--             <ol class="actions-list inventory-list directory-list">

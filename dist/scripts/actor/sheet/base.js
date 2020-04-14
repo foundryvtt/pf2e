@@ -33,6 +33,7 @@ class ActorSheetPF2e extends ActorSheet {
       save.hover = CONFIG.proficiencyLevels[save.rank];
       save.label = CONFIG.PF2E.saves[s];
     }
+    
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
@@ -334,6 +335,61 @@ class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   /**
+   * Get the font-awesome icon used to display a certain level of dying
+   * @private
+   */
+  _getDyingIcon(level) {
+    const maxDying = this.object.data.data.attributes.dying.max || 4;
+    const doomed = this.object.data.data.attributes.doomed.value || 0;
+    const circle = '<i class="far fa-circle"></i>';
+    const cross = '<i class="fas fa-times-circle"></i>';
+    const skull = '<i class="fas fa-skull"></i>';
+    const redOpen = '<span style="color:var(--tertiary-background);">';
+    const redClose = '</span>';
+    let icons = {};
+
+    for  (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
+      icons[dyingLevel] = (dyingLevel==maxDying) ? redOpen : ('');
+      for  (let column = 1; column <= maxDying; column++) {
+        icons[dyingLevel] += (column>=(maxDying-doomed) || dyingLevel==maxDying) ? skull : ( (dyingLevel<column) ? circle : cross );
+      }
+      icons[dyingLevel] += (dyingLevel==maxDying) ? redClose : ('');
+    }
+
+    return icons[level];
+  }
+
+  /**
+   * Get the font-awesome icon used to display a certain level of wounded
+   * @private
+   */
+  _getWoundedIcon(level) {
+    const icons = {
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
+    };
+    return icons[level];
+  }
+
+  /**
+   * Get the font-awesome icon used to display a certain level of doomed
+   * @private
+   */
+  _getDoomedIcon(level) {
+    const icons = {
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i>',
+    };
+    return icons[level];
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Get the font-awesome icon used to display hero points
    * @private
    */
@@ -384,17 +440,6 @@ class ActorSheetPF2e extends ActorSheet {
       e.setAttribute('style', `flex: 0 0 ${w}px`);
     });
 
-    // Activate tabs
-    html.find('.tabs').each((_, el) => {
-      const tabs = $(el);
-      const group = el.getAttribute('data-group');
-      const initial = this.actor.data.flags[`_sheetTab-${group}`];
-      new Tabs(tabs, {
-        initial,
-        callback: (clicked) => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr('data-tab'),
-      });
-    });
-
     // Item summaries
     html.find('.item .item-name h4').click((event) => {
       this._onItemSummary(event);
@@ -438,6 +483,11 @@ class ActorSheetPF2e extends ActorSheet {
       const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
       this.actor.rollSkill(ev, skl);
     });
+
+    // Toggle Dying Wounded
+    html.find('.dying-click').on('click contextmenu', this._onCycleDying.bind(this));
+    html.find('.wounded-click').on('click contextmenu', this._onCycleWounded.bind(this));
+    html.find('.doomed-click').on('click contextmenu', this._onCycleDoomed.bind(this));
 
     // Toggle Skill Proficiency
     // html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
@@ -769,6 +819,81 @@ class ActorSheetPF2e extends ActorSheet {
       field.val(newLevel);
       this._onSubmit(event);
     }
+  }
+
+  /**
+   * Handle cycling of dying
+   * @private
+   */
+  _onCycleDying(event) {
+    event.preventDefault();
+    const field = $(event.currentTarget).siblings('input[type="hidden"]');
+    const maxDying = this.object.data.data.attributes.dying.max;
+    const wounded = this.object.data.data.attributes.wounded.value;
+    const doomed = this.object.data.data.attributes.doomed.value;
+
+    // Get the current level and the array of levels
+    const level = parseFloat(field.val());
+    let newLevel = '';
+
+    // Toggle next level - forward on click, backwards on right
+    if (event.type === 'click') {
+      newLevel = Math.clamped( (level + 1 + wounded) , 0, maxDying );
+      if (newLevel+doomed >= maxDying) newLevel = maxDying;
+    } else if (event.type === 'contextmenu') {
+      newLevel = Math.clamped( (level - 1) , 0, maxDying );
+      if (newLevel+doomed >= maxDying) newLevel -= doomed;
+    }
+
+    // Update the field value and save the form
+    field.val(newLevel);
+    this._onSubmit(event);
+  }
+
+  /**
+   * Handle cycling of wounded
+   * @private
+   */
+  _onCycleWounded(event) {
+    event.preventDefault();
+    const field = $(event.currentTarget).siblings('input[type="hidden"]');
+    
+    // Get the current level and the array of levels
+    const level = parseFloat(field.val());
+    let newLevel = '';
+
+    // Toggle next level - forward on click, backwards on right
+    if (event.type === 'click') {
+      newLevel = Math.clamped( (level + 1) , 0, 3 );
+    } else if (event.type === 'contextmenu') {
+      newLevel = Math.clamped( (level - 1) , 0, 3 );
+    }
+    // Update the field value and save the form
+    field.val(newLevel);
+    this._onSubmit(event);
+  }
+  
+  /**
+   * Handle cycling of doomed
+   * @private
+   */
+  _onCycleDoomed(event) {
+    event.preventDefault();
+    const field = $(event.currentTarget).siblings('input[type="hidden"]');
+
+    // Get the current level and the array of levels
+    const level = parseFloat(field.val());
+    let newLevel = '';
+
+    // Toggle next level - forward on click, backwards on right
+    if (event.type === 'click') {
+      newLevel = Math.clamped( (level + 1 ) , 0, 3 );
+    } else if (event.type === 'contextmenu') {
+      newLevel = Math.clamped( (level - 1) , 0, 3 );
+    }
+    // Update the field value and save the form
+    field.val(newLevel);
+    this._onSubmit(event);
   }
 
   /**

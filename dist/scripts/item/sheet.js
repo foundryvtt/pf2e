@@ -8,6 +8,7 @@ class ItemSheetPF2e extends ItemSheet {
     options.height = 460;
     options.classes = options.classes.concat(['pf2e', 'item']);
     options.template = 'systems/pf2e/templates/items/item-sheet.html';
+    options.tabs = [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "description"}];
     options.resizable = false;
     return options;
   }
@@ -187,12 +188,6 @@ class ItemSheetPF2e extends ItemSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-    // Activate tabs
-    new Tabs(html.find('.tabs'), {
-      initial: this.item.data.flags._sheetTab,
-      callback: (clicked) => { this.item.data.flags._sheetTab = clicked.attr('data-tab'); },
-    });
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change((event) => this._onSubmit(event));
