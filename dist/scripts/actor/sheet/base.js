@@ -22,7 +22,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Update martial skill labels
     for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.proficiencyLevels[skl.rank];
+      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
       skl.label = CONFIG.PF2E.martialSkills[s];
       skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
     }
@@ -30,14 +30,14 @@ class ActorSheetPF2e extends ActorSheet {
     // Update save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.icon = this._getProficiencyIcon(save.rank);
-      save.hover = CONFIG.proficiencyLevels[save.rank];
+      save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
       save.label = CONFIG.PF2E.saves[s];
     }
     
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
-    sheetData.data.attributes.perception.hover = CONFIG.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
@@ -48,7 +48,7 @@ class ActorSheetPF2e extends ActorSheet {
     for (let [s, skl] of Object.entries(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
       skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.proficiencyLevels[skl.value];
+      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.value];
       skl.label = CONFIG.PF2E.skills[s];
     }
 
@@ -58,8 +58,8 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update traits
-    sheetData.actorSizes = CONFIG.actorSizes;
-    sheetData.alignment = CONFIG.alignment;
+    sheetData.actorSizes = CONFIG.PF2E.actorSizes;
+    sheetData.alignment = CONFIG.PF2E.alignment;
     this._prepareTraits(sheetData.data.traits);
 
     // Prepare owned items
@@ -100,11 +100,15 @@ class ActorSheetPF2e extends ActorSheet {
 
   _prepareTraits(traits) {
     const map = {
-      /*       "dr": CONFIG.damageTypes,
-      "di": CONFIG.damageTypes,
-      "dv": CONFIG.damageTypes,
-      "ci": CONFIG.conditionTypes, */
-      languages: CONFIG.languages,
+      /*       "dr": CONFIG.PF2E.damageTypes,
+      "di": CONFIG.PF2E.damageTypes,
+      "dv": CONFIG.PF2E.damageTypes,
+      "ci": CONFIG.PF2E.conditionTypes, */
+      languages: CONFIG.PF2E.languages,
+      dr: CONFIG.PF2E.immunityTypes,
+      di: CONFIG.PF2E.immunityTypes,
+      dv: CONFIG.PF2E.immunityTypes,
+      ci: CONFIG.PF2E.immunityTypes,
     };
     for (const [t, choices] of Object.entries(map)) {
       const trait = traits[t];
@@ -140,7 +144,7 @@ class ActorSheetPF2e extends ActorSheet {
     spellbook[lvl] = spellbook[lvl] || {
       isCantrip: lvl === 0,
       isFocus: lvl === 11,
-      label: CONFIG.spellLevels[lvl],
+      label: CONFIG.PF2E.spellLevels[lvl],
       spells: [],
       prepared: [],
       uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].value) || 0 : 0,
@@ -149,7 +153,7 @@ class ActorSheetPF2e extends ActorSheet {
     };
 
     // Add the spell to the spellbook at the appropriate level
-    spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
+    spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
     spellbook[lvl].spells.push(spell);
   }
 
@@ -187,7 +191,7 @@ class ActorSheetPF2e extends ActorSheet {
               if (spl.prepared[i]) {
                 // enrich data with spell school formatted string
                 if (spl.prepared[i].data && spl.prepared[i].data.school && spl.prepared[i].data.school.str) {
-                  spl.prepared[i].data.school.str = CONFIG.spellSchools[spl.prepared[i].data.school.value];
+                  spl.prepared[i].data.school.str = CONFIG.PF2E.spellSchools[spl.prepared[i].data.school.value];
                 }
 
                 // Add chat data
@@ -1081,6 +1085,9 @@ class ActorSheetPF2e extends ActorSheet {
    */
   _onItemSummary(event) {
     event.preventDefault();
+
+    const localize = game.i18n.localize.bind(game.i18n);
+
     const li = $(event.currentTarget).parent().parent();
     const itemId = li.attr('data-item-id');
     const itemType = li.attr('data-item-type');
@@ -1108,13 +1115,13 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       const props = $('<div class="item-properties"></div>');
-      if (chatData.properties) chatData.properties.forEach((p) => props.append(`<span class="tag">${p}</span>`));
-      if (chatData.critSpecialization) props.append(`<span class="tag" title="${chatData.critSpecialization.description}" style="background: rgb(69,74,124); color: white;">${chatData.critSpecialization.label}</span>`);
+      if (chatData.properties) chatData.properties.forEach((p) => props.append(`<span class="tag">${localize(p)}</span>`));
+      if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
       if (chatData.traits) {
         chatData.traits.forEach((p) => {
-          if (p.description) props.append(`<span class="tag" title="${p.description}" style="background: #b75b5b; color: white;">${p.label}</span>`);
-          else props.append(`<span class="tag">${p.label}</span>`);
+          if (p.description) props.append(`<span class="tag" title="${localize(p.description)}" style="background: #b75b5b; color: white;">${localize(p.label)}</span>`);
+          else props.append(`<span class="tag">${localize(p.label)}</span>`);
         });
       }
 
@@ -1134,10 +1141,10 @@ class ActorSheetPF2e extends ActorSheet {
         case 'action':
           if (chatData.weapon.value) {
             if (chatData.weapon.value) {
-              buttons.append('<span class="tag"><button data-action="weaponAttack">Strike</button></span>');
+              buttons.append(`<span class="tag"><button data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')}</button></span>`);
               buttons.append('<span class="tag"><button data-action="weaponAttack2">2</button></span>');
               buttons.append('<span class="tag"><button data-action="weaponAttack3">3</button></span>');
-              buttons.append('<span class="tag"><button data-action="weaponDamage">Damage</button></span>');
+              buttons.append(`<span class="tag"><button data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button></span>`);
             }
           }
           break;
@@ -1147,22 +1154,22 @@ class ActorSheetPF2e extends ActorSheet {
             if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
             else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
           }
-          buttons.append(`<span class="tag"><button data-action="weaponAttack">Strike (+${chatData.attackRoll})</button></span>`);
+          buttons.append(`<span class="tag"><button data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')} (+${chatData.attackRoll})</button></span>`);
           buttons.append(`<span class="tag"><button data-action="weaponAttack2">${chatData.map2}</button></span>`);
           buttons.append(`<span class="tag"><button data-action="weaponAttack3">${chatData.map3}</button></span>`);
-          buttons.append('<span class="tag"><button data-action="weaponDamage">Damage</button></span>');
-          buttons.append('<span class="tag"><button data-action="weaponDamageCritical">Critical</button></span>');
+          buttons.append(`<span class="tag"><button data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button></span>`);
+          buttons.append(`<span class="tag"><button data-action="weaponDamageCritical">${localize('PF2E.CriticalDamageLabel')}</button></span>`);
           break;
         case 'spell':
-          if (chatData.isSave) buttons.append(`<span class="tag">Save DC ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
-          if (chatData.isAttack) buttons.append('<span class="tag"><button data-action="spellAttack">Attack</button></span>');
+          if (chatData.isSave) buttons.append(`<span class="tag">${localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
+          if (chatData.isAttack) buttons.append(`<span class="tag"><button data-action="spellAttack">${localize('PF2E.AttackLabel')}</button></span>`);
           if (item.data.data.damage.value) buttons.append(`<span class="tag"><button data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
           break;
         case 'consumable':
-          if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">Use ${item.name}</button></span>`);
+          if (chatData.hasCharges) buttons.append(`<span class="tag"><button data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
         case 'tool':
-          buttons.append(`<span class="tag"><button data-action="toolCheck" data-ability="${chatData.ability.value}">Use ${item.name}</button></span>`);
+          buttons.append(`<span class="tag"><button data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
       }
 
@@ -1264,9 +1271,9 @@ class ActorSheetPF2e extends ActorSheet {
     };
     const dialogData = {
       magicTradition,
-      magicTraditions: CONFIG.magicTraditions,
+      magicTraditions: CONFIG.PF2E.magicTraditions,
       spellcastingType,
-      spellcastingTypes: CONFIG.preparationType,
+      spellcastingTypes: CONFIG.PF2E.preparationType,
     };
     renderTemplate(template, dialogData).then((dlg) => {
       new Dialog({
@@ -1284,16 +1291,16 @@ class ActorSheetPF2e extends ActorSheet {
           magicTradition = html.find('[name="magicTradition"]').val();
           if (magicTradition === 'ritual') {
             spellcastingType = '';
-            name = `${CONFIG.magicTraditions[magicTradition]}s`;
+            name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
           } else if (magicTradition === 'focus') {
             spellcastingType = '';
-            name = `${CONFIG.magicTraditions[magicTradition]} Spells`;
+            name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
           } else if (magicTradition === 'scroll') {
             spellcastingType = '';
-            name = `${CONFIG.magicTraditions[magicTradition]}`;
+            name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
           } else {
             spellcastingType = html.find('[name="spellcastingType"]').val();
-            name = `${CONFIG.preparationType[spellcastingType]} ${CONFIG.magicTraditions[magicTradition]} Spells`;
+            name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
           }
 
           // Define new spellcasting entry
@@ -1403,7 +1410,7 @@ class ActorSheetPF2e extends ActorSheet {
     const options = {
       name: a.parents('label').attr('for'),
       title: a.parent().text().trim(),
-      choices: CONFIG[a.attr('data-options')],
+      choices: CONFIG.PF2E[a.attr('data-options')],
     };
     new TraitSelector5e(this.actor, options).render(true);
   }

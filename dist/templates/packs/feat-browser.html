@@ -1,17 +1,17 @@
 <div class="spell-browser">
     <div class="control-area">
-        <div class="sortcontainer" id="tagfilter">            
-            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
             <div class="hint" style="display:none;">
-                You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
+                {{{localize "PF2E.FeatBrowserSearchHint"}}}
             </div>
             <dl id="sorter">
-                <dt>Sort by:</dt>
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
                 <dd><select class="null" name="sortorder">
-                    <option value="true" selected>Name</option>
-                    <option value="false">Level</option>
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
                 </select></dd>
-            </dl>                    
+            </dl>
 <!--             <dl id="timefilter">
                 <dt>Castingtime:</dt>
                 <dd><select class="" name="timefilter">
@@ -20,7 +20,7 @@
                     <option value="{{time}}">{{time}}</option>
                     {{/each}}
                 </select></dd>
-            </dl>    -->         
+            </dl>    -->
         </div>
 <!--         <div class="filtercontainer" id="classfilter">
             <h3>Traditions</h3>
@@ -31,32 +31,32 @@
             </dl>
         </div> -->
         <div class="filtercontainer" id="levelfilter">
-            <h3>Level</h3>
+            <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
             <dl style="display:none;">
-                <dt><input type="checkbox" name="level-1"></dt><dd>Level 1</dd>
-                <dt><input type="checkbox" name="level-2"></dt><dd>Level 2</dd>
-                <dt><input type="checkbox" name="level-3"></dt><dd>Level 3</dd>
-                <dt><input type="checkbox" name="level-4"></dt><dd>Level 4</dd>
-                <dt><input type="checkbox" name="level-5"></dt><dd>Level 5</dd>
-                <dt><input type="checkbox" name="level-6"></dt><dd>Level 6</dd>
-                <dt><input type="checkbox" name="level-7"></dt><dd>Level 7</dd>
-                <dt><input type="checkbox" name="level-8"></dt><dd>Level 8</dd>
-                <dt><input type="checkbox" name="level-9"></dt><dd>Level 9</dd>
-                <dt><input type="checkbox" name="level-10"></dt><dd>Level 10</dd>
-                <dt><input type="checkbox" name="level-11"></dt><dd>Level 11</dd>
-                <dt><input type="checkbox" name="level-12"></dt><dd>Level 12</dd>
-                <dt><input type="checkbox" name="level-13"></dt><dd>Level 13</dd>
-                <dt><input type="checkbox" name="level-14"></dt><dd>Level 14</dd>
-                <dt><input type="checkbox" name="level-15"></dt><dd>Level 15</dd>
-                <dt><input type="checkbox" name="level-16"></dt><dd>Level 16</dd>
-                <dt><input type="checkbox" name="level-17"></dt><dd>Level 17</dd>
-                <dt><input type="checkbox" name="level-18"></dt><dd>Level 18</dd>
-                <dt><input type="checkbox" name="level-19"></dt><dd>Level 19</dd>
-                <dt><input type="checkbox" name="level-20"></dt><dd>Level 20</dd>
+                <dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.LevelLabel"}} 1</dd>
+                <dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.LevelLabel"}} 2</dd>
+                <dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.LevelLabel"}} 3</dd>
+                <dt><input type="checkbox" name="level-4"></dt><dd>{{localize "PF2E.LevelLabel"}} 4</dd>
+                <dt><input type="checkbox" name="level-5"></dt><dd>{{localize "PF2E.LevelLabel"}} 5</dd>
+                <dt><input type="checkbox" name="level-6"></dt><dd>{{localize "PF2E.LevelLabel"}} 6</dd>
+                <dt><input type="checkbox" name="level-7"></dt><dd>{{localize "PF2E.LevelLabel"}} 7</dd>
+                <dt><input type="checkbox" name="level-8"></dt><dd>{{localize "PF2E.LevelLabel"}} 8</dd>
+                <dt><input type="checkbox" name="level-9"></dt><dd>{{localize "PF2E.LevelLabel"}} 9</dd>
+                <dt><input type="checkbox" name="level-10"></dt><dd>{{localize "PF2E.LevelLabel"}} 10</dd>
+                <dt><input type="checkbox" name="level-11"></dt><dd>{{localize "PF2E.LevelLabel"}} 11</dd>
+                <dt><input type="checkbox" name="level-12"></dt><dd>{{localize "PF2E.LevelLabel"}} 12</dd>
+                <dt><input type="checkbox" name="level-13"></dt><dd>{{localize "PF2E.LevelLabel"}} 13</dd>
+                <dt><input type="checkbox" name="level-14"></dt><dd>{{localize "PF2E.LevelLabel"}} 14</dd>
+                <dt><input type="checkbox" name="level-15"></dt><dd>{{localize "PF2E.LevelLabel"}} 15</dd>
+                <dt><input type="checkbox" name="level-16"></dt><dd>{{localize "PF2E.LevelLabel"}} 16</dd>
+                <dt><input type="checkbox" name="level-17"></dt><dd>{{localize "PF2E.LevelLabel"}} 17</dd>
+                <dt><input type="checkbox" name="level-18"></dt><dd>{{localize "PF2E.LevelLabel"}} 18</dd>
+                <dt><input type="checkbox" name="level-19"></dt><dd>{{localize "PF2E.LevelLabel"}} 19</dd>
+                <dt><input type="checkbox" name="level-20"></dt><dd>{{localize "PF2E.LevelLabel"}} 20</dd>
             </dl>
         </div>
         <div class="filtercontainer" id="classfilter">
-            <h3>Class Feats</h3>
+            <h3>{{localize "PF2E.BrowserFilterClassFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featClasses as |class key|}}
                 <dt><input type="checkbox" name="classes-{{key}}"></dt><dd>{{class}}</dd>
@@ -64,7 +64,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="skillfilter">
-            <h3>Skill Feats</h3>
+            <h3>{{localize "PF2E.BrowserFilterSkillFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featSkills as |skill key|}}
                 <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
@@ -72,7 +72,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="ancestryfilter">
-            <h3>Ancestry Feats</h3>
+            <h3>{{localize "PF2E.BrowserFilterAncestryFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featAncestry as |ancestry key|}}
                 <dt><input type="checkbox" name="ancestry-{{key}}"></dt><dd>{{ancestry}}</dd>
@@ -96,12 +96,11 @@
             </div> -->
             {{#unless feat.data.actionType.img}}
             <div class="spell-image">
-                
-            </div> 
+            </div>
             {{else}}
             <div class="spell-image">
                 <img class="" src="{{feat.data.actionType.img}}" title="{{feat.data.level.value}}" width="32" height="32"/>
-            </div> 
+            </div>
             {{/unless}}
             <div class="spell-name">
                 <span class="item-edit" ><a>{{feat.name}}</a></span>
@@ -109,7 +108,6 @@
             <div class="spell-tags">
                 <span title="Feat level">{{feat.data.level.formated}}</span>
             </div>
-            
             {{#each feat.data as |attrib id|}}
                 <input type="hidden" name="{{id}}" value="{{attrib.value}}">
             {{/each}}
