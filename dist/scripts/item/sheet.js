@@ -21,8 +21,8 @@ class ItemSheetPF2e extends ItemSheet {
    */
   getData() {
     const data = super.getData();
-    data.abilities = CONFIG.abilities;
-    data.saves = CONFIG.saves;
+    data.abilities = CONFIG.PF2E.abilities;
+    data.saves = CONFIG.PF2E.saves;
 
     // Sheet display details
     const { type } = this.item;
@@ -35,27 +35,29 @@ class ItemSheetPF2e extends ItemSheet {
     });
 
     // Damage types
-    const dt = duplicate(CONFIG.damageTypes);
-    if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.healingTypes);
+    const dt = duplicate(CONFIG.PF2E.damageTypes);
+    if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt;
 
     // Consumable Data
     if (type === 'consumable') {
-      data.consumableTypes = CONFIG.consumableTypes;
-      data.bulkTypes = CONFIG.bulkTypes;
+      data.consumableTypes = CONFIG.PF2E.consumableTypes;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
     } else if (type === 'spell') {
       // Spell Data
       mergeObject(data, {
-        spellTypes: CONFIG.spellTypes,
-        spellSchools: CONFIG.spellSchools,
-        spellLevels: CONFIG.spellLevels,
-        spellTraditions: CONFIG.magicTraditions,
-        // spellBasic: CONFIG.spellBasic,
+        spellTypes: CONFIG.PF2E.spellTypes,
+        spellSchools: CONFIG.PF2E.spellSchools,
+        spellLevels: CONFIG.PF2E.spellLevels,
+        magicTraditions: CONFIG.PF2E.magicTraditions,
+        // spellBasic: CONFIG.PF2E.spellBasic,
         spellComponents: this._formatSpellComponents(data.data),
-        areaSizes: CONFIG.areaSizes,
-        areaTypes: CONFIG.areaTypes,
-        spellScalingModes: CONFIG.spellScalingModes,
+        areaSizes: CONFIG.PF2E.areaSizes,
+        areaTypes: CONFIG.PF2E.areaTypes,
+        spellScalingModes: CONFIG.PF2E.spellScalingModes,
       });
+      this._prepareTraits(data.data.traits, mergeObject(CONFIG.PF2E.magicTraditions,
+                                                        CONFIG.PF2E.spellTraits));
     } else if (this.item.type === 'weapon') {
       // get a list of all custom martial skills
       const martialSkills = [];
@@ -67,33 +69,36 @@ class ItemSheetPF2e extends ItemSheet {
       data.martialSkills = martialSkills;
 
       // Weapon Data
-      data.weaponTypes = CONFIG.weaponTypes;
-      data.weaponGroups = CONFIG.weaponGroups;
-      data.itemBonuses = CONFIG.itemBonuses;
-      data.damageDie = CONFIG.damageDie;
-      data.damageDice = CONFIG.damageDice;
-      data.conditionTypes = CONFIG.conditionTypes;
-      data.weaponDamage = CONFIG.weaponDamage;
-      data.weaponRange = CONFIG.weaponRange;
-      data.weaponReload = CONFIG.weaponReload;
-      data.weaponMAP = CONFIG.weaponMAP;
-      data.weaponTraits = data.data.traits.value;
-      data.bulkTypes = CONFIG.bulkTypes;
+      data.weaponTraits = CONFIG.PF2E.weaponTraits;
+      data.weaponTypes = CONFIG.PF2E.weaponTypes;
+      data.weaponGroups = CONFIG.PF2E.weaponGroups;
+      data.itemBonuses = CONFIG.PF2E.itemBonuses;
+      data.damageDie = CONFIG.PF2E.damageDie;
+      data.damageDice = CONFIG.PF2E.damageDice;
+      data.conditionTypes = CONFIG.PF2E.conditionTypes;
+      data.weaponDamage = CONFIG.PF2E.weaponDamage;
+      data.weaponRange = CONFIG.PF2E.weaponRange;
+      data.weaponReload = CONFIG.PF2E.weaponReload;
+      data.weaponMAP = CONFIG.PF2E.weaponMAP;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (this.item.type === 'melee') {
       // Melee Data
       data.hasSidebar = false;
       data.detailsActive = true;
-      data.weaponDamage = CONFIG.damageTypes;
+      data.weaponDamage = CONFIG.PF2E.damageTypes;
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (type === 'feat') {
       // Feat types
-      data.featTypes = CONFIG.featTypes;
-      data.featActionTypes = CONFIG.featActionTypes;
-      data.actionsNumber = CONFIG.actionsNumber;
-      data.categories = CONFIG.actionCategories;
+      data.featTypes = CONFIG.PF2E.featTypes;
+      data.featActionTypes = CONFIG.PF2E.featActionTypes;
+      data.actionsNumber = CONFIG.PF2E.actionsNumber;
+      data.categories = CONFIG.PF2E.actionCategories;
       data.featTags = [
         data.data.level.value,
         data.data.traits.value,
       ].filter((t) => !!t);
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
     } else if (type === 'action') {
       // Action types
       const actorWeapons = [];
@@ -110,41 +115,54 @@ class ItemSheetPF2e extends ItemSheet {
       else if (actionType === 'free') actionImg = 'free';
       else if (actionType === 'passive') actionImg = 'passive';
       data.item.img = this._getActionImg(actionImg);
-      data.categories = CONFIG.actionCategories;
+      data.categories = CONFIG.PF2E.actionCategories;
       data.weapons = actorWeapons;
-      data.actionTypes = CONFIG.actionTypes;
-      data.actionsNumber = CONFIG.actionsNumber;
-      data.skills = CONFIG.skillList;
-      data.proficiencies = CONFIG.proficiencyLevels;
+      data.actionTypes = CONFIG.PF2E.actionTypes;
+      data.actionsNumber = CONFIG.PF2E.actionsNumber;
+      data.featTraits = CONFIG.PF2E.featTraits;
+      data.skills = CONFIG.PF2E.skillList;
+      data.proficiencies = CONFIG.PF2E.proficiencyLevels;
       data.actionTags = [
         data.data.traits.value,
       ].filter((t) => !!t);
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
     } else if (type === 'equipment') {
     // Equipment data
-      data.bulkTypes = CONFIG.bulkTypes;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
     } else if (type === 'backpack') {
       // Backpack data
-      data.bulkTypes = CONFIG.bulkTypes;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
     } else if (type === 'armor') {
       // Armor data
-      data.armorTypes = CONFIG.armorTypes;
-      data.armorGroups = CONFIG.armorGroups;
-      data.bulkTypes = CONFIG.bulkTypes;
+      data.armorTypes = CONFIG.PF2E.armorTypes;
+      data.armorGroups = CONFIG.PF2E.armorGroups;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
     } else if (type === 'tool') {
       // Tool-specific data
-      data.proficiencies = CONFIG.proficiencyLevels;
+      data.proficiencies = CONFIG.PF2E.proficiencyLevels;
     } else if (type === 'lore') {
       // Lore-specific data
-      data.proficiencies = CONFIG.proficiencyLevels;
+      data.proficiencies = CONFIG.PF2E.proficiencyLevels;
     }
+
     return data;
+  }
+
+  _prepareTraits(traits, choices) {
+    traits.selected = traits.value.reduce((obj, t) => {
+      obj[t] = choices[t];
+      return obj;
+    }, {});
+
+    // Add custom entry
+    if (traits.custom) traits.selected.custom = traits.custom;
   }
 
   /* -------------------------------------------- */
 
   _formatSpellComponents(data) {
     if (!data.components.value) return [];
-    const comps = data.components.value.split(',').map((c) => CONFIG.spellComponents[c.trim()] || c.trim());
+    const comps = data.components.value.split(',').map((c) => CONFIG.PF2E.spellComponents[c.trim()] || c.trim());
     if (data.materials.value) comps.push(data.materials.value);
     return comps;
   }
@@ -157,7 +175,7 @@ class ItemSheetPF2e extends ItemSheet {
     const options = {
       name: a.parents('label').attr('for'),
       title: a.parent().text().trim(),
-      choices: CONFIG[a.attr('data-options')],
+      choices: CONFIG.PF2E[a.attr('data-options')],
     };
     new TraitSelector5e(this.item, options).render(true);
   }
