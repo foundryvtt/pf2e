@@ -34,10 +34,6 @@ class ActorSheetPF2e extends ActorSheet {
       save.label = CONFIG.PF2E.saves[s];
     }
     
-    // Update dying and wounded label
-    sheetData.data.attributes.dyingIcon = this._getDyingIcon(sheetData.data.attributes.dying);
-    sheetData.data.attributes.woundedIcon = this._getWoundedIcon(sheetData.data.attributes.wounded);
-    sheetData.data.attributes.doomedIcon = this._getDoomedIcon(sheetData.data.attributes.doomed);
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
@@ -343,19 +339,23 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getDyingIcon(level) {
-    const doomed = this.object.data.data.attributes.doomed || 0;
+    const maxDying = this.object.data.data.attributes.dying.max || 4;
+    const doomed = this.object.data.data.attributes.doomed.value || 0;
     const circle = '<i class="far fa-circle"></i>';
     const cross = '<i class="fas fa-times-circle"></i>';
     const skull = '<i class="fas fa-skull"></i>';
     const redOpen = '<span style="color:var(--tertiary-background);">';
     const redClose = '</span>';
-    const icons = {
-      0: (doomed>2?redOpen:'')  + (doomed>2?skull:circle) + (doomed>1?skull:circle) + (doomed>0?skull:circle) + skull + (doomed>2?redClose:''),
-      1: (doomed>2?redOpen:'')  + (doomed>2?skull:cross)  + (doomed>1?skull:circle) + (doomed>0?skull:circle) + skull + (doomed>2?redClose:''),
-      2: (doomed>2?redOpen:'')  + (doomed>2?skull:cross)  + (doomed>1?skull:cross)  + (doomed>0?skull:circle) + skull + (doomed>2?redClose:''),
-      3: (doomed>2?redOpen:'')  + (doomed>2?skull:cross)  + (doomed>1?skull:cross)  + (doomed>0?skull:cross)  + skull + (doomed>2?redClose:''),
-      4: redOpen                + skull                   + skull                   + skull                   + skull + redClose,
-    };
+    let icons = {};
+
+    for  (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
+      icons[dyingLevel] = (dyingLevel==maxDying) ? redOpen : ('');
+      for  (let column = 1; column <= maxDying; column++) {
+        icons[dyingLevel] += (column>=(maxDying-doomed) || dyingLevel==maxDying) ? skull : ( (dyingLevel<column) ? circle : cross );
+      }
+      icons[dyingLevel] += (dyingLevel==maxDying) ? redClose : ('');
+    }
+
     return icons[level];
   }
 
@@ -828,8 +828,9 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleDying(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    const wounded = this.object.data.data.attributes.wounded;
-    const doomed = this.object.data.data.attributes.doomed;
+    const maxDying = this.object.data.data.attributes.dying.max;
+    const wounded = this.object.data.data.attributes.wounded.value;
+    const doomed = this.object.data.data.attributes.doomed.value;
 
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
@@ -837,11 +838,11 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1 + wounded) , 0, 4 );
-      if (newLevel+doomed >= 4) newLevel = 4;
+      newLevel = Math.clamped( (level + 1 + wounded) , 0, maxDying );
+      if (newLevel+doomed >= maxDying) newLevel = maxDying;
     } else if (event.type === 'contextmenu') {
-      newLevel = Math.clamped( (level - 1) , 0, 4 );
-      if (newLevel+doomed >= 4) newLevel -= doomed;
+      newLevel = Math.clamped( (level - 1) , 0, maxDying );
+      if (newLevel+doomed >= maxDying) newLevel -= doomed;
     }
 
     // Update the field value and save the form
@@ -856,15 +857,14 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleWounded(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    //const wounded = this.object.data.data.attributes.wounded;
-
+    
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
     let newLevel = '';
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1 /* + wounded */) , 0, 3 );
+      newLevel = Math.clamped( (level + 1) , 0, 3 );
     } else if (event.type === 'contextmenu') {
       newLevel = Math.clamped( (level - 1) , 0, 3 );
     }
@@ -880,7 +880,6 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleDoomed(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    const wounded = this.object.data.data.attributes.wounded;
 
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
