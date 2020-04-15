@@ -56,16 +56,17 @@ export default class extends Item {
   /* -------------------------------------------- */
 
   _armorChatData() {
+    const localize = game.i18n.localize.bind(game.i18n);
     const data = duplicate(this.data.data);
     const properties = [
-      CONFIG.armorTypes[data.armorType.value],
-      CONFIG.armorGroups[data.group.value],
-      `+${data.armor.value ? data.armor.value : 0} AC Bonus`,
-      `${data.dex.value || 0} Dex Cap`,
-      `${data.check.value || 0} Check Penalty`,
-      `${data.speed.value || 0} Speed Penalty`,
+      CONFIG.PF2E.armorTypes[data.armorType.value],
+      CONFIG.PF2E.armorGroups[data.group.value],
+      `+${data.armor.value ? data.armor.value : 0} ${localize('PF2E.ArmorArmorLabel')}`,
+      `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
+      `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
+      `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
       data.traits.value,
-      data.equipped.value ? 'Equipped' : null,
+      data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
     ];
     data.properties = properties.filter((p) => p !== null);
 
@@ -78,7 +79,7 @@ export default class extends Item {
   _equipmentChatData() {
     const data = duplicate(this.data.data);
     const properties = [
-      data.equipped.value ? 'Equipped' : null,
+      data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null,
     ];
     data.properties = properties.filter((p) => p !== null);
     return data;
@@ -101,8 +102,8 @@ export default class extends Item {
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
-          label: CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+          label: CONFIG.PF2E.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
         };
         traits.push(traitsObject);
 
@@ -120,14 +121,14 @@ export default class extends Item {
     // calculate attackRoll modifier (for _onItemSummary)
     const isFinesse = (data.traits.value || []).includes('finesse');
     const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (data.ability.value || 'str'));
-    
+
     const prof = data.weaponType.value || 'simple';
     // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
     let proficiency = {
       type: "default",
       value: 0
     };
-    if (Object.keys(CONFIG.weaponTypes).includes(prof)) {
+    if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
       proficiency.type = "martial";
       proficiency.value = actorData.data.martial[prof].value || 0;
     } else {
@@ -146,14 +147,14 @@ export default class extends Item {
 
     const properties = [
       // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-      // CONFIG.weaponTypes[data.weaponType.value],
-      // CONFIG.weaponGroups[data.group.value]
+      // CONFIG.PF2E.weaponTypes[data.weaponType.value],
+      // CONFIG.PF2E.weaponGroups[data.group.value]
     ];
 
     if (data.group.value) {
       data.critSpecialization = {
-        label: CONFIG.weaponGroups[data.group.value],
-        description: CONFIG.weaponDescriptions[data.group.value],
+        label: CONFIG.PF2E.weaponGroups[data.group.value],
+        description: CONFIG.PF2E.weaponDescriptions[data.group.value],
       };
     }
 
@@ -198,8 +199,8 @@ export default class extends Item {
   _meleeChatData() {
     const data = duplicate(this.data.data);
     /*       const properties = [
-        CONFIG.weaponTypes[data.weaponType.value],
-        CONFIG.weaponGroups[data.group.value]
+        CONFIG.PF2E.weaponTypes[data.weaponType.value],
+        CONFIG.PF2E.weaponGroups[data.group.value]
       ];
       data.properties = properties.filter(p => !!p); */
     const traits = [];
@@ -213,8 +214,8 @@ export default class extends Item {
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
-          label: CONFIG.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+          label: CONFIG.PF2E.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
         };
         traits.push(traitsObject);
       }
@@ -222,8 +223,8 @@ export default class extends Item {
 
     const properties = [
       (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-      // CONFIG.weaponTypes[data.weaponType.value],
-      CONFIG.damageTypes[data.damage.damageType],
+      // CONFIG.PF2E.weaponTypes[data.weaponType.value],
+      CONFIG.PF2E.damageTypes[data.damage.damageType],
     ];
 
     // if (traits.length != 0) properties = properties.concat(traits);
@@ -239,9 +240,10 @@ export default class extends Item {
   /* -------------------------------------------- */
 
   _consumableChatData() {
+    const localize = game.i18n.localize.bind(game.i18n);
     const data = duplicate(this.data.data);
-    data.consumableType.str = CONFIG.consumableTypes[data.consumableType.value];
-    data.properties = [data.consumableType.str, `${data.charges.value}/${data.charges.max} Charges`];
+    data.consumableType.str = CONFIG.PF2E.consumableTypes[data.consumableType.value];
+    data.properties = [data.consumableType.str, `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`];
     data.hasCharges = data.charges.value >= 0;
     return data;
   }
@@ -252,7 +254,7 @@ export default class extends Item {
     const data = duplicate(this.data.data);
     const abl = this.actor.data.data.abilities[data.ability.value].label;
     const prof = data.proficient.value || 0;
-    const properties = [abl, CONFIG.proficiencyLevels[prof]];
+    const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
     data.properties = properties.filter((p) => p !== null);
     return data;
   }
@@ -264,7 +266,7 @@ export default class extends Item {
     if (this.actor.data.type != 'npc') {
       const abl = this.actor.data.data.abilities[data.ability.value].label;
       const prof = data.proficient.value || 0;
-      const properties = [abl, CONFIG.proficiencyLevels[prof]];
+      const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
       data.properties = properties.filter((p) => p !== null);
     }
     return data;
@@ -281,6 +283,7 @@ export default class extends Item {
   /* -------------------------------------------- */
 
   _spellChatData() {
+    const localize = game.i18n.localize.bind(game.i18n);
     const data = duplicate(this.data.data);
     const ad = this.actor.data.data;
 
@@ -297,18 +300,18 @@ export default class extends Item {
     data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
 
     // Spell attack labels
-    data.damageLabel = data.spellType.value === 'heal' ? 'Healing' : 'Damage';
+    data.damageLabel = data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
     data.isAttack = data.spellType.value === 'attack';
 
     // Combine properties
     const props = [
-      `Spell: ${CONFIG.spellLevels[data.level.value]}`,
-      `Components: ${data.components.value}`,
-      data.range.value ? `Range: ${data.range.value}` : null,
-      data.target.value ? `Target: ${data.target.value}` : null,
-      data.area.value ? `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}` : null,
-      data.time.value ? `Actions: ${data.time.value}` : null,
-      data.duration.value ? `Duration: ${data.duration.value}` : null,
+      CONFIG.PF2E.spellLevels[data.level.value],
+      `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
+      data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
+      data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
+      data.area.value ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}` : null,
+      data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
+      data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
     ];
     if (data.level.value < parseInt((this.data.contextualData || {}).spellLvl)) {
       props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`);
@@ -320,7 +323,7 @@ export default class extends Item {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
           label: data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
-          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
         };
         traits.push(traitsObject);
       }
@@ -328,7 +331,7 @@ export default class extends Item {
     data.traits = traits.filter((p) => p);
     // Toggling this off for now
     /*     data.area = data.area.value ? {
-      "label": `Area: ${CONFIG.areaSizes[data.area.value]} ${CONFIG.areaTypes[data.area.areaType]}`,
+      "label": `Area: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}`,
       "areaType": data.area.areaType,
       "size": data.area.value
     } : null; */
@@ -356,7 +359,7 @@ export default class extends Item {
     // Feat properties
     const props = [
       `Level ${data.level.value || 0}`,
-      data.actionType.value ? CONFIG.actionTypes[data.actionType.value] : null,
+      data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
     ];
     // if (traits.length != 0) props = props.concat(traits);
 
@@ -366,8 +369,8 @@ export default class extends Item {
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
-          label: CONFIG.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+          label: CONFIG.PF2E.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
         };
         traits.push(traitsObject);
       }
@@ -393,8 +396,8 @@ export default class extends Item {
 
     // Feat properties
     const props = [
-      CONFIG.actionTypes[data.actionType.value],
-      associatedWeapon ? `Weapon: ${associatedWeapon.name}` : null,
+      CONFIG.PF2E.actionTypes[data.actionType.value],
+      associatedWeapon ? associatedWeapon.name : null,
     ];
     // if (traits.length != 0) props = props.concat(traits);
 
@@ -404,8 +407,8 @@ export default class extends Item {
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
-          label: CONFIG.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.traitsDescriptions[data.traits.value[i]] || '',
+          label: CONFIG.PF2E.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
+          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
         };
         traits.push(traitsObject);
       }
@@ -440,7 +443,7 @@ export default class extends Item {
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
     let parts = ['@item.bonus.value', `@abilities.${abl}.mod`];
-    
+
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
@@ -450,7 +453,7 @@ export default class extends Item {
     } else {
       parts.push(`@martial.${prof}.value`);
     }
-    
+
     rollData.item = itemData;
     // if ( !itemData.proficient.value ) parts.pop();
 
@@ -482,6 +485,8 @@ export default class extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollWeaponDamage(event, critical = false) {
+    const localize = game.i18n.localize.bind(game.i18n);
+
     // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
     if (this.type === 'action') {
       const itemId = parseInt(this.data.data.weapon.value);
@@ -499,7 +504,7 @@ export default class extends Item {
     const abl = 'str';
     let abilityMod = rollData.abilities[abl].mod;
     let parts = [];
-    const dtype = CONFIG.damageTypes[itemData.damage.damageType];
+    const dtype = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
     // Get detailed trait information from item
     const traits = itemData.traits.value || [];
@@ -613,7 +618,7 @@ export default class extends Item {
 
     // Set the title of the roll
     const critTitle = critTrait ? critTrait.toUpperCase() : '';
-    let title = critical ? `Critical ${critTitle} Damage: ${this.name}` : `Damage: ${this.name}`;
+    let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${this.name}` : `${localize('PF2E.DamageLabel')}: ${this.name}`;
     if (dtype) title += ` (${dtype})`;
 
     // Call the roll helper utility
@@ -674,6 +679,8 @@ export default class extends Item {
   rollSpellDamage(event) {
     if (this.type !== 'spell') throw 'Wrong item type!';
 
+    const localize = game.i18n.localize.bind(game.i18n);
+
     const button = event.currentTarget;
     const card = button.closest('*[data-spell-lvl]');
     const cardData = card ? card.dataset : {};
@@ -685,11 +692,12 @@ export default class extends Item {
     const abl = spellcastingEntry.data.data.ability.value || 'int';
     const parts = [itemData.damage.value];
     const isHeal = itemData.spellType.value === 'heal';
-    const dtype = CONFIG.damageTypes[itemData.damageType.value];
+    const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
     const spellLvl = parseInt(cardData.spellLvl);
 
     // Append damage type to title
-    let title = this.name + (isHeal ? ' - Healing' : ' - Damage');
+    const damageLabel = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+    let title = this.name + ' - ' + damageLabel;
     if (dtype && !isHeal) title += ` (${dtype})`;
 
     // Add item to roll data
@@ -790,10 +798,10 @@ export default class extends Item {
     const rollData = duplicate(this.actor.data.data);
     const abl = itemData.ability.value || 'str';
     const parts = [itemData.damage.value];
-    const dtype = CONFIG.damageTypes[itemData.damageType.value];
+    const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
     // Append damage type to title
-    let title = `${this.name} - Damage`;
+    let title = `${this.name} - ${game.i18n.localize('PF2E.DamageLabel')}`;
     if (dtype) title += ` (${dtype})`;
 
     // Add item data to roll
