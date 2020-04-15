@@ -5,7 +5,7 @@ A community contributed game system for Pathfinder Second Edition.
 This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This system is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
 
 ### System Version
-This is community created game system to run Pathfinder Second Edition games on virtual table top platforms. 
+This is a community created game system to run Pathfinder Second Edition games on virtual table top platforms. 
 
 Patch Notes:
 See CHANGELOG
@@ -17,7 +17,7 @@ Please Note:
 
 ### VTT Support:
 Tested with the following virtual table top platforms: 
-*  Foundry VTT v0.5.3.
+*  Foundry VTT v0.5.4.
 
 Note: The following modules are recommended with Foundry VTT:
 * Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for status effects. 
