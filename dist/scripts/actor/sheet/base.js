@@ -33,7 +33,7 @@ class ActorSheetPF2e extends ActorSheet {
       save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
       save.label = CONFIG.PF2E.saves[s];
     }
-    
+
 
     // Update proficiency label
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
@@ -173,7 +173,7 @@ class ActorSheetPF2e extends ActorSheet {
       if (spl.slots > 0) {
         for (let i = 0; i < spl.slots; i++) {
           const entrySlot = ((spellcastingEntry.data.slots[`slot${key}`] || {}).prepared || {})[i] || null;
-          
+
           if (entrySlot && entrySlot.id) {
             //console.log(`PF2e System | Getting item: ${entrySlot.id}: `);
             let item = this.actor.getOwnedItem(entrySlot.id);
@@ -181,12 +181,12 @@ class ActorSheetPF2e extends ActorSheet {
               //console.log(`PF2e System | Duplicating item: ${item.name}: `, item);
               let itemCopy = duplicate(item);
               if (entrySlot.expended) {
-                itemCopy.expended = true;               
+                itemCopy.expended = true;
               }
               else {
                 itemCopy.expended = false;
               }
-              
+
               spl.prepared[i] = itemCopy;
               if (spl.prepared[i]) {
                 // enrich data with spell school formatted string
@@ -200,7 +200,7 @@ class ActorSheetPF2e extends ActorSheet {
                 } catch (err) {
                   console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
                 }
-                
+
 
                 spl.prepared[i].prepared = true;
               }
@@ -861,7 +861,7 @@ class ActorSheetPF2e extends ActorSheet {
   _onCycleWounded(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    
+
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
     let newLevel = '';
@@ -876,7 +876,7 @@ class ActorSheetPF2e extends ActorSheet {
     field.val(newLevel);
     this._onSubmit(event);
   }
-  
+
   /**
    * Handle cycling of doomed
    * @private
@@ -1054,7 +1054,7 @@ class ActorSheetPF2e extends ActorSheet {
         dragItem.data.data.location = {
           value: dropID,
         };
-        
+
         this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
         return false;
       }
@@ -1282,65 +1282,65 @@ class ActorSheetPF2e extends ActorSheet {
         buttons: {
           create: {
             label: 'Create',
+            callback: (html) => {
+              // if ( onClose ) onClose(html, parts, data);
+              let name = '';
+              magicTradition = html.find('[name="magicTradition"]').val();
+              if (magicTradition === 'ritual') {
+                spellcastingType = '';
+                name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
+              } else if (magicTradition === 'focus') {
+                spellcastingType = '';
+                name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+              } else if (magicTradition === 'scroll') {
+                spellcastingType = '';
+                name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+              } else {
+                spellcastingType = html.find('[name="spellcastingType"]').val();
+                name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+              }
+
+              // Define new spellcasting entry
+              const spellcastingEntity = {
+                ability: {
+                  type: 'String',
+                  label: 'Spellcasting Ability',
+                  value: '',
+                },
+                spelldc: {
+                  type: 'String',
+                  label: 'Class DC',
+                  item: 0,
+                },
+                tradition: {
+                  type: 'String',
+                  label: 'Magic Tradition',
+                  value: magicTradition,
+                },
+                prepared: {
+                  type: 'String',
+                  label: 'Spellcasting Type',
+                  value: spellcastingType,
+                },
+              };
+
+              const data = {
+                name,
+                type: 'spellcastingEntry',
+                data: spellcastingEntity,
+              };
+
+              // this.actor.createOwnedItem(data, {renderSheet: true});
+              this.actor.createEmbeddedEntity('OwnedItem', data);
+
+              /*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
+                let entry = {};
+                entry[key] = spellcastingEntity;
+                this.actor.update(entry);  */
+            }
           },
         },
         default: 'create',
-        close: (html) => {
-          // if ( onClose ) onClose(html, parts, data);
-          let name = '';
-          magicTradition = html.find('[name="magicTradition"]').val();
-          if (magicTradition === 'ritual') {
-            spellcastingType = '';
-            name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
-          } else if (magicTradition === 'focus') {
-            spellcastingType = '';
-            name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
-          } else if (magicTradition === 'scroll') {
-            spellcastingType = '';
-            name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
-          } else {
-            spellcastingType = html.find('[name="spellcastingType"]').val();
-            name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
-          }
-
-          // Define new spellcasting entry
-          const spellcastingEntity = {
-            ability: {
-              type: 'String',
-              label: 'Spellcasting Ability',
-              value: '',
-            },
-            spelldc: {
-              type: 'String',
-              label: 'Class DC',
-              item: 0,
-            },
-            tradition: {
-              type: 'String',
-              label: 'Magic Tradition',
-              value: magicTradition,
-            },
-            prepared: {
-              type: 'String',
-              label: 'Spellcasting Type',
-              value: spellcastingType,
-            },
-          };
-
-          const data = {
-            name,
-            type: 'spellcastingEntry',
-            data: spellcastingEntity,
-          };
-
-          // this.actor.createOwnedItem(data, {renderSheet: true});
-          this.actor.createEmbeddedEntity('OwnedItem', data);
-
-          /*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
-            let entry = {};
-            entry[key] = spellcastingEntity;
-            this.actor.update(entry);  */
-        },
       }, dialogOptions).render(true);
     });
   }

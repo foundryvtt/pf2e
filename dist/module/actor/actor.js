@@ -33,11 +33,11 @@ export default class extends Actor {
 
     // TODO: Migrate trait storage format
     const map = {
-      dr: CONFIG.damageTypes,
-      di: CONFIG.damageTypes,
-      dv: CONFIG.damageTypes,
-      ci: CONFIG.conditionTypes,
-      languages: CONFIG.languages,
+      dr: CONFIG.PF2E.damageTypes,
+      di: CONFIG.PF2E.damageTypes,
+      dv: CONFIG.PF2E.damageTypes,
+      ci: CONFIG.PF2E.conditionTypes,
+      languages: CONFIG.PF2E.languages,
     };
     for (const [t, choices] of Object.entries(map)) {
       const trait = data.traits[t];
@@ -118,7 +118,7 @@ export default class extends Actor {
   _prepareNPCData(data) {
     // As we only capture the NPCs Spell DC attribute, we need to calculate the Spell Attack Roll.
     // see sidebar on p298 of pf2e core rulebook.
-    
+
     //data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
   }
 
@@ -133,7 +133,7 @@ export default class extends Actor {
    */
   rollSkill(event, skillName) {
     const skl = this.data.data.skills[skillName];
-    const rank = CONFIG.proficiencyLevels[skl.rank];
+    const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
     const parts = ['@mod'];
     const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
 
@@ -259,7 +259,7 @@ export default class extends Actor {
     const flavorText = roll.find('.flavor-text').text();
 		for (const t of canvas.tokens.controlled) {
       const a = t.actor;
-      
+
 			const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
 			const message = `
 			  <div class="dice-roll">
@@ -282,7 +282,7 @@ export default class extends Actor {
 				content: message,
 				type: CONST.CHAT_MESSAGE_TYPES.OTHER
 			});
-		  
+
 			return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
 		}
 	} else {
@@ -374,7 +374,7 @@ export default class extends Actor {
       }
       delete ent.data._id;
       return this.createOwnedItem(ent.data);
-    });    
+    });
 
   }
 
@@ -391,9 +391,9 @@ export default class extends Actor {
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
     const current = getProperty(this.data.data, attribute);
-    
+
     if ( attribute == 'attributes.hp' ) {
-      
+
       if (isDelta) {
         if (value < 0) {
         if ((current.temp + value) >= 0) {
@@ -411,7 +411,7 @@ export default class extends Actor {
       return this.update({[`data.attributes.hp.value`]: value});
 
     } else if ( attribute == 'attributes.shield' && isDelta ) {
-      
+
       if (isDelta) {
         if (value < 0) {
           value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
@@ -431,9 +431,9 @@ export default class extends Actor {
       }
       value = Math.clamped(value, 0, current.max);
       return this.update({[`data.attributes.shield.value`]: value});
-      
+
     }
-    
+
     return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
   }
 
