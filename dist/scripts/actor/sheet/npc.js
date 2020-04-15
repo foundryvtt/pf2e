@@ -32,7 +32,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
   getData() {
     const sheetData = super.getData();
 
-    sheetData.monsterTraits = CONFIG.monsterTraits;
+    sheetData.monsterTraits = CONFIG.PF2E.monsterTraits;
     // Return data for rendering
     return sheetData;
   }
@@ -117,8 +117,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         if ((i.data.traits.value || []).length != 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
-              label: CONFIG.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
-              description: CONFIG.traitsDescriptions[i.data.traits.value[j]] || '',
+              label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
+              description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
             };
             traits.push(traitsObject);
           }
@@ -144,15 +144,15 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         if ((i.data.traits.value || []).length != 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
-              label: CONFIG.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
-              description: CONFIG.traitsDescriptions[i.data.traits.value[j]] || '',
+              label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
+              description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
             };
             traits.push(traitsObject);
           }
         }
         if (i.data.actionType.value) traits.push({
-          label: CONFIG.weaponTraits[i.data.actionType.value] || (i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1)),
-          description: CONFIG.traitsDescriptions[i.data.actionType.value] || '',
+          label: CONFIG.PF2E.weaponTraits[i.data.actionType.value] || (i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1)),
+          description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || '',
         });
         i.traits = traits.filter((p) => !!p);
 

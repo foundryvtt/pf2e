@@ -178,8 +178,8 @@
           if ((i.data.traits.value || []).length != 0) {
             for (let j = 0; j < i.data.traits.value.length; j++) {
               const traitsObject = {
-                label: CONFIG.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
-                description: CONFIG.traitsDescriptions[i.data.traits.value[j]] || '',
+                label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
+                description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
               };
               traits.push(traitsObject);
             }
@@ -211,7 +211,7 @@
         //abl = itemData.ability.value || "str",
         // abl = "str",
         parts = [weaponDamage],
-        dtype = CONFIG.damageTypes[damageRoll.damageType];
+        dtype = game.i18n.localize(CONFIG.PF2E.damageTypes[damageRoll.damageType]);
 
     // Append damage type to title
     let title = `${item.name} - Damage`;

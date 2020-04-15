@@ -12,12 +12,12 @@
     {{#each actor.inventory as |section sid|}}
         <li class="item inventory-header">
             <h3 class="item-name">{{section.label}}</h3>
-            <span class="item-quantity">Qty.</span>
-            <span class="item-weight">Bulk</span>
+            <span class="item-quantity">{{localize "PF2E.QuantityShortLabel"}}</span>
+            <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
             {{#if ../owner}}
             <div class="item-controls" style="display: flex">
-                <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
-                <a class="item-control inventory-browse" title="Open Inventory Browser" data-type="{{sid}}"><i class="fas fa-search"></i></a>
+                <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+                <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-type="{{sid}}"><i class="fas fa-search"></i></a>
             </div>
             {{/if}}
         </li>
@@ -42,8 +42,8 @@
 
             {{#if ../../owner}}
             <div class="item-controls">
-                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
             </div>
             {{/if}}
         </li>

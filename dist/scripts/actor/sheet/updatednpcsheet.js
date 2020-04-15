@@ -177,7 +177,7 @@
         //abl = itemData.ability.value || "str",
         // abl = "str",
         parts = [weaponDamage],
-        dtype = CONFIG.damageTypes[damageRoll.damageType];
+        dtype = CONFIG.PF2E.damageTypes[damageRoll.damageType];
 
     // Append damage type to title
     let title = `${item.name} - Damage`;
@@ -207,7 +207,7 @@
    expandAttackEffect(attackEffectName, event, triggerItem){
     let actionList = $(event.currentTarget).parents('form').find('.item.action-item');
     let toggledAnything = false;
-    let mAbilities = CONFIG.monsterAbilities()
+    let mAbilities = CONFIG.PF2E.monsterAbilities()
     console.log("mAbilities: ", mAbilities);
     actionList.each(function (index){
       //'this' = element found

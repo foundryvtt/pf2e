@@ -4,7 +4,7 @@
     <!-- HEADER -->
     <header class="sheet-header">
         <h1 class="charname" style="flex: 6;">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
         </h1>
 
         {{#if readonlySheet}}
@@ -21,7 +21,7 @@
 
         <div class="charlevel">
             <div class="level">
-                <label>{{localize "PF2E.CharacterLevelLabel"}} </label>
+                <label>{{localize "PF2E.LevelLabel"}} </label>
                 <input name="data.details.level.value" type="text" value="{{data.details.level.value}}"
                         data-dtype="Number" placeholder="1"/>
             </div>
@@ -61,7 +61,7 @@
                         </span>              
                     </div>
                     <div class="ac-item pf-container">
-                        <h4 class="ac-item pf-title" title="Item bonus to your AC">{{localize "PF2E.ItemBonusLabel"}}</h4>
+                        <h4 class="ac-item pf-title" title="Item bonus to your AC">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
                         <span class="ac-value pf-value pf-small" title="Item bonus to your AC">
                             <input name="data.attributes.ac.item" type="text" value="{{data.attributes.ac.item}}"
                                     data-dtype="Number" placeholder="0"/>
@@ -79,15 +79,15 @@
             <ol class="hp-list">
                 <li class="li-two-grid">
                     <div class="hp-temp pf-container">
-                        <h4 class="hp-temp pf-title">AC</h4>
-                        <span class="hp-temp pf-value pf-large" title="AC Value">
+                        <h4 class="hp-temp pf-title">{{localize "PF2E.ArmorClassShortLabel"}}</h4>
+                        <span class="hp-temp pf-value pf-large" title="{{localize "PF2E.ArmorClassValueTitle"}}">
                             <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
                     </div>
                     <div class="hp-current pf-container">
-                        <h4 class="hp-current pf-title" style="font-size: 12px">Shield</h4>
-                        <span class="hp-current pf-value pf-large" title="The AC bonus of your shield (when you use the raise shield action)">
+                        <h4 class="hp-current pf-title" style="font-size: 12px">{{localize "PF2E.ShieldLabel"}}</h4>
+                        <span class="hp-current pf-value pf-large" title="{{localize "PF2E.ShieldACBonusTitle"}}">
                             <input name="data.attributes.shield.ac" type="text" value="{{data.attributes.shield.ac}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
@@ -97,56 +97,56 @@
             <ol class="hp-list-small">
                 <li class="li-four-grid">
                     <div class="defense-container pf-justify-center">
-                        <h4 class="defense-item pf-title" title="Your shields current Hit Points">{{localize "PF2E.ShieldCurrentLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your shields current Hit Points">
+                        <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldCurrentTitle"}}">{{localize "PF2E.ShieldCurrentLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldCurrentTitle"}}">
                             <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
-                        <h4 class="defense-item pf-title" title="Your shields max Hit Points">{{localize "PF2E.ShieldMaxLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your shields max Hit Points">
+                        <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldMaxTitle"}}">{{localize "PF2E.ShieldMaxLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldMaxTitle"}}">
                             <input name="data.attributes.shield.max" type="text" value="{{data.attributes.shield.max}}"
                                     data-dtype="String" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
-                        <h4 class="defense-item pf-title" title="Your shields Broken Threshold">{{localize "PF2E.ShieldBTLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your shields Broken Threshold">
+                        <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldBTTitle"}}">
                             <input name="data.attributes.shield.brokenThreshold" type="text" value="{{data.attributes.shield.brokenThreshold}}"
                                     data-dtype="String" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
-                        <h4 class="defense-item pf-title" title="Shield damage is reduced by this hardness value">Hardness</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Shield damage is reduced by this hardness value">
+                        <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldHardnessTitle"}}">{{localize "PF2E.ShieldHardnessLabel"}}</h4>
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldHardnessTitle"}}">
                             <input name="data.attributes.shield.hardness" type="text" value="{{data.attributes.shield.hardness}}"
                                     data-dtype="Number" placeholder="0"/>
-                        </span>              
-                    </div>                    
-                </li>                
+                        </span>
+                    </div>
+                </li>
             </ol>
 
             <h3 class="hp-title pf-heading">{{localize "PF2E.HitPointsHeader"}}</h3>
             <ol class="hp-list">
                 <li class="li-three-grid">
                     <div class="hp-temp pf-container">
-                        <h4 class="hp-temp pf-title">{{localize "PF2E.TempHPLabel"}}</h4>
-                        <span class="hp-temp pf-value pf-large" title="The amount of temporary hit points you have">
+                        <h4 class="hp-temp pf-title">{{localize "PF2E.TempHitPointsShortLabel"}}</h4>
+                        <span class="hp-temp pf-value pf-large" title="{{localize "PF2E.TempHPTitle"}}">
                             <input name="data.attributes.hp.temp" type="text" value="{{data.attributes.hp.temp}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
                     <div class="hp-current pf-container">
-                        <h4 class="hp-current pf-title" style="font-size: 12px">{{localize "PF2E.CurrentHPLabel"}}</h4>
-                        <span class="hp-current pf-value pf-large" title="Your current hit points">
+                        <h4 class="hp-current pf-title" style="font-size: 12px">{{localize "PF2E.CurrentHitPointsShortLabel"}}</h4>
+                        <span class="hp-current pf-value pf-large" title="{{localize "PF2E.CurrentHPTitle"}}">
                             <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
                     </div>
                     <div class="hp-max pf-container">
-                        <h4 class="hp-max pf-title">{{localize "PF2E.MaxHPLabel"}}</h4>
-                        <span class="hp-max pf-value pf-large" title="Your maximum hit points">
+                        <h4 class="hp-max pf-title">{{localize "PF2E.MaxHitPointsShortLabel"}}</h4>
+                        <span class="hp-max pf-value pf-large" title="{{localize "PF2E.MaxHPTitle"}}">
                             <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
@@ -155,23 +155,23 @@
                 <li class="li-four-grid" style="grid:'one two three' 32px/33% 33% 33%;">
                     <div class="defense-container pf-justify-center" style="{{data.attributes.dying.containerWidth}}">
                         <h4 class="defense-item pf-title">{{localize "PF2E.DyingLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your current level of Dying" style="border-right: 0px; border-left: 0px;">
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DyingTitle"}}" style="border-right: 0px; border-left: 0px;">
                             <input type="hidden" name="data.attributes.dying.value" value="{{data.attributes.dying.value}}" data-dtype="Number"/>
-                            <span class="proficiency-rank dying-click pf-value" title="Your current level of Dying" style="height: 15px;">{{{data.attributes.dying.icon}}}</span>
+                            <span class="proficiency-rank dying-click pf-value" title="{{localize "PF2E.DyingTitle"}}" style="height: 15px;">{{{data.attributes.dying.icon}}}</span>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title">{{localize "PF2E.WoundsLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your current level of Wounded" style="border-right: 0px; border-left: 0px;">
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.WoundsTitle"}}" style="border-right: 0px; border-left: 0px;">
                             <input type="hidden" name="data.attributes.wounded.value" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
-                            <span class="proficiency-rank wounded-click pf-value" title="Your current level of Wounded" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
+                            <span class="proficiency-rank wounded-click pf-value" title="{{localize "PF2E.WoundsTitle"}}" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center" style="width: 58px;">
                         <h4 class="defense-item pf-title">{{localize "PF2E.DoomedLabel"}}</h4>
-                        <span class="defense-item-value pf-value pf-small" title="Your current level of Doomed" style="border-right: 0px; border-left: 0px;">
+                        <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DoomedTitle"}}" style="border-right: 0px; border-left: 0px;">
                             <input type="hidden" name="data.attributes.doomed.value" value="{{data.attributes.doomed.value}}" data-dtype="Number"/>
-                            <span class="proficiency-rank doomed-click pf-value" title="Your current level of Doomed" style="height: 15px;">{{{data.attributes.doomed.icon}}}</span>
+                            <span class="proficiency-rank doomed-click pf-value" title="{{localize "PF2E.DoomedTitle"}}" style="height: 15px;">{{{data.attributes.doomed.icon}}}</span>
                         </span>
                     </div>
                 </li>
@@ -179,7 +179,7 @@
                 </ol>
                 
             <h3 class="defense-title pf-heading">{{localize "PF2E.PerceptionHeader"}}</h3>
-            <ol class="defense-list">                
+            <ol class="defense-list">
                     
                     <li class="defense" data-attribute="perception">
                         <span class="defense-score rollable" title="{{data.attributes.perception.breakdown}}">{{numberFormat data.attributes.perception.value decimals=0 sign=false}}</span>
@@ -190,31 +190,31 @@
                             <span class="proficiency-rank proficiency-click pf-value" title="{{data.attributes.perception.hover}}">{{{data.attributes.perception.icon}}}</span>
                         </div>
                         <div class="defense-container">
-                            <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusLabel"}}</h4>
-                            <span class="defense-item-value pf-value" title="Item">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.ItemTitle"}}">
                                 <input name="data.attributes.perception.item" type="text" value="{{data.attributes.perception.item}}"
                                         data-dtype="Number" placeholder="+0"/>
                             </span>
-                        </div>  
+                        </div>
                     </li>
                 
             </ol>
 
 
             <h3 class="hp-title pf-heading">{{localize "PF2E.InitiativeHeader"}}</h3>
-            <ol class="hp-list-small" style="margin-bottom: 4px;">                
+            <ol class="hp-list-small" style="margin-bottom: 4px;">
                     
                     <li class="li-two-grid-small" data-attribute="initiative">
                         <div class="defense-container pf-justify-center" style="width: 80px;">
-                            <h4 class="defense-item pf-title">{{localize "PF2E.CircumstanceBonusLabel"}}</h4>
-                            <span class="defense-item-value pf-value" title="{{localize "PF2E.CircumstanceBonusLabel"}} bonus">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.CircumstanceBonusShortLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.CircumstanceBonusTitle"}}">
                                 <input name="data.attributes.initiative.circumstance" type="text" value="{{data.attributes.initiative.circumstance}}"
                                         data-dtype="Number" placeholder="+0"/>
                             </span>
                         </div>
                         <div class="defense-container pf-justify-center">
-                            <h4 class="defense-item pf-title">{{localize "PF2E.StatusBonusLabel"}}</h4>
-                            <span class="defense-item-value pf-value" title="{{localize "PF2E.StatusBonusLabel"}} bonus">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.StatusBonusShortLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.StatusBonusTitle"}}">
                                 <input name="data.attributes.initiative.status" type="text" value="{{data.attributes.initiative.status}}"
                                         data-dtype="Number" placeholder="+0"/>
                             </span>
@@ -229,19 +229,19 @@
                 {{#each data.saves as |save sid|}}
                     <li class="defense" data-save="{{sid}}">
                         <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
-                        <h4 class="save-name rollable">{{save.label}}</h4>                    
+                        <h4 class="save-name rollable">{{save.label}}</h4>
                         <div class="defense-container">
                             <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
                             <input type="hidden" name="data.saves.{{sid}}.rank" value="{{save.rank}}" data-dtype="Number"/>
                             <span class="proficiency-rank proficiency-click pf-value" title="{{save.hover}}">{{{save.icon}}}</span>
                         </div>
                         <div class="defense-container">
-                            <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusLabel"}}</h4>
-                            <span class="defense-item-value pf-value" title="Item">
+                            <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
+                            <span class="defense-item-value pf-value" title="{{localize "PF2E.ItemTitle"}}">
                                 <input name="data.saves.{{sid}}.item" type="text" value="{{save.item}}"
                                         data-dtype="Number" placeholder="+0"/>
                             </span>
-                        </div>  
+                        </div>
                     </li>
                 {{/each}}
             </ol>
@@ -252,13 +252,12 @@
                 {{#each data.abilities as |ability id|}}
                     <li class="ability" data-ability="{{id}}">
                         <h4 class="ability-name">{{ability.label}}</h4>
-                        <span class="ability-id" title="Ability">{{id}}</span>
-                        <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-                        <span class="ability-score" title="Score">
+                        <span class="ability-id" title="{{localize "PF2E.AbilityTitle"}}">{{id}}</span>
+                        <span class="ability-mod" title="{{localize "PF2E.ModifierTitle"}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+                        <span class="ability-score" title="{{localize "PF2E.ScoreTitle"}}">
                             <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}"
                                    data-dtype="Number" placeholder="10"/>
                         </span>
-                        
                     </li>
                 {{/each}}
             </ol>
@@ -268,19 +267,17 @@
     <!-- SHEET NAVIGATION -->
     <nav class="sheet-navigation">
         <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="actions">Actions</a>
-            <a class="item" data-tab="inventory">Inventory</a>
-            <a class="item" data-tab="spellbook">Spellbook</a>
-            <a class="item" data-tab="skills">Skills</a>
-            <a class="item" data-tab="feats">Feats</a>
+            <a class="item" data-tab="actions">{{localize "PF2E.TabActionsLabel"}}</a>
+            <a class="item" data-tab="inventory">{{localize "PF2E.TabInventoryLabel"}}</a>
+            <a class="item" data-tab="spellbook">{{localize "PF2E.TabSpellbookLabel"}}</a>
+            <a class="item" data-tab="skills">{{localize "PF2E.TabSkillsLabel"}}</a>
+            <a class="item" data-tab="feats">{{localize "PF2E.TabFeatsLabel"}}</a>
             <a class="item active" data-tab="biography">Character</a>
         </nav>
     </nav>
 
     <!-- LOWER SECTION -->
     <section class="sheet-lower">
-
-        
 
         <!-- BODY -->
         <section class="sheet-content content">

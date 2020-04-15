@@ -1,20 +1,20 @@
 <div class="spell-browser">
     <div class="control-area">
-        <div class="sortcontainer" id="tagfilter">            
-            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="Search Text" title="Right click for guide"/>
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
             <div class="hint" style="display:none;">
-                You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage
+                {{{localize "PF2E.BestiaryBrowserSearchHint"}}}
             </div>
             <dl id="sorter">
-                <dt>Sort by:</dt>
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
                 <dd><select class="null" name="sortorder">
-                    <option value="true" selected>Name</option>
-                    <option value="false">Level</option>
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
                 </select></dd>
             </dl>
-        </div>        
+        </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Size</h3>
+            <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
             <dl>
                 {{#each actorSize as |size key|}}
                 <dt><input type="checkbox" name="actorSize-{{key}}"></dt><dd>{{size}}</dd>
@@ -22,7 +22,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Alignment</h3>
+            <h3>{{localize "PF2E.BrowserFilterAlignments"}}</h3>
             <dl style="display:none;">
                 {{#each alignment as |type key|}}
                 <dt><input type="checkbox" name="alignment-{{key}}"></dt><dd>{{type}}</dd>
@@ -30,7 +30,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="actionTraitfilter">
-            <h3>Traits</h3>
+            <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
                 <dt><input type="checkbox" name="traits-{{trait}}"></dt><dd>{{trait}}</dd>

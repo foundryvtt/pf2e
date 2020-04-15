@@ -435,7 +435,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     data.classes = this.classes;
     data.times = this.times;
     data.schools = this.schools;
-    data.traditions = CONFIG.magicTraditions;
+    data.traditions = CONFIG.PF2E.magicTraditions;
 
     return data;
   }
@@ -469,7 +469,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
               else spell.data.level.formated = spell.data.level.value;
 
               // determining classes that can use the spell
-              const classList = Object.keys(CONFIG.classTraits);
+              const classList = Object.keys(CONFIG.PF2E.classTraits);
               const classIntersection = classList.filter((x) => spell.data.traits.value.includes(x));
 
               if (classIntersection.length !== 0) {
@@ -520,14 +520,14 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     classesArr = classesArr.sort();
     for (const classStr of classesArr) {
       // let fixedClassName = classStr.replace('revisited', ' revisited').toLowerCase().replace(/(^|\s)([a-z])/g, function (m, p1, p2) { return p1 + p2.toUpperCase(); });
-      classesObj[classStr] = CONFIG.classTraits[classStr];
+      classesObj[classStr] = CONFIG.PF2E.classTraits[classStr];
     }
 
     // sorting and assigning proper school names
     const schoolsObj = {};
     schoolsArr = schoolsArr.sort();
     for (const school of schoolsArr) {
-      schoolsObj[school] = CONFIG.spellSchools[school];
+      schoolsObj[school] = CONFIG.PF2E.spellSchools[school];
     }
 
     this.classes = classesObj;
@@ -638,7 +638,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 
     data.feats = this.feats;
     // data.featClasses = this.featClasses;
-    data.featClasses = CONFIG.classTraits;
+    data.featClasses = CONFIG.PF2E.classTraits;
     data.featSkills = this.featSkills;
     data.featAncestry = this.featAncestry;
     data.featTimes = this.featTimes;
@@ -668,7 +668,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
               // determining attributes from traits
               if (feat.data.traits.value) {
                 // determine class feats
-                const classList = Object.keys(CONFIG.classTraits);
+                const classList = Object.keys(CONFIG.PF2E.classTraits);
                 const classIntersection = classList.filter((x) => feat.data.traits.value.includes(x));
 
                 if (classIntersection.length !== 0) {
@@ -679,7 +679,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
                 }
 
                 if (feat.data.featType.value === 'ancestry') {
-                  const ancestryList = Object.keys(CONFIG.ancestryTraits);
+                  const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
                   const ancestryIntersection = ancestryList.filter((x) => feat.data.traits.value.includes(x));
 
                   if (ancestryIntersection.length !== 0) {
@@ -693,7 +693,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 
               // determine skill feats
               if (feat.data.featType.value === 'skill') {
-                const skillList = Object.keys(CONFIG.skillList);
+                const skillList = Object.keys(CONFIG.PF2E.skillList);
                 let prerequisitesArr = feat.data.prerequisites.value.split(' ');
 
                 prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
@@ -744,18 +744,18 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     const classesObj = {};
     classesArr = classesArr.sort();
     for (const classStr of classesArr) {
-      classesObj[classStr] = CONFIG.classTraits[classStr];
+      classesObj[classStr] = CONFIG.PF2E.classTraits[classStr];
     }
 
     //  sorting and assigning better ancestry names
     const ancestryObj = {};
     ancestryArr = ancestryArr.sort();
     for (const ancestryStr of ancestryArr) {
-      ancestryObj[ancestryStr] = CONFIG.ancestryTraits[ancestryStr];
+      ancestryObj[ancestryStr] = CONFIG.PF2E.ancestryTraits[ancestryStr];
     }
 
     this.featClasses = classesObj;
-    this.featSkills = CONFIG.skillList;
+    this.featSkills = CONFIG.PF2E.skillList;
     this.featAncestry = ancestryObj;
     this.featTimes = timeArr.sort();
     // this.schools = schoolsObj;
@@ -873,12 +873,12 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     // data.featSkills = this.featSkills;
     // data.featAncestry = this.featAncestry;
     // data.featTimes = this.featTimes;
-    data.armorTypes = CONFIG.armorTypes;
-    data.armorGroups = CONFIG.armorGroups;
-    data.weaponTraits = CONFIG.weaponTraits;
+    data.armorTypes = CONFIG.PF2E.armorTypes;
+    data.armorGroups = CONFIG.PF2E.armorGroups;
+    data.weaponTraits = CONFIG.PF2E.weaponTraits;
     data.itemTypes = itemTypes;
-    data.weaponTypes = CONFIG.weaponTypes;
-    data.weaponGroups = CONFIG.weaponGroups;
+    data.weaponTypes = CONFIG.PF2E.weaponTypes;
+    data.weaponGroups = CONFIG.PF2E.weaponGroups;
     return data;
   }
 
@@ -1047,20 +1047,20 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     }; */
 
     data.bestiaryActors = this.bestiaryActors;
-    data.actorSize = CONFIG.actorSizes;
-    data.alignment = CONFIG.alignment;
+    data.actorSize = CONFIG.PF2E.actorSizes;
+    data.alignment = CONFIG.PF2E.alignment;
     data.traits = this.traits;
     //data.inventoryItems = this.inventoryItems;
     // data.featClasses = this.featClasses;
     // data.featSkills = this.featSkills;
     // data.featAncestry = this.featAncestry;
     // data.featTimes = this.featTimes;
-/*     data.armorTypes = CONFIG.armorTypes;
-    data.armorGroups = CONFIG.armorGroups;
-    data.weaponTraits = CONFIG.weaponTraits;
+/*     data.armorTypes = CONFIG.PF2E.armorTypes;
+    data.armorGroups = CONFIG.PF2E.armorGroups;
+    data.weaponTraits = CONFIG.PF2E.weaponTraits;
     data.itemTypes = itemTypes;
-    data.weaponTypes = CONFIG.weaponTypes;
-    data.weaponGroups = CONFIG.weaponGroups; */
+    data.weaponTypes = CONFIG.PF2E.weaponTypes;
+    data.weaponGroups = CONFIG.PF2E.weaponGroups; */
     return data;
   }
 
@@ -1225,14 +1225,14 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
     const data = {};
 
     const sortedTraits = {};
-    Object.keys(CONFIG.featTraits).sort().forEach((key) => {
-      sortedTraits[key] = CONFIG.featTraits[key];
+    Object.keys(CONFIG.PF2E.featTraits).sort().forEach((key) => {
+      sortedTraits[key] = CONFIG.PF2E.featTraits[key];
     });
 
     data.actions = this.actions;
     data.actionTraits = sortedTraits;
-    data.skills = CONFIG.skillList;
-    data.proficiencies = CONFIG.proficiencyLevels;
+    data.skills = CONFIG.PF2E.skillList;
+    data.proficiencies = CONFIG.PF2E.proficiencyLevels;
     return data;
   }
 

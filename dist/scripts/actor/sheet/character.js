@@ -38,11 +38,11 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Update hero points label
     sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
-    sheetData.data.attributes.heroPoints.hover = CONFIG.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
+    sheetData.data.attributes.heroPoints.hover = CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
 
     // Spell Details
-    sheetData.magicTraditions = CONFIG.magicTraditions;
-    sheetData.preparationType = CONFIG.preparationType;
+    sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
+    sheetData.preparationType = CONFIG.PF2E.preparationType;
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
     // Update dying icon and container width if a data migration is not required
@@ -211,9 +211,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
 
         i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
-        i.data.spelldc.hover = CONFIG.proficiencyLevels[i.data.proficiency.value];
-        i.data.tradition.title = CONFIG.magicTraditions[i.data.tradition.value];
-        i.data.prepared.title = CONFIG.preparationType[i.data.prepared.value];
+        i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
+        i.data.tradition.title = CONFIG.PF2E.magicTraditions[i.data.tradition.value];
+        i.data.prepared.title = CONFIG.PF2E.preparationType[i.data.prepared.value];
         // Check if prepared spellcasting type and set Boolean
         if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
         else i.data.prepared.preparedSpells = false;
@@ -269,7 +269,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Lore Skills
       else if (i.type === 'lore') {
         i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
-        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value)];
+        i.data.hover = CONFIG.PF2E.proficiencyLevels[((i.data.proficient || {}).value)];
 
         const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
         const modifier = actorData.data.abilities.int.mod;
@@ -284,7 +284,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Martial Skills
       else if (i.type === 'martial') {
         i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
-        i.data.hover = CONFIG.proficiencyLevels[((i.data.proficient || {}).value)];
+        i.data.hover = CONFIG.PF2E.proficiencyLevels[((i.data.proficient || {}).value)];
 
         const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
         /* const itemBonus = Number((i.data.item || {}).value || 0);
