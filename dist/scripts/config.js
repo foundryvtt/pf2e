@@ -483,6 +483,7 @@ CONFIG.traitsDescriptions = {
   'thrown-10': 'PF2E.TraitDescriptionThrown10',
   'thrown-20': 'PF2E.TraitDescriptionThrown20',
   'thrown-30': 'PF2E.TraitDescriptionThrown30',
+  'thrown-40': 'PF2E.WeaponTraitThrown40',
   trip: 'PF2E.TraitDescriptionTrip',
   twin: 'PF2E.TraitDescriptionTwin',
   'two-hand-d8': 'PF2E.TraitDescriptionTwoHandD8',
