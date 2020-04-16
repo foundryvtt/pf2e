@@ -270,6 +270,8 @@ CONFIG.weaponTraits = {
   'versatile-p': 'PF2E.TraitVersatileP',
   'versatile-b': 'PF2E.TraitVersatileB',
   'volley-30': 'PF2E.TraitVolley30',
+  uncommon: 'PF2E.TraitUncommon',
+  'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
