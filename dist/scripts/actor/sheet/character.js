@@ -50,7 +50,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       console.log(`PF2e System | Migration for data.attributes.dying required for ${sheetData.actor.name}`);
     } else {
       sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
-      sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);      
+      sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
     }
 
     // Update wounded icon if a data migration is not required (perform data migration if it is)
@@ -106,7 +106,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 	  class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
 	  classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
       skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
-      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },  
+      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
     };
 
     // Actions
@@ -143,7 +143,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
       }
-      
+
       // Inventory
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
@@ -161,7 +161,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
         if (i.type === 'weapon') {
-          
+
           /* const isFinesse = (i.data.traits.value || []).includes('finesse');
           const abl = (isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod ? 'dex' : (i.data.ability.value || 'str'));
           const prof = i.data.weaponType.value || 'simple'; */
@@ -222,7 +222,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         else i.data.tradition.ritual = false;
         if ((i.data.tradition || {}).value === 'focus') i.data.tradition.focus = true;
         else i.data.tradition.focus = false;
-        
+
 
         spellcastingEntries.push(i);
       }
@@ -306,7 +306,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.img = this._getActionImg(actionImg);
         if (actionType === 'passive') actions.free.actions.push(i);
         else actions[actionType].actions.push(i);
-        
+
         // Read-Only Actions
         if(i.data.actionCategory && i.data.actionCategory.value) {
           switch(i.data.actionCategory.value){
