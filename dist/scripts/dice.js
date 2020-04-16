@@ -54,9 +54,6 @@ class DicePF2e {
       return roll;
     };
 
-    console.log(event.shiftKey);
-    console.log(userSettingQuickD20Roll);
-
     // Modify the roll and handle fast-forwarding
     parts = ['1d20'].concat(parts);
     if (  (userSettingQuickD20Roll && !event.altKey && !(event.ctrlKey || event.metaKey) && !event.shiftKey)
@@ -132,6 +129,7 @@ class DicePF2e {
   }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
+    const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     let rolled = false;
     const _roll = (parts, crit, form) => {
       data.bonus = form ? form.find('[name="bonus"]').val() : 0;
@@ -161,7 +159,11 @@ class DicePF2e {
     };
 
     // Modify the roll and handle fast-forwarding
-    if (event.shiftKey || event.ctrlKey || event.metaKey) return _roll(parts, event.altKey);
+    if ( userSettingQuickD20Roll && !event.shiftKey && !event.ctrlKey && !event.metaKey ) {
+      return _roll(parts, event.altKey);
+    } else if ( !userSettingQuickD20Roll && (event.shiftKey || event.ctrlKey || event.metaKey) ) {
+      return _roll(parts, event.altKey);
+    }
     parts = parts.concat(['@bonus']);
 
     // Construct dialog data
