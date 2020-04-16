@@ -848,9 +848,9 @@ CONFIG.actionsNumber = {
 };
 
 CONFIG.actionCategories = {
-  interaction: "ActionCategoryInteraction",
-  defensive: "ActionCategoryDefensive",
-  offensive: "ActionCategoryOffensive",
+  interaction: "PF2E.ActionCategoryInteraction",
+  defensive: "PF2E.ActionCategoryDefensive",
+  offensive: "PF2E.ActionCategoryOffensive",
 }
 
 // Proficiency Multipliers
