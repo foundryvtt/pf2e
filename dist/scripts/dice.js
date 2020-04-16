@@ -54,9 +54,15 @@ class DicePF2e {
       return roll;
     };
 
+    console.log(event.shiftKey);
+    console.log(userSettingQuickD20Roll);
+
     // Modify the roll and handle fast-forwarding
     parts = ['1d20'].concat(parts);
-    if (event.altKey) {
+    if (  (userSettingQuickD20Roll && !event.altKey && !(event.ctrlKey || event.metaKey) && !event.shiftKey)
+          || (!userSettingQuickD20Roll && event.shiftKey) ) {
+      return _roll(parts, 0);
+    } else if (event.altKey) {
       return _roll(parts, 1); 
     } else if (event.ctrlKey || event.metaKey) {
       return _roll(parts, -1);
