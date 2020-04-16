@@ -19,8 +19,8 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
-
-  PlayerConfigPF2e.init();
+  
+  PlayerConfigPF2e.hookOnRenderSettings();
   
   registerSettings();
   loadTemplates();
@@ -28,6 +28,7 @@ Hooks.once('init', () => {
 });
 
 Hooks.once("ready", function() {
+  PlayerConfigPF2e.init();
   PlayerConfigPF2e.activateColorScheme();
 });
 
