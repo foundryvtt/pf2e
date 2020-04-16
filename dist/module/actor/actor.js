@@ -323,7 +323,7 @@ export default class extends Actor {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Inititive is now ${value} !</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Initiative is now ${value} !</span>
         </div>
       </div>
       </div>
