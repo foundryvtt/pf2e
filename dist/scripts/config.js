@@ -85,6 +85,7 @@ CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   piercing: 'PF2E.DamageTypePiercing',
   slashing: 'PF2E.DamageTypeSlashing',
+  modular: 'PF2E.DamageTypeModular',
 };
 
 // Healing Types
