@@ -205,9 +205,9 @@ CONFIG.ancestryTraits = {
   elf: 'PF2E.TraitElf',
   gnome: 'PF2E.TraitGnome',
   goblin: 'PF2E.TraitGoblin',
-  halfelf: 'PF2E.TraitHalfelf',
+  halfelf: 'PF2E.TraitHalfElf',
   halfling: 'PF2E.TraitHalfling',
-  halforc: 'PF2E.TraitHalforc',
+  halforc: 'PF2E.TraitHalfOrc',
   human: 'PF2E.TraitHuman',
   hobgoblin: 'PF2E.TraitHobgoblin',
   leshy: 'PF2E.TraitLeshy',
@@ -680,7 +680,7 @@ CONFIG.weaponMAP = {
 
 // Weapon Reload
 CONFIG.weaponReload = {
-  '-': 'PF2E.WeaponReloadNone',
+  '-': '-',
   0: '0',
   1: '1',
   2: '2',
@@ -848,9 +848,9 @@ CONFIG.actionsNumber = {
 };
 
 CONFIG.actionCategories = {
-  interaction: "ActionCategoryInteraction",
-  defensive: "ActionCategoryDefensive",
-  offensive: "ActionCategoryOffensive",
+  interaction: "PF2E.ActionCategoryInteraction",
+  defensive: "PF2E.ActionCategoryDefensive",
+  offensive: "PF2E.ActionCategoryOffensive",
 }
 
 // Proficiency Multipliers
