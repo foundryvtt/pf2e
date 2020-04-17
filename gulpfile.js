@@ -293,7 +293,7 @@ async function packageBuild(cb, version) {
   await fs.ensureDir('package');
 
   updateManifest('', version);
-  copyFiles(() => {});
+  await copyFiles(() => {});
 
   // Initialize the zip file
   const zipName = `${manifest.file.name}-v${version || manifest.file.version}.zip`;
@@ -440,7 +440,7 @@ function nextVersion() {
   return targetVersion;
 }
 async function packageThenGit() {
-  packageBuild(releaseAndTag, nextVersion());
+  await packageBuild(releaseAndTag, nextVersion());
 }
 
 exports.build = gulp.series(clean, execBuild);
