@@ -8,8 +8,7 @@
 export class PlayerConfigPF2e extends FormApplication {
     constructor() {
         super();
-        // DEFAULT SETTINGS
-        this.settings = PlayerConfigPF2e.DEFAULTS;
+        this.settings = getProperty(game.user.data.flags, 'PF2e.settings');
     }
 
     static get DEFAULTS() {
@@ -21,7 +20,27 @@ export class PlayerConfigPF2e extends FormApplication {
 
     static init() {
         console.log('PF2e System | Initializing Player Config');
-        PlayerConfigPF2e.hookOnRenderSettings();
+        const settings = getProperty(game.user.data.flags, 'PF2e.settings');
+        const newDefaults = false;
+
+        // Always set DEFAULT SETTINGS to the flags if they don't exist. This will prevent the need to always validate if these settings have been set.
+        if (settings == undefined) {
+            console.log('PF2e System | New player without saved PF2e Player Settings | Setting defaults');
+            settings = PlayerConfigPF2e.DEFAULTS
+            game.user.update({flags: { PF2e:{ settings:settings } } })
+        } else {
+            for (const defaultSetting in PlayerConfigPF2e.DEFAULTS) {
+                if (settings[defaultSetting] == undefined) {
+                    settings[defaultSetting] = PlayerConfigPF2e.DEFAULTS[defaultSetting];
+                    newDefaults = true;
+                }
+            }
+            if (newDefaults == true) {
+                console.log('PF2e System | Saving new default settings to the PF2e Player Settings');
+                game.user.update({flags: { PF2e:{ settings:settings } } })
+            }
+        }
+
     }
 
     static activateColorScheme() {
@@ -94,8 +113,6 @@ export class PlayerConfigPF2e extends FormApplication {
     getData() {
         console.log('PF2e System | Player Config getting data');
         this.settings = getProperty(game.user.data.flags, 'PF2e.settings');
-        if (this.settings == undefined) this.settings = PlayerConfigPF2e.DEFAULTS;
-
         return this.settings;
     }
 
