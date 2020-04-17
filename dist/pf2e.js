@@ -19,8 +19,8 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
-
-  PlayerConfigPF2e.init();
+  
+  PlayerConfigPF2e.hookOnRenderSettings();
   
   registerSettings();
   loadTemplates();
@@ -28,7 +28,9 @@ Hooks.once('init', () => {
 });
 
 Hooks.once("ready", function() {
+  PlayerConfigPF2e.init();
   PlayerConfigPF2e.activateColorScheme();
+
 });
 
 /* -------------------------------------------- */
@@ -124,4 +126,24 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     },
   );
   return options;
+});
+
+Hooks.on("preCreateActor", (dir, actor) =>{
+  if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+    // Set wounds, advantage, and display name visibility
+    mergeObject(actor, {
+      "token.bar1" :{"attribute" : "attributes.hp"},                 // Default Bar 1 to Wounds
+      "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display name to be on owner hover
+      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display bars to be on owner hover
+      "token.disposition" : CONST.TOKEN_DISPOSITIONS.HOSTILE,         // Default disposition to hostile
+      "token.name" : actor.name                                       // Set token name to actor name
+    })
+  
+    // Default characters to HasVision = true and Link Data = true
+    if (actor.type == "character") {
+      actor.token.vision = true;
+      actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+      actor.token.actorLink = true;
+    }
+  }
 });
