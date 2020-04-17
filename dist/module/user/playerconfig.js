@@ -20,8 +20,8 @@ export class PlayerConfigPF2e extends FormApplication {
 
     static init() {
         console.log('PF2e System | Initializing Player Config');
-        const settings = getProperty(game.user.data.flags, 'PF2e.settings');
-        const newDefaults = false;
+        let settings = getProperty(game.user.data.flags, 'PF2e.settings');
+        let newDefaults = false;
 
         // Always set DEFAULT SETTINGS to the flags if they don't exist. This will prevent the need to always validate if these settings have been set.
         if (settings == undefined) {
