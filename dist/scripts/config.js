@@ -85,6 +85,7 @@ CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   piercing: 'PF2E.DamageTypePiercing',
   slashing: 'PF2E.DamageTypeSlashing',
+  modular: 'PF2E.DamageTypeModular',
 };
 
 // Healing Types
@@ -258,6 +259,7 @@ CONFIG.weaponTraits = {
   'thrown-10': 'PF2E.TraitThrown10',
   'thrown-20': 'PF2E.TraitThrown20',
   'thrown-30': 'PF2E.TraitThrown30',
+  'thrown-40': 'PF2E.TraitThrown40',
   trip: 'PF2E.TraitTrip',
   twin: 'PF2E.TraitTwin',
   'two-hand-d8': 'PF2E.TraitTwoHandD8',
@@ -268,6 +270,8 @@ CONFIG.weaponTraits = {
   'versatile-p': 'PF2E.TraitVersatileP',
   'versatile-b': 'PF2E.TraitVersatileB',
   'volley-30': 'PF2E.TraitVolley30',
+  uncommon: 'PF2E.TraitUncommon',
+  'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
@@ -483,7 +487,7 @@ CONFIG.traitsDescriptions = {
   'thrown-10': 'PF2E.TraitDescriptionThrown10',
   'thrown-20': 'PF2E.TraitDescriptionThrown20',
   'thrown-30': 'PF2E.TraitDescriptionThrown30',
-  'thrown-40': 'PF2E.WeaponTraitThrown40',
+  'thrown-40': 'PF2E.TraitDescriptionThrown40',
   trip: 'PF2E.TraitDescriptionTrip',
   twin: 'PF2E.TraitDescriptionTwin',
   'two-hand-d8': 'PF2E.TraitDescriptionTwoHandD8',
