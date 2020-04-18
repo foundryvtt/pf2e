@@ -488,6 +488,11 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollSkill(ev, skl);
     });
 
+    // Roll Recovery Flat Check when Dying
+    html.find('.recoveryCheck.rollable').click((ev) => {
+      this.actor.rollRecovery(ev);
+    });
+
     //Toggle Levels of stats (like proficiencies conditions or hero points)
     html.find('.click-stat-level').on('click contextmenu', this._onClickStatLevel.bind(this));
 

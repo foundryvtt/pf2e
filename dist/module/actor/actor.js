@@ -11,8 +11,6 @@ export default class extends Actor {
     // Get the Actor's data object
     const actorData = this.data;
     const { data } = actorData;
-    console.log(this.img);
-    console.log(this.data.token.img);
     this._prepareTokenImg();
 
     // Ability modifiers
@@ -154,6 +152,63 @@ export default class extends Actor {
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
+  }
+
+  /**
+   * Roll a Recovery Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollRecovery(event) {
+    const dying = this.data.data.attributes.dying.value;
+    const wounded = this.data.data.attributes.wounded.value;
+    const recoveryDc = 10 + 0; //rework later to also add Mountain's Stoutness support
+    const flatCheck = new Roll("1d20").roll();
+    const dc = recoveryDc + dying;
+    let result = '';
+    
+    if (flatCheck.result == 20 || flatCheck.result >= (recoveryDc+10)) {
+      result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
+    } else if (flatCheck.result == 1 || flatCheck.result <= (recoveryDc-10)) {
+      result = game.i18n.localize("PF2E.CritFailure") + ' ' + game.i18n.localize("PF2E.Recovery.critFailure");
+    } else if (flatCheck.result >= recoveryDc) {
+      result = game.i18n.localize("PF2E.Success") + ' ' + game.i18n.localize("PF2E.Recovery.success");
+    } else {
+      result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
+    }
+
+    const message = `
+      <div class="dice-roll">
+      <div class="dice-result">
+        <div class="dice-tooltip" style="display: none;">
+            <section class="tooltip-part">
+              <p class="part-formula" style="padding-top:5px;">${flatCheck.formula}<span class="part-total">${flatCheck.result}</span></p>
+              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + dying ${dying}</p>
+            </section>
+        </div>
+        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
+            Rolling Recovery Check  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
+              <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> versus a DC ${dc}.
+          </span>
+        </div>
+        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+          <span style="font-size: 12px; font-weight: 100;">
+            ${result}
+          </span>
+        </div>
+      </div>
+      </div>
+      `;
+      ChatMessage.create({
+        user: game.user._id,
+        speaker: { actor: this },
+        content: message,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER
+      });
+
+      // No automated update yet, not sure if Community wants that.
+      // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
   }
 
   /* -------------------------------------------- */
