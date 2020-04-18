@@ -218,6 +218,7 @@ CONFIG.ancestryTraits = {
   changeling: 'PF2E.TraitChangeling',
   geniekin: 'PF2E.TraitGeniekin',
   tiefling: 'PF2E.TraitTiefling',
+  shoony: 'PF2E.TraitShoony',
 };
 
 // Weapon Properties
