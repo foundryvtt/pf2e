@@ -292,7 +292,7 @@ async function packageBuild(cb, version) {
   // Ensure there is a directory to hold all the packaged versions
   await fs.ensureDir('package');
 
-  updateManifest('', version);
+  await updateManifest('', version);
   await copyFiles(() => {});
 
   // Initialize the zip file
