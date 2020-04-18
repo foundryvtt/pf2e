@@ -321,6 +321,7 @@ export default class extends Actor {
     const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
     const messageSender = roll.find('.message-sender').text();
     const flavorText = roll.find('.flavor-text').text();
+    const shieldFlavor = (attribute=='attributes.shield') ? 'and his shield get<br>' : 'gets';
 		for (const t of canvas.tokens.controlled) {
       const a = t.actor;
 
@@ -335,7 +336,9 @@ export default class extends Actor {
             </div>
           </div>
 				  <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-					<span style="font-size: 12px; font-style:oblique; font-weight: 100;">${t.name} gets ${appliedResult} hit points.</span>
+            <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+              ${t.name} ${shieldFlavor} ${appliedResult} hit points.
+            </span>
 				  </div>
 				</div>
 			  </div>
