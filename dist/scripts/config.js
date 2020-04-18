@@ -218,6 +218,7 @@ CONFIG.ancestryTraits = {
   changeling: 'PF2E.TraitChangeling',
   geniekin: 'PF2E.TraitGeniekin',
   tiefling: 'PF2E.TraitTiefling',
+  shoony: 'PF2E.TraitShoony',
 };
 
 // Weapon Properties
@@ -1001,7 +1002,6 @@ CONFIG.immunityTypes = {
   negative: 'PF2E.DamageTypeNegative',
   piercing: 'PF2E.DamageTypePiercing',
   poison: 'PF2E.DamageTypePoison',
-  psychic: 'PF2E.DamageTypePsychic',
   positive: 'PF2E.DamageTypePositive',
   bleed: 'PF2E.DamageTypeBleed',
   mental: 'PF2E.DamageTypeMental',
