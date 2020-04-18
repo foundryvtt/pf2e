@@ -6,14 +6,14 @@ export default class extends Actor {
    * Augment the basic actor data with additional dynamic data.
    */
   prepareData() {
-    // actorData = super.prepareData(actorData);
-    // const data = actorData.data;
     super.prepareData();
 
     // Get the Actor's data object
     const actorData = this.data;
     const { data } = actorData;
-    const { flags } = actorData;
+    console.log(this.img);
+    console.log(this.data.token.img);
+    this._prepareTokenImg();
 
     // Ability modifiers
     if (actorData.type === 'npc') {
@@ -48,6 +48,15 @@ export default class extends Actor {
 
     // Return the prepared Actor data
     return actorData;
+  }
+
+  _prepareTokenImg() {
+    if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+      if (this.data.token.img == 'icons/svg/mystery-man.svg' && this.data.token.img != this.img) {
+        this.data.token.img = this.img;
+      }
+    }
+
   }
 
   /* -------------------------------------------- */
