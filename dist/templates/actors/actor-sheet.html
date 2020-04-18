@@ -15,8 +15,8 @@
 
         <div class="defense-container" style="margin-top: 5px; margin-right: 5px;">
             <h4 class="proficiency-name pf-title" style="background: var(--primary-background); border: 1px solid var(--primary-background);">{{localize "PF2E.HeroPointsLabel"}}</h4>
-            <input type="hidden" name="data.attributes.heroPoints.rank" value="{{data.attributes.heroPoints.rank}}" data-dtype="Number"/>
-            <span class="proficiency-rank heroPoints-click pf-value" title="{{data.attributes.heroPoints.hover}}">{{{data.attributes.heroPoints.icon}}}</span>
+            <input type="hidden" name="data.attributes.heroPoints.rank" data-max="3" value="{{data.attributes.heroPoints.rank}}" data-dtype="Number"/>
+            <span class="proficiency-rank click-stat-level pf-value" title="{{data.attributes.heroPoints.hover}}">{{{data.attributes.heroPoints.icon}}}</span>
         </div>
 
         <div class="charlevel">
@@ -163,15 +163,15 @@
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title">{{localize "PF2E.WoundsLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.WoundsTitle"}}" style="border-right: 0px; border-left: 0px;">
-                            <input type="hidden" name="data.attributes.wounded.value" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
-                            <span class="proficiency-rank wounded-click pf-value" title="{{localize "PF2E.WoundsTitle"}}" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
+                            <input type="hidden" name="data.attributes.wounded.value" data-max="3" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
+                            <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.WoundsTitle"}}" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center" style="width: 58px;">
                         <h4 class="defense-item pf-title">{{localize "PF2E.DoomedLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.DoomedTitle"}}" style="border-right: 0px; border-left: 0px;">
-                            <input type="hidden" name="data.attributes.doomed.value" value="{{data.attributes.doomed.value}}" data-dtype="Number"/>
-                            <span class="proficiency-rank doomed-click pf-value" title="{{localize "PF2E.DoomedTitle"}}" style="height: 15px;">{{{data.attributes.doomed.icon}}}</span>
+                            <input type="hidden" name="data.attributes.doomed.value" data-max="3" value="{{data.attributes.doomed.value}}" data-dtype="Number"/>
+                            <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.DoomedTitle"}}" style="height: 15px;">{{{data.attributes.doomed.icon}}}</span>
                         </span>
                     </div>
                 </li>
@@ -187,7 +187,7 @@
                         <div class="defense-container">
                             <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
                             <input type="hidden" name="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}" data-dtype="Number"/>
-                            <span class="proficiency-rank proficiency-click pf-value" title="{{data.attributes.perception.hover}}">{{{data.attributes.perception.icon}}}</span>
+                            <span class="proficiency-rank click-stat-level pf-value" title="{{data.attributes.perception.hover}}">{{{data.attributes.perception.icon}}}</span>
                         </div>
                         <div class="defense-container">
                             <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
@@ -233,7 +233,7 @@
                         <div class="defense-container">
                             <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
                             <input type="hidden" name="data.saves.{{sid}}.rank" value="{{save.rank}}" data-dtype="Number"/>
-                            <span class="proficiency-rank proficiency-click pf-value" title="{{save.hover}}">{{{save.icon}}}</span>
+                            <span class="proficiency-rank click-stat-level pf-value" title="{{save.hover}}">{{{save.icon}}}</span>
                         </div>
                         <div class="defense-container">
                             <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>

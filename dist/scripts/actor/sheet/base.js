@@ -488,18 +488,15 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollSkill(ev, skl);
     });
 
+    //Toggle Levels of stats (like proficiencies conditions or hero points)
+    html.find('.click-stat-level').on('click contextmenu', this._onClickStatLevel.bind(this));
+
     // Toggle Dying Wounded
-    html.find('.dying-click').on('click contextmenu', this._onCycleDying.bind(this));
-    html.find('.wounded-click').on('click contextmenu', this._onCycleWounded.bind(this));
-    html.find('.doomed-click').on('click contextmenu', this._onCycleDoomed.bind(this));
+    html.find('.dying-click').on('click contextmenu', this._onClickDying.bind(this));
 
     // Toggle Skill Proficiency
-    // html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
-    html.find('.proficiency-click').on('click contextmenu', this._onCycleSkillProficiency.bind(this));
-
-    // Toggle Hero Points
-    // html.find('.proficiency-click').click(ev => this._onCycleSkillProficiency(ev));
-    html.find('.heroPoints-click').on('click contextmenu', this._onCycleHeroPoints.bind(this));
+    // Can be removed later as replaced with .click-stat-level, commented out for now
+    // html.find('.proficiency-click').on('click contextmenu', this._onCycleSkillProficiency.bind(this));
 
     // Prepare Spell Slot
     html.find('.prepare-click').click((ev) => {
@@ -781,55 +778,55 @@ class ActorSheetPF2e extends ActorSheet {
    * Handle cycling proficiency in a Skill
    * @private
    */
-  _onCycleSkillProficiency(event) {
-    event.preventDefault();
-    const field = $(event.currentTarget).siblings('input[type="hidden"]');
+  // _onCycleSkillProficiency(event) {
+  //   event.preventDefault();
+  //   const field = $(event.currentTarget).siblings('input[type="hidden"]');
 
-    // Get the skill type (used to determine if this is a Lore skill)
-    const skillType = $(event.currentTarget).parents('.item').attr('data-item-type');
-    const containerType = $(event.currentTarget).parents('.item-container').attr('data-container-type');
+  //   // Get the skill type (used to determine if this is a Lore skill)
+  //   const skillType = $(event.currentTarget).parents('.item').attr('data-item-type');
+  //   const containerType = $(event.currentTarget).parents('.item-container').attr('data-container-type');
 
-    // Get the current level and the array of levels
-    const level = parseFloat(field.val());
-    const levels = [0, 1, 2, 3, 4];
-    const idx = levels.indexOf(level);
-    let newLevel = '';
+  //   // Get the current level and the array of levels
+  //   const level = parseFloat(field.val());
+  //   const levels = [0, 1, 2, 3, 4];
+  //   const idx = levels.indexOf(level);
+  //   let newLevel = '';
 
-    // Toggle next level - forward on click, backwards on right
-    if (event.type === 'click') {
-      newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
-    } else if (event.type === 'contextmenu') {
-      newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
-    }
+  //   // Toggle next level - forward on click, backwards on right
+  //   if (event.type === 'click') {
+  //     newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
+  //   } else if (event.type === 'contextmenu') {
+  //     newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
+  //   }
 
-    // Update the field value and save the form
-    if (skillType === 'lore' || skillType === 'martial') {
-      const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      /* itemToEdit.data.proficient.value = newLevel;
-      this.actor.updateOwnedItem(itemToEdit); */
+  //   // Update the field value and save the form
+  //   if (skillType === 'lore' || skillType === 'martial') {
+  //     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
+  //     // const itemToEdit = this.actor.getOwnedItem(itemId).data;
+  //     /* itemToEdit.data.proficient.value = newLevel;
+  //     this.actor.updateOwnedItem(itemToEdit); */
 
-      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
-    } else if (containerType === 'spellcastingEntry') {
-      const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      itemToEdit.data.proficiency.value = newLevel;
-      this.actor.updateOwnedItem(itemToEdit); */
+  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
+  //   } else if (containerType === 'spellcastingEntry') {
+  //     const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
+  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
+  //     /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
+  //     itemToEdit.data.proficiency.value = newLevel;
+  //     this.actor.updateOwnedItem(itemToEdit); */
 
-      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
-    } else {
-      field.val(newLevel);
-      this._onSubmit(event);
-    }
-  }
+  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
+  //   } else {
+  //     field.val(newLevel);
+  //     this._onSubmit(event);
+  //   }
+  // }
 
   /**
    * Handle cycling of dying
    * @private
    */
-  _onCycleDying(event) {
+  _onClickDying(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
     const maxDying = this.object.data.data.attributes.dying.max;
@@ -855,12 +852,15 @@ class ActorSheetPF2e extends ActorSheet {
   }
 
   /**
-   * Handle cycling of wounded
+   * Handle clicking of stat levels. The max level is by default 4. 
+   * The max level can be set in the hidden input field with a data-max attribute. Eg: data-max="3"
    * @private
    */
-  _onCycleWounded(event) {
+  _onClickStatLevel(event) {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
+    const max = (field.data('max')==undefined) ? 4 : field.data('max');
+    const statIsItemType = (field.data('stat-type')==undefined) ? false : field.data('stat-type');
 
     // Get the current level and the array of levels
     const level = parseFloat(field.val());
@@ -868,66 +868,29 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1) , 0, 3 );
+      newLevel = Math.clamped( (level + 1) , 0, max );
     } else if (event.type === 'contextmenu') {
-      newLevel = Math.clamped( (level - 1) , 0, 3 );
+      newLevel = Math.clamped( (level - 1) , 0, max );
     }
     // Update the field value and save the form
+
+    if(statIsItemType=='item') {
+      let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+      if (itemId == undefined) { 
+        // Then item is spellcastingEntry, this could be refactored 
+        // but data-contained-id and proviciency/proficient need to be refactored everywhere to give 
+        // Lore Skills, Martial Skills and Spellcasting Entries the same structure.
+        itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
+        this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
+      } else {
+        this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
+      }
+      return;
+    }
     field.val(newLevel);
     this._onSubmit(event);
   }
 
-  /**
-   * Handle cycling of doomed
-   * @private
-   */
-  _onCycleDoomed(event) {
-    event.preventDefault();
-    const field = $(event.currentTarget).siblings('input[type="hidden"]');
-
-    // Get the current level and the array of levels
-    const level = parseFloat(field.val());
-    let newLevel = '';
-
-    // Toggle next level - forward on click, backwards on right
-    if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1 ) , 0, 3 );
-    } else if (event.type === 'contextmenu') {
-      newLevel = Math.clamped( (level - 1) , 0, 3 );
-    }
-    // Update the field value and save the form
-    field.val(newLevel);
-    this._onSubmit(event);
-  }
-
-  /**
-   * Handle cycling of Hero Points
-   * @private
-   */
-  _onCycleHeroPoints(event) {
-    event.preventDefault();
-    const field = $(event.currentTarget).siblings('input[type="hidden"]');
-
-    // Get the skill type (used to determine if this is a Lore skill)
-    // let skillType = $(event.currentTarget).parents(".item").attr("data-item-type");
-
-    // Get the current level and the array of levels
-    const level = parseFloat(field.val());
-    const levels = [0, 1, 2, 3];
-    const idx = levels.indexOf(level);
-    let newLevel = '';
-
-    // Toggle next level - forward on click, backwards on right
-    if (event.type === 'click') {
-      newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
-    } else if (event.type === 'contextmenu') {
-      newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
-    }
-
-    // Update the field value and save the form
-    field.val(newLevel);
-    this._onSubmit(event);
-  }
 
   /* -------------------------------------------- */
 
