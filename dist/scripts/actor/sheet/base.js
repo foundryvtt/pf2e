@@ -637,6 +637,15 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollLoreSkill(event, item);
     });
 
+    
+    // Update Item Bonus on an actor.item input
+    html.find('.focus-pool-input').focusout(async (event) => {
+      event.preventDefault();
+      const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
+      const pool = Math.clamped(Number(event.target.value), 0, 3);
+      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.pool': pool });
+    });
+
     // Update Item Bonus on an actor.item input
     html.find('.item-value-input').focusout(async (event) => {
       event.preventDefault();
@@ -885,8 +894,13 @@ class ActorSheetPF2e extends ActorSheet {
         // Then item is spellcastingEntry, this could be refactored 
         // but data-contained-id and proviciency/proficient need to be refactored everywhere to give 
         // Lore Skills, Martial Skills and Spellcasting Entries the same structure.
+        
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-        this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
+        if ($(event.currentTarget).attr('title') == game.i18n.localize("PF2E.Focus.pointTitle")) {
+          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': newLevel });
+        } else {
+          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
+        }
       } else {
         this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
       }

@@ -15,6 +15,27 @@
                     {{/if}}
                 </div>
                 {{#unless entry.data.tradition.ritual}}
+                    {{#if entry.data.tradition.focus}}
+                    <ol class="skills-list" style="background: var(--secondary-background);">
+                        <li class="skill-grid" style="grid: 'name points pool' 100%/auto 46px 46px;">
+                            <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
+                            <div class="skill-container">
+                                <h4 class="skill-item pf-title">{{localize "PF2E.Focus.pointLabel"}}</h4>
+                                <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
+                                    <input type="hidden" name="data.items.{{eid}}.data.focus.points" data-stat-type="item" data-max="3" value="{{entry.data.focus.points}}" data-dtype="Number"/>
+                                    <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.Focus.pointTitle"}}" style="height: 15px;">{{{entry.data.focus.icon}}}</span>
+                                </span>
+                            </div>
+                            <div class="skill-container">
+                                <h4 class="skill-item pf-title">{{localize "PF2E.Focus.poolLabel"}}</h4>
+                                <span class="skill-item pf-value focus-pool-input" title="{{localize "PF2E.Focus.poolTitle"}}">
+                                    <input type="text" name="data.items.{{eid}}.data.focus.pool" value="{{entry.data.focus.pool}}"
+                                            data-dtype="Number" placeholder="0"/>
+                                </span>
+                            </div>
+                        </li>
+                    </ol>
+                    {{/if}}
                     <ol class="skills-list">
                         <li class="skill-grid">
 
@@ -33,7 +54,6 @@
                                             data-dtype="Number" placeholder="+0"/>
                                 </span>
                             </div>
-
                         </li>
                         <li class="pf-two-grid">
                             <label class="skill-name">{{localize "PF2E.SpellAbilityLabel"}}</label>
@@ -50,7 +70,6 @@
                         </li>
                     </ol>
                 {{/unless}}
-
             {{#unless entry.data.prepared.preparedSpells}}
 
                 <!-- Everything except prepared spells -->
