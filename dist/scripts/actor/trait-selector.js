@@ -87,11 +87,11 @@ class TraitSelector5e extends FormApplication {
       super.activateListeners(html);
 
       if (this.options.has_values) {
-        html.find('input[id=input_value]').focusin( (ev) => {
+        html.find('input[id^=input_value]').focusin( (ev) => {
           const name = ev.currentTarget.name;
           html.find(`input[type=checkbox][name=${name}]`).prop('checked', true);
         });
-        html.find('input[id=input_value]').focusout( (ev) => {
+        html.find('input[id^=input_value]').focusout( (ev) => {
           const input = ev.currentTarget;
           if (input.value === "")
             html.find(`input[type=checkbox][name=${input.name}]`).prop('checked', false);
@@ -99,11 +99,11 @@ class TraitSelector5e extends FormApplication {
       }
 
       if (this.options.has_exceptions) {
-        html.find('input[id=input_exception]').focusin( (ev) => {
+        html.find('input[id^=input_exception]').focusin( (ev) => {
           const name = ev.currentTarget.name;
             html.find(`input[type=checkbox][name=${name}]`).prop('checked', true);
           });
-        html.find('input[id=input_exception]').focusout( (ev) => {
+        html.find('input[id^=input_exception]').focusout( (ev) => {
             const input_exception = ev.currentTarget;
             const input_value = html.find(`input[id=input_value][name=${input_exception.name}]`).val();
             if (input_value === "")
