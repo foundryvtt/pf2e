@@ -18,8 +18,10 @@ Hooks.on("preUpdateOwnedItem", (actor, actorId, item) => {
 });
 
 Hooks.on("preDeleteOwnedItem", (actor, actorId, item) => {
+    if (actor.getOwnedItem(item) == undefined) return;
     actor.itemBehaviour(actor.getOwnedItem(item).data, false); 
 });
+
 
 Actor.prototype.itemBehaviour = async function(item, create=true) {
     if (item.name == 'Diehard') this.itemFeatDiehard(create);

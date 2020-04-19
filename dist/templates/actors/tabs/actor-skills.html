@@ -13,7 +13,7 @@
                     <div class="skill-container">
                         <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
                         <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{skill.hover}}">{{{skill.icon}}}</span>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{skill.hover}}">{{{skill.icon}}}</span>
                     </div>
                     <div class="skill-container">
                         <h4 class="skill-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
@@ -58,8 +58,8 @@
                     
                     <div class="skill-container">
                         <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
-                        <input type="hidden" name="data.items.{{mid}}.data.proficient.value" value="{{lore.data.proficient.value}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{lore.data.hover}}">{{{lore.data.icon}}}</span>
+                        <input type="hidden" name="data.items.{{lid}}.data.proficient.value" data-stat-type="item" value="{{lore.data.proficient.value}}" data-dtype="Number"/>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{lore.data.hover}}">{{{lore.data.icon}}}</span>
                     </div>
                     <!-- <div class="skill-container">
                         <h4 class="skill-item pf-title">Item</h4>
@@ -103,7 +103,7 @@
                     <div class="skill-container">
                         <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
                         <input type="hidden" name="data.martial.{{s}}.rank" value="{{martial.rank}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{martial.hover}}">{{{martial.icon}}}</span>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{martial.hover}}">{{{martial.icon}}}</span>
                     </div>
                 </li>
             {{/each}}
@@ -119,8 +119,8 @@
                         
                         <div class="skill-container">
                             <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
-                            <input type="hidden" name="data.items.{{mid}}.data.proficient.value" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
-                            <span class="skill-proficiency pf-value pf-rank proficiency-click" title="{{martial.data.hover}}">{{{martial.data.icon}}}</span>
+                            <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
+                            <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{martial.data.hover}}">{{{martial.data.icon}}}</span>
                         </div>
                     <!-- <div class="skill-container">
                         <h4 class="skill-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
