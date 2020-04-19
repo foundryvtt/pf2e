@@ -8,7 +8,7 @@ import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 
 Hooks.once('init', () => {
-  console.log(`PF2e | Initializing Pathfinder 2nd Edition System`);
+  console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 
   CONFIG.PF2E = PF2ECONFIG;
   // Temporarily overload CONFIG until we're refactored out.
@@ -29,10 +29,9 @@ Hooks.once('init', () => {
     
 });
 
-Hooks.once("ready", function() {
+Hooks.once('ready', () => {
   PlayerConfigPF2e.init();
   PlayerConfigPF2e.activateColorScheme();
-
 });
 
 /* -------------------------------------------- */
@@ -48,21 +47,21 @@ Hooks.once('setup', () => {
   
   // Localize CONFIG objects once up-front
   const toLocalize = [
-    "abilities", "skills", "martialSkills", "currencies", "saves",
-    "damageTypes", "weaponDamage", "healingTypes", "weaponTypes",
-    "weaponGroups", "weaponDescriptions", "weaponTraits",
-    "traitsDescriptions", "weaponHands", "itemBonuses", "damageDie",
-    "weaponRange", "weaponMAP", "weaponReload", "armorTypes", "armorGroups",
-    "consumableTypes", "magicTraditions", "preparationType", "spellTraits",
-    "featTraits", "areaTypes", "areaSizes", "classTraits", "ancestryTraits",
-    "alignment", "skillList", "spellComponents", "spellTypes",
-    "spellTraditions", "spellSchools", "spellLevels", "featTypes",
-    "featActionTypes", "actionTypes", "actionTypes", "actionsNumber",
-    "actionCategories", "proficiencyLevels", "heroPointLevels", "actorSizes",
-    "bulkTypes", "conditionTypes", "immunityTypes", "languages",
-    "monsterTraits", "spellScalingModes"
+    'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
+    'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes',
+    'weaponGroups', 'weaponDescriptions', 'weaponTraits',
+    'traitsDescriptions', 'weaponHands', 'itemBonuses', 'damageDie',
+    'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes', 'armorGroups',
+    'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
+    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits',
+    'alignment', 'skillList', 'spellComponents', 'spellTypes',
+    'spellTraditions', 'spellSchools', 'spellLevels', 'featTypes',
+    'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
+    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes',
+    'bulkTypes', 'conditionTypes', 'immunityTypes', 'languages',
+    'monsterTraits', 'spellScalingModes',
   ];
-  for ( let o of toLocalize ) {
+  for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {
       obj[e[0]] = game.i18n.localize(e[1]);
       return obj;
@@ -132,19 +131,19 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
   return options;
 });
 
-Hooks.on("preCreateActor", (dir, actor) =>{
+Hooks.on('preCreateActor', (dir, actor) => {
   if (game.settings.get('pf2e', 'defaultTokenSettings')) {
     // Set wounds, advantage, and display name visibility
     mergeObject(actor, {
-      "token.bar1" :{"attribute" : "attributes.hp"},                 // Default Bar 1 to Wounds
-      "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display name to be on owner hover
-      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display bars to be on owner hover
-      "token.disposition" : CONST.TOKEN_DISPOSITIONS.HOSTILE,         // Default disposition to hostile
-      "token.name" : actor.name                                       // Set token name to actor name
-    })
-  
+      'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
+      'token.displayName': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display name to be on owner hover
+      'token.displayBars': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display bars to be on owner hover
+      'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
+      'token.name': actor.name, // Set token name to actor name
+    });
+
     // Default characters to HasVision = true and Link Data = true
-    if (actor.type == "character") {
+    if (actor.type == 'character') {
       actor.token.vision = true;
       actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
       actor.token.actorLink = true;
