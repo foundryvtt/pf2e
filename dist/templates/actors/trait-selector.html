@@ -2,17 +2,17 @@
     <ol class="trait-list">
         {{#each ordered_choices as |choice key|}}
         <li>
-            <label>
-                    <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
-                    <span>{{choice.label}}</span>
-                    {{#if ../has_values}}
-                        <input type="text" id="input_value" style="width: 40px;" name="{{key}}" value="{{choice.value}}" placeholder="e.g. 5" data-dtype="Number"/>        
-                    {{/if}}
-                    {{#if ../has_exceptions}}
-                        <span>Except:</span>
-                        <input type="text" id="input_exception" style="width: 100px;" name="{{key}}" value="{{choice.exceptions}}" placeholder="e.g. adamantite" data-dtype="String"/>
-                    {{/if}}
-            </label>
+            <div class="form-group form-fields">
+                <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
+                <span>{{choice.label}}</span>
+                {{#if ../has_values}}
+                    <input type="text" id="input_value" name="{{key}}" value="{{choice.value}}" placeholder="e.g. 5" data-dtype="Number"/>        
+                {{/if}}
+                {{#if ../has_exceptions}}
+                    <span style="margin-left: 5px;">Except:</span>
+                    <input type="text" id="input_exception" name="{{key}}" value="{{choice.exceptions}}" placeholder="e.g. {{localize "PF2E.WeaknessTypeAdamantite"}}" data-dtype="String"/>
+                {{/if}}
+            </div>
         </li>
         {{/each}}
     </ol>
