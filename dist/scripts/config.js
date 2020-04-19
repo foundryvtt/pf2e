@@ -82,6 +82,35 @@ CONFIG.damageTypes = {
   evil: 'PF2E.DamageTypeEvil',
 };
 
+//Weakness Types
+CONFIG.weaknessTypes = {
+  acid: 'PF2E.WeaknessTypeAcid',
+  bludgeoning: 'PF2E.WeaknessTypeBludgeoning',
+  cold: 'PF2E.WeaknessTypeCold',
+  fire: 'PF2E.WeaknessTypeFire',
+  force: 'PF2E.WeaknessTypeForce',
+  electricity: 'PF2E.WeaknessTypeElectricity',
+  sonic: 'PF2E.WeaknessTypeSonic',
+  negative: 'PF2E.WeaknessTypeNegative',
+  piercing: 'PF2E.WeaknessTypePiercing',
+  poison: 'PF2E.WeaknessTypePoison',
+  positive: 'PF2E.WeaknessTypePositive',
+  bleed: 'PF2E.WeaknessTypeBleed',
+  mental: 'PF2E.WeaknessTypeMental',
+  precision: 'PF2E.WeaknessTypePrecision',
+  slashing: 'PF2E.WeaknessTypeSlashing',
+  chaotic: 'PF2E.WeaknessTypeChaotic',
+  lawful: 'PF2E.WeaknessTypeLawful',
+  good: 'PF2E.WeaknessTypeGood',
+  evil: 'PF2E.WeaknessTypeEvil',
+  adamantite: 'PF2E.WeaknessTypeAdamantite',
+  coldiron: 'PF2E.WeaknessTypeColdIron',
+  darkwood: 'PF2E.WeaknessTypeDarkwood',
+  mithral: 'PF2E.WeaknessTypeMithral',
+  orichalcum: 'PF2E.WeaknessTypeOrichalcum',
+  silver: 'PF2E.WeaknessTypeSilver',
+};
+
 // Weapon Damage Types
 CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',

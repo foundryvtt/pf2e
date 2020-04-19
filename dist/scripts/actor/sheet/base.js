@@ -107,7 +107,7 @@ class ActorSheetPF2e extends ActorSheet {
       languages: CONFIG.PF2E.languages,
       dr: CONFIG.PF2E.damageTypes,
       di: CONFIG.PF2E.immunityTypes,
-      dv: CONFIG.PF2E.damageTypes,
+      dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
     };
     for (const [t, choices] of Object.entries(map)) {
