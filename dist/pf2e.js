@@ -22,6 +22,7 @@ Hooks.once('init', () => {
   CONFIG.Actor.entityClass = ActorPF2e;
   
   PlayerConfigPF2e.hookOnRenderSettings();  
+
   registerSettings();
   loadTemplates();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
@@ -41,7 +42,7 @@ Hooks.once("ready", function() {
 /**
  * This function runs after game data has been requested and loaded from the servers, so entities exist
  */
-Hooks.once("setup", function() {
+Hooks.once('setup', () => {
   
   window.PF2e = new PF2e;
   
