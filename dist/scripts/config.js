@@ -1,5 +1,7 @@
 export const CONFIG = {};
 
+CONFIG.chatDamageButtonShieldToggle = false;
+
 // Ability labels
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
