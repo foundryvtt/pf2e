@@ -1,17 +1,26 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
     <ol class="trait-list">
-        {{#each choices as |choice key|}}
+        {{#each ordered_choices as |choice key|}}
         <li>
-            <label>
+            <div class="form-group form-fields">
                 <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
-                <span>{{choice.label}}</span>
-            </label>
+                <label style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                {{#if ../has_values}}
+                    <input type="text" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="e.g. 5" data-dtype="Number"/>        
+                {{/if}}
+                {{#if ../has_exceptions}}
+                    <label style="margin-left: 5px;">Except:</label>
+                    <input type="text" id="input_exception_{{key}}" name="{{key}}" value="{{choice.exceptions}}" placeholder="e.g. {{localize "PF2E.WeaknessTypeAdamantite"}}" data-dtype="String"/>
+                {{/if}}
+            </div>
         </li>
         {{/each}}
     </ol>
+    {{#unless has_values}}
     <div class="form-group-stacked">
         <label>{{localize "PF2E.SpecialLabel"}}:</label>
         <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
     </div>
+    {{/unless}}
     <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
 </form>

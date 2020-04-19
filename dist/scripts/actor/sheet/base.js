@@ -105,17 +105,28 @@ class ActorSheetPF2e extends ActorSheet {
       "dv": CONFIG.PF2E.damageTypes,
       "ci": CONFIG.PF2E.conditionTypes, */
       languages: CONFIG.PF2E.languages,
-      dr: CONFIG.PF2E.immunityTypes,
+      dr: CONFIG.PF2E.damageTypes,
       di: CONFIG.PF2E.immunityTypes,
-      dv: CONFIG.PF2E.immunityTypes,
+      dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
     };
     for (const [t, choices] of Object.entries(map)) {
       const trait = traits[t];
-      trait.selected = trait.value.reduce((obj, t) => {
-        obj[t] = choices[t];
-        return obj;
-      }, {});
+
+      if (Array.isArray(trait)) {
+        trait.selected = {};
+        for (const entry of trait) {
+          if ('exceptions' in entry && entry.exceptions != "")
+            trait.selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
+          else
+            trait.selected[entry.type] = `${choices[entry.type]} (${entry.value})`;
+        }
+      } else {
+        trait.selected = trait.value.reduce((obj, t) => {
+          obj[t] = choices[t];
+           return obj;
+        }, {});
+      }
 
       // Add custom entry
       if (trait.custom) trait.selected.custom = trait.custom;
@@ -1393,6 +1404,8 @@ class ActorSheetPF2e extends ActorSheet {
       name: a.parents('label').attr('for'),
       title: a.parent().text().trim(),
       choices: CONFIG.PF2E[a.attr('data-options')],
+      has_values: (a.attr('data-has-values') === 'true'),
+      has_exceptions: (a.attr('data-has-exceptions') === 'true'),
     };
     new TraitSelector5e(this.actor, options).render(true);
   }

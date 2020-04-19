@@ -48,7 +48,7 @@
         <div class="stats-line">
           <span class="inline-stats">
             <label class="stat-title">{{localize "PF2E.Languages"}}</label>
-            {{#each actor.data.traits.languages.selected as |lang lid|}}
+            {{#each actor.data.traits.languages.value as |lang lid|}}
             <span class="stat-list">
               <span class="stat-minortitle">{{lang}}</span>
             </span>
@@ -181,12 +181,12 @@
           {{/each}}
         </span>
         {{/if}}
-       	
+
         {{#if hasResistances}}
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
-          {{#each data.traits.dr.selected as |trait id|}}
-            <span class="stat-value">{{trait.type}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
+          {{#each data.traits.dr as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
           {{/each}}
         </span>
         {{/if}}
@@ -194,8 +194,8 @@
         {{#if hasWeaknesses}}
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.WeaknessesLabel"}}</label>
-          {{#each data.traits.dv.selected as |trait id|}}
-            <span class="stat-value">{{trait.type}}: {{trait.value}}</span>
+          {{#each data.traits.dv as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}</span>
           {{/each}}
         </span>
         {{/if}}
