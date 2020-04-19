@@ -1,15 +1,16 @@
-import { CONFIG as PF2E } from './scripts/config.js';
+import { CONFIG as PF2ECONFIG } from './scripts/config.js';
 import registerSettings from './module/settings.js';
 import loadTemplates from './module/templates.js';
 import { initiativeFormula } from './module/combat.js';
 import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
+import { PF2e } from './module/pf2e-system.js';
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 
-  CONFIG.PF2E = PF2E;
+  CONFIG.PF2E = PF2ECONFIG;
   // Temporarily overload CONFIG until we're refactored out.
   for (const k in CONFIG.PF2E) {
     if (Object.prototype.hasOwnProperty.call(CONFIG.PF2E, k)) {
@@ -19,12 +20,13 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
-
-  PlayerConfigPF2e.hookOnRenderSettings();
+  
+  PlayerConfigPF2e.hookOnRenderSettings();  
 
   registerSettings();
   loadTemplates();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
+    
 });
 
 Hooks.once('ready', () => {
@@ -40,6 +42,9 @@ Hooks.once('ready', () => {
  * This function runs after game data has been requested and loaded from the servers, so entities exist
  */
 Hooks.once('setup', () => {
+  
+  window.PF2e = new PF2e;
+  
   // Localize CONFIG objects once up-front
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
