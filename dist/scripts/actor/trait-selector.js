@@ -142,7 +142,7 @@ class TraitSelector5e extends FormApplication {
         if(v.length > 1 && v[0]) {
           if (!isNaN(v[1]) && v[1] !== "")
             {
-              const label = CONFIG.PF2E.immunityTypes[k] || CONFIG.PF2E.damageTypes[k];
+              const label = this.options.choices[k];
               const exceptions = v[2] || "";
               choices.push({type: k, label: label, value: v[1], exceptions: exceptions});
             }
