@@ -979,7 +979,7 @@ CONFIG.immunityTypes = {
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
-  sleep: 'PF2E.ImmunityTypSleep',
+  sleep: 'PF2E.ImmunityTypeSleep',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
