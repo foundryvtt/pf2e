@@ -82,6 +82,35 @@ CONFIG.damageTypes = {
   evil: 'PF2E.DamageTypeEvil',
 };
 
+//Weakness Types
+CONFIG.weaknessTypes = {
+  acid: 'PF2E.DamageTypeAcid',
+  bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  cold: 'PF2E.DamageTypeCold',
+  fire: 'PF2E.DamageTypeFire',
+  force: 'PF2E.DamageTypeForce',
+  electricity: 'PF2E.DamageTypeElectricity',
+  sonic: 'PF2E.DamageTypeSonic',
+  negative: 'PF2E.DamageTypeNegative',
+  piercing: 'PF2E.DamageTypePiercing',
+  poison: 'PF2E.DamageTypePoison',
+  positive: 'PF2E.DamageTypePositive',
+  bleed: 'PF2E.DamageTypeBleed',
+  mental: 'PF2E.DamageTypeMental',
+  precision: 'PF2E.DamageTypePrecision',
+  slashing: 'PF2E.DamageTypeSlashing',
+  chaotic: 'PF2E.DamageTypeChaotic',
+  lawful: 'PF2E.DamageTypeLawful',
+  good: 'PF2E.DamageTypeGood',
+  evil: 'PF2E.DamageTypeEvil',
+  adamantite: 'PF2E.WeaknessTypeAdamantite',
+  coldiron: 'PF2E.WeaknessTypeColdIron',
+  darkwood: 'PF2E.WeaknessTypeDarkwood',
+  mithral: 'PF2E.WeaknessTypeMithral',
+  orichalcum: 'PF2E.WeaknessTypeOrichalcum',
+  silver: 'PF2E.WeaknessTypeSilver',
+};
+
 // Weapon Damage Types
 CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -278,7 +307,7 @@ CONFIG.weaponTraits = {
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
-mergeObject(CONFIG.weaponTraits, magicalSchools);
+mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
 // Spell Traits
 CONFIG.spellTraits = {
@@ -307,10 +336,10 @@ CONFIG.spellTraits = {
   linguistic: 'PF2E.TraitLinguistic',
   morph: 'PF2E.TraitMorph',
 };
-mergeObject(CONFIG.spellTraits, rarityTraits);
+mergeObject(CONFIG.spellTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.spellTraits, magicalSchools);
+mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.spellTraits, CONFIG.classTraits);
 
 // Feat Traits
@@ -355,7 +384,7 @@ mergeObject(CONFIG.featTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.featTraits, magicalSchools);
+mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
 
@@ -439,7 +468,7 @@ CONFIG.monsterTraits = {
   xulgath: 'PF2E.TraitXulgath',
   zombie: 'PF2E.TraitZombie',
 };
-mergeObject(CONFIG.monsterTraits, rarityTraits);
+mergeObject(CONFIG.monsterTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
@@ -950,6 +979,7 @@ CONFIG.immunityTypes = {
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
+  sleep: 'PF2E.ImmunityTypeSleep',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',

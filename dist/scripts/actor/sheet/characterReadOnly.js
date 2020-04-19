@@ -79,9 +79,9 @@
       //Immunities check
       sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
       //Resistances check
-      sheetData.hasResistances = sheetData.data.traits.dr.value.length ? sheetData.data.traits.dr.value : false;
+      sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
       //Weaknesses check
-      sheetData.hasWeaknesses = sheetData.data.traits.dv.value.length ? sheetData.data.traits.dv.value : false;
+      sheetData.hasWeaknesses = sheetData.data.traits.dv.length ? Array.isArray(sheetData.data.traits.dv) : false;
 
       //Speed Details check
       if (sheetData.data.attributes.speed && sheetData.data.attributes.speed.otherSpeeds) sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false;      
