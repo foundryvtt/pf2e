@@ -41,7 +41,7 @@ A huge thanks to:
 
 ### Feedback
 
-If you have any suggestions or feedback, please contact me on discord (hooking#0492)
+If you have any suggestions or feedback, please contact me on discord (hooking[UTC+12]#0492) or drop by the #pf2e channel on the Foundry discord server.
 
 ### Licenses
 
