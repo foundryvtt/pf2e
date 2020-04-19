@@ -217,12 +217,14 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         // Check if prepared spellcasting type and set Boolean
         if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
         else i.data.prepared.preparedSpells = false;
-        // Check if Ritual spellcasting tradtion and set Boolean
+        // Check if Ritual spellcasting tradition and set Boolean
         if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
         else i.data.tradition.ritual = false;
-        if ((i.data.tradition || {}).value === 'focus') i.data.tradition.focus = true;
-        else i.data.tradition.focus = false;
-
+        if ((i.data.tradition || {}).value === 'focus') {
+          i.data.tradition.focus = true;
+          if (i.data.focus == undefined) i.data.focus = { points: 1, pool: 1};
+          i.data.focus.icon = this._getFocusIcon(i.data.focus);
+        } else i.data.tradition.focus = false;
 
         spellcastingEntries.push(i);
       }
@@ -452,6 +454,22 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     super.activateListeners(html);
     if (!this.options.editable) return;
   }
+
+  /**
+   * Get the font-awesome icon used to display a certain level of focus points
+   * expection focus = { points: 1, pool: 1}
+   * @private
+   */
+  _getFocusIcon(focus) {
+    const icons = {
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
+    };
+    return icons[focus.points];
+  }
+
 }
 
 // Register Character Sheet
@@ -459,3 +477,4 @@ Actors.registerSheet('pf2e', ActorSheetPF2eCharacter, {
   types: ['character'],
   makeDefault: true,
 });
+
