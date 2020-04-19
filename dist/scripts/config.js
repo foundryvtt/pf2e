@@ -278,7 +278,7 @@ CONFIG.weaponTraits = {
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
-mergeObject(CONFIG.weaponTraits, magicalSchools);
+mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
 // Spell Traits
 CONFIG.spellTraits = {
@@ -307,10 +307,10 @@ CONFIG.spellTraits = {
   linguistic: 'PF2E.TraitLinguistic',
   morph: 'PF2E.TraitMorph',
 };
-mergeObject(CONFIG.spellTraits, rarityTraits);
+mergeObject(CONFIG.spellTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.spellTraits, magicalSchools);
+mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.spellTraits, CONFIG.classTraits);
 
 // Feat Traits
@@ -355,7 +355,7 @@ mergeObject(CONFIG.featTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.featTraits, magicalSchools);
+mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
 
@@ -439,7 +439,7 @@ CONFIG.monsterTraits = {
   xulgath: 'PF2E.TraitXulgath',
   zombie: 'PF2E.TraitZombie',
 };
-mergeObject(CONFIG.monsterTraits, rarityTraits);
+mergeObject(CONFIG.monsterTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
