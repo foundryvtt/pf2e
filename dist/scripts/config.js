@@ -1079,6 +1079,7 @@ CONFIG.spellScalingModes = {
   level1: 'PF2E.SpellScalingModeLevel1',
   level2: 'PF2E.SpellScalingModeLevel2',
   level3: 'PF2E.SpellScalingModeLevel3',
+  level4: 'PF2E.SpellScalingModeLevel4',
   levelsecond: 'PF2E.SpellScalingModeLevelsecond',
   levelthird: 'PF2E.SpellScalingModeLevelthird',
   levelfourth: 'PF2E.SpellScalingModeLevelfourth',
