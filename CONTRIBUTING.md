@@ -5,10 +5,10 @@ The project uses gulp to package the SASS/LESS files needed for a build and can 
 * install Gulp globally if you don't have it `npm install --global gulp-cli`
 * install dev dependencies with `npm install`
 * check that Gulp is installed with a CLI version and local version by running `gulp --version` 
-* configure a `foundryconfig.json` file with `dataPath` and `systemName` attributes as below. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen.
+* configure a `foundryconfig.json` file in the root folder of the project with `dataPath` and `systemName` attributes as below. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen.
 
         {
-            dataPath: %absolute_path_to_your_foundry_userdata_folder%
+            dataPath: "PATH_TO_FOUNDRY_USERDATA_FOLDER/FoundryVTT"
             systemName: 'pf2e'
         }
 
