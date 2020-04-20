@@ -49,17 +49,15 @@ Hooks.once('setup', () => {
   // Localize CONFIG objects once up-front
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
-    'damageTypes', 'weaknessTypes', 'weaponDamage', 'healingTypes', 
-    'weaponTypes', 'weaponGroups', 'weaponDescriptions', 'weaponTraits',
-    'traitsDescriptions', 'weaponHands', 'itemBonuses', 'damageDie',
-    'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes', 'armorGroups',
-    'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
-    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits',
-    'alignment', 'skillList', 'spellComponents', 'spellTypes',
-    'spellTraditions', 'spellSchools', 'spellLevels', 'featTypes',
-    'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
-    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes',
-    'bulkTypes', 'conditionTypes', 'immunityTypes', 'languages',
+    'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups',
+    'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands',
+    'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
+    'armorGroups', 'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
+    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits', 'alignment',
+    'skillList', 'spellComponents', 'spellTypes', 'spellTraditions', 'spellSchools',
+    'spellLevels', 'featTypes', 'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
+    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
+    'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes',
   ];
   for (const o of toLocalize) {
