@@ -999,12 +999,17 @@ CONFIG.conditionTypes = {
 
 // Immunity Types
 CONFIG.immunityTypes = {
-  'death-effects': 'PF2E.ImmunityTypeDeathEffects',
+  'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
   sleep: 'PF2E.ImmunityTypeSleep',
+
+  'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
+  disease: 'PF2E.ImmunityTypeDisease',
+  necromancy: 'PF2E.ImmunityTypeNecromancy',
+  healing: 'PF2E.ImmunityTypeHealing',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',

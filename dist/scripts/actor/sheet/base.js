@@ -120,7 +120,6 @@ class ActorSheetPF2e extends ActorSheet {
           } else {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
-          
         }
       } else {
         trait.selected = trait.value.reduce((obj, t) => {
