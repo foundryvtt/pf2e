@@ -82,6 +82,31 @@ CONFIG.damageTypes = {
   evil: 'PF2E.DamageTypeEvil',
 };
 
+//Resistance Types
+CONFIG.resistanceTypes = {
+  acid: 'PF2E.DamageTypeAcid',
+  bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  cold: 'PF2E.DamageTypeCold',
+  fire: 'PF2E.DamageTypeFire',
+  force: 'PF2E.DamageTypeForce',
+  electricity: 'PF2E.DamageTypeElectricity',
+  sonic: 'PF2E.DamageTypeSonic',
+  negative: 'PF2E.DamageTypeNegative',
+  piercing: 'PF2E.DamageTypePiercing',
+  poison: 'PF2E.DamageTypePoison',
+  positive: 'PF2E.DamageTypePositive',
+  bleed: 'PF2E.DamageTypeBleed',
+  mental: 'PF2E.DamageTypeMental',
+  precision: 'PF2E.DamageTypePrecision',
+  slashing: 'PF2E.DamageTypeSlashing',
+  chaotic: 'PF2E.DamageTypeChaotic',
+  lawful: 'PF2E.DamageTypeLawful',
+  good: 'PF2E.DamageTypeGood',
+  evil: 'PF2E.DamageTypeEvil',
+  all: 'PF2E.ResistanceTypeAll',
+  physical: 'PF2E.ResistanceTypePhysical',
+};
+
 //Weakness Types
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',

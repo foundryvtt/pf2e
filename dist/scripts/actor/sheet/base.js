@@ -100,12 +100,8 @@ class ActorSheetPF2e extends ActorSheet {
 
   _prepareTraits(traits) {
     const map = {
-      /*       "dr": CONFIG.PF2E.damageTypes,
-      "di": CONFIG.PF2E.damageTypes,
-      "dv": CONFIG.PF2E.damageTypes,
-      "ci": CONFIG.PF2E.conditionTypes, */
       languages: CONFIG.PF2E.languages,
-      dr: CONFIG.PF2E.damageTypes,
+      dr: CONFIG.PF2E.resistanceTypes,
       di: CONFIG.PF2E.immunityTypes,
       dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
