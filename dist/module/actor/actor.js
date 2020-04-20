@@ -100,6 +100,44 @@ export default class extends Actor {
       }
     } */
 
+    // AC
+    // Level + Proficiency w/ type + floor(dex, dexcap) + item AC + item potency - penalties?
+    // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
+    // TODO: speed penalties are not automated
+    if(this.items) { // sometimes we don't have items!
+      let equippedArmor = this.items
+        .filter(item => item.data.type === 'armor')
+        .find(armor => armor?.data.data.equipped.value)
+        ?.data; //need to make sure we can only have 1 piece of armor equipped
+    
+      equippedArmor = equippedArmor ? equippedArmor : { // if we have no armor equipped, we're unarmored
+        data: {
+          armorType: {
+            value: "unarmored"
+          },
+          armor: {
+            value: "0"
+          },
+          dex: {
+            value: "100"
+          },
+          strength: {
+            value: "0"
+          },
+          check: {
+            value: "0"
+          }
+        }
+      };
+
+      const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
+      const armorProf = data.martial[equippedArmor.data.armorType.value].value;
+      const armorBonus = parseInt(equippedArmor.data.armor.value);
+      data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
+      data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
+      data.attributes.ac.breakdown = `10 + Lowest value between dex modifier(${data.abilities.dex.mod}) and armor dex cap(${equippedArmor.data.dex.value}) + proficiency(${armorProf}) + item bonus(${armorBonus})`;
+    }
+
     // Skill modifiers
     for (const skl of Object.values(data.skills)) {
       // skl.value = parseFloat(skl.value || 0);
