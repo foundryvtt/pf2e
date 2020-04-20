@@ -109,6 +109,8 @@ CONFIG.weaknessTypes = {
   mithral: 'PF2E.WeaknessTypeMithral',
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
+  'area-damage': 'PF2E.WeaknessTypeAreaDamage',
 };
 
 // Weapon Damage Types
@@ -980,6 +982,7 @@ CONFIG.immunityTypes = {
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
   sleep: 'PF2E.ImmunityTypeSleep',
+  'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
