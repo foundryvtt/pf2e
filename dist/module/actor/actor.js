@@ -105,7 +105,6 @@ export default class extends Actor {
     // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
     // TODO: speed penalties are not automated
     if(this.items) { // sometimes we don't have items!
-      console.log('blarg data', data);
       let equippedArmor = this.items
         .filter(item => item.data.type === 'armor')
         .find(armor => armor && armor.data.data.equipped.value); //need to make sure we can only have 1 piece of armor equipped
