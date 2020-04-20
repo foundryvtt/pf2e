@@ -20,7 +20,10 @@ module.exports = {
     Items: 'readonly',
     loadTemplates: 'readonly',
     Combat: 'writable',
-    canvas: 'readonly'
+    canvas: 'readonly',
+    ActorSheet: 'readonly',
+    Actor: 'readonly',
+    Actors: 'readonly'
   },
   parserOptions: {
     ecmaVersion: 2018,
