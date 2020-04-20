@@ -104,6 +104,8 @@ CONFIG.resistanceTypes = {
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
   all: 'PF2E.ResistanceTypeAll',
+  //Fixes beastiary import for some monsters
+  'all damage':'PF2E.ResistanceTypeAll',
   physical: 'PF2E.ResistanceTypePhysical',
 };
 
