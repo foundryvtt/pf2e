@@ -130,7 +130,7 @@ CONFIG.weaknessTypes = {
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
-  adamantite: 'PF2E.WeaknessTypeAdamantite',
+  adamantine: 'PF2E.WeaknessTypeAdamantine',
   coldiron: 'PF2E.WeaknessTypeColdIron',
   darkwood: 'PF2E.WeaknessTypeDarkwood',
   mithral: 'PF2E.WeaknessTypeMithral',
