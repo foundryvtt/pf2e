@@ -1530,4 +1530,4 @@ class ActorSheetPF2e extends ActorSheet {
   }
 }
 
-Actors.unregisterSheet('core', ActorSheet);
+export default ActorSheetPF2e;

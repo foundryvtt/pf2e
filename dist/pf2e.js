@@ -6,6 +6,7 @@ import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
+import registerActors from './module/register-actors.js';
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -25,8 +26,8 @@ Hooks.once('init', () => {
 
   registerSettings();
   loadTemplates();
+  registerActors();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
-    
 });
 
 Hooks.once('ready', () => {
