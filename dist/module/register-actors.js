@@ -1,5 +1,6 @@
 import ActorSheetPF2eCharacter from './actor/sheet/character.js';
 import ActorSheetPF2eCharacterReadOnly from './actor/sheet/characterReadOnly.js';
+import ActorSheetPF2eNPC from './actor/sheet/npc.js';
 
 function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
@@ -14,6 +15,12 @@ function registerActors() {
   Actors.registerSheet('pf2e', ActorSheetPF2eCharacterReadOnly, {
     types: ['character'],
     makeDefault: true,
+  });
+
+  // Register NPC Sheet
+  Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
+    types: ['npc'],
+    makeDefault: false,
   });
 }
 
