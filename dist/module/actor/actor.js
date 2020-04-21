@@ -107,7 +107,7 @@ export default class extends Actor {
     if(this.items) { // sometimes we don't have items!
       let equippedArmor = this.items
         .filter(item => item.data.type === 'armor')
-        .find(armor => armor && armor.data.data.equipped.value && armor.data.armorType); //need to make sure we can only have 1 piece of armor equipped
+        .find(armor => armor && armor.data.data.equipped.value && ['light','medium','heavy','unarmored'].includes(armor.data.data.armorType.value)); //need to make sure we can only have 1 piece of armor equipped
     
       equippedArmor = (equippedArmor && equippedArmor.data) ? equippedArmor.data : { // if we have no armor equipped, we're unarmored
         data: {
@@ -130,7 +130,8 @@ export default class extends Actor {
       };
 
       const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
-      const armorProf = (data.martial[equippedArmor.data.armorType.value] || {}).value;
+      const armorType = equippedArmor.data.armorType.value;
+      let armorProf = (data.martial[armorType] || {}).value
       const armorBonus = parseInt(equippedArmor.data.armor.value);
       data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
       data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
@@ -354,45 +355,44 @@ export default class extends Actor {
    * @return {Promise}
    */
   static async applyDamage(roll, multiplier, attribute='attributes.hp') {
-	if (canvas.tokens.controlled.length > 0) {
-    const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-    const messageSender = roll.find('.message-sender').text();
-    const flavorText = roll.find('.flavor-text').text();
-    const shieldFlavor = (attribute=='attributes.shield') ? 'and his shield get<br>' : 'gets';
-		for (const t of canvas.tokens.controlled) {
-      const a = t.actor;
+    if (canvas.tokens.controlled.length > 0) {
+      const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+      const messageSender = roll.find('.message-sender').text();
+      const flavorText = roll.find('.flavor-text').text();
+      const shieldFlavor = (attribute=='attributes.shield') ? 'and their shield get<br>' : 'gets';
+      for (const t of canvas.tokens.controlled) {
+        const a = t.actor;
 
-			const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
-			const message = `
-			  <div class="dice-roll">
-        <div class="dice-result">
-          <div class="dice-tooltip" style="display: none;">
-            <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${flavorText}, by ${messageSender}
+        const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
+        const message = `
+          <div class="dice-roll">
+          <div class="dice-result">
+            <div class="dice-tooltip" style="display: none;">
+              <div class="dice-formula" style="background: 0;">
+                <span style="font-size: 10px;">${flavorText}, by ${messageSender}
+                </span>
+              </div>
+            </div>
+            <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+              <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+                ${t.name} ${shieldFlavor} ${appliedResult} hit points.
               </span>
             </div>
           </div>
-				  <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-            <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
-              ${t.name} ${shieldFlavor} ${appliedResult} hit points.
-            </span>
-				  </div>
-				</div>
-			  </div>
-			  `;
-			ChatMessage.create({
-				user: game.user._id,
-				speaker: { alias: t.name },
-				content: message,
-				type: CONST.CHAT_MESSAGE_TYPES.OTHER
-			});
-
-			return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
-		}
-	} else {
-		ui.notifications.error("You haven't targeted a token.");
-		return;
-	}
+          </div>
+          `;
+        ChatMessage.create({
+          user: game.user._id,
+          speaker: { alias: t.name },
+          content: message,
+          type: CONST.CHAT_MESSAGE_TYPES.OTHER
+        });
+        return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+      }
+    } else {
+      ui.notifications.error("You haven't targeted a token.");
+      return;
+    }
   }
 
   /**
@@ -497,17 +497,28 @@ export default class extends Actor {
     const current = getProperty(this.data.data, attribute);
 
     if ( attribute == 'attributes.hp' ) {
-
       if (isDelta) {
         if (value < 0) {
-        if ((current.temp + value) >= 0) {
-          const newTempHp = current.temp + value;
-          this.update({[`data.attributes.hp.temp`]: newTempHp});
-          value = 0;
-        } else {
-          value = current.temp + value;
-          this.update({[`data.attributes.hp.temp`]: 0});
-        }
+          if ((current.temp + value) >= 0) {
+            const newTempHp = current.temp + value;
+            this.update({[`data.attributes.hp.temp`]: newTempHp});
+            value = 0;
+          } else {
+            value = current.temp + value;
+            this.update({[`data.attributes.hp.temp`]: 0});
+          }
+          if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
+            const currentSP = getProperty(this.data.data, 'attributes.sp');
+
+            if ((currentSP.value + value) >= 0) {
+              const newSP = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: newSP});
+              value = 0;
+            } else {
+              value = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: 0});
+            }
+          }
         }
         value = Math.clamped(0, Number(current.value) + value, current.max);
       }
@@ -520,7 +531,7 @@ export default class extends Actor {
         if (value < 0) {
           value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
           const hp = this.data.data.attributes.hp;
-          if (value < 0) { //substract the value from (temp)HP as well
+          if (value < 0) { //substract the value from (temp)HP as well 
             if ((hp.temp + value) >= 0) {
               const newTempHp = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: newTempHp});
@@ -542,6 +553,14 @@ export default class extends Actor {
   }
 
 }
+
+Handlebars.registerHelper('if_stamina', function(options) {
+  if(game.settings.get('pf2e', 'staminaVariant') > 0) {
+    return options.fn(this);
+  } else {
+    return ''
+  }
+});
 
 
 

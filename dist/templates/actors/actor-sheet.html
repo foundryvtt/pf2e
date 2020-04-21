@@ -6,6 +6,10 @@
     <div class="abilities" data-group="sidebar" data-tab="abilities">
       <!-- ARMOR CLASS -->
       {{> systems/pf2e/templates/actors/main/actor-armorclass.html}}
+      <!-- STAMINA (if enabled) -->
+      {{#if_stamina}}
+        {{> systems/pf2e/templates/actors/main/actor-stamina.html}}
+      {{/if_stamina}}
       <!-- HEALTH -->
       {{> systems/pf2e/templates/actors/main/actor-health.html}}
       <!-- Resistances -->
