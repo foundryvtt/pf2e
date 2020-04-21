@@ -107,7 +107,7 @@ export default class extends Actor {
     if(this.items) { // sometimes we don't have items!
       let equippedArmor = this.items
         .filter(item => item.data.type === 'armor')
-        .find(armor => armor && armor.data.data.equipped.value); //need to make sure we can only have 1 piece of armor equipped
+        .find(armor => armor && armor.data.data.equipped.value && armor.data.armorType); //need to make sure we can only have 1 piece of armor equipped
     
       equippedArmor = (equippedArmor && equippedArmor.data) ? equippedArmor.data : { // if we have no armor equipped, we're unarmored
         data: {
