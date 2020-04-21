@@ -4,6 +4,7 @@ export default function () {
     'systems/pf2e/templates/actors/main/actor-header.html',
     'systems/pf2e/templates/actors/main/actor-armorclass.html',
     'systems/pf2e/templates/actors/main/actor-health.html',
+    'systems/pf2e/templates/actors/main/actor-stamina.html',
     'systems/pf2e/templates/actors/main/actor-resistances.html',
     'systems/pf2e/templates/actors/main/actor-perception.html',
     'systems/pf2e/templates/actors/main/actor-initiative.html',
