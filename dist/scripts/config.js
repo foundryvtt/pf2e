@@ -1,5 +1,7 @@
 export const CONFIG = {};
 
+CONFIG.chatDamageButtonShieldToggle = false;
+
 // Ability labels
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
@@ -80,11 +82,66 @@ CONFIG.damageTypes = {
   evil: 'PF2E.DamageTypeEvil',
 };
 
+//Resistance Types
+CONFIG.resistanceTypes = {
+  acid: 'PF2E.DamageTypeAcid',
+  bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  cold: 'PF2E.DamageTypeCold',
+  fire: 'PF2E.DamageTypeFire',
+  force: 'PF2E.DamageTypeForce',
+  electricity: 'PF2E.DamageTypeElectricity',
+  sonic: 'PF2E.DamageTypeSonic',
+  negative: 'PF2E.DamageTypeNegative',
+  piercing: 'PF2E.DamageTypePiercing',
+  poison: 'PF2E.DamageTypePoison',
+  positive: 'PF2E.DamageTypePositive',
+  bleed: 'PF2E.DamageTypeBleed',
+  mental: 'PF2E.DamageTypeMental',
+  precision: 'PF2E.DamageTypePrecision',
+  slashing: 'PF2E.DamageTypeSlashing',
+  chaotic: 'PF2E.DamageTypeChaotic',
+  lawful: 'PF2E.DamageTypeLawful',
+  good: 'PF2E.DamageTypeGood',
+  evil: 'PF2E.DamageTypeEvil',
+  all: 'PF2E.ResistanceTypeAll',
+  physical: 'PF2E.ResistanceTypePhysical',
+};
+
+//Weakness Types
+CONFIG.weaknessTypes = {
+  acid: 'PF2E.DamageTypeAcid',
+  bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  cold: 'PF2E.DamageTypeCold',
+  fire: 'PF2E.DamageTypeFire',
+  force: 'PF2E.DamageTypeForce',
+  electricity: 'PF2E.DamageTypeElectricity',
+  sonic: 'PF2E.DamageTypeSonic',
+  negative: 'PF2E.DamageTypeNegative',
+  piercing: 'PF2E.DamageTypePiercing',
+  poison: 'PF2E.DamageTypePoison',
+  positive: 'PF2E.DamageTypePositive',
+  bleed: 'PF2E.DamageTypeBleed',
+  mental: 'PF2E.DamageTypeMental',
+  precision: 'PF2E.DamageTypePrecision',
+  slashing: 'PF2E.DamageTypeSlashing',
+  chaotic: 'PF2E.DamageTypeChaotic',
+  lawful: 'PF2E.DamageTypeLawful',
+  good: 'PF2E.DamageTypeGood',
+  evil: 'PF2E.DamageTypeEvil',
+  adamantine: 'PF2E.WeaknessTypeAdamantine',
+  coldiron: 'PF2E.WeaknessTypeColdIron',
+  darkwood: 'PF2E.WeaknessTypeDarkwood',
+  mithral: 'PF2E.WeaknessTypeMithral',
+  orichalcum: 'PF2E.WeaknessTypeOrichalcum',
+  silver: 'PF2E.WeaknessTypeSilver',
+};
+
 // Weapon Damage Types
 CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   piercing: 'PF2E.DamageTypePiercing',
   slashing: 'PF2E.DamageTypeSlashing',
+  modular: 'PF2E.DamageTypeModular',
 };
 
 // Healing Types
@@ -205,9 +262,9 @@ CONFIG.ancestryTraits = {
   elf: 'PF2E.TraitElf',
   gnome: 'PF2E.TraitGnome',
   goblin: 'PF2E.TraitGoblin',
-  halfelf: 'PF2E.TraitHalfelf',
+  halfelf: 'PF2E.TraitHalfElf',
   halfling: 'PF2E.TraitHalfling',
-  halforc: 'PF2E.TraitHalforc',
+  halforc: 'PF2E.TraitHalfOrc',
   human: 'PF2E.TraitHuman',
   hobgoblin: 'PF2E.TraitHobgoblin',
   leshy: 'PF2E.TraitLeshy',
@@ -217,6 +274,7 @@ CONFIG.ancestryTraits = {
   changeling: 'PF2E.TraitChangeling',
   geniekin: 'PF2E.TraitGeniekin',
   tiefling: 'PF2E.TraitTiefling',
+  shoony: 'PF2E.TraitShoony',
 };
 
 // Weapon Properties
@@ -258,6 +316,7 @@ CONFIG.weaponTraits = {
   'thrown-10': 'PF2E.TraitThrown10',
   'thrown-20': 'PF2E.TraitThrown20',
   'thrown-30': 'PF2E.TraitThrown30',
+  'thrown-40': 'PF2E.TraitThrown40',
   trip: 'PF2E.TraitTrip',
   twin: 'PF2E.TraitTwin',
   'two-hand-d8': 'PF2E.TraitTwoHandD8',
@@ -268,10 +327,12 @@ CONFIG.weaponTraits = {
   'versatile-p': 'PF2E.TraitVersatileP',
   'versatile-b': 'PF2E.TraitVersatileB',
   'volley-30': 'PF2E.TraitVolley30',
+  uncommon: 'PF2E.TraitUncommon',
+  'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
-mergeObject(CONFIG.weaponTraits, magicalSchools);
+mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
 // Spell Traits
 CONFIG.spellTraits = {
@@ -300,10 +361,10 @@ CONFIG.spellTraits = {
   linguistic: 'PF2E.TraitLinguistic',
   morph: 'PF2E.TraitMorph',
 };
-mergeObject(CONFIG.spellTraits, rarityTraits);
+mergeObject(CONFIG.spellTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.spellTraits, magicalSchools);
+mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.spellTraits, CONFIG.classTraits);
 
 // Feat Traits
@@ -348,7 +409,7 @@ mergeObject(CONFIG.featTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
-mergeObject(CONFIG.featTraits, magicalSchools);
+mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
 
@@ -432,7 +493,7 @@ CONFIG.monsterTraits = {
   xulgath: 'PF2E.TraitXulgath',
   zombie: 'PF2E.TraitZombie',
 };
-mergeObject(CONFIG.monsterTraits, rarityTraits);
+mergeObject(CONFIG.monsterTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
@@ -483,7 +544,7 @@ CONFIG.traitsDescriptions = {
   'thrown-10': 'PF2E.TraitDescriptionThrown10',
   'thrown-20': 'PF2E.TraitDescriptionThrown20',
   'thrown-30': 'PF2E.TraitDescriptionThrown30',
-  'thrown-40': 'PF2E.WeaponTraitThrown40',
+  'thrown-40': 'PF2E.TraitDescriptionThrown40',
   trip: 'PF2E.TraitDescriptionTrip',
   twin: 'PF2E.TraitDescriptionTwin',
   'two-hand-d8': 'PF2E.TraitDescriptionTwoHandD8',
@@ -680,7 +741,7 @@ CONFIG.weaponMAP = {
 
 // Weapon Reload
 CONFIG.weaponReload = {
-  '-': 'PF2E.WeaponReloadNone',
+  '-': '-',
   0: '0',
   1: '1',
   2: '2',
@@ -848,9 +909,9 @@ CONFIG.actionsNumber = {
 };
 
 CONFIG.actionCategories = {
-  interaction: "ActionCategoryInteraction",
-  defensive: "ActionCategoryDefensive",
-  offensive: "ActionCategoryOffensive",
+  interaction: "PF2E.ActionCategoryInteraction",
+  defensive: "PF2E.ActionCategoryDefensive",
+  offensive: "PF2E.ActionCategoryOffensive",
 }
 
 // Proficiency Multipliers
@@ -938,11 +999,17 @@ CONFIG.conditionTypes = {
 
 // Immunity Types
 CONFIG.immunityTypes = {
-  'death-effects': 'PF2E.ImmunityTypeDeathEffects',
+  'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
+  sleep: 'PF2E.ImmunityTypeSleep',
+
+  'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
+  disease: 'PF2E.ImmunityTypeDisease',
+  necromancy: 'PF2E.ImmunityTypeNecromancy',
+  healing: 'PF2E.ImmunityTypeHealing',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
@@ -997,7 +1064,6 @@ CONFIG.immunityTypes = {
   negative: 'PF2E.DamageTypeNegative',
   piercing: 'PF2E.DamageTypePiercing',
   poison: 'PF2E.DamageTypePoison',
-  psychic: 'PF2E.DamageTypePsychic',
   positive: 'PF2E.DamageTypePositive',
   bleed: 'PF2E.DamageTypeBleed',
   mental: 'PF2E.DamageTypeMental',
@@ -1043,6 +1109,7 @@ CONFIG.spellScalingModes = {
   level1: 'PF2E.SpellScalingModeLevel1',
   level2: 'PF2E.SpellScalingModeLevel2',
   level3: 'PF2E.SpellScalingModeLevel3',
+  level4: 'PF2E.SpellScalingModeLevel4',
   levelsecond: 'PF2E.SpellScalingModeLevelsecond',
   levelthird: 'PF2E.SpellScalingModeLevelthird',
   levelfourth: 'PF2E.SpellScalingModeLevelfourth',

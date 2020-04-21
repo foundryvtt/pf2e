@@ -1,15 +1,67 @@
 Patch Notes:
-*  0.546.2 (@fryguy#3851) Fixed typo preventing spell browser from loading.
-*  0.546.0 (@henry4k#8969) Fixed translation errors in actor and item modules
-*  0.546.0 (@overdox#9174) Added new weapons (Aklys, Aldori dueling sword, Bladed diabolo, Bladed hoop, Bladed scarf, Fauchard, Fighting Fan, Fire Poi, Poi, Juggling club, Khopesh, Naginata, Ogre hook, Sling bullets, Throwing knife, Urumi)
-*  0.546.0 (@overdox#9174) Added new consumable items (Deteriorating-dust, Holy water, Invisible net)
-*  0.546.0 (@overdox#9174) Added new condition icons
-*  0.546.0 (@overdox#9174) Added new missing weapon trait
-*  0.546.0 (@overdox#9174) Added new spell icons
-*  0.546.0 (@overdox#9174) Fixed formatting and missing focus spell levels on some spells
+*  v0.553.0: (@Trey) Converted actor sheets to ES6 modules
+*  v0.553.0: Fixed an issue with onItemSummary for NPC item items.
+*  v0.553.0: (@Luki#1571) Split off resistanceTypes from damageTypes.
+*  v0.553.0: (@Luki#1571) Added 'All' and 'Physical' to resistanceTypes.
+*  v0.553.0: (@Luki#1571) Added immunities: Healing, Necromancy, Nonlethal Damage, Disease
+*  v0.553.0: (@overdox#9174) Changed the deck of many things to be a rollable table only
+*  v0.553.0: (@overdox#9174) instead of relaying on the journalEntries.
+*  v0.553.0: (@overdox#9174) Added Heightened (+4) as a option for spell scaling.
+*  v0.553.0: (@overdox#9174) Added icons to several more spells that were missing them.
+
 
 
 ### Prior Patch Changes:
+*  v0.552.0: (@Shandyan#5980) Corrected bestiary entries for the following level 5 creatures: (Aasimar Redeemer, Cyclops, Dero magister, flame drake, Living waterfall, Living whirlwind, Poltergeist, Redcap, Troll, Winter wolf)
+*  v0.552.0: Updated bestiary to v0.552.0 including fixes to resistances and weaknesses to bring NPCs in line with the new system for characters.
+*  v0.552.0: Fixed a bug with immunities causing actor sheets to not load correctly
+*  v0.551.0: (@Trey) Cleaned up the code for the actor sheet and making it significantly easier to look at.
+*  v0.551.0: (@yeroon#2590) Added structure for static content that can be accessed via PF2E.DB that always need to be loaded (in contrary to things like spells that are loaded into a world from a compendium on a need basis).
+*  v0.551.0: (@yeroon#2590) Added condition translation strings in the new style.
+*  v0.551.0: (@Luki#1571) Added resistance and immunities on the actor-sheet.
+*  v0.551.0: (@Luki#1571) Added resistance, immunities and weaknesses on the npc-sheet.
+*  v0.551.0: (@Luki#1571) Expanded the trait-selector to support text inputs.
+*  v0.551.0: Updated read-only character sheet to correctly show resistances and immunities
+*  v0.551.0: (@Arshea#4444) Updated PC actors to automate calculate AC based on equiped armor.
+*  v0.551.0: (@overdox#9174) added critical hit and critical fumble decks with rollable tables
+*  v0.551.0: (@overdox#9174) added rod of wonder rollable table
+*  v0.551.0: (@overdox#9174) added human male and female names table
+*  v0.551.0: (@overdox#9174) added dwarf male and female names table
+*  v0.550.0: (@yeroon#2590) Reworked click events in character sheet so all "Stat Levels" like Proviciency/Hero Points work so they don't cycle. Left click increases the level point, and Right clicking decreases it.
+*  v0.550.0: (@yeroon#2590) Added Focus Points tracking to Focus Spells
+*  v0.550.0: (@yeroon#2590) The shield button in a damage roll chat is now a toggle, so you can apply half/full/double damage also with Shield Block. Also the chat confirmation message now mentions that damage is also applied to the shield.
+*  v0.550.0: (@yeroon#2590) Now you can roll Recovery Checks by clicking on "Dying" on your Character sheet.
+*  v0.550.0: (@yeroon#2590) If you have Default Prototype Token Settings enabled, now the token image will automatically be set to the Actors image if you update the Actor image while the Token's is still the Mystery Man.
+*  v0.550.0: (@yeroon#2590) Fixed console error when deleting certain items like Spellbooks or Lore skills.
+*  v0.549.0: (@overdox#9174) moved deck of many things to its own journal rather than having it as separate cards
+*  v0.549.0: (@overdox#9174) a single 'deck of many things' can now be found in equipment
+*  v0.549.0: (@overdox#9174) added backgrounds journal entry
+*  v0.549.0: (@overdox#9174) updated rollable tables with the new deck of many things change.
+*  v0.549.0: (@overdox#9174) new icons for some weapons
+*  v0.549.0: (@overdox#9174) fixed weapons not opening, throwing errors in console about traits
+*  v0.549.0: (@overdox#9174) new weapons (Mambele, Meteor Hammer, Scorpion Whip)
+*  v0.549.0: (@overdox#9174) New consumable items (Unholy water, Runestone, Feather Token (Bird), Feather Token (Chest), Feather Token (Fan), Feather Token (Holy Bush), Feather Token (Ladder), Feather Token (Swan Boat), Feather Token (Tree), Feather Token (Whip), Dagger of Eternal Sleep, Extended Deteriorating Dust, Caustic Deteriorating Dust, Candle of Truth, Javelin of Lightning, Dust of Disappearance, Elemental Gem)
+*  v0.549.0: (@overdox#9174) added the new Shoony ancestry features, from the adventure path 'Life's Long Shadow'
+*  v0.549.0: (@overdox#9174) removed unused icons to reduce overall size
+*  v0.548.0: (@Trey) Added compatibility for v0.5.5.
+*  v0.548.0: (@yeroon#2590) Fixed const/let bug in playerconfig module.
+*  v0.547.0: (@henry4k#8969) Tidied up unneeded translation keys
+*  v0.547.0: (@henry4k#8969) Added back the original color scheme as an option for players (with less saturated colors so its easier on the eyes)
+*  v0.547.0: (@yeroon#2590) Fixed an issue when the Quick Rolls setting is disabled (you could no longer hold SHIFT to do a quick roll)
+*  v0.547.0: (@yeroon#2590) Configured damage rolls to follow the Quick Roll rules just like all other rolls
+*  v0.547.0: (@yeroon#2590) Refactored Player Settings so that defaults are always set at initializtion (which handles default settings a lot more gracefully than the previous implementation)
+*  v0.547.0: (@yeroon#2590) Added a new System Setting that automatically sets prototype token settings for newly created Actors to sensible defaults.
+*  v0.547.0: (@overdox#9174) Added (back) traits that went missing during a merge conflict.
+*  v0.547.0: (@overdox#9174) Added new spell icons to a bunch more spells
+*  v0.547.0: (@overdox#9174) Added new trait for modular weapons and added a bunch of new weapons (Machete, Polytool, Nine-Ring Sword, Scourge, Tekko-Kagi)
+*  v0.546.2: (@fryguy#3851) Fixed typo preventing spell browser from loading.
+*  v0.546.0: (@henry4k#8969) Fixed translation errors in actor and item modules
+*  v0.546.0: (@overdox#9174) Added new weapons (Aklys, Aldori dueling sword, Bladed diabolo, Bladed hoop, Bladed scarf, Fauchard, Fighting Fan, Fire Poi, Poi, Juggling club, Khopesh, Naginata, Ogre hook, Sling bullets, Throwing knife, Urumi)
+*  v0.546.0: (@overdox#9174) Added new consumable items (Deteriorating-dust, Holy water, Invisible net)
+*  v0.546.0: (@overdox#9174) Added new condition icons
+*  v0.546.0: (@overdox#9174) Added new missing weapon trait
+*  v0.546.0: (@overdox#9174) Added new spell icons
+*  v0.546.0: (@overdox#9174) Fixed formatting and missing focus spell levels on some spells
 *  v0.545.0: (@henry4k#8969) Added localization support for most text fields in the system. 
 *  v0.544.0: (@overdox#9174) Added missing spells (issue #186) and fixed typo in talisman (issue #188)
 *  v0.543.1: Fixed bug when a world does not have any flags defined.

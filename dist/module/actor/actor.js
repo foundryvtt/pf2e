@@ -6,14 +6,12 @@ export default class extends Actor {
    * Augment the basic actor data with additional dynamic data.
    */
   prepareData() {
-    // actorData = super.prepareData(actorData);
-    // const data = actorData.data;
     super.prepareData();
 
     // Get the Actor's data object
     const actorData = this.data;
     const { data } = actorData;
-    const { flags } = actorData;
+    this._prepareTokenImg();
 
     // Ability modifiers
     if (actorData.type === 'npc') {
@@ -48,6 +46,15 @@ export default class extends Actor {
 
     // Return the prepared Actor data
     return actorData;
+  }
+
+  _prepareTokenImg() {
+    if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+      if (this.data.token.img == 'icons/svg/mystery-man.svg' && this.data.token.img != this.img) {
+        this.data.token.img = this.img;
+      }
+    }
+
   }
 
   /* -------------------------------------------- */
@@ -92,6 +99,43 @@ export default class extends Actor {
         }
       }
     } */
+
+    // AC
+    // Level + Proficiency w/ type + floor(dex, dexcap) + item AC + item potency - penalties?
+    // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
+    // TODO: speed penalties are not automated
+    if(this.items) { // sometimes we don't have items!
+      let equippedArmor = this.items
+        .filter(item => item.data.type === 'armor')
+        .find(armor => armor && armor.data.data.equipped.value); //need to make sure we can only have 1 piece of armor equipped
+    
+      equippedArmor = (equippedArmor && equippedArmor.data) ? equippedArmor.data : { // if we have no armor equipped, we're unarmored
+        data: {
+          armorType: {
+            value: "unarmored"
+          },
+          armor: {
+            value: "0"
+          },
+          dex: {
+            value: "100"
+          },
+          strength: {
+            value: "0"
+          },
+          check: {
+            value: "0"
+          }
+        }
+      };
+
+      const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
+      const armorProf = data.martial[equippedArmor.data.armorType.value].value;
+      const armorBonus = parseInt(equippedArmor.data.armor.value);
+      data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
+      data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
+      data.attributes.ac.breakdown = `10 + Lowest value between dex modifier(${data.abilities.dex.mod}) and armor dex cap(${equippedArmor.data.dex.value}) + proficiency(${armorProf}) + item bonus(${armorBonus})`;
+    }
 
     // Skill modifiers
     for (const skl of Object.values(data.skills)) {
@@ -145,6 +189,63 @@ export default class extends Actor {
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
+  }
+
+  /**
+   * Roll a Recovery Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
+   */
+  rollRecovery(event) {
+    const dying = this.data.data.attributes.dying.value;
+    const wounded = this.data.data.attributes.wounded.value;
+    const recoveryDc = 10 + 0; //rework later to also add Mountain's Stoutness support
+    const flatCheck = new Roll("1d20").roll();
+    const dc = recoveryDc + dying;
+    let result = '';
+    
+    if (flatCheck.result == 20 || flatCheck.result >= (recoveryDc+10)) {
+      result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
+    } else if (flatCheck.result == 1 || flatCheck.result <= (recoveryDc-10)) {
+      result = game.i18n.localize("PF2E.CritFailure") + ' ' + game.i18n.localize("PF2E.Recovery.critFailure");
+    } else if (flatCheck.result >= recoveryDc) {
+      result = game.i18n.localize("PF2E.Success") + ' ' + game.i18n.localize("PF2E.Recovery.success");
+    } else {
+      result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
+    }
+
+    const message = `
+      <div class="dice-roll">
+      <div class="dice-result">
+        <div class="dice-tooltip" style="display: none;">
+            <section class="tooltip-part">
+              <p class="part-formula" style="padding-top:5px;">${flatCheck.formula}<span class="part-total">${flatCheck.result}</span></p>
+              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + dying ${dying}</p>
+            </section>
+        </div>
+        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
+            Rolling Recovery Check  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
+              <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> versus a DC ${dc}.
+          </span>
+        </div>
+        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+          <span style="font-size: 12px; font-weight: 100;">
+            ${result}
+          </span>
+        </div>
+      </div>
+      </div>
+      `;
+      ChatMessage.create({
+        user: game.user._id,
+        speaker: { actor: this },
+        content: message,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER
+      });
+
+      // No automated update yet, not sure if Community wants that.
+      // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
   }
 
   /* -------------------------------------------- */
@@ -257,6 +358,7 @@ export default class extends Actor {
     const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
     const messageSender = roll.find('.message-sender').text();
     const flavorText = roll.find('.flavor-text').text();
+    const shieldFlavor = (attribute=='attributes.shield') ? 'and his shield get<br>' : 'gets';
 		for (const t of canvas.tokens.controlled) {
       const a = t.actor;
 
@@ -271,7 +373,9 @@ export default class extends Actor {
             </div>
           </div>
 				  <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-					<span style="font-size: 12px; font-style:oblique; font-weight: 100;">${t.name} gets ${appliedResult} hit points.</span>
+            <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+              ${t.name} ${shieldFlavor} ${appliedResult} hit points.
+            </span>
 				  </div>
 				</div>
 			  </div>
@@ -323,7 +427,7 @@ export default class extends Actor {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Inititive is now ${value} !</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Initiative is now ${value} !</span>
         </div>
       </div>
       </div>
