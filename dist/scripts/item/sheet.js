@@ -200,6 +200,26 @@ class ItemSheetPF2e extends ItemSheet {
   }
 
   /* -------------------------------------------- */
+  /*  Form Submission                             */
+	/* -------------------------------------------- */
+
+  /** @override */
+  _updateObject(event, formData) {
+
+    // Handle Damage Array
+    let damage = Object.entries(formData).filter(e => e[0].startsWith("data.damageRolls"));
+    formData["data.damageRolls"] = damage.reduce((arr, entry) => {
+      let [i, j] = entry[0].split(".").slice(3);
+      if ( !arr[i] ) arr[i] = [];
+      arr[i][j] = entry[1];
+      return arr;
+    }, []);
+
+    // Update the Item
+    super._updateObject(event, formData);
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Activate listeners for interactive item sheet events
