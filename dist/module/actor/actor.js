@@ -107,7 +107,7 @@ export default class extends Actor {
     if(this.items) { // sometimes we don't have items!
       let equippedArmor = this.items
         .filter(item => item.data.type === 'armor')
-        .find(armor => armor && armor.data.data.equipped.value); //need to make sure we can only have 1 piece of armor equipped
+        .find(armor => armor && armor.data.data.equipped.value && armor.data.armorType); //need to make sure we can only have 1 piece of armor equipped
     
       equippedArmor = (equippedArmor && equippedArmor.data) ? equippedArmor.data : { // if we have no armor equipped, we're unarmored
         data: {
@@ -130,7 +130,11 @@ export default class extends Actor {
       };
 
       const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
-      const armorProf = data.martial[equippedArmor.data.armorType.value].value;
+      const armorType = equippedArmor.data.armorType.value;
+      let armorProf = 0;
+      if (['light','medium','heavy','unarmored'].includes(armorType)) {
+        armorProf = (data.martial[armorType] || {}).value;
+      }
       const armorBonus = parseInt(equippedArmor.data.armor.value);
       data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
       data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
@@ -507,13 +511,15 @@ export default class extends Actor {
             this.update({[`data.attributes.hp.temp`]: 0});
           }
           if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
-            if ((current.spvalue + value) >= 0) {
-              const newSP = current.spvalue + value;
-              this.update({[`data.attributes.hp.spvalue`]: newSP});
-              value = 0
+            const currentSP = getProperty(this.data.data, 'attributes.sp');
+
+            if ((currentSP.value + value) >= 0) {
+              const newSP = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: newSP});
+              value = 0;
             } else {
-              value = current.spvalue + value;
-              this.update({[`data.attributes.hp.spvalue`]: 0});
+              value = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: 0});
             }
           }
         }
