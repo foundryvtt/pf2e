@@ -114,6 +114,11 @@ function buildTS() {
     .pipe(gulp.dest('dist'));
 }
 
+function buildJS() {
+  return gulp.src('src/**/*.js')
+    .pipe(gulp.dest('dist'));
+}
+
 /**
  * Build Less
  */
@@ -141,6 +146,8 @@ async function copyFiles(cb) {
     'fonts',
     'assets',
     'templates',
+    'LICENSE',
+    'README.md',
     'module.json',
     'system.json',
     'template.json',
@@ -165,6 +172,7 @@ async function copyFiles(cb) {
  */
 function buildWatch() {
   gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
+  gulp.watch('src/**/*.js', { ignoreInitial: false }, buildJS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
   gulp.watch(['src/fonts', 'src/templates', 'src/*.json', 'system.json'], { ignoreInitial: false }, copyFiles);
@@ -376,7 +384,7 @@ function gitTag() {
 
 const execGit = gulp.series(gitAdd, gitCommit, gitTag);
 
-const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
+const execBuild = gulp.parallel(buildTS, buildJS, buildLess, buildSASS, copyFiles);
 
 async function releaseAndTag(zipFile, version) {
   const config = getConfig();
