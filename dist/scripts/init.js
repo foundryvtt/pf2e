@@ -15,6 +15,7 @@
 
       if (!isGM) return;
 
+      let updated = false;
       // Update the dying, doomed and wounded attributes from a number to an object (with data that is configured in the template.json)
       if (version >= 0.412 && actorData.type === 'character') {
         console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
@@ -35,10 +36,28 @@
         
         await actor.update(deltaData);
         console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${version}`);
-      } else {
+        updated = true;
+      } 
+      
+      if (version >= 0.544) {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+        
+        deltaData['data.attributes.hp.spmax'] = 0; 
+        deltaData['data.attributes.hp.spvalue'] = 0; 
+
+        deltaData['data.attributes.resolve'] = {}; 
+        deltaData['data.attributes.resolve.value'] = 0; 
+
+        deltaData['data.details.keyability'] = {};
+        deltaData['data.details.keyability.value'] = "str";
+
+        await actor.update(deltaData);
+        updated = true;
+      } 
+
+      if (!updated) {
         console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
       }
-
     }
   }
 
