@@ -149,10 +149,14 @@ class ItemSheetPF2e extends ItemSheet {
   }
 
   _prepareTraits(traits, choices) {
-    traits.selected = traits.value.reduce((obj, t) => {
-      obj[t] = choices[t];
-      return obj;
-    }, {});
+    if (traits.selected) {
+      traits.selected = traits.value.reduce((obj, t) => {
+        obj[t] = choices[t];
+        return obj;
+      }, {});
+    } else {
+      traits.selected = [];
+    }
 
     // Add custom entry
     if (traits.custom) traits.selected.custom = traits.custom;
