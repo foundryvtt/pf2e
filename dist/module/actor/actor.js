@@ -508,13 +508,15 @@ export default class extends Actor {
             this.update({[`data.attributes.hp.temp`]: 0});
           }
           if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
-            if ((current.spvalue + value) >= 0) {
-              const newSP = current.spvalue + value;
-              this.update({[`data.attributes.hp.spvalue`]: newSP});
-              value = 0
+            const currentSP = getProperty(this.data.data, 'attributes.sp');
+
+            if ((currentSP.value + value) >= 0) {
+              const newSP = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: newSP});
+              value = 0;
             } else {
-              value = current.spvalue + value;
-              this.update({[`data.attributes.hp.spvalue`]: 0});
+              value = currentSP.value + value;
+              this.update({[`data.attributes.sp.value`]: 0});
             }
           }
         }

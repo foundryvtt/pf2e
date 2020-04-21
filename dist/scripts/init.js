@@ -42,8 +42,10 @@
       if (version >= 0.544) {
         console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
         
-        deltaData['data.attributes.hp.spmax'] = 0; 
-        deltaData['data.attributes.hp.spvalue'] = 0; 
+        deltaData['data.attributes.sp'] = {}; 
+        deltaData['data.attributes.sp.min'] = 0; 
+        deltaData['data.attributes.sp.max'] = 0; 
+        deltaData['data.attributes.sp.value'] = 0; 
 
         deltaData['data.attributes.resolve'] = {}; 
         deltaData['data.attributes.resolve.value'] = 0; 

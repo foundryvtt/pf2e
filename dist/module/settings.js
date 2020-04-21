@@ -24,8 +24,7 @@ export default function () {
     type: Number,
     choices: {
       0: "Do not use Stamina",
-      1: "Only players have stamina by default",
-      2: "All characters have stamina by default"
+      1: "Use Stamina" //I plan to expand this, hence the dropdown.
     }
   });
 }
