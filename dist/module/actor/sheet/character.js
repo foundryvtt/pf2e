@@ -1,3 +1,5 @@
+import ActorSheetPF2e from './base.js';
+
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
 	  const options = super.defaultOptions;
@@ -469,12 +471,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
     return icons[focus.points];
   }
-
 }
 
-// Register Character Sheet
-Actors.registerSheet('pf2e', ActorSheetPF2eCharacter, {
-  types: ['character'],
-  makeDefault: true,
-});
-
+export default ActorSheetPF2eCharacter;

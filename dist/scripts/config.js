@@ -82,6 +82,31 @@ CONFIG.damageTypes = {
   evil: 'PF2E.DamageTypeEvil',
 };
 
+//Resistance Types
+CONFIG.resistanceTypes = {
+  acid: 'PF2E.DamageTypeAcid',
+  bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  cold: 'PF2E.DamageTypeCold',
+  fire: 'PF2E.DamageTypeFire',
+  force: 'PF2E.DamageTypeForce',
+  electricity: 'PF2E.DamageTypeElectricity',
+  sonic: 'PF2E.DamageTypeSonic',
+  negative: 'PF2E.DamageTypeNegative',
+  piercing: 'PF2E.DamageTypePiercing',
+  poison: 'PF2E.DamageTypePoison',
+  positive: 'PF2E.DamageTypePositive',
+  bleed: 'PF2E.DamageTypeBleed',
+  mental: 'PF2E.DamageTypeMental',
+  precision: 'PF2E.DamageTypePrecision',
+  slashing: 'PF2E.DamageTypeSlashing',
+  chaotic: 'PF2E.DamageTypeChaotic',
+  lawful: 'PF2E.DamageTypeLawful',
+  good: 'PF2E.DamageTypeGood',
+  evil: 'PF2E.DamageTypeEvil',
+  all: 'PF2E.ResistanceTypeAll',
+  physical: 'PF2E.ResistanceTypePhysical',
+};
+
 //Weakness Types
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',
@@ -103,12 +128,14 @@ CONFIG.weaknessTypes = {
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
-  adamantite: 'PF2E.WeaknessTypeAdamantite',
+  adamantine: 'PF2E.WeaknessTypeAdamantine',
   coldiron: 'PF2E.WeaknessTypeColdIron',
   darkwood: 'PF2E.WeaknessTypeDarkwood',
   mithral: 'PF2E.WeaknessTypeMithral',
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
+  'area-damage': 'PF2E.WeaknessTypeAreaDamage',
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
 };
 
 // Weapon Damage Types
@@ -974,12 +1001,18 @@ CONFIG.conditionTypes = {
 
 // Immunity Types
 CONFIG.immunityTypes = {
-  'death-effects': 'PF2E.ImmunityTypeDeathEffects',
+  'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
   magic: 'PF2E.ImmunityTypeMagic',
   sleep: 'PF2E.ImmunityTypeSleep',
+  'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
+
+  'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
+  disease: 'PF2E.ImmunityTypeDisease',
+  necromancy: 'PF2E.ImmunityTypeNecromancy',
+  healing: 'PF2E.ImmunityTypeHealing',
 
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',

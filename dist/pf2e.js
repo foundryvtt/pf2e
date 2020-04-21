@@ -6,6 +6,7 @@ import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
+import registerActors from './module/register-actors.js';
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -25,8 +26,8 @@ Hooks.once('init', () => {
 
   registerSettings();
   loadTemplates();
+  registerActors();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
-    
 });
 
 Hooks.once('ready', () => {
@@ -48,17 +49,15 @@ Hooks.once('setup', () => {
   // Localize CONFIG objects once up-front
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
-    'damageTypes', 'weaknessTypes', 'weaponDamage', 'healingTypes', 
-    'weaponTypes', 'weaponGroups', 'weaponDescriptions', 'weaponTraits',
-    'traitsDescriptions', 'weaponHands', 'itemBonuses', 'damageDie',
-    'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes', 'armorGroups',
-    'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
-    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits',
-    'alignment', 'skillList', 'spellComponents', 'spellTypes',
-    'spellTraditions', 'spellSchools', 'spellLevels', 'featTypes',
-    'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
-    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes',
-    'bulkTypes', 'conditionTypes', 'immunityTypes', 'languages',
+    'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups',
+    'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands',
+    'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
+    'armorGroups', 'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
+    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits', 'alignment',
+    'skillList', 'spellComponents', 'spellTypes', 'spellTraditions', 'spellSchools',
+    'spellLevels', 'featTypes', 'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
+    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
+    'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes',
   ];
   for (const o of toLocalize) {

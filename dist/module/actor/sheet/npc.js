@@ -1,14 +1,15 @@
+import ActorSheetPF2e from './base.js';
 
 class ActorSheetPF2eNPC extends ActorSheetPF2e {
   static get defaultOptions() {
-	  const options = super.defaultOptions;
-	  mergeObject(options, {
+    const options = super.defaultOptions;
+    mergeObject(options, {
       classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet']),
       width: 650,
       height: 680,
       showUnpreparedSpells: true,
     });
-	  return options;
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -113,7 +114,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         i.data.isAgile = isAgile;
 
         // get formated traits for read-only npc sheet
-        let traits = [];
+        const traits = [];
         if ((i.data.traits.value || []).length != 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
@@ -140,7 +141,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         i.img = this._getActionImg(actionImg);
 
         // get formated traits for read-only npc sheet
-        let traits = [];
+        const traits = [];
         if ((i.data.traits.value || []).length != 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
@@ -150,10 +151,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
             traits.push(traitsObject);
           }
         }
-        if (i.data.actionType.value) traits.push({
-          label: CONFIG.PF2E.weaponTraits[i.data.actionType.value] || (i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1)),
-          description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || '',
-        });
+        if (i.data.actionType.value) {
+          traits.push({
+            label: CONFIG.PF2E.weaponTraits[i.data.actionType.value] || (i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1)),
+            description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || '',
+          });
+        }
         i.traits = traits.filter((p) => !!p);
 
         actions[actionType].actions.push(i);
@@ -305,8 +308,4 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
   } */
 }
 
-// Register NPC Sheet
-Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
-  types: ['npc'],
-  makeDefault: false,
-});
+export default ActorSheetPF2eNPC;
