@@ -15,4 +15,17 @@ export default function () {
     default: true,
     type: Boolean,
   });
+  game.settings.register('pf2e', 'staminaVariant', {
+    name: 'Stamina Variant Rules',
+    hint: "Play with the stamina variant from Gamemastery Guide pg 200",
+    scope: 'world',
+    config: true,
+    default: 0,
+    type: Number,
+    choices: {
+      0: "Do not use Stamina",
+      1: "Only players have stamina by default",
+      2: "All characters have stamina by default"
+    }
+  });
 }

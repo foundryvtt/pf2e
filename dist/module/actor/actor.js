@@ -354,45 +354,44 @@ export default class extends Actor {
    * @return {Promise}
    */
   static async applyDamage(roll, multiplier, attribute='attributes.hp') {
-	if (canvas.tokens.controlled.length > 0) {
-    const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-    const messageSender = roll.find('.message-sender').text();
-    const flavorText = roll.find('.flavor-text').text();
-    const shieldFlavor = (attribute=='attributes.shield') ? 'and his shield get<br>' : 'gets';
-		for (const t of canvas.tokens.controlled) {
-      const a = t.actor;
+    if (canvas.tokens.controlled.length > 0) {
+      const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+      const messageSender = roll.find('.message-sender').text();
+      const flavorText = roll.find('.flavor-text').text();
+      const shieldFlavor = (attribute=='attributes.shield') ? 'and their shield get<br>' : 'gets';
+      for (const t of canvas.tokens.controlled) {
+        const a = t.actor;
 
-			const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
-			const message = `
-			  <div class="dice-roll">
-        <div class="dice-result">
-          <div class="dice-tooltip" style="display: none;">
-            <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${flavorText}, by ${messageSender}
+        const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
+        const message = `
+          <div class="dice-roll">
+          <div class="dice-result">
+            <div class="dice-tooltip" style="display: none;">
+              <div class="dice-formula" style="background: 0;">
+                <span style="font-size: 10px;">${flavorText}, by ${messageSender}
+                </span>
+              </div>
+            </div>
+            <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+              <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+                ${t.name} ${shieldFlavor} ${appliedResult} hit points.
               </span>
             </div>
           </div>
-				  <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-            <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
-              ${t.name} ${shieldFlavor} ${appliedResult} hit points.
-            </span>
-				  </div>
-				</div>
-			  </div>
-			  `;
-			ChatMessage.create({
-				user: game.user._id,
-				speaker: { alias: t.name },
-				content: message,
-				type: CONST.CHAT_MESSAGE_TYPES.OTHER
-			});
-
-			return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
-		}
-	} else {
-		ui.notifications.error("You haven't targeted a token.");
-		return;
-	}
+          </div>
+          `;
+        ChatMessage.create({
+          user: game.user._id,
+          speaker: { alias: t.name },
+          content: message,
+          type: CONST.CHAT_MESSAGE_TYPES.OTHER
+        });
+        return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+      }
+    } else {
+      ui.notifications.error("You haven't targeted a token.");
+      return;
+    }
   }
 
   /**
@@ -497,17 +496,26 @@ export default class extends Actor {
     const current = getProperty(this.data.data, attribute);
 
     if ( attribute == 'attributes.hp' ) {
-
       if (isDelta) {
         if (value < 0) {
-        if ((current.temp + value) >= 0) {
-          const newTempHp = current.temp + value;
-          this.update({[`data.attributes.hp.temp`]: newTempHp});
-          value = 0;
-        } else {
-          value = current.temp + value;
-          this.update({[`data.attributes.hp.temp`]: 0});
-        }
+          if ((current.temp + value) >= 0) {
+            const newTempHp = current.temp + value;
+            this.update({[`data.attributes.hp.temp`]: newTempHp});
+            value = 0;
+          } else {
+            value = current.temp + value;
+            this.update({[`data.attributes.hp.temp`]: 0});
+          }
+          if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
+            if ((current.spvalue + value) >= 0) {
+              const newSP = current.spvalue + value;
+              this.update({[`data.attributes.hp.spvalue`]: newSP});
+              value = 0
+            } else {
+              value = current.spvalue + value;
+              this.update({[`data.attributes.hp.spvalue`]: 0});
+            }
+          }
         }
         value = Math.clamped(0, Number(current.value) + value, current.max);
       }
@@ -520,7 +528,7 @@ export default class extends Actor {
         if (value < 0) {
           value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
           const hp = this.data.data.attributes.hp;
-          if (value < 0) { //substract the value from (temp)HP as well
+          if (value < 0) { //substract the value from (temp)HP as well 
             if ((hp.temp + value) >= 0) {
               const newTempHp = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: newTempHp});
@@ -542,6 +550,14 @@ export default class extends Actor {
   }
 
 }
+
+Handlebars.registerHelper('if_stamina', function(options) {
+  if(game.settings.get('pf2e', 'staminaVariant') > 0) {
+    return options.fn(this);
+  } else {
+    return ''
+  }
+});
 
 
 
