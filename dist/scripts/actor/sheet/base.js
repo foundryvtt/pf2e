@@ -58,6 +58,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update traits
+    sheetData.abilities = CONFIG.PF2E.abilities;
     sheetData.actorSizes = CONFIG.PF2E.actorSizes;
     sheetData.alignment = CONFIG.PF2E.alignment;
     this._prepareTraits(sheetData.data.traits);

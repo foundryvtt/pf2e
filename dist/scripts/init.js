@@ -47,7 +47,9 @@
 
         deltaData['data.attributes.resolve'] = {}; 
         deltaData['data.attributes.resolve.value'] = 0; 
-        deltaData['data.attributes.resolve.max'] = 0; 
+
+        deltaData['data.details.keyability'] = {};
+        deltaData['data.details.keyability.value'] = "str";
 
         await actor.update(deltaData);
         updated = true;
