@@ -130,7 +130,7 @@ export default class extends Actor {
       };
 
       const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
-      const armorProf = data.martial[equippedArmor.data.armorType.value].value;
+      const armorProf = (data.martial[equippedArmor.data.armorType.value] || {}).value;
       const armorBonus = parseInt(equippedArmor.data.armor.value);
       data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
       data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
