@@ -209,7 +209,7 @@ class ItemSheetPF2e extends ItemSheet {
     // Handle Damage Array
     let damage = Object.entries(formData).filter(e => e[0].startsWith("data.damageRolls"));
     formData["data.damageRolls"] = damage.reduce((arr, entry) => {
-      let [i, j] = entry[0].split(".").slice(3);
+      let [i, j] = entry[0].split(".").slice(2);
       if ( !arr[i] ) arr[i] = [];
       arr[i][j] = entry[1];
       return arr;
