@@ -101,12 +101,8 @@ class ActorSheetPF2e extends ActorSheet {
 
   _prepareTraits(traits) {
     const map = {
-      /*       "dr": CONFIG.PF2E.damageTypes,
-      "di": CONFIG.PF2E.damageTypes,
-      "dv": CONFIG.PF2E.damageTypes,
-      "ci": CONFIG.PF2E.conditionTypes, */
       languages: CONFIG.PF2E.languages,
-      dr: CONFIG.PF2E.damageTypes,
+      dr: CONFIG.PF2E.resistanceTypes,
       di: CONFIG.PF2E.immunityTypes,
       dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
@@ -125,7 +121,6 @@ class ActorSheetPF2e extends ActorSheet {
           } else {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
-          
         }
       } else {
         trait.selected = trait.value.reduce((obj, t) => {
@@ -1117,7 +1112,7 @@ class ActorSheetPF2e extends ActorSheet {
       if (chatData.properties) chatData.properties.forEach((p) => props.append(`<span class="tag">${localize(p)}</span>`));
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
-      if (chatData.traits) {
+      if (chatData.traits && chatData.traits.length) {
         chatData.traits.forEach((p) => {
           if (p.description) props.append(`<span class="tag" title="${localize(p.description)}" style="background: #b75b5b; color: white;">${localize(p.label)}</span>`);
           else props.append(`<span class="tag">${localize(p.label)}</span>`);
@@ -1531,4 +1526,4 @@ class ActorSheetPF2e extends ActorSheet {
   }
 }
 
-Actors.unregisterSheet('core', ActorSheet);
+export default ActorSheetPF2e;
