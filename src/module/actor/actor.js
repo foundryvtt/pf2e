@@ -72,10 +72,10 @@ export default class extends Actor {
     data.details.xp.pct = character.xpPercent;
 
     // Calculate HP and SP
-    const ancestryHp = parseInt(data.attributes.ancestryhp?.value || 0, 10);
-    const classHp = parseInt(data.attributes.classhp?.value || 0, 10);
-    const bonusHpPerLevel = parseInt(data.attributes.levelbonushp?.value || 0, 10) * data.details.level.value;
-    const flatBonusHp = parseInt(data.attributes.flatbonushp?.value || 0, 10);
+    const ancestryHp = data.attributes.ancestryhp ? parseInt(data.attributes.ancestryhp.value, 10) : 0;
+    const classHp = data.attributes.classhp ? parseInt(data.attributes.classhp.value, 10) : 0;
+    const bonusHpPerLevel = data.attributes.levelbonushp ? parseInt(data.attributes.levelbonushp.value, 10) * data.details.level.value : 0;
+    const flatBonusHp = data.attributes.flatbonushp ? parseInt(data.attributes.flatbonushp.value, 10) : 0;
     const conMod = data.abilities.con.mod;
     if (game.settings.get('pf2e', 'staminaVariant')) {
       const halfClassHp = Math.floor(classHp / 2);
