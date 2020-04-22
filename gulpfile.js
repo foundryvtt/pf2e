@@ -192,19 +192,19 @@ async function clean(cb) {
   const name = config.systemName;
   const files = [];
 
-  // If the project uses TypeScript
-  if (fs.existsSync(path.join('src', `${name}.ts`))) {
-    files.push(
-      'lang',
-      'templates',
-      'assets',
-      'module',
-      `${name}.js`,
-      'module.json',
-      'system.json',
-      'template.json',
-    );
-  }
+  files.push(
+    'lang',
+    'templates',
+    'assets',
+    'module',
+    `${name}.js`,
+    'module.json',
+    'system.json',
+    'template.json',
+    'scripts',
+    'README.md',
+    'LICENSE'
+  );
   files.push('system.json');
 
   // If the project uses Less or SASS
