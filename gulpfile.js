@@ -132,7 +132,7 @@ function buildLess() {
    * Build SASS
    */
 function buildSASS() {
-  return gulp.src('src/*.scss')
+  return gulp.src('src/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'));
 }
