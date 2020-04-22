@@ -54,7 +54,7 @@ class ActorSheetPF2eCharacterReadOnly extends ActorSheetPF2eCharacter {
     }
 
     // Skills
-    sheetData.hasSkills = sheetData.actor.lores.length > 0;
+    sheetData.hasSkills = Object.values(sheetData.actor.data.skills).filter((s) => s.rank > 0).length > 0 || sheetData.actor.lores.length > 0;
 
     // AC Details
     sheetData.hasACDetails = sheetData.data.attributes.ac.details && sheetData.data.attributes.ac.details !== '';
