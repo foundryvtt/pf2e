@@ -68,6 +68,8 @@ export default class extends Actor {
     data.details.xp.max = 1000;
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value) * 100 / 1000), 99.5);
 
+    data.attributes.hp.max = parseInt(data.attributes.ancestryhp.value, 10) + (parseInt(data.attributes.classhp.value, 10) + data.abilities['con'].mod) * data.details.level.value;
+
     // Saves
     for (const save of Object.values(data.saves)) {
       const proficiency = save.rank ? (save.rank * 2) + data.details.level.value : 0;
