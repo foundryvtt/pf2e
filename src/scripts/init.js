@@ -17,7 +17,7 @@
 
       let updated = false;
       // Update the dying, doomed and wounded attributes from a number to an object (with data that is configured in the template.json)
-      if (worldSchemaVersion <= 0.412 && actorData.type === 'character') {
+      if (worldSchemaVersion < 0.412 && actorData.type === 'character') {
         console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
                 
         deltaData['data.attributes.dying'] = {};
@@ -39,7 +39,7 @@
         updated = true;
       } 
       
-      if (worldSchemaVersion <= 0.544) {
+      if (worldSchemaVersion < 0.544) {
         console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
         
         deltaData['data.attributes.sp'] = {}; 
