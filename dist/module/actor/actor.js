@@ -1,6 +1,8 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
+import CharacterData from './character.js';
+
 export default class extends Actor {
   /**
    * Augment the basic actor data with additional dynamic data.
@@ -63,10 +65,11 @@ export default class extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(data) {
+    const character = new CharacterData(data, this.items);
     // Level, experience, and proficiency
-    data.details.level.value = parseInt(data.details.level.value);
-    data.details.xp.max = 1000;
-    data.details.xp.pct = Math.min(Math.round((data.details.xp.value) * 100 / 1000), 99.5);
+    data.details.level.value = character.level;
+    data.details.xp.max = character.maxExp;
+    data.details.xp.pct = character.xpPercent;
 
     // Saves
     for (const save of Object.values(data.saves)) {
@@ -87,56 +90,10 @@ export default class extends Actor {
     data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
 
-    // Prepared Spell Slots
-    /*     for (let spl of Object.values(data.spells)) {
-      if (spl.max) {
-        spl["prepared"] = spl["prepared"] || [];
-        for(var i = 0; i < spl.max; i++){
-          spl.prepared[i] = spl.prepared[i] || null;
-        }
-        while (spl.prepared.length > spl.max) {
-          spl.prepared.pop();
-        }
-      }
-    } */
-
-    // AC
-    // Level + Proficiency w/ type + floor(dex, dexcap) + item AC + item potency - penalties?
     // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
     // TODO: speed penalties are not automated
-    if(this.items) { // sometimes we don't have items!
-      let equippedArmor = this.items
-        .filter(item => item.data.type === 'armor')
-        .find(armor => armor && armor.data.data.equipped.value && ['light','medium','heavy','unarmored'].includes(armor.data.data.armorType.value)); //need to make sure we can only have 1 piece of armor equipped
-    
-      equippedArmor = (equippedArmor && equippedArmor.data) ? equippedArmor.data : { // if we have no armor equipped, we're unarmored
-        data: {
-          armorType: {
-            value: "unarmored"
-          },
-          armor: {
-            value: "0"
-          },
-          dex: {
-            value: "100"
-          },
-          strength: {
-            value: "0"
-          },
-          check: {
-            value: "0"
-          }
-        }
-      };
-
-      const evaluatedDexBonus = Math.min(data.abilities.dex.mod, parseInt(equippedArmor.data.dex.value));
-      const armorType = equippedArmor.data.armorType.value;
-      let armorProf = (data.martial[armorType] || {}).value
-      const armorBonus = parseInt(equippedArmor.data.armor.value);
-      data.attributes.ac.value = 10 + armorProf + evaluatedDexBonus + armorBonus;
-      data.attributes.ac.check = data.abilities.str.value < parseInt(equippedArmor.data.strength.value) ? parseInt(equippedArmor.data.check.value) : 0; //why are so many of these stored as strings?
-      data.attributes.ac.breakdown = `10 + Lowest value between dex modifier(${data.abilities.dex.mod}) and armor dex cap(${equippedArmor.data.dex.value}) + proficiency(${armorProf}) + item bonus(${armorBonus})`;
-    }
+    data.attributes.ac.value = character.ac;
+    data.attributes.ac.check = character.skillCheckPenalty;
 
     // Skill modifiers
     for (const skl of Object.values(data.skills)) {
