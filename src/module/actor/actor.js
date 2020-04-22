@@ -72,21 +72,23 @@ export default class extends Actor {
     data.details.xp.pct = character.xpPercent;
 
     // Calculate HP and SP
-    const hasToughness = this.data.items.some(item => item.name === 'Toughness' && item.type === 'feat')
     const ancestryHp = parseInt(data.attributes.ancestryhp.value, 10)
     const classHp = parseInt(data.attributes.classhp.value, 10);
-    const conMod = data.abilities['con'].mod
+    const bonusHpPerLevel = parseInt(data.attributes.levelbonushp.value|| 0, 10) * data.details.level.value;
+    const flatBonusHp = parseInt(data.attributes.flatbonushp.value || 0, 10);
+    const conMod = data.abilities.con.mod;
     if (game.settings.get('pf2e', 'staminaVariant')) {
       const halfClassHp = Math.floor(classHp / 2);
       const maxSp = (halfClassHp + conMod) * data.details.level.value
-      const maxHp = ancestryHp + halfClassHp + (hasToughness ? data.details.level.value : 0)
+      const maxHp = ancestryHp + halfClassHp + bonusHpPerLevel + flatBonusHp;
       data.attributes.sp.max = maxSp;
       data.attributes.hp.max = maxHp;
-      console.log(maxSp, halfClassHp)
     } else {
       const maxHp = ancestryHp
-        + (classHp + conMod) * data.details.level.value
-        + (hasToughness ? data.details.level.value : 0);
+        + ((classHp + conMod) * data.details.level.value)
+        + bonusHpPerLevel
+        + flatBonusHp;
+
       data.attributes.hp.max = maxHp;
     }
 
