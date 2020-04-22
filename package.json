@@ -7,13 +7,17 @@
     "package": "gulp package",
     "build": "gulp build && gulp copy",
     "build:watch": "gulp watch",
-    "clean": "gulp clean && gulp copy --clean"
+    "clean": "gulp clean && gulp copy --clean",
+    "test": "jest"
   },
   "author": "",
   "license": "",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "archiver": "^3.1.1",
     "axios": "^0.19.2",
+    "babel-plugin-transform-default-import": "^1.0.0",
     "chalk": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
@@ -26,6 +30,7 @@
     "gulp-less": "^4.0.1",
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "jest": "^25.4.0",
     "json-stringify-pretty-compact": "^2.0.0",
     "sass": "^1.26.1",
     "typescript": "^3.8.2",
@@ -34,5 +39,21 @@
   "dependencies": {
     "ky": "^0.18.0",
     "ky-universal": "^0.5.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": ["transform-default-import"]
+  },
+  "jest": {
+    "modulePaths": ["<rootDir>", "<rootDir>/src", "<rootDir>/dist"]
   }
 }
