@@ -651,7 +651,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     
     // Update Item Bonus on an actor.item input
-    html.find('.focus-pool-input').focusout(async (event) => {
+    html.find('.focus-pool-input').change(async (event) => {
       event.preventDefault();
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
       const pool = Math.clamped(Number(event.target.value), 0, 3);
@@ -659,7 +659,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update Item Bonus on an actor.item input
-    html.find('.item-value-input').focusout(async (event) => {
+    html.find('.item-value-input').change(async (event) => {
       event.preventDefault();
 
       let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
@@ -684,7 +684,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update Item Name
-    html.find('.item-name-input').focusout(async (event) => {
+    html.find('.item-name-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
       // const itemToEdit = this.actor.items.find(i => i.id === itemId);
       // const itemToEdit = this.actor.getOwnedItem(itemId).data;
@@ -701,7 +701,7 @@ class ActorSheetPF2e extends ActorSheet {
 
 
     // Update used slots for Spell Items
-    html.find('.spell-slots-input').focusout(async (event) => {
+    html.find('.spell-slots-input').change(async (event) => {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
@@ -725,21 +725,11 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update max slots for Spell Items
-    html.find('.spell-max-input').focusout(async (event) => {
+    html.find('.spell-max-input').change(async (event) => {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
       const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level'));
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      // itemToEdit.data.slots["slot" + slotLvl].max = Number(event.target.value);
-
-      // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
-      // let items = this.actor.items.filter(i => i.type == itemToEdit.type)
-      // for(let item of items)
-      // {
-      // await this.actor.updateOwnedItem(itemToEdit);
-
       const key = `data.slots.slot${slotLvl}.max`;
       const options = { _id: itemId };
       options[key] = Number(event.target.value);
