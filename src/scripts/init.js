@@ -7,7 +7,7 @@
 
   class PF2eActorSchema {
 
-    static async updataActor(actor, version) {
+    static async updataActor(actor, systemSchemaVersion, worldSchemaVersion) {
       const actorData = actor.data;
       const deltaData = {};
 
@@ -17,8 +17,8 @@
 
       let updated = false;
       // Update the dying, doomed and wounded attributes from a number to an object (with data that is configured in the template.json)
-      if (version >= 0.412 && actorData.type === 'character') {
-        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+      if (worldSchemaVersion <= 0.412 && actorData.type === 'character') {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
                 
         deltaData['data.attributes.dying'] = {};
         deltaData['data.attributes.dying.value'] = 0;
@@ -32,15 +32,15 @@
         deltaData['data.attributes.doomed.value'] = 0;
         deltaData['data.attributes.doomed.max'] = 3;
         
-        deltaData['data.schema.version.value'] = version;
+        deltaData['data.schema.version.value'] = systemSchemaVersion;
         
         await actor.update(deltaData);
-        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${version}`);
+        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
         updated = true;
       } 
       
-      if (version >= 0.544) {
-        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${version}`);
+      if (worldSchemaVersion <= 0.544) {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
         
         deltaData['data.attributes.sp'] = {}; 
         deltaData['data.attributes.sp.min'] = 0; 
@@ -74,7 +74,7 @@
 
     if (systemSchemaVersion > worldSchemaVersion) {
       for (const actor of game.actors.entities) {
-        PF2eActorSchema.updataActor(actor, systemSchemaVersion);
+        PF2eActorSchema.updataActor(actor, systemSchemaVersion, worldSchemaVersion);
       }
       game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
     } else {
