@@ -258,13 +258,13 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       this.actor.rollLoreSkill(event, item);
     });
 
-    html.find('.skill-input').focusout(async (event) => {
+    html.find('.skill-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.mod.value': Number(event.target.value) });
       // }
     });
 
-    html.find('.spelldc-input').focusout(async (event) => {
+    html.find('.spelldc-input').change(async (event) => {
       event.preventDefault();
 
       const li = $(event.currentTarget).parents('.item-container');
