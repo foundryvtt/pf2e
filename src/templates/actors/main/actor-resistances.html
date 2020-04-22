@@ -1,0 +1,29 @@
+<h3 class="defense-title pf-heading">{{localize "PF2E.ResistancesLabel"}} &amp; {{localize "PF2E.ImmunitiesLabel"}}</h3>
+<ol class="singleColumn-list" style="margin-bottom: 2px; margin-top: 2px;">
+    <li>
+        <div class="form-group-stacked pf-container">
+            <label class="pf-title" for="data.traits.dr">
+                {{localize "PF2E.ResistancesLabel"}}
+                <a class="trait-selector" data-options="resistanceTypes" data-has-values="true"><i class="fas fa-edit"></i></a>
+            </label>
+            <ul id="actor-resistances" class="traits-list pf-value">
+            {{#each data.traits.dr.selected as |v k|}}
+                <span class="tag {{k}}">{{v}}</span>
+            {{/each}}
+            </ul>
+        </div>
+    </li>
+    <li>
+         <div class="form-group-stacked pf-container">
+            <label class="pf-title" for="data.traits.di">
+                {{localize "PF2E.ImmunitiesLabel"}}
+                <a class="trait-selector" data-options="immunityTypes"><i class="fas fa-edit"></i></a>
+            </label>
+            <ul class="traits-list pf-value">
+            {{#each data.traits.di.selected as |v k|}}
+                <span class="tag {{k}}">{{v}}</span>
+            {{/each}}
+            </ul>
+        </div>
+    </li>
+</ol>
