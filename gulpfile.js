@@ -12,6 +12,7 @@ const ts = require('gulp-typescript');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
 const git = require('gulp-git');
+const babel = require('gulp-babel');
 
 const { argv } = require('yargs');
 
@@ -116,6 +117,9 @@ function buildTS() {
 
 function buildJS() {
   return gulp.src('src/**/*.js')
+    .pipe(babel({
+      'plugins': ["@babel/plugin-proposal-optional-chaining"]
+    }))
     .pipe(gulp.dest('dist'));
 }
 
