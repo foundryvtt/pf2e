@@ -68,6 +68,7 @@ export default class extends Actor {
     data.details.xp.max = 1000;
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value) * 100 / 1000), 99.5);
 
+    // Calculate HP and SP
     const hasToughness = this.data.items.some(item => item.name === 'Toughness' && item.type === 'feat')
     const ancestryHp = parseInt(data.attributes.ancestryhp.value, 10)
     const classHp = parseInt(data.attributes.classhp.value, 10);
