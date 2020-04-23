@@ -1,0 +1,22 @@
+<div class="pf2e chat-card weapon-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+        <h3>{{item.name}}</h3>
+    </header>
+
+    <div class="card-content">{{{data.description.value}}}</div>
+
+    <div class="card-buttons">
+        {{#if data.hasCharges}}
+        <button data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{data.consumableType.str}}</button>
+        {{else}}
+        <button disabled>{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
+        {{/if}}
+    </div>
+
+    <footer class="card-footer">
+        {{#each data.properties}}
+        <span>{{this}}</span>
+        {{/each}}
+    </footer>
+</div>

@@ -1,0 +1,90 @@
+<div class="bio-item trait-size pf-container">
+        <label class="pf-title">{{localize "PF2E.Size"}}</label>
+        <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}">
+            {{#select data.traits.size.value}}
+            {{#each actorSizes as |label size|}}
+                <option value="{{size}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.Senses"}}</label>
+    <span class="bio-class pf-value pf-small" title="{{localize "PF2E.SensesTitle"}}">
+        <input type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
+            value="{{data.traits.senses.value}}" placeholder="None"/>
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title" for="data.traits.languages">
+        {{localize "PF2E.Languages"}}
+        <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list pf-value">
+    {{#each data.traits.languages.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+    {{/each}}
+    </ul>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.Speed"}}</label>
+    <span class="bio-class pf-value pf-small" title="{{localize "PF2E.SpeedTitle"}}">
+        <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
+            value="{{data.attributes.speed.value}}" placeholder="None"/>
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.SpeedTypes"}}</label>
+    <span class="bio-class pf-value pf-small" title="{{localize "PF2E.SpeedTypesTitle"}}">
+        <input type="text" name="data.attributes.speed.special" data-dtype="{{data.attributes.speed.type}}"
+            value="{{data.attributes.speed.special}}" placeholder="None"/>
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.KeyAbility"}}</label>
+    <select class="pf-value pf-small pf-width-100" name="data.details.keyability.value" data-dtype="{{data.details.keyability.type}}">
+        {{#select data.details.keyability.value}}
+            {{#each abilities as |label ability|}}
+                <option value="{{ability}}">{{label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.AncestryHP"}}</label>
+    <span class="bio-class pf-value pf-small">
+        <input type="text" name="data.attributes.ancestryhp.value" data-dtype="{{data.attributes.ancestryhp.type}}"
+            value="{{data.attributes.ancestryhp.value}}" placeholder="0" />
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.ClassHP"}}</label>
+    <span class="bio-class pf-value pf-small">
+        <input type="text" name="data.attributes.classhp.value" data-dtype="{{data.attributes.classhp.type}}"
+            value="{{data.attributes.classhp.value}}" placeholder="0" />
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">{{localize "PF2E.BonusHPperLevel"}}</label>
+    <span class="bio-class pf-value pf-small" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
+        <input type="text" name="data.attributes.levelbonushp.value" data-dtype="{{data.attributes.levelbonushp.type}}"
+            value="{{data.attributes.levelbonushp.value}}" placeholder="0" />
+    </span>
+</div>
+
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title">{{localize "PF2E.FlatBonusHP"}}</label>
+    <span class="bio-class pf-value pf-small">
+        <input type="text" name="data.attributes.flatbonushp.value" data-dtype="{{data.attributes.flatbonushp.type}}"
+            value="{{data.attributes.flatbonushp.value}}" placeholder="0" />
+    </span>
+</div>
+

@@ -1,0 +1,12 @@
+<h4 class="sidebar-summary">{{localize "PF2E.ActionActionSummary"}}</h4>
+
+<span class="item-summary">{{lookup featTypes data.featType.value }}</span>
+{{# if data.requirements.value }}<span class="item-summary">{{ data.requirements.value }}</span>{{/if}}
+
+{{#if itemTags.length}}
+<ol class="item-tags">
+    {{#each itemTags}}
+    <li class="tag">{{this}}</li>
+    {{/each}}
+</ol>
+{{/if}}

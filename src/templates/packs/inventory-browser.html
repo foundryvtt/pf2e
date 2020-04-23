@@ -1,0 +1,107 @@
+<div class="spell-browser">
+    <div class="control-area">
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
+            <div class="hint" style="display:none;">
+                {{{localize "PF2E.InventroyBrowserSearchHint"}}}
+            </div>
+            <dl id="sorter">
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
+                <dd><select class="null" name="sortorder">
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
+                </select></dd>
+            </dl>
+<!--             <dl id="timefilter">
+                <dt>Castingtime:</dt>
+                <dd><select class="" name="timefilter">
+                    <option value="null" selected>-</option>
+                    {{#each times as |time key|}}
+                    <option value="{{time}}">{{time}}</option>
+                    {{/each}}
+                </select></dd>
+            </dl>    -->
+        </div>
+        <div class="filtercontainer" id="itemTypesfilter">
+            <h3>{{localize "PF2E.BrowserFilterInventoryTypes"}}</h3>
+            <dl>
+                {{#each itemTypes as |type key|}}
+                <dt><input type="checkbox" name="itemTypes-{{key}}"></dt><dd>{{type}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="armorTypefilter">
+            <h3>{{localize "PF2E.BrowserFilterArmorFilters"}}</h3>
+            <dl style="display:none;">
+                {{#each armorTypes as |armorType key|}}
+                <dt><input type="checkbox" name="armorType-{{key}}"></dt><dd>{{armorType}}</dd>
+                {{/each}}
+                {{#each armorGroups as |group key|}}
+                <dt><input type="checkbox" name="group-{{key}}"></dt><dd>{{group}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="weaponTypefilter">
+            <h3>{{localize "PF2E.BrowserFilterWeaponFilters"}}</h3>
+            <dl style="display:none;">
+                {{#each weaponTypes as |weaponType key|}}
+                <dt><input type="checkbox" name="weaponType-{{key}}"></dt><dd>{{weaponType}}</dd>
+                {{/each}}
+                {{#each weaponGroups as |group key|}}
+                <dt><input type="checkbox" name="group-{{key}}"></dt><dd>{{group}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="traitsfilter">
+            <h3>{{localize "PF2E.BrowserFilterWeaponTraits"}}</h3>
+            <dl style="display:none;">
+                {{#each weaponTraits as |trait key|}}
+                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+<!--         <div class="filtercontainer" id="skillfilter">
+            <h3>Skill Feats</h3>
+            <dl style="display:none;">
+                {{#each featSkills as |skill key|}}
+                <dt><input type="checkbox" name="skill-{{key}}"></dt><dd>{{skill}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="ancestryfilter">
+            <h3>Ancestry Feats</h3>
+            <dl style="display:none;">
+                {{#each featAncestry as |ancestry key|}}
+                <dt><input type="checkbox" name="ancestry-{{key}}"></dt><dd>{{ancestry}}</dd>
+                {{/each}}
+            </dl>
+        </div> -->
+<!--         <div class="filtercontainer" id="schoolfilter">
+            <h3>School</h3>
+            <dl style="display:none;">
+                {{#each schools as |school key|}}
+                <dt><input type="checkbox" name="school-{{key}}"></dt><dd>{{school}}</dd>
+                {{/each}}
+            </dl>
+        </div> -->
+    </div>
+    <ul>
+        {{#each inventoryItems as |item id|}}
+        <li class="spell flexrow draggable" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems">
+            <div class="spell-image">
+                <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32"/>
+            </div>
+            <div class="spell-name">
+                <span class="item-edit" ><a>{{item.name}}</a></span>
+            </div>
+<!--             <div class="spell-tags">
+                <span title="Feat level">{{item.data.level.formated}}</span>
+            </div> -->
+            {{#each item.data as |attrib id|}}
+                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
+            {{/each}}
+        </li>
+        {{/each}}
+    </ul>
+
+</div>

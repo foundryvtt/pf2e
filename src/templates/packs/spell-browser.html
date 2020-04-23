@@ -1,0 +1,94 @@
+<div class="spell-browser">
+    <div class="control-area">
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
+            <div class="hint" style="display:none;">
+                {{{localize "PF2E.SpellBrowserSearchHint"}}}
+            </div>
+            <dl id="sorter">
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
+                <dd><select class="null" name="sortorder">
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
+                </select></dd>
+            </dl>
+            <dl id="timefilter">
+                <dt>{{localize "PF2E.BrowserFilterCastingTime"}}:</dt>
+                <dd><select class="" name="timefilter">
+                    <option value="null" selected>-</option>
+                    {{#each times as |time key|}}
+                    <option value="{{time}}">{{time}}</option>
+                    {{/each}}
+                </select></dd>
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
+            <h3>{{localize "PF2E.BrowserFilterTraditions"}}</h3>
+            <dl>
+                {{#each traditions as |tradition key|}}
+                <dt><input type="checkbox" name="traditions-{{key}}"></dt><dd>{{tradition}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="levelfilter">
+            <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
+            <dl>
+                <dt><input type="checkbox" name="level-0"></dt><dd>{{localize "PF2E.SpellCantripLabel"}}</dd>
+                <dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.LevelLabel"}} 1</dd>
+                <dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.LevelLabel"}} 2</dd>
+                <dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.LevelLabel"}} 3</dd>
+                <dt><input type="checkbox" name="level-4"></dt><dd>{{localize "PF2E.LevelLabel"}} 4</dd>
+                <dt><input type="checkbox" name="level-5"></dt><dd>{{localize "PF2E.LevelLabel"}} 5</dd>
+                <dt><input type="checkbox" name="level-6"></dt><dd>{{localize "PF2E.LevelLabel"}} 6</dd>
+                <dt><input type="checkbox" name="level-7"></dt><dd>{{localize "PF2E.LevelLabel"}} 7</dd>
+                <dt><input type="checkbox" name="level-8"></dt><dd>{{localize "PF2E.LevelLabel"}} 8</dd>
+                <dt><input type="checkbox" name="level-9"></dt><dd>{{localize "PF2E.LevelLabel"}} 9</dd>
+                <dt><input type="checkbox" name="level-10"></dt><dd>{{localize "PF2E.LevelLabel"}} 10</dd>
+                <!-- <dt><input type="checkbox" name="level-11"></dt><dd>{{localize "PF2E.SpellFocusLabel"}}</dd> -->
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
+            <h3>{{localize "PF2E.BrowserFilterClass"}}</h3>
+            <dl style="display:none;">
+                {{#each classes as |class key|}}
+                <dt><input type="checkbox" name="classes-{{key}}"></dt><dd>{{class}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="schoolfilter">
+            <h3>{{localize "PF2E.BrowserFilterSchools"}}</h3>
+            <dl style="display:none;">
+                {{#each schools as |school key|}}
+                <dt><input type="checkbox" name="school-{{key}}"></dt><dd>{{school}}</dd>
+                {{/each}}
+            </dl>
+        </div>
+    </div>
+    <ul>
+        {{#each spells as |spell id|}}
+        <li class="spell flexrow draggable" data-entry-compendium="{{spell.compendium}}" data-entry-id="{{spell._id}}" data-item-category="spells">
+            <div class="spell-image">
+                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32"/>
+            </div>
+            {{#unless spell.data.time.img}}
+            <div class="spell-image" style="margin-left: 5px;">
+            </div>
+            {{else}}
+            <div class="spell-image" style="margin-left: 5px;">
+                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.level.value}}" width="32" height="32"/>
+            </div>
+            {{/unless}}
+            <div class="spell-name">
+                <span class="item-edit" ><a>{{spell.name}}</a></span>
+            </div>
+            <div class="spell-tags">
+                <span title="Spell level">{{spell.data.level.formated}}</span>
+            </div>
+            {{#each spell.data as |attrib id|}}
+                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
+            {{/each}}
+        </li>
+        {{/each}}
+    </ul>
+
+</div>

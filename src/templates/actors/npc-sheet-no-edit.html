@@ -1,0 +1,513 @@
+<form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
+	<div class="contentcontainer">
+  
+    <div class="npc-title-bar">
+      <h1 class='name'>{{actor.name}}</h1>
+        <h1 class="editNPCButton">
+          <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
+            <label>{{localize "PF2E.EditNPCLabel"}}</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
+          </div>
+        </h1>
+      <h1 class='level'>Creature {{data.details.level.value}}</h1>
+    </div>
+    
+    <div class="top-section">
+    
+      <div class="top-quick-container">
+        
+        <span class="hp-current pf-large" title="{{localize "PF2E.MaxHitPointsShortLabel"}}: {{data.attributes.hp.max}}">
+          <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
+          <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
+        </span>
+        <label>{{localize "PF2E.NPCNotesLabel"}}:</label>
+        <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="{{localize "PF2E.NPCNotesTitle"}}">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea>
+      </div>
+    
+      <div class="top-stats-container">
+      
+        <div class="traits-bar">
+          <!-- -->
+          <!-- Put alignment flag here; add to getData() -->
+          <span class="trait alignment">{{actorAlignment}}</span>
+          <span class="trait size">{{actorSize}}</span>
+          <!-- Put Trait #each here-->
+          {{#each actorTraits as |trait id|}}
+          <span class="trait">{{trait}}</span>
+          {{/each}}
+        </div>
+      
+        <div class="stats-line">
+          <span class="inline-stats rollable" data-attribute="perception">
+            <label class="stat-title attribute-name">{{localize "PF2E.PerceptionLabel"}}</label>
+            <span class="stat-value attribute-name">+{{data.attributes.perception.value}}</span>
+            <span class="stat-detail perception attribute-name">{{data.traits.senses.value}}</span>
+          </span>
+        </div>
+        
+        {{#if hasLanguages}}
+        <div class="stats-line">
+          <span class="inline-stats">
+            <label class="stat-title">{{localize "PF2E.Languages"}}</label>
+            {{#each actor.data.traits.languages.value as |lang lid|}}
+            <span class="stat-list">
+              <span class="stat-minortitle">{{lang}}</span>
+            </span>
+            {{/each}}
+          </span>
+        </div>
+        {{/if}}
+        
+        {{#if hasSkills}}
+        <div class="stats-line">
+          <span class="inline-stats">
+            <label class="stat-title">{{localize "PF2E.SkillsLabel"}}</label>
+            {{#each actor.lores as |lore lid|}}
+            <span class="stat-list item rollable" data-skill="{{lid}}" data-item-id="{{lore._id}}">
+              <span class="stat-minortitle npc-skill-name rollable">{{lore.name}}</span>
+              <span class="stat-value npc-skill-name rollable">+{{lore.data.mod.value}}</span>
+            </span>
+            {{/each}}
+          </span>
+        </div>
+        {{/if}}
+
+        <div class="stats-line">
+          <span class="inline-stats">
+            {{#each data.abilities as |ability id|}}
+            <span class="stat-list rollable" data-ability="{{id}}">
+              <label class="stat-title ability-name">{{id}}</label>
+              <span class="stat-value ability-name">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+            </span>
+            {{/each}}
+          </span>
+        </div>
+    
+    	{{#if hasEquipment}}
+        <div class="stats-line equipment">
+          <span class="inline-stats">
+            <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
+            {{#each actor.equipment as |item iid|}}
+            <span class="stat-list item" data-item-id="{{item._id}}">
+              <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">{{item.name}}</span>
+            </span>
+            {{/each}}
+          </span>
+        </div>
+        {{/if}}
+        
+      </div>
+    </div>
+
+    <hr>
+        
+    <ol class="actions-list inventory-list directory-list">
+      {{#each actor.reorgActions.interaction.actions as |section sid|}}
+        {{#each section.actions as |action aid|}}
+        <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{action.img}})"></div>
+                <h4>
+                    {{action.name}}
+                </h4>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>                            
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+   	 {{/each}}
+    </ol>
+    
+    <hr>
+    
+    <div class="stats-line">
+      <span class="inline-stats">
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ArmorClassShortLabel"}}</label>
+          <span class="stat-value">{{data.attributes.ac.value}}</span>
+          {{#if hasACDetails}}
+          <span class="stat-detail">{{data.attributes.ac.details}}</span>
+          {{/if}}
+        </span>
+        <span class="stat-list rollable" data-save="fortitude">
+          <label class="stat-title save-name">{{localize "PF2E.SavesFortitudeShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.fortitude.value}}</span>
+          {{#if hasFortDetails}}
+          <span class="stat-detail save-name">{{data.saves.fortitude.saveDetail}}</span>
+          {{/if}}
+        </span>
+        <span class="stat-list rollable" data-save="reflex">
+          <label class="stat-title save-name">{{localize "PF2E.SavesReflexShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.reflex.value}}</span>
+          {{#if hasRefDetails}}
+          <span class="stat-detail save-name">{{data.saves.reflex.saveDetail}}</span>
+          {{/if}}
+        </span>
+        <span class="stat-list rollable" data-save="will">
+          <label class="stat-title save-name">{{localize "PF2E.SavesWillShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.will.value}}</span>
+          {{#if hasWillDetails}}
+          <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
+          {{/if}}
+        </span>
+      	{{#if hasAllSaveDetails}}
+        <span class="stat-list" data-save="will">
+          <label class="stat-title">{{localize "PF2E.AllSavesLabel"}}</label>
+          <span class="stat-value">{{data.attributes.allSaves.value}}</span>
+        </span>
+      	{{/if}}
+        
+      </span>
+    </div>
+    
+    <div class="stats-line">
+      <span class="inline-stats">
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.HitPointsShortLabel"}}</label>
+          <span class="stat-value">{{data.attributes.hp.max}}</span>
+  	      {{#if hasHPDetails}}
+          <span class="stat-detail">{{data.attributes.hp.details}}</span>
+          {{/if}}
+        </span>
+        
+        {{#if hasImmunities}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
+          {{#each data.traits.di.selected as |trait id|}}
+            <span class="stat-value">{{trait}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+
+        {{#if hasResistances}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
+          {{#each data.traits.dr as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+        
+        {{#if hasWeaknesses}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.WeaknessesLabel"}}</label>
+          {{#each data.traits.dv as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+        
+      </span>
+    </div>
+    
+    <ol class="actions-list inventory-list directory-list">
+      {{#each actor.reorgActions.defensive.actions as |section sid|}}
+        {{#each section.actions as |action aid|}}
+        <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{action.img}})"></div>
+                <h4>
+                    {{action.name}}
+                </h4>
+                <div class="melee-buttons">
+                {{#if action.traits}}
+                  {{#each action.traits as |trait tid|}}
+                    {{#if trait.description}}
+                      <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{else}}
+                      <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{/if}}
+                  {{/each}}
+                {{/if}}
+                </div>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>                            
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+   	 {{/each}}
+    </ol>
+    
+    <hr>
+    
+    <div class="stats-line">
+      <span class="inline-stats">
+          <label class="stat-title">{{localize "PF2E.Speed"}}</label>
+          <span class="stat-value">{{data.attributes.speed.value}}</span>
+          {{#if hasSpeedDetails}}
+          {{#each hasSpeedDetails as |speed id|}}
+            <span class="stat-detail speed">{{speed.type}}: {{speed.value}}</span>
+          {{/each}}
+          {{/if}}
+      </span>
+    </div>
+    
+    <ol class="actions-list inventory-list directory-list">
+      {{#each actor.attacks as |section sid|}}
+        <li class="item inventory-header sub-category spellbook-header attack-header">
+            <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
+            {{#if ../owner}}
+            <div class="item-controls">
+                <a class="item-control item-create" title="{{localize "PF2E.CreateAttackTitle"}}" data-type="{{section.type}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+            </div>
+            {{/if}}
+        </li>
+        {{#each section.items as |item iid|}}
+        <li class="item" data-item-id="{{item._id}}">
+            <div class="melee-name rollable">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <h4>
+                    {{item.name}}
+                </h4>
+                <div class="melee-buttons">
+                  {{#if item.traits}}
+                    {{#each item.traits as |trait tid|}}
+                      {{#if trait.description}}
+                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{else}}
+                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                  <span class="tag"><button data-action="weaponAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+{{item.data.bonus.total}})</button></span>
+                    <span class="tag"><button data-action="weaponAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                    <span class="tag"><button data-action="weaponAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                    {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.damageRolls}}
+                        {{#each item.flags.pf2e_updatednpcsheet.damageRolls as |damageRoll dID|}}
+                        <span class="tag"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">{{localize "PF2E.DamageLabel"}}: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>
+                        {{/each}}
+                    {{else}}
+                        {{#unless item.data.damage.dice}}
+                        <span class="tag"><button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}} ({{item.data.damage.die}})</button></span>
+                        {{else}}
+                        <span class="tag"><button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}} ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>
+                        {{/unless}}
+                    {{/if_all}}
+                    {{#if_all item.data item.data.attackEffects}}
+                        {{#each item.data.attackEffects as |attackEffect aID|}}
+                            <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
+                        {{/each}}
+                    {{/if_all}}
+                </div>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                {{#unless action.feat}}
+                  <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                {{/unless}}
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+      {{/each}}
+    </ol>
+
+    <ol class="actions-list inventory-list directory-list">
+      {{#each actor.reorgActions.offensive.actions as |section sid|}}
+        {{#each section.actions as |action aid|}}
+        <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{action.img}})"></div>
+                <h4>
+                    {{action.name}}
+                </h4>
+                <div class="melee-buttons">
+                  {{#if action.traits}}
+                    {{#each action.traits as |trait tid|}}
+                      {{#if trait.description}}
+                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{else}}
+                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                </div>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>                            
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+   	 {{/each}}
+    </ol>
+    
+    {{#if hasSpells}}
+    {{#each actor.spellcastingEntries as |entry eid|}}
+    <hr>
+    <div class="stats-line">
+      <span class="inline-stats">
+          <label class="stat-title">{{{entry.name}}}</label>
+          <span class="stat-value">{{localize "PF2E.DCLabel"}} {{entry.data.spelldc.dc}}</span>
+          <span class="stat-detail speed">{{localize "PF2E.AttackLabel"}} +{{entry.data.spelldc.value}}</span>
+      </span>
+    </div>
+    
+    <ol class="actions-list inventory-list directory-list">
+                  <!-- List Spells -->
+            {{#unless entry.data.prepared.preparedSpells}}
+                {{#each entry.spellbook as |section lvl|}}
+                    <li class="item inventory-header sub-category spellbook-header">
+                        <div class="item-name flexrow">
+                            <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
+        
+<!--                             {{#unless section.isCantrip}}
+                            <span class="spell-slots-input">
+                                <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                            </span>
+                            <span class="flex0"> / </span>
+                            <span class="spell-max-input">
+                                <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                {{section.slots}}
+                            </span>
+                            {{else}}
+                            <span class="spell-slots">&infin;</span>
+                            <span class="flex0"> / </span>
+                            <span class="spell-max">&infin;</span>
+                            {{/unless}} -->
+                        </div>
+        
+                        <!-- <div class="spell-school-header">School</div>
+                        <div class="spell-action-header">Action</div> -->
+        
+<!--                         {{#if ../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-create" title="Create Spell" data-type="spell"
+                            data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
+                        </div>
+                        {{/if}} -->
+                    </li>
+        
+                    {{#each section.spells as |item i|}}
+                    <li class="item" data-item-id="{{item._id}}">
+                        <div class="item-name rollable">
+                            <div class="item-image" style="background-image: url({{item.img}})"></div>
+                            <h4>{{item.name}}</h4>
+                        </div>
+        
+                        <div class="melee-buttons spell-buttons">
+                          {{#if item.chatData.traits}}
+                            {{#each item.chatData.traits as |trait tid|}}
+                              {{#if trait.description}}
+                                <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                              {{else}}
+                                <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                              {{/if}}
+                            {{/each}}
+                          {{/if}}
+                            
+                          {{#if item.chatData.isSave}}
+                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
+                          {{/if}}
+                          {{#if item.chatData.isAttack}}
+                            <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                          {{/if}}
+                          {{#if item.data.damage.value}}
+                            <span class="tag"><button data-action="spellDamage">{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
+                          {{/if}}
+                        </div>
+        
+                        {{#if ../../../owner}}
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                {{/each}}
+            {{else}}
+                {{#each entry.spellbook as |section lvl|}}
+                        <li class="item inventory-header sub-category spellbook-header">
+                            <div class="item-name flexrow">
+                                <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
+            
+                                <!-- {{#unless section.isCantrip}}
+                                <span class="spell-slots-input">
+                                    <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                </span>
+                                <span class="flex0"> / </span>
+                                <span class="spell-max-input">
+                                    <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                    {{section.slots}}
+                                </span>
+                                {{else}}
+                                <span class="spell-slots">&infin;</span>
+                                <span class="flex0"> / </span>
+                                <span class="spell-max">&infin;</span>
+                                {{/unless}} -->
+                            </div>
+            
+                            <!-- <div class="spell-school-header">School</div>
+                            <div class="spell-action-header">Action</div> -->
+            
+                            <!-- {{#if ../../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-create" title="Create Spell" data-type="spell"
+                                data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
+                            </div>
+                            {{/if}} -->
+                        </li>
+            
+                        {{#each section.prepared as |item i|}}
+                        <li class="item" data-item-id="{{item._id}}" data-expended-state="{{item.expended}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                {{#if item.expended}}
+                                  <h4 style="text-decoration: line-through">{{item.name}}</h4>
+                                {{else}}
+                                  <h4>{{item.name}}</h4>
+                                {{/if}}
+                            </div>
+            
+                            <div class="melee-buttons spell-buttons">
+                              {{#if item.chatData.traits}}
+                                {{#each item.chatData.traits as |trait tid|}}
+                                  {{#if trait.description}}
+                                    <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                                  {{else}}
+                                    <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                                  {{/if}}
+                                {{/each}}
+                              {{/if}}
+                                
+                              {{#if item.chatData.isSave}}
+                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
+                              {{/if}}
+                              {{#if item.chatData.isAttack}}
+                                <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                              {{/if}}
+                              {{#if item.data.damage.value}}
+                                <span class="tag"><button data-action="spellDamage">{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
+                              {{/if}}
+                            </div>
+            
+                            {{#if ../../../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-toggle-prepare" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-minus-square"></i></a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{/each}}
+                    {{/each}}
+                {{/unless}}
+  
+    </ol>
+    <hr>
+    {{/each}}
+    {{/if}}
+    
+    </div>
+    <div class="bgcontainer" style="background-image: url('{{actor.img}}')"></div>
+</form>
