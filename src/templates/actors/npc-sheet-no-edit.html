@@ -285,7 +285,17 @@
                         {{/each}}
                     {{else}}
                         {{#unless item.data.damage.dice}}
-                        <span class="tag"><button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}} ({{item.data.damage.die}})</button></span>
+                        <span class="tag">
+                          <button data-action="weaponDamage">
+                            {{localize "PF2E.DamageLabel"}} (
+                            {{#if item.data.damageRolls}}
+                              {{#each item.data.damageRolls as |dmg index|}}
+                                {{dmg.damage}} {{dmg.damageType}}
+                              {{/each}}
+                            {{/if}}
+                            )
+                          </button>
+                        </span>
                         {{else}}
                         <span class="tag"><button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}} ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>
                         {{/unless}}
