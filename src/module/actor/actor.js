@@ -71,6 +71,27 @@ export default class extends Actor {
     data.details.xp.max = character.maxExp;
     data.details.xp.pct = character.xpPercent;
 
+    // Calculate HP and SP
+    const ancestryHp = data.attributes.ancestryhp ? parseInt(data.attributes.ancestryhp.value || 0, 10) : 0;
+    const classHp = data.attributes.classhp ? parseInt(data.attributes.classhp.value || 0, 10) : 0;
+    const bonusHpPerLevel = data.attributes.levelbonushp ? parseInt(data.attributes.levelbonushp.value || 0, 10) * data.details.level.value : 0;
+    const flatBonusHp = data.attributes.flatbonushp ? parseInt(data.attributes.flatbonushp.value || 0, 10) : 0;
+    const conMod = data.abilities.con.mod;
+    if (game.settings.get('pf2e', 'staminaVariant')) {
+      const halfClassHp = Math.floor(classHp / 2);
+      const maxSp = (halfClassHp + conMod) * data.details.level.value
+      const maxHp = ancestryHp + halfClassHp + bonusHpPerLevel + flatBonusHp;
+      data.attributes.sp.max = maxSp;
+      data.attributes.hp.max = maxHp;
+    } else {
+      const maxHp = ancestryHp
+        + ((classHp + conMod) * data.details.level.value)
+        + bonusHpPerLevel
+        + flatBonusHp;
+
+      data.attributes.hp.max = maxHp;
+    }
+
     // Saves
     for (const save of Object.values(data.saves)) {
       const proficiency = save.rank ? (save.rank * 2) + data.details.level.value : 0;
