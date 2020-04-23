@@ -313,7 +313,13 @@
                                 <span class="tag"><button data-action="weaponAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
                                 <span class="tag"><button data-action="weaponAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
                                 {{#unless item.data.damage.dice}}
-                                <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.die}})</button></span>
+                                <span class="tag"><button data-action="weaponDamage">Damage 
+                                    {{#if item.data.damageRolls}}
+                                        {{#each item.data.damageRolls as |dmg index|}}
+                                            {{dmg.damage}} {{dmg.damageType}}
+                                        {{/each}}
+                                    {{/if}}
+                                </button></span>
                                 {{else}}
                                 <span class="tag"><button data-action="weaponDamage">Damage ({{item.data.damage.dice}}{{item.data.damage.die}}+{{../../data.abilities.str.mod}})</button></span>
                                 {{/unless}}
