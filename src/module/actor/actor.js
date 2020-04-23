@@ -2,6 +2,7 @@
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
 import CharacterData from './character.js';
+import changeField from './changeField.js';
 
 export default class extends Actor {
   /**
@@ -459,6 +460,8 @@ export default class extends Actor {
     });
   }
 
+  
+
   async importJournalEntry({ pack: collection, id }) {
     const pack = game.packs.find((p) => p.collection === collection);
     if (!pack) {
@@ -466,22 +469,12 @@ export default class extends Actor {
     }
     const entity = await pack.getEntity(id);
     if (entity.data.flags) {
-      entity.data.flags.forEach(change => {
-        const { type, formula, field } = change;
-        const ref = { actor: this.data, self: entity.data };
+      const entries = Object.entries(entity.data.flags);
 
-        const evaluation = new Roll(formula, ref);
-        const { result } = evaluation.roll();
-
-        switch (type) {
-          case 'set': {
-            setProperty(ref, field, result);
-            return;
-          }
-          default:
-            return;
-        }
-      })
+      const ref = { actor: this.data, self: entity.data };
+      entries.forEach(([field, value]) => {        
+        changeField(field, value, ref);
+      });
 
       this.prepareData();
       this.sheet._render();
