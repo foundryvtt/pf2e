@@ -457,6 +457,35 @@ export default class extends Actor {
       delete ent.data._id;
       return this.createOwnedItem(ent.data);
     });
+  }
+
+  async importJournalEntry({ pack: collection, id }) {
+    const pack = game.packs.find((p) => p.collection === collection);
+    if (!pack) {
+      return;
+    }
+    const entity = await pack.getEntity(id);
+    if (entity.data.flags) {
+      entity.data.flags.forEach(change => {
+        const { type, formula, field } = change;
+        const ref = { actor: this.data, self: entity.data };
+
+        const evaluation = new Roll(formula, ref);
+        const { result } = evaluation.roll();
+
+        switch (type) {
+          case 'set': {
+            setProperty(ref, field, result);
+            return;
+          }
+          default:
+            return;
+        }
+      })
+
+      this.prepareData();
+      this.sheet._render();
+    }
 
   }
 
