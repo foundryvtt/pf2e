@@ -2,6 +2,17 @@ export const CONFIG = {};
 
 CONFIG.chatDamageButtonShieldToggle = false;
 
+// Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
+// Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
+CONFIG.PF2eStatusEffects = {
+  overruledByModule: false,
+  lastIconType: 'default',
+  effectsIconFolder: 'systems/pf2e/icons/conditions/',
+  effectsIconFileType: 'png',
+  keepFoundryStatusEffects: true,
+  foundryStatusEffects: []
+};
+
 // Ability labels
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
