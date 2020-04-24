@@ -609,9 +609,8 @@ export default class extends Item {
         parts = []
         itemData.damageRolls.forEach(entry => {
           parts.push(entry.damage);
-        })
-      } 
-      else {
+        });
+      } else {
         weaponDamage = itemData.damage.die;
         parts = [weaponDamage];
       }
