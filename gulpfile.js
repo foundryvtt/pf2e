@@ -12,6 +12,7 @@ const ts = require('gulp-typescript');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
 const git = require('gulp-git');
+const babel = require('gulp-babel');
 
 const { argv } = require('yargs');
 
@@ -114,6 +115,14 @@ function buildTS() {
     .pipe(gulp.dest('dist'));
 }
 
+function buildJS() {
+  return gulp.src('src/**/*.js')
+    .pipe(babel({
+      'plugins': ["@babel/plugin-proposal-optional-chaining"]
+    }))
+    .pipe(gulp.dest('dist'));
+}
+
 /**
  * Build Less
  */
@@ -127,7 +136,7 @@ function buildLess() {
    * Build SASS
    */
 function buildSASS() {
-  return gulp.src('src/*.scss')
+  return gulp.src('src/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'));
 }
@@ -141,6 +150,8 @@ async function copyFiles(cb) {
     'fonts',
     'assets',
     'templates',
+    'LICENSE',
+    'README.md',
     'module.json',
     'system.json',
     'template.json',
@@ -165,6 +176,7 @@ async function copyFiles(cb) {
  */
 function buildWatch() {
   gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
+  gulp.watch('src/**/*.js', { ignoreInitial: false }, buildJS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
   gulp.watch(['src/fonts', 'src/templates', 'src/*.json', 'system.json'], { ignoreInitial: false }, copyFiles);
@@ -184,19 +196,19 @@ async function clean(cb) {
   const name = config.systemName;
   const files = [];
 
-  // If the project uses TypeScript
-  if (fs.existsSync(path.join('src', `${name}.ts`))) {
-    files.push(
-      'lang',
-      'templates',
-      'assets',
-      'module',
-      `${name}.js`,
-      'module.json',
-      'system.json',
-      'template.json',
-    );
-  }
+  files.push(
+    'lang',
+    'templates',
+    'assets',
+    'module',
+    `${name}.js`,
+    'module.json',
+    'system.json',
+    'template.json',
+    'scripts',
+    'README.md',
+    'LICENSE'
+  );
   files.push('system.json');
 
   // If the project uses Less or SASS
@@ -376,7 +388,7 @@ function gitTag() {
 
 const execGit = gulp.series(gitAdd, gitCommit, gitTag);
 
-const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
+const execBuild = gulp.parallel(buildTS, buildJS, buildLess, buildSASS, copyFiles);
 
 async function releaseAndTag(zipFile, version) {
   const config = getConfig();

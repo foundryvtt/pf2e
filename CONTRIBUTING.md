@@ -5,12 +5,6 @@ The project uses gulp to package the SASS/LESS files needed for a build and can 
 * install Gulp globally if you don't have it `npm install --global gulp-cli`
 * install dev dependencies with `npm install`
 * check that Gulp is installed with a CLI version and local version by running `gulp --version` 
-* configure a `foundryconfig.json` file with `dataPath` and `systemName` attributes as below. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen.
-
-        {
-            dataPath: %absolute_path_to_your_foundry_userdata_folder%
-            systemName: 'pf2e'
-        }
-
+* configure a `foundryconfig.json` file in the root folder of the project with `dataPath` and `systemName` attributes. An example can be found in `foundryconfig.example.json`, simply copy it and remove the `.example`, and configure it accordingly. The dataPath attribute is your User Data Folder from Foundry and can be found on the Configuration tab on the Setup screen.
 * run `gulp build` to perform a one off compile/build step to setup the dist folder correctly.
 * run `gulp watch` to keep the pf2e system in your Foundry User Data Folder up to date with any coding changes you make in your dev environment.
