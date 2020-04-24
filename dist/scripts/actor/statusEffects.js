@@ -30,6 +30,12 @@ class PF2eStatusEffects {
         console.log('PF2e System | Initializing Status Effects Module');
         this.hookIntoFoundry();
 
+        if (game.modules.get("combat-utility-belt") !== undefined)
+            ui.notifications.info(`<strong>PF2e System & Combat Utility Belt</strong><div>You have the CUB module enabled. This may 
+            cause unexpected side effects with the PF2e system at the moment, but this is expected to improve in future releases. If 
+            you are experiencing problems with status effects, we recommend you disable CUB's Enhanced Conditions on the Module 
+            settings.</div>`, {permanent: true});
+
         const statusEffectType = game.settings.get('pf2e', 'statusEffectType');
         CONFIG.PF2eStatusEffects.lastIconType = statusEffectType;
         CONFIG.PF2eStatusEffects.effectsIconFolder = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFolder;
