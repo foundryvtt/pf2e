@@ -80,7 +80,7 @@ class PF2eStatusEffects {
           hint: PF2e.DB.SETTINGS.statusEffectType.hint,
           scope: 'world',
           config: true,
-          default: 'default',
+          default: 'blackWhite',
           type: String,
           choices: statusEffectTypeChoices,
           onChange: s => {
@@ -92,7 +92,7 @@ class PF2eStatusEffects {
           hint: PF2e.DB.SETTINGS.statusEffectKeepFoundry.hint,
           scope: 'world',
           config: true,
-          default: true,
+          default: false,
           type: Boolean,
           onChange: () => {
             window.location.reload(false);
