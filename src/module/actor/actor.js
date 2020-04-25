@@ -80,7 +80,7 @@ export default class extends Actor {
     if (game.settings.get('pf2e', 'staminaVariant')) {
       const halfClassHp = Math.floor(classHp / 2);
       const maxSp = (halfClassHp + conMod) * data.details.level.value
-      const maxHp = ancestryHp + (halfClassHp + bonusHpPerLevel + flatBonusHp)*data.details.level.value;
+      const maxHp = ancestryHp + ((halfClassHp)*data.details.level.value) + flatBonusHp + bonusHpPerLevel;
       data.attributes.sp.max = maxSp;
       data.attributes.hp.max = maxHp;
     } else {
