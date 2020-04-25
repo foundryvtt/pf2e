@@ -16,7 +16,7 @@
 export const DB = {
 
     condition: {
-        group: {
+        _groups: {
             detection: [
                 'observed',
                 'hidden',
@@ -53,11 +53,41 @@ export const DB = {
         blinded: {
             overrides: ['dazzled']
         },
+        clumsy: {
+            hasValue: true
+        },
+        confused: {
+            alsoSets: ['flatFooted']
+        },
+        doomed: {
+            hasValue: true
+        },
+        drained: {
+            hasValue: true
+        },
+        dying: {
+            hasValue: true
+        },
+        encumbered: {
+            alsoSets: ['clumsy:1']
+        },
+        enfeebled: {
+            hasValue: true
+        },
         friendly: {
             overrides: ['helpful', 'hostile', 'indifferent', 'unfriendly']
         },
+        frightened: {
+            hasValue: true
+        },
+        grabbed: {
+            alsoSets: ['flatFooted', 'immobilized']
+        },
         helpful: {
             overrides: ['friendly', 'hostile', 'indifferent', 'unfriendly']
+        },
+        hidden: {
+            alsoSets: ['flatFooted']
         },
         hostile: {
             overrides: ['friendly', 'helpful', 'indifferent', 'unfriendly']
@@ -65,12 +95,50 @@ export const DB = {
         indifferent: {
             overrides: ['friendly', 'helpful', 'hostile', 'unfriendly']
         },
+        invisible: {
+            alsoSets: ['undetected']
+        },
+        paralyzed: {
+            alsoSets: ['flatFooted']
+        },
+        prone: {
+            alsoSets: ['flatFooted']
+        },
         restrained: {
+            alsoSets: ['flatFooted', 'immobilized'],
             overrides: ['grabbed']
+        },
+        sickened: {
+            hasValue: true
+        },
+        slowed: {
+            hasValue: true
+        },
+        stunned: {
+            hasValue: true
+            // , overrides: ['slowed'] //special type of override
+        },
+        stupefied: {
+            hasValue: true
+        },
+        unconscious: {
+            alsoSets: ['blinded', 'flatFooted'] //also sets prone, but prone isnt removed automatically when you wake up
+        },
+        undetected: {
+            alsoSets: ['flatFooted']
         },
         unfriendly: {
             overrides: ['friendly', 'helpful', 'hostile', 'indifferent']
+        },
+        wounded: {
+            hasValue: true
         }
+    },
+    status: {
+        shieldBlock: {
+            name: 'Shield Block'
+        }
+
     }
 
 }
