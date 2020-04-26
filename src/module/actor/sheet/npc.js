@@ -110,7 +110,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       else if (i.type === 'melee') {
         const weaponType = (i.data.weaponType || {}).value || 'melee';
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0);
         i.data.isAgile = isAgile;
 
         // get formated traits for read-only npc sheet
