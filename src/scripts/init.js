@@ -57,6 +57,17 @@
         updated = true;
       } 
 
+      if (worldSchemaVersion < 0.545) {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+        
+        deltaData['data.attributes.flatbonushp'] = 0; 
+        deltaData['data.attributes.levelbonushp'] = 0; 
+        deltaData['data.attributes.flatbonussp'] = 0; 
+        deltaData['data.attributes.levelbonussp'] = 0; 
+        deltaData['data.attributes.ancestryhp'] = 0; 
+        deltaData['data.attributes.classhp'] = 0; 
+      }
+
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
       }
