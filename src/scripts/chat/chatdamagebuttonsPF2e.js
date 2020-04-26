@@ -20,41 +20,56 @@ class ChatDamageButtonsPF2e extends Application {
       btnContainer1.append(doubleDamageButton);
       btnContainer2.append(shieldButton);
       btnContainer2.append(fullHealingButton);
-      html.find('.dice-total').append(btnContainer1);
+      html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
       html.find('.dice-formula').append(btnContainer2); // Handle button clicks
 
       fullDamageButton.click(ev => {
         ev.stopPropagation();
 
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-          CONFIG.Actor.entityClass.applyDamage(html, 1, 'attributes.shield');
+          attribute = 'attributes.shield';
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-        } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 1);
         }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, 1, attribute);
+        }
+
       });
       halfDamageButton.click(ev => {
         ev.stopPropagation();
 
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-          CONFIG.Actor.entityClass.applyDamage(html, 0.5, 'attributes.shield');
+          attribute = 'attributes.shield';
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-        } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 0.5);
         }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, 0.5, attribute);
+        }
+
       });
       doubleDamageButton.click(ev => {
         ev.stopPropagation();
 
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-          CONFIG.Actor.entityClass.applyDamage(html, 2, 'attributes.shield');
+          attribute = 'attributes.shield';
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-        } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 2);
         }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, 2, attribute);
+        }
+
       });
       shieldButton.click(ev => {
         ev.stopPropagation();
@@ -63,9 +78,55 @@ class ChatDamageButtonsPF2e extends Application {
       });
       fullHealingButton.click(ev => {
         ev.stopPropagation();
-        CONFIG.Actor.entityClass.applyDamage(html, -1);
+
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, -1)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, -1);
+        }
+
       });
     });
+  }
+
+  static shiftModifyDamage(html, multiplier, attributePassed='attributes.hp') {
+
+    let promise = new Promise(resolve => {
+      new Dialog({
+        title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
+        content: `<form>
+                    <div class="form-group">
+                        <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
+                        <input type="number" name="modifier" value="" placeholder="0"/>
+                    </div>
+                  </form>`,
+        buttons: {
+          ok: {
+            label: 'Ok',
+            callback: async dialogHtml => {
+              const diceTotal = parseFloat(html.find('.dice-total #value').text());
+              let modifier = parseFloat(dialogHtml.find('[name="modifier"]').val());
+              if (isNaN(modifier)) {
+                modifier = 0;
+              }
+              if (typeof modifier !== undefined) {
+                html.find('.dice-total #value').text( diceTotal + modifier );
+                const succeslyApplied = await CONFIG.Actor.entityClass.applyDamage(html, multiplier, attributePassed);
+                console.log(succeslyApplied);
+                if (succeslyApplied && modifier !== 0) {
+                  html.find('.dice').append('<p>Modified by GM: '+(modifier<0?'-':'+')+modifier+'<p>');
+                } else if (!succeslyApplied && modifier !== 0) {
+                  html.find('.dice-total #value').text( diceTotal );
+                }
+              }
+            }
+          }
+        },
+        default: 'ok',
+        close: () => { }
+      }).render(true);
+    });
+
   }
 
 }

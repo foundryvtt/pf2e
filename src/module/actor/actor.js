@@ -356,7 +356,7 @@ export default class extends Actor {
       const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
       const messageSender = roll.find('.message-sender').text();
       const flavorText = roll.find('.flavor-text').text();
-      const shieldFlavor = attribute == 'attributes.shield' ? 'and their shield get<br>' : 'gets';
+      const shieldFlavor = attribute == 'attributes.shield' ? 'and their shield get' : 'gets';
 
       for (const t of canvas.tokens.controlled) {
         const a = t.actor;
@@ -390,8 +390,9 @@ export default class extends Actor {
       }
     } else {
       ui.notifications.error("You haven't targeted a token.");
+      return false;
     }
-    return;
+    return true;
   }
   /**
    * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
