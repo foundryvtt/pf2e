@@ -1,6 +1,8 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
+import Spell from './spell.js';
+
 export default class extends Item {
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
@@ -751,13 +753,13 @@ export default class extends Item {
 
     // Get data
     const itemData = this.data.data;
-    const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
     const rollData = duplicate(this.actor.data.data);
-    const abl = spellcastingEntry.data.data.ability.value || 'int';
-    const parts = [itemData.damage.value];
     const isHeal = itemData.spellType.value === 'heal';
     const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
+
     const spellLvl = parseInt(cardData.spellLvl);
+    const spell = new Spell(this.data, { castingActor: this.actor, castLevel: spellLvl })
+    const parts = spell.damageParts;
 
     // Append damage type to title
     const damageLabel = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
@@ -765,21 +767,8 @@ export default class extends Item {
     if (dtype && !isHeal) title += ` (${dtype})`;
 
     // Add item to roll data
-    rollData.mod = rollData.abilities[abl].mod;
+    rollData.mod = rollData.abilities[spell.spellcastingEntry.ability].mod;
     rollData.item = itemData;
-
-    if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
-    const scaling = itemData.scaling || {};
-    if (scaling.mode === 'level1' && scaling.formula !== '') {
-      // Scale cantrips & focus spells automatically.
-      if (itemData.level.value === 0 || itemData.level.value === 11) {
-        const scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula);
-        parts.push(...scaling_parts);
-      } else if (itemData.level.value < spellLvl) {
-        const scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula);
-        parts.push(...scaling_parts);
-      }
-    }
 
     // Call the roll helper utility
     DicePF2e.damageRoll({
