@@ -20,6 +20,8 @@ Hooks.once('init', () => {
 
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
+  CONFIG.Combat.initiative.decimals = 1; //Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
+
   PlayerConfigPF2e.hookOnRenderSettings();
   registerSettings();
   loadTemplates();
