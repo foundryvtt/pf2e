@@ -1306,6 +1306,7 @@ class ActorSheetPF2e extends ActorSheet {
                   label: 'Spellcasting Type',
                   value: spellcastingType,
                 },
+                showUnpreparedSpells: { value: true },
               };
 
               const data = {
