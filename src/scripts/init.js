@@ -57,6 +57,39 @@
         updated = true;
       } 
 
+      if (worldSchemaVersion < 0.559) {
+
+        if (actor.data.type === 'npc') {
+          console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+
+          let updatedItems = [];
+          const items = duplicate(actor.data.items);
+
+          items.forEach(item => {
+              if (item.type === 'melee' && item.data.damage.die) {
+                let damageRolls = {
+                  'migrated': {
+                    damage: item.data.damage.die,
+                    damageType: item.data.damage.damageType
+                  }
+                };
+                let updatedItem = {
+                  _id: item._id
+                }
+                updatedItem['data.damageRolls'] = damageRolls;
+                updatedItems.push(updatedItem);
+              }              
+          });
+
+          console.log('updatedItems: ', updatedItems);
+          await actor.updateManyEmbeddedEntities('OwnedItem', updatedItems);
+        }
+        
+        
+
+        updated = true;
+      }
+
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
       }
