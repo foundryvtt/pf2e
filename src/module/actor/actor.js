@@ -195,7 +195,7 @@ export default class extends Actor {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
     }
     const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
-    const rollingPartb = game.i18n.localize("PF2E.Recovery.rollingPartB");
+    const rollingPartB = game.i18n.localize("PF2E.Recovery.rollingPartB");
 
     const message = `
       <div class="dice-roll">
