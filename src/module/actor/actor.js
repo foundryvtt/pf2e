@@ -66,7 +66,6 @@ export default class extends Actor {
    */
   _prepareCharacterData(data) {
     const character = new CharacterData(data, this.items);
-    console.log('blarg data', data);
     // Level, experience, and proficiency
     data.details.level.value = character.level;
     data.details.xp.max = character.maxExp;
