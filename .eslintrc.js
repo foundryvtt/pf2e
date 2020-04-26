@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    "jest/globals": true
   },
   extends: [
     'airbnb-base',
@@ -37,4 +38,21 @@ module.exports = {
     "import/extensions": [1, 'always'],
     "class-methods-use-this": 0
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src", "", "dist"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+      }
+    }
+  },
+  plugins: ["jest"],
+  overrides: [
+    {
+      files: "tests/**/*",
+      rules: {
+        "global-require": "off"
+      }
+    }
+  ]
 };
