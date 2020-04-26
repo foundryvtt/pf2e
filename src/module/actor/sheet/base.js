@@ -1048,6 +1048,12 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
 
+    const config = JSON.parse(event.dataTransfer.getData("text/plain"));
+    
+    if (config.type === 'JournalEntry') {
+      this.actor.importJournalEntry(config);
+    }
+
     super._onDrop(event);
   }
 
