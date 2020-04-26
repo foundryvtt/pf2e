@@ -50,7 +50,9 @@ module.exports = {
   overrides: [
     {
       files: "tests/**/*",
-      processor: "global-require"
+      rules: {
+        "global-require": "off"
+      }
     }
   ]
 };

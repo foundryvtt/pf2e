@@ -35,7 +35,6 @@ describe('#ac', () => {
     expect(character.ac).toBe(14);
   });
   test('it returns unarmored AC when no armor is equipped', () => {
-    const scaleMail = require('tests/fixtures/armor/scaleMail.json');
     const inventory = [
     ];
     const character = new CharacterData(characterData.data, inventory);
