@@ -203,6 +203,26 @@ class ItemSheetPF2e extends ItemSheet {
     return img[action];
   }
 
+  async _addDamageRoll( event ){
+    event.preventDefault();
+        
+    const newKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    console.log('newKey: ', newKey);
+    const newDamageRoll = {
+      damage: "",
+      damageType: "" 
+    };
+        
+    return this.item.update({ [`data.damageRolls.${newKey}`] : newDamageRoll });
+  }
+
+  async _deleteDamageRoll( event ){
+    event.preventDefault();
+    await this._onSubmit( event );
+    const targetKey = $(event.target).parents('.damage-part').attr('data-damage-part');
+    return this.item.update({ [`data.damageRolls.-=${targetKey}`] : null });
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -216,6 +236,16 @@ class ItemSheetPF2e extends ItemSheet {
 
     // Trait Selector
     html.find('.trait-selector').click((ev) => this.onTraitSelector(ev));
+
+    // Add Damage Roll
+    html.find('.add-damage').click((ev) => {
+      this._addDamageRoll(ev);
+    });
+    
+    // Remove Damage Roll
+    html.find('.delete-damage').click((ev) => {
+      this._deleteDamageRoll(ev);
+    });
   }
 
   /**
