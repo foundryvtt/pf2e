@@ -58,12 +58,12 @@
       } 
 
       if (worldSchemaVersion < 0.559) {
-        deltaData['data.attributes.flatbonushp'] = 0; 
-        deltaData['data.attributes.levelbonushp'] = 0; 
-        deltaData['data.attributes.flatbonussp'] = 0; 
-        deltaData['data.attributes.levelbonussp'] = 0; 
-        deltaData['data.attributes.ancestryhp'] = 0; 
-        deltaData['data.attributes.classhp'] = 0; 
+        deltaData['data.attributes.flatbonushp'] = Number(actorData['data.attributes.flatbonushp']) || 0; 
+        deltaData['data.attributes.levelbonushp'] = Number(actorData['data.attributes.levelbonushp']) || 0; 
+        deltaData['data.attributes.flatbonussp'] = Number(actorData['data.attributes.flatbonussp']) || 0;
+        deltaData['data.attributes.levelbonussp'] = Number(actorData['data.attributes.levelbonussp']) || 0;
+        deltaData['data.attributes.ancestryhp'] = Number(actorData['data.attributes.ancestryhp']) || 0;
+        deltaData['data.attributes.classhp'] = Number(actorData['data.attributes.classhp']) || 0;
 
         if (actor.data.type === 'npc') {
           console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
