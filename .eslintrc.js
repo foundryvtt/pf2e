@@ -54,5 +54,6 @@ module.exports = {
         "global-require": "off"
       }
     }
-  ]
+  ],
+  parser: "babel-eslint",
 };
