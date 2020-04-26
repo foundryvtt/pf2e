@@ -605,7 +605,13 @@ export default class extends Item {
 
     // if this is an NPC attack, use the damage defined in the itemData
     if (this.type === 'melee') {
-      if (itemData.damageRolls && itemData.damageRolls.length) {
+      if (itemData.damageRolls && (typeof itemData.damageRolls === "object")) {
+        parts = []
+        Object.keys(itemData.damageRolls).forEach(key => {
+          if (itemData.damageRolls[key].damage)
+            parts.push(itemData.damageRolls[key].damage);
+        });
+      } else if (itemData.damageRolls && itemData.damageRolls.length) { //this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
         parts = []
         itemData.damageRolls.forEach(entry => {
           parts.push(entry.damage);
@@ -620,6 +626,75 @@ export default class extends Item {
     const critTitle = critTrait ? critTrait.toUpperCase() : '';
     let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${this.name}` : `${localize('PF2E.DamageLabel')}: ${this.name}`;
     if (dtype) title += ` (${dtype})`;
+
+    // do nothing if no parts are provided in the damage roll
+    if (parts.length === 0) {
+      console.log('PF2e System | No damage parts provided in damage roll');
+      parts = ['0'];
+    }
+
+    // Call the roll helper utility
+    rollData.item = itemData;
+    DicePF2e.damageRoll({
+      event,
+      parts,
+      actor: this.actor,
+      data: rollData,
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      dialogOptions: {
+        width: 400,
+        top: event.clientY - 80,
+        left: window.innerWidth - 710,
+      },
+    });
+  }
+
+    /* -------------------------------------------- */
+
+  /**
+   * Roll Weapon Damage
+   * Rely upon the DicePF2e.damageRoll logic for the core implementation
+   */
+  rollNPCAttackDamage(event, critical = false) {
+    const localize = game.i18n.localize.bind(game.i18n);
+
+    if (this.type !== 'melee') throw 'Wrong item type!';
+
+
+    // Get item and actor data and format it for the damage roll
+    const itemData = this.data.data;
+    const rollData = duplicate(this.actor.data.data);
+    let parts = [];
+    const dtype = []; //CONFIG.PF2E.damageTypes[itemData.damage.damageType];
+
+    // If the NPC is using the updated NPC Attack data object
+    if (itemData.damageRolls && (typeof itemData.damageRolls === "object")) {
+      parts = []
+      Object.keys(itemData.damageRolls).forEach(key => {
+        if (itemData.damageRolls[key].damage)
+          parts.push(itemData.damageRolls[key].damage);
+      });
+    } else if (itemData.damageRolls && itemData.damageRolls.length) { //this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
+      parts = []
+      itemData.damageRolls.forEach(entry => {
+        parts.push(entry.damage);
+      });
+    } else {
+      weaponDamage = itemData.damage.die;
+      parts = [weaponDamage];
+    }
+    
+
+    // Set the title of the roll
+    let title = `${localize('PF2E.DamageLabel')}: ${this.name}`;
+    if (dtype.length) title += ` (${dtype})`;
+
+    // do nothing if no parts are provided in the damage roll
+    if (parts.length === 0) {
+      console.log('PF2e System | No damage parts provided in damage roll');
+      parts = ['0'];
+    }
 
     // Call the roll helper utility
     rollData.item = itemData;

@@ -37,44 +37,52 @@
         {{/select}}
     </select>
 </div> -->
+<ol class="form-list">
+    {{#if data.damageRolls}}
+    {{#each data.damageRolls as |damageRoll did|}}
+    <li class="damage-part flexrow" data-damage-part="{{did}}">
+        <div class="form-group">
+            <label>{{localize "PF2E.DamageLabel"}}</label>
+            <input type="text" name="data.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String" style="margin-right:5px"/>
+        </div>
+        <div class="form-group">
+            <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
+                <select name="data.damageRolls.{{did}}.damageType" data-dtype="String">
+                    {{#select (lookup this "damageType")}}
+                    {{#each ../weaponDamage as |name type|}}
+                    <option value="{{type}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+        </div>
+        <div style="flex:0; margin-left:5px; display:flex; align-items:center;">
+            <a class="damage-control delete-damage"><i class="fas fa-minus"></i></a>
+        </div>
+    </li>
+    {{/each}}
+    {{/if}}
+        <div class="form-group" style="display:flex; align-items:center;">
+            <label>
+                <a class="damage-control add-damage">{{localize "PF2E.NPCWeaponAddDamage"}} <i class="fas fa-plus"></i></a>
+            </label>
+        </div>
+        <!-- <div class="form-group">
+            <label>{{localize "PF2E.NPCWeaponDamageLabel"}}</label>
+            <input type="text" name="data.damage.die" value="{{data.damage.die}}" data-dtype="{{data.damage.type}}"/>
+        </div> -->
 
-{{#if data.damageRolls}}
-{{#each data.damageRolls as |damageRoll did|}}
-<li class="damage-part flexrow" data-damage-part="{{did}}">
-    <div class="form-group">
-        <label>{{localize "PF2E.DamageLabel"}} {{did}}</label>
-        <input type="text" name="data.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String"/>
-    </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
-            <select name="data.damageRolls.{{did}}.damageType" data-dtype="String">
-                {{#select (lookup this "damageType")}}
-                {{#each ../weaponDamage as |name type|}}
-                <option value="{{type}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-    </div>
-    <!-- <a class="damage-control delete-damage"><i class="fas fa-minus"></i></a> -->
-</li>
-{{/each}}
-{{else}}
-    <div class="form-group">
-        <label>{{localize "PF2E.NPCWeaponDamageLabel"}}</label>
-        <input type="text" name="data.damage.die" value="{{data.damage.die}}" data-dtype="{{data.damage.type}}"/>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
-            <select name="data.damage.damageType" data-dtype="String">
-                {{#select data.damage.damageType}}
-                {{#each weaponDamage as |name type|}}
-                <option value="{{type}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-    </div>    
-{{/if}}
+<!--         <div class="form-group">
+            <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
+                <select name="data.damage.damageType" data-dtype="String">
+                    {{#select data.damage.damageType}}
+                    {{#each weaponDamage as |name type|}}
+                    <option value="{{type}}">{{name}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+        </div>   -->  
+    
+</ol>
 
 <!-- <div class="form-group">
     <label>Weapon Damage</label>
