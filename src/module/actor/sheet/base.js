@@ -1222,6 +1222,14 @@ class ActorSheetPF2e extends ActorSheet {
         'data.level.value': data.level,
         'data.location.value': data.location,
       });
+      // Show the spellbook pages if you're adding a new spell
+      const currentLvlToDisplay = {};
+      currentLvlToDisplay[data.level] = true;
+      this.actor.updateEmbeddedEntity('OwnedItem', {
+        _id: data.location, 
+        'data.showUnpreparedSpells.value': true,
+        'data.displayLevels': currentLvlToDisplay
+      });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {
         data.name = 'Skill';

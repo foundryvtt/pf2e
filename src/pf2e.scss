@@ -1727,7 +1727,7 @@
 .pf2e.actor .inventory-list .inventory-header h3 {
   font-size: 1em;
   margin: 0;
-  padding-left: 32px;
+  padding-left: 5px;
   font-weight: bold;
 }
 .pf2e.actor .inventory-list .inventory-header .item-quantity,
@@ -1826,13 +1826,33 @@
 }
 .pf2e.actor .spellbook .prepared-toggle {
   flex: 0 0 20px;
-/*   line-height: 20px;
-  margin-left: 5px; */
+  line-height: 24px;
+  background: var(--primary-background);
+  padding-left: 5px;
 }
 .pf2e.actor .spellbook .level-prepared-toggle {
   flex: 0 0 20px;
-/*   line-height: 20px;
-  margin-left: 5px; */
+  line-height: 19px;
+  background: var(--secondary-background);
+  padding-left: 5px;
+  font-size: 0.8em;
+}
+.pf2e.actor .spellbook .level-prepared-header {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  letter-spacing: 2px;
+  font-weight: 100;
+  font-size: 20px;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .level-prepared-toggle-div {
+  flex: 0 0 25px;
+}
+.pf2e.actor .spellbook .spellbook-item {
+  font-style: oblique;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .inventory-list .spellbook-item h4 {
+  margin-left: 30px;
 }
 .pf2e.actor .spellbook .inventory-list {
   height: calc(100% - 96px);
@@ -1840,6 +1860,7 @@
 .pf2e.actor .spellbook .item .item-name,
 .pf2e.actor .spellbook .item .melee-name {
   flex: 2;
+  border-right: 1px solid var(--secondary-background);
 }
 .pf2e.actor .item .spell-school,
 .pf2e.actor .item .spell-action {
