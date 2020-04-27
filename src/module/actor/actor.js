@@ -177,7 +177,7 @@ export default class extends Actor {
    */
   rollRecovery(event) {
     const dying = this.data.data.attributes.dying.value;
-    const wounded = this.data.data.attributes.wounded.value;
+    // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
     const recoveryDc = 10 + 0; //rework later to also add Mountain's Stoutness support
     const flatCheck = new Roll("1d20").roll();
     const dc = recoveryDc + dying;
@@ -192,6 +192,8 @@ export default class extends Actor {
     } else {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
     }
+    const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
+    const rollingPartB = game.i18n.localize("PF2E.Recovery.rollingPartB");
 
     const message = `
       <div class="dice-roll">
@@ -204,8 +206,8 @@ export default class extends Actor {
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
           <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
-            Rolling Recovery Check  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
-              <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> versus a DC ${dc}.
+            ${rollingPartA}  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
+            <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> ${rollingPartB} ${dc}.
           </span>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
