@@ -130,7 +130,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
   return options;
 });
 
-Hooks.on('preCreateActor', (dir, actor) => {
+Hooks.on('preCreateActor', (actor, dir) => {
   if (game.settings.get('pf2e', 'defaultTokenSettings')) {
     // Set wounds, advantage, and display name visibility
     mergeObject(actor, {
