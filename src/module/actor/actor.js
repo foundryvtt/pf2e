@@ -178,7 +178,8 @@ export default class extends Actor {
   rollRecovery(event) {
     const dying = this.data.data.attributes.dying.value;
     // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-    const recoveryDc = 10 + 0; //rework later to also add Mountain's Stoutness support
+    const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
+    const recoveryDc = 10 + recoveryMod;
     const flatCheck = new Roll("1d20").roll();
     const dc = recoveryDc + dying;
     let result = '';
@@ -192,6 +193,7 @@ export default class extends Actor {
     } else {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
     }
+    const dyingName = game.i18n.localize("PF2E.condition.dying.name").toLowerCase();
     const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
     const rollingPartB = game.i18n.localize("PF2E.Recovery.rollingPartB");
 
@@ -201,7 +203,7 @@ export default class extends Actor {
         <div class="dice-tooltip" style="display: none;">
             <section class="tooltip-part">
               <p class="part-formula" style="padding-top:5px;">${flatCheck.formula}<span class="part-total">${flatCheck.result}</span></p>
-              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + dying ${dying}</p>
+              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + ${dyingName} ${dying}</p>
             </section>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
