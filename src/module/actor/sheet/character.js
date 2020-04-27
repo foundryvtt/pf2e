@@ -144,6 +144,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
+        i.isArmor = true;
+        const equipped = getProperty(i.data, 'equipped.value') || false;
+        i.armorEquipped = equipped?' active':'';
       }
 
       // Inventory
@@ -471,6 +474,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
     return icons[focus.points];
   }
+
 }
 
 export default ActorSheetPF2eCharacter;

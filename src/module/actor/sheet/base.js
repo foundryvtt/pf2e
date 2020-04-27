@@ -544,6 +544,16 @@ class ActorSheetPF2e extends ActorSheet {
       this._setExpendedPreparedSpellSlot(spellLvl, slotId, entryId, expendedState);
     });
 
+    // Toggle equip
+    html.find('.item-toggle-equip').click((ev) => {
+      const f = $(event.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      f.toggleClass('active');
+      const active = f.hasClass('active');
+      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': active });
+      
+    });
+
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
