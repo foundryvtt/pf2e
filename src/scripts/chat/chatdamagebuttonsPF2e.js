@@ -24,41 +24,55 @@ class ChatDamageButtonsPF2e extends Application {
       btnContainer2.append(shieldButton);
       btnContainer2.append(fullHealingButton);
 
-      html.find('.dice-total').append(btnContainer1);
+      html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
       html.find('.dice-formula').append(btnContainer2);
 
       // Handle button clicks
       fullDamageButton.click((ev) => {
         ev.stopPropagation();
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
+          attribute = 'attributes.shield';
           CONFIG.Actor.entityClass.applyDamage(html, 1, 'attributes.shield');
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+        }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 1);
+          CONFIG.Actor.entityClass.applyDamage(html, 1, attribute);
         }
       });
 
       halfDamageButton.click((ev) => {
         ev.stopPropagation();
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-          CONFIG.Actor.entityClass.applyDamage(html, 0.5, 'attributes.shield');
+          attribute = 'attributes.shield';
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+        }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 0.5);
+          CONFIG.Actor.entityClass.applyDamage(html, 0.5, attribute);
         }
       });
 
       doubleDamageButton.click((ev) => {
         ev.stopPropagation();
+        let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
-          CONFIG.Actor.entityClass.applyDamage(html, 2, 'attributes.shield');
+          attribute = 'attributes.shield';
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-        } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 2);
         }
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, 2, attribute);
+        }
+
       });
 
       shieldButton.click((ev) => {
@@ -69,10 +83,53 @@ class ChatDamageButtonsPF2e extends Application {
 	  
       fullHealingButton.click((ev) => {
         ev.stopPropagation();
-        CONFIG.Actor.entityClass.applyDamage(html, -1);
+        if (ev.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, -1)
+        } else {
+          CONFIG.Actor.entityClass.applyDamage(html, -1);
+        }
       });
     });
   }
+
+  static shiftModifyDamage(html, multiplier, attributePassed='attributes.hp') {
+
+    let promise = new Promise(resolve => {
+      new Dialog({
+        title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
+        content: `<form>
+                    <div class="form-group">
+                        <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
+                        <input type="number" name="modifier" value="" placeholder="0">
+                    </div>
+                  </form>
+                  <script type="text/javascript">
+                    $(function () {
+                        $(".form-group input").focus();
+                    });
+                  </script>`,
+        buttons: {
+          ok: {
+            label: 'Ok',
+            callback: async dialogHtml => {
+              const diceTotal = parseFloat(html.find('.dice-total #value').text());
+              let modifier = parseFloat(dialogHtml.find('[name="modifier"]').val());
+              if (isNaN(modifier)) {
+                modifier = 0;
+              }
+              if (typeof modifier !== undefined) {
+                await CONFIG.Actor.entityClass.applyDamage(html, multiplier, attributePassed, modifier);
+              }
+            }
+          }
+        },
+        default: 'ok',
+        close: () => { }
+      }).render(true);
+    });
+
+  }
+
 }
 
 const chatButtons = new ChatDamageButtonsPF2e();
