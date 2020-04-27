@@ -1,12 +1,10 @@
 import Spell from 'module/item/spell.js';
 
 const characterData = require('tests/fixtures/characterData.json');
-const electricArc = require('tests/fixtures/spells/electric_arc.json');
-const shatteringGem = require('tests/fixtures/spells/shattering_gem.json');
-const tempestSurge = require('tests/fixtures/spells/tempest_surge.json');
-const daze = require('tests/fixtures/spells/daze.json');
-const spiritualWeapon = require('tests/fixtures/spells/spiritual_weapon.json');
 const spellcastingEntry = require('tests/fixtures/items/spellcastingEntry.json');
+
+let electricArc; let shatteringGem; let tempestSurge; let daze; let
+  spiritualWeapon;
 
 const spellcastingEntryItem = {
   data: spellcastingEntry,
@@ -15,6 +13,11 @@ const actor = {
   getOwnedItem: jest.fn().mockImplementation(() => spellcastingEntryItem),
   data: characterData,
 };
+
+beforeAll(async () => {
+  const promises = ['Electric Arc', 'Shattering Gem', 'Tempest Surge', 'Daze', 'Spiritual Weapon'].map(async (name) => fetchSpell(name));
+  [electricArc, shatteringGem, tempestSurge, daze, spiritualWeapon] = await Promise.all(promises);
+});
 
 describe('#spellcastingEntry', () => {
   test('returns the spellcasting entry it comes from', () => {
