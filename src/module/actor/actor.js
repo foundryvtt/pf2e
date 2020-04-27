@@ -347,18 +347,20 @@ export default class extends Actor {
 
         const appliedResult = (value>0) ? game.i18n.localize("PF2E.UI.applyDamage.damaged") + value : game.i18n.localize("PF2E.UI.applyDamage.healed") + value*-1;
         const modifiedByGM = modifier!==0 ? 'Modified by GM: '+(modifier<0?'-':'+')+modifier : '';
+        const by = game.i18n.localize("PF2E.UI.applyDamage.by");
+        const hitpoints = game.i18n.localize("PF2E.HitPointsHeader").toLowerCase();
         const message = `
           <div class="dice-roll">
           <div class="dice-result">
             <div class="dice-tooltip dmg-tooltip" style="display: none;">
               <div class="dice-formula" style="background: 0;">
-                <span>${flavorText}, by ${messageSender}</span>
+                <span>${flavorText}, ${by} ${messageSender}</span>
                 <span>${modifiedByGM}</span>
               </div>
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
               <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
-                ${t.name} ${shieldFlavor} ${appliedResult} hit points.
+                ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
           </div>
