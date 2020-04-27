@@ -336,7 +336,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           actionDescr = actionDescr.replace(/(\d+)?d(\d+)([\+\-]\d+)?(\s+[a-z]+[\s.,])?/g, function(match, a, b, c, d) {
             // match: '1d4+1 rounds.', a: 1, b: 4, c: '+1', d: ' rounds.'
             let bonus = parseInt(c, 10);
-            if (d.substring(1,7) !== 'rounds') {
+            if (d && d.substring(1,7) !== 'rounds') {
               if (isNaN(bonus)) { //c is empty in this case so dont need to add
                 c = (increase?'+':'') + (mod*2);
               } else {
