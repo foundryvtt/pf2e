@@ -59,32 +59,49 @@
 <div class="bio-item form-group-stacked pf-container">
     <label class="pf-title">{{localize "PF2E.AncestryHP"}}</label>
     <span class="bio-class pf-value pf-small">
-        <input type="text" name="data.attributes.ancestryhp.value" data-dtype="{{data.attributes.ancestryhp.type}}"
-            value="{{data.attributes.ancestryhp.value}}" placeholder="0" />
+        <input type="text" name="data.attributes.ancestryhp" data-dtype="Number"
+            value="{{data.attributes.ancestryhp}}" placeholder="0" />
     </span>
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
     <label class="pf-title">{{localize "PF2E.ClassHP"}}</label>
     <span class="bio-class pf-value pf-small">
-        <input type="text" name="data.attributes.classhp.value" data-dtype="{{data.attributes.classhp.type}}"
-            value="{{data.attributes.classhp.value}}" placeholder="0" />
+        <input type="text" name="data.attributes.classhp" data-dtype="Number"
+            value="{{data.attributes.classhp}}" placeholder="0" />
     </span>
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
     <label class="pf-title" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">{{localize "PF2E.BonusHPperLevel"}}</label>
     <span class="bio-class pf-value pf-small" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
-        <input type="text" name="data.attributes.levelbonushp.value" data-dtype="{{data.attributes.levelbonushp.type}}"
-            value="{{data.attributes.levelbonushp.value}}" placeholder="0" />
+        <input type="text" name="data.attributes.levelbonushp" data-dtype="Number"
+            value="{{data.attributes.levelbonushp}}" placeholder="0" />
     </span>
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
-    <label class="pf-title">{{localize "PF2E.FlatBonusHP"}}</label>
+    <label title="{{localize 'PF2E.FlatBonusSP'}}" class="pf-title">{{localize "PF2E.FlatBonusHP"}}</label>
     <span class="bio-class pf-value pf-small">
-        <input type="text" name="data.attributes.flatbonushp.value" data-dtype="{{data.attributes.flatbonushp.type}}"
-            value="{{data.attributes.flatbonushp.value}}" placeholder="0" />
+        <input type="text" name="data.attributes.flatbonushp" data-dtype="Number"
+            value="{{data.attributes.flatbonushp}}" placeholder="0" />
     </span>
 </div>
+
+{{#if_stamina}}
+    <div class="bio-item form-group-stacked pf-container">
+        <label title="{{localize 'PF2E.BonusSPperLevelTitle'}}" class="pf-title">{{localize "PF2E.BonusSPperLevel"}}</label>
+        <span class="bio-class pf-value pf-small">
+            <input type="text" name="data.attributes.levelbonussp" data-dtype="Number"
+                value="{{data.attributes.levelbonussp}}" placeholder="0" />
+        </span>
+    </div>
+    <div class="bio-item form-group-stacked pf-container">
+        <label title="{{localize 'PF2E.FlatBonusSPTitle'}}" class="pf-title">{{localize "PF2E.FlatBonusSP"}}</label>
+        <span class="bio-class pf-value pf-small">
+            <input type="text" name="data.attributes.flatbonussp" data-dtype="Number"
+                value="{{data.attributes.flatbonussp}}" placeholder="0" />
+        </span>
+    </div>
+{{/if_stamina}}
 
