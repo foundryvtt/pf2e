@@ -365,12 +365,12 @@ export default class extends Actor {
           content: message,
           type: CONST.CHAT_MESSAGE_TYPES.OTHER
         });
-        return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+        t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
       }
     } else {
       ui.notifications.error("You haven't targeted a token.");
-      return;
     }
+    return;
   }
 
   /**
@@ -539,6 +539,3 @@ Handlebars.registerHelper('if_stamina', function(options) {
     return ''
   }
 });
-
-
-
