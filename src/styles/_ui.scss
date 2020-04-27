@@ -1,0 +1,113 @@
+/* ---------------------------------------- */
+/*  User Interface                          */
+/* ---------------------------------------- */
+
+/**
+ * Basic Application Wrapper
+ */
+.app {
+  max-height: 100%;
+  background: url(../ui/denim075.png) repeat;
+  border-radius: 5px;
+  box-shadow: 0 0 20px #000;
+  margin: 3px 0;
+  padding: 0.5em;
+  color: #f0f0e0;
+  z-index: 30;
+}
+/**
+ * Pop-Out Window Application
+ */
+.window-app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+  box-shadow: 0 0 20px #000;
+  padding: 0;
+  z-index: 100;
+  /* Resizable movement handle */
+}
+.window-app > * {
+  flex: 1;
+}
+.window-app > .flex0 {
+  display: block;
+  flex: 0;
+}
+.window-app > .flex1 {
+  flex: 1;
+}
+.window-app > .flex2 {
+  flex: 2;
+}
+.window-app > .flex3 {
+  flex: 3;
+}
+.window-app .window-header {
+  flex: 0 0 30px;
+  overflow: hidden;
+  padding: 0 8px;
+  line-height: 30px;
+  border-bottom: 1px solid #000;
+}
+.window-app .window-header .window-title {
+  margin: 0;
+  word-break: break-all;
+}
+.window-app .window-header a {
+  flex: none;
+  margin: 0 0 0 8px;
+}
+.window-app .window-header i.fas {
+  margin-right: 3px;
+}
+.window-app.minimized .window-header {
+  border: 1px solid #000;
+}
+.window-app .window-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background: url(../ui/parchment.jpg) repeat;
+  padding: 8px;
+  color: #191813;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.window-app .window-content > * {
+  flex: 1;
+}
+.window-app .window-content > .flex0 {
+  display: block;
+  flex: 0;
+}
+.window-app .window-content > .flex1 {
+  flex: 1;
+}
+.window-app .window-content > .flex2 {
+  flex: 2;
+}
+.window-app .window-content > .flex3 {
+  flex: 3;
+}
+.window-app.zhover {
+  z-index: 101;
+}
+.window-app .window-resizable-handle {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: -1px;
+  right: 0;
+  background: #444;
+  padding: 2px;
+  border: 1px solid #111;
+  border-radius: 4px 0 0 0;
+}
+.window-app .window-resizable-handle i.fas {
+  transform: rotate(45deg);
+}
+.window-app.minimized .window-resizable-handle {
+  display: none;
+}
