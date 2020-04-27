@@ -135,14 +135,6 @@ class DicePF2e {
       data.bonus = form ? form.find('[name="bonus"]').val() : 0;
       const roll = new Roll(parts.join('+'), data);
       const flav = (flavor instanceof Function) ? flavor(parts, data) : title;
-      /* if ( crit ) {
-        let add = 0;
-        let mult = 2;
-        roll.alter(add, mult);
-        flav = `${title} (Critical)`;
-      } */
-
-      // Execute the roll and send it to chat
       roll.toMessage(
         {
           speaker,

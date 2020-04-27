@@ -72,24 +72,24 @@ export default class extends Actor {
     data.details.xp.pct = character.xpPercent;
 
     // Calculate HP and SP
-    const ancestryHp = data.attributes.ancestryhp ? parseInt(data.attributes.ancestryhp.value || 0, 10) : 0;
-    const classHp = data.attributes.classhp ? parseInt(data.attributes.classhp.value || 0, 10) : 0;
-    const bonusHpPerLevel = data.attributes.levelbonushp ? parseInt(data.attributes.levelbonushp.value || 0, 10) * data.details.level.value : 0;
-    const flatBonusHp = data.attributes.flatbonushp ? parseInt(data.attributes.flatbonushp.value || 0, 10) : 0;
-    const conMod = data.abilities.con.mod;
+    const bonusHpPerLevel = data.attributes.levelbonushp * data.details.level.value;
     if (game.settings.get('pf2e', 'staminaVariant')) {
-      const halfClassHp = Math.floor(classHp / 2);
-      const maxSp = (halfClassHp + conMod) * data.details.level.value
-      const maxHp = ancestryHp + halfClassHp + bonusHpPerLevel + flatBonusHp;
-      data.attributes.sp.max = maxSp;
-      data.attributes.hp.max = maxHp;
+      const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
+      const halfClassHp = Math.floor(data.attributes.classhp / 2);
+      
+      data.attributes.sp.max = (halfClassHp + data.abilities.con.mod) * data.details.level.value 
+        + bonusSpPerLevel 
+        + data.attributes.flatbonussp;
+      
+      data.attributes.hp.max = data.attributes.ancestryhp + 
+        (halfClassHp*data.details.level.value) 
+        + data.attributes.flatbonushp 
+        + bonusHpPerLevel;
     } else {
-      const maxHp = ancestryHp
-        + ((classHp + conMod) * data.details.level.value)
+      data.attributes.hp.max = data.attributes.ancestryhp
+        + ((data.attributes.classhp + data.abilities.con.mod) * data.details.level.value)
         + bonusHpPerLevel
-        + flatBonusHp;
-
-      data.attributes.hp.max = maxHp;
+        + data.attributes.flatbonushp;
     }
 
     // Saves
@@ -177,8 +177,9 @@ export default class extends Actor {
    */
   rollRecovery(event) {
     const dying = this.data.data.attributes.dying.value;
-    const wounded = this.data.data.attributes.wounded.value;
-    const recoveryDc = 10 + 0; //rework later to also add Mountain's Stoutness support
+    // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+    const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
+    const recoveryDc = 10 + recoveryMod;
     const flatCheck = new Roll("1d20").roll();
     const dc = recoveryDc + dying;
     let result = '';
@@ -192,6 +193,9 @@ export default class extends Actor {
     } else {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
     }
+    const dyingName = game.i18n.localize("PF2E.condition.dying.name").toLowerCase();
+    const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
+    const rollingPartB = game.i18n.localize("PF2E.Recovery.rollingPartB");
 
     const message = `
       <div class="dice-roll">
@@ -199,13 +203,13 @@ export default class extends Actor {
         <div class="dice-tooltip" style="display: none;">
             <section class="tooltip-part">
               <p class="part-formula" style="padding-top:5px;">${flatCheck.formula}<span class="part-total">${flatCheck.result}</span></p>
-              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + dying ${dying}</p>
+              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + ${dyingName} ${dying}</p>
             </section>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
           <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
-            Rolling Recovery Check  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
-              <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> versus a DC ${dc}.
+            ${rollingPartA}  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
+            <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> ${rollingPartB} ${dc}.
           </span>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
@@ -365,12 +369,12 @@ export default class extends Actor {
           content: message,
           type: CONST.CHAT_MESSAGE_TYPES.OTHER
         });
-        return t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+        t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
       }
     } else {
       ui.notifications.error("You haven't targeted a token.");
-      return;
     }
+    return;
   }
 
   /**
@@ -539,6 +543,3 @@ Handlebars.registerHelper('if_stamina', function(options) {
     return ''
   }
 });
-
-
-

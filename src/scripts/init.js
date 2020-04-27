@@ -57,8 +57,58 @@
         updated = true;
       } 
 
+      if (worldSchemaVersion < 0.559) {
+
+        if (actor.data.type === 'npc') {
+          console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+
+          let updatedItems = [];
+          const items = duplicate(actor.data.items);
+
+          items.forEach(item => {
+              if (item.type === 'melee' && item.data.damage.die) {
+                let damageRolls = {
+                  'migrated': {
+                    damage: item.data.damage.die,
+                    damageType: item.data.damage.damageType
+                  }
+                };
+                let updatedItem = {
+                  _id: item._id
+                }
+                updatedItem['data.damageRolls'] = damageRolls;
+                updatedItems.push(updatedItem);
+              }              
+          });
+
+          console.log('updatedItems: ', updatedItems);
+          await actor.updateManyEmbeddedEntities('OwnedItem', updatedItems);
+        }
+        
+        
+
+        updated = true;
+      }
+
+      if (worldSchemaVersion < 0.561) {
+        if (actor.data.type === 'character') {
+          console.log(`PF2e System | Updating ${actorData.name} (${actorData._id}) schema to version ${systemSchemaVersion}`);
+
+          deltaData['data.attributes.flatbonushp'] = parseInt((actorData.data.attributes.flatbonushp || {}).value) || 0; 
+          deltaData['data.attributes.levelbonushp'] = parseInt((actorData.data.attributes.levelbonushp || {}).value) || 0; 
+          deltaData['data.attributes.flatbonussp'] = parseInt((actorData.data.attributes.flatbonussp || {}).value) || 0;
+          deltaData['data.attributes.levelbonussp'] = parseInt((actorData.data.attributes.levelbonussp || {}).value) || 0;
+          deltaData['data.attributes.ancestryhp'] = parseInt((actorData.data.attributes.ancestryhp || {}).value) || 0;
+          deltaData['data.attributes.classhp'] = parseInt((actorData.data.attributes.classhp || {}).value) || 0;
+
+          await actor.update(deltaData);
+
+          updated = true;
+        }
+      }
+
       if (!updated) {
-        console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
+        console.log(`PF2e System | Actor ${actorData.name} (${actorData._id}) does not meet migration criteria and is being skipped`);
       }
     }
   }

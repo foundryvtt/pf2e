@@ -632,6 +632,10 @@ class ActorSheetPF2e extends ActorSheet {
         case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
         case 'weaponDamage': item.rollWeaponDamage(ev); break;
         case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
+        case 'npcAttack': item.rollNPCAttack(ev); break;
+        case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
+        case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
+        case 'npcDamage': item.rollNPCDamage(ev); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
         case 'featAttack': item.rollFeatAttack(ev); break;
@@ -1306,6 +1310,7 @@ class ActorSheetPF2e extends ActorSheet {
                   label: 'Spellcasting Type',
                   value: spellcastingType,
                 },
+                showUnpreparedSpells: { value: true },
               };
 
               const data = {

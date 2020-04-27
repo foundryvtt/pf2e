@@ -179,7 +179,7 @@ function buildWatch() {
   gulp.watch('src/**/*.js', { ignoreInitial: false }, buildJS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
-  gulp.watch(['src/fonts', 'src/templates', 'src/*.json', 'system.json'], { ignoreInitial: false }, copyFiles);
+  gulp.watch(['src/fonts', 'src/templates', 'src/*.json', 'src/lang/*.json', 'system.json'], { ignoreInitial: false }, copyFiles);
   gulp.watch('dist/**/*', copyToUserData);
 }
 
