@@ -267,7 +267,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     const hp = parseInt(actorData.data.attributes.hp.max, 10);
     actorData.data.attributes.hp.max = hp + ( (lvl>=20)?30:( (lvl>=5)?20:( (lvl>=2)?15:10 ) ) ) * positive;
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
-    actorData.data.details.level.value = hp + mod;
+    //actorData.data.details.level.value = hp + mod;
 
     const ac = parseInt(actorData.data.attributes.ac.value, 10);
     actorData.data.attributes.ac.value = ac + mod;
@@ -315,7 +315,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           item.data.spelldc.value = parseInt(spellAttack, 10) + mod;
         }
 
-      } else if (item.type == "spell") {
+      /* } else if (item.type == "spell") {
         const spellDamage = getProperty(item.data, 'damage.value');
         if (spellDamage !== undefined) {
           const lastTwoChars = spellDamage.slice(-2);
@@ -324,7 +324,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           } else {
             item.data.damage.value = spellDamage + (mod*2);
           }
-        }
+        } */
 
       } else if (item.type == "action") {
         let actionDescr = getProperty(item.data, 'description.value');
