@@ -788,6 +788,20 @@ class ActorSheetPF2e extends ActorSheet {
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.displayLevels': currentDisplayLevels });
       this.render();
     });
+
+    Hooks.on("createOwnedItem", (actor, item) => {
+      // Show unprepared spells if creating a new item
+      if (item.type == "spell") {
+        const currentLvlToDisplay = {};
+        currentLvlToDisplay[item.data.level.value] = true;
+        this.actor.updateEmbeddedEntity('OwnedItem', {
+          _id: item.data.location.value, 
+          'data.showUnpreparedSpells.value': true,
+          'data.displayLevels': currentLvlToDisplay
+        });
+      }
+    });
+
   }
 
   /* -------------------------------------------- */
