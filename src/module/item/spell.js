@@ -36,9 +36,16 @@ class Spell {
     return this.data.data.damage;
   }
 
+  get damageValue() {
+    if (this.damage.value && this.damage.value !== '' && this.damage.value !== '0') {
+      return this.damage.value;
+    }
+    return null;
+  }
+
   get damageParts() {
     const parts = [];
-    parts.push(this.damage.value);
+    if (this.damageValue) parts.push(this.damage.value);
     if (this.damage.applyMod) {
       parts.push(this.character.abilities[this.spellcastingEntry.ability].mod);
     }
@@ -53,7 +60,7 @@ class Spell {
   // level.
   get castLevel() {
     if (this.autoScalingSpell) {
-      return Math.ceil(this.character.level / 2) - 1;
+      return Math.ceil(this.character.level / 2);
     }
     return this._castLevel;
   }
@@ -62,12 +69,23 @@ class Spell {
     return this.spellLevel === 0 || this.spellLevel === 11;
   }
 
+  get heighteningModes() {
+    return {
+      level1: 1,
+      level2: 2,
+      level3: 3,
+      level4: 4,
+    };
+  }
+
   get heightenedParts() {
     let parts = [];
     if (this.scaling.formula !== '') {
-      if (this.scaling.mode === 'level1') {
-        let partCount = this.castLevel;
+      const heighteningDivisor = this.heighteningModes[this.scaling.mode];
+      if (heighteningDivisor) {
+        let partCount = this.castLevel - 1;
         if (!this.autoScalingSpell) partCount = this.castLevel - this.spellLevel;
+        partCount = Math.floor(partCount / heighteningDivisor);
         parts = Array(partCount).fill(this.scaling.formula);
       }
     }
