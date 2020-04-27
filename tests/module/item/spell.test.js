@@ -4,6 +4,8 @@ const characterData = require('tests/fixtures/characterData.json');
 const electricArc = require('tests/fixtures/spells/electric_arc.json');
 const shatteringGem = require('tests/fixtures/spells/shattering_gem.json');
 const tempestSurge = require('tests/fixtures/spells/tempest_surge.json');
+const daze = require('tests/fixtures/spells/daze.json');
+const spiritualWeapon = require('tests/fixtures/spells/spiritual_weapon.json');
 const spellcastingEntry = require('tests/fixtures/items/spellcastingEntry.json');
 
 const spellcastingEntryItem = {
@@ -46,5 +48,24 @@ describe('#damageParts', () => {
     const spell = new Spell(tempestSurge, { castingActor: actor, castLevel: 3 });
 
     expect(spell.damageParts).toEqual(['1d12', '1d12', '1d12']);
+  });
+  test('heightens +2 for cantrips', () => {
+    characterData.data.details.level.value = 5;
+    const spell = new Spell(daze, { castingActor: actor, castLevel: 3 });
+
+    expect(spell.damageParts).toEqual([3, '1d6']);
+  });
+  test('heightens +2 for higher-leveled spells', () => {
+    let spell = new Spell(spiritualWeapon, { castingActor: actor, castLevel: 3 });
+    expect(spell.damageParts).toEqual(['1d8', 3]);
+
+    spell = new Spell(spiritualWeapon, { castingActor: actor, castLevel: 4 });
+    expect(spell.damageParts).toEqual(['1d8', 3, '1d8']);
+
+    spell = new Spell(spiritualWeapon, { castingActor: actor, castLevel: 5 });
+    expect(spell.damageParts).toEqual(['1d8', 3, '1d8']);
+
+    spell = new Spell(spiritualWeapon, { castingActor: actor, castLevel: 6 });
+    expect(spell.damageParts).toEqual(['1d8', 3, '1d8', '1d8']);
   });
 });
