@@ -1,0 +1,227 @@
+/* ----------------------------------------- */
+/* Configuration
+/* ----------------------------------------- */
+/* ----------------------------------------- */
+/* Fonts
+/* ----------------------------------------- */
+@import url("../fonts/Inter/inter.css");
+@import url("../fonts/Eczar/eczar.css");
+@font-face {
+  font-family: "Pathfinder2eActions";
+  src: url("../fonts/Pathfinder2eActions.ttf");
+}
+/* ----------------------------------------- */
+/* Global UI
+/* ----------------------------------------- */
+:root {
+  --primary: $primary-color;
+  --secondary: $secondary-color;
+  --tertiary: $tertiary-color;
+  --light: $light-color;
+  --dark: $dark-color;
+}
+
+body {
+  font-family: "Inter", "Signika", system, -apple-system, sans-serif;
+}
+
+/* ----------------------------------------- */
+/* Typography
+/* ----------------------------------------- */
+body {
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+/* ----------------------------------------- */
+/*  Chat Cards
+/* ----------------------------------------- */
+.message-content .dice-roll .statuseffect-message {
+  word-break: normal;
+  font-weight: 100;
+  font-size: 12px;
+  text-align: left;
+  padding: 0 0 0 0.5em;
+}
+.message-content .dice-roll .statuseffect-message ul {
+  list-style-type: none;
+}
+.message-content .dice-roll .statuseffect-message ul li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.message-content .dice-roll .statuseffect-message ul li img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.message-content .dice-roll .statuseffect-message ul li:not(:last-child) {
+  margin-bottom: 3px;
+}
+
+.message-content .dice-roll .statuseffect-li {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.message-content .dice-roll .statuseffect-li-text {
+  display: inline-block;
+  width: 200px;
+  font-weight: 600;
+}
+
+.message-content .dice-roll .statuseffect-rules {
+  visibility: hidden;
+  width: 264px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: -42px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: normal;
+  background: url(../../ui/parchment.jpg) repeat;
+  border: 1px solid #999;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #fff inset;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.message-content .dice-roll .statuseffect-rules p {
+  margin: 0;
+}
+
+.statuseffect-li-text:hover + .statuseffect-rules {
+  visibility: visible;
+  opacity: 1;
+}
+
+.status-effects .status-effect-summary {
+  visibility: hidden;
+  width: 174px;
+  padding: 3px;
+  position: absolute;
+  z-index: 1;
+  top: -30px;
+  left: 0px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: normal;
+  box-sizing: content-box;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 15px #000;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.status-effects .status-effect-summary.active {
+  visibility: visible;
+}
+
+/* ----------------------------------------- */
+/*  Chat Cards
+/* ----------------------------------------- */
+.pf2e.chat-card {
+  font-style: normal;
+}
+.pf2e.chat-card .card-header {
+  padding: 3px 0;
+  border-top: 2px groove #fff;
+  border-bottom: 2px groove #fff;
+}
+.pf2e.chat-card .card-header h3 {
+  flex: 1;
+  margin: 0;
+  line-height: 36px;
+}
+.pf2e.chat-card .card-header img {
+  flex: 0 0 36px;
+  margin-right: 5px;
+}
+.pf2e.chat-card .card-content {
+  margin: 5px 0;
+}
+.pf2e.chat-card .card-buttons {
+  margin: 5px 0;
+}
+.pf2e.chat-card .card-buttons button {
+  margin: 2px 0;
+}
+.pf2e.chat-card .card-buttons span {
+  display: block;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid var(--secondary-background);
+}
+.pf2e.chat-card .card-footer {
+  padding: 3px 0 0;
+  border-top: 2px groove #fff;
+}
+.pf2e.chat-card .card-footer span {
+  border-right: 2px groove #fff;
+  padding: 0 5px 0 0;
+  font-size: 12px;
+}
+.pf2e.chat-card .card-footer span:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+.pf2e.chat-card .card-buttons-multiattack {
+  display: grid;
+  grid-template-columns: auto 40px 40px;
+  grid-column-gap: 4px;
+}
+.pf2e.chat-card .card-buttons-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 4px;
+}
+
+.sheet h1,
+.sheet h2,
+.sheet h3,
+.sheet h4,
+.sheet h5,
+.sheet h6 {
+  font-family: "Eczar";
+  font-size: 1.4em;
+}
+.sheet .sheet-header {
+  display: grid;
+  grid: "name name" auto "lvl hero" 1fr/1fr 1fr;
+}
+.sheet .sheet-header .charname {
+  grid-area: name;
+  font-size: 1em;
+}
+.sheet .sheet-header .charname input {
+  font-weight: 600;
+  margin: 1%;
+  height: unset;
+  line-height: unset;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1px 0;
+}
+.sheet .sheet-header .defense-container {
+  grid-area: hero;
+}
+.sheet .sheet-header .charlevel {
+  grid-area: lvl;
+}
