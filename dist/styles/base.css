@@ -41,6 +41,80 @@ h6 {
   font-weight: 600;
 }
 
+/* ---------------------------------------- */
+/*  User Interface                          */
+/* ---------------------------------------- */
+/**
+ * Basic Application Wrapper
+ */
+.app {
+  max-height: 100%;
+  background: url(../ui/denim075.png) repeat;
+  border-radius: 0;
+  box-shadow: 0 0 20px #000;
+  margin: 3px 0;
+  padding: 0.5em;
+  color: #f0f0e0;
+  z-index: 30;
+}
+
+/**
+ * Pop-Out Window Application
+ */
+.window-app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+  padding: 4px;
+  z-index: 100;
+  background: #222431;
+  box-shadow: 0 0 0 1px #222431, 0 0 0 2px #2b2f3a, 0 0 0 3px #30343f, 0 0 0 4px #262a36, 0 0 0 5px #1d1f2c, 0 0 12px #000;
+}
+.window-app .window-header {
+  font-size: 9px;
+  padding: 5px;
+  line-height: 20px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #1d1f2c;
+  background: linear-gradient(#2d2f3f, #1d1f2c);
+  box-shadow: 0 0 0 1px #1d1f2c, 0 0 0 2px #424652;
+}
+.window-app .window-header h4,
+.window-app .window-header a {
+  font-size: 12px;
+  font-weight: 400;
+}
+.window-app .window-header .close {
+  font-size: 0;
+  line-height: 0;
+  margin: 0;
+  margin-left: 12px;
+}
+.window-app .window-header .close .fas {
+  font-size: 9px;
+  background: #942514;
+  padding: 6px 7px;
+  margin: 0;
+  box-shadow: inset 0 0 0 1px #a52f1d, inset 0 0 3px rgba(0, 0, 0, 0.5), 0 0 3px rgba(0, 0, 0, 0.75);
+}
+.window-app .window-content {
+  background: url("../assets/bg.png");
+  box-shadow: 0 0 0 1px #f5f2eb, 0 0 0 2px #c6baa0;
+}
+.window-app.minimized {
+  padding: 0;
+}
+.window-app.minimized .window-header {
+  margin: 0;
+  padding: 3px;
+  padding-left: 5px;
+  line-height: 21px;
+}
+.window-app.minimized .window-header h4 {
+  font-weight: 500;
+}
+
 /* ----------------------------------------- */
 /*  Chat Cards
 /* ----------------------------------------- */
@@ -192,24 +266,15 @@ h6 {
   grid-column-gap: 4px;
 }
 
-.sheet h1,
-.sheet h2,
-.sheet h3,
-.sheet h4,
-.sheet h5,
-.sheet h6 {
-  font-family: "Eczar";
-  font-size: 1.4em;
-}
-.sheet .sheet-header {
+.sheet-header {
   display: grid;
   grid: "name name" auto "lvl hero" 1fr/1fr 1fr;
 }
-.sheet .sheet-header .charname {
+.sheet-header .charname {
   grid-area: name;
   font-size: 1em;
 }
-.sheet .sheet-header .charname input {
+.sheet-header .charname input {
   font-weight: 600;
   margin: 1%;
   height: unset;
@@ -219,9 +284,10 @@ h6 {
   border: none;
   padding: 1px 0;
 }
-.sheet .sheet-header .defense-container {
+.sheet-header .defense-container {
   grid-area: hero;
 }
-.sheet .sheet-header .charlevel {
+.sheet-header .charlevel {
   grid-area: lvl;
 }
+/*# sourceMappingURL=../maps/styles/base.css.map */

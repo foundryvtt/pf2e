@@ -8,7 +8,7 @@
 .app {
   max-height: 100%;
   background: url(../ui/denim075.png) repeat;
-  border-radius: 5px;
+  border-radius: 0;
   box-shadow: 0 0 20px #000;
   margin: 3px 0;
   padding: 0.5em;
@@ -23,91 +23,57 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: absolute;
-  box-shadow: 0 0 20px #000;
-  padding: 0;
+  padding: 4px;
   z-index: 100;
-  /* Resizable movement handle */
-}
-.window-app > * {
-  flex: 1;
-}
-.window-app > .flex0 {
-  display: block;
-  flex: 0;
-}
-.window-app > .flex1 {
-  flex: 1;
-}
-.window-app > .flex2 {
-  flex: 2;
-}
-.window-app > .flex3 {
-  flex: 3;
-}
-.window-app .window-header {
-  flex: 0 0 30px;
-  overflow: hidden;
-  padding: 0 8px;
-  line-height: 30px;
-  border-bottom: 1px solid #000;
-}
-.window-app .window-header .window-title {
-  margin: 0;
-  word-break: break-all;
-}
-.window-app .window-header a {
-  flex: none;
-  margin: 0 0 0 8px;
-}
-.window-app .window-header i.fas {
-  margin-right: 3px;
-}
-.window-app.minimized .window-header {
-  border: 1px solid #000;
-}
-.window-app .window-content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  background: url(../ui/parchment.jpg) repeat;
-  padding: 8px;
-  color: #191813;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.window-app .window-content > * {
-  flex: 1;
-}
-.window-app .window-content > .flex0 {
-  display: block;
-  flex: 0;
-}
-.window-app .window-content > .flex1 {
-  flex: 1;
-}
-.window-app .window-content > .flex2 {
-  flex: 2;
-}
-.window-app .window-content > .flex3 {
-  flex: 3;
-}
-.window-app.zhover {
-  z-index: 101;
-}
-.window-app .window-resizable-handle {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  bottom: -1px;
-  right: 0;
-  background: #444;
-  padding: 2px;
-  border: 1px solid #111;
-  border-radius: 4px 0 0 0;
-}
-.window-app .window-resizable-handle i.fas {
-  transform: rotate(45deg);
-}
-.window-app.minimized .window-resizable-handle {
-  display: none;
+  background: #222431;
+  box-shadow: 0 0 0 1px #222431, 0 0 0 2px #2b2f3a, 0 0 0 3px #30343f,
+    0 0 0 4px #262a36, 0 0 0 5px #1d1f2c, 0 0 12px #000;
+
+  .window-header {
+    font-size: 9px;
+    padding: 5px;
+    line-height: 20px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #1d1f2c;
+    background: linear-gradient(#2d2f3f, #1d1f2c);
+    box-shadow: 0 0 0 1px #1d1f2c, 0 0 0 2px #424652;
+
+    h4,
+    a {
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .close {
+      font-size: 0;
+      line-height: 0;
+      margin: 0;
+      margin-left: 12px;
+      .fas {
+        font-size: 9px;
+        background: #942514;
+        padding: 6px 7px;
+        margin: 0;
+        box-shadow: inset 0 0 0 1px #a52f1d,
+        inset 0 0 3px rgba($color: #000000, $alpha: 0.5), 0 0 3px rgba($color: #000000, $alpha: 0.75);
+      }
+    }
+  }
+
+  .window-content {
+    background: url('../assets/bg.png');
+    box-shadow: 0 0 0 1px #f5f2eb, 0 0 0 2px #c6baa0;
+  }
+
+  &.minimized {
+    padding: 0;
+    .window-header {
+      margin: 0;
+      padding: 3px;
+      padding-left: 5px;
+      line-height: 21px;
+      h4 {
+        font-weight: 500;
+      }
+    }
+  }
 }

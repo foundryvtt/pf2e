@@ -1,37 +1,27 @@
-.sheet {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Eczar";
-    font-size: 1.4em;
+.sheet-header {
+  display: grid;
+  grid:
+    'name name' auto
+    'lvl hero' 1fr
+    /1fr 1fr;
+  .charname {
+    grid-area: name;
+    font-size: 1em;
+    input {
+      font-weight: 600;
+      margin: 1%;
+      height: unset;
+      line-height: unset;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1px 0;
+    }
   }
-  .sheet-header {
-    display: grid;
-    grid: 'name name' auto
-          'lvl hero' 1fr
-          /1fr 1fr;
-    .charname {
-      grid-area: name;
-      font-size: 1em;
-      input {
-        font-weight: 600;
-        margin: 1%;
-        height: unset;
-        line-height: unset;
-        width: 100%;
-        background: none;
-        border: none;
-        padding: 1px 0;
-      }
-    }
-    .defense-container {
-      grid-area: hero;
-    }
-    .charlevel {
-      grid-area: lvl;
-    }
+  .defense-container {
+    grid-area: hero;
+  }
+  .charlevel {
+    grid-area: lvl;
   }
 }
