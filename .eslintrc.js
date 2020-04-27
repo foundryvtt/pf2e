@@ -24,7 +24,8 @@ module.exports = {
     canvas: 'readonly',
     ActorSheet: 'readonly',
     Actor: 'readonly',
-    Actors: 'readonly'
+    Actors: 'readonly',
+    fetchSpell: 'readonly'
   },
   parserOptions: {
     ecmaVersion: 2018,
