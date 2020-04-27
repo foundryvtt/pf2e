@@ -2,14 +2,12 @@
  * @author Farhan Siddiqi
  * @version 0.0.1
  */
-
 // import { monsterAbilities } from './monsterAbilities.js';
 import ActorSheetPF2eNPC from './npc.js';
 
 class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
     const path = 'systems/pf2e/templates/actors/';
-
     if (this.actor.getFlag('pf2e', 'editNPC.value')) return `${path}npc-sheet.html`;
     return `${path}npc-sheet-no-edit.html`;
   }
@@ -20,161 +18,349 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet', 'updatedNPCSheet']),
       width: 650,
       height: 680,
-      showUnpreparedSpells: true,
+      showUnpreparedSpells: true
     });
     return options;
   }
-
   /* -------------------------------------------- */
 
   /**
- * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
- */
+   * Increases the NPC via the Elite/Weak adjustment rules
+   */
+  npcAdjustment(increase) {
+    let actorData = duplicate(this.actor.data);
+    const tokenData = (this.token !== null) ? duplicate(this.token.data) : duplicate(this.actor.data.token);
+    let traits = getProperty(actorData.data, 'traits.traits.value') || [];
+    let traitsAdjusted = false;
+    console.log(actorData);
+
+    if (increase) {
+      console.log(`PF2e System | Adjusting NPC to become more powerful`);
+
+      // Adjusting trait
+      for (const trait of traits) {
+        if (trait === 'weak') { //removing weak
+          const index = traits.indexOf(trait);
+          if (index > -1) traits.splice(index, 1);
+          traitsAdjusted = true;
+        } else if (trait === 'elite') {
+          traitsAdjusted = true; //prevents to add another elite trait
+        }
+      }
+      if (!traitsAdjusted) {
+        traits.push('elite');
+        actorData.name = "Elite "+actorData.name;
+        tokenData.name = "Elite "+tokenData.name;
+      } else {
+        if (actorData.name.startsWith("Weak ")) actorData.name = actorData.name.slice(5);
+        if (tokenData.name.startsWith("Weak ")) tokenData.name = tokenData.name.slice(6);
+      }
+
+    } else {
+      console.log(`PF2e System | Adjusting NPC to become less powerful`);
+
+      console.log(traits);
+      // Adjusting trait
+      for (const trait of traits) {
+        if (trait === 'elite') { //removing elite
+          const index = traits.indexOf(trait);
+          if (index > -1) traits.splice(index, 1);
+          traitsAdjusted = true;
+        } else if (trait === 'weak') {
+          traitsAdjusted = true; //prevents to add another weak trait
+        }
+      }
+      if (!traitsAdjusted) {
+        traits.push('weak');
+        actorData.name = "Weak "+actorData.name;
+        tokenData.name = "Weak "+tokenData.name;
+      } else {
+        if (actorData.name.startsWith("Elite ")) actorData.name = actorData.name.slice(6);
+        if (tokenData.name.startsWith("Elite ")) tokenData.name = tokenData.name.slice(6);
+      }
+
+    }
+
+    actorData.data.traits.traits.value = traits;
+    actorData = this._applyingAdjustmentToData(actorData, increase);
+
+    console.log(actorData);
+    if (this.token === null) { // Then we need to apply this to the token prototype
+      this.actor.update({
+        ['token.name']: tokenData.name
+      });
+    } else {
+      this.token.update({
+        ['name']: tokenData.name
+      });
+    }
+    
+    //modify actordata, including items
+    this.actor.update(actorData);
+    // this.actor.update({
+    //   ['name']: actorData.name,
+    //   ['data.traits.traits.value']: traits
+    // });
+
+  }
+
+  _applyingAdjustmentToData(actorData, increase) {
+    const positive = (increase?1:-1)
+    const mod = 2 * positive;
+
+    actorData.data.attributes.ac.value += mod;
+    actorData.data.attributes.perception.value += mod;
+    actorData.data.saves.fortitude.value += mod;
+    actorData.data.saves.reflex.value += mod;
+    actorData.data.saves.will.value += mod;
+    const lvl = actorData.data.details.level.value;
+    actorData.data.attributes.hp.max =+ ( (lvl>=20)?30:( (lvl>=5)?20:( (lvl>=2)?15:10 ) ) ) * positive;
+    for (const item of actorData.items) {
+      const attack = getProperty(item.data, 'bonus.value');
+      if (attack !== undefined) {
+        item.data.bonus.value = parseInt(attack, 10)+mod;
+        item.data.bonus.total = item.data.bonus.value;
+        const dmg = getProperty(item.data.damageRolls[0], 'damage');
+        if (dmg !== undefined) {
+          item.data.damageRolls[0].damage = dmg+(increase?'+':'')+mod;
+        }
+      }
+      const skill = getProperty(item.data, 'mod.value');
+      if (skill !== undefined) {
+        item.data.mod.value = parseInt(skill, 10)+mod;
+      }        
+      const spellDc = getProperty(item.data, 'spelldc.dc');
+      if (spellDc !== undefined) {
+        item.data.spelldc.dc = parseInt(spellDc, 10)+mod;
+        const spellAttack = getProperty(item.data, 'spelldc.value');
+        item.data.spelldc.value = parseInt(spellAttack, 10)+mod;
+      }
+      let actionDescr = getProperty(item.data, 'description.value');
+      if (actionDescr !== undefined) {
+        actionDescr = actionDescr.replace(/DC (\d+)+/g, function(match, number) {
+          return 'DC '+(parseInt(number)+mod);
+        });
+        actionDescr = actionDescr.replace(/(\/[a-zA-Z]+\s)?([^\]]+)/gi, function(match, number) {
+          return match+(increase?'+':'')+mod; //Assuming that abilities with damage in the description are limited damage attacks.
+        });
+        item.data.description.value = actionDescr;
+      }
+    }
+    return actorData;
+  }
+
+  /**
+   * Check if Elite
+   */
+  npcIsElite() {
+    const actorData = duplicate(this.actor.data);
+    let traits = getProperty(actorData.data, 'traits.traits.value') || [];
+    for (const trait of traits) {
+      if (trait == 'elite') return true;
+    }
+    return false;
+  }
+  /**
+   * Check if Weak
+   */
+  npcIsWeak() {
+    const actorData = duplicate(this.actor.data);
+    let traits = getProperty(actorData.data, 'traits.traits.value') || [];
+    for (const trait of traits) {
+      if (trait == 'weak') return true;
+    }
+    return false;
+  }
+
+
+  /**
+  * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
+  */
+
+
   getData() {
     const sheetData = super.getData();
     sheetData.flags = sheetData.actor.flags;
     if (sheetData.flags.pf2e_updatednpcsheet === undefined) sheetData.flags.pf2e_updatednpcsheet = {};
-    if (sheetData.flags.pf2e_updatednpcsheet.editNPC === undefined) sheetData.flags.pf2e_updatednpcsheet.editNPC = { value: false };
-    if (sheetData.flags.pf2e_updatednpcsheet.allSaveDetail === undefined) sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = { value: '' };
+    if (sheetData.flags.pf2e_updatednpcsheet.editNPC === undefined) sheetData.flags.pf2e_updatednpcsheet.editNPC = {
+      value: false
+    };
+    if (sheetData.flags.pf2e_updatednpcsheet.allSaveDetail === undefined) sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = {
+      value: ''
+    }; // size
 
-    // size
+    sheetData.npcEliteActive = this.npcIsElite()?' active':'';
+    sheetData.npcWeakActive = this.npcIsWeak()?' active':'';
+    sheetData.npcEliteHidden = this.npcIsWeak()?' hidden':'';
+    sheetData.npcWeakHidden = this.npcIsElite()?' hidden':'';
     sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
     sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
-    sheetData.actorAlignment = sheetData.data.details.alignment.value;
-    // languages
+    sheetData.actorAlignment = sheetData.data.details.alignment.value; // languages
+
     sheetData.hasLanguages = false;
+
     if (sheetData.data.traits.languages.value && Array.isArray(sheetData.data.traits.languages.value) && sheetData.actor.data.traits.languages.value.length > 0) {
       sheetData.hasLanguages = true;
-    }
+    } // Skills
 
-    // Skills
-    sheetData.hasSkills = sheetData.actor.lores.length > 0;
 
-    // AC Details
-    sheetData.hasACDetails = sheetData.data.attributes.ac.details && sheetData.data.attributes.ac.details !== '';
-    // HP Details
-    sheetData.hasHPDetails = sheetData.data.attributes.hp.details && sheetData.data.attributes.hp.details !== '';
+    sheetData.hasSkills = sheetData.actor.lores.length > 0; // AC Details
 
-    // ********** This section needs work *************
+    sheetData.hasACDetails = sheetData.data.attributes.ac.details && sheetData.data.attributes.ac.details !== ''; // HP Details
+
+    sheetData.hasHPDetails = sheetData.data.attributes.hp.details && sheetData.data.attributes.hp.details !== ''; // ********** This section needs work *************
     // Fort Details
-    sheetData.hasFortDetails = sheetData.data.saves.fortitude.saveDetail && sheetData.data.saves.fortitude.saveDetail !== '';
-    // Reflex Details
-    sheetData.hasRefDetails = sheetData.data.saves.reflex.saveDetail && sheetData.data.saves.reflex.saveDetail !== '';
-    // Will Details
-    sheetData.hasWillDetails = sheetData.data.saves.will.saveDetail && sheetData.data.saves.will.saveDetail !== '';
-    // All Save Details
-    sheetData.hasAllSaveDetails = (sheetData.data.attributes.allSaves || {}).value && (sheetData.data.attributes.allSaves || {}).value !== '';
 
-    // Immunities check
-    sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
-    // Resistances check
-    sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
-    // Weaknesses check
-    sheetData.hasWeaknesses = sheetData.data.traits.dv.length ? Array.isArray(sheetData.data.traits.dv) : false;
+    sheetData.hasFortDetails = sheetData.data.saves.fortitude.saveDetail && sheetData.data.saves.fortitude.saveDetail !== ''; // Reflex Details
 
-    // Speed Details check
-    if (sheetData.data.attributes.speed && sheetData.data.attributes.speed.otherSpeeds) sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false;
+    sheetData.hasRefDetails = sheetData.data.saves.reflex.saveDetail && sheetData.data.saves.reflex.saveDetail !== ''; // Will Details
 
-    // Spellbook
-    sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false;
-    // sheetData.spellAttackBonus = sheetData.data.attributes.spelldc.value;
+    sheetData.hasWillDetails = sheetData.data.saves.will.saveDetail && sheetData.data.saves.will.saveDetail !== ''; // All Save Details
+
+    sheetData.hasAllSaveDetails = (sheetData.data.attributes.allSaves || {}).value && (sheetData.data.attributes.allSaves || {}).value !== ''; // Immunities check
+
+    sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false; // Resistances check
+
+    sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false; // Weaknesses check
+
+    sheetData.hasWeaknesses = sheetData.data.traits.dv.length ? Array.isArray(sheetData.data.traits.dv) : false; // Speed Details check
+
+    if (sheetData.data.attributes.speed && sheetData.data.attributes.speed.otherSpeeds) sheetData.hasSpeedDetails = sheetData.data.attributes.speed.otherSpeeds.length ? sheetData.data.attributes.speed.otherSpeeds : false; // Spellbook
+
+    sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false; // sheetData.spellAttackBonus = sheetData.data.attributes.spelldc.value;
 
     const equipment = [];
     const reorgActions = {
       interaction: {
         label: 'Interaction Actions',
         actions: {
-          action: { label: 'Actions', actions: [] },
-          reaction: { label: 'Reactions', actions: [] },
-          free: { label: 'Free Actions', actions: [] },
-          passive: { label: 'Passive Actions', actions: [] },
-        },
+          action: {
+            label: 'Actions',
+            actions: []
+          },
+          reaction: {
+            label: 'Reactions',
+            actions: []
+          },
+          free: {
+            label: 'Free Actions',
+            actions: []
+          },
+          passive: {
+            label: 'Passive Actions',
+            actions: []
+          }
+        }
       },
       defensive: {
         label: 'Defensive Actions',
         actions: {
-          action: { label: 'Actions', actions: [] },
-          reaction: { label: 'Reactions', actions: [] },
-          free: { label: 'Free Actions', actions: [] },
-          passive: { label: 'Passive Actions', actions: [] },
-        },
+          action: {
+            label: 'Actions',
+            actions: []
+          },
+          reaction: {
+            label: 'Reactions',
+            actions: []
+          },
+          free: {
+            label: 'Free Actions',
+            actions: []
+          },
+          passive: {
+            label: 'Passive Actions',
+            actions: []
+          }
+        }
       },
       offensive: {
         label: 'Offensive Actions',
         actions: {
-          action: { label: 'Actions', actions: [] },
-          reaction: { label: 'Reactions', actions: [] },
-          free: { label: 'Free Actions', actions: [] },
-          passive: { label: 'Passive Actions', actions: [] },
-        },
-      },
+          action: {
+            label: 'Actions',
+            actions: []
+          },
+          reaction: {
+            label: 'Reactions',
+            actions: []
+          },
+          free: {
+            label: 'Free Actions',
+            actions: []
+          },
+          passive: {
+            label: 'Passive Actions',
+            actions: []
+          }
+        }
+      }
     };
     sheetData.hasInteractionActions = false;
     sheetData.hasDefensiveActions = false;
     sheetData.hasOffensiveActions = false;
     sheetData.hasEquipment = false;
+
     for (const i of sheetData.actor.items) {
       // Equipment
       if (i.type === 'weapon' || i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable') {
         equipment.push(i);
         sheetData.hasEquipment = true;
-      }
-      // Actions
+      } // Actions
       else if (i.type === 'action') {
-        const actionType = i.data.actionType.value || 'action';
-        if (i.flags && i.flags.pf2e_updatednpcsheet && i.flags.pf2e_updatednpcsheet.npcActionType && i.flags.pf2e_updatednpcsheet.npcActionType.value) {
-          switch (i.flags.pf2e_updatednpcsheet.npcActionType.value) {
-            case 'interaction':
-              reorgActions.interaction.actions[actionType].actions.push(i);
-              sheetData.hasInteractionActions = true;
-              break;
-            case 'defensive':
-              reorgActions.defensive.actions[actionType].actions.push(i);
-              sheetData.hasDefensiveActions = true;
-              break;
-              // Should be offensive but throw anything else in there too
-            default:
-              reorgActions.offensive.actions[actionType].actions.push(i);
-              sheetData.hasOffensiveActions = true;
-          }
-        } else {
-          reorgActions.offensive.actions[actionType].actions.push(i);
-          sheetData.hasOffensiveActions = true;
-        }
-      }
-      // Give Melee/Ranged an img
-      else if (i.type === 'melee' || i.type === 'ranged') {
-        const actionImg = 1;
-        i.img = this._getActionImg(actionImg);
-      }
-    }
-    sheetData.actor.reorgActions = reorgActions;
-    sheetData.actor.equipment = equipment;
+          const actionType = i.data.actionType.value || 'action';
 
-    // Return data for rendering
+          if (i.flags && i.flags.pf2e_updatednpcsheet && i.flags.pf2e_updatednpcsheet.npcActionType && i.flags.pf2e_updatednpcsheet.npcActionType.value) {
+            switch (i.flags.pf2e_updatednpcsheet.npcActionType.value) {
+              case 'interaction':
+                reorgActions.interaction.actions[actionType].actions.push(i);
+                sheetData.hasInteractionActions = true;
+                break;
+
+              case 'defensive':
+                reorgActions.defensive.actions[actionType].actions.push(i);
+                sheetData.hasDefensiveActions = true;
+                break;
+              // Should be offensive but throw anything else in there too
+
+              default:
+                reorgActions.offensive.actions[actionType].actions.push(i);
+                sheetData.hasOffensiveActions = true;
+            }
+          } else {
+            reorgActions.offensive.actions[actionType].actions.push(i);
+            sheetData.hasOffensiveActions = true;
+          }
+        } // Give Melee/Ranged an img
+        else if (i.type === 'melee' || i.type === 'ranged') {
+            const actionImg = 1;
+            i.img = this._getActionImg(actionImg);
+          }
+    }
+
+    sheetData.actor.reorgActions = reorgActions;
+    sheetData.actor.equipment = equipment; // Return data for rendering
+
     return sheetData;
   }
-
-
   /**
    * Roll NPC Damage using DamageRoll
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
+
+
   rollNPCDamageRoll(damageRoll, item) {
     // Get data
     const itemData = item.data.data;
     const rollData = duplicate(item.actor.data.data);
-    const weaponDamage = damageRoll.die;
-    // abl = itemData.ability.value || "str",
+    const weaponDamage = damageRoll.die; // abl = itemData.ability.value || "str",
     // abl = "str",
+
     const parts = [weaponDamage];
-    const dtype = CONFIG.PF2E.damageTypes[damageRoll.damageType];
+    const dtype = CONFIG.PF2E.damageTypes[damageRoll.damageType]; // Append damage type to title
 
-    // Append damage type to title
     let title = `${item.name} - Damage`;
-    if (dtype) title += ` (${dtype})`;
+    if (dtype) title += ` (${dtype})`; // Call the roll helper utility
 
-    // Call the roll helper utility
     rollData.item = itemData;
     DicePF2e.damageRoll({
       event,
@@ -182,19 +368,22 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       actor: item.actor,
       data: rollData,
       title,
-      speaker: ChatMessage.getSpeaker({ actor: item.actor }),
+      speaker: ChatMessage.getSpeaker({
+        actor: item.actor
+      }),
       dialogOptions: {
         width: 400,
         top: event.clientY - 80,
-        left: window.innerWidth - 710,
-      },
+        left: window.innerWidth - 710
+      }
     });
   }
-
   /**
    * Toggle expansion of an attackEffect ability if it exists.
    *
    */
+
+
   expandAttackEffect(attackEffectName, event, triggerItem) {
     const actionList = $(event.currentTarget).parents('form').find('.item.action-item');
     let toggledAnything = false;
@@ -207,22 +396,37 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         toggledAnything = true;
       }
     });
+
     if (!toggledAnything) {
       const newAbilityInfo = mAbilities[attackEffectName];
+
       if (newAbilityInfo) {
         const newAction = {
           name: attackEffectName,
           type: 'action',
           data: {
-            actionType: { value: newAbilityInfo.actionType },
-            source: { value: '' },
-            description: { value: newAbilityInfo.description },
-            traits: { value: [] },
-            actions: { value: newAbilityInfo.actionCost },
+            actionType: {
+              value: newAbilityInfo.actionType
+            },
+            source: {
+              value: ''
+            },
+            description: {
+              value: newAbilityInfo.description
+            },
+            traits: {
+              value: []
+            },
+            actions: {
+              value: newAbilityInfo.actionCost
+            }
           },
-          flags: { pf2e_updatednpcsheet: { npcActionType: 'offensive' } },
+          flags: {
+            pf2e_updatednpcsheet: {
+              npcActionType: 'offensive'
+            }
+          }
         };
-
         const traitRegEx = /(?:Traits.aspx.+?">)(?:<\w+>)*(.+?)(?:<\/\w+>)*(?:<\/a>)/g;
         const matchTraits = [...newAbilityInfo.description.matchAll(traitRegEx)];
 
@@ -232,31 +436,34 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           }
         }
 
-        triggerItem.actor.createOwnedItem(newAction, { displaySheet: false });
+        triggerItem.actor.createOwnedItem(newAction, {
+          displaySheet: false
+        });
       }
     }
   }
-
   /* -------------------------------------------- */
+
   /*  Event Listeners and Handlers
- /* -------------------------------------------- */
+  /* -------------------------------------------- */
 
   /**
- * Activate event listeners using the prepared sheet HTML
- * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
- */
+  * Activate event listeners using the prepared sheet HTML
+  * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+  */
+
+
   activateListeners(html) {
     super.activateListeners(html);
     if (!this.options.editable) return;
-
     /* Roll NPC HP */
-    /*     html.find('.npc-roll-hp').click(ev => {
-  let ad = this.actor.data.data;
-  let hp = new Roll(ad.attributes.hp.formula).roll().total;
-  AudioHelper.play({src: CONFIG.sounds.dice});
-  this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
-  }); */
 
+    /*     html.find('.npc-roll-hp').click(ev => {
+    let ad = this.actor.data.data;
+    let hp = new Roll(ad.attributes.hp.formula).roll().total;
+    AudioHelper.play({src: CONFIG.sounds.dice});
+    this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
+    }); */
     // NPC SKill Rolling
     // html.find('.item .npc-skill-name').click(event => {
     //  event.preventDefault();
@@ -264,12 +471,10 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     //     item = this.actor.getOwnedItem(itemId);
     //  this.actor.rollLoreSkill(event, item);
     // });
-
     // html.find('.skill-input').focusout(async event => {
     //  let itemId = Number(event.target.attributes["data-item-id"].value);
     //  const itemToEdit = this.actor.items.find(i => i.id === itemId);
     //  itemToEdit.data.mod.value = Number(event.target.value);
-
     //  // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
     //  let skills = this.actor.items.filter(i => i.type == "lore")
     //  for(let skill of skills)
@@ -278,21 +483,19 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     //  }
     // });
 
-    html.find('.npc-detail-text textarea').focusout(async (event) => {
+    html.find('.npc-detail-text textarea').focusout(async event => {
       event.target.style.height = '5px';
       event.target.style.height = `${event.target.scrollHeight}px`;
     });
-
     html.find('.npc-detail-text textarea').each(function (index) {
       this.style.height = '5px';
       this.style.height = `${this.scrollHeight}px`;
     });
-
-    html.find('.isNPCEditable').change((ev) => {
-      console.log('currently', this.actor.getFlag('pf2e', 'editNPC'), 'going to', ev.target.checked);
-      this.actor.setFlag('pf2e', 'editNPC', { value: ev.target.checked });
-    });
-
+    html.find('.isNPCEditable').change(ev => {
+      this.actor.setFlag('pf2e', 'editNPC', {
+        value: ev.target.checked
+      });
+    }); 
     // NPC Attack summaries
     // Unbind the base.js click event handler
     // html.find('.item .melee-name h4').off( "click" );
@@ -300,67 +503,93 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     //     event.preventDefault();
     //       this._onUpNPCAttackSummary(event);
     //    });
-
     // NPC Weapon Rolling
-
     // html.find('button.npc-damageroll').off( "click" );
-    html.find('button.npc-damageroll').click((ev) => {
+
+    html.find('button.npc-damageroll').click(ev => {
       ev.preventDefault();
       ev.stopPropagation();
-
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-      const drId = Number($(ev.currentTarget).attr('data-dmgRoll'));
-      // item = this.actor.items.find(i => { return i.id === itemId });
-      const item = this.actor.getOwnedItem(itemId);
-      const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
+      const drId = Number($(ev.currentTarget).attr('data-dmgRoll')); // item = this.actor.items.find(i => { return i.id === itemId });
 
-      // which function gets called depends on the type of button stored in the dataset attribute action
+      const item = this.actor.getOwnedItem(itemId);
+      const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId]; // which function gets called depends on the type of button stored in the dataset attribute action
+
       switch (ev.target.dataset.action) {
-        case 'npcDamageRoll': this.rollNPCDamageRoll(damageRoll, item); break;
+        case 'npcDamageRoll':
+          this.rollNPCDamageRoll(damageRoll, item);
+          break;
       }
     });
-
-    html.find('button.npc-attackEffect').click((ev) => {
+    html.find('button.npc-attackEffect').click(ev => {
       ev.preventDefault();
       ev.stopPropagation();
-
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-      const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
-      // item = this.actor.items.find(i => { return i.id === itemId });
+      const aId = Number($(ev.currentTarget).attr('data-attackEffect')); // item = this.actor.items.find(i => { return i.id === itemId });
+
       const item = this.actor.getOwnedItem(itemId);
       const attackEffect = item.data.data.attackEffects[aId];
-      console.log('clicked an attackEffect:', attackEffect, ev);
+      console.log('clicked an attackEffect:', attackEffect, ev); // which function gets called depends on the type of button stored in the dataset attribute action
 
-      // which function gets called depends on the type of button stored in the dataset attribute action
       switch (ev.target.dataset.action) {
-        case 'npcAttackEffect': this.expandAttackEffect(attackEffect, ev, item); break;
+        case 'npcAttackEffect':
+          this.expandAttackEffect(attackEffect, ev, item);
+          break;
       }
     });
+    html.find('a.npc-elite-adjustment').click(e => {
+      e.preventDefault();
+      console.log(`PF2e System | Adding Elite adjustment to NPC`);
+      const eliteButton = $(e.currentTarget);
+      const weakButton = eliteButton.siblings('.npc-weak-adjustment');
+      eliteButton.toggleClass('active');
+      weakButton.toggleClass('hidden');
+      this.npcAdjustment(eliteButton.hasClass('active'));
+    });
+    html.find('a.npc-weak-adjustment').click(e => {
+      e.preventDefault();
+      console.log(`PF2e System | Adding Weak adjustment to NPC`);
+      const weakButton = $(e.currentTarget);
+      const eliteButton = weakButton.siblings('.npc-elite-adjustment');
+      weakButton.toggleClass('active');
+      eliteButton.toggleClass('hidden');
+      this.npcAdjustment( ! weakButton.hasClass('active') );
+      
+    });
+
+    
   }
+
 }
 
 Handlebars.registerHelper('if_all', function () {
   const args = [].slice.apply(arguments);
   const opts = args.pop();
+  let {
+    fn
+  } = opts;
 
-  let { fn } = opts;
   for (let i = 0; i < args.length; ++i) {
     if (args[i]) continue;
     fn = opts.inverse;
     break;
   }
+
   return fn(this);
 });
-
 Handlebars.registerHelper('strip_tags', (value, options) => {
-  function strip_tags(input, allowed) { // eslint-disable-line camelcase
+  function strip_tags(input, allowed) {
+    // eslint-disable-line camelcase
     const _phpCastString = function (value) {
       const type = typeof value;
+
       switch (type) {
         case 'boolean':
           return value ? '1' : '';
+
         case 'string':
           return value;
+
         case 'number':
           if (isNaN(value)) {
             return 'NAN';
@@ -371,8 +600,10 @@ Handlebars.registerHelper('strip_tags', (value, options) => {
           }
 
           return `${value}`;
+
         case 'undefined':
           return '';
+
         case 'object':
           if (Array.isArray(value)) {
             return 'Array';
@@ -383,29 +614,28 @@ Handlebars.registerHelper('strip_tags', (value, options) => {
           }
 
           return '';
-        case 'function':
-          // fall through
+
+        case 'function': // fall through
+
         default:
           throw new Error('Unsupported value type');
       }
-    };
+    }; // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
 
-    // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-    allowed = ((`${allowed || ''}`).toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
 
+    allowed = (`${allowed || ''}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
     const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
     const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
 
-    let after = _phpCastString(input);
-    // removes tha '<' char at the end of the string to replicate PHP's behaviour
-    after = (after.substring(after.length - 1) === '<') ? after.substring(0, after.length - 1) : after;
+    let after = _phpCastString(input); // removes tha '<' char at the end of the string to replicate PHP's behaviour
 
-    // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
+
+    after = after.substring(after.length - 1) === '<' ? after.substring(0, after.length - 1) : after; // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
+
     while (true) {
       const before = after;
-      after = before.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
+      after = before.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''); // return once no more tags are removed
 
-      // return once no more tags are removed
       if (before === after) {
         return after;
       }
@@ -414,5 +644,4 @@ Handlebars.registerHelper('strip_tags', (value, options) => {
 
   return strip_tags(String(value));
 });
-
 export default UpdatedNPCActorPF2ESheet;
