@@ -1,8 +1,7 @@
 export const CONFIG = {};
-CONFIG.chatDamageButtonShieldToggle = false; 
-
-// Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
+CONFIG.chatDamageButtonShieldToggle = false; // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
 // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
+
 CONFIG.PF2eStatusEffects = {
   overruledByModule: false,
   lastIconType: 'default',
@@ -10,9 +9,8 @@ CONFIG.PF2eStatusEffects = {
   effectsIconFileType: 'png',
   keepFoundryStatusEffects: true,
   foundryStatusEffects: []
-}; 
+}; // Ability labels
 
-// Ability labels
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
   "dex": "PF2E.AbilityDex",
@@ -20,9 +18,8 @@ CONFIG.abilities = {
   "int": "PF2E.AbilityInt",
   "wis": "PF2E.AbilityWis",
   "cha": "PF2E.AbilityCha"
-}; 
+}; // Skill labels
 
-// Skill labels
 CONFIG.skills = {
   "acr": "PF2E.SkillAcr",
   "arc": "PF2E.SkillArc",
@@ -40,9 +37,8 @@ CONFIG.skills = {
   "ste": "PF2E.SkillSte",
   "sur": "PF2E.SkillSur",
   "thi": "PF2E.SkillThi"
-}; 
+}; // Martial skill labels
 
-// Martial skill labels
 CONFIG.martialSkills = {
   "unarmored": "PF2E.MartialUnarmored",
   "light": "PF2E.MartialLight",
@@ -52,24 +48,21 @@ CONFIG.martialSkills = {
   "martial": "PF2E.MartialMartial",
   "advanced": "PF2E.MartialAdvanced",
   "unarmed": "PF2E.MartialUnarmed"
-}; 
+}; // Saves labels
 
-// Saves labels
 CONFIG.saves = {
   "reflex": "PF2E.SavesReflex",
   "fortitude": "PF2E.SavesFortitude",
   "will": "PF2E.SavesWill"
-}; 
+}; // Inventory currency labels
 
-// Inventory currency labels
 CONFIG.currencies = {
   "pp": "PF2E.CurrencyPP",
   "gp": "PF2E.CurrencyGP",
   "sp": "PF2E.CurrencySP",
   "cp": "PF2E.CurrencyCP"
-}; 
+}; // Damage Types
 
-// Damage Types
 CONFIG.damageTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -90,9 +83,8 @@ CONFIG.damageTypes = {
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil'
-}; 
+}; //Resistance Types
 
-//Resistance Types
 CONFIG.resistanceTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -115,9 +107,8 @@ CONFIG.resistanceTypes = {
   evil: 'PF2E.DamageTypeEvil',
   all: 'PF2E.ResistanceTypeAll',
   physical: 'PF2E.ResistanceTypePhysical'
-}; 
+}; //Weakness Types
 
-//Weakness Types
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -146,31 +137,27 @@ CONFIG.weaknessTypes = {
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
   'splash-damage': 'PF2E.WeaknessTypeSplashDamage'
-}; 
+}; // Weapon Damage Types
 
-// Weapon Damage Types
 CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   piercing: 'PF2E.DamageTypePiercing',
   slashing: 'PF2E.DamageTypeSlashing',
   modular: 'PF2E.DamageTypeModular'
-}; 
+}; // Healing Types
 
-// Healing Types
 CONFIG.healingTypes = {
   healing: 'PF2E.HealingTypeHealing',
   temphp: 'PF2E.HealingTypeTemporaryHealing'
-}; 
+}; // Weapon Types
 
-// Weapon Types
 CONFIG.weaponTypes = {
   simple: 'PF2E.WeaponTypeSimple',
   martial: 'PF2E.WeaponTypeMartial',
   advanced: 'PF2E.WeaponTypeAdvanced',
   unarmed: 'PF2E.WeaponTypeUnarmed'
-}; 
+}; // Weapon Types
 
-// Weapon Types
 CONFIG.weaponGroups = {
   club: 'PF2E.WeaponGroupClub',
   knife: 'PF2E.WeaponGroupKnife',
@@ -187,9 +174,8 @@ CONFIG.weaponGroups = {
   bow: 'PF2E.WeaponGroupBow',
   sling: 'PF2E.WeaponGroupSling',
   bomb: 'PF2E.WeaponGroupBomb'
-}; 
+}; // Weapon Descriptions
 
-// Weapon Descriptions
 CONFIG.weaponDescriptions = {
   club: 'PF2E.WeaponDescriptionClub',
   knife: 'PF2E.WeaponDescriptionKnife',
@@ -211,17 +197,15 @@ const rarityTraits = {
   uncommon: 'PF2E.TraitUncommon',
   rare: 'PF2E.TraitRare',
   unique: 'PF2E.TraitUnique'
-}; 
+}; // Spell Traditions
 
-// Spell Traditions
 CONFIG.spellTraditions = {
   arcane: 'PF2E.TraitArcane',
   divine: 'PF2E.TraitDivine',
   occult: 'PF2E.TraitOccult',
   primal: 'PF2E.TraitPrimal'
-}; 
+}; // Magic Traditon
 
-// Magic Traditon
 CONFIG.magicTraditions = {
   focus: 'PF2E.TraitFocus',
   ritual: 'PF2E.TraitRitual',
@@ -237,9 +221,8 @@ const magicalSchools = {
   illusion: 'PF2E.TraitIllusion',
   necromancy: 'PF2E.TraitNecromancy',
   transmutation: 'PF2E.TraitTransmutation'
-}; 
+}; // Spell Schools
 
-// Spell Schools
 CONFIG.spellSchools = {
   abj: 'PF2E.SpellSchoolAbj',
   con: 'PF2E.SpellSchoolCon',
@@ -250,8 +233,6 @@ CONFIG.spellSchools = {
   nec: 'PF2E.SpellSchoolNec',
   trs: 'PF2E.SpellSchoolTrs'
 };
-
-// Class Traits
 CONFIG.classTraits = {
   alchemist: 'PF2E.TraitAlchemist',
   barbarian: 'PF2E.TraitBarbarian',
@@ -265,9 +246,8 @@ CONFIG.classTraits = {
   rogue: 'PF2E.TraitRogue',
   sorcerer: 'PF2E.TraitSorcerer',
   wizard: 'PF2E.TraitWizard'
-}; 
+}; // Ancestry Traits
 
-// Ancestry Traits
 CONFIG.ancestryTraits = {
   dwarf: 'PF2E.TraitDwarf',
   elf: 'PF2E.TraitElf',
@@ -286,9 +266,8 @@ CONFIG.ancestryTraits = {
   geniekin: 'PF2E.TraitGeniekin',
   tiefling: 'PF2E.TraitTiefling',
   shoony: 'PF2E.TraitShoony'
-}; 
+}; // Weapon Properties
 
-// Weapon Properties
 CONFIG.weaponTraits = {
   agile: 'PF2E.TraitAgile',
   attached: 'PF2E.TraitAttached',
@@ -343,9 +322,8 @@ CONFIG.weaponTraits = {
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
-mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools); 
+mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools); // Spell Traits
 
-// Spell Traits
 CONFIG.spellTraits = {
   attack: 'PF2E.TraitAttack',
   disease: 'PF2E.TraitDisease',
@@ -376,9 +354,8 @@ mergeObject(CONFIG.spellTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
 mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
-mergeObject(CONFIG.spellTraits, CONFIG.classTraits); 
+mergeObject(CONFIG.spellTraits, CONFIG.classTraits); // Feat Traits
 
-// Feat Traits
 CONFIG.featTraits = {
   move: 'PF2E.TraitMove',
   manipulate: 'PF2E.TraitManipulate',
@@ -505,10 +482,9 @@ CONFIG.monsterTraits = {
 };
 mergeObject(CONFIG.monsterTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
-mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes); 
-
-// Traits Descriptions
+mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes); // Traits Descriptions
 // TODO: Compute these!
+
 CONFIG.traitsDescriptions = {
   common: 'PF2E.TraitDescriptionCommon',
   uncommon: 'PF2E.TraitDescriptionUncommon',
@@ -689,42 +665,37 @@ CONFIG.traitsDescriptions = {
   inhaled: 'PF2E.TraitDescriptionInhaled',
   injury: 'PF2E.TraitDescriptionInjury',
   poison: 'PF2E.TraitDescriptionPoison'
-}; 
+}; // Weapon Hands
 
-// Weapon Hands
 CONFIG.weaponHands = {
   1: 'PF2E.WeaponHands1',
   '1+': 'PF2E.WeaponHands1Plus',
   2: 'PF2E.WeaponHands2'
-}; 
+}; // Item Bonus
 
-// Item Bonus
 CONFIG.itemBonuses = {
   '-2': 'PF2E.ItemBonusMinus2',
   0: 'PF2E.ItemBonus0',
   1: 'PF2E.ItemBonus1',
   2: 'PF2E.ItemBonus2',
   3: 'PF2E.ItemBonus3'
-}; 
+}; // Damage Dice
 
-// Damage Dice
 CONFIG.damageDice = {
   1: '1',
   2: '2',
   3: '3',
   4: '4'
-}; 
+}; // Damage Die
 
-// Damage Die
 CONFIG.damageDie = {
   d4: 'PF2E.DamageDieD4',
   d6: 'PF2E.DamageDieD6',
   d8: 'PF2E.DamageDieD8',
   d10: 'PF2E.DamageDieD10',
   d12: 'PF2E.DamageDieD12'
-}; 
+}; // Weapon Range
 
-// Weapon Range
 CONFIG.weaponRange = {
   melee: 'PF2E.WeaponRangeMelee',
   reach: 'PF2E.WeaponRangeReach',
@@ -738,45 +709,40 @@ CONFIG.weaponRange = {
   100: 'PF2E.WeaponRange100',
   120: 'PF2E.WeaponRange120',
   140: 'PF2E.WeaponRange140'
-}; 
-// TODO: Compute range!
-
+}; // TODO: Compute range!
 // Weapon MAP
+
 CONFIG.weaponMAP = {
   1: '-1/-2',
   2: '-2/-4',
   3: '-3/-6',
   4: '-4/-8',
   5: '-5/-10'
-}; 
+}; // Weapon Reload
 
-// Weapon Reload
 CONFIG.weaponReload = {
   '-': '-',
   0: '0',
   1: '1',
   2: '2',
   3: '3'
-}; 
+}; // Armor Types
 
-// Armor Types
 CONFIG.armorTypes = {
   unarmored: 'PF2E.ArmorTypeUnarmored',
   light: 'PF2E.ArmorTypeLight',
   medium: 'PF2E.ArmorTypeMedium',
   heavy: 'PF2E.ArmorTypeHeavy',
   shield: 'PF2E.ArmorTypeShield'
-}; 
+}; // Armor Groups
 
-// Armor Groups
 CONFIG.armorGroups = {
   leather: 'PF2E.ArmorGroupLeather',
   composite: 'PF2E.ArmorGroupComposite',
   chain: 'PF2E.ArmorGroupChain',
   plate: 'PF2E.ArmorGroupPlate'
-}; 
+}; // Consumable Types
 
-// Consumable Types
 CONFIG.consumableTypes = {
   ammo: 'PF2E.ConsumableTypeAmmo',
   potion: 'PF2E.ConsumableTypePotion',
@@ -784,24 +750,27 @@ CONFIG.consumableTypes = {
   scroll: 'PF2E.ConsumableTypeScroll',
   talasman: 'PF2E.ConsumableTypeTalisman',
   other: 'PF2E.ConsumableTypeOther'
-}; 
+}; // Preparation Type
 
-// Preparation Type
 CONFIG.preparationType = {
   prepared: 'PF2E.PreparationTypePrepared',
   spontaneous: 'PF2E.PreparationTypeSpontaneous',
   innate: 'PF2E.PreparationTypeInnate'
-}; 
+}; // Area Types
 
-// Area Types
 CONFIG.areaTypes = {
   burst: 'PF2E.AreaTypeBurst',
   cone: 'PF2E.AreaTypeCone',
   emanation: 'PF2E.AreaTypeEmanation',
   line: 'PF2E.AreaTypeLine'
-}; 
+}; // Spell Saves
 
+/* CONFIG.spellBasic = {
+  "": "",
+  "basic": "Basic"
+} */
 // Area Size
+
 CONFIG.areaSizes = {
   5: 'PF2E.AreaSize5',
   10: 'PF2E.AreaSize10',
@@ -812,9 +781,8 @@ CONFIG.areaSizes = {
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
   120: 'PF2E.AreaSize120'
-}; 
+}; // Alignment
 
-// Alignment
 CONFIG.alignment = {
   LG: "PF2E.AlignmentLG",
   NG: "PF2E.AlignmentNG",
@@ -825,9 +793,8 @@ CONFIG.alignment = {
   LE: "PF2E.AlignmentLE",
   NE: "PF2E.AlignmentNE",
   CE: "PF2E.AlignmentCE"
-}; 
+}; // Skill List
 
-// Skill List
 CONFIG.skillList = {
   acrobatics: 'PF2E.SkillAcrobatics',
   arcana: 'PF2E.SkillArcana',
@@ -846,24 +813,21 @@ CONFIG.skillList = {
   survival: 'PF2E.SkillSurvival',
   thievery: 'PF2E.SkillThievery',
   lore: 'PF2E.SkillLore'
-}; 
+}; // Spell Components
 
-// Spell Components
 CONFIG.spellComponents = {
   V: 'PF2E.SpellComponentV',
   S: 'PF2E.SpellComponentS',
   M: 'PF2E.SpellComponentM'
-}; 
+}; // Spell Types
 
-// Spell Types
 CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',
   save: 'PF2E.SpellTypeSave',
   heal: 'PF2E.SpellTypeHeal',
   utility: 'PF2E.SpellTypeUtility'
-}; 
+}; // Spell Levels
 
-// Spell Levels
 CONFIG.spellLevels = {
   0: 'PF2E.SpellLevel0',
   1: 'PF2E.SpellLevel1',
@@ -877,8 +841,8 @@ CONFIG.spellLevels = {
   9: 'PF2E.SpellLevel9',
   10: 'PF2E.SpellLevel10'
 }; // TODO: Compute levels!
-
 // Feat Types
+
 CONFIG.featTypes = {
   bonus: 'PF2E.FeatTypeBonus',
   ancestry: 'PF2E.FeatTypeAncestry',
@@ -888,25 +852,22 @@ CONFIG.featTypes = {
   classfeature: 'PF2E.FeatTypeClassfeature',
   archetype: 'PF2E.FeatTypeArchetype',
   ancestryfeature: 'PF2E.FeatTypeAncestryfeature'
-}; 
+}; // Feat Action Types
 
-// Feat Action Types
 CONFIG.featActionTypes = {
   passive: 'PF2E.FeatActionTypePassive',
   action: 'PF2E.FeatActionTypeAction',
   reaction: 'PF2E.FeatActionTypeReaction',
   free: 'PF2E.FeatActionTypeFree'
-}; 
+}; // Action Action Types
 
-// Action Action Types
 CONFIG.actionTypes = {
   action: 'PF2E.ActionTypeAction',
   reaction: 'PF2E.ActionTypeReaction',
   free: 'PF2E.ActionTypeFree',
   passive: 'PF2E.ActionTypePassive'
-}; 
+}; // Actions Number
 
-// Actions Number
 CONFIG.actionsNumber = {
   1: 'PF2E.ActionNumber1',
   2: 'PF2E.ActionNumber2',
@@ -916,26 +877,23 @@ CONFIG.actionCategories = {
   interaction: "PF2E.ActionCategoryInteraction",
   defensive: "PF2E.ActionCategoryDefensive",
   offensive: "PF2E.ActionCategoryOffensive"
-}; 
+}; // Proficiency Multipliers
 
-// Proficiency Multipliers
 CONFIG.proficiencyLevels = {
   0: 'PF2E.ProficiencyLevel0',
   1: 'PF2E.ProficiencyLevel1',
   2: 'PF2E.ProficiencyLevel2',
   3: 'PF2E.ProficiencyLevel3',
   4: 'PF2E.ProficiencyLevel4'
-}; 
+}; // Hero Points
 
-// Hero Points
 CONFIG.heroPointLevels = {
   0: 'PF2E.HeroPointLevel0',
   1: 'PF2E.HeroPointLevel1',
   2: 'PF2E.HeroPointLevel2',
   3: 'PF2E.HeroPointLevel3'
-}; 
+}; // Creature Sizes
 
-// Creature Sizes
 CONFIG.actorSizes = {
   tiny: 'PF2E.ActorSizeTiny',
   sm: 'PF2E.ActorSizeSmall',
@@ -943,9 +901,8 @@ CONFIG.actorSizes = {
   lg: 'PF2E.ActorSizeLarge',
   huge: 'PF2E.ActorSizeHuge',
   grg: 'PF2E.ActorSizeGargantuan'
-}; 
+}; // Creature Sizes
 
-// Creature Sizes
 CONFIG.bulkTypes = {
   L: 'PF2E.BulkTypeLight',
   1: '1',
@@ -953,9 +910,8 @@ CONFIG.bulkTypes = {
   3: '3',
   4: '4',
   5: '5'
-}; 
+}; // Condition Types
 
-// Condition Types
 CONFIG.conditionTypes = {
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
@@ -999,9 +955,8 @@ CONFIG.conditionTypes = {
   unfriendly: 'PF2E.ConditionTypeUnfriendly',
   unnoticed: 'PF2E.ConditionTypeUnnoticed',
   wounded: 'PF2E.ConditionTypeWounded'
-}; 
+}; // Immunity Types
 
-// Immunity Types
 CONFIG.immunityTypes = {
   'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
@@ -1075,9 +1030,8 @@ CONFIG.immunityTypes = {
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil'
-}; 
+}; // Languages
 
-// Languages
 CONFIG.languages = {
   common: 'PF2E.LanguageCommon',
   abyssal: 'PF2E.LanguageAbyssal',
