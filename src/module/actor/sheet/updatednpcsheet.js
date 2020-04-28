@@ -170,6 +170,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     let traits = getProperty(actorData.data, 'traits.traits.value') || [];
     let traitsAdjusted = false;
     let tokenScale = 1;
+    let adjustBackToNormal = false;
 
     if (increase) {
       console.log(`PF2e System | Adjusting NPC to become more powerful`);
@@ -192,6 +193,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       } else {
         if (actorData.name.startsWith("Weak ")) actorData.name = actorData.name.slice(5);
         if (tokenData.name.startsWith("Weak ")) tokenData.name = tokenData.name.slice(5);
+        adjustBackToNormal = true;
       }
 
     } else {
@@ -215,12 +217,13 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       } else {
         if (actorData.name.startsWith("Elite ")) actorData.name = actorData.name.slice(6);
         if (tokenData.name.startsWith("Elite ")) tokenData.name = tokenData.name.slice(6);
+        adjustBackToNormal = true;
       }
 
     }
 
     actorData.data.traits.traits.value = traits;
-    actorData = this._applyAdjustmentToData(actorData, increase);
+    actorData = this._applyAdjustmentToData(actorData, increase, adjustBackToNormal);
 
     if (this.token === null) { // Then we need to apply this to the token prototype
       this.actor.update({
@@ -259,13 +262,14 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
    *  If the creature has limits on how many times or how often it can use an ability 
    *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
    */
-  _applyAdjustmentToData(actorData, increase) {
+  _applyAdjustmentToData(actorData, increase, adjustBackToNormal) {
     const positive = increase ? 1 : -1;
     const mod = 2 * positive;
 
     const lvl = parseInt(actorData.data.details.level.value, 10);
+    const originalLvl = adjustBackToNormal ? lvl+positive : lvl;
     const hp = parseInt(actorData.data.attributes.hp.max, 10);
-    actorData.data.attributes.hp.max = hp + ( (lvl>=20)?30:( (lvl>=5)?20:( (lvl>=2)?15:10 ) ) ) * positive;
+    actorData.data.attributes.hp.max = hp + ( (originalLvl>=20)?30:( (originalLvl>=5)?20:( (originalLvl>=2)?15:10 ) ) ) * positive;
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
     actorData.data.details.level.value = lvl + positive;
 
@@ -315,16 +319,25 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           item.data.spelldc.value = parseInt(spellAttack, 10) + mod;
         }
 
-      /* } else if (item.type == "spell") {
-        const spellDamage = getProperty(item.data, 'damage.value');
-        if (spellDamage !== undefined) {
+      } else if (item.type == "spell") {
+        //TODO? Spell descriptions are currently not updated with the damage increase, only the damage.value field.
+        const spellName = item.name.toLowerCase();
+        const spellDamage = getProperty(item.data, 'damage.value'); //string
+        const spellLevel = getProperty(item.data, 'level.value');
+        let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
+        if ( spellDamage !== undefined && spellDamage != "" ) {
+          if (spellLevel == 0 || spellName.includes('at will')) {
+            spellDmgAdjustmentMod = 1;
+          } else {
+            spellDmgAdjustmentMod = 2;
+          }
           const lastTwoChars = spellDamage.slice(-2);
-          if ( parseInt(lastTwoChars,10) == (mod*2*-1) ) {
+          if ( parseInt(lastTwoChars,10) == ( mod*spellDmgAdjustmentMod*-1 ) ) {
             item.data.damage.value = spellDamage.slice(0, -2);
           } else {
-            item.data.damage.value = spellDamage + (mod*2);
+            item.data.damage.value = spellDamage + (increase?'+':'') + ( mod*spellDmgAdjustmentMod );
           }
-        } */
+        }
 
       } else if (item.type == "action") {
         let actionDescr = getProperty(item.data, 'description.value');
