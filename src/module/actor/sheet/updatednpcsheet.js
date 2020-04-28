@@ -267,7 +267,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     const hp = parseInt(actorData.data.attributes.hp.max, 10);
     actorData.data.attributes.hp.max = hp + ( (lvl>=20)?30:( (lvl>=5)?20:( (lvl>=2)?15:10 ) ) ) * positive;
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
-    //actorData.data.details.level.value = hp + mod;
+    actorData.data.details.level.value = lvl + positive;
 
     const ac = parseInt(actorData.data.attributes.ac.value, 10);
     actorData.data.attributes.ac.value = ac + mod;
