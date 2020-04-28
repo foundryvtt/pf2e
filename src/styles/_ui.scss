@@ -1,5 +1,5 @@
 /* ---------------------------------------- */
-/*  User Interface                          */
+/* Windows                                  */
 /* ---------------------------------------- */
 
 /**
@@ -7,12 +7,11 @@
  */
 .app {
   max-height: 100%;
-  background: url(../ui/denim075.png) repeat;
-  border-radius: 0;
   box-shadow: 0 0 20px #000;
   margin: 3px 0;
   padding: 0.5em;
   color: #f0f0e0;
+  border-radius: 0;
   z-index: 30;
 }
 /**
@@ -23,12 +22,19 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: absolute;
-  padding: 4px;
+  padding: 2px;
   z-index: 100;
   background: #222431;
-  box-shadow: 0 0 0 1px #222431, 0 0 0 2px #2b2f3a, 0 0 0 3px #30343f,
-    0 0 0 4px #262a36, 0 0 0 5px #1d1f2c, 0 0 12px #000;
 
+  /* prettier-ignore */
+  box-shadow:
+    0 0 0 1px #222431,
+    0 0 0 2px #2b2f3a,
+    0 0 0 3px #30343f,
+    0 0 0 4px #262a36,
+    0 0 0 5px #1d1f2c, 0 0 12px #000;
+
+  /* Window Header */
   .window-header {
     font-size: 9px;
     padding: 5px;
@@ -36,7 +42,11 @@
     margin-bottom: 6px;
     border-bottom: 1px solid #1d1f2c;
     background: linear-gradient(#2d2f3f, #1d1f2c);
-    box-shadow: 0 0 0 1px #1d1f2c, 0 0 0 2px #424652;
+
+    /* prettier-ignore */
+    box-shadow:
+      0 0 0 1px #1d1f2c,
+      0 0 0 2px #424652;
 
     h4,
     a {
@@ -48,22 +58,30 @@
       line-height: 0;
       margin: 0;
       margin-left: 12px;
+      border-radius: 1px;
+      text-shadow: 0 1px 3px #000;
       .fas {
         font-size: 9px;
-        background: #942514;
+        background: $btn-color;
         padding: 6px 7px;
         margin: 0;
-        box-shadow: inset 0 0 0 1px #a52f1d,
-        inset 0 0 3px rgba($color: #000000, $alpha: 0.5), 0 0 3px rgba($color: #000000, $alpha: 0.75);
+
+        /* prettier-ignore */
+        box-shadow:
+          inset 0 0 0 1px lighten($btn-color, 3),
+          inset 0 0 3px rgba($color: #000000, $alpha: 0.5),
+          0 0 3px black,
+          0 0 2px black;
       }
     }
   }
-
+  /* Window Body */
   .window-content {
     background: url('../assets/bg.png');
     box-shadow: 0 0 0 1px #f5f2eb, 0 0 0 2px #c6baa0;
   }
 
+  /* Styling when Minimized */
   &.minimized {
     padding: 0;
     .window-header {
@@ -73,6 +91,61 @@
       line-height: 21px;
       h4 {
         font-weight: 500;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------- */
+/* Forms                                    */
+/* ---------------------------------------- */
+
+/* Dialogue Popups */
+.dialog {
+  .dialog-content {
+    p {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+  }
+  .dialog-buttons {
+    color: white;
+    flex-wrap: nowrap;
+    justify-content: center;
+    & > * {
+      flex: none;
+      min-width: 96px;
+    }
+    button {
+      font-size: 12px;
+      line-height: 1;
+      color: white;
+      border-radius: $border-radius;
+      margin: 6px;
+      padding: 10px;
+      margin-bottom: 4px;
+      border: none;
+      text-shadow: 0 1px 3px #000;
+      max-width: fit-content;
+
+      /* prettier-ignore */
+      box-shadow:
+        0 0 0 1px $dark-color,
+        inset 0 0 0 1px $btn-color,
+        inset 0 0 0 2px lighten($btn-color, 12);
+      background: $btn-color;
+      background-image: url('../assets/noise_filter.png');
+
+      .fas {
+        display: none;
+        font-size: 10px;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
