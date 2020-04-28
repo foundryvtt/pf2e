@@ -1,14 +1,13 @@
 .pf2e.sheet.character-sheet {
   .window-content {
-    overflow-y: hidden;
-    overflow-x: auto;
+    /* overflow-y: hidden;
+    overflow-x: auto; */
 
     form {
       display: grid;
       grid:
         'header' auto
         'navigation' auto
-        'sidebar' 1fr
         'content' 1fr
         /1fr;
 
@@ -32,6 +31,9 @@
             background: none;
             border: none;
             padding: 1px 0;
+          }
+          &[min-width~='200px'] {
+            font-size: 2em;
           }
         }
 
