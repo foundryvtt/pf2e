@@ -170,6 +170,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     let traits = getProperty(actorData.data, 'traits.traits.value') || [];
     let traitsAdjusted = false;
     let tokenScale = 1;
+    let adjustBackToNormal = false;
 
     if (increase) {
       console.log(`PF2e System | Adjusting NPC to become more powerful`);
@@ -192,6 +193,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       } else {
         if (actorData.name.startsWith("Weak ")) actorData.name = actorData.name.slice(5);
         if (tokenData.name.startsWith("Weak ")) tokenData.name = tokenData.name.slice(5);
+        adjustBackToNormal = true;
       }
 
     } else {
@@ -215,12 +217,13 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       } else {
         if (actorData.name.startsWith("Elite ")) actorData.name = actorData.name.slice(6);
         if (tokenData.name.startsWith("Elite ")) tokenData.name = tokenData.name.slice(6);
+        adjustBackToNormal = true;
       }
 
     }
 
     actorData.data.traits.traits.value = traits;
-    actorData = this._applyAdjustmentToData(actorData, increase);
+    actorData = this._applyAdjustmentToData(actorData, increase, adjustBackToNormal);
 
     if (this.token === null) { // Then we need to apply this to the token prototype
       this.actor.update({
@@ -259,13 +262,14 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
    *  If the creature has limits on how many times or how often it can use an ability 
    *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
    */
-  _applyAdjustmentToData(actorData, increase) {
+  _applyAdjustmentToData(actorData, increase, adjustBackToNormal) {
     const positive = increase ? 1 : -1;
     const mod = 2 * positive;
 
     const lvl = parseInt(actorData.data.details.level.value, 10);
+    const originalLvl = adjustBackToNormal ? lvl+positive : lvl;
     const hp = parseInt(actorData.data.attributes.hp.max, 10);
-    actorData.data.attributes.hp.max = hp + ( (lvl>=20)?30:( (lvl>=5)?20:( (lvl>=2)?15:10 ) ) ) * positive;
+    actorData.data.attributes.hp.max = hp + ( (originalLvl>=20)?30:( (originalLvl>=5)?20:( (originalLvl>=2)?15:10 ) ) ) * positive;
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
     actorData.data.details.level.value = lvl + positive;
 
