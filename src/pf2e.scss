@@ -1679,7 +1679,7 @@
   border-right: 1px solid var(--secondary-background);
 }
 .pf2e.actor .inventory-list .item .item-controls {
-  flex: 0 0 44px;
+  flex: 0 0 66px;
 }
 .pf2e.actor .inventory-list .item .item-controls a,
 .pf2e.actor .item.action-header .item-controls a {
@@ -1688,6 +1688,12 @@
   width: 22px;
   font-size: 10px;
   text-align: center;
+  color: #666;
+}
+.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip {
+  color: #aaa;
+}
+.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip.active {
   color: #666;
 }
 .pf2e.actor .inventory-list .item .item-summary {
@@ -1728,7 +1734,7 @@
 .pf2e.actor .inventory-list .inventory-header h3 {
   font-size: 1em;
   margin: 0;
-  padding-left: 32px;
+  padding-left: 5px;
   font-weight: bold;
 }
 .pf2e.actor .inventory-list .inventory-header .item-quantity,
@@ -1827,13 +1833,33 @@
 }
 .pf2e.actor .spellbook .prepared-toggle {
   flex: 0 0 20px;
-/*   line-height: 20px;
-  margin-left: 5px; */
+  line-height: 24px;
+  background: var(--primary-background);
+  padding-left: 5px;
 }
 .pf2e.actor .spellbook .level-prepared-toggle {
   flex: 0 0 20px;
-/*   line-height: 20px;
-  margin-left: 5px; */
+  line-height: 19px;
+  background: var(--secondary-background);
+  padding-left: 5px;
+  font-size: 0.8em;
+}
+.pf2e.actor .spellbook .level-prepared-header {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  letter-spacing: 2px;
+  font-weight: 100;
+  font-size: 20px;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .level-prepared-toggle-div {
+  flex: 0 0 25px;
+}
+.pf2e.actor .spellbook .spellbook-item {
+  font-style: oblique;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .inventory-list .spellbook-item h4 {
+  margin-left: 30px;
 }
 .pf2e.actor .spellbook .inventory-list {
   height: calc(100% - 96px);
@@ -1841,6 +1867,7 @@
 .pf2e.actor .spellbook .item .item-name,
 .pf2e.actor .spellbook .item .melee-name {
   flex: 2;
+  border-right: 1px solid var(--secondary-background);
 }
 .pf2e.actor .item .spell-school,
 .pf2e.actor .item .spell-action {
@@ -2634,7 +2661,7 @@ button > i.far {
   display: block;
 }
 .pf2e.sheet form.updatedNPCSheet .inline-stats *{
-  display: inline-flex;
+  display: inline;
   justify-content: flex-start;
 }
 .pf2e.sheet form.updatedNPCSheet .inline-stats .stat-detail.perception:before {
@@ -2792,6 +2819,9 @@ button > i.far {
 .statuseffect-li-text:hover + .statuseffect-rules {
   visibility: visible;
   opacity: 1;
+}
+#chat-log li.message:first-child {
+  margin-top: 150%;
 }
 .status-effects .status-effect-summary {  
   visibility: hidden;
