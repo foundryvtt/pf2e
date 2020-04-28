@@ -13,7 +13,13 @@ export class PF2e {
      */
     constructor() {
         console.log('PF2e System | Initializing static content database');
-        this.DB = mergeObject(DB, game.i18n.translations.PF2E); //static content
+
+        let translated = game.i18n.translations.PF2E;
+        if (game.i18n._fallback.PF2E !== undefined) {
+            //overload so all untranslated keys are still english
+            translated = mergeObject(game.i18n._fallback.PF2E, translated);
+        }
+        this.DB = mergeObject(DB, translated); //static content
         this.CONFIG = CONFIG.PF2E; //shorthand
     }
 

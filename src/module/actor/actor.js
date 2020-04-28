@@ -336,45 +336,52 @@ export default class extends Actor {
    * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
    * @return {Promise}
    */
-  static async applyDamage(roll, multiplier, attribute='attributes.hp') {
+  static async applyDamage(roll, multiplier, attribute='attributes.hp', modifier=0) {
     if (canvas.tokens.controlled.length > 0) {
-      const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+      const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
       const messageSender = roll.find('.message-sender').text();
       const flavorText = roll.find('.flavor-text').text();
-      const shieldFlavor = (attribute=='attributes.shield') ? 'and their shield get<br>' : 'gets';
+      const shieldFlavor = (attribute=='attributes.shield') ? game.i18n.localize("PF2E.UI.applyDamage.shieldActive") : game.i18n.localize("PF2E.UI.applyDamage.shieldInActive");
       for (const t of canvas.tokens.controlled) {
         const a = t.actor;
 
-        const appliedResult = (value>0) ? "damaged for " + value : "healed for "+ value*-1;
+        const appliedResult = (value>0) ? game.i18n.localize("PF2E.UI.applyDamage.damaged") + value : game.i18n.localize("PF2E.UI.applyDamage.healed") + value*-1;
+        const modifiedByGM = modifier!==0 ? 'Modified by GM: '+(modifier<0?'-':'+')+modifier : '';
+        const by = game.i18n.localize("PF2E.UI.applyDamage.by");
+        const hitpoints = game.i18n.localize("PF2E.HitPointsHeader").toLowerCase();
         const message = `
           <div class="dice-roll">
           <div class="dice-result">
-            <div class="dice-tooltip" style="display: none;">
+            <div class="dice-tooltip dmg-tooltip" style="display: none;">
               <div class="dice-formula" style="background: 0;">
-                <span style="font-size: 10px;">${flavorText}, by ${messageSender}
-                </span>
+                <span>${flavorText}, ${by} ${messageSender}</span>
+                <span>${modifiedByGM}</span>
               </div>
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
               <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
-                ${t.name} ${shieldFlavor} ${appliedResult} hit points.
+                ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
           </div>
           </div>
           `;
-        ChatMessage.create({
-          user: game.user._id,
-          speaker: { alias: t.name },
-          content: message,
-          type: CONST.CHAT_MESSAGE_TYPES.OTHER
-        });
-        t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+        
+        const succeslyApplied = await t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
+        if (succeslyApplied ) {
+          ChatMessage.create({
+            user: game.user._id,
+            speaker: { alias: t.name },
+            content: message,
+            type: CONST.CHAT_MESSAGE_TYPES.OTHER
+          });
+        }
       }
     } else {
-      ui.notifications.error("You haven't targeted a token.");
+      ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+      return false;
     }
-    return;
+    return true;
   }
 
   /**

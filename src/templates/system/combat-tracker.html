@@ -1,0 +1,115 @@
+<section class="sidebar-tab tab flexcol" id="combat" data-tab="combat">
+    <header id="combat-round">
+        {{#if user.isGM}}
+        <nav class="encounters flexrow">
+            {{#if combatCount}}
+            <a class="combat-control" title="{{localize 'COMBAT.InitiativeReset'}}" data-control="resetAll"
+                {{#unless hasCombat}}disabled{{/unless}}>
+                <i class="fas fa-undo"></i>
+            </a>
+            <a class="combat-cycle" title="{{localize 'COMBAT.EncounterPrevious'}}"
+               {{#if previousId}}data-combat-id="{{previousId}}"{{else}}disabled{{/if}}>
+                <i class="fas fa-caret-left"></i>
+            </a>
+            <h4 class="encounter">{{localize "COMBAT.Encounter"}} {{currentIndex}} / {{combatCount}}</h4>
+            <a class="combat-cycle" title="{{localize 'COMBAT.EncounterNext'}}"
+               {{#if nextId}}data-combat-id="{{nextId}}"{{else}}disabled{{/if}}>
+                <i class="fas fa-caret-right"></i>
+            </a>
+            {{/if}}
+            <a class="combat-settings" title="{{localize 'COMBAT.Settings'}}" data-control="trackerSettings">
+                <i class="fas fa-cog"></i>
+            </a>
+        </nav>
+        {{/if}}
+
+        <nav class="encounters flexrow">
+            {{#if user.isGM}}
+            <a class="combat-create" title="{{localize 'COMBAT.Create'}}">
+                <i class="fas fa-plus"></i>
+            </a>
+            <a class="combat-control" title="{{localize 'COMBAT.RollNPC'}}" data-control="rollNPC" {{#unless turns}}disabled{{/unless}}>
+                <i class="fas fa-users-cog"></i>
+            </a>
+            {{/if}}
+
+            {{#if combatCount}}
+            {{#if combat.data.round}}
+            <h3>{{localize 'COMBAT.Round'}} {{combat.data.round}}</h3>
+            {{else}}
+            <h3>{{localize 'COMBAT.NotStarted'}}</h3>
+            {{/if}}
+            {{else}}
+            <h3>{{localize "COMBAT.None"}}</h3>
+            {{/if}}
+
+            {{#if user.isGM}}
+            <a class="combat-control" title="{{localize 'COMBAT.RollAll'}}" data-control="rollAll" {{#unless turns}}disabled{{/unless}}>
+                <i class="fas fa-users"></i>
+            </a>
+            <a class="combat-control" title="{{localize 'COMBAT.Delete'}}" data-control="endCombat" {{#unless combatCount}}disabled{{/unless}}>
+                <i class="fas fa-trash"></i>
+            </a>
+            {{/if}}
+        </nav>
+    </header>
+
+    <ol id="combat-tracker" class="directory-list">
+        {{#each turns}}
+        <li class="combatant actor directory-item flexrow {{this.css}}" data-combatant-id="{{this._id}}" data-token-id="{{this.tokenId}}">
+            <img class="token-image" src="{{this.img}}" title="{{this.name}}"/>
+            <div class="token-name flexcol">
+                <h4>{{this.name}}</h4>
+                <div class="combatant-controls flexrow">
+                    {{#if ../user.isGM}}
+                    <a class="combatant-control {{#if this.hidden}}active{{/if}}" title="{{localize 'COMBAT.ToggleVis'}}" data-control="toggleHidden">
+                        <i class="fas fa-eye-slash"></i></a>
+                    <a class="combatant-control {{#if this.defeated}}active{{/if}}" title="{{localize 'COMBAT.ToggleDead'}}" data-control="toggleDefeated">
+                        <i class="fas fa-skull"></i></a>
+                    {{/if}}
+
+                    <div class="token-effects">
+                        {{#each this.token.effects}}
+                        <img class="token-effect" src="{{this}}?np"/>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+
+            {{#if ../user.isGM}}
+            <div class="token-resource">
+                <span class="resource">{{this.resource}}</span>
+            </div>
+            {{/if}}
+
+            <div class="token-initiative">
+                {{#if this.hasRolled}}
+                <span class="initiative">{{this.initiative}}</span>
+                {{else if this.owner}}
+                <a class="combatant-control roll" title="{{localize 'COMBAT.InitiativeRoll'}}" data-control="rollInitiative"></a>
+                {{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+
+    <nav id="combat-controls" class="directory-footer flexrow">
+    {{#if hasCombat}}
+        {{#if user.isGM}}
+            {{#if round}}
+            <a class="combat-control" title="{{localize 'COMBAT.RoundPrev'}}" data-control="previousRound"><i class="fas fa-step-backward"></i></a>
+            <a class="combat-control" title="{{localize 'COMBAT.TurnPrev'}}" data-control="previousTurn"><i class="fas fa-arrow-left"></i></a>
+            <a class="combat-control center" title="{{localize 'COMBAT.End'}}" data-control="endCombat">{{localize 'COMBAT.End'}}</a>
+            <a class="combat-control" title="{{localize 'COMBAT.TurnNext'}}" data-control="nextTurn"><i class="fas fa-arrow-right"></i></a>
+            <a class="combat-control" title="{{localize 'COMBAT.RoundNext'}}" data-control="nextRound"><i class="fas fa-step-forward"></i></a>
+            {{else}}
+            <a class="combat-control center" title="{{localize 'COMBAT.Begin'}}" data-control="startCombat">{{localize 'COMBAT.Begin'}}</a>
+            {{/if}}
+        {{else if control}}
+        <a class="combat-control" title="{{localize 'COMBAT.TurnPrev'}}" data-control="previousTurn"><i class="fas fa-arrow-left"></i></a>
+        <a class="combat-control center" title="{{localize 'COMBAT.TurnEnd'}}" data-control="nextTurn">{{localize 'COMBAT.TurnEnd'}}</a>
+        <a class="combat-control" title="{{localize 'COMBAT.TurnNext'}}" data-control="nextTurn"><i class="fas fa-arrow-right"></i></a>
+        {{/if}}
+    {{/if}}
+    </nav>
+</section>

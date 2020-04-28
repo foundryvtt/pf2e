@@ -544,6 +544,16 @@ class ActorSheetPF2e extends ActorSheet {
       this._setExpendedPreparedSpellSlot(spellLvl, slotId, entryId, expendedState);
     });
 
+    // Toggle equip
+    html.find('.item-toggle-equip').click((ev) => {
+      const f = $(event.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      f.toggleClass('active');
+      const active = f.hasClass('active');
+      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': active });
+      
+    });
+
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
@@ -788,6 +798,20 @@ class ActorSheetPF2e extends ActorSheet {
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.displayLevels': currentDisplayLevels });
       this.render();
     });
+
+    Hooks.on("createOwnedItem", (actor, item) => {
+      // Show unprepared spells if creating a new item
+      if (item.type == "spell") {
+        const currentLvlToDisplay = {};
+        currentLvlToDisplay[item.data.level.value] = true;
+        this.actor.updateEmbeddedEntity('OwnedItem', {
+          _id: item.data.location.value, 
+          'data.showUnpreparedSpells.value': true,
+          'data.displayLevels': currentLvlToDisplay
+        });
+      }
+    });
+
   }
 
   /* -------------------------------------------- */
@@ -1221,6 +1245,14 @@ class ActorSheetPF2e extends ActorSheet {
       mergeObject(data, {
         'data.level.value': data.level,
         'data.location.value': data.location,
+      });
+      // Show the spellbook pages if you're adding a new spell
+      const currentLvlToDisplay = {};
+      currentLvlToDisplay[data.level] = true;
+      this.actor.updateEmbeddedEntity('OwnedItem', {
+        _id: data.location, 
+        'data.showUnpreparedSpells.value': true,
+        'data.displayLevels': currentLvlToDisplay
       });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {
