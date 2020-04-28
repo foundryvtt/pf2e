@@ -315,16 +315,25 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           item.data.spelldc.value = parseInt(spellAttack, 10) + mod;
         }
 
-      /* } else if (item.type == "spell") {
-        const spellDamage = getProperty(item.data, 'damage.value');
-        if (spellDamage !== undefined) {
+      } else if (item.type == "spell") {
+        //TODO? Spell descriptions are currently not updated with the damage increase, only the damage.value field.
+        const spellName = item.name.toLowerCase();
+        const spellDamage = getProperty(item.data, 'damage.value'); //string
+        const spellLevel = getProperty(item.data, 'level.value');
+        let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
+        if ( spellDamage !== undefined && spellDamage != "" ) {
+          if (spellLevel == 0 || spellName.includes('at will')) {
+            spellDmgAdjustmentMod = 1;
+          } else {
+            spellDmgAdjustmentMod = 2;
+          }
           const lastTwoChars = spellDamage.slice(-2);
-          if ( parseInt(lastTwoChars,10) == (mod*2*-1) ) {
+          if ( parseInt(lastTwoChars,10) == ( mod*spellDmgAdjustmentMod*-1 ) ) {
             item.data.damage.value = spellDamage.slice(0, -2);
           } else {
-            item.data.damage.value = spellDamage + (mod*2);
+            item.data.damage.value = spellDamage + (increase?'+':'') + ( mod*spellDmgAdjustmentMod );
           }
-        } */
+        }
 
       } else if (item.type == "action") {
         let actionDescr = getProperty(item.data, 'description.value');
