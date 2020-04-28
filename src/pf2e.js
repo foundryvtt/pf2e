@@ -7,6 +7,7 @@ import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
+import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -23,6 +24,8 @@ Hooks.once('init', () => {
   CONFIG.Actor.entityClass = ActorPF2e;
   //Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
+  //Assign the PF2e Combat Tracker
+  CONFIG.ui.combat = PF2eCombatTracker;
   
   PlayerConfigPF2e.hookOnRenderSettings();  
 
