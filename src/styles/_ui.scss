@@ -22,6 +22,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   position: absolute;
+  min-width: 200px;
   padding: 2px;
   z-index: 100;
   background: #222431;
@@ -36,9 +37,19 @@
 
   /* Window Header */
   .window-header {
+
+    /* Hide all extra links */
+   /*  & > * {
+      display: none;
+    }
+    .window-title,
+    .close {
+      display: block;
+    } */
+
     font-size: 9px;
-    padding: 5px;
-    line-height: 20px;
+    padding: 4px 5px 4px 12px;
+    line-height: 22px;
     margin-bottom: 6px;
     border-bottom: 1px solid #1d1f2c;
     background: linear-gradient(#2d2f3f, #1d1f2c);
@@ -53,9 +64,14 @@
       font-size: 12px;
       font-weight: 400;
     }
-    .close {
+    a {
       font-size: 0;
-      line-height: 0;
+      .fas {
+        font-size: 12px;
+        line-height: 23px;
+      }
+    }
+    .close {
       margin: 0;
       margin-left: 12px;
       border-radius: 1px;
@@ -63,7 +79,7 @@
       .fas {
         font-size: 9px;
         background: $btn-color;
-        padding: 6px 7px;
+        padding: 0 8px;
         margin: 0;
 
         /* prettier-ignore */
@@ -120,7 +136,7 @@
       font-size: 12px;
       line-height: 1;
       color: white;
-      border-radius: $border-radius;
+      border-radius: $btn-radius;
       margin: 6px;
       padding: 10px;
       margin-bottom: 4px;

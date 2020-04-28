@@ -14,15 +14,15 @@
 /* Global UI
 /* ----------------------------------------- */
 :root {
-  --primary: $primary-color;
-  --secondary: $secondary-color;
-  --tertiary: $tertiary-color;
-  --light: $light-color;
-  --dark: $dark-color;
+  --primary: #222831;
+  --secondary: #30475e;
+  --tertiary: #faa916;
+  --light: #dae1e7;
+  --dark: #363a44;
 }
 
 body {
-  font-family: "Inter", "Signika", system, -apple-system, sans-serif;
+  font-family: "Inter", system, -apple-system, sans-serif;
 }
 
 /* ----------------------------------------- */
@@ -46,7 +46,7 @@ p {
 }
 
 button {
-  font-family: "Eczar", Georgia, serif;
+  font-family: "Eczar", "Signika", Georgia, serif;
 }
 
 /* ---------------------------------------- */
@@ -73,6 +73,7 @@ button {
   flex-direction: column;
   flex-wrap: nowrap;
   position: absolute;
+  min-width: 200px;
   padding: 2px;
   z-index: 100;
   background: #222431;
@@ -83,9 +84,17 @@ button {
   /* Styling when Minimized */
 }
 .window-app .window-header {
+  /* Hide all extra links */
+  /*  & > * {
+     display: none;
+   }
+   .window-title,
+   .close {
+     display: block;
+   } */
   font-size: 9px;
-  padding: 5px;
-  line-height: 20px;
+  padding: 4px 5px 4px 12px;
+  line-height: 22px;
   margin-bottom: 6px;
   border-bottom: 1px solid #1d1f2c;
   background: linear-gradient(#2d2f3f, #1d1f2c);
@@ -97,9 +106,14 @@ button {
   font-size: 12px;
   font-weight: 400;
 }
-.window-app .window-header .close {
+.window-app .window-header a {
   font-size: 0;
-  line-height: 0;
+}
+.window-app .window-header a .fas {
+  font-size: 12px;
+  line-height: 23px;
+}
+.window-app .window-header .close {
   margin: 0;
   margin-left: 12px;
   border-radius: 1px;
@@ -108,7 +122,7 @@ button {
 .window-app .window-header .close .fas {
   font-size: 9px;
   background: #8e0317;
-  padding: 6px 7px;
+  padding: 0 8px;
   margin: 0;
   /* prettier-ignore */
   box-shadow: inset 0 0 0 1px #9d0319, inset 0 0 3px rgba(0, 0, 0, 0.5), 0 0 3px black, 0 0 2px black;
@@ -325,15 +339,24 @@ button {
   grid-column-gap: 4px;
 }
 
-.sheet-header {
+.pf2e.sheet.character-sheet .window-content {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.pf2e.sheet.character-sheet .window-content form {
+  display: grid;
+  grid: "header" auto "navigation" auto "sidebar" 1fr "content" 1fr/1fr;
+}
+.pf2e.sheet.character-sheet .window-content form .sheet-header {
+  grid-area: header;
   display: grid;
   grid: "name name" auto "lvl hero" 1fr/1fr 1fr;
 }
-.sheet-header .charname {
+.pf2e.sheet.character-sheet .window-content form .sheet-header .charname {
   grid-area: name;
   font-size: 1em;
 }
-.sheet-header .charname input {
+.pf2e.sheet.character-sheet .window-content form .sheet-header .charname input {
   font-weight: 600;
   margin: 1%;
   height: unset;
@@ -343,10 +366,19 @@ button {
   border: none;
   padding: 1px 0;
 }
-.sheet-header .defense-container {
+.pf2e.sheet.character-sheet .window-content form .sheet-header .defense-container {
   grid-area: hero;
 }
-.sheet-header .charlevel {
+.pf2e.sheet.character-sheet .window-content form .sheet-header .charlevel {
   grid-area: lvl;
+}
+.pf2e.sheet.character-sheet .window-content form .sheet-sidebar.sidebar {
+  grid-area: sidebar;
+}
+.pf2e.sheet.character-sheet .window-content form .sheet-navigation {
+  grid-area: navigation;
+}
+.pf2e.sheet.character-sheet .window-content form .sheet-lower {
+  grid-area: content;
 }
 /*# sourceMappingURL=../maps/styles/base.css.map */
