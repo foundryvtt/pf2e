@@ -5,7 +5,7 @@
             <li class="item item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                 <div class="action-header" style="display:flex;" >
                     {{#if entry.data.prepared.preparedSpells}}
-                    <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}" style="line-height: 24px; background: var(--primary-background);"><i class="fab fa-stack-overflow"></i></a>
+                    <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas fa-book-open"></i></a>
                     {{/if}}
                     <h3 class="item-name pf-heading pf-actions hide-container-toggle" style="padding-left: 32px;">{{{entry.name}}}</h3>
                     {{#if ../owner}}
@@ -79,7 +79,7 @@
                         {{#each entry.spellbook as |section lvl|}}
                             <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}">
                                 <div class="item-name flexrow">
-                                    <h3>{{section.label}}</h3>
+                                    <h3>{{section.label}} {{lvl}}</h3>
 
                                     {{#unless entry.data.tradition.ritual}}
                                         {{#unless entry.data.tradition.focus}}
@@ -157,12 +157,13 @@
                         <li class="item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}">
                             <div class="item-name flexrow">
 
-                            {{#if entry.data.showUnpreparedSpells.value}}
-                              <a class="skill-name level-prepared-toggle"
-                                title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"
-                                style="line-height: 24px; background:
-                                var(--secondary-background);"><i class="fab fa-stack-overflow"></i></a>
-                            {{/if}}
+                            <div class="level-prepared-toggle-div">
+                                {{#if entry.data.showUnpreparedSpells.value}}
+                                <a class="skill-name level-prepared-toggle"
+                                    title="{{localize "PF2E.ToggleSpellVisibilityLevelTitle"}}"
+                                    ><i class="fas fa-book-open"></i></a>
+                                {{/if}}
+                            </div>
                                 <h3>{{section.label}}</h3>
 
                                 {{#if section.isFocus}}
@@ -230,13 +231,13 @@
 
                             {{#if entry.data.showUnpreparedSpells.value}}
                             {{#if section.displayPrepared}}
-                            <h3 class="item-name pf-sub-category pf-actions" style="background: var(--tertiary-background);">{{localize "PF2E.UnpreparedSpellsLabel"}}</h3>
+                            <h3 class="item-name pf-sub-category pf-actions level-prepared-header">{{localize "PF2E.UnpreparedSpellsLabel"}}</h3>
 
                             <!-- Unprepared Spells -->
                                 {{#each section.spells as |item i|}}
-                                    <li class="item" data-item-id="{{item._id}}">
+                                    <li class="item spellbook-item" data-item-id="{{item._id}}">
                                         <div class="item-name rollable">
-                                            <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                            
                                             <h4>{{item.name}}</h4>
                                         </div>
 
