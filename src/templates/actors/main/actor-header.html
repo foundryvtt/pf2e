@@ -1,5 +1,5 @@
     <header class="sheet-header">
-        <h1 class="charname" style="flex: 6;">
+        <h1 class="charname">
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
         </h1>
 
@@ -9,7 +9,7 @@
         </div>
         {{/if}}
 
-        <div class="defense-container" style="margin-top: 5px; margin-right: 5px;">
+        <div class="defense-container">
             <h4 class="proficiency-name pf-title" style="background: var(--primary-background); border: 1px solid var(--primary-background);">{{localize "PF2E.HeroPointsLabel"}}</h4>
             <input type="hidden" name="data.attributes.heroPoints.rank" data-max="3" value="{{data.attributes.heroPoints.rank}}" data-dtype="Number"/>
             <span class="proficiency-rank click-stat-level pf-value" title="{{data.attributes.heroPoints.hover}}">{{{data.attributes.heroPoints.icon}}}</span>

@@ -1,0 +1,59 @@
+.pf2e.sheet.character-sheet {
+  .window-content {
+    /* overflow-y: hidden;
+    overflow-x: auto; */
+
+    form {
+      display: grid;
+      grid:
+        'header' auto
+        'navigation' auto
+        'content' 1fr
+        /1fr;
+
+      .sheet-header {
+        grid-area: header;
+        display: grid;
+        grid:
+          'name name' auto
+          'lvl hero' 1fr
+          /1fr 1fr;
+
+        .charname {
+          grid-area: name;
+          font-size: 1em;
+          input {
+            font-weight: 600;
+            margin: 1%;
+            height: unset;
+            line-height: unset;
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1px 0;
+          }
+          &[min-width~='200px'] {
+            font-size: 2em;
+          }
+        }
+
+        .defense-container {
+          grid-area: hero;
+        }
+
+        .charlevel {
+          grid-area: lvl;
+        }
+      }
+      .sheet-sidebar.sidebar {
+        grid-area: sidebar;
+      }
+      .sheet-navigation {
+        grid-area: navigation;
+      }
+      .sheet-lower {
+        grid-area: content;
+      }
+    }
+  }
+}

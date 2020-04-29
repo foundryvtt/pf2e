@@ -11,6 +11,7 @@ const ky = require('ky-universal');
 const ts = require('gulp-typescript');
 const less = require('gulp-less');
 const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 const git = require('gulp-git');
 const babel = require('gulp-babel');
 
@@ -137,7 +138,9 @@ function buildLess() {
    */
 function buildSASS() {
   return gulp.src('src/**/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest('dist'));
 }
 

@@ -1,0 +1,168 @@
+/* ---------------------------------------- */
+/* Windows                                  */
+/* ---------------------------------------- */
+
+/**
+ * Basic Application Wrapper
+ */
+.app {
+  max-height: 100%;
+  box-shadow: 0 0 20px #000;
+  margin: 3px 0;
+  padding: 0.5em;
+  color: #f0f0e0;
+  border-radius: 0;
+  z-index: 30;
+}
+/**
+ * Pop-Out Window Application
+ */
+.window-app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+  min-width: 200px;
+  padding: 2px;
+  z-index: 100;
+  background: #222431;
+
+  /* prettier-ignore */
+  box-shadow:
+    0 0 0 1px #222431,
+    0 0 0 2px #2b2f3a,
+    0 0 0 3px #30343f,
+    0 0 0 4px #262a36,
+    0 0 0 5px #1d1f2c, 0 0 12px #000;
+
+  /* Window Header */
+  .window-header {
+
+    /* Hide all extra links */
+   /*  & > * {
+      display: none;
+    }
+    .window-title,
+    .close {
+      display: block;
+    } */
+
+    font-size: 9px;
+    padding: 4px 5px 4px 12px;
+    line-height: 22px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #1d1f2c;
+    background: linear-gradient(#2d2f3f, #1d1f2c);
+
+    /* prettier-ignore */
+    box-shadow:
+      0 0 0 1px #1d1f2c,
+      0 0 0 2px #424652;
+
+    h4,
+    a {
+      font-size: 12px;
+      font-weight: 400;
+    }
+    a {
+      font-size: 0;
+      .fas {
+        font-size: 12px;
+        line-height: 23px;
+      }
+    }
+    .close {
+      margin: 0;
+      margin-left: 12px;
+      border-radius: 1px;
+      text-shadow: 0 1px 3px #000;
+      .fas {
+        font-size: 9px;
+        background: $btn-color;
+        padding: 0 8px;
+        margin: 0;
+
+        /* prettier-ignore */
+        box-shadow:
+          inset 0 0 0 1px lighten($btn-color, 3),
+          inset 0 0 3px rgba($color: #000000, $alpha: 0.5),
+          0 0 3px black,
+          0 0 2px black;
+      }
+    }
+  }
+  /* Window Body */
+  .window-content {
+    background: url('../assets/bg.png');
+    box-shadow: 0 0 0 1px #f5f2eb, 0 0 0 2px #c6baa0;
+  }
+
+  /* Styling when Minimized */
+  &.minimized {
+    padding: 0;
+    .window-header {
+      margin: 0;
+      padding: 3px;
+      padding-left: 5px;
+      line-height: 21px;
+      h4 {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------- */
+/* Forms                                    */
+/* ---------------------------------------- */
+
+/* Dialogue Popups */
+.dialog {
+  .dialog-content {
+    p {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+  }
+  .dialog-buttons {
+    color: white;
+    flex-wrap: nowrap;
+    justify-content: center;
+    & > * {
+      flex: none;
+      min-width: 96px;
+    }
+    button {
+      font-size: 12px;
+      line-height: 1;
+      color: white;
+      border-radius: $btn-radius;
+      margin: 6px;
+      padding: 10px;
+      margin-bottom: 4px;
+      border: none;
+      text-shadow: 0 1px 3px #000;
+      max-width: fit-content;
+
+      /* prettier-ignore */
+      box-shadow:
+        0 0 0 1px $dark-color,
+        inset 0 0 0 1px $btn-color,
+        inset 0 0 0 2px lighten($btn-color, 12);
+      background: $btn-color;
+      background-image: url('../assets/noise_filter.png');
+
+      .fas {
+        display: none;
+        font-size: 10px;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
