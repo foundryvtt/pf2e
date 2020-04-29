@@ -1197,6 +1197,7 @@ class ActorSheetPF2e extends ActorSheet {
             item.data.data.hands.value = !item.data.data.hands.value;
             // this.actor.updateOwnedItem(item.data, true);
             this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+            this._render();
 
             break;
           case 'weaponAttack': item.rollWeaponAttack(ev); break;
