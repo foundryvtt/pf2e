@@ -675,6 +675,11 @@ export default class extends Item {
     } else {
       parts = [itemData.damage.die];
     }
+
+    // If this damage roll is a critical, apply critical damage.
+    if (critical === true) {
+      parts = parts.concat(parts);
+    }
     
 
     // Set the title of the roll
@@ -931,6 +936,7 @@ export default class extends Item {
       else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
       else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
       else if (action === 'npcDamage') item.rollNPCDamage(ev);
+      else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
       else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
 
       // Spell actions
