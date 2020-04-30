@@ -646,6 +646,7 @@ class ActorSheetPF2e extends ActorSheet {
         case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
         case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
         case 'npcDamage': item.rollNPCDamage(ev); break;
+        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
         case 'featAttack': item.rollFeatAttack(ev); break;
