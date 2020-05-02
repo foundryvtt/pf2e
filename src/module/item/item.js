@@ -658,32 +658,39 @@ export default class extends Item {
     const itemData = this.data.data;
     const rollData = duplicate(this.actor.data.data);
     let parts = [];
+    let partsType = [];
     const dtype = []; //CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
     // If the NPC is using the updated NPC Attack data object
     if (itemData.damageRolls && (typeof itemData.damageRolls === "object")) {
-      parts = []
       Object.keys(itemData.damageRolls).forEach(key => {
         if (itemData.damageRolls[key].damage)
-          parts.push(itemData.damageRolls[key].damage);
+          if (critical === true) {
+            parts.push(itemData.damageRolls[key].damage);
+            parts.push(itemData.damageRolls[key].damage);
+            partsType.push(`${itemData.damageRolls[key].damageType}`);
+          } else {
+            parts.push(itemData.damageRolls[key].damage);
+            partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
+          }
       });
     } else if (itemData.damageRolls && itemData.damageRolls.length) { //this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
-      parts = []
       itemData.damageRolls.forEach(entry => {
-        parts.push(entry.damage);
+        if (critical === true) {
+          parts.push(entry.damage);
+          parts.push(entry.damage);
+          partsType.push(`${entry.damageType}`);
+        } else {
+          parts.push(entry.damage);
+          partsType.push(`${entry.damage} ${entry.damageType}`);
+        }        
       });
     } else {
       parts = [itemData.damage.die];
     }
 
-    // If this damage roll is a critical, apply critical damage.
-    if (critical === true) {
-      parts = parts.concat(parts);
-    }
-    
-
     // Set the title of the roll
-    let title = `${localize('PF2E.DamageLabel')}: ${this.name}`;
+    let title = `${this.name}: ${partsType.join(', ')}`;
     if (dtype.length) title += ` (${dtype})`;
 
     // do nothing if no parts are provided in the damage roll
