@@ -411,10 +411,10 @@ class ActorSheetPF2e extends ActorSheet {
    */
   _getHeroPointsIcon(level) {
     const icons = {
-      0: '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
-      1: '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
-      2: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>',
-      3: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>',
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
     };
     return icons[level];
   }
