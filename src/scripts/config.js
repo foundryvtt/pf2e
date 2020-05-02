@@ -1139,6 +1139,17 @@ CONFIG.spellScalingModes = {
   leveltenth: 'PF2E.SpellScalingModeLeveltenth',
 };
 
+CONFIG.attackEffects = {
+  "Grab": 'PF2E.AttackEffectGrab',
+  "Improved Grab": 'PF2E.AttackEffectImprovedGrab',
+  "Constrict": 'PF2E.AttackEffectConstrict',
+  "Greater Constrict": 'PF2E.AttackEffectGreaterConstrict',
+  "Knockdown": 'PF2E.AttackEffectKnockdown',
+  "Improved Knockdown": 'PF2E.AttackEffectImprovedKnockdown',
+  "Push": 'PF2E.AttackEffectPush',
+  "Improved Push": 'PF2E.AttackEffectImprovedPush'
+}
+
 CONFIG.monsterAbilities = () => {
   return {
       "All-Around Vision": {

@@ -87,6 +87,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.hasSidebar = false;
       data.detailsActive = true;
       data.weaponDamage = CONFIG.PF2E.damageTypes;
+      data.attackEffects = CONFIG.PF2E.attackEffects;
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (type === 'feat') {
       // Feat types
