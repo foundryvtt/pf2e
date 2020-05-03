@@ -325,7 +325,9 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         const spellDamage = getProperty(item.data, 'damage.value'); //string
         const spellLevel = getProperty(item.data, 'level.value');
         let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
-        if ( spellDamage !== undefined && spellDamage != "" ) {
+        
+        //checking truthy is possible, as it's unlikely that spellDamage = 0 in a damage spell :)
+        if ( spellDamage ) {
           if (spellLevel == 0 || spellName.includes('at will')) {
             spellDmgAdjustmentMod = 1;
           } else {
