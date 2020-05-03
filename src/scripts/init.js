@@ -107,6 +107,36 @@
         }
       }
 
+      if (worldSchemaVersion < 0.566) {
+
+        if (actor.data.type === 'npc') {
+          console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+
+          let updatedItems = [];
+          const items = duplicate(actor.data.items);
+
+          items.forEach(item => {
+              if (item.type === 'melee' && item.data.attackEffects) {
+                let attackEffects = {
+                  'value': item.data.attackEffects
+                };
+                let updatedItem = {
+                  _id: item._id
+                }
+                updatedItem['data.attackEffects'] = attackEffects;
+                updatedItems.push(updatedItem);
+              }              
+          });
+
+          console.log('updatedItems: ', updatedItems);
+          await actor.updateManyEmbeddedEntities('OwnedItem', updatedItems);
+        }
+        
+        
+
+        updated = true;
+      }
+
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData.name} (${actorData._id}) does not meet migration criteria and is being skipped`);
       }
