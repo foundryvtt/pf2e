@@ -466,12 +466,18 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @private
    */
   _getFocusIcon(focus) {
-    const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
-    };
+    const icons = {};
+    const usedPoint = '<i class="fas fa-dot-circle"></i>';
+    const unUsedPoint = '<i class="far fa-circle"></i>';
+
+    for (let i=0; i<=focus.pool; i++) { //creates focus.pool amount of icon options to be selected in the icons object
+      let iconHtml = '';
+      for (let iconColumn=1; iconColumn<=focus.pool; iconColumn++) { //creating focus.pool amount of icons
+        iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
+      }
+      icons[i] = iconHtml;
+    }
+
     return icons[focus.points];
   }
 
