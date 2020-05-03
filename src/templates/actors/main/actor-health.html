@@ -31,10 +31,10 @@
         <span class="proficiency-rank dying-click pf-value" style="height: 15px;">{{{data.attributes.dying.icon}}}</span>
       </span>
     </div>
-    <div class="defense-container pf-justify-center">
+    <div class="defense-container pf-justify-center" style="width: 58px;">
       <h4 class="defense-item pf-title">{{localize "PF2E.WoundsLabel"}}</h4>
       <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.WoundsTitle"}}" style="border-right: 0px; border-left: 0px;">
-        <input type="hidden" name="data.attributes.wounded.value" data-max="3" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
+        <input type="hidden" name="data.attributes.wounded.value" data-max="{{data.attributes.wounded.calculatedMax}}" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
         <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.WoundsTitle"}}" style="height: 15px;">{{{data.attributes.wounded.icon}}}</span>
       </span>
     </div>
