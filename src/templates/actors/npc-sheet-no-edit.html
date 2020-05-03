@@ -297,8 +297,8 @@
                         </span>
                         <span class="tag"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
                     {{/if_all}}
-                    {{#if_all item.data item.data.attackEffects}}
-                        {{#each item.data.attackEffects as |attackEffect aID|}}
+                    {{#if_all item.data item.data.attackEffects item.data.attackEffects.value}}
+                        {{#each item.data.attackEffects.value as |attackEffect aID|}}
                             <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
                         {{/each}}
                     {{/if_all}}

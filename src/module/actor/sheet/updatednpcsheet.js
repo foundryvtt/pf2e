@@ -571,7 +571,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
       // item = this.actor.items.find(i => { return i.id === itemId });
       const item = this.actor.getOwnedItem(itemId);
-      const attackEffect = item.data.data.attackEffects[aId];
+      const attackEffect = item.data.data.attackEffects.value[aId];
       console.log('PF2e System | clicked an attackEffect:', attackEffect, ev);
 
       // which function gets called depends on the type of button stored in the dataset attribute action
