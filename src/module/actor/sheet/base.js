@@ -3,6 +3,21 @@
  * This sheet is an Abstract layer which is not used.
  */
 class ActorSheetPF2e extends ActorSheet {
+  /** @override */
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      scrollY: [
+        '.sheet-sidebar',
+        '.spellcastingEntry-list',
+        '.actions-list',
+        '.skills-pane',
+        '.feats-pane',
+        '.inventory-pane',
+        '.actions-pane',
+      ],
+    });
+  }
+
   /**
    * Return the type of the current Actor
    * @type {String}
@@ -72,29 +87,6 @@ class ActorSheetPF2e extends ActorSheet {
 
   _findActiveList() {
     return this.element.find('.tab.active .directory-list');
-  }
-
-  async _render(force = false, options = {}) {
-    this._saveScrollPositions();
-    await super._render(force, options);
-    this._restoreScrollPositions();
-  }
-
-  _restoreScrollPositions() {
-    const activeList = this._findActiveList();
-    if (activeList.length && this._scroll != null) {
-      activeList.prop('scrollTop', this._scroll);
-    }
-  }
-
-  /**
-   * @private
-   */
-  _saveScrollPositions() {
-    const activeList = this._findActiveList();
-    if (activeList.length) {
-      this._scroll = activeList.prop('scrollTop');
-    }
   }
 
   /* -------------------------------------------- */
