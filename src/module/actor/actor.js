@@ -114,8 +114,8 @@ export default class extends Actor {
     // Class DC
     data.attributes.classDC.ability = data.details.keyability.value;
     const classDCProficiency = data.attributes.classDC.rank ? (data.attributes.classDC.rank * 2) + data.details.level.value : 0;
-    data.attributes.classDC.value = data.abilities[data.attributes.classDC.ability].mod + classDCProficiency + data.attributes.classDC.item;
-    data.attributes.classDC.breakdown = `${data.attributes.classDC.ability} modifier(${data.abilities[data.attributes.classDC.ability].mod}) + proficiency(${classDCProficiency}) + item bonus(${data.attributes.classDC.item})`;
+    data.attributes.classDC.value = data.abilities[data.attributes.classDC.ability].mod + classDCProficiency + data.attributes.classDC.item + 10;
+    data.attributes.classDC.breakdown = `10 + ${data.attributes.classDC.ability} modifier(${data.abilities[data.attributes.classDC.ability].mod}) + proficiency(${classDCProficiency}) + item bonus(${data.attributes.classDC.item})`;
 
     // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
     // TODO: speed penalties are not automated
@@ -319,7 +319,7 @@ export default class extends Actor {
   rollAttribute(event, attributeName) {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod'];
-    const flavor = `${game.i18n.localize(CONFIG.PF2E.attributes[attributeName])} Check`;
+    const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({

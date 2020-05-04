@@ -23,12 +23,6 @@ CONFIG.abilities = {
   "cha": "PF2E.AbilityCha"
 };
 
-// Attribute labels
-CONFIG.attributes = {
-  "perception": "PF2E.PerceptionLabel",
-  "classDC": "PF2E.ClassDCLabel",
-};
-
 // Skill labels
 CONFIG.skills = {
   "acr": "PF2E.SkillAcr",
