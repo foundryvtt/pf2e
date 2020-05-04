@@ -96,6 +96,12 @@
         updated = true;
       }
 
+      if (worldSchemaVersion < 0.560) { 
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+        deltaData['data.attributes.flatbonushp'] = Number(actorData['data.attributes.flatbonushp.value'] || 0); 
+        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+      }
+
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
       }
