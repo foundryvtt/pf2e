@@ -54,8 +54,7 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
-    // Calculating the maximum wounded
-    sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
+
 
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {

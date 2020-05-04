@@ -47,27 +47,20 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData.preparationType = CONFIG.PF2E.preparationType;
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
-    // Update dying icon and container width if a data migration is not required
-    if (typeof sheetData.data.attributes.dying !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.dying required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
-      sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
-    }
+    // Update dying icon and container width 
+    sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
+    sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
+    
 
-    // Update wounded icon if a data migration is not required (perform data migration if it is)
-    if (typeof sheetData.data.attributes.wounded !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.wounded required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
-    }
+    // Update wounded icon 
+    sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
 
-    // Update doomed icon if a data migration is not required (perform data migration if it is)
-    if (typeof sheetData.data.attributes.doomed !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.doomed required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
-    }
+    // Calculating the maximum wounded
+    sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
+    
+    // Update doomed icon
+    sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
+    
 
     // Return data for rendering
     return sheetData;
