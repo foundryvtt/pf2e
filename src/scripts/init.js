@@ -58,12 +58,6 @@
       } 
 
       if (worldSchemaVersion < 0.559) {
-        deltaData['data.attributes.flatbonushp'] = Number(actorData['data.attributes.flatbonushp.value'] || 0); 
-        deltaData['data.attributes.levelbonushp'] = Number(actorData['data.attributes.levelbonushp.value'] || 0); 
-        deltaData['data.attributes.flatbonussp'] = Number(actorData['data.attributes.flatbonussp.value'] || 0);
-        deltaData['data.attributes.levelbonussp'] = Number(actorData['data.attributes.levelbonussp.value'] || 0);
-        deltaData['data.attributes.ancestryhp'] = Number(actorData['data.attributes.ancestryhp.value'] || 0);
-        deltaData['data.attributes.classhp'] = Number(actorData['data.attributes.classhp.value'] || 0);
 
         if (actor.data.type === 'npc') {
           console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
@@ -96,14 +90,61 @@
         updated = true;
       }
 
-      if (worldSchemaVersion < 0.560) { 
+      if (worldSchemaVersion < 0.561) {
+        if (actor.data.type === 'character') {
+          console.log(`PF2e System | Updating ${actorData.name} (${actorData._id}) schema to version ${systemSchemaVersion}`);
+
+          deltaData['data.attributes.flatbonushp'] = parseInt((actorData.data.attributes.flatbonushp || {}).value) || 0; 
+          deltaData['data.attributes.levelbonushp'] = parseInt((actorData.data.attributes.levelbonushp || {}).value) || 0; 
+          deltaData['data.attributes.flatbonussp'] = parseInt((actorData.data.attributes.flatbonussp || {}).value) || 0;
+          deltaData['data.attributes.levelbonussp'] = parseInt((actorData.data.attributes.levelbonussp || {}).value) || 0;
+          deltaData['data.attributes.ancestryhp'] = parseInt((actorData.data.attributes.ancestryhp || {}).value) || 0;
+          deltaData['data.attributes.classhp'] = parseInt((actorData.data.attributes.classhp || {}).value) || 0;
+
+          await actor.update(deltaData);
+
+          updated = true;
+        }
+      }
+
+      if (worldSchemaVersion < 0.566) {
+
+        if (actor.data.type === 'npc') {
+          console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+
+          let updatedItems = [];
+          const items = duplicate(actor.data.items);
+
+          items.forEach(item => {
+              if (item.type === 'melee' && item.data.attackEffects) {
+                let attackEffects = {
+                  'value': item.data.attackEffects
+                };
+                let updatedItem = {
+                  _id: item._id
+                }
+                updatedItem['data.attackEffects'] = attackEffects;
+                updatedItems.push(updatedItem);
+              }              
+          });
+
+          console.log('updatedItems: ', updatedItems);
+          await actor.updateManyEmbeddedEntities('OwnedItem', updatedItems);
+        }
+        
+        
+
+        updated = true;
+      }
+      
+      if (worldSchemaVersion < 0.567) { 
         console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
-        deltaData['data.attributes.flatbonushp'] = Number(actorData['data.attributes.flatbonushp.value'] || 0); 
+        deltaData['data.attributes.bonusbulk'] = 0; 
         console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
       }
 
       if (!updated) {
-        console.log(`PF2e System | Actor ${actorData._id} (${actorData.name}) does not meet migration criteria and is being skipped`);
+        console.log(`PF2e System | Actor ${actorData.name} (${actorData._id}) does not meet migration criteria and is being skipped`);
       }
     }
   }

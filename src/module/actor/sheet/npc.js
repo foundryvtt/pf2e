@@ -272,10 +272,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute');
 
       if (spelldcType === 'dc' || spelldcType === 'value') {
-        const itemToEdit = this.actor.getOwnedItem(itemId).data;
-        itemToEdit.data.spelldc[spelldcType] = Number(event.target.value);
-
-        const key = `data.slotdc.${spelldcType}`;
+        const key = `data.spelldc.${spelldcType}`;
         const options = { _id: itemId };
         options[key] = Number(event.target.value);
 

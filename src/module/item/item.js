@@ -1,6 +1,8 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
+import Spell from './spell.js';
+
 export default class extends Item {
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
@@ -656,27 +658,39 @@ export default class extends Item {
     const itemData = this.data.data;
     const rollData = duplicate(this.actor.data.data);
     let parts = [];
+    let partsType = [];
     const dtype = []; //CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
     // If the NPC is using the updated NPC Attack data object
     if (itemData.damageRolls && (typeof itemData.damageRolls === "object")) {
-      parts = []
       Object.keys(itemData.damageRolls).forEach(key => {
         if (itemData.damageRolls[key].damage)
-          parts.push(itemData.damageRolls[key].damage);
+          if (critical === true) {
+            parts.push(itemData.damageRolls[key].damage);
+            parts.push(itemData.damageRolls[key].damage);
+            partsType.push(`${itemData.damageRolls[key].damageType}`);
+          } else {
+            parts.push(itemData.damageRolls[key].damage);
+            partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
+          }
       });
     } else if (itemData.damageRolls && itemData.damageRolls.length) { //this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
-      parts = []
       itemData.damageRolls.forEach(entry => {
-        parts.push(entry.damage);
+        if (critical === true) {
+          parts.push(entry.damage);
+          parts.push(entry.damage);
+          partsType.push(`${entry.damageType}`);
+        } else {
+          parts.push(entry.damage);
+          partsType.push(`${entry.damage} ${entry.damageType}`);
+        }        
       });
     } else {
       parts = [itemData.damage.die];
     }
-    
 
     // Set the title of the roll
-    let title = `${localize('PF2E.DamageLabel')}: ${this.name}`;
+    let title = `${this.name}: ${partsType.join(', ')}`;
     if (dtype.length) title += ` (${dtype})`;
 
     // do nothing if no parts are provided in the damage roll
@@ -751,13 +765,13 @@ export default class extends Item {
 
     // Get data
     const itemData = this.data.data;
-    const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
     const rollData = duplicate(this.actor.data.data);
-    const abl = spellcastingEntry.data.data.ability.value || 'int';
-    const parts = [itemData.damage.value];
     const isHeal = itemData.spellType.value === 'heal';
     const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
+
     const spellLvl = parseInt(cardData.spellLvl);
+    const spell = new Spell(this.data, { castingActor: this.actor, castLevel: spellLvl })
+    const parts = spell.damageParts;
 
     // Append damage type to title
     const damageLabel = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
@@ -765,21 +779,8 @@ export default class extends Item {
     if (dtype && !isHeal) title += ` (${dtype})`;
 
     // Add item to roll data
-    rollData.mod = rollData.abilities[abl].mod;
+    rollData.mod = rollData.abilities[spell.spellcastingEntry.ability].mod;
     rollData.item = itemData;
-
-    if (itemData.damage.applyMod) parts.push(rollData.abilities[abl].mod);
-    const scaling = itemData.scaling || {};
-    if (scaling.mode === 'level1' && scaling.formula !== '') {
-      // Scale cantrips & focus spells automatically.
-      if (itemData.level.value === 0 || itemData.level.value === 11) {
-        const scaling_parts = Array(Math.ceil(this.actor.data.data.details.level.value / 2) - 1).fill(scaling.formula);
-        parts.push(...scaling_parts);
-      } else if (itemData.level.value < spellLvl) {
-        const scaling_parts = Array(spellLvl - itemData.level.value).fill(scaling.formula);
-        parts.push(...scaling_parts);
-      }
-    }
 
     // Call the roll helper utility
     DicePF2e.damageRoll({
@@ -942,6 +943,7 @@ export default class extends Item {
       else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
       else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
       else if (action === 'npcDamage') item.rollNPCDamage(ev);
+      else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
       else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
 
       // Spell actions

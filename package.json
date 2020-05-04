@@ -1,14 +1,15 @@
 {
   "private": true,
   "name": "test-system",
-  "version": "0.559.0",
+  "version": "0.567.1",
   "description": "",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp copy",
     "build:watch": "gulp watch",
     "clean": "gulp clean && gulp copy --clean",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src"
   },
   "author": "",
   "license": "",
@@ -18,11 +19,13 @@
     "@babel/preset-env": "^7.9.5",
     "archiver": "^3.1.1",
     "axios": "^0.19.2",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-transform-default-import": "^1.0.0",
     "chalk": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
     "form-data": "^3.0.0",
     "fs-extra": "^8.1.0",
     "gitlab": "^14.2.2",
@@ -67,6 +70,9 @@
       "<rootDir>",
       "<rootDir>/src",
       "<rootDir>/dist"
+    ],
+    "setupFiles": [
+      "./tests/setup.js"
     ]
   }
 }

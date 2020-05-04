@@ -365,7 +365,7 @@ class ActorSheetPF2eCharacterReadOnly extends ActorSheetPF2eCharacter {
       const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
       // item = this.actor.items.find(i => { return i.id === itemId });
       const item = this.actor.getOwnedItem(itemId);
-      const attackEffect = item.data.flags.pf2e_updatednpcsheet.attackEffects[aId];
+      const attackEffect = item.data.flags.pf2e_updatednpcsheet.attackEffects.value[aId];
       console.log('clicked an attackEffect:', attackEffect, ev);
 
       // which function gets called depends on the type of button stored in the dataset attribute action

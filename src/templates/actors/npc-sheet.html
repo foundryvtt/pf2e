@@ -16,6 +16,10 @@
                 <input name="data.details.level.value" type="text" value="{{data.details.level.value}}"
                         data-dtype="Number" placeholder="1"/>
             </div>
+            <div class="creature-adjustment traits-bar">
+                <a class="npc-elite-adjustment trait{{npcEliteActive}}{{npcEliteHidden}}">ELITE</a>
+                <a class="npc-weak-adjustment trait{{npcWeakActive}}{{npcWeakHidden}}">WEAK</a>
+            </div>
         </h1>
     </header>
 
@@ -44,7 +48,7 @@
                     </div>
                     <div class="hp-max pf-container">
                         <h4 class="hp-max pf-title">{{localize "PF2E.MaxHitPointsShortLabel"}}</h4>
-                        <span class="hp-max pf-value pf-large" title="{{localize "PF2E.MaxHPTitle"}}">
+                        <span class="hp-max pf-value pf-large" title="{{localize "PF2E.MaxHPTitleNPC"}}">
                             <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
@@ -136,8 +140,6 @@
                     <div class="npc-bio-item trait-size pf-container" style="width: calc(100% - 4px); margin-right: 3px;">
                         <label class="pf-title">{{localize "PF2E.SpecialSensesLabel"}}</label>
                         <span class="pf-value pf-small pf-width-100" title="{{localize "PF2E.SpecialSensesTitle"}}">
-                            <!-- <input type="text" name="data.attributes.speed.value" data-dtype="Number"
-                                value="{{data.attributes.speed.value}}" placeholder="None"/> -->
                             <input name="data.traits.senses.value" type="text" value="{{data.traits.senses.value}}"
                                 data-dtype="String">
                         </span>
@@ -175,7 +177,7 @@
                     <div class="npc-bio-item trait-size pf-container">
                         <label class="pf-title">{{localize "PF2E.Speed"}}</label>
                         <span class="pf-value pf-small pf-width-100" title="{{localize "PF2E.SpeedTitle"}}">
-                            <input type="text" name="data.attributes.speed.value" data-dtype="Number"
+                            <input type="text" name="data.attributes.speed.value" data-dtype="String"
                                 value="{{data.attributes.speed.value}}" placeholder="None"/>
                         </span>
                     </div>
@@ -195,7 +197,6 @@
                         {{localize "PF2E.TraitsLabel"}}
                         <a class="trait-selector" data-options="monsterTraits"><i class="fas fa-edit"></i></a>
                     </label>
-                    <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
                     <ul class="traits-list pf-value pf-large">
                         {{#each data.traits.traits.value as |v k|}}
                             <span class="tag {{k}}">{{v}}</span>
@@ -208,10 +209,6 @@
                     <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
                 </div>
             </ol>
-<!--             <h3 class="defense-title pf-heading" for="data.traits.skills">
-                Image
-                <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a>
-            </h3> -->
         </div>
     </section>
 
@@ -281,15 +278,6 @@
 
                 <!-- Attacks Header -->
                 <h3 class="item-name pf-heading pf-actions">Attacks</h3>
-                <!-- <ol class="npc-defense-list">
-                    <li class="npc-defense" data-attribute="simple">
-                        <span class="defense-score">
-                        <input name="data.martial.simple.value" type="text" value="{{data.martial.simple.value}}"
-                            data-dtype="Number" placeholder="0"/>
-                        </span>
-                        <h4 class="attribute-name">Base Attack Value</h4>
-                    </li>
-                </ol> -->
 
                 <!-- List Attacks -->
                 {{#each actor.attacks as |section sid|}}
@@ -334,7 +322,6 @@
                 {{/each}}
 
 
-                <!-- <ol class="spellcastingEntry-list directory-list" style="height: auto;"> -->
                     {{#each actor.spellcastingEntries as |entry eid|}}
                         <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                             <!-- <div class="action-header"> -->
@@ -373,7 +360,6 @@
                             {{#unless entry.data.prepared.preparedSpells}}
 
                             <!-- Everything except prepared spells -->
-                            <!-- <ol class="inventory-list directory-list" style="margin-bottom: 2px"> -->
             
                                     <!-- Add section for each spell level -->
                                     {{#each entry.spellbook as |section lvl|}}
@@ -399,8 +385,6 @@
                                                 {{/unless}}
                                             </div>
                                 
-                                            <!-- <div class="spell-school-header">School</div>
-                                            <div class="spell-action-header">Action</div> -->
                                 
                                             {{#if ../../owner}}
                                             <div class="item-controls">
@@ -420,8 +404,6 @@
                                                 <h4>{{item.name}}</h4>
                                             </div>
                                 
-                                            <!-- <div class="spell-school">{{item.data.school.str}}</div>
-                                            <div class="spell-action">{{item.data.time.value}}</div> -->
                                 
                                             {{#if ../../../owner}}
                                             <div class="item-controls">
@@ -448,7 +430,6 @@
                         {{else}}
                         
                             <!-- Prepared Spells -->
-                            <!-- <ol class="inventory-list directory-list"> -->
             
                                 <!-- Add section for each level -->
                                 {{#each entry.spellbook as |section lvl|}}
@@ -472,8 +453,6 @@
                                             {{/if}}
                                         </div>
                             
-                                        <!-- <div class="spell-school-header">School</div>
-                                        <div class="spell-action-header">Action</div> -->
                             
                                         {{#if ../../owner}}
                                         <div class="item-controls">
@@ -495,8 +474,6 @@
                                                         <h4>{{item.name}}</h4>
                                                     </div>
                             
-                                                    <!-- <div class="spell-school">{{item.data.school.str}}</div>
-                                                    <div class="spell-action">{{item.data.time.value}}</div> -->
                                     
                                                     {{#if ../../../owner}}
                                                     <div class="item-controls">
@@ -526,8 +503,6 @@
                                                         <h4>{{item.name}}</h4>
                                                     </div>
                             
-                                                    <!-- <div class="spell-school">{{item.data.school.str}}</div>
-                                                    <div class="spell-action">{{item.data.time.value}}</div> -->
                             
                                                     {{#if ../../../owner}}
                                                     <div class="item-controls">
@@ -547,8 +522,6 @@
                                                 <h4>{{item.name}}</h4>
                                             </div>
                             
-                                            <!-- <div class="spell-school">{{item.data.school.str}}</div>
-                                            <div class="spell-action">{{item.data.time.value}}</div> -->
                             
                                             {{#if ../../../owner}}
                                             <div class="item-controls">
@@ -622,14 +595,12 @@
                 </li>
 
                 <!-- Skill List -->
-                <!-- Note: I'm likely going to need to heavily modify lore as an item type or create a new item type for NPC skills. -->
                 {{#each actor.lores as |lore lid|}}
                     <li class="item" data-skill="{{s}}" data-item-id="{{lore._id}}">
 
                         <div style="display: grid; grid: 24px / 28px 28px auto">
 
                             <div class="npc-skill-name rollable">
-                                <!-- <div class="item-image" style="background-image: url({{lore.img}})"></div> -->
                                 <img class="npc-skill-image" src="{{lore.img}}" title="{{lore.name}}" height="24" width="24" style="border: none" />
                                 <!-- Roll -->
                             </div>
@@ -640,9 +611,6 @@
                             
                             <div class="item-name item-name-input">
                                 <input name="item-name-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="text" data-dtype="String" value="{{lore.name}}" placeholder="{{localize "PF2E.NewSkillPlaceholder"}}"/>
-                                <!-- <h4>
-                                    {{lore.data.value}} {{lore.name}}
-                                </h4> -->
                             </div>
                         </div>
                                                 
@@ -662,14 +630,6 @@
                 <h3 class="abilities-title pf-heading">{{localize "PF2E.AbilityScoresHeader"}}</h3>
                 <ol class="abilities-list">
                     {{#each data.abilities as |ability id|}}
-<!--                         <li class="ability" data-ability="{{id}}">
-                            <span class="ability-name rollable" title="Ability">{{id}}</span>
-                            <span class="ability-mod" title="Modifier">
-                                <div class="ability-input">
-                                    <input name="data.abilities.{{id}}.mod" type="text" value="{{numberFormat ability.mod decimals=0 sign=true}}"
-                                        data-dtype="Number" placeholder="+0"/>
-                                </div>
-                            </span>  -->
                             <li class="npc-defense" data-ability="{{id}}">
                                 <span class="defense-score">
                                 <input name="data.abilities.{{id}}.mod" type="text" value="{{numberFormat ability.mod decimals=0 sign=true}}"
@@ -681,52 +641,7 @@
                     {{/each}}
                 </ol>
             </div>
-
-<!--             <li class="npc-defense" data-attribute="spelldc">
-                    <span class="defense-score">
-                    <input name="data.attributes.spelldc.dc" type="text" value="{{data.attributes.spelldc.dc}}"
-                        data-dtype="Number" placeholder="10"/>
-                    </span>
-                    <h4 class="attribute-name">Spell DC</h4>                             
-                </li> -->
-    
-
-            <!-- Inventory -->
-<!--             <ol class="actions-list inventory-list directory-list">
-                {{#each actor.features as |section sid|}}
-                    <li class="item action-header">
-                        <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
-                        {{#if ../owner}}
-                        <div class="item-controls">
-                            <a class="item-control item-create" title="Create Feature" data-type="{{sid}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
-                        </div>
-                        {{/if}}
-                    </li>
-                    {{#each section.actions as |action aid|}}
-                    <li class="item" data-item-id="{{action._id}}">
-                        <div class="item-name rollable">
-                            <div class="item-image" style="background-image: url({{action.img}})"></div>
-                            <h4>
-                                {{action.name}}
-                            </h4>
-                        </div>
-                        {{#if ../../owner}}
-                        <div class="item-controls">
-                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                            {{#unless action.feat}}
-                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                            {{/unless}}
-                        </div>
-                        {{/if}}
-                    </li>
-                    {{/each}}
-                {{/each}}
-            </ol> -->
         
     </section>
 
-    <!-- SIDEBAR -->
-<!--     <section class="sheet-sidebar sidebar">
-        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
-    </section> -->
 </form>

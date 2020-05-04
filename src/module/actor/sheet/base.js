@@ -3,6 +3,21 @@
  * This sheet is an Abstract layer which is not used.
  */
 class ActorSheetPF2e extends ActorSheet {
+  /** @override */
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      scrollY: [
+        '.sheet-sidebar',
+        '.spellcastingEntry-list',
+        '.actions-list',
+        '.skills-pane',
+        '.feats-pane',
+        '.inventory-pane',
+        '.actions-pane',
+      ],
+    });
+  }
+
   /**
    * Return the type of the current Actor
    * @type {String}
@@ -39,6 +54,8 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
+
+
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
       abl.label = CONFIG.PF2E.abilities[a];
@@ -72,29 +89,6 @@ class ActorSheetPF2e extends ActorSheet {
 
   _findActiveList() {
     return this.element.find('.tab.active .directory-list');
-  }
-
-  async _render(force = false, options = {}) {
-    this._saveScrollPositions();
-    await super._render(force, options);
-    this._restoreScrollPositions();
-  }
-
-  _restoreScrollPositions() {
-    const activeList = this._findActiveList();
-    if (activeList.length && this._scroll != null) {
-      activeList.prop('scrollTop', this._scroll);
-    }
-  }
-
-  /**
-   * @private
-   */
-  _saveScrollPositions() {
-    const activeList = this._findActiveList();
-    if (activeList.length) {
-      this._scroll = activeList.prop('scrollTop');
-    }
   }
 
   /* -------------------------------------------- */
@@ -162,6 +156,7 @@ class ActorSheetPF2e extends ActorSheet {
       uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].value) || 0 : 0,
       slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].max) || 0 : 0,
       displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[lvl] !== undefined ? (spellcastingEntry.data.displayLevels[lvl]) : true,
+      unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
     };
 
     // Add the spell to the spellbook at the appropriate level
@@ -380,12 +375,19 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getWoundedIcon(level) {
-    const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
-    };
+    const maxDying = this.object.data.data.attributes.dying.max || 4;
+    const icons = {};
+    const usedPoint = '<i class="fas fa-dot-circle"></i>';
+    const unUsedPoint = '<i class="far fa-circle"></i>';
+
+    for (let i=0; i<maxDying; i++) {
+      let iconHtml = '';
+      for (let iconColumn=1; iconColumn<maxDying; iconColumn++) {
+        iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
+      }
+      icons[i] = iconHtml;
+    }
+
     return icons[level];
   }
 
@@ -411,10 +413,10 @@ class ActorSheetPF2e extends ActorSheet {
    */
   _getHeroPointsIcon(level) {
     const icons = {
-      0: '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
-      1: '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>',
-      2: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>',
-      3: '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>',
+      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      1: '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
     };
     return icons[level];
   }
@@ -544,6 +546,16 @@ class ActorSheetPF2e extends ActorSheet {
       this._setExpendedPreparedSpellSlot(spellLvl, slotId, entryId, expendedState);
     });
 
+    // Toggle equip
+    html.find('.item-toggle-equip').click((ev) => {
+      const f = $(event.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      f.toggleClass('active');
+      const active = f.hasClass('active');
+      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': active });
+      
+    });
+
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
@@ -636,6 +648,7 @@ class ActorSheetPF2e extends ActorSheet {
         case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
         case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
         case 'npcDamage': item.rollNPCDamage(ev); break;
+        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
         case 'featAttack': item.rollFeatAttack(ev); break;
@@ -658,8 +671,11 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.focus-pool-input').change(async (event) => {
       event.preventDefault();
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-      const pool = Math.clamped(Number(event.target.value), 0, 3);
-      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.pool': pool });
+      const focusPool = Math.clamped(Number(event.target.value), 0, 3);
+      const item = this.actor.getOwnedItem(itemId);
+      let focusPoints = getProperty(item.data, 'data.focus.points') || 0;
+      focusPoints = Math.clamped( focusPoints , 0, focusPool );
+      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': focusPoints, 'data.focus.pool': focusPool });
     });
 
     // Update Item Bonus on an actor.item input
@@ -788,6 +804,20 @@ class ActorSheetPF2e extends ActorSheet {
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.displayLevels': currentDisplayLevels });
       this.render();
     });
+
+    Hooks.on("createOwnedItem", (actor, item) => {
+      // Show unprepared spells if creating a new item
+      if (item.type == "spell") {
+        const currentLvlToDisplay = {};
+        currentLvlToDisplay[item.data.level.value] = true;
+        this.actor.updateEmbeddedEntity('OwnedItem', {
+          _id: item.data.location.value, 
+          'data.showUnpreparedSpells.value': true,
+          'data.displayLevels': currentLvlToDisplay
+        });
+      }
+    });
+
   }
 
   /* -------------------------------------------- */
@@ -850,7 +880,8 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
     const maxDying = this.object.data.data.attributes.dying.max;
-    const wounded = this.object.data.data.attributes.wounded.value;
+    // const wounded = this.object.data.data.attributes.wounded.value;
+    const wounded = 0; //Don't automate wounded when clicking on dying until dying is also automated on damage from chat and Recovery rolls
     const doomed = this.object.data.data.attributes.doomed.value;
 
     // Get the current level and the array of levels
@@ -903,6 +934,9 @@ class ActorSheetPF2e extends ActorSheet {
         
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
         if ($(event.currentTarget).attr('title') == game.i18n.localize("PF2E.Focus.pointTitle")) {
+          const item = this.actor.getOwnedItem(itemId);
+          const focusPoolSize = getProperty(item.data, 'data.focus.pool') || 1;
+          newLevel = Math.clamped( newLevel , 0, focusPoolSize );
           this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': newLevel });
         } else {
           this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
@@ -1173,6 +1207,7 @@ class ActorSheetPF2e extends ActorSheet {
             item.data.data.hands.value = !item.data.data.hands.value;
             // this.actor.updateOwnedItem(item.data, true);
             this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+            this._render();
 
             break;
           case 'weaponAttack': item.rollWeaponAttack(ev); break;
@@ -1221,6 +1256,14 @@ class ActorSheetPF2e extends ActorSheet {
       mergeObject(data, {
         'data.level.value': data.level,
         'data.location.value': data.location,
+      });
+      // Show the spellbook pages if you're adding a new spell
+      const currentLvlToDisplay = {};
+      currentLvlToDisplay[data.level] = true;
+      this.actor.updateEmbeddedEntity('OwnedItem', {
+        _id: data.location, 
+        'data.showUnpreparedSpells.value': true,
+        'data.displayLevels': currentLvlToDisplay
       });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {

@@ -1094,6 +1094,7 @@ CONFIG.languages = {
   common: 'PF2E.LanguageCommon',
   abyssal: 'PF2E.LanguageAbyssal',
   aklo: 'PF2E.LanguageAklo',
+  anadi: 'PF2E.LanguageAnadi',
   aquan: 'PF2E.LanguageAquan',
   auran: 'PF2E.LanguageAuran',
   boggard: 'PF2E.LanguageBoggard',
@@ -1105,6 +1106,7 @@ CONFIG.languages = {
   gnomish: 'PF2E.LanguageGnomish',
   goblin: 'PF2E.LanguageGoblin',
   gnoll: 'PF2E.LanguageGnoll',
+  grippli: 'PF2E.LanguageGrippli',
   halfling: 'PF2E.LanguageHalfling',
   ignan: 'PF2E.LanguageIgnan',
   iruxi: 'PF2E.LanguageIruxi',
@@ -1112,8 +1114,10 @@ CONFIG.languages = {
   infernal: 'PF2E.LanguageInfernal',
   orcish: 'PF2E.LanguageOrcish',
   necril: 'PF2E.LanguageNecril',
+  strix: 'PF2E.LanguageStrix',
   sylvan: 'PF2E.LanguageSylvan',
   shadowtongue: 'PF2E.LanguageShadowtongue',
+  shoony: 'PF2E.LanguageShoony',
   terran: 'PF2E.LanguageTerran',
   undercommon: 'PF2E.LanguageUndercommon',
 };
@@ -1134,6 +1138,17 @@ CONFIG.spellScalingModes = {
   levelninth: 'PF2E.SpellScalingModeLevelninth',
   leveltenth: 'PF2E.SpellScalingModeLeveltenth',
 };
+
+CONFIG.attackEffects = {
+  "Grab": 'PF2E.AttackEffectGrab',
+  "Improved Grab": 'PF2E.AttackEffectImprovedGrab',
+  "Constrict": 'PF2E.AttackEffectConstrict',
+  "Greater Constrict": 'PF2E.AttackEffectGreaterConstrict',
+  "Knockdown": 'PF2E.AttackEffectKnockdown',
+  "Improved Knockdown": 'PF2E.AttackEffectImprovedKnockdown',
+  "Push": 'PF2E.AttackEffectPush',
+  "Improved Push": 'PF2E.AttackEffectImprovedPush'
+}
 
 CONFIG.monsterAbilities = () => {
   return {

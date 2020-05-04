@@ -7,6 +7,7 @@ import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
+import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -21,6 +22,10 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
+  //Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
+  CONFIG.Combat.initiative.decimals = 1;
+  //Assign the PF2e Combat Tracker
+  CONFIG.ui.combat = PF2eCombatTracker;
   
   PlayerConfigPF2e.hookOnRenderSettings();  
 
@@ -58,7 +63,7 @@ Hooks.once('setup', () => {
     'spellLevels', 'featTypes', 'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
     'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
-    'monsterTraits', 'spellScalingModes',
+    'monsterTraits', 'spellScalingModes', 'attackEffects',
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {
@@ -130,7 +135,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
   return options;
 });
 
-Hooks.on('preCreateActor', (dir, actor) => {
+Hooks.on('preCreateActor', (actor, dir) => {
   if (game.settings.get('pf2e', 'defaultTokenSettings')) {
     // Set wounds, advantage, and display name visibility
     mergeObject(actor, {

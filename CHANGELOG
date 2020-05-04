@@ -1,12 +1,77 @@
 Patch Notes:
-*  v0.559.0: Added the ability to modify NPC attack damage rolls 
-*  v0.559.0: Consolidated all NPC attacks to use the new damage rolls method
-*  v0.559.0: Cleaned up a lot of duplicate/redundant code
-*  v0.559.0: Separated NPC attack and damage rolls from weapon attack and damage rolls
+*  v0.567.1: (@yeroon#2590) Fix for Spellbook.
+*  v0.567.0: (@yeroon#2590) Update Focus Point tracker to have the same amount of icons as the Focus Pool size. (issue#226)
+*  v0.567.0: (@yeroon#2590) Updated the name of "unprepared spells" to "Arcane Spellbook" for arcane prepared casters, and "Preparation Shortlist" for all others. (issue#277)
+*  v0.567.0: (@yeroon#2590) Changed: Dying widget to not be automated with Wounded value (as interaction with Wounded is only on taking damage).
+*  v0.567.0: (@yeroon#2590) Bugfix: If you have the Diehard feat, not only the the Dying widget is updated, but the Wounded widget as well.
+*  v0.567.0: (@mdizo#0928) Fixed margin-top for the first chatmessage (which was a workaround for status effect tooltip on the first chatmessage), by changing the chat-log messages to be displayed bottom up. (issue#292)
+*  v0.567.0: (@Trey) Fixed auto-heightening of focus spells.
+*  v0.567.0: (@Trey) Save scroll position for parts of the Actor.
 
 
 
 ### Prior Patch Changes:
+*  v0.566.0: Updated the title of NPC damage rolls to help show the damage types for each of the roll parts.
+*  v0.566.0: Added the ability to edit attack effects on NPC attacks.
+*  v0.566.0: Updated bestiary and added migration logic to update NPC attacks to the new data model required for editing attack effects.
+*  v0.566.0: (@yeroon#2590) NPC's now have an Initiative roll of +0.9 if rolled from CombatTracker, as they always go first in PF2e CRB Rules. (issue#284)
+*  v0.566.0: (@yeroon#2590) If you roll Initiative from the Combat Tracker, and you do not have an Initiative Bonus, it will no longer be displayed at all instead of "+ 0" in the chatlog.
+*  v0.566.0: (@yeroon#2590) Bugfix: Elite/Weak adjustment didn't work for some NPCs (issue#290)
+*  v0.566.0: (@yeroon#2590) Updated the Hero Point icon, as the star icon were confusing some users due to stars also used in differently behaving webwidgets.
+*  v0.566.0: (@yeroon#2590) Updated the dying, wounded and doomed titles on the charactersheet to explain their effects according the PF2e Core Rulebook.
+*  v0.565.0: Added a critical damage button for NPC attacks (get this with the 3d dice module!)
+*  v0.565.0: Added bestiary v0.565.0
+*  v0.565.0: (@Shandyan#5980) Fixed bestiary entries for the following level 4 creatures: (Griffon)
+*  v0.565.0: (@Shandyan#5980) Fixed bestiary entries for the following level 8 creatures: (Bida, Desert Drake, Erinys, Flesh golem, Giant anaconda, Giant ocotopus, Kishi, Lamia matriarch, Triceratops, Young copper dragon)
+*  v0.565.0: (@Shandyan#5980) Fixed bestiary entries for the following level 9 creatures: (Alchemical golem, Deinosuchus, Drakauthix, Efreeti, Megalodon, Mummy pharoah, Night hag, Roc, Stone mauler, Storm lord, Tidal master, Vampire mastermind)
+*  v0.565.0: (@Shandyan#5980) Fixed bestiary entries for the following level 10 creatures: (Brontosaurus, Clay golem, Dezullon, Ghost mage, Giant flytrap, Graveknight, Nilith, Ofalth, Shield archon, Tyrannosaurus)
+*  v0.564.0: Added unit tests for `lang/en.json`
+*  v0.564.0: (@yeroon#2590) Bugfix: Users couldnt see the full text from a damage button on the NPC character sheet.
+*  v0.564.0: (@overdox#9174) phantom-steed icon was missing, re-added
+*  v0.564.0: (@overdox#9174) found couple more formatting errors, fixed
+*  v0.564.0: Fixed two-handed toggle not causing the actor sheet to render (making it appear like nothing happened)
+*  v0.564.0: Fixed issue #169 - Custom NPC spell DC and attack changes not being persisted to the actor and being reset to 0 upon reload.
+*  v0.562.0: (@yeroon#2590) Feature enhancement: Automated the Toughness and Mountain's Stoutness feats (Diehard was already automated).
+*  v0.562.0: (@yeroon#2590) Feature enhancement: Automated feats now have an UI info message when applied and removed.
+*  v0.562.0: (@yeroon#2590) Feature Enhancement: Rolling Initative in the Combat Tracker now shows a decimal (.0 default), which can be edited in the Combat Tracker when the players choose their own order.
+*  v0.562.0: (@yeroon#2590) Changed chat damage icons, with thanks to feedback Nerull#6333
+*  v0.562.0: (@yeroon#2590) Show the CUB incompatibility notification message only when you have the "Enhanced Conditions" setting of that module enabled.
+*  v0.562.0: (@yeroon#2590) Bugfix: Applying damage to multiple tokens works again.
+*  v0.562.0: (@yeroon#2590) Bugfix: Fixed Default Prototype Token settings due to a change within FoundryVTT.
+*  v0.562.0: (@yeroon#2590) Bugfix: Added localization to the Character Sheet recovery roll chat message.
+*  v0.562.0: (@yeroon#2590) Added gulp watching to changes in the language json file(s)
+*  v0.562.0: (@yeroon#2590) Feature enhancement: If you hold SHIFT while applying damage/healing from chat, you can modify the damage/healing result, applied after halving or doubling.
+*  v0.562.0: (@yeroon#2590) Updated some strings in applyDamage chat message to be translatable.
+*  v0.562.0: (@yeroon#2590) New Feature: You can now add an Elite or Weak adjustment to an NPC.
+*  v0.562.0: (@yeroon#2590) Feature enhancement: Armor Equip toggle button on the Inventory tab of the Character Sheet.
+*  v0.562.0: (@yeroon#2590) Bugfix: Bugfix: Condition tooltips couldn't be read if it was the first message in the chat window. Solved via adding whitespace margin ontop of the first message in the chat.
+*  v0.562.0: (@yeroon#2590) Renamed Martial Skills to Martial Proficiency for consistency with the CRB. (issues/254)
+*  v0.562.0: (@yeroon#2590) Bugfix: Fixed the layout of Immunities/Resistances on the readonly NPC sheet.
+*  v0.562.0: (@yeroon#2590) Improved Prepared Spelllist on the character sheet. Updated the icon and styling. The unprepared spell repertoire will now also auto-expand when you add a new spell.
+*  v0.562.0: (@yeroon#2590) Bugfix: AC and max HP fields are now readonly, as they are autocalculated. Updated related translation strings.
+*  v0.562.0: (@yeroon#2590) Bugfix: Conditions are now working again if your pf2e translation file doesn't include the latest translations.
+*  v0.562.0: (@yeroon#2590) Set-up the structure to modify the Combat Tracker later (PF2eCombatTracker)
+*  v0.563.0: (@overdox#9174) Language, Actions, Feats, Spells and Backgrounds from Age of Ashes
+*  v0.563.0: (@overdox#9174) Language, Actions, Feats, Spells and Backgrounds Extinction Curse
+*  v0.563.0: (@overdox#9174) Missing spells from Gods and magic
+*  v0.563.0: (@overdox#9174) Feats from Gamemastery Guide
+*  v0.563.0: (@overdox#9174) Updated some icons
+*  v0.563.0: (@overdox#9174) Fixed formatting errors on spells.
+*  v0.563.0: (@yeroon#2590) Bugfix: Elite/weak now increases/decreases a creatures level
+*  v0.563.0: (@yeroon#2590) Bugfix: Spell damage is now increased/decreased for Elite/Weak creatures. (Spell description is not updated)
+*  v0.563.0: (@yeroon#2590) Bugfix: Fixed adjustment of HP when adding or removing Elite/Weak.
+*  v0.561.0: (@Trey) Configured eslint to run against jest tests (backend automation improvements)
+*  v0.561.0: (@Trey) Refactored Spell system to account for Spell Heightening
+*  v0.561.0: (@Trey) Added support for Spell Heightening +2/+3/+4 (prepared only)
+*  v0.561.0: (@Trey) Configured automated testing of spells to use the spell compendium
+*  v0.561.0: (@Arshea#4444) Fixed stamina point calculation errors
+*  v0.561.0: (@Arshea#4444) Refactored HP autocalculation 
+*  v0.561.0: Fixed migration code
+*  v0.561.0: (@TheCraiggers) Fixed leather armor auto-equiping from the equipment compendium
+*  v0.559.0: Added the ability to modify NPC attack damage rolls 
+*  v0.559.0: Consolidated all NPC attacks to use the new damage rolls method
+*  v0.559.0: Cleaned up a lot of duplicate/redundant code
+*  v0.559.0: Separated NPC attack and damage rolls from weapon attack and damage rolls
 *  v0.558.0: (@yeroon#2590) New feature: PF2e conditions as status effects. You can now select PF2e conditions in the token Status Effect HUD. Left click to add, right click to remove. Shift click stays a toggle to add an overlay icon. Conditions that can have values can be clicked multiple times. Once you exit the HUD, all the current PF2e conditions will be output to the chat. The status effects are also now linked to the Actor, and will be shown on all Scenes if that Actor has tokens on other scenes as well. In the System Settings you can choose between multiple icon sets. (Note: if the community has other free to use sets, we can easily add these.) You can also disable showing the default FoundryVTT status effects in the System Settings. (PS. This system is planned to be expanded upon in the future to include (de)buffs and other status effects linked to Actions and Feats.)
 *  v0.558.0: (@yeroon#2590) Updated condition icon folders.
 *  v0.558.0: (@yeroon#2590) Fix shield applyDamage button in chat to show as a toggle.

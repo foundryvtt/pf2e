@@ -47,27 +47,20 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData.preparationType = CONFIG.PF2E.preparationType;
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
-    // Update dying icon and container width if a data migration is not required
-    if (typeof sheetData.data.attributes.dying !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.dying required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
-      sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
-    }
+    // Update dying icon and container width 
+    sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
+    sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
+    
 
-    // Update wounded icon if a data migration is not required (perform data migration if it is)
-    if (typeof sheetData.data.attributes.wounded !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.wounded required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
-    }
+    // Update wounded icon 
+    sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
 
-    // Update doomed icon if a data migration is not required (perform data migration if it is)
-    if (typeof sheetData.data.attributes.doomed !== 'object') {
-      console.log(`PF2e System | Migration for data.attributes.doomed required for ${sheetData.actor.name}`);
-    } else {
-      sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
-    }
+    // Calculating the maximum wounded
+    sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
+    
+    // Update doomed icon
+    sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
+    
 
     // Return data for rendering
     return sheetData;
@@ -144,6 +137,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
+        i.isArmor = true;
+        const equipped = getProperty(i.data, 'equipped.value') || false;
+        i.armorEquipped = equipped?' active':'';
       }
 
       // Inventory
@@ -463,14 +459,21 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    * @private
    */
   _getFocusIcon(focus) {
-    const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
-    };
+    const icons = {};
+    const usedPoint = '<i class="fas fa-dot-circle"></i>';
+    const unUsedPoint = '<i class="far fa-circle"></i>';
+
+    for (let i=0; i<=focus.pool; i++) { //creates focus.pool amount of icon options to be selected in the icons object
+      let iconHtml = '';
+      for (let iconColumn=1; iconColumn<=focus.pool; iconColumn++) { //creating focus.pool amount of icons
+        iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
+      }
+      icons[i] = iconHtml;
+    }
+
     return icons[focus.points];
   }
+
 }
 
 export default ActorSheetPF2eCharacter;

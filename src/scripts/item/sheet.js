@@ -84,9 +84,18 @@ class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (this.item.type === 'melee') {
       // Melee Data
+      const actions = {};
+      if (this.actor) {
+        for (const i of this.actor.data.items) {
+          if (i.type === 'action') actions[i.name] = i.name;
+        }
+      }      
+      data.attackEffects = CONFIG.PF2E.attackEffects;
+      mergeObject(data.attackEffects, actions);
+
       data.hasSidebar = false;
       data.detailsActive = true;
-      data.weaponDamage = CONFIG.PF2E.damageTypes;
+      data.weaponDamage = CONFIG.PF2E.damageTypes;      
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (type === 'feat') {
       // Feat types
@@ -253,6 +262,11 @@ class ItemSheetPF2e extends ItemSheet {
    * wasn't working.
    */
   _onChangeInput(event) {
+    // Unclear where the event conflic is between _onChangeInput and another. 
+    // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc) 
+    // of NPCs can be edited without problems.
+    
+    // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
     this._onSubmit(event);
   }
 }
