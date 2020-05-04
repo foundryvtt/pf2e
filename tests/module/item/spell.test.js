@@ -4,7 +4,7 @@ const characterData = require('tests/fixtures/characterData.json');
 const spellcastingEntry = require('tests/fixtures/items/spellcastingEntry.json');
 
 let electricArc; let shatteringGem; let tempestSurge; let daze; let
-  spiritualWeapon;
+  spiritualWeapon; let forceBolt; let litanyAgainstWrath;
 
 const spellcastingEntryItem = {
   data: spellcastingEntry,
@@ -15,8 +15,9 @@ const actor = {
 };
 
 beforeAll(async () => {
-  const promises = ['Electric Arc', 'Shattering Gem', 'Tempest Surge', 'Daze', 'Spiritual Weapon'].map(async (name) => fetchSpell(name));
-  [electricArc, shatteringGem, tempestSurge, daze, spiritualWeapon] = await Promise.all(promises);
+  const promises = ['Electric Arc', 'Shattering Gem', 'Tempest Surge', 'Daze', 'Spiritual Weapon', 'Force Bolt', 'Litany against Wrath'].map(async (name) => fetchSpell(name));
+  [electricArc, shatteringGem, tempestSurge, daze,
+    spiritualWeapon, forceBolt, litanyAgainstWrath] = await Promise.all(promises);
 });
 
 describe('#spellcastingEntry', () => {
@@ -51,6 +52,18 @@ describe('#damageParts', () => {
     const spell = new Spell(tempestSurge, { castingActor: actor, castLevel: 3 });
 
     expect(spell.damageParts).toEqual(['1d12', '1d12', '1d12']);
+  });
+  test('automatically heightens focus spells not set to level 11', () => {
+    characterData.data.details.level.value = 5;
+    const spell = new Spell(forceBolt, { castingActor: actor, castLevel: 1 });
+
+    expect(spell.damageParts).toEqual(['1d4+1', '1d4+1']);
+  });
+  test('automatically heightens focus spells with a level higher than 1', () => {
+    characterData.data.details.level.value = 7;
+    const spell = new Spell(litanyAgainstWrath, { castingActor: actor });
+
+    expect(spell.damageParts).toEqual(['3d6', '1d6']);
   });
   test('heightens +2 for cantrips', () => {
     characterData.data.details.level.value = 5;
