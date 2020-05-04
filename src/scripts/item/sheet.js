@@ -266,7 +266,8 @@ class ItemSheetPF2e extends ItemSheet {
     // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc) 
     // of NPCs can be edited without problems.
     
-    // this._onSubmit(event);
+    // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
+    this._onSubmit(event);
   }
 }
 
