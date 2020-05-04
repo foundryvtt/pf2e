@@ -54,7 +54,9 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
-
+    // Update class dc label
+    sheetData.data.attributes.classDC.icon = this._getProficiencyIcon(sheetData.data.attributes.classDC.rank);
+    sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
 
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
@@ -553,7 +555,7 @@ class ActorSheetPF2e extends ActorSheet {
       f.toggleClass('active');
       const active = f.hasClass('active');
       this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': active });
-      
+
     });
 
     // Trait Selector
@@ -666,7 +668,7 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.rollLoreSkill(event, item);
     });
 
-    
+
     // Update Item Bonus on an actor.item input
     html.find('.focus-pool-input').change(async (event) => {
       event.preventDefault();
@@ -811,7 +813,7 @@ class ActorSheetPF2e extends ActorSheet {
         const currentLvlToDisplay = {};
         currentLvlToDisplay[item.data.level.value] = true;
         this.actor.updateEmbeddedEntity('OwnedItem', {
-          _id: item.data.location.value, 
+          _id: item.data.location.value,
           'data.showUnpreparedSpells.value': true,
           'data.displayLevels': currentLvlToDisplay
         });
@@ -903,7 +905,7 @@ class ActorSheetPF2e extends ActorSheet {
   }
 
   /**
-   * Handle clicking of stat levels. The max level is by default 4. 
+   * Handle clicking of stat levels. The max level is by default 4.
    * The max level can be set in the hidden input field with a data-max attribute. Eg: data-max="3"
    * @private
    */
@@ -927,11 +929,11 @@ class ActorSheetPF2e extends ActorSheet {
 
     if(statIsItemType=='item') {
       let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      if (itemId == undefined) { 
-        // Then item is spellcastingEntry, this could be refactored 
-        // but data-contained-id and proviciency/proficient need to be refactored everywhere to give 
+      if (itemId == undefined) {
+        // Then item is spellcastingEntry, this could be refactored
+        // but data-contained-id and proviciency/proficient need to be refactored everywhere to give
         // Lore Skills, Martial Skills and Spellcasting Entries the same structure.
-        
+
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
         if ($(event.currentTarget).attr('title') == game.i18n.localize("PF2E.Focus.pointTitle")) {
           const item = this.actor.getOwnedItem(itemId);
@@ -1261,7 +1263,7 @@ class ActorSheetPF2e extends ActorSheet {
       const currentLvlToDisplay = {};
       currentLvlToDisplay[data.level] = true;
       this.actor.updateEmbeddedEntity('OwnedItem', {
-        _id: data.location, 
+        _id: data.location,
         'data.showUnpreparedSpells.value': true,
         'data.displayLevels': currentLvlToDisplay
       });

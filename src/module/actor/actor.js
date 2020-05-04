@@ -66,7 +66,7 @@ export default class extends Actor {
    */
   _prepareCharacterData(data) {
     const character = new CharacterData(data, this.items);
-    // Level, experience, and proficiency
+    // Level, experience, and classDCProficiency
     data.details.level.value = character.level;
     data.details.xp.max = character.maxExp;
     data.details.xp.pct = character.xpPercent;
@@ -76,14 +76,14 @@ export default class extends Actor {
     if (game.settings.get('pf2e', 'staminaVariant')) {
       const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
       const halfClassHp = Math.floor(data.attributes.classhp / 2);
-      
-      data.attributes.sp.max = (halfClassHp + data.abilities.con.mod) * data.details.level.value 
-        + bonusSpPerLevel 
+
+      data.attributes.sp.max = (halfClassHp + data.abilities.con.mod) * data.details.level.value
+        + bonusSpPerLevel
         + data.attributes.flatbonussp;
-      
-      data.attributes.hp.max = data.attributes.ancestryhp + 
-        (halfClassHp*data.details.level.value) 
-        + data.attributes.flatbonushp 
+
+      data.attributes.hp.max = data.attributes.ancestryhp +
+        (halfClassHp*data.details.level.value)
+        + data.attributes.flatbonushp
         + bonusHpPerLevel;
     } else {
       data.attributes.hp.max = data.attributes.ancestryhp
@@ -110,6 +110,12 @@ export default class extends Actor {
     const proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
     data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
     data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
+
+    // Class DC
+    data.attributes.classDC.ability = data.details.keyability.value;
+    const classDCProficiency = data.attributes.classDC.rank ? (data.attributes.classDC.rank * 2) + data.details.level.value : 0;
+    data.attributes.classDC.value = data.abilities[data.attributes.classDC.ability].mod + classDCProficiency + data.attributes.classDC.item;
+    data.attributes.classDC.breakdown = `${data.attributes.classDC.ability} modifier(${data.abilities[data.attributes.classDC.ability].mod}) + proficiency(${classDCProficiency}) + item bonus(${data.attributes.classDC.item})`;
 
     // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
     // TODO: speed penalties are not automated
@@ -183,7 +189,7 @@ export default class extends Actor {
     const flatCheck = new Roll("1d20").roll();
     const dc = recoveryDc + dying;
     let result = '';
-    
+
     if (flatCheck.result == 20 || flatCheck.result >= (recoveryDc+10)) {
       result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
     } else if (flatCheck.result == 1 || flatCheck.result <= (recoveryDc-10)) {
@@ -311,9 +317,10 @@ export default class extends Actor {
    * @param skill {String}    The skill id
    */
   rollAttribute(event, attributeName) {
+    console.log(attributeName);
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod'];
-    const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
+    const flavor = `${game.i18n.localize(CONFIG.PF2E.attributes[attributeName])} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -366,7 +373,7 @@ export default class extends Actor {
           </div>
           </div>
           `;
-        
+
         const succeslyApplied = await t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
         if (succeslyApplied ) {
           ChatMessage.create({
@@ -520,7 +527,7 @@ export default class extends Actor {
         if (value < 0) {
           value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
           const hp = this.data.data.attributes.hp;
-          if (value < 0) { //substract the value from (temp)HP as well 
+          if (value < 0) { //substract the value from (temp)HP as well
             if ((hp.temp + value) >= 0) {
               const newTempHp = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: newTempHp});
