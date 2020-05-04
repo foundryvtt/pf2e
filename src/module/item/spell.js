@@ -66,7 +66,15 @@ class Spell {
   }
 
   get autoScalingSpell() {
-    return this.spellLevel === 0 || this.spellLevel === 11;
+    return this.spellLevel === 0 || this.spellLevel === 11 || this.isFocusSpell;
+  }
+
+  get isFocusSpell() {
+    return this.traditions.includes('focus');
+  }
+
+  get traditions() {
+    return this.data.data?.traditions?.value || [];
   }
 
   get heighteningModes() {
@@ -83,8 +91,11 @@ class Spell {
     if (this.scaling.formula !== '') {
       const heighteningDivisor = this.heighteningModes[this.scaling.mode];
       if (heighteningDivisor) {
-        let partCount = this.castLevel - 1;
-        if (!this.autoScalingSpell) partCount = this.castLevel - this.spellLevel;
+        let effectiveSpellLevel = 1;
+        if (this.spellLevel > 0 && this.spellLevel < 11) {
+          effectiveSpellLevel = this.spellLevel;
+        }
+        let partCount = this.castLevel - effectiveSpellLevel;
         partCount = Math.floor(partCount / heighteningDivisor);
         parts = Array(partCount).fill(this.scaling.formula);
       }
