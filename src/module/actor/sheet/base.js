@@ -669,8 +669,11 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.focus-pool-input').change(async (event) => {
       event.preventDefault();
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-      const pool = Math.clamped(Number(event.target.value), 0, 3);
-      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.pool': pool });
+      const focusPool = Math.clamped(Number(event.target.value), 0, 3);
+      const item = this.actor.getOwnedItem(itemId);
+      let focusPoints = getProperty(item.data, 'data.focus.points') || 0;
+      focusPoints = Math.clamped( focusPoints , 0, focusPool );
+      await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': focusPoints, 'data.focus.pool': focusPool });
     });
 
     // Update Item Bonus on an actor.item input
@@ -928,6 +931,9 @@ class ActorSheetPF2e extends ActorSheet {
         
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
         if ($(event.currentTarget).attr('title') == game.i18n.localize("PF2E.Focus.pointTitle")) {
+          const item = this.actor.getOwnedItem(itemId);
+          const focusPoolSize = getProperty(item.data, 'data.focus.pool') || 1;
+          newLevel = Math.clamped( newLevel , 0, focusPoolSize );
           this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': newLevel });
         } else {
           this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
