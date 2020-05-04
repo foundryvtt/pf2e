@@ -39,6 +39,9 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
+    // Calculating the maximum wounded
+    sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
+
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
       abl.label = CONFIG.PF2E.abilities[a];
@@ -381,12 +384,19 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getWoundedIcon(level) {
-    const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-dot-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i><i class="fas fa-dot-circle"></i>',
-    };
+    const maxDying = this.object.data.data.attributes.dying.max || 4;
+    const icons = {};
+    const usedPoint = '<i class="fas fa-dot-circle"></i>';
+    const unUsedPoint = '<i class="far fa-circle"></i>';
+
+    for (let i=0; i<maxDying; i++) {
+      let iconHtml = '';
+      for (let iconColumn=1; iconColumn<maxDying; iconColumn++) {
+        iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
+      }
+      icons[i] = iconHtml;
+    }
+
     return icons[level];
   }
 
@@ -879,7 +889,8 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
     const maxDying = this.object.data.data.attributes.dying.max;
-    const wounded = this.object.data.data.attributes.wounded.value;
+    // const wounded = this.object.data.data.attributes.wounded.value;
+    const wounded = 0; //Don't automate wounded when clicking on dying until dying is also automated on damage from chat and Recovery rolls
     const doomed = this.object.data.data.attributes.doomed.value;
 
     // Get the current level and the array of levels
