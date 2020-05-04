@@ -262,7 +262,11 @@ class ItemSheetPF2e extends ItemSheet {
    * wasn't working.
    */
   _onChangeInput(event) {
-    this._onSubmit(event);
+    // Unclear where the event conflic is between _onChangeInput and another. 
+    // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc) 
+    // of NPCs can be edited without problems.
+    
+    // this._onSubmit(event);
   }
 }
 
