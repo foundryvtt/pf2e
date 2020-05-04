@@ -156,7 +156,7 @@ class ActorSheetPF2e extends ActorSheet {
       uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].value) || 0 : 0,
       slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].max) || 0 : 0,
       displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[lvl] !== undefined ? (spellcastingEntry.data.displayLevels[lvl]) : true,
-      unpreparedSpellsLabel: (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
+      unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
     };
 
     // Add the spell to the spellbook at the appropriate level
