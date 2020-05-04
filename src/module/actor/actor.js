@@ -66,7 +66,7 @@ export default class extends Actor {
    */
   _prepareCharacterData(data) {
     const character = new CharacterData(data, this.items);
-    // Level, experience, and classDCProficiency
+    // Level, experience, and proficiency
     data.details.level.value = character.level;
     data.details.xp.max = character.maxExp;
     data.details.xp.pct = character.xpPercent;
@@ -317,7 +317,6 @@ export default class extends Actor {
    * @param skill {String}    The skill id
    */
   rollAttribute(event, attributeName) {
-    console.log(attributeName);
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod'];
     const flavor = `${game.i18n.localize(CONFIG.PF2E.attributes[attributeName])} Check`;
