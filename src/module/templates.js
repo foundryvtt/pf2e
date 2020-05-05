@@ -3,6 +3,7 @@ export default function () {
     // Actor Sheet Partials (Main)
     'systems/pf2e/templates/actors/main/actor-header.html',
     'systems/pf2e/templates/actors/main/actor-armorclass.html',
+    'systems/pf2e/templates/actors/main/actor-class-dc.html',
     'systems/pf2e/templates/actors/main/actor-health.html',
     'systems/pf2e/templates/actors/main/actor-stamina.html',
     'systems/pf2e/templates/actors/main/actor-resistances.html',
