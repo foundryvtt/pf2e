@@ -140,7 +140,15 @@
       if (worldSchemaVersion < 0.567) { 
         if (actor.data.type === 'character') {
           console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
-          deltaData['data.attributes.bonusbulk'] = 0; 
+          deltaData['data.attributes.bonusbulk'] = 0;
+          let classDC = {
+            "rank": 0,
+            "ability": "str",
+            "item": 0,
+            "value": 0,
+            "breakdown": ""
+          }
+          deltaData['data.attributes.classDC'] = classDC;
           await actor.update(deltaData);
           console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
           updated = true;
