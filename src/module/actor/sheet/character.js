@@ -432,7 +432,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Compute Encumbrance percentage
     const enc = {
-      max: actorData.data.abilities.str.mod + 5,
+      max: actorData.data.abilities.str.mod + actorData.data.attributes.bonusbulk + 5,
       value: Math.floor(totalWeight),
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
