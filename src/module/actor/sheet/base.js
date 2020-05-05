@@ -54,10 +54,6 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
-    // Update class dc label
-    sheetData.data.attributes.classDC.icon = this._getProficiencyIcon(sheetData.data.attributes.classDC.rank);
-    sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
-
     // Ability Scores
     for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
       abl.label = CONFIG.PF2E.abilities[a];

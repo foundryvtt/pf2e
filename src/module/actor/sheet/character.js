@@ -42,25 +42,29 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
     sheetData.data.attributes.heroPoints.hover = CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
 
+    // Update class dc label
+    sheetData.data.attributes.classDC.icon = this._getProficiencyIcon(sheetData.data.attributes.classDC.rank);
+    sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
+
     // Spell Details
     sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
     sheetData.preparationType = CONFIG.PF2E.preparationType;
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
-    // Update dying icon and container width 
+    // Update dying icon and container width
     sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
     sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
-    
 
-    // Update wounded icon 
+
+    // Update wounded icon
     sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
 
     // Calculating the maximum wounded
     sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
-    
+
     // Update doomed icon
     sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
-    
+
 
     // Return data for rendering
     return sheetData;
