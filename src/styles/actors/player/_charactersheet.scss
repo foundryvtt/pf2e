@@ -1688,3 +1688,83 @@
   font-weight: bold;
   font-size: inherit;
 }
+
+// Updated NPC Sheet Styles
+
+.pf2e.actor .sheet-header .charname.updatednpcsheet {
+  flex: 1.5;
+}
+.pf2e.actor .sheet-header .charlevel.updatednpcsheet {
+  flex: 1;
+}
+
+.npc-detail-text {
+  display: flex;
+  background: var(--secondary-background);
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.pf2e.sheet form .npc-detail-text input[type="text"] {
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
+  border: 1px solid black;
+}
+
+.npc-detail-text input.ac-detail {
+  /*width: 73px;*/
+}
+
+.npc-detail-text input.hp-detail {
+  /*width: 140px;*/
+}
+
+.npc-detail-text textarea {
+  height: fit-content;
+  overflow-y: hidden;
+  resize: none;
+  width: calc(100% - 2px);
+  min-height: 26px;
+  font-family: inherit;
+}
+
+.pf2e.sheet form .defense-list input.stat-detail {
+  display: flex;
+  font-size: 13px;
+  height: 18px;
+  background: rgba(183, 91, 91, 0.2);
+  color: black;
+  border: 1px solid black;
+  width: calc(100% - 4px);
+}
+
+.pf2e.actor .sheet-header .charlevel .level > input[type="checkbox"] {
+  flex: 0 0 26px;
+}
+
+.pf2e.sheet form .defense-list.stats-section {
+  grid-auto-rows: auto;
+  grid: "defense" auto;
+}
+
+.pf2e.updatedNPCSheet form .inventory-list .item .item-name h4,
+.pf2e.updatedNPCSheet form .inventory-list .item .melee-name h4 {
+  flex: 2;
+  line-height: 1.4em;
+  padding-top: 0.2em;
+}
+.pf2e.updatedNPCSheet form .inventory-list .item .melee-name div.melee-buttons {
+  max-width: 80%;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.pf2e.actor .inventory-list .item .spell-buttons {
+  flex: none;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
