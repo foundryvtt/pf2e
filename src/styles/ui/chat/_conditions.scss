@@ -1,0 +1,95 @@
+.message-content .dice-roll .statuseffect-message ul {
+  list-style-type: none;
+}
+.message-content .dice-roll .statuseffect-message li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 24px;
+}
+.message-content .dice-roll .statuseffect-message li:not(:last-child) {
+  margin-bottom: 3px;
+}
+.message-content .dice-roll .statuseffect-message li img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+.message-content .dice-roll .statuseffect-li {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+.message-content .dice-roll .statuseffect-li-text {
+  display: inline-block;
+  width: 200px;
+}
+.message-content .dice-roll .statuseffect-rules {
+  visibility: hidden;
+  width: 264px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: -42px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: normal;
+
+  background: url(../../ui/parchment.jpg) repeat;
+  border: 1px solid #999;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #fff inset;
+  opacity: 0;
+  transition: opacity 1s;
+}
+.message-content .dice-roll .statuseffect-rules p {
+  margin: 0;
+}
+.statuseffect-li-text:hover + .statuseffect-rules {
+  visibility: visible;
+  opacity: 1;
+}
+.status-effects .status-effect-summary {
+  visibility: hidden;
+  width: 174px;
+  padding: 3px;
+  position: absolute;
+  z-index: 1;
+  top: -30px;
+  left: 0px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: normal;
+
+  box-sizing: content-box;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 15px #000;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+.status-effects .status-effect-summary.active {
+  visibility: visible;
+}
+input[type="number"] {
+  width: calc(100% - 2px);
+  min-width: 20px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 3px;
+  margin: 0;
+  color: #191813;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  border: 1px solid #7a7971;
+  border-radius: 3px;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}

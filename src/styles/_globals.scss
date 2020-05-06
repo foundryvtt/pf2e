@@ -1,0 +1,62 @@
+/* The one file to rule them all  */
+
+/* Fonts */
+@font-face {
+  font-family: "Nodesto";
+  src: url("../fonts/NodestoCapsCondensed.otf");
+}
+@font-face {
+  font-family: "Pathfinder2eActions";
+  src: url("../fonts/Pathfinder2eActions.ttf");
+}
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+/* Nodesto Font */
+.nodesto {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 18px;
+  color: #444;
+}
+
+/* Set Globals */
+:root {
+  --primary-background: rgb(69, 74, 124);
+  /*   --secondary-background: #b75b5b;
+  --tertiary-background: darkred;
+ */
+  --secondary-background: gray;
+  --tertiary-background: rgb(69, 74, 124);
+  --alternate-background: darkgray;
+}
+
+/* Flexbox */
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.flexrow > * {
+  flex: 1;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.flexcol > * {
+  flex: 1;
+}
+.tab[data-tab].active {
+  display: initial;
+}
