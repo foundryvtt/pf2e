@@ -1,0 +1,139 @@
+.pf2e.sheet form.updatedNPCSheet {
+  overflow-y: scroll;
+}
+.pf2e.sheet form.updatedNPCSheet .contentcontainer {
+  position: relative;
+  display: block;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+  z-index: 2;
+}
+.pf2e.sheet form.updatedNPCSheet .bgcontainer {
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  opacity: 0.25;
+  content: "";
+  z-index: 1;
+  position: absolute;
+  pointer-events: none;
+}
+.pf2e.sheet form.updatedNPCSheet .bgcontainer.hidden {
+  visibility: hidden;
+}
+/*
+  HEADER
+*/
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar {
+  display: flex;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar h1 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar * {
+  margin-bottom: 0.1em;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar .name {
+  flex: 9;
+  justify-content: flex-start;
+  font-variant: small-caps;
+}
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar .level {
+  justify-content: flex-end;
+}
+
+.pf2e.sheet form.updatedNPCSheet hr {
+  border-top: 2px solid black;
+  margin-block-start: 0;
+}
+.pf2e.sheet form.updatedNPCSheet .item hr {
+  border-width: 1px;
+  border-top-color: #111;
+  margin-block-start: 0.5em;
+}
+.pf2e.sheet form.updatedNPCSheet .editNPCButton {
+  display: flex;
+  justify-content: flex-end;
+}
+.pf2e.sheet form.updatedNPCSheet .editNPCButton * {
+  align-self: center;
+}
+/*
+  TRAITS
+*/
+.traits-bar {
+  display: flex;
+  align-items: flex-start;
+}
+.traits-bar .trait {
+  background-color: #5e0000;
+  border-color: #d8c483;
+  border-style: double;
+  border-width: 2px;
+  padding: 0 1em;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Teko", sans-serif;
+  padding-top: 0.2em;
+}
+.traits-bar .trait.alignment {
+  background-color: #5e657a;
+}
+.traits-bar .trait.size {
+  background-color: #447b5c;
+}
+
+/*
+  Top-section
+*/
+.pf2e.sheet form.updatedNPCSheet .top-section {
+  display: flex;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-stats-container {
+  flex: 2;
+  order: 1;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container {
+  flex: 1;
+  order: 2;
+  padding-right: 0.2em;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container * {
+  text-align: right;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current {
+  height: 24px;
+  font-size: 20px;
+  display: inline-flex;
+  flex-direction: row;
+}
+.pf2e.sheet
+  form.updatedNPCSheet
+  .top-section
+  .top-quick-container
+  .hp-current
+  label {
+  width: auto;
+  flex: 5;
+}
+.pf2e.sheet
+  form.updatedNPCSheet
+  .top-section
+  .top-quick-container
+  .hp-current
+  input {
+  width: auto;
+  flex: 1;
+}
+.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container textarea {
+  resize: none;
+  flex: 2;
+}
