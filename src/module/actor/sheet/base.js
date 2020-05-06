@@ -23,13 +23,14 @@ class ActorSheetPF2e extends ActorSheet {
    * @type {String}
    */
   get actorType() {
-	  return this.actor.data.type;
+    return this.actor.data.type;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
+   * Add some extra data when rendering the sheet to reduce the
+   * amount of logic required within the template.
    */
   getData() {
     const sheetData = super.getData();
@@ -55,12 +56,12 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
 
     // Ability Scores
-    for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+    for (const [a, abl] of Object.entries(sheetData.data.abilities)) {
       abl.label = CONFIG.PF2E.abilities[a];
     }
 
     // Update skill labels
-    for (let [s, skl] of Object.entries(sheetData.data.skills)) {
+    for (const [s, skl] of Object.entries(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
       skl.icon = this._getProficiencyIcon(skl.rank);
       skl.hover = CONFIG.PF2E.proficiencyLevels[skl.value];
@@ -68,7 +69,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Currency Labels
-    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
+    for (const [c, currency] of Object.entries(sheetData.data.currency)) {
       currency.label = CONFIG.PF2E.currencies[c];
     }
 
@@ -106,10 +107,8 @@ class ActorSheetPF2e extends ActorSheet {
         trait.selected = {};
         for (const entry of trait) {
           if (typeof entry === 'object') {
-            if ('exceptions' in entry && entry.exceptions != "")
-              trait.selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
-            else
-              trait.selected[entry.type] = `${choices[entry.type]} (${entry.value})`;
+            if ('exceptions' in entry && entry.exceptions !== '') trait.selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
+            else trait.selected[entry.type] = `${choices[entry.type]} (${entry.value})`;
           } else {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
@@ -117,7 +116,7 @@ class ActorSheetPF2e extends ActorSheet {
       } else {
         trait.selected = trait.value.reduce((obj, t) => {
           obj[t] = choices[t];
-           return obj;
+          return obj;
         }, {});
       }
 
