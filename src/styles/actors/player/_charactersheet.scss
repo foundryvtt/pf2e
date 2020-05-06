@@ -1227,3 +1227,464 @@
 .pf2e.actor.npc-sheet .biography .editor {
   height: 465px;
 }
+.pf2e.actor .currency {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--secondary-background);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  height: 24px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.pf2e.actor .currency > * {
+  flex: 1;
+}
+.pf2e.actor .currency li.denomination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 3px 3px 0;
+  justify-content: flex-end;
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .currency li.denomination > * {
+  flex: 1;
+}
+.pf2e.actor .currency li.denomination label {
+  flex: none;
+  margin-right: 3px;
+}
+.pf2e.actor .currency li.denomination input {
+  text-align: right;
+  max-width: 48px;
+}
+.pf2e.actor .currency li.denomination:last-child {
+  border-right: none;
+}
+.pf2e.actor .inventory-header {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /*   height: 100%;
+  overflow-y: auto; */
+  /* Inventory Item */
+  /* Inventory Header */
+}
+.pf2e.actor .inventory-header .item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  line-height: 24px;
+  padding: 0;
+  border-bottom: 1px solid var(--secondary-background);
+  /* Item Dropdown Summary */
+}
+.pf2e.actor .inventory-header .item > * {
+  flex: 1;
+}
+.pf2e.actor .inventory-header .item .item-name,
+.pf2e.actor .inventory-header .item .melee-name,
+.pf2e.actor .inventory-header .item .npc-skill-name {
+  /* display: flex; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+.pf2e.actor .inventory-header .item .item-name > *,
+.pf2e.actor .inventory-header .item .melee-name > *,
+.pf2e.actor .inventory-header .item .npc-skill-name > * {
+  flex: 1;
+}
+.pf2e.actor .inventory-header .item .item-name h4,
+.pf2e.actor .inventory-header .item .melee-name h4,
+.pf2e.actor .inventory-header .item .npc-skill-name h4 {
+  flex: 2;
+  margin: 0;
+}
+.pf2e.actor .inventory-header .item .item-controls,
+.pf2e.actor .action-header .item-controls {
+  flex: 0 0 44px;
+}
+.pf2e.actor .inventory-header .item .item-controls a,
+.pf2e.actor .action-header .item-controls a {
+  display: block;
+  float: left;
+  width: 44px;
+  font-size: 14px;
+  text-align: center;
+  /* color: #666; */
+}
+.pf2e.actor .inventory-header .action-header h3 {
+  font-size: 24px;
+  margin: 0;
+  padding-left: 32px;
+  text-align: center;
+  /* font-weight: bold; */
+}
+.pf2e.actor .inventory-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  margin-bottom: 2px;
+}
+.pf2e.actor .spellcastingEntry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+.pf2e.actor .singleColumn-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* height: calc(100% - 20px); */
+  overflow-y: auto;
+}
+.pf2e.actor .overflow-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+.pf2e.actor .inventory-list .item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  line-height: 24px;
+  padding: 0;
+  border-bottom: 1px solid var(--secondary-background);
+  /* Item Dropdown Summary */
+}
+.pf2e.actor .inventory-list .item > * {
+  flex: 1;
+}
+.pf2e.actor .inventory-list .item .item-name,
+.pf2e.actor .inventory-list .item .melee-name {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+.pf2e.actor .inventory-list .item .feat-name {
+  /* display: flex; */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+/* .pf2e.actor .inventory-list .item .item-name > * {
+  flex: 1;
+} */
+.pf2e.actor .inventory-list .item .item-name .item-image,
+.pf2e.actor .inventory-list .item .melee-name .item-image {
+  flex: 0 0 24px;
+  margin-right: 6px;
+  background-size: 24px;
+  background-repeat: no-repeat;
+}
+.pf2e.actor .inventory-list .item .item-name h4,
+.pf2e.actor .inventory-list .item .melee-name h4 {
+  flex: 2;
+  margin: 0;
+}
+.pf2e.actor .inventory-list .item .item-name .prepared {
+  color: #666;
+  margin-left: 3px;
+  font-size: 10px;
+}
+.pf2e.actor .inventory-list .item .item-name .item-charges {
+  color: #666;
+  font-size: 12px;
+  flex: 0;
+}
+.pf2e.actor .inventory-list .item .item-name:hover .item-image {
+  background-image: url("/icons/svg/d20-grey.svg") !important;
+}
+.pf2e.actor .inventory-list .item .item-name .item-image:hover {
+  background-image: url("/icons/svg/d20-black.svg") !important;
+}
+.pf2e.actor .inventory-list .item .item-quantity,
+.pf2e.actor .inventory-list .item .item-weight {
+  flex: 0 0 32px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .inventory-list .item .item-controls {
+  flex: 0 0 66px;
+}
+.pf2e.actor .inventory-list .item .item-controls a,
+.pf2e.actor .item.action-header .item-controls a {
+  display: block;
+  float: left;
+  width: 22px;
+  font-size: 10px;
+  text-align: center;
+  color: #666;
+}
+.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip {
+  color: #aaa;
+}
+.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip.active {
+  color: #666;
+}
+.pf2e.actor .inventory-list .item .item-summary {
+  flex: 0 0 100%;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  border-top: 1px solid var(--secondary-background);
+}
+.pf2e.actor .inventory-list .action-header h3 {
+  font-size: 24px;
+  margin: 0;
+  padding-left: 32px;
+  text-align: center;
+  /* font-weight: bold; */
+}
+.pf2e.actor .action-header .item-controls a.item-create,
+.pf2e.actor .action-header .item-controls a.item-delete,
+.pf2e.actor .action-header .item-controls a.feat-browse,
+.pf2e.actor .action-header .item-controls a.action-browse,
+.pf2e.actor .inventory-header .item-controls a.inventory-browse {
+  width: 100%;
+  color: #fff;
+  background: var(--primary-background);
+}
+.pf2e.actor .inventory-list .inventory-header {
+  font-weight: 700;
+  line-height: 20px;
+  /* background: rgba(0, 0, 0, 0.05); */
+  background: var(--primary-background);
+}
+.pf2e.actor .inventory-list .inventory-header.sub-category {
+  font-weight: 700;
+  line-height: 20px;
+  /* background: rgba(0, 0, 0, 0.05); */
+  background: var(--secondary-background);
+}
+.pf2e.actor .inventory-list .inventory-header h3 {
+  font-size: 1em;
+  margin: 0;
+  padding-left: 5px;
+  font-weight: bold;
+}
+.pf2e.actor .inventory-list .inventory-header .item-quantity,
+.pf2e.actor .inventory-list .inventory-header .item-weight {
+  color: white;
+}
+.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create {
+  width: 100%;
+  color: white;
+}
+.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-create,
+.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-browse {
+  /* width: 100%; */
+  color: white;
+}
+.pf2e.actor .inventory-list .inventory-header > * {
+  color: white;
+}
+.pf2e.actor.character-sheet .inventory-list {
+  height: calc(100% - 42px);
+  /* height: 100%; */
+}
+.pf2e.actor .encumbrance {
+  background: rgba(0, 0, 0, 0.1);
+  height: 12px;
+  margin-top: 5px;
+  border: 1px solid #111;
+  border-radius: 3px;
+  position: relative;
+  width: calc(100% - 20px);
+}
+.pf2e.actor .encumbrance .encumbrance-bar {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: var(--secondary-background);
+  height: 8px;
+  border: 1px solid #6f5439;
+  border-radius: 3px;
+}
+.pf2e.actor .encumbrance .encumbrance-label {
+  position: absolute;
+  top: -3px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #000;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0 3px;
+}
+.pf2e.actor .encumbrance .encumbrance-breakpoint {
+  position: absolute;
+  left: 66%;
+}
+.pf2e.actor .encumbrance .arrow-up {
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #666;
+}
+.pf2e.actor .encumbrance .arrow-down {
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #666;
+}
+.pf2e.actor .encumbrance.encumbered .arrow-up {
+  border-bottom: 4px solid #000;
+}
+.pf2e.actor .encumbrance.encumbered .arrow-down {
+  border-top: 4px solid #000;
+}
+.pf2e.actor .spellbook .spellcasting-ability {
+  margin: 0;
+  padding: 3px 3px 0;
+  border-bottom: 1px solid var(--secondary-background);
+  font-size: 12px;
+}
+.pf2e.actor .spellbook .spellcasting-ability label {
+  line-height: 20px;
+}
+.pf2e.actor .spellbook .spellcasting-ability select {
+  flex: 1;
+}
+.pf2e.actor .spellbook .inventory-list .item .spell-school-header,
+.pf2e.actor .spellbook .inventory-list .item .spell-action-header {
+  color: white;
+  flex: 1;
+  font-size: 12px;
+  text-align: center;
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .spellbook .prepared-toggle {
+  flex: 0 0 20px;
+  line-height: 24px;
+  background: var(--primary-background);
+  padding-left: 5px;
+}
+.pf2e.actor .spellbook .level-prepared-toggle {
+  flex: 0 0 20px;
+  line-height: 19px;
+  background: var(--secondary-background);
+  padding-left: 5px;
+  font-size: 0.8em;
+}
+.pf2e.actor .spellbook .level-prepared-header {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  letter-spacing: 2px;
+  font-weight: 100;
+  font-size: 20px;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .level-prepared-toggle-div {
+  flex: 0 0 25px;
+}
+.pf2e.actor .spellbook .spellbook-item {
+  font-style: oblique;
+  opacity: 0.8;
+}
+.pf2e.actor .spellbook .inventory-list .spellbook-item h4 {
+  margin-left: 30px;
+}
+.pf2e.actor .spellbook .inventory-list {
+  height: calc(100% - 96px);
+}
+.pf2e.actor .spellbook .item .item-name,
+.pf2e.actor .spellbook .item .melee-name {
+  flex: 2;
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .item .spell-school,
+.pf2e.actor .item .spell-action {
+  flex: 1;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .item .spell-slots,
+.pf2e.actor .item .spell-max {
+  flex: 0 0 24px;
+  font-size: 12px;
+  text-align: center;
+}
+.pf2e.actor .item .spell-slots-input,
+.pf2e.actor .item .spell-max-input {
+  flex: 0 0 24px;
+  font-size: 12px;
+  text-align: center;
+  background: white;
+  border: 1px solid;
+  border-radius: 17px;
+  height: 18px;
+  margin-top: 1px;
+}
+.pf2e.actor .item .spell-max {
+  border-right: 1px solid var(--secondary-background);
+}
+.pf2e.actor .spellbook-empty .item-controls {
+  flex: 1;
+}
+.pf2e.actor.character-sheet .spellbook .item-controls {
+  flex: 0 0 44px;
+}
+.pf2e.actor .feats .feats-list {
+  height: 100%;
+}
+.pf2e.actor .feats .feats-list .item-name {
+  flex: 2;
+}
+.pf2e.actor .feat-uses {
+  display: inline;
+  font-size: 11px;
+  color: #444;
+}
+.pf2e.actor #short-rest-hd label {
+  flex: 0 0 60px;
+  line-height: 24px;
+}
+.pf2e.actor #short-rest-hd #roll-hd {
+  line-height: 24px;
+  margin-left: 6px;
+}
+/* ----------------------------------------- */
+/* Trait Selector
+/* ----------------------------------------- */
+#trait-selector .trait-list {
+  list-style: none;
+  margin: 0 0 0.5em;
+  padding: 0;
+}
+/* ----------------------------------------- */
+/* Special Traits and Flags
+/* ----------------------------------------- */
+#actor-flags h3.flags-section {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 3px;
+  margin: 0;
+  font-weight: bold;
+  font-size: inherit;
+}
