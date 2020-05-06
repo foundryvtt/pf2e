@@ -646,6 +646,7 @@ class ActorSheetPF2e extends ActorSheet {
         case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
         case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
         case 'npcDamage': item.rollNPCDamage(ev); break;
+        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
         case 'featAttack': item.rollFeatAttack(ev); break;
@@ -1197,6 +1198,7 @@ class ActorSheetPF2e extends ActorSheet {
             item.data.data.hands.value = !item.data.data.hands.value;
             // this.actor.updateOwnedItem(item.data, true);
             this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+            this._render();
 
             break;
           case 'weaponAttack': item.rollWeaponAttack(ev); break;
