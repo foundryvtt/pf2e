@@ -1,0 +1,51 @@
+/* The one file to rule them all  */
+
+/* Fonts */
+@font-face {
+  font-family: "Nodesto";
+  src: url("fonts/NodestoCapsCondensed.otf");
+}
+@font-face {
+  font-family: "Pathfinder2eActions";
+  src: url("fonts/Pathfinder2eActions.ttf");
+}
+
+/* Nodesto Font */
+.nodesto {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 18px;
+  color: #444;
+}
+
+/* Set Globals */
+:root {
+  --primary-background: rgb(69,74,124);
+/*   --secondary-background: #b75b5b;
+  --tertiary-background: darkred;
+ */
+  --secondary-background: gray;
+  --tertiary-background: rgb(69,74,124);
+  --alternate-background: darkgray;
+}
+
+/* Flexbox */
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.flexrow > * {
+  flex: 1;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.flexcol > * {
+  flex: 1;
+}
+.tab[data-tab].active {
+  display: initial;
+}
