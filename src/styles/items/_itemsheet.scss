@@ -1,0 +1,198 @@
+/* ----------------------------------------- */
+/*  Item Sheet Structure
+/* ----------------------------------------- */
+.pf2e.item form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.pf2e.item form > * {
+  flex: 1;
+}
+.pf2e.item form .sheet-header {
+  flex: 0 0 70px;
+  width: 100%;
+  padding-bottom: 6px;
+}
+.pf2e.item form .sheet-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.pf2e.item form .sheet-content > * {
+  flex: 1;
+}
+.pf2e.item form .sheet-content .sheet-sidebar {
+  flex: 0 0 120px;
+  height: 350px;
+}
+.pf2e.item form .sheet-content .sheet-body {
+  flex: 1;
+  height: 350px;
+}
+.pf2e.item form .tab {
+  padding-left: 10px;
+}
+/* ----------------------------------------- */
+/*  Item Sheet Style
+/* ----------------------------------------- */
+.pf2e.item form .form-list {
+  border: 1px solid var(--secondary-background);
+  border-radius: 5px;
+  padding-left: 2px;
+  padding-right: 4px;
+}
+.pf2e.item form .form-group {
+  height: 24px;
+  margin: 2px 0;
+}
+.pf2e.item form .sheet-body input[type="text"] {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #AAA;
+  padding: 3px;
+}
+.pf2e.item form .sheet-header {
+  border-bottom: 1px solid var(--secondary-background);
+}
+.pf2e.item form .sheet-header img {
+  flex: 0 0 64px;
+  margin-right: 6px;
+}
+.pf2e.item form .sheet-sidebar {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.pf2e.item form .sheet-sidebar > * {
+  flex: 1;
+}
+.pf2e.item form .sheet-sidebar .sidebar-summary {
+  flex: 0 0 28px;
+  line-height: 29px;
+  margin: 0 0 0.5em;
+  text-align: center;
+  border-bottom: 1px solid var(--secondary-background);
+}
+.pf2e.item form .sheet-sidebar .item-summary {
+  flex: 0 0 28px;
+  line-height: 28px;
+  text-align: center;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 18px;
+  color: #444;
+}
+.pf2e.item form .sheet-sidebar .item-tags {
+  flex: 0;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 6px;
+  border-top: 1px solid var(--secondary-background);
+}
+.pf2e.item form .sheet-sidebar .item-tags .tag {
+  display: block;
+  float: none;
+  width: 100%;
+  text-align: center;
+}
+.pf2e.item form .sheet-sidebar .inventory-details {
+  flex: 0;
+}
+.pf2e.item form .sheet-sidebar .inventory-details label {
+  font-weight: bold;
+}
+.pf2e.item form .sheet-sidebar .inventory-details .form-group input {
+  text-align: right;
+}
+.pf2e.item form .sheet-tabs {
+  border-bottom: 1px solid var(--secondary-background);
+}
+.pf2e.item form .sheet-tabs .active {
+  text-decoration: underline;
+}
+.pf2e.item form .editor {
+  height: 100%;
+}
+.pf2e.item form .pf-value {
+  background: #fff;
+  border: 1px solid var(--tertiary-background);
+  text-align: center;
+}
+.pf2e.item form .pf-large {
+  height: 40px;
+}
+.pf2e.item form .item-details {
+  padding: 8px 8px 0;
+  overflow-y: auto;
+}
+.pf2e.item form .item-details label {
+  color: #888;
+  font-weight: bold;
+}
+.pf2e.item form .item-details select {
+  font-size: 12px;
+  height: 24px;
+}
+.pf2e.item form .details-container {
+  display: grid;
+  grid: "dice die type" / 40px 60px auto;
+}
+.pf2e.item form .effects-container {
+  display: grid;
+  grid: "effect number" / auto 40px;
+}
+.pf2e.item form .details-container-two-columns {
+  display: grid;
+  grid: "size type" / 50% 50%;
+}
+.pf2e.item form .consumable-details {
+  flex: 0 0 24px;
+}
+.pf2e.item form .consumable-details label {
+  font-weight: bold;
+}
+.pf2e.item form .consumable-details input {
+  flex: 0 0 24px;
+  margin-right: 6px;
+  text-align: right;
+}
+.pf2e.item form .consumable-details span {
+  line-height: 24px;
+}
+.pf2e.item form .consumable-details .max-charges {
+  flex: 0 0 16px;
+  text-align: center;
+}
+.pf2e.item form .consumable-charges label {
+  flex: 0 0 144px;
+}
+.pf2e.item form .consumable-charges input {
+  flex: 0 0 64px;
+  text-align: center;
+}
+.pf2e.item form .consumable-charges span.flex0 {
+  line-height: 24px;
+}
+.pf2e.item form .tool-details {
+  border-top: 1px solid var(--secondary-background);
+  padding-top: 10px;
+}
+.pf2e.item form .tool-details .form-group-stacked {
+  margin-bottom: 8px;
+}
+.pf2e.item form .feat-uses select {
+  flex: 2;
+  margin-right: 5px;
+}
+.pf2e.item form .feat-uses input {
+  flex: 1;
+  text-align: center;
+}
+.pf2e.item form .feat-uses span.sep {
+  flex: 0 0 16px;
+  line-height: 24px;
+  font-size: 14px;
+  text-align: center;
+}
