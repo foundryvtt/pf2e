@@ -24,19 +24,10 @@ Note: The following modules are recommended with Foundry VTT:
 
 ### Shoutouts
 
-A huge thanks to:
+A huge thanks to the large team of contributers and a special thanks to the following for code that we have used in this project:
 
-- @yeroon#2590 for the healthbar and shield bar changes
-- @Cranic#0211 for adding support for adjustable Multi-Attack Penalties on weapons
-- @FrisGuardian#8347 for cleaing up some of the UI in the project!
-- @ohporter for getting involved and fixing issues with the roll logic
-- Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!
-- FS#5443 for the addition of multi-attack buttons!
-- Overdox#9174 for contributing hugely to the SRD compendium packs!
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
 - Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
-- fryguy#3851 for contributing to the project with improvements to the NPC sheet!
-- Moo Man#7518  and CatoThe1stElder#9725 for the wfrp4e system which I used for inspiration on my inventory onDrop method.
 - u/baughberick (https://www.reddit.com/user/baughberick/) for the creation of the Pathfinder2eActions font.
 
 ### Feedback
