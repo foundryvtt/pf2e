@@ -38,16 +38,9 @@ class DicePF2e {
 
       // Don't include situational bonuses unless they are defined
       data.itemBonus = form ? form.find('[name="itemBonus"]').val() : 0;
-      // Only use the highest item bonus
-      if (data.itemBonus) {
-        if (data.itemBonus > data.item.bonus.value && parts.indexOf('@item.bonus.value') !== -1) {
-          parts.splice(parts.indexOf('@item.bonus.value'),1);
-        } else if (parts.indexOf('@itemBonus') !== -1) {
-          parts.splice(parts.indexOf('@itemBonus'),1);
-        }
-      } else if (!data.itemBonus && parts.indexOf('@itemBonus') !== -1) {
-        parts.splice(parts.indexOf('@itemBonus'),1);
-      }
+      // Clear existing item bonus, to be replaced by user input
+      if (parts.indexOf('@item.bonus.value') !== -1) parts.splice(parts.indexOf('@item.bonus.value'),1);
+      if (!data.itemBonus && parts.indexOf('@itemBonus') !== -1) parts.splice(parts.indexOf('@itemBonus'),1);
       data.statusBonus = form ? form.find('[name="statusBonus"]').val() : 0;
       if (!data.statusBonus && parts.indexOf('@statusBonus') !== -1) parts.splice(parts.indexOf('@statusBonus'),1);
       data.bonus = form ? form.find('[name="bonus"]').val() : 0;
