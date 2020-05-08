@@ -36,10 +36,15 @@ class DicePF2e {
         flav = `${title} (Misfortune)`;
       }
 
-      // Don't include situational bonus unless it is defined
+      // Don't include situational bonuses unless they are defined
+      data.itemBonus = form ? form.find('[name="itemBonus"]').val() : 0;
+      // Clear existing item bonus, to be replaced by user input
+      if (parts.indexOf('@item.bonus.value') !== -1) parts.splice(parts.indexOf('@item.bonus.value'),1);
+      if (!data.itemBonus && parts.indexOf('@itemBonus') !== -1) parts.splice(parts.indexOf('@itemBonus'),1);
+      data.statusBonus = form ? form.find('[name="statusBonus"]').val() : 0;
+      if (!data.statusBonus && parts.indexOf('@statusBonus') !== -1) parts.splice(parts.indexOf('@statusBonus'),1);
       data.bonus = form ? form.find('[name="bonus"]').val() : 0;
-      if (!data.bonus && parts.indexOf('@bonus') !== -1) parts.pop();
-
+      if (!data.bonus && parts.indexOf('@bonus') !== -1) parts.splice(parts.indexOf('@bonus'),1);
       // Execute the roll and send it to chat
       const roll = new Roll(parts.join('+'), data).roll();
       roll.toMessage(
@@ -65,6 +70,8 @@ class DicePF2e {
       return _roll(parts, -1);
     } else if (event.shiftKey || !userSettingQuickD20Roll) {
       parts = parts.concat(['@bonus']);
+      parts = parts.concat(['@itemBonus']);
+      parts = parts.concat(['@statusBonus']);
 
       // Render modal dialog
       template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
