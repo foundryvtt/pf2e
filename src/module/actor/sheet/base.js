@@ -607,6 +607,26 @@ class ActorSheetPF2e extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
+    // Increase Item Quantity
+    html.find('.item-increase-quantity').click((event) => {
+      const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+      const item = this.actor.getOwnedItem(itemId).data;
+      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) + 1 });
+    });
+
+    // Decrease Item Quantity
+    html.find('.item-decrease-quantity').click((event) => {
+      const li = $(event.currentTarget).parents('.item');
+      const itemId = li.attr('data-item-id');
+      const item = this.actor.getOwnedItem(itemId).data;
+      if (Number(item.data.quantity.value) > 1) {
+        this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) - 1 });
+      } else {
+        this.actor.deleteOwnedItem(itemId);
+        li.slideUp(200, () => this.render(false));
+      }
+    });
+
     // Toggle Spell prepared value
     html.find('.item-prepare').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
