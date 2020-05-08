@@ -12,7 +12,7 @@
     {{#each actor.inventory as |section sid|}}
         <li class="item inventory-header">
             <h3 class="item-name">{{section.label}}</h3>
-            <span class="item-quantity">{{localize "PF2E.QuantityShortLabel"}}</span>
+            <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
             <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
             {{#if ../owner}}
             <div class="item-controls" style="display: flex">
@@ -37,7 +37,11 @@
                 <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
                 {{/if}}
             </div>
-            <span class="item-quantity">{{item.data.quantity.value}}</span>
+            <span class="item-quantity">
+                <a class="item-decrease-quantity">&ndash;</a>
+                <span>{{item.data.quantity.value}}</span>
+                <a class="item-increase-quantity">+</a>
+            </span>
             <span class="item-weight">{{item.totalWeight}}</span>
 
             {{#if ../../owner}}
