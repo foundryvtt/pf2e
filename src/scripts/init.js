@@ -155,7 +155,7 @@
         }
       }
 
-      if (worldSchemaVersion < 0.568 && actorData.type === 'npc') {
+      if (worldSchemaVersion < 0.569 && actorData.type === 'npc') {
         console.log(`PF2e System | Preparing to update language values of ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);        
 
         deltaData['data.traits.languages.value'] = actorData.data.traits.languages.value.map( (language) => {

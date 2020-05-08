@@ -1120,6 +1120,15 @@ CONFIG.languages = {
   shoony: 'PF2E.LanguageShoony',
   terran: 'PF2E.LanguageTerran',
   undercommon: 'PF2E.LanguageUndercommon',
+  hallit: 'PF2E.LanguageHallit',
+  kelish: 'PF2E.LanguageKelish',
+  mwangi: 'PF2E.LanguageMwangi',
+  osirian: 'PF2E.LanguageOsirian',
+  shoanti: 'PF2E.LanguageShoanti',
+  skald: 'PF2E.LanguageSkald',
+  tien: 'PF2E.LanguageTien',
+  varisian: 'PF2E.LanguageVarisian',
+  vudrani: 'PF2E.LanguageVudrani',
 };
 
 CONFIG.spellScalingModes = {
