@@ -99,6 +99,9 @@ class ActorSheetPF2e extends ActorSheet {
       dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
     };
+
+    if (this.actorType === "npc") map.traits = CONFIG.PF2E.monsterTraits;
+
     for (const [t, choices] of Object.entries(map)) {
       const trait = traits[t];
 
