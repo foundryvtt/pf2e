@@ -7,6 +7,11 @@
     </div>
 
     <div class="form-group">
+        <label>{{localize "PF2E.QuantityLabel"}}</label>
+        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="{{data.quantity.type}}"/>
+    </div>
+
+    <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String">
             {{#select data.weight.value}}
@@ -23,13 +28,6 @@
         <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
     </div>
 </div>
-
-<!-- <ol class="item-tags">
-    {{#if data.armor.value}}<li class="tag">Armor Class {{data.armor.value}}</li>{{/if}}
-    <li class="tag">{{lookup armorTypes data.armorType.value}}</li>
-    {{#if data.strength.value}}<li class="tag">Requires {{data.strength.value}} Strength</li>{{/if}}
-    {{#if data.stealth.value}}<li class="tag">Stealth Disadvantage</li>{{/if}}
-</ol> -->
 
 <ol class="item-tags">
     {{#if data.equipped.value}}
