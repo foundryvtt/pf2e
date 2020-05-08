@@ -18,18 +18,6 @@
 </div>
 
 <div class="bio-item form-group-stacked pf-container">
-    <label class="pf-title" for="data.traits.languages">
-        {{localize "PF2E.Languages"}}
-        <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="traits-list pf-value">
-    {{#each data.traits.languages.selected as |v k|}}
-        <span class="tag {{k}}">{{v}}</span>
-    {{/each}}
-    </ul>
-</div>
-
-<div class="bio-item form-group-stacked pf-container">
     <label class="pf-title">{{localize "PF2E.Speed"}}</label>
     <span class="bio-class pf-value pf-small" title="{{localize "PF2E.SpeedTitle"}}">
         <input type="text" name="data.attributes.speed.value" data-dtype="{{data.attributes.speed.type}}"
@@ -113,3 +101,14 @@
     </span>
 </div>
 
+<div class="bio-item form-group-stacked pf-container">
+    <label class="pf-title" for="data.traits.languages">
+        {{localize "PF2E.Languages"}}
+        <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list pf-value">
+    {{#each data.traits.languages.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+    {{/each}}
+    </ul>
+</div>
