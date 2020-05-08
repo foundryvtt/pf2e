@@ -1129,6 +1129,23 @@ CONFIG.languages = {
   tien: 'PF2E.LanguageTien',
   varisian: 'PF2E.LanguageVarisian',
   vudrani: 'PF2E.LanguageVudrani',
+  algollthu: 'PF2E.LanguageAlghollthu',
+  amurrun: 'PF2E.LanguageAmurrun',
+  arboreal: 'PF2E.LanguageArboreal',
+  azlanti: 'PF2E.LanguageAzlanti',
+  caligni: 'PF2E.LanguageCaligni',
+  cyclops: 'PF2E.LanguageCyclops',
+  daemonic: 'PF2E.LanguageDaemonic',
+  erutaki: 'PF2E.LanguageErutaki',
+  garundi: 'PF2E.LanguageGarundi',
+  osiriani: 'PF2E.LanguageOsiriani',
+  protean: 'PF2E.LanguageProtean',
+  requian: 'PF2E.LanguageRequian',
+  sphinx: 'PF2E.LanguageSphinx',
+  tengu: 'PF2E.LanguageTengu',
+  thassilonian: 'PF2E.LanguageThassilonian',
+  utopian: 'PF2E.LanguageUtopian',
+  varki: 'PF2E.LanguageVarki',
 };
 
 CONFIG.spellScalingModes = {
