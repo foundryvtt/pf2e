@@ -8,11 +8,13 @@ import ActorSheetPF2eCharacter from '../character.js';
 export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCharacter {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['crb-style'],
-      template: 'systems/pf2e/templates/actor/crb-style/actor-sheet.html',
+      classes: ['crb-style', 'sheet', 'actor', 'pc'],
       width: 700,
       height: 800,
-      tabs: [{ navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'character-stats' }],
     });
+  }
+
+  get template() {
+    return 'systems/pf2e/templates/actors/crb-style/actor-sheet.html';
   }
 }
