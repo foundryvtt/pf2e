@@ -2,7 +2,7 @@ import ActorSheetPF2eCharacter from './actor/sheet/character.js';
 import ActorSheetPF2eCharacterReadOnly from './actor/sheet/characterReadOnly.js';
 import ActorSheetPF2eNPC from './actor/sheet/npc.js';
 import UpdatedNPCActorPF2ESheet from './actor/sheet/updatednpcsheet.js';
-import CRBSidebarCharacterActorSheetPF2E from './actor/sheet/crb-sidebar/crb-sidebar.js';
+import CRBStyleCharacterActorSheetPF2E from './actor/sheet/crb-style/crb-style.js';
 
 function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
@@ -19,8 +19,8 @@ function registerActors() {
     makeDefault: true,
   });
 
-  // Register Character Sheet with new design
-  Actors.registerSheet('pf2e', CRBSidebarCharacterActorSheetPF2E, {
+  // Register Character Sheet with new UI
+  Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
     types: ['character'],
     makeDefault: false,
   });
