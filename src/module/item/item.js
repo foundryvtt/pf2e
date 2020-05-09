@@ -424,12 +424,12 @@ export default class extends Item {
     const isFinesse = itemData.isFinesse;
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
-    let parts = ['@item.bonus.value', `@abilities.${abl}.mod`];
+    let parts = ['@itemBonus', `@abilities.${abl}.mod`];
 
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
-      parts = ['@item.bonus.value'];
+      parts = ['@itemBonus'];
     } else if (itemData.proficiency && itemData.proficiency.type === "skill") {
       parts.push(itemData.proficiency.value);
     } else {
@@ -437,6 +437,7 @@ export default class extends Item {
     }
 
     rollData.item = itemData;
+    rollData.itemBonus = itemData.bonus.value;
     // if ( !itemData.proficient.value ) parts.pop();
 
     if (multiAttackPenalty == 2) parts.push(itemData.map2);
@@ -527,23 +528,25 @@ export default class extends Item {
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
     let weaponDamage = itemData.damage.dice + rollDie;
-    parts = [weaponDamage, bonusDamage];
+    parts = [weaponDamage, '@itemBonus'];
+    rollData.itemBonus = bonusDamage;
 
     // If this damage roll is a critical, apply critical damage and effects
     if (critical === true) {
       bonusDamage = bonusDamage * 2;
+      rollData.itemBonus = bonusDamage;
       if (critTrait === 'deadly') {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
         const dice = itemData.damage.dice ? itemData.damage.dice : 1;
         const deadlyDice = dice > 2 ? 2 : 1; // since deadly requires a greater striking (3dX)
         const deadlyDamage = deadlyDice + critDie;
-        parts = [weaponDamage, deadlyDamage, bonusDamage];
+        parts = [weaponDamage, deadlyDamage, '@itemBonus'];
       } else if (critTrait === 'fatal') {
         weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
-        parts = [weaponDamage, bonusDamage];
+        parts = [weaponDamage, '@itemBonus'];
       } else {
         weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        parts = [weaponDamage, bonusDamage];
+        parts = [weaponDamage, '@itemBonus'];
       }
     }
 
@@ -620,10 +623,11 @@ export default class extends Item {
     // let itemData = this.data.data,
     const itemData = this.getChatData();
     const rollData = duplicate(this.actor.data.data);
-    let parts = ['@item.bonus.value'];
+    let parts = ['@itemBonus'];
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     rollData.item = itemData;
+    rollData.itemBonus = itemData.bonus.value;
 
     if (multiAttackPenalty == 2) parts.push(itemData.map2);
     else if (multiAttackPenalty == 3) parts.push(itemData.map3);
