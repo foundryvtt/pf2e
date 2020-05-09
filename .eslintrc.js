@@ -2,11 +2,9 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    "jest/globals": true
+    'jest/globals': true,
   },
-  extends: [
-    'airbnb-base',
-  ],
+  extends: ['airbnb-base', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -25,36 +23,37 @@ module.exports = {
     ActorSheet: 'readonly',
     Actor: 'readonly',
     Actors: 'readonly',
-    fetchSpell: 'readonly'
+    fetchSpell: 'readonly',
   },
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
-    "no-restricted-syntax": 0,
-    "no-new": 0,
-    "no-underscore-dangle": 0,
-    "no-console": 0,
-    "import/extensions": [1, 'always'],
-    "class-methods-use-this": 0
+    'prettier/prettier': 'error',
+    'no-restricted-syntax': 0,
+    'no-new': 0,
+    'no-underscore-dangle': 0,
+    'no-console': 0,
+    'import/extensions': [1, 'always'],
+    'class-methods-use-this': 0,
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src", "", "dist"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
-      }
-    }
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src', '', 'dist'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+      },
+    },
   },
-  plugins: ["jest"],
+  plugins: ['jest', 'prettier'],
   overrides: [
     {
-      files: "tests/**/*",
+      files: 'tests/**/*',
       rules: {
-        "global-require": "off"
-      }
-    }
+        'global-require': 'off',
+      },
+    },
   ],
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
 };
