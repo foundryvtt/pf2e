@@ -231,7 +231,7 @@ CONFIG.magicTraditions = {
 };
 mergeObject(CONFIG.magicTraditions, CONFIG.spellTraditions);
 
-const magicalSchools = {
+CONFIG.magicalSchools = {
   abjuration:    'PF2E.TraitAbjuration',
   conjuration:   'PF2E.TraitConjuration',
   divination:    'PF2E.TraitDivination',
