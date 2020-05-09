@@ -210,6 +210,7 @@ CONFIG.weaponDescriptions = {
 };
 
 CONFIG.rarityTraits = {
+  common: 'PF2E.TraitCommon',
   uncommon: 'PF2E.TraitUncommon',
   rare:     'PF2E.TraitRare',
   unique:   'PF2E.TraitUnique',
@@ -418,7 +419,6 @@ CONFIG.spellTraits = {
   linguistic: 'PF2E.TraitLinguistic',
   morph: 'PF2E.TraitMorph',
 };
-mergeObject(CONFIG.spellTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
 mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
@@ -462,7 +462,6 @@ CONFIG.featTraits = {
   aura: 'PF2E.TraitAura',
   olfactory: 'PF2E.TraitOlfactory',
 };
-mergeObject(CONFIG.featTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
@@ -551,7 +550,6 @@ CONFIG.monsterTraits = {
   xulgath: 'PF2E.TraitXulgath',
   zombie: 'PF2E.TraitZombie',
 };
-mergeObject(CONFIG.monsterTraits, CONFIG.rarityTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
