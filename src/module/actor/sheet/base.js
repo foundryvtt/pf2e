@@ -102,7 +102,7 @@ class ActorSheetPF2e extends ActorSheet {
     };
 
     for (const [t, choices] of Object.entries(map)) {
-      const trait = traits[t];
+      const trait = traits[t] || {value: [], selected: []};
 
       if (Array.isArray(trait)) {
         trait.selected = {};
