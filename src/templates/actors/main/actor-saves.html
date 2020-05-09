@@ -2,7 +2,7 @@
 <ol class="defense-list">
   {{#each data.saves as |save sid|}}
   <li class="defense" data-save="{{sid}}">
-    <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.value decimals=0 sign=false}}</span>
+    <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.totalModifier decimals=0 sign=true}}</span>
     <h4 class="save-name rollable">{{save.label}}</h4>
     <div class="defense-container">
       <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
