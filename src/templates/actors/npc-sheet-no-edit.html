@@ -28,6 +28,9 @@
         <div class="traits-bar">
           <!-- -->
           <!-- Put alignment flag here; add to getData() -->
+          {{#if isNotCommon}}  
+          <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
+          {{/if}}  
           <span class="trait alignment">{{actorAlignment}}</span>
           <span class="trait size">{{actorSize}}</span>
           <!-- Put Trait #each here-->

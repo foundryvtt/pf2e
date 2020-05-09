@@ -76,6 +76,7 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.abilities = CONFIG.PF2E.abilities;
     sheetData.actorSizes = CONFIG.PF2E.actorSizes;
     sheetData.alignment = CONFIG.PF2E.alignment;
+    sheetData.rarity = CONFIG.PF2E.rarityTraits;
     this._prepareTraits(sheetData.data.traits);
 
     // Prepare owned items
