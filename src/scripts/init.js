@@ -165,7 +165,19 @@
         await actor.update(deltaData);
         console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
         updated = true;
-      }      
+      }
+      
+      if (worldSchemaVersion < 0.571 && actorData.type === 'npc') {
+        
+          console.log(`PF2e System | Preparing to update language values of ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);        
+
+          deltaData['data.traits.rarity.value'] = 'common';
+  
+          await actor.update(deltaData);
+          console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+          updated = true;
+        
+      }
 
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData.name} (${actorData._id}) does not meet migration criteria and is being skipped`);
@@ -199,7 +211,6 @@
  Hooks.once('init', () => {
    game.pf2e = {
      rollItemMacro,
-     convertPackToBase64Embedded,
    };
  });
 
@@ -275,77 +286,4 @@ function rollItemMacro(itemId) {
 
   // Trigger the item roll
   return item.roll();
-}
-
-class ConvertDialog extends Dialog {
-
-  activateListeners(html) {
-    super.activateListeners(html);
-    
-    html.find('.pack-img-convert').click(async (ev) => {
-      const canvas = document.getElementById('image-canvas');
-      const packname = $(ev.currentTarget).attr('pack-name');
-      const ctx = canvas.getContext('2d');
-      const maxW = 64;
-      const maxH = 64;
-  
-      function handleFiles(imgURL, callback) {
-        const img = new Image();
-        img.onload = function () {
-          const iw = img.width;
-          const ih = img.height;
-          const scale = Math.min((maxW / iw), (maxH / ih));
-          const iwScaled = iw * scale;
-          const ihScaled = ih * scale;
-          canvas.width = iwScaled;
-          canvas.height = ihScaled;
-          ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
-          callback(canvas.toDataURL('image/jpeg', 0.5));
-        };
-        img.src = imgURL;
-      }
-  
-      const pack = game.packs.find((p) => p.collection === packname);
-
-      if (!pack) {
-        console.error(`Pack ${packname} not found.`);
-        return
-      }
-  
-      await pack.getContent().then(async (content) => {
-        for (const item of content) {
-          const imageUrl = item.data.img;
-  
-          if (imageUrl != 'icons/mystery-man.png' /* && !imageUrl.startsWith('data:image') */) {
-            handleFiles(imageUrl, async (base64Url) => {
-              console.log('item: ', item._id);
-              item.data.img = base64Url;
-              await pack.importEntity(item);
-              await pack.deleteEntity(item._id);
-            });
-          }
-        }
-      });
-    });
-  }
-}
-    
-async function convertPackToBase64Embedded (packname="world.bestiary-test") {
-  // This is the HTML to add to the pack-img-convert application.
-  // <canvas id="canvas" width=64 height=64></canvas>  
-
-  // Render confirmation modal dialog  
-  renderTemplate('systems/pf2e/templates/packs/convert-images.html', {packname: packname}).then((html) => {
-    new ConvertDialog({
-      title: 'Convert Pack Images',
-      content: html,
-      buttons: {
-        Close: {
-          icon: '<i class="fa fa-check"></i>',
-          label: 'Close'              
-        },        
-      },
-      default: 'Close',
-    }).render(true);
-  }); 
 }
