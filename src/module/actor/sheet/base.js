@@ -98,9 +98,11 @@ class ActorSheetPF2e extends ActorSheet {
       di: CONFIG.PF2E.immunityTypes,
       dv: CONFIG.PF2E.weaknessTypes,
       ci: CONFIG.PF2E.immunityTypes,
+      traits: CONFIG.PF2E.monsterTraits,
     };
+
     for (const [t, choices] of Object.entries(map)) {
-      const trait = traits[t];
+      const trait = traits[t] || {value: [], selected: []};
 
       if (Array.isArray(trait)) {
         trait.selected = {};
