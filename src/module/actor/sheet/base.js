@@ -1157,7 +1157,11 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       const props = $('<div class="item-properties"></div>');
-      if (chatData.properties) chatData.properties.forEach((p) => props.append(`<span class="tag">${localize(p)}</span>`));
+      if (chatData.properties) {
+        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+          props.append(`<span class="tag">${localize(p)}</span>`);
+        });
+      }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
       if (chatData.traits && chatData.traits.length) {
