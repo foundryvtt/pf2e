@@ -163,14 +163,17 @@ export default class extends Actor {
   rollSkill(event, skillName) {
     const skl = this.data.data.skills[skillName];
     const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
-    const parts = ['@mod'];
+    const parts = ['@mod', '@itemBonus'];
     const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
       parts,
-      data: { mod: skl.value },
+      data: {
+        mod: skl.value - skl.item,
+        itemBonus: skl.item
+      },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
@@ -245,14 +248,14 @@ export default class extends Actor {
    * @param skill {String}    The skill id
    */
   rollLoreSkill(event, item) {
-    const parts = ['@mod'];
+    const parts = ['@mod', '@itemBonus'];
     const flavor = `${item.name} Skill Check`;
     const i = item.data;
 
     const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + this.data.data.details.level.value : 0;
     const modifier = this.data.data.abilities.int.mod;
     const itemBonus = Number((i.data.item || {}).value || 0);
-    let rollMod = modifier + proficiency + itemBonus;
+    let rollMod = modifier + proficiency;
     // Override roll calculation if this is an NPC "lore" skill
     if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
       rollMod = i.data.mod.value;
@@ -262,7 +265,10 @@ export default class extends Actor {
     DicePF2e.d20Roll({
       event,
       parts,
-      data: { mod: rollMod },
+      data: {
+        mod: rollMod,
+        itemBonus: itemBonus
+      },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
@@ -276,14 +282,17 @@ export default class extends Actor {
    */
   rollSave(event, saveName) {
     const save = this.data.data.saves[saveName];
-    const parts = ['@mod'];
+    const parts = ['@mod', '@itemBonus'];
     const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
       parts,
-      data: { mod: save.value },
+      data: {
+        mod: save.value - save.item,
+        itemBonus: save.item
+      },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
@@ -318,14 +327,17 @@ export default class extends Actor {
    */
   rollAttribute(event, attributeName) {
     const skl = this.data.data.attributes[attributeName];
-    const parts = ['@mod'];
+    const parts = ['@mod', '@itemBonus'];
     const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
       parts,
-      data: { mod: skl.value },
+      data: {
+        mod: skl.value - skl.item,
+        itemBonus: skl.item
+      },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });

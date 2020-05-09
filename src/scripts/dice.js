@@ -36,10 +36,13 @@ class DicePF2e {
         flav = `${title} (Misfortune)`;
       }
 
-      // Don't include situational bonus unless it is defined
-      data.bonus = form ? form.find('[name="bonus"]').val() : 0;
-      if (!data.bonus && parts.indexOf('@bonus') !== -1) parts.pop();
-
+      // Don't include situational bonuses unless they are defined
+      if (form) data.itemBonus = form.find('[name="itemBonus"]').val();
+      if ((!data.itemBonus || data.itemBonus == 0) && parts.indexOf('@itemBonus') !== -1) parts.splice(parts.indexOf('@itemBonus'),1);
+      if (form) data.statusBonus = form.find('[name="statusBonus"]').val();
+      if ((!data.statusBonus || data.statusBonus == 0) && parts.indexOf('@statusBonus') !== -1) parts.splice(parts.indexOf('@statusBonus'),1);
+      if (form) data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
+      if ((!data.circumstanceBonus || data.circumstanceBonus == 0) && parts.indexOf('@circumstanceBonus') !== -1) parts.splice(parts.indexOf('@circumstanceBonus'),1);
       // Execute the roll and send it to chat
       const roll = new Roll(parts.join('+'), data).roll();
       roll.toMessage(
@@ -64,7 +67,9 @@ class DicePF2e {
     } else if (event.ctrlKey || event.metaKey) {
       return _roll(parts, -1);
     } else if (event.shiftKey || !userSettingQuickD20Roll) {
-      parts = parts.concat(['@bonus']);
+      if (parts.indexOf('@circumstanceBonus') == -1) parts = parts.concat(['@circumstanceBonus']);
+      if (parts.indexOf('@itemBonus') == -1) parts = parts.concat(['@itemBonus']);
+      if (parts.indexOf('@statusBonus') == -1) parts = parts.concat(['@statusBonus']);
 
       // Render modal dialog
       template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
@@ -132,7 +137,13 @@ class DicePF2e {
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     let rolled = false;
     const _roll = (parts, crit, form) => {
-      data.bonus = form ? form.find('[name="bonus"]').val() : 0;
+      // Don't include situational bonuses unless they are defined
+      if (form) data.itemBonus = form.find('[name="itemBonus"]').val();
+      if ((!data.itemBonus || data.itemBonus == 0) && parts.indexOf('@itemBonus') !== -1) parts.splice(parts.indexOf('@itemBonus'),1);
+      if (form) data.statusBonus = form.find('[name="statusBonus"]').val();
+      if ((!data.statusBonus || data.statusBonus == 0) && parts.indexOf('@statusBonus') !== -1) parts.splice(parts.indexOf('@statusBonus'),1);
+      if (form) data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
+      if ((!data.circumstanceBonus || data.circumstanceBonus == 0) && parts.indexOf('@circumstanceBonus') !== -1) parts.splice(parts.indexOf('@circumstanceBonus'),1);
       const roll = new Roll(parts.join('+'), data);
       const flav = (flavor instanceof Function) ? flavor(parts, data) : title;
       roll.toMessage(
@@ -156,7 +167,9 @@ class DicePF2e {
     } else if ( !userSettingQuickD20Roll && (event.shiftKey || event.ctrlKey || event.metaKey) ) {
       return _roll(parts, event.altKey);
     }
-    parts = parts.concat(['@bonus']);
+    if (parts.indexOf('@circumstanceBonus') == -1) parts = parts.concat(['@circumstanceBonus']);
+    if (parts.indexOf('@itemBonus') == -1) parts = parts.concat(['@itemBonus']);
+    if (parts.indexOf('@statusBonus') == -1) parts = parts.concat(['@statusBonus']);
 
     // Construct dialog data
     template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
