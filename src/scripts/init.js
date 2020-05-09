@@ -155,6 +155,18 @@
         }
       }
 
+      if (worldSchemaVersion < 0.569 && actorData.type === 'npc') {
+        console.log(`PF2e System | Preparing to update language values of ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);        
+
+        deltaData['data.traits.languages.value'] = actorData.data.traits.languages.value.map( (language) => {
+          return language.toString().toLowerCase();
+        });
+
+        await actor.update(deltaData);
+        console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+        updated = true;
+      }      
+
       if (!updated) {
         console.log(`PF2e System | Actor ${actorData.name} (${actorData._id}) does not meet migration criteria and is being skipped`);
       }
