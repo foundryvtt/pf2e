@@ -1049,7 +1049,8 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     data.bestiaryActors = this.bestiaryActors;
     data.actorSize = CONFIG.PF2E.actorSizes;
     data.alignment = CONFIG.PF2E.alignment;
-    data.traits = this.traits;
+    data.traits = CONFIG.PF2E.monsterTraits;
+    data.languages = CONFIG.PF2E.languages;
     //data.inventoryItems = this.inventoryItems;
     // data.featClasses = this.featClasses;
     // data.featSkills = this.featSkills;

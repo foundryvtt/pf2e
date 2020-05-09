@@ -31,7 +31,7 @@
           <span class="trait alignment">{{actorAlignment}}</span>
           <span class="trait size">{{actorSize}}</span>
           <!-- Put Trait #each here-->
-          {{#each actorTraits as |trait id|}}
+          {{#each actor.data.traits.traits.selected as |trait id|}}
           <span class="trait">{{trait}}</span>
           {{/each}}
         </div>
@@ -48,7 +48,7 @@
         <div class="stats-line">
           <span class="inline-stats">
             <label class="stat-title">{{localize "PF2E.Languages"}}</label>
-            {{#each actor.data.traits.languages.value as |lang lid|}}
+            {{#each actor.data.traits.languages.selected as |lang lid|}}
             <span class="stat-list">
               <span class="stat-minortitle">{{lang}}</span>
             </span>
