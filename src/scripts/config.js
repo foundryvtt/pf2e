@@ -209,7 +209,7 @@ CONFIG.weaponDescriptions = {
   bomb: 'PF2E.WeaponDescriptionBomb',
 };
 
-const rarityTraits = {
+CONFIG.rarityTraits = {
   uncommon: 'PF2E.TraitUncommon',
   rare:     'PF2E.TraitRare',
   unique:   'PF2E.TraitUnique',
