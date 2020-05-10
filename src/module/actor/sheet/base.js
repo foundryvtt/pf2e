@@ -162,6 +162,15 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Add the spell to the spellbook at the appropriate level
     spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
+    // Add chat data
+    try {
+      let item = this.actor.getOwnedItem(spell._id);
+      if (item){
+        spell.chatData = item.getChatData({ secrets: this.actor.owner });
+      }
+    } catch (err) {
+      console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell)
+    }
     spellbook[lvl].spells.push(spell);
   }
 
