@@ -215,7 +215,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Update all embedded entities that have an incorrect location.
     if (embeddedEntityUpdate.length) {
       console.log('PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ', embeddedEntityUpdate);
-      this.actor.updateManyEmbeddedEntities('OwnedItem', embeddedEntityUpdate);
+      this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
       ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
     }
 
