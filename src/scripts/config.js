@@ -386,6 +386,7 @@ CONFIG.weaponTraits = {
   'versatile-b': 'PF2E.TraitVersatileB',
   'volley-30': 'PF2E.TraitVolley30',
   uncommon: 'PF2E.TraitUncommon',
+  unique: 'PF2E.TraitUnique',
   'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
@@ -1007,6 +1008,11 @@ CONFIG.bulkTypes = {
   3: '3',
   4: '4',
   5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10',
 };
 
 // Condition Types
