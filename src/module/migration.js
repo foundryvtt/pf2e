@@ -111,7 +111,7 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 
   if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
 
-  if (worldSchemaVersion < 0.572) _migrateActorLanguages(actor, updateData);
+  if (worldSchemaVersion < 0.573) _migrateActorLanguages(actor, updateData);
   
   if (actor.type === "npc") {
     if (worldSchemaVersion < 0.559) _migrateNPCItemDamageRolls(actor, updateData);
