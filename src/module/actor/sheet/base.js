@@ -221,7 +221,12 @@ class ActorSheetPF2e extends ActorSheet {
                 };
               }
             } else {
-              console.log(`PF2e System | Could not find an item for ID: ${entrySlot.id}: `);
+              // Could not find an item for ID: ${entrySlot.id}. Marking the slot as empty so it can be overwritten.
+              spl.prepared[i] = {
+                name: 'Empty Slot (drag spell here)',
+                id: null,
+                prepared: false,
+              };
             }
           } else {
             // if there is no prepared spell for this slot then make it empty.
