@@ -42,7 +42,11 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     sheetData.npcWeakActive = this.npcIsWeak()?' active':'';
     sheetData.npcEliteHidden = this.npcIsWeak()?' hidden':'';
     sheetData.npcWeakHidden = this.npcIsElite()?' hidden':'';
-
+    
+    // rarity
+    sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
+    sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
+    sheetData.isNotCommon = sheetData.data.traits.rarity.value !== 'common';
     // size
     sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
     sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;

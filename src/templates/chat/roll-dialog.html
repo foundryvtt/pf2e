@@ -1,18 +1,22 @@
 <form>
     <div class="form-group">
-        <label>{{localize "PF2E.StatusBonusQuestion"}}</label>
-        <input type="text" name="status" value="" disabled placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
+        <label>{{localize "PF2E.ItemBonusLabel"}}</label>
+        <input type="text" name="itemBonus" value="{{data.itemBonus}}" placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
     </div>
     <div class="form-group">
-        <label>{{localize "PF2E.CircumstanceBonusQuestion"}}</label>
-        <input type="text" name="bonus" value="" placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
+        <label>{{localize "PF2E.StatusBonusTitle"}}</label>
+        <input type="text" name="statusBonus" value="{{data.statusBonus}}" placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.CircumstanceBonusTitle"}}</label>
+        <input type="text" name="circumstanceBonus" value="{{data.circumstanceBonus}}" placeholder="{{localize "PF2E.RollBonusPlaceholder"}}"/>
     </div>
     <div class="form-group">
         <label>{{localize "PF2E.RollModeLabel"}}</label>
         <select name="rollMode">
         {{#select rollMode}}
         {{#each rollModes as |label mode|}}
-            <option value="{{mode}}">{{label}}</option>
+            <option value="{{mode}}">{{localize label}}</option>
         {{/each}}
         {{/select}}
         </select>

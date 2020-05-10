@@ -76,6 +76,7 @@ class ActorSheetPF2e extends ActorSheet {
     sheetData.abilities = CONFIG.PF2E.abilities;
     sheetData.actorSizes = CONFIG.PF2E.actorSizes;
     sheetData.alignment = CONFIG.PF2E.alignment;
+    sheetData.rarity = CONFIG.PF2E.rarityTraits;
     this._prepareTraits(sheetData.data.traits);
 
     // Prepare owned items
@@ -161,6 +162,15 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Add the spell to the spellbook at the appropriate level
     spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
+    // Add chat data
+    try {
+      let item = this.actor.getOwnedItem(spell._id);
+      if (item){
+        spell.chatData = item.getChatData({ secrets: this.actor.owner });
+      }
+    } catch (err) {
+      console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell)
+    }
     spellbook[lvl].spells.push(spell);
   }
 
@@ -220,7 +230,12 @@ class ActorSheetPF2e extends ActorSheet {
                 };
               }
             } else {
-              console.log(`PF2e System | Could not find an item for ID: ${entrySlot.id}: `);
+              // Could not find an item for ID: ${entrySlot.id}. Marking the slot as empty so it can be overwritten.
+              spl.prepared[i] = {
+                name: 'Empty Slot (drag spell here)',
+                id: null,
+                prepared: false,
+              };
             }
           } else {
             // if there is no prepared spell for this slot then make it empty.
@@ -1157,7 +1172,11 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       const props = $('<div class="item-properties"></div>');
-      if (chatData.properties) chatData.properties.forEach((p) => props.append(`<span class="tag">${localize(p)}</span>`));
+      if (chatData.properties) {
+        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+          props.append(`<span class="tag">${localize(p)}</span>`);
+        });
+      }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
       if (chatData.traits && chatData.traits.length) {
