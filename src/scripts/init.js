@@ -168,8 +168,8 @@
       }
       
       if (worldSchemaVersion < 0.571 && actorData.type === 'npc') {
-        
-          console.log(`PF2e System | Preparing to update language values of ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);        
+
+          console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);        
 
           deltaData['data.traits.rarity.value'] = 'common';
   
@@ -177,6 +177,23 @@
           console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
           updated = true;
         
+      }
+
+      if (worldSchemaVersion < 0.572) {
+        console.log(`PF2e System | Preparing to update ${actorData._id} (${actorData.name}) to version ${systemSchemaVersion}`);
+
+        const languages = duplicate(actorData.data.traits.languages);
+        let index = languages.value.indexOf('dwarvish');
+
+        if (index !== -1) {
+          languages.value[index] = 'dwarven';
+
+          deltaData['data.traits.languages'] = languages;
+
+          await actor.update(deltaData);
+          console.log(`PF2e System | Successfully updated ${actorData._id} (${actorData.name}) schema to version ${systemSchemaVersion}`);
+          updated = true;
+        }
       }
 
       if (!updated) {
