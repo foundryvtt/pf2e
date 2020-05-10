@@ -199,7 +199,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         const location = i.data.location.value;
         spellbooks[location] = spellbooks[location] || {};
         this._prepareSpell(actorData, spellbooks[location], i);
-      } else { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
+      } else if (spellcastingEntriesList.length === 1) { // if not BUT their is only one spellcasting entry then assign the spell to this entry.
         const location = spellcastingEntriesList[0];
         spellbooks[location] = spellbooks[location] || {};
 
@@ -207,6 +207,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
         embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
 
         this._prepareSpell(actorData, spellbooks[location], i);
+      } else { // else throw it in the orphaned list.
+        this._prepareSpell(actorData, spellbooks.unassigned, i);
       }
     }
 
