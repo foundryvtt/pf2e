@@ -16,6 +16,14 @@ export class InventoryWeight {
         const limitTimes10 = this.limit * 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
+    
+    get limitPercentageMax100() {
+        if (this.limitPercentage > 100) {
+            return 100;
+        } else {
+            return this.limitPercentage;
+        }
+    }
 
     _totalTimes10() {
         const light = this.combinedBulk.light;

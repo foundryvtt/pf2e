@@ -62,8 +62,8 @@
     </ol>
 
     {{#with data.attributes.encumbrance}}
-    <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}}">
-        <span class="encumbrance-bar" style="width:{{limitPercentage}}%"></span>
+    <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
+        <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
         <span class="encumbrance-label">{{bulk}} / {{encumberedAt}} ({{limit}})</span>
     </div>
     {{/with}}
