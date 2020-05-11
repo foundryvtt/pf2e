@@ -129,7 +129,6 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
       updateData['data.attributes.bonusbulk'] = 0;
     }
   }
-
   return updateData;
 };
 
@@ -217,29 +216,30 @@ function _migrateHitPointData(actor, updateData) {
 }
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
+  if (!actor.items) return;
   let updatedItems = [];
   const items = duplicate(actor.items);
-  
+
   items.forEach(item => {
-      if (item.type === 'melee' && item.data.attackEffects) {
-        let attackEffects = {
-          'value': item.data.attackEffects
-        };
-        let updatedItem = {
-          _id: item._id
-        }
-        updatedItem['data.attackEffects'] = attackEffects;
-        updatedItems.push(updatedItem);
-      }              
+    let updatedItem = item;
+    if (item.type === 'melee' && item.data.attackEffects) {
+      let attackEffects = {
+        'value': item.data.attackEffects
+      };
+      updatedItem.data.attackEffects = attackEffects;
+    }
+      updatedItems.push(updatedItem);
   });
   updateData['items'] = updatedItems;
 }
 
 function _migrateNPCItemDamageRolls(actor, updateData) {
+  if (!actor.items) return;
   let updatedItems = [];
   const items = duplicate(actor.items);
 
   items.forEach(item => {
+    let updatedItem = item;
     if (item.type === 'melee' && item.data.damage.die) {
       let damageRolls = {
         'migrated': {
@@ -247,12 +247,9 @@ function _migrateNPCItemDamageRolls(actor, updateData) {
           damageType: item.data.damage.damageType
         }
       };
-      let updatedItem = {
-        _id: item._id
-      }
-      updatedItem['data.damageRolls'] = damageRolls;
-      updatedItems.push(updatedItem);
-    }
+      updatedItem.data.damageRolls = damageRolls;
+     }
+     updatedItems.push(updatedItem);
 });
 updateData['items'] = updatedItems;
 }
