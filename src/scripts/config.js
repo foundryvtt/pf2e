@@ -1152,7 +1152,7 @@ CONFIG.languages = {
   celestial: 'PF2E.LanguageCelestial',
   draconic: 'PF2E.LanguageDraconic',
   druidic: 'PF2E.LanguageDruidic',
-  dwarvish: 'PF2E.LanguageDwarvish',
+  dwarven: 'PF2E.LanguageDwarven',
   elven: 'PF2E.LanguageElven',
   gnomish: 'PF2E.LanguageGnomish',
   goblin: 'PF2E.LanguageGoblin',
