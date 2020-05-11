@@ -188,7 +188,7 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
 }
 
 /**
- * Calculates the bulk of all containers. Note that we don't validate if a container
+ * Calculates the bulk of all items. Note that we don't validate if an item that is a container
  * contains only the allowed amount.
  * @param items a list of items; items can also be containers and contain items themselves
  * armor or weapons that are placed in a sheathe should be combined in a single container as well
@@ -217,3 +217,4 @@ export function calculateBulk(items, stackDefinitions) {
         })
         .reduce(addBulk, new CombinedBulk());
 }
+
