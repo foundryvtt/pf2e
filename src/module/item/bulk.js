@@ -3,12 +3,12 @@ export class Bulk {
         this.type = type;
         this.value = value;
     }
-    
+
     toString() {
         if (this.type === 'negligible') {
-            return '-'
+            return '-';
         } else if (this.type === 'light') {
-            return 'L'
+            return 'L';
         } else {
             return this.value;
         }
@@ -19,9 +19,9 @@ export class Bulk {
  * hard coded for now but could be made configurable later on.
  * Describes each stack group by how much items belong in a stack
  * and how much bulk a single stack produces. Bulk type has to be
- * included because coins don't add light bulk below 1000, just 1 
+ * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
- */ 
+ */
 export const stacks = {
     bolts: {
         size: 10,
@@ -57,9 +57,9 @@ export class CombinedBulk {
 
     toString() {
         if (this.normal === 0 && this.light === 0) {
-            return '-'
+            return '-';
         } else if (this.normal > 0) {
-            return this.normal
+            return this.normal;
         } else {
             return 'L';
         }
@@ -72,25 +72,30 @@ export class Item {
         bulk = new Bulk(),
         quantity = 1,
         stackGroup = null,
-        isArmorButNotWorn = false,
+        isEquipped = false,
+        // value to overrides bulk field when unequipped
+        unequippedBulk = undefined,
+        // value to overrides bulk field when equipped
+        equippedBulk = undefined,
+        // an item can be a container
         holdsItems = [],
+        // some containers like a backpack or back of holding reduce total bulk if 
+        // items are put into it
         negateBulk = new CombinedBulk()
     }) {
         this.bulk = bulk;
         this.quantity = quantity;
         this.stackGroup = stackGroup;
-        // worn armor is lighter
-        this.isArmorButNotWorn = isArmorButNotWorn;
-        // an item can be a container
         this.holdsItems = holdsItems;
-        // some containers like a backpack or back of holding reduce total bulk if 
-        // items are put into it
         this.negateBulk = negateBulk;
+        this.unequippedBulk = unequippedBulk;
+        this.equippedBulk = equippedBulk;
+        this.isEquipped = isEquipped;
     }
 }
 
 /**
- * Given an array and a key function, create a map where the key is the value that 
+ * Given an array and a key function, create a map where the key is the value that
  * gets returned when each item is pushed into the function. Accumulate
  * items in an array that have the same key
  * @param array
@@ -167,21 +172,15 @@ function toCombinedBulk(bulk) {
 }
 
 /**
- * This entry gives the armor’s Bulk, assuming you’re wearing the armor and distributing its
- * weight across your body. A suit of armor that’s carried or worn usually has 1 more Bulk than
- * what’s listed here (or 1 Bulk total for armor of light Bulk)
+ * Various items have different bulk when worn or carried, some don't care at all
+ * Depending on if we get data for either state, we override the default bulk
  * @param item
  */
 function calculateItemBulk(item) {
-    if (item.isArmorButNotWorn) {
-        if (item.bulk.type === 'light') {
-            return toCombinedBulk(new Bulk('normal', item.bulk.value));
-        } else if (item.bulk.type === 'normal') {
-            return toCombinedBulk(new Bulk('normal', item.bulk.value + 1));
-        } else {
-            // negligible armor is still negligible
-            return new CombinedBulk();
-        }
+    if (item.unequippedBulk !== undefined && !item.isEquipped) {
+        return toCombinedBulk(item.unequippedBulk);
+    } else if (item.equippedBulk !== undefined && item.isEquipped) {
+        return toCombinedBulk(item.equippedBulk);
     } else {
         return toCombinedBulk(item.bulk);
     }
@@ -265,7 +264,7 @@ export function calculateBulk(items, stackDefinitions) {
 }
 
 /**
- * Weight from items includes either an integer or l for light bulk 
+ * Weight from items includes either an integer or l for light bulk
  * or something that we can't parse and report as no bulk.
  * @param weight
  * @return {Bulk}
@@ -301,13 +300,13 @@ export function toItem(item) {
         ?.trim() ?? 0; // l or 1..n
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
-    const isArmor = item.type === 'armor';
 
     // TODO: add backpack nesting logic
     // TODO: add stack group logic
+    // TODO: find out where to pull equipped bulk or unequipped bulk from
     return new Item({
         bulk: weightToBulk(weight),
-        isArmorButNotWorn: isArmor && !isEquipped,
+        isEquipped,
         quantity
     });
 }

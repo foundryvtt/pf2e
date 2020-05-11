@@ -33,8 +33,8 @@ describe('should calculate bulk', () => {
 
     test('light armor that is worn counts as 1 bulk', () => {
         const items = [new Item({
-            isArmorButNotWorn: true,
-            bulk: new Bulk('light', 1)
+            isEquipped: true,
+            equippedBulk: new Bulk('normal', 1)
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -47,8 +47,9 @@ describe('should calculate bulk', () => {
 
     test('armor that is worn counts as 1 more bulk', () => {
         const items = [new Item({
-            isArmorButNotWorn: true,
-            bulk: new Bulk('normal', 1)
+            isEquipped: false,
+            unequippedBulk: new Bulk('normal', 2),
+            equippedBulk: new Bulk('normal', 1)
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -59,6 +60,34 @@ describe('should calculate bulk', () => {
             });
     });
 
+    test('backpacks are light bulk when not worn', () => {
+        const items = [new Item({
+            unequippedBulk: new Bulk('light', 1)
+        })];
+        const bulk = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 1,
+                normal: 0
+            });
+    });
+
+    test('backpacks are light bulk when not worn', () => {
+        const items = [new Item({
+            isEquipped: true,
+            unequippedBulk: new Bulk('light', 1),
+            equippedBulk: new Bulk()
+        })];
+        const bulk = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 0
+            });
+    });
+    
     test('arrows that shoot bags of holding', () => {
         const items = [
             new Item({
@@ -188,8 +217,8 @@ describe('should calculate bulk', () => {
         const unequippedArmor = items[0];
         expect(unequippedArmor.quantity)
             .toBe(1);
-        expect(unequippedArmor.isArmorButNotWorn)
-            .toBe(true);
+        expect(unequippedArmor.isEquipped)
+            .toBe(false);
         expect(unequippedArmor.bulk)
             .toEqual({
                 type: 'negligible',
@@ -199,8 +228,8 @@ describe('should calculate bulk', () => {
         const equippedArmor = items[1];
         expect(equippedArmor.quantity)
             .toBe(1);
-        expect(equippedArmor.isArmorButNotWorn)
-            .toBe(false);
+        expect(equippedArmor.isEquipped)
+            .toBe(true);
         expect(equippedArmor.bulk)
             .toEqual({
                 type: 'light',
@@ -210,7 +239,7 @@ describe('should calculate bulk', () => {
         const weapon = items[2];
         expect(weapon.quantity)
             .toBe(2);
-        expect(weapon.isArmorButNotWorn)
+        expect(weapon.isEquipped)
             .toBe(false);
         expect(weapon.bulk)
             .toEqual({
