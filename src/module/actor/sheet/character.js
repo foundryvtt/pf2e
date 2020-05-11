@@ -1,5 +1,5 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks } from '../../item/bulk.js';
+import { calculateBulk, itemsFromActorData, stacks, toItem } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
@@ -152,13 +152,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        if (i.data.weight.value === 'L' || i.data.weight.value === 'l') {
-          i.totalWeight = 'L';
-        } else if (parseInt(i.data.weight.value)) {
-          i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
-        } else {
-          i.totalWeight = '-';
-        }
+        const approximatedBulk = calculateBulk([toItem(i)], stacks);
+        i.totalWeight = approximatedBulk.toString();
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;

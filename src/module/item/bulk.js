@@ -3,6 +3,16 @@ export class Bulk {
         this.type = type;
         this.value = value;
     }
+    
+    toString() {
+        if (this.type === 'negligible') {
+            return '-'
+        } else if (this.type === 'light') {
+            return 'L'
+        } else {
+            return this.value;
+        }
+    }
 }
 
 export const stacks = {
@@ -36,6 +46,16 @@ export class CombinedBulk {
     constructor(normal = 0, light = 0) {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
+    }
+
+    toString() {
+        if (this.normal === 0 && this.light === 0) {
+            return '-'
+        } else if (this.normal > 0) {
+            return this.normal
+        } else {
+            return 'L';
+        }
     }
 }
 
@@ -231,6 +251,22 @@ itemTypes.add('equipment');
 itemTypes.add('consumable');
 itemTypes.add('backpack');
 
+export function toItem(item) {
+    const weight = item.data?.weight?.value?.toLowerCase()
+        ?.trim() ?? 0; // l or 1..n
+    const quantity = item.data?.quantity?.value ?? 0;
+    const isEquipped = item.data?.equipped?.value ?? false;
+    const isArmor = item.type === 'armor';
+
+    // TODO: add backpack nesting logic
+    // TODO: add stack group logic
+    return new Item({
+        bulk: weightToBulk(weight),
+        isArmorButNotWorn: isArmor && !isEquipped,
+        quantity
+    });
+}
+
 /**
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
@@ -238,21 +274,7 @@ itemTypes.add('backpack');
 export function itemsFromActorData(actorData) {
     const items = actorData.items
         .filter(item => itemTypes.has(item.type))
-        .map(item => {
-            const weight = item.data?.weight?.value?.toLowerCase()
-                ?.trim() ?? 0; // l or 1..n
-            const quantity = item.data?.quantity?.value ?? 0;
-            const isEquipped = item.data?.equipped?.value ?? false;
-            const isArmor = item.type === 'armor';
-
-            // TODO: add backpack nesting logic
-            // TODO: add stack group logic
-            return new Item({
-                bulk: weightToBulk(weight),
-                isArmorButNotWorn: isArmor && !isEquipped,
-                quantity
-            });
-        });
+        .map(item => toItem(item));
 
     items.push(new Item({
         stackGroup: 'coins',
