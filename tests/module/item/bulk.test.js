@@ -87,7 +87,6 @@ describe('should calculate bulk', () => {
         const items = [
             new Item({
                 holdsItems: [
-                    // bag of holding
                     new Item({
                         bulk: new Bulk("normal", 1)
                     }),
@@ -100,7 +99,8 @@ describe('should calculate bulk', () => {
                         bulk: new Bulk("light", 1)
                     })
                 ],
-                negateBulk: new CombinedBulk(2)
+                negateBulk: new CombinedBulk(2),
+                bulk: new Bulk("normal", 1)
             }),
             new Item({
                 stackGroup: 'arrows',
@@ -112,7 +112,7 @@ describe('should calculate bulk', () => {
         expect(bulk)
             .toEqual({
                 light: 0,
-                normal: 0,
+                normal: 1,
             });
     });
 });
