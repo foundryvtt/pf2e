@@ -218,3 +218,57 @@ export function calculateBulk(items, stackDefinitions) {
         .reduce(addBulk, new CombinedBulk());
 }
 
+function weightToBulk(weight) {
+    if (weight === 'l') {
+        return new Bulk('light');
+    } else {
+        const value = parseInt(weight, 10);
+        if (isNaN(value)) {
+            return new Bulk();
+        } else {
+            return new Bulk('normal', value);
+        }
+    }
+}
+
+function countCoins(actorData) {
+    return Object.values(actorData.data.currency)
+        .map(denomination => parseInt(denomination.value, 10))
+        .reduce((prev, curr) => prev + curr, 0);
+}
+
+const itemTypes = new Set();
+itemTypes.add('weapon');
+itemTypes.add('armor');
+itemTypes.add('equipment');
+itemTypes.add('consumable');
+itemTypes.add('backpack');
+
+/**
+ * Takes actor data and returns a list of items to calculate bulk with
+ * @param actorData
+ */
+export function itemsFromActorData(actorData) {
+    const items = actorData.items
+        .filter(item => itemTypes.has(item.type))
+        .map(item => {
+            const weight = item.data.weight?.value?.toLowerCase()
+                ?.trim() ?? 0; // l or 1..n
+            const quantity = item.data?.quantity?.value ?? 0;
+            const isEquipped = item.data?.equipped?.value ?? false;
+            const isArmor = item.type === 'armor';
+
+            // TODO: add backpack nesting logic
+            // TODO: add stack group logic
+            return new Item({
+                bulk: weightToBulk(weight),
+                isArmorButNotWorn: isArmor && !isEquipped,
+                quantity
+            });
+        });
+
+    items.push(new Item({
+        stackGroup: 'coins',
+        quantity: countCoins(actorData),
+    }));
+}
