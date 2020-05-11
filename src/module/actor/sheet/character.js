@@ -1,6 +1,6 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks } from '../../item/bulk';
-import { calculateEncumbrance } from '../../item/encumbrance';
+import { calculateBulk, itemsFromActorData, stacks } from '../../item/bulk.js';
+import { calculateEncumbrance } from '../../item/encumbrance.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -399,9 +399,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Inventory encumbrance
     const items = itemsFromActorData(actorData);
-    console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
     const bulk = calculateBulk(items, stacks);
-      console.log(bulk);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
       actorData.data.attributes.bonusbulk,
