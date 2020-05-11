@@ -15,6 +15,13 @@ export class Bulk {
     }
 }
 
+/**
+ * hard coded for now but could be made configurable later on.
+ * Describes each stack group by how much items belong in a stack
+ * and how much bulk a single stack produces. Bulk type has to be
+ * included because coins don't add light bulk below 1000, just 1 
+ * bulk per 1000 coins
+ */ 
 export const stacks = {
     bolts: {
         size: 10,
@@ -82,6 +89,14 @@ export class Item {
     }
 }
 
+/**
+ * Given an array and a key function, create a map where the key is the value that 
+ * gets returned when each item is pushed into the function. Accumulate
+ * items in an array that have the same key
+ * @param array
+ * @param criterion
+ * @return {Map<any, any>}
+ */
 function groupBy(array, criterion) {
     const result = new Map();
     for (const elem of array) {
@@ -96,10 +111,22 @@ function groupBy(array, criterion) {
     return result;
 }
 
+/**
+ * Separate function to use in reduce to sum up bulk values
+ * @param first
+ * @param second
+ * @return {CombinedBulk}
+ */
 function addBulk(first, second) {
     return new CombinedBulk(first.normal + second.normal, first.light + second.light);
 }
 
+/**
+ * Used for subtracting bulk if items are placed in a container; can never go below 0
+ * @param first
+ * @param second
+ * @return {CombinedBulk}
+ */
 function subtractBulk(first, second) {
     // 1 bulk is 10 light bulk
     const firstNumberedBulk = first.normal * 10 + first.light;
@@ -114,10 +141,21 @@ function subtractBulk(first, second) {
     }
 }
 
+/**
+ * Non stackable items multiply their bulk by quantity
+ * @param combinedBulk
+ * @param factor
+ * @return {CombinedBulk}
+ */
 function multiplyBulk(combinedBulk, factor) {
     return new CombinedBulk(combinedBulk.normal * factor, combinedBulk.light * factor);
 }
 
+/**
+ * Helper function to be able to easily sum up bulk
+ * @param bulk
+ * @return {CombinedBulk}
+ */
 function toCombinedBulk(bulk) {
     if (bulk.type === 'light') {
         return new CombinedBulk(0, bulk.value);
@@ -169,11 +207,12 @@ function calculateStackBulk(items, stackDefinition) {
     const size = stackDefinition.size;
     const bulk = stackDefinition.bulk;
 
+    // sum up quantity
     const quantity = items
         .map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0);
 
-    // always round down for bulk
+    // always round down for bulk as per RAW
     const bulkRelevantQuantity = Math.floor(quantity / size);
 
     return toCombinedBulk(new Bulk(bulk.type, bulk.value * bulkRelevantQuantity));
@@ -225,6 +264,12 @@ export function calculateBulk(items, stackDefinitions) {
         .reduce(addBulk, new CombinedBulk());
 }
 
+/**
+ * Weight from items includes either an integer or l for light bulk 
+ * or something that we can't parse and report as no bulk.
+ * @param weight
+ * @return {Bulk}
+ */
 function weightToBulk(weight) {
     if (weight === 'l') {
         return new Bulk('light', 1);
