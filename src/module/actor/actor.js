@@ -2,6 +2,10 @@
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
 import CharacterData from './character.js';
+import {
+  AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
+} from '../modifiers.js';
+import { ConditionModifiers } from '../condition-modifiers.js';
 
 export default class extends Actor {
   /**
@@ -66,6 +70,13 @@ export default class extends Actor {
    */
   _prepareCharacterData(data) {
     const character = new CharacterData(data, this.items);
+
+    // this will most likely also relevant for NPCs
+    const statisticsModifiers = {};
+
+    // calculate modifiers for conditions (from status effects)
+    data.statusEffects.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
+
     // Level, experience, and proficiency
     data.details.level.value = character.level;
     data.details.xp.max = character.maxExp;
@@ -93,10 +104,32 @@ export default class extends Actor {
     }
 
     // Saves
-    for (const save of Object.values(data.saves)) {
-      const proficiency = save.rank ? (save.rank * 2) + data.details.level.value : 0;
-      save.value = data.abilities[save.ability].mod + proficiency + save.item;
-      save.breakdown = `${save.ability} modifier(${data.abilities[save.ability].mod}) + proficiency(${proficiency}) + item bonus(${save.item})`;
+    for (const [saveName, save] of Object.entries(data.saves)) {
+      const modifiers = [
+        AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
+        ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
+      ];
+      if (save.item) {
+        modifiers.push(new PF2Modifier('Item Bonus', save.item, PF2ModifierType.ITEM));
+      }
+      (statisticsModifiers[saveName] || []).forEach((m) => modifiers.push(m));
+
+      // preserve backwards-compatibility
+      let updated;
+      if (save instanceof PF2StatisticModifier) {
+        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the
+        // total modifier
+        updated = mergeObject(save, new PF2StatisticModifier(saveName, modifiers));
+      } else {
+        // ensure the individual saving throw objects has the correct prototype, while retaining the
+        // original data fields
+        updated = mergeObject(new PF2StatisticModifier(saveName, modifiers), save);
+      }
+      updated.breakdown = updated.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      updated.value = updated.totalModifier;
+      data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
     }
 
     // Martial
