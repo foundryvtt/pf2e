@@ -239,7 +239,7 @@ export function itemsFromActorData(actorData) {
     const items = actorData.items
         .filter(item => itemTypes.has(item.type))
         .map(item => {
-            const weight = item.data.weight?.value?.toLowerCase()
+            const weight = item.data?.weight?.value?.toLowerCase()
                 ?.trim() ?? 0; // l or 1..n
             const quantity = item.data?.quantity?.value ?? 0;
             const isEquipped = item.data?.equipped?.value ?? false;

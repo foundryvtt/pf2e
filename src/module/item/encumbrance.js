@@ -16,7 +16,7 @@ export class InventoryWeight {
         const limitTimes10 = this.limit * 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
-    
+
     get limitPercentageMax100() {
         if (this.limitPercentage > 100) {
             return 100;
@@ -38,20 +38,19 @@ export class InventoryWeight {
     get isOverLimit() {
         return this.combinedBulk.normal > this.limit;
     }
-    
+
     get bulk() {
         return this.combinedBulk.normal;
     }
 }
 
 /**
- *
- * @param strength
- * @param bonusBulkLimit
+ * @param strengthModifier
+ * @param bonusBulkLimit in bulk
  * @param combinedBulk
  */
-export function calculateEncumbrance(strength, bonusBulkLimit, combinedBulk) {
-    const modifier = strength + bonusBulkLimit;
+export function calculateEncumbrance(strengthModifier, bonusBulkLimit, combinedBulk) {
+    const modifier = strengthModifier + bonusBulkLimit;
     const encumberedAt = modifier + 5;
     const limit = modifier + 10;
     return new InventoryWeight(combinedBulk, encumberedAt, limit);

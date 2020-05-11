@@ -38,6 +38,8 @@ describe('should calculate encumbrance', () => {
             .toBe(80);
         expect(encumbrance.isOverLimit)
             .toBe(false);
+        expect(encumbrance.limitPercentageMax100)
+            .toBe(80)
     });
 
     test('is over limit', () => {
@@ -57,5 +59,7 @@ describe('should calculate encumbrance', () => {
             .toBe(105);
         expect(encumbrance.isOverLimit)
             .toBe(true);
+        expect(encumbrance.limitPercentageMax100)
+            .toBe(100)
     });
 });

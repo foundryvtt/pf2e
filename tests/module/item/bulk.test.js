@@ -1,4 +1,11 @@
-import { Bulk, calculateBulk, CombinedBulk, Item, stacks } from '../../../src/module/item/bulk';
+import {
+    Bulk,
+    calculateBulk,
+    CombinedBulk,
+    Item,
+    itemsFromActorData,
+    stacks
+} from '../../../src/module/item/bulk';
 
 describe('should calculate bulk', () => {
     test('empty inventory', () => {
@@ -61,11 +68,11 @@ describe('should calculate bulk', () => {
                     new Item({
                         holdsItems: [
                             new Item({
-                                bulk: new Bulk("normal", 15)
+                                bulk: new Bulk('normal', 15)
                             })
                         ],
                         negateBulk: new CombinedBulk(15),
-                        bulk: new Bulk("light", 1)
+                        bulk: new Bulk('light', 1)
                     })
                 ]
             }),
@@ -88,19 +95,19 @@ describe('should calculate bulk', () => {
             new Item({
                 holdsItems: [
                     new Item({
-                        bulk: new Bulk("normal", 1)
+                        bulk: new Bulk('normal', 1)
                     }),
                     new Item({
-                        stackGroup: "arrows",
+                        stackGroup: 'arrows',
                         quantity: 10
                     }),
                     new Item({
                         quantity: 9,
-                        bulk: new Bulk("light", 1)
+                        bulk: new Bulk('light', 1)
                     })
                 ],
                 negateBulk: new CombinedBulk(2),
-                bulk: new Bulk("normal", 1)
+                bulk: new Bulk('normal', 1)
             }),
             new Item({
                 stackGroup: 'arrows',
@@ -114,5 +121,107 @@ describe('should calculate bulk', () => {
                 light: 0,
                 normal: 1,
             });
+    });
+
+    test('should convert an inventory', () => {
+        const actorData = {
+            data: {
+                currency: {
+                    pp: {
+                        value: 4
+                    },
+                    gp: {
+                        value: 5
+                    }
+                },
+            },
+            items: [
+                {
+                    type: 'spell'
+                },
+                {
+                    type: 'armor',
+                    data: {
+                        quantity: {
+                            value: 1
+                        },
+                        equipped: {
+                            value: false
+                        },
+                        weight: {
+                            value: 'lala'
+                        }
+                    }
+                },
+                {
+                    type: 'armor',
+                    data: {
+                        quantity: {
+                            value: 1
+                        },
+                        equipped: {
+                            value: true
+                        },
+                        weight: {
+                            value: 'L'
+                        }
+                    }
+                },
+                {
+                    type: 'weapon',
+                    data: {
+                        quantity: {
+                            value: 2
+                        },
+                        weight: {
+                            value: '1'
+                        }
+                    },
+                }
+            ]
+        };
+        const items = itemsFromActorData(actorData);
+
+        expect(items.length)
+            .toBe(4);
+
+        const unequippedArmor = items[0];
+        expect(unequippedArmor.quantity)
+            .toBe(1);
+        expect(unequippedArmor.isArmorButNotWorn)
+            .toBe(true);
+        expect(unequippedArmor.bulk)
+            .toEqual({
+                type: 'negligible',
+                value: 0
+            });
+
+        const equippedArmor = items[1];
+        expect(equippedArmor.quantity)
+            .toBe(1);
+        expect(equippedArmor.isArmorButNotWorn)
+            .toBe(false);
+        expect(equippedArmor.bulk)
+            .toEqual({
+                type: 'light',
+                value: 1
+            });
+
+        const weapon = items[2];
+        expect(weapon.quantity)
+            .toBe(2);
+        expect(weapon.isArmorButNotWorn)
+            .toBe(false);
+        expect(weapon.bulk)
+            .toEqual({
+                type: 'normal',
+                value: 1
+            });
+
+        const coins = items[3];
+        expect(coins.stackGroup)
+            .toBe('coins');
+        expect(coins.quantity)
+            .toBe(9);
     });
 });
