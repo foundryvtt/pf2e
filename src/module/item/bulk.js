@@ -29,10 +29,6 @@ export const stacks = {
         size: 7,
         bulk: new Bulk('light', 1)
     },
-    sacks: {
-        size: 5,
-        bulk: new Bulk('light', 1)
-    },
     coins: {
         size: 1000,
         bulk: new Bulk('normal', 1)
@@ -87,7 +83,7 @@ function groupBy(array, criterion) {
             result.set(key, [elem]);
         } else {
             result.get(key)
-                .append(elem);
+                .push(elem);
         }
     }
     return result;
