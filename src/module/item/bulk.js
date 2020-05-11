@@ -1,8 +1,5 @@
 export class Bulk {
-    type = 'negligible';
-    value = 0;
-
-    constructor(type, value) {
+    constructor(type = 'negligible', value = 0) {
         this.type = type;
         this.value = value;
     }
@@ -36,9 +33,6 @@ export const stacks = {
 };
 
 export class CombinedBulk {
-    normal = 0;
-    light = 0;
-
     constructor(normal = 0, light = 0) {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
@@ -47,17 +41,6 @@ export class CombinedBulk {
 
 
 export class Item {
-    bulk = new Bulk();
-    quantity = 1;
-    stackGroup = null;
-    // worn armor is lighter
-    isArmorButNotWorn = false;
-    // an item can be a container
-    holdsItems = [];
-    // some containers like a backpack or back of holding reduce total bulk if 
-    // items are put into it
-    negateBulk = new CombinedBulk();
-
     constructor({
         bulk = new Bulk(),
         quantity = 1,
@@ -69,8 +52,12 @@ export class Item {
         this.bulk = bulk;
         this.quantity = quantity;
         this.stackGroup = stackGroup;
+        // worn armor is lighter
         this.isArmorButNotWorn = isArmorButNotWorn;
+        // an item can be a container
         this.holdsItems = holdsItems;
+        // some containers like a backpack or back of holding reduce total bulk if 
+        // items are put into it
         this.negateBulk = negateBulk;
     }
 }
@@ -220,7 +207,7 @@ export function calculateBulk(items, stackDefinitions) {
 
 function weightToBulk(weight) {
     if (weight === 'l') {
-        return new Bulk('light');
+        return new Bulk('light', 1);
     } else {
         const value = parseInt(weight, 10);
         if (isNaN(value)) {
@@ -271,4 +258,5 @@ export function itemsFromActorData(actorData) {
         stackGroup: 'coins',
         quantity: countCoins(actorData),
     }));
+    return items;
 }

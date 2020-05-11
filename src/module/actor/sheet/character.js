@@ -399,11 +399,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Inventory encumbrance
     const items = itemsFromActorData(actorData);
-    const bulk = calculateBulk(items, stacks);  
-    sheetData.encumbrance = calculateEncumbrance(
-        actorData.data.abilities.str.mod,
-        actorData.data.attributes.bonusbulk,
-        bulk
+    console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    const bulk = calculateBulk(items, stacks);
+      console.log(bulk);
+    actorData.data.attributes.encumbrance = calculateEncumbrance(
+      actorData.data.abilities.str.mod,
+      actorData.data.attributes.bonusbulk,
+      bulk
     );
   }
 
