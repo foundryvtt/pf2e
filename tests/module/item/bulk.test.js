@@ -64,7 +64,8 @@ describe('should calculate bulk', () => {
                                 bulk: new Bulk("normal", 15)
                             })
                         ],
-                        negateBulk: new CombinedBulk(15)
+                        negateBulk: new CombinedBulk(15),
+                        bulk: new Bulk("light", 1)
                     })
                 ]
             }),
@@ -77,7 +78,40 @@ describe('should calculate bulk', () => {
 
         expect(bulk)
             .toEqual({
-                light: 1,
+                light: 2,
+                normal: 0,
+            });
+    });
+
+    test('backpacks negate bulk', () => {
+        const items = [
+            new Item({
+                holdsItems: [
+                    // bag of holding
+                    new Item({
+                        bulk: new Bulk("normal", 1)
+                    }),
+                    new Item({
+                        stackGroup: "arrows",
+                        quantity: 10
+                    }),
+                    new Item({
+                        quantity: 9,
+                        bulk: new Bulk("light", 1)
+                    })
+                ],
+                negateBulk: new CombinedBulk(2)
+            }),
+            new Item({
+                stackGroup: 'arrows',
+                quantity: 9
+            })
+        ];
+        const bulk = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
                 normal: 0,
             });
     });
