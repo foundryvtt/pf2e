@@ -5,6 +5,7 @@ import CharacterData from './character.js';
 import {
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
 } from '../modifiers.js';
+import { ConditionModifiers } from '../condition-modifiers.js';
 
 export default class extends Actor {
   /**
@@ -69,6 +70,13 @@ export default class extends Actor {
    */
   _prepareCharacterData(data) {
     const character = new CharacterData(data, this.items);
+
+    // this will most likely also relevant for NPCs
+    const statisticsModifiers = {};
+
+    // calculate modifiers for conditions (from status effects)
+    data.statusEffects.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
+
     // Level, experience, and proficiency
     data.details.level.value = character.level;
     data.details.xp.max = character.maxExp;
@@ -104,6 +112,7 @@ export default class extends Actor {
       if (save.item) {
         modifiers.push(new PF2Modifier('Item Bonus', save.item, PF2ModifierType.ITEM));
       }
+      (statisticsModifiers[saveName] || []).forEach((m) => modifiers.push(m));
 
       // preserve backwards-compatibility
       let updated;
