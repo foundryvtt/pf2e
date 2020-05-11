@@ -10,10 +10,22 @@ describe('should calculate bulk', () => {
         })
     });
 
+    test('11 light items are 1 bulk and 1 light bulk', () => {
+        const bulk = calculateBulk([new Item({
+            bulk: new Bulk('light', 11)
+        })]);
+
+        expect(bulk).toEqual({
+            light: 1,
+            normal: 1
+        })
+    });
+
     test('light armor that is worn counts as 1 bulk', () => {
-        const items = [
-            new Item({isArmorButNotWorn: true, bulk: new Bulk("light", 1)})
-        ];
+        const items = [new Item({
+            isArmorButNotWorn: true, 
+            bulk: new Bulk("light", 1)
+        })];
         const bulk = calculateBulk(items);
 
         expect(bulk).toEqual({

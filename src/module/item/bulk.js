@@ -61,7 +61,7 @@ export class Item {
     // some containers like a backpack or back of holding reduce total bulk if 
     // items are put into it
     negateBulk = new CombinedBulk();
-    
+
     constructor({
         bulk = new Bulk(),
         quantity = 1,
@@ -102,13 +102,17 @@ function subtractBulk(first, second) {
     const firstNumberedBulk = first.normal * 10 + first.light;
     const secondNumberedBulk = second.normal * 10 + second.light;
     const result = firstNumberedBulk - secondNumberedBulk;
-    
+
     // bulk can't get negative
     if (result < 0) {
         return new CombinedBulk(0, 0);
     } else {
         return new CombinedBulk(Math.floor(result / 10), result % 10);
     }
+}
+
+function multiplyBulk(combinedBulk, factor) {
+    return new CombinedBulk(combinedBulk.normal * factor, combinedBulk.light * factor);
 }
 
 function toCombinedBulk(bulk) {
@@ -149,7 +153,7 @@ function calculateItemBulk(item) {
  */
 function calculateNonStackBulk(items) {
     return items
-        .map((item) => calculateItemBulk(item) * item.quantity)
+        .map((item) => multiplyBulk(calculateItemBulk(item), item.quantity))
         .reduce(addBulk, new CombinedBulk());
 }
 
@@ -165,11 +169,11 @@ function calculateStackBulk(items, stackDefinition) {
     const quantity = items
         .map((item) => item.quantity)
         .reduce((prev, curr) => prev + curr, 0);
-    
+
     // always round down for bulk
     const bulkRelevantQuantity = Math.floor(quantity / size);
-    
-    return toCombinedBulk(new Bulk(bulk.type, bulk.value * bulkRelevantQuantity))
+
+    return toCombinedBulk(new Bulk(bulk.type, bulk.value * bulkRelevantQuantity));
 }
 
 /**
@@ -197,14 +201,14 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  */
 export function calculateBulk(items, stackDefinitions) {
     const itemGroups = groupBy(items, (e) => e.stackGroup);
-    return  Array.from(itemGroups.entries())
+    return Array.from(itemGroups.entries())
         .map(([key, items]) => {
             if (key !== null && !(key in stackDefinitions)) {
                 throw new Error('No stack definition found for stack ' + key);
             }
-            
+
             const itemBulk = calculateGroupedItemsBulk(key, items, stackDefinitions);
-            
+
             // a container also has bulk and can be stacked (e.g. sacks)
             const containsBulk = items
                 .map(item => {
@@ -212,7 +216,7 @@ export function calculateBulk(items, stackDefinitions) {
                     return subtractBulk(containerBulk, item.negateBulk);
                 })
                 .reduce(addBulk, new CombinedBulk());
-            
+
             return addBulk(itemBulk, containsBulk);
         })
         .reduce(addBulk, new CombinedBulk());
