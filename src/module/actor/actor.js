@@ -3,6 +3,7 @@
  */
 import CharacterData from './character.js';
 import {
+  WISDOM,
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
@@ -140,9 +141,30 @@ export default class extends Actor {
     }
 
     // Perception
-    const proficiency = data.attributes.perception.rank ? (data.attributes.perception.rank * 2) + data.details.level.value : 0;
-    data.attributes.perception.value = data.abilities[data.attributes.perception.ability].mod + proficiency + data.attributes.perception.item;
-    data.attributes.perception.breakdown = `${data.attributes.perception.ability} modifier(${data.abilities[data.attributes.perception.ability].mod}) + proficiency(${proficiency}) + item bonus(${data.attributes.perception.item})`;
+    const modifiers = [
+      WISDOM.withScore(data.abilities.wis.value),
+      ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
+    ];
+    if (data.attributes.perception.item) {
+      modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
+    }
+    (statisticsModifiers.perception || []).forEach((m) => modifiers.push(m));
+
+    // preserve backwards-compatibility
+    /* eslint-disable no-param-reassign */
+    if (data.attributes.perception instanceof PF2StatisticModifier) {
+      // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the
+      // total modifier
+      data.attributes.perception = mergeObject(data.attributes.perception, new PF2StatisticModifier('perception', modifiers));
+    } else {
+      // ensure the perception object has the correct prototype, while retaining the original data fields
+      data.attributes.perception = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception);
+    }
+    data.attributes.perception.breakdown = data.attributes.perception.modifiers.filter((m) => m.enabled)
+      .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      .join(', ');
+    data.attributes.perception.value = data.attributes.perception.totalModifier;
+    /* eslint-enable */
 
     // Class DC
     data.attributes.classDC.ability = data.details.keyability.value;
