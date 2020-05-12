@@ -8,6 +8,7 @@ import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
+import * as migrations from "./module/migration.js";
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -70,6 +71,29 @@ Hooks.once('setup', () => {
       obj[e[0]] = game.i18n.localize(e[1]);
       return obj;
     }, {});
+  }
+});
+
+/* -------------------------------------------- */
+
+/**
+ * Once the entire VTT framework is initialized, check to see if we should perform a data migration
+ */
+Hooks.once("ready", function() {
+
+  // Determine whether a system migration is required and feasible
+  const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
+  const NEEDS_MIGRATION_VERSION = Number(game.system.data.schema);
+  const COMPATIBLE_MIGRATION_VERSION = 0.411;
+  let needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
+  const canMigrate = currentVersion >= COMPATIBLE_MIGRATION_VERSION;
+
+  // Perform the migration
+  if ( needMigration && game.user.isGM ) {
+    if ( currentVersion && (currentVersion < COMPATIBLE_MIGRATION_VERSION) ) {
+      ui.notifications.error(`Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`, {permanent: true});
+    }
+    migrations.migrateWorld();
   }
 });
 
