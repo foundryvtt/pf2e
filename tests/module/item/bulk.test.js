@@ -2,7 +2,7 @@ import {
     ItemBulk,
     calculateBulk,
     CombinedBulk,
-    Item,
+    ContainerOrItem,
     itemsFromActorData,
     stacks
 } from '../../../src/module/item/itemBulk';
@@ -19,7 +19,7 @@ describe('should calculate bulk', () => {
     });
 
     test('11 light items are 1 bulk and 1 light bulk', () => {
-        const items = [new Item({
+        const items = [new ContainerOrItem({
             bulk: new ItemBulk('light', 11)
         })];
         const bulk = calculateBulk(items, stacks);
@@ -32,7 +32,7 @@ describe('should calculate bulk', () => {
     });
 
     test('light armor that is worn counts as 1 bulk', () => {
-        const items = [new Item({
+        const items = [new ContainerOrItem({
             isEquipped: true,
             equippedBulk: new ItemBulk('normal', 1)
         })];
@@ -46,7 +46,7 @@ describe('should calculate bulk', () => {
     });
 
     test('armor that is worn counts as 1 more bulk', () => {
-        const items = [new Item({
+        const items = [new ContainerOrItem({
             isEquipped: false,
             unequippedBulk: new ItemBulk('normal', 2),
             equippedBulk: new ItemBulk('normal', 1)
@@ -61,7 +61,7 @@ describe('should calculate bulk', () => {
     });
 
     test('backpacks are light bulk when not worn', () => {
-        const items = [new Item({
+        const items = [new ContainerOrItem({
             unequippedBulk: new ItemBulk('light', 1)
         })];
         const bulk = calculateBulk(items, stacks);
@@ -74,7 +74,7 @@ describe('should calculate bulk', () => {
     });
 
     test('backpacks are light bulk when not worn', () => {
-        const items = [new Item({
+        const items = [new ContainerOrItem({
             isEquipped: true,
             unequippedBulk: new ItemBulk('light', 1),
             equippedBulk: new ItemBulk()
@@ -90,13 +90,13 @@ describe('should calculate bulk', () => {
     
     test('arrows that shoot bags of holding', () => {
         const items = [
-            new Item({
+            new ContainerOrItem({
                 stackGroup: 'arrows',
                 holdsItems: [
                     // bag of holding
-                    new Item({
+                    new ContainerOrItem({
                         holdsItems: [
-                            new Item({
+                            new ContainerOrItem({
                                 bulk: new ItemBulk('normal', 15)
                             })
                         ],
@@ -105,7 +105,7 @@ describe('should calculate bulk', () => {
                     })
                 ]
             }),
-            new Item({
+            new ContainerOrItem({
                 stackGroup: 'arrows',
                 quantity: 9
             })
@@ -121,16 +121,16 @@ describe('should calculate bulk', () => {
 
     test('backpacks negate bulk', () => {
         const items = [
-            new Item({
+            new ContainerOrItem({
                 holdsItems: [
-                    new Item({
+                    new ContainerOrItem({
                         bulk: new ItemBulk('normal', 1)
                     }),
-                    new Item({
+                    new ContainerOrItem({
                         stackGroup: 'arrows',
                         quantity: 10
                     }),
-                    new Item({
+                    new ContainerOrItem({
                         quantity: 9,
                         bulk: new ItemBulk('light', 1)
                     })
@@ -138,7 +138,7 @@ describe('should calculate bulk', () => {
                 negateBulk: new CombinedBulk(2),
                 bulk: new ItemBulk('normal', 1)
             }),
-            new Item({
+            new ContainerOrItem({
                 stackGroup: 'arrows',
                 quantity: 9
             })

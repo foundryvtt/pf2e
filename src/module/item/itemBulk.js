@@ -67,7 +67,7 @@ export class CombinedBulk {
 }
 
 
-export class Item {
+export class ContainerOrItem {
     constructor({
         bulk = new ItemBulk(),
         quantity = 1,
@@ -77,7 +77,6 @@ export class Item {
         unequippedBulk = undefined,
         // value to overrides bulk field when equipped
         equippedBulk = undefined,
-        // an item can be a container
         holdsItems = [],
         // some containers like a backpack or back of holding reduce total bulk if 
         // items are put into it
@@ -307,7 +306,7 @@ export function toItem(item) {
     // TODO: add backpack nesting logic
     // TODO: add stack group logic
     // TODO: find out where to pull equipped bulk or unequipped bulk from
-    return new Item({
+    return new ContainerOrItem({
         bulk: weightToBulk(parsedWeight),
         isEquipped,
         quantity
@@ -323,7 +322,7 @@ export function itemsFromActorData(actorData) {
         .filter(item => itemTypes.has(item.type))
         .map(item => toItem(item));
 
-    items.push(new Item({
+    items.push(new ContainerOrItem({
         stackGroup: 'coins',
         quantity: countCoins(actorData),
     }));
