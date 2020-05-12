@@ -43,9 +43,11 @@ export function formatBulk(bulk) {
     if (bulk.normal === 0 && bulk.light === 0) {
         return '-';
     } else if (bulk.normal > 0 && bulk.light === 0) {
-        return bulk.normal;
+        return `${bulk.normal}`;
+    } else if (bulk.light > 0 && bulk.normal === 0) {
+        return `${bulk.light}L`;
     } else {
-        return `${bulk.normal}.${bulk.light}`;
+        return `${bulk.normal}, ${bulk.light}L`;
     }
 }
 
