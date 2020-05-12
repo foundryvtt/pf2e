@@ -311,7 +311,13 @@ function countCoins(actorData) {
         .reduce((prev, curr) => prev + curr, 0);
 }
 
-export function toItem(item, nestedItems = []) {
+/**
+ * 
+ * @param item
+ * @param nestedItems
+ * @return {ContainerOrItem}
+ */
+export function toItemOrContainer(item, nestedItems = []) {
     const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
@@ -349,13 +355,22 @@ function buildContainerTree(items, groupedItems) {
             const itemId = item._id;
             if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
                 const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
-                return toItem(item, itemsInContainer);
+                return toItemOrContainer(item, itemsInContainer);
             }
-            return toItem(item);
+            return toItemOrContainer(item);
 
         });
 }
 
+/**
+ * Items that reference other others need to be nested into them. If an item has a reference
+ * to an id, it should be nested into that container unless the container with that id does 
+ * not exist.
+ * 
+ * All other items are top level items.
+ * @param items
+ * @return {*[]|*}
+ */
 function toContainerOrItems(items) {
     const allIds = new Set(items.map(item => item._id));
     const itemsInContainers = groupBy(items, (item) => {

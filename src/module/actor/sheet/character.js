@@ -1,5 +1,5 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks, toItem, formatBulk } from '../../item/bulk.js';
+import { calculateBulk, itemsFromActorData, stacks, toItemOrContainer, formatBulk } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
@@ -152,7 +152,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        const approximatedBulk = calculateBulk([toItem(i)], stacks);
+        const approximatedBulk = calculateBulk([toItemOrContainer(i)], stacks);
         i.totalWeight = formatBulk(approximatedBulk);
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
