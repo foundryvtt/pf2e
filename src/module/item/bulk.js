@@ -234,31 +234,33 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  * @return {*}
  */
 export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false) {
-    const itemGroups = groupBy(items, (e) => e.stackGroup);
-    return Array.from(itemGroups.entries())
-        .map(([key, itemGroup]) => {
-            if (key !== null && key !== undefined && !(key in stackDefinitions)) {
-                throw new Error(`No stack definition found for stack ${key}`);
+    const stackGroups = groupBy(items, (e) => e.stackGroup);
+    return Array.from(stackGroups.entries())
+        .map(([stackName, stackGroup]) => {
+            if (stackName !== null && stackName !== undefined && !(stackName in stackDefinitions)) {
+                throw new Error(`No stack definition found for stack ${stackName}`);
             }
-
-            const itemBulk = calculateGroupedItemsBulk(key, itemGroup, stackDefinitions);
-
-            // a container also has bulk and can be stacked (e.g. sacks)
-            const containsBulk = itemGroup
+            
+            // containers don't reduce their own bulk, so they need to be 
+            // calculated separately
+            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions);
+            const containsBulk = stackGroup
                 .map(item => {
-                    const containerBulk = calculateBulk(
+                    // first calculate bulk of items in a container
+                    const itemsBulk = calculateBulk(
                         item.holdsItems,
                         stackDefinitions,
                         item.extraDimensionalContainer
                     );
 
+                    // then check if bulk can be reduced
                     // bulk can only be reduced for worn containers and only once for extra
                     // dimensional containers
                     if ((item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
                         || (item.reducesBulk && item.isEquipped)) {
-                        return subtractBulk(containerBulk, item.negateBulk);
+                        return subtractBulk(itemsBulk, item.negateBulk);
                     }
-                    return containerBulk;
+                    return itemsBulk;
 
                 })
                 .reduce(addBulk, new Bulk());
