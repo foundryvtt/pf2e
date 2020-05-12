@@ -1,4 +1,4 @@
-export class Bulk {
+export class ItemBulk {
     constructor(type = 'negligible', value = 0) {
         this.type = type;
         this.value = value;
@@ -25,27 +25,27 @@ export class Bulk {
 export const stacks = {
     bolts: {
         size: 10,
-        bulk: new Bulk('light', 1)
+        bulk: new ItemBulk('light', 1)
     },
     arrows: {
         size: 10,
-        bulk: new Bulk('light', 1)
+        bulk: new ItemBulk('light', 1)
     },
     slingBullets: {
         size: 10,
-        bulk: new Bulk('light', 1)
+        bulk: new ItemBulk('light', 1)
     },
     blowgunDarts: {
         size: 10,
-        bulk: new Bulk('light', 1)
+        bulk: new ItemBulk('light', 1)
     },
     rations: {
         size: 7,
-        bulk: new Bulk('light', 1)
+        bulk: new ItemBulk('light', 1)
     },
     coins: {
         size: 1000,
-        bulk: new Bulk('normal', 1)
+        bulk: new ItemBulk('normal', 1)
     }
 };
 
@@ -58,10 +58,10 @@ export class CombinedBulk {
     toString() {
         if (this.normal === 0 && this.light === 0) {
             return '-';
-        } else if (this.normal > 0) {
+        } else if (this.normal > 0 && this.light === 0) {
             return this.normal;
         } else {
-            return 'L';
+            return `${this.normal}.${this.light}`;
         }
     }
 }
@@ -69,7 +69,7 @@ export class CombinedBulk {
 
 export class Item {
     constructor({
-        bulk = new Bulk(),
+        bulk = new ItemBulk(),
         quantity = 1,
         stackGroup = null,
         isEquipped = false,
@@ -214,7 +214,7 @@ function calculateStackBulk(items, stackDefinition) {
     // always round down for bulk as per RAW
     const bulkRelevantQuantity = Math.floor(quantity / size);
 
-    return toCombinedBulk(new Bulk(bulk.type, bulk.value * bulkRelevantQuantity));
+    return toCombinedBulk(new ItemBulk(bulk.type, bulk.value * bulkRelevantQuantity));
 }
 
 /**
@@ -267,23 +267,23 @@ export function calculateBulk(items, stackDefinitions) {
  * Weight from items includes either an integer or l for light bulk
  * or something that we can't parse and report as no bulk.
  * @param weight
- * @return {Bulk}
+ * @return {ItemBulk}
  */
 function weightToBulk(weight) {
     if (weight === 'l') {
-        return new Bulk('light', 1);
+        return new ItemBulk('light', 1);
     } else {
         const value = parseInt(weight, 10);
-        if (isNaN(value)) {
-            return new Bulk();
+        if (value === 0 || isNaN(value)) {
+            return new ItemBulk();
         } else {
-            return new Bulk('normal', value);
+            return new ItemBulk('normal', value);
         }
     }
 }
 
 function countCoins(actorData) {
-    return Object.values(actorData.data.currency)
+    return Object.values(actorData?.data?.currency ?? {})
         .map(denomination => parseInt(denomination.value, 10))
         .reduce((prev, curr) => prev + curr, 0);
 }
@@ -296,8 +296,11 @@ itemTypes.add('consumable');
 itemTypes.add('backpack');
 
 export function toItem(item) {
-    const weight = item.data?.weight?.value?.toLowerCase()
-        ?.trim() ?? 0; // l or 1..n
+    // catch the null case
+    const weight = item.data?.weight?.value ?? '';
+    // catch the number case
+    const stringWeight = '' + weight;
+    const parsedWeight = stringWeight.toLowerCase().trim() ?? "0";
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
 
@@ -305,7 +308,7 @@ export function toItem(item) {
     // TODO: add stack group logic
     // TODO: find out where to pull equipped bulk or unequipped bulk from
     return new Item({
-        bulk: weightToBulk(weight),
+        bulk: weightToBulk(parsedWeight),
         isEquipped,
         quantity
     });

@@ -1,4 +1,4 @@
-import {CombinedBulk} from '../../../src/module/item/bulk';
+import {CombinedBulk} from '../../../src/module/item/itemBulk';
 import { calculateEncumbrance } from '../../../src/module/item/encumbrance';
 
 describe('should calculate encumbrance', () => {

@@ -1,5 +1,5 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks, toItem } from '../../item/bulk.js';
+import { calculateBulk, itemsFromActorData, stacks, toItem } from '../../item/itemBulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
