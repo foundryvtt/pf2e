@@ -1,0 +1,20 @@
+<h3 class="defense-title pf-heading">{{localize "PF2E.ClassDCHeader"}}</h3>
+<ol class="defense-list">
+  <li class="defense">
+    <span class="defense-score" title="{{data.attributes.classDC.breakdown}}">{{numberFormat data.attributes.classDC.value decimals=0 sign=false}}</span>
+    <h4 class="attribute-name-non-rollable">{{localize "PF2E.ClassDCLabel"}}</h4>
+    <div class="defense-container">
+      <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
+      <input type="hidden" name="data.attributes.classDC.rank" value="{{data.attributes.classDC.rank}}" data-dtype="Number"/>
+      <span class="proficiency-rank click-stat-level pf-value" title="{{data.attributes.classDC.hover}}">{{{data.attributes.classDC.icon}}}</span>
+    </div>
+    <div class="defense-container">
+      <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
+      <span class="defense-item-value pf-value" title="{{localize "PF2E.ItemTitle"}}">
+        <input name="data.attributes.classDC.item" type="text" value="{{data.attributes.classDC.item}}"
+                                                                  data-dtype="Number" placeholder="+0"/>
+      </span>
+    </div>
+  </li>
+
+</ol>

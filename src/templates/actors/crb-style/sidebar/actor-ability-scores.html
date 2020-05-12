@@ -1,0 +1,14 @@
+<h3 class="abilities-title pf-heading">{{localize "PF2E.AbilityScoresHeader"}}</h3>
+<ol class="abilities-list">
+  {{#each data.abilities as |ability id|}}
+  <li class="ability" data-ability="{{id}}">
+    <h4 class="ability-name">{{ability.label}}</h4>
+    <span class="ability-id" title="{{localize "PF2E.AbilityTitle"}}">{{id}}</span>
+    <span class="ability-mod" title="{{localize "PF2E.ModifierTitle"}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+    <span class="ability-score" title="{{localize "PF2E.ScoreTitle"}}">
+      <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}"
+                                                            data-dtype="Number" placeholder="10"/>
+    </span>
+  </li>
+  {{/each}}
+</ol>
