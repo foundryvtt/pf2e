@@ -135,14 +135,14 @@ function subtractBulk(first, second) {
 
 /**
  * Non stackable items multiply their bulk by quantity
- * @param combinedBulk
+ * @param bulk
  * @param factor
  * @return {Bulk}
  */
-function multiplyBulk(combinedBulk, factor) {
+function multiplyBulk(bulk, factor) {
     return new Bulk({
-        normal: combinedBulk.normal * factor,
-        light: combinedBulk.light * factor,
+        normal: bulk.normal * factor,
+        light: bulk.light * factor,
     });
 }
 
@@ -242,7 +242,7 @@ export function calculateBulk(items, stackDefinitions) {
  * Weight from items includes either an integer or l for light bulk
  * or something that we can't parse and report as no bulk.
  * @param weight
- * @return {ItemBulk}
+ * @return {Bulk}
  */
 function weightToBulk(weight) {
     if (weight === 'l') {
