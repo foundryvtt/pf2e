@@ -76,7 +76,7 @@ export default class extends Actor {
     const statisticsModifiers = {};
 
     // calculate modifiers for conditions (from status effects)
-    data.statusEffects.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
+    data.statusEffects?.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
 
     // Level, experience, and proficiency
     data.details.level.value = character.level;
