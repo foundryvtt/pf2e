@@ -5,6 +5,7 @@
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
+// eslint-disable-next-line max-classes-per-file
 export const stacks = {
     bolts: {
         size: 10,
@@ -42,13 +43,15 @@ export class Bulk {
 export function formatBulk(bulk) {
     if (bulk.normal === 0 && bulk.light === 0) {
         return '-';
-    } else if (bulk.normal > 0 && bulk.light === 0) {
-        return `${bulk.normal}`;
-    } else if (bulk.light > 0 && bulk.normal === 0) {
-        return `${bulk.light}L`;
-    } else {
-        return `${bulk.normal}; ${bulk.light}L`;
     }
+    if (bulk.normal > 0 && bulk.light === 0) {
+        return `${bulk.normal}`;
+    }
+    if (bulk.light > 0 && bulk.normal === 0) {
+        return `${bulk.light}L`;
+    }
+    return `${bulk.normal}; ${bulk.light}L`;
+
 }
 
 export class ContainerOrItem {
@@ -127,12 +130,12 @@ function subtractBulk(first, second) {
     // bulk can't get negative
     if (result < 0) {
         return new Bulk();
-    } else {
-        return new Bulk({
-            normal: Math.floor(result / 10),
-            light: result % 10,
-        });
     }
+    return new Bulk({
+        normal: Math.floor(result / 10),
+        light: result % 10,
+    });
+
 }
 
 /**
@@ -156,11 +159,12 @@ function multiplyBulk(bulk, factor) {
 function calculateItemBulk(item) {
     if (item.unequippedBulk !== undefined && item.unequippedBulk !== null && !item.isEquipped) {
         return item.unequippedBulk;
-    } else if (item.equippedBulk !== undefined && item.equippedBulk !== null && item.isEquipped) {
-        return item.equippedBulk;
-    } else {
-        return item.bulk;
     }
+    if (item.equippedBulk !== undefined && item.equippedBulk !== null && item.isEquipped) {
+        return item.equippedBulk;
+    }
+    return item.bulk;
+
 }
 
 /**
@@ -180,8 +184,7 @@ function calculateNonStackBulk(items) {
  * @param stackDefinition
  */
 function calculateStackBulk(items, stackDefinition) {
-    const size = stackDefinition.size;
-    const lightBulk = stackDefinition.lightBulk;
+    const { size, lightBulk } = stackDefinition;
 
     // sum up quantity
     const quantity = items
@@ -204,9 +207,9 @@ function calculateStackBulk(items, stackDefinition) {
 function calculateGroupedItemsBulk(key, values, stackDefinitions) {
     if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
-    } else {
-        return calculateStackBulk(values, stackDefinitions[key]);
     }
+    return calculateStackBulk(values, stackDefinitions[key]);
+
 }
 
 /**
@@ -220,15 +223,15 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
 export function calculateBulk(items, stackDefinitions) {
     const itemGroups = groupBy(items, (e) => e.stackGroup);
     return Array.from(itemGroups.entries())
-        .map(([key, items]) => {
+        .map(([key, itemGroup]) => {
             if (key !== null && key !== undefined && !(key in stackDefinitions)) {
-                throw new Error('No stack definition found for stack ' + key);
+                throw new Error(`No stack definition found for stack ${key}`);
             }
 
-            const itemBulk = calculateGroupedItemsBulk(key, items, stackDefinitions);
+            const itemBulk = calculateGroupedItemsBulk(key, itemGroup, stackDefinitions);
 
             // a container also has bulk and can be stacked (e.g. sacks)
-            const containsBulk = items
+            const containsBulk = itemGroup
                 .map(item => {
                     const containerBulk = calculateBulk(item.holdsItems, stackDefinitions);
                     return subtractBulk(containerBulk, item.negateBulk);
@@ -243,20 +246,38 @@ export function calculateBulk(items, stackDefinitions) {
 /**
  * Weight from items includes either an integer or l for light bulk
  * or something that we can't parse and report as no bulk.
- * @param weight
+ * @param weight must be string containing a number or "l"; undefined, null or non
+ * parseable strings return undefined
+ * null
  * @return {Bulk}
  */
 function weightToBulk(weight) {
+    if (weight === undefined || weight === null) {
+        return undefined;
+    }
     if (weight === 'l') {
         return new Bulk({ light: 1 });
-    } else {
-        const value = parseInt(weight, 10);
-        if (value === 0 || isNaN(value)) {
-            return new Bulk();
-        } else {
-            return new Bulk({ normal: value });
-        }
     }
+    const value = parseInt(weight, 10);
+    if (Number.isNaN(value)) {
+        return undefined;
+    }
+    return new Bulk({ normal: value });
+}
+
+/**
+ * Needed because some weight is either null, undefined, a number or a string :(
+ * @param weight
+ */
+function normalizeWeight(weight) {
+    if (weight === null || weight === undefined) {
+        return undefined;
+    }
+    // turn numbers into strings
+    const stringWeight = `${weight}`;
+    return stringWeight.toLowerCase()
+        .trim();
+
 }
 
 function countCoins(actorData) {
@@ -265,42 +286,85 @@ function countCoins(actorData) {
         .reduce((prev, curr) => prev + curr, 0);
 }
 
-const itemTypes = new Set();
-itemTypes.add('weapon');
-itemTypes.add('armor');
-itemTypes.add('equipment');
-itemTypes.add('consumable');
-itemTypes.add('backpack');
-
-export function toItem(item) {
-    // catch the null case
-    const weight = item.data?.weight?.value ?? '';
-    // catch the number case
-    const stringWeight = '' + weight;
-    const parsedWeight = stringWeight.toLowerCase()
-        .trim() ?? '0';
+export function toItem(item, nestedItems = []) {
+    const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
+    const equippedBulk = item.data?.equippedBulk?.value;
+    const unequippedBulk = item.data?.unequippedBulk?.value;
+    const stackGroup = item.data?.stackGroup?.value;
+    const negateBulk = item.data?.negateBulk?.value;
 
-    // TODO: add backpack nesting logic
-    // TODO: add stack group logic
-    // TODO: find out where to pull equipped bulk or unequipped bulk from
     return new ContainerOrItem({
-        bulk: weightToBulk(parsedWeight),
+        bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
+        negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
+        // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
+        unequippedBulk: weightToBulk(normalizeWeight(unequippedBulk)),
+        equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
+        holdsItems: nestedItems,
+        stackGroup,
         isEquipped,
         quantity
     });
 }
 
 /**
+ * Recursively build items by checking if groupedItems contains a list
+ * under their data._id
+ * @param items
+ * @param groupedItems items grouped by data.containerId.value
+ * @return {*}
+ */
+function buildContainerTree(items, groupedItems) {
+    return items
+        .map((item) => {
+            const itemId = item._id;
+            if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
+                const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
+                return toItem(item, itemsInContainer);
+            }
+            return toItem(item);
+
+        });
+}
+
+function toItems(items) {
+    const allIds = new Set(items.map(item => item._id));
+    const itemsInContainers = groupBy(items, (item) => {
+        // we want all items in the top level group that are in no container
+        // or are never referenced because we don't want the items to
+        // disappear if the container is being deleted or don't have a reference
+        const ref = item.data?.containerId?.value ?? null;
+        if (ref === null || !allIds.has(ref)) {
+            return null;
+        }
+        return item._id;
+    });
+
+    if (itemsInContainers.has(null)) {
+        const topLevelItems = itemsInContainers.get(null);
+        return buildContainerTree(topLevelItems, itemsInContainers);
+    }
+    return [];
+
+}
+
+const itemTypesWithBulk = new Set();
+itemTypesWithBulk.add('weapon');
+itemTypesWithBulk.add('armor');
+itemTypesWithBulk.add('equipment');
+itemTypesWithBulk.add('consumable');
+itemTypesWithBulk.add('backpack');
+
+/**
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
  */
 export function itemsFromActorData(actorData) {
-    const items = actorData.items
-        .filter(item => itemTypes.has(item.type))
-        .map(item => toItem(item));
+    const itemsHavingBulk = actorData.items
+        .filter(item => itemTypesWithBulk.has(item.type));
 
+    const items = toItems(itemsHavingBulk);
     items.push(new ContainerOrItem({
         stackGroup: 'coins',
         quantity: countCoins(actorData),

@@ -19,7 +19,7 @@ describe('should calculate bulk', () => {
 
     test('11 light items are 1 bulk and 1 light bulk', () => {
         const items = [new ContainerOrItem({
-            bulk: new Bulk({light: 11})
+            bulk: new Bulk({ light: 11 })
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -33,7 +33,7 @@ describe('should calculate bulk', () => {
     test('light armor that is worn counts as 1 bulk', () => {
         const items = [new ContainerOrItem({
             isEquipped: true,
-            equippedBulk: new Bulk({normal: 1})
+            equippedBulk: new Bulk({ normal: 1 })
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -47,8 +47,8 @@ describe('should calculate bulk', () => {
     test('armor that is worn counts as 1 more bulk', () => {
         const items = [new ContainerOrItem({
             isEquipped: false,
-            unequippedBulk: new Bulk({normal: 2}),
-            equippedBulk: new Bulk({normal: 1})
+            unequippedBulk: new Bulk({ normal: 2 }),
+            equippedBulk: new Bulk({ normal: 1 })
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -61,7 +61,7 @@ describe('should calculate bulk', () => {
 
     test('backpacks are light bulk when not worn', () => {
         const items = [new ContainerOrItem({
-            unequippedBulk: new Bulk({light: 1})
+            unequippedBulk: new Bulk({ light: 1 })
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -75,7 +75,7 @@ describe('should calculate bulk', () => {
     test('backpacks are light bulk when not worn', () => {
         const items = [new ContainerOrItem({
             isEquipped: true,
-            unequippedBulk: new Bulk({light: 1}),
+            unequippedBulk: new Bulk({ light: 1 }),
             equippedBulk: new Bulk()
         })];
         const bulk = calculateBulk(items, stacks);
@@ -86,7 +86,7 @@ describe('should calculate bulk', () => {
                 normal: 0
             });
     });
-    
+
     test('arrows that shoot bags of holding', () => {
         const items = [
             new ContainerOrItem({
@@ -96,11 +96,11 @@ describe('should calculate bulk', () => {
                     new ContainerOrItem({
                         holdsItems: [
                             new ContainerOrItem({
-                                bulk: new Bulk({normal: 15})
+                                bulk: new Bulk({ normal: 15 })
                             })
                         ],
-                        negateBulk: new Bulk({normal: 15}),
-                        bulk: new Bulk({light: 1})
+                        negateBulk: new Bulk({ normal: 15 }),
+                        bulk: new Bulk({ light: 1 })
                     })
                 ]
             }),
@@ -123,7 +123,7 @@ describe('should calculate bulk', () => {
             new ContainerOrItem({
                 holdsItems: [
                     new ContainerOrItem({
-                        bulk: new Bulk({normal: 1})
+                        bulk: new Bulk({ normal: 1 })
                     }),
                     new ContainerOrItem({
                         stackGroup: 'arrows',
@@ -131,11 +131,11 @@ describe('should calculate bulk', () => {
                     }),
                     new ContainerOrItem({
                         quantity: 9,
-                        bulk: new Bulk({light: 1})
+                        bulk: new Bulk({ light: 1 })
                     })
                 ],
-                negateBulk: new Bulk({normal: 2}),
-                bulk: new Bulk({normal: 1})
+                negateBulk: new Bulk({ normal: 2 }),
+                bulk: new Bulk({ normal: 1 })
             }),
             new ContainerOrItem({
                 stackGroup: 'arrows',
@@ -178,7 +178,16 @@ describe('should calculate bulk', () => {
                         },
                         weight: {
                             value: 'lala'
-                        }
+                        },
+                        equippedBulk: {
+                            value: 'l'
+                        },
+                        unequippedBulk: {
+                            value: '1'
+                        },
+                        negateBulk: {
+                            value: '2'
+                        },
                     }
                 },
                 {
@@ -205,19 +214,42 @@ describe('should calculate bulk', () => {
                             value: '1'
                         }
                     },
+                },
+                {
+                    type: 'weapon',
+                    data: {
+                        stackGroup: {
+                            value: 'arrows'
+                        }
+                    },
                 }
             ]
         };
         const items = itemsFromActorData(actorData);
 
         expect(items.length)
-            .toBe(4);
+            .toBe(5);
 
         const unequippedArmor = items[0];
         expect(unequippedArmor.quantity)
             .toBe(1);
         expect(unequippedArmor.isEquipped)
             .toBe(false);
+        expect(unequippedArmor.equippedBulk)
+            .toEqual({
+                normal: 0,
+                light: 1
+            });
+        expect(unequippedArmor.unequippedBulk)
+            .toEqual({
+                normal: 1,
+                light: 0
+            });
+        expect(unequippedArmor.negateBulk)
+            .toEqual({
+                normal: 2,
+                light: 0
+            });
         expect(unequippedArmor.bulk)
             .toEqual({
                 normal: 0,
@@ -246,7 +278,10 @@ describe('should calculate bulk', () => {
                 light: 0,
             });
 
-        const coins = items[3];
+        expect(items[3].stackGroup)
+            .toBe('arrows');
+
+        const coins = items[4];
         expect(coins.stackGroup)
             .toBe('coins');
         expect(coins.quantity)
@@ -318,4 +353,63 @@ describe('should calculate bulk', () => {
                 light: 0
             });
     });
+
+    test('should nest items into containers', () => {
+        const actorData = {
+            items: [
+                {
+                    _id: 'test1',
+                    type: 'armor',
+                },
+                {
+                    type: 'armor',
+                    _id: 'test2',
+                    data: {
+                        containerId: { value: 'test1' }
+                    }
+                },
+                {
+                    type: 'armor',
+                    _id: 'test3',
+                    data: {
+                        containerId: { value: 'test2' }
+                    }
+                },
+                {
+                    type: 'armor',
+                    _id: 'test4',
+                    data: {
+                        containerId: { value: 'test2' }
+                    }
+                },
+                {
+                    type: 'armor',
+                    _id: 'test5',
+                },
+            ]
+        };
+        const items = itemsFromActorData(actorData);
+
+        expect(items.length)
+            .toBe(3);
+    });
+
+    test('should not nest items that have an containerId that does not exist', () => {
+        const actorData = {
+            items: [
+                {
+                    type: 'armor',
+                    _id: 'test1',
+                    data: {
+                        containerId: { value: 'test2' }
+                    }
+                },
+            ]
+        };
+        const items = itemsFromActorData(actorData);
+
+        expect(items.length)
+            .toBe(2);
+    });
+
 });
