@@ -25,27 +25,27 @@ export class ItemBulk {
 export const stacks = {
     bolts: {
         size: 10,
-        bulk: new ItemBulk('light', 1)
+        lightBulk:  1,
     },
     arrows: {
         size: 10,
-        bulk: new ItemBulk('light', 1)
+        lightBulk:  1,
     },
     slingBullets: {
         size: 10,
-        bulk: new ItemBulk('light', 1)
+        lightBulk:  1,
     },
     blowgunDarts: {
         size: 10,
-        bulk: new ItemBulk('light', 1)
+        lightBulk:  1,
     },
     rations: {
         size: 7,
-        bulk: new ItemBulk('light', 1)
+        lightBulk:  1,
     },
     coins: {
         size: 1000,
-        bulk: new ItemBulk('normal', 1)
+        lightBulk:  10,
     }
 };
 
@@ -204,7 +204,7 @@ function calculateNonStackBulk(items) {
  */
 function calculateStackBulk(items, stackDefinition) {
     const size = stackDefinition.size;
-    const bulk = stackDefinition.bulk;
+    const lightBulk = stackDefinition.lightBulk;
 
     // sum up quantity
     const quantity = items
@@ -214,7 +214,7 @@ function calculateStackBulk(items, stackDefinition) {
     // always round down for bulk as per RAW
     const bulkRelevantQuantity = Math.floor(quantity / size);
 
-    return toCombinedBulk(new ItemBulk(bulk.type, bulk.value * bulkRelevantQuantity));
+    return toCombinedBulk(new ItemBulk('light', lightBulk * bulkRelevantQuantity));
 }
 
 /**
