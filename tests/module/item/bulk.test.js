@@ -72,7 +72,7 @@ describe('should calculate bulk', () => {
             });
     });
 
-    test('backpacks are light bulk when not worn', () => {
+    test('backpacks are negligible bulk when worn', () => {
         const items = [new ContainerOrItem({
             isEquipped: true,
             unequippedBulk: new Bulk({ light: 1 }),
