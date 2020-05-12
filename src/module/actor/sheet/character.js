@@ -1,4 +1,6 @@
 import ActorSheetPF2e from './base.js';
+import { calculateBulk, itemsFromActorData, stacks, toItem } from '../../item/bulk.js';
+import { calculateEncumbrance } from '../../item/encumbrance.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -150,15 +152,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        if (i.data.weight.value === 'L' || i.data.weight.value === 'l') {
-          i.totalWeight = 'L';
-          totalWeight += i.data.quantity.value * 0.1;
-        } else if (parseInt(i.data.weight.value)) {
-          i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
-          totalWeight += i.totalWeight;
-        } else {
-          i.totalWeight = '-';
-        }
+        const approximatedBulk = calculateBulk([toItem(i)], stacks);
+        i.totalWeight = approximatedBulk.toString();
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
@@ -398,50 +393,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
 
     // Inventory encumbrance
-    actorData.data.attributes.encumbrance = this._computeEncumbrance(totalWeight, actorData);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Compute the level and percentage of encumbrance for an Actor.
-   *
-   * Optionally include the weight of carried currency across all denominations by applying the standard rule
-   * from the PHB pg. 143
-   *
-   * @param {Number} totalWeight    The cumulative item weight from inventory items
-   * @param {Object} actorData      The data object for the Actor being rendered
-   * @return {Object}               An object describing the character's encumbrance level
-   * @private
-   */
-  _computeEncumbrance(totalWeight, actorData) {
-    // Encumbrance classes
-    /*     let mod = {
-      tiny: 0.5,
-      sm: 1,
-      med: 1,
-      lg: 2,
-      huge: 4,
-      grg: 8
-    }[actorData.data.traits.size.value] || 1; */
-
-    // Apply Powerful Build feat
-    /* if ( this.actor.getFlag("dnd5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8); */
-
-    // Add Currency Weight
-    const { currency } = actorData.data;
-    const numCoins = Object.values(currency).reduce((val, denom) => val += parseInt(denom.value), 0);
-    totalWeight += Math.floor(numCoins / 1000);
-
-
-    // Compute Encumbrance percentage
-    const enc = {
-      max: actorData.data.abilities.str.mod + actorData.data.attributes.bonusbulk + 5,
-      value: Math.floor(totalWeight),
-    };
-    enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    enc.encumbered = enc.pct > (2 / 3);
-    return enc;
+    const items = itemsFromActorData(actorData);
+    const bulk = calculateBulk(items, stacks);
+    actorData.data.attributes.encumbrance = calculateEncumbrance(
+      actorData.data.abilities.str.mod,
+      actorData.data.attributes.bonusbulk,
+      bulk
+    );
   }
 
   /* -------------------------------------------- */
