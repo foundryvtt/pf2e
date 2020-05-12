@@ -61,7 +61,9 @@ describe('should calculate bulk', () => {
 
     test('backpacks are light bulk when not worn', () => {
         const items = [new ContainerOrItem({
-            unequippedBulk: new Bulk({ light: 1 })
+            isEquipped: false,
+            unequippedBulk: new Bulk({ light: 1 }),
+            equippedBulk: new Bulk()
         })];
         const bulk = calculateBulk(items, stacks);
 
