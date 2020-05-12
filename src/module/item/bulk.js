@@ -376,7 +376,7 @@ function toContainerOrItems(items) {
     const itemsInContainers = groupBy(items, (item) => {
         // we want all items in the top level group that are in no container
         // or are never referenced because we don't want the items to
-        // disappear if the container is being deleted or don't have a reference
+        // disappear if the container is being deleted or doesn't have a reference
         const ref = item.data?.containerId?.value ?? null;
         if (ref === null || !allIds.has(ref)) {
             return null;
