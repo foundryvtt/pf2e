@@ -1,11 +1,10 @@
 import {
-    ItemBulk,
     calculateBulk,
-    CombinedBulk,
+    Bulk,
     ContainerOrItem,
     itemsFromActorData,
     stacks
-} from '../../../src/module/item/itemBulk';
+} from '../../../src/module/item/bulk.js';
 
 describe('should calculate bulk', () => {
     test('empty inventory', () => {
@@ -20,7 +19,7 @@ describe('should calculate bulk', () => {
 
     test('11 light items are 1 bulk and 1 light bulk', () => {
         const items = [new ContainerOrItem({
-            bulk: new ItemBulk('light', 11)
+            bulk: new Bulk({light: 11})
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -34,7 +33,7 @@ describe('should calculate bulk', () => {
     test('light armor that is worn counts as 1 bulk', () => {
         const items = [new ContainerOrItem({
             isEquipped: true,
-            equippedBulk: new ItemBulk('normal', 1)
+            equippedBulk: new Bulk({normal: 1})
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -48,8 +47,8 @@ describe('should calculate bulk', () => {
     test('armor that is worn counts as 1 more bulk', () => {
         const items = [new ContainerOrItem({
             isEquipped: false,
-            unequippedBulk: new ItemBulk('normal', 2),
-            equippedBulk: new ItemBulk('normal', 1)
+            unequippedBulk: new Bulk({normal: 2}),
+            equippedBulk: new Bulk({normal: 1})
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -62,7 +61,7 @@ describe('should calculate bulk', () => {
 
     test('backpacks are light bulk when not worn', () => {
         const items = [new ContainerOrItem({
-            unequippedBulk: new ItemBulk('light', 1)
+            unequippedBulk: new Bulk({light: 1})
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -76,8 +75,8 @@ describe('should calculate bulk', () => {
     test('backpacks are light bulk when not worn', () => {
         const items = [new ContainerOrItem({
             isEquipped: true,
-            unequippedBulk: new ItemBulk('light', 1),
-            equippedBulk: new ItemBulk()
+            unequippedBulk: new Bulk({light: 1}),
+            equippedBulk: new Bulk()
         })];
         const bulk = calculateBulk(items, stacks);
 
@@ -97,11 +96,11 @@ describe('should calculate bulk', () => {
                     new ContainerOrItem({
                         holdsItems: [
                             new ContainerOrItem({
-                                bulk: new ItemBulk('normal', 15)
+                                bulk: new Bulk({normal: 15})
                             })
                         ],
-                        negateBulk: new CombinedBulk(15),
-                        bulk: new ItemBulk('light', 1)
+                        negateBulk: new Bulk({normal: 15}),
+                        bulk: new Bulk({light: 1})
                     })
                 ]
             }),
@@ -124,7 +123,7 @@ describe('should calculate bulk', () => {
             new ContainerOrItem({
                 holdsItems: [
                     new ContainerOrItem({
-                        bulk: new ItemBulk('normal', 1)
+                        bulk: new Bulk({normal: 1})
                     }),
                     new ContainerOrItem({
                         stackGroup: 'arrows',
@@ -132,11 +131,11 @@ describe('should calculate bulk', () => {
                     }),
                     new ContainerOrItem({
                         quantity: 9,
-                        bulk: new ItemBulk('light', 1)
+                        bulk: new Bulk({light: 1})
                     })
                 ],
-                negateBulk: new CombinedBulk(2),
-                bulk: new ItemBulk('normal', 1)
+                negateBulk: new Bulk({normal: 2}),
+                bulk: new Bulk({normal: 1})
             }),
             new ContainerOrItem({
                 stackGroup: 'arrows',
@@ -221,8 +220,8 @@ describe('should calculate bulk', () => {
             .toBe(false);
         expect(unequippedArmor.bulk)
             .toEqual({
-                type: 'negligible',
-                value: 0
+                normal: 0,
+                light: 0
             });
 
         const equippedArmor = items[1];
@@ -232,8 +231,8 @@ describe('should calculate bulk', () => {
             .toBe(true);
         expect(equippedArmor.bulk)
             .toEqual({
-                type: 'light',
-                value: 1
+                light: 1,
+                normal: 0
             });
 
         const weapon = items[2];
@@ -243,8 +242,8 @@ describe('should calculate bulk', () => {
             .toBe(false);
         expect(weapon.bulk)
             .toEqual({
-                type: 'normal',
-                value: 1
+                normal: 1,
+                light: 0,
             });
 
         const coins = items[3];
@@ -294,29 +293,29 @@ describe('should calculate bulk', () => {
         const lightItem = items[0];
         expect(lightItem.bulk)
             .toEqual({
-                type: 'light',
-                value: 1
+                light: 1,
+                normal: 0
             });
 
         const weightless = items[1];
         expect(weightless.bulk)
             .toEqual({
-                type: 'normal',
-                value: 1
+                normal: 1,
+                light: 0,
             });
 
         const bulkItem = items[2];
         expect(bulkItem.bulk)
             .toEqual({
-                type: 'negligible',
-                value: 0
+                normal: 0,
+                light: 0
             });
 
         const undefinedWeightItem = items[3];
         expect(undefinedWeightItem.bulk)
             .toEqual({
-                type: 'negligible',
-                value: 0
+                normal: 0,
+                light: 0
             });
     });
 });

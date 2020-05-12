@@ -1,20 +1,3 @@
-export class ItemBulk {
-    constructor(type = 'negligible', value = 0) {
-        this.type = type;
-        this.value = value;
-    }
-
-    toString() {
-        if (this.type === 'negligible') {
-            return '-';
-        } else if (this.type === 'light') {
-            return 'L';
-        } else {
-            return this.value;
-        }
-    }
-}
-
 /**
  * hard coded for now but could be made configurable later on.
  * Describes each stack group by how much items belong in a stack
@@ -25,53 +8,52 @@ export class ItemBulk {
 export const stacks = {
     bolts: {
         size: 10,
-        lightBulk:  1,
+        lightBulk: 1,
     },
     arrows: {
         size: 10,
-        lightBulk:  1,
+        lightBulk: 1,
     },
     slingBullets: {
         size: 10,
-        lightBulk:  1,
+        lightBulk: 1,
     },
     blowgunDarts: {
         size: 10,
-        lightBulk:  1,
+        lightBulk: 1,
     },
     rations: {
         size: 7,
-        lightBulk:  1,
+        lightBulk: 1,
     },
     coins: {
         size: 1000,
-        lightBulk:  10,
+        lightBulk: 10,
     }
 };
 
-export class CombinedBulk {
-    constructor(normal = 0, light = 0) {
+export class Bulk {
+    constructor({ normal = 0, light = 0 } = {}) {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
     }
+}
 
-    toString() {
-        if (this.normal === 0 && this.light === 0) {
-            return '-';
-        } else if (this.normal > 0 && this.light === 0) {
-            return this.normal;
-        } else {
-            return `${this.normal}.${this.light}`;
-        }
+export function formatBulk(bulk) {
+    if (bulk.normal === 0 && bulk.light === 0) {
+        return '-';
+    } else if (bulk.normal > 0 && bulk.light === 0) {
+        return bulk.normal;
+    } else {
+        return `${bulk.normal}.${bulk.light}`;
     }
 }
 
-
 export class ContainerOrItem {
     constructor({
-        bulk = new ItemBulk(),
+        bulk = new Bulk(),
         quantity = 1,
-        stackGroup = null,
+        stackGroup = undefined,
         isEquipped = false,
         // value to overrides bulk field when unequipped
         unequippedBulk = undefined,
@@ -80,8 +62,8 @@ export class ContainerOrItem {
         holdsItems = [],
         // some containers like a backpack or back of holding reduce total bulk if 
         // items are put into it
-        negateBulk = new CombinedBulk()
-    }) {
+        negateBulk = new Bulk()
+    } = {}) {
         this.bulk = bulk;
         this.quantity = quantity;
         this.stackGroup = stackGroup;
@@ -119,17 +101,20 @@ function groupBy(array, criterion) {
  * Separate function to use in reduce to sum up bulk values
  * @param first
  * @param second
- * @return {CombinedBulk}
+ * @return {Bulk}
  */
 function addBulk(first, second) {
-    return new CombinedBulk(first.normal + second.normal, first.light + second.light);
+    return new Bulk({
+        normal: first.normal + second.normal,
+        light: first.light + second.light
+    });
 }
 
 /**
  * Used for subtracting bulk if items are placed in a container; can never go below 0
  * @param first
  * @param second
- * @return {CombinedBulk}
+ * @return {Bulk}
  */
 function subtractBulk(first, second) {
     // 1 bulk is 10 light bulk
@@ -139,9 +124,12 @@ function subtractBulk(first, second) {
 
     // bulk can't get negative
     if (result < 0) {
-        return new CombinedBulk(0, 0);
+        return new Bulk();
     } else {
-        return new CombinedBulk(Math.floor(result / 10), result % 10);
+        return new Bulk({
+            normal: Math.floor(result / 10),
+            light: result % 10,
+        });
     }
 }
 
@@ -149,25 +137,13 @@ function subtractBulk(first, second) {
  * Non stackable items multiply their bulk by quantity
  * @param combinedBulk
  * @param factor
- * @return {CombinedBulk}
+ * @return {Bulk}
  */
 function multiplyBulk(combinedBulk, factor) {
-    return new CombinedBulk(combinedBulk.normal * factor, combinedBulk.light * factor);
-}
-
-/**
- * Helper function to be able to easily sum up bulk
- * @param bulk
- * @return {CombinedBulk}
- */
-function toCombinedBulk(bulk) {
-    if (bulk.type === 'light') {
-        return new CombinedBulk(0, bulk.value);
-    } else if (bulk.type === 'normal') {
-        return new CombinedBulk(bulk.value);
-    } else {
-        return new CombinedBulk();
-    }
+    return new Bulk({
+        normal: combinedBulk.normal * factor,
+        light: combinedBulk.light * factor,
+    });
 }
 
 /**
@@ -176,12 +152,12 @@ function toCombinedBulk(bulk) {
  * @param item
  */
 function calculateItemBulk(item) {
-    if (item.unequippedBulk !== undefined && !item.isEquipped) {
-        return toCombinedBulk(item.unequippedBulk);
-    } else if (item.equippedBulk !== undefined && item.isEquipped) {
-        return toCombinedBulk(item.equippedBulk);
+    if (item.unequippedBulk !== undefined && item.unequippedBulk !== null && !item.isEquipped) {
+        return item.unequippedBulk;
+    } else if (item.equippedBulk !== undefined && item.equippedBulk !== null && item.isEquipped) {
+        return item.equippedBulk;
     } else {
-        return toCombinedBulk(item.bulk);
+        return item.bulk;
     }
 }
 
@@ -193,7 +169,7 @@ function calculateItemBulk(item) {
 function calculateNonStackBulk(items) {
     return items
         .map((item) => multiplyBulk(calculateItemBulk(item), item.quantity))
-        .reduce(addBulk, new CombinedBulk());
+        .reduce(addBulk, new Bulk());
 }
 
 /**
@@ -213,7 +189,7 @@ function calculateStackBulk(items, stackDefinition) {
     // always round down for bulk as per RAW
     const bulkRelevantQuantity = Math.floor(quantity / size);
 
-    return toCombinedBulk(new ItemBulk('light', lightBulk * bulkRelevantQuantity));
+    return new Bulk({ light: lightBulk * bulkRelevantQuantity });
 }
 
 /**
@@ -221,10 +197,10 @@ function calculateStackBulk(items, stackDefinition) {
  * @param key null means that the item is in no stack group
  * @param values
  * @param stackDefinitions
- * @return {CombinedBulk|*}
+ * @return {Bulk|*}
  */
 function calculateGroupedItemsBulk(key, values, stackDefinitions) {
-    if (key === null) {
+    if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
     } else {
         return calculateStackBulk(values, stackDefinitions[key]);
@@ -243,7 +219,7 @@ export function calculateBulk(items, stackDefinitions) {
     const itemGroups = groupBy(items, (e) => e.stackGroup);
     return Array.from(itemGroups.entries())
         .map(([key, items]) => {
-            if (key !== null && !(key in stackDefinitions)) {
+            if (key !== null && key !== undefined && !(key in stackDefinitions)) {
                 throw new Error('No stack definition found for stack ' + key);
             }
 
@@ -255,11 +231,11 @@ export function calculateBulk(items, stackDefinitions) {
                     const containerBulk = calculateBulk(item.holdsItems, stackDefinitions);
                     return subtractBulk(containerBulk, item.negateBulk);
                 })
-                .reduce(addBulk, new CombinedBulk());
+                .reduce(addBulk, new Bulk());
 
             return addBulk(itemBulk, containsBulk);
         })
-        .reduce(addBulk, new CombinedBulk());
+        .reduce(addBulk, new Bulk());
 }
 
 /**
@@ -270,13 +246,13 @@ export function calculateBulk(items, stackDefinitions) {
  */
 function weightToBulk(weight) {
     if (weight === 'l') {
-        return new ItemBulk('light', 1);
+        return new Bulk({ light: 1 });
     } else {
         const value = parseInt(weight, 10);
         if (value === 0 || isNaN(value)) {
-            return new ItemBulk();
+            return new Bulk();
         } else {
-            return new ItemBulk('normal', value);
+            return new Bulk({ normal: value });
         }
     }
 }
@@ -299,7 +275,8 @@ export function toItem(item) {
     const weight = item.data?.weight?.value ?? '';
     // catch the number case
     const stringWeight = '' + weight;
-    const parsedWeight = stringWeight.toLowerCase().trim() ?? "0";
+    const parsedWeight = stringWeight.toLowerCase()
+        .trim() ?? '0';
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
 

@@ -1,9 +1,9 @@
-import {CombinedBulk} from '../../../src/module/item/itemBulk';
-import { calculateEncumbrance } from '../../../src/module/item/encumbrance';
+import {Bulk} from '../../../src/module/item/bulk.js';
+import { calculateEncumbrance } from '../../../src/module/item/encumbrance.js';
 
 describe('should calculate encumbrance', () => {
     test('light bulk is ignored', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new CombinedBulk(5, 9));
+        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 5, light: 9}));
 
         expect(encumbrance.encumberedAt)
             .toBe(15);
@@ -22,7 +22,7 @@ describe('should calculate encumbrance', () => {
     });
 
     test('is encumbered', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new CombinedBulk(16));
+        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 16}));
 
         expect(encumbrance.encumberedAt)
             .toBe(15);
@@ -43,7 +43,7 @@ describe('should calculate encumbrance', () => {
     });
 
     test('is over limit', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new CombinedBulk(21));
+        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 21}));
 
         expect(encumbrance.encumberedAt)
             .toBe(15);
