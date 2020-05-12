@@ -5,7 +5,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {
       classes: options.classes.concat(['pf2e', 'actor', 'character-sheet']),
-      width: 650,
+      width: 675,
       height: 720,
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-lower", initial: "biography"}],
       showUnpreparedSpells: false,
