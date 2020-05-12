@@ -38,6 +38,10 @@ export class Bulk {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
     }
+
+    get isNegligible() {
+        return this.normal === 0 && this.light === 0;
+    }
 }
 
 export function formatBulk(bulk) {
@@ -67,7 +71,9 @@ export class ContainerOrItem {
         holdsItems = [],
         // some containers like a backpack or back of holding reduce total bulk if 
         // items are put into it
-        negateBulk = new Bulk()
+        negateBulk = new Bulk(),
+        // extra dimensional containers cease to work when nested inside each other
+        extraDimensionalContainer = false,
     } = {}) {
         this.bulk = bulk;
         this.quantity = quantity;
@@ -77,6 +83,11 @@ export class ContainerOrItem {
         this.unequippedBulk = unequippedBulk;
         this.equippedBulk = equippedBulk;
         this.isEquipped = isEquipped;
+        this.extraDimensionalContainer = extraDimensionalContainer;
+    }
+
+    get reducesBulk() {
+        return !this.negateBulk.isNegligible;
     }
 }
 
@@ -218,9 +229,11 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  * @param items a list of items; items can also be containers and contain items themselves
  * armor or weapons that are placed in a sheathe should be combined in a single container as well
  * @param stackDefinitions a list of stack groups and bulk values per group
+ * @param nestedExtraDimensionalContainer true if you have a bag of holding inside a bag of holding
+ * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @return {*}
  */
-export function calculateBulk(items, stackDefinitions) {
+export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false) {
     const itemGroups = groupBy(items, (e) => e.stackGroup);
     return Array.from(itemGroups.entries())
         .map(([key, itemGroup]) => {
@@ -233,8 +246,20 @@ export function calculateBulk(items, stackDefinitions) {
             // a container also has bulk and can be stacked (e.g. sacks)
             const containsBulk = itemGroup
                 .map(item => {
-                    const containerBulk = calculateBulk(item.holdsItems, stackDefinitions);
-                    return subtractBulk(containerBulk, item.negateBulk);
+                    const containerBulk = calculateBulk(
+                        item.holdsItems,
+                        stackDefinitions,
+                        item.extraDimensionalContainer
+                    );
+
+                    // bulk can only be reduced for worn containers and only once for extra
+                    // dimensional containers
+                    if ((item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
+                        || (item.reducesBulk && item.isEquipped)) {
+                        return subtractBulk(containerBulk, item.negateBulk);
+                    }
+                    return containerBulk;
+
                 })
                 .reduce(addBulk, new Bulk());
 
@@ -294,6 +319,8 @@ export function toItem(item, nestedItems = []) {
     const unequippedBulk = item.data?.unequippedBulk?.value;
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data?.negateBulk?.value;
+    // TODO: this requires us having access to this trait which is not present currently
+    const extraDimensionalContainer = false;
 
     return new ContainerOrItem({
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
@@ -304,7 +331,8 @@ export function toItem(item, nestedItems = []) {
         holdsItems: nestedItems,
         stackGroup,
         isEquipped,
-        quantity
+        quantity,
+        extraDimensionalContainer
     });
 }
 
@@ -328,7 +356,7 @@ function buildContainerTree(items, groupedItems) {
         });
 }
 
-function toItems(items) {
+function toContainerOrItems(items) {
     const allIds = new Set(items.map(item => item._id));
     const itemsInContainers = groupBy(items, (item) => {
         // we want all items in the top level group that are in no container
@@ -364,7 +392,7 @@ export function itemsFromActorData(actorData) {
     const itemsHavingBulk = actorData.items
         .filter(item => itemTypesWithBulk.has(item.type));
 
-    const items = toItems(itemsHavingBulk);
+    const items = toContainerOrItems(itemsHavingBulk);
     items.push(new ContainerOrItem({
         stackGroup: 'coins',
         quantity: countCoins(actorData),

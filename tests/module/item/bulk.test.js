@@ -100,7 +100,8 @@ describe('should calculate bulk', () => {
                             })
                         ],
                         negateBulk: new Bulk({ normal: 15 }),
-                        bulk: new Bulk({ light: 1 })
+                        bulk: new Bulk({ light: 1 }),
+                        extraDimensionalContainer: true
                     })
                 ]
             }),
@@ -118,8 +119,9 @@ describe('should calculate bulk', () => {
             });
     });
 
-    test('backpacks negate bulk', () => {
+    test('worn backpack negate bulk', () => {
         const items = [
+            // backpack
             new ContainerOrItem({
                 holdsItems: [
                     new ContainerOrItem({
@@ -134,6 +136,7 @@ describe('should calculate bulk', () => {
                         bulk: new Bulk({ light: 1 })
                     })
                 ],
+                isEquipped: true,
                 negateBulk: new Bulk({ normal: 2 }),
                 bulk: new Bulk({ normal: 1 })
             }),
@@ -151,6 +154,68 @@ describe('should calculate bulk', () => {
             });
     });
 
+    test('unequipped backpack does not negate bulk', () => {
+        const items = [
+            // backpack
+            new ContainerOrItem({
+                holdsItems: [
+                    new ContainerOrItem({
+                        bulk: new Bulk({ normal: 1 })
+                    }),
+                ],
+                isEquipped: false,
+                negateBulk: new Bulk({ normal: 2 }),
+                bulk: new Bulk({ normal: 1 })
+            }),
+        ];
+        const bulk = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 2,
+            });
+    });
+
+    test('nested extra dimensional containers dont reduce bulk', () => {
+        const items = [
+            // backpack
+            new ContainerOrItem({
+                holdsItems: [
+                    // bag of holding
+                    new ContainerOrItem({
+                        bulk: new Bulk({ normal: 1 }),
+                        extraDimensionalContainer: true,
+                        holdsItems: [
+                            // bag of holding
+                            new ContainerOrItem({
+                                bulk: new Bulk({normal: 1}),
+                                holdsItems: [
+                                    new ContainerOrItem({
+                                        bulk: new Bulk({normal: 25})
+                                    })
+                                ],
+                                negateBulk: new Bulk({ normal: 15 }),
+                                extraDimensionalContainer: true
+                            })
+                        ],
+                        negateBulk: new Bulk({ normal: 15 })
+                    }),
+                ],
+                isEquipped: true,
+                negateBulk: new Bulk({ normal: 2 }),
+                equippedBulk: new Bulk()
+            }),
+        ];
+        const bulk = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 10,
+            });
+    });
+    
     test('should convert an inventory', () => {
         const actorData = {
             data: {
