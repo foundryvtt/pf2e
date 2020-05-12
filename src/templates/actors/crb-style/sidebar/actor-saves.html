@@ -1,0 +1,21 @@
+<h3 class="defense-title pf-heading">{{localize "PF2E.SavesHeader"}}</h3>
+<ol class="defense-list">
+  {{#each data.saves as |save sid|}}
+  <li class="defense" data-save="{{sid}}">
+    <span class="defense-score rollable" title="{{save.breakdown}}">{{numberFormat save.totalModifier decimals=0 sign=true}}</span>
+    <h4 class="save-name rollable">{{save.label}}</h4>
+    <div class="defense-container">
+      <h4 class="proficiency-name pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4>
+      <input type="hidden" name="data.saves.{{sid}}.rank" value="{{save.rank}}" data-dtype="Number"/>
+      <span class="proficiency-rank click-stat-level pf-value" title="{{save.hover}}">{{{save.icon}}}</span>
+    </div>
+    <div class="defense-container">
+      <h4 class="defense-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
+      <span class="defense-item-value pf-value" title="{{localize "PF2E.ItemTitle"}}">
+        <input name="data.saves.{{sid}}.item" type="text" value="{{save.item}}"
+                                                          data-dtype="Number" placeholder="+0"/>
+      </span>
+    </div>
+  </li>
+  {{/each}}
+</ol>
