@@ -26,7 +26,7 @@ export const migrateWorld = async function() {
   // Migrate World Items
   for ( let i of game.items.entities ) {
     try {
-      const updateData = migrateItemData(i.data);
+      const updateData = migrateItemData(i.data, worldSchemaVersion);
       if ( !isObjectEmpty(updateData) ) {
         console.log(`Migrating Item entity ${i.name}`);
         await i.update(updateData, {enforceTypes: false});
@@ -69,7 +69,7 @@ export const migrateWorld = async function() {
  * @param pack
  * @return {Promise}
  */
-export const migrateCompendium = async function(pack) {
+export const migrateCompendium = async function(pack, worldSchemaVersion) {
   const entity = pack.metadata.entity;
   if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
 
@@ -81,9 +81,9 @@ export const migrateCompendium = async function(pack) {
   for ( let ent of content ) {
     try {
       let updateData = null;
-      if (entity === "Item") updateData = migrateItemData(ent.data);
-      else if (entity === "Actor") updateData = migrateActorData(ent.data);
-      else if ( entity === "Scene" ) updateData = migrateSceneData(ent.data);
+      if (entity === "Item") updateData = migrateItemData(ent.data, worldSchemaVersion);
+      else if (entity === "Actor") updateData = migrateActorData(ent.data, worldSchemaVersion);
+      else if ( entity === "Scene" ) updateData = migrateSceneData(ent.data, worldSchemaVersion);
       if (!isObjectEmpty(updateData)) {
         expandObject(updateData);
         updateData["_id"] = ent._id;
@@ -129,6 +129,10 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
     if (worldSchemaVersion < 0.567) {
       _migrateClassDC(updateData);
       updateData['data.attributes.bonusbulk'] = 0;
+    }
+    
+    if (worldSchemaVersion < 0.574) {
+        migrateActorBulkItems(actor, updateData);
     }
   }
   return updateData;
@@ -185,9 +189,8 @@ function migrateBulk(item, updateData) {
  * Migrate a single Item entity to incorporate latest data model changes
  * @param item
  */
-export const migrateItemData = function (item) {
+export const migrateItemData = function (item, worldSchemaVersion) {
     const updateData = {};
-
     // Remove deprecated fields
     //_migrateRemoveDeprecated(item, updateData);
     if (worldSchemaVersion < 0.574) {
@@ -262,6 +265,11 @@ function _migrateHitPointData(actor, updateData) {
   updateData['data.attributes.levelbonussp'] = parseInt((actor.data.attributes.levelbonussp || {}).value) || 0;
   updateData['data.attributes.ancestryhp'] = parseInt((actor.data.attributes.ancestryhp || {}).value) || 0;
   updateData['data.attributes.classhp'] = parseInt((actor.data.attributes.classhp || {}).value) || 0;
+}
+
+function migrateActorBulkItems(actor, updateData) {
+    if (!actor.items) return;
+    updateData['items'] = actor.items.map(item => migrateBulk(item, {}));
 }
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
