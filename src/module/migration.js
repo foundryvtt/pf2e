@@ -158,11 +158,10 @@ function migrateBulk(item, updateData) {
         } else {
             updateData['data.stackGroup.value'] = '';
         }
+        // migrate armor
         if (item.type === 'armor') {
-            if (item.type === 'armor') {
-                updateData['data.equippedBulk.value'] = item.data.weight;
-                updateData['data.weight.value'] = armorBulk(item.data.weight);
-            }
+            updateData['data.equippedBulk.value'] = item.data.weight;
+            updateData['data.weight.value'] = armorBulk(item.data.weight);
         }
         // migrate containers to worn bulk
         if (itemName === 'Backpack') {
