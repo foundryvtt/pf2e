@@ -2,7 +2,7 @@
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
-import { armorBulk } from './item/bulk.js';
+import { calculateCarriedArmorBulk } from './item/bulk.js';
 
 export const migrateWorld = async function() {
   const systemSchemaVersion = Number(game.system.data.schema);
@@ -161,7 +161,7 @@ function migrateBulk(item, updateData) {
         // migrate armor
         if (item.type === 'armor') {
             updateData['data.equippedBulk.value'] = item.data.weight;
-            updateData['data.weight.value'] = armorBulk(item.data.weight);
+            updateData['data.weight.value'] = calculateCarriedArmorBulk(item.data.weight);
         }
         // migrate containers to worn bulk
         if (itemName === 'Backpack') {

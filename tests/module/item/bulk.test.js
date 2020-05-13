@@ -3,7 +3,7 @@ import {
     Bulk,
     ContainerOrItem,
     itemsFromActorData,
-    armorBulk,
+    calculateCarriedArmorBulk,
     stacks
 } from '../../../src/module/item/bulk.js';
 
@@ -504,20 +504,20 @@ describe('should calculate bulk', () => {
             .toBe(2);
     });
 
-    test('should calculate worn bulk for armors', () => {
-        expect(armorBulk('l'))
+    test('should calculate carried bulk for armors', () => {
+        expect(calculateCarriedArmorBulk('l'))
             .toBe('1');
-        expect(armorBulk('L'))
+        expect(calculateCarriedArmorBulk('L'))
             .toBe('1');
-        expect(armorBulk(''))
+        expect(calculateCarriedArmorBulk(''))
             .toBe('-');
-        expect(armorBulk(null))
+        expect(calculateCarriedArmorBulk(null))
             .toBe('-');
-        expect(armorBulk(undefined))
+        expect(calculateCarriedArmorBulk(undefined))
             .toBe('-');
-        expect(armorBulk('0'))
+        expect(calculateCarriedArmorBulk('0'))
             .toBe('-');
-        expect(armorBulk('1'))
+        expect(calculateCarriedArmorBulk('1'))
             .toBe('2');
     });
 });

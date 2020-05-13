@@ -426,7 +426,12 @@ export function itemsFromActorData(actorData) {
     return items;
 }
 
-export function armorBulk(wornBulk) {
+/**
+ * Carried armor usually has one more bulk when not worn, or 1 bulk if L
+ * @param wornBulk
+ * @return {string}
+ */
+export function calculateCarriedArmorBulk(wornBulk) {
     const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
     if (bulk.light === 1) {
         return '1';
