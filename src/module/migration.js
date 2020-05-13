@@ -2,6 +2,8 @@
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
+import { armorBulk } from './item/bulk.js';
+
 export const migrateWorld = async function() {
   const systemSchemaVersion = Number(game.system.data.schema);
   const worldSchemaVersion = Number(game.settings.get("pf2e", "worldSchemaVersion"));
@@ -134,6 +136,20 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 
 /* -------------------------------------------- */
 
+function migrateBulk(item, updateData) {
+    if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
+        updateData['data.stackGroup.value'] = '';
+        if (item.type === 'armor' || item.type === 'backpack') {
+            updateData['data.equippedBulk.value'] = item.data.weight;
+            if (item.type === 'armor') {
+                updateData['data.weight.value'] = armorBulk(item.data.weight);
+            }
+        } else {
+            updateData['data.equippedBulk.value'] = '';
+        }
+    }
+}
+
 /**
  * Migrate a single Item entity to incorporate latest data model changes
  * @param item
@@ -144,10 +160,7 @@ export const migrateItemData = function(item) {
   // Remove deprecated fields
   //_migrateRemoveDeprecated(item, updateData);
     if (worldSchemaVersion < 0.574) {
-        if (["weapon", "melee", "armor", "equipment", "consumable", "backpack"].includes(item.type)) {
-            updateData['data.stackGroup.value'] = '';
-            updateData['data.unequippedBulk.value'] = '';
-        }
+        migrateBulk(item, updateData);
     }
   // Return the migrated update data
   return updateData;

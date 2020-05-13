@@ -58,7 +58,6 @@ export function formatBulk(bulk) {
         return `${bulk.light}L`;
     }
     return `${bulk.normal}; ${bulk.light}L`;
-
 }
 
 export class ContainerOrItem {
@@ -425,4 +424,15 @@ export function itemsFromActorData(actorData) {
         quantity: countCoins(actorData),
     }));
     return items;
+}
+
+export function armorBulk(wornBulk) {
+    const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return '1';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal + 1}`;
+    }
+    return '-';
 }
