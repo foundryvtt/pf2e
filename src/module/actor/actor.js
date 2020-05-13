@@ -141,30 +141,31 @@ export default class extends Actor {
     }
 
     // Perception
-    const modifiers = [
-      WISDOM.withScore(data.abilities.wis.value),
-      ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
-    ];
-    if (data.attributes.perception.item) {
-      modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
+    {
+      const modifiers = [
+        WISDOM.withScore(data.abilities.wis.value),
+        ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
+      ];
+      if (data.attributes.perception.item) {
+        modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
+      }
+      (statisticsModifiers.perception || []).forEach((m) => modifiers.push(m));
+  
+      // preserve backwards-compatibility
+      /* eslint-disable no-param-reassign */
+      if (data.attributes.perception instanceof PF2StatisticModifier) {
+        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
+        data.attributes.perception = mergeObject(data.attributes.perception, new PF2StatisticModifier('perception', modifiers));
+      } else {
+        // ensure the perception object has the correct prototype, while retaining the original data fields
+        data.attributes.perception = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception);
+      }
+      data.attributes.perception.breakdown = data.attributes.perception.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      data.attributes.perception.value = data.attributes.perception.totalModifier;
+      /* eslint-enable */
     }
-    (statisticsModifiers.perception || []).forEach((m) => modifiers.push(m));
-
-    // preserve backwards-compatibility
-    /* eslint-disable no-param-reassign */
-    if (data.attributes.perception instanceof PF2StatisticModifier) {
-      // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the
-      // total modifier
-      data.attributes.perception = mergeObject(data.attributes.perception, new PF2StatisticModifier('perception', modifiers));
-    } else {
-      // ensure the perception object has the correct prototype, while retaining the original data fields
-      data.attributes.perception = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception);
-    }
-    data.attributes.perception.breakdown = data.attributes.perception.modifiers.filter((m) => m.enabled)
-      .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
-      .join(', ');
-    data.attributes.perception.value = data.attributes.perception.totalModifier;
-    /* eslint-enable */
 
     // Class DC
     data.attributes.classDC.ability = data.details.keyability.value;
@@ -178,19 +179,40 @@ export default class extends Actor {
     data.attributes.ac.check = character.skillCheckPenalty;
 
     // Skill modifiers
-    for (const skl of Object.values(data.skills)) {
-      // skl.value = parseFloat(skl.value || 0);
-      const proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
-      skl.mod = data.abilities[skl.ability].mod;
-
-      if (skl.armor) {
-        const armorCheckPenalty = skl.armor ? (data.attributes.ac.check || 0) : 0;
-        skl.value = data.abilities[skl.ability].mod + proficiency + skl.item + armorCheckPenalty;
-        skl.breakdown = `${skl.ability} modifier(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item}) + armor check penalty(${armorCheckPenalty})`;
-      } else {
-        skl.value = data.abilities[skl.ability].mod + proficiency + skl.item;
-        skl.breakdown = `${skl.ability} modifier(${data.abilities[skl.ability].mod}) + proficiency(${proficiency}) + item bonus(${skl.item})`;
+    for (const [skillName, skill] of Object.entries(data.skills)) {
+      const modifiers = [
+        AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
+        ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
+      ];
+      if (skill.item) {
+        modifiers.push(new PF2Modifier('Item Bonus', skill.item, PF2ModifierType.ITEM));
       }
+      if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0) {
+        modifiers.push(new PF2Modifier('PF2E.ArmorCheckPenalty', data.attributes.ac.check, PF2ModifierType.UNTYPED));
+      }
+
+      // workaround for the shortform skill names
+      const skillDictionary = {acr:'acrobatics',arc:'arcana',ath:'athletics',cra:'crafting',
+        dec:'deception',dip:'diplomacy',itm:'intimidate',med:'medicine',nat:'nature',occ:'occultism',
+        prf:'perform',rel:'religion',soc:'society',ste:'stealth',sur:'survival',thi:'thievery'};
+      const expandedName = skillDictionary[skillName];
+
+      (statisticsModifiers[expandedName] || []).forEach((m) => modifiers.push(m));
+
+      // preserve backwards-compatibility
+      let updated;
+      if (skill instanceof PF2StatisticModifier) {
+        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
+        updated = mergeObject(skill, new PF2StatisticModifier(expandedName, modifiers));
+      } else {
+        // ensure the individual skill objects has the correct prototype, while retaining the original data fields
+        updated = mergeObject(new PF2StatisticModifier(expandedName, modifiers), skill);
+      }
+      updated.breakdown = updated.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      updated.value = updated.totalModifier;
+      data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
     }
   }
 
