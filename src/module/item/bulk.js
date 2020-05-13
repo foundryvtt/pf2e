@@ -287,7 +287,7 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
  * null
  * @return {Bulk}
  */
-function weightToBulk(weight) {
+export function weightToBulk(weight) {
     if (weight === undefined || weight === null) {
         return undefined;
     }
@@ -305,7 +305,7 @@ function weightToBulk(weight) {
  * Needed because some weight is either null, undefined, a number or a string :(
  * @param weight
  */
-function normalizeWeight(weight) {
+export function normalizeWeight(weight) {
     if (weight === null || weight === undefined) {
         return undefined;
     }
@@ -439,4 +439,20 @@ export function calculateCarriedArmorBulk(wornBulk) {
         return `${bulk.normal + 1}`;
     }
     return '-';
+}
+
+/**
+ * Fix previous borked weight
+ * @param wornBulk
+ * @return {string}
+ */
+export function fixWeight(brokenWeight) {
+    const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return 'l';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal}`;
+    }
+    return null;
 }

@@ -2,7 +2,7 @@
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
-import { calculateCarriedArmorBulk } from './item/bulk.js';
+import { calculateCarriedArmorBulk,fixWeight } from './item/bulk.js';
 
 export const migrateWorld = async function() {
   const systemSchemaVersion = Number(game.system.data.schema);
@@ -141,7 +141,6 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 
 function migrateBulk(item, updateData) {
     const itemName = item?.name?.trim();
-    console.log(item)
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
         // migrate stacked items
         if (itemName?.includes("rrow")) {
@@ -160,21 +159,23 @@ function migrateBulk(item, updateData) {
         }
         // migrate armor
         if (item.type === 'armor') {
-            const weight = item.data?.weight?.value ?? '0';
-            updateData['data.equippedBulk.value'] = weight;
+            const weight = item.data?.weight?.value ?? '';
+            console.log(item.data)
+            updateData['data.equippedBulk.value'] = fixWeight(weight) ?? '';
+            console.log(updateData['data.equippedBulk.value'])
             updateData['data.weight.value'] = calculateCarriedArmorBulk(weight);
         }
 
         // migrate containers to worn bulk
         if (itemName === 'Backpack') {
             updateData['data.weight.value'] = 'L';
-            updateData['data.equippedBulk.value'] = '';
+            updateData['data.equippedBulk.value'] = '0';
         } else if (itemName === 'Satchel') {
             updateData['data.weight.value'] = 'L';
-            updateData['data.equippedBulk.value'] = '';
+            updateData['data.equippedBulk.value'] = '0';
         } else if (itemName === 'Bandolier') {
             updateData['data.weight.value'] = 'L';
-            updateData['data.equippedBulk.value'] = '';
+            updateData['data.equippedBulk.value'] = '0';
         } else if (itemName === 'Saddlebags') {
             updateData['data.weight.value'] = '1';
             updateData['data.equippedBulk.value'] = 'L';
