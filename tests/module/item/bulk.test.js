@@ -262,6 +262,7 @@ describe('should calculate bulk', () => {
                 {
                     type: 'armor',
                     data: {
+                        traits: ['extradimensional'],
                         quantity: {
                             value: 1
                         },
@@ -327,6 +328,8 @@ describe('should calculate bulk', () => {
             .toBe(1);
         expect(unequippedArmor.isEquipped)
             .toBe(false);
+        expect(unequippedArmor.extraDimensionalContainer)
+            .toBe(true);
         expect(unequippedArmor.equippedBulk)
             .toEqual({
                 normal: 0,
@@ -351,6 +354,8 @@ describe('should calculate bulk', () => {
         const equippedArmor = items[1];
         expect(equippedArmor.quantity)
             .toBe(1);
+        expect(equippedArmor.extraDimensionalContainer)
+            .toBe(false);
         expect(equippedArmor.isEquipped)
             .toBe(true);
         expect(equippedArmor.bulk)

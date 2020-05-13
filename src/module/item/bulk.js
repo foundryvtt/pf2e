@@ -336,8 +336,7 @@ export function toItemOrContainer(item, nestedItems = []) {
     const unequippedBulk = item.data?.unequippedBulk?.value;
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data?.negateBulk?.value;
-    // TODO: this requires us having access to this trait which is not present currently
-    const extraDimensionalContainer = false;
+    const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
 
     return new ContainerOrItem({
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
