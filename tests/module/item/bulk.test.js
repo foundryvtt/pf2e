@@ -262,7 +262,9 @@ describe('should calculate bulk', () => {
                 {
                     type: 'armor',
                     data: {
-                        traits: ['extradimensional'],
+                        traits: {
+                            value: ['extradimensional']
+                        },
                         quantity: {
                             value: 1
                         },
