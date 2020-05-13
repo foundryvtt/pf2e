@@ -4,7 +4,7 @@
 class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.width = 520;
+    options.width = 590;
     options.height = 460;
     options.classes = options.classes.concat(['pf2e', 'item']);
     options.template = 'systems/pf2e/templates/items/item-sheet.html';
@@ -30,7 +30,7 @@ class ItemSheetPF2e extends ItemSheet {
       type,
       hasSidebar: true,
       sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee'].includes(type),
+      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack'].includes(type),
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
     });
 
@@ -147,6 +147,8 @@ class ItemSheetPF2e extends ItemSheet {
     } else if (type === 'backpack') {
       // Backpack data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.backpackTraits = CONFIG.PF2E.backpackTraits;
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
       data.armorTypes = CONFIG.PF2E.armorTypes;

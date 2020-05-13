@@ -403,6 +403,11 @@ mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
+// Weapon Properties
+CONFIG.backpackTraits = {
+    extradimensional: "PF2E.TraitExtradimensional"
+}
+
 // Spell Traits
 CONFIG.spellTraits = {
   attack: 'PF2E.TraitAttack',
