@@ -39,10 +39,15 @@ class ItemSheetPF2e extends ItemSheet {
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt;
 
+    // do not let user set bulk if in a stack group because the group determines bulk
+    const stackGroup = this.item.data?.data?.stackGroup?.value;
+    data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
+    
     // Consumable Data
     if (type === 'consumable') {
       data.consumableTypes = CONFIG.PF2E.consumableTypes;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.stackGroups = CONFIG.stackGroups;
     } else if (type === 'spell') {
       // Spell Data
       mergeObject(data, {
@@ -138,6 +143,7 @@ class ItemSheetPF2e extends ItemSheet {
     } else if (type === 'equipment') {
     // Equipment data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.stackGroups = CONFIG.stackGroups;
     } else if (type === 'backpack') {
       // Backpack data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
