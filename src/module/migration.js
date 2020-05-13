@@ -140,21 +140,17 @@ function migrateBulk(item, updateData) {
     const itemName = item?.name?.trim();
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
         // migrate stacked items
-        if (itemName === 'Arrows (10)') {
+        if (itemName?.includes("rrow")) {
             updateData['data.stackGroup.value'] = 'arrows';
-            updateData['data.quantity.value'] = 10;
-        } else if (itemName === 'Bolts (10)') {
+        } else if (itemName?.includes('olt')) {
             updateData['data.stackGroup.value'] = 'bolts';
-            updateData['data.quantity.value'] = 10;
         } else if (itemName === 'Rations (1 week)') {
             updateData['data.stackGroup.value'] = 'rations';
             updateData['data.quantity.value'] = 7;
         } else if (itemName === 'Blowgun Darts (10)') {
             updateData['data.stackGroup.value'] = 'blowgunDarts';
-            updateData['data.quantity.value'] = 10;
         } else if (itemName === 'Sling Bullets (10)') {
             updateData['data.stackGroup.value'] = 'slingBullets';
-            updateData['data.quantity.value'] = 10;
         } else {
             updateData['data.stackGroup.value'] = '';
         }
