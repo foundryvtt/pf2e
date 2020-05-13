@@ -229,6 +229,7 @@ CONFIG.magicTraditions = {
   focus:  'PF2E.TraitFocus',
   ritual: 'PF2E.TraitRitual',
   scroll: 'PF2E.TraitScroll',
+  wand:   'PF2E.TraitWand'
 };
 mergeObject(CONFIG.magicTraditions, CONFIG.spellTraditions);
 
