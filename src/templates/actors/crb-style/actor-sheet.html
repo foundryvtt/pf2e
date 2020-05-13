@@ -1,8 +1,44 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <aside></aside>
-    <section>
+    <aside>
+        <div class="sidebar" data-group="dashboard" data-tab="sidebar">
+            <!-- HEALTH -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-health.html}}
+
+            <!-- ARMOR CLASS -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-armorclass.html}}
+
+            <!-- STAMINA (if enabled) -->
+            {{#if_stamina}} {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-stamina.html}}
+            {{/if_stamina}}
+
+            <!-- Initiative -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-initiative.html}}
+
+            <!-- Perception -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-perception.html}}
+
+            <!-- Saves -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-saves.html}}
+
+            <!-- Class DC -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-class-dc.html}}
+
+            <!-- Resistances -->
+            {{>
+            systems/pf2e/templates/actors/crb-style/sidebar/actor-resistances.html}}
+        </div>
+    </aside>
+
+    <section class="header">
         <!-- HEADER -->
-        {{> systems/pf2e/templates/actors/main/actor-header.html}}
+        {{> systems/pf2e/templates/actors/crb-style/actor-header.html}}
 
         <!-- SHEET NAVIGATION -->
         <nav class="sheet-navigation">
@@ -30,21 +66,21 @@
     <!-- BODY -->
     <section class="sheet-content content">
         <!-- Actions -->
-        {{> systems/pf2e/templates/actors/tabs/actor-actions.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html}}
 
         <!-- INVENTORY -->
-        {{> systems/pf2e/templates/actors/tabs/actor-inventory.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html}}
 
         <!-- SPELLBOOK -->
-        {{> systems/pf2e/templates/actors/tabs/actor-spellbook.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html}}
 
         <!-- SKILLS -->
-        {{> systems/pf2e/templates/actors/tabs/actor-skills.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html}}
 
         <!-- FEATS -->
-        {{> systems/pf2e/templates/actors/tabs/actor-feats.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html}}
 
         <!-- BIOGRAPHY -->
-        {{> systems/pf2e/templates/actors/tabs/actor-biography.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html}}
     </section>
 </form>
