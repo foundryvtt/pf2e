@@ -143,7 +143,9 @@ export const migrateItemData = function(item) {
 
   // Remove deprecated fields
   //_migrateRemoveDeprecated(item, updateData);
-
+    if (worldSchemaVersion < 0.574) {
+        updateData['data.stackGroup.value'] = '';
+    }
   // Return the migrated update data
   return updateData;
 };
