@@ -137,13 +137,49 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 /* -------------------------------------------- */
 
 function migrateBulk(item, updateData) {
+    const itemName = item?.name?.trim();
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
-        updateData['data.stackGroup.value'] = '';
-        if (item.type === 'armor' || item.type === 'backpack') {
-            updateData['data.equippedBulk.value'] = item.data.weight;
+        // migrate stacked items
+        if (itemName === 'Arrows (10)') {
+            updateData['data.stackGroup.value'] = 'arrows';
+            updateData['data.quantity.value'] = 10;
+        } else if (itemName === 'Bolts (10)') {
+            updateData['data.stackGroup.value'] = 'bolts';
+            updateData['data.quantity.value'] = 10;
+        } else if (itemName === 'Rations (1 week)') {
+            updateData['data.stackGroup.value'] = 'rations';
+            updateData['data.quantity.value'] = 7;
+        } else if (itemName === 'Blowgun Darts (10)') {
+            updateData['data.stackGroup.value'] = 'blowgunDarts';
+            updateData['data.quantity.value'] = 10;
+        } else if (itemName === 'Sling Bullets (10)') {
+            updateData['data.stackGroup.value'] = 'slingBullets';
+            updateData['data.quantity.value'] = 10;
+        } else {
+            updateData['data.stackGroup.value'] = '';
+        }
+        if (item.type === 'armor') {
             if (item.type === 'armor') {
+                updateData['data.equippedBulk.value'] = item.data.weight;
                 updateData['data.weight.value'] = armorBulk(item.data.weight);
             }
+        }
+        // migrate containers to worn bulk
+        if (itemName === 'Backpack') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '';
+        } else if (itemName === 'Satchel') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '';
+        } else if (itemName === 'Bandolier') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '';
+        } else if (itemName === 'Saddlebags') {
+            updateData['data.weight.value'] = '1';
+            updateData['data.equippedBulk.value'] = 'L';
+        } else if (itemName === 'Tack') {
+            updateData['data.weight.value'] = '2';
+            updateData['data.equippedBulk.value'] = '1';
         } else {
             updateData['data.equippedBulk.value'] = '';
         }
@@ -154,16 +190,16 @@ function migrateBulk(item, updateData) {
  * Migrate a single Item entity to incorporate latest data model changes
  * @param item
  */
-export const migrateItemData = function(item) {
-  const updateData = {};
+export const migrateItemData = function (item) {
+    const updateData = {};
 
-  // Remove deprecated fields
-  //_migrateRemoveDeprecated(item, updateData);
+    // Remove deprecated fields
+    //_migrateRemoveDeprecated(item, updateData);
     if (worldSchemaVersion < 0.574) {
         migrateBulk(item, updateData);
     }
-  // Return the migrated update data
-  return updateData;
+    // Return the migrated update data
+    return updateData;
 };
 
 /* -------------------------------------------- */
