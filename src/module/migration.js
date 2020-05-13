@@ -146,6 +146,7 @@ export const migrateItemData = function(item) {
     if (worldSchemaVersion < 0.574) {
         if (["weapon", "melee", "armor", "equipment", "consumable", "backpack"].includes(item.type)) {
             updateData['data.stackGroup.value'] = '';
+            updateData['data.unequippedBulk.value'] = '';
         }
     }
   // Return the migrated update data
