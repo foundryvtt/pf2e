@@ -1365,6 +1365,9 @@ class ActorSheetPF2e extends ActorSheet {
               } else if (magicTradition === 'scroll') {
                 spellcastingType = '';
                 name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+              } else if (magicTradition === 'wand') {
+                spellcastingType = 'prepared';
+                name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
               } else {
                 spellcastingType = html.find('[name="spellcastingType"]').val();
                 name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;

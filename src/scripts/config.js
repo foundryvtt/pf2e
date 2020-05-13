@@ -229,6 +229,7 @@ CONFIG.magicTraditions = {
   focus:  'PF2E.TraitFocus',
   ritual: 'PF2E.TraitRitual',
   scroll: 'PF2E.TraitScroll',
+  wand:   'PF2E.TraitWand'
 };
 mergeObject(CONFIG.magicTraditions, CONFIG.spellTraditions);
 
@@ -386,6 +387,7 @@ CONFIG.weaponTraits = {
   'versatile-b': 'PF2E.TraitVersatileB',
   'volley-30': 'PF2E.TraitVolley30',
   uncommon: 'PF2E.TraitUncommon',
+  unique: 'PF2E.TraitUnique',
   'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
@@ -1007,6 +1009,11 @@ CONFIG.bulkTypes = {
   3: '3',
   4: '4',
   5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10',
 };
 
 // Condition Types
@@ -1146,7 +1153,7 @@ CONFIG.languages = {
   celestial: 'PF2E.LanguageCelestial',
   draconic: 'PF2E.LanguageDraconic',
   druidic: 'PF2E.LanguageDruidic',
-  dwarvish: 'PF2E.LanguageDwarvish',
+  dwarven: 'PF2E.LanguageDwarven',
   elven: 'PF2E.LanguageElven',
   gnomish: 'PF2E.LanguageGnomish',
   goblin: 'PF2E.LanguageGoblin',
