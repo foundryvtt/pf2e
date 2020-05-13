@@ -141,6 +141,7 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 
 function migrateBulk(item, updateData) {
     const itemName = item?.name?.trim();
+    console.log(item)
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
         // migrate stacked items
         if (itemName?.includes("rrow")) {
@@ -159,8 +160,9 @@ function migrateBulk(item, updateData) {
         }
         // migrate armor
         if (item.type === 'armor') {
-            updateData['data.equippedBulk.value'] = item.data.weight;
-            updateData['data.weight.value'] = calculateCarriedArmorBulk(item.data.weight);
+            const weight = item.data?.weight?.value ?? '0';
+            updateData['data.equippedBulk.value'] = weight;
+            updateData['data.weight.value'] = calculateCarriedArmorBulk(weight);
         }
 
         // migrate containers to worn bulk
