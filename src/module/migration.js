@@ -48,15 +48,15 @@ export const migrateWorld = async function() {
       console.error(err);
     }
   }
-/*
-  // Migrate World Compendium Packs
+
+  //Migrate World Compendium Packs
   const packs = game.packs.filter(p => {
     return (p.metadata.package === "world") && ["Actor", "Item", "Scene"].includes(p.metadata.entity)
   });
   for ( let p of packs ) {
-    await migrateCompendium(p);
+    //await migrateCompendium(p);
   }
-*/
+
   // Set the migration as complete
   game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
   ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, {permanent: true});
@@ -130,9 +130,8 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
       _migrateClassDC(updateData);
       updateData['data.attributes.bonusbulk'] = 0;
     }
-    
     if (worldSchemaVersion < 0.574) {
-        migrateActorBulkItems(actor, updateData);
+      migrateActorBulkItems(actor, updateData);
     }
   }
   return updateData;
@@ -163,6 +162,7 @@ function migrateBulk(item, updateData) {
             updateData['data.equippedBulk.value'] = item.data.weight;
             updateData['data.weight.value'] = calculateCarriedArmorBulk(item.data.weight);
         }
+
         // migrate containers to worn bulk
         if (itemName === 'Backpack') {
             updateData['data.weight.value'] = 'L';
@@ -183,6 +183,7 @@ function migrateBulk(item, updateData) {
             updateData['data.equippedBulk.value'] = '';
         }
     }
+    return updateData;
 }
 
 /**
@@ -268,8 +269,20 @@ function _migrateHitPointData(actor, updateData) {
 }
 
 function migrateActorBulkItems(actor, updateData) {
-    if (!actor.items) return;
-    updateData['items'] = actor.items.map(item => migrateBulk(item, {}));
+  if (!actor.items) return;
+  let updatedItems = [];
+  const items = duplicate(actor.items);
+
+  items.forEach(item => {
+    let updatedItem = item;
+    let updatedData = migrateBulk(item, {});
+    if (!isObjectEmpty(updatedData)) {
+      updatedItem = mergeObject(updatedItem, updatedData);
+    }
+    updatedItems.push(updatedItem);
+  });
+
+  updateData['items'] = updatedItems;
 }
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
