@@ -7,7 +7,7 @@
             {{#each data.skills as |skill s|}}
                 <li class="skill" data-skill="{{s}}">
 
-                    <span class="skill-score" title="{{skill.breakdown}}">{{skill.value}}</span>
+                    <span class="skill-score" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</span>
                     <h4 class="skill-name rollable">{{skill.label}}</h4>
                     
                     <div class="skill-container">
@@ -23,7 +23,7 @@
                         </span>
                     </div>
                     {{#if skill.armor}}
-                    <h4 class="skill-armor" title="{{localize "PF2E.ArmorCheckLabel"}}"><i class="fas fa-shield-alt"></i></h4>
+                    <h4 class="skill-armor" title="{{localize 'PF2E.ArmorCheckPenalty'}}"><i class="fas fa-shield-alt"></i></h4>
                     {{/if}}
 
                 </li>
