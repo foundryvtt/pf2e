@@ -160,14 +160,9 @@ function migrateBulk(item, updateData) {
         // migrate armor
         if (item.type === 'armor') {
             const weight = item.data?.weight?.value ?? '';
-            console.log(item.data)
             updateData['data.equippedBulk.value'] = fixWeight(weight) ?? '';
-            console.log(updateData['data.equippedBulk.value'])
             updateData['data.weight.value'] = calculateCarriedArmorBulk(weight);
-        }
-
-        // migrate containers to worn bulk
-        if (itemName === 'Backpack') {
+        } else if (itemName === 'Backpack') {
             updateData['data.weight.value'] = 'L';
             updateData['data.equippedBulk.value'] = '0';
         } else if (itemName === 'Satchel') {
