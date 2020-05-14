@@ -4,7 +4,7 @@
 class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.width = 590;
+    options.width = 620;
     options.height = 460;
     options.classes = options.classes.concat(['pf2e', 'item']);
     options.template = 'systems/pf2e/templates/items/item-sheet.html';
