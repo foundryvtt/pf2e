@@ -211,10 +211,6 @@ export const migrateSceneData = function(scene, worldSchemaVersion) {
   const tokens = duplicate(scene.tokens);
   return {
     tokens: tokens.map(t => {
-      if (!t.actorId || t.actorLink || !t.actorData.data) {
-        t.actorData = {};
-        return t;
-      }
       const token = new Token(t);
       if ( !token.actor ) {
         t.actorId = null;
