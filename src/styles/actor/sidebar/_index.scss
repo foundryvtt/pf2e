@@ -1,0 +1,99 @@
+$sidebar-title-color: #f7d488;
+$sidebar-label: #ffefbd;
+
+aside {
+    grid-area: sidebar;
+    color: $sidebar-label;
+    font-family: $serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: url('../assets/sheet/red_sidebar.png') no-repeat top center;
+    background-size: 247px;
+    height: 770px;
+    overflow: hidden;
+    .logo {
+        margin-top: 5px;
+        border: none;
+        position: relative;
+        z-index: 10;
+    }
+    .sidebar {
+        padding: 0 30px;
+
+        /* prettier-ignore */
+        @import 'health',
+                'armor';
+
+        &_title {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid $sidebar-title-color;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            h2,
+            a {
+                color: $sidebar-title-color;
+                font-size: 8px;
+                font-weight: bold;
+                font-family: $micro;
+                border: none;
+                margin: 0;
+            }
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+        .data-value {
+            display: inline-block;
+            input[type='number'],
+            h2 {
+                width: 42px;
+                color: white;
+                text-align: center;
+                font-size: 26px;
+                line-height: calc(1em + 1px);
+                font-weight: 500;
+                font-family: $serif;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            input[type='number'] {
+                -moz-appearance: textfield;
+                &:focus {
+                    box-shadow: none;
+                }
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+        h4 {
+            font-family: $micro;
+            font-weight: bold;
+            margin: 0;
+            line-height: 1;
+        }
+        .stat-item {
+            input[type='number'] {
+                width: 20px;
+                color: white;
+                font-family: $serif;
+                font-weight: 500;
+                text-align: right;
+                line-height: 1;
+                height: 13px;
+                padding: 6px 0 0;
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
