@@ -21,9 +21,6 @@
 *  (@putty#0555) Updated equipment compendium for bulk changes
 *  (@putty#0555) Fixed migration code for compendiums
 *  (@Tmun) Updated Iconics compendium to include level 3 and 5 pregens
----
-
-## Version 0.572.0
 *  (@hooking) Fixed a bug where a spell slot would disappear if the linked spell was deleted.
 *  (@putty#0555) Fixed an issue with dist folder in gitignore
 *  Updated bestiary
