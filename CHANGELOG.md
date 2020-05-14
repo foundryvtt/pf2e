@@ -1,4 +1,4 @@
-Patch Notes:
+# Patch Notes:
 *  v0.574.0: (@nikolaj-a) Add several classes for implementing the modifier stacking rules.
 *  v0.574.0: (@Shandyan) Updated bestiary to include fixes for all monsters up to level 25 (well done!!)
 *  v0.574.0: (@overdox#9174) Compendium update to add GMG and CRB equipment and icons; restructured and removed unused icons. Added support for new bulk types and unique trait
