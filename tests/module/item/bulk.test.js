@@ -3,6 +3,7 @@ import {
     Bulk,
     ContainerOrItem,
     itemsFromActorData,
+    calculateCarriedArmorBulk,
     stacks
 } from '../../../src/module/item/bulk.js';
 
@@ -261,6 +262,9 @@ describe('should calculate bulk', () => {
                 {
                     type: 'armor',
                     data: {
+                        traits: {
+                            value: ['extradimensional']
+                        },
                         quantity: {
                             value: 1
                         },
@@ -326,6 +330,8 @@ describe('should calculate bulk', () => {
             .toBe(1);
         expect(unequippedArmor.isEquipped)
             .toBe(false);
+        expect(unequippedArmor.extraDimensionalContainer)
+            .toBe(true);
         expect(unequippedArmor.equippedBulk)
             .toEqual({
                 normal: 0,
@@ -350,6 +356,8 @@ describe('should calculate bulk', () => {
         const equippedArmor = items[1];
         expect(equippedArmor.quantity)
             .toBe(1);
+        expect(equippedArmor.extraDimensionalContainer)
+            .toBe(false);
         expect(equippedArmor.isEquipped)
             .toBe(true);
         expect(equippedArmor.bulk)
@@ -503,4 +511,20 @@ describe('should calculate bulk', () => {
             .toBe(2);
     });
 
+    test('should calculate carried bulk for armors', () => {
+        expect(calculateCarriedArmorBulk('l'))
+            .toBe('1');
+        expect(calculateCarriedArmorBulk('L'))
+            .toBe('1');
+        expect(calculateCarriedArmorBulk(''))
+            .toBe('-');
+        expect(calculateCarriedArmorBulk(null))
+            .toBe('-');
+        expect(calculateCarriedArmorBulk(undefined))
+            .toBe('-');
+        expect(calculateCarriedArmorBulk('0'))
+            .toBe('-');
+        expect(calculateCarriedArmorBulk('1'))
+            .toBe('2');
+    });
 });

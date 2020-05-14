@@ -1,0 +1,74 @@
+/* ----------------------------------------- */
+/* Configuration
+/* ----------------------------------------- */
+
+$primary-color: #5e0000 !default;
+$secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
+$tertiary-color: #d9c485 !default; /* compliments the primary color, usually used in combination */
+$alt-color: #f33708; /* for all other uses */
+$background-color: #d9c485 !default;
+$dark-color: darken($primary-color, 10) !default;
+$light-color: lighten($primary-color, 10) !default;
+
+/* One Shade Lighter / Darker */
+$light-1: lighten($light-color, 10);
+$dark-1: darken($dark-color, 10);
+
+/* Window Settings */
+$window-title-bg: #121820;
+$window-bg: $background-color;
+
+/* Headers w/ boxes */
+$header-color: #fff; /* Font Color */
+$header-bg: $secondary-color;
+$box-bg: lighten($header-bg, 75);
+
+$sans-serif: 'Inter', system, -apple-system, sans-serif !default;
+$serif: 'Eczar', 'Signika', Georgia, serif !default;
+$micro: 'Silkscreen', Tahoma, san-serif !default;
+
+/* Buttons */
+$btn-text: $tertiary-color !default;
+$btn-color: $primary-color !default;
+$btn-radius: 0 !default;
+$btn-frame: $tertiary-color !default;
+
+$btn-color: #8e0317 !default;
+$btn-radius: 0 !default;
+
+/* ----------------------------------------- */
+/* Fonts
+/* ----------------------------------------- */
+
+@import url('../fonts/Inter/inter.css');
+@import url('../fonts/Eczar/eczar.css');
+// @import url('../fonts/Silkscreen/silkscreen.css');
+@font-face {
+    font-family: 'Pathfinder2eActions';
+    src: url('../fonts/Pathfinder2eActions.ttf');
+}
+
+/* ----------------------------------------- */
+/* Global Settings
+/* ----------------------------------------- */
+
+:root {
+    --primary: #{$primary-color};
+    --secondary: #{$secondary-color};
+    --tertiary: #{$tertiary-color};
+    --alt: #{$alt-color};
+    --light: #{$light-color};
+    --lighter: #{$light-1};
+    --dark: #{$dark-color};
+    --darker: #{$dark-1};
+    --btn-color: #{$btn-color};
+    --btn-radius: #{$btn-radius};
+    --header-color: #{$header-color};
+    --header-bg: #{$header-bg};
+    --box-bg: #{$box-bg};
+    --window-bg: #{$window-bg};
+}
+
+body {
+    font-family: $sans-serif;
+}
