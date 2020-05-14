@@ -149,7 +149,6 @@ function migrateBulk(item, updateData) {
             updateData['data.stackGroup.value'] = 'bolts';
         } else if (itemName === 'Rations (1 week)') {
             updateData['data.stackGroup.value'] = 'rations';
-            updateData['data.quantity.value'] = 7;
         } else if (itemName === 'Blowgun Darts (10)') {
             updateData['data.stackGroup.value'] = 'blowgunDarts';
         } else if (itemName === 'Sling Bullets (10)') {
