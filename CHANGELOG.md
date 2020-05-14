@@ -1,34 +1,37 @@
 # Patch Notes:
-*  v0.574.0: (@nikolaj-a) Add several classes for implementing the modifier stacking rules.
-*  v0.574.0: (@Shandyan) Updated bestiary to include fixes for all monsters up to level 25 (well done!!)
-*  v0.574.0: (@overdox#9174) Compendium update to add GMG and CRB equipment and icons; restructured and removed unused icons. Added support for new bulk types and unique trait
-*  v0.574.0: (@nikolaj-a) Add initial support for condition modifiers. This will currently only affect saving throws, and no transitive conditions are applied
-*  v0.574.0: (@luke#4754) Change dwarvish to dwarven
-*  v0.574.0: (@nikolaj-a)Add support for the already existing perception modifiers as PF2Modifier, as well as prepare integration with the conditions modifiers.
-*  v0.574.0: (@acrowthe) Updated bomb compendium entries
-*  v0.574.0: (@mdizo#0928) Implemented new HTML UI (prettierc)
-*  v0.574.0: (@putty#0555) Bulk for worn and carried items is now supported, ammunition and rations calculate the correct bulk, encumbrance limit is now shown; extradimensional traits for containers supported
-*  v0.574.0: (@luke#4754) Data migration ported from the D&D system 
-*  v0.574.0: (@luke#4754) Fixed support for older characters with no associated list of status effects
-*  v0.574.0: (@Arshea#4444) Initial support for wands
-*  v0.574.0: (@nikolaj-a) Initial support fot skill modifiers
-*  v0.574.0: (@dandiandy) Aura of courage [champion feat] added to feat database
-*  v0.574.0: (@overdox#9174) Added all level 1 to 3 items and icons from all source books, added rollable table for level 1 to 3 consumables and permanent items
-*  v0.574.0: (@overdox#9174) Added all level 5 items and icons from all source books, added rollable table for level 5 consumables and permanent items
-*  v0.574.0: (@putty#0555) Plaguestone: use name as is under CUP, add roll tables
-*  v0.574.0: (@nikolaj-a) Initial support for AC modifiers
-*  v0.574.0: (@putty#0555) Updated equipment compendium for bulk changes
-*  v0.574.0: (@putty#0555) Fixed migration code for compendiums
-*  v0.574.0: (@Tmun) Updated Iconics compendium to include level 3 and 5 pregens
+## Version 0.574.0
+*  (@nikolaj-a) Add several classes for implementing the modifier stacking rules.
+*  (@Shandyan) Updated bestiary to include fixes for all monsters up to level 25 (well done!!)
+*  (@overdox#9174) Compendium update to add GMG and CRB equipment and icons; restructured and removed unused icons. Added support for new bulk types and unique trait
+*  (@nikolaj-a) Add initial support for condition modifiers. This will currently only affect saving throws, and no transitive conditions are applied
+*  (@luke#4754) Change dwarvish to dwarven
+*  (@nikolaj-a)Add support for the already existing perception modifiers as PF2Modifier, as well as prepare integration with the conditions modifiers.
+*  (@acrowthe) Updated bomb compendium entries
+*  (@mdizo#0928) Implemented new HTML UI (prettierc)
+*  (@putty#0555) Bulk for worn and carried items is now supported, ammunition and rations calculate the correct bulk, encumbrance limit is now shown; extradimensional traits for containers supported
+*  (@luke#4754) Data migration ported from the D&D system 
+*  (@luke#4754) Fixed support for older characters with no associated list of status effects
+*  (@Arshea#4444) Initial support for wands
+*  (@nikolaj-a) Initial support fot skill modifiers
+*  (@dandiandy) Aura of courage [champion feat] added to feat database
+*  (@overdox#9174) Added all level 1 to 3 items and icons from all source books, added rollable table for level 1 to 3 consumables and permanent items
+*  (@overdox#9174) Added all level 5 items and icons from all source books, added rollable table for level 5 consumables and permanent items
+*  (@putty#0555) Plaguestone: use name as is under CUP, add roll tables
+*  (@nikolaj-a) Initial support for AC modifiers
+*  (@putty#0555) Updated equipment compendium for bulk changes
+*  (@putty#0555) Fixed migration code for compendiums
+*  (@Tmun) Updated Iconics compendium to include level 3 and 5 pregens
 ---
 
-*  v0.572.0: (@hooking) Fixed a bug where a spell slot would disappear if the linked spell was deleted.
-*  v0.572.0: (@putty#0555) Fixed an issue with dist folder in gitignore
-*  v0.572.0: Updated bestiary
-*  v0.572.0: (@unindel)Fixed chat data for NPC sheet so that non-prepared spells show traits, DC and attack roll buttons properly - Bug #69
-*  v0.572.0: (@putty#0555) Updated Plaguestone languages
+## Version 0.572.0
+*  (@hooking) Fixed a bug where a spell slot would disappear if the linked spell was deleted.
+*  (@putty#0555) Fixed an issue with dist folder in gitignore
+*  Updated bestiary
+*  (@unindel)Fixed chat data for NPC sheet so that non-prepared spells show traits, DC and attack roll buttons properly - Bug #69
+*  (@putty#0555) Updated Plaguestone languages
 ---
 
+## Version 0.571.0
 *  v0.571.0: (@acrowthe) Implemented status bonus modifier on roll-dialogs
 *  v0.571.0: (@acrowthe) Added and implemented an item bonus modifier on roll-dialogs
 *  v0.571.0: (@acrowthe) Fixed roll labels for roll-dialogs
@@ -50,7 +53,7 @@
 ---
 
 
-### Prior Patch Changes:
+## Prior Patch Changes:
 *  v0.569.2: Reverted change to item bonuses (Sorry @acrowthe but we need a bit more work here before it is ready to be merged in)
 *  v0.569.1: (@mdizo#0928) Fixed issue with fonts path causing formating issues.
 *  v0.569.1: (@nikolaj-a) Added plus and minus buttons for adjusting item quantity from the inventory tab in the character sheet. Items adjusted to zero quantity are removed.
