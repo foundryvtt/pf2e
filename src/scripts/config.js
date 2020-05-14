@@ -118,6 +118,15 @@ CONFIG.resistanceTypes = {
   physical: 'PF2E.ResistanceTypePhysical',
 };
 
+CONFIG.stackGroups = {
+    bolts: 'PF2E.StackGroupBolts',
+    arrows: 'PF2E.StackGroupArrows',
+    slingBullets: 'PF2E.StackGroupSlingBullets',
+    blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
+    rations: 'PF2E.StackGroupRations',
+    coins: 'PF2E.StackGroupCoins',
+};
+
 //Weakness Types
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',
@@ -393,6 +402,11 @@ CONFIG.weaponTraits = {
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
+
+// Weapon Properties
+CONFIG.backpackTraits = {
+    extradimensional: "PF2E.TraitExtradimensional"
+}
 
 // Spell Traits
 CONFIG.spellTraits = {
