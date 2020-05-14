@@ -9,36 +9,6 @@
         justify-content: space-evenly;
         .hp-container {
             text-align: center;
-            .data-value {
-                display: inline-block;
-                input[type='number'],
-                h2 {
-                    width: 42px;
-                    color: white;
-                    text-align: center;
-                    font-size: 26px;
-                    line-height: calc(1em + 1px);
-                    font-weight: 500;
-                    font-family: $serif;
-                    margin: 0;
-                    padding: 0;
-                    border: none;
-                }
-                h2 {
-                    color: #ffefbd;
-                }
-                input[type='number'] {
-                    -moz-appearance: textfield;
-                    &:focus {
-                        box-shadow: none;
-                    }
-                    &::-webkit-outer-spin-button,
-                    &::-webkit-inner-spin-button {
-                        -webkit-appearance: none;
-                        margin: 0;
-                    }
-                }
-            }
             &.temp-hp {
                 text-align: right;
                 input[type='number'] {
@@ -48,6 +18,7 @@
             &.max-hp {
                 text-align: left;
                 h2 {
+                    color: $sidebar-label;
                     text-align: left;
                 }
             }
@@ -77,7 +48,7 @@
         margin-top: 8px;
         text-align: center;
         h4 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: $micro;
             font-weight: bold;
         }
         .far,
