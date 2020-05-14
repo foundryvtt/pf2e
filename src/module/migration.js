@@ -2,6 +2,8 @@
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
+import { calculateCarriedArmorBulk,fixWeight } from './item/bulk.js';
+
 export const migrateWorld = async function() {
   const systemSchemaVersion = Number(game.system.data.schema);
   const worldSchemaVersion = Number(game.settings.get("pf2e", "worldSchemaVersion"));
@@ -24,7 +26,7 @@ export const migrateWorld = async function() {
   // Migrate World Items
   for ( let i of game.items.entities ) {
     try {
-      const updateData = migrateItemData(i.data);
+      const updateData = migrateItemData(i.data, worldSchemaVersion);
       if ( !isObjectEmpty(updateData) ) {
         console.log(`Migrating Item entity ${i.name}`);
         await i.update(updateData, {enforceTypes: false});
@@ -46,15 +48,15 @@ export const migrateWorld = async function() {
       console.error(err);
     }
   }
-/*
-  // Migrate World Compendium Packs
+
+  //Migrate World Compendium Packs
   const packs = game.packs.filter(p => {
     return (p.metadata.package === "world") && ["Actor", "Item", "Scene"].includes(p.metadata.entity)
   });
   for ( let p of packs ) {
-    await migrateCompendium(p);
+    //await migrateCompendium(p);
   }
-*/
+
   // Set the migration as complete
   game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
   ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, {permanent: true});
@@ -67,7 +69,7 @@ export const migrateWorld = async function() {
  * @param pack
  * @return {Promise}
  */
-export const migrateCompendium = async function(pack) {
+export const migrateCompendium = async function(pack, worldSchemaVersion) {
   const entity = pack.metadata.entity;
   if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
 
@@ -79,9 +81,9 @@ export const migrateCompendium = async function(pack) {
   for ( let ent of content ) {
     try {
       let updateData = null;
-      if (entity === "Item") updateData = migrateItemData(ent.data);
-      else if (entity === "Actor") updateData = migrateActorData(ent.data);
-      else if ( entity === "Scene" ) updateData = migrateSceneData(ent.data);
+      if (entity === "Item") updateData = migrateItemData(ent.data, worldSchemaVersion);
+      else if (entity === "Actor") updateData = migrateActorData(ent.data, worldSchemaVersion);
+      else if ( entity === "Scene" ) updateData = migrateSceneData(ent.data, worldSchemaVersion);
       if (!isObjectEmpty(updateData)) {
         expandObject(updateData);
         updateData["_id"] = ent._id;
@@ -128,24 +130,73 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
       _migrateClassDC(updateData);
       updateData['data.attributes.bonusbulk'] = 0;
     }
+    if (worldSchemaVersion < 0.574) {
+      migrateActorBulkItems(actor, updateData);
+    }
   }
   return updateData;
 };
 
 /* -------------------------------------------- */
 
+function migrateBulk(item, updateData) {
+    const itemName = item?.name?.trim();
+    if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
+        // migrate stacked items
+        if (itemName?.includes("rrow")) {
+            updateData['data.stackGroup.value'] = 'arrows';
+        } else if (itemName?.includes('olt')) {
+            updateData['data.stackGroup.value'] = 'bolts';
+        } else if (itemName === 'Rations (1 week)') {
+            updateData['data.stackGroup.value'] = 'rations';
+            updateData['data.quantity.value'] = 7;
+        } else if (itemName === 'Blowgun Darts (10)') {
+            updateData['data.stackGroup.value'] = 'blowgunDarts';
+        } else if (itemName === 'Sling Bullets (10)') {
+            updateData['data.stackGroup.value'] = 'slingBullets';
+        } else {
+            updateData['data.stackGroup.value'] = '';
+        }
+        // migrate armor
+        if (item.type === 'armor') {
+            const weight = item.data?.weight?.value ?? '';
+            updateData['data.equippedBulk.value'] = fixWeight(weight) ?? '';
+            updateData['data.weight.value'] = calculateCarriedArmorBulk(weight);
+        } else if (itemName === 'Backpack') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '0';
+        } else if (itemName === 'Satchel') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '0';
+        } else if (itemName === 'Bandolier') {
+            updateData['data.weight.value'] = 'L';
+            updateData['data.equippedBulk.value'] = '0';
+        } else if (itemName === 'Saddlebags') {
+            updateData['data.weight.value'] = '1';
+            updateData['data.equippedBulk.value'] = 'L';
+        } else if (itemName === 'Tack') {
+            updateData['data.weight.value'] = '2';
+            updateData['data.equippedBulk.value'] = '1';
+        } else {
+            updateData['data.equippedBulk.value'] = '';
+        }
+    }
+    return updateData;
+}
+
 /**
  * Migrate a single Item entity to incorporate latest data model changes
  * @param item
  */
-export const migrateItemData = function(item) {
-  const updateData = {};
-
-  // Remove deprecated fields
-  //_migrateRemoveDeprecated(item, updateData);
-
-  // Return the migrated update data
-  return updateData;
+export const migrateItemData = function (item, worldSchemaVersion) {
+    const updateData = {};
+    // Remove deprecated fields
+    //_migrateRemoveDeprecated(item, updateData);
+    if (worldSchemaVersion < 0.574) {
+        migrateBulk(item, updateData);
+    }
+    // Return the migrated update data
+    return updateData;
 };
 
 /* -------------------------------------------- */
@@ -213,6 +264,23 @@ function _migrateHitPointData(actor, updateData) {
   updateData['data.attributes.levelbonussp'] = parseInt((actor.data.attributes.levelbonussp || {}).value) || 0;
   updateData['data.attributes.ancestryhp'] = parseInt((actor.data.attributes.ancestryhp || {}).value) || 0;
   updateData['data.attributes.classhp'] = parseInt((actor.data.attributes.classhp || {}).value) || 0;
+}
+
+function migrateActorBulkItems(actor, updateData) {
+  if (!actor.items) return;
+  let updatedItems = [];
+  const items = duplicate(actor.items);
+
+  items.forEach(item => {
+    let updatedItem = item;
+    let updatedData = migrateBulk(item, {});
+    if (!isObjectEmpty(updatedData)) {
+      updatedItem = mergeObject(updatedItem, updatedData);
+    }
+    updatedItems.push(updatedItem);
+  });
+
+  updateData['items'] = updatedItems;
 }
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
