@@ -10,7 +10,7 @@
 *  (@mdizo) Implemented new HTML UI (prettierc)
 *  (@putt1) Bulk for worn and carried items is now supported, ammunition and rations calculate the correct bulk, encumbrance limit is now shown; extradimensional traits for containers supported
 *  (@In3luki) Data migration ported from the D&D system 
-*  (@In3luki) Fixed support for older characters with no associated list of status effects
+*  (luke#4754) Fixed support for older characters with no associated list of status effects
 *  (@meditatingCybermind) Initial support for wands
 *  (@nikolaj-a) Initial support fot skill modifiers
 *  (@dandiandy) Aura of courage [champion feat] added to feat database
