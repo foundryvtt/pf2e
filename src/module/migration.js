@@ -51,10 +51,10 @@ export const migrateWorld = async function() {
 
   //Migrate World Compendium Packs
   const packs = game.packs.filter(p => {
-    return (p.metadata.package === "world") && ["Actor", "Item", "Scene"].includes(p.metadata.entity)
+    return (p.metadata.package === "pf2e") && ["Actor", "Item", "Scene"].includes(p.metadata.entity)
   });
   for ( let p of packs ) {
-    //await migrateCompendium(p);
+    //await migrateCompendium(p, worldSchemaVersion);
   }
 
   // Set the migration as complete
@@ -211,10 +211,6 @@ export const migrateSceneData = function(scene, worldSchemaVersion) {
   const tokens = duplicate(scene.tokens);
   return {
     tokens: tokens.map(t => {
-      if (!t.actorId || t.actorLink || !t.actorData.data) {
-        t.actorData = {};
-        return t;
-      }
       const token = new Token(t);
       if ( !token.actor ) {
         t.actorId = null;

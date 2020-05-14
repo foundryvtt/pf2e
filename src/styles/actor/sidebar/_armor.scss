@@ -1,0 +1,98 @@
+.armor-class {
+    display: grid;
+    grid:
+        'ac shield-hp shield-data' 74px
+        'shield-footer shield-footer shield-footer' auto
+        / 66px 59px auto;
+    grid-column-gap: 4px;
+    align-items: center;
+
+    .shield {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 74px;
+        text-align: center;
+        padding: 0 5px;
+        h4 {
+            font-family: $serif;
+            font-weight: 500;
+        }
+        .data-value {
+            h2,
+            input[type='number'] {
+                font-size: 32px;
+                height: 31px;
+            }
+        }
+        &.ac {
+            grid-area: ac;
+            background: url('../assets/sheet/shield-blue.png') no-repeat center
+                center;
+        }
+        &.hp {
+            grid-area: shield-hp;
+            background: url('../assets/sheet/shield-red.png') no-repeat top
+                center;
+        }
+    }
+    .shield-stats {
+        grid-area: shield-data;
+        ol {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            margin-left: 4px;
+            list-style: none;
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .shield-label {
+                    position: relative;
+                    img {
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                    }
+                    &:after {
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        display: inline-block;
+                        position: absolute;
+                        font-size: 8px;
+                        font-weight: 800;
+                        font-family: $micro;
+                        letter-spacing: -1px;
+                        color: var(--primary);
+                        top: 0;
+                        left: 1px;
+                    }
+                    &.ac:after {
+                        content: 'AC';
+                    }
+                    &.hardness:after {
+                        left: 3px;
+                        content: 'H';
+                    }
+                    &.bt:after {
+                        left: 1px;
+                        content: 'BT';
+                    }
+                }
+            }
+        }
+    }
+    .armor_footer {
+        grid-area: shield-footer;
+        display: inline-flex;
+        justify-content: space-evenly;
+        .shield-max, .shield-status {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
