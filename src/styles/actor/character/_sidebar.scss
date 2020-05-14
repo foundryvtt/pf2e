@@ -1,4 +1,94 @@
 .crb-style form aside {
-    height: 770px;
-    overflow: hidden;
+    .sidebar {
+        .hitpoints {
+            h4 {
+                font-weight: 500;
+                margin: 0;
+                line-height: 1;
+            }
+            .hp-big {
+                display: flex;
+                justify-content: space-evenly;
+                .hp-container {
+                    text-align: center;
+                    .data-value {
+                        display: inline-block;
+                        input[type='number'],
+                        h2 {
+                            width: 42px;
+                            color: white;
+                            text-align: center;
+                            font-size: 26px;
+                            line-height: calc(1em + 1px);
+                            font-weight: 500;
+                            font-family: $serif;
+                            margin: 0;
+                            padding: 0;
+                            border: none;
+                        }
+                        h2 {
+                            color: #ffefbd;
+                        }
+                        input[type='number'] {
+                            -moz-appearance: textfield;
+                            &:focus {
+                                box-shadow: none;
+                            }
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+                        }
+                    }
+                    &.temp-hp {
+                        text-align: right;
+                        input[type='number'] {
+                            text-align: right;
+                        }
+                    }
+                    &.max-hp {
+                        text-align: left;
+                        h2 {
+                            text-align: left;
+                        }
+                    }
+                    &.current-hp {
+                        margin-top: -15px;
+                        padding: 10px 2px 0;
+                        position: relative;
+                        z-index: 0;
+                        border-radius: 0 0 2px 2px;
+                        /* prettier-ignore */
+                        box-shadow:
+                            0 0 0 1px #9f725b,
+                            0 0 0 2px #e9d7a1,
+                            0 0 0 3px #956d58;
+
+                        input[type='number'] {
+                            width: 52px;
+                            font-size: 32px;
+                            letter-spacing: -1px;
+                        }
+                    }
+                }
+            }
+            .hp-small {
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 8px;
+                text-align: center;
+                h4 {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-weight: bold;
+                }
+                .far, .fas {
+                    color: white;
+                }
+                .dying {
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
 }
