@@ -4,7 +4,7 @@
 *  (@Shandyan) Updated bestiary to include fixes for all monsters up to level 25 (well done!!)
 *  (@overdox#9174) Compendium update to add GMG and CRB equipment and icons; restructured and removed unused icons. Added support for new bulk types and unique trait
 *  (@nikolaj-a) Add initial support for condition modifiers. This will currently only affect saving throws, and no transitive conditions are applied
-*  (@luke#4754) Change dwarvish to dwarven
+*  (@Luki#1571) Change dwarvish to dwarven
 *  (@nikolaj-a)Add support for the already existing perception modifiers as PF2Modifier, as well as prepare integration with the conditions modifiers.
 *  (@acrowthe) Updated bomb compendium entries
 *  (@mdizo#0928) Implemented new HTML UI (prettierc)
