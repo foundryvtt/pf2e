@@ -3,7 +3,7 @@
  */
 import CharacterData from './character.js';
 import {
-  WISDOM,
+  DEXTERITY, WISDOM,
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
@@ -173,10 +173,45 @@ export default class extends Actor {
     data.attributes.classDC.value = data.abilities[data.attributes.classDC.ability].mod + classDCProficiency + data.attributes.classDC.item + 10;
     data.attributes.classDC.breakdown = `10 + ${data.attributes.classDC.ability} modifier(${data.abilities[data.attributes.classDC.ability].mod}) + proficiency(${classDCProficiency}) + item bonus(${data.attributes.classDC.item})`;
 
-    // TODO: seems like storing items, feats, armor, actions etc all in one array would be expensive to search? maybe adjust this data model?
-    // TODO: speed penalties are not automated
-    data.attributes.ac.value = character.ac;
-    data.attributes.ac.check = character.skillCheckPenalty;
+    // Armor Class
+    {
+      const modifiers = [];
+      let armorCheckPenalty = 0;
+      // find equipped armor
+      const wornArmor = this.data.items.filter((item) => item.type === 'armor')
+        .find((armor) => armor.data.equipped.value);
+      if (wornArmor) {
+        // Dex modifier limited by armor max dex bonus
+        const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
+        dexterity.modifier = Math.min(dexterity.modifier, Number(wornArmor.data.dex.value ?? 0));
+        modifiers.push(dexterity);
+
+        // armor check penalty
+        if (data.abilities.str.value < Number(wornArmor.data.strength.value ?? 0)) {
+          armorCheckPenalty = Number(wornArmor.data.check.value ?? 0);
+        }
+
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[wornArmor.data.armorType?.value]?.rank ?? 0));
+        modifiers.push(new PF2Modifier(wornArmor.name, Number(wornArmor.data.armor.value ?? 0), PF2ModifierType.ITEM));
+      } else {
+        modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
+      }
+      // condition modifiers
+      (statisticsModifiers.ac || []).forEach((m) => modifiers.push(m));
+
+      /* eslint-disable no-param-reassign */
+      data.attributes.ac = new PF2StatisticModifier("Armor Class", modifiers);
+      // preserve backwards-compatibility
+      data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
+      data.attributes.ac.check = armorCheckPenalty;
+      // Base AC 10, 
+      data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
+        data.attributes.ac.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
+      /* eslint-enable */
+    }
 
     // Skill modifiers
     for (const [skillName, skill] of Object.entries(data.skills)) {
