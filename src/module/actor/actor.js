@@ -579,16 +579,16 @@ export default class extends Actor {
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
     const current = getProperty(this.data.data, attribute);
-
+    const hp = this.data.data.attributes.hp;
     if ( attribute == 'attributes.hp' ) {
       if (isDelta) {
         if (value < 0) {
-          if ((current.temp + value) >= 0) {
-            const newTempHp = current.temp + value;
+          if ((hp.temp + value) >= 0) {
+            const newTempHp = hp.temp + value;
             this.update({[`data.attributes.hp.temp`]: newTempHp});
             value = 0;
           } else {
-            value = current.temp + value;
+            value = hp.temp + value;
             this.update({[`data.attributes.hp.temp`]: 0});
           }
           if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
@@ -609,27 +609,37 @@ export default class extends Actor {
       value = Math.clamped(value, 0, current.max);
       return this.update({[`data.attributes.hp.value`]: value});
 
-    } else if ( attribute == 'attributes.shield' && isDelta ) {
-
+    } else if ( attribute == 'attributes.shield') {
       if (isDelta) {
         if (value < 0) {
           value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
-          const hp = this.data.data.attributes.hp;
+          this.update({[`data.attributes.shield.value`]: Math.clamped(0, current.value + value, current.max)});
           if (value < 0) { //substract the value from (temp)HP as well
             if ((hp.temp + value) >= 0) {
               const newTempHp = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: newTempHp});
+              value = 0;
             } else {
-              const newHp = Math.clamped( ( hp.value + hp.temp + value ), 0, hp.max);
-              this.update({[`data.attributes.hp.value`]: newHp});
+              value = hp.temp + value;
               this.update({[`data.attributes.hp.temp`]: 0});
+            }
+            if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
+              const currentSP = getProperty(this.data.data, 'attributes.sp');
+  
+              if ((currentSP.value + value) >= 0) {
+                const newSP = currentSP.value + value;
+                this.update({[`data.attributes.sp.value`]: newSP});
+                value = 0;
+              } else {
+                value = currentSP.value + value;
+                this.update({[`data.attributes.sp.value`]: 0});
+              }
             }
           }
         }
-        value = Number(current.value) + value; //apply modifier to shield hp
       }
-      value = Math.clamped(value, 0, current.max);
-      return this.update({[`data.attributes.shield.value`]: value});
+      value = Math.clamped(0, hp.value + value, hp.max);
+      return this.update({[`data.attributes.hp.value`]: value});
 
     }
 
