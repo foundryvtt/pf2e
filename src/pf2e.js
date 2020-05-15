@@ -56,7 +56,7 @@ Hooks.once('setup', () => {
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups',
-    'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands',
+    'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'backpackTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
     'armorGroups', 'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
     'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits', 'alignment',

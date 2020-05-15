@@ -51,11 +51,13 @@ export function formatBulk(bulk) {
     if (bulk.normal > 0 && bulk.light === 0) {
         return `${bulk.normal}`;
     }
+    if (bulk.light === 1 && bulk.normal === 0) {
+        return `L`;
+    }
     if (bulk.light > 0 && bulk.normal === 0) {
         return `${bulk.light}L`;
     }
     return `${bulk.normal}; ${bulk.light}L`;
-
 }
 
 export class ContainerOrItem {
@@ -234,13 +236,20 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  * @return {*}
  */
 export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false) {
-    const stackGroups = groupBy(items, (e) => e.stackGroup);
+    const stackGroups = groupBy(items, (e) => {
+        // can be empty string as well
+        const group = e.stackGroup;
+        if (group === null || group === undefined || group.trim() === '') {
+            return null;
+        }
+        return group;
+    });
     return Array.from(stackGroups.entries())
         .map(([stackName, stackGroup]) => {
             if (stackName !== null && stackName !== undefined && !(stackName in stackDefinitions)) {
                 throw new Error(`No stack definition found for stack ${stackName}`);
             }
-            
+
             // containers don't reduce their own bulk, so they need to be 
             // calculated separately
             const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions);
@@ -278,7 +287,7 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
  * null
  * @return {Bulk}
  */
-function weightToBulk(weight) {
+export function weightToBulk(weight) {
     if (weight === undefined || weight === null) {
         return undefined;
     }
@@ -296,7 +305,7 @@ function weightToBulk(weight) {
  * Needed because some weight is either null, undefined, a number or a string :(
  * @param weight
  */
-function normalizeWeight(weight) {
+export function normalizeWeight(weight) {
     if (weight === null || weight === undefined) {
         return undefined;
     }
@@ -314,7 +323,7 @@ function countCoins(actorData) {
 }
 
 /**
- * 
+ *
  * @param item
  * @param nestedItems
  * @return {ContainerOrItem}
@@ -327,8 +336,7 @@ export function toItemOrContainer(item, nestedItems = []) {
     const unequippedBulk = item.data?.unequippedBulk?.value;
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data?.negateBulk?.value;
-    // TODO: this requires us having access to this trait which is not present currently
-    const extraDimensionalContainer = false;
+    const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
 
     return new ContainerOrItem({
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
@@ -366,9 +374,9 @@ function buildContainerTree(items, groupedItems) {
 
 /**
  * Items that reference other others need to be nested into them. If an item has a reference
- * to an id, it should be nested into that container unless the container with that id does 
+ * to an id, it should be nested into that container unless the container with that id does
  * not exist.
- * 
+ *
  * All other items are top level items.
  * @param items
  * @return {*[]|*}
@@ -415,4 +423,36 @@ export function itemsFromActorData(actorData) {
         quantity: countCoins(actorData),
     }));
     return items;
+}
+
+/**
+ * Carried armor usually has one more bulk when not worn, or 1 bulk if L
+ * @param wornBulk
+ * @return {string}
+ */
+export function calculateCarriedArmorBulk(wornBulk) {
+    const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return '1';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal + 1}`;
+    }
+    return '-';
+}
+
+/**
+ * Fix previous borked weight
+ * @param wornBulk
+ * @return {string}
+ */
+export function fixWeight(brokenWeight) {
+    const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return 'l';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal}`;
+    }
+    return null;
 }

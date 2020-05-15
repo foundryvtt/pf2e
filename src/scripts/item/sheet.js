@@ -4,7 +4,7 @@
 class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.width = 520;
+    options.width = 630;
     options.height = 460;
     options.classes = options.classes.concat(['pf2e', 'item']);
     options.template = 'systems/pf2e/templates/items/item-sheet.html';
@@ -30,7 +30,7 @@ class ItemSheetPF2e extends ItemSheet {
       type,
       hasSidebar: true,
       sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee'].includes(type),
+      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack'].includes(type),
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
     });
 
@@ -39,10 +39,15 @@ class ItemSheetPF2e extends ItemSheet {
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt;
 
+    // do not let user set bulk if in a stack group because the group determines bulk
+    const stackGroup = this.item.data?.data?.stackGroup?.value;
+    data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
+    
     // Consumable Data
     if (type === 'consumable') {
       data.consumableTypes = CONFIG.PF2E.consumableTypes;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.stackGroups = CONFIG.stackGroups;
     } else if (type === 'spell') {
       // Spell Data
       mergeObject(data, {
@@ -138,9 +143,12 @@ class ItemSheetPF2e extends ItemSheet {
     } else if (type === 'equipment') {
     // Equipment data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.stackGroups = CONFIG.stackGroups;
     } else if (type === 'backpack') {
       // Backpack data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.backpackTraits = CONFIG.PF2E.backpackTraits;
+      this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
       data.armorTypes = CONFIG.PF2E.armorTypes;

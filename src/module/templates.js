@@ -54,6 +54,7 @@ export default function () {
         'systems/pf2e/templates/items/action-sidebar.html',
         'systems/pf2e/templates/items/armor-details.html',
         'systems/pf2e/templates/items/armor-sidebar.html',
+        'systems/pf2e/templates/items/backpack-details.html',
         'systems/pf2e/templates/items/backpack-sidebar.html',
         'systems/pf2e/templates/items/class-sidebar.html',
         'systems/pf2e/templates/items/consumable-details.html',
