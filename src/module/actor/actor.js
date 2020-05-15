@@ -178,21 +178,22 @@ export default class extends Actor {
       const modifiers = [];
       let armorCheckPenalty = 0;
       // find equipped armor
-      const wornArmor = this.data.items.filter((item) => item.type === 'armor')
+      const worn = this.data.items.filter((item) => item.type === 'armor')
+        .filter((armor) => armor.data.armorType.value !== 'shield')
         .find((armor) => armor.data.equipped.value);
-      if (wornArmor) {
+      if (worn) {
         // Dex modifier limited by armor max dex bonus
         const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
-        dexterity.modifier = Math.min(dexterity.modifier, Number(wornArmor.data.dex.value ?? 0));
+        dexterity.modifier = Math.min(dexterity.modifier, Number(worn.data.dex.value ?? 0));
         modifiers.push(dexterity);
 
         // armor check penalty
-        if (data.abilities.str.value < Number(wornArmor.data.strength.value ?? 0)) {
-          armorCheckPenalty = Number(wornArmor.data.check.value ?? 0);
+        if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
+          armorCheckPenalty = Number(worn.data.check.value ?? 0);
         }
 
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[wornArmor.data.armorType?.value]?.rank ?? 0));
-        modifiers.push(new PF2Modifier(wornArmor.name, Number(wornArmor.data.armor.value ?? 0), PF2ModifierType.ITEM));
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[worn.data.armorType?.value]?.rank ?? 0));
+        modifiers.push(new PF2Modifier(worn.name, Number(worn.data.armor.value ?? 0), PF2ModifierType.ITEM));
       } else {
         modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
