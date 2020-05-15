@@ -23,7 +23,19 @@ aside {
 
         /* prettier-ignore */
         @import 'health',
-                'armor';
+                'armor',
+                'initPercept';
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
 
         &_title {
             display: flex;
@@ -39,6 +51,7 @@ aside {
                 font-family: $micro;
                 border: none;
                 margin: 0;
+                line-height: 1.5;
             }
             a {
                 color: white;
@@ -56,8 +69,6 @@ aside {
                 line-height: calc(1em + 1px);
                 font-weight: 500;
                 font-family: $serif;
-                margin: 0;
-                padding: 0;
                 border: none;
             }
             input[type='number'] {
@@ -75,8 +86,6 @@ aside {
         h4 {
             font-family: $micro;
             font-weight: bold;
-            margin: 0;
-            line-height: 1;
         }
         .stat-item {
             input[type='number'] {
