@@ -217,7 +217,8 @@ function calculateStackBulk(items, stackDefinition) {
  * @param stackDefinitions
  * @return {Bulk|*}
  */
-function calculateGroupedItemsBulk(key, values, stackDefinitions) {
+function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
+    if (!bulkConfig.coinBulk && key === "coins") return new Bulk();
     if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
     }
@@ -235,7 +236,7 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @return {*}
  */
-export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false) {
+export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {coinBulk: true}) {
     const stackGroups = groupBy(items, (e) => {
         // can be empty string as well
         const group = e.stackGroup;
@@ -252,14 +253,15 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
 
             // containers don't reduce their own bulk, so they need to be 
             // calculated separately
-            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions);
+            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions, bulkConfig);
             const containsBulk = stackGroup
                 .map(item => {
                     // first calculate bulk of items in a container
                     const itemsBulk = calculateBulk(
                         item.holdsItems,
                         stackDefinitions,
-                        item.extraDimensionalContainer
+                        item.extraDimensionalContainer,
+                        bulkConfig
                     );
 
                     // then check if bulk can be reduced
@@ -418,12 +420,10 @@ export function itemsFromActorData(actorData) {
         .filter(item => itemTypesWithBulk.has(item.type));
 
     const items = toContainerOrItems(itemsHavingBulk);
-    if (game.settings.get('pf2e', 'coinBulk')) {
-        items.push(new ContainerOrItem({
-            stackGroup: 'coins',
-            quantity: countCoins(actorData),
-        }));
-    }
+    items.push(new ContainerOrItem({
+        stackGroup: 'coins',
+        quantity: countCoins(actorData),
+    }));
     return items;
 }
 
