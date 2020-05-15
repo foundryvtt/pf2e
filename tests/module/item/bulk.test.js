@@ -565,4 +565,27 @@ describe('should calculate bulk', () => {
         expect(new Bulk({normal: 1, light: 0}).isBiggerThan(new Bulk({normal: 2, light: 0})))
             .toBe(false);
     });
+        
+    test('should respect configs to ignore coin bulk', () => {
+        const items = [
+            new ContainerOrItem({
+                stackGroup: 'coins',
+                quantity: 100000
+            })
+        ];
+        let bulk = calculateBulk(items, stacks, false);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 100,
+            });
+
+        bulk = calculateBulk(items, stacks, false, {ignoreCoinBulk: true});
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 0,
+            });
+    });
 });

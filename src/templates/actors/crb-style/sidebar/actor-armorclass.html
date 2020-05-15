@@ -1,52 +1,63 @@
-<h3 class="ac-title pf-heading">{{localize "PF2E.ArmorClassLabel"}}</h3>
-<ol class="hp-list">
-  <li class="li-two-grid">
-    <div class="hp-temp pf-container">
-      <h4 class="hp-temp pf-title">{{localize "PF2E.ArmorClassShortLabel"}}</h4>
-      <span class="hp-temp pf-value pf-large" title="{{data.attributes.ac.breakdown}}">
-        <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
-                                                           data-dtype="Number" placeholder="10" readonly>
-      </span>
-    </div>
-    <div class="hp-current pf-container">
-      <h4 class="hp-current pf-title" style="font-size: 12px">{{localize "PF2E.ShieldLabel"}}</h4>
-      <span class="hp-current pf-value pf-large" title="{{localize "PF2E.ShieldACBonusTitle"}}">
-        <input name="data.attributes.shield.ac" type="text" value="{{data.attributes.shield.ac}}"
-                                                            data-dtype="Number" placeholder="0"/>
-      </span>
-    </div>
-  </li>
-</ol>
-<ol class="hp-list-small">
-  <li class="li-four-grid">
-    <div class="defense-container pf-justify-center">
-      <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldCurrentTitle"}}">{{localize "PF2E.ShieldCurrentLabel"}}</h4>
-      <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldCurrentTitle"}}">
-        <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
-                                                               data-dtype="Number" placeholder="0"/>
-      </span>
-    </div>
-    <div class="defense-container pf-justify-center">
-      <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldMaxTitle"}}">{{localize "PF2E.ShieldMaxLabel"}}</h4>
-      <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldMaxTitle"}}">
-        <input name="data.attributes.shield.max" type="text" value="{{data.attributes.shield.max}}"
-                                                             data-dtype="String" placeholder="0"/>
-      </span>
-    </div>
-    <div class="defense-container pf-justify-center">
-      <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</h4>
-      <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldBTTitle"}}">
-        <input name="data.attributes.shield.brokenThreshold" type="text" value="{{data.attributes.shield.brokenThreshold}}"
-                                                                         data-dtype="String" placeholder="0"/>
-      </span>
-    </div>
-    <div class="defense-container pf-justify-center">
-      <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldHardnessTitle"}}">{{localize "PF2E.ShieldHardnessLabel"}}</h4>
-      <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldHardnessTitle"}}">
-        <input name="data.attributes.shield.hardness" type="text" value="{{data.attributes.shield.hardness}}"
-                                                                  data-dtype="Number" placeholder="0"/>
-      </span>
-    </div>
-  </li>
-</ol>
+<div class="sidebar_title">
+    <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
+    <a href="#">+Raise Shield</a>
+</div>
 
+<div class="armor-class">
+    <div class="shield ac">
+        <div class="data-value">
+            <h2>{{data.attributes.ac.value}}</h2>
+        </div>
+        <h4>Armor Class</h4>
+    </div>
+    <div class="shield hp">
+        <div class="data-value">
+            <input type="number" data-dtype="Number" placeholder="0" title="{{localize "PF2E.ShieldACBonusTitle"}}"/>
+        <h4>Shield HP</h4>
+        </div>
+    </div>
+
+    <div class="shield-stats">
+        <ol>
+            <li>
+                <div class="shield-label ac">
+                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="">
+                </div>
+                <span class="stat-item" title="{{localize "PF2E.ShieldACBonusTitle"}}">
+                    <input type="number" data-dtype="Number" placeholder="0"/>
+                </span>
+            </li>
+            <li>
+                <div class="shield-label hardness">
+                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="" title="{{localize "PF2E.ShieldHardnessTitle"}}">
+                </div>
+                <span class="stat-item" title="{{localize "PF2E.ShieldHardnessTitle"}}">
+                    <input type="number" data-dtype="Number" placeholder="0"/>
+                </span>
+            </li>
+            <li>
+                <div class="shield-label bt">
+                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="" title="{{localize "PF2E.ShieldBTTitle"}}">
+                </div>
+                <span class="stat-item" title="{{localize "PF2E.ShieldBTTitle"}}">
+                    <input type="number" data-dtype="String" placeholder="0"/>
+                </span>
+            </li>
+        </ol>
+    </div>
+
+    <div class="armor_footer">
+        <div class="shield-max">
+            <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldMaxTitle"}}">Shield Max HP</h4>
+            <span class="stat-item" title="{{localize "PF2E.ShieldMaxTitle"}}">
+                <input type="number" data-dtype="String" placeholder="0"/>
+            </span>
+        </div>
+        <div class="shield-status">
+            <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</h4>
+            <span class="stat-item" title="{{localize "PF2E.ShieldBTTitle"}}">
+                <input type="number" data-dtype="String" placeholder="0"/>
+            </span>
+        </div>
+    </div>
+</div>
