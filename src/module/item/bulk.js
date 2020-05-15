@@ -308,16 +308,15 @@ export function weightToBulk(weight) {
     if (weight === undefined || weight === null) {
         return undefined;
     }
-    const lowerCaseTrimmed = weight.toLowerCase()
-        .trim();
-    if (/^\d+$/.test(lowerCaseTrimmed)) {
-        return new Bulk({ normal: parseInt(lowerCaseTrimmed, 10) });
+    const trimmed = weight.trim();
+    if (/^\d+$/.test(trimmed)) {
+        return new Bulk({ normal: parseInt(trimmed, 10) });
     }
-    const lightMatch = lowerCaseTrimmed.match(lightBulkRegex);
+    const lightMatch = trimmed.match(lightBulkRegex);
     if (lightMatch) {
         return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
     }
-    const complexMatch = lowerCaseTrimmed.match(complexBulkRegex);
+    const complexMatch = trimmed.match(complexBulkRegex);
     if (complexMatch) {
         // eslint-disable-next-line no-unused-vars
         const [_, normal, light] = complexMatch;
