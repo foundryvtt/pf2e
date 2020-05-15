@@ -42,6 +42,57 @@ export class Bulk {
     get isNegligible() {
         return this.normal === 0 && this.light === 0;
     }
+
+    plus(bulk) {
+        return new Bulk({
+            normal: this.normal + bulk.normal,
+            light: this.light + bulk.light
+        });
+    }
+
+    minus(bulk) {
+        // 1 bulk is 10 light bulk
+        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        const result = thisBulk - otherBulk;
+
+        // bulk can't get negative
+        if (result < 0) {
+            return new Bulk();
+        }
+        return new Bulk({
+            normal: Math.floor(result / 10),
+            light: result % 10,
+        });
+    }
+
+    _toSingleNumber(bulk) {
+        return [
+            this.normal * 10 + this.light,
+            bulk.normal * 10 + bulk.light
+        ];
+    }
+
+    times(factor) {
+        return new Bulk({
+            normal: this.normal * factor,
+            light: this.light * factor
+        });
+    }
+    
+    isSmallerThan(bulk) {
+        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        return thisBulk < otherBulk;
+    }
+
+    isBiggerThan(bulk) {
+        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        return thisBulk > otherBulk;
+    }
+
+    isEqualTo(bulk) {
+        return this.normal === bulk.normal && this.light === bulk.light;
+    }
+
 }
 
 export function formatBulk(bulk) {
@@ -122,46 +173,7 @@ function groupBy(array, criterion) {
  * @return {Bulk}
  */
 function addBulk(first, second) {
-    return new Bulk({
-        normal: first.normal + second.normal,
-        light: first.light + second.light
-    });
-}
-
-/**
- * Used for subtracting bulk if items are placed in a container; can never go below 0
- * @param first
- * @param second
- * @return {Bulk}
- */
-function subtractBulk(first, second) {
-    // 1 bulk is 10 light bulk
-    const firstNumberedBulk = first.normal * 10 + first.light;
-    const secondNumberedBulk = second.normal * 10 + second.light;
-    const result = firstNumberedBulk - secondNumberedBulk;
-
-    // bulk can't get negative
-    if (result < 0) {
-        return new Bulk();
-    }
-    return new Bulk({
-        normal: Math.floor(result / 10),
-        light: result % 10,
-    });
-
-}
-
-/**
- * Non stackable items multiply their bulk by quantity
- * @param bulk
- * @param factor
- * @return {Bulk}
- */
-function multiplyBulk(bulk, factor) {
-    return new Bulk({
-        normal: bulk.normal * factor,
-        light: bulk.light * factor,
-    });
+    return first.plus(second);
 }
 
 /**
@@ -187,7 +199,7 @@ function calculateItemBulk(item) {
  */
 function calculateNonStackBulk(items) {
     return items
-        .map((item) => multiplyBulk(calculateItemBulk(item), item.quantity))
+        .map((item) => calculateItemBulk(item).times(item.quantity))
         .reduce(addBulk, new Bulk());
 }
 
@@ -267,7 +279,7 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
                     // dimensional containers
                     if ((item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
                         || (item.reducesBulk && item.isEquipped)) {
-                        return subtractBulk(itemsBulk, item.negateBulk);
+                        return itemsBulk.minus(item.negateBulk);
                     }
                     return itemsBulk;
 

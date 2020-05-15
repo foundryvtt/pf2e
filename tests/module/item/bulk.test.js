@@ -527,4 +527,42 @@ describe('should calculate bulk', () => {
         expect(calculateCarriedArmorBulk('1'))
             .toBe('2');
     });
+
+    test('should implement various bulk calculation', () => {
+        expect(new Bulk({normal: 3, light: 2}).plus(new Bulk({normal: 4, light: 1})))
+            .toEqual({
+                normal:7,
+                light: 3,
+            });
+        expect(new Bulk({normal: 2, light: 1}).minus(new Bulk({normal: 4, light: 4})))
+            .toEqual({
+                normal:0,
+                light: 0,
+            });
+        expect(new Bulk({normal: 2, light: 4}).minus(new Bulk({normal: 2, light: 1})))
+            .toEqual({
+                normal:0,
+                light: 3,
+            });
+        expect(new Bulk({normal: 2, light: 0}).minus(new Bulk({normal: 0, light: 1})))
+            .toEqual({
+                normal:1,
+                light: 9,
+            });
+        expect(new Bulk({normal: 4, light: 3}).times(3))
+            .toEqual({
+                normal: 12,
+                light: 9,
+            });
+        expect(new Bulk({normal: 0, light: 1}).isSmallerThan(new Bulk({normal: 1, light: 0})))
+            .toBe(true);
+        expect(new Bulk({normal: 1, light: 0}).isSmallerThan(new Bulk({normal: 1, light: 0})))
+            .toBe(false);
+        expect(new Bulk({normal: 1, light: 0}).isEqualTo(new Bulk({normal: 1, light: 0})))
+            .toBe(true);
+        expect(new Bulk({normal: 1, light: 0}).isBiggerThan(new Bulk({normal: 0, light: 1})))
+            .toBe(true);
+        expect(new Bulk({normal: 1, light: 0}).isBiggerThan(new Bulk({normal: 2, light: 0})))
+            .toBe(false);
+    });
 });
