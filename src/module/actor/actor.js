@@ -613,74 +613,59 @@ export default class extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    const current = getProperty(this.data.data, attribute);
     const hp = this.data.data.attributes.hp;
-    if ( attribute == 'attributes.hp' ) {
+    const sp = this.data.data.attributes.sp;
+
+    if ( attribute === 'attributes.shield') {
+      const shield = this.data.data.attributes.shield;
+      if (isDelta && value < 0) {
+        value = Math.min( (shield.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
+        this.update({[`data.attributes.shield.value`]: Math.clamped(0, shield.value + value, shield.max)});
+        attribute = 'attributes.hp';
+      }
+    }
+
+    if (attribute === 'attributes.hp') {
       if (isDelta) {
         if (value < 0) {
-          if ((hp.temp + value) >= 0) {
-            const newTempHp = hp.temp + value;
-            this.update({[`data.attributes.hp.temp`]: newTempHp});
-            value = 0;
-          } else {
-            value = hp.temp + value;
-            this.update({[`data.attributes.hp.temp`]: 0});
-          }
-          if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
-            const currentSP = getProperty(this.data.data, 'attributes.sp');
-
-            if ((currentSP.value + value) >= 0) {
-              const newSP = currentSP.value + value;
-              this.update({[`data.attributes.sp.value`]: newSP});
-              value = 0;
-            } else {
-              value = currentSP.value + value;
-              this.update({[`data.attributes.sp.value`]: 0});
-            }
-          }
+          value = this.calculateHealthDelta({hp, sp, delta: value})
         }
-        value = Math.clamped(0, Number(current.value) + value, current.max);
+        value = Math.clamped(0, Number(hp.value) + value, hp.max);
       }
-      value = Math.clamped(value, 0, current.max);
+      value = Math.clamped(value, 0, hp.max);
       return this.update({[`data.attributes.hp.value`]: value});
-
-    } else if ( attribute == 'attributes.shield') {
-      if (isDelta) {
-        if (value < 0) {
-          value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
-          this.update({[`data.attributes.shield.value`]: Math.clamped(0, current.value + value, current.max)});
-          if (value < 0) { //substract the value from (temp)HP as well
-            if ((hp.temp + value) >= 0) {
-              const newTempHp = hp.temp + value;
-              this.update({[`data.attributes.hp.temp`]: newTempHp});
-              value = 0;
-            } else {
-              value = hp.temp + value;
-              this.update({[`data.attributes.hp.temp`]: 0});
-            }
-            if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
-              const currentSP = getProperty(this.data.data, 'attributes.sp');
-  
-              if ((currentSP.value + value) >= 0) {
-                const newSP = currentSP.value + value;
-                this.update({[`data.attributes.sp.value`]: newSP});
-                value = 0;
-              } else {
-                value = currentSP.value + value;
-                this.update({[`data.attributes.sp.value`]: 0});
-              }
-            }
-          }
-        }
-      }
-      value = Math.clamped(0, hp.value + value, hp.max);
-      return this.update({[`data.attributes.hp.value`]: value});
-
     }
 
     return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
   }
 
+  /**
+   * Handle how changes to a Token attribute bar are applied to the Actor.
+   * This allows for game systems to override this behavior and deploy special logic.
+   * @param {object} args   Contains references to the hp, and sp objects.
+   */
+  calculateHealthDelta(args) {
+    let {hp, sp, delta} = args;
+    if ((hp.temp + delta) >= 0) {
+      const newTempHp = hp.temp + delta;
+      this.update({[`data.attributes.hp.temp`]: newTempHp});
+      delta = 0;
+    } else {
+      delta = hp.temp + delta;
+      this.update({[`data.attributes.hp.temp`]: 0});
+    }
+    if (game.settings.get('pf2e', 'staminaVariant') > 0 && delta < 0) {
+      if ((sp.value + delta) >= 0) {
+        const newSP = sp.value + delta;
+        this.update({[`data.attributes.sp.value`]: newSP});
+        delta = 0;
+      } else {
+        delta = sp.value + delta;
+        this.update({[`data.attributes.sp.value`]: 0});
+      }
+    }
+    return delta;
+  }
 }
 
 Handlebars.registerHelper('if_stamina', function(options) {
