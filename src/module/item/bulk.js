@@ -418,10 +418,12 @@ export function itemsFromActorData(actorData) {
         .filter(item => itemTypesWithBulk.has(item.type));
 
     const items = toContainerOrItems(itemsHavingBulk);
-    items.push(new ContainerOrItem({
-        stackGroup: 'coins',
-        quantity: countCoins(actorData),
-    }));
+    if (game.settings.get('pf2e', 'coinBulk')) {
+        items.push(new ContainerOrItem({
+            stackGroup: 'coins',
+            quantity: countCoins(actorData),
+        }));
+    }
     return items;
 }
 

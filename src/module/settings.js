@@ -15,6 +15,14 @@ export default function () {
     default: true,
     type: Boolean,
   });
+  game.settings.register('pf2e', 'coinBulk', {
+    name: 'Coins have bulk',
+    hint: "Toggle on to make currency factor into bulk calculations.",
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean
+  });
   game.settings.register('pf2e', 'staminaVariant', {
     name: 'Stamina Variant Rules',
     hint: "Play with the stamina variant from Gamemastery Guide pg 200",
