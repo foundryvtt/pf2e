@@ -297,9 +297,7 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
 /**
  * Accepted formats:
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
- * @param weight must be string containing a number or "l"; undefined, null or non
- * parseable strings return undefined
- * null
+ * @param weight if not parseable will return null or undefined
  * @return {Bulk}
  */
 export function weightToBulk(weight) {
@@ -309,7 +307,7 @@ export function weightToBulk(weight) {
     const lowerCaseTrimmed = weight.toLowerCase()
         .trim();
     
-    if (lowerCaseTrimmed.toLowerCase() === 'l') {
+    if (lowerCaseTrimmed === 'l') {
         return new Bulk({ light: 1 });
     }
     if (/^\d+$/.test(lowerCaseTrimmed)) {
@@ -338,7 +336,6 @@ export function normalizeWeight(weight) {
     const stringWeight = `${weight}`;
     return stringWeight.toLowerCase()
         .trim();
-
 }
 
 function countCoins(actorData) {
