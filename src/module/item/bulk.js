@@ -294,6 +294,10 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
         .reduce(addBulk, new Bulk());
 }
 
+
+const lightBulkRegex = /^(\d*)[lL]$/;
+const complexBulkRegex = /^(\d+);\s*(\d*)[lL]$/;
+
 /**
  * Accepted formats:
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
@@ -306,20 +310,21 @@ export function weightToBulk(weight) {
     }
     const lowerCaseTrimmed = weight.toLowerCase()
         .trim();
-    
-    if (lowerCaseTrimmed === 'l') {
-        return new Bulk({ light: 1 });
-    }
     if (/^\d+$/.test(lowerCaseTrimmed)) {
         return new Bulk({ normal: parseInt(lowerCaseTrimmed, 10) });
     }
-    if (/^\d+[lL]$/.test(lowerCaseTrimmed)) {
-        return new Bulk({ light: parseInt(lowerCaseTrimmed.slice(0, -1), 10) });
+    const lightMatch = lowerCaseTrimmed.match(lightBulkRegex);
+    if (lightMatch) {
+        return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
     }
-    if (/^(\d+);\s*(\d*[lL])$/.test(lowerCaseTrimmed)) {
-        const [normal, light] = lowerCaseTrimmed.split(';');
-        return weightToBulk(normal)
-            .plus(weightToBulk(light));
+    const complexMatch = lowerCaseTrimmed.match(complexBulkRegex);
+    if (complexMatch) {
+        // eslint-disable-next-line no-unused-vars
+        const [_, normal, light] = complexMatch;
+        return new Bulk({
+            normal: parseInt(normal, 10),
+            light: parseInt(light || '1', 10),
+        });
     }
     return undefined;
 }
