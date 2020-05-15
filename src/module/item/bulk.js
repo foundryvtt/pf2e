@@ -218,7 +218,7 @@ function calculateStackBulk(items, stackDefinition) {
  * @return {Bulk|*}
  */
 function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
-    if (!bulkConfig.coinBulk && key === "coins") return new Bulk();
+    if (bulkConfig.ignoreCoinBulk && key === "coins") return new Bulk();
     if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
     }
@@ -236,7 +236,7 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @return {*}
  */
-export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {coinBulk: true}) {
+export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
     const stackGroups = groupBy(items, (e) => {
         // can be empty string as well
         const group = e.stackGroup;

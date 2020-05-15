@@ -15,9 +15,9 @@ export default function () {
     default: true,
     type: Boolean,
   });
-  game.settings.register('pf2e', 'coinBulk', {
-    name: 'Coins have bulk',
-    hint: "Toggle on to make currency factor into bulk calculations.",
+  game.settings.register('pf2e', 'ignoreCoinBulk', {
+    name: 'Coins are weightless',
+    hint: "Toggle on to ignore currency weight.",
     scope: 'world',
     config: true,
     default: true,
