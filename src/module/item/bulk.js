@@ -295,8 +295,8 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
 }
 
 
-const lightBulkRegex = /^(\d*)[lL]$/;
-const complexBulkRegex = /^(\d+);\s*(\d*)[lL]$/;
+const lightBulkRegex = /^(\d*)l$/i;
+const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
 
 /**
  * Accepted formats:
