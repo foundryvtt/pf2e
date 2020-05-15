@@ -4,7 +4,8 @@ import {
     ContainerOrItem,
     itemsFromActorData,
     calculateCarriedArmorBulk,
-    stacks
+    stacks,
+    weightToBulk,
 } from '../../../src/module/item/bulk.js';
 
 describe('should calculate bulk', () => {
@@ -586,6 +587,56 @@ describe('should calculate bulk', () => {
             .toEqual({
                 light: 0,
                 normal: 0,
+            });
+    });
+
+    test('should parse more complex weights', () => {
+        expect(weightToBulk('2; l'))
+            .toEqual({
+                normal: 2,
+                light: 1,
+            });
+
+        expect(weightToBulk('2; L'))
+            .toEqual({
+                normal: 2,
+                light: 1,
+            });
+        
+        expect(weightToBulk('2;3l'))
+            .toEqual({
+                normal: 2,
+                light: 3,
+            });
+
+        expect(weightToBulk('2'))
+            .toEqual({
+                normal: 2,
+                light: 0,
+            });
+
+        expect(weightToBulk('l'))
+            .toEqual({
+                normal: 0,
+                light: 1,
+            });
+
+        expect(weightToBulk('2, 1'))
+            .toEqual(undefined);
+        
+        expect(weightToBulk('2, 1lL'))
+            .toEqual(undefined);
+
+        expect(weightToBulk('2L'))
+            .toEqual({
+                normal: 0,
+                light: 2,
+            });
+
+        expect(weightToBulk('3; 2L'))
+            .toEqual({
+                normal: 3,
+                light: 2,
             });
     });
 });

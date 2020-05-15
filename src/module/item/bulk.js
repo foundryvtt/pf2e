@@ -52,7 +52,7 @@ export class Bulk {
 
     minus(bulk) {
         // 1 bulk is 10 light bulk
-        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
         const result = thisBulk - otherBulk;
 
         // bulk can't get negative
@@ -78,14 +78,14 @@ export class Bulk {
             light: this.light * factor
         });
     }
-    
+
     isSmallerThan(bulk) {
-        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
         return thisBulk < otherBulk;
     }
 
     isBiggerThan(bulk) {
-        const [thisBulk, otherBulk ] = this._toSingleNumber(bulk);
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
         return thisBulk > otherBulk;
     }
 
@@ -199,7 +199,8 @@ function calculateItemBulk(item) {
  */
 function calculateNonStackBulk(items) {
     return items
-        .map((item) => calculateItemBulk(item).times(item.quantity))
+        .map((item) => calculateItemBulk(item)
+            .times(item.quantity))
         .reduce(addBulk, new Bulk());
 }
 
@@ -230,7 +231,7 @@ function calculateStackBulk(items, stackDefinition) {
  * @return {Bulk|*}
  */
 function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
-    if (bulkConfig.ignoreCoinBulk && key === "coins") return new Bulk();
+    if (bulkConfig.ignoreCoinBulk && key === 'coins') return new Bulk();
     if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
     }
@@ -294,8 +295,8 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
 }
 
 /**
- * Weight from items includes either an integer or l for light bulk
- * or something that we can't parse and report as no bulk.
+ * Accepted formats:
+ * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight must be string containing a number or "l"; undefined, null or non
  * parseable strings return undefined
  * null
@@ -305,14 +306,24 @@ export function weightToBulk(weight) {
     if (weight === undefined || weight === null) {
         return undefined;
     }
-    if (weight === 'l') {
+    const lowerCaseTrimmed = weight.toLowerCase()
+        .trim();
+    
+    if (lowerCaseTrimmed.toLowerCase() === 'l') {
         return new Bulk({ light: 1 });
     }
-    const value = parseInt(weight, 10);
-    if (Number.isNaN(value)) {
-        return undefined;
+    if (/^\d+$/.test(lowerCaseTrimmed)) {
+        return new Bulk({ normal: parseInt(lowerCaseTrimmed, 10) });
     }
-    return new Bulk({ normal: value });
+    if (/^\d+[lL]$/.test(lowerCaseTrimmed)) {
+        return new Bulk({ light: parseInt(lowerCaseTrimmed.slice(0, -1), 10) });
+    }
+    if (/^(\d+);\s*(\d*[lL])$/.test(lowerCaseTrimmed)) {
+        const [normal, light] = lowerCaseTrimmed.split(';');
+        return weightToBulk(normal)
+            .plus(weightToBulk(light));
+    }
+    return undefined;
 }
 
 /**
