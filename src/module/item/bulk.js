@@ -241,6 +241,14 @@ function calculateChildOverflow(overflow, item, ignoreContainerOverflow) {
     return overflow;
 }
 
+/**
+ * Calculate the bulk for an item and it's held items.
+ * @param item
+ * @param stackDefinitions
+ * @param nestedExtraDimensionalContainer true if the item is inside an extra dimensional container
+ * @param bulkConfig
+ * @return {(Bulk|Bulk|{})[]}
+ */
 function calculateCombinedBulk(item, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
     const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
 
