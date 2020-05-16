@@ -178,21 +178,22 @@ export default class extends Actor {
       const modifiers = [];
       let armorCheckPenalty = 0;
       // find equipped armor
-      const wornArmor = this.data.items.filter((item) => item.type === 'armor')
+      const worn = this.data.items.filter((item) => item.type === 'armor')
+        .filter((armor) => armor.data.armorType.value !== 'shield')
         .find((armor) => armor.data.equipped.value);
-      if (wornArmor) {
+      if (worn) {
         // Dex modifier limited by armor max dex bonus
         const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
-        dexterity.modifier = Math.min(dexterity.modifier, Number(wornArmor.data.dex.value ?? 0));
+        dexterity.modifier = Math.min(dexterity.modifier, Number(worn.data.dex.value ?? 0));
         modifiers.push(dexterity);
 
         // armor check penalty
-        if (data.abilities.str.value < Number(wornArmor.data.strength.value ?? 0)) {
-          armorCheckPenalty = Number(wornArmor.data.check.value ?? 0);
+        if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
+          armorCheckPenalty = Number(worn.data.check.value ?? 0);
         }
 
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[wornArmor.data.armorType?.value]?.rank ?? 0));
-        modifiers.push(new PF2Modifier(wornArmor.name, Number(wornArmor.data.armor.value ?? 0), PF2ModifierType.ITEM));
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[worn.data.armorType?.value]?.rank ?? 0));
+        modifiers.push(new PF2Modifier(worn.name, Number(worn.data.armor.value ?? 0), PF2ModifierType.ITEM));
       } else {
         modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
@@ -613,64 +614,59 @@ export default class extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    const current = getProperty(this.data.data, attribute);
+    const hp = this.data.data.attributes.hp;
+    const sp = this.data.data.attributes.sp;
 
-    if ( attribute == 'attributes.hp' ) {
+    if ( attribute === 'attributes.shield') {
+      const shield = this.data.data.attributes.shield;
+      if (isDelta && value < 0) {
+        value = Math.min( (shield.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
+        this.update({[`data.attributes.shield.value`]: Math.clamped(0, shield.value + value, shield.max)});
+        attribute = 'attributes.hp';
+      }
+    }
+
+    if (attribute === 'attributes.hp') {
       if (isDelta) {
         if (value < 0) {
-          if ((current.temp + value) >= 0) {
-            const newTempHp = current.temp + value;
-            this.update({[`data.attributes.hp.temp`]: newTempHp});
-            value = 0;
-          } else {
-            value = current.temp + value;
-            this.update({[`data.attributes.hp.temp`]: 0});
-          }
-          if (game.settings.get('pf2e', 'staminaVariant') > 0 && value < 0) {
-            const currentSP = getProperty(this.data.data, 'attributes.sp');
-
-            if ((currentSP.value + value) >= 0) {
-              const newSP = currentSP.value + value;
-              this.update({[`data.attributes.sp.value`]: newSP});
-              value = 0;
-            } else {
-              value = currentSP.value + value;
-              this.update({[`data.attributes.sp.value`]: 0});
-            }
-          }
+          value = this.calculateHealthDelta({hp, sp, delta: value})
         }
-        value = Math.clamped(0, Number(current.value) + value, current.max);
+        value = Math.clamped(0, Number(hp.value) + value, hp.max);
       }
-      value = Math.clamped(value, 0, current.max);
+      value = Math.clamped(value, 0, hp.max);
       return this.update({[`data.attributes.hp.value`]: value});
-
-    } else if ( attribute == 'attributes.shield' && isDelta ) {
-
-      if (isDelta) {
-        if (value < 0) {
-          value = Math.min( (current.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
-          const hp = this.data.data.attributes.hp;
-          if (value < 0) { //substract the value from (temp)HP as well
-            if ((hp.temp + value) >= 0) {
-              const newTempHp = hp.temp + value;
-              this.update({[`data.attributes.hp.temp`]: newTempHp});
-            } else {
-              const newHp = Math.clamped( ( hp.value + hp.temp + value ), 0, hp.max);
-              this.update({[`data.attributes.hp.value`]: newHp});
-              this.update({[`data.attributes.hp.temp`]: 0});
-            }
-          }
-        }
-        value = Number(current.value) + value; //apply modifier to shield hp
-      }
-      value = Math.clamped(value, 0, current.max);
-      return this.update({[`data.attributes.shield.value`]: value});
-
     }
 
     return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
   }
 
+  /**
+   * Handle how changes to a Token attribute bar are applied to the Actor.
+   * This allows for game systems to override this behavior and deploy special logic.
+   * @param {object} args   Contains references to the hp, and sp objects.
+   */
+  calculateHealthDelta(args) {
+    let {hp, sp, delta} = args;
+    if ((hp.temp + delta) >= 0) {
+      const newTempHp = hp.temp + delta;
+      this.update({[`data.attributes.hp.temp`]: newTempHp});
+      delta = 0;
+    } else {
+      delta = hp.temp + delta;
+      this.update({[`data.attributes.hp.temp`]: 0});
+    }
+    if (game.settings.get('pf2e', 'staminaVariant') > 0 && delta < 0) {
+      if ((sp.value + delta) >= 0) {
+        const newSP = sp.value + delta;
+        this.update({[`data.attributes.sp.value`]: newSP});
+        delta = 0;
+      } else {
+        delta = sp.value + delta;
+        this.update({[`data.attributes.sp.value`]: 0});
+      }
+    }
+    return delta;
+  }
 }
 
 Handlebars.registerHelper('if_stamina', function(options) {
