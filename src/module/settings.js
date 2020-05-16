@@ -24,7 +24,7 @@ export default function () {
     type: Boolean
   });
   game.settings.register('pf2e', 'ignoreContainerOverflow', {
-    name: 'Do not combine stacks from different containers',
+    name: 'Do not combine stacks from different containers when calculating bulk',
     hint: 'When toggled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. ' +
         'When toggled, the above example will combine all stacks from all containers together and ' +
         'add up to 1 bulk.',
