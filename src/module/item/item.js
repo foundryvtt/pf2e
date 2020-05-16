@@ -843,7 +843,7 @@ export default class extends Item {
 
       // Optionally destroy the item
       else if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-        this.actor.removeEmbeddedEntity('OwnedItem', this.data._id);
+        this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
       }
 
       // Deduct the remaining charges
