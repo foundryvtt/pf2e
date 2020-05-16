@@ -7,12 +7,7 @@ export const BLINDED = Object.freeze({
 });
 export const CLUMSY = Object.freeze({
   withValue: (value) => ({
-    // also applies to dex-based attack rolls
-    ac: new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS),
-    reflex: new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS),
-    acrobatics: new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS),
-    stealth: new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS),
-    thievery: new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS),
+    'dex-based': new PF2Modifier('PF2E.condition.clumsy.name', -value, PF2ModifierType.STATUS)
   })
 });
 export const DRAINED = Object.freeze({
@@ -22,8 +17,7 @@ export const DRAINED = Object.freeze({
 });
 export const ENFEEBLED = Object.freeze({
   withValue: (value) => ({
-    // also applies to str-based attack and damage rolls
-    athletics: new PF2Modifier('PF2E.condition.enfeebled.name', -value, PF2ModifierType.STATUS),
+    'str-based': new PF2Modifier('PF2E.condition.enfeebled.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const FASCINATED = Object.freeze({
@@ -51,7 +45,6 @@ export const FASCINATED = Object.freeze({
 });
 export const FATIGUED = Object.freeze({
   get: () => ({
-    // also applies to attack rolls and skills
     ac: new PF2Modifier('PF2E.condition.fatigued.name', -1, PF2ModifierType.STATUS),
     fortitude: new PF2Modifier('PF2E.condition.fatigued.name', -1, PF2ModifierType.STATUS),
     reflex: new PF2Modifier('PF2E.condition.fatigued.name', -1, PF2ModifierType.STATUS),
@@ -66,75 +59,21 @@ export const FLAT_FOOTED = Object.freeze({
 export const FRIGHTENED = Object.freeze({
   withValue: (value) => ({
     // also applies to attack rolls
-    ac: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    fortitude: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    reflex: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    will: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    perception: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    acrobatics: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    arcana: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    athletics: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    crafting: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    deception: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    diplomacy: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    intimidation: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    lore: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    medicine: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    nature: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    occultism: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    performance: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    religion: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    society: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    stealth: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    survival: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    thievery: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
+    all: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const SICKENED = Object.freeze({
   withValue: (value) => ({
     // also applies to attack rolls and skills
-    ac: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    fortitude: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    reflex: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    will: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    perception: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    acrobatics: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    arcana: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    athletics: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    crafting: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    deception: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    diplomacy: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    intimidation: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    lore: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    medicine: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    nature: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    occultism: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    performance: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    religion: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    society: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    stealth: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    survival: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    thievery: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
+    all: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const STUPEFIED = Object.freeze({
   withValue: (value) => ({
     // also applies to spell attack rolls, spell DCs, and skill checks that use these ability scores
-    will: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    perception: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    arcana: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    crafting: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    deception: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    diplomacy: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    intimidation: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    lore: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    medicine: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    nature: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    occultism: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    performance: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    religion: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    society: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
-    survival: new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
+    'int-based': new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
+    'wis-based': new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
+    'cha-based': new PF2Modifier('PF2E.condition.stupefied.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const UNCONSCIOUS = Object.freeze({

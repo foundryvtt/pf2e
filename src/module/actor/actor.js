@@ -113,7 +113,9 @@ export default class extends Actor {
       if (save.item) {
         modifiers.push(new PF2Modifier('Item Bonus', save.item, PF2ModifierType.ITEM));
       }
-      (statisticsModifiers[saveName] || []).forEach((m) => modifiers.push(m));
+      [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       // preserve backwards-compatibility
       let updated;
@@ -149,8 +151,10 @@ export default class extends Actor {
       if (data.attributes.perception.item) {
         modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
       }
-      (statisticsModifiers.perception || []).forEach((m) => modifiers.push(m));
-  
+      ['perception', `wis-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
+
       // preserve backwards-compatibility
       /* eslint-disable no-param-reassign */
       if (data.attributes.perception instanceof PF2StatisticModifier) {
@@ -199,14 +203,15 @@ export default class extends Actor {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
       }
       // condition modifiers
-      (statisticsModifiers.ac || []).forEach((m) => modifiers.push(m));
+      ['ac', 'dex-based', 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       /* eslint-disable no-param-reassign */
       data.attributes.ac = new PF2StatisticModifier("Armor Class", modifiers);
       // preserve backwards-compatibility
       data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
       data.attributes.ac.check = armorCheckPenalty;
-      // Base AC 10, 
       data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         data.attributes.ac.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -233,7 +238,9 @@ export default class extends Actor {
         prf:'perform',rel:'religion',soc:'society',ste:'stealth',sur:'survival',thi:'thievery'};
       const expandedName = skillDictionary[skillName];
 
-      (statisticsModifiers[expandedName] || []).forEach((m) => modifiers.push(m));
+      [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       // preserve backwards-compatibility
       let updated;
