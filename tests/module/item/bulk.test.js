@@ -1,7 +1,7 @@
 import {
     calculateBulk,
     Bulk,
-    ContainerOrItem,
+    BulkItem,
     itemsFromActorData,
     calculateCarriedArmorBulk,
     stacks,
@@ -10,7 +10,7 @@ import {
 
 describe('should calculate bulk', () => {
     test('empty inventory', () => {
-        const bulk = calculateBulk([], stacks);
+        const [bulk] = calculateBulk([], stacks);
 
         expect(bulk)
             .toEqual({
@@ -20,10 +20,10 @@ describe('should calculate bulk', () => {
     });
 
     test('11 light items are 1 bulk and 1 light bulk', () => {
-        const items = [new ContainerOrItem({
+        const items = [new BulkItem({
             bulk: new Bulk({ light: 11 })
         })];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -33,11 +33,11 @@ describe('should calculate bulk', () => {
     });
 
     test('light armor that is worn counts as 1 bulk', () => {
-        const items = [new ContainerOrItem({
+        const items = [new BulkItem({
             isEquipped: true,
             equippedBulk: new Bulk({ normal: 1 })
         })];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -47,12 +47,12 @@ describe('should calculate bulk', () => {
     });
 
     test('armor that is worn counts as 1 more bulk', () => {
-        const items = [new ContainerOrItem({
+        const items = [new BulkItem({
             isEquipped: false,
             unequippedBulk: new Bulk({ normal: 2 }),
             equippedBulk: new Bulk({ normal: 1 })
         })];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -62,12 +62,12 @@ describe('should calculate bulk', () => {
     });
 
     test('backpacks are light bulk when not worn', () => {
-        const items = [new ContainerOrItem({
+        const items = [new BulkItem({
             isEquipped: false,
             unequippedBulk: new Bulk({ light: 1 }),
             equippedBulk: new Bulk()
         })];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -77,12 +77,12 @@ describe('should calculate bulk', () => {
     });
 
     test('backpacks are negligible bulk when worn', () => {
-        const items = [new ContainerOrItem({
+        const items = [new BulkItem({
             isEquipped: true,
             unequippedBulk: new Bulk({ light: 1 }),
             equippedBulk: new Bulk()
         })];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -93,13 +93,13 @@ describe('should calculate bulk', () => {
 
     test('arrows that shoot bags of holding', () => {
         const items = [
-            new ContainerOrItem({
+            new BulkItem({
                 stackGroup: 'arrows',
                 holdsItems: [
                     // bag of holding
-                    new ContainerOrItem({
+                    new BulkItem({
                         holdsItems: [
-                            new ContainerOrItem({
+                            new BulkItem({
                                 bulk: new Bulk({ normal: 15 })
                             })
                         ],
@@ -109,12 +109,12 @@ describe('should calculate bulk', () => {
                     })
                 ]
             }),
-            new ContainerOrItem({
+            new BulkItem({
                 stackGroup: 'arrows',
                 quantity: 9
             })
         ];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -126,16 +126,16 @@ describe('should calculate bulk', () => {
     test('worn backpack negate bulk', () => {
         const items = [
             // backpack
-            new ContainerOrItem({
+            new BulkItem({
                 holdsItems: [
-                    new ContainerOrItem({
+                    new BulkItem({
                         bulk: new Bulk({ normal: 1 })
                     }),
-                    new ContainerOrItem({
+                    new BulkItem({
                         stackGroup: 'arrows',
                         quantity: 10
                     }),
-                    new ContainerOrItem({
+                    new BulkItem({
                         quantity: 9,
                         bulk: new Bulk({ light: 1 })
                     })
@@ -144,26 +144,28 @@ describe('should calculate bulk', () => {
                 negateBulk: new Bulk({ normal: 2 }),
                 bulk: new Bulk({ normal: 1 })
             }),
-            new ContainerOrItem({
+            new BulkItem({
                 stackGroup: 'arrows',
                 quantity: 9
             })
         ];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk, overflow] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
                 light: 0,
                 normal: 1,
             });
+        expect(overflow)
+            .toEqual({ arrows: 9 });
     });
 
     test('unequipped backpack does not negate bulk', () => {
         const items = [
             // backpack
-            new ContainerOrItem({
+            new BulkItem({
                 holdsItems: [
-                    new ContainerOrItem({
+                    new BulkItem({
                         bulk: new Bulk({ normal: 1 })
                     }),
                 ],
@@ -172,7 +174,7 @@ describe('should calculate bulk', () => {
                 bulk: new Bulk({ normal: 1 })
             }),
         ];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -184,15 +186,15 @@ describe('should calculate bulk', () => {
     test('nesting bag of holdings into backpacks reduces bulk', () => {
         const items = [
             // backpack
-            new ContainerOrItem({
+            new BulkItem({
                 holdsItems: [
                     // bag of holding
-                    new ContainerOrItem({
+                    new BulkItem({
                         bulk: new Bulk({ normal: 1 }),
                         extraDimensionalContainer: true,
                         holdsItems: [
                             // bag of holding
-                            new ContainerOrItem({
+                            new BulkItem({
                                 bulk: new Bulk({ normal: 10 })
                             })
                         ],
@@ -204,7 +206,7 @@ describe('should calculate bulk', () => {
                 equippedBulk: new Bulk()
             }),
         ];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
@@ -216,15 +218,15 @@ describe('should calculate bulk', () => {
     test('nested extra dimensional containers dont reduce bulk', () => {
         const items = [
             // bag of holding
-            new ContainerOrItem({
+            new BulkItem({
                 bulk: new Bulk({ normal: 1 }),
                 extraDimensionalContainer: true,
                 holdsItems: [
                     // bag of holding
-                    new ContainerOrItem({
+                    new BulkItem({
                         bulk: new Bulk({ normal: 1 }),
                         holdsItems: [
-                            new ContainerOrItem({
+                            new BulkItem({
                                 bulk: new Bulk({ normal: 25 })
                             })
                         ],
@@ -235,12 +237,160 @@ describe('should calculate bulk', () => {
                 negateBulk: new Bulk({ normal: 15 })
             }),
         ];
-        const bulk = calculateBulk(items, stacks);
+        const [bulk] = calculateBulk(items, stacks);
 
         expect(bulk)
             .toEqual({
                 light: 0,
                 normal: 12,
+            });
+    });
+
+    test('nested stacks pass overflow up', () => {
+        const items = [
+            // backpack
+            new BulkItem({
+                bulk: new Bulk({ normal: 1 }),
+                holdsItems: [
+                    // backpack containing 999 coins
+                    new BulkItem({
+                        bulk: new Bulk({ normal: 1 }),
+                        holdsItems: [
+                            // partial stack gets passed up
+                            new BulkItem({
+                                stackGroup: 'coins',
+                                quantity: 997
+                            }),
+                        ],
+                        negateBulk: new Bulk({ normal: 2 }),
+                    }),
+                    // this container now holds 999 coins
+                    new BulkItem({
+                        quantity: 2,
+                        stackGroup: 'coins'
+                    })
+                ],
+                negateBulk: new Bulk({ normal: 2 }),
+                isEquipped: true,
+            }),
+            // pouch
+            new BulkItem({
+                holdsItems: [
+                    // the last coin from this container should add to 1 bulk
+                    new BulkItem({
+                        quantity: 1,
+                        stackGroup: 'coins'
+                    })
+                ],
+            })
+        ];
+        const [bulk] = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 2,
+            });
+    });
+
+    test('nested stacks do not pass overflow up if disabled', () => {
+        const items = [
+            // backpack
+            new BulkItem({
+                bulk: new Bulk({ normal: 1 }),
+                holdsItems: [
+                    // backpack containing 999 coins
+                    new BulkItem({
+                        bulk: new Bulk({ normal: 1 }),
+                        holdsItems: [
+                            // partial stack gets passed up
+                            new BulkItem({
+                                stackGroup: 'coins',
+                                quantity: 997
+                            }),
+                        ],
+                        negateBulk: new Bulk({ normal: 2 }),
+                    }),
+                    // this container now holds 999 coins
+                    new BulkItem({
+                        quantity: 2,
+                        stackGroup: 'coins'
+                    })
+                ],
+                negateBulk: new Bulk({ normal: 2 }),
+                isEquipped: true,
+            }),
+            // pouch
+            new BulkItem({
+                holdsItems: [
+                    // the last coin from this container should add to 1 bulk
+                    new BulkItem({
+                        quantity: 1,
+                        stackGroup: 'coins'
+                    })
+                ],
+            })
+        ];
+        const [bulk] = calculateBulk(items, stacks, false, {
+            ignoreContainerOverflow: true 
+        });
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 1,
+            });
+    });
+
+    test('nested stacks doesnt pass overflow up if extradimensional', () => {
+        const items = [
+            // backpack
+            new BulkItem({
+                bulk: new Bulk({ normal: 1 }),
+                holdsItems: [
+                    // backpack containing 999 coins
+                    new BulkItem({
+                        bulk: new Bulk({ normal: 1 }),
+                        holdsItems: [
+                            // partial stack gets passed up
+                            new BulkItem({
+                                stackGroup: 'coins',
+                                quantity: 997
+                            }),
+                            // full stack gets absorbed
+                            new BulkItem({
+                                stackGroup: 'arrows',
+                                quantity: 10
+                            })
+                        ],
+                        extraDimensionalContainer: true,
+                        negateBulk: new Bulk({ normal: 2 }),
+                    }),
+                    new BulkItem({
+                        quantity: 2,
+                        stackGroup: 'coins'
+                    })
+                ],
+                negateBulk: new Bulk({ normal: 2 }),
+                isEquipped: true,
+            }),
+            // pouch
+            new BulkItem({
+                holdsItems: [
+                    new BulkItem({
+                        quantity: 1,
+                        stackGroup: 'coins'
+                    })
+                ],
+                bulk: new Bulk({ light: 1 })
+            })
+        ];
+        const [bulk] = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 1,
+                normal: 1,
             });
     });
 
@@ -626,12 +776,12 @@ describe('should calculate bulk', () => {
 
     test('should respect configs to ignore coin bulk', () => {
         const items = [
-            new ContainerOrItem({
+            new BulkItem({
                 stackGroup: 'coins',
                 quantity: 100000
             })
         ];
-        let bulk = calculateBulk(items, stacks, false);
+        let [bulk] = calculateBulk(items, stacks, false);
 
         expect(bulk)
             .toEqual({
@@ -639,7 +789,7 @@ describe('should calculate bulk', () => {
                 normal: 100,
             });
 
-        bulk = calculateBulk(items, stacks, false, { ignoreCoinBulk: true });
+        [bulk] = calculateBulk(items, stacks, false, { ignoreCoinBulk: true });
         expect(bulk)
             .toEqual({
                 light: 0,
@@ -683,7 +833,7 @@ describe('should calculate bulk', () => {
 
         expect(weightToBulk('2, 1lL'))
             .toEqual(undefined);
-        
+
         expect(weightToBulk('-'))
             .toEqual(undefined);
 

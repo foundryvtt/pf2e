@@ -23,6 +23,16 @@ export default function () {
     default: true,
     type: Boolean
   });
+  game.settings.register('pf2e', 'ignoreContainerOverflow', {
+    name: 'Do not combine stacks from different containers',
+    hint: 'When toggled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. ' +
+        'When toggled, the above example will combine all stacks from all containers together and ' +
+        'add up to 1 bulk.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean
+  });
   game.settings.register('pf2e', 'staminaVariant', {
     name: 'Stamina Variant Rules',
     hint: "Play with the stamina variant from Gamemastery Guide pg 200",
