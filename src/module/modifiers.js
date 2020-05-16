@@ -260,6 +260,15 @@ export class PF2StatisticModifier {
   constructor(name, modifiers) {
     this.name = name;
     this._modifiers = modifiers || [];
+    { // de-duplication
+      const seen = [];
+      this._modifiers.filter((m) => {
+        const found = seen.find((o) => o.name === m.name) !== undefined;
+        if (!found) seen.push(m);
+        return found;
+      });
+      this._modifiers = seen;
+    }
     this.applyStackingRules();
   }
 
@@ -274,8 +283,11 @@ export class PF2StatisticModifier {
    * @param {PF2Modifier} modifier
    */
   push(modifier) {
-    this._modifiers.push(modifier);
-    this.applyStackingRules();
+    // de-duplication
+    if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
+      this._modifiers.push(modifier);
+      this.applyStackingRules();
+    }
   }
 
   /**
