@@ -32,6 +32,20 @@ describe('should calculate bulk', () => {
             });
     });
 
+    test('item quantity multiplies bulk', () => {
+        const items = [new BulkItem({
+            bulk: new Bulk({ light: 1 }),
+            quantity: 11
+        })];
+        const [bulk] = calculateBulk(items, stacks);
+
+        expect(bulk)
+            .toEqual({
+                light: 1,
+                normal: 1
+            });
+    });
+
     test('light armor that is worn counts as 1 bulk', () => {
         const items = [new BulkItem({
             isEquipped: true,
