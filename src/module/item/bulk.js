@@ -209,7 +209,7 @@ function calculateStackBulk(itemStacks, stackDefinitions, bulkConfig = {}) {
 function calculateItemBulk(item, stackDefinitions, bulkConfig) {
     const stackName = item.stackGroup;
     if (isBlank(stackName)) {
-        return [calculateNonStackBulk(item), {}];
+        return [calculateNonStackBulk(item).times(item.quantity), {}];
     }
     return calculateStackBulk({ [stackName]: item.quantity }, stackDefinitions, bulkConfig);
 }
