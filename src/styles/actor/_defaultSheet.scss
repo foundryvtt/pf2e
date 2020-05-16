@@ -1,3 +1,11 @@
+$header-height: 89px;
+
+.crb-style.actor .window-content {
+    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
+    background-repeat: repeat-x, no-repeat;
+    background-size: auto $header-height, cover;
+}
+
 .crb-style section.window-content {
     padding: 0;
 }
@@ -6,23 +14,37 @@
     all: initial;
     display: grid;
     grid:
-        'sidebar header' 100px
+        'sidebar header' $header-height
+        'sidebar nav' auto
         'sidebar content' auto
         / 247px 1fr;
+    grid-column-gap: 8px;
     input {
         all: initial;
+        &:focus {
+            box-shadow: none;
+        }
         &::placeholder {
             color: white;
         }
     }
 
-    @import 'sidebar';
+    /* prettier-ignore */
+    @import 'sidebar',
+            'header';
 
     section.header {
         grid-area: header;
     }
+    nav.sheet-navigation {
+        grid-area: nav;
+    }
     section.content {
         grid-area: content;
+    }
+
+    .dots span {
+        cursor: pointer;
     }
 
     .tag {
