@@ -318,7 +318,24 @@ describe('should calculate bulk', () => {
                             value: 'arrows'
                         }
                     },
-                }
+                },
+                {
+                    type: 'currency',
+                    data: {
+                        denomination: {
+                            value: 'sp'
+                        },
+                        quantity: {
+                            value: 9
+                        },
+                        value: {
+                            value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
+                        }
+                    }
+                },
             ]
         };
         const items = itemsFromActorData(actorData);
@@ -418,6 +435,23 @@ describe('should calculate bulk', () => {
                 {
                     type: 'armor',
                 },
+                {
+                    type: 'currency',
+                    data: {
+                        denomination: {
+                            value: 'sp'
+                        },
+                        quantity: {
+                            value: 9
+                        },
+                        value: {
+                            value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
+                        }
+                    }
+                }
             ]
         };
         const items = itemsFromActorData(actorData);
@@ -491,7 +525,7 @@ describe('should calculate bulk', () => {
         const items = itemsFromActorData(actorData);
 
         expect(items.length)
-            .toBe(3);
+            .toBe(2);
     });
 
     test('should not nest items that have an containerId that does not exist', () => {
@@ -509,7 +543,7 @@ describe('should calculate bulk', () => {
         const items = itemsFromActorData(actorData);
 
         expect(items.length)
-            .toBe(2);
+            .toBe(1);
     });
 
     test('should calculate carried bulk for armors', () => {
@@ -683,7 +717,7 @@ describe('should calculate bulk', () => {
 
         expect(weightToBulk('2, 1lL'))
             .toEqual(undefined);
-        
+
         expect(weightToBulk('-'))
             .toEqual(undefined);
 
