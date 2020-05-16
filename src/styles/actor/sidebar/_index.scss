@@ -21,9 +21,20 @@ aside {
     .sidebar {
         padding: 0 30px;
 
-        /* prettier-ignore */
-        @import 'health',
-                'armor';
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+        h4 {
+            font-family: $micro;
+            font-weight: bold;
+        }
 
         &_title {
             display: flex;
@@ -32,13 +43,23 @@ aside {
             margin-top: 1em;
             margin-bottom: 0.5em;
             h2,
+            h4,
             a {
-                color: $sidebar-title-color;
                 font-size: 8px;
                 font-weight: bold;
                 font-family: $micro;
                 border: none;
                 margin: 0;
+                line-height: 1.5;
+            }
+            h2 {
+                color: $sidebar-title-color;
+            }
+            h4 {
+                margin-left: auto;
+                & + h4 {
+                    margin-left: 1em;
+                }
             }
             a {
                 color: white;
@@ -50,18 +71,17 @@ aside {
             input[type='number'],
             h2 {
                 width: 42px;
-                color: white;
+                color: $sidebar-label;
                 text-align: center;
                 font-size: 26px;
                 line-height: calc(1em + 1px);
                 font-weight: 500;
                 font-family: $serif;
-                margin: 0;
-                padding: 0;
                 border: none;
             }
             input[type='number'] {
                 -moz-appearance: textfield;
+                color: white;
                 &:focus {
                     box-shadow: none;
                 }
@@ -71,12 +91,6 @@ aside {
                     margin: 0;
                 }
             }
-        }
-        h4 {
-            font-family: $micro;
-            font-weight: bold;
-            margin: 0;
-            line-height: 1;
         }
         .stat-item {
             input[type='number'] {
@@ -95,5 +109,57 @@ aside {
                 }
             }
         }
+        a.roll-icon {
+            display: inline-flex;
+            align-items: center;
+            padding-bottom: 2px;
+            &:hover {
+                svg {
+                    filter: drop-shadow(0 0 6px white);
+                }
+            }
+        }
+        select {
+            all: initial;
+            font-family: $serif;
+            font-size: 14px;
+            color: white;
+            background-color: var(--primary);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+            line-height: 1.5;
+            width: 100%;
+            max-width: 100%;
+            cursor: pointer;
+            padding: 0 8px;
+            -webkit-appearance: none;
+            text-overflow: ellipsis;
+            background-image: url('../assets/icons/chevron-down.svg');
+            background-repeat: no-repeat;
+            background-position: right 0.25em top 50%;
+            background-size: 1em auto;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.075);
+        }
+        ol {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            li {
+                display: inline-flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        /* prettier-ignore */
+        @import 'health',
+                'armor',
+                'initPercept',
+                'saves',
+                'classDC',
+                'resists';
     }
 }

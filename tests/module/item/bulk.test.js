@@ -4,7 +4,8 @@ import {
     ContainerOrItem,
     itemsFromActorData,
     calculateCarriedArmorBulk,
-    stacks
+    stacks,
+    weightToBulk,
 } from '../../../src/module/item/bulk.js';
 
 describe('should calculate bulk', () => {
@@ -526,5 +527,176 @@ describe('should calculate bulk', () => {
             .toBe('-');
         expect(calculateCarriedArmorBulk('1'))
             .toBe('2');
+    });
+
+    test('should implement various bulk calculation', () => {
+        expect(new Bulk({
+            normal: 3,
+            light: 2
+        }).plus(new Bulk({
+            normal: 4,
+            light: 1
+        })))
+            .toEqual({
+                normal: 7,
+                light: 3,
+            });
+        expect(new Bulk({
+            normal: 2,
+            light: 1
+        }).minus(new Bulk({
+            normal: 4,
+            light: 4
+        })))
+            .toEqual({
+                normal: 0,
+                light: 0,
+            });
+        expect(new Bulk({
+            normal: 2,
+            light: 4
+        }).minus(new Bulk({
+            normal: 2,
+            light: 1
+        })))
+            .toEqual({
+                normal: 0,
+                light: 3,
+            });
+        expect(new Bulk({
+            normal: 2,
+            light: 0
+        }).minus(new Bulk({
+            normal: 0,
+            light: 1
+        })))
+            .toEqual({
+                normal: 1,
+                light: 9,
+            });
+        expect(new Bulk({
+            normal: 4,
+            light: 3
+        }).times(3))
+            .toEqual({
+                normal: 12,
+                light: 9,
+            });
+        expect(new Bulk({
+            normal: 0,
+            light: 1
+        }).isSmallerThan(new Bulk({
+            normal: 1,
+            light: 0
+        })))
+            .toBe(true);
+        expect(new Bulk({
+            normal: 1,
+            light: 0
+        }).isSmallerThan(new Bulk({
+            normal: 1,
+            light: 0
+        })))
+            .toBe(false);
+        expect(new Bulk({
+            normal: 1,
+            light: 0
+        }).isEqualTo(new Bulk({
+            normal: 1,
+            light: 0
+        })))
+            .toBe(true);
+        expect(new Bulk({
+            normal: 1,
+            light: 0
+        }).isBiggerThan(new Bulk({
+            normal: 0,
+            light: 1
+        })))
+            .toBe(true);
+        expect(new Bulk({
+            normal: 1,
+            light: 0
+        }).isBiggerThan(new Bulk({
+            normal: 2,
+            light: 0
+        })))
+            .toBe(false);
+    });
+
+    test('should respect configs to ignore coin bulk', () => {
+        const items = [
+            new ContainerOrItem({
+                stackGroup: 'coins',
+                quantity: 100000
+            })
+        ];
+        let bulk = calculateBulk(items, stacks, false);
+
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 100,
+            });
+
+        bulk = calculateBulk(items, stacks, false, { ignoreCoinBulk: true });
+        expect(bulk)
+            .toEqual({
+                light: 0,
+                normal: 0,
+            });
+    });
+
+    test('should parse more complex weights', () => {
+        expect(weightToBulk('2; l'))
+            .toEqual({
+                normal: 2,
+                light: 1,
+            });
+
+        expect(weightToBulk('2; L'))
+            .toEqual({
+                normal: 2,
+                light: 1,
+            });
+
+        expect(weightToBulk('2;3l'))
+            .toEqual({
+                normal: 2,
+                light: 3,
+            });
+
+        expect(weightToBulk('2'))
+            .toEqual({
+                normal: 2,
+                light: 0,
+            });
+
+        expect(weightToBulk('l'))
+            .toEqual({
+                normal: 0,
+                light: 1,
+            });
+
+        expect(weightToBulk('2, 1l'))
+            .toEqual(undefined);
+
+        expect(weightToBulk('2, 1lL'))
+            .toEqual(undefined);
+        
+        expect(weightToBulk('-'))
+            .toEqual(undefined);
+
+        expect(weightToBulk('2L'))
+            .toEqual({
+                normal: 0,
+                light: 2,
+            });
+
+        expect(weightToBulk('3; 2L'))
+            .toEqual({
+                normal: 3,
+                light: 2,
+            });
     });
 });

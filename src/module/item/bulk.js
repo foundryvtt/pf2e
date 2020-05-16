@@ -42,6 +42,57 @@ export class Bulk {
     get isNegligible() {
         return this.normal === 0 && this.light === 0;
     }
+
+    plus(bulk) {
+        return new Bulk({
+            normal: this.normal + bulk.normal,
+            light: this.light + bulk.light
+        });
+    }
+
+    minus(bulk) {
+        // 1 bulk is 10 light bulk
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        const result = thisBulk - otherBulk;
+
+        // bulk can't get negative
+        if (result < 0) {
+            return new Bulk();
+        }
+        return new Bulk({
+            normal: Math.floor(result / 10),
+            light: result % 10,
+        });
+    }
+
+    _toSingleNumber(bulk) {
+        return [
+            this.normal * 10 + this.light,
+            bulk.normal * 10 + bulk.light
+        ];
+    }
+
+    times(factor) {
+        return new Bulk({
+            normal: this.normal * factor,
+            light: this.light * factor
+        });
+    }
+
+    isSmallerThan(bulk) {
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        return thisBulk < otherBulk;
+    }
+
+    isBiggerThan(bulk) {
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        return thisBulk > otherBulk;
+    }
+
+    isEqualTo(bulk) {
+        return this.normal === bulk.normal && this.light === bulk.light;
+    }
+
 }
 
 export function formatBulk(bulk) {
@@ -122,46 +173,7 @@ function groupBy(array, criterion) {
  * @return {Bulk}
  */
 function addBulk(first, second) {
-    return new Bulk({
-        normal: first.normal + second.normal,
-        light: first.light + second.light
-    });
-}
-
-/**
- * Used for subtracting bulk if items are placed in a container; can never go below 0
- * @param first
- * @param second
- * @return {Bulk}
- */
-function subtractBulk(first, second) {
-    // 1 bulk is 10 light bulk
-    const firstNumberedBulk = first.normal * 10 + first.light;
-    const secondNumberedBulk = second.normal * 10 + second.light;
-    const result = firstNumberedBulk - secondNumberedBulk;
-
-    // bulk can't get negative
-    if (result < 0) {
-        return new Bulk();
-    }
-    return new Bulk({
-        normal: Math.floor(result / 10),
-        light: result % 10,
-    });
-
-}
-
-/**
- * Non stackable items multiply their bulk by quantity
- * @param bulk
- * @param factor
- * @return {Bulk}
- */
-function multiplyBulk(bulk, factor) {
-    return new Bulk({
-        normal: bulk.normal * factor,
-        light: bulk.light * factor,
-    });
+    return first.plus(second);
 }
 
 /**
@@ -187,7 +199,8 @@ function calculateItemBulk(item) {
  */
 function calculateNonStackBulk(items) {
     return items
-        .map((item) => multiplyBulk(calculateItemBulk(item), item.quantity))
+        .map((item) => calculateItemBulk(item)
+            .times(item.quantity))
         .reduce(addBulk, new Bulk());
 }
 
@@ -217,7 +230,8 @@ function calculateStackBulk(items, stackDefinition) {
  * @param stackDefinitions
  * @return {Bulk|*}
  */
-function calculateGroupedItemsBulk(key, values, stackDefinitions) {
+function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
+    if (bulkConfig.ignoreCoinBulk && key === 'coins') return new Bulk();
     if (key === null || key === undefined) {
         return calculateNonStackBulk(values);
     }
@@ -235,7 +249,7 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions) {
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @return {*}
  */
-export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false) {
+export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
     const stackGroups = groupBy(items, (e) => {
         // can be empty string as well
         const group = e.stackGroup;
@@ -252,14 +266,15 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
 
             // containers don't reduce their own bulk, so they need to be 
             // calculated separately
-            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions);
+            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions, bulkConfig);
             const containsBulk = stackGroup
                 .map(item => {
                     // first calculate bulk of items in a container
                     const itemsBulk = calculateBulk(
                         item.holdsItems,
                         stackDefinitions,
-                        item.extraDimensionalContainer
+                        item.extraDimensionalContainer,
+                        bulkConfig
                     );
 
                     // then check if bulk can be reduced
@@ -267,7 +282,7 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
                     // dimensional containers
                     if ((item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
                         || (item.reducesBulk && item.isEquipped)) {
-                        return subtractBulk(itemsBulk, item.negateBulk);
+                        return itemsBulk.minus(item.negateBulk);
                     }
                     return itemsBulk;
 
@@ -279,26 +294,38 @@ export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalCon
         .reduce(addBulk, new Bulk());
 }
 
+
+const lightBulkRegex = /^(\d*)l$/i;
+const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
+
 /**
- * Weight from items includes either an integer or l for light bulk
- * or something that we can't parse and report as no bulk.
- * @param weight must be string containing a number or "l"; undefined, null or non
- * parseable strings return undefined
- * null
+ * Accepted formats:
+ * "l", "1", "L", "1; L", "2; 3L", "2;3L"
+ * @param weight if not parseable will return null or undefined
  * @return {Bulk}
  */
 export function weightToBulk(weight) {
     if (weight === undefined || weight === null) {
         return undefined;
     }
-    if (weight === 'l') {
-        return new Bulk({ light: 1 });
+    const trimmed = weight.trim();
+    if (/^\d+$/.test(trimmed)) {
+        return new Bulk({ normal: parseInt(trimmed, 10) });
     }
-    const value = parseInt(weight, 10);
-    if (Number.isNaN(value)) {
-        return undefined;
+    const lightMatch = trimmed.match(lightBulkRegex);
+    if (lightMatch) {
+        return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
     }
-    return new Bulk({ normal: value });
+    const complexMatch = trimmed.match(complexBulkRegex);
+    if (complexMatch) {
+        // eslint-disable-next-line no-unused-vars
+        const [_, normal, light] = complexMatch;
+        return new Bulk({
+            normal: parseInt(normal, 10),
+            light: parseInt(light || '1', 10),
+        });
+    }
+    return undefined;
 }
 
 /**
@@ -313,7 +340,6 @@ export function normalizeWeight(weight) {
     const stringWeight = `${weight}`;
     return stringWeight.toLowerCase()
         .trim();
-
 }
 
 function countCoins(actorData) {
