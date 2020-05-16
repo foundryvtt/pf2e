@@ -20,7 +20,7 @@ export default function () {
     hint: "Toggle on to ignore currency weight.",
     scope: 'world',
     config: true,
-    default: true,
+    default: false,
     type: Boolean
   });
   game.settings.register('pf2e', 'ignoreContainerOverflow', {
