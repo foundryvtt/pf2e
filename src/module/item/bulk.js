@@ -97,6 +97,12 @@ export class Bulk {
 
 }
 
+/**
+ * Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend
+ * bulk comlumn
+ * @param bulk
+ * @return {string}
+ */
 export function formatBulk(bulk) {
     if (bulk.normal === 0 && bulk.light === 0) {
         return '-';
@@ -220,6 +226,15 @@ function isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer) {
         || (item.reducesBulk && item.isEquipped);
 }
 
+/**
+ * Item bulk can be reduced by backpacks or extra dimensional containers. Backpacks need to be
+ * worn and extra dimensional containers must not be inside of another extra dimensional container
+ * for this to work though.
+ * @param bulk
+ * @param item
+ * @param nestedExtraDimensionalContainer
+ * @return {Bulk|Bulk|*}
+ */
 function reduceNestedItemBulk(bulk, item, nestedExtraDimensionalContainer) {
     if (isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer)) {
         return bulk.minus(item.negateBulk);
