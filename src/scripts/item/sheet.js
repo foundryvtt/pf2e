@@ -43,8 +43,12 @@ class ItemSheetPF2e extends ItemSheet {
     const stackGroup = this.item.data?.data?.stackGroup?.value;
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
     
+    // currency data
+    if (type === 'currency') {
+      data.currencies = CONFIG.currencies;
+      data.stackGroups = CONFIG.stackGroups;
     // Consumable Data
-    if (type === 'consumable') {
+    } else if (type === 'consumable') {
       data.consumableTypes = CONFIG.PF2E.consumableTypes;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
       data.stackGroups = CONFIG.stackGroups;

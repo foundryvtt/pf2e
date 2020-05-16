@@ -434,6 +434,7 @@ itemTypesWithBulk.add('armor');
 itemTypesWithBulk.add('equipment');
 itemTypesWithBulk.add('consumable');
 itemTypesWithBulk.add('backpack');
+itemTypesWithBulk.add('currency');
 
 /**
  * Takes actor data and returns a list of items to calculate bulk with
@@ -442,13 +443,7 @@ itemTypesWithBulk.add('backpack');
 export function itemsFromActorData(actorData) {
     const itemsHavingBulk = actorData.items
         .filter(item => itemTypesWithBulk.has(item.type));
-
-    const items = toContainerOrItems(itemsHavingBulk);
-    items.push(new ContainerOrItem({
-        stackGroup: 'coins',
-        quantity: countCoins(actorData),
-    }));
-    return items;
+    return toContainerOrItems(itemsHavingBulk);
 }
 
 /**

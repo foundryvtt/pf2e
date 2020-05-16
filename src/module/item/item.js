@@ -230,6 +230,12 @@ export default class extends Item {
     return data;
   }
 
+  _currencyChatData() {
+    const localize = game.i18n.localize.bind(game.i18n);
+    const data = duplicate(this.data.data);
+    return data;
+  }
+
   /* -------------------------------------------- */
 
   _toolChatData() {
