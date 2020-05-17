@@ -44,7 +44,7 @@ class ItemSheetPF2e extends ItemSheet {
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
     
     // currency data
-    if (type === 'currency') {
+    if (type === 'treasure') {
       data.currencies = CONFIG.currencies;
       data.stackGroups = CONFIG.stackGroups;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
