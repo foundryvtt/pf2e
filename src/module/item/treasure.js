@@ -6,7 +6,7 @@ const treasureIdentity = {
 };
 
 /**
- * Sums up all currencies in an actor's inventory and fills the
+ * Sums up all treasures in an actor's inventory and fills the
  * @param items
  * @return {*}
  */
