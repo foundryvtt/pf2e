@@ -156,7 +156,7 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 async function addCoin(actorEntity, currencyId, denomination, quantity) {
     if (quantity !== null && (`${quantity}`).trim() !== '0') {
         console.log(`Adding ${quantity} of ${denomination} to actors ${actorEntity.data.name}'s inventory`);
-        const pack = game.packs.get('pf2e.equipment-srd');
+        const pack = game.packs.find(p => p.collection === 'pf2e.equipment-srd');
         const item = await pack.getEntity(currencyId);
         item.data.data.quantity.value = quantity;
         actorEntity.createOwnedItem(item.data);
