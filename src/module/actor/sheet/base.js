@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../item/currency.js';
+import {calculateWealth} from '../../item/treasure.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

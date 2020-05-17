@@ -85,7 +85,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
       equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
       consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
-      currency: { label: game.i18n.localize("PF2E.InventoryCurrencyHeader"), items: [] },
+      treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
     };
 

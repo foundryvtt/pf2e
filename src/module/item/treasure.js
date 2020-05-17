@@ -12,7 +12,7 @@ const currencyIdentity = {
  */
 export function calculateWealth(items) {
     return items
-        .filter(item => item.type === 'currency'
+        .filter(item => item.type === 'treasure'
             && item?.data?.denomination?.value !== undefined
             && item?.data?.denomination?.value !== null)
         .map(item => {

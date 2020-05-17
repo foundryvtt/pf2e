@@ -437,7 +437,7 @@ itemTypesWithBulk.add('armor');
 itemTypesWithBulk.add('equipment');
 itemTypesWithBulk.add('consumable');
 itemTypesWithBulk.add('backpack');
-itemTypesWithBulk.add('currency');
+itemTypesWithBulk.add('treasure');
 
 /**
  * Takes actor data and returns a list of items to calculate bulk with

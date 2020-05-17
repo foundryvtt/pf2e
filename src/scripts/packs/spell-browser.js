@@ -865,7 +865,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       armor: 'Armor',
       equipment: 'Equipment',
       consumable: 'Consumables',
-      currency: 'Currencies',
+      treasure: 'Treasure',
       backpack: 'Backpacks',
     };
 
@@ -897,7 +897,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       'armor',
       'equipment',
       'consumable',
-      'currency',  
+      'treasure',  
       'backpack',
     ];
 

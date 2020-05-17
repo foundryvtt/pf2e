@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../../src/module/item/currency.js';
+import {calculateWealth} from '../../../src/module/item/treasure.js';
 
 describe('should calculate wealth based on inventory', () => {
     test('empty inventory', () => {
@@ -14,10 +14,10 @@ describe('should calculate wealth based on inventory', () => {
             });
     });
 
-    test('sums up currency', () => {
+    test('sums up treasure', () => {
         const items = [
             {
-                type: "no currency type",
+                type: "no treasure type",
                 data: {
                     denomination: {
                         value: "gp"
@@ -31,10 +31,10 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "pp"
@@ -48,7 +48,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "gp"
@@ -62,7 +62,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "sp"
@@ -76,7 +76,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "cp"
@@ -104,7 +104,7 @@ describe('should calculate wealth based on inventory', () => {
     test('adjusts value', () => {
         const items = [
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "pp"
@@ -118,7 +118,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "gp"
@@ -132,7 +132,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "sp"
@@ -146,7 +146,7 @@ describe('should calculate wealth based on inventory', () => {
                 }
             },
             {
-                type: "currency",
+                type: "treasure",
                 data: {
                     denomination: {
                         value: "cp"
