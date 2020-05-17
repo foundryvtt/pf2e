@@ -17,6 +17,7 @@ export default function () {
 
         // Actor Sheets Partials (CRB-Style Main Section)
         'systems/pf2e/templates/actors/crb-style/actor-header.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/actor-character.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',

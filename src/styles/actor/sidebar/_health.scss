@@ -1,5 +1,5 @@
 .hitpoints {
-    h4 {
+    h4, label {
         font-family: $serif;
         font-weight: 500;
         margin: 0;
@@ -12,12 +12,14 @@
             text-align: center;
             &.temp-hp {
                 text-align: right;
+                margin-right: 8px;
                 input[type='number'] {
                     text-align: right;
                 }
             }
             &.max-hp {
                 text-align: left;
+                margin-left: 8px;
                 h2 {
                     color: $sidebar-label;
                     text-align: left;
@@ -25,15 +27,13 @@
             }
             &.current-hp {
                 margin-top: -15px;
-                padding: 10px 2px 0;
+                padding: 10px 0 0;
                 position: relative;
                 z-index: 0;
                 border-radius: 0 0 2px 2px;
-                /* prettier-ignore */
-                box-shadow:
-                    0 0 0 1px #9f725b,
-                    0 0 0 2px #e9d7a1,
-                    0 0 0 3px #956d58;
+                width: 128px;
+                background-color: var(--primary);
+                @include gold-border;
 
                 input[type='number'] {
                     width: 52px;
@@ -48,7 +48,7 @@
         justify-content: space-evenly;
         margin-top: 8px;
         text-align: center;
-        h4 {
+        h4, label {
             font-family: $micro;
             font-weight: bold;
         }

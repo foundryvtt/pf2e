@@ -1,0 +1,145 @@
+.character {
+    h3 {
+        margin-top: 8px;
+        font-family: $serif;
+        font-weight: 600;
+        color: var(--primary);
+        line-height: 1;
+        border-bottom: 1px solid var(--primary);
+    }
+    label,
+    h4 {
+        font-family: $sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1;
+        text-transform: uppercase;
+        color: var(--primary);
+    }
+    input {
+        font-family: $body-serif;
+        font-weight: bold;
+        width: 100%;
+        color: #644f33;
+        border-bottom: 1px solid #d3ccbc;
+        &::placeholder {
+            color: #644f33;
+        }
+        &:focus {
+            border-bottom: 1px solid #644f33;
+        }
+    }
+    .character-details {
+        display: grid;
+        grid:
+            'img alignment diety' 31px
+            'img details details' 89px
+            '. details details' minmax(min-content, max-content)
+            / 120px 120px 1fr;
+
+        .frame {
+            grid-area: img;
+            cursor: pointer;
+            z-index: 3;
+            position: relative;
+            .wrapper {
+                display: block;
+                background: url('../assets/sheet-bg.jpg') no-repeat;
+                background-size: cover;
+                .player-image {
+                    display: block;
+                    position: relative;
+                    z-index: 2;
+                    border: none;
+                    border-radius: 0;
+                    @include brown-border;
+                }
+            }
+        }
+
+        .alignment {
+            grid-area: alignment;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('../assets/sheet/banner-bg.png') repeat-x center;
+            height: 31px;
+            z-index: 1;
+            input[type='text'] {
+                color: #785c38;
+                font-family: $body-serif;
+                font-size: 14px;
+                font-weight: 700;
+                text-align: center;
+                max-width: 138px;
+                &::placeholder {
+                    color: #785c38;
+                }
+            }
+            &::after {
+                position: absolute;
+                content: '';
+                height: 31px;
+                width: 15px;
+                top: 0;
+                right: -11px;
+                background: url('../assets/sheet/banner-bg2.png') no-repeat
+                    right;
+            }
+        }
+
+        .diety {
+            grid-area: diety;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .dropdown {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                select {
+                    all: initial;
+                    display: block;
+                    cursor: pointer;
+                    font-family: $body-serif;
+                    color: #785c38;
+                    line-height: 1;
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+            }
+            img {
+                height: 32px;
+                width: 32px;
+                border-radius: 16px;
+                margin-left: 8px;
+            }
+        }
+
+        .detail-sheet {
+            grid-area: details;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            grid-template-rows: repeat(3, 1fr);
+            grid-row-gap: 8px;
+            padding-left: 12px;
+            margin-top: 8px;
+            .detail-small {
+                display: flex;
+            }
+        }
+    }
+
+    .character-traits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 12px;
+        row-gap: 8px;
+
+        .char {
+            div
+        }
+        
+    }
+}

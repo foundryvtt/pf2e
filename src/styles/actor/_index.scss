@@ -1,1 +1,100 @@
-@import 'defaultSheet', 'character', 'npc';
+$header-height: 89px;
+
+.crb-style.actor .window-content {
+    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
+    background-repeat: repeat-x, no-repeat;
+    background-size: auto $header-height, cover;
+    background-attachment: local;
+}
+
+.crb-style section.window-content {
+    padding: 0;
+}
+
+.crb-style form {
+    all: initial;
+    display: grid;
+    grid:
+        'sidebar header' 75px
+        'sidebar nav' minmax(min-content, max-content)
+        'sidebar content' 1fr
+        / 247px 1fr;
+
+    label,
+    input,
+    select {
+        display: inline-block;
+        line-height: 1;
+    }
+
+    input {
+        all: initial;
+        cursor: pointer;
+        &:focus {
+            box-shadow: none;
+        }
+        &::placeholder {
+            color: white;
+        }
+    }
+
+    /* prettier-ignore */
+    @import 'sidebar',
+            'header';
+
+    section.header {
+        grid-area: header;
+    }
+    nav.sheet-navigation {
+        grid-area: nav;
+    }
+    section.content {
+        grid-area: content;
+    }
+
+    .dots span {
+        cursor: pointer;
+    }
+
+    .tag {
+        color: white;
+        font-family: $micro;
+        font-size: 8px;
+        border: 1px solid white;
+        border-radius: 2px;
+        padding: 0 3px 2px;
+        margin-bottom: 2px;
+        & + .tag,
+        &:first-child {
+            margin-right: 3px;
+        }
+        &.edit-btn {
+            background-color: white;
+            border-radius: 0;
+            padding: 1px;
+            a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--primary);
+                svg {
+                    height: 7px;
+                    width: 11px;
+                }
+            }
+        }
+    }
+
+    /* Navigation */
+    @import 'nav';
+
+    .sheet-content {
+        margin-top: 12px;
+        margin-right: 12px;
+        @import 'character', 'npc';
+    }
+}
+
+.pf2e.sheet form .tag {
+    font-weight: 700;
+}

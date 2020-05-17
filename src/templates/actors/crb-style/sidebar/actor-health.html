@@ -1,20 +1,20 @@
 <div class="hitpoints">
   <div class="hp-big">
     <div class="hp-container temp-hp">
-      <h4>{{localize "PF2E.TempHitPointsShortLabel"}}</h4>
+      <label>{{localize "PF2E.TempHitPointsShortLabel"}}</label>
       <div class="data-value" title="{{localize "PF2E.TempHPTitle"}}">
         <input name="data.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}"
                                                           data-dtype="Number" placeholder="0" size="1"/>
       </div>
     </div>
     <div class="hp-container current-hp">
-      <h4>{{localize "PF2E.CurrentHitPointsShortLabel"}}</h4>
+      <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
       <div class="data-value" title="{{localize "PF2E.CurrentHPTitle"}}">
         <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" size="1"/>
       </div>
     </div>
     <div class="hp-container max-hp">
-      <h4>{{localize "PF2E.MaxHitPointsShortLabel"}}</h4>
+      <label>{{localize "PF2E.MaxHitPointsShortLabel"}}</label>
       <div class="data-value">
           <h2>{{data.attributes.hp.max}}</h2>
       </div>
@@ -22,21 +22,21 @@
   </div>
   <div class="hp-small">
     <div class="dots wounded">
-      <h4>{{localize "PF2E.WoundsLabel"}}</h4>
+      <label>{{localize "PF2E.WoundsLabel"}}</label>
       <span title="{{localize "PF2E.WoundsTitle"}}">
         <input type="hidden" name="data.attributes.wounded.value" data-max="{{data.attributes.wounded.calculatedMax}}" value="{{data.attributes.wounded.value}}" data-dtype="Number"/>
         <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.WoundsTitle"}}">{{{data.attributes.wounded.icon}}}</span>
       </span>
     </div>
     <div class="dots dying" style="{{data.attributes.dying.containerWidth}}">
-      <h4 title="{{localize "PF2E.Recovery.roll"}}">{{localize "PF2E.Dying.label"}}</h4>
+      <label title="{{localize "PF2E.Recovery.roll"}}">{{localize "PF2E.Dying.label"}}</label>
       <span title="{{localize "PF2E.Dying.title"}}">
         <input type="hidden" name="data.attributes.dying.value" value="{{data.attributes.dying.value}}" data-dtype="Number"/>
         <span class="proficiency-rank dying-click pf-value">{{{data.attributes.dying.icon}}}</span>
       </span>
     </div>
     <div class="dots doomed">
-      <h4>{{localize "PF2E.DoomedLabel"}}</h4>
+      <label>{{localize "PF2E.DoomedLabel"}}</label>
       <span title="{{localize "PF2E.DoomedTitle"}}">
         <input type="hidden" name="data.attributes.doomed.value" data-max="3" value="{{data.attributes.doomed.value}}" data-dtype="Number"/>
         <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.DoomedTitle"}}">{{{data.attributes.doomed.icon}}}</span>

@@ -1,0 +1,441 @@
+<div class="tab character" data-group="primary" data-tab="character">
+    <section class="character-details">
+        <div class="frame">
+            <span class="wrapper">
+                <img
+                    class="player-image"
+                    alt="{{actor.name}}"
+                    src="{{actor.img}}"
+                    title="{{actor.name}}"
+                    data-edit="img"
+                />
+            </span>
+        </div>
+        <div class="alignment">
+            <span
+                class="bio-alignment pf-value pf-small"
+                title="{{localize 'PF2E.AlignmentTitle'}}"
+            >
+                <input
+                    id="pc pc_alignment"
+                    name="data.details.alignment.value"
+                    type="text"
+                    value="{{data.details.alignment.value}}"
+                    data-dtype="String"
+                    placeholder="Truest Neutral"
+                />
+            </span>
+        </div>
+        <div class="diety">
+            <div class="dropdown">
+                <label for="diety-dropdown">
+                    Diety
+                </label>
+                <select id="diety-dropdown" name="diety-dropdown">
+                    <option value="diety">
+                        Choose a Diety
+                    </option>
+                    <option value="Option1">
+                        I serve no one
+                    </option>
+                    <option value="Option2">
+                        Option2
+                    </option>
+                    <option value="Option3">
+                        Option3
+                    </option>
+                    <option value="Option4">
+                        Custom Diety
+                    </option>
+                </select>
+            </div>
+            <img
+                src="systems/pf2e/assets/sheet/diety.svg"
+                alt="I follow no one."
+            />
+        </div>
+        <div class="detail-sheet">
+            <div class="pc pc_ancestry">
+                <label for="pc_ancestry">
+                    {{localize 'PF2E.Ancestry'}}
+                </label>
+                <span title="{{localize 'PF2E.AncestryTitle'}}">
+                    <input
+                        id="pc pc_ancestry"
+                        name="data.details.ancestry.value"
+                        type="text"
+                        value="{{data.details.ancestry.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_heritage">
+                <label for="pc_heritage">
+                    {{localize 'PF2E.Heritage'}}
+                </label>
+                <span title="{{localize 'PF2E.HeritageTitle'}}">
+                    <input
+                        id="pc pc_heritage"
+                        name="data.details.heritage.value"
+                        type="text"
+                        value="{{data.details.heritage.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_class">
+                <label for="pc_class">
+                    {{localize 'PF2E.Class'}}
+                </label>
+                <span title="{{localize 'PF2E.ClassTitle'}}">
+                    <input
+                        id="pc pc_class"
+                        name="data.details.class.value"
+                        type="text"
+                        value="{{data.details.class.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_background">
+                <label for="pc_background">
+                    {{localize 'PF2E.Background'}}
+                </label>
+                <span title="{{localize 'PF2E.BackgroundTitle'}}">
+                    <input
+                        id="pc pc_background"
+                        name="data.details.background.value"
+                        type="text"
+                        value="{{data.details.background.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_gender">
+                <label for="pc_gender">
+                    {{localize 'PF2E.Gender'}}
+                </label>
+                <span title="{{localize 'PF2E.GenderTitle'}}">
+                    <input
+                        id="pc pc_gender"
+                        name="data.details.gender.value"
+                        type="text"
+                        value="{{data.details.gender.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="detail-small">
+                <div class="pc pc_age">
+                    <label for="pc_age">
+                        {{localize 'PF2E.Age'}}
+                    </label>
+                    <span title="{{localize 'PF2E.AgeTitle'}}">
+                        <input
+                            id="pc pc_age"
+                            name="data.details.age.value"
+                            type="text"
+                            value="{{data.details.age.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <div class="pc pc_height">
+                    <label for="pc_height">
+                        {{localize 'PF2E.Height'}}
+                    </label>
+                    <span title="{{localize 'PF2E.HeightTitle'}}">
+                        <input
+                            id="pc pc_height"
+                            name="data.details.height.value"
+                            type="text"
+                            value="{{data.details.height.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <div class="pc pc_weight">
+                    <label for="pc_weight">
+                        {{localize 'PF2E.Weight'}}
+                    </label>
+                    <span title="{{localize 'PF2E.WeightTitle'}}">
+                        <input
+                            id="pc pc_weight"
+                            name="data.details.weight.value"
+                            type="text"
+                            value="{{data.details.weight.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <h3>
+        Character Traits
+    </h3>
+    <section class="character-traits">
+        <div class="pc pc_ancestry-hp">
+            <label for="ancestry-hp">
+                {{localize 'PF2E.AncestryHP'}}
+            </label>
+            <span>
+                <input
+                    id="ancestry-hp"
+                    type="text"
+                    name="data.attributes.ancestryhp"
+                    data-dtype="Number"
+                    value="{{data.attributes.ancestryhp}}"
+                    placeholder="0"
+                />
+            </span>
+        </div>
+        <div class="pc pc_class-hp">
+            <label for="class-hp">
+                {{localize 'PF2E.ClassHP'}}
+            </label>
+            <span>
+                <input
+                    id="class-hp"
+                    type="text"
+                    name="data.attributes.classhp"
+                    data-dtype="Number"
+                    value="{{data.attributes.classhp}}"
+                    placeholder="0"
+                />
+            </span>
+        </div>
+        <div class="pc pc_key-ability">
+            <label for="key-ability">
+                {{localize 'PF2E.KeyAbility'}}
+            </label>
+            <span>
+                <select id="key-ability" name="key-ability">
+                    <option value="default">
+                        Select Ability
+                    </option>
+                    <option value="Option1">
+                        Strength
+                    </option>
+                    <option value="Option2">
+                        Dexterity
+                    </option>
+                    <option value="Option3">
+                        Constitution
+                    </option>
+                    <option value="Option4">
+                        Intelligence
+                    </option>
+                    <option value="Option4">
+                        Wisdom
+                    </option>
+                    <option value="Option4">
+                        Charisma
+                    </option>
+                </select>
+            </span>
+        </div>
+        <div class="pc pc_bonus-hp">
+            <label
+                for="bonus-hp"
+                title="{{localize 'PF2E.BonusHPperLevelTitle'}}"
+            >
+                +HP / Level
+            </label>
+            <span>
+                <input
+                    id="bonus-hp"
+                    type="text"
+                    name="data.attributes.levelbonushp"
+                    data-dtype="Number"
+                    value="{{data.attributes.levelbonushp}}"
+                    placeholder="0"
+                />
+            </span>
+        </div>
+        <div class="pc pc_flat-bonus-hp">
+            <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusSP'}}">
+                {{localize 'PF2E.FlatBonusHP'}}
+            </label>
+            <span>
+                <input
+                    id="flat-bonus-hp"
+                    type="text"
+                    name="data.attributes.flatbonushp"
+                    data-dtype="Number"
+                    value="{{data.attributes.flatbonushp}}"
+                    placeholder="0"
+                />
+            </span>
+        </div>
+        <div class="pc pc_size">
+            <label class="pf-title">
+                {{localize 'PF2E.Size'}}
+            </label>
+            <select
+                name="data.traits.size.value"
+                data-dtype="{{data.traits.size.type}}"
+            >
+                {{#select data.traits.size.value}}
+                    {{#each actorSizes as |label size|}}
+                        <option value="{{size}}">
+                            {{label}}
+                        </option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="pc pc_land-speed">
+            <label for="land-speed">
+                {{localize 'PF2E.Speed'}}
+            </label>
+            <span>
+                <input
+                    id="flat-bonus-hp"
+                    type="text"
+                    name="data.attributes.SpeedTitle"
+                    data-dtype="{{data.attributes.speed.type}}"
+                    value="{{data.attributes.speed.value}}"
+                    placeholder="0"
+                />
+            </span>
+        </div>
+        <div class="pc pc_speed-types tags">
+            <h4>
+                {{localize 'PF2E.SpeedTypes'}}
+            </h4>
+            <ol>
+                <li class="tag">
+                    Climb (15ft)
+                </li>
+                <li class="tag">
+                    Fly (70ft)
+                </li>
+                <li class="tag">
+                    The Speed Force (∞)
+                </li>
+                <li class="tag edit-btn">
+                    <a href="#">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-plus"
+                        >
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        {{#if_stamina}}
+            <div class="pc pc_stamina-bonus-sp">
+                <label
+                    title="{{localize 'PF2E.BonusSPperLevelTitle'}}"
+                    
+                >
+                    {{localize 'PF2E.BonusSPperLevel'}}
+                </label>
+                <span>
+                    <input
+                        type="text"
+                        name="data.attributes.levelbonussp"
+                        data-dtype="Number"
+                        value="{{data.attributes.levelbonussp}}"
+                        placeholder="0"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_stamina-flat-bonus-sp">
+                <label
+                    title="{{localize 'PF2E.FlatBonusSPTitle'}}"
+                    class="pf-title"
+                >
+                    {{localize 'PF2E.FlatBonusSP'}}
+                </label>
+                <span>
+                    <input
+                        type="text"
+                        name="data.attributes.flatbonussp"
+                        data-dtype="Number"
+                        value="{{data.attributes.flatbonussp}}"
+                        placeholder="0"
+                    />
+                </span>
+            </div>
+        {{/if_stamina}}
+        <div class="pc pc_senses">
+            <h4 for="cha-senses">
+                {{localize 'PF2E.Senses'}}
+            </h4>
+            <ol class="tags">
+                <li class="tag">
+                    Dark Vision
+                </li>
+                <li class="tag">
+                    Low Light Vision
+                </li>
+                <li class="tag">
+                    The Force
+                </li>
+                <li class="tag edit-btn">
+                    <a href="#">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-plus"
+                        >
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </a>
+                </li>
+            </ol>
+        </div>
+        <div class="pc pc_languages">
+            <h4 class="pf-title">
+                {{localize 'PF2E.Languages'}}
+            </h4>
+            <ul class="tags">
+                {{#each data.traits.languages.selected as |v k|}}
+                    <span class="tag {{k}}">
+                        {{v}}
+                    </span>
+                {{/each}}
+                <li class="tag edit-btn">
+                    <a data-options="languages">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-plus"
+                        >
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
