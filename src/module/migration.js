@@ -136,11 +136,33 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
     if (worldSchemaVersion < 0.575) {
       migrateActorItemImages(actor, updateData);
     }
+    
+    if (worldSchemaVersion < 0.576) {
+        migrateCoins(actor);
+    }
   }
   return updateData;
 };
 
 /* -------------------------------------------- */
+
+function migrateCoins(actor) {
+    console.log(actor);
+    const pp = createCoinItem("pp", actor.data?.currency?.pp?.value ?? 1);
+    const gp = createCoinItem("gp", actor.data?.currency?.gp?.value ?? 1);
+    const sp = createCoinItem("sp", actor.data?.currency?.sp?.value ?? 1);
+    const cp = createCoinItem("cp", actor.data?.currency?.cp?.value ?? 1);
+    actor.items.push(pp);
+    actor.items.push(gp);
+    actor.items.push(sp);
+    actor.items.push(cp);
+}
+
+function createCoinItem(denomination, quantity) {
+    return {
+        
+    }
+}
 
 function migrateBulk(item, updateData) {
     const itemName = item?.name?.trim();
