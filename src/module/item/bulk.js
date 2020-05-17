@@ -1,3 +1,6 @@
+// eslint-disable-next-line max-classes-per-file
+import { add, combineObjects, groupBy, isBlank } from '../utils.js';
+
 /**
  * hard coded for now but could be made configurable later on.
  * Describes each stack group by how much items belong in a stack
@@ -5,7 +8,6 @@
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-// eslint-disable-next-line max-classes-per-file
 export const stacks = {
     bolts: {
         size: 10,
@@ -95,6 +97,12 @@ export class Bulk {
 
 }
 
+/**
+ * Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend
+ * bulk comlumn
+ * @param bulk
+ * @return {string}
+ */
 export function formatBulk(bulk) {
     if (bulk.normal === 0 && bulk.light === 0) {
         return '-';
@@ -111,7 +119,7 @@ export function formatBulk(bulk) {
     return `${bulk.normal}; ${bulk.light}L`;
 }
 
-export class ContainerOrItem {
+export class BulkItem {
     constructor({
         bulk = new Bulk(),
         quantity = 1,
@@ -145,43 +153,11 @@ export class ContainerOrItem {
 }
 
 /**
- * Given an array and a key function, create a map where the key is the value that
- * gets returned when each item is pushed into the function. Accumulate
- * items in an array that have the same key
- * @param array
- * @param criterion
- * @return {Map<any, any>}
- */
-function groupBy(array, criterion) {
-    const result = new Map();
-    for (const elem of array) {
-        const key = criterion(elem);
-        if (result.get(key) === undefined) {
-            result.set(key, [elem]);
-        } else {
-            result.get(key)
-                .push(elem);
-        }
-    }
-    return result;
-}
-
-/**
- * Separate function to use in reduce to sum up bulk values
- * @param first
- * @param second
- * @return {Bulk}
- */
-function addBulk(first, second) {
-    return first.plus(second);
-}
-
-/**
  * Various items have different bulk when worn or carried, some don't care at all
  * Depending on if we get data for either state, we override the default bulk
  * @param item
  */
-function calculateItemBulk(item) {
+function calculateNonStackBulk(item) {
     if (item.unequippedBulk !== undefined && item.unequippedBulk !== null && !item.isEquipped) {
         return item.unequippedBulk;
     }
@@ -189,54 +165,125 @@ function calculateItemBulk(item) {
         return item.equippedBulk;
     }
     return item.bulk;
-
 }
 
 /**
- * Single items just add up normally
- * @param items
- * @return {*}
+ * Sum up bulk and stack overflows separately
+ * @param first
+ * @param second
+ * @return {[Bulk, {}]}
  */
-function calculateNonStackBulk(items) {
-    return items
-        .map((item) => calculateItemBulk(item)
-            .times(item.quantity))
-        .reduce(addBulk, new Bulk());
+function combineBulkAndOverflow(first, second) {
+    const [firstBulk, firstOverflow] = first;
+    const [secondBulk, secondOverflow] = second;
+    return [
+        firstBulk.plus(secondBulk),
+        combineObjects(firstOverflow, secondOverflow, add)
+    ];
 }
 
 /**
- * All items in this stack are from the same group so they add up by the stack size
- * @param items
- * @param stackDefinition
- */
-function calculateStackBulk(items, stackDefinition) {
-    const { size, lightBulk } = stackDefinition;
-
-    // sum up quantity
-    const quantity = items
-        .map((item) => item.quantity)
-        .reduce((prev, curr) => prev + curr, 0);
-
-    // always round down for bulk as per RAW
-    const bulkRelevantQuantity = Math.floor(quantity / size);
-
-    return new Bulk({ light: lightBulk * bulkRelevantQuantity });
-}
-
-/**
- * Calculates the bulk of a list of items in the same stack group
- * @param key null means that the item is in no stack group
- * @param values
+ * Calculates the bulk for stacks of ammunition, coins and rations;
+ * Returns the remainders as overflow for further calculation
+ * @param itemStacks and object containing the stack name as key and quantity as value
  * @param stackDefinitions
- * @return {Bulk|*}
+ * @param bulkConfig
+ * @return {[Bulk, {}]}
  */
-function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
-    if (bulkConfig.ignoreCoinBulk && key === 'coins') return new Bulk();
-    if (key === null || key === undefined) {
-        return calculateNonStackBulk(values);
-    }
-    return calculateStackBulk(values, stackDefinitions[key]);
+function calculateStackBulk(itemStacks, stackDefinitions, bulkConfig = {}) {
+    return Object.entries(itemStacks)
+        .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
+        .map(([stackType, quantity]) => {
+            if (!(stackType in stackDefinitions)) {
+                throw new Error(`No stack definition found for stack ${stackType}`);
+            }
+            const { size, lightBulk } = stackDefinitions[stackType];
+            const bulkRelevantQuantity = Math.floor(quantity / size);
+            const itemBulk = new Bulk({ light: bulkRelevantQuantity * lightBulk });
+            const overflow = { [stackType]: quantity % size };
+            return [itemBulk, overflow];
+        })
+        .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
+}
 
+function calculateItemBulk(item, stackDefinitions, bulkConfig) {
+    const stackName = item.stackGroup;
+    if (isBlank(stackName)) {
+        return [calculateNonStackBulk(item).times(item.quantity), {}];
+    }
+    return calculateStackBulk({ [stackName]: item.quantity }, stackDefinitions, bulkConfig);
+}
+
+/**
+ * Extra dimensional containers don't work in extra dimensional containers. Similarly
+ * backpacks only reduce weight when worn
+ * @param item
+ * @param nestedExtraDimensionalContainer
+ * @return {boolean|*}
+ */
+function isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer) {
+    return (item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
+        || (item.reducesBulk && item.isEquipped);
+}
+
+/**
+ * Item bulk can be reduced by backpacks or extra dimensional containers. Backpacks need to be
+ * worn and extra dimensional containers must not be inside of another extra dimensional container
+ * for this to work though.
+ * @param bulk
+ * @param item
+ * @param nestedExtraDimensionalContainer
+ * @return {Bulk|Bulk|*}
+ */
+function reduceNestedItemBulk(bulk, item, nestedExtraDimensionalContainer) {
+    if (isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer)) {
+        return bulk.minus(item.negateBulk);
+    }
+    return bulk;
+}
+
+/**
+ * Stacks don't overflow if inside extra dimensional containers or overflowing bulk is turned off
+ * @param overflow
+ * @param item
+ * @param ignoreContainerOverflow
+ * @return {{}|*}
+ */
+function calculateChildOverflow(overflow, item, ignoreContainerOverflow) {
+    if (item.extraDimensionalContainer || ignoreContainerOverflow) {
+        return {}
+    }
+    return overflow;
+}
+
+/**
+ * Calculate the bulk for an item and it's held items.
+ * @param item
+ * @param stackDefinitions
+ * @param nestedExtraDimensionalContainer true if the item is inside an extra dimensional container
+ * @param bulkConfig
+ * @return {(Bulk|Bulk|{})[]}
+ */
+function calculateCombinedBulk(item, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
+    const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
+
+    const [childBulk, childOverflow] = item.holdsItems
+        .map(child => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
+        .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
+
+    // combine item overflow and child overflow
+    const combinedOverflow = combineObjects(
+        mainOverflow, 
+        calculateChildOverflow(childOverflow, item, bulkConfig.ignoreContainerOverflow), 
+        add
+    );
+    const [overflowBulk, remainingOverflow] = calculateStackBulk(combinedOverflow, stackDefinitions, bulkConfig);
+    return [
+        mainBulk
+            .plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer))
+            .plus(overflowBulk),
+        remainingOverflow
+    ];
 }
 
 /**
@@ -247,51 +294,14 @@ function calculateGroupedItemsBulk(key, values, stackDefinitions, bulkConfig) {
  * @param stackDefinitions a list of stack groups and bulk values per group
  * @param nestedExtraDimensionalContainer true if you have a bag of holding inside a bag of holding
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
+ * @param bulkConfig
  * @return {*}
  */
 export function calculateBulk(items, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
-    const stackGroups = groupBy(items, (e) => {
-        // can be empty string as well
-        const group = e.stackGroup;
-        if (group === null || group === undefined || group.trim() === '') {
-            return null;
-        }
-        return group;
+    const inventory = new BulkItem({
+        holdsItems: items
     });
-    return Array.from(stackGroups.entries())
-        .map(([stackName, stackGroup]) => {
-            if (stackName !== null && stackName !== undefined && !(stackName in stackDefinitions)) {
-                throw new Error(`No stack definition found for stack ${stackName}`);
-            }
-
-            // containers don't reduce their own bulk, so they need to be 
-            // calculated separately
-            const itemBulk = calculateGroupedItemsBulk(stackName, stackGroup, stackDefinitions, bulkConfig);
-            const containsBulk = stackGroup
-                .map(item => {
-                    // first calculate bulk of items in a container
-                    const itemsBulk = calculateBulk(
-                        item.holdsItems,
-                        stackDefinitions,
-                        item.extraDimensionalContainer,
-                        bulkConfig
-                    );
-
-                    // then check if bulk can be reduced
-                    // bulk can only be reduced for worn containers and only once for extra
-                    // dimensional containers
-                    if ((item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
-                        || (item.reducesBulk && item.isEquipped)) {
-                        return itemsBulk.minus(item.negateBulk);
-                    }
-                    return itemsBulk;
-
-                })
-                .reduce(addBulk, new Bulk());
-
-            return addBulk(itemBulk, containsBulk);
-        })
-        .reduce(addBulk, new Bulk());
+    return calculateCombinedBulk(inventory, stackDefinitions, nestedExtraDimensionalContainer, bulkConfig);
 }
 
 
@@ -318,8 +328,7 @@ export function weightToBulk(weight) {
     }
     const complexMatch = trimmed.match(complexBulkRegex);
     if (complexMatch) {
-        // eslint-disable-next-line no-unused-vars
-        const [_, normal, light] = complexMatch;
+        const [, normal, light] = complexMatch;
         return new Bulk({
             normal: parseInt(normal, 10),
             light: parseInt(light || '1', 10),
@@ -342,17 +351,11 @@ export function normalizeWeight(weight) {
         .trim();
 }
 
-function countCoins(actorData) {
-    return Object.values(actorData?.data?.currency ?? {})
-        .map(denomination => parseInt(denomination.value, 10))
-        .reduce((prev, curr) => prev + curr, 0);
-}
-
 /**
  *
  * @param item
  * @param nestedItems
- * @return {ContainerOrItem}
+ * @return {BulkItem}
  */
 export function toItemOrContainer(item, nestedItems = []) {
     const weight = item.data?.weight?.value;
@@ -364,7 +367,7 @@ export function toItemOrContainer(item, nestedItems = []) {
     const negateBulk = item.data?.negateBulk?.value;
     const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
 
-    return new ContainerOrItem({
+    return new BulkItem({
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
         negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
         // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
@@ -407,7 +410,7 @@ function buildContainerTree(items, groupedItems) {
  * @param items
  * @return {*[]|*}
  */
-function toContainerOrItems(items) {
+function toBulkItems(items) {
     const allIds = new Set(items.map(item => item._id));
     const itemsInContainers = groupBy(items, (item) => {
         // we want all items in the top level group that are in no container
@@ -443,7 +446,7 @@ itemTypesWithBulk.add('currency');
 export function itemsFromActorData(actorData) {
     const itemsHavingBulk = actorData.items
         .filter(item => itemTypesWithBulk.has(item.type));
-    return toContainerOrItems(itemsHavingBulk);
+    return toBulkItems(itemsHavingBulk);
 }
 
 /**
@@ -464,8 +467,8 @@ export function calculateCarriedArmorBulk(wornBulk) {
 
 /**
  * Fix previous borked weight
- * @param wornBulk
- * @return {string}
+ * @param brokenWeight
+ * @return {null|string}
  */
 export function fixWeight(brokenWeight) {
     const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();

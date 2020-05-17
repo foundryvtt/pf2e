@@ -113,7 +113,9 @@ export default class extends Actor {
       if (save.item) {
         modifiers.push(new PF2Modifier('Item Bonus', save.item, PF2ModifierType.ITEM));
       }
-      (statisticsModifiers[saveName] || []).forEach((m) => modifiers.push(m));
+      [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       // preserve backwards-compatibility
       let updated;
@@ -149,8 +151,10 @@ export default class extends Actor {
       if (data.attributes.perception.item) {
         modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
       }
-      (statisticsModifiers.perception || []).forEach((m) => modifiers.push(m));
-  
+      ['perception', `wis-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
+
       // preserve backwards-compatibility
       /* eslint-disable no-param-reassign */
       if (data.attributes.perception instanceof PF2StatisticModifier) {
@@ -168,10 +172,32 @@ export default class extends Actor {
     }
 
     // Class DC
-    data.attributes.classDC.ability = data.details.keyability.value;
-    const classDCProficiency = data.attributes.classDC.rank ? (data.attributes.classDC.rank * 2) + data.details.level.value : 0;
-    data.attributes.classDC.value = data.abilities[data.attributes.classDC.ability].mod + classDCProficiency + data.attributes.classDC.item + 10;
-    data.attributes.classDC.breakdown = `10 + ${data.attributes.classDC.ability} modifier(${data.abilities[data.attributes.classDC.ability].mod}) + proficiency(${classDCProficiency}) + item bonus(${data.attributes.classDC.item})`;
+    {
+      const modifiers = [
+        AbilityModifier.fromAbilityScore(data.details.keyability.value, data.abilities[data.details.keyability.value].value),
+        ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.classDC.rank ?? 0),
+      ];
+      ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
+
+      // preserve backwards-compatibility
+      /* eslint-disable no-param-reassign */
+      if (data.attributes.classDC instanceof PF2StatisticModifier) {
+        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
+        data.attributes.classDC = mergeObject(data.attributes.classDC, new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers));
+      } else {
+        // ensure the perception object has the correct prototype, while retaining the original data fields
+        data.attributes.classDC = mergeObject(new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers), data.attributes.classDC);
+      }
+      data.attributes.classDC.value = 10 + data.attributes.classDC.totalModifier;
+      data.attributes.classDC.ability = data.details.keyability.value;
+      data.attributes.classDC.breakdown = [game.i18n.localize('PF2E.ClassDCBase')].concat(
+        data.attributes.classDC.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
+      /* eslint-enable */
+    }
 
     // Armor Class
     {
@@ -199,14 +225,15 @@ export default class extends Actor {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
       }
       // condition modifiers
-      (statisticsModifiers.ac || []).forEach((m) => modifiers.push(m));
+      ['ac', 'dex-based', 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       /* eslint-disable no-param-reassign */
       data.attributes.ac = new PF2StatisticModifier("Armor Class", modifiers);
       // preserve backwards-compatibility
       data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
       data.attributes.ac.check = armorCheckPenalty;
-      // Base AC 10, 
       data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         data.attributes.ac.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -233,7 +260,9 @@ export default class extends Actor {
         prf:'perform',rel:'religion',soc:'society',ste:'stealth',sur:'survival',thi:'thievery'};
       const expandedName = skillDictionary[skillName];
 
-      (statisticsModifiers[expandedName] || []).forEach((m) => modifiers.push(m));
+      [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+      });
 
       // preserve backwards-compatibility
       let updated;

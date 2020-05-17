@@ -136,7 +136,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const martialSkills = [];
 
     // Iterate through items, allocating to containers
-    const bulkConfig = {ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk')};
+    const bulkConfig = {
+        ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
+        ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
+    };
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
 
@@ -153,7 +156,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        const approximatedBulk = calculateBulk([toItemOrContainer(i)], stacks, false, bulkConfig);
+        const [approximatedBulk] = calculateBulk([toItemOrContainer(i)], stacks, false, bulkConfig);
         i.totalWeight = formatBulk(approximatedBulk);
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
@@ -395,7 +398,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     // Inventory encumbrance
     const items = itemsFromActorData(actorData);
-    const bulk = calculateBulk(items, stacks, false, bulkConfig);
+    const [bulk] = calculateBulk(items, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
       actorData.data.attributes.bonusbulk,

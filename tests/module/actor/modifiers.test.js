@@ -187,4 +187,13 @@ describe('#modifiers', () => {
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-4);
   });
+
+  test('ensure deduplication of similarly named modifiers', () => {
+    const modifiers = [
+      new PF2Modifier('Test Bonus', 2, PF2ModifierType.ABILITY),
+      new PF2Modifier('Test Bonus', 2, PF2ModifierType.PROFICIENCY),
+    ];
+    const stat = new PF2StatisticModifier('Test Stat', modifiers);
+    expect(stat.totalModifier).toBe(2);
+  });
 });
