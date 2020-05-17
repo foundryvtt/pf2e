@@ -114,7 +114,11 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
   if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
 
   if (worldSchemaVersion < 0.573) _migrateActorLanguages(actor, updateData);
-  
+
+  if (worldSchemaVersion < 0.575) {
+    migrateActorItemImages(actor, updateData);
+  }
+
   if (actor.type === "npc") {
     if (worldSchemaVersion < 0.559) _migrateNPCItemDamageRolls(actor, updateData);
 
@@ -132,9 +136,6 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
     }
     if (worldSchemaVersion < 0.574) {
       migrateActorBulkItems(actor, updateData);
-    }
-    if (worldSchemaVersion < 0.575) {
-      migrateActorItemImages(actor, updateData);
     }
   }
   return updateData;
@@ -364,7 +365,7 @@ async function migrateActorItemImages(actor, updateData) {
 
   //actor.type can be 'character', 'npc' or undefined
   //Real actor. Use updateEmbeddedEntity()
-  if (actor.type === 'character') {
+  if (actor.type === 'character' || actor.type === 'npc') {
     actor.items.forEach(item => {
       let updatedItem = migrateImage(item, {});
       if (!isObjectEmpty(updatedItem)) {
@@ -377,7 +378,7 @@ async function migrateActorItemImages(actor, updateData) {
       const _actor = new Actor(actor);
       if (_actor) {
         await _actor.updateEmbeddedEntity('OwnedItem', updatedItems);
-      }
+       }
     }  
   }
 }
