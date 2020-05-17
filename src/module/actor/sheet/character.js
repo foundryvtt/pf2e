@@ -1,7 +1,7 @@
 import ActorSheetPF2e from './base.js';
 import { calculateBulk, itemsFromActorData, stacks, toBulkItem, formatBulk } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
-import { isContainer } from '../../item/container.js';
+import { getContainerMap } from '../../item/container.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -141,6 +141,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
         ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
     };
+    
+    const containerMap = getContainerMap(actorData.items, stacks, bulkConfig);
+    const containers = containerMap.containers;
+    
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
 
@@ -149,7 +153,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
         i.isArmor = true;
-        i.isContainer = isContainer(i);
+        i.isContainer = containers.has(i._id);
+        if (i.isContainer) {
+            i.containerData = containers.get(i._id);
+        }
         const equipped = getProperty(i.data, 'equipped.value') || false;
         i.armorEquipped = equipped?' active':'';
       }

@@ -606,7 +606,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Create New Item
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
-
+    
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
@@ -1272,6 +1272,17 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
+    /**
+     * Opens an item container
+     */
+    _openContainer(event) {
+        const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+        const Item = CONFIG.Item.entityClass;
+        // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
+        const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+        item.sheet.render(true);
+    }
+    
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @private
