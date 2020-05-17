@@ -378,7 +378,7 @@ async function migrateActorItemImages(actor, updateData) {
       const _actor = new Actor(actor);
       if (_actor) {
         await _actor.updateEmbeddedEntity('OwnedItem', updatedItems);
-       }
+      }
     }  
   }
 }
