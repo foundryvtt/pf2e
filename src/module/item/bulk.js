@@ -95,6 +95,9 @@ export class Bulk {
         return this.normal === bulk.normal && this.light === bulk.light;
     }
 
+    isPositive() {
+        return this.normal > 0 || this.light > 0;
+    }
 }
 
 /**
@@ -363,7 +366,7 @@ function countCoins(actorData) {
  * @param nestedItems
  * @return {BulkItem}
  */
-export function toItemOrContainer(item, nestedItems = []) {
+export function toBulkItem(item, nestedItems = []) {
     const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
@@ -400,9 +403,9 @@ function buildContainerTree(items, groupedItems) {
             const itemId = item._id;
             if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
                 const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
-                return toItemOrContainer(item, itemsInContainer);
+                return toBulkItem(item, itemsInContainer);
             }
-            return toItemOrContainer(item);
+            return toBulkItem(item);
 
         });
 }
@@ -416,7 +419,7 @@ function buildContainerTree(items, groupedItems) {
  * @param items
  * @return {*[]|*}
  */
-function toBulkItems(items) {
+export function toBulkItems(items) {
     const allIds = new Set(items.map(item => item._id));
     const itemsInContainers = groupBy(items, (item) => {
         // we want all items in the top level group that are in no container
@@ -434,7 +437,6 @@ function toBulkItems(items) {
         return buildContainerTree(topLevelItems, itemsInContainers);
     }
     return [];
-
 }
 
 const itemTypesWithBulk = new Set();
