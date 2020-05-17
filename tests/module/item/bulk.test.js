@@ -410,16 +410,6 @@ describe('should calculate bulk', () => {
 
     test('should convert an inventory', () => {
         const actorData = {
-            data: {
-                currency: {
-                    pp: {
-                        value: 4
-                    },
-                    gp: {
-                        value: 5
-                    }
-                },
-            },
             items: [
                 {
                     type: 'spell'
@@ -484,7 +474,7 @@ describe('should calculate bulk', () => {
                     },
                 },
                 {
-                    type: 'currency',
+                    type: 'treasure',
                     data: {
                         denomination: {
                             value: 'sp'
@@ -600,7 +590,7 @@ describe('should calculate bulk', () => {
                     type: 'armor',
                 },
                 {
-                    type: 'currency',
+                    type: 'treasure',
                     data: {
                         denomination: {
                             value: 'sp'
