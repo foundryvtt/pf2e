@@ -133,6 +133,9 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
     if (worldSchemaVersion < 0.574) {
       migrateActorBulkItems(actor, updateData);
     }
+    if (worldSchemaVersion < 0.575) {
+      migrateActorItemImages(actor, updateData);
+    }
   }
   return updateData;
 };
@@ -354,6 +357,59 @@ function _migrateDyingCondition(updateData) {
   updateData['data.attributes.doomed.value'] = 0;
   updateData['data.attributes.doomed.max'] = 3;  
 }
+
+async function migrateActorItemImages(actor, updateData) {
+  if (!actor.items) return;
+  let updatedItems = [];
+
+  //actor.type can be 'character', 'npc' or undefined
+  //Real actor. Use updateEmbeddedEntity()
+  if (actor.type === 'character') {
+    actor.items.forEach(item => {
+      let updatedItem = migrateImage(item, {});
+      if (!isObjectEmpty(updatedItem)) {
+        updatedItem._id = item._id;
+        updatedItems.push(updatedItem);
+      }
+    });
+
+    if (updatedItems.length) {
+      const _actor = new Actor(actor);
+      if (_actor) {
+        await _actor.updateEmbeddedEntity('OwnedItem', updatedItems);
+      }
+    }  
+  }
+}
+
+function migrateImage(item, updateData) {
+  const itemImage = item?.img;
+
+  // folder name change
+  if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/', 'systems/pf2e/icons/equipment/alchemical-items/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/adventuring%20gear/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/adventuring%20gear/', 'systems/pf2e/icons/equipment/adventuring-gear/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/cursed%20items/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/cursed%20items/', 'systems/pf2e/icons/equipment/cursed-items/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/held%20items/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held%20items/', 'systems/pf2e/icons/equipment/held-items/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/intelligent%20items/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/intelligent%20items/', 'systems/pf2e/icons/equipment/intelligent-items/');
+  } else if (itemImage?.includes('systems/pf2e/icons/equipment/worn%20items/')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/worn%20items/', 'systems/pf2e/icons/equipment/worn-items/');
+  } 
+
+  // consumables subfolder
+  else if (itemImage?.includes('systems/pf2e/icons/equipment/consumables/') && !itemImage?.includes('systems/pf2e/icons/equipment/consumables/potions/') && itemImage?.includes('potion')) {
+    updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/consumables/', 'systems/pf2e/icons/equipment/consumables/potions/');
+  }
+  
+  return updateData;
+}
+
 /* -------------------------------------------- */
 
 
