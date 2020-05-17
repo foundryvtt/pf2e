@@ -47,6 +47,7 @@ class ItemSheetPF2e extends ItemSheet {
     if (type === 'currency') {
       data.currencies = CONFIG.currencies;
       data.stackGroups = CONFIG.stackGroups;
+      data.bulkTypes = CONFIG.PF2E.bulkTypes;
     // Consumable Data
     } else if (type === 'consumable') {
       data.consumableTypes = CONFIG.PF2E.consumableTypes;
