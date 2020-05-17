@@ -606,6 +606,8 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Create New Item
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
+
+    html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
     
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
@@ -1275,12 +1277,9 @@ class ActorSheetPF2e extends ActorSheet {
     /**
      * Opens an item container
      */
-    _openContainer(event) {
+    _toggleContainer(event) {
         const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-        const Item = CONFIG.Item.entityClass;
-        // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
-        const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
-        item.sheet.render(true);
+        // TODO: implement item toggle
     }
     
   /**
