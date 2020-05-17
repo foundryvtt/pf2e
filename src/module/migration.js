@@ -59,13 +59,13 @@ export const migrateWorld = async function() {
   
   // special migrations
   if (worldSchemaVersion < 0.576) {
-    for ( let a of game.actors.entities ) {
-        try {
-            await migrateCoins(a);
-        } catch(err) {
-            console.error(err);
+        for ( let a of game.actors.entities ) {
+            try {
+                migrateCoins(a);
+            } catch(err) {
+                console.error(err);
+            }
         }
-    }
   }
     // Set the migration as complete
   game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
@@ -156,14 +156,15 @@ export const migrateActorData = function(actor, worldSchemaVersion) {
 async function addCoin(actorEntity, currencyId, denomination, quantity) {
     if (quantity !== null && (`${quantity}`).trim() !== '0') {
         console.log(`Adding ${quantity} of ${denomination} to actors ${actorEntity.data.name}'s inventory`);
-        actorEntity.importItemFromCollection('pf2e.equipment-srd', currencyId).then(() => {
-            const addedItem = actorEntity.data.items.find(item => item.type === 'currency' && item.data.denomination.value === denomination);
-            addedItem.data.quantity = quantity;
-        });
+        const pack = game.packs.get('pf2e.equipment-srd');
+        const item = await pack.getEntity(currencyId);
+        item.data.data.quantity.value = quantity;
+        actorEntity.createOwnedItem(item.data);
     }
 }
 
 async function migrateCoins(actorEntity) {
+    console.log('Migrating coins')
     const coinCompendiumIds = {
         "pp": 'JuNPeK5Qm1w6wpb4',
         "gp": 'B6B7tBWJSqOBz5zz',
