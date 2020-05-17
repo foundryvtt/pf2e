@@ -13,7 +13,7 @@ export const migrateWorld = async function() {
   // Migrate World Actors
   for ( let a of game.actors.entities ) {
     try {
-      const updateData = migrateActorData(a.data, worldSchemaVersion, a);
+      const updateData = migrateActorData(a.data, worldSchemaVersion);
       if ( !isObjectEmpty(updateData) ) {
         console.log(`Migrating Actor entity ${a.name}`);
         await a.update(updateData, {enforceTypes: false});
@@ -56,8 +56,18 @@ export const migrateWorld = async function() {
   for ( let p of packs ) {
     //await migrateCompendium(p, worldSchemaVersion);
   }
-
-  // Set the migration as complete
+  
+  // special migrations
+  if (worldSchemaVersion < 0.576) {
+    for ( let a of game.actors.entities ) {
+        try {
+            await migrateCoins(a);
+        } catch(err) {
+            console.error(err);
+        }
+    }
+  }
+    // Set the migration as complete
   game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
   ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, {permanent: true});
 };
@@ -94,6 +104,7 @@ export const migrateCompendium = async function(pack, worldSchemaVersion) {
       console.error(err);
     }
   }
+  
   console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
 };
 
@@ -108,7 +119,7 @@ export const migrateCompendium = async function(pack, worldSchemaVersion) {
  * @param {worldSchemaVersion} actor   The current worldSchemaVersion
  * @return {Object}       The updateData to apply
  */
-export const migrateActorData = function(actor, worldSchemaVersion, actorEntity) {
+export const migrateActorData = function(actor, worldSchemaVersion) {
   const updateData = {};
 
   if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
@@ -136,45 +147,40 @@ export const migrateActorData = function(actor, worldSchemaVersion, actorEntity)
     if (worldSchemaVersion < 0.575) {
       migrateActorItemImages(actor, updateData);
     }
-    if (worldSchemaVersion < 0.576 && actorEntity !== undefined) {
-        migrateCoins(actor, actorEntity);
-    }
   }
   return updateData;
 };
 
 /* -------------------------------------------- */
 
-function addCoin(actorEntity, currencyId, denomination, quantity) {
+async function addCoin(actorEntity, currencyId, denomination, quantity) {
     if (quantity !== null && (`${quantity}`).trim() !== '0') {
         console.log(`Adding ${quantity} of ${denomination} to actors ${actorEntity.data.name}'s inventory`);
-        const promise = actorEntity.importItemFromCollection('pf2e.equipment-srd', currencyId);
-        console.log(promise);
-            promise.then(() => {
-                const addedItem = actorEntity.data.items.find(item => item.type === 'currency' && item.data.denomination.value === denomination);
-                addedItem.data.quantity = quantity;
-            });
+        actorEntity.importItemFromCollection('pf2e.equipment-srd', currencyId).then(() => {
+            const addedItem = actorEntity.data.items.find(item => item.type === 'currency' && item.data.denomination.value === denomination);
+            addedItem.data.quantity = quantity;
+        });
     }
 }
 
-function migrateCoins(actor, actorEntity) {
+async function migrateCoins(actorEntity) {
     const coinCompendiumIds = {
         "pp": 'JuNPeK5Qm1w6wpb4',
         "gp": 'B6B7tBWJSqOBz5zz',
         "sp": '5Ew82vBF9YfaiY9f',
         "cp": 'lzJ8AVhRcbFul5fh',
     }
-    const ppQuantity = actor.data?.currency?.pp?.value ?? null;
-    addCoin(actorEntity, coinCompendiumIds.pp, 'pp', ppQuantity);
+    const ppQuantity = actorEntity.data.data?.currency?.pp?.value ?? null;
+    await addCoin(actorEntity, coinCompendiumIds.pp, 'pp', ppQuantity);
     
-    const gpQuantity = actor.data?.currency?.gp?.value ?? null;
-    addCoin(actorEntity, coinCompendiumIds.gp, 'gp', gpQuantity);
+    const gpQuantity = actorEntity.data.data?.currency?.gp?.value ?? null;
+    await addCoin(actorEntity, coinCompendiumIds.gp, 'gp', gpQuantity);
     
-    const spQuantity = actor.data?.currency?.sp?.value ?? null;
-    addCoin(actorEntity, coinCompendiumIds.sp, 'sp', spQuantity);
+    const spQuantity = actorEntity.data.data?.currency?.sp?.value ?? null;
+    await addCoin(actorEntity, coinCompendiumIds.sp, 'sp', spQuantity);
 
-    const cpQuantity = actor.data?.currency?.cp?.value ?? null;
-    addCoin(actorEntity, coinCompendiumIds.cp, 'cp', cpQuantity);
+    const cpQuantity = actorEntity.data.data?.currency?.cp?.value ?? null;
+    await addCoin(actorEntity, coinCompendiumIds.cp, 'cp', cpQuantity);
 }
 
 function migrateBulk(item, updateData) {
