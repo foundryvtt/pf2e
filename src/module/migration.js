@@ -148,9 +148,14 @@ export const migrateActorData = function(actor, worldSchemaVersion, actorEntity)
 function addCoin(actorEntity, currencyId, denomination, quantity) {
     if (quantity !== null && (`${quantity}`).trim() !== '0') {
         console.log(`Adding ${quantity} of ${denomination} to actors ${actorEntity.data.name}'s inventory`);
-        actorEntity.importItemFromCollection('pf2e.equipment-srd', currencyId);
-        const addedItem = actorEntity.data.data.items.find(item => item.type === 'currency' && item.data.denomination === denomination)
-        addedItem.data.quantity = quantity;
+        console.log(actorEntity.importItemFromCollection('pf2e.equipment-srd', currencyId));
+            // .then(() => {
+            //     console.log(actorEntity);
+            //     console.log(JSON.stringify(actorEntity.data.items));
+            //     const addedItem = actorEntity.data.items.find(item => item.type === 'currency' && item.data.denomination.value === denomination);
+            //     console.log(addedItem);
+            //     addedItem.data.quantity = quantity;
+            // });
     }
 }
 
