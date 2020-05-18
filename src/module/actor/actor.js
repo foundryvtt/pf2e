@@ -335,11 +335,11 @@ export default class extends Actor {
     const dc = recoveryDc + dying;
     let result = '';
 
-    if (flatCheck.result == 20 || flatCheck.result >= (recoveryDc+10)) {
+    if (flatCheck.result == 20 || flatCheck.result >= (dc+10)) {
       result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
-    } else if (flatCheck.result == 1 || flatCheck.result <= (recoveryDc-10)) {
+    } else if (flatCheck.result == 1 || flatCheck.result <= (dc-10)) {
       result = game.i18n.localize("PF2E.CritFailure") + ' ' + game.i18n.localize("PF2E.Recovery.critFailure");
-    } else if (flatCheck.result >= recoveryDc) {
+    } else if (flatCheck.result >= dc) {
       result = game.i18n.localize("PF2E.Success") + ' ' + game.i18n.localize("PF2E.Recovery.success");
     } else {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
