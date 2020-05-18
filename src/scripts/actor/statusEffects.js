@@ -108,9 +108,9 @@ class PF2eStatusEffects {
             PF2eStatusEffects._hookOnRenderTokenHUD(app, html, data);
         });
         Hooks.on("onTokenHUDClear", (tokenHUD, token) => {
-            if (tokenHUD._displayState === tokenHUD.constructor.DISPLAY_STATES.CLEARING) {
+            if (tokenHUD._displayState === tokenHUD?.constructor?.DISPLAY_STATES?.CLEARING) {
                 // Closing the token HUD
-                if (token.statusEffectChanged === true) {
+                if (token?.statusEffectChanged === true) {
                     console.log('PF2e System | StatusEffects were updated - Message to chat');
                     token.statusEffectChanged = false;
                     PF2eStatusEffects._createChatMessage(token);
