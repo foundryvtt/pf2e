@@ -10,40 +10,40 @@
 *  (@hooking) Moved the Age of Ashes bestiary entries out of the core bestiary as they are now included in a dedicated compendium.
 *  (@hooking) Added migration code for item images.
 *  (@overdox) New Content:
-  * Added all currently available 7th, 8th, 9th, 10th, 11th and 12th level items
-  * Added signature spells class feature for sorcerer, as it was missing.
-  * Added rollable tables for 7th, 8th, 9th, 10th, 11th and 12th level consumables
-  * Added rollable tables for 7th, 8th, 9th, 10th, 11th and 12th level permanent items
-  * GMG Rollable Tables added
-  * Added Deities, Faiths and Philosophies from CRB
-  * Added Deities, Faiths and Philosophies rollable tables
-  * Added the missing 'Take a Breather' action #338 (closed)
-  * Fast Recovery feat is now added #298 (closed)
+    * Added all currently available 7th, 8th, 9th, 10th, 11th and 12th level items
+    * Added signature spells class feature for sorcerer, as it was missing.
+    * Added rollable tables for 7th, 8th, 9th, 10th, 11th and 12th level consumables
+    * Added rollable tables for 7th, 8th, 9th, 10th, 11th and 12th level permanent items
+    * GMG Rollable Tables added
+    * Added Deities, Faiths and Philosophies from CRB
+    * Added Deities, Faiths and Philosophies rollable tables
+    * Added the missing 'Take a Breather' action #338 (closed)
+    * Fast Recovery feat is now added #298 (closed)
 *  (@overdox) Content Fixes:
-  * Fixed alchemical bombs as they lost the changes in the last merger
-  * Fixed roll formula for elixir of life #342 (closed)
-  * Updated Class features with same names to include what class it belongs to
-  * Rogues rackets have now been renamed to reflect what they are, ie Thief is now named 'Thief Racket' #336 (closed)
-  * Fixed new icons for signature spells for bard and sorcerer
-  * Fixed potions to have Light bulk rather than Negliable #360 (closed)
-  * Removed spacing in the filename of the Phylactery of the Faithfull icon
-  * The rollable table '10th-Level Permanent Items' was set to 1d42, and have now been set to the correct value of 1d43
-  * Changed Explorer's Clothes to armor type, it was incorrectly set as Item in the compendium #327 (closed)
-  * Pest Form is now correctly set to level 1 #364 (closed)
-  * Adaptive Ablation now has the correct level #322 (closed)
+    * Fixed alchemical bombs as they lost the changes in the last merger
+    * Fixed roll formula for elixir of life #342 (closed)
+    * Updated Class features with same names to include what class it belongs to
+    * Rogues rackets have now been renamed to reflect what they are, ie Thief is now named 'Thief Racket' #336 (closed)
+    * Fixed new icons for signature spells for bard and sorcerer
+    * Fixed potions to have Light bulk rather than Negliable #360 (closed)
+    * Removed spacing in the filename of the Phylactery of the Faithfull icon
+    * The rollable table '10th-Level Permanent Items' was set to 1d42, and have now been set to the correct value of 1d43
+    * Changed Explorer's Clothes to armor type, it was incorrectly set as Item in the compendium #327 (closed)
+    * Pest Form is now correctly set to level 1 #364 (closed)
+    * Adaptive Ablation now has the correct level #322 (closed)
 *  (@overdox) Content Restructure:
-  * Added Core Rulebook journal compendium 'crb-srd.db'
-  * Added Gamemastery Guide journal compendium 'gmg-srd.db'
-  * Added criticaldecks.db
-  * Merged critical decks into criticaldecks.db
-  * Removed critical-hit-decks.db and critical-fumble-decks.db
-  * Moved Deck of many things into 'gmg-srd.db'
-  * Restructured deep backgrounds from gmg
-  * Deep backgrounds moved into 'gmg-srd.db'
-  * Deep backgrounds rollable tables (Homeland,Influential Associate, Inspiring Relationship, Major Childhood Event) are now functioning as intended
+    * Added Core Rulebook journal compendium 'crb-srd.db'
+    * Added Gamemastery Guide journal compendium 'gmg-srd.db'
+    * Added criticaldecks.db
+    * Merged critical decks into criticaldecks.db
+    * Removed critical-hit-decks.db and critical-fumble-decks.db
+    * Moved Deck of many things into 'gmg-srd.db'
+    * Restructured deep backgrounds from gmg
+    * Deep backgrounds moved into 'gmg-srd.db'
+    * Deep backgrounds rollable tables (Homeland,Influential Associate, Inspiring Relationship, Major Childhood Event) are now functioning as intended
 *  (@overdox) Icon Changes:
-  * Cleaned up folders to remove all spaces in the file-paths to the icons
-  * Added or replaced several icons
+    * Cleaned up folders to remove all spaces in the file-paths to the icons
+    * Added or replaced several icons
 *  (@hooking) Added migration code for item images.
 *  (@In3luki) Updated item image migration code to include NPCs.
 *  (@dandi_andy) Added the Weight of Guilt [champion feat]
@@ -52,9 +52,9 @@
 *  (Brault) Fixed the pf2e system implementation distance measure function to correctly measure 5-10-5 distances to match the fix introduced in Foundry 0.5.6.
 *  (@meditatingCybermind) Fixed a console error flooding issue in Foundry 0.5.7.
 *  (@yjeroen) Bug fixes:
-  * Fixed bug introduced by Foundry v0.5.7 which had broken status effects.
-  * Bugfix Recovery Check evaluated against DC10 instead of the actual Recovery DC (issue#325)
-  * Increased the font weight of the recovery check message to accommodate the new chat font
+    * Fixed bug introduced by Foundry v0.5.7 which had broken status effects.
+    * Bugfix Recovery Check evaluated against DC10 instead of the actual Recovery DC (issue#325)
+    * Increased the font weight of the recovery check message to accommodate the new chat font
 ### Core System Improvements
 *  (@meditatingCybermind) Cleaned up the shield and hp logic to be more succinct and have less repetition -- also fixed the issue where shields ignored SP.
 *  (@putt1) Implemented system for bulk arithmetic handling (including the handling of currency, stacks and containers).
