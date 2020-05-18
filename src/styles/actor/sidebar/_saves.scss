@@ -1,36 +1,38 @@
 ol.saves-data {
     padding-right: 4px;
     li {
-       margin-bottom: 6px;
-       align-items: center;
-       .save-label {
-           display: inline-flex;
-           flex-direction: column;
-           align-items: flex-start;
-           justify-content: center;
-           margin-bottom: 2px;
-           select {
-               border: none;
-               font-family: $micro;
-               font-size: 8px;
-               font-weight: 700;
-               padding: 0;
-               text-transform: uppercase;
-               padding-right: 1em;
-               box-shadow: none;
-               background-size: 1.5em auto;
-               line-height: 1em;
-           }
-       }
-       .data-value {
-           margin-top: 4px;
-           h2 {
-               font-size: 24px;
-               line-height: 0;
-           }
-       }
-       &:last-child {
-           margin-bottom: 0;
-       }
+        align-items: center;
+        .save-label {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 50px;
+
+            .skill-label {
+                @include micro;
+                padding: 1px 3px;
+                background: $sidebar-title-color;
+                color: var(--primary);
+                box-shadow: inset 0 0 0 1px rgba(black, 0.3);
+               
+            }
+
+            h4 {
+                font-family: $serif;
+                font-size: 10px;
+                font-weight: 500;
+            }
+        }
+        .data-value {
+            margin-top: 4px;
+            h2 {
+                font-size: 24px;
+                line-height: 1;
+            }
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }

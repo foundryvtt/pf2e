@@ -29,22 +29,18 @@ aside {
             line-height: 1;
         }
         h4,label {
-            font-family: $micro;
-            font-weight: bold;
+            @include micro;
         }
 
         &_title {
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid $sidebar-title-color;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
+            margin: 0.5em 0;
             h2,
             h4,
             a {
-                font-size: 8px;
-                font-weight: bold;
-                font-family: $micro;
+                @include micro;
                 border: none;
                 margin: 0;
                 line-height: 1.5;
@@ -69,9 +65,11 @@ aside {
         }
         .data-value {
             display: inline-block;
+            font-size: 0; /* Removes whitespace for inputs */
             input[type='number'],
             h2 {
                 width: 42px;
+                height: 26px;
                 color: $sidebar-label;
                 text-align: center;
                 font-size: 26px;
@@ -101,7 +99,7 @@ aside {
                 font-weight: 500;
                 text-align: right;
                 line-height: 1;
-                height: 13px;
+                height: 14px;
                 padding: 6px 0 0;
                 &::-webkit-outer-spin-button,
                 &::-webkit-inner-spin-button {
@@ -121,24 +119,15 @@ aside {
             }
         }
         select {
-            all: initial;
             font-family: $serif;
-            font-size: 14px;
+            font-size: 16px;
             color: white;
             background-color: var(--primary);
             border: 1px solid rgba(0, 0, 0, 0.2);
             border-radius: 2px;
-            line-height: 1.5;
+            padding: 4px 8px;
             width: 100%;
             max-width: 100%;
-            cursor: pointer;
-            padding: 0 8px;
-            -webkit-appearance: none;
-            text-overflow: ellipsis;
-            background-image: url('../assets/icons/chevron-down.svg');
-            background-repeat: no-repeat;
-            background-position: right 0.25em top 50%;
-            background-size: 1em auto;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.075);
         }
         ol {
@@ -148,16 +137,37 @@ aside {
             margin: 0;
             padding: 0;
             li {
-                display: inline-flex;
+                display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
             }
         }
+        
+        .plaque {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            background: url('../assets/sheet/plaque.png') no-repeat center center;
+            color: var(--primary);
+            text-transform: capitalize;
+            font-family: $serif;
+            font-size: 14px;
+            padding: 4px 0 2px;
+            border-radius: 1px;
+            border: 1px solid #9f725b;
+            /* prettier-ignore */
+            box-shadow:
+                inset 0 0 0 1px #e9d7a1,
+                inset 0 0 0 2px #c3b396;
+        }
 
         /* prettier-ignore */
         @import 'health',
                 'armor',
+                'stamina',
                 'initPercept',
                 'saves',
                 'classDC',

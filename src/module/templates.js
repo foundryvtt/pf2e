@@ -24,6 +24,8 @@ export default function () {
         'systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html',
+        'systems/pf2e/templates/actors/crb-style/character-traits.html',
+        'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
         // Actor Sheet Partials (Main)
         'systems/pf2e/templates/actors/main/actor-header.html',

@@ -18,25 +18,8 @@ $header-height: 89px;
         'sidebar header' 75px
         'sidebar nav' minmax(min-content, max-content)
         'sidebar content' 1fr
+        'sidebar footer' auto
         / 247px 1fr;
-
-    label,
-    input,
-    select {
-        display: inline-block;
-        line-height: 1;
-    }
-
-    input {
-        all: initial;
-        cursor: pointer;
-        &:focus {
-            box-shadow: none;
-        }
-        &::placeholder {
-            color: white;
-        }
-    }
 
     /* prettier-ignore */
     @import 'sidebar',
@@ -52,39 +35,6 @@ $header-height: 89px;
         grid-area: content;
     }
 
-    .dots span {
-        cursor: pointer;
-    }
-
-    .tag {
-        color: white;
-        font-family: $micro;
-        font-size: 8px;
-        border: 1px solid white;
-        border-radius: 2px;
-        padding: 0 3px 2px;
-        margin-bottom: 2px;
-        & + .tag,
-        &:first-child {
-            margin-right: 3px;
-        }
-        &.edit-btn {
-            background-color: white;
-            border-radius: 0;
-            padding: 1px;
-            a {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--primary);
-                svg {
-                    height: 7px;
-                    width: 11px;
-                }
-            }
-        }
-    }
-
     /* Navigation */
     @import 'nav';
 
@@ -93,8 +43,19 @@ $header-height: 89px;
         margin-right: 12px;
         @import 'character', 'npc';
     }
-}
 
-.pf2e.sheet form .tag {
-    font-weight: 700;
+    footer {
+        grid-area: footer;
+        text-align: right;
+        @include micro;
+        color: var(--primary);
+        line-height: 1.4;
+        margin: 1em 8px;
+
+        p,
+        a {
+            font-weight: 700;
+            color: var(--primary);
+        }
+    }
 }

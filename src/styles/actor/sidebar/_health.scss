@@ -1,14 +1,18 @@
 .hitpoints {
-    h4, label {
+    margin-top: -6px;
+    
+    h4,
+    label {
         font-family: $serif;
         font-weight: 500;
         margin: 0;
         line-height: 1;
+        font-size: 10px;
     }
     .hp-big {
         display: flex;
         justify-content: space-evenly;
-        .hp-container {
+        .container {
             text-align: center;
             &.temp-hp {
                 text-align: right;
@@ -48,9 +52,9 @@
         justify-content: space-evenly;
         margin-top: 8px;
         text-align: center;
-        h4, label {
-            font-family: $micro;
-            font-weight: bold;
+        h4,
+        label {
+            @include micro;
         }
         .far,
         .fas {

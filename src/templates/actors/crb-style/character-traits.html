@@ -1,0 +1,261 @@
+<div class="pc pc_ancestry-hp">
+    <label for="ancestry-hp">
+        {{localize 'PF2E.AncestryHP'}}
+    </label>
+    <span>
+        <input
+            id="ancestry-hp"
+            type="text"
+            name="data.attributes.ancestryhp"
+            data-dtype="Number"
+            value="{{data.attributes.ancestryhp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_class-hp">
+    <label for="class-hp">
+        {{localize 'PF2E.ClassHP'}}
+    </label>
+    <span>
+        <input
+            id="class-hp"
+            type="number"
+            name="data.attributes.classhp"
+            data-dtype="Number"
+            value="{{data.attributes.classhp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_flat-bonus-hp">
+    <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusSP'}}">
+        Bonus HP
+    </label>
+    <span>
+        <input
+            id="flat-bonus-hp"
+            type="number"
+            name="data.attributes.flatbonushp"
+            data-dtype="Number"
+            value="{{data.attributes.flatbonushp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_bonus-hp">
+    <label for="bonus-hp" title="{{localize 'PF2E.BonusHPperLevelTitle'}}">
+        B. HP / Level
+    </label>
+    <span>
+        <input
+            id="bonus-hp"
+            type="number"
+            name="data.attributes.levelbonushp"
+            data-dtype="Number"
+            value="{{data.attributes.levelbonushp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_key-ability dropdown">
+    <label for="key-ability">
+        Key Ability
+    </label>
+    <span>
+        <select id="key-ability" name="key-ability">
+            <option value="default">
+                Select Ability
+            </option>
+            <option value="Option1">
+                Strength
+            </option>
+            <option value="Option2">
+                Dexterity
+            </option>
+            <option value="Option3">
+                Constitution
+            </option>
+            <option value="Option4">
+                Intelligence
+            </option>
+            <option value="Option4">
+                Wisdom
+            </option>
+            <option value="Option4">
+                Charisma
+            </option>
+        </select>
+    </span>
+</div>
+<div class="pc pc_land-speed">
+    <label for="land-speed">
+        {{localize 'PF2E.Speed'}}
+    </label>
+    <span>
+        <input
+            id="land-speed"
+            type="text"
+            name="data.attributes.SpeedTitle"
+            data-dtype="{{data.attributes.speed.type}}"
+            value="{{data.attributes.speed.value}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_speed-types">
+    <h4>
+        {{localize 'PF2E.SpeedTypes'}}
+    </h4>
+    <ol class="tags">
+        <li class="tag">
+            Climb (15ft)
+        </li>
+        <li class="tag">
+            Fly (70ft)
+        </li>
+        <li class="tag">
+            The Speed Force (∞)
+        </li>
+        <li class="tag edit-btn">
+            <a href="#">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-plus"
+                >
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </a>
+        </li>
+    </ol>
+</div>
+<div class="pc pc_size dropdown">
+    <label class="pf-title">
+        {{localize 'PF2E.Size'}}
+    </label>
+    <select
+        name="data.traits.size.value"
+        data-dtype="{{data.traits.size.type}}"
+    >
+        {{#select data.traits.size.value}} {{#each actorSizes as |label size|}}
+        <option value="{{size}}">
+            {{label}}
+        </option>
+        {{/each}} {{/select}}
+    </select>
+</div>
+<div class="pc pc_senses">
+    <h4 for="cha-senses">
+        {{localize 'PF2E.Senses'}}
+    </h4>
+    <ol class="tags">
+        <li class="tag">
+            Dark Vision
+        </li>
+        <li class="tag">
+            Low Light Vision
+        </li>
+        <li class="tag">
+            The Force
+        </li>
+        <li class="tag edit-btn">
+            <a href="#">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-plus"
+                >
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </a>
+        </li>
+    </ol>
+</div>
+<div class="pc pc_languages">
+    <h4 class="pf-title">
+        {{localize 'PF2E.Languages'}}
+    </h4>
+    <ul class="tags">
+        {{#each data.traits.languages.selected as |v k|}}
+        <span class="tag {{k}}">
+            {{v}}
+        </span>
+        {{/each}}
+        <li class="tag edit-btn">
+            <a data-options="languages">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-plus"
+                >
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</div>
+
+{{#if_stamina}}
+<div class="pc pc_stamina-flat-bonus-sp">
+    <label
+        for="FlatBonusSP"
+        title="{{localize 'PF2E.FlatBonusSPTitle'}}"
+        class="pf-title"
+    >
+        Bonus SP
+    </label>
+    <span>
+        <input
+            id="FlatBonusSP"
+            type="number"
+            name="data.attributes.flatbonussp"
+            data-dtype="Number"
+            value="{{data.attributes.flatbonussp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+<div class="pc pc_stamina-bonus-sp">
+    <label
+        for="BonusSPperLevel"
+        title="{{localize 'PF2E.BonusSPperLevelTitle'}}"
+    >
+        B. SP / Level
+    </label>
+    <span>
+        <input
+            id="BonusSPperLevel"
+            type="number"
+            name="data.attributes.levelbonussp"
+            data-dtype="Number"
+            value="{{data.attributes.levelbonussp}}"
+            placeholder="0"
+        />
+    </span>
+</div>
+{{/if_stamina}}

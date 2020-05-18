@@ -15,7 +15,8 @@
         height: 74px;
         text-align: center;
         padding: 0 5px;
-        h4, label {
+        h4,
+        label {
             font-family: $serif;
             font-weight: 500;
         }
@@ -24,7 +25,11 @@
             input[type='number'] {
                 font-size: 32px;
                 color: white;
+                line-height: 26px;
             }
+        }
+        label {
+            font-size: 10px;
         }
         &.ac {
             grid-area: ac;
@@ -44,6 +49,7 @@
             margin-left: 4px;
             li {
                 justify-content: space-between;
+                font-size: 0;
                 .shield-label {
                     position: relative;
                     img {
@@ -52,17 +58,14 @@
                         align-items: center;
                     }
                     &:after {
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
                         display: inline-block;
                         position: absolute;
-                        font-size: 8px;
-                        font-weight: 800;
-                        font-family: $micro;
+                        @include micro;
                         letter-spacing: -1px;
                         color: var(--primary);
                         top: 0;
                         left: 1px;
+                        line-height: 1.5;
                     }
                     &.ac:after {
                         content: 'AC';
@@ -72,7 +75,7 @@
                         content: 'H';
                     }
                     &.bt:after {
-                        left: 1px;
+                        left: 2px;
                         content: 'BT';
                     }
                 }
@@ -83,7 +86,8 @@
         grid-area: shield-footer;
         display: inline-flex;
         justify-content: space-evenly;
-        .shield-max, .shield-status {
+        .shield-max,
+        .shield-status {
             display: flex;
             align-items: center;
         }

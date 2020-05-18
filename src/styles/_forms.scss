@@ -1,0 +1,96 @@
+.crb-style form {
+    label,
+    input,
+    select {
+        display: inline-block;
+        line-height: 1;
+    }
+
+    input {
+        all: initial;
+        cursor: pointer;
+        &:focus {
+            box-shadow: none;
+        }
+        &::placeholder {
+            color: white;
+        }
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+        &[type='number'] {
+            -moz-appearance: textfield;
+        }
+    }
+
+    select {
+        all: initial;
+        font-size: 12px;
+        font-family: $serif;
+        font-weight: 500;
+        color: white;
+        position: relative;
+        background-color: #785c38;
+        box-shadow: inset 0 0 0 1px rgba(black, 0.3);
+        border-radius: 2px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 4px 18px 3px 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-overflow: ellipsis;
+        background-image: url('../assets/icons/chevron-down.svg');
+        background-repeat: no-repeat;
+        background-position: right 0.25em top 50%;
+        background-size: 1em auto;
+    }
+
+    .dots span {
+        cursor: pointer;
+    }
+    .tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: flex-start;
+        .tag {
+            display: inline-flex;
+            flex-wrap: nowrap;
+            color: white;
+            @include micro;
+            border: none;
+            border-radius: 2px;
+            padding: 3px 4px;
+            margin-bottom: 2px;
+            box-shadow: inset 0 0 0 1px rgba($sidebar-label, 0.5);
+            & + .tag,
+            &:first-child {
+                margin-right: 3px;
+            }
+            &.edit-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                border-radius: 0;
+                a {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: var(--primary);
+                    svg {
+                        height: 9px;
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pf2e.sheet form .tag {
+    font-weight: 700;
+}
