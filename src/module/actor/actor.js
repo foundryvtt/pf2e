@@ -75,6 +75,12 @@ export default class extends Actor {
     // this will most likely also relevant for NPCs
     const statisticsModifiers = {};
 
+    // custom modifiers
+    data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
+    for (const [statistic, modifier] of Object.entries(data.customModifiers)) {
+      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifier); // eslint-disable-line no-param-reassign
+    }
+
     // calculate modifiers for conditions (from status effects)
     data.statusEffects?.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
 
@@ -695,6 +701,46 @@ export default class extends Actor {
       }
     }
     return delta;
+  }
+
+  /**
+   * Adds a custom modifier that will be included when determining the final value of a stat. The
+   * name parameter must be unique for the custom modifiers for the specified stat, or it will be
+   * ignored.
+   *
+   * @param {string} stat
+   * @param {string} name
+   * @param {number} value
+   * @param {string} type
+   */
+  async addCustomModifier(stat, name, value, type) {
+    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+    if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
+      customModifiers[stat] = (customModifiers[stat] ?? []).concat([new PF2Modifier(name, value, type)]);
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    }
+  }
+
+  /**
+   * Removes a custom modifier, either by index or by name.
+   *
+   * @param {string} stat
+   * @param {string|number} modifier name or index of the modifier to remove
+   */
+  async removeCustomModifier(stat, modifier) {
+    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+    if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
+      const statModifiers = customModifiers[stat];
+      statModifiers.splice(modifier, 1);
+      customModifiers[stat] = statModifiers;
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
+      customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    }
   }
 }
 
