@@ -56,20 +56,23 @@ export const migrateWorld = async function() {
   for ( let p of packs ) {
     //await migrateCompendium(p, worldSchemaVersion);
   }
-  
+
   // special migrations
-  if (worldSchemaVersion < 0.576) {
-        for ( let a of game.actors.entities ) {
-            try {
-                migrateCoins(a);
-            } catch(err) {
-                console.error(err);
-            }
-        }
-  }
-    // Set the migration as complete
-  game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
-  ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, {permanent: true});
+  setTimeout(() => {
+      if (worldSchemaVersion < 0.576) {
+          for ( let a of game.actors.entities ) {
+              try {
+                  migrateCoins(a);
+              } catch(err) {
+                  console.error(err);
+              }
+          }
+      }
+      // Set the migration as complete
+      game.settings.set("pf2e", "worldSchemaVersion", systemSchemaVersion);
+      ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, {permanent: true});    
+  }, 10000)  
+  
 };
 
 /* -------------------------------------------- */

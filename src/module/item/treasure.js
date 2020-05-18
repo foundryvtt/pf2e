@@ -1,10 +1,3 @@
-const treasureIdentity = {
-    pp: 0,
-    gp: 0,
-    sp: 0,
-    cp: 0
-};
-
 /**
  * Sums up all treasures in an actor's inventory and fills the
  * @param items
@@ -27,5 +20,10 @@ export function calculateWealth(items) {
                 sp: (prev.sp || 0) + (curr.sp || 0),
                 cp: (prev.cp || 0) + (curr.cp || 0),
             };
-        }, treasureIdentity);
+        }, {
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0
+        });
 }

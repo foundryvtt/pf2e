@@ -71,12 +71,12 @@ class ActorSheetPF2e extends ActorSheet {
 
     // update currency based on items
     const treasure = calculateWealth(sheetData.actor.items);
-    sheetData.data.currency.pp.value = treasure.pp;
-    sheetData.data.currency.gp.value = treasure.gp;
-    sheetData.data.currency.sp.value = treasure.sp;
-    sheetData.data.currency.cp.value = treasure.cp;
-    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
-      currency.label = CONFIG.PF2E.currencies[c];
+    sheetData.totalTreasure = {};
+    for (const [denomination, value] of Object.entries(treasure)) {
+        sheetData.totalTreasure[denomination] = {
+            value,
+            label: CONFIG.PF2E.currencies[denomination],
+        };      
     }
 
     // Update traits

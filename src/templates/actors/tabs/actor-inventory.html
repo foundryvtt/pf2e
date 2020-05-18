@@ -1,9 +1,9 @@
 <div class="tab inventory" data-group="primary" data-tab="inventory">
     <ol class="currency">
-        {{#each data.currency as |c i|}}
-        <li class="denomination {{i}}">
-            <label>{{c.label}}:</label>
-            <span>{{c.value}}<span>
+        {{#each totalTreasure as |value denomination|}}
+        <li class="denomination {{denomination}}">
+            <label>{{value.label}}:</label>
+            <span>{{value.value}}<span>
         </li>
         {{/each}}
     </ol>
