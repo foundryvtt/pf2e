@@ -358,13 +358,13 @@ export default class extends Actor {
             </section>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">
             ${rollingPartA}  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
             <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> ${rollingPartB} ${dc}.
           </span>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-weight: 100;">
+          <span style="font-size: 12px; font-weight: 400;">
             ${result}
           </span>
         </div>
@@ -519,7 +519,7 @@ export default class extends Actor {
               </div>
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-              <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+              <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
                 ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
@@ -576,7 +576,7 @@ export default class extends Actor {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Initiative is now ${value} !</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value} !</span>
         </div>
       </div>
       </div>
