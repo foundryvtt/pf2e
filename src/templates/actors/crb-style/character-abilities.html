@@ -1,0 +1,24 @@
+<ol class="ability-scores">
+    {{#each data.abilities as |ability id|}}
+        <li class="ability" data-ability="{{id}}">
+            <h4 class="ability-name">
+                {{ability.label}}
+            </h4>
+            <h2 class="ability-id" title="{{localize 'PF2E.AbilityTitle'}}">
+                {{id}}
+            </h2>
+            <h3 class="ability-mod" title="{{localize 'PF2E.ModifierTitle'}}">
+                {{numberFormat ability.mod decimals=0 sign=true}}
+            </h3>
+            <div class="ability-score" title="{{localize 'PF2E.ScoreTitle'}}">
+                <input
+                    name="data.abilities.{{id}}.value"
+                    type="number"
+                    value="{{ability.value}}"
+                    data-dtype="Number"
+                    placeholder="10"
+                />
+            </div>
+        </li>
+    {{/each}}
+</ol>
