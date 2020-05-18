@@ -46,45 +46,62 @@
     {{> systems/pf2e/templates/actors/crb-style/actor-header.html}}
 
     <!-- SHEET NAVIGATION -->
-    <nav class="sheet-navigation">
-        <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="actions">
-                {{localize "PF2E.TabActionsLabel"}}
-            </a>
-            <a class="item" data-tab="inventory">
-                {{localize "PF2E.TabInventoryLabel"}}
-            </a>
-            <a class="item" data-tab="spellbook">
-                {{localize "PF2E.TabSpellbookLabel"}}
-            </a>
-            <a class="item" data-tab="skills">
-                {{localize "PF2E.TabSkillsLabel"}}
-            </a>
-            <a class="item" data-tab="feats">
-                {{localize "PF2E.TabFeatsLabel"}}
-            </a>
-            <a class="item active" data-tab="biography">Character</a>
-        </nav>
+    <nav class="sheet-navigation" data-group="primary">
+        <a class="item active" data-tab="character">Character</a>
+
+        <a class="item" data-tab="actions">
+            {{localize "PF2E.TabActionsLabel"}}
+        </a>
+
+        <a class="item" data-tab="inventory">
+            {{localize "PF2E.TabInventoryLabel"}}
+        </a>
+
+        <a class="item" data-tab="spellbook">
+            {{localize "PF2E.TabSpellbookLabel"}}
+        </a>
+
+        <a class="item" data-tab="skills">
+            {{localize "PF2E.TabSkillsLabel"}}
+        </a>
+
+        <a class="item" data-tab="feats">
+            {{localize "PF2E.TabFeatsLabel"}}
+        </a>
+
+        <a class="item" data-tab="biography">Biography</a>
     </nav>
 
     <!-- BODY -->
-    <section class="sheet-content content">
+    <section class="sheet-content">
+        <!-- Character -->
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-character.html }}
+
         <!-- Actions -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html }}
 
         <!-- INVENTORY -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html }}
 
         <!-- SPELLBOOK -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html }}
 
         <!-- SKILLS -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html }}
 
         <!-- FEATS -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html }}
 
         <!-- BIOGRAPHY -->
-        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html}}
+        {{> systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html }}
     </section>
+
+    <footer>
+        <p>
+            The PF2E System for Foundry VTT uses trademarks and/or copyrights <br>
+            owned by Paizo Inc., which are used under Paizo's
+            <a href="#">Community Use Policy</a>
+            .
+        </p>
+    </footer>
 </form>

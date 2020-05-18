@@ -1,1 +1,61 @@
-@import 'defaultSheet', 'character', 'npc';
+$header-height: 89px;
+
+.crb-style.actor .window-content {
+    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
+    background-repeat: repeat-x, no-repeat;
+    background-size: auto $header-height, cover;
+    background-attachment: local;
+}
+
+.crb-style section.window-content {
+    padding: 0;
+}
+
+.crb-style form {
+    all: initial;
+    display: grid;
+    grid:
+        'sidebar header' 75px
+        'sidebar nav' minmax(min-content, max-content)
+        'sidebar content' 1fr
+        'sidebar footer' auto
+        / 247px 1fr;
+
+    /* prettier-ignore */
+    @import 'sidebar',
+            'header';
+
+    section.header {
+        grid-area: header;
+    }
+    nav.sheet-navigation {
+        grid-area: nav;
+    }
+    section.content {
+        grid-area: content;
+    }
+
+    /* Navigation */
+    @import 'nav';
+
+    .sheet-content {
+        margin-top: 12px;
+        margin-right: 12px;
+        @import 'character', 'npc';
+    }
+
+    footer {
+        grid-area: footer;
+        text-align: right;
+        @include micro;
+        color: var(--primary);
+        line-height: 1.4;
+        margin: 1em 8px;
+
+        p,
+        a {
+            font-weight: 700;
+            color: var(--primary);
+        }
+    }
+}

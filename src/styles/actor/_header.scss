@@ -4,12 +4,10 @@ header.char-header {
     align-items: center;
 
     .char-details {
-        font-family: $micro;
+        @include micro;
         color: white;
-        font-size: 10px;
-        text-transform: uppercase;
-        line-height: 1;
         margin-top: 4px;
+        margin-left: 8px;
 
         h1.char-name {
             margin: 0;
@@ -22,6 +20,7 @@ header.char-header {
                 color: white;
                 line-height: calc(1em + 1px);
                 border-bottom: 1px solid transparent;
+                height: 26px;
                 &:focus {
                     box-shadow: none;
                     border-bottom: 1px solid white;
@@ -31,6 +30,7 @@ header.char-header {
 
         .dots {
             display: flex;
+            font-size: 10px;
             h4 {
                 color: $sidebar-label;
                 margin-right: 8px;
@@ -55,12 +55,11 @@ header.char-header {
             background: url('../assets/sheet/level-badge.png') no-repeat;
             background-size: 40px 43px;
             z-index: 2;
+            font-size: 0;
             label {
                 color: $sidebar-label;
-                font-family: $micro;
-                font-weight: 700;
-                font-size: 10px;
-                text-transform: uppercase;
+                @include micro;
+                line-height: 1.5;
             }
             input {
                 font-family: $serif;
@@ -68,6 +67,7 @@ header.char-header {
                 font-weight: 400;
                 color: white;
                 line-height: calc(1em + 1px);
+                height: 24px;
             }
             label,
             input {
