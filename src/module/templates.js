@@ -17,12 +17,15 @@ export default function () {
 
         // Actor Sheets Partials (CRB-Style Main Section)
         'systems/pf2e/templates/actors/crb-style/actor-header.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/actor-character.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html',
+        'systems/pf2e/templates/actors/crb-style/character-traits.html',
+        'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
         // Actor Sheet Partials (Main)
         'systems/pf2e/templates/actors/main/actor-header.html',
