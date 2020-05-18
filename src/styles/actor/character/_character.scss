@@ -1,0 +1,251 @@
+.character {
+    h3 {
+        margin-top: 1em;
+        font-family: $serif;
+        font-weight: 600;
+        color: var(--primary);
+        line-height: 1;
+        border-bottom: 1px solid var(--primary);
+    }
+    label,
+    h4 {
+        font-family: $sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1;
+        text-transform: uppercase;
+        color: var(--primary);
+    }
+    input {
+        font-family: $body-serif;
+        font-weight: bold;
+        width: 100%;
+        color: #644f33;
+        border-bottom: 1px solid #d3ccbc;
+        &::placeholder {
+            color: #644f33;
+        }
+        &:focus {
+            border-bottom: 1px solid #644f33;
+        }
+    }
+    .character-details {
+        display: grid;
+        grid:
+            'img alignment deity' 31px
+            'img details details' 89px
+            '. details details' minmax(min-content, max-content)
+            / 120px 120px 1fr;
+
+        .frame {
+            grid-area: img;
+            cursor: pointer;
+            z-index: 3;
+            position: relative;
+            .wrapper {
+                display: block;
+                background: url('../assets/sheet-bg.jpg') no-repeat;
+                background-size: cover;
+                .player-image {
+                    display: block;
+                    position: relative;
+                    z-index: 2;
+                    border: none;
+                    border-radius: 0;
+                    @include brown-border;
+                }
+            }
+        }
+
+        .alignment {
+            grid-area: alignment;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('../assets/sheet/banner-bg.png') repeat-x center;
+            height: 31px;
+            z-index: 1;
+            input[type='text'] {
+                color: #785c38;
+                font-family: $body-serif;
+                font-size: 14px;
+                font-weight: 700;
+                text-align: center;
+                max-width: 138px;
+                &::placeholder {
+                    color: #785c38;
+                }
+            }
+            &::after {
+                position: absolute;
+                content: '';
+                height: 31px;
+                width: 15px;
+                top: 0;
+                right: -11px;
+                background: url('../assets/sheet/banner-bg2.png') no-repeat
+                    right;
+            }
+        }
+
+        .deity {
+            grid-area: deity;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .dropdown {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                select {
+                    all: initial;
+                    display: block;
+                    cursor: pointer;
+                    font-family: $body-serif;
+                    color: #785c38;
+                    line-height: 1;
+                    font-weight: 700;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                }
+            }
+            img {
+                height: 32px;
+                width: 32px;
+                border-radius: 16px;
+                margin-left: 8px;
+                @include brown-border;
+            }
+        }
+
+        .detail-sheet {
+            grid-area: details;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            grid-template-rows: repeat(3, 1fr);
+            grid-row-gap: 8px;
+            padding-left: 12px;
+            margin-top: 8px;
+            .detail-small {
+                display: flex;
+            }
+        }
+    }
+
+    .character-traits {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+
+        .pc {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            &_speed-types {
+                grid-column: 2 / 5;
+            }
+
+            &_senses {
+                grid-column: 1 / 3;
+            }
+
+            &_languages {
+                grid-column: 3 / 6;
+            }
+
+            label,
+            h4 {
+                margin: 0;
+            }
+
+            .tags {
+                margin: 0;
+                padding: 0;
+                li {
+                    &.tag {
+                        background-color: #785c38;
+                        box-shadow: inset 0 0 0 1px rgba(black, 0.3);
+                    }
+                    &.edit-btn {
+                        background-color: var(--primary);
+                        a {
+                            color: white;
+                        }
+                    }
+                }
+            }
+
+            .tags,
+            select {
+                margin-top: 6px;
+            }
+            input {
+                margin-top: 4px;
+            }
+        }
+    }
+
+    .ability-scores {
+        @include p-reset;
+        display: grid;
+        grid: repeat(2, 1fr) / repeat(3, 1fr);
+        justify-content: center;
+        list-style: none;
+        gap: 12px;
+
+        .ability {
+            display: grid;
+            grid:
+                '. label label' auto
+                'prefix score mod' 1fr
+                / 1fr 1fr 1fr;
+            column-gap: 4px;
+            align-items: center;
+
+            .ability-name {
+                grid-area: label;
+                margin: 0;
+            }
+            .ability-id {
+                grid-area: prefix;
+                font-size: 28px;
+                color: var(--primary);
+                font-family: $serif;
+                font-weight: 500;
+                text-align: right;
+                @include p-reset;
+                margin-right: 4px;
+                border: none;
+            }
+            .ability-score {
+                grid-area: score;
+                border: 1px solid #785c38;
+                border-radius: 0;
+                font-size: 0;
+                input {
+                    font-size: 24px;
+                    border: none;
+                    text-align: center;
+                    padding: 0;
+                }
+            }
+            .ability-mod {
+                grid-area: mod;
+                border: none;
+                color: #785c38;
+                background-color: rgba(black, 0.1);
+                @include p-reset;
+            }
+
+            .ability-mod,
+            .ability-score {
+                height: 40px;
+                width: 40px;
+                @include flex-center;
+            }
+        }
+    }
+}
