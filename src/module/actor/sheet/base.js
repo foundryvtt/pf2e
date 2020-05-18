@@ -1025,7 +1025,9 @@ class ActorSheetPF2e extends ActorSheet {
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-
+    const isContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
+    const targetItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
+    
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
       const dragData = event.dataTransfer.getData('text/plain');
@@ -1119,9 +1121,17 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
 
-    super._onDrop(event);
+    console.log(event);
+    const newItem = await super._onDrop(event);
+    console.log(newItem);
+    console.log(event);
+    if (isContainer) {
+        console.log(isContainer);
+        console.log(targetItemId);
+        newItem.data.containerId.value = targetItemId;
+    }
+    console.log(newItem);
   }
-
 
   /* -------------------------------------------- */
 
