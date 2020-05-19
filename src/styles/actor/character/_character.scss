@@ -32,26 +32,24 @@
     .character-details {
         display: grid;
         grid:
-            'img alignment deity' 31px
-            'img details details' 89px
-            '. details details' minmax(min-content, max-content)
+            'img alignment deity' 30px
+            'img details details' 150px
             / 120px 120px 1fr;
 
         .frame {
             grid-area: img;
             cursor: pointer;
             z-index: 3;
-            position: relative;
             .wrapper {
                 display: block;
                 background: url('../assets/sheet-bg.jpg') no-repeat;
                 background-size: cover;
                 .player-image {
-                    display: block;
-                    position: relative;
-                    z-index: 2;
+                    object-fit: cover;
+                    object-position: center;
                     border: none;
                     border-radius: 0;
+                    max-height: 150px;
                     @include brown-border;
                 }
             }

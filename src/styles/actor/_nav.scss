@@ -13,5 +13,18 @@ nav.sheet-navigation {
         padding: 4px 0;
         font-family: $sans-serif;
         font-size: 12px;
+        position: relative;
+
+        &.active::after {
+            bottom: -2px;
+            right: 39%;
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid $sidebar-label;
+        }
     }
 }
