@@ -1,6 +1,6 @@
 .hitpoints {
     margin-top: -6px;
-    
+
     h4,
     label {
         font-family: $serif;
@@ -37,6 +37,12 @@
                 border-radius: 0 0 2px 2px;
                 width: 128px;
                 background-color: var(--primary);
+                background-image: linear-gradient(
+                    90deg,
+                    darken($primary-color, 5) 0%,
+                    lighten($primary-color, 8) 50%,
+                    darken($primary-color, 5) 100%
+                );
                 @include gold-border;
 
                 input[type='number'] {
