@@ -1,0 +1,186 @@
+<div class="tab character" data-group="primary" data-tab="character">
+    <section class="character-details">
+        <div class="frame">
+            <span class="wrapper">
+                <img
+                    class="player-image"
+                    alt="{{actor.name}}"
+                    src="{{actor.img}}"
+                    title="{{actor.name}}"
+                    data-edit="img"
+                />
+            </span>
+        </div>
+        <div class="alignment">
+            <span
+                class="bio-alignment pf-value pf-small"
+                title="{{localize 'PF2E.AlignmentTitle'}}"
+            >
+                <input
+                    id="pc pc_alignment"
+                    name="data.details.alignment.value"
+                    type="text"
+                    value="{{data.details.alignment.value}}"
+                    data-dtype="String"
+                    placeholder="Truest Neutral"
+                />
+            </span>
+        </div>
+        <div class="deity">
+            <div class="dropdown">
+                <label for="deity-dropdown">
+                    deity
+                </label>
+                <select id="deity-dropdown" name="deity-dropdown">
+                    <option value="deity">
+                        Choose a Deity
+                    </option>
+                    <option value="Option1">
+                        I serve no one
+                    </option>
+                    <option value="Option2">
+                        Option2
+                    </option>
+                    <option value="Option3">
+                        Option3
+                    </option>
+                    <option value="Option4">
+                        Custom deity
+                    </option>
+                </select>
+            </div>
+            <img
+                src="systems/pf2e/assets/sheet/deity.svg"
+                alt="I follow no one."
+            />
+        </div>
+        <div class="detail-sheet">
+            <div class="pc pc_ancestry">
+                <label for="pc_ancestry">
+                    {{localize 'PF2E.Ancestry'}}
+                </label>
+                <span title="{{localize 'PF2E.AncestryTitle'}}">
+                    <input
+                        id="pc pc_ancestry"
+                        name="data.details.ancestry.value"
+                        type="text"
+                        value="{{data.details.ancestry.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_heritage">
+                <label for="pc_heritage">
+                    {{localize 'PF2E.Heritage'}}
+                </label>
+                <span title="{{localize 'PF2E.HeritageTitle'}}">
+                    <input
+                        id="pc pc_heritage"
+                        name="data.details.heritage.value"
+                        type="text"
+                        value="{{data.details.heritage.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_class">
+                <label for="pc_class">
+                    {{localize 'PF2E.Class'}}
+                </label>
+                <span title="{{localize 'PF2E.ClassTitle'}}">
+                    <input
+                        id="pc pc_class"
+                        name="data.details.class.value"
+                        type="text"
+                        value="{{data.details.class.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_background">
+                <label for="pc_background">
+                    {{localize 'PF2E.Background'}}
+                </label>
+                <span title="{{localize 'PF2E.BackgroundTitle'}}">
+                    <input
+                        id="pc pc_background"
+                        name="data.details.background.value"
+                        type="text"
+                        value="{{data.details.background.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="pc pc_gender">
+                <label for="pc_gender">
+                    {{localize 'PF2E.Gender'}}
+                </label>
+                <span title="{{localize 'PF2E.GenderTitle'}}">
+                    <input
+                        id="pc pc_gender"
+                        name="data.details.gender.value"
+                        type="text"
+                        value="{{data.details.gender.value}}"
+                        data-dtype="String"
+                    />
+                </span>
+            </div>
+            <div class="detail-small">
+                <div class="pc pc_age">
+                    <label for="pc_age">
+                        {{localize 'PF2E.Age'}}
+                    </label>
+                    <span title="{{localize 'PF2E.AgeTitle'}}">
+                        <input
+                            id="pc pc_age"
+                            name="data.details.age.value"
+                            type="text"
+                            value="{{data.details.age.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <div class="pc pc_height">
+                    <label for="pc_height">
+                        {{localize 'PF2E.Height'}}
+                    </label>
+                    <span title="{{localize 'PF2E.HeightTitle'}}">
+                        <input
+                            id="pc pc_height"
+                            name="data.details.height.value"
+                            type="text"
+                            value="{{data.details.height.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+                <div class="pc pc_weight">
+                    <label for="pc_weight">
+                        {{localize 'PF2E.Weight'}}
+                    </label>
+                    <span title="{{localize 'PF2E.WeightTitle'}}">
+                        <input
+                            id="pc pc_weight"
+                            name="data.details.weight.value"
+                            type="text"
+                            value="{{data.details.weight.value}}"
+                            data-dtype="String"
+                        />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h3>
+        Character Traits
+    </h3>
+    <section class="character-traits">
+        {{> systems/pf2e/templates/actors/crb-style/character-traits.html}}
+    </section>
+
+    <h3>Character Abilities</h3>
+    <section class="character-abilities">
+        {{> systems/pf2e/templates/actors/crb-style/character-abilities.html}}
+    </section>
+</div>
