@@ -1025,8 +1025,7 @@ class ActorSheetPF2e extends ActorSheet {
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-    const isContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
-    const targetItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
+    
     
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
@@ -1121,18 +1120,75 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
 
-    console.log(event);
-    const newItem = await super._onDrop(event);
-    console.log(newItem);
-    console.log(event);
-    if (isContainer) {
-        console.log(isContainer);
-        console.log(targetItemId);
-        newItem.data.containerId.value = targetItemId;
-    }
-    console.log(newItem);
+    await this._onDropOverride(event);
   }
 
+    /**
+     * override super._onDrop to fix https://gitlab.com/foundrynet/foundryvtt/-/issues/2871
+     * @param event
+     * @return {Promise<boolean|*>}
+     * @private
+     */
+    async _onDropOverride(event) {
+        // Try to extract the data
+        let data;
+        try {
+            data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            if (data.type !== "Item") return;
+        } catch (err) {
+            return false;
+        }
+        // Case 1 - Import from a Compendium pack
+        const actor = this.actor;
+        if (data.pack) {
+            const pack = game.packs.get(data.pack);
+            const itemData = await pack.getEntry(data.id);
+            return await this.stashOrUnstash(event, actor, async () => {
+                const item = await actor.createOwnedItem(itemData);
+                return actor.getOwnedItem(item._id);
+            });
+        }
+        // Case 2 - Data explicitly provided
+        else if (data.data) {
+            let sameActor = data.actorId === actor._id;
+            if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
+            if (sameActor){
+              await this.stashOrUnstash(event, actor, () => {
+                  return actor.getOwnedItem(data.id);
+              });
+              return this._onSortItem(event, data.data); // Sort existing items
+            } else {
+              return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
+              });
+            } 
+        }
+        // Case 3 - Import from World entity
+        else {
+            let item = game.items.get(data.id);
+            if (!item) return;
+            return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));    
+            });
+        }
+    }
+
+    async stashOrUnstash(event, actor, getItem) {
+        const droppedItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
+        const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
+        if (droppedOntoContainer) {
+            const item = await getItem();
+            const result = await item.update({'data.containerId.value': droppedItemId});
+            console.log('stashed result ', result);
+            return result;
+        } else {
+            const item = await getItem();
+            const result = await item.update({'data.containerId.value': ''});
+            console.log('unpacked result ', result);
+            return result;
+        }
+    }
+    
   /* -------------------------------------------- */
 
   /**
