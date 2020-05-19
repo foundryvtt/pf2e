@@ -12,13 +12,18 @@ export function getHeldItems(id, items = []) {
 }
 
 export class Container {
-    constructor(item, items, negateBulk, heldItemBulk, formattedNegateBulk, formattedHeldItemBulk) {
+    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, formattedNegateBulk, formattedHeldItemBulk) {
         this.item = item;
-        this.items = items;
+        this.heldItems = heldItems;
         this.negateBulk = negateBulk;
         this.heldItemBulk = heldItemBulk;
         this.formattedHeldItemBulk = formattedHeldItemBulk;
         this.formattedNegateBulk = formattedNegateBulk;
+        this.capacity = capacity;
+    }
+    
+    get isContainer() {
+        return !this.capacity.isNegligible;
     }
 }
 
@@ -33,13 +38,20 @@ export function getNegateBulk(item) {
     return weightToBulk(negateBulk) ?? new Bulk();
 }
 
+function getCapacity(item) {
+    const bulkCapacity = item.data?.bulkCapacity?.value;
+    return weightToBulk(bulkCapacity) ?? new Bulk();
+}
+
 function toContainer(item, heldItems = [], stackDefinitions, bulkConfig) {
     const negateBulk = getNegateBulk(item);
     const heldItemBulk = getContainerWeight(item, heldItems, stackDefinitions, bulkConfig);
+    const maximumBulk = getCapacity(item);
     return new Container(
         item, 
         heldItems,
         negateBulk,
+        maximumBulk,
         heldItemBulk,
         formatBulk(negateBulk),
         formatBulk(heldItemBulk),
@@ -48,7 +60,6 @@ function toContainer(item, heldItems = [], stackDefinitions, bulkConfig) {
 
 export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
     const allIds = groupBy(items, item => item._id);
-    const containerItems = items.filter(isContainer);
     
     const containerGroups = groupBy(items, item => {
         const containerId = item?.data?.containerId?.value;
@@ -59,7 +70,7 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
     });
     
     const containers = new Map();
-    containerItems
+    items
         .map(item => {
             const itemId = item._id;
             if (containerGroups.has(itemId)) {

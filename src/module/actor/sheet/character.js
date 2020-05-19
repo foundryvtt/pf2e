@@ -2,6 +2,7 @@ import ActorSheetPF2e from './base.js';
 import { calculateBulk, itemsFromActorData, stacks, toBulkItem, formatBulk } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 import { getContainerMap } from '../../item/container.js';
+import { isBlank } from '../../utils.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -147,22 +148,20 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
-
+      i.isContainer = containers.get(i._id).isContainer;
+      i.containerData = containers.get(i._id);
+      
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
         i.isArmor = true;
-        i.isContainer = containers.has(i._id);
-        if (i.isContainer) {
-            i.containerData = containers.get(i._id);
-        }
         const equipped = getProperty(i.data, 'equipped.value') || false;
         i.armorEquipped = equipped?' active':'';
       }
 
       // Inventory
-      if (Object.keys(inventory).includes(i.type)) {
+      if (Object.keys(inventory).includes(i.type) && isBlank(i.data?.containerId?.value)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
         const [approximatedBulk] = calculateBulk([toBulkItem(i)], stacks, false, bulkConfig);
