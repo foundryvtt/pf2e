@@ -416,6 +416,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
     if (!this.options.editable) return;
   }
 
