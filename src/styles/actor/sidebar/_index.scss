@@ -89,6 +89,7 @@ aside {
                 font-weight: 500;
                 font-family: $serif;
                 border: none;
+                @include text-gold;
             }
             input[type='number'] {
                 -moz-appearance: textfield;
@@ -124,11 +125,13 @@ aside {
             display: inline-flex;
             align-items: center;
             padding-bottom: 2px;
-            /* &:hover {
-                svg {
-                    filter: drop-shadow(0 0 6px white);
-                }
-            } */
+            animation-play-state: paused;
+
+            &:hover {
+                animation-play-state: running;
+                @include wobble;
+                @include animate-infinite;
+            }
         }
         select {
             font-family: $serif;

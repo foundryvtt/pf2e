@@ -22,7 +22,8 @@
         0 0 0 1px #918c88,
         0 0 0 2px #e1d8cf,
         0 0 0 3px #a98f39,
-        inset 0 0 8px rgba(0,0,0,0.5);
+        inset 0 0 8px rgba(0,0,0,0.5),
+        0 0 8px black;
 }
 
 @mixin corner-boxes {
@@ -30,6 +31,14 @@
     border-image-outset: 0;
     border-width: 9px 9px 9px 9px;
     border-image: url('../assets/sheet/corner-box.png') 9 9 9 9 round round;
+}
+
+@mixin text-gold {
+    background: url('../assets/sheet/gold.jpg');
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-attachment: fixed;
+    color: transparent;
 }
 
 @mixin flex-center {
@@ -45,6 +54,24 @@
 
 @mixin scrollbar {
     scrollbar-width: thin;
+}
 
-    
+@mixin animate {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-duration: var(--animate-duration);
+    animation-duration: var(--animate-duration);
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@mixin animate-infinite {
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@mixin wobble {
+    @include animate;
+    -webkit-animation-name: wobble;
+    animation-name: wobble;
 }
