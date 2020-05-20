@@ -45,4 +45,16 @@ export default function () {
       1: "Use Stamina" //I plan to expand this, hence the dropdown.
     }
   });
+  game.settings.register('pf2e', 'critRule', {
+    name: 'Critical Damage Rule',
+    hint: "Use a different rule for doubling damage on a critical hit",
+    scope: 'world',
+    config: true,
+    default: 'doubledamage',
+    type: String,
+    choices: {
+      doubledamage: "Double the damage",
+      doubledice: "Double the number of dice"
+    }
+  });
 }

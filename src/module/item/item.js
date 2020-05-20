@@ -201,7 +201,7 @@ export default class extends Item {
   _meleeChatData() {
     const data = duplicate(this.data.data);
     const traits = [];
-    
+
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
         const traitsObject = {
@@ -493,6 +493,7 @@ export default class extends Item {
     const abl = 'str';
     let abilityMod = rollData.abilities[abl].mod;
     let parts = [];
+    let partsCritOnly = [];
     const dtype = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
     // Get detailed trait information from item
@@ -537,39 +538,33 @@ export default class extends Item {
     parts = [weaponDamage, '@itemBonus'];
     rollData.itemBonus = bonusDamage;
 
-    // If this damage roll is a critical, apply critical damage and effects
-    if (critical === true) {
-      bonusDamage = bonusDamage * 2;
-      rollData.itemBonus = bonusDamage;
-      if (critTrait === 'deadly') {
-        weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
-        const dice = itemData.damage.dice ? itemData.damage.dice : 1;
-        const deadlyDice = dice > 2 ? 2 : 1; // since deadly requires a greater striking (3dX)
-        const deadlyDamage = deadlyDice + critDie;
-        parts = [weaponDamage, deadlyDamage, '@itemBonus'];
-      } else if (critTrait === 'fatal') {
-        weaponDamage = ((Number(itemData.damage.dice) * 2) + 1) + critDie;
-        parts = [weaponDamage, '@itemBonus'];
-      } else {
-        weaponDamage = (Number(itemData.damage.dice) * 2) + rollDie;
+    // Apply critical damage and effects
+    if (critTrait === 'deadly') {
+      const dice = itemData.damage.dice ? itemData.damage.dice : 1;
+      // Deadly adds 3 dice with major Striking, 2 dice with greater Striking
+      // and 1 die otherwise
+      const deadlyDice = dice > 2 ? dice - 1 : 1;
+      const deadlyDamage = deadlyDice + critDie;
+      partsCritOnly.push(deadlyDamage)
+    } else if (critTrait === 'fatal') {
+      if (critical === true) {
+        weaponDamage = itemData.damage.dice + critDie;
         parts = [weaponDamage, '@itemBonus'];
       }
+      partsCritOnly.push(1 + critDie);
     }
 
     // Add abilityMod to the damage roll.
     if (itemData.range.value === 'melee' || itemData.range.value === 'reach' || itemData.range.value == '') { // if a melee attack
-      if (critical) parts.push(abilityMod * 2);
-      else parts.push(abilityMod);
+      parts.push(abilityMod);
     } else { // else if a ranged attack
       if ((itemData.traits.value || []).includes('propulsive')) {
         if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
           const halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
-          if (critical) parts.push(halfStr * 2);
-          else parts.push(halfStr);
+          parts.push(halfStr);
         }
       } else if (thrownTrait) {
-        if (critical) parts.push(abilityMod * 2);
-        else parts.push(abilityMod);
+        parts.push(abilityMod);
       }
     }
 
@@ -577,20 +572,13 @@ export default class extends Item {
 
     // add strike damage
     if (itemData.property1.dice && itemData.property1.die && itemData.property1.damageType) {
-      if (critical) {
-        const propertyDamage = (Number(itemData.property1.dice) * 2) + itemData.property1.die;
-        parts.push(propertyDamage);
-      } else {
-        const propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
-        parts.push(propertyDamage);
-      }
+      const propertyDamage = Number(itemData.property1.dice) + itemData.property1.die;
+      parts.push(propertyDamage);
     }
     // add critical damage
     if (itemData.property1.critDice && itemData.property1.critDie && itemData.property1.critDamageType) {
-      if (critical) {
-        const propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
-        parts.push(propertyDamage);
-      }
+      const propertyDamage = Number(itemData.property1.critDice) + itemData.property1.critDie;
+      partsCritOnly.push(propertyDamage);
     }
 
     // Set the title of the roll
@@ -604,6 +592,8 @@ export default class extends Item {
     DicePF2e.damageRoll({
       event,
       parts,
+      partsCritOnly,
+      critical,
       actor: this.actor,
       data: rollData,
       title,
@@ -675,25 +665,13 @@ export default class extends Item {
     if (itemData.damageRolls && (typeof itemData.damageRolls === "object")) {
       Object.keys(itemData.damageRolls).forEach(key => {
         if (itemData.damageRolls[key].damage)
-          if (critical === true) {
-            parts.push(itemData.damageRolls[key].damage);
-            parts.push(itemData.damageRolls[key].damage);
-            partsType.push(`${itemData.damageRolls[key].damageType}`);
-          } else {
-            parts.push(itemData.damageRolls[key].damage);
-            partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
-          }
+          parts.push(itemData.damageRolls[key].damage);
+          partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
       });
     } else if (itemData.damageRolls && itemData.damageRolls.length) { //this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
       itemData.damageRolls.forEach(entry => {
-        if (critical === true) {
-          parts.push(entry.damage);
-          parts.push(entry.damage);
-          partsType.push(`${entry.damageType}`);
-        } else {
-          parts.push(entry.damage);
-          partsType.push(`${entry.damage} ${entry.damageType}`);
-        }        
+        parts.push(entry.damage);
+        partsType.push(`${entry.damage} ${entry.damageType}`);
       });
     } else {
       parts = [itemData.damage.die];
@@ -714,6 +692,7 @@ export default class extends Item {
     DicePF2e.damageRoll({
       event,
       parts,
+      critical,
       actor: this.actor,
       data: rollData,
       title,
