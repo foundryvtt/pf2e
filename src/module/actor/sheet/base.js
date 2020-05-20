@@ -1,3 +1,5 @@
+import {calculateWealth} from '../../item/treasure.js';
+
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
@@ -67,9 +69,14 @@ class ActorSheetPF2e extends ActorSheet {
       skl.label = CONFIG.PF2E.skills[s];
     }
 
-    // Currency Labels
-    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
-      currency.label = CONFIG.PF2E.currencies[c];
+    // update currency based on items
+    const treasure = calculateWealth(sheetData.actor.items);
+    sheetData.totalTreasure = {};
+    for (const [denomination, value] of Object.entries(treasure)) {
+        sheetData.totalTreasure[denomination] = {
+            value,
+            label: CONFIG.PF2E.currencies[denomination],
+        };      
     }
 
     // Update traits
