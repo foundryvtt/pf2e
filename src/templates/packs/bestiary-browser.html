@@ -37,6 +37,14 @@
                 {{/each}}
             </dl>
         </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
+            <dl style="display:none;">
+                {{#each source as |type key|}}
+                <dt><input type="checkbox" name="source-{{type}}"></dt><dd>{{type}}</dd>
+                {{/each}}
+            </dl>
+        </div>
     </div>
     <ul>
         {{#each bestiaryActors as |actor id|}}

@@ -29,7 +29,8 @@ class ItemBrowserPF2e extends Application {
       proficiencies: {},
       skills: {},
       actorSize: {},
-      alignment: {}
+      alignment: {},
+      source: {}
     };
   }
 
@@ -771,7 +772,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/inventory-browser.html';
     options.title = 'Add an Inventory Item';
-    options.width = 600;
+    options.width = 700;
     options.height = 700;
     return options;
   }
@@ -865,6 +866,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       armor: 'Armor',
       equipment: 'Equipment',
       consumable: 'Consumables',
+      treasure: 'Treasure',
       backpack: 'Backpacks',
     };
 
@@ -896,6 +898,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       'armor',
       'equipment',
       'consumable',
+      'treasure',  
       'backpack',
     ];
 
@@ -932,7 +935,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     options.classes = options.classes.concat('spell-browser-window');
     options.template = 'systems/pf2e/templates/packs/bestiary-browser.html';
     options.title = 'Find an NPC in the bestiary';
-    options.width = 600;
+    options.width = 700;
     options.height = 700;
     return options;
   }
@@ -1038,30 +1041,14 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     }
 
     const data = {};
-/*     const itemTypes = {
-      weapon: 'Weapons',
-      armor: 'Armor',
-      equipment: 'Equipment',
-      consumable: 'Consumables',
-      backpack: 'Backpacks',
-    }; */
 
     data.bestiaryActors = this.bestiaryActors;
     data.actorSize = CONFIG.PF2E.actorSizes;
     data.alignment = CONFIG.PF2E.alignment;
     data.traits = CONFIG.PF2E.monsterTraits;
     data.languages = CONFIG.PF2E.languages;
-    //data.inventoryItems = this.inventoryItems;
-    // data.featClasses = this.featClasses;
-    // data.featSkills = this.featSkills;
-    // data.featAncestry = this.featAncestry;
-    // data.featTimes = this.featTimes;
-/*     data.armorTypes = CONFIG.PF2E.armorTypes;
-    data.armorGroups = CONFIG.PF2E.armorGroups;
-    data.weaponTraits = CONFIG.PF2E.weaponTraits;
-    data.itemTypes = itemTypes;
-    data.weaponTypes = CONFIG.PF2E.weaponTypes;
-    data.weaponGroups = CONFIG.PF2E.weaponGroups; */
+    data.source = this.source;
+    
     return data;
   }
 
@@ -1070,17 +1057,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
 
     const bestiaryActors = {};
     const traitsArr = [];
-    //const skillsArr = [];
-    //const ancestryArr = [];
-    //const timeArr = [];
-
-/*     const itemTypes = [
-      'weapon',
-      'armor',
-      'equipment',
-      'consumable',
-      'backpack',
-    ]; */
+    const sourceArr = [];
 
     for (const pack of game.packs) {
       if (pack.metadata.entity == 'Actor' && this.settings[pack.collection].load) {
@@ -1099,22 +1076,29 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
             actor.filters["alignment"] = actor.data.details.alignment.value;
             actor.filters["actorSize"] = actor.data.traits.size.value;
 
+            // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
+            if (actor.data.details.source && actor.data.details.source.value) {
+              let actorSource = actor.data.details.source.value;
+                if (actorSource.includes('pg.')) {
+                  actor.filters["source"] = actorSource.split('pg.')[0].trim();
+                } else if (actorSource.includes('page.')) {
+                  actor.filters["source"] = actorSource.split('page.')[0].trim();
+                } else {
+                  actor.filters["source"] = actorSource
+                }
+            }
+            
+
+            // add the source to the filter list.
+            if (actor.filters.source) {
+              if (!sourceArr.includes(actor.filters.source)) sourceArr.push(actor.filters.source);
+            }
+
             if (actor.data.traits.traits.value.length) {
               actor.data.traits.traits.value.forEach(trait => {
                 if (!traitsArr.includes(trait)) traitsArr.push(trait);
               })
             }
-
-/*             if (itemTypes.includes(item.type)) {
-              // record the pack the feat was read from
-              item.compendium = pack.collection;
-
-              // add item.type into the correct format for filtering
-              item.data.itemTypes = { value: item.type };
-
-              // add spell to spells array
-              inventoryItems[(item._id)] = item;              
-            } */
 
             // add actor to bestiaryActors object
             bestiaryActors[actor._id] = actor
@@ -1125,6 +1109,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     }
 
     this.traits = traitsArr.sort();
+    this.source = sourceArr.sort();
 
     console.log('PF2e System | Bestiary Browser | Finished loading Bestiary actors');
     return bestiaryActors;

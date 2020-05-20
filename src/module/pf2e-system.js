@@ -1,4 +1,5 @@
 import { DB } from './system/db.js';
+import "./system/measure.js";
 
 /**
  * Base PF2e system class
