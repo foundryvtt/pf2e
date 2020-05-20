@@ -15,7 +15,8 @@
                     align-items: baseline;
                     border-bottom: 1px solid $sidebar-title-color;
                     margin: 0.25em 0 0.5em;
-                    h2 {
+                    h2,
+                    a {
                         @include micro;
                         border: none;
                         margin: 0;
@@ -25,6 +26,10 @@
                         & + h2 {
                             font-size: 11px;
                         }
+                    }
+                    a {
+                        color: white;
+                        text-decoration: none;
                     }
                 }
 
@@ -38,6 +43,27 @@
                         line-height: 1;
                         margin-bottom: 0.3em;
                         font-size: 0;
+
+                        input {
+                            all: initial;
+                            cursor: pointer;
+                            color: white;
+                            &:focus {
+                                box-shadow: none;
+                            }
+                            &::placeholder {
+                                color: white;
+                            }
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                appearance: none;
+                                margin: 0;
+                            }
+                            &[type='number'] {
+                                -moz-appearance: textfield;
+                            }
+                        }
 
                         .item {
                             display: inline-flex;
@@ -60,6 +86,7 @@
                             .label {
                                 margin-left: 2px;
                                 margin-right: 8px;
+                                width: 130px;
                             }
                         }
 
