@@ -94,9 +94,9 @@
             <div class="spell-name">
                 <span class="item-edit" ><a>{{item.name}}</a></span>
             </div>
-<!--             <div class="spell-tags">
-                <span title="Feat level">{{item.data.level.formated}}</span>
-            </div> -->
+            <div class="spell-tags">
+                <span title="Item level">{{item.data.level.value}}</span>
+            </div>
             {{#each item.data as |attrib id|}}
                 <input type="hidden" name="{{id}}" value="{{attrib.value}}">
             {{/each}}
