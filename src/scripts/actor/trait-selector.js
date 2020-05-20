@@ -70,7 +70,7 @@ class TraitSelector5e extends FormApplication {
     }
 
     const ordered_choices = {};
-    Object.keys(choices).sort().forEach(function(key) {
+    Object.keys(choices).sort(function(a,b) { return (choices[a].label).localeCompare(choices[b].label) }).forEach(function (key) {
       ordered_choices[key] = choices[key];
     });
 
