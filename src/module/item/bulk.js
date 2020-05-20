@@ -351,12 +351,6 @@ export function normalizeWeight(weight) {
         .trim();
 }
 
-function countCoins(actorData) {
-    return Object.values(actorData?.data?.currency ?? {})
-        .map(denomination => parseInt(denomination.value, 10))
-        .reduce((prev, curr) => prev + curr, 0);
-}
-
 /**
  *
  * @param item
@@ -443,6 +437,7 @@ itemTypesWithBulk.add('armor');
 itemTypesWithBulk.add('equipment');
 itemTypesWithBulk.add('consumable');
 itemTypesWithBulk.add('backpack');
+itemTypesWithBulk.add('treasure');
 
 /**
  * Takes actor data and returns a list of items to calculate bulk with
@@ -451,13 +446,7 @@ itemTypesWithBulk.add('backpack');
 export function itemsFromActorData(actorData) {
     const itemsHavingBulk = actorData.items
         .filter(item => itemTypesWithBulk.has(item.type));
-
-    const items = toBulkItems(itemsHavingBulk);
-    items.push(new BulkItem({
-        stackGroup: 'coins',
-        quantity: countCoins(actorData),
-    }));
-    return items;
+    return toBulkItems(itemsHavingBulk);
 }
 
 /**
