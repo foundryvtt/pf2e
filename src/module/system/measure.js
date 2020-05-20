@@ -1,4 +1,4 @@
-// Code taken from Furyspark's Pathfinder 1st edition system - I have asked for permission waiting on a response.
+// Code taken from Furyspark's Pathfinder 1st edition system with permission.
 
 const degtorad = function(degrees) {
     return degrees * Math.PI / 180;
