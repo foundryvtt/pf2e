@@ -17,10 +17,7 @@ Please Note:
 
 ### VTT Support:
 Tested with the following virtual table top platforms: 
-*  Foundry VTT v0.5.4.
-
-Note: The following modules are recommended with Foundry VTT:
-* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for status effects. 
+*  Foundry VTT v0.5.7.
 
 ### Shoutouts
 
