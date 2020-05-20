@@ -166,8 +166,15 @@ class DicePF2e {
         }
       }
 
+      const rule = game.settings.get('pf2e', 'critRule');
       if (crit) {
-        parts = [`(${parts.join('+')}) * 2`].concat(partsCritOnly);
+        if (rule === 'doubledamage') {
+          parts = [`(${parts.join('+')}) * 2`];
+        } else {
+          let critRoll = new Roll(parts.join('+'), data).alter(0, 2);
+          parts = [critRoll.formula.replace(/\b\d+\b/g, (match) => `${match * 2}`)];
+        }
+        parts = parts.concat(partsCritOnly);
       }
 
       const roll = new FormulaPreservingRoll(parts.join('+'), data);
