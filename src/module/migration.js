@@ -54,7 +54,8 @@ export const migrateWorld = async function () {
         return (p.metadata.package === 'pf2e') && ['Actor', 'Item', 'Scene'].includes(p.metadata.entity);
     });
     for (let p of packs) {
-        //await migrateCompendium(p, worldSchemaVersion);
+        // uncomment again after merge
+        await migrateCompendium(p, worldSchemaVersion);
     }
 
     // special migrations
@@ -147,7 +148,7 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             _migrateClassDC(updateData);
             updateData['data.attributes.bonusbulk'] = 0;
         }
-        if (worldSchemaVersion < 0.574) {
+        if (worldSchemaVersion < 0.577) {
             migrateActorBulkItems(actor, updateData);
         }
     }
@@ -239,7 +240,7 @@ export const migrateItemData = function (item, worldSchemaVersion) {
     const updateData = {};
     // Remove deprecated fields
     //_migrateRemoveDeprecated(item, updateData);
-    if (worldSchemaVersion < 0.574) {
+    if (worldSchemaVersion < 0.577) {
         migrateBulk(item, updateData);
     }
     // Return the migrated update data
