@@ -377,7 +377,7 @@ class ActorSheetPF2e extends ActorSheet {
     const circle = '<i class="far fa-circle"></i>';
     const cross = '<i class="fas fa-times-circle"></i>';
     const skull = '<i class="fas fa-skull"></i>';
-    const redOpen = '<span style="color:var(--tertiary-background);">';
+    const redOpen = '<span>';
     const redClose = '</span>';
     let icons = {};
 
@@ -420,9 +420,9 @@ class ActorSheetPF2e extends ActorSheet {
   _getDoomedIcon(level) {
     const icons = {
       0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i>',
+      1: '<i class="fas fa-skull"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="fas fa-skull"></i>',
     };
     return icons[level];
   }

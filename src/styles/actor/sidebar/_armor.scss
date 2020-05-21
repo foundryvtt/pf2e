@@ -1,11 +1,10 @@
 .armor-class {
     display: grid;
     grid:
-        'ac shield-hp shield-data' 74px
-        'shield-footer shield-footer shield-footer' auto
+        'ac shield-hp shield-footer' 74px
+        'shield-data shield-data shield-data' auto
         / 66px 59px auto;
     grid-column-gap: 4px;
-    align-items: center;
 
     .shield {
         display: flex;
@@ -19,13 +18,15 @@
         label {
             font-family: $serif;
             font-weight: 500;
+            white-space: normal;
         }
         .data-value {
             h2,
             input[type='number'] {
                 font-size: 32px;
                 color: white;
-                line-height: 26px;
+                line-height: 24px;
+                margin-bottom: 4px;
             }
         }
         label {
@@ -33,8 +34,12 @@
         }
         &.ac {
             grid-area: ac;
+            color: $sidebar-label;
             background: url('../assets/sheet/shield-blue.png') no-repeat center
                 center;
+                h2 {
+                    color: $sidebar-label;
+                }
         }
         &.hp {
             grid-area: shield-hp;
@@ -45,23 +50,29 @@
     .shield-stats {
         grid-area: shield-data;
         ol {
-            align-items: center;
-            margin-left: 4px;
+            margin-top: 4px;
+            flex-direction: row;
+            height: 100%;
+            padding: 0 4px;
+            justify-content: space-evenly;
             li {
-                justify-content: space-between;
+                justify-content: center;
                 font-size: 0;
+
+                & + li {
+                    margin-left: 8px;
+                }
                 .shield-label {
                     position: relative;
-                    img {
+                    svg {
                         border: none;
-                        display: flex;
-                        align-items: center;
+                        width: 100%;
+                        height: 20px;
                     }
                     &:after {
                         display: inline-block;
                         position: absolute;
                         @include micro;
-                        letter-spacing: -1px;
                         color: var(--primary);
                         top: 0;
                         left: 1px;
@@ -69,14 +80,34 @@
                     }
                     &.ac:after {
                         content: 'AC';
+                        top: 3px;
+                        left: 3px;
                     }
                     &.hardness:after {
-                        left: 3px;
+                        left: 5px;
+                        top: 3px;
                         content: 'H';
                     }
                     &.bt:after {
-                        left: 2px;
+                        top: 3px;
+                        left: 3.5px;
                         content: 'BT';
+                    }
+                }
+                .data-value {
+                    flex: 1;
+                    @include input-border;
+                    padding-left: 4px;
+                    margin-left: -8px;
+                    height: 20px;
+                    &:focus-within {
+                        border: 1px solid;
+                    }
+                    input[type='number'] {
+                        font-size: 14px;
+                        font-weight: 400;
+                        padding-top: 2px;
+                        height: 14px;
                     }
                 }
             }
@@ -85,11 +116,33 @@
     .armor_footer {
         grid-area: shield-footer;
         display: inline-flex;
-        justify-content: space-evenly;
-        .shield-max,
+        flex-direction: column;
+        justify-content: center;
+        justify-self: center;
+        width: calc(100% - 6px);
+        .shield-max {
+            display: flex;
+            flex-direction: column;
+            @include flex-center;
+            label {
+                white-space: normal;
+                text-align: center;
+                margin-bottom: 4px;
+            }
+            .data-value {
+                border-bottom: 1px solid #956d58;
+                width: 75%;
+                &:focus-within {
+                    border-bottom: 1px solid white;
+                }
+            }
+        }
         .shield-status {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            color: white;
+            margin-top: 4px;
         }
     }
 }
