@@ -28,10 +28,10 @@
         {{#unless item.isContainer}}
         <div style="float: left; width: 22px;">&nbsp;</div>
         {{/unless}}
-        {{#if item.isArmor}}
+        {{#if item.canBeEquipped}}
         <a class="item-control item-toggle-equip{{item.armorEquipped}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}
-        {{#unless item.isArmor}}
+        {{#unless item.canBeEquipped}}
         <div style="float: left; width: 22px;">&nbsp;</div>
         {{/unless}}
         <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
