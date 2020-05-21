@@ -1358,7 +1358,7 @@ class ActorSheetPF2e extends ActorSheet {
         icon.toggleClass('fa-box-open');
         const container = $(toggle)
             .parents('.item')
-            .next('.container-held-items')[0];
+            .next('.container-metadata')[0];
         container.hidden = !container.hidden;
     }
     

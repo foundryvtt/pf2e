@@ -12,7 +12,7 @@ export function getHeldItems(id, items = []) {
 }
 
 export class Container {
-    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, isInContainer, formattedNegateBulk, formattedHeldItemBulk) {
+    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, isInContainer, formattedNegateBulk, formattedHeldItemBulk, formattedCapacity) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
@@ -20,6 +20,7 @@ export class Container {
         this.isInContainer = isInContainer;
         this.formattedHeldItemBulk = formattedHeldItemBulk;
         this.formattedNegateBulk = formattedNegateBulk;
+        this.formattedCapacity = formattedCapacity;
         this.capacity = capacity;
     }
     
@@ -29,6 +30,10 @@ export class Container {
 
     get isNotInContainer() {
         return !this.isInContainer;
+    }
+    
+    get isOverLimit() {
+        return this.heldItemBulk()
     }
 }
 
@@ -61,6 +66,7 @@ function toContainer(item, heldItems = [], isInContainer, stackDefinitions, bulk
         isInContainer,
         formatBulk(negateBulk),
         formatBulk(heldItemBulk),
+        formatBulk(maximumBulk),
     )
 }
 

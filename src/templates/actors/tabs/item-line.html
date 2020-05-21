@@ -39,8 +39,10 @@
     </div>
     {{/if}}
 </li>
-<div class="container-held-items">
-    {{#each item.containerData.heldItems}}
+<div class="container-metadata">
+    <div class="container-held-items">
+        {{#each item.containerData.heldItems}}
         {{> systems/pf2e/templates/actors/tabs/item-line.html item=this owner=../owner level=(add ../level 1)}}
-    {{/each}}
+        {{/each}}
+    </div>
 </div>
