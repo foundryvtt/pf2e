@@ -1488,7 +1488,6 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
   _onAddCoinsPopup(event) {
-      console.log('click');
       event.preventDefault();
       new AddCoinsPopup(this.actor, {}).render(true)
   }
