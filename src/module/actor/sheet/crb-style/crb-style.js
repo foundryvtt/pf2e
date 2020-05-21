@@ -11,6 +11,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       classes: ['crb-style', 'sheet', 'actor', 'pc'],
       width: 700,
       height: 800,
+      tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" }]
     });
   }
 

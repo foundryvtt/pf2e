@@ -2,10 +2,10 @@
   "name": "pf2e",
   "title": "Pathfinder 2nd Edition",
   "description": "A community contributed game system for Pathfinder Second Edition.",
-  "version": "0.574.2",
-  "schema": 0.575,
-  "minimumCoreVersion": "0.4.7",
-  "compatibleCoreVersion": "0.5.5",
+  "version": "0.577.0",
+  "schema": 0.576,
+  "minimumCoreVersion": "0.5.7",
+  "compatibleCoreVersion": "0.5.7",
   "author": "hooking, Trey",
   "esmodules": ["pf2e.js"],
   "scripts": [
@@ -16,7 +16,8 @@
     "./scripts/dice.js",
     "./scripts/packs/spell-browser.js",
     "./scripts/chat/chatdamagebuttonsPF2e.js",
-    "./scripts/actor/sheet/itemBehaviour.js"
+    "./scripts/actor/sheet/itemBehaviour.js",
+    "./scripts/lib/tooltipster.bundle.min.js"
   ],
   "styles": ["./styles/pf2e.css"],
   "packs": [
@@ -67,7 +68,7 @@
       "module": "pf2e",
       "path": "packs/bestiary-v05750.db",
       "entity": "Actor"
-    },    
+    },
     {
       "name": "age-of-ashes-bestiary",
       "label": "Age of Ashes Bestiary",
@@ -125,6 +126,22 @@
       "entity": "JournalEntry"
     },
     {
+      "name": "crb-srd",
+      "label": "Core Rulebook (SRD)",
+      "system": "pf2e",
+      "module": "pf2e",
+      "path": "packs/crb-srd.db",
+      "entity": "JournalEntry"
+    },
+    {
+      "name": "gmg-srd",
+      "label": "Game Mastery Guide (SRD)",
+      "system": "pf2e",
+      "module": "pf2e",
+      "path": "packs/gmg-srd.db",
+      "entity": "JournalEntry"
+    },
+    {
       "name": "classes",
       "label": "Classes (SRD)",
       "system": "pf2e",
@@ -133,19 +150,11 @@
       "entity": "JournalEntry"
     },
     {
-      "name": "critical-fumble-deck",
-      "label": "Critical Fumble Deck",
+      "name": "criticaldeck",
+      "label": "Critical Hit/Fumble Deck",
       "system": "pf2e",
       "module": "pf2e",
-      "path": "packs/critical-fumble-deck.db",
-      "entity": "JournalEntry"
-    },
-    {
-      "name": "critical-hit-deck",
-      "label": "Critical Hit Deck",
-      "system": "pf2e",
-      "module": "pf2e",
-      "path": "packs/critical-hit-deck.db",
+      "path": "packs/criticaldeck.db",
       "entity": "JournalEntry"
     },
     {
@@ -171,5 +180,5 @@
   "gridUnits": "ft",
   "url": "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e",
   "manifest": "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/raw/master/system.json",
-  "download": "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/9dcc83052d3221562f07399acf4b282d/pf2e-v0.574.2.zip"
+  "download": "https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/3930d78a4140de768f830e74734af9af/pf2e-v0.577.0.zip"
 }

@@ -108,9 +108,13 @@ class PF2eStatusEffects {
             PF2eStatusEffects._hookOnRenderTokenHUD(app, html, data);
         });
         Hooks.on("onTokenHUDClear", (tokenHUD, token) => {
-            if (tokenHUD._displayState === tokenHUD.constructor.DISPLAY_STATES.CLEARING) {
+            // Foundry 0.5.7 bug? token parameter is null
+            // Workaround: set tokenHUD.token in _hookOnRenderTokenHUD
+            token = tokenHUD.token;
+
+            if (tokenHUD._state === tokenHUD?.constructor?.RENDER_STATES?.NONE) {
                 // Closing the token HUD
-                if (token.statusEffectChanged === true) {
+                if (token?.statusEffectChanged === true) {
                     console.log('PF2e System | StatusEffects were updated - Message to chat');
                     token.statusEffectChanged = false;
                     PF2eStatusEffects._createChatMessage(token);
@@ -190,6 +194,9 @@ class PF2eStatusEffects {
         const statusEffects = getProperty(actor.data.data, 'statusEffects');
         html.find("div.status-effects").append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
+
+        // Foundry 0.5.7 bug? Setting tokenHUD.token temporarily until onTokenHUDClear passes token again in its 2nd parameter
+        app.token = token;
 
         for (let i of statusIcons) {
             i = $(i);

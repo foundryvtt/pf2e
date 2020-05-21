@@ -1,63 +1,134 @@
 <div class="sidebar_title">
-    <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-    <a href="#">+Raise Shield</a>
+    <h2>
+        {{localize 'PF2E.ArmorClassLabel'}}
+    </h2>
+    <a href="#">
+        +Raise Shield
+    </a>
 </div>
-
 <div class="armor-class">
     <div class="shield ac">
         <div class="data-value">
-            <h2>{{data.attributes.ac.value}}</h2>
+            <h2>
+                {{data.attributes.ac.value}}
+            </h2>
         </div>
-        <h4>Armor Class</h4>
+        <label>
+            Armor Class
+        </label>
     </div>
     <div class="shield hp">
         <div class="data-value">
-            <input type="number" data-dtype="Number" placeholder="0" title="{{localize "PF2E.ShieldACBonusTitle"}}"/>
-        <h4>Shield HP</h4>
+            <input
+                id="shield-hp"
+                type="number"
+                data-dtype="Number"
+                placeholder="0"
+                title="{{localize 'PF2E.ShieldACBonusTitle'}}"
+            />
         </div>
+        <label for="shield-hp">
+            Shield HP
+        </label>
     </div>
-
     <div class="shield-stats">
         <ol>
             <li>
                 <div class="shield-label ac">
-                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 11.9 14"
+                    >
+                        <defs>
+                            <filter id="shadow">
+                                <feDropShadow
+                                    dx="0"
+                                    dy="0"
+                                    stdDeviation="0.5"
+                                    flood-color="cyan"
+                                />
+                            </filter>
+                        </defs>
+                        <path
+                            filter:url(#shadow)
+                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                            fill="#fff"
+                        />
+                    </svg>
                 </div>
-                <span class="stat-item" title="{{localize "PF2E.ShieldACBonusTitle"}}">
-                    <input type="number" data-dtype="Number" placeholder="0"/>
+                <span
+                    class="data-value"
+                    title="{{localize 'PF2E.ShieldACBonusTitle'}}"
+                >
+                    <input type="number" data-dtype="Number" placeholder="0" />
                 </span>
             </li>
             <li>
                 <div class="shield-label hardness">
-                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="" title="{{localize "PF2E.ShieldHardnessTitle"}}">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 11.9 14"
+                    >
+                        <path
+                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                            fill="#fff"
+                        />
+                    </svg>
                 </div>
-                <span class="stat-item" title="{{localize "PF2E.ShieldHardnessTitle"}}">
-                    <input type="number" data-dtype="Number" placeholder="0"/>
+                <span
+                    class="data-value"
+                    title="{{localize 'PF2E.ShieldHardnessTitle'}}"
+                >
+                    <input type="number" data-dtype="Number" placeholder="0" />
                 </span>
             </li>
             <li>
                 <div class="shield-label bt">
-                    <img src="systems/pf2e/assets/icons/shield.svg" alt="" srcset="" title="{{localize "PF2E.ShieldBTTitle"}}">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 11.9 14"
+                    >
+                        <path
+                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                            fill="#fff"
+                        />
+                    </svg>
                 </div>
-                <span class="stat-item" title="{{localize "PF2E.ShieldBTTitle"}}">
-                    <input type="number" data-dtype="String" placeholder="0"/>
+                <span
+                    class="data-value"
+                    title="{{localize 'PF2E.ShieldBTTitle'}}"
+                >
+                    <input type="number" data-dtype="String" placeholder="0" />
                 </span>
             </li>
         </ol>
     </div>
-
     <div class="armor_footer">
         <div class="shield-max">
-            <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldMaxTitle"}}">Shield Max HP</h4>
-            <span class="stat-item" title="{{localize "PF2E.ShieldMaxTitle"}}">
-                <input type="number" data-dtype="String" placeholder="0"/>
+            <label
+                id="shield-max"
+                class="defense-item pf-title"
+                title="{{localize 'PF2E.ShieldMaxTitle'}}"
+            >
+                Shield Max HP
+            </label>
+            <span class="data-value" title="{{localize 'PF2E.ShieldMaxTitle'}}">
+                <input
+                    id="shield-max"
+                    type="number"
+                    data-dtype="String"
+                    placeholder="0"
+                />
             </span>
         </div>
         <div class="shield-status">
-            <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</h4>
-            <span class="stat-item" title="{{localize "PF2E.ShieldBTTitle"}}">
-                <input type="number" data-dtype="String" placeholder="0"/>
-            </span>
+            <label
+                id="shield-status"
+                title="{{localize 'PF2E.ShieldBTTitle'}}"
+            >
+                {{localize 'PF2E.ShieldBTLabel'}}
+            </label>
+            <i class="far fa-circle"></i>
         </div>
     </div>
 </div>

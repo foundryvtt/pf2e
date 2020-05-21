@@ -87,6 +87,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
       equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
       consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
+      treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
     };
 
@@ -137,7 +138,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const martialSkills = [];
 
     // Iterate through items, allocating to containers
-    let totalWeight = 0;
     const bulkConfig = {
         ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
         ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
@@ -424,6 +424,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
     if (!this.options.editable) return;
   }
 

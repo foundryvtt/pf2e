@@ -410,16 +410,6 @@ describe('should calculate bulk', () => {
 
     test('should convert an inventory', () => {
         const actorData = {
-            data: {
-                currency: {
-                    pp: {
-                        value: 4
-                    },
-                    gp: {
-                        value: 5
-                    }
-                },
-            },
             items: [
                 {
                     type: 'spell'
@@ -482,7 +472,24 @@ describe('should calculate bulk', () => {
                             value: 'arrows'
                         }
                     },
-                }
+                },
+                {
+                    type: 'treasure',
+                    data: {
+                        denomination: {
+                            value: 'sp'
+                        },
+                        quantity: {
+                            value: 9
+                        },
+                        value: {
+                            value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
+                        }
+                    }
+                },
             ]
         };
         const items = itemsFromActorData(actorData);
@@ -582,6 +589,23 @@ describe('should calculate bulk', () => {
                 {
                     type: 'armor',
                 },
+                {
+                    type: 'treasure',
+                    data: {
+                        denomination: {
+                            value: 'sp'
+                        },
+                        quantity: {
+                            value: 9
+                        },
+                        value: {
+                            value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
+                        }
+                    }
+                }
             ]
         };
         const items = itemsFromActorData(actorData);
@@ -655,7 +679,7 @@ describe('should calculate bulk', () => {
         const items = itemsFromActorData(actorData);
 
         expect(items.length)
-            .toBe(3);
+            .toBe(2);
     });
 
     test('should not nest items that have an containerId that does not exist', () => {
@@ -673,7 +697,7 @@ describe('should calculate bulk', () => {
         const items = itemsFromActorData(actorData);
 
         expect(items.length)
-            .toBe(2);
+            .toBe(1);
     });
 
     test('should calculate carried bulk for armors', () => {

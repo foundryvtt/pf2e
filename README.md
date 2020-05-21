@@ -17,15 +17,13 @@ Please Note:
 
 ### VTT Support:
 Tested with the following virtual table top platforms: 
-*  Foundry VTT v0.5.4.
-
-Note: The following modules are recommended with Foundry VTT:
-* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for status effects. 
+*  Foundry VTT v0.5.7.
 
 ### Shoutouts
 
 A huge thanks to the large team of contributers and a special thanks to the following for code that we have used in this project:
 
+- Furyspark#7513 and Dan Gomme for the great work creating the Pathfinder measurement templates in the Pathfinder 1e system which I have incorporated into this system.
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
 - Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
 - u/baughberick (https://www.reddit.com/user/baughberick/) for the creation of the Pathfinder2eActions font.

@@ -473,6 +473,7 @@ CONFIG.featTraits = {
   open: 'PF2E.TraitOpen',
   press: 'PF2E.TraitPress',
   stance: 'PF2E.TraitStance',
+  stamina: 'PF2E.TraitStamina',
   alchemical: 'PF2E.TraitAlchemical',
   interact: 'PF2E.TraitInteract',
   aura: 'PF2E.TraitAura',
