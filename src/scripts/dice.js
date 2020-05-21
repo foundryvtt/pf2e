@@ -1,3 +1,12 @@
+class FormulaPreservingRoll extends Roll {
+  toJSON() {
+    const jsonData = super.toJSON();
+    jsonData.formula = Roll.cleanFormula(this._replaceData(this._formula));
+    jsonData.class = 'Roll'; // Pretend to be a roll to be rehydratable
+    return jsonData;
+  }
+}
+
 class DicePF2e {
   /**
    * A standardized helper function for managing core PF2e "d20 rolls"
@@ -63,7 +72,7 @@ class DicePF2e {
           || (!userSettingQuickD20Roll && event.shiftKey) ) {
       return _roll(parts, 0);
     } else if (event.altKey) {
-      return _roll(parts, 1); 
+      return _roll(parts, 1);
     } else if (event.ctrlKey || event.metaKey) {
       return _roll(parts, -1);
     } else if (event.shiftKey || !userSettingQuickD20Roll) {
@@ -112,13 +121,14 @@ class DicePF2e {
   /* -------------------------------------------- */
 
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing PF2e damage rolls
    *
    * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
    * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
    *
    * @param {Event} event           The triggering event which initiated the roll
-   * @param {Array} parts           The dice roll component parts, excluding the initial d20
+   * @param {Array} partsCritOnly   The dice roll component parts only added on a crit
+   * @param {Array} parts           The dice roll component parts
    * @param {Actor} actor           The Actor making the damage roll
    * @param {Object} data           Actor or item data against which to parse the roll
    * @param {String} template       The HTML template used to render the roll dialog
@@ -130,7 +140,7 @@ class DicePF2e {
    * @param {Object} dialogOptions  Modal dialog options
    */
   static damageRoll({
-    event = {}, parts, actor, data, template, title, speaker, flavor, critical = false, onClose, dialogOptions,
+    event = {}, partsCritOnly=[], parts, actor, data, template, title, speaker, flavor, critical = false, onClose, dialogOptions,
   }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
@@ -138,13 +148,36 @@ class DicePF2e {
     let rolled = false;
     const _roll = (parts, crit, form) => {
       // Don't include situational bonuses unless they are defined
-      if (form) data.itemBonus = form.find('[name="itemBonus"]').val();
-      if ((!data.itemBonus || data.itemBonus == 0) && parts.indexOf('@itemBonus') !== -1) parts.splice(parts.indexOf('@itemBonus'),1);
-      if (form) data.statusBonus = form.find('[name="statusBonus"]').val();
-      if ((!data.statusBonus || data.statusBonus == 0) && parts.indexOf('@statusBonus') !== -1) parts.splice(parts.indexOf('@statusBonus'),1);
-      if (form) data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
-      if ((!data.circumstanceBonus || data.circumstanceBonus == 0) && parts.indexOf('@circumstanceBonus') !== -1) parts.splice(parts.indexOf('@circumstanceBonus'),1);
-      const roll = new Roll(parts.join('+'), data);
+      if (form) {
+        data.itemBonus = form.find('[name="itemBonus"]').val();
+        data.statusBonus = form.find('[name="statusBonus"]').val();
+        data.circumstanceBonus = form.find('[name="circumstanceBonus"]').val();
+      }
+      for (let key of ['itemBonus', 'statusBonus', 'circumstanceBonus']) {
+        if (!data[key] || data[key] == 0) {
+          let index;
+          const part = `@${key}`
+
+          index = parts.indexOf(part);
+          if (index !== -1) parts.splice(index, 1)
+
+          index = partsCritOnly.indexOf(part);
+          if (index !== -1) partsCritOnly.splice(index, 1)
+        }
+      }
+
+      const rule = game.settings.get('pf2e', 'critRule');
+      if (crit) {
+        if (rule === 'doubledamage') {
+          parts = [`(${parts.join('+')}) * 2`];
+        } else {
+          let critRoll = new Roll(parts.join('+'), data).alter(0, 2);
+          parts = [critRoll.formula.replace(/\b\d+\b/g, (match) => `${match * 2}`)];
+        }
+        parts = parts.concat(partsCritOnly);
+      }
+
+      const roll = new FormulaPreservingRoll(parts.join('+'), data);
       const flav = (flavor instanceof Function) ? flavor(parts, data) : title;
       roll.toMessage(
         {
@@ -163,13 +196,13 @@ class DicePF2e {
 
     // Modify the roll and handle fast-forwarding
     if ( userSettingQuickD20Roll && !event.shiftKey && !event.ctrlKey && !event.metaKey ) {
-      return _roll(parts, event.altKey);
+      return _roll(parts, event.altKey || critical);
     } else if ( !userSettingQuickD20Roll && (event.shiftKey || event.ctrlKey || event.metaKey) ) {
-      return _roll(parts, event.altKey);
+      return _roll(parts, event.altKey || critical);
     }
-    if (parts.indexOf('@circumstanceBonus') == -1) parts = parts.concat(['@circumstanceBonus']);
-    if (parts.indexOf('@itemBonus') == -1) parts = parts.concat(['@itemBonus']);
-    if (parts.indexOf('@statusBonus') == -1) parts = parts.concat(['@statusBonus']);
+    if (!parts.includes('@circumstanceBonus')) parts.push('@circumstanceBonus');
+    if (!parts.includes('@itemBonus')) parts.push('@itemBonus');
+    if (!parts.includes('@statusBonus')) parts.push('@statusBonus');
 
     // Construct dialog data
     template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
@@ -208,7 +241,6 @@ class DicePF2e {
     });
   }
 
-
   alter(add, multiply) {
     const rgx = new RegExp(Roll.diceRgx, 'g');
     if (this._rolled) throw new Error('You may not alter a Roll which has already been rolled');
@@ -243,7 +275,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   if (message.roll.parts[0].faces == 20) {
     if (game.system.id === 'pf2e' && message.data && message.data.flavor && ( message.data.flavor.endsWith('Skill Check') || message.data.flavor.endsWith('Perception Check') ) ) {
       const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
-    
+
       const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative")
       const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`);
 

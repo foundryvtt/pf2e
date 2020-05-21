@@ -1,0 +1,138 @@
+.crb-hover {
+    .tooltipster-box {
+        @include corner-boxes;
+        background-color: rgba(black, 0.9);
+
+        .tooltipster-content {
+            @include p-reset;
+
+            .hover-content {
+                padding: 4px;
+
+                .sidebar_title {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    border-bottom: 1px solid $sidebar-title-color;
+                    margin: 0.25em 0 0.5em;
+                    h2,
+                    a {
+                        @include micro;
+                        border: none;
+                        margin: 0;
+                        line-height: 1.5;
+                        color: $sidebar-title-color;
+
+                        & + h2 {
+                            font-size: 11px;
+                        }
+                    }
+                    a {
+                        color: white;
+                        text-decoration: none;
+                    }
+                }
+
+                ul {
+                    list-style: none;
+                    @include p-reset;
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        line-height: 1;
+                        margin-bottom: 0.3em;
+                        font-size: 0;
+
+                        input {
+                            all: initial;
+                            cursor: pointer;
+                            color: white;
+                            &:focus {
+                                box-shadow: none;
+                            }
+                            &::placeholder {
+                                color: white;
+                            }
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                appearance: none;
+                                margin: 0;
+                            }
+                            &[type='number'] {
+                                -moz-appearance: textfield;
+                            }
+                        }
+
+                        .item {
+                            display: inline-flex;
+                            align-items: center;
+                            font-size: 0;
+
+                            .tag {
+                                display: inline-flex;
+                                align-items: center;
+                                text-align: center;
+                                @include micro;
+                                background: var(--primary);
+                                color: white;
+                                border-radius: 2px;
+                                padding: 2px 0;
+                                width: 36px;
+                                margin-bottom: 2px;
+                            }
+
+                            .label {
+                                margin-left: 2px;
+                                margin-right: 8px;
+                                width: 130px;
+                            }
+                        }
+
+                        .data {
+                            all: initial;
+                            width: 20px;
+                            text-align: right;
+                            cursor: pointer;
+                            &:focus {
+                                box-shadow: none;
+                            }
+                            &::placeholder {
+                                color: white;
+                            }
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+                            }
+                            &[type='number'] {
+                                -moz-appearance: textfield;
+                            }
+                        }
+
+                        .label,
+                        .data {
+                            font-size: 14px;
+                            font-family: $serif;
+                            font-weight: 500;
+                            color: white;
+                            @include p-reset;
+                        }
+                    }
+
+                    .disabled {
+                        .label,
+                        .data,
+                        .data::placeholder {
+                            color: rgba(white, 0.5);
+                        }
+                        .label {
+                            text-decoration: line-through;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

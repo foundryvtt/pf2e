@@ -75,6 +75,12 @@ export default class extends Actor {
     // this will most likely also relevant for NPCs
     const statisticsModifiers = {};
 
+    // custom modifiers
+    data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
+    for (const [statistic, modifier] of Object.entries(data.customModifiers)) {
+      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifier); // eslint-disable-line no-param-reassign
+    }
+
     // calculate modifiers for conditions (from status effects)
     data.statusEffects?.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
 
@@ -335,11 +341,11 @@ export default class extends Actor {
     const dc = recoveryDc + dying;
     let result = '';
 
-    if (flatCheck.result == 20 || flatCheck.result >= (recoveryDc+10)) {
+    if (flatCheck.result == 20 || flatCheck.result >= (dc+10)) {
       result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
-    } else if (flatCheck.result == 1 || flatCheck.result <= (recoveryDc-10)) {
+    } else if (flatCheck.result == 1 || flatCheck.result <= (dc-10)) {
       result = game.i18n.localize("PF2E.CritFailure") + ' ' + game.i18n.localize("PF2E.Recovery.critFailure");
-    } else if (flatCheck.result >= recoveryDc) {
+    } else if (flatCheck.result >= dc) {
       result = game.i18n.localize("PF2E.Success") + ' ' + game.i18n.localize("PF2E.Recovery.success");
     } else {
       result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
@@ -358,13 +364,13 @@ export default class extends Actor {
             </section>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">
             ${rollingPartA}  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
             <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> ${rollingPartB} ${dc}.
           </span>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-weight: 100;">
+          <span style="font-size: 12px; font-weight: 400;">
             ${result}
           </span>
         </div>
@@ -519,7 +525,7 @@ export default class extends Actor {
               </div>
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-              <span style="font-size: 12px; font-style:oblique; font-weight: 100; line-height: 15px;">
+              <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
                 ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
@@ -576,7 +582,7 @@ export default class extends Actor {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 100;">${combatant.name}'s Initiative is now ${value} !</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value} !</span>
         </div>
       </div>
       </div>
@@ -695,6 +701,46 @@ export default class extends Actor {
       }
     }
     return delta;
+  }
+
+  /**
+   * Adds a custom modifier that will be included when determining the final value of a stat. The
+   * name parameter must be unique for the custom modifiers for the specified stat, or it will be
+   * ignored.
+   *
+   * @param {string} stat
+   * @param {string} name
+   * @param {number} value
+   * @param {string} type
+   */
+  async addCustomModifier(stat, name, value, type) {
+    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+    if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
+      customModifiers[stat] = (customModifiers[stat] ?? []).concat([new PF2Modifier(name, value, type)]);
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    }
+  }
+
+  /**
+   * Removes a custom modifier, either by index or by name.
+   *
+   * @param {string} stat
+   * @param {string|number} modifier name or index of the modifier to remove
+   */
+  async removeCustomModifier(stat, modifier) {
+    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+    if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
+      const statModifiers = customModifiers[stat];
+      statModifiers.splice(modifier, 1);
+      customModifiers[stat] = statModifiers;
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
+      customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+      await this.update({'data.customModifiers': customModifiers});
+      this.render();
+    }
   }
 }
 

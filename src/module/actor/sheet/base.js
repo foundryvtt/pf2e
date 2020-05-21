@@ -1,3 +1,5 @@
+import {calculateWealth} from '../../item/treasure.js';
+
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
@@ -67,9 +69,14 @@ class ActorSheetPF2e extends ActorSheet {
       skl.label = CONFIG.PF2E.skills[s];
     }
 
-    // Currency Labels
-    for ( let [c, currency] of Object.entries(sheetData.data.currency)) {
-      currency.label = CONFIG.PF2E.currencies[c];
+    // update currency based on items
+    const treasure = calculateWealth(sheetData.actor.items);
+    sheetData.totalTreasure = {};
+    for (const [denomination, value] of Object.entries(treasure)) {
+        sheetData.totalTreasure[denomination] = {
+            value,
+            label: CONFIG.PF2E.currencies[denomination],
+        };      
     }
 
     // Update traits
@@ -370,7 +377,7 @@ class ActorSheetPF2e extends ActorSheet {
     const circle = '<i class="far fa-circle"></i>';
     const cross = '<i class="fas fa-times-circle"></i>';
     const skull = '<i class="fas fa-skull"></i>';
-    const redOpen = '<span style="color:var(--tertiary-background);">';
+    const redOpen = '<span>';
     const redClose = '</span>';
     let icons = {};
 
@@ -413,9 +420,9 @@ class ActorSheetPF2e extends ActorSheet {
   _getDoomedIcon(level) {
     const icons = {
       0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i><i class="fas fa-skull" style="color:var(--tertiary-background);"></i>',
+      1: '<i class="fas fa-skull"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+      2: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="far fa-circle"></i>',
+      3: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="fas fa-skull"></i>',
     };
     return icons[level];
   }
