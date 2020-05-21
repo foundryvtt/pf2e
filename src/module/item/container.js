@@ -12,11 +12,12 @@ export function getHeldItems(id, items = []) {
 }
 
 export class Container {
-    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, formattedNegateBulk, formattedHeldItemBulk) {
+    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, isInContainer, formattedNegateBulk, formattedHeldItemBulk) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
         this.heldItemBulk = heldItemBulk;
+        this.isInContainer = isInContainer;
         this.formattedHeldItemBulk = formattedHeldItemBulk;
         this.formattedNegateBulk = formattedNegateBulk;
         this.capacity = capacity;
@@ -27,7 +28,7 @@ export class Container {
     }
 
     get isNotInContainer() {
-        return isBlank(this.item?.data?.containerId?.value);
+        return !this.isInContainer;
     }
 }
 
@@ -47,7 +48,7 @@ function getCapacity(item) {
     return weightToBulk(bulkCapacity) ?? new Bulk();
 }
 
-function toContainer(item, heldItems = [], stackDefinitions, bulkConfig) {
+function toContainer(item, heldItems = [], isInContainer, stackDefinitions, bulkConfig) {
     const negateBulk = getNegateBulk(item);
     const heldItemBulk = getContainerWeight(item, heldItems, stackDefinitions, bulkConfig);
     const maximumBulk = getCapacity(item);
@@ -57,6 +58,7 @@ function toContainer(item, heldItems = [], stackDefinitions, bulkConfig) {
         negateBulk,
         maximumBulk,
         heldItemBulk,
+        isInContainer,
         formatBulk(negateBulk),
         formatBulk(heldItemBulk),
     )
@@ -77,13 +79,20 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
     items
         .map(item => {
             const itemId = item._id;
+            const isInContainer = containerGroups.has(item?.data?.containerId?.value);
             if (containerGroups.has(itemId)) {
-                return [itemId, containerGroups.get(itemId)];
+                return [itemId, containerGroups.get(itemId), isInContainer];
             }
-            return [itemId, []];
+            return [itemId, [], isInContainer];
         })
-        .forEach(([id, heldItems]) => {
-            containers.set(id, toContainer(allIds.get(id)[0], heldItems, stackDefinitions, bulkConfig));    
+        .forEach(([id, heldItems, isInContainer]) => {
+            containers.set(id, toContainer(
+                allIds.get(id)[0], 
+                heldItems,
+                isInContainer, 
+                stackDefinitions, 
+                bulkConfig
+            ));    
         })
     
     return {

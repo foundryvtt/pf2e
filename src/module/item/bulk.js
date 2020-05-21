@@ -423,9 +423,8 @@ export function toBulkItems(items) {
         if (ref === null || !allIds.has(ref)) {
             return null;
         }
-        return item._id;
+        return ref;
     });
-
     if (itemsInContainers.has(null)) {
         const topLevelItems = itemsInContainers.get(null);
         return buildContainerTree(topLevelItems, itemsInContainers);
