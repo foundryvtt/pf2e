@@ -1185,13 +1185,14 @@ class ActorSheetPF2e extends ActorSheet {
         const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
         if (droppedOntoContainer) {
             const item = await getItem();
-            const result = await item.update({'data.containerId.value': droppedItemId});
-            console.log('stashed result ', result);
+            const result = await item.update({
+                'data.containerId.value': droppedItemId,
+                'data.equipped.value': false,
+            });
             return result;
         } else {
             const item = await getItem();
             const result = await item.update({'data.containerId.value': ''});
-            console.log('unpacked result ', result);
             return result;
         }
     }

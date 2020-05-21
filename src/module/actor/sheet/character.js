@@ -148,8 +148,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
-      i.isContainer = containers.get(i._id).isContainer;
       i.containerData = containers.get(i._id);
+      i.isContainer = i.containerData.isContainer;
+      i.isNotInContainer = i.containerData.isNotInContainer;
       
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
@@ -161,7 +162,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       }
 
       // Inventory
-      if (Object.keys(inventory).includes(i.type) && isBlank(i.data?.containerId?.value)) {
+      if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
         const [approximatedBulk] = calculateBulk([toBulkItem(i)], stacks, false, bulkConfig);

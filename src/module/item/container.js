@@ -1,5 +1,5 @@
 import { weightToBulk, toBulkItems, calculateBulk, formatBulk, Bulk } from './bulk.js';
-import { groupBy } from '../utils.js';
+import { groupBy, isBlank } from '../utils.js';
 
 export function isContainer(item) {
     const capacity = item.data?.bulkCapacity?.value;
@@ -24,6 +24,10 @@ export class Container {
     
     get isContainer() {
         return !this.capacity.isNegligible;
+    }
+
+    get isNotInContainer() {
+        return isBlank(this.item?.data?.containerId?.value);
     }
 }
 
@@ -79,7 +83,7 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
             return [itemId, []];
         })
         .forEach(([id, heldItems]) => {
-            containers.set(id, toContainer(allIds.get(id), heldItems, stackDefinitions, bulkConfig));    
+            containers.set(id, toContainer(allIds.get(id)[0], heldItems, stackDefinitions, bulkConfig));    
         })
     
     return {

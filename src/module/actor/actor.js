@@ -751,3 +751,11 @@ Handlebars.registerHelper('if_stamina', function(options) {
     return ''
   }
 });
+
+Handlebars.registerHelper('add', function(a, b) {
+    return a + b;
+});
+
+Handlebars.registerHelper('multiply', function(a, b) {
+    return a * b;
+});
