@@ -38,8 +38,9 @@ const coinCompendiumIds = {
 };
 
 function isCoin(item, currencies) {
-    return item?.data?.value?.value === 1
-        && item?.type === 'treasure'
+    return item?.type === 'treasure'
+        && item?.data?.value?.value === 1
+        && item?.data?.stackGroup?.value === 'coins'
         && currencies.has(item?.data?.denomination?.value);
 }
 

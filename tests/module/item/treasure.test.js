@@ -189,6 +189,9 @@ describe('should calculate wealth based on inventory', () => {
                         },
                         value: {
                             value: 5
+                        },
+                        stackGroup: {
+                            value: 'coins'
                         }
                     }
                 },
@@ -204,6 +207,9 @@ describe('should calculate wealth based on inventory', () => {
                         },
                         value: {
                             value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
                         }
                     }
                 },
@@ -220,6 +226,9 @@ describe('should calculate wealth based on inventory', () => {
                         },
                         value: {
                             value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
                         }
                     }
                 },
