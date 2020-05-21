@@ -10,10 +10,11 @@ $header-height: 89px;
 
 .crb-style section.window-content {
     padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
 }
 
 .crb-style form {
-    all: initial;
     display: grid;
     grid:
         'sidebar header' 75px
@@ -21,6 +22,8 @@ $header-height: 89px;
         'sidebar content' 1fr
         'sidebar footer' auto
         / 247px 1fr;
+
+    font-family: $body-serif;
 
     /* prettier-ignore */
     @import 'sidebar',
@@ -39,7 +42,8 @@ $header-height: 89px;
     /* Navigation */
     @import 'nav';
 
-    .sheet-content {
+    .sheet-content  {
+        color: var(--body);
         margin-top: 12px;
         @import 'character', 'npc';
     }
