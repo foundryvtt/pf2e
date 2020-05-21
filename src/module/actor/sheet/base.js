@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../item/treasure.js';
+import { calculateWealth } from '../../item/treasure.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1352,8 +1352,14 @@ class ActorSheetPF2e extends ActorSheet {
      * Opens an item container
      */
     _toggleContainer(event) {
-        const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-        // TODO: implement item toggle
+        const toggle = event.currentTarget;
+        const icon = $(toggle.querySelector('i'));
+        icon.toggleClass('fa-box');
+        icon.toggleClass('fa-box-open');
+        const container = $(toggle)
+            .parents('.item')
+            .next('.container-held-items')[0];
+        container.hidden = !container.hidden;
     }
     
   /**
