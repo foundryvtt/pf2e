@@ -1,4 +1,5 @@
 import {calculateWealth} from '../../item/treasure.js';
+import { AddCoinsPopup } from './AddCoinsPopup.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -580,6 +581,8 @@ class ActorSheetPF2e extends ActorSheet {
 
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
+
+    html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
 
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
@@ -1484,7 +1487,12 @@ class ActorSheetPF2e extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-
+  _onAddCoinsPopup(event) {
+      console.log('click');
+      event.preventDefault();
+      new AddCoinsPopup(this.actor, {}).render(true)
+  }
+    
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);
