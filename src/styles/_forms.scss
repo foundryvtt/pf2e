@@ -1,16 +1,19 @@
 .crb-style form {
+    display: flex;
     label,
     input,
     select {
-        display: inline-block;
         line-height: 1;
     }
 
     input {
-        all: initial;
-        cursor: pointer;
+        border: none;
+        border-radius: 0;
         &:focus {
             box-shadow: none;
+            &::placeholder {
+                color: transparent;
+            }
         }
         &::placeholder {
             color: white;
@@ -26,14 +29,12 @@
     }
 
     select {
-        all: initial;
-        font-size: 12px;
+        font-size: 14px;
         font-family: $serif;
         font-weight: 500;
         color: white;
         position: relative;
         background-color: #785c38;
-        box-shadow: inset 0 0 0 1px rgba(black, 0.3);
         border-radius: 2px;
         line-height: 1;
         cursor: pointer;
@@ -45,6 +46,8 @@
         background-repeat: no-repeat;
         background-position: right 0.25em top 50%;
         background-size: 1em auto;
+        height: auto;
+        border: 1px solid #53422a;
     }
 
     .dots span {
