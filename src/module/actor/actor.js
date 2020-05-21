@@ -591,6 +591,7 @@ export default class extends Actor {
         user: game.user._id,
         speaker: { alias: t.name },
         content: message,
+        whisper: ChatMessage.getWhisperRecipients("GM"),
         type: CONST.CHAT_MESSAGE_TYPES.OTHER
       });
 
