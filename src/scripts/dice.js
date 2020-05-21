@@ -280,7 +280,8 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`);
 
       const btnContainer = $('<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>');
-      btnContainer.append(setInitiativeButton);
+      if (message.isAuthor || game.user.isGM)
+        btnContainer.append(setInitiativeButton);
 
       html.find('.dice-total').append(btnContainer);
 
