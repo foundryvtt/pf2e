@@ -19,15 +19,21 @@
     input {
         font-family: $body-serif;
         font-weight: bold;
-        width: 100%;
+        width: calc(100% - 8px);
         color: #644f33;
         border-bottom: 1px solid #d3ccbc;
+        text-transform: capitalize;
         &::placeholder {
             color: #644f33;
         }
         &:focus {
             border-bottom: 1px solid #644f33;
         }
+    }
+    select {
+        width: calc(100% - 8px);
+        background-color: #785c38;
+        border: 1px solid #53422a;
     }
     .character-details {
         display: grid;
@@ -125,6 +131,15 @@
             grid-row-gap: 8px;
             padding-left: 12px;
             margin-top: 8px;
+
+            .pc {
+
+                &_heritage,
+                &_background,
+                &_weight {
+                    margin: 0;
+                }
+            }
             .detail-small {
                 display: flex;
             }
@@ -132,26 +147,28 @@
     }
 
     .character-traits {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 12px;
+        display: flex;
+        flex-wrap: wrap;
 
         .pc {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+            flex: 20%;
+            margin-bottom: 8px;
 
             &_speed-types {
-                grid-column: 2 / 5;
+                flex: 50%;
             }
 
             &_senses {
-                grid-column: 1 / 3;
+                flex: 50%;
             }
 
             &_languages {
-                grid-column: 3 / 6;
+                flex: 100%;
+                margin-bottom: 0;
             }
 
             label,
@@ -177,9 +194,7 @@
             }
 
             .tags,
-            select {
-                margin-top: 6px;
-            }
+            select,
             input {
                 margin-top: 4px;
             }
@@ -220,7 +235,6 @@
             }
             .ability-score {
                 grid-area: score;
-                border: 1px solid #785c38;
                 border-radius: 0;
                 font-size: 0;
                 input {
@@ -228,18 +242,20 @@
                     border: none;
                     text-align: center;
                     padding: 0;
+                    border-bottom: 1px solid #d3ccbc;
                 }
             }
             .ability-mod {
                 grid-area: mod;
                 border: none;
                 color: #785c38;
-                background-color: rgba(black, 0.1);
+                border: 1px solid var(--primary);
                 @include p-reset;
             }
 
             .ability-mod,
-            .ability-score {
+            .ability-score,
+            .ability-score input {
                 height: 40px;
                 width: 40px;
                 @include flex-center;

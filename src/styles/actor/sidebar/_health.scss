@@ -1,6 +1,4 @@
 .hitpoints {
-    margin-top: -6px;
-
     h4,
     label {
         font-family: $serif;
@@ -17,20 +15,26 @@
             &.temp-hp {
                 text-align: right;
                 margin-right: 8px;
+                border-bottom: 1px solid #956d58;
                 input[type='number'] {
                     text-align: right;
+                }
+                &:focus-within {
+                    border-bottom: 1px solid white;
                 }
             }
             &.max-hp {
                 text-align: left;
                 margin-left: 8px;
                 h2 {
-                    color: $sidebar-label;
+                    @include text-gold;
                     text-align: left;
                 }
             }
+            &.max-hp, &.temp-hp {
+                margin-top: 12px;
+            }
             &.current-hp {
-                margin-top: -15px;
                 padding: 10px 0 0;
                 position: relative;
                 z-index: 0;
