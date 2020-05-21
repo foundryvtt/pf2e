@@ -669,6 +669,13 @@ class ActorSheetPF2e extends ActorSheet {
       li.addEventListener('dragstart', handler, false);
     });
 
+      const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
+      containerItems
+        .forEach(elem =>
+            elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
+    containerItems
+          .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
+    
     // Item Rolling
     html.find('.item .item-image').click((event) => this._onItemRoll(event));
 
