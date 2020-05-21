@@ -1,4 +1,33 @@
 # Patch Notes:
+## Version 0.577.0
+### New Features
+*  Added support for Pathfinder style measurement templates. Huge thanks to Furysparks and the Pathfinder 1e system for allowing us to use thier implementation of this!
+*  (@putt1) Added treasure as a new item type and migrated characters coins to treasure items in thier inventory. The currency section of the inventory is now just a summary of the characters treasure.
+*  Added support for critical damage rolls as per RAW in the CRB. Doubling the number of dice rather than the damage is still an option that can be selected in the system settings.
+
+### Content Changes
+*  (Athenos) Added compendium for Age of Ashes with books 3 (now has book 3 through to 6 included).
+*  (Athenos) Fixed languages and rarity traits for AoA compendium entries.
+*  (@overdox) New Content:
+    * Added treasure icons for all gems types and coins, and minor, lesser, moderate, greater and major art objects
+    * Added all 13th level items
+    * Added 13th level rollable tables for consumable items
+    * Added 13th level rollable tables for permanent items
+    * Added new icons
+
+### Bug Fixes
+*  Removed CRB sheet UI preview as it could potentially destroy an actors data in the current WIP state.
+*  (@overdox) Corrected the missing heightened information on some spells #380 (closed)
+*  (@overdox) Updated weapons total number of dice to reflect the striking rune, so it should now work with the new critical effect implementation
+*  (@TheCraiggers) Fixed the description for the artic elf in the Class Features compendium
+
+### Core System Improvements
+*  (@SvenWerlen) Sort traits based on values rather than keys in the trait selector (better support for non-english languages)
+*  (@hooking) Added item level column to the inventory browser (closes #371 (closed))
+*  (@hooking) Added logic to apply a sort filter on bestiary entries based on thier source book in the bestiary browser.
+
+---
+
 ## Version 0.576.0
 ### New Features
 *  (@meditatingCybermind) Added a system configuration setting to factor in bulk for coins (or not).
