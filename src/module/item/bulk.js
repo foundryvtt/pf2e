@@ -98,6 +98,10 @@ export class Bulk {
     isPositive() {
         return this.normal > 0 || this.light > 0;
     }
+    
+    toString() {
+        return `normal: ${this.normal}; light: ${this.light}`;
+    }
 }
 
 /**

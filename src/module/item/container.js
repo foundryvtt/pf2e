@@ -1,13 +1,7 @@
 import { weightToBulk, toBulkItems, calculateBulk, formatBulk, Bulk } from './bulk.js';
-import { groupBy, isBlank } from '../utils.js';
+import { groupBy } from '../utils.js';
 
-export function isContainer(item) {
-    const capacity = item.data?.bulkCapacity?.value;
-    const bulk = weightToBulk(capacity);
-    return bulk?.isPositive() ?? false;
-}
-
-export function getHeldItems(id, items = []) {
+function getHeldItems(id, items = []) {
     return items.filter(item => item?.data?.containerId?.value === id);
 }
 
@@ -31,19 +25,18 @@ export class Container {
     get isNotInContainer() {
         return !this.isInContainer;
     }
-    
-    get isOverLimit() {
-        return this.heldItemBulk()
-    }
 }
 
-export function getContainerWeight(item, items, stackDefinitions, bulkConfig) {
+function getContainerWeight(item, items, stackDefinitions, bulkConfig) {
     const heldItems = getHeldItems(item._id, items);
+    console.log(heldItems)
     const bulkItems = toBulkItems(heldItems);
+    console.log(bulkItems)
+    throw new Error("hi")
     return calculateBulk(bulkItems, stackDefinitions, false, bulkConfig)[0];
 }
 
-export function getNegateBulk(item) {
+function getNegateBulk(item) {
     const negateBulk = item.data?.negateBulk?.value;
     return weightToBulk(negateBulk) ?? new Bulk();
 }
@@ -81,7 +74,7 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
         return null;
     });
     
-    const containers = new Map();
+    const containerData = new Map();
     items
         .map(item => {
             const itemId = item._id;
@@ -92,7 +85,7 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
             return [itemId, [], isInContainer];
         })
         .forEach(([id, heldItems, isInContainer]) => {
-            containers.set(id, toContainer(
+            containerData.set(id, toContainer(
                 allIds.get(id)[0], 
                 heldItems,
                 isInContainer, 
@@ -101,8 +94,5 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
             ));    
         })
     
-    return {
-        nonContainerItems: containerGroups.get(null) || [],
-        containers,
-    };
+    return containerData;
 }

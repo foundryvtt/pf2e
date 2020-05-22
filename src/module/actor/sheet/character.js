@@ -2,7 +2,6 @@ import ActorSheetPF2e from './base.js';
 import { calculateBulk, itemsFromActorData, stacks, toBulkItem, formatBulk } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 import { getContainerMap } from '../../item/container.js';
-import { isBlank } from '../../utils.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -143,8 +142,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
     };
     
-    const containerMap = getContainerMap(actorData.items, stacks, bulkConfig);
-    const containers = containerMap.containers;
+    const containers = getContainerMap(actorData.items, stacks, bulkConfig);
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;

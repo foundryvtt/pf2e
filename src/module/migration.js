@@ -198,8 +198,9 @@ function addContainerAttributes(item, itemData) {
         itemData['data.bulkCapacity.value'] = '4L';
         itemData['data.negateBulk.value'] = '0';
     } else if (itemName === 'Pathfinder\'s Pouch') {
-        itemData['data.bulkCapacity.value'] = '1; 4L';
-        itemData['data.negateBulk.value'] = '1';
+        // FIXME: 1 bulk is in an extradimensional container
+        itemData['data.bulkCapacity.value'] = '4L';
+        itemData['data.negateBulk.value'] = '0';
     } else if (itemName === 'Knapsack of Halflingkind') {
         itemData['data.bulkCapacity.value'] = '50';
         itemData['data.negateBulk.value'] = '50';
@@ -216,7 +217,8 @@ function addContainerAttributes(item, itemData) {
         itemData['data.bulkCapacity.value'] = '8L';
         itemData['data.negateBulk.value'] = '0';
     } else if (itemName === 'Saddlebags') {
-        itemData['data.bulkCapacity.value'] = '6';
+        // FIXME: a saddlebag has 2 parts, each one carrying 3 bulk
+        itemData['data.bulkCapacity.value'] = '3';
         itemData['data.negateBulk.value'] = '0';
     } else if (itemName === 'Chest') {
         itemData['data.bulkCapacity.value'] = '8';
