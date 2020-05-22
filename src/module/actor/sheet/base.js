@@ -671,7 +671,8 @@ class ActorSheetPF2e extends ActorSheet {
       li.setAttribute('draggable', true);
       li.addEventListener('dragstart', handler, false);
     });
-
+    
+    // change background for dragged over items that are containers
       const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
       containerItems
         .forEach(elem =>
