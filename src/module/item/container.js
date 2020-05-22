@@ -1,12 +1,21 @@
-import { weightToBulk, toBulkItems, calculateBulk, formatBulk, Bulk } from './bulk.js';
+import { Bulk, calculateBulk, formatBulk, weightToBulk } from './bulk.js';
 import { groupBy } from '../utils.js';
 
-function getHeldItems(id, items = []) {
-    return items.filter(item => item?.data?.containerId?.value === id);
-}
-
-export class Container {
-    constructor(item, heldItems, negateBulk, capacity, heldItemBulk, isInContainer, formattedNegateBulk, formattedHeldItemBulk, formattedCapacity) {
+/**
+ * Datatype that holds container information for *every* item, even non containers
+ */
+class ContainerData {
+    constructor({
+        item,
+        heldItems,
+        negateBulk,
+        capacity,
+        heldItemBulk,
+        isInContainer,
+        formattedNegateBulk,
+        formattedHeldItemBulk,
+        formattedCapacity,
+    }) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
@@ -17,7 +26,7 @@ export class Container {
         this.formattedCapacity = formattedCapacity;
         this.capacity = capacity;
     }
-    
+
     get isContainer() {
         return !this.capacity.isNegligible;
     }
@@ -27,45 +36,57 @@ export class Container {
     }
 }
 
-function getContainerWeight(item, items, stackDefinitions, bulkConfig) {
-    const heldItems = getHeldItems(item._id, items);
-    console.log(heldItems)
-    const bulkItems = toBulkItems(heldItems);
-    console.log(bulkItems)
-    throw new Error("hi")
-    return calculateBulk(bulkItems, stackDefinitions, false, bulkConfig)[0];
-}
-
-function getNegateBulk(item) {
-    const negateBulk = item.data?.negateBulk?.value;
-    return weightToBulk(negateBulk) ?? new Bulk();
-}
-
-function getCapacity(item) {
-    const bulkCapacity = item.data?.bulkCapacity?.value;
-    return weightToBulk(bulkCapacity) ?? new Bulk();
-}
-
-function toContainer(item, heldItems = [], isInContainer, stackDefinitions, bulkConfig) {
-    const negateBulk = getNegateBulk(item);
-    const heldItemBulk = getContainerWeight(item, heldItems, stackDefinitions, bulkConfig);
-    const maximumBulk = getCapacity(item);
-    return new Container(
-        item, 
+/**
+ * Creates container meta data
+ * @param item
+ * @param heldItems
+ * @param heldBulkItems
+ * @param isInContainer
+ * @param stackDefinitions
+ * @param bulkConfig
+ * @return {ContainerData}
+ */
+function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, stackDefinitions, bulkConfig) {
+    const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
+    const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
+    const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
+    return new ContainerData({
+        item,
         heldItems,
         negateBulk,
-        maximumBulk,
+        capacity,
         heldItemBulk,
         isInContainer,
-        formatBulk(negateBulk),
-        formatBulk(heldItemBulk),
-        formatBulk(maximumBulk),
-    )
+        formattedNegateBulk: formatBulk(negateBulk),
+        formattedHeldItemBulk: formatBulk(heldItemBulk),
+        formattedCapacity: formatBulk(capacity),
+    });
 }
 
-export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
+/**
+ * Fill in nodes recursively indexed by id
+ * @param bulkItem
+ * @param resultMap
+ */
+function fillBulkIndex(bulkItem, resultMap) {
+    resultMap.set(bulkItem.id, bulkItem);
+    bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
+}
+
+/**
+ * Walk the bulk items tree and create a Map for quick lookups
+ * @param bulkItems first item is always the inventory, so unpack that first
+ */
+function indexBulkItems(bulkItems = []) {
+    const result = new Map();
+    bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
+    return result;
+}
+
+export function getContainerMap(items = [], bulkItems = [], stackDefinitions, bulkConfig) {
     const allIds = groupBy(items, item => item._id);
-    
+    const indexedBulkItems = indexBulkItems(bulkItems);
+
     const containerGroups = groupBy(items, item => {
         const containerId = item?.data?.containerId?.value;
         if (allIds.has(containerId)) {
@@ -73,8 +94,8 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
         }
         return null;
     });
-    
-    const containerData = new Map();
+
+    const idIndexedContainerData = new Map();
     items
         .map(item => {
             const itemId = item._id;
@@ -85,14 +106,15 @@ export function getContainerMap(items = [], stackDefinitions, bulkConfig) {
             return [itemId, [], isInContainer];
         })
         .forEach(([id, heldItems, isInContainer]) => {
-            containerData.set(id, toContainer(
-                allIds.get(id)[0], 
+            idIndexedContainerData.set(id, toContainer(
+                allIds.get(id)[0],
                 heldItems,
-                isInContainer, 
-                stackDefinitions, 
+                indexedBulkItems.get(id)?.holdsItems ?? [],
+                isInContainer,
+                stackDefinitions,
                 bulkConfig
-            ));    
-        })
-    
-    return containerData;
+            ));
+        });
+
+    return idIndexedContainerData;
 }

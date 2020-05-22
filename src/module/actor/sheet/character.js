@@ -141,8 +141,9 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
         ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
     };
-    
-    const containers = getContainerMap(actorData.items, stacks, bulkConfig);
+
+    const bulkItems = itemsFromActorData(actorData);
+    const containers = getContainerMap(actorData.items, bulkItems, stacks, bulkConfig);
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
@@ -406,9 +407,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
 
     // Inventory encumbrance
-      
-    const items = itemsFromActorData(actorData);
-    const [bulk] = calculateBulk(items, stacks, false, bulkConfig);
+    const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
       actorData.data.attributes.bonusbulk,

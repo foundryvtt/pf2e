@@ -128,6 +128,7 @@ export function formatBulk(bulk) {
 
 export class BulkItem {
     constructor({
+        id = '',
         bulk = new Bulk(),
         quantity = 1,
         stackGroup = undefined,
@@ -143,6 +144,7 @@ export class BulkItem {
         // extra dimensional containers cease to work when nested inside each other
         extraDimensionalContainer = false,
     } = {}) {
+        this.id = id;
         this.bulk = bulk;
         this.quantity = quantity;
         this.stackGroup = stackGroup;
@@ -273,7 +275,6 @@ function calculateChildOverflow(overflow, item, ignoreContainerOverflow) {
  */
 function calculateCombinedBulk(item, stackDefinitions, nestedExtraDimensionalContainer = false, bulkConfig = {}) {
     const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
-
     const [childBulk, childOverflow] = item.holdsItems
         .map(child => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
@@ -365,6 +366,7 @@ export function normalizeWeight(weight) {
  * @return {BulkItem}
  */
 export function toBulkItem(item, nestedItems = []) {
+    const id = item._id;
     const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
     const isEquipped = item.data?.equipped?.value ?? false;
@@ -375,6 +377,7 @@ export function toBulkItem(item, nestedItems = []) {
     const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
 
     return new BulkItem({
+        id,
         bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
         negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
         // this stuff overrides bulk so we don't want to default to 0 bulk if undefined

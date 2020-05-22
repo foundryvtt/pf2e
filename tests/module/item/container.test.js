@@ -1,9 +1,18 @@
 import { getContainerMap } from '../../../dist/module/item/container.js';
-import { stacks } from '../../../src/module/item/bulk.js';
+import { stacks, itemsFromActorData } from '../../../src/module/item/bulk.js';
 
-function createItem(id, weight, equippedBulk, negateBulk, bulkCapacity, containerId = '', equipped = false) {
+function createItem({
+    id,
+    weight,
+    equippedBulk = undefined,
+    negateBulk = '',
+    bulkCapacity = '',
+    containerId = '',
+    equipped = false
+}) {
     return {
         _id: id,
+        type: 'equipment',
         data: {
             negateBulk: {
                 value: negateBulk
@@ -23,6 +32,9 @@ function createItem(id, weight, equippedBulk, negateBulk, bulkCapacity, containe
             equippedBulk: {
                 value: equippedBulk
             },
+            quantity: {
+                value: 1
+            }
         }
     };
 }
@@ -31,15 +43,40 @@ describe('should create container data', () => {
     test('should create a container map', () => {
         const items = [
             // backpack
-            createItem('1', 'L', '', '2', '4', '', true),
-            // backpack
-            createItem('2', 'L', '', '2', '4', '1'),
-            createItem('3', '1', '', '', '', '2'),
-            createItem('4', '2L', '', '', '', '2'),
-            createItem('5', 'L', '', '', ''),
+            createItem({
+                id: '1',
+                weight: 'L',
+                equippedBulk: '0',
+                negateBulk: '2',
+                bulkCapacity: '4',
+                equipped: true
+            }),
+            // backpack in backpack
+            createItem({
+                id: '2',
+                weight: 'L',
+                equippedBulk: '0',
+                negateBulk: '2',
+                bulkCapacity: '4',
+                containerId: '1'
+            }),
+            createItem({
+                id: '3',
+                weight: '1',
+                containerId: '2'
+            }),
+            createItem({
+                id: '4',
+                weight: '2L',
+                containerId: '2'
+            }),
+            createItem({
+                id: '5',
+                weight: 'L',
+            }),
         ];
-
-        const containerData = getContainerMap(items, stacks);
+        const bulkItems = itemsFromActorData({ items });
+        const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)
             .toBe(5);
@@ -70,11 +107,11 @@ describe('should create container data', () => {
             .toBe('3');
         expect(nestedBackPack.heldItems[1]._id)
             .toBe('4');
-        expect(backPack.formattedHeldItemBulk)
+        expect(nestedBackPack.formattedHeldItemBulk)
             .toBe('1; 2L');
-        expect(backPack.formattedNegateBulk)
+        expect(nestedBackPack.formattedNegateBulk)
             .toBe('2');
-        expect(backPack.formattedCapacity)
+        expect(nestedBackPack.formattedCapacity)
             .toBe('4');
 
         const itemInNestedBackPack1 = containerData.get('3');
