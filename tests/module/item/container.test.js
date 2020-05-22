@@ -1,4 +1,4 @@
-import { getContainerMap } from '../../../dist/module/item/container.js';
+import { getContainerMap } from '../../../src/module/item/container.js';
 import { stacks, itemsFromActorData, indexBulkItemsById } from '../../../src/module/item/bulk.js';
 
 function createItem({
