@@ -2,6 +2,7 @@
 ## Version 0.578.0
 ### New Features
 *  (@putt1) Implement function to add to existing coins or create new ones from the compendium
+*  (@nikolaj-a) Added (Experimental) Strikes section to the action tab. This section Automatically creates Strike actions for each weapon and unarmed including the PF2Modifiers rules.
 
 ### Content Changes
 *  (Athenos) All compendium entries for the Age of Ashes bestiary is now complete (Book 1-6)
