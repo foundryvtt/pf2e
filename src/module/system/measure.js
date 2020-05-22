@@ -81,7 +81,7 @@ TemplateLayer.prototype._onDragLeftMove = function(event) {
 // Highlight grid in PF2e style
 const MeasuredTemplate_highlightGrid = MeasuredTemplate.prototype.highlightGrid;
 MeasuredTemplate.prototype.highlightGrid = function() {
-  //if (!game.settings.get("pf1", "measureStyle") || !(["circle", "cone"].includes(this.data.t))) return MeasuredTemplate_highlightGrid.call(this);
+  if (/* !game.settings.get("pf1", "measureStyle") || */ !(["circle", "cone"].includes(this.data.t))) return MeasuredTemplate_highlightGrid.call(this);
 
   const grid = canvas.grid,
         d = canvas.dimensions,
