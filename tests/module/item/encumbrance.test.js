@@ -12,11 +12,11 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.bulk)
             .toBe(5);
         expect(encumbrance.encumberedPercentage)
-            .toBe(39);
+            .toBe(36);
         expect(encumbrance.isEncumbered)
             .toBe(false);
         expect(encumbrance.limitPercentage)
-            .toBe(29);
+            .toBe(28);
         expect(encumbrance.isOverLimit)
             .toBe(false);
     });
@@ -31,15 +31,15 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.bulk)
             .toBe(16);
         expect(encumbrance.encumberedPercentage)
-            .toBe(106);
+            .toBe(100);
         expect(encumbrance.isEncumbered)
             .toBe(true);
         expect(encumbrance.limitPercentage)
-            .toBe(80);
+            .toBe(76);
         expect(encumbrance.isOverLimit)
             .toBe(false);
         expect(encumbrance.limitPercentageMax100)
-            .toBe(80)
+            .toBe(76)
     });
 
     test('is over limit', () => {
@@ -52,11 +52,11 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.bulk)
             .toBe(21);
         expect(encumbrance.encumberedPercentage)
-            .toBe(140);
+            .toBe(131);
         expect(encumbrance.isEncumbered)
             .toBe(true);
         expect(encumbrance.limitPercentage)
-            .toBe(105);
+            .toBe(100);
         expect(encumbrance.isOverLimit)
             .toBe(true);
         expect(encumbrance.limitPercentageMax100)
