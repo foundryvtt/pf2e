@@ -43,23 +43,16 @@
                 .item-image {
                     height: 22px;
                     width: 22px;
+                    color: transparent;
                     background-repeat: no-repeat;
                     background-size: contain;
                     margin-right: 8px;
+                    font-size: 18px;
                     @include flex-center;
 
-                    svg {
-                        display: none;
-                        .dice-fill {
-                            fill: var(--primary);
-                        }
-                    }
                     &:hover {
                         background: none !important;
-                        @include wobble;
-                        svg {
-                            display: block;
-                        }
+                        color: var(--primary);
                     }
                 }
             }
