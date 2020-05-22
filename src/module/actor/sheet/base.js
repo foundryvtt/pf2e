@@ -1,4 +1,5 @@
-import { calculateWealth } from '../../item/treasure.js';
+import {calculateWealth} from '../../item/treasure.js';
+import { AddCoinsPopup } from './AddCoinsPopup.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -581,6 +582,8 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
+    html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
+
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
 
@@ -676,8 +679,14 @@ class ActorSheetPF2e extends ActorSheet {
     containerItems
           .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
     
+    // Action Rolling (experimental strikes)
+    html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+      const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.roll(event); 
+    });
+
     // Item Rolling
-    html.find('.item .item-image').click((event) => this._onItemRoll(event));
+    html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
 
     // NPC Weapon Rolling
     html.find('button').click((ev) => {
@@ -1254,17 +1263,17 @@ class ActorSheetPF2e extends ActorSheet {
       summary.slideUp(200, () => summary.remove());
     } else {
       const div = $(`<div class="item-summary">${chatData.description.value}</div>`);
-      const props = $('<div class="item-properties"></div>');
+      const props = $('<div class="item-properties tags"></div>');
       if (chatData.properties) {
         chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-          props.append(`<span class="tag">${localize(p)}</span>`);
+          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
         });
       }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
       if (chatData.traits && chatData.traits.length) {
         chatData.traits.forEach((p) => {
-          if (p.description) props.append(`<span class="tag" title="${localize(p.description)}" style="background: #b75b5b; color: white;">${localize(p.label)}</span>`);
+          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
           else props.append(`<span class="tag">${localize(p.label)}</span>`);
         });
       }
@@ -1574,7 +1583,11 @@ class ActorSheetPF2e extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-
+  _onAddCoinsPopup(event) {
+      event.preventDefault();
+      new AddCoinsPopup(this.actor, {}).render(true)
+  }
+    
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);

@@ -4,11 +4,13 @@
 
 $primary-color: #5e0000 !default;
 $secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
-$tertiary-color: #d9c485 !default; /* compliments the primary color, usually used in combination */
-$alt-color: #f33708; /* for all other uses */
+$tertiary-color: #EECF6D !default; /* compliments the primary color, usually used in combination */
+$alt-color: #786452; /* for all other uses */
+$alt-dark: #443730;
 $background-color: #d9c485 !default;
 $dark-color: darken($primary-color, 10) !default;
 $light-color: lighten($primary-color, 10) !default;
+$body-color: #1C1C1C;
 
 $sidebar-title-color: #f7d488;
 $sidebar-label: #ffefbd;
@@ -26,6 +28,7 @@ $header-color: #fff; /* Font Color */
 $header-bg: $secondary-color;
 $box-bg: lighten($header-bg, 75);
 
+/* Font Families */
 $sans-serif: 'Roboto', system, -apple-system, sans-serif !default;
 $serif: 'Eczar', 'Signika', Georgia, serif !default;
 $body-serif: 'Gelasio', 'Signika', Georgia, serif !default;
@@ -69,6 +72,7 @@ $btn-radius: 0 !default;
     --btn-radius: #{$btn-radius};
     --header-color: #{$header-color};
     --header-bg: #{$header-bg};
+    --body: #{$body-color};
     --box-bg: #{$box-bg};
     --window-bg: #{$window-bg};
 
@@ -79,6 +83,7 @@ $btn-radius: 0 !default;
 
 body {
     font-family: $sans-serif;
+    color: var(--body);
 }
 
 /* ----------------------------------------- */
@@ -103,6 +108,10 @@ p {
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.25px;
+}
+
+a[href] {
+    color: var(--primary);
 }
 
 /* ----------------------------------------- */

@@ -1,0 +1,146 @@
+.actions {
+    .actions-list {
+        display: flex;
+        flex-direction: column;
+        @include p-reset;
+        list-style: none;
+
+        .item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 8px;
+            padding: 4px;
+            border-top: 1px solid lighten($alt-color, 40);
+
+            h3 {
+                font-size: 16px;
+                font-weight: 500;
+                font-family: $serif;
+                line-height: 1;
+                color: white;
+                @include p-reset;
+                margin-left: 8px;
+            }
+
+            h4 {
+                @include p-reset;
+                &:hover {
+                    color: var(--primary);
+                }
+            }
+
+            p:empty {
+                display: none;
+            }
+
+            .item-name {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .item-image {
+                    height: 22px;
+                    width: 22px;
+                    color: transparent;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    margin-right: 8px;
+                    font-size: 18px;
+                    @include flex-center;
+
+                    &:hover {
+                        background: none !important;
+                        color: var(--primary);
+                    }
+                }
+            }
+
+            &.action-header {
+                background: url('../assets/sheet/stroke.svg') left bottom
+                    no-repeat;
+                margin-top: 8px;
+                margin-left: 0;
+                padding: 0;
+                padding-bottom: 2px;
+                padding-left: 8px;
+                height: 32px;
+                border: none;
+
+                h3 {
+                    cursor: default;
+                }
+
+                .item-name,
+                .item-controls {
+                    background: none;
+                    @include p-reset;
+                }
+
+                .item-controls {
+                    color: var(--primary);
+                    font-size: 12px;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                & + li {
+                    border-top: none;
+                }
+            }
+
+            .item-controls {
+                white-space: nowrap;
+                font-size: 10px;
+
+                a + a {
+                    margin-left: 4px;
+                }
+            }
+
+            .item-summary {
+                flex-basis: 100%;
+                margin-bottom: 8px;
+
+                .title,
+                .framing {
+                    color: var(--primary);
+                    @include p-reset;
+                    margin-top: 1em;
+                }
+
+                .framing {
+                    color: var(--secondary);
+                    margin: 1em 0 0.25em;
+                    strong {
+                        font-weight: 500;
+                    }
+                    & + p {
+                        margin-top: 0;
+                    }
+                }
+
+                img {
+                    border: none;
+                    vertical-align: middle;
+
+                    &.actionlight {
+                        background: var(--alt);
+                        vertical-align: middle;
+                        border: 1px solid var(--body);
+                    }
+                }
+            }
+
+            &.expanded {
+                h4 {
+                    color: var(--primary);
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
