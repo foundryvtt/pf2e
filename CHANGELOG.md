@@ -22,9 +22,11 @@
 *  (@putt1) Correctly apply worn bulk for armors, backpacks; correctly apply stack groups for ammunition; non coin treasure does not stack with coins anymore
 *  (@yjeroen) Setting initiative via a skill roll in chat is now a whisper to the GM. This also prevents NPC rolls set to initiative to be seen by players.
 *  (@hooking) Fixed line and square template highlighting for measurement templates.
+*  (@mdizo) SCSS Fix and Updated Hover Icons
 
 ### Core System Improvements
 *  (@yjeroen) Only show the SetInitiative button for d20 roll messages in the chat for the GM, or if it's your own roll.
+*  (@putt1) Adjust progress bar to account for 9 light bulk, that are rounded down to 0 bulk
 
 ---
 
