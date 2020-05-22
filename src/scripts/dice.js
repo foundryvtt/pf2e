@@ -86,7 +86,7 @@ class DicePF2e {
         formula: parts.join(' + '),
         data,
         rollMode,
-        rollModes: CONFIG.rollModes,
+        rollModes: CONFIG.Dice.rollModes,
       };
       let roll;
       renderTemplate(template, dialogData).then((html) => {
@@ -210,7 +210,7 @@ class DicePF2e {
       formula: parts.join(' + '),
       data,
       rollMode,
-      rollModes: CONFIG.rollModes,
+      rollModes: CONFIG.Dice.rollModes,
     };
 
     // Render modal dialog
