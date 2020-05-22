@@ -1,5 +1,5 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks, toBulkItem, formatBulk } from '../../item/bulk.js';
+import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 import { getContainerMap } from '../../item/container.js';
 
@@ -143,7 +143,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     };
 
     const bulkItems = itemsFromActorData(actorData);
-    const containers = getContainerMap(actorData.items, bulkItems, stacks, bulkConfig);
+    const indexedBulkItems = indexBulkItemsById(bulkItems);
+    const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
@@ -166,7 +167,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        const [approximatedBulk] = calculateBulk([toBulkItem(i)], stacks, false, bulkConfig);
+        const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
         i.totalWeight = formatBulk(approximatedBulk);
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));

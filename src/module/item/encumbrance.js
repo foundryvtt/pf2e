@@ -6,13 +6,13 @@ export class InventoryWeight {
     }
 
     get encumberedPercentage() {
-        const totalTimes10 = this._totalTimes10();
+        const totalTimes10 = this.combinedBulk.toLightBulk();
         const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
     get limitPercentage() {
-        const totalTimes10 = this._totalTimes10();
+        const totalTimes10 = this.combinedBulk.toLightBulk();
         const limitTimes10 = this.limit * 10 + 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
@@ -20,15 +20,8 @@ export class InventoryWeight {
     get limitPercentageMax100() {
         if (this.limitPercentage > 100) {
             return 100;
-        } else {
-            return this.limitPercentage;
         }
-    }
-
-    _totalTimes10() {
-        const light = this.combinedBulk.light;
-        const normal = this.combinedBulk.normal;
-        return normal * 10 + light;
+        return this.limitPercentage;
     }
 
     get isEncumbered() {

@@ -1,5 +1,5 @@
 import { getContainerMap } from '../../../dist/module/item/container.js';
-import { stacks, itemsFromActorData } from '../../../src/module/item/bulk.js';
+import { stacks, itemsFromActorData, indexBulkItemsById } from '../../../src/module/item/bulk.js';
 
 function createItem({
     id,
@@ -75,7 +75,7 @@ describe('should create container data', () => {
                 weight: 'L',
             }),
         ];
-        const bulkItems = itemsFromActorData({ items });
+        const bulkItems = indexBulkItemsById(itemsFromActorData({ items }));
         const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)
@@ -157,5 +157,96 @@ describe('should create container data', () => {
             .toBe('-');
     });
 
+    test('should calculate container capacity percentage', () => {
+        const items = [
+            // backpack
+            createItem({
+                id: '1',
+                weight: 'L',
+                equippedBulk: '0',
+                negateBulk: '2',
+                bulkCapacity: '4',
+                equipped: true
+            }),
+            createItem({
+                id: '2',
+                weight: '1',
+                containerId: '1'
+            }),
+            // belt pouch
+            createItem({
+                id: '3',
+                weight: 'L',
+                equippedBulk: '0',
+                bulkCapacity: '4L',
+                equipped: true
+            }),
+            createItem({
+                id: '4',
+                weight: '2L',
+                containerId: '3'
+            }),
+            // overloaded belt pouch
+            createItem({
+                id: '5',
+                weight: 'L',
+                equippedBulk: '0',
+                bulkCapacity: '4L',
+                equipped: true
+            }),
+            createItem({
+                id: '6',
+                weight: '5L',
+                containerId: '5'
+            }),
+            // overloaded backpack
+            createItem({
+                id: '7',
+                weight: 'L',
+                equippedBulk: '0',
+                negateBulk: '2',
+                bulkCapacity: '4',
+                equipped: true
+            }),
+            createItem({
+                id: '8',
+                weight: '5',
+                containerId: '7'
+            }),
+        ];
+        const bulkItems = indexBulkItemsById(itemsFromActorData({ items }));
+        const containerData = getContainerMap(items, bulkItems, stacks);
+
+        expect(containerData.size)
+            .toBe(8);
+        
+        const backpack = containerData.get('1');
+        expect(backpack.fullPercentage)
+            .toBe(20);
+
+        const backpackItem = containerData.get('2');
+        expect(backpackItem.fullPercentage)
+            .toBe(0);
+
+        const beltPouch = containerData.get('3');
+        expect(beltPouch.fullPercentage)
+            .toBe(50);
+
+        const beltPouchItem = containerData.get('4');
+        expect(beltPouchItem.fullPercentage)
+            .toBe(0);
+
+        const overloadedPouch = containerData.get('5');
+        expect(overloadedPouch.fullPercentage)
+            .toBe(125);
+        expect(overloadedPouch.isOverLoaded)
+            .toBe(true);
+
+        const overloadedBackpack = containerData.get('7');
+        expect(overloadedBackpack.fullPercentage)
+            .toBe(100);
+        expect(overloadedBackpack.isOverLoaded)
+            .toBe(true);
+    });
 
 });

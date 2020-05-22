@@ -34,6 +34,31 @@ class ContainerData {
     get isNotInContainer() {
         return !this.isInContainer;
     }
+
+    _getLightBulkCapacityThreshold() {
+        if (this.capacity.normal > 0) {
+            // light bulk don't count towards bulk limit
+            return this.capacity.toLightBulk() + 10;
+        }
+        // but do if the container only stores light bulk
+        return this.capacity.light;
+    }
+
+    get fullPercentage() {
+        const capacity = this._getLightBulkCapacityThreshold();
+        if (capacity === 0) {
+            return 0;
+        }
+        const heldLightBulk = this.heldItemBulk.toLightBulk();
+        return Math.floor((heldLightBulk / capacity) * 100);
+    }
+
+    get isOverLoaded() {
+        if (this.capacity.normal > 0) {
+            return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
+        }
+        return this.heldItemBulk.toLightBulk() > this.capacity.light;
+    }
 }
 
 /**
@@ -63,25 +88,6 @@ function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, st
     });
 }
 
-/**
- * Fill in nodes recursively indexed by id
- * @param bulkItem
- * @param resultMap
- */
-function fillBulkIndex(bulkItem, resultMap) {
-    resultMap.set(bulkItem.id, bulkItem);
-    bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
-}
-
-/**
- * Walk the bulk items tree and create a Map for quick lookups
- * @param bulkItems first item is always the inventory, so unpack that first
- */
-function indexBulkItems(bulkItems = []) {
-    const result = new Map();
-    bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
-    return result;
-}
 
 /**
  * Returns a map where the key is an item id and the value is the container data.
@@ -89,15 +95,14 @@ function indexBulkItems(bulkItems = []) {
  * values for non container items are just empty in that case. This is useful
  * in the templates, because you don't have a lot of leeway there
  * @param items all items on the actor
- * @param bulkItems all items on the actor transformed into bulk items; used to look up how much bulk a container stores
+ * @param bulkItemsById all items on the actor transformed into bulk items; used to look up how much bulk a container stores
  * @param stackDefinitions used to calculated bulk
  * @param bulkConfig used to calculated bulk
  * @return {Map<string, ContainerData>}
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getContainerMap(items = [], bulkItems = [], stackDefinitions, bulkConfig) {
+export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefinitions, bulkConfig) {
     const allIds = groupBy(items, item => item._id);
-    const indexedBulkItems = indexBulkItems(bulkItems);
 
     const containerGroups = groupBy(items, item => {
         const containerId = item?.data?.containerId?.value;
@@ -121,7 +126,7 @@ export function getContainerMap(items = [], bulkItems = [], stackDefinitions, bu
             idIndexedContainerData.set(id, toContainer(
                 allIds.get(id)[0],
                 heldItems,
-                indexedBulkItems.get(id)?.holdsItems ?? [],
+                bulkItemsById.get(id)?.holdsItems ?? [],
                 isInContainer,
                 stackDefinitions,
                 bulkConfig

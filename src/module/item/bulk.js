@@ -44,6 +44,10 @@ export class Bulk {
     get isNegligible() {
         return this.normal === 0 && this.light === 0;
     }
+    
+    toLightBulk() {
+        return this.normal * 10 + this.light;
+    }
 
     plus(bulk) {
         return new Bulk({
@@ -487,4 +491,24 @@ export function fixWeight(brokenWeight) {
         return `${bulk.normal}`;
     }
     return null;
+}
+
+/**
+ * Fill in nodes recursively indexed by id
+ * @param bulkItem
+ * @param resultMap
+ */
+function fillBulkIndex(bulkItem, resultMap) {
+    resultMap.set(bulkItem.id, bulkItem);
+    bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
+}
+
+/**
+ * Walk the bulk items tree and create a Map for quick lookups
+ * @param bulkItems first item is always the inventory, so unpack that first
+ */
+export function indexBulkItemsById(bulkItems = []) {
+    const result = new Map();
+    bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
+    return result;
 }
