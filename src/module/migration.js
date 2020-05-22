@@ -160,75 +160,77 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
 /* -------------------------------------------- */
 
 function addContainerAttributes(item, itemData) {
-    const itemName = item?.name?.trim();
-    if (itemName === 'Backpack') {
-        itemData['data.bulkCapacity.value'] = '4';
-        itemData['data.negateBulk.value'] = '2';
-    } else if (itemName === 'Bag of Devouring Type I') {
-        itemData['data.bulkCapacity.value'] = '50';
-        itemData['data.negateBulk.value'] = '50';
-    } else if (itemName === 'Bag of Devouring Type II') {
-        itemData['data.bulkCapacity.value'] = '100';
-        itemData['data.negateBulk.value'] = '100';
-    } else if (itemName === 'Bag of Devouring Type III') {
-        itemData['data.bulkCapacity.value'] = '150';
-        itemData['data.negateBulk.value'] = '150';
-    } else if (itemName === 'Bag of Holding (Type I)') {
-        itemData['data.bulkCapacity.value'] = '25';
-        itemData['data.negateBulk.value'] = '25';
-    } else if (itemName === 'Bag of Holding (Type II)') {
-        itemData['data.bulkCapacity.value'] = '50';
-        itemData['data.negateBulk.value'] = '50';
-    } else if (itemName === 'Bag of Holding (Type III)') {
-        itemData['data.bulkCapacity.value'] = '100';
-        itemData['data.negateBulk.value'] = '100';
-    } else if (itemName === 'Bag of Holding (Type IV)') {
-        itemData['data.bulkCapacity.value'] = '150';
-        itemData['data.negateBulk.value'] = '150';
-    } else if (itemName === 'Bag of Weasels') {
-        itemData['data.bulkCapacity.value'] = '25';
-        itemData['data.negateBulk.value'] = '25';
-    } else if (itemName === 'Gloves of Carelessness') {
-        itemData['data.bulkCapacity.value'] = '1';
-        itemData['data.negateBulk.value'] = '1';
-    } else if (itemName === 'Gloves of Storing') {
-        itemData['data.bulkCapacity.value'] = '1';
-        itemData['data.negateBulk.value'] = '1';
-    } else if (itemName === 'Belt Pouch') {
-        itemData['data.bulkCapacity.value'] = '4L';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Pathfinder\'s Pouch') {
-        // FIXME: 1 bulk is in an extradimensional container
-        itemData['data.bulkCapacity.value'] = '4L';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Knapsack of Halflingkind') {
-        itemData['data.bulkCapacity.value'] = '50';
-        itemData['data.negateBulk.value'] = '50';
-    } else if (itemName === 'Knapsack of Halflingkind (Greater)') {
-        itemData['data.bulkCapacity.value'] = '50';
-        itemData['data.negateBulk.value'] = '50';
-    } else if (itemName === 'Sack (5)') {
-        itemData['data.bulkCapacity.value'] = '8';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Satchel') {
-        itemData['data.bulkCapacity.value'] = '2';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Bandolier') {
-        itemData['data.bulkCapacity.value'] = '8L';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Saddlebags') {
-        // FIXME: a saddlebag has 2 parts, each one carrying 3 bulk
-        itemData['data.bulkCapacity.value'] = '3';
-        itemData['data.negateBulk.value'] = '0';
-    } else if (itemName === 'Chest') {
-        itemData['data.bulkCapacity.value'] = '8';
-        itemData['data.negateBulk.value'] = '0';
-    } else {
-        itemData['data.bulkCapacity.value'] = '';
-        itemData['data.negateBulk.value'] = '0';
+    if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
+        const itemName = item?.name?.trim();
+        if (itemName === 'Backpack') {
+            itemData['data.bulkCapacity.value'] = '4';
+            itemData['data.negateBulk.value'] = '2';
+        } else if (itemName === 'Bag of Devouring Type I') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Bag of Devouring Type II') {
+            itemData['data.bulkCapacity.value'] = '100';
+            itemData['data.negateBulk.value'] = '100';
+        } else if (itemName === 'Bag of Devouring Type III') {
+            itemData['data.bulkCapacity.value'] = '150';
+            itemData['data.negateBulk.value'] = '150';
+        } else if (itemName === 'Bag of Holding (Type I)') {
+            itemData['data.bulkCapacity.value'] = '25';
+            itemData['data.negateBulk.value'] = '25';
+        } else if (itemName === 'Bag of Holding (Type II)') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Bag of Holding (Type III)') {
+            itemData['data.bulkCapacity.value'] = '100';
+            itemData['data.negateBulk.value'] = '100';
+        } else if (itemName === 'Bag of Holding (Type IV)') {
+            itemData['data.bulkCapacity.value'] = '150';
+            itemData['data.negateBulk.value'] = '150';
+        } else if (itemName === 'Bag of Weasels') {
+            itemData['data.bulkCapacity.value'] = '25';
+            itemData['data.negateBulk.value'] = '25';
+        } else if (itemName === 'Gloves of Carelessness') {
+            itemData['data.bulkCapacity.value'] = '1';
+            itemData['data.negateBulk.value'] = '1';
+        } else if (itemName === 'Gloves of Storing') {
+            itemData['data.bulkCapacity.value'] = '1';
+            itemData['data.negateBulk.value'] = '1';
+        } else if (itemName === 'Belt Pouch') {
+            itemData['data.bulkCapacity.value'] = '4L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Pathfinder\'s Pouch') {
+            // FIXME: 1 bulk is in an extradimensional container
+            itemData['data.bulkCapacity.value'] = '4L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Knapsack of Halflingkind') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Knapsack of Halflingkind (Greater)') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Sack (5)') {
+            itemData['data.bulkCapacity.value'] = '8';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Satchel') {
+            itemData['data.bulkCapacity.value'] = '2';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Bandolier') {
+            itemData['data.bulkCapacity.value'] = '8L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Saddlebags') {
+            // FIXME: a saddlebag has 2 parts, each one carrying 3 bulk
+            itemData['data.bulkCapacity.value'] = '3';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Chest') {
+            itemData['data.bulkCapacity.value'] = '8';
+            itemData['data.negateBulk.value'] = '0';
+        } else {
+            itemData['data.bulkCapacity.value'] = '';
+            itemData['data.negateBulk.value'] = '0';
+        }
+        itemData['data.containerId.value'] = '';
+        return itemData;
     }
-    itemData['data.containerId.value'] = '';
-    return itemData;
 }
 
 async function addCoin(actorEntity, treasureId, denomination, quantity) {
