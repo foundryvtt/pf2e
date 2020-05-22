@@ -207,7 +207,7 @@ function addContainerAttributes(item, itemData) {
     } else if (itemName === 'Knapsack of Halflingkind (Greater)') {
         itemData['data.bulkCapacity.value'] = '50';
         itemData['data.negateBulk.value'] = '50';
-    } else if (itemName === 'Sack') {
+    } else if (itemName === 'Sack (5)') {
         itemData['data.bulkCapacity.value'] = '8';
         itemData['data.negateBulk.value'] = '0';
     } else if (itemName === 'Satchel') {
