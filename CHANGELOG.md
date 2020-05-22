@@ -1,4 +1,33 @@
 # Patch Notes:
+## Version 0.578.0
+### New Features
+*  (@putt1) Implement function to add to existing coins or create new ones from the compendium
+
+### Content Changes
+*  (Athenos) All compendium entries for the Age of Ashes bestiary is now complete (Book 1-6)
+*  (@overdox) New Content:
+    * Added all treasure types with icons to the equipment compendium
+    * Updated rollable tables to link to the newly added treaure items
+    * Added all 14th level consumables and permanent items
+    * Added 14th level rollable tables for consumables and permanent items
+    * Starting to add the npcs' from the npc gallery in the gamemastery guide (Advisor, Bandit, Grave Robber, Noble, Palace Guard and Spy has been added so far)
+*  (@overdox) Bug Fixes:
+    * Corrected the wrong spell levels for some focus spells #378 (closed)
+    * Corrected animal form spell level #377 (closed)
+    * Added the missing feat 'Confabulator' #376 (closed)
+*  (@overdox)Cleaned up the alchemical icon categories and removed the duplicates
+
+### Bug Fixes
+*  (@putt1) Correctly apply worn bulk for armors, backpacks; correctly apply stack groups for ammunition; non coin treasure does not stack with coins anymore
+*  (@yjeroen) Setting initiative via a skill roll in chat is now a whisper to the GM. This also prevents NPC rolls set to initiative to be seen by players.
+*  (@hooking) Fixed line and square template highlighting for measurement templates.
+
+### Core System Improvements
+*  (@yjeroen) Only show the SetInitiative button for d20 roll messages in the chat for the GM, or if it's your own roll.
+
+---
+
+
 ## Version 0.577.0
 ### New Features
 *  Added support for Pathfinder style measurement templates. Huge thanks to Furysparks and the Pathfinder 1e system for allowing us to use thier implementation of this!
