@@ -170,7 +170,7 @@ describe('should create container data', () => {
             }),
             createItem({
                 id: '2',
-                weight: '1',
+                weight: '4; 9L',
                 containerId: '1'
             }),
             // belt pouch
@@ -183,7 +183,7 @@ describe('should create container data', () => {
             }),
             createItem({
                 id: '4',
-                weight: '2L',
+                weight: '4L',
                 containerId: '3'
             }),
             // overloaded belt pouch
@@ -222,7 +222,9 @@ describe('should create container data', () => {
         
         const backpack = containerData.get('1');
         expect(backpack.fullPercentage)
-            .toBe(20);
+            .toBe(98);
+        expect(backpack.isOverLoaded)
+            .toBe(false);
 
         const backpackItem = containerData.get('2');
         expect(backpackItem.fullPercentage)
@@ -230,7 +232,9 @@ describe('should create container data', () => {
 
         const beltPouch = containerData.get('3');
         expect(beltPouch.fullPercentage)
-            .toBe(50);
+            .toBe(100);
+        expect(beltPouch.isOverLoaded)
+            .toBe(false);
 
         const beltPouchItem = containerData.get('4');
         expect(beltPouchItem.fullPercentage)
