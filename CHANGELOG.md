@@ -15,7 +15,8 @@
     * Corrected the wrong spell levels for some focus spells #378 (closed)
     * Corrected animal form spell level #377 (closed)
     * Added the missing feat 'Confabulator' #376 (closed)
-*  (@overdox)Cleaned up the alchemical icon categories and removed the duplicates
+*  (@overdox) Cleaned up the alchemical icon categories and removed the duplicates
+*  (@hooking) Updated Iconics compendium to use new treasure system for coins
 
 ### Bug Fixes
 *  (@putt1) Correctly apply worn bulk for armors, backpacks; correctly apply stack groups for ammunition; non coin treasure does not stack with coins anymore
