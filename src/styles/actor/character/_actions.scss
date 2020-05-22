@@ -7,6 +7,7 @@
 
         .item {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             margin-left: 8px;
@@ -107,32 +108,32 @@
                 }
             }
 
+            .item-summary {
+                flex-basis: 100%;
+                margin-bottom: 8px;
+
+                .title {
+                    color: var(--primary);
+                    @include p-reset;
+                    margin-top: 4px;
+                }
+
+                img {
+                    border: none;
+                    vertical-align: middle;
+
+                    &.actionlight {
+                        background: var(--alt);
+                        vertical-align: middle;
+                        border: 1px solid var(--body);
+                    }
+                }
+            }
+
             &.expanded {
-                flex-wrap: wrap;
                 h4 {
                     color: var(--primary);
                     font-weight: 700;
-                }
-                .item-summary {
-                    flex-basis: 100%;
-                    margin-bottom: 8px;
-
-                    .title {
-                        color: var(--primary);
-                        @include p-reset;
-                        margin-top: 4px;
-                    }
-
-                    img {
-                        border: none;
-                        vertical-align: middle;
-
-                        &.actionlight {
-                            background: var(--alt);
-                            vertical-align: middle;
-                            border: 1px solid var(--body);
-                        }
-                    }
                 }
             }
         }
