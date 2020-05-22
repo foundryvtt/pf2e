@@ -112,10 +112,22 @@
                 flex-basis: 100%;
                 margin-bottom: 8px;
 
-                .title {
+                .title,
+                .framing {
                     color: var(--primary);
                     @include p-reset;
-                    margin-top: 4px;
+                    margin-top: 1em;
+                }
+
+                .framing {
+                    color: var(--secondary);
+                    margin: 1em 0 0.25em;
+                    strong {
+                        font-weight: 500;
+                    }
+                    & + p {
+                        margin-top: 0;
+                    }
                 }
 
                 img {
