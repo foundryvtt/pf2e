@@ -1,5 +1,19 @@
 <div class="tab actions" data-group="primary" data-tab="actions">
-    <ol class="actions-list inventory-list directory-list actions-pane">
+  <ol class="actions-list inventory-list directory-list actions-pane" style="height: auto; margin-bottom: 10px;">
+    <li class="item action-header">
+      <h3 class="item-name pf-heading pf-actions">Strikes (Experimental)</h3>
+    </li>
+    {{#each actor.data.actions as |action idx|}}
+    <li class="item" data-action-index="{{idx}}" title="{{action.breakdown}}">
+      <div class="item-name rollable">
+        <div class="item-image action-strike"></div>
+        <h4>{{action.name}} <span style="display: inline; font-family: Pathfinder2eActions; font-size: 2em;">{{action.glyph}}</span></h4>
+      </div>
+    </li>
+    {{/each}}
+  </ol>
+
+    <ol class="actions-list inventory-list directory-list actions-pane" style="height: auto; margin-bottom: 10px;">
         {{#each actor.actions as |section sid|}}
             <li class="item action-header">
                 <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
