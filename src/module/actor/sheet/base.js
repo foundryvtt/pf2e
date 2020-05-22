@@ -670,8 +670,14 @@ class ActorSheetPF2e extends ActorSheet {
       li.addEventListener('dragstart', handler, false);
     });
 
+    // Action Rolling (experimental strikes)
+    html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+      const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.roll(event); 
+    });
+
     // Item Rolling
-    html.find('.item .item-image').click((event) => this._onItemRoll(event));
+    html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
 
     // NPC Weapon Rolling
     html.find('button').click((ev) => {
