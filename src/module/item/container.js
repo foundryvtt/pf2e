@@ -83,6 +83,18 @@ function indexBulkItems(bulkItems = []) {
     return result;
 }
 
+/**
+ * Returns a map where the key is an item id and the value is the container data.
+ * Every item has container data, even if it's not a container. The relevant
+ * values for non container items are just empty in that case. This is useful
+ * in the templates, because you don't have a lot of leeway there
+ * @param items all items on the actor
+ * @param bulkItems all items on the actor transformed into bulk items; used to look up how much bulk a container stores
+ * @param stackDefinitions used to calculated bulk
+ * @param bulkConfig used to calculated bulk
+ * @return {Map<string, ContainerData>}
+ */
+// eslint-disable-next-line import/prefer-default-export
 export function getContainerMap(items = [], bulkItems = [], stackDefinitions, bulkConfig) {
     const allIds = groupBy(items, item => item._id);
     const indexedBulkItems = indexBulkItems(bulkItems);
