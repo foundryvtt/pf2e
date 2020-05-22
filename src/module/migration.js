@@ -477,6 +477,18 @@ function migrateImage(item, updateData) {
     else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg');
     }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.jpg');
+    }
 
     return updateData;
 }
