@@ -5,13 +5,11 @@ $header-height: 89px;
     background-repeat: repeat-x, no-repeat;
     background-size: auto $header-height, cover;
     background-attachment: local;
-    padding-right: 20px;
 }
 
 .crb-style section.window-content {
     padding: 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary) transparent;
+    overflow: hidden;
 }
 
 .crb-style form {
@@ -29,22 +27,29 @@ $header-height: 89px;
     @import 'sidebar',
             'header';
 
+    $window-p-right: 20px;
+
     .char-header {
         grid-area: header;
+        margin-right: $window-p-right;
     }
     .sheet-navigation {
         grid-area: nav;
+        margin-right: $window-p-right;
     }
     .sheet-content {
         grid-area: content;
+        @include scrollbar;
+        padding-right: $window-p-right;
     }
 
     /* Navigation */
     @import 'nav';
 
-    .sheet-content  {
+    .sheet-content {
         color: var(--body);
         margin-top: 12px;
+        max-height: 590px;
         @import 'character', 'npc';
     }
 
