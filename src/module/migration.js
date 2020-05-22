@@ -151,7 +151,7 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             migrateActorBulkItems(actor, updateData);
         }
         if (worldSchemaVersion < 0.579) {
-            addActorContainerAttributes(item, updateData);
+            addActorContainerAttributes(actor, updateData);
         }
     }
     return updateData;
