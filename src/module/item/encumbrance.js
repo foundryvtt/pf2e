@@ -7,13 +7,13 @@ export class InventoryWeight {
 
     get encumberedPercentage() {
         const totalTimes10 = this._totalTimes10();
-        const encumberedAtTimes10 = this.encumberedAt * 10;
+        const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
     get limitPercentage() {
         const totalTimes10 = this._totalTimes10();
-        const limitTimes10 = this.limit * 10;
+        const limitTimes10 = this.limit * 10 + 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
 
