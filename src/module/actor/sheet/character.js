@@ -213,11 +213,17 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         const spellAbl = i.data.ability.value || 'int';
         const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
         if (i.data.spelldc.value != spellAttack) {
-          i.data.spelldc.value = spellAttack;
-          i.data.spelldc.dc = spellAttack + 10;
-          i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-          // this.actor.updateOwnedItem(i, true);
-          this.actor.updateEmbeddedEntity('OwnedItem', i);
+          const updatedItem = {
+            _id: i._id,
+            data: {
+              spelldc: {
+                value: spellAttack,
+                dc: spellAttack + 10,
+                mod: actorData.data.abilities[spellAbl].mod,
+              },
+            },
+          };
+          this.actor.updateEmbeddedEntity('OwnedItem', updatedItem);
         }
         i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
         i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
@@ -377,7 +383,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     if (embeddedEntityUpdate.length) {
       console.log('PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ', embeddedEntityUpdate);
       this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
-      ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
+      //ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
     }
 
 

@@ -51,8 +51,11 @@ export default class extends Item {
   getChatData(htmlOptions) {
     const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
-    data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
-    return data;
+    if (data) {
+      data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
+      return data;
+    }
+    return;
   }
 
   /* -------------------------------------------- */
@@ -276,6 +279,9 @@ export default class extends Item {
     const ad = this.actor.data.data;
 
     const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
+
+    if (!spellcastingEntry) return;
+
     const spellDC = spellcastingEntry.data.data.spelldc.dc;
     const spellAttack = spellcastingEntry.data.data.spelldc.value;
 
