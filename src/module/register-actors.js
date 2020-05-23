@@ -3,6 +3,7 @@ import ActorSheetPF2eCharacterReadOnly from './actor/sheet/characterReadOnly.js'
 import ActorSheetPF2eNPC from './actor/sheet/npc.js';
 import UpdatedNPCActorPF2ESheet from './actor/sheet/updatednpcsheet.js';
 import CRBStyleCharacterActorSheetPF2E from './actor/sheet/crb-style/crb-style.js';
+import ActorSheetPF2eHazard from './actor/sheet/hazard.js';
 
 function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
@@ -20,10 +21,10 @@ function registerActors() {
   });
 
   // Register Character Sheet with new UI
-/*   Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
+  Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
     types: ['character'],
     makeDefault: false,
-  }); */
+  });
 
   // Register NPC Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
@@ -34,6 +35,12 @@ function registerActors() {
   // Register NPC Sheet
   Actors.registerSheet('pf2e', UpdatedNPCActorPF2ESheet, {
     types: ['npc'],
+    makeDefault: true,
+  });
+
+  // Register Hazard Sheet
+  Actors.registerSheet('pf2e', ActorSheetPF2eHazard, {
+    types: ['hazard'],
     makeDefault: true,
   });
 }

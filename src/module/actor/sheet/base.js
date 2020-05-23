@@ -37,6 +37,10 @@ class ActorSheetPF2e extends ActorSheet {
   getData() {
     const sheetData = super.getData();
 
+    if (this.actorType == "hazard") {
+      return sheetData;
+    }
+
     // Update martial skill labels
     for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);
@@ -77,7 +81,7 @@ class ActorSheetPF2e extends ActorSheet {
         sheetData.totalTreasure[denomination] = {
             value,
             label: CONFIG.PF2E.currencies[denomination],
-        };      
+        };
     }
 
     // Update traits
@@ -125,7 +129,7 @@ class ActorSheetPF2e extends ActorSheet {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
         }
-      } else {
+      } else if (trait.value) {
         trait.selected = trait.value.reduce((obj, t) => {
           obj[t] = choices[t];
            return obj;
@@ -618,7 +622,7 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
 
     html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
-    
+
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
@@ -668,7 +672,7 @@ class ActorSheetPF2e extends ActorSheet {
       li.setAttribute('draggable', true);
       li.addEventListener('dragstart', handler, false);
     });
-    
+
     // change background for dragged over items that are containers
       const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
       containerItems
@@ -676,11 +680,11 @@ class ActorSheetPF2e extends ActorSheet {
             elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
     containerItems
           .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
-    
+
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-      this.actor.data.data.actions[Number(actionIndex)]?.roll(event); 
+      this.actor.data.data.actions[Number(actionIndex)]?.roll(event);
     });
 
     // Item Rolling
@@ -1046,8 +1050,8 @@ class ActorSheetPF2e extends ActorSheet {
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-    
-    
+
+
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
       const dragData = event.dataTransfer.getData('text/plain');
@@ -1182,14 +1186,14 @@ class ActorSheetPF2e extends ActorSheet {
               return this.stashOrUnstash(event, actor, () => {
                 return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
               });
-            } 
+            }
         }
         // Case 3 - Import from World entity
         else {
             let item = game.items.get(data.id);
             if (!item) return;
             return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));    
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
             });
         }
     }
@@ -1210,7 +1214,7 @@ class ActorSheetPF2e extends ActorSheet {
             return result;
         }
     }
-    
+
   /* -------------------------------------------- */
 
   /**
@@ -1375,7 +1379,7 @@ class ActorSheetPF2e extends ActorSheet {
             .next('.container-metadata')[0];
         container.hidden = !container.hidden;
     }
-    
+
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @private
@@ -1585,7 +1589,7 @@ class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
       new AddCoinsPopup(this.actor, {}).render(true)
   }
-    
+
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);
