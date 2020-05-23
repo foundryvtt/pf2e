@@ -30,7 +30,8 @@ class ItemBrowserPF2e extends Application {
       skills: {},
       actorSize: {},
       alignment: {},
-      source: {}
+      source: {},
+      featType: {},
     };
   }
 
@@ -898,7 +899,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       'armor',
       'equipment',
       'consumable',
-      'treasure',  
+      'treasure',
       'backpack',
     ];
 
@@ -998,7 +999,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     Hooks.on('renderCompendiumDirectory', (app, html, data) => {
       // Bestiary Browser Buttons
       const bestiaryImportButton = $(`<button class="bestiary-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Bestiary Browser</button>`);
-      
+
       if (game.user.isGM) {
         html.find('.browser-group').append(bestiaryImportButton);
       } /* else {
@@ -1016,7 +1017,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     Hooks.on('renderActorDirectory', (app, html, data) => {
       // Bestiary Browser Buttons
       const bestiaryImportButton = $(`<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`);
-      
+
       if (game.user.isGM) {
         //html.find('.browser-group').append(bestiaryImportButton);
         html.find('.directory-footer').append(bestiaryImportButton);
@@ -1048,7 +1049,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     data.traits = CONFIG.PF2E.monsterTraits;
     data.languages = CONFIG.PF2E.languages;
     data.source = this.source;
-    
+
     return data;
   }
 
@@ -1087,7 +1088,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
                   actor.filters["source"] = actorSource
                 }
             }
-            
+
 
             // add the source to the filter list.
             if (actor.filters.source) {
