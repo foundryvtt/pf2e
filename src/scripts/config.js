@@ -442,6 +442,12 @@ CONFIG.consumableTraits = {
     scroll: "PF2E.TraitScroll",
     snare: "PF2E.TraitSnare",
     talisman: "PF2E.TraitTalisman",
+    contact: "PF2E.TraitContact",
+    ingested: "PF2E.TraitIngested",
+    inhaled: "PF2E.TraitInhaled",
+    injury: "PF2E.TraitInjury",
+    poison: "PF2E.TraitPoison",
+    alchemical: 'PF2E.TraitAlchemical',
 }
 
 // Spell Traits
