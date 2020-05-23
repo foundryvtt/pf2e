@@ -20,10 +20,10 @@ function registerActors() {
   });
 
   // Register Character Sheet with new UI
-/*   Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
+  Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
     types: ['character'],
     makeDefault: false,
-  }); */
+  });
 
   // Register NPC Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
