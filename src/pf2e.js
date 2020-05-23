@@ -109,19 +109,19 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     const { messageId } = li.data();
     const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Damage');
+    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Damage');
   };
   const canApplyHealing = (li) => {
     const { messageId } = li.data();
     const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Healing');
+    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Healing');
   };
   const canApplyInitiative = (li) => {
     const { messageId } = li.data();
     const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlledTokens.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Skill Check');
+    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Skill Check');
   };
 
   options.push(

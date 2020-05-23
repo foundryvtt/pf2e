@@ -86,7 +86,7 @@ class DicePF2e {
         formula: parts.join(' + '),
         data,
         rollMode,
-        rollModes: CONFIG.rollModes,
+        rollModes: CONFIG.Dice.rollModes,
       };
       let roll;
       renderTemplate(template, dialogData).then((html) => {
@@ -210,7 +210,7 @@ class DicePF2e {
       formula: parts.join(' + '),
       data,
       rollMode,
-      rollModes: CONFIG.rollModes,
+      rollModes: CONFIG.Dice.rollModes,
     };
 
     // Render modal dialog
@@ -264,7 +264,7 @@ class DicePF2e {
 Hooks.on('renderChatMessage', (message, html, data) => {
   if (!message.isRoll) return;
 
-  if (message.roll.parts.length && message.isRollVisible) {
+  if (message.roll.parts.length && message.isContentVisible) {
     const d = message.roll.parts[0];
     if (d instanceof Die && d.faces === 20) {
       if (d.total === 20) html.find('.dice-total').addClass('success');
