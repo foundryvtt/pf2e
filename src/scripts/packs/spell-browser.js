@@ -867,7 +867,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       equipment: 'Equipment',
       consumable: 'Consumables',
       treasure: 'Treasure',
-      backpack: 'Backpacks',
+      backpack: 'Containers',
     };
 
     data.inventoryItems = this.inventoryItems;
