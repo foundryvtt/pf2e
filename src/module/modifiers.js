@@ -123,7 +123,11 @@ export const AbilityModifier = Object.freeze({
       case 'int': modifier = INTELLIGENCE.withScore(score); break;
       case 'wis': modifier = WISDOM.withScore(score); break;
       case 'cha': modifier = CHARISMA.withScore(score); break;
-      default: throw new Error(`invalid ability abbreviation: ${ability}`);
+      default:
+        // Throwing an actual error can completely break the sheet. Instead, log
+        // and use 0 for the modifier
+        console.error(`invalid ability abbreviation: ${ability}`);
+        modifier = new PF2Modifier('PF2E.AbilityUnknown', 0, PF2ModifierType.ABILITY);
     }
     return modifier;
   }
@@ -223,7 +227,7 @@ function applyPenalty(lowestPenalty, modifier) {
 
 /**
  * Applies the modifier stacking rules and calculates the total modifier.
- * 
+ *
  * @param {PF2Modifier[]} modifiers
  * @returns {number}
  */
