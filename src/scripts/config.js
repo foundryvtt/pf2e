@@ -419,7 +419,35 @@ CONFIG.armorTraits = {
 
 // Weapon Properties
 CONFIG.equipmentTraits = {
-    extradimensional: "PF2E.TraitExtradimensional"
+    extradimensional: "PF2E.TraitExtradimensional",
+    apex: "PF2E.TraitApex",
+    artifact: "PF2E.TraitArtifact",
+    cursed: "PF2E.TraitCursed",
+    invested: "PF2E.TraitInvested",
+    saggorak: "PF2E.TraitSaggorak",
+    staff: "PF2E.TraitStaff",
+    structure: "PF2E.TraitStructure",
+    tattoo: "PF2E.TraitTattoo",
+    wand: "PF2E.TraitWand",
+}
+
+CONFIG.consumableTraits = {
+    bomb: "PF2E.TraitBomb",
+    consumable: "PF2E.TraitConsumable",
+    drug: "PF2E.TraitDrug",
+    elixir: "PF2E.TraitElixir",
+    mutagen: "PF2E.TraitMutagen",
+    oil: "PF2E.TraitOil",
+    potion: "PF2E.TraitPotion",
+    scroll: "PF2E.TraitScroll",
+    snare: "PF2E.TraitSnare",
+    talisman: "PF2E.TraitTalisman",
+    contact: "PF2E.TraitContact",
+    ingested: "PF2E.TraitIngested",
+    inhaled: "PF2E.TraitInhaled",
+    injury: "PF2E.TraitInjury",
+    poison: "PF2E.TraitPoison",
+    alchemical: 'PF2E.TraitAlchemical',
 }
 
 // Spell Traits
@@ -872,6 +900,9 @@ CONFIG.consumableTypes = {
   scroll: 'PF2E.ConsumableTypeScroll',
   talasman: 'PF2E.ConsumableTypeTalisman',
   snare: 'PF2E.ConsumableTypeSnare',
+  drug: 'PF2E.ConsumableTypeDrug',
+  elixir: 'PF2E.ConsumableTypeElixir',
+  mutagen: 'PF2E.ConsumableTypeMutagen',
   other: 'PF2E.ConsumableTypeOther',
 };
 
