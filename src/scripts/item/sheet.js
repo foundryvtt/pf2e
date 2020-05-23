@@ -149,10 +149,11 @@ class ItemSheetPF2e extends ItemSheet {
     // Equipment data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
       data.stackGroups = CONFIG.stackGroups;
+      data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
     } else if (type === 'backpack') {
       // Backpack data
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
-      data.backpackTraits = CONFIG.PF2E.backpackTraits;
+      data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data

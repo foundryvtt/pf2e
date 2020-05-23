@@ -410,7 +410,7 @@ mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
 // Weapon Properties
-CONFIG.backpackTraits = {
+CONFIG.equipmentTraits = {
     extradimensional: "PF2E.TraitExtradimensional"
 }
 
@@ -863,6 +863,7 @@ CONFIG.consumableTypes = {
   oil: 'PF2E.ConsumableTypeOil',
   scroll: 'PF2E.ConsumableTypeScroll',
   talasman: 'PF2E.ConsumableTypeTalisman',
+  snare: 'PF2E.ConsumableTypeSnare',
   other: 'PF2E.ConsumableTypeOther',
 };
 
