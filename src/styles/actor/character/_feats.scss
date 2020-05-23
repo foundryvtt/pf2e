@@ -1,0 +1,83 @@
+.feats {
+    .action-header {
+        margin-top: 1em;
+        h3 {
+            margin-left: 3px;
+            padding-top: 2px;
+        }
+        .item-controls {
+            white-space: nowrap;
+            a + a {
+                margin-left: 4px;
+            }
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    .item {
+        &.feat-item {
+            display: grid;
+            grid:
+                'name ctrl' min-content
+                'content content' min-content
+                / 1fr min-content;
+                align-items: center;
+            margin-bottom: 2px;
+
+            &:nth-child(odd) {
+                .item-name,
+                .item-controls {
+                    background-color: rgba($alt-color, 0.1);
+                }
+            }
+
+            .item-name {
+                grid-area: name;
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                h4 {
+                    font-family: $serif;
+                    cursor: pointer;
+                    &:hover {
+                        color: var(--primary);
+                        text-shadow: 0 0 3px var(--tertiary);
+                    }
+                }
+
+                .item-image {
+                    @include frame-icon;
+                    height: 40px;
+                    width: 40px;
+                    margin: 2px 0;
+                    border-radius: 0;
+                    margin-left: 12px;
+                    margin-right: 8px;
+                    cursor: pointer;
+                    background-color: var(--secondary);
+                }
+            }
+
+            .item-controls {
+                grid-area: ctrl;
+                font-size: 10px;
+                white-space: nowrap;
+                a + a {
+                    margin-left: 4px;
+                }
+            }
+
+            .item-summary {
+                grid-area: content;
+                padding: 8px;
+                margin-top: 0;
+                padding-top: 0;
+                margin-left: 4px;
+            }
+        }
+    }
+}
