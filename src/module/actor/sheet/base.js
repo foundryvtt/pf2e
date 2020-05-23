@@ -37,6 +37,10 @@ class ActorSheetPF2e extends ActorSheet {
   getData() {
     const sheetData = super.getData();
 
+    if (this.actorType == "hazard") {
+      return sheetData;
+    }
+
     // Update martial skill labels
     for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);

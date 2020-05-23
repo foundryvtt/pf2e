@@ -2,8 +2,11 @@
 export const initiativeFormula = (combatant) => {
   const { actor } = combatant;
   if (!actor) return '1d20';
+  const actorType = actor.data.type;
   const data = actor ? actor.data.data : {};
-  const parts = ['1d20', data.attributes.perception.value || 0];
+  const bonus = actorType == 'hazard' ? data.attributes.stealth.value : data.attributes.perception.value;
+
+  const parts = ['1d20', bonus || 0];
   
   //Only show initiative bonuses if they are there. Else it always shows "+ 0" on the roll.
   if (((data.attributes.initiative || {}).circumstance || 0) + ((data.attributes.initiative || {}).status || 0) != 0) 
