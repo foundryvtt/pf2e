@@ -636,8 +636,29 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-delete').click((ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
-      this.actor.deleteOwnedItem(itemId);
-      li.slideUp(200, () => this.render(false));
+      const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+
+      renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name}).then((html) => {
+        new Dialog({
+          title: 'Delete Confirmation',
+          content: html,
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: 'Yes',
+              callback: () => {
+                this.actor.deleteOwnedItem(itemId);
+                li.slideUp(200, () => this.render(false));
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: 'Cancel',
+            },
+          },
+          default: 'Yes',
+        }).render(true);
+      });
     });
 
     // Increase Item Quantity
