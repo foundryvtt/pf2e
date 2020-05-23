@@ -229,8 +229,8 @@ function addContainerAttributes(item, itemData) {
             itemData['data.negateBulk.value'] = '0';
         }
         itemData['data.containerId.value'] = '';
-        return itemData;
     }
+    return itemData;
 }
 
 async function addCoin(actorEntity, treasureId, denomination, quantity) {
