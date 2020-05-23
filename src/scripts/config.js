@@ -131,6 +131,7 @@ CONFIG.stackGroups = {
     blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
     rations: 'PF2E.StackGroupRations',
     coins: 'PF2E.StackGroupCoins',
+    gems: 'PF2E.StackGroupGems',
 };
 
 //Weakness Types

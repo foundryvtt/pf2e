@@ -32,6 +32,10 @@ export const stacks = {
     coins: {
         size: 1000,
         lightBulk: 10,
+    },
+    gems: {
+        size: 2000,
+        lightBulk: 10,
     }
 };
 
