@@ -1,0 +1,288 @@
+<form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
+	<div class="contentcontainer">
+  
+    <div class="npc-title-bar">
+      <h1 class='name'>{{actor.name}}</h1>
+        <h1 class="editHazardButton">
+          <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
+            <label>{{localize "PF2E.EditHazardLabel"}}</label><input class="isHazardEditable" name="flags.pf2e.editHazard.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editHazard.value}}/>
+          </div>
+        </h1>
+      <h1 class='level'>Hazard {{data.details.level}}</h1>
+    </div>
+    
+    <div class="top-section">
+    
+      <div class="top-quick-container">
+        
+        <span class="hp-current pf-large" title="{{localize 'PF2E.MaxHitPointsShortLabel'}}: {{data.attributes.hp.max}}">
+          <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
+          <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
+        </span>
+        <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="{{localize "PF2E.NPCNotesTitle"}}">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea>
+      </div>
+    
+      <div class="top-stats-container">
+      
+        <div class="traits-bar">
+          {{#if data.details.isComplex}}<span class="trait">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
+          {{#each actorTraits as |trait id|}}
+          <span class="trait">{{trait}}</span>
+          {{/each}}
+          <span class="trait">{{localize "PF2E.TraitTrap"}}</span>
+        </div>
+      
+        {{#if data.details.isComplex}}
+        <div class="stats-line">
+          <span class="inline-stats rollable" data-attribute="stealth">
+            <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}}</label>
+            <span class="stat-value attribute-name">+{{data.attributes.stealth.value}}</span>
+            {{#if hasStealthDescription}}
+              <span class="stat-detail stealth attribute-name">{{{data.attributes.stealth.details}}}</span>
+            {{/if}}
+          </span>
+        </div>
+        {{else}}
+        <div class="stats-line">
+          <span class="inline-stats rollable" data-attribute="stealth">
+            <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}}</label>
+            <span class="stat-value attribute-name">{{localize 'PF2E.DCLabel'}} {{stealthDC}}</span>
+            {{#if hasStealthDescription}}
+              <span class="stat-detail stealth attribute-name">{{{data.attributes.stealth.details}}}</span>
+            {{/if}}
+          </span>
+        </div>
+        {{/if}}
+            
+        {{#if hasDescription}}
+        <div class="stats-line">
+          <span class="inline-stats">
+              <label class="stat-title">{{localize "PF2E.HazardDescriptionLabel"}}</label>
+              <span class="stat-value">{{{data.details.description}}}</span>
+          </span>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+    
+    <hr>
+    
+    {{#if hasDisable}}
+    <div class="stats-line">
+      <span class="inline-stats">
+          <label class="stat-title">{{localize "PF2E.HazardDisableLabel"}}</label>
+          <span class="stat-value">{{{data.details.disable}}}</span>
+      </span>
+    </div>
+    {{/if}}
+
+
+    {{#if data.attributes.hasHealth}}
+    <div class="stats-line">
+      <span class="inline-stats">
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ArmorClassShortLabel"}}</label>
+          <span class="stat-value">{{data.attributes.ac.value}}</span>
+          {{#if hasACDetails}}
+          <span class="stat-detail">{{data.attributes.ac.details}}</span>
+          {{/if}}
+        </span>
+        <span class="stat-list rollable" data-save="fortitude">
+          <label class="stat-title save-name">{{localize "PF2E.SavesFortitudeShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.fortitude.value}}</span>
+          {{#if hasFortDetails}}
+          <span class="stat-detail save-name">{{data.saves.fortitude.saveDetail}}</span>
+          {{/if}}
+        </span>
+        <span class="stat-list rollable" data-save="reflex">
+          <label class="stat-title save-name">{{localize "PF2E.SavesReflexShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.reflex.value}}</span>
+          {{#if hasRefDetails}}
+          <span class="stat-detail save-name">{{data.saves.reflex.saveDetail}}</span>
+          {{/if}}
+        </span>
+        {{#if hasWillSave}}
+        <span class="stat-list rollable" data-save="will">
+          <label class="stat-title save-name">{{localize "PF2E.SavesWillShort"}}</label>
+          <span class="stat-value save-name">+{{data.saves.will.value}}</span>
+          {{#if hasWillDetails}}
+          <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
+          {{/if}}
+        </span>
+        {{/if}}
+      </span>
+    </div>
+    
+    <div class="stats-line">
+      <span class="inline-stats">
+        <span class="stat-list major-stat" title="{{localize "HazardHardnessTitle"}}">
+          <label class="stat-title">{{localize "PF2E.HazardHardnessLabel"}}</label>
+          <span class="stat-value">{{data.attributes.hardness}}</span>
+        </span>
+        
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.HitPointsShortLabel"}}</label>
+          <span class="stat-value">{{data.attributes.hp.max}}</span>
+          <span class="stat-value"> (BT {{brokenThreshold}})</span>
+  	      {{#if hasHPDetails}}
+          <span class="stat-detail">{{{data.attributes.hp.details}}}</span>
+          {{/if}}
+
+          
+        </span>
+        
+        {{#if hasImmunities}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
+          {{#each data.traits.di.selected as |trait id|}}
+            <span class="stat-value">{{trait}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+
+        {{#if hasResistances}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.ResistancesLabel"}}</label>
+          {{#each data.traits.dr as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}{{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+        
+        {{#if hasWeaknesses}}
+        <span class="stat-list major-stat">
+          <label class="stat-title">{{localize "PF2E.WeaknessesLabel"}}</label>
+          {{#each data.traits.dv as |trait id|}}
+            <span class="stat-value">{{trait.label}}: {{trait.value}}</span>
+          {{/each}}
+        </span>
+        {{/if}}
+        
+      </span>
+    </div>
+    {{/if}}
+    
+    <ol class="actions-list inventory-list directory-list">
+      {{#each actor.actions as |section sid|}}
+        {{#each section.actions as |action aid|}}
+          <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{action.img}})"></div>
+                <h4>
+                    {{action.name}}
+                </h4>
+                <div class="melee-buttons">
+                {{#if action.traits}}
+                  {{#each action.traits as |trait tid|}}
+                    {{#if trait.description}}
+                      <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{else}}
+                      <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{/if}}
+                  {{/each}}
+                {{/if}}
+                </div>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>                            
+            </div>
+            {{/if}}
+          </li>
+   	    {{/each}}
+   	  {{/each}}
+
+      {{#each actor.attacks as |section sid|}}
+        <li class="item inventory-header sub-category spellbook-header attack-header">
+            <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
+            {{#if ../owner}}
+            <div class="item-controls">
+                <a class="item-control item-create" title="{{localize "PF2E.CreateAttackTitle"}}" data-type="{{section.type}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+            </div>
+            {{/if}}
+        </li>
+        {{#each section.items as |item iid|}}
+        <li class="item" data-item-id="{{item._id}}">
+            <div class="melee-name rollable">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <h4>
+                    {{item.name}}
+                </h4>
+                <div class="melee-buttons">
+                  {{#if item.traits}}
+                    {{#each item.traits as |trait tid|}}
+                      {{#if trait.description}}
+                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{else}}
+                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      {{/if}}
+                    {{/each}}
+                  {{/if}}
+                  <span class="tag"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+{{item.data.bonus.total}})</button></span>
+                    <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
+                    <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
+                    {{#if_all item.flags item.flags.pf2e_updatednpcsheet item.flags.pf2e_updatednpcsheet.damageRolls}}
+                        {{#each item.flags.pf2e_updatednpcsheet.damageRolls as |damageRoll dID|}}
+                        <span class="tag"><button class="npc-damageroll" data-dmgRoll="{{dID}}" data-action="npcDamageRoll">{{localize "PF2E.DamageLabel"}}: {{damageRoll.die}} {{damageRoll.damageType}}</button></span>
+                        {{/each}}
+                    {{else}}
+                        <span class="tag">
+                          <button data-action="npcDamage">
+                            {{localize "PF2E.DamageLabel"}} (
+                            {{#if item.data.damageRolls}}
+                              {{#each item.data.damageRolls as |dmg index|}}
+                                {{dmg.damage}} {{dmg.damageType}}
+                              {{/each}}
+                            {{/if}}
+                            )
+                          </button>
+                        </span>
+                        <span class="tag"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
+                    {{/if_all}}
+                    {{#if_all item.data item.data.attackEffects item.data.attackEffects.value}}
+                        {{#each item.data.attackEffects.value as |attackEffect aID|}}
+                            <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
+                        {{/each}}
+                    {{/if_all}}
+                </div>
+            </div>
+            {{#if ../../owner}}
+            <div class="item-controls">
+                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                {{#unless action.feat}}
+                  <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                {{/unless}}
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+      {{/each}}
+    </ol>
+
+    <hr>
+    
+    {{#if hasRoutineDetails}}
+    <div class="stats-line">
+      <span class="inline-stats" title="{{localize 'PF2E.HazardRoutineTitle'}}">
+          <label class="stat-title">{{localize "PF2E.HazardRoutineLabel"}}</label>
+          <span class="stat-value">{{{data.details.routine}}}</span>
+      </span>
+    </div>
+
+    <hr>
+    {{/if}}
+    
+    {{#if hasResetDetails}}
+    <div class="stats-line">
+      <span class="inline-stats" title="{{localize 'PF2E.HazardResetTitle'}}">
+          <label class="stat-title">{{localize "PF2E.HazardResetLabel"}}</label>
+          <span class="stat-value">{{{data.details.reset}}}</span>
+      </span>
+    </div>
+    {{/if}}
+
+    </div>
+    <div class="bgcontainer" style="background-image: url('{{actor.img}}')"></div>
+</form>

@@ -26,7 +26,7 @@ export default class extends Actor {
         if (!abl.mod) abl.mod = 0;
         abl.value = abl.mod * 2 + 10;
       }
-    } else {
+    } else if (actorData.type == 'character') {
       for (const abl of Object.values(data.abilities)) {
         abl.mod = Math.floor((abl.value - 10) / 2);
       }
@@ -46,6 +46,7 @@ export default class extends Actor {
     };
     for (const [t, choices] of Object.entries(map)) {
       const trait = data.traits[t];
+      if (trait == undefined) continue;
       if (!(trait.value instanceof Array)) {
         trait.value = TraitSelector5e._backCompat(trait.value, choices);
       }
@@ -533,14 +534,14 @@ export default class extends Actor {
   rollAttribute(event, attributeName) {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod', '@itemBonus'];
-    const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
+    const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
       parts,
       data: {
-        mod: skl.value - skl.item,
+        mod: skl.value - (skl.item??0),
         itemBonus: skl.item
       },
       title: flavor,
