@@ -160,6 +160,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.armorTypes = CONFIG.PF2E.armorTypes;
       data.armorGroups = CONFIG.PF2E.armorGroups;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.armorTraits = CONFIG.PF2E.armorTraits;
     } else if (type === 'tool') {
       // Tool-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
