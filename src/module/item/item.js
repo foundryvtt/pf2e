@@ -34,7 +34,7 @@ export default class extends Item {
 
     // Toggle default roll mode
     const rollMode = game.settings.get('core', 'rollMode');
-    if (['gmroll', 'blindroll'].includes(rollMode)) chatData.whisper = ChatMessage.getWhisperIDs('GM').map(u => u._id);
+    if (['gmroll', 'blindroll'].includes(rollMode)) chatData.whisper = ChatMessage.getWhisperRecipients('GM').map(u => u._id);
     if (rollMode === 'blindroll') chatData.blind = true;
 
     // Render the template
