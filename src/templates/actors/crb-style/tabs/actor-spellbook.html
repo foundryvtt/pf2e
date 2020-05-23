@@ -116,7 +116,9 @@
                         {{#each section.spells as |item i|}}
                         <li class="item" data-spell-lvl="{{lvl}}" data-item-id="{{item._id}}">
                             <div class="item-name rollable">
-                                <img class="item-image" src="{{item.img}}" alt="{{item.name}}">
+                                <div class="item-image">
+                                    <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                                </div>
                                 <h4>{{item.name}}</h4>
                             </div>
 
@@ -199,7 +201,9 @@
                             {{#if item.prepared}}
                                 <li class="item" data-item-id="{{item._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{item.expended}}">
                                     <div class="item-name">
-                                        <img class="item-image" src="{{item.img}}" alt="{{item.name}}">
+                                        <div class="item-image">
+                                            <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                                        </div>
                                         {{#if item.expended}}
                                             <h4>{{item.name}}</h4>
                                         {{else}}
@@ -258,7 +262,9 @@
                         {{#each section.spells as |item i|}}
                         <li class="item" data-spell-lvl="1" data-item-id="{{item._id}}">
                             <div class="item-name rollable">
-                                <img class="item-image" src="{{item.img}}" alt="{{item.name}}">
+                                <div class="item-image">
+                                    <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
+                                </div>
                                 <h4>{{item.name}}</h4>
                             </div>
 
