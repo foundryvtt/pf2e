@@ -40,6 +40,12 @@
     {{/if}}
 </li>
 <div class="container-metadata">
+    {{#if item.isContainer}}
+        <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
+            <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>
+            <span class="container-capacity-label">{{localize 'PF2E.CapacityBarLabel'}}: {{item.containerData.formattedHeldItemBulk}} / {{item.containerData.formattedCapacity}}</span>
+        </div>
+    {{/if}}
     <div class="container-held-items">
         {{#each item.containerData.heldItems}}
         {{> systems/pf2e/templates/actors/tabs/item-line.html item=this owner=../owner level=(add ../level 1)}}

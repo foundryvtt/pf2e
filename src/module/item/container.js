@@ -52,6 +52,14 @@ class ContainerData {
         const heldLightBulk = this.heldItemBulk.toLightBulk();
         return Math.floor((heldLightBulk / capacity) * 100);
     }
+    
+    get fullPercentageMax100() {
+        const percentage = this.fullPercentage;
+        if (percentage > 100) {
+            return 100;
+        }
+        return percentage;
+    }
 
     get isOverLoaded() {
         if (this.capacity.normal > 0) {
