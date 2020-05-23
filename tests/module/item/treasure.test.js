@@ -176,7 +176,7 @@ describe('should calculate wealth based on inventory', () => {
         const itemIdAndQuantity = new Map();
         await addCoins({
             items: [
-                // ignored because of value
+                // ignored because of only value 1 is taken
                 {
                     type: "treasure",
                     _id: "1",
@@ -213,13 +213,13 @@ describe('should calculate wealth based on inventory', () => {
                         }
                     }
                 },
-                // ignored becase not positive
+                // ignored becase not added
                 {
                     type: "treasure",
                     _id: "3",
                     data: {
                         denomination: {
-                            value: "cp"
+                            value: "sp"
                         },
                         quantity: {
                             value: 6
@@ -232,6 +232,28 @@ describe('should calculate wealth based on inventory', () => {
                         }
                     }
                 },
+                // ignored becase in a container
+                {
+                    type: "treasure",
+                    _id: "4",
+                    data: {
+                        denomination: {
+                            value: "cp"
+                        },
+                        quantity: {
+                            value: 6
+                        },
+                        value: {
+                            value: 1
+                        },
+                        stackGroup: {
+                            value: 'coins'
+                        },
+                        containerId: {
+                            value: 'yo'
+                        }
+                    }
+                },
             ], 
             combineStacks: true, 
             addFromCompendium: (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity), 
@@ -239,6 +261,7 @@ describe('should calculate wealth based on inventory', () => {
             coins: {
                 pp: 3,
                 gp: 6,
+                cp: 4,
             }
         });
 
@@ -250,10 +273,14 @@ describe('should calculate wealth based on inventory', () => {
             .toBe(6);
         
         expect(compendiumIdAndQuantity.size)
-            .toBe(1)
+            .toBe(2)
         expect(compendiumIdAndQuantity.has('JuNPeK5Qm1w6wpb4'))
             .toBe(true);
         expect(compendiumIdAndQuantity.get('JuNPeK5Qm1w6wpb4'))
             .toBe(3);
+        expect(compendiumIdAndQuantity.has('lzJ8AVhRcbFul5fh'))
+            .toBe(true);
+        expect(compendiumIdAndQuantity.get('lzJ8AVhRcbFul5fh'))
+            .toBe(4);
     });
 });

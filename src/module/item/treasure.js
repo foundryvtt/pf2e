@@ -3,7 +3,7 @@
  * @param items
  * @return {*}
  */
-import { groupBy } from '../utils.js';
+import { groupBy, isBlank } from '../utils.js';
 
 export function calculateWealth(items) {
     return items
@@ -37,10 +37,11 @@ const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isCoin(item, currencies) {
+function isTopLevelCoin(item, currencies) {
     return item?.type === 'treasure'
         && item?.data?.value?.value === 1
         && item?.data?.stackGroup?.value === 'coins'
+        && isBlank(item?.data?.containerId?.value)
         && currencies.has(item?.data?.denomination?.value);
 }
 
@@ -58,7 +59,7 @@ export async function addCoins({
 } = {}) {
     const currencies = new Set(Object.keys(coins));
     const topLevelCoins = items
-        .filter(item => combineStacks && isCoin(item, currencies));
+        .filter(item => combineStacks && isTopLevelCoin(item, currencies));
     const coinsByDenomination = groupBy(topLevelCoins, item => item?.data?.denomination?.value);
 
     for (const denomination of currencies) {
