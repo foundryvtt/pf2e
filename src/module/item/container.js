@@ -31,6 +31,10 @@ class ContainerData {
         return !this.capacity.isNegligible;
     }
 
+    get isCollapsed() {
+        return this.item?.data?.collapsed?.value ?? false;
+    }
+    
     get isNotInContainer() {
         return !this.isInContainer;
     }
