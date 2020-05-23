@@ -25,3 +25,15 @@
     <label>{{localize "PF2E.ConsumableAutoDestroyLabel"}}</label>
     <input type="checkbox" name="data.autoDestroy.value" value="1" data-dtype="{{data.autoDestroy.type}}" {{checked data.autoDestroy.value}}/>
 </div>
+
+<div class="form-group-stacked">
+    <label for="data.traits">
+        {{localize "PF2E.TraitsLabel"}}
+        <a class="trait-selector" data-options="consumableTraits"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list pf-value pf-large">
+        {{#each data.traits.value as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
