@@ -847,6 +847,7 @@ CONFIG.consumableTypes = {
   oil: 'PF2E.ConsumableTypeOil',
   scroll: 'PF2E.ConsumableTypeScroll',
   talasman: 'PF2E.ConsumableTypeTalisman',
+  snare: 'PF2E.ConsumableTypeSnare',
   other: 'PF2E.ConsumableTypeOther',
 };
 
