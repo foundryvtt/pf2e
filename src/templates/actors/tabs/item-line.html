@@ -39,7 +39,7 @@
     </div>
     {{/if}}
 </li>
-<div class="container-metadata">
+<div class="container-metadata" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
     {{#if item.isContainer}}
         <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
             <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>

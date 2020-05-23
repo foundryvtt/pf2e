@@ -674,7 +674,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // change background for dragged over items that are containers
-      const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
+      const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
       containerItems
         .forEach(elem =>
             elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
@@ -1199,9 +1199,9 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     async stashOrUnstash(event, actor, getItem) {
-        const droppedItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
-        const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
-        if (droppedOntoContainer) {
+        const container = $(event.target).parents('[data-item-is-container="true"]');
+        if (container[0] !== undefined) {
+            const droppedItemId = container.attr('data-item-id')?.trim();
             const item = await getItem();
             if (item.type !== 'spell') {
                 return item.update({
