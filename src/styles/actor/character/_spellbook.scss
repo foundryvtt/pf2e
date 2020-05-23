@@ -251,6 +251,7 @@
                     border: none;
                     border-left: 1px solid var(--sub);
                     border-right: 1px solid var(--sub);
+                    cursor: default;
 
                     &:nth-child(odd) {
                         background-color: rgba($alt-color, 0.1);
@@ -385,12 +386,22 @@
                             }
                         }
 
-                        img {
-                            box-shadow: 0 0 0 1px #e9d7a1, 0 0 0 2px #9f725b;
+                        .item-image {
+                            box-shadow: 0 0 0 1px #e9d7a1, 0 0 0 2px #9f725b, inset 0 0 0 1px #9f725b;
                             height: 40px;
+                            width: 40px;
                             margin: 2px 0;
                             border-radius: 0;
                             margin-left: -8px;
+                            cursor: pointer;
+
+                            &:hover {
+                                background: url("/icons/svg/d20-black.svg") no-repeat center, #F1EEE9;
+                                background-size: contain;
+                                img {
+                                    display: none;
+                                }
+                            }
                         }
                     }
 
