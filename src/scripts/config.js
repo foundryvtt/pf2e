@@ -23,6 +23,12 @@ CONFIG.abilities = {
   "cha": "PF2E.AbilityCha"
 };
 
+CONFIG.attributes = {
+  "perception": "PF2E.PerceptionLabel",
+  "stealth": "PF2E.StealthLabel",
+  "initiative": "PF2E.PerceptionLabel"
+};
+
 // Skill labels
 CONFIG.skills = {
   "acr": "PF2E.SkillAcr",
@@ -569,6 +575,16 @@ CONFIG.monsterTraits = {
 };
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
+
+CONFIG.hazardTraits = {
+  environmental: 'PF2E.TraitEnvironmental',
+  haunt: 'PF2E.TraitHaunt',
+  magical: 'PF2E.TraitMagical',
+  mechanical: 'PF2E.TraitMechanical',
+};
+mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
+mergeObject(CONFIG.hazardTraits, CONFIG.magicalSchools);
+mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
 
 // Traits Descriptions
 // TODO: Compute these!

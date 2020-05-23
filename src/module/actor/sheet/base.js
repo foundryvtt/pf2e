@@ -1,4 +1,5 @@
 import {calculateWealth} from '../../item/treasure.js';
+import { AddCoinsPopup } from './AddCoinsPopup.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -35,6 +36,10 @@ class ActorSheetPF2e extends ActorSheet {
    */
   getData() {
     const sheetData = super.getData();
+
+    if (this.actorType == "hazard") {
+      return sheetData;
+    }
 
     // Update martial skill labels
     for (const [s, skl] of Object.entries(sheetData.data.martial)) {
@@ -76,7 +81,7 @@ class ActorSheetPF2e extends ActorSheet {
         sheetData.totalTreasure[denomination] = {
             value,
             label: CONFIG.PF2E.currencies[denomination],
-        };      
+        };
     }
 
     // Update traits
@@ -124,7 +129,7 @@ class ActorSheetPF2e extends ActorSheet {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
         }
-      } else {
+      } else if (trait.value) {
         trait.selected = trait.value.reduce((obj, t) => {
           obj[t] = choices[t];
            return obj;
@@ -581,6 +586,8 @@ class ActorSheetPF2e extends ActorSheet {
     // Trait Selector
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
+    html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
+
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
 
@@ -614,6 +621,8 @@ class ActorSheetPF2e extends ActorSheet {
     // Create New Item
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
 
+    html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
+
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
@@ -643,11 +652,8 @@ class ActorSheetPF2e extends ActorSheet {
       const li = $(event.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId).data;
-      if (Number(item.data.quantity.value) > 1) {
+      if (Number(item.data.quantity.value) > 0) {
         this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) - 1 });
-      } else {
-        this.actor.deleteOwnedItem(itemId);
-        li.slideUp(200, () => this.render(false));
       }
     });
 
@@ -667,8 +673,22 @@ class ActorSheetPF2e extends ActorSheet {
       li.addEventListener('dragstart', handler, false);
     });
 
+    // change background for dragged over items that are containers
+      const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
+      containerItems
+        .forEach(elem =>
+            elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
+    containerItems
+          .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
+
+    // Action Rolling (experimental strikes)
+    html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+      const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.roll(event);
+    });
+
     // Item Rolling
-    html.find('.item .item-image').click((event) => this._onItemRoll(event));
+    html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
 
     // NPC Weapon Rolling
     html.find('button').click((ev) => {
@@ -1031,6 +1051,7 @@ class ActorSheetPF2e extends ActorSheet {
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
 
+
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
       const dragData = event.dataTransfer.getData('text/plain');
@@ -1124,9 +1145,75 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
 
-    super._onDrop(event);
+    await this._onDropOverride(event);
   }
 
+    /**
+     * override super._onDrop to fix https://gitlab.com/foundrynet/foundryvtt/-/issues/2871
+     * @param event
+     * @return {Promise<boolean|*>}
+     * @private
+     */
+    async _onDropOverride(event) {
+        // Try to extract the data
+        let data;
+        try {
+            data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            if (data.type !== "Item") return;
+        } catch (err) {
+            return false;
+        }
+        // Case 1 - Import from a Compendium pack
+        const actor = this.actor;
+        if (data.pack) {
+            const pack = game.packs.get(data.pack);
+            const itemData = await pack.getEntry(data.id);
+            return await this.stashOrUnstash(event, actor, async () => {
+                const item = await actor.createOwnedItem(itemData);
+                return actor.getOwnedItem(item._id);
+            });
+        }
+        // Case 2 - Data explicitly provided
+        else if (data.data) {
+            let sameActor = data.actorId === actor._id;
+            if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
+            if (sameActor){
+              await this.stashOrUnstash(event, actor, () => {
+                  return actor.getOwnedItem(data.id);
+              });
+              return this._onSortItem(event, data.data); // Sort existing items
+            } else {
+              return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
+              });
+            }
+        }
+        // Case 3 - Import from World entity
+        else {
+            let item = game.items.get(data.id);
+            if (!item) return;
+            return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
+            });
+        }
+    }
+
+    async stashOrUnstash(event, actor, getItem) {
+        const droppedItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
+        const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
+        if (droppedOntoContainer) {
+            const item = await getItem();
+            const result = await item.update({
+                'data.containerId.value': droppedItemId,
+                'data.equipped.value': false,
+            });
+            return result;
+        } else {
+            const item = await getItem();
+            const result = await item.update({'data.containerId.value': ''});
+            return result;
+        }
+    }
 
   /* -------------------------------------------- */
 
@@ -1178,17 +1265,17 @@ class ActorSheetPF2e extends ActorSheet {
       summary.slideUp(200, () => summary.remove());
     } else {
       const div = $(`<div class="item-summary">${chatData.description.value}</div>`);
-      const props = $('<div class="item-properties"></div>');
+      const props = $('<div class="item-properties tags"></div>');
       if (chatData.properties) {
         chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-          props.append(`<span class="tag">${localize(p)}</span>`);
+          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
         });
       }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
       if (chatData.traits && chatData.traits.length) {
         chatData.traits.forEach((p) => {
-          if (p.description) props.append(`<span class="tag" title="${localize(p.description)}" style="background: #b75b5b; color: white;">${localize(p.label)}</span>`);
+          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
           else props.append(`<span class="tag">${localize(p.label)}</span>`);
         });
       }
@@ -1278,6 +1365,20 @@ class ActorSheetPF2e extends ActorSheet {
 
 
   /* -------------------------------------------- */
+
+    /**
+     * Opens an item container
+     */
+    _toggleContainer(event) {
+        const toggle = event.currentTarget;
+        const icon = $(toggle.querySelector('i'));
+        icon.toggleClass('fa-box');
+        icon.toggleClass('fa-box-open');
+        const container = $(toggle)
+            .parents('.item')
+            .next('.container-metadata')[0];
+        container.hidden = !container.hidden;
+    }
 
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
@@ -1484,6 +1585,10 @@ class ActorSheetPF2e extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+  _onAddCoinsPopup(event) {
+      event.preventDefault();
+      new AddCoinsPopup(this.actor, {}).render(true)
+  }
 
   _onTraitSelector(event) {
     event.preventDefault();

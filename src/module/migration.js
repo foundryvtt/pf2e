@@ -128,7 +128,7 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
 
     if (worldSchemaVersion < 0.573) _migrateActorLanguages(actor, updateData);
 
-    if (worldSchemaVersion < 0.575) {
+    if (worldSchemaVersion < 0.578) {
         migrateActorItemImages(actor, updateData);
     }
 
@@ -150,11 +150,88 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.574) {
             migrateActorBulkItems(actor, updateData);
         }
+        if (worldSchemaVersion < 0.579) {
+            addActorContainerAttributes(actor, updateData);
+        }
     }
     return updateData;
 };
 
 /* -------------------------------------------- */
+
+function addContainerAttributes(item, itemData) {
+    if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
+        const itemName = item?.name?.trim();
+        if (itemName === 'Backpack') {
+            itemData['data.bulkCapacity.value'] = '4';
+            itemData['data.negateBulk.value'] = '2';
+        } else if (itemName === 'Bag of Devouring Type I') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Bag of Devouring Type II') {
+            itemData['data.bulkCapacity.value'] = '100';
+            itemData['data.negateBulk.value'] = '100';
+        } else if (itemName === 'Bag of Devouring Type III') {
+            itemData['data.bulkCapacity.value'] = '150';
+            itemData['data.negateBulk.value'] = '150';
+        } else if (itemName === 'Bag of Holding (Type I)') {
+            itemData['data.bulkCapacity.value'] = '25';
+            itemData['data.negateBulk.value'] = '25';
+        } else if (itemName === 'Bag of Holding (Type II)') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Bag of Holding (Type III)') {
+            itemData['data.bulkCapacity.value'] = '100';
+            itemData['data.negateBulk.value'] = '100';
+        } else if (itemName === 'Bag of Holding (Type IV)') {
+            itemData['data.bulkCapacity.value'] = '150';
+            itemData['data.negateBulk.value'] = '150';
+        } else if (itemName === 'Bag of Weasels') {
+            itemData['data.bulkCapacity.value'] = '25';
+            itemData['data.negateBulk.value'] = '25';
+        } else if (itemName === 'Gloves of Carelessness') {
+            itemData['data.bulkCapacity.value'] = '1';
+            itemData['data.negateBulk.value'] = '1';
+        } else if (itemName === 'Gloves of Storing') {
+            itemData['data.bulkCapacity.value'] = '1';
+            itemData['data.negateBulk.value'] = '1';
+        } else if (itemName === 'Belt Pouch') {
+            itemData['data.bulkCapacity.value'] = '4L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Pathfinder\'s Pouch') {
+            // FIXME: 1 bulk is in an extradimensional container
+            itemData['data.bulkCapacity.value'] = '4L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Knapsack of Halflingkind') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Knapsack of Halflingkind (Greater)') {
+            itemData['data.bulkCapacity.value'] = '50';
+            itemData['data.negateBulk.value'] = '50';
+        } else if (itemName === 'Sack (5)') {
+            itemData['data.bulkCapacity.value'] = '8';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Satchel') {
+            itemData['data.bulkCapacity.value'] = '2';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Bandolier') {
+            itemData['data.bulkCapacity.value'] = '8L';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Saddlebags') {
+            // FIXME: a saddlebag has 2 parts, each one carrying 3 bulk
+            itemData['data.bulkCapacity.value'] = '3';
+            itemData['data.negateBulk.value'] = '0';
+        } else if (itemName === 'Chest') {
+            itemData['data.bulkCapacity.value'] = '8';
+            itemData['data.negateBulk.value'] = '0';
+        } else {
+            itemData['data.bulkCapacity.value'] = '';
+            itemData['data.negateBulk.value'] = '0';
+        }
+        itemData['data.containerId.value'] = '';
+    }
+    return itemData;
+}
 
 async function addCoin(actorEntity, treasureId, denomination, quantity) {
     if (quantity !== null && (`${quantity}`).trim() !== '0') {
@@ -242,6 +319,9 @@ export const migrateItemData = function (item, worldSchemaVersion) {
     if (worldSchemaVersion < 0.574) {
         migrateBulk(item, updateData);
     }
+    if (worldSchemaVersion < 0.579) {
+        addContainerAttributes(item, updateData);
+    }
     // Return the migrated update data
     return updateData;
 };
@@ -312,14 +392,14 @@ function _migrateHitPointData(actor, updateData) {
     updateData['data.attributes.classhp'] = parseInt((actor.data.attributes.classhp || {}).value) || 0;
 }
 
-function migrateActorBulkItems(actor, updateData) {
+function migrateActorItems(actor, updateData, itemUpdateFunction) {
     if (!actor.items) return;
     let updatedItems = [];
     const items = duplicate(actor.items);
 
     items.forEach(item => {
         let updatedItem = item;
-        let updatedData = migrateBulk(item, {});
+        let updatedData = itemUpdateFunction(item, {});
         if (!isObjectEmpty(updatedData)) {
             updatedItem = mergeObject(updatedItem, updatedData);
         }
@@ -327,6 +407,15 @@ function migrateActorBulkItems(actor, updateData) {
     });
 
     updateData['items'] = updatedItems;
+}
+
+function migrateActorBulkItems(actor, updateData) {
+    return migrateActorItems(actor, updateData, migrateBulk);
+}
+
+
+function addActorContainerAttributes(actor, updateData) {
+    return migrateActorItems(actor, updateData, addContainerAttributes);
 }
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
@@ -453,6 +542,41 @@ function migrateImage(item, updateData) {
     // consumables subfolder
     else if (itemImage?.includes('systems/pf2e/icons/equipment/consumables/') && !itemImage?.includes('systems/pf2e/icons/equipment/consumables/potions/') && itemImage?.includes('potion')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/consumables/', 'systems/pf2e/icons/equipment/consumables/potions/');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/') && !itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/') && itemImage?.includes('elixir')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
+    }
+
+    // specific icon changes
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.jpg');
+    }
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
+        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.jpg');
     }
 
     return updateData;

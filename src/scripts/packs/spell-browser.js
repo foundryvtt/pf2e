@@ -40,7 +40,7 @@ class ItemBrowserPF2e extends Application {
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     // options.template = "systems/pf2e/templates/packs/feat-browser.html";
     options.title = 'Add an Item';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }
@@ -384,7 +384,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     options.template = 'systems/pf2e/templates/packs/spell-browser.html';
     // options.template = "systems/pf2e/templates/packs/feat-browser.html";
     options.title = 'Add a Spell';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }
@@ -547,7 +547,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/feat-browser.html';
     options.title = 'Add a Feat';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }
@@ -772,7 +772,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/inventory-browser.html';
     options.title = 'Add an Inventory Item';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }
@@ -935,7 +935,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     options.classes = options.classes.concat('spell-browser-window');
     options.template = 'systems/pf2e/templates/packs/bestiary-browser.html';
     options.title = 'Find an NPC in the bestiary';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }
@@ -1122,7 +1122,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
     options.classes = options.classes.concat('spell-browser-window');
     options.template = 'systems/pf2e/templates/packs/action-browser.html';
     options.title = 'Add an Action';
-    options.width = 700;
+    options.width = 800;
     options.height = 700;
     return options;
   }

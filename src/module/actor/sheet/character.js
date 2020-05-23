@@ -1,6 +1,7 @@
 import ActorSheetPF2e from './base.js';
-import { calculateBulk, itemsFromActorData, stacks, toItemOrContainer, formatBulk } from '../../item/bulk.js';
+import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
+import { getContainerMap } from '../../item/container.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -140,9 +141,17 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
         ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
     };
+
+    const bulkItems = itemsFromActorData(actorData);
+    const indexedBulkItems = indexBulkItemsById(bulkItems);
+    const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+    
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
-
+      i.containerData = containers.get(i._id);
+      i.isContainer = i.containerData.isContainer;
+      i.isNotInContainer = i.containerData.isNotInContainer;
+            
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
@@ -152,11 +161,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.armorEquipped = equipped?' active':'';
       }
 
-      // Inventory
+      i.canBeEquipped = i.isNotInContainer && i.isArmor;
+
+        // Inventory
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
-        const [approximatedBulk] = calculateBulk([toItemOrContainer(i)], stacks, false, bulkConfig);
+        const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
         i.totalWeight = formatBulk(approximatedBulk);
         i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
@@ -365,7 +376,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // Update all embedded entities that have an incorrect location.
     if (embeddedEntityUpdate.length) {
       console.log('PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ', embeddedEntityUpdate);
-      this.actor.updateManyEmbeddedEntities('OwnedItem', embeddedEntityUpdate);
+      this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
       ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
     }
 
@@ -397,8 +408,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
 
     // Inventory encumbrance
-    const items = itemsFromActorData(actorData);
-    const [bulk] = calculateBulk(items, stacks, false, bulkConfig);
+    const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
       actorData.data.attributes.bonusbulk,

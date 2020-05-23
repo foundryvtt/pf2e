@@ -26,14 +26,14 @@ export default class extends Actor {
         if (!abl.mod) abl.mod = 0;
         abl.value = abl.mod * 2 + 10;
       }
-    } else {
+    } else if (actorData.type == 'character') {
       for (const abl of Object.values(data.abilities)) {
         abl.mod = Math.floor((abl.value - 10) / 2);
       }
     }
 
     // Prepare Character data
-    if (actorData.type === 'character') this._prepareCharacterData(data);
+    if (actorData.type === 'character') this._prepareCharacterData(actorData);
     else if (actorData.type === 'npc') this._prepareNPCData(data);
 
     // TODO: Migrate trait storage format
@@ -46,6 +46,7 @@ export default class extends Actor {
     };
     for (const [t, choices] of Object.entries(map)) {
       const trait = data.traits[t];
+      if (trait == undefined) continue;
       if (!(trait.value instanceof Array)) {
         trait.value = TraitSelector5e._backCompat(trait.value, choices);
       }
@@ -69,7 +70,8 @@ export default class extends Actor {
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(data) {
+  _prepareCharacterData(actorData) {
+    const {data} = actorData;
     const character = new CharacterData(data, this.items);
 
     // this will most likely also relevant for NPCs
@@ -117,7 +119,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
       if (save.item) {
-        modifiers.push(new PF2Modifier('Item Bonus', save.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', save.item, PF2ModifierType.ITEM));
       }
       [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
@@ -155,7 +157,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
       ];
       if (data.attributes.perception.item) {
-        modifiers.push(new PF2Modifier('Item Bonus', data.attributes.perception.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', data.attributes.perception.item, PF2ModifierType.ITEM));
       }
       ['perception', `wis-based`, 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
@@ -254,7 +256,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
       ];
       if (skill.item) {
-        modifiers.push(new PF2Modifier('Item Bonus', skill.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
       }
       if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0) {
         modifiers.push(new PF2Modifier('PF2E.ArmorCheckPenalty', data.attributes.ac.check, PF2ModifierType.UNTYPED));
@@ -284,6 +286,62 @@ export default class extends Actor {
         .join(', ');
       updated.value = updated.totalModifier;
       data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
+    }
+
+    // Automatic Actions
+    data.actions = []; // eslint-disable-line no-param-reassign
+
+    // Strikes
+    {
+      // always append unarmed strike
+      const unarmed = [{
+        name: 'Unarmed',
+        type: 'weapon',
+        data: {
+          ability: { value: 'str' },
+          weaponType: { value: 'unarmed' },
+          bonus: { value: 0 }
+        }
+      }];
+      (actorData.items ?? []).concat(unarmed).filter((item) => item.type === 'weapon').forEach((item) => {
+        const modifiers = [
+          AbilityModifier.fromAbilityScore(item.data.ability.value, data.abilities[item.data.ability.value]?.value ?? 0),
+          ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[item.data.weaponType.value]?.rank ?? 0),
+        ];
+        if (item.data.bonus.value !== 0) {
+          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', item.data.bonus.value, PF2ModifierType.ITEM));
+        }
+        ['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, 'all'].forEach((key) => {
+          (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        });
+        const action = new PF2StatisticModifier(item.name, modifiers);
+        action.glyph = 'A';
+        action.type = 'strike';
+        action.traits = ['PF2E.TraitAttack'];
+        action.breakdown = action.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        // amend strike with a roll property
+        // eslint-disable-next-line no-param-reassign
+        action.roll = function rollAttack(event) {
+          const parts = ['@totalModifier'];
+          const title = `Strike: ${action.name}`;
+          DicePF2e.d20Roll({
+            event,
+            parts,
+            actor: this.actor,
+            data: action,
+            title,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            dialogOptions: {
+              width: 400,
+              top: event ? event.clientY - 80 : 400,
+              left: window.innerWidth - 710,
+            },
+          });
+        };
+        data.actions.push(action);
+      });
     }
   }
 
@@ -476,14 +534,14 @@ export default class extends Actor {
   rollAttribute(event, attributeName) {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod', '@itemBonus'];
-    const flavor = `${game.i18n.localize("PF2E.PerceptionLabel")} Check`;
+    const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
       parts,
       data: {
-        mod: skl.value - skl.item,
+        mod: skl.value - (skl.item??0),
         itemBonus: skl.item
       },
       title: flavor,
@@ -591,6 +649,7 @@ export default class extends Actor {
         user: game.user._id,
         speaker: { alias: t.name },
         content: message,
+        whisper: ChatMessage.getWhisperRecipients("GM"),
         type: CONST.CHAT_MESSAGE_TYPES.OTHER
       });
 
@@ -750,4 +809,12 @@ Handlebars.registerHelper('if_stamina', function(options) {
   } else {
     return ''
   }
+});
+
+Handlebars.registerHelper('add', function(a, b) {
+    return a + b;
+});
+
+Handlebars.registerHelper('multiply', function(a, b) {
+    return a * b;
 });

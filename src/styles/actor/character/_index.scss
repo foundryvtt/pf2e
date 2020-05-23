@@ -1,1 +1,69 @@
-@import 'character';
+.directory-list {
+    display: flex;
+    flex-direction: column;
+    @include p-reset;
+    list-style: none;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 500;
+        font-family: $serif;
+        line-height: 1;
+        color: white;
+        @include p-reset;
+        margin-left: 8px;
+    }
+
+    h4 {
+        @include p-reset;
+    }
+
+    .item {
+        ol {
+            list-style: none;
+        }
+    }
+
+    .action-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: url('../assets/sheet/stroke.svg') left bottom no-repeat;
+        margin-top: 8px;
+        margin-left: 0;
+        padding: 0;
+        padding-bottom: 2px;
+        padding-left: 8px;
+        height: 32px;
+        border: none;
+
+        h3 {
+            flex: 1 1 100%;
+            cursor: pointer;
+            &:hover {
+                text-shadow: 0 0 3px white;
+            }
+        }
+
+        .item-name,
+        .item-controls {
+            background: none;
+            @include p-reset;
+        }
+
+        .item-controls {
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        & + li {
+            border-top: none;
+        }
+    }
+}
+
+@import 'character', 'actions', 'spellbook';

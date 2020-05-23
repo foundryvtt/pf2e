@@ -5,15 +5,14 @@ $header-height: 89px;
     background-repeat: repeat-x, no-repeat;
     background-size: auto $header-height, cover;
     background-attachment: local;
-    padding-right: 20px;
 }
 
 .crb-style section.window-content {
     padding: 0;
+    overflow: hidden;
 }
 
 .crb-style form {
-    all: initial;
     display: grid;
     grid:
         'sidebar header' 75px
@@ -22,25 +21,42 @@ $header-height: 89px;
         'sidebar footer' auto
         / 247px 1fr;
 
+    font-family: $body-serif;
+
     /* prettier-ignore */
     @import 'sidebar',
             'header';
 
-    section.header {
+    $window-p-right: 20px;
+
+    .char-header {
         grid-area: header;
+        margin-right: $window-p-right;
     }
-    nav.sheet-navigation {
+    .sheet-navigation {
         grid-area: nav;
+        margin-right: $window-p-right;
     }
-    section.content {
+    .sheet-content {
         grid-area: content;
+        @include scrollbar;
+        padding-right: $window-p-right;
+        mask-image: linear-gradient(
+            180deg,
+            rgba(white, 1) 0%,
+            rgba(white, 1) 1%,
+            rgba(white, 1) 98%,
+            rgba(white, 0) 100%
+        );
     }
 
     /* Navigation */
     @import 'nav';
 
     .sheet-content {
+        color: var(--body);
         margin-top: 12px;
+        max-height: 590px;
         @import 'character', 'npc';
     }
 
