@@ -1203,16 +1203,17 @@ class ActorSheetPF2e extends ActorSheet {
         const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
         if (droppedOntoContainer) {
             const item = await getItem();
-            const result = await item.update({
-                'data.containerId.value': droppedItemId,
-                'data.equipped.value': false,
-            });
-            return result;
-        } else {
-            const item = await getItem();
-            const result = await item.update({'data.containerId.value': ''});
-            return result;
-        }
+            if (item.type !== 'spell') {
+                return item.update({
+                    'data.containerId.value': droppedItemId,
+                    'data.equipped.value': false,
+                });
+            }
+            return item;
+        } 
+        const item = await getItem();
+        const result = await item.update({'data.containerId.value': ''});
+        return result;
     }
 
   /* -------------------------------------------- */
