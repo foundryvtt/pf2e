@@ -223,6 +223,8 @@ describe('should create container data', () => {
         const backpack = containerData.get('1');
         expect(backpack.fullPercentage)
             .toBe(98);
+        expect(backpack.fullPercentageMax100)
+            .toBe(98);
         expect(backpack.isOverLoaded)
             .toBe(false);
 
@@ -232,6 +234,8 @@ describe('should create container data', () => {
 
         const beltPouch = containerData.get('3');
         expect(beltPouch.fullPercentage)
+            .toBe(100);
+        expect(beltPouch.fullPercentageMax100)
             .toBe(100);
         expect(beltPouch.isOverLoaded)
             .toBe(false);
@@ -243,6 +247,8 @@ describe('should create container data', () => {
         const overloadedPouch = containerData.get('5');
         expect(overloadedPouch.fullPercentage)
             .toBe(125);
+        expect(overloadedPouch.fullPercentageMax100)
+            .toBe(100);
         expect(overloadedPouch.isOverLoaded)
             .toBe(true);
 

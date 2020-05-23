@@ -695,7 +695,7 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // change background for dragged over items that are containers
-      const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
+      const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
       containerItems
         .forEach(elem =>
             elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
@@ -1220,20 +1220,21 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     async stashOrUnstash(event, actor, getItem) {
-        const droppedItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
-        const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
-        if (droppedOntoContainer) {
+        const container = $(event.target).parents('[data-item-is-container="true"]');
+        if (container[0] !== undefined) {
+            const droppedItemId = container.attr('data-item-id')?.trim();
             const item = await getItem();
-            const result = await item.update({
-                'data.containerId.value': droppedItemId,
-                'data.equipped.value': false,
-            });
-            return result;
-        } else {
-            const item = await getItem();
-            const result = await item.update({'data.containerId.value': ''});
-            return result;
-        }
+            if (item.type !== 'spell') {
+                return item.update({
+                    'data.containerId.value': droppedItemId,
+                    'data.equipped.value': false,
+                });
+            }
+            return item;
+        } 
+        const item = await getItem();
+        const result = await item.update({'data.containerId.value': ''});
+        return result;
     }
 
   /* -------------------------------------------- */
@@ -1391,14 +1392,10 @@ class ActorSheetPF2e extends ActorSheet {
      * Opens an item container
      */
     _toggleContainer(event) {
-        const toggle = event.currentTarget;
-        const icon = $(toggle.querySelector('i'));
-        icon.toggleClass('fa-box');
-        icon.toggleClass('fa-box-open');
-        const container = $(toggle)
-            .parents('.item')
-            .next('.container-metadata')[0];
-        container.hidden = !container.hidden;
+        const itemId = $(event.currentTarget).parents('.item').data('item-id');
+        const item = this.actor.getOwnedItem(itemId);
+        const isCollapsed = item?.data?.data?.collapsed?.value ?? false;
+        item.update({'data.collapsed.value': !isCollapsed});
     }
 
   /**
