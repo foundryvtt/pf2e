@@ -869,7 +869,8 @@ class ActorSheetPF2e extends ActorSheet {
 
     Hooks.on("createOwnedItem", (actor, item) => {
       // Show unprepared spells if creating a new item
-      if (item.type == "spell") {
+
+      if (item.type == "spell" && item.data.location.value) {
         const currentLvlToDisplay = {};
         currentLvlToDisplay[item.data.level.value] = true;
         this.actor.updateEmbeddedEntity('OwnedItem', {
@@ -1559,7 +1560,7 @@ class ActorSheetPF2e extends ActorSheet {
               const itemsToDelete = [];
               for (const i of this.actor.data.items) {
                 if (i.type === 'spell') {
-                  if (Number(i.data.location.value) === itemId) {
+                  if (i.data.location.value === itemId) {
                     itemsToDelete.push(i._id);
                   }
                 }
@@ -1570,7 +1571,7 @@ class ActorSheetPF2e extends ActorSheet {
               }
 
               // Delete item container
-              this.actor.deleteOwnedItem(itemId);
+              await this.actor.deleteOwnedItem(itemId);
               li.slideUp(200, () => this.render(false));
             },
           },
