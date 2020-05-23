@@ -1,0 +1,181 @@
+.skills {
+    .skills-pane {
+        @include p-reset;
+
+        h1,
+        h4,
+        h6 {
+            @include p-reset;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: $serif;
+            border: none;
+            color: var(--primary);
+            text-align: center;
+            justify-content: center;
+        }
+
+        h6,
+        .click-stat-level {
+            padding: 2px 4px;
+            border-radius: 2px;
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+            @include micro;
+            color: white;
+            @include flex-center;
+            cursor: pointer;
+        }
+
+        .core-title {
+            width: 100%;
+            text-align: left;
+            background: url('../assets/sheet/stroke3.svg') center bottom
+                no-repeat;
+            @include p-reset;
+            margin-left: 0;
+            padding: 0;
+            padding-top: 10px;
+            padding-left: 12px;
+            height: 43px;
+            border: none;
+            color: white;
+            font-family: $serif;
+        }
+        .skills-list,
+        .lores-list {
+            list-style: none;
+            @include p-reset;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 2em;
+
+            .skill {
+                border-image-slice: 11;
+                border-image-width: 14px;
+                border-image-repeat: repeat;
+                border-image-source: url('../assets/sheet/skill-frame.svg');
+                padding: 8px 11px 8px 2px;
+                display: grid;
+                grid:
+                    'score name btn' min-content
+                    / 42px 2fr 1fr;
+                align-items: center;
+
+                .skill-score {
+                    grid-area: score;
+                    margin-right: 4px;
+                    margin-top: 2px;
+                }
+
+                .skill-name {
+                    grid-area: name;
+                    cursor: pointer;
+                    &:hover {
+                        color: var(--primary);
+                        text-shadow: 0 0 2px white;
+                        text-decoration: underline;
+                    }
+                }
+
+                .skill-prof {
+                    grid-area: prof;
+                    width: min-content;
+                    .click-stat-level {
+                        background: var(--secondary);
+                        .fas {
+                            display: none;
+                        }
+                    }
+
+                    span[title='Untrained']:before {
+                        content: 'Untrained';
+                    }
+                    span[title='Trained']:before {
+                        content: 'Trained';
+                    }
+                    span[title='Expert']:before {
+                        content: 'Expert';
+                    }
+                    span[title='Master']:before {
+                        content: 'Master';
+                    }
+                    span[title='Legendary']:before {
+                        content: 'Legendary';
+                    }
+                }
+
+                .button-group {
+                    grid-area: btn;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    flex-wrap: wrap;
+
+                    h6 {
+                        margin: 1px 0;
+                        background: var(--sub);
+                        box-shadow: inset 0 0 0 1px rgba(black, 0.2);
+
+                        &:hover {
+                            background: var(--primary);
+                        }
+                    }
+                }
+            }
+        }
+
+        .lores-list {
+            .skill {
+                grid:
+                    'score name btn' min-content
+                    / 42px 2fr 1fr;
+                padding: 8px 11px 8px 6px;
+
+                .skill-score {
+                    margin-right: 0;
+                }
+
+                .skill-name {
+                    input {
+                        color: var(--body) !important;
+                        border-bottom: 1px solid var(--sub);
+                        margin-right: 4px;
+                        font-weight: 600;
+                        &:hover {
+                            border: 1px solid var(--sub);
+                        }
+                    }
+                }
+                .button-group {
+                    grid-area: btn;
+
+                    .item-controls {
+                        font-size: 10px;
+                        margin-top: 1px;
+                    }
+                }
+            }
+        }
+
+        .lore-header {
+            .item-controls {
+                white-space: nowrap;
+                color: white;
+                @include micro;
+                
+                .item-control {
+                    padding: 4px 8px;
+                    background: var(--primary);
+                    font-size: 10px;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+}
