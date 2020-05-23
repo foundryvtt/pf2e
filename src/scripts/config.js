@@ -409,6 +409,13 @@ mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
+CONFIG.armorTraits = {
+    bulwark: "PF2E.TraitBulwark",
+    comfort: "PF2E.TraitComfort",
+    flexible: "PF2E.TraitFlexible",
+    noisy: "PF2E.TraitNoisy",
+}
+
 // Weapon Properties
 CONFIG.equipmentTraits = {
     extradimensional: "PF2E.TraitExtradimensional"

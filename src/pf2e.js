@@ -54,7 +54,7 @@ Hooks.once('setup', () => {
   
   // Localize CONFIG objects once up-front
   const toLocalize = [
-    'abilities', 'skills', 'martialSkills', 'currencies', 'saves',
+    'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits',
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups',
     'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
