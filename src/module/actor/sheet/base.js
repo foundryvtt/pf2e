@@ -617,6 +617,8 @@ class ActorSheetPF2e extends ActorSheet {
     // Create New Item
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
 
+    html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
+    
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
@@ -666,7 +668,15 @@ class ActorSheetPF2e extends ActorSheet {
       li.setAttribute('draggable', true);
       li.addEventListener('dragstart', handler, false);
     });
-
+    
+    // change background for dragged over items that are containers
+      const containerItems = Array.from(html[0].querySelectorAll('.item[data-item-is-container="true"]'));
+      containerItems
+        .forEach(elem =>
+            elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
+    containerItems
+          .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
+    
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
@@ -1036,7 +1046,8 @@ class ActorSheetPF2e extends ActorSheet {
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-
+    
+    
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
       const dragData = event.dataTransfer.getData('text/plain');
@@ -1130,10 +1141,76 @@ class ActorSheetPF2e extends ActorSheet {
       }
     }
 
-    super._onDrop(event);
+    await this._onDropOverride(event);
   }
 
+    /**
+     * override super._onDrop to fix https://gitlab.com/foundrynet/foundryvtt/-/issues/2871
+     * @param event
+     * @return {Promise<boolean|*>}
+     * @private
+     */
+    async _onDropOverride(event) {
+        // Try to extract the data
+        let data;
+        try {
+            data = JSON.parse(event.dataTransfer.getData('text/plain'));
+            if (data.type !== "Item") return;
+        } catch (err) {
+            return false;
+        }
+        // Case 1 - Import from a Compendium pack
+        const actor = this.actor;
+        if (data.pack) {
+            const pack = game.packs.get(data.pack);
+            const itemData = await pack.getEntry(data.id);
+            return await this.stashOrUnstash(event, actor, async () => {
+                const item = await actor.createOwnedItem(itemData);
+                return actor.getOwnedItem(item._id);
+            });
+        }
+        // Case 2 - Data explicitly provided
+        else if (data.data) {
+            let sameActor = data.actorId === actor._id;
+            if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
+            if (sameActor){
+              await this.stashOrUnstash(event, actor, () => {
+                  return actor.getOwnedItem(data.id);
+              });
+              return this._onSortItem(event, data.data); // Sort existing items
+            } else {
+              return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
+              });
+            } 
+        }
+        // Case 3 - Import from World entity
+        else {
+            let item = game.items.get(data.id);
+            if (!item) return;
+            return this.stashOrUnstash(event, actor, () => {
+                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));    
+            });
+        }
+    }
 
+    async stashOrUnstash(event, actor, getItem) {
+        const droppedItemId = $(event.target).parents('.item').attr('data-item-id')?.trim();
+        const droppedOntoContainer = $(event.target).parents('.item').attr('data-item-is-container')?.trim() === 'true';
+        if (droppedOntoContainer) {
+            const item = await getItem();
+            const result = await item.update({
+                'data.containerId.value': droppedItemId,
+                'data.equipped.value': false,
+            });
+            return result;
+        } else {
+            const item = await getItem();
+            const result = await item.update({'data.containerId.value': ''});
+            return result;
+        }
+    }
+    
   /* -------------------------------------------- */
 
   /**
@@ -1285,6 +1362,20 @@ class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
+    /**
+     * Opens an item container
+     */
+    _toggleContainer(event) {
+        const toggle = event.currentTarget;
+        const icon = $(toggle.querySelector('i'));
+        icon.toggleClass('fa-box');
+        icon.toggleClass('fa-box-open');
+        const container = $(toggle)
+            .parents('.item')
+            .next('.container-metadata')[0];
+        container.hidden = !container.hidden;
+    }
+    
   /**
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @private

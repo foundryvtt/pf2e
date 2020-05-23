@@ -43,6 +43,7 @@ export default function () {
         'systems/pf2e/templates/actors/tabs/actor-biography.html',
         'systems/pf2e/templates/actors/tabs/actor-feats.html',
         'systems/pf2e/templates/actors/tabs/actor-inventory.html',
+        'systems/pf2e/templates/actors/tabs/item-line.html',
         'systems/pf2e/templates/actors/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/tabs/actor-spellbook.html',
 
