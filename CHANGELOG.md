@@ -1,4 +1,23 @@
 # Patch Notes:
+## Version 0.579.0
+### New Features
+*  (@putt1) Added support for Foundry v1.0 (v0.6.0).
+*  (@putt1) Added initial support for containers in your inventory such as backpacks and belt pouches. Bulk rules are applied correctly to items stowed in these containers.
+
+### Content Changes
+
+
+### Bug Fixes
+*  (@putt1) Increased width of compendium browsers to remove ugly wrapping.
+*  (@abrault) Restore highlight of natural 20s and 1s
+
+### Core System Improvements
+*  (@fryguy1013) Add critical button to NPC sheet in the editor view as well as the non-editor view.
+*  (@nikolaj-a) Do not auto-delete inventory items when reduced to zero quantity. This should make live easier for characters that rely heavily on consumable items.
+
+
+---
+
 ## Version 0.578.0
 ### New Features
 *  (@putt1) Implement function to add to existing coins or create new ones from the compendium
