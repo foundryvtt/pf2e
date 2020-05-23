@@ -410,7 +410,7 @@ mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
 
 // Weapon Properties
-CONFIG.backpackTraits = {
+CONFIG.equipmentTraits = {
     extradimensional: "PF2E.TraitExtradimensional"
 }
 
