@@ -7,7 +7,7 @@ import {
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier, PF2CheckModifier,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
-import { CheckModifiersDialog } from './check-modifiers-dialog.js';
+import { PF2Check } from '../system/rolls.js';
 
 export default class extends Actor {
   /**
@@ -325,16 +325,9 @@ export default class extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         // amend strike with a roll property
-        // eslint-disable-next-line no-param-reassign,no-unused-vars
         action.roll = (event) => {
-          const check = new PF2CheckModifier(`Strike: ${action.name}`, action, []);
-          const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
-          if ((userSettingQuickD20Roll && !event.shiftKey) || (!userSettingQuickD20Roll && event.shiftKey)) {
-            CheckModifiersDialog.roll(check);
-          } else {
-            new CheckModifiersDialog(check).render(true);
-          }
-        }
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event);
+        };
         data.actions.push(action);
       });
     }
