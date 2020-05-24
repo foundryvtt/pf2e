@@ -1,0 +1,24 @@
+<div>
+  <div style="display: grid; grid-template-columns: 1fr 2fr 1fr;">
+    <span style="justify-self: start; font-weight: bold;">Type</span>
+    <span style="justify-self: start; font-weight: bold;">Modifier</span>
+    <span style="justify-self: center; font-weight: bold;">Exclude?</span>
+  </div>
+  <hr/>
+  {{#each modifiers as |modifier idx|}}
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; {{#unless modifier.enabled}}text-decoration: line-through; color: darkgrey;{{/unless}}">
+    <span style="justify-self: start;">{{modifier.type}}</span>
+    <span style="justify-self: start;">{{localize modifier.name}}</span>
+    <span style="justify-self: center;">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+    <input type="checkbox" name="modifier-enabled" data-modifier-index="{{idx}}" style="justify-self: center;" {{#if modifier.ignored}}checked="checked"{{/if}}/>
+  </div>
+  {{/each}}
+  <hr/>
+  <div style="display: grid; grid-template-columns: 2fr 1fr 1fr;">
+    <span style="justify-self: start; font-weight: bold;">Total Modifier:</span>
+    <span style="justify-self: center; font-weight: bold;">{{numberFormat totalModifier decimals=0 sign=true}}</span>
+    <span>&nbsp;</span>
+  </div>
+  <hr/>
+  <button type="button">Roll</button>
+</div>
