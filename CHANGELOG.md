@@ -15,6 +15,9 @@
     * Updated bags of devouring/holding to be extradimensional
     * Changed bags to the correct bulk values.
     * Replaced the default feat icon
+    * Added all 16th and 17th level items
+    * Added 16 and 17th level rollable tables for consumables and permanent items
+    * Added Weight of Guilt Champion feat
 
 ### Bug Fixes
 *  (@abrault) Fixed Character sheet issues when faced with undefined values
