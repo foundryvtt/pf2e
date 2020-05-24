@@ -44,6 +44,7 @@
 *  (@hooking) Updated Bestiary Browser to only process actors of type 'npc'.
 *  (FS) Fixed weak and elite adjustments with inline dice rolls.
 *  (@nikolaj-a) Fixed the new CRB sheet from inadvertantly wiping character data (it should be safe to preview now).
+*  (@yeroon) Fixed the automatic behaviour of feats like Diehard, Toughness and Mountain's Stoutness when importing from the Compendium or when changing icon/description. (issue #417 (closed) and #387 (closed))
 
 ### Core System Improvements
 *  (@putt1) Trait/Item improvements:
