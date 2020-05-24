@@ -18,6 +18,8 @@
     * Added all 16th and 17th level items
     * Added 16 and 17th level rollable tables for consumables and permanent items
     * Added Weight of Guilt Champion feat
+    * Corrected White and Silver Dragon's Breath Potion have the wrong damage type #415 (closed)
+    * Added correct dice to be rolled for all Dragon Breath potions
 
 ### Bug Fixes
 *  (@abrault) Fixed Character sheet issues when faced with undefined values
@@ -44,6 +46,7 @@
     * Added bulk and treasure rules for gems
 *  (@In3luki) Added confirmation dialog for actor item deletion
 *  (@abrault) Add a Feat Type filter to the Feat Browser
+*  (FS) Fixed spell heightening for prepared spell casters in the Pathfinder Bestiary and Age of Ashes Bestiary.
 
 ## Version 0.579.0
 ### New Features
@@ -60,6 +63,7 @@
 ### Core System Improvements
 *  (@fryguy1013) Add critical button to NPC sheet in the editor view as well as the non-editor view.
 *  (@nikolaj-a) Do not auto-delete inventory items when reduced to zero quantity. This should make live easier for characters that rely heavily on consumable items.
+*  (FS) Added inline rolls to Bestiary actions (such as dragons breath).
 
 
 ---
