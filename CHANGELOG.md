@@ -2,6 +2,7 @@
 ## Version 0.581.0
 ### New Features
 *  (@fryguy1013) Added Hazards as a new type of actor similar to NPCs. Includes a Hazard compendium with the SRD hazard content
+*  (@abrault) Added an easy button to convert treasure into coins
 
 ### Content Changes
 *  (@overdox) Content improvements:
