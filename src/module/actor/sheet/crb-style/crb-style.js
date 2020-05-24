@@ -30,7 +30,13 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
   getData() {
     const sheetData = super.getData();
 
+    //preparing the name of the rank, as this is displayed on the sheet
     sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
+    
+    //limiting the amount of characters for the save labels
+    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+      save.label = game.i18n.format(`PF2E.Saves${save.label}Short`); 
+    }
 
     // Return data to the sheet
     return sheetData;
