@@ -1,4 +1,47 @@
 # Patch Notes:
+## Version 0.581.0
+### New Features
+*  (@fryguy1013) Added Hazards as a new type of actor similar to NPCs. Includes a Hazard compendium with the SRD hazard content
+
+### Content Changes
+*  (@overdox) Content improvements:
+    * Added all 15th level consumables and permanent items
+    * Added rollable tables for 15th level consumables and permanent items
+    * Added new icons
+    * Corrected the wrong quantity on bags #407
+    * Added Bomber, Chirurgeon, Mutagenist specific class features #389 (closed)
+    * Added snares as consumable type
+    * Changed all snares to be consumables of type 'snare'
+    * Updated bags of devouring/holding to be extradimensional
+    * Changed bags to the correct bulk values.
+    * Replaced the default feat icon
+
+### Bug Fixes
+*  (@abrault) Fixed Character sheet issues when faced with undefined values
+*  (@putt1) Container fixes:
+    * Display bulk status and reduction for each container
+    * You shouldn't be able to drop spells into containers
+    * Items should be able to be dropped inside the container list of a container
+    * Container opened state should be persisted
+    * Sorting items inside a container should work (but only works for items of the same type (weapon, armor, ...) due to how sorting is implemented in foundry. Not sure if we want to override that.)
+*  (@In3luki) Spellbook fixes:
+    * Fixed spellbook drag & drop outside of spellcastingEntry. Closes #411 (closed)
+    * Fixed spellcasting ability modifier not getting updated correctly. Closes #412 (closed)
+    * Removed UI message about spell actor data migration of orphaned spells as it seems to work without reopening the sheet.
+    * Fixed deleting a spellcastingEntry not deleting all contained spells.
+*  (@In3luki) Upated getWhisperIDs to getWhisperRecipients.
+
+### Core System Improvements
+*  (@putt1) Trait/Item improvements:
+    * Enabled traits to be added to equipment
+    * Enabled backpacks to have a level configured
+    * Enabled traits to be added to consumables
+    * Added additional equipment and poison traits
+    * Added traits for armor items
+    * Added bulk and treasure rules for gems
+*  (@In3luki) Added confirmation dialog for actor item deletion
+*  (@abrault) Add a Feat Type filter to the Feat Browser
+
 ## Version 0.579.0
 ### New Features
 *  (@putt1) Added support for Foundry v1.0 (v0.6.0).
