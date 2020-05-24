@@ -153,11 +153,22 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.579) {
             addActorContainerAttributes(actor, updateData);
         }
+
+        if (worldSchemaVersion < 0.580) {
+            migrateActorItems(actor, updateData, addItemRarityAndLevel);
+        }
     }
     return updateData;
 };
 
 /* -------------------------------------------- */
+function addItemRarityAndLevel(item, itemData) {
+    itemData['data.rarity.value'] = 'common';
+    if (['treasure', 'backpack'].includes(item.type)) {
+        itemData['data.level.value'] = '0';    
+    }
+    return itemData;
+}
 
 function addContainerAttributes(item, itemData) {
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
@@ -322,6 +333,10 @@ export const migrateItemData = function (item, worldSchemaVersion) {
     if (worldSchemaVersion < 0.579) {
         addContainerAttributes(item, updateData);
     }
+    
+    if (worldSchemaVersion < 0.580) {
+        addItemRarityAndLevel(item, updateData);
+    }
     // Return the migrated update data
     return updateData;
 };
@@ -412,7 +427,6 @@ function migrateActorItems(actor, updateData, itemUpdateFunction) {
 function migrateActorBulkItems(actor, updateData) {
     return migrateActorItems(actor, updateData, migrateBulk);
 }
-
 
 function addActorContainerAttributes(actor, updateData) {
     return migrateActorItems(actor, updateData, addContainerAttributes);
