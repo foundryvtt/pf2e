@@ -1,5 +1,5 @@
-import { Bulk, calculateBulk, formatBulk, weightToBulk } from './bulk.js';
-import { groupBy } from '../utils.js';
+import {Bulk, calculateBulk, formatBulk, weightToBulk} from './bulk.js';
+import {groupBy} from '../utils.js';
 
 /**
  * Datatype that holds container information for *every* item, even non containers
@@ -100,6 +100,33 @@ function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, st
     });
 }
 
+function detectCycle(itemId, containerId, idIndexedItems) {
+    if (idIndexedItems.has(containerId)) {
+        const currentItem = idIndexedItems.get(containerId);
+        if (itemId === currentItem._id) {
+            return true;
+        } else {
+            return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
+        }
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Detect if a new container id would produce a cycle
+ * @param itemId
+ * @param containerId
+ * @param items
+ * @returns {boolean}
+ */
+export function isCycle(itemId, containerId, items) {
+    const idIndexedItems = new Map();
+    for (const item of items) {
+        idIndexedItems.set(item._id, item);
+    }
+    return detectCycle(itemId, containerId, idIndexedItems);
+}
 
 /**
  * Returns a map where the key is an item id and the value is the container data.

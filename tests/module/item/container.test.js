@@ -1,15 +1,15 @@
-import { getContainerMap } from '../../../src/module/item/container.js';
-import { stacks, itemsFromActorData, indexBulkItemsById } from '../../../src/module/item/bulk.js';
+import {getContainerMap, isCycle} from '../../../src/module/item/container.js';
+import {stacks, itemsFromActorData, indexBulkItemsById} from '../../../src/module/item/bulk.js';
 
 function createItem({
-    id,
-    weight,
-    equippedBulk = undefined,
-    negateBulk = '',
-    bulkCapacity = '',
-    containerId = '',
-    equipped = false
-}) {
+                        id,
+                        weight,
+                        equippedBulk = undefined,
+                        negateBulk = '',
+                        bulkCapacity = '',
+                        containerId = '',
+                        equipped = false
+                    }) {
     return {
         _id: id,
         type: 'equipment',
@@ -75,7 +75,7 @@ describe('should create container data', () => {
                 weight: 'L',
             }),
         ];
-        const bulkItems = indexBulkItemsById(itemsFromActorData({ items }));
+        const bulkItems = indexBulkItemsById(itemsFromActorData({items}));
         const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)
@@ -214,12 +214,12 @@ describe('should create container data', () => {
                 containerId: '7'
             }),
         ];
-        const bulkItems = indexBulkItemsById(itemsFromActorData({ items }));
+        const bulkItems = indexBulkItemsById(itemsFromActorData({items}));
         const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)
             .toBe(8);
-        
+
         const backpack = containerData.get('1');
         expect(backpack.fullPercentage)
             .toBe(98);
@@ -259,4 +259,31 @@ describe('should create container data', () => {
             .toBe(true);
     });
 
+    test('should detect container cycles', () => {
+        const items = [
+            createItem({
+                id: '1',
+            }),
+            createItem({
+                id: '2',
+                containerId: '1'
+            }),
+            createItem({
+                id: '3'
+            }),
+            createItem({
+                id: '4',
+                containerId: '2'
+            })
+        ];
+
+        expect(isCycle('1', '3', items)).toBe(false);
+        expect(isCycle('3', '1', items)).toBe(false);
+        expect(isCycle('2', '1', items)).toBe(false);
+        expect(isCycle('2', '3', items)).toBe(false);
+        expect(isCycle('1', '1', items)).toBe(true);
+        expect(isCycle('1', '4', items)).toBe(true);
+        expect(isCycle('1', '2', items)).toBe(true);
+        expect(isCycle('2', '2', items)).toBe(true);
+    });
 });
