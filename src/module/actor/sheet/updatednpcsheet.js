@@ -355,14 +355,15 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           actionDescr = actionDescr.replace(/(\d+)?d(\d+)([\+\-]\d+)?(\s+[a-z]+[\s.,])?/g, function(match, a, b, c, d) {
             // match: '1d4+1 rounds.', a: 1, b: 4, c: '+1', d: ' rounds.'
             let bonus = parseInt(c, 10);
-            if (d && d.substring(1,7) !== 'rounds') {
+            if (d?.substring(1,7) !== 'rounds') {
               if (isNaN(bonus)) { //c is empty in this case so dont need to add
                 c = (increase?'+':'') + (mod*2);
               } else {
                 if ( bonus == (mod*2*-1) ) {
                   c = '' ;
                 } else {
-                  c = (increase?'+':'') + ( bonus + (mod*2) );
+                  const newC = bonus + mod*2
+                  c = newC === 0 ? '' : newC > 0 ? `+${newC}` : `${newC}`
                 }
               }
             } else {
@@ -370,7 +371,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                 c = '';
               }
             }
-            return a+'d'+b+c+d;
+            return (a ? a : '')+'d'+b+c+(d ? d : '');
           });
           item.data.description.value = actionDescr;
         }

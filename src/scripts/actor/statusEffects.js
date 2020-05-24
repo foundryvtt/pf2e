@@ -204,7 +204,6 @@ class PF2eStatusEffects {
             if(src.includes(CONFIG.PF2eStatusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
                 i.attr("data-effect", statusName);
-                i.attr("title", PF2e.DB.condition[statusName].name);
                 if(PF2e.DB.condition[statusName].hasValue) {
                     i.removeClass('effect-control').addClass('pf2e-effect-control');
                     //retrieve actor and the current effect value

@@ -54,6 +54,7 @@ class ItemSheetPF2e extends ItemSheet {
       data.consumableTypes = CONFIG.PF2E.consumableTypes;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
       data.stackGroups = CONFIG.stackGroups;
+      data.consumableTraits = CONFIG.consumableTraits;
     } else if (type === 'spell') {
       // Spell Data
       mergeObject(data, {

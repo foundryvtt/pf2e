@@ -58,13 +58,11 @@ export const FLAT_FOOTED = Object.freeze({
 });
 export const FRIGHTENED = Object.freeze({
   withValue: (value) => ({
-    // also applies to attack rolls
     all: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const SICKENED = Object.freeze({
   withValue: (value) => ({
-    // also applies to attack rolls and skills
     all: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
   })
 });
