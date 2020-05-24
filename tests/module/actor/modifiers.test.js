@@ -194,6 +194,6 @@ describe('#modifiers', () => {
       new PF2Modifier('Test Bonus', 2, PF2ModifierType.PROFICIENCY),
     ];
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
-    expect(stat.totalModifier).toBe(2);
+    expect(stat.modifiers.length).toBe(1);
   });
 });
