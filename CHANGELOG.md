@@ -35,6 +35,7 @@
     * Items should be able to be dropped inside the container list of a container
     * Container opened state should be persisted
     * Sorting items inside a container should work (but only works for items of the same type (weapon, armor, ...) due to how sorting is implemented in foundry. Not sure if we want to override that.)
+    * Fixed an issue with recursive containers
 *  (@In3luki) Spellbook fixes:
     * Fixed spellbook drag & drop outside of spellcastingEntry. Closes #411 (closed)
     * Fixed spellcasting ability modifier not getting updated correctly. Closes #412 (closed)
