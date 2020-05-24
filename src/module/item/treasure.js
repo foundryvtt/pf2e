@@ -41,6 +41,30 @@ export function sellAllTreasure(actor) {
 }
 
 /**
+ * Converts a non-coin treasure in an actor's inventory to coinage
+ * @param actor
+ * @param itemId
+ * @return {Promise} Resolves after the treasure is removed and coins updated
+ */
+export async function sellTreasure(actor, itemId) {
+    const item = actor.getOwnedItem(itemId);
+    if (item?.type === 'treasure'
+        && item.data.data?.denomination?.value !== undefined
+        && item.data.data?.denomination?.value !== null
+        && item.data.data?.stackGroup?.value !== 'coins') {
+        let coins = {
+            [item.data.data.denomination.value]:
+                (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1),
+        };
+        await actor.deleteEmbeddedEntity("OwnedItem", itemId);
+        await addCoinsSimple(actor, {
+            coins,
+            combineStacks: true,
+        });
+    }
+}
+
+/**
  * Sums up all treasures in an actor's inventory and fills the
  * @param items
  * @return {*}

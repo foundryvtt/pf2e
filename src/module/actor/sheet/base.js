@@ -1,4 +1,4 @@
-import {calculateWealth, sellAllTreasure} from '../../item/treasure.js';
+import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 
 /**
@@ -624,6 +624,12 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
 
     html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
+
+    // Sell treasure item
+    html.find('.item-sell-treasure').click((ev) => {
+      const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+      sellTreasure(this.actor, itemId);
+    });
 
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
