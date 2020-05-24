@@ -156,13 +156,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
         actorData.hasEquipment = true;
-        i.isArmor = true;
         const equipped = getProperty(i.data, 'equipped.value') || false;
         i.armorEquipped = equipped?' active':'';
       }
 
-      i.canBeEquipped = i.isNotInContainer && i.isArmor;
-
+      i.canBeEquipped = i.isNotInContainer;
+        
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
