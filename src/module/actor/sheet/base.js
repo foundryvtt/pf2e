@@ -1,6 +1,6 @@
 import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
-import {isCycle} from "../../item/container";
+import {isCycle} from "../../item/container.js";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -228,7 +228,8 @@ class ActorSheetPF2e extends ActorSheet {
                 try {
                   spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
                 } catch (err) {
-                  console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
+                  console.log(`PF2e Sys
+tem | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
                 }
 
 
@@ -1234,7 +1235,6 @@ class ActorSheetPF2e extends ActorSheet {
         if (container[0] !== undefined) {
             const droppedItemId = container.attr('data-item-id')?.trim();
             const item = await getItem();
-            console.log(item, this.actor);
             if (item.type !== 'spell' && !isCycle(item._id, droppedItemId, this.actor.data.items)) {
                 return item.update({
                     'data.containerId.value': droppedItemId,
