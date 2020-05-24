@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../item/treasure.js';
+import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import {isCycle} from "../../item/container";
 
@@ -589,6 +589,8 @@ class ActorSheetPF2e extends ActorSheet {
 
     html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
 
+    html.find('.sell-all-treasure button').click(ev => this._onSellAllTreasure(ev));
+
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
 
@@ -623,6 +625,12 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-create').click((ev) => this._onItemCreate(ev));
 
     html.find('.item-toggle-container').click((ev) => this._toggleContainer(ev));
+
+    // Sell treasure item
+    html.find('.item-sell-treasure').click((ev) => {
+      const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+      sellTreasure(this.actor, itemId);
+    });
 
     // Update Inventory Item
     html.find('.item-edit').click((ev) => {
@@ -1611,6 +1619,11 @@ class ActorSheetPF2e extends ActorSheet {
       new AddCoinsPopup(this.actor, {}).render(true)
   }
 
+  _onSellAllTreasure(event) {
+      event.preventDefault();
+      sellAllTreasure(this.actor);
+  }
+    
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);

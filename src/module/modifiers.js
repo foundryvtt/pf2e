@@ -78,6 +78,7 @@ export class PF2Modifier {
     this.modifier = modifier;
     this.type = type;
     this.enabled = enabled;
+    this.ignored = false;
     this.deleted = false;
     if (source) this.source = source;
     if (notes) this.notes = notes;
@@ -239,6 +240,8 @@ function applyStackingRules(modifiers) {
     const modifier = modifiers[idx];
     if (modifier.deleted) {
       modifiers.splice(idx, 1); // remove any deleted modifiers
+    } else if (modifier.ignored) {
+      modifier.enabled = false;
     } else if (modifier.modifier === 0) {
       modifier.enabled = false; // disable zero modifiers, since they have no impact
     } else if (modifier.modifier > 0) {
@@ -316,7 +319,7 @@ export class PF2CheckModifier extends PF2StatisticModifier {
    * @param {PF2StatisticModifier} statistic
    * @param {PF2Modifier[]} modifiers
    */
-  constructor(name, statistic, modifiers) {
+  constructor(name, statistic, modifiers= []) {
     super(name, JSON.parse(JSON.stringify(statistic.modifiers)).concat(modifiers)); // deep clone
   }
 }

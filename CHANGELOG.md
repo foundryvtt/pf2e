@@ -1,4 +1,63 @@
 # Patch Notes:
+## Version 0.581.0
+### New Features
+*  (@fryguy1013) Added Hazards as a new type of actor similar to NPCs. Includes a Hazard compendium with the SRD hazard content
+*  (@abrault) Added an easy button to convert treasure into coins
+*  (@nikolaj-a) Improved Strike Actions (still experimental)
+    * Add weapon icons to the strikes
+    * Adjusted the font size of the action icons to better fit.
+    * Enable conditions to more correctly affect the attack rolls.
+    * Replaced the roll dialog with a more customized version that allows modifiers to be excluded for that check.
+
+### Content Changes
+*  (@overdox) Content improvements:
+    * Added all 15th level consumables and permanent items
+    * Added rollable tables for 15th level consumables and permanent items
+    * Added new icons
+    * Corrected the wrong quantity on bags #407
+    * Added Bomber, Chirurgeon, Mutagenist specific class features #389 (closed)
+    * Added snares as consumable type
+    * Changed all snares to be consumables of type 'snare'
+    * Updated bags of devouring/holding to be extradimensional
+    * Changed bags to the correct bulk values.
+    * Replaced the default feat icon
+    * Added all 16th and 17th level items
+    * Added 16 and 17th level rollable tables for consumables and permanent items
+    * Added Weight of Guilt Champion feat
+    * Corrected White and Silver Dragon's Breath Potion have the wrong damage type #415 (closed)
+    * Added correct dice to be rolled for all Dragon Breath potions
+
+### Bug Fixes
+*  (@abrault) Fixed Character sheet issues when faced with undefined values
+*  (@putt1) Container fixes:
+    * Display bulk status and reduction for each container
+    * You shouldn't be able to drop spells into containers
+    * Items should be able to be dropped inside the container list of a container
+    * Container opened state should be persisted
+    * Sorting items inside a container should work (but only works for items of the same type (weapon, armor, ...) due to how sorting is implemented in foundry. Not sure if we want to override that.)
+*  (@In3luki) Spellbook fixes:
+    * Fixed spellbook drag & drop outside of spellcastingEntry. Closes #411 (closed)
+    * Fixed spellcasting ability modifier not getting updated correctly. Closes #412 (closed)
+    * Removed UI message about spell actor data migration of orphaned spells as it seems to work without reopening the sheet.
+    * Fixed deleting a spellcastingEntry not deleting all contained spells.
+*  (@In3luki) Upated getWhisperIDs to getWhisperRecipients.
+*  (@hooking) Updated Bestiary Browser to only process actors of type 'npc'.
+*  (FS) Fixed weak and elite adjustments with inline dice rolls.
+*  (@nikolaj-a) Fixed the new CRB sheet from inadvertantly wiping character data (it should be safe to preview now).
+*  (@yeroon) Fixed the automatic behaviour of feats like Diehard, Toughness and Mountain's Stoutness when importing from the Compendium or when changing icon/description. (issue #417 (closed) and #387 (closed))
+
+### Core System Improvements
+*  (@putt1) Trait/Item improvements:
+    * Enabled traits to be added to equipment
+    * Enabled backpacks to have a level configured
+    * Enabled traits to be added to consumables
+    * Added additional equipment and poison traits
+    * Added traits for armor items
+    * Added bulk and treasure rules for gems
+*  (@In3luki) Added confirmation dialog for actor item deletion
+*  (@abrault) Add a Feat Type filter to the Feat Browser
+*  (FS) Fixed spell heightening for prepared spell casters in the Pathfinder Bestiary and Age of Ashes Bestiary.
+
 ## Version 0.579.0
 ### New Features
 *  (@putt1) Added support for Foundry v1.0 (v0.6.0).
@@ -14,6 +73,7 @@
 ### Core System Improvements
 *  (@fryguy1013) Add critical button to NPC sheet in the editor view as well as the non-editor view.
 *  (@nikolaj-a) Do not auto-delete inventory items when reduced to zero quantity. This should make live easier for characters that rely heavily on consumable items.
+*  (FS) Added inline rolls to Bestiary actions (such as dragons breath).
 
 
 ---
