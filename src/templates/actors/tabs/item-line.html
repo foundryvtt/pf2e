@@ -34,7 +34,7 @@
         <div style="float: left; width: 22px;">&nbsp;</div>
         {{/unless}}
         {{#if item.canBeEquipped}}
-        <a class="item-control item-toggle-equip{{item.armorEquipped}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+        <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}
         {{#unless item.canBeEquipped}}
         <div style="float: left; width: 22px;">&nbsp;</div>
