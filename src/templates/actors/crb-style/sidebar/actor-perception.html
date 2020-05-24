@@ -5,8 +5,8 @@
     </h2>
 </div>
 
-<div class="roll-data">
-    <a class="roll-icon" href="#">
+<div class="roll-data" data-attribute="perception">
+    <a class="roll-icon attribute-name"> <!-- @mdizo, shouldn't this be a span? -->
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -20,8 +20,9 @@
             />
         </svg>
     </a>
-    <h3>+17</h3>
-    <h4 class="plaque"><span>Legendary</span></h4>
+    <h3>+{{data.attributes.perception.value}}</h3>
+    <input type="hidden" name="data.attributes.perception.rank" value="{{data.attributes.perception.rank}}" data-dtype="Number"/>
+    <h4 class="plaque click-stat-level"><span>{{data.attributes.perception.rankName}}</span></h4>
 </div>
 
 <div class="hover-content" id="perception-modifiers">
