@@ -40,23 +40,21 @@
             'img alignment deity' 30px
             'img details details' 150px
             / 120px 120px 1fr;
+        margin-top: 4px;
 
         .frame {
             grid-area: img;
-            cursor: pointer;
+            margin-left: 5px;
             z-index: 3;
-            .wrapper {
-                display: block;
-                background: url('../assets/sheet-bg.jpg') no-repeat;
-                background-size: cover;
-                .player-image {
-                    object-fit: cover;
-                    object-position: center;
-                    border: none;
-                    border-radius: 0;
-                    max-height: 150px;
-                    @include brown-border;
-                }
+
+            .player-image {
+                object-fit: cover;
+                object-position: center;
+                border: none;
+                border-radius: 0;
+                max-height: 150px;
+                cursor: pointer;
+                @include brown-border;
             }
         }
 
@@ -114,6 +112,7 @@
                 border-radius: 16px;
                 margin-left: 8px;
                 @include brown-border;
+                margin-top: 8px;
             }
         }
 
