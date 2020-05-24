@@ -228,8 +228,7 @@ class ActorSheetPF2e extends ActorSheet {
                 try {
                   spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
                 } catch (err) {
-                  console.log(`PF2e Sys
-tem | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
+                  console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
                 }
 
 
