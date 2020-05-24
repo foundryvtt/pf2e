@@ -371,7 +371,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                 c = '';
               }
             }
-            return a+'d'+b+c+(d ? d : '');
+            return (a ? a : '')+'d'+b+c+(d ? d : '');
           });
           item.data.description.value = actionDescr;
         }
