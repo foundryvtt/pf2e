@@ -50,6 +50,13 @@ class ActorSheetPF2e extends ActorSheet {
       skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
     }
 
+    //set Broken Threshold of the characters shield
+    const shield = sheetData.data.attributes.shield;
+    shield.brokenThreshold = Math.floor(shield.max/2);
+    
+    sheetData.data.attributes.shield.brokenThreshold = shield.brokenThreshold;
+    sheetData.brokenShield = shield.value < shield.brokenThreshold ? true : false;
+
     // Update save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.icon = this._getProficiencyIcon(save.rank);

@@ -22,5 +22,23 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
   _onSubmit() {
     console.log('PF2E | _onSubmit is disabled for CRB Style actor sheet');
     ui.notifications.error("Warning! This sheet is still experimental, it does not save any changes to your character.");
+    }
+
+     /**
+   * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
+   */
+  getData() {
+    const sheetData = super.getData();
+
+    // preparing the name of the rank, as this is displayed on the sheet
+    sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
+    
+    // limiting the amount of characters for the save labels
+    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+      save.label = game.i18n.format(`PF2E.Saves${save.label}Short`); 
+    }
+
+    // Return data to the sheet
+    return sheetData;
   }
 }
