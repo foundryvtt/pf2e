@@ -362,7 +362,8 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                 if ( bonus == (mod*2*-1) ) {
                   c = '' ;
                 } else {
-                  c = (increase?'+':'') + ( bonus + (mod*2) );
+                  const newC = bonus + mod*2
+                  c = newC === 0 ? '' : newC > 0 ? `+${newC}` : `${newC}`
                 }
               }
             } else {
