@@ -2,8 +2,8 @@
     <h2>
         {{localize 'PF2E.ArmorClassLabel'}}
     </h2>
-    <a href="#">
-        +Raise Shield
+    <a class="shield-action {{#if brokenShield}}disabled-action{{/if}}">
+        <img src="systems/pf2e/icons/actions/OneAction.png">Raise Shield
     </a>
 </div>
 <div class="armor-class">
@@ -18,12 +18,14 @@
         </label>
     </div>
     <div class="shield hp">
-        <div class="data-value">
+        <div class="data-value"> <!-- TODO: need to add a method in base.js to prevent shield HP to be larger then max shield HP-->
             <input
                 id="shield-hp"
                 type="number"
                 data-dtype="Number"
                 placeholder="0"
+                name="data.attributes.shield.value"
+                value="{{data.attributes.shield.value}}"
                 title="{{localize 'PF2E.ShieldACBonusTitle'}}"
             />
         </div>
@@ -60,7 +62,8 @@
                     class="data-value"
                     title="{{localize 'PF2E.ShieldACBonusTitle'}}"
                 >
-                    <input type="number" data-dtype="Number" placeholder="0" />
+                    <input type="number" data-dtype="Number" placeholder="0"
+                    name="data.attributes.shield.ac" value="{{data.attributes.shield.ac}}" />
                 </span>
             </li>
             <li>
@@ -79,7 +82,8 @@
                     class="data-value"
                     title="{{localize 'PF2E.ShieldHardnessTitle'}}"
                 >
-                    <input type="number" data-dtype="Number" placeholder="0" />
+                    <input type="number" data-dtype="Number" placeholder="0" 
+                    name="data.attributes.shield.hardness" value="{{data.attributes.shield.hardness}}" />
                 </span>
             </li>
             <li>
@@ -98,7 +102,8 @@
                     class="data-value"
                     title="{{localize 'PF2E.ShieldBTTitle'}}"
                 >
-                    <input type="number" data-dtype="String" placeholder="0" />
+                    <input type="number" data-dtype="String" placeholder="0" 
+                    name="data.attributes.shield.brokenThreshold" value="{{data.attributes.shield.brokenThreshold}}" readonly/>
                 </span>
             </li>
         </ol>
@@ -110,7 +115,7 @@
                 class="defense-item pf-title"
                 title="{{localize 'PF2E.ShieldMaxTitle'}}"
             >
-                Shield Max HP
+                Shield<br>Max HP
             </label>
             <span class="data-value" title="{{localize 'PF2E.ShieldMaxTitle'}}">
                 <input
@@ -118,6 +123,8 @@
                     type="number"
                     data-dtype="String"
                     placeholder="0"
+                    name="data.attributes.shield.max"
+                    value="{{data.attributes.shield.max}}"
                 />
             </span>
         </div>
@@ -128,7 +135,8 @@
             >
                 {{localize 'PF2E.ShieldBTLabel'}}
             </label>
-            <i class="far fa-circle"></i>
+            {{#if brokenShield}}<i class="far fa-times-circle"></i>{{/if}}
+            {{#unless brokenShield}}<i class="far fa-circle"></i>{{/unless}}
         </div>
     </div>
 </div>
