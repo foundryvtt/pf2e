@@ -8,8 +8,10 @@ Hooks.on("preCreateOwnedItem", (actor, item) => {
     actor.itemBehaviour(item);
 });
 Hooks.on("preUpdateOwnedItem", (actor, item, itemUpdate) => {
-    actor.itemBehaviour(item, false);
-    actor.itemBehaviour(itemUpdate);
+    if(itemUpdate.name) {
+      actor.itemBehaviour(item, false);
+      actor.itemBehaviour(itemUpdate);
+    }
   });
   Hooks.on("preDeleteOwnedItem", (actor, item) => {
     actor.itemBehaviour(item, false);
