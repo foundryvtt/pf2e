@@ -3,6 +3,11 @@
 ### New Features
 *  (@fryguy1013) Added Hazards as a new type of actor similar to NPCs. Includes a Hazard compendium with the SRD hazard content
 *  (@abrault) Added an easy button to convert treasure into coins
+*  (@nikolaj-a) Improved Strike Actions (still experimental)
+    * Add weapon icons to the strikes
+    * Adjusted the font size of the action icons to better fit.
+    * Enable conditions to more correctly affect the attack rolls.
+    * Replaced the roll dialog with a more customized version that allows modifiers to be excluded for that check.
 
 ### Content Changes
 *  (@overdox) Content improvements:
