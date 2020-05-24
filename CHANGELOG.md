@@ -37,6 +37,7 @@
 *  (@In3luki) Upated getWhisperIDs to getWhisperRecipients.
 *  (@hooking) Updated Bestiary Browser to only process actors of type 'npc'.
 *  (FS) Fixed weak and elite adjustments with inline dice rolls.
+*  (@nikolaj-a) Fixed the new CRB sheet from inadvertantly wiping character data (it should be safe to preview now).
 
 ### Core System Improvements
 *  (@putt1) Trait/Item improvements:
