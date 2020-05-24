@@ -1,0 +1,111 @@
+.biography {
+    /* Typography */
+
+    h1,
+    h2 {
+        font-family: 'Eczar', sans-serif;
+    } /* No Taroca, unless you license it yourself */
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        line-height: 1.2;
+    }
+    h2 {
+        color: #02256e;
+        font-size: 2.25em;
+    }
+    h3,
+    h4,
+    h5 {
+        font-family: 'Tauri', sans-serif;
+    }
+    h3 {
+        font-family: 'Teko', sans-serif;
+        font-size: 2em;
+        border-bottom: 0px;
+    }
+    h4 {
+        color: #000000;
+        border-bottom: 1px solid #000000;
+        margin-bottom: 0px;
+        text-transform: uppercase;
+    }
+    h5 {
+        text-transform: uppercase;
+    }
+    h6 {
+        background-color: #002664;
+        color: #ede3c8;
+        border-bottom: 1px solid #002664;
+        margin-bottom: 5px;
+        padding-left: 8px;
+        padding-top: 5px;
+        padding-bottom: 3px;
+        font-size: 1.25em;
+        font-family: 'Tauri', sans-serif;
+        text-transform: uppercase;
+        border-radius: 12px 12px 0px 0px;
+    }
+
+    p,
+    p + p,
+    ul,
+    ol {
+        font-family: 'Gelasio', sans-serif;
+        text-align: justify;
+        text-justify: inter-character;
+        line-height: 1.4;
+    }
+    .editor {
+        height: 100%;
+        width: 100%;
+
+        .editor-edit {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tox {
+            .tox-editor-container {
+                .tox-editor-header {
+                    .tox-toolbar-overlord {
+                        background-color: var(--secondary);
+                        .tox-toolbar {
+                            &__primary {
+                                background-color: var(--alt);
+                                box-shadow: inset 0 0 0 1px rgba(white, 0.3);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .tox-tbtn {
+                color: white;
+                border-radius: 1px;
+                &__select-chevron {
+                    svg {
+                        fill: rgba(black, 0.5);
+                    }
+                }
+
+                svg {
+                    fill: rgba(black, 0.5);
+                }
+
+                &:hover {
+                    background: var(--secondary);
+
+                    svg {
+                        fill: white;
+                    }
+                }
+            }
+        }
+
+        .editor-content {
+            overflow-y: inherit;
+        }
+    }
+}
