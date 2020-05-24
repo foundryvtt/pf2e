@@ -2602,15 +2602,16 @@ button > i.far {
 */
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar {
   display: flex;
+  margin-bottom: 0.1em;
 }
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar h1{
   font-family:'Oswald', sans-serif;
   font-weight:600;
   text-transform:uppercase;
 }
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
-  margin-bottom:0.1em;
-}
+// .pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
+//   margin-bottom:0.1em;
+// }
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar .name {
   flex: 9;
   justify-content:flex-start;
@@ -2964,20 +2965,20 @@ input[type="number"] {
   border-top-color: #999;
   border-top-style: solid;
 }
-.sheet-header .creature-adjustment {
+.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden  {
   font-size: 12px;
 }
-.sheet-header .creature-adjustment a {
+.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden  {
   margin-left: 1px;
   background-color: var(--secondary-background);
   border-color: #bbb68f;
 }
-.sheet-header .creature-adjustment a.active {
+.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden  {
   margin-left: 1px;
   background-color: #5E0000;
   border-color: #bbb68f;
 }
-.sheet-header .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.hidden , .npc-title-bar .creature-adjustment a.hidden {
   display: none;
 }
 #chat-log {
