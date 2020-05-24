@@ -35,7 +35,8 @@
     * Removed UI message about spell actor data migration of orphaned spells as it seems to work without reopening the sheet.
     * Fixed deleting a spellcastingEntry not deleting all contained spells.
 *  (@In3luki) Upated getWhisperIDs to getWhisperRecipients.
-*  (@hooking) Updated Bestiary Browser to only process actors of type 'npc'. 
+*  (@hooking) Updated Bestiary Browser to only process actors of type 'npc'.
+*  (FS) Fixed weak and elite adjustments with inline dice rolls.
 
 ### Core System Improvements
 *  (@putt1) Trait/Item improvements:
