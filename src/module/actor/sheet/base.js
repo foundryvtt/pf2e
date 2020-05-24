@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../item/treasure.js';
+import {calculateWealth, sellAllTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 
 /**
@@ -587,6 +587,8 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
     html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
+
+    html.find('.sell-all-treasure button').click(ev => this._onSellAllTreasure(ev));
 
     // Feat Browser
     html.find('.feat-browse').click((ev) => featBrowser.render(true));
@@ -1609,6 +1611,11 @@ class ActorSheetPF2e extends ActorSheet {
       new AddCoinsPopup(this.actor, {}).render(true)
   }
 
+  _onSellAllTreasure(event) {
+      event.preventDefault();
+      sellAllTreasure(this.actor);
+  }
+    
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);

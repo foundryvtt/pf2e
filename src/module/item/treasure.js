@@ -1,10 +1,50 @@
+import { groupBy, isBlank } from '../utils.js';
+
+/**
+ * Converts all non-coin treasure in an actor's inventory to coinage
+ * @param actor
+ * @return {Promise} Resolves after the treasure is removed and coins updated
+ */
+export function sellAllTreasure(actor) {
+    const treasureIds = [];
+    const coins = actor.data.items
+        .filter(item => item.type === 'treasure'
+            && item.data?.denomination?.value !== undefined
+            && item.data?.denomination?.value !== null
+            && item?.data?.stackGroup?.value !== 'coins')
+        .map(item => {
+            treasureIds.push(item._id);
+            return {
+                [item.data.denomination.value]: (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1),
+            };
+        })
+        .reduce((prev, curr) => {
+            return {
+                pp: prev.pp + (curr.pp || 0),
+                gp: prev.gp + (curr.gp || 0),
+                sp: prev.sp + (curr.sp || 0),
+                cp: prev.cp + (curr.cp || 0),
+            };
+        }, {
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0
+        });
+    return Promise.all([
+        actor.deleteEmbeddedEntity("OwnedItem", treasureIds),
+        addCoinsSimple(actor, {
+            coins,
+            combineStacks: true,
+        })
+    ]);
+}
+
 /**
  * Sums up all treasures in an actor's inventory and fills the
  * @param items
  * @return {*}
  */
-import { groupBy, isBlank } from '../utils.js';
-
 export function calculateWealth(items) {
     return items
         .filter(item => item.type === 'treasure'
@@ -75,4 +115,31 @@ export async function addCoins({
             }
         }
     }
+}
+
+export function addCoinsSimple(actor, {
+    coins = {
+        pp: 0,
+        gp: 0,
+        sp: 0,
+        cp: 0,
+    },
+    combineStacks = false,
+} = {}) {
+    return addCoins({
+        coins,
+        combineStacks,
+        items: actor.data.items,
+        async updateItemQuantity(item, quantity) {
+            const currentQuantity = item?.data?.quantity?.value || 0;
+            const ownedItem = actor.getOwnedItem(item._id);
+            await ownedItem.update({'data.quantity.value': currentQuantity + quantity});
+        },
+        async addFromCompendium(compendiumId, quantity) {
+            const pack = game.packs.find(p => p.collection === 'pf2e.equipment-srd');
+            const item = await pack.getEntity(compendiumId);
+            item.data.data.quantity.value = quantity;
+            await actor.createOwnedItem(item.data);
+        },
+    });
 }
