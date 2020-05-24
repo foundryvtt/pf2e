@@ -1067,42 +1067,43 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
           console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - ${content.length} entries found`);
           for (let actor of content) {
             actor = actor.data;
+            if (actor.type === "npc") {
+              // record the pack the feat was read from
+              actor.compendium = pack.collection;
+              actor["filters"] = {};
 
-            // record the pack the feat was read from
-            actor.compendium = pack.collection;
-            actor["filters"] = {};
+              actor.filters["level"] = actor.data.details.level.value;
+              actor.filters["traits"] = actor.data.traits.traits.value;
+              actor.filters["alignment"] = actor.data.details.alignment.value;
+              actor.filters["actorSize"] = actor.data.traits.size.value;
 
-            actor.filters["level"] = actor.data.details.level.value;
-            actor.filters["traits"] = actor.data.traits.traits.value;
-            actor.filters["alignment"] = actor.data.details.alignment.value;
-            actor.filters["actorSize"] = actor.data.traits.size.value;
-
-            // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
-            if (actor.data.details.source && actor.data.details.source.value) {
-              let actorSource = actor.data.details.source.value;
-                if (actorSource.includes('pg.')) {
-                  actor.filters["source"] = actorSource.split('pg.')[0].trim();
-                } else if (actorSource.includes('page.')) {
-                  actor.filters["source"] = actorSource.split('page.')[0].trim();
-                } else {
-                  actor.filters["source"] = actorSource
-                }
-            }
+              // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
+              if (actor.data.details.source && actor.data.details.source.value) {
+                let actorSource = actor.data.details.source.value;
+                  if (actorSource.includes('pg.')) {
+                    actor.filters["source"] = actorSource.split('pg.')[0].trim();
+                  } else if (actorSource.includes('page.')) {
+                    actor.filters["source"] = actorSource.split('page.')[0].trim();
+                  } else {
+                    actor.filters["source"] = actorSource
+                  }
+              }
 
 
-            // add the source to the filter list.
-            if (actor.filters.source) {
-              if (!sourceArr.includes(actor.filters.source)) sourceArr.push(actor.filters.source);
-            }
+              // add the source to the filter list.
+              if (actor.filters.source) {
+                if (!sourceArr.includes(actor.filters.source)) sourceArr.push(actor.filters.source);
+              }
 
-            if (actor.data.traits.traits.value.length) {
-              actor.data.traits.traits.value.forEach(trait => {
-                if (!traitsArr.includes(trait)) traitsArr.push(trait);
-              })
-            }
+              if (actor.data.traits.traits.value.length) {
+                actor.data.traits.traits.value.forEach(trait => {
+                  if (!traitsArr.includes(trait)) traitsArr.push(trait);
+                })
+              }
 
-            // add actor to bestiaryActors object
-            bestiaryActors[actor._id] = actor
+              // add actor to bestiaryActors object
+              bestiaryActors[actor._id] = actor
+            }            
           }
           console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
         });
