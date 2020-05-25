@@ -37,17 +37,44 @@ $header-height: 89px;
         grid-area: nav;
         margin-right: $window-p-right;
     }
-    .sheet-content {
+    .sheet-body {
         grid-area: content;
-        @include scrollbar;
-        padding-right: calc(#{$window-p-right} - 7px);
-        mask-image: linear-gradient(
-            180deg,
-            rgba(white, 1) 0%,
-            rgba(white, 1) 1%,
-            rgba(white, 1) 98%,
-            rgba(white, 0) 100%
-        );
+        position: relative;
+
+        .sheet-content,
+        .sheet-content .inventory {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding-top: 12px;
+
+            & > .tab:not(.inventory),
+            .inventory .inventory-list {
+                flex-grow: 1;
+                min-height: 0;
+                overflow: hidden scroll;
+                @include scrollbar;
+                padding-right: 15px;
+                mask-image: linear-gradient(
+                    180deg,
+                    rgba(white, 1) 0%,
+                    rgba(white, 1) 1%,
+                    rgba(white, 1) 98%,
+                    rgba(white, 0) 100%
+                );
+            }
+
+            &.tab[data-tab] {
+                display: none;
+                &.active {
+                    display: initial;
+                }
+            }
+        }
     }
 
     /* Navigation */
@@ -55,8 +82,6 @@ $header-height: 89px;
 
     .sheet-content {
         color: var(--body);
-        margin-top: 12px;
-        max-height: 590px;
         @import 'character', 'npc';
     }
 
