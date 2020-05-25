@@ -84,7 +84,7 @@ class ItemSheetPF2e extends ItemSheet {
       const weaponPreciousMaterials = Object.assign({}, CONFIG.PF2E.preciousMaterials);
       delete weaponPreciousMaterials['dragonhide'];
 
-      const slots = this.getPropertySlots(this.item);
+      const slots = getPropertySlots(this.item.data);
       this.assignPropertySlots(data, slots);
       data.preciousMaterials = weaponPreciousMaterials;
       data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
@@ -190,16 +190,6 @@ class ItemSheetPF2e extends ItemSheet {
     }
 
     return data;
-  }
-  
-  getPropertySlots(item) {
-      let slots = 0;
-      if (item?.data?.data?.preciousMaterial?.value === 'orichalcum') {
-          slots += 1;
-      }
-      const potencyRune = item?.data?.data?.potencyRune?.value ?? 0;
-      slots += parseInt(potencyRune, 10)
-      return slots;
   }
   
   assignPropertySlots(data, number) {
