@@ -1,7 +1,9 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-class ItemSheetPF2e extends ItemSheet {
+import { getPropertySlots } from './runes.js';
+
+export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.width = 630;
@@ -170,7 +172,7 @@ class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
-      const slots = this.getPropertySlots(this.item);
+      const slots = getPropertySlots(this.item);
       this.assignPropertySlots(data, slots);
       data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
       data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
@@ -314,10 +316,3 @@ class ItemSheetPF2e extends ItemSheet {
     this._onSubmit(event);
   }
 }
-
-// Override CONFIG
-// CONFIG.Item.sheetClass = ItemSheetPF2e;
-
-// Register Item Sheet
-Items.unregisterSheet('core', ItemSheet);
-Items.registerSheet('pf2e', ItemSheetPF2e, { makeDefault: true });

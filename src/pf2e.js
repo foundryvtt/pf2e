@@ -7,6 +7,7 @@ import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
+import {registerSheets} from './module/register-sheets.js';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
 import * as migrations from "./module/migration.js";
 
@@ -33,6 +34,7 @@ Hooks.once('init', () => {
   registerSettings();
   loadTemplates();
   registerActors();
+  registerSheets();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 });
 
@@ -181,3 +183,4 @@ Hooks.on('preCreateActor', (actor, dir) => {
     }
   }
 });
+
