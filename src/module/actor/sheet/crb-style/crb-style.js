@@ -19,12 +19,12 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     return 'systems/pf2e/templates/actors/crb-style/actor-sheet.html';
   }
 
-  _onSubmit() {
+  /* _onSubmit(event) {
     console.log('PF2E | _onSubmit is disabled for CRB Style actor sheet');
     ui.notifications.error("Warning! This sheet is still experimental, it does not save any changes to your character.");
-    }
+  } */
 
-     /**
+    /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
    */
   getData() {
