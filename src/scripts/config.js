@@ -1072,6 +1072,13 @@ CONFIG.actorSizes = {
   grg: 'PF2E.ActorSizeGargantuan',
 };
 
+CONFIG.speedTypes = {
+  swim: 'PF2E.SpeedTypesSwim',
+  climb: "PF2E.SpeedTypesClimb",
+  fly: "PF2E.SpeedTypesFly",
+  burrow: "PF2E.SpeedTypesBurrow",
+}
+
 // Creature Sizes
 CONFIG.bulkTypes = {
   L: 'PF2E.BulkTypeLight',
