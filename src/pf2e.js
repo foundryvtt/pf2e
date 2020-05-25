@@ -65,7 +65,7 @@ Hooks.once('setup', () => {
     'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
-    'speedTypes',
+    'speedTypes', 'senses',
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {

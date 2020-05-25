@@ -1077,7 +1077,15 @@ CONFIG.speedTypes = {
   climb: "PF2E.SpeedTypesClimb",
   fly: "PF2E.SpeedTypesFly",
   burrow: "PF2E.SpeedTypesBurrow",
-}
+};
+
+CONFIG.senses = {
+  darkvision: 'PF2E.SensesDarkvision',
+  greaterDarkvision: 'PF2E.SensesGreaterDarkvision',
+  lowLightVision: 'PF2E.SensesLowLightVision',
+  scent: 'PF2E.SensesScent',
+  Tremorsense: 'PF2E.SensesTremorsense',
+};
 
 // Creature Sizes
 CONFIG.bulkTypes = {
