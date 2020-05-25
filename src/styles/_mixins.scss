@@ -18,7 +18,8 @@
 @mixin frame-icon {
     border: 1px solid var(--body);
     box-shadow:
-    /* prettier-ignore */ 0 0 0 1px var(--tertiary), 0 0 0 2px #9f725b;
+    /* prettier-ignore */ 0 0 0 1px var(--tertiary),
+        0 0 0 2px #9f725b;
 }
 
 @mixin brown-border {
@@ -77,6 +78,10 @@
 @mixin animate-infinite {
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
+}
+
+@mixin rotate {
+    animation: rotation 2s infinite linear;
 }
 
 @mixin wobble {
