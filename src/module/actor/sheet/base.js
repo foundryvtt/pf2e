@@ -78,7 +78,7 @@ class ActorSheetPF2e extends ActorSheet {
     for (let [s, skl] of Object.entries(sheetData.data.skills)) {
       skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
       skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.value];
+      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
       skl.label = CONFIG.PF2E.skills[s];
     }
 
