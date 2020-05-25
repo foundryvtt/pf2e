@@ -91,11 +91,13 @@ class TraitSelector5e extends FormApplication {
           const name = ev.currentTarget.name;
           html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
         });
-        /*html.find('input[id^=input_value]').focusout( (ev) => {
-          const input = ev.currentTarget;
-          if (input.value === "")
-            html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
-        });*/
+        if (!this.options.allow_empty_values) {
+          html.find('input[id^=input_value]').focusout( (ev) => {
+            const input = ev.currentTarget;
+            if (input.value === "")
+              html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
+          });
+        }
       }
 
       if (this.options.has_exceptions) {
@@ -140,14 +142,14 @@ class TraitSelector5e extends FormApplication {
     if (this.options.has_values) {
       for (const [k, v] of Object.entries(formData)) {
         if(v.length > 1 && v[0]) {
-          const label = this.options.choices[k];
-          const exceptions = v[2] || "";
-          choices.push({type: k, label: label, value: v[1], exceptions: exceptions});
+          if ((!isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
+            const label = this.options.choices[k];
+            const exceptions = v[2] || "";
+            choices.push({type: k, label: label, value: v[1], exceptions: exceptions});
           }
         }
-      this.object.update({
-        [`${this.attribute}`]: choices
-      });
+      }
+      this.object.update({ [`${this.attribute}`]: choices });
     } else {
 	    for (const [k, v] of Object.entries(formData)) {
         if (v) choices.push(k);
