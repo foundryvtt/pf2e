@@ -81,6 +81,17 @@ class ItemSheetPF2e extends ItemSheet {
       data.martialSkills = martialSkills;
 
       // Weapon Data
+      const weaponPreciousMaterials = Object.assign({}, CONFIG.PF2E.preciousMaterials);
+      delete weaponPreciousMaterials['dragonhide'];
+
+      const slots = this.getPropertySlots(this.item);
+      this.assignPropertySlots(data, slots);
+      data.preciousMaterials = weaponPreciousMaterials;
+      data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
+      data.weaponStrikingRunes = CONFIG.PF2E.weaponStrikingRunes;
+      data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
+      data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
+      data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
       data.weaponTraits = CONFIG.PF2E.weaponTraits;
       data.weaponTypes = CONFIG.PF2E.weaponTypes;
       data.weaponGroups = CONFIG.PF2E.weaponGroups;
@@ -159,10 +170,17 @@ class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
+      const slots = this.getPropertySlots(this.item);
+      this.assignPropertySlots(data, slots);
+      data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
+      data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
+      data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
       data.armorTypes = CONFIG.PF2E.armorTypes;
       data.armorGroups = CONFIG.PF2E.armorGroups;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
       data.armorTraits = CONFIG.PF2E.armorTraits;
+      data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
+      data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
     } else if (type === 'tool') {
       // Tool-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
@@ -172,6 +190,25 @@ class ItemSheetPF2e extends ItemSheet {
     }
 
     return data;
+  }
+  
+  getPropertySlots(item) {
+      let slots = 0;
+      if (item?.data?.data?.preciousMaterial?.value === 'orichalcum') {
+          slots += 1;
+      }
+      const potencyRune = item?.data?.data?.potencyRune?.value ?? 0;
+      slots += parseInt(potencyRune, 10)
+      return slots;
+  }
+  
+  assignPropertySlots(data, number) {
+      const slots = [1, 2, 3, 4];
+      for (const slot of slots) {
+          if (number >= slot) {
+              data[`propertyRuneSlots${slot}`] = true;
+          }
+      }
   }
 
   _prepareTraits(traits, choices) {
