@@ -2602,22 +2602,28 @@ button > i.far {
 */
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar {
   display: flex;
+  margin-bottom: 0.1em;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 2px solid #782e22;
+  margin: 0 0 0.5rem;
 }
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar h1{
   font-family:'Oswald', sans-serif;
   font-weight:600;
   text-transform:uppercase;
+  margin-bottom: 0;
+  border-bottom: 0;
 }
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
-  margin-bottom:0.1em;
-}
+// .pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
+//   margin-bottom:0.1em;
+// }
 .pf2e.sheet form.updatedNPCSheet .npc-title-bar .name {
-  flex: 9;
   justify-content:flex-start;
   font-variant: small-caps;
 }
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar .level {
-  justify-content:flex-end;
+.pf2e.sheet form.updatedNPCSheet .npc-title-bar .level, .pf2e.sheet form.updatedNPCSheet .npc-title-bar .editNPCButton {
+  flex-shrink: 0;
 }
 
 .pf2e.sheet form.updatedNPCSheet hr {
@@ -2631,7 +2637,8 @@ button > i.far {
 }
 .pf2e.sheet form.updatedNPCSheet .editNPCButton {
   display:flex;
-  justify-content:flex-end
+  justify-content:flex-end;
+  margin-left: 1em;
 }
 .pf2e.sheet form.updatedNPCSheet .editNPCButton *{
   align-self: center;
@@ -2964,20 +2971,30 @@ input[type="number"] {
   border-top-color: #999;
   border-top-style: solid;
 }
-.sheet-header .creature-adjustment {
+.npc-title-bar .creature-adjustment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: 1em;
+}
+.npc-title-bar .creature-adjustment *{
+  width:100%;
+}
+.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden  {
   font-size: 12px;
 }
-.sheet-header .creature-adjustment a {
+.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden  {
   margin-left: 1px;
   background-color: var(--secondary-background);
   border-color: #bbb68f;
 }
-.sheet-header .creature-adjustment a.active {
+.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden  {
   margin-left: 1px;
   background-color: #5E0000;
   border-color: #bbb68f;
 }
-.sheet-header .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.hidden , .npc-title-bar .creature-adjustment a.hidden {
   display: none;
 }
 #chat-log {
