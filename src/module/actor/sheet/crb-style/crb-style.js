@@ -45,5 +45,18 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     super.activateListeners(html);
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+
+    $('.hover').tooltipster({
+        animation: 'fade',
+        delay: 200,
+        trigger: 'click',
+        arrow: false,
+        contentAsHTML: true,
+        debug: true,
+        interactive: true,
+        side: ['right', 'bottom'],
+        theme: 'crb-hover',
+        minWidth: 120,
+    });
   }
 }
