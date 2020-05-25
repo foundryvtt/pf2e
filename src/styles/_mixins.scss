@@ -17,9 +17,15 @@
 
 @mixin frame-icon {
     border: 1px solid var(--body);
+     /* prettier-ignore */ 
     box-shadow:
-    /* prettier-ignore */ 0 0 0 1px var(--tertiary),
-        0 0 0 2px #9f725b, inset 0 0 4px rgba(black, 0.5);
+        0 0 0 1px var(--tertiary),
+        0 0 0 2px #9f725b,
+        inset 0 0 4px rgba(black, 0.5);
+}
+
+@mixin frame-glow {
+    box-shadow: 0 0 10px var(--tertiary);
 }
 
 @mixin brown-border {
@@ -44,8 +50,8 @@
 @mixin corner-boxes {
     border-style: solid;
     border-image-outset: 0;
-    border-width: 9px 9px 9px 9px;
-    border-image: url('../assets/sheet/corner-box.png') 9 9 9 9 round round;
+    border-width: 9px;
+    border-image: url('../assets/sheet/corner-box.png') 9 repeat;
 }
 
 @mixin text-gold {
