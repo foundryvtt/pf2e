@@ -36,4 +36,14 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     // Return data to the sheet
     return sheetData;
   }
+
+  /**
+   * Activate event listeners using the prepared sheet HTML
+   * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+   */
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+  }
 }
