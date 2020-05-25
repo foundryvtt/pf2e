@@ -96,6 +96,7 @@ CONFIG.armorPotencyRunes = {
     "1": "PF2E.ArmorPotencyRune1",
     "2": "PF2E.ArmorPotencyRune2",
     "3": "PF2E.ArmorPotencyRune3",
+    "4": "PF2E.ArmorPotencyRune4",
 }
 
 CONFIG.armorResiliencyRunes = {
@@ -134,6 +135,7 @@ CONFIG.weaponPotencyRunes = {
     "1": "PF2E.WeaponPotencyRune1",
     "2": "PF2E.WeaponPotencyRune2",
     "3": "PF2E.WeaponPotencyRune3",
+    "4": "PF2E.WeaponPotencyRune3",
 }
 
 CONFIG.weaponStrikingRunes = {
