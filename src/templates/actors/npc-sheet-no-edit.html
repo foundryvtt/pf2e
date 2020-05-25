@@ -365,6 +365,7 @@
                   <!-- List Spells -->
             {{#unless entry.data.prepared.preparedSpells}}
                 {{#each entry.spellbook as |section lvl|}}
+                  {{#if section.spells.length}}
                     <li class="item inventory-header sub-category spellbook-header">
                         <div class="item-name flexrow">
                             <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
@@ -433,9 +434,11 @@
                         {{/if}}
                     </li>
                     {{/each}}
+                  {{/if}}
                 {{/each}}
             {{else}}
                 {{#each entry.spellbook as |section lvl|}}
+                    {{#if section.prepared.length}}
                         <li class="item inventory-header sub-category spellbook-header">
                             <div class="item-name flexrow">
                                 <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
@@ -508,8 +511,9 @@
                             {{/if}}
                         </li>
                         {{/each}}
-                    {{/each}}
-                {{/unless}}
+                    {{/if}}
+                {{/each}}
+            {{/unless}}
   
     </ol>
     <hr>
