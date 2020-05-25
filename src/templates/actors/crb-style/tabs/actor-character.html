@@ -14,14 +14,16 @@
                 class="bio-alignment pf-value pf-small"
                 title="{{localize 'PF2E.AlignmentTitle'}}"
             >
-                <input
-                    id="pc pc_alignment"
-                    name="data.details.alignment.value"
-                    type="text"
-                    value="{{data.details.alignment.value}}"
-                    data-dtype="String"
-                    placeholder="Truest Neutral"
-                />
+                <select
+                name="data.details.alignment.value"
+                data-dtype="text"
+                >
+                    {{#select data.details.alignment.value}} 
+                        {{#each alignment as |label key|}}
+                        <option value="{{key}}">{{label}}</option>
+                        {{/each}} 
+                    {{/select}}
+                </select>
             </span>
         </div>
         <div class="deity">
