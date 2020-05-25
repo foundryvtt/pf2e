@@ -11,3 +11,14 @@ export function getPropertySlots(itemData) {
     }
     return slots;
 }
+
+export function getPropertyRunes(itemData, slots) {
+    const runes = [];
+    for (let i=1; i<=slots; i+=1) {
+        const rune = itemData.data[`propertyRune${i}`]?.value;
+        if (!isBlank(rune)) {
+            runes.push(rune);
+        }
+    }
+    return runes;
+}
