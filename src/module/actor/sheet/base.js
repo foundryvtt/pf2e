@@ -161,25 +161,13 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     //This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-    // const isPreparedEntry = spellcastingEntry.data.prepared.value === "Prepared"
-    // const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data.slots).filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id) )
-    // const highestSlotPrepared = spellsSlotsWhereThisIsPrepared.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0)
-    // if(!isPreparedEntry){
-    //   spellbook[lvl] = spellbook[lvl] || {
-    //     isCantrip: lvl === 0,
-    //     isFocus: lvl === 11,
-    //     label: CONFIG.PF2E.spellLevels[lvl],
-    //     spells: [],
-    //     prepared: [],
-    //     uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].value) || 0 : 0,
-    //     slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${lvl}`].max) || 0 : 0,
-    //     displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[lvl] !== undefined ? (spellcastingEntry.data.displayLevels[lvl]) : true,
-    //     unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
-    //   };
-    // }
-
+    const isPreparedEntry = spellcastingEntry.data.prepared.value === "Prepared"
+    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data.slots).filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id) )
+    const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? lvl
+    const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
+    const maxSpellLevelToShow = Math.max(lvl, highestSlotPrepared, normalHighestSpellLevel)
     // Extend the Spellbook level
-    for(let i=10;i>=0;i--){
+    for(let i=maxSpellLevelToShow;i>=0;i--){
       spellbook[i] = spellbook[i] || {
         isCantrip: i === 0,
         isFocus: i === 11,
