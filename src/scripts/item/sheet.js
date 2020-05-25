@@ -42,6 +42,7 @@ class ItemSheetPF2e extends ItemSheet {
     // do not let user set bulk if in a stack group because the group determines bulk
     const stackGroup = this.item.data?.data?.stackGroup?.value;
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
+    data.rarity = CONFIG.PF2E.rarityTraits;
     
     // treasure data
     if (type === 'treasure') {
