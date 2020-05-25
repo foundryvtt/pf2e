@@ -1642,6 +1642,19 @@ class ActorSheetPF2e extends ActorSheet {
     new TraitSelector5e(this.actor, options).render(true);
   }
 
+  _onCrbTraitSelector(event) {
+    event.preventDefault();
+    const a = $(event.currentTarget);
+    const options = {
+      name: a.parents('li').attr('for'),
+      title: a.parent().parent().siblings('h4').text().trim(),
+      choices: CONFIG.PF2E[a.attr('data-options')],
+      has_values: (a.attr('data-has-values') === 'true'),
+      has_exceptions: (a.attr('data-has-exceptions') === 'true'),
+    };
+    new TraitSelector5e(this.actor, options).render(true);
+  }
+
   _onAreaEffect(event) {
     const areaType = $(event.currentTarget).attr('data-area-areaType');
     const areaSize = Number($(event.currentTarget).attr('data-area-size'));

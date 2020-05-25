@@ -131,45 +131,14 @@
     <label for="key-ability">
         Key Ability
     </label>
-    <!-- <select id="key-ability" name="key-ability">
-        <option value="default">
-            Select Ability
-        </option>
-        <option value="Option1">
-            Strength
-        </option>
-        <option value="Option2">
-            Dexterity
-        </option>
-        <option value="Option3">
-            Constitution
-        </option>
-        <option value="Option4">
-            Intelligence
-        </option>
-        <option value="Option4">
-            Wisdom
-        </option>
-        <option value="Option4">
-            Charisma
-        </option>
-    </select> -->
+    <select id="key-ability" name="data.details.keyability.value">
+        {{#select data.details.keyability.value}}
+            {{#each abilities as |label ability|}}
+                <option value="{{ability}}">{{label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
 </div>
-<!-- <div class="pc pc_keyAbility">
-    <label for="key_ability" class="pf-title">
-        {{localize "PF2E.KeyAbility"}}
-    </label>
-    <span>
-        <input
-            id="key_ability"
-            type="text"
-            name="data.details.keyability.value"
-            data-dtype="Text"
-            value="{{data.details.keyability.value}}"
-            placeholder="Choose Ability"
-        />
-    </span>
-</div> -->
 <div class="tags">
     <div class="pc pc_speed-types">
         <h4>
@@ -252,8 +221,8 @@
             {{v}}
         </span>
         {{/each}}
-        <li class="tag edit-btn">
-            <a data-options="languages">
+        <li class="tag edit-btn" for="data.traits.languages">
+            <a class="crb-trait-selector" data-options="languages">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
