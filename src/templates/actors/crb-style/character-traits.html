@@ -145,17 +145,13 @@
             {{localize 'PF2E.SpeedTypes'}}
         </h4>
         <ol class="tags">
-            <li class="tag">
-                Climb (15ft)
-            </li>
-            <li class="tag">
-                Fly (70ft)
-            </li>
-            <li class="tag">
-                The Speed Force (∞)
-            </li>
-            <li class="tag edit-btn">
-                <a href="#">
+            {{#each data.attributes.speed.otherSpeeds as |speed k|}}
+            <span class="tag {{k}}">
+                {{localize speed.label}} ({{speed.value}})
+            </span>
+            {{/each}}
+            <li class="tag edit-btn" for="data.attributes.speed.otherSpeeds">
+                <a class="crb-trait-selector" data-options="speedTypes" data-has-values="true">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
