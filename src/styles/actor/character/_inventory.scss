@@ -335,19 +335,33 @@
                     top: 0;
                 }
 
+                li:last-of-type::after {
+                    border: none;
+                }
+
                 .item {
                     position: relative;
 
-                    &::before {
+                    &::before,
+                    &::after {
                         position: absolute;
                         border-left: 1px solid var(--alt);
-                        border-bottom: 1px solid var(--alt);
-                        height: 100%;
-                        top: -50%;
+                        top: 0;
+                        height: 50%;
                         left: -5px;
                         width: 5px;
                         content: '';
                     }
+
+                    &::before {
+                        border-bottom: 1px solid var(--alt);
+                        top: 0;
+                    }
+
+                    &::after {
+                        top: 50%;
+                    }
+
                     .item-summary {
                         border-left: 1px solid var(--alt);
                     }
