@@ -38,7 +38,8 @@
                 font-size: 32px;
                 color: white;
                 line-height: 24px;
-                margin-bottom: 4px;
+                border-bottom: 1px solid transparent;
+                height: 26px;
             }
         }
         label {
@@ -57,6 +58,11 @@
             grid-area: shield-hp;
             background: url('../assets/sheet/shield-red.png') no-repeat top
                 center;
+            .data-value:hover {
+                input[type='number'] {
+                    @include input-glow;
+                }
+            }
         }
     }
     .shield-stats {
@@ -142,10 +148,15 @@
                 margin-bottom: 4px;
             }
             .data-value {
-                border-bottom: 1px solid #956d58;
+                border-bottom: 1px solid transparent;
                 width: 75%;
-                &:focus-within {
-                    border-bottom: 1px solid white;
+                input {
+                    &:hover {
+                        @include input-glow;
+                    }
+                    &:focus {
+                        border-bottom: 1px solid var(--tertiary);
+                    }
                 }
             }
         }

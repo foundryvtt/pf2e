@@ -16,12 +16,12 @@
             &.temp-hp {
                 text-align: right;
                 margin-right: 8px;
-                border-bottom: 1px solid #956d58;
                 input[type='number'] {
                     text-align: right;
-                }
-                &:focus-within {
-                    border-bottom: 1px solid white;
+                    border-bottom: 1px solid transparent;
+                    &:focus {
+                        border-bottom: 1px solid var(--tertiary);
+                    }
                 }
             }
             &.max-hp {
@@ -35,6 +35,12 @@
             &.max-hp,
             &.temp-hp {
                 margin-top: 12px;
+            }
+            &.temp-hp,
+            &.current-hp {
+                input:hover {
+                    @include input-glow;
+                }
             }
             &.current-hp {
                 display: flex;
@@ -54,11 +60,12 @@
                 @include gold-border;
 
                 .data-value {
-                    margin-top: 6px;
+                    margin-top: 3px;
                     input[type='number'] {
                         width: 52px;
                         font-size: 32px;
                         letter-spacing: -1px;
+                        height: 32px;
                     }
                 }
             }
