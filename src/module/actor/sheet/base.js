@@ -1651,6 +1651,7 @@ class ActorSheetPF2e extends ActorSheet {
       title: a.parent().text().trim(),
       choices: CONFIG.PF2E[a.attr('data-options')],
       has_values: (a.attr('data-has-values') === 'true'),
+      allow_empty_values: (a.attr('data-allow-empty-values') === 'true'),
       has_exceptions: (a.attr('data-has-exceptions') === 'true'),
     };
     new TraitSelector5e(this.actor, options).render(true);
@@ -1664,6 +1665,7 @@ class ActorSheetPF2e extends ActorSheet {
       title: a.parent().parent().siblings('h4').text().trim(),
       choices: CONFIG.PF2E[a.attr('data-options')],
       has_values: (a.attr('data-has-values') === 'true'),
+      allow_empty_values: (a.attr('data-allow-empty-values') === 'true'),
       has_exceptions: (a.attr('data-has-exceptions') === 'true'),
     };
     new TraitSelector5e(this.actor, options).render(true);
