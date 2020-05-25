@@ -42,7 +42,10 @@
     <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
         <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.jpg" alt="Encumbrance">
         <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
-        <span class="encumbrance-label">{{bulk}} / {{encumberedAt}} ({{limit}})</span>
+        <div class="encumbrance-label">
+            <span>Current Bulk {{bulk}} / Encumbered: {{encumberedAt}}</span>
+            <span>Max Capacity: {{limit}}</span>
+        </div>
         <span class="bar-bg"></span>
     </div>
     {{/with}}

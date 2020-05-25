@@ -90,7 +90,6 @@
         .add-coins-popup,
         .sell-all-treasure {
             height: 100%;
-            cursor: pointer;
             button {
                 @include flex-center;
                 @include p-reset;
@@ -105,8 +104,9 @@
                     inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
 
                 &:hover {
-                    background-color: ver(--primary);
+                    background-color: var(--primary);
                     color: white;
+                    cursor: pointer;
                 }
             }
         }
@@ -235,7 +235,7 @@
                 color: white;
                 width: 70px;
                 @include button;
-                margin-bottom: 4px;
+                margin-top: 4px;
                 background: var(--primary);
                 border-radius: 2px;
                 flex: 1;
@@ -249,19 +249,19 @@
             .weapon {
                 &_attack {
                     background: var(--primary);
-                    margin-bottom: 1px;
                 }
                 &_attack2,
                 &_attack3 {
                     color: rgba(black, 0.75);
                     background: var(--tertiary);
                     flex: 0 50%;
+                    margin-top: 0;
                 }
                 &_attack2 {
-                    border-radius: 2px 0 0 2px;
+                    border-radius: 0 0 0 2px;
                 }
                 &_attack3 {
-                    border-radius: 0 2px 2px 0;
+                    border-radius: 0 0 2px 0;
                 }
             }
         }
@@ -441,9 +441,14 @@
             grid-area: bar;
             color: white;
             font-family: $serif;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
-            margin-left: 8px;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
         .bar-bg {
             position: relative;
