@@ -164,7 +164,7 @@ class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _prepareSpell(actorData, spellbook, spell) {
-    const lvl = (Number(spell.data.level.value) < 11) ? Number(spell.data.level.value) : 10;
+    const spellLvl = (Number(spell.data.level.value) < 11) ? Number(spell.data.level.value) : 10;
     const isNPC = this.actorType === 'npc';
     let spellcastingEntry = '';
 
@@ -173,24 +173,26 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     //This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-    const isPreparedEntry = spellcastingEntry.data.prepared.value === "Prepared"
+    const isNotLevelBasedSpellcasting = spellcastingEntry.data.tradition.value === "wand" || spellcastingEntry.data.tradition.value === "scroll" || spellcastingEntry.data.tradition.value === "ritual" || spellcastingEntry.data.tradition.value === "focus"
     const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data.slots).filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id) )
-    const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? lvl
+    const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? spellLvl
     const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
-    const maxSpellLevelToShow = Math.min(10,Math.max(lvl, highestSlotPrepared, normalHighestSpellLevel))
+    const maxSpellLevelToShow = Math.min(10,Math.max(spellLvl, highestSlotPrepared, normalHighestSpellLevel))
     // Extend the Spellbook level
     for(let i=maxSpellLevelToShow;i>=0;i--){
-      spellbook[i] = spellbook[i] || {
-        isCantrip: i === 0,
-        isFocus: i === 11,
-        label: CONFIG.PF2E.spellLevels[i],
-        spells: [],
-        prepared: [],
-        uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].value) || 0 : 0,
-        slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].max) || 0 : 0,
-        displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[i] !== undefined ? (spellcastingEntry.data.displayLevels[i]) : true,
-        unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
-      };
+      if(!isNotLevelBasedSpellcasting || i === spellLvl){
+        spellbook[i] = spellbook[i] || {
+          isCantrip: i === 0,
+          isFocus: i === 11,
+          label: CONFIG.PF2E.spellLevels[i],
+          spells: [],
+          prepared: [],
+          uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].value) || 0 : 0,
+          slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].max) || 0 : 0,
+          displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[i] !== undefined ? (spellcastingEntry.data.displayLevels[i]) : true,
+          unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
+        };
+      }
     }
 
 
@@ -205,7 +207,7 @@ class ActorSheetPF2e extends ActorSheet {
     } catch (err) {
       console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell)
     }
-    spellbook[lvl].spells.push(spell);
+    spellbook[spellLvl].spells.push(spell);
   }
 
 
