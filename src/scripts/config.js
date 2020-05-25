@@ -415,7 +415,13 @@ CONFIG.armorTraits = {
     comfort: "PF2E.TraitComfort",
     flexible: "PF2E.TraitFlexible",
     noisy: "PF2E.TraitNoisy",
+	apex: "PF2E.TraitApex",
+	invested: "PF2E.TraitInvested",
+	artifact: "PF2E.TraitArtifact",
+	intelligent: "PF2E.TraitIntelligent",
+	magical: "PF2E.TraitMagical",
 }
+mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools);
 
 // Weapon Properties
 CONFIG.equipmentTraits = {
@@ -430,6 +436,7 @@ CONFIG.equipmentTraits = {
     tattoo: "PF2E.TraitTattoo",
     wand: "PF2E.TraitWand",
 }
+mergeObject(CONFIG.equipmentTraits, CONFIG.magicalSchools);
 
 CONFIG.consumableTraits = {
     bomb: "PF2E.TraitBomb",
@@ -441,14 +448,21 @@ CONFIG.consumableTraits = {
     potion: "PF2E.TraitPotion",
     scroll: "PF2E.TraitScroll",
     snare: "PF2E.TraitSnare",
+	trap: "PF2E.TraitTrap",
+	mechanical: "PF2E.TraitMechanical",
     talisman: "PF2E.TraitTalisman",
     contact: "PF2E.TraitContact",
     ingested: "PF2E.TraitIngested",
     inhaled: "PF2E.TraitInhaled",
     injury: "PF2E.TraitInjury",
     poison: "PF2E.TraitPoison",
-    alchemical: 'PF2E.TraitAlchemical',
+    alchemical: "PF2E.TraitAlchemical",
+	virulent: "PF2E.TraitVirulent",
+    healing: "PF2E.TraitHealing",
+    magical: "PF2E.TraitMagical",
+	arcane: "PF2E.TraitArcane",
 }
+mergeObject(CONFIG.consumableTraits, CONFIG.magicalSchools);
 
 // Spell Traits
 CONFIG.spellTraits = {
@@ -895,6 +909,7 @@ CONFIG.armorGroups = {
 // Consumable Types
 CONFIG.consumableTypes = {
   ammo: 'PF2E.ConsumableTypeAmmo',
+  bomb: 'PF2E.ConsumableTypeBomb',
   potion: 'PF2E.ConsumableTypePotion',
   oil: 'PF2E.ConsumableTypeOil',
   scroll: 'PF2E.ConsumableTypeScroll',
@@ -904,6 +919,8 @@ CONFIG.consumableTypes = {
   elixir: 'PF2E.ConsumableTypeElixir',
   mutagen: 'PF2E.ConsumableTypeMutagen',
   other: 'PF2E.ConsumableTypeOther',
+  poison: 'PF2E.ConsumableTypePoison',
+  tool: 'PF2E.ConsumableTypeTool',
 };
 
 // Preparation Type
@@ -1075,16 +1092,11 @@ CONFIG.actorSizes = {
 // Creature Sizes
 CONFIG.bulkTypes = {
   L: 'PF2E.BulkTypeLight',
-  1: '1',
-  2: '2',
-  3: '3',
-  4: '4',
-  5: '5',
-  6: '6',
-  7: '7',
-  8: '8',
-  9: '9',
-  10: '10',
+  1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10',
+  11: '11', 12: '12', 13: '13', 14: '14', 15: '15', 16: '16', 17: '17', 18: '18', 19: '19', 20: '20',
+  21: '21', 22: '22', 23: '23', 24: '24', 25: '25', 26: '26', 27: '27', 28: '28', 29: '29', 30: '30',
+  31: '31', 32: '32', 33: '33', 34: '34', 35: '35', 36: '36', 37: '37', 38: '38', 39: '39', 40: '40',
+  41: '41', 42: '42', 43: '43', 44: '44', 45: '45', 46: '46', 47: '47', 48: '48', 49: '49', 50: '50',
 };
 
 // Condition Types
