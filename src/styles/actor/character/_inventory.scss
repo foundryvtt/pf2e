@@ -1,6 +1,6 @@
 .inventory {
     height: calc(100% - 40px);
-    
+
     ol {
         @include p-reset;
         list-style: none;
@@ -11,7 +11,7 @@
         }
     }
 
-    div[style*="float"] {
+    div[style*='float'] {
         display: none;
     }
 
@@ -19,7 +19,7 @@
         padding: 2px;
         @include button;
         background-color: var(--sub);
-        margin: 2px 4px 12px;
+        margin: 0 0 8px;
 
         .denomination {
             width: 100%;
@@ -133,18 +133,19 @@
     .item-name {
         display: flex;
         align-items: center;
-        cursor: pointer;
         font-weight: 500;
         flex: 2;
 
-        &:hover {
-            color: var(--primary);
-        }
-
+        h3,
         h4 {
             margin-right: auto;
             line-height: 10px;
             padding: 2px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--primary);
+            }
         }
 
         span {
@@ -165,14 +166,21 @@
     .item-quantity,
     .item-weight,
     .item-controls {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-center;
         border-left: 1px solid var(--alt);
     }
 
     .item-quantity {
         flex: 0 0 60px;
+        font-family: $sans-serif;
+
+        .item-decrease-quantity,
+        .item-increase-quantity {
+            height: 100%;
+            width: 18px;
+            text-align: center;
+            @include flex-center;
+        }
     }
 
     .item-weight {
@@ -314,6 +322,37 @@
                     padding: 2px;
                 }
             }
+
+            .container-held-items {
+                margin-left: 10px;
+
+                li:nth-of-type(even) {
+                    background-color: rgba($alt-color, 0.1);
+                }
+
+                li:first-of-type::before {
+                    height: 50%;
+                    top: 0;
+                }
+
+                .item {
+                    position: relative;
+
+                    &::before {
+                        position: absolute;
+                        border-left: 1px solid var(--alt);
+                        border-bottom: 1px solid var(--alt);
+                        height: 100%;
+                        top: -50%;
+                        left: -5px;
+                        width: 5px;
+                        content: '';
+                    }
+                    .item-summary {
+                        border-left: 1px solid var(--alt);
+                    }
+                }
+            }
         }
     }
 
@@ -325,7 +364,7 @@
         width: 100%;
         background-color: var(--alt);
         @include button;
-        margin-top: 12px;
+        margin-top: 8px;
         padding: 4px;
         color: white;
 
@@ -336,8 +375,9 @@
         h3 {
             font-size: 14px;
             text-transform: capitalize;
-            margin-left: 2px;
+            padding-left: 2px;
             text-shadow: 0 0 2px rgba(black, 0.75);
+            margin-left: 0;
             cursor: default;
             &:hover {
                 color: white;
@@ -346,7 +386,66 @@
 
         .item-quantity,
         .item-weight {
-            margin-left: 2px;
+            @include flex-center;
+            margin-right: -2px;
+        }
+    }
+
+    .currency,
+    .encumbrance {
+        margin-right: 23px;
+    }
+
+    .encumbrance {
+        margin-top: 8px;
+        display: grid;
+        grid:
+            'img bar' min-content
+            / 24px 1fr;
+        align-items: center;
+
+        img {
+            grid-area: img;
+            @include frame-icon;
+            border-radius: 0;
+            position: relative;
+            z-index: 4;
+        }
+        .encumbrance-bar {
+            position: relative;
+            z-index: 2;
+            grid-area: bar;
+            height: 16px;
+            width: 100%;
+            background-color: var(--secondary);
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5),
+                inset 0 0 0 2px rgba(white, 0.2);
+        }
+        .encumbrance-label {
+            position: relative;
+            z-index: 3;
+            grid-area: bar;
+            color: white;
+            font-family: $serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        .bar-bg {
+            position: relative;
+            z-index: 1;
+            grid-area: bar;
+            width: 100%;
+            height: 16px;
+            background-color: rgba(black, 0.5);
+            border-radius: 0 2px 2px 0;
+            box-shadow: inset 0 0 4px rgba(black, 0.75);
+        }
+
+        &.over-limit {
+            .encumbrance-bar {
+                background-color: var(--primary) !important;
+            }
         }
     }
 }
