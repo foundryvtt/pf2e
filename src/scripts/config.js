@@ -1169,8 +1169,10 @@ CONFIG.immunityTypes = {
   magic: 'PF2E.ImmunityTypeMagic',
   sleep: 'PF2E.ImmunityTypeSleep',
   'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
+  visual: 'PF2E.ImmunityTypeVisual',
+  spellDeflection: 'PF2E.ImmunityTypeSpellDeflection',  
 
-  'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
+    'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
   disease: 'PF2E.ImmunityTypeDisease',
   necromancy: 'PF2E.ImmunityTypeNecromancy',
   healing: 'PF2E.ImmunityTypeHealing',
