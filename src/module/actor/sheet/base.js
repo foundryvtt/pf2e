@@ -129,10 +129,14 @@ class ActorSheetPF2e extends ActorSheet {
         trait.selected = {};
         for (const entry of trait) {
           if (typeof entry === 'object') {
-            if ('exceptions' in entry && entry.exceptions != "")
+            if ('exceptions' in entry && entry.exceptions != "") {
               trait.selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
-            else
-              trait.selected[entry.type] = `${choices[entry.type]} (${entry.value})`;
+            } else {
+              let text = `${choices[entry.type]}`;
+              if (entry.value !== "")
+                text = `${text} (${entry.value})`;
+              trait.selected[entry.type] = text;
+            }
           } else {
             trait.selected[entry] = choices[entry] || `${entry}`;
           }
