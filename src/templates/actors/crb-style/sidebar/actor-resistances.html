@@ -3,12 +3,13 @@
 </div>
 
 <ol class="resistances tags">
-    <li class="tag">Bludgeoning 2</li>
-    <li class="tag">Piercing 3</li>
-    <li class="tag">Fire 4</li>
-    <li class="tag">Water 3</li>
-    <li class="tag edit-btn">
-        <a href="#">
+    {{#each data.traits.dr.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    <li class="tag edit-btn" for="data.traits.dr">
+        <a class="crb-trait-selector" data-options="resistanceTypes" data-has-values="true">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -33,12 +34,13 @@
 </div>
 
 <ol class="weaknesses tags">
-    <li class="tag">Bludgeoning 2</li>
-    <li class="tag">Piercing 3</li>
-    <li class="tag">Fire 4</li>
-    <li class="tag">Water 3</li>
-    <li class="tag edit-btn">
-        <a href="#">
+    {{#each data.traits.dv.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    <li class="tag edit-btn" for="data.traits.dv">
+        <a class="crb-trait-selector" data-options="weaknessTypes" data-has-values="true">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -63,11 +65,13 @@
 </div>
 
 <ol class="immunities tags">
-    <li class="tag">Poison</li>
-    <li class="tag">Acid</li>
-    <li class="tag">Sonic</li>
-    <li class="tag edit-btn">
-        <a href="#">
+    {{#each data.traits.di.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    <li class="tag edit-btn" for="data.traits.di">
+        <a class="crb-trait-selector" data-options="immunityTypes">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
