@@ -1,0 +1,451 @@
+.inventory {
+    height: calc(100% - 40px);
+
+    ol {
+        @include p-reset;
+        list-style: none;
+        display: flex;
+
+        &:last-child {
+            margin-bottom: 42px;
+        }
+    }
+
+    div[style*='float'] {
+        display: none;
+    }
+
+    .currency {
+        padding: 2px;
+        @include button;
+        background-color: var(--sub);
+        margin: 0 0 8px;
+
+        .denomination {
+            width: 100%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            background-color: transparent;
+            border-right: 1px solid rgba(white, 0.1);
+            border-left: 1px solid rgba(black, 0.2);
+            text-shadow: 0 0 3px rgba(black, 0.75);
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+                margin-right: 8px;
+            }
+
+            label {
+                color: #ffe8d1;
+                text-shadow: 1px 1px 1px rgba(white, 0.2),
+                    -1px -1px 1px rgba(black, 0.2);
+                @include micro;
+            }
+
+            span {
+                padding-left: 8px;
+                padding-right: 12px;
+            }
+
+            &.pp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/platinum-pieces.jpg')
+                        no-repeat;
+                }
+            }
+            &.gp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/gold-pieces.jpg')
+                        no-repeat;
+                }
+            }
+            &.sp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/silver-pieces.jpg')
+                        no-repeat;
+                }
+            }
+            &.cp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/copper-pieces.jpg')
+                        no-repeat;
+                }
+            }
+
+            .currency-image {
+                height: 24px;
+                width: 24px;
+                @include gold-border;
+                background-size: cover !important;
+            }
+        }
+
+        .add-coins-popup,
+        .sell-all-treasure {
+            height: 100%;
+            cursor: pointer;
+            button {
+                @include flex-center;
+                @include p-reset;
+                line-height: 1;
+                color: rgba(black, 0.75);
+                background-color: var(--tertiary);
+                border: none;
+                padding: 3px 8px;
+                margin-top: 1px;
+                border-radius: 1px;
+                box-shadow: 0 0 0 1px rgba(black, 0.25),
+                    inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+
+                &:hover {
+                    background-color: ver(--primary);
+                    color: white;
+                }
+            }
+        }
+
+        .add-coins-popup {
+            button {
+                font-size: 15px;
+                font-weight: 600;
+                padding-bottom: 4px;
+                margin-left: 2px;
+                padding-top: 3px;
+            }
+        }
+
+        .sell-all-treasure {
+            margin: 0 1px 0px 5px;
+            button {
+                font-size: 11px;
+                padding: 5px 6px 6px 10px;
+            }
+        }
+    }
+
+    .item-name {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        flex: 2;
+
+        h3,
+        h4 {
+            margin-right: auto;
+            line-height: 10px;
+            padding: 2px;
+            cursor: pointer;
+
+            &:hover {
+                color: var(--primary);
+            }
+        }
+
+        span {
+            margin: 0 4px;
+        }
+
+        .item-image {
+            height: 24px;
+            width: 24px;
+            box-shadow: inset 0 0 0 1px var(--tertiary);
+            background-size: cover;
+            padding: 1px;
+            cursor: pointer;
+            margin-right: 4px;
+        }
+    }
+
+    .item-quantity,
+    .item-weight,
+    .item-controls {
+        @include flex-center;
+        border-left: 1px solid var(--alt);
+    }
+
+    .item-quantity {
+        flex: 0 0 60px;
+        font-family: $sans-serif;
+
+        .item-decrease-quantity,
+        .item-increase-quantity {
+            height: 100%;
+            width: 18px;
+            text-align: center;
+            @include flex-center;
+        }
+    }
+
+    .item-weight {
+        flex: 0 0 60px;
+    }
+
+    .item-controls {
+        flex: 0 0 75px;
+        justify-content: flex-end;
+
+        .item-control {
+            margin-right: 4px;
+            color: rgba(black, 0.75);
+        }
+    }
+
+    .item-summary {
+        flex: 100%;
+        padding: 4px;
+        border-top: 1px solid var(--alt);
+        border-bottom: 1px solid var(--alt);
+        background: var(--bg);
+        display: grid;
+        grid:
+            'content btn' min-content
+            'tags btn' min-content
+            / 1fr min-content;
+        column-gap: 8px;
+        align-items: center;
+        padding: 4px 8px 8px;
+
+        .item-description {
+            grid-area: content;
+        }
+
+        .item-properties {
+            grid-area: tags;
+            align-self: start;
+        }
+
+        .item-buttons {
+            grid-area: btn;
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: 2px;
+            button {
+                margin: 0;
+                border: none;
+                cursor: pointer;
+                @include micro;
+                padding: 5px 4px;
+                color: white;
+                width: 70px;
+                @include button;
+                margin-bottom: 4px;
+                background: var(--primary);
+                border-radius: 2px;
+                flex: 1;
+
+                &:hover {
+                    box-shadow: none;
+                    text-shadow: 0 0 2px white;
+                }
+            }
+
+            .weapon {
+                &_attack {
+                    background: var(--primary);
+                    margin-bottom: 1px;
+                }
+                &_attack2,
+                &_attack3 {
+                    color: rgba(black, 0.75);
+                    background: var(--tertiary);
+                    flex: 0 50%;
+                }
+                &_attack2 {
+                    border-radius: 2px 0 0 2px;
+                }
+                &_attack3 {
+                    border-radius: 0 2px 2px 0;
+                }
+            }
+        }
+    }
+
+    .inventory-list {
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        overflow-y: scroll;
+        height: calc(100% - 42px);
+
+        .item-list {
+            flex-direction: column;
+            width: 100%;
+            border: 1px solid var(--alt);
+            border-top: none;
+
+            & > li:nth-of-type(even) {
+                background-color: rgba($alt-color, 0.1);
+            }
+
+            .item {
+                display: flex;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+                width: 100%;
+                font-size: 12px;
+                padding: 0;
+
+                &:last-child {
+                    .item-summary {
+                        border-bottom: none;
+                    }
+                }
+            }
+
+            .container-capacity {
+                @include micro;
+                position: relative;
+                background-color: rgba(black, 0.75);
+                box-shadow: inset 0 0 4px black;
+                color: white;
+                display: flex;
+                width: 100%;
+                .container-capacity-bar {
+                    background-color: var(--secondary);
+                    border-radius: 0 2px 2px 0;
+                    box-shadow: inset 0 0 0 1px rgba(black, 0.5),
+                        inset 0 0 0 2px rgba(white, 0.1);
+                    padding: 6px 0;
+                }
+                .container-capacity-label {
+                    position: absolute;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    padding: 2px;
+                }
+            }
+
+            .container-held-items {
+                margin-left: 10px;
+
+                li:nth-of-type(even) {
+                    background-color: rgba($alt-color, 0.1);
+                }
+
+                li:first-of-type::before {
+                    height: 50%;
+                    top: 0;
+                }
+
+                .item {
+                    position: relative;
+
+                    &::before {
+                        position: absolute;
+                        border-left: 1px solid var(--alt);
+                        border-bottom: 1px solid var(--alt);
+                        height: 100%;
+                        top: -50%;
+                        left: -5px;
+                        width: 5px;
+                        content: '';
+                    }
+                    .item-summary {
+                        border-left: 1px solid var(--alt);
+                    }
+                }
+            }
+        }
+    }
+
+    .inventory-header {
+        @include micro;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        background-color: var(--alt);
+        @include button;
+        margin-top: 8px;
+        padding: 4px;
+        color: white;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 14px;
+            text-transform: capitalize;
+            padding-left: 2px;
+            text-shadow: 0 0 2px rgba(black, 0.75);
+            margin-left: 0;
+            cursor: default;
+            &:hover {
+                color: white;
+            }
+        }
+
+        .item-quantity,
+        .item-weight {
+            @include flex-center;
+            margin-right: -2px;
+        }
+    }
+
+    .currency,
+    .encumbrance {
+        margin-right: 23px;
+    }
+
+    .encumbrance {
+        margin-top: 8px;
+        display: grid;
+        grid:
+            'img bar' min-content
+            / 24px 1fr;
+        align-items: center;
+
+        img {
+            grid-area: img;
+            @include frame-icon;
+            border-radius: 0;
+            position: relative;
+            z-index: 4;
+        }
+        .encumbrance-bar {
+            position: relative;
+            z-index: 2;
+            grid-area: bar;
+            height: 16px;
+            width: 100%;
+            background-color: var(--secondary);
+            box-shadow: inset 0 0 0 1px rgba(black, 0.5),
+                inset 0 0 0 2px rgba(white, 0.2);
+        }
+        .encumbrance-label {
+            position: relative;
+            z-index: 3;
+            grid-area: bar;
+            color: white;
+            font-family: $serif;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        .bar-bg {
+            position: relative;
+            z-index: 1;
+            grid-area: bar;
+            width: 100%;
+            height: 16px;
+            background-color: rgba(black, 0.5);
+            border-radius: 0 2px 2px 0;
+            box-shadow: inset 0 0 4px rgba(black, 0.75);
+        }
+
+        &.over-limit {
+            .encumbrance-bar {
+                background-color: var(--primary) !important;
+            }
+        }
+    }
+}
