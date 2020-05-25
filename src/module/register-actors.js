@@ -11,19 +11,19 @@ function registerActors() {
   // Register Character Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eCharacter, {
     types: ['character'],
-    makeDefault: true,
+    makeDefault: false,
   });
 
   // Register Read-Only Character Sheet
-  Actors.registerSheet('pf2e', ActorSheetPF2eCharacterReadOnly, {
+/*   Actors.registerSheet('pf2e', ActorSheetPF2eCharacterReadOnly, {
     types: ['character'],
-    makeDefault: true,
-  });
+    makeDefault: false,
+  }); */
 
   // Register Character Sheet with new UI
   Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
     types: ['character'],
-    makeDefault: false,
+    makeDefault: true,
   });
 
   // Register NPC Sheet
