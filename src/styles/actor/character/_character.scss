@@ -140,7 +140,7 @@
             grid-area: details;
             display: grid;
             grid-template-columns: 2fr 3fr;
-            grid-template-rows: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 42px);
             grid-row-gap: 8px;
             padding-left: 12px;
             margin-top: 8px;
@@ -231,14 +231,21 @@
                 '. label label' auto
                 'prefix score mod' 1fr
                 / 1fr 1fr 1fr;
-            column-gap: 4px;
+            column-gap: 3px;
             align-items: center;
+            &:focus-within {
+                .ability-id {
+                    filter: opacity(1);
+                }
+            }
 
             .ability-name {
                 grid-area: label;
                 margin: 0;
             }
             .ability-id {
+                filter: opacity(0.5);
+                text-transform: capitalize;
                 grid-area: prefix;
                 font-size: 28px;
                 color: var(--primary);
