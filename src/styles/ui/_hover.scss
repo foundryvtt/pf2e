@@ -6,7 +6,6 @@
     display: none;
 }
 
-
 .crb-hover {
     .tooltipster-box {
         @include corner-boxes;
@@ -14,16 +13,28 @@
 
         .tooltipster-content {
             @include p-reset;
-            max-width: 300px;
 
             .hover-content {
-                display: block;
+                display: flex;
+                min-width: 120px;
+                max-width: 180px;
                 padding: 4px;
+                font-size: 0;
+                line-height: 1;
+                flex-direction: column;
 
                 p {
                     font-size: 14px;
                     font-family: $body-serif;
                     font-weight: 400;
+                }
+
+                h1,
+                h2,
+                h3 {
+                    font-size: 12px;
+                    font-weight: 500;
+                    text-align: left;
                 }
 
                 .sidebar_title {
@@ -32,6 +43,7 @@
                     align-items: baseline;
                     border-bottom: 1px solid $sidebar-title-color;
                     margin: 0.25em 0 0.5em;
+                    flex: 1 auto;
                     h2,
                     a {
                         @include micro;
@@ -53,88 +65,79 @@
                 ul {
                     list-style: none;
                     @include p-reset;
-                    li {
+                    flex: 1 auto;
+                    input {
+                        all: initial;
+                        cursor: pointer;
+                        color: white;
+                        &:focus {
+                            box-shadow: none;
+                        }
+                        &::placeholder {
+                            color: white;
+                        }
+                        &::-webkit-outer-spin-button,
+                        &::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            appearance: none;
+                            margin: 0;
+                        }
+                        &[type='number'] {
+                            -moz-appearance: textfield;
+                        }
+                    }
+
+                    label {
                         display: flex;
-                        justify-content: space-between;
                         align-items: center;
-                        line-height: 1;
-                        margin-bottom: 0.3em;
-                        font-size: 0;
+                        text-align: left;
+                        font-family: $serif;
+                        font-weight: 500;
+                    }
 
-                        input {
-                            all: initial;
-                            cursor: pointer;
-                            color: white;
-                            &:focus {
-                                box-shadow: none;
-                            }
-                            &::placeholder {
-                                color: white;
-                            }
-                            &::-webkit-outer-spin-button,
-                            &::-webkit-inner-spin-button {
-                                -webkit-appearance: none;
-                                appearance: none;
-                                margin: 0;
-                            }
-                            &[type='number'] {
-                                -moz-appearance: textfield;
-                            }
+                    .label,
+                    .data {
+                        font-size: 12px;
+                        font-family: $serif;
+                        font-weight: 400;
+                        color: white;
+                        @include p-reset;
+                    }
+
+                    .item {
+                        display: grid;
+                        grid:
+                            'data label' min-content
+                            'data type' min-content
+                            /30px 1fr;
+                        margin: 8px 0;
+                        align-items: center;
+                        column-gap: 8px;
+                        justify-items: start;
+
+                        &:first-child {
+                            border: none;
                         }
 
-                        .item {
-                            display: inline-flex;
-                            align-items: center;
-                            font-size: 0;
+                        .tag {
+                            grid-area: type;
+                            @include micro;
+                            @include flex-center;
+                            color: var(--tertiary);
+                            width: min-content;
+                        }
 
-                            .tag {
-                                display: inline-flex;
-                                align-items: center;
-                                text-align: center;
-                                @include micro;
-                                background: var(--primary);
-                                color: white;
-                                border-radius: 2px;
-                                padding: 2px 0;
-                                width: 36px;
-                                margin-bottom: 2px;
-                            }
-
-                            .label {
-                                margin-left: 2px;
-                                margin-right: 8px;
-                                width: 130px;
-                            }
+                        .label {
+                            grid-area: label;
                         }
 
                         .data {
-                            all: initial;
-                            width: 20px;
+                            grid-area: data;
                             text-align: right;
-                            cursor: pointer;
-                            &:focus {
-                                box-shadow: none;
-                            }
-                            &::placeholder {
-                                color: white;
-                            }
-                            &::-webkit-outer-spin-button,
-                            &::-webkit-inner-spin-button {
-                                -webkit-appearance: none;
-                                margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-                            }
-                            &[type='number'] {
-                                -moz-appearance: textfield;
-                            }
-                        }
-
-                        .label,
-                        .data {
-                            font-size: 14px;
-                            font-family: $serif;
-                            font-weight: 500;
-                            color: white;
-                            @include p-reset;
+                            font-size: 21px;
+                            justify-self: right;
+                            width: min-content;
+                            padding-top: 2px;
                         }
                     }
 

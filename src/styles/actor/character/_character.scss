@@ -68,6 +68,19 @@
             background: url('../assets/sheet/banner-bg.png') repeat-x center;
             height: 31px;
             z-index: 1;
+
+            select {
+                all: initial;
+                display: block;
+                cursor: pointer;
+                font-family: $body-serif;
+                line-height: 1;
+                font-weight: 700;
+                font-size: 14px;
+                text-transform: capitalize;
+                margin-top: 2px;
+            }
+            
             input[type='text'] {
                 font-family: $body-serif;
                 font-size: 14px;
@@ -240,19 +253,19 @@
                 grid-area: score;
                 border-radius: 0;
                 font-size: 0;
+                border: 1px solid var(--alt);
                 input {
                     font-size: 24px;
                     border: none;
                     text-align: center;
                     padding: 0;
-                    border-bottom: 1px solid #d3ccbc;
                 }
             }
             .ability-mod {
                 grid-area: mod;
                 border: none;
-                border: 1px solid var(--primary);
                 @include p-reset;
+                background-color: rgba($body-color, 0.1);
             }
 
             .ability-mod,
