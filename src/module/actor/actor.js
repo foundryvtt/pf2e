@@ -123,7 +123,7 @@ export default class extends Actor {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', save.item, PF2ModifierType.ITEM));
       }
       [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -161,7 +161,7 @@ export default class extends Actor {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', data.attributes.perception.item, PF2ModifierType.ITEM));
       }
       ['perception', `wis-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -187,7 +187,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.classDC.rank ?? 0),
       ];
       ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -235,7 +235,7 @@ export default class extends Actor {
       }
       // condition modifiers
       ['ac', 'dex-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       /* eslint-disable no-param-reassign */
@@ -270,7 +270,7 @@ export default class extends Actor {
       const expandedName = skillDictionary[skillName];
 
       [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -317,7 +317,7 @@ export default class extends Actor {
           modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', item.data.bonus.value, PF2ModifierType.ITEM));
         }
         ['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, 'all'].forEach((key) => {
-          (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+          (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
         const action = new PF2StatisticModifier(item.name, modifiers);
         action.imageUrl = item.img;
