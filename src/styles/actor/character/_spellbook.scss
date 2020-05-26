@@ -253,6 +253,17 @@
                     border-right: 1px solid var(--sub);
                     cursor: default;
 
+                    &[data-expended-state="true"] {
+                        h4 {
+                            color: rgba($body-color, 0.5);
+                            text-decoration: line-through;
+                        }
+
+                        .item-toggle-prepare {
+                            color: var(--primary);
+                        }
+                    }
+
                     &:nth-child(odd) {
                         background-color: rgba($alt-color, 0.1);
                     }
