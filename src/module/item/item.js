@@ -8,7 +8,6 @@ export default class extends Item {
   prepareData() {
     super.prepareData();
     const item = this.data;
-    console.log(item);
 
     if (item.type === 'weapon') {
       // calculate multiple attack penalty tiers
