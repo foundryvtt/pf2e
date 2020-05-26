@@ -10,6 +10,7 @@
     .tooltipster-box {
         @include corner-boxes;
         background-color: rgba(black, 0.9);
+        overflow: visible;
 
         .tooltipster-content {
             @include p-reset;
@@ -117,6 +118,11 @@
 
                         &:first-child {
                             border: none;
+                        }
+
+                        &.no-effect {
+                            filter: opacity(0.5);
+                            position: relative;
                         }
 
                         .tag {
