@@ -27,24 +27,21 @@
                     </div>
 
                     <div class="hover-content" id="{{skill.label}}-modifier">
-                        <div class="active-items">
                             <div class="sidebar_title">
                                 <h2>{{skill.label}}</h2>
                                 <!-- <a href="#">+ Add Modifier</a> -->
                             </div>
                             <ul>
                                 {{#each skill._modifiers as |modifier|}}
-                                <li>
-                                    <div class="item">
-                                        <span class="tag">{{modifier.type}}</span>
-                                        <span class="label">{{localize modifier.name}}</span>
-                                    </div>
+                                <li class="item">
+                                    <span class="tag">{{modifier.type}}</span>
+                                    <span class="label">{{localize modifier.name}}</span>
                                     <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                                 </li>
                                 {{/each}}
                             </ul>
-                        </div>
                     </div>
+            
 
                 </li>
             {{/each}}
