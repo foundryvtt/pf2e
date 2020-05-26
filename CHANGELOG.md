@@ -1,4 +1,6 @@
 # Patch Notes:
+## Version 1.0.1 "There will be bugs"
+* Fixed an issue preventing chracter sheets from opening when a spell has a spellcasting entry set but it is not valid.
 ## Version 1.0.0 "Beta"
 ### New Features
 * (@mdizo) A complete revamp of the actor sheet including sidebar, all tabs, hovers and headers!!! An amazing effort and a huge amount of work put in over these last few weeks!
