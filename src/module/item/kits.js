@@ -12,14 +12,14 @@
  * If the compendium id is a container, you can nest objects into it by
  * setting the holdsItems attribute to an array of CompendiumReference objects.
  *
- * @type {Map<string, CompendiumReference>}
+ * @type {Map<string, CompendiumReference[]>}
  */
 const kits = new Map();
 
 class CompendiumReference {
     /**
      * @param {string} id
-     * @param {number} quantity
+     * @param {number=} quantity
      * @param {CompendiumReference[]} holdsItems
      */
     constructor({ id, quantity, holdsItems = [] } = {}) {
@@ -91,7 +91,11 @@ export function isKit(itemId) {
 async function createKitItem(item, createItem, containerId) {
     const itemId = item.id;
     if (kits.has(itemId)) {
-        await createKitItem(kits.get(itemId), createItem, undefined);
+        const subKits = kits.get(itemId);
+        for (const subKit of subKits) {
+            // eslint-disable-next-line no-await-in-loop
+            await createKitItem(subKit, createItem, undefined);
+        }
     } else {
         const createItemId = await createItem(itemId, containerId, item.quantity);
         for (const heldItem of item.holdsItems ?? []) {
@@ -107,7 +111,8 @@ async function createKitItem(item, createItem, containerId) {
  * @return {Promise<void>}
  */
 export async function addKit(itemId, createItem) {
-    for (const item of kits.get(itemId)) {
+    const compendiumReferences = kits.get(itemId);
+    for (const item of compendiumReferences) {
         // eslint-disable-next-line no-await-in-loop
         await createKitItem(item, createItem, undefined);
     }
