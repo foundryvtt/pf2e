@@ -18,6 +18,7 @@
                 display: flex;
                 align-items: center;
                 cursor: pointer;
+                flex: 0 50%;
 
                 .item-image {
                     height: 22px;
@@ -28,6 +29,12 @@
                     margin-right: 8px;
                     font-size: 18px;
                     @include flex-center;
+
+                    &.action-strike {
+                        @include frame-icon;
+                        height: 32px;
+                        width: 32px;
+                    }
 
                     &:hover {
                         background: none !important;
@@ -117,6 +124,36 @@
                 h4 {
                     color: var(--primary);
                     font-weight: 700;
+                }
+            }
+
+            .button-group {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                flex-wrap: nowrap;
+                width: 50%;
+                flex: 0;
+                button {
+                    margin: 0;
+                    border: none;
+                    cursor: pointer;
+                    @include micro;
+                    padding: 5px;
+                    color: white;
+                    width: 70px;
+                    @include button;
+                    background: var(--primary);
+                    border-radius: 2px;
+                    flex: 0;
+                    white-space: nowrap;
+                    margin-left: 4px;
+                    flex: 0;
+
+                    &:hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px white;
+                    }
                 }
             }
         }
