@@ -10,8 +10,10 @@
                     <i class="fas fa-comment-alt"></i>
                 </div>
                 <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+            </div>
+            <div class="button-group">
                 {{#each action.variants as |variant vi|}}
-                <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
+                    <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                 {{/each}}
             </div>
         </li>
