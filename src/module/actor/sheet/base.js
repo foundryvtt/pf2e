@@ -173,6 +173,12 @@ class ActorSheetPF2e extends ActorSheet {
       spellcastingEntry = (this.actor.getOwnedItem(spell.data.location.value) || {}).data;
     }
 
+    // if the spellcaster entry cannot be found (maybe it was deleted?)
+    if (!spellcastingEntry) {
+      console.log(`PF2e System | Prepare Spell | Spellcasting entry not found for spell ${spell.name}`);
+      return;
+    }
+
     //This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
     const isNotLevelBasedSpellcasting = spellcastingEntry.data?.tradition?.value === "wand" || 
       spellcastingEntry.data?.tradition?.value === "scroll" || 
