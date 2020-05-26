@@ -333,7 +333,7 @@ export default class extends Actor {
         };
         action.variants = [
           {
-            label: `Strike ${action.totalModifier}`,
+            label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
             roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event)
           },
           {
