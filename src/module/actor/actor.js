@@ -294,6 +294,20 @@ export default class extends Actor {
 
     // Strikes
     {
+      // collect the weapon proficiencies
+      const proficiencies = {
+        simple: { name: 'Simple', rank: data?.martial?.simple?.rank ?? 0 },
+        martial: { name: 'Martial', rank: data?.martial?.martial?.rank ?? 0 },
+        advanced: { name: 'Advanced', rank: data?.martial?.advanced?.rank ?? 0 },
+        unarmed: { name: 'Unarmed', rank: data?.martial?.unarmed?.rank ?? 0 },
+      };
+      (actorData.items ?? []).filter((item) => item.type === 'martial').forEach((item) => {
+        proficiencies[item._id] = {
+          name: item.name,
+          rank: Number(item?.data?.proficient?.value ?? 0),
+        };
+      });
+
       // always append unarmed strike
       const unarmed = [{
         name: 'Unarmed',
@@ -311,7 +325,7 @@ export default class extends Actor {
       (actorData.items ?? []).concat(unarmed).filter((item) => item.type === 'weapon').forEach((item) => {
         const modifiers = [
           AbilityModifier.fromAbilityScore(item.data.ability.value, data.abilities[item.data.ability.value]?.value ?? 0),
-          ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[item.data.weaponType.value]?.rank ?? 0),
+          ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0),
         ];
         if (item.data.bonus.value !== 0) {
           modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(item.data.bonus.value) , PF2ModifierType.ITEM));
