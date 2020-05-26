@@ -1,56 +1,65 @@
+/**
+ * The kit key is the item's compendium id.
+ *
+ * The value is an array of CompendiumReference, that hold compendium ids that
+ * should be added to the inventory.
+ *
+ * These compendium ids can be kit ids as well.
+ *
+ * You can override the quantity by providing it in the quantity attribute, otherwise
+ * it will use the quantity in the compendium.
+ *
+ * If the compendium id is a container, you can nest objects into it by
+ * setting the holdsItems attribute to an array of CompendiumReference objects.
+ *
+ * @type {Map<any, any>}
+ */
 const kits = new Map();
+
+class CompendiumReference {
+    constructor({ id, quantity, holdsItems = [] } = {}) {
+        this.id = id;
+        this.quantity = quantity;
+        this.holdsItems = holdsItems;
+    }
+}
 
 // adventurer's pack
 kits.set('rxXT8KPBXa08feFD', [
-    {
-        // backpack
+    // backpack
+    new CompendiumReference({
         id: '3lgwjrFEsQVKzhh7',
-        items: [
-            {
-                // bedroll
-                id: 'fagzYdmfYyMQ6J77'
-            },
-            {
-                // 10 pieces chalk
+        holdsItems: [
+            // bedroll
+            new CompendiumReference({ id: 'fagzYdmfYyMQ6J77' }),
+            // 10 pieces chalk
+            new CompendiumReference({
                 id: 'xShIDyydOMkGvGNb',
                 quantity: 10
-            },
-            {
-                // flint and steel 
-                id: 'UlIxxLm71UdRgCFE'
-            },
-            {
-                // 50ft rope
-                id: 'fyYnQf1NAx9fWFaS'
-            },
-            {
-                // 2 weeks rations
+            }),
+            // flint and steel
+            new CompendiumReference({ id: 'UlIxxLm71UdRgCFE' }),
+            // 50ft rope
+            new CompendiumReference({ id: 'fyYnQf1NAx9fWFaS' }),
+            // 2 weeks rations
+            new CompendiumReference({
                 id: 'L9ZV076913otGtiB',
                 quantity: 14
-            },
-            {
-                // soap
-                id: '81aHsD27HFGnq1Nt'
-            },
-            {
-                // 5 torches 
+            }),
+            // soap
+            new CompendiumReference({ id: '81aHsD27HFGnq1Nt' }),
+            // 5 torches
+            new CompendiumReference({
                 id: '8Jdw4yAzWYylGePS',
                 quantity: 5
-            },
-            {
-                // waterskin
-                id: 'VnPh324pKwd2ZB66'
-            }
+            }),
+            // waterskin
+            new CompendiumReference({ id: 'VnPh324pKwd2ZB66' }),
         ],
-    },
-    {
-        // belt pouch 
-        id: 'eFqKVKrf62XOGWUw'
-    },
-    {
-        // belt pouch 
-        id: 'eFqKVKrf62XOGWUw'
-    },
+    }),
+    // belt pouch
+    new CompendiumReference({ id: 'eFqKVKrf62XOGWUw' }),
+    new CompendiumReference({ id: 'eFqKVKrf62XOGWUw' }),
 ]);
 
 export function isKit(itemId) {
@@ -63,7 +72,7 @@ async function createKitItem(item, createItem, containerId) {
         await createKitItem(itemId, createItem);
     }
     const createItemId = await createItem(itemId, containerId, item.quantity);
-    for (const heldItem of item.items ?? []) {
+    for (const heldItem of item.holdsItems ?? []) {
         // eslint-disable-next-line no-await-in-loop
         await createKitItem(heldItem, createItem, createItemId);
     }
