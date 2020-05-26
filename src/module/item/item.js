@@ -4,6 +4,30 @@
 import Spell from './spell.js';
 
 export default class extends Item {
+
+  prepareData() {
+    super.prepareData();
+    const item = this.data;
+    console.log(item);
+
+    if (item.type === 'weapon') {
+      // calculate multiple attack penalty tiers
+      const agile = (item.data.traits.value || []).includes('agile');
+      const alternateMAP = (item.data.MAP || {}).value;
+      switch (alternateMAP) {
+        case '1': { item.data.map2 = -1; item.data.map3 = -2; break; }
+        case '2': { item.data.map2 = -2; item.data.map3 = -4; break; }
+        case '3': { item.data.map2 = -3; item.data.map3 = -6; break; }
+        case '4': { item.data.map2 = -4; item.data.map3 = -8; break; }
+        case '5': { item.data.map2 = -5; item.data.map3 = -10; break; }
+        default: {
+          item.data.map2 = agile ? -4 : -5;
+          item.data.map3 = agile ? -8 : -10;
+        }
+      }
+    }
+  }
+
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
    * @return {Promise}
@@ -161,34 +185,6 @@ export default class extends Item {
         label: CONFIG.PF2E.weaponGroups[data.group.value],
         description: CONFIG.PF2E.weaponDescriptions[data.group.value],
       };
-    }
-
-
-    const isAgile = (data.traits.value || []).includes('agile');
-    const alternateMAP = (data.MAP || {}).value;
-    if (alternateMAP == 1){
-      data.map2 = '-1';
-      data.map3 = '-2';
-    }
-    else if (alternateMAP == 2){
-      data.map2 = '-2';
-      data.map3 = '-4';
-    }
-    else if (alternateMAP == 3){
-      data.map2 = '-3';
-      data.map3 = '-6';
-    }
-    else if (alternateMAP == 4){
-      data.map2 = '-4';
-      data.map3 = '-8';
-    }
-    else if (alternateMAP == 5){
-      data.map2 = '-5';
-      data.map3 = '-10';
-    }
-    else {
-      data.map2 = isAgile ? '-4' : '-5';
-      data.map3 = isAgile ? '-8' : '-10';
     }
 
     data.isTwohanded = !!twohandedTrait;
