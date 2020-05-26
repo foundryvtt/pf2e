@@ -33,7 +33,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     
     // limiting the amount of characters for the save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
-      save.label = game.i18n.format(`PF2E.Saves${save.label}Short`); 
+      save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
     // Return data to the sheet
