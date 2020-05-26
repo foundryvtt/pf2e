@@ -5,10 +5,11 @@
 import { calculateCarriedArmorBulk, fixWeight } from './item/bulk.js';
 
 export const migrateWorld = async function () {
+    const systemVersion = game.system.data.version;
     const systemSchemaVersion = Number(game.system.data.schema);
     const worldSchemaVersion = Number(game.settings.get('pf2e', 'worldSchemaVersion'));
 
-    ui.notifications.info(`Applying PF2E System Migration to version ${systemSchemaVersion}. Please be patient and do not close your game or shut down your server.`, { permanent: true });
+    ui.notifications.info(`Applying PF2E System Migration to version ${systemVersion}. Please be patient and do not close your game or shut down your server.`, { permanent: true });
 
     // Migrate World Actors
     for (let a of game.actors.entities) {
@@ -69,7 +70,7 @@ export const migrateWorld = async function () {
     }
     // Set the migration as complete
     game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
-    ui.notifications.info(`PF2E System Migration to version ${systemSchemaVersion} completed!`, { permanent: true });
+    ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
 };
 
 /* -------------------------------------------- */
