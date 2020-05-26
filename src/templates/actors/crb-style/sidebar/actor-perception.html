@@ -42,7 +42,7 @@
         </div>
         <ul>
             {{#each data.attributes.perception._modifiers as |modifier|}}
-                <li class="item">
+                <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
                     <span class="tag">
                         {{modifier.type}}
                     </span>
