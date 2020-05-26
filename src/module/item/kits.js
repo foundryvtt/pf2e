@@ -17,6 +17,11 @@
 const kits = new Map();
 
 class CompendiumReference {
+    /**
+     * @param {string} id
+     * @param {number} quantity
+     * @param {CompendiumReference[]} holdsItems
+     */
     constructor({ id, quantity, holdsItems = [] } = {}) {
         this.id = id;
         this.quantity = quantity;
