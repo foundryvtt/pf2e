@@ -18,6 +18,7 @@ class ActorSheetPF2e extends ActorSheet {
         '.feats-pane',
         '.inventory-pane',
         '.actions-pane',
+        '.spellbook-pane',
       ],
     });
   }
