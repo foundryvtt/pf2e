@@ -17,6 +17,7 @@
     * Added a set of 9 default icon types for {Armor, Weapon, Consumable, Equipment, Feats, Shield, Treasure, Backpack, Spell}
 All level 1 trough to level 28 should now have been added to the compendium
 * (@Athenos) Updated Age of Ashes Bestiary
+* (tushycat#5011) Added bestiary icons to the system (these are not yet linked to bestiary actors but it is on it's way).
 
 
 ### Bug Fixes
