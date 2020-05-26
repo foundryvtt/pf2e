@@ -24,6 +24,15 @@ aside {
         height: 650px;
         @include scrollbar;
 
+        .difficulty-checks,
+        .sidebar-initiative {
+            display: none !important;
+        }
+
+        &::-webkit-scrollbar-track {
+            box-shadow: none;
+        }
+
         h1,
         h2,
         h3,
@@ -155,11 +164,11 @@ aside {
         }
 
         .plaque {
-            display: inline-flex;
+            display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            width: 100%;
+
             text-transform: capitalize;
             font-family: $serif;
             font-size: 14px;
@@ -167,23 +176,26 @@ aside {
             padding: 3px 0;
             border-radius: 0;
             position: relative;
+            margin-left: auto;
 
             span {
-                &::before,
-                &::after {
-                    position: absolute;
-                    content: url('../assets/icons/pathfinder-orn.svg');
-                    height: 100%;
-                    width: 25px;
-                    top: 4px;
-                }
-                &::after {
-                    transform: scaleX(-1);
-                    right: 0;
-                }
-                &::before {
-                    left: 0;
-                }
+                margin-bottom: 2px;
+                cursor: pointer;
+            }
+
+            &::before,
+            &::after {
+                display: block;
+                content: url('../assets/icons/pathfinder-orn.svg');
+                height: 100%;
+                width: 25px;
+            }
+            &::after {
+                transform: scaleX(-1);
+                margin-left: 4px;
+            }
+            &::before {
+                margin-right: 4px;
             }
         }
 

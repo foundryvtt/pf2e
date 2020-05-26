@@ -120,10 +120,10 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
       if (save.item) {
-        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', save.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
       [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -158,10 +158,10 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
       ];
       if (data.attributes.perception.item) {
-        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', data.attributes.perception.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), PF2ModifierType.ITEM));
       }
       ['perception', `wis-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -187,7 +187,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.classDC.rank ?? 0),
       ];
       ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -235,7 +235,7 @@ export default class extends Actor {
       }
       // condition modifiers
       ['ac', 'dex-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       /* eslint-disable no-param-reassign */
@@ -270,7 +270,7 @@ export default class extends Actor {
       const expandedName = skillDictionary[skillName];
 
       [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -302,7 +302,10 @@ export default class extends Actor {
         data: {
           ability: { value: 'str' },
           weaponType: { value: 'unarmed' },
-          bonus: { value: 0 }
+          bonus: { value: 0 },
+          map2: -4,
+          map3: -8,
+          traits: ['agile', 'finesse', 'nonlethal', 'unarmed'],
         }
       }];
       (actorData.items ?? []).concat(unarmed).filter((item) => item.type === 'weapon').forEach((item) => {
@@ -311,10 +314,10 @@ export default class extends Actor {
           ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[item.data.weaponType.value]?.rank ?? 0),
         ];
         if (item.data.bonus.value !== 0) {
-          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', item.data.bonus.value, PF2ModifierType.ITEM));
+          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(item.data.bonus.value) , PF2ModifierType.ITEM));
         }
         ['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, 'all'].forEach((key) => {
-          (statisticsModifiers[key] || []).forEach((m) => modifiers.push(m));
+          (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
         const action = new PF2StatisticModifier(item.name, modifiers);
         action.imageUrl = item.img;
@@ -328,6 +331,20 @@ export default class extends Actor {
         action.roll = (event) => {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event);
         };
+        action.variants = [
+          {
+            label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event)
+          },
+          {
+            label: `MAP ${item.data.map2}`,
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), event)
+          },
+          {
+            label: `MAP ${item.data.map3}`,
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), event)
+          },
+        ];
         data.actions.push(action);
       });
     }
@@ -342,7 +359,7 @@ export default class extends Actor {
     // As we only capture the NPCs Spell DC attribute, we need to calculate the Spell Attack Roll.
     // see sidebar on p298 of pf2e core rulebook.
 
-    //data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
+    // data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
   }
 
   /* -------------------------------------------- */
@@ -388,13 +405,13 @@ export default class extends Actor {
     let result = '';
 
     if (flatCheck.result == 20 || flatCheck.result >= (dc+10)) {
-      result = game.i18n.localize("PF2E.CritSuccess") + ' ' + game.i18n.localize("PF2E.Recovery.critSuccess");
+      result = `${game.i18n.localize("PF2E.CritSuccess")  } ${  game.i18n.localize("PF2E.Recovery.critSuccess")}`;
     } else if (flatCheck.result == 1 || flatCheck.result <= (dc-10)) {
-      result = game.i18n.localize("PF2E.CritFailure") + ' ' + game.i18n.localize("PF2E.Recovery.critFailure");
+      result = `${game.i18n.localize("PF2E.CritFailure")  } ${  game.i18n.localize("PF2E.Recovery.critFailure")}`;
     } else if (flatCheck.result >= dc) {
-      result = game.i18n.localize("PF2E.Success") + ' ' + game.i18n.localize("PF2E.Recovery.success");
+      result = `${game.i18n.localize("PF2E.Success")  } ${  game.i18n.localize("PF2E.Recovery.success")}`;
     } else {
-      result = game.i18n.localize("PF2E.Failure") + ' ' + game.i18n.localize("PF2E.Recovery.failure");
+      result = `${game.i18n.localize("PF2E.Failure")  } ${  game.i18n.localize("PF2E.Recovery.failure")}`;
     }
     const dyingName = game.i18n.localize("PF2E.condition.dying.name").toLowerCase();
     const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
@@ -696,13 +713,13 @@ export default class extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    const hp = this.data.data.attributes.hp;
-    const sp = this.data.data.attributes.sp;
+    const {hp} = this.data.data.attributes;
+    const {sp} = this.data.data.attributes;
 
     if ( attribute === 'attributes.shield') {
-      const shield = this.data.data.attributes.shield;
+      const {shield} = this.data.data.attributes;
       if (isDelta && value < 0) {
-        value = Math.min( (shield.hardness + value) , 0); //value is now a negative modifier (or zero), taking into account hardness
+        value = Math.min( (shield.hardness + value) , 0); // value is now a negative modifier (or zero), taking into account hardness
         this.update({[`data.attributes.shield.value`]: Math.clamped(0, shield.value + value, shield.max)});
         attribute = 'attributes.hp';
       }
@@ -794,9 +811,9 @@ export default class extends Actor {
 Handlebars.registerHelper('if_stamina', function(options) {
   if(game.settings.get('pf2e', 'staminaVariant') > 0) {
     return options.fn(this);
-  } else {
+  } 
     return ''
-  }
+  
 });
 
 Handlebars.registerHelper('add', function(a, b) {

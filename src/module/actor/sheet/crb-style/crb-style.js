@@ -27,10 +27,13 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
 
     // preparing the name of the rank, as this is displayed on the sheet
     sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
+    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+      save.rankName = game.i18n.format("PF2E.ProficiencyLevel"+save.rank);
+    }
     
     // limiting the amount of characters for the save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
-      save.label = game.i18n.format(`PF2E.Saves${save.label}Short`); 
+      save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
     // Return data to the sheet
@@ -45,5 +48,18 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     super.activateListeners(html);
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+
+    $('.hover').tooltipster({
+        animation: 'fade',
+        delay: 200,
+        trigger: 'click',
+        arrow: false,
+        contentAsHTML: true,
+        debug: true,
+        interactive: true,
+        side: ['right', 'bottom'],
+        theme: 'crb-hover',
+        minWidth: 120,
+    });
   }
 }

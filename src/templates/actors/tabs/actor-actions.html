@@ -3,11 +3,14 @@
     <li class="item action-header">
       <h3 class="item-name pf-heading pf-actions">Strikes (Experimental)</h3>
     </li>
-    {{#each actor.data.actions as |action idx|}}
-    <li class="item" data-action-index="{{idx}}" title="{{action.breakdown}}">
+    {{#each actor.data.actions as |action ai|}}
+    <li class="item" data-action-index="{{ai}}" title="{{action.breakdown}}">
       <div class="item-name rollable">
         <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})"></div>
         <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+        {{#each action.variants as |variant vi|}}
+        <span class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</span>
+        {{/each}}
       </div>
     </li>
     {{/each}}

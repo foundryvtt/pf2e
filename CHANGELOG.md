@@ -1,4 +1,43 @@
 # Patch Notes:
+## Version 1.0.1 "There will be bugs"
+* Fixed an issue preventing chracter sheets from opening when a spell has a spellcasting entry set but it is not valid.
+## Version 1.0.0 "Beta"
+### New Features
+* (@mdizo) A complete revamp of the actor sheet including sidebar, all tabs, hovers and headers!!! An amazing effort and a huge amount of work put in over these last few weeks!
+* (@hooking) Ruined @mdizo's beautiful sidebar by ripping most of the functionality out until future releases :P
+* (@meditatingCybermind) Added macros for 'rest for the night' and 'take a breather'
+
+### Content Changes
+* (@overdox) new content:
+    * Added all 18th, 19th and 20th level items
+    * Added 18th, 19th, and 20th level rollable tables for consumables and permanent items
+    * Added missing traits to consumables and equipment
+    * Expanded the bulk options all the way to 50
+    * Added icons to all new equipment types
+    * Added a set of 9 default icon types for {Armor, Weapon, Consumable, Equipment, Feats, Shield, Treasure, Backpack, Spell}
+All level 1 trough to level 28 should now have been added to the compendium
+* (@Athenos) Updated Age of Ashes Bestiary
+* (tushycat#5011) Added bestiary icons to the system (these are not yet linked to bestiary actors but it is on it's way).
+
+
+### Bug Fixes
+* (@meditatingCybermind) fixed sheets breaking when adding spells with no spellcasting entries
+* (@yeroon) Fixed the automatic behaviour of feats when importing from Compendium
+* (@unindel / FS) Fixed inline roll in NPC when no number of dice specified (i.e. [[d6+4]] instead of [[1d6+4]]
+* (@unindel / FS) Fixed #427 by only preparing spellbook of spellLvl for wands, scrolls, rituals and focus 'traditions'
+* (@putt1) improvements to equipment containers
+* (@meditatingCybermind) Fixed treat wounds macro
+
+### Core System Improvements
+* (@yeroon) Removed the title from conditions in the Token HUD, as there already is a tooltip on the top of the HUD.
+* (@unindel / FS) Add elite weak modifier buttons to read only npc sheet
+* (@unindel) / FS) Display other spell levels for editable NPC sheet and PC sheet to improve empty spell slot scenarios
+* (@putt1) Rarity, level and equipped for all physical items
+* (@putt1) Add immunities
+* (@In3luki) Trait selector improvements
+* (@nikolaj-a) Improve strikes with some UI refinements
+
+
 ## Version 0.581.0
 ### New Features
 *  (@fryguy1013) Added Hazards as a new type of actor similar to NPCs. Includes a Hazard compendium with the SRD hazard content

@@ -1,5 +1,23 @@
 <div class="tab actions" data-group="primary" data-tab="actions">
     <ol class="actions-list inventory-list directory-list actions-pane">
+        <li class="item action-header">
+            <h3 class="item-name pf-heading pf-actions">Strikes (Experimental)</h3>
+        </li>
+        {{#each actor.data.actions as |action ai|}}
+        <li class="item" data-action-index="{{ai}}">
+            <div class="item-name rollable">
+                <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
+                    <i class="fas fa-dice-d20"></i>
+                </div>
+                <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
+            </div>
+            <div class="button-group">
+                {{#each action.variants as |variant vi|}}
+                    <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
+                {{/each}}
+            </div>
+        </li>
+        {{/each}}
         {{#each actor.actions as |section sid|}}
             <li class="item action-header">
                 <h3 class="item-name pf-heading pf-actions">{{section.label}}</h3>
