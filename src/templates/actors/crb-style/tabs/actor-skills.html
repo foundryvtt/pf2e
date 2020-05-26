@@ -29,53 +29,20 @@
                     <div class="hover-content" id="{{skill.label}}-modifier">
                         <div class="active-items">
                             <div class="sidebar_title">
-                                <h2>Active Modifiers</h2>
-                                <a href="#">+ Add Modifier</a>
+                                <h2>{{skill.label}}</h2>
+                                <!-- <a href="#">+ Add Modifier</a> -->
                             </div>
-                            <!-- <ul>
+                            <ul>
+                                {{#each skill._modifiers as |modifier|}}
                                 <li>
                                     <div class="item">
-                                        <input class="tag" type="text" name="tag" placeholder="feat">
-                                        <input class="label" type="text" name="label" placeholder="Battlefield Surveyor">
+                                        <span class="tag">{{modifier.type}}</span>
+                                        <span class="label">{{localize modifier.name}}</span>
                                     </div>
-
-                                    <input class="data" type="number" name="data-value" placeholder="2">
+                                    <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
                                 </li>
-                                <li>
-                                    <div class="item">
-                                        <input class="tag" type="text" name="tag" placeholder="item">
-                                        <input class="label" type="text" name="label" placeholder="Potion of Clarity">
-                                    </div>
-
-                                    <input class="data" type="number" name="data-value" placeholder="4">
-                                </li>
-                            </ul> -->
-                        </div>
-                        <div class="passive-items">
-                            <div class="sidebar_title">
-                                <h2>Passive Modifiers</h2>
-                                <a href="#">+ Add Modifier</a>
-                            </div>
-                            <!-- <ul>
-                                <li>
-                                    <div class="item">
-                                        <input class="tag" type="text" name="tag" placeholder="item">
-                                        <input class="label" type="text" name="label" placeholder="Sword of Foresight">
-                                    </div>
-
-                                    <input class="data" type="number" name="data-value" placeholder="2">
-                                </li>
-                                <li>
-                                    <li>
-                                        <div class="item">
-                                            <input class="tag" type="text" name="tag" placeholder="skill">
-                                            <input class="label" type="text" name="label" placeholder="Odin's Eye">
-                                        </div>
-                        
-                                        <input class="data" type="number" name="data-value" placeholder="8">
-                                    </li>
-                                </li>
-                            </ul> -->
+                                {{/each}}
+                            </ul>
                         </div>
                     </div>
 
