@@ -33,8 +33,7 @@
         .core-title {
             width: 100%;
             text-align: left;
-            background: url('../assets/sheet/stroke3.svg') left bottom
-                no-repeat;
+            background: url('../assets/sheet/stroke3.svg') left bottom no-repeat;
             @include p-reset;
             margin-left: 0;
             padding: 0;
@@ -94,8 +93,12 @@
                         }
                     }
 
-                    span[title='Untrained']:before {
-                        content: 'Untrained';
+                    span[title='Untrained'] {
+                        background: var(--light);
+                        box-shadow: inset 0 0 0 1px rgba(black, 0.25), inset 0 0 0 2px rgba(white, 0.1);
+                        &:before {
+                            content: 'Untrained';
+                        }
                     }
                     span[title='Trained']:before {
                         content: 'Trained';
@@ -169,7 +172,7 @@
                 white-space: nowrap;
                 color: white;
                 @include micro;
-                
+
                 .item-control {
                     padding: 4px 8px;
                     background: var(--primary);
