@@ -75,10 +75,23 @@ export function isKit(itemId) {
     return kits.has(itemId);
 }
 
+/**
+ * @callback createItemCallback
+ * @param {string} itemId
+ * @param {?string} containerId
+ * @param {?number} quantity
+ */
+
+/**
+ * @param {CompendiumReference} item
+ * @param {createItemCallback} createItem
+ * @param {?string} containerId
+ * @return {Promise<void>}
+ */
 async function createKitItem(item, createItem, containerId) {
     const itemId = item.id;
     if (kits.has(itemId)) {
-        await createKitItem(itemId, createItem);
+        await createKitItem(kits.get(itemId), createItem, undefined);
     } else {
         const createItemId = await createItem(itemId, containerId, item.quantity);
         for (const heldItem of item.holdsItems ?? []) {
@@ -89,13 +102,6 @@ async function createKitItem(item, createItem, containerId) {
 }
 
 /**
- * @callback createItemCallback
- * @param {string} itemId
- * @param {?string} containerId
- * @param {?number} quantity
- */
-
-/**
  * @param {string} itemId
  * @param {createItemCallback} createItem
  * @return {Promise<void>}
@@ -103,6 +109,6 @@ async function createKitItem(item, createItem, containerId) {
 export async function addKit(itemId, createItem) {
     for (const item of kits.get(itemId)) {
         // eslint-disable-next-line no-await-in-loop
-        await createKitItem(item, createItem);
+        await createKitItem(item, createItem, undefined);
     }
 }
