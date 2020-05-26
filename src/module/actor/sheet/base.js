@@ -174,8 +174,12 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     //This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-    const isNotLevelBasedSpellcasting = spellcastingEntry.data.tradition.value === "wand" || spellcastingEntry.data.tradition.value === "scroll" || spellcastingEntry.data.tradition.value === "ritual" || spellcastingEntry.data.tradition.value === "focus"
-    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data.slots).filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id) )
+    const isNotLevelBasedSpellcasting = spellcastingEntry.data?.tradition?.value === "wand" || 
+      spellcastingEntry.data?.tradition?.value === "scroll" || 
+      spellcastingEntry.data?.tradition?.value === "ritual" || 
+      spellcastingEntry.data?.tradition?.value === "focus"
+      
+    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data?.slots || {})?.filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id))
     const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? spellLvl
     const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
     const maxSpellLevelToShow = Math.min(10,Math.max(spellLvl, highestSlotPrepared, normalHighestSpellLevel))
@@ -188,8 +192,8 @@ class ActorSheetPF2e extends ActorSheet {
           label: CONFIG.PF2E.spellLevels[i],
           spells: [],
           prepared: [],
-          uses: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].value) || 0 : 0,
-          slots: spellcastingEntry ? parseInt(spellcastingEntry.data.slots[`slot${i}`].max) || 0 : 0,
+          uses: spellcastingEntry ? parseInt(spellcastingEntry.data?.slots[`slot${i}`].value) || 0 : 0,
+          slots: spellcastingEntry ? parseInt(spellcastingEntry.data?.slots[`slot${i}`].max) || 0 : 0,
           displayPrepared: spellcastingEntry && spellcastingEntry.data.displayLevels && spellcastingEntry.data.displayLevels[i] !== undefined ? (spellcastingEntry.data.displayLevels[i]) : true,
           unpreparedSpellsLabel: spellcastingEntry ? (spellcastingEntry.data.tradition.value=='arcane' && spellcastingEntry.data.prepared.value=='prepared') ? game.i18n.localize("PF2E.UnpreparedSpellsLabelArcanePrepared") : game.i18n.localize("PF2E.UnpreparedSpellsLabel") : game.i18n.localize("PF2E.UnpreparedSpellsLabel")
         };
