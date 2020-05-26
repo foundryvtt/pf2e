@@ -70,11 +70,12 @@ async function createKitItem(item, createItem, containerId) {
     const itemId = item.id;
     if (kits.has(itemId)) {
         await createKitItem(itemId, createItem);
-    }
-    const createItemId = await createItem(itemId, containerId, item.quantity);
-    for (const heldItem of item.holdsItems ?? []) {
-        // eslint-disable-next-line no-await-in-loop
-        await createKitItem(heldItem, createItem, createItemId);
+    } else {
+        const createItemId = await createItem(itemId, containerId, item.quantity);
+        for (const heldItem of item.holdsItems ?? []) {
+            // eslint-disable-next-line no-await-in-loop
+            await createKitItem(heldItem, createItem, createItemId);
+        }
     }
 }
 
