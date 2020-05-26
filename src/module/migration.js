@@ -156,7 +156,10 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
 
         if (worldSchemaVersion < 0.580) {
             migrateActorItems(actor, updateData, addItemRarityAndLevel);
+            _migrateActorOtherSpeeds(actor, updateData);
         }
+
+        
     }
     return updateData;
 };
@@ -395,6 +398,12 @@ function _migrateActorLanguages(actor, updateData) {
                 return l;
             }
         });
+    }
+}
+
+function _migrateActorOtherSpeeds(actor, updateData) {
+    if (typeof actor.data?.attributes?.speed?.otherSpeeds !== 'array') {
+        updateData['data.attributes.speed.otherSpeeds'] = [];
     }
 }
 
