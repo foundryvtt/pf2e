@@ -67,6 +67,10 @@ kits.set('rxXT8KPBXa08feFD', [
     new CompendiumReference({ id: 'eFqKVKrf62XOGWUw' }),
 ]);
 
+/**
+ * @param {string} itemId
+ * @return {boolean}
+ */
 export function isKit(itemId) {
     return kits.has(itemId);
 }
@@ -84,6 +88,18 @@ async function createKitItem(item, createItem, containerId) {
     }
 }
 
+/**
+ * @callback createItemCallback
+ * @param {string} itemId
+ * @param {?string} containerId
+ * @param {?number} quantity
+ */
+
+/**
+ * @param {string} itemId
+ * @param {createItemCallback} createItem
+ * @return {Promise<void>}
+ */
 export async function addKit(itemId, createItem) {
     for (const item of kits.get(itemId)) {
         // eslint-disable-next-line no-await-in-loop
