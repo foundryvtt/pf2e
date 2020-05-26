@@ -231,14 +231,21 @@
                 '. label label' auto
                 'prefix score mod' 1fr
                 / 1fr 1fr 1fr;
-            column-gap: 4px;
+            column-gap: 3px;
             align-items: center;
+            &:focus-within {
+                .ability-id {
+                    filter: opacity(1);
+                }
+            }
 
             .ability-name {
                 grid-area: label;
                 margin: 0;
             }
             .ability-id {
+                filter: opacity(0.5);
+                text-transform: capitalize;
                 grid-area: prefix;
                 font-size: 28px;
                 color: var(--primary);
