@@ -12,7 +12,7 @@
  * If the compendium id is a container, you can nest objects into it by
  * setting the holdsItems attribute to an array of CompendiumReference objects.
  *
- * @type {Map<any, any>}
+ * @type {Map<string, CompendiumReference>}
  */
 const kits = new Map();
 
