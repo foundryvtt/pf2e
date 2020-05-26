@@ -53,8 +53,9 @@ aside {
 
         &_title {
             display: flex;
+            flex-wrap: nowrap;
             justify-content: space-between;
-            border-bottom: 1px solid $sidebar-title-color;
+            align-items: center;
             margin: 1em 0 0.5em;
             h2,
             h4,
@@ -66,19 +67,28 @@ aside {
             }
             h2 {
                 color: $sidebar-title-color;
+                border-bottom: 1px solid $sidebar-title-color;
+                flex: 1;
+
                 &.hover {
-                    color: white;
+                    line-height: 1;
+                    margin-top: 1.5px;
+                    padding: 2px 3px;
+                    background: rgba(white, 0.75);
+                    color: var(--primary);
+                    border-radius: 2px 2px 0 0;
+                    border: none;
                     cursor: pointer;
+                    flex: 0;
+                    white-space: nowrap;
                     &:hover {
-                        text-shadow: 0 0 1px white;
+                        background: white;
+                        box-shadow: inset 0 0 0 1px white;
                     }
                 }
             }
             h4 {
-                margin-left: auto;
-                & + h4 {
-                    margin-left: 1em;
-                }
+                margin-right: auto;
             }
             a {
                 color: white;
