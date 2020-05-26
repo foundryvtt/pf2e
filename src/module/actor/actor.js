@@ -120,7 +120,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
       if (save.item) {
-        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', save.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
       [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -158,7 +158,7 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
       ];
       if (data.attributes.perception.item) {
-        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', data.attributes.perception.item, PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), PF2ModifierType.ITEM));
       }
       ['perception', `wis-based`, 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -314,7 +314,7 @@ export default class extends Actor {
           ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[item.data.weaponType.value]?.rank ?? 0),
         ];
         if (item.data.bonus.value !== 0) {
-          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', item.data.bonus.value, PF2ModifierType.ITEM));
+          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(item.data.bonus.value) , PF2ModifierType.ITEM));
         }
         ['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, 'all'].forEach((key) => {
           (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
