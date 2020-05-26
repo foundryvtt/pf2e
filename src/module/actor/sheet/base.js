@@ -740,6 +740,12 @@ class ActorSheetPF2e extends ActorSheet {
       this.actor.data.data.actions[Number(actionIndex)]?.roll(event);
     });
 
+    html.find('[data-variant-index].variant-strike').click((event) => {
+      const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+      const variantIndex = $(event.currentTarget).attr('data-variant-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.variants[Number(variantIndex)]?.roll(event);
+    });
+
     // Item Rolling
     html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
 
