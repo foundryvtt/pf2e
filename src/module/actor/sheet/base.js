@@ -1,6 +1,7 @@
 import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import {isCycle} from "../../item/container.js";
+import { isKit, addKit } from '../../item/kits.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1237,11 +1238,24 @@ class ActorSheetPF2e extends ActorSheet {
         const actor = this.actor;
         if (data.pack) {
             const pack = game.packs.get(data.pack);
-            const itemData = await pack.getEntry(data.id);
-            return await this.stashOrUnstash(event, actor, async () => {
-                const item = await actor.createOwnedItem(itemData);
-                return actor.getOwnedItem(item._id);
-            });
+            if (isKit(data.id)) {
+                await addKit(data.id, async (itemId, containerId, quantity) => {
+                    const itemData = await pack.getEntry(itemId);
+                    const createdItem = await actor.createOwnedItem(itemData);
+                    const ownedItem = actor.getOwnedItem(createdItem._id);
+                    const update = {};
+                    if (containerId) update['data.containerId.value'] = containerId;   
+                    if (quantity) update['data.quantity.value'] = quantity;
+                    await ownedItem.update(update);
+                    return createdItem._id;
+                });
+            } else {
+                return this.stashOrUnstash(event, actor, async () => {
+                    const itemData = await pack.getEntry(data.id);
+                    const item = await actor.createOwnedItem(itemData);
+                    return actor.getOwnedItem(item._id);
+                });
+            }
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {

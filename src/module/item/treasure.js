@@ -94,7 +94,7 @@ export function calculateWealth(items) {
         });
 }
 
-const coinCompendiumIds = {
+export const coinCompendiumIds = {
     pp: 'JuNPeK5Qm1w6wpb4',
     gp: 'B6B7tBWJSqOBz5zz',
     sp: '5Ew82vBF9YfaiY9f',
