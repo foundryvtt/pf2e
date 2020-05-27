@@ -3,6 +3,7 @@
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
 import { calculateCarriedArmorBulk, fixWeight } from './item/bulk.js';
+import { toNumber } from './utils.js';
 
 export const migrateWorld = async function () {
     const systemVersion = game.system.data.version;
@@ -160,12 +161,24 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             _migrateActorOtherSpeeds(actor, updateData);
         }
 
+        if (worldSchemaVersion < 0.582) {
+            migrateActorItems(actor, updateData, addWeaponPotencyRune);
+        }
         
     }
     return updateData;
 };
 
 /* -------------------------------------------- */
+function addWeaponPotencyRune(item, itemData) {
+    if (item.type === 'weapon') {
+        const bonusAttack = toNumber(item.data?.bonus?.value ?? '') ?? 0;
+        if (bonusAttack > 0 && bonusAttack < 5)
+        itemData['data.potencyRune.value'] = `${bonusAttack}`;
+    }
+    return itemData;
+}
+
 function addItemRarityAndLevel(item, itemData) {
     itemData['data.rarity.value'] = 'common';
     if (['treasure', 'backpack'].includes(item.type)) {
@@ -340,6 +353,10 @@ export const migrateItemData = function (item, worldSchemaVersion) {
     
     if (worldSchemaVersion < 0.580) {
         addItemRarityAndLevel(item, updateData);
+    }
+
+    if (worldSchemaVersion < 0.582) {
+        addWeaponPotencyRune(item, updateData);
     }
     // Return the migrated update data
     return updateData;
