@@ -1,4 +1,4 @@
-import { getPropertyRunes, getPropertySlots } from '../../../src/module/item/runes.js';
+import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes.js';
 
 describe('test runes', () => {
     test('should get rune property slots', () => {
@@ -57,7 +57,7 @@ describe('test runes', () => {
             data: {}
         }, 3).length)
             .toBe(0);
-        
+
         const item = {
             data: {
                 preciousMaterial: {
@@ -76,8 +76,8 @@ describe('test runes', () => {
                     value: 'd'
                 }
             }
-        }
-        
+        };
+
         expect(getPropertyRunes(item, 0))
             .toEqual([]);
 
@@ -86,5 +86,103 @@ describe('test runes', () => {
 
         expect(getPropertyRunes(item, 3))
             .toEqual(['a', 'b', 'c']);
+    });
+
+    test('bonus attack overrides runes', () => {
+        const itemData = {
+            potencyRune: {
+                value: '3',
+            },
+            bonus: {
+                value: '1'
+            }
+        };
+
+        expect(getAttackBonus(itemData))
+            .toBe(1);
+    });
+
+    test('bonus attack from potency runes', () => {
+        const itemData = {
+            potencyRune: {
+                value: '3',
+            },
+            bonus: {
+                value: ''
+            }
+        };
+
+        expect(getAttackBonus(itemData))
+            .toBe(3);
+    });
+
+    test('no bonus attack', () => {
+        const itemData = {
+            potencyRune: {
+                value: '',
+            },
+            bonus: {
+                value: ''
+            }
+        };
+
+        expect(getAttackBonus(itemData))
+            .toBe(0);
+    });
+
+    test('no bonus armor', () => {
+        const itemData = {
+            potencyRune: {
+                value: '',
+            },
+            armor: {
+                value: ''
+            }
+        };
+
+        expect(getArmorBonus(itemData))
+            .toBe(0);
+    });
+
+    test('no potency rune', () => {
+        const itemData = {
+            potencyRune: {
+                value: '',
+            },
+            armor: {
+                value: 2
+            }
+        };
+
+        expect(getArmorBonus(itemData))
+            .toBe(2);
+    });
+
+    test('potency rune', () => {
+        const itemData = {
+            potencyRune: {
+                value: '1',
+            },
+            armor: {
+                value: ''
+            }
+        };
+
+        expect(getArmorBonus(itemData))
+            .toBe(1);
+    });
+
+    test('armor and potency rune', () => {
+        const itemData = {
+            potencyRune: {
+                value: '1',
+            },
+            armor: {
+                value: 2
+            }
+        };
+
+        expect(getArmorBonus(itemData))
+            .toBe(3);
     });
 }); 

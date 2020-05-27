@@ -2,6 +2,7 @@
  * Override and extend the basic :class:`Item` implementation
  */
 import Spell from './spell.js';
+import { getAttackBonus, getArmorBonus } from './runes.js';
 
 export default class extends Item {
 
@@ -89,7 +90,7 @@ export default class extends Item {
     const properties = [
       CONFIG.PF2E.armorTypes[data.armorType.value],
       CONFIG.PF2E.armorGroups[data.group.value],
-      `+${data.armor.value ? data.armor.value : 0} ${localize('PF2E.ArmorArmorLabel')}`,
+      `+${getArmorBonus(data)} ${localize('PF2E.ArmorArmorLabel')}`,
       `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
       `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
       `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
@@ -171,7 +172,7 @@ export default class extends Item {
       }
     }
     data.proficiency = proficiency
-    data.attackRoll = parseInt(data.bonus.value) + actorData.data.abilities[abl].mod + proficiency.value;
+    data.attackRoll = getAttackBonus(data) + actorData.data.abilities[abl].mod + proficiency.value;
 
     const properties = [
       // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
@@ -444,7 +445,7 @@ export default class extends Item {
     }
 
     rollData.item = itemData;
-    rollData.itemBonus = itemData.bonus.value;
+    rollData.itemBonus = getAttackBonus(itemData);
     // if ( !itemData.proficient.value ) parts.pop();
 
     if (multiAttackPenalty == 2) parts.push(itemData.map2);
@@ -624,7 +625,7 @@ export default class extends Item {
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     rollData.item = itemData;
-    rollData.itemBonus = itemData.bonus.value;
+    rollData.itemBonus = getAttackBonus(itemData);
 
     if (multiAttackPenalty == 2) parts.push(itemData.map2);
     else if (multiAttackPenalty == 3) parts.push(itemData.map3);
