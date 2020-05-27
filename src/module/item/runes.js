@@ -24,15 +24,7 @@ export function getPropertyRunes(itemData, slots) {
 }
 
 export function getAttackBonus(itemData) {
-    const potencyRune = itemData?.potencyRune?.value ?? '';
-    const bonusAtk = toNumber(itemData.bonus.value) ?? 0;
-    if (bonusAtk !== 0) {
-        return bonusAtk;
-    }
-    if (!isBlank(potencyRune)) {
-        return parseInt(potencyRune, 10);
-    }
-    return 0;
+    return toNumber(itemData?.potencyRune?.value) ?? 0;
 }
 
 export function getArmorBonus(itemData) {
@@ -45,6 +37,7 @@ const strikingRuneValues = new Map();
 strikingRuneValues.set('striking', 1);
 strikingRuneValues.set('greaterStriking', 2);
 strikingRuneValues.set('majorStriking', 3);
+
 export function getStrikingDice(itemData) {
     return strikingRuneValues.get(itemData?.strikingRune?.value) || 0;
 }
@@ -53,6 +46,7 @@ const resiliencyRuneValues = new Map();
 resiliencyRuneValues.set('resilient', 1);
 resiliencyRuneValues.set('greaterResilient', 2);
 resiliencyRuneValues.set('majorResilient', 3);
+
 export function getResiliencyBonus(itemData) {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
 }

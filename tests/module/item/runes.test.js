@@ -88,20 +88,6 @@ describe('test runes', () => {
             .toEqual(['a', 'b', 'c']);
     });
 
-    test('bonus attack overrides runes', () => {
-        const itemData = {
-            potencyRune: {
-                value: '3',
-            },
-            bonus: {
-                value: '1'
-            }
-        };
-
-        expect(getAttackBonus(itemData))
-            .toBe(1);
-    });
-
     test('bonus attack from potency runes', () => {
         const itemData = {
             potencyRune: {
