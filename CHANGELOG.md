@@ -4,10 +4,12 @@
 * (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). 
 ![alt text](img/adventurers_pack.png "Adventurers Pack auto expands into this")
 * (@putt1) Add precious materials and runes for weapons and armors.
+
 ![alt text](img/weapon_details_runes.png "Precious materials and runes")
 
 ### Content Changes
 * (@overdox) Added class kits (available in the compendium) 
+
 ![alt text](img/classkits.png "Class Kits")
 * (@overdox) Set the correct bulk on the belt pouch and the bandolier
 
