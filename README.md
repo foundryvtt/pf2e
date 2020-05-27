@@ -21,8 +21,9 @@ Tested with the following virtual table top platforms:
 
 ### Shoutouts
 
-A huge thanks to the large team of contributers and a special thanks to the following for code that we have used in this project:
+A huge thanks to the large team of contributers and a special thanks to the following for code and art that we have used in this project:
 
+- Fatman#0714 (https://www.reddit.com/user/FatMani) for creating the amazing token markers for the Pathfinder conditions used in the system.
 - Furyspark#7513 and Dan Gomme for the great work creating the Pathfinder measurement templates in the Pathfinder 1e system which I have incorporated into this system.
 - @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
 - Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
