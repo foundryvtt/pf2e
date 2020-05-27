@@ -3,6 +3,7 @@
  */
 import Spell from './spell.js';
 import { getAttackBonus, getArmorBonus } from './runes.js';
+import { addSign } from '../utils.js';
 
 export default class extends Item {
 
@@ -90,7 +91,7 @@ export default class extends Item {
     const properties = [
       CONFIG.PF2E.armorTypes[data.armorType.value],
       CONFIG.PF2E.armorGroups[data.group.value],
-      `+${getArmorBonus(data)} ${localize('PF2E.ArmorArmorLabel')}`,
+      `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
       `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
       `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
       `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,

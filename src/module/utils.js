@@ -90,3 +90,19 @@ export function toNumber(value) {
 export function add(x, y) {
     return x + y;
 }
+
+
+/**
+ * Adds a + if positive, nothing if 0 or - if negative
+ * @param {number} number
+ * @return {string}
+ */
+export function addSign(number) {
+    if (number < 0) {
+        return `${  number}`;
+    } 
+    if (number > 0) {
+        return `+${number}`
+    }
+    return '0';
+}
