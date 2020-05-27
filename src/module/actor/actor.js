@@ -8,7 +8,7 @@ import {
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
 import { PF2Check } from '../system/rolls.js';
-import { getAttackBonus, getArmorBonus } from '../item/runes.js';
+import { getAttackBonus, getArmorBonus, getResiliencyBonus } from '../item/runes.js';
 
 export default class extends Actor {
   /**
@@ -115,11 +115,18 @@ export default class extends Actor {
     }
 
     // Saves
+    const worn = this.getFirstWornArmor();
     for (const [saveName, save] of Object.entries(data.saves)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
+      if (worn) {
+          const resiliencyBonus = getResiliencyBonus(worn.data);
+          if (resiliencyBonus > 0) {
+              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', resiliencyBonus, PF2ModifierType.ITEM));
+          }
+      }
       if (save.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
@@ -213,10 +220,6 @@ export default class extends Actor {
     {
       const modifiers = [];
       let armorCheckPenalty = 0;
-      // find equipped armor
-      const worn = this.data.items.filter((item) => item.type === 'armor')
-        .filter((armor) => armor.data.armorType.value !== 'shield')
-        .find((armor) => armor.data.equipped.value);
       if (worn) {
         // Dex modifier limited by armor max dex bonus
         const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
@@ -366,7 +369,13 @@ export default class extends Actor {
     }
   }
 
-  /* -------------------------------------------- */
+    getFirstWornArmor() {
+        return this.data.items.filter((item) => item.type === 'armor')
+            .filter((armor) => armor.data.armorType.value !== 'shield')
+            .find((armor) => armor.data.equipped.value);
+    }
+
+    /* -------------------------------------------- */
 
   /**
    * Prepare NPC type specific data
