@@ -1,7 +1,9 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-class ItemSheetPF2e extends ItemSheet {
+import { getPropertySlots } from './runes.js';
+
+export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.width = 630;
@@ -81,6 +83,17 @@ class ItemSheetPF2e extends ItemSheet {
       data.martialSkills = martialSkills;
 
       // Weapon Data
+      const weaponPreciousMaterials = Object.assign({}, CONFIG.PF2E.preciousMaterials);
+      delete weaponPreciousMaterials['dragonhide'];
+
+      const slots = getPropertySlots(this.item.data);
+      this.assignPropertySlots(data, slots);
+      data.preciousMaterials = weaponPreciousMaterials;
+      data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
+      data.weaponStrikingRunes = CONFIG.PF2E.weaponStrikingRunes;
+      data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
+      data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
+      data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
       data.weaponTraits = CONFIG.PF2E.weaponTraits;
       data.weaponTypes = CONFIG.PF2E.weaponTypes;
       data.weaponGroups = CONFIG.PF2E.weaponGroups;
@@ -159,10 +172,17 @@ class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
+      const slots = getPropertySlots(this.item);
+      this.assignPropertySlots(data, slots);
+      data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
+      data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
+      data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
       data.armorTypes = CONFIG.PF2E.armorTypes;
       data.armorGroups = CONFIG.PF2E.armorGroups;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
       data.armorTraits = CONFIG.PF2E.armorTraits;
+      data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
+      data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
     } else if (type === 'tool') {
       // Tool-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
@@ -172,6 +192,15 @@ class ItemSheetPF2e extends ItemSheet {
     }
 
     return data;
+  }
+  
+  assignPropertySlots(data, number) {
+      const slots = [1, 2, 3, 4];
+      for (const slot of slots) {
+          if (number >= slot) {
+              data[`propertyRuneSlots${slot}`] = true;
+          }
+      }
   }
 
   _prepareTraits(traits, choices) {
@@ -287,10 +316,3 @@ class ItemSheetPF2e extends ItemSheet {
     this._onSubmit(event);
   }
 }
-
-// Override CONFIG
-// CONFIG.Item.sheetClass = ItemSheetPF2e;
-
-// Register Item Sheet
-Items.unregisterSheet('core', ItemSheet);
-Items.registerSheet('pf2e', ItemSheetPF2e, { makeDefault: true });

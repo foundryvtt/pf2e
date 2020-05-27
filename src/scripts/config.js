@@ -76,6 +76,108 @@ CONFIG.currencies = {
   "cp": "PF2E.CurrencyCP",
 };
 
+CONFIG.preciousMaterialGrades = {
+    low: "PF2E.PreciousMaterialLowGrade",
+    standard: "PF2E.PreciousMaterialStandardGrade",
+    high: "PF2E.PreciousMaterialHighGrade",
+};
+
+CONFIG.preciousMaterials = {
+    coldIron: "PF2E.PreciousMaterialColdIron",
+    silver: "PF2E.PreciousMaterialSilver",
+    mithral: "PF2E.PreciousMaterialMithral",
+    adamantine: "PF2E.PreciousMaterialAdamantite",
+    darkwood: "PF2E.PreciousMaterialDarkwood",
+    dragonhide: "PF2E.PreciousMaterialDragonhide",
+    orichalcum: "PF2E.PreciousMaterialOrichalcum",
+}
+
+CONFIG.armorPotencyRunes = {
+    "1": "PF2E.ArmorPotencyRune1",
+    "2": "PF2E.ArmorPotencyRune2",
+    "3": "PF2E.ArmorPotencyRune3",
+    "4": "PF2E.ArmorPotencyRune4",
+}
+
+CONFIG.armorResiliencyRunes = {
+    resilient: "PF2E.ArmorResilientRune",
+    greaterResilient: "PF2E.ArmorGreaterResilientRune",
+    majorResilient: "PF2E.ArmorMajorResilientRune",
+}
+
+CONFIG.armorPropertyRunes = {
+    slick: "PF2E.ArmorPropertyRuneSlick",
+    shadow: "PF2E.ArmorPropertyRuneShadow",
+    glamered: "PF2E.ArmorPropertyRuneGlamered",
+    acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
+    coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
+    electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
+    fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
+    greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
+    invisibility: "PF2E.ArmorPropertyRuneInvisibility",
+    sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
+    greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
+    greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
+    greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
+    greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
+    greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
+    greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
+    fortification: "PF2E.ArmorPropertyRuneFortification",
+    rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
+    antimagic: "PF2E.ArmorPropertyRuneAntimagic",
+    majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
+    ethereal: "PF2E.ArmorPropertyRuneEthereal",
+    majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
+    greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
+}
+
+CONFIG.weaponPotencyRunes = {
+    "1": "PF2E.WeaponPotencyRune1",
+    "2": "PF2E.WeaponPotencyRune2",
+    "3": "PF2E.WeaponPotencyRune3",
+    "4": "PF2E.WeaponPotencyRune3",
+}
+
+CONFIG.weaponStrikingRunes = {
+    striking: "PF2E.ArmorStrikingRune",
+    greaterStriking: "PF2E.ArmorGreaterStrikingRune",
+    majorStriking: "PF2E.ArmorMajorStrikingRune",
+}
+
+CONFIG.weaponPropertyRunes = {
+    kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
+    returning: "PF2E.WeaponPropertyRuneReturning",
+    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+    disrupting: "PF2E.WeaponPropertyRuneDisrupting",
+    shifting: "PF2E.WeaponPropertyRuneShifting",
+    wounding: "PF2E.WeaponPropertyRuneWounding",
+    bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
+    corrosive: "PF2E.WeaponPropertyRuneCorrosive",
+    flaming: "PF2E.WeaponPropertyRuneFlaming",
+    frost: "PF2E.WeaponPropertyRuneFrost",
+    shock: "PF2E.WeaponPropertyRuneShock",
+    thundering: "PF2E.WeaponPropertyRuneThundering",
+    grievous: "PF2E.WeaponPropertyRuneGrievous",
+    serrating: "PF2E.WeaponPropertyRuneSerrating",
+    anarchic: "PF2E.WeaponPropertyRuneAnarchic",
+    axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
+    holy: "PF2E.WeaponPropertyRuneHoly",
+    unholy: "PF2E.WeaponPropertyRuneUnholy",
+    dancing: "PF2E.WeaponPropertyRuneDancing",
+    spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
+    greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
+    keen: "PF2E.WeaponPropertyRuneKeen",
+    greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
+    greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
+    greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
+    greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
+    greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
+    greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
+    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
+    speed: "PF2E.WeaponPropertyRuneSpeed",
+    vorpal: "PF2E.WeaponPropertyRuneVorpal",
+}
+
 // Damage Types
 CONFIG.damageTypes = {
   acid: 'PF2E.DamageTypeAcid',

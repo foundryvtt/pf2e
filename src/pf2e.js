@@ -7,6 +7,7 @@ import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
 import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
+import {registerSheets} from './module/register-sheets.js';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
 import * as migrations from "./module/migration.js";
 
@@ -33,6 +34,7 @@ Hooks.once('init', () => {
   registerSettings();
   loadTemplates();
   registerActors();
+  registerSheets();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 });
 
@@ -54,7 +56,9 @@ Hooks.once('setup', () => {
   
   // Localize CONFIG objects once up-front
   const toLocalize = [
-    'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits',
+    'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits', 'preciousMaterialGrades',
+    'armorPotencyRunes', 'armorResiliencyRunes', 'armorPropertyRunes', 'weaponPotencyRunes', 'weaponStrikingRunes',
+    'weaponPropertyRunes', 
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups', 'consumableTraits',
     'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
@@ -65,7 +69,7 @@ Hooks.once('setup', () => {
     'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
-    'speedTypes', 'senses',
+    'speedTypes', 'senses', 'preciousMaterials'
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {
@@ -179,3 +183,4 @@ Hooks.on('preCreateActor', (actor, dir) => {
     }
   }
 });
+
