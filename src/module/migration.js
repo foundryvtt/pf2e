@@ -173,8 +173,9 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
 function addWeaponPotencyRune(item, itemData) {
     if (item.type === 'weapon') {
         const bonusAttack = toNumber(item.data?.bonus?.value ?? '') ?? 0;
-        if (bonusAttack > 0 && bonusAttack < 5)
-        itemData['data.potencyRune.value'] = `${bonusAttack}`;
+        if (bonusAttack > 0 && bonusAttack < 5) {
+            itemData['data.potencyRune.value'] = `${bonusAttack}`;
+        }
     }
     return itemData;
 }
