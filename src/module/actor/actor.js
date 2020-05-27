@@ -692,27 +692,48 @@ export default class extends Actor {
    * @param collection {String}     The name of the pack from which to import
    * @param entryId {String}        The ID of the compendium entry to import
    */
-  importItemFromCollection(collection, entryId, location) {
+  async importItemFromCollection(collection, entryId, location) {
     // if location parameter missing, then use the super method
     if (location == null) {
-      console.log('PF2e | importItemFromCollection: ', entryId);
+      console.log(`PF2e System | importItemFromCollection | Location not defined for ${entryId} - using super imprt method instead`);
       super.importItemFromCollection(collection, entryId);
       return;
     }
 
     const pack = game.packs.find(p => p.collection === collection);
     if (pack.metadata.entity !== "Item") return;
-    return pack.getEntity(entryId).then(ent => {
-      console.log(`${vtt} | Importing Item ${ent.name} from ${collection}`);
+    return await pack.getEntity(entryId).then(async ent => {
+      console.log(`PF2e System | importItemFromCollection | Importing using createOwnedItem for ${ent.name} from ${collection}`);
       if (ent.type === 'spell') {
+
+        // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
+        this._setShowUnpreparedSpells(location, ent?.data?.data?.level?.value);
+
         ent.data.data.location = {
           value: location,
         };
       }
       delete ent.data._id;
-      return this.createOwnedItem(ent.data);
+      return await this.createOwnedItem(ent.data);
     });
 
+  }
+
+  async _setShowUnpreparedSpells(entryId, spellLevel) {
+    if (entryId && spellLevel) {
+      let spellcastingEntry = this.getOwnedItem(entryId);
+      
+      if (spellcastingEntry?.data?.data?.prepared?.value === "prepared" && spellcastingEntry?.data?.data?.showUnpreparedSpells?.value === false) {
+        if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
+        const currentLvlToDisplay = {};
+        currentLvlToDisplay[spellLevel] = true;
+        await this.updateEmbeddedEntity('OwnedItem', {
+          _id: entryId,
+          'data.showUnpreparedSpells.value': true,
+          'data.displayLevels': currentLvlToDisplay
+        });
+      }
+    }    
   }
 
     /* -------------------------------------------- */
