@@ -67,7 +67,7 @@ export function isBlank(string) {
 /**
  * Parses a string, number, null or undefined into a Number
  * @param {(number|string|null|undefined)} value
- * @return {(number|null|undefined)} parsed value or undefined/null if either was provided or 
+ * @return {(number|null|undefined)} parsed value or undefined/null if either was provided or
  * undefined if it couldn't be parsed as a number
  */
 export function toNumber(value) {
@@ -99,10 +99,10 @@ export function add(x, y) {
  */
 export function addSign(number) {
     if (number < 0) {
-        return `${  number}`;
-    } 
+        return `${number}`;
+    }
     if (number > 0) {
-        return `+${number}`
+        return `+${number}`;
     }
     return '0';
 }
