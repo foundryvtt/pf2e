@@ -1,6 +1,20 @@
 # Patch Notes:
+## Version 1.1.0 
+### New Features
+
+
+### Content Changes
+
+
+### Bug Fixes
+
+
+### Core System Improvements
+
+
 ## Version 1.0.1 "There will be bugs"
 * Fixed an issue preventing chracter sheets from opening when a spell has a spellcasting entry set but it is not valid.
+
 ## Version 1.0.0 "Beta"
 ### New Features
 * (@mdizo) A complete revamp of the actor sheet including sidebar, all tabs, hovers and headers!!! An amazing effort and a huge amount of work put in over these last few weeks!
@@ -18,7 +32,6 @@
 All level 1 trough to level 28 should now have been added to the compendium
 * (@Athenos) Updated Age of Ashes Bestiary
 * (tushycat#5011) Added bestiary icons to the system (these are not yet linked to bestiary actors but it is on it's way).
-
 
 ### Bug Fixes
 * (@meditatingCybermind) fixed sheets breaking when adding spells with no spellcasting entries
