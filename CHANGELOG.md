@@ -1,7 +1,9 @@
 # Patch Notes:
 ## Version 1.1.0 
 ### New Features
-
+* (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). [](img/adventurers_pack.png)
+* 
+* 
 
 ### Content Changes
 
