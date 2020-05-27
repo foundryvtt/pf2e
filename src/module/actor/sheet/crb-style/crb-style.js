@@ -25,6 +25,8 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
   getData() {
     const sheetData = super.getData();
 
+    sheetData.uid = this.id;
+
     // preparing the name of the rank, as this is displayed on the sheet
     sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
