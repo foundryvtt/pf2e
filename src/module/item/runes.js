@@ -40,3 +40,19 @@ export function getArmorBonus(itemData) {
     const baseArmor = toNumber(itemData.armor.value) ?? 0;
     return baseArmor + potencyRune;
 }
+
+const strikingRuneValues = new Map();
+strikingRuneValues.set('striking', 1);
+strikingRuneValues.set('greaterStriking', 2);
+strikingRuneValues.set('majorStriking', 3);
+export function getStrikingDice(itemData) {
+    return strikingRuneValues.get(itemData?.strikingRune?.value) || 0;
+}
+
+const resiliencyRuneValues = new Map();
+resiliencyRuneValues.set('resilient', 1);
+resiliencyRuneValues.set('greaterResilient', 2);
+resiliencyRuneValues.set('majorResilient', 3);
+export function getResiliencyBonus(itemData) {
+    return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
+}

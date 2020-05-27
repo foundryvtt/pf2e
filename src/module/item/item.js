@@ -2,7 +2,7 @@
  * Override and extend the basic :class:`Item` implementation
  */
 import Spell from './spell.js';
-import { getAttackBonus, getArmorBonus } from './runes.js';
+import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes.js';
 import { addSign } from '../utils.js';
 
 export default class extends Item {
@@ -512,6 +512,7 @@ export default class extends Item {
     const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
     const thrownRegex = '(\\bthrown\\b)-(\\d+)';
     const hasThiefRacket = this.actor.data.items.filter((e) => e.type === 'feat' && e.name == 'Thief Racket').length > 0;
+    const strikingDice = getStrikingDice(itemData);
 
     if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
 
@@ -537,16 +538,15 @@ export default class extends Item {
     if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-    let weaponDamage = itemData.damage.dice + rollDie;
+    let weaponDamage = (itemData.damage.dice + strikingDice) + rollDie;
     parts = [weaponDamage, '@itemBonus'];
     rollData.itemBonus = bonusDamage;
 
     // Apply critical damage and effects
     if (critTrait === 'deadly') {
-      const dice = itemData.damage.dice ? itemData.damage.dice : 1;
       // Deadly adds 3 dice with major Striking, 2 dice with greater Striking
       // and 1 die otherwise
-      const deadlyDice = dice > 2 ? dice - 1 : 1;
+      const deadlyDice = strikingDice > 0 ? strikingDice : 1;
       const deadlyDamage = deadlyDice + critDie;
       partsCritOnly.push(deadlyDamage)
     } else if (critTrait === 'fatal') {
