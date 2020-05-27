@@ -20,6 +20,7 @@ class ActorSheetPF2e extends ActorSheet {
         '.inventory-pane',
         '.actions-pane',
         '.spellbook-pane',
+        '.skillstab-pane'
       ],
     });
   }
