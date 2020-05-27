@@ -1,6 +1,36 @@
 # Patch Notes:
+## Version 1.1.0 
+### New Features
+* (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). 
+![alt text](img/adventurers_pack.png "Adventurers Pack auto expands into this")
+* (@putt1) Add precious materials and runes for weapons and armors.
+
+![alt text](img/weapon_details_runes.png "Precious materials and runes")
+
+### Content Changes
+* (@overdox) Added class kits (available in the compendium) 
+
+![alt text](img/classkits.png "Class Kits")
+* (@overdox) Set the correct bulk on the belt pouch and the bandolier
+
+
+### Bug Fixes
+* (@nikolaj-a) Properly resolve and apply any custom weapon proficiencies for weapon strike actions (closes #452)
+* (@nikolaj-a) Added a missing CSS class that prevented the correct OwnedItem id being located in the form when trying to change or delete a custom martial proficiencies (closes #441).
+* (@hooking) Fixed the issue that was significantly effecting performance when adding compendium spells to actor sheet
+
+### Core System Improvements
+* (@mdizo) CSS Revisions to CRB sheet
+* (@In3luki) Update migration message to show the system version instead of schema version
+* (@hooking) Updated the feat browser to show the icon of the feat item rather than the generic action indicator icon.
+* (@hooking) Fixed saving the scroll position for feat, skill and actions tabs when the actor sheet is rerendered.
+* (@nikolaj-a) Make consumable max charges editable to make it more versatile, like being usable for infused reagents for alchemists.
+* (@abrault) Added unique identifier to modifiers tooltips to prevent errors when multiple character sheets are open at once
+
+
 ## Version 1.0.1 "There will be bugs"
 * Fixed an issue preventing chracter sheets from opening when a spell has a spellcasting entry set but it is not valid.
+
 ## Version 1.0.0 "Beta"
 ### New Features
 * (@mdizo) A complete revamp of the actor sheet including sidebar, all tabs, hovers and headers!!! An amazing effort and a huge amount of work put in over these last few weeks!
@@ -18,7 +48,6 @@
 All level 1 trough to level 28 should now have been added to the compendium
 * (@Athenos) Updated Age of Ashes Bestiary
 * (tushycat#5011) Added bestiary icons to the system (these are not yet linked to bestiary actors but it is on it's way).
-
 
 ### Bug Fixes
 * (@meditatingCybermind) fixed sheets breaking when adding spells with no spellcasting entries
