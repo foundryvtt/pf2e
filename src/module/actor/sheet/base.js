@@ -331,6 +331,7 @@ class ActorSheetPF2e extends ActorSheet {
       id: spell.id
     };
     await this.actor.updateOwnedItem(spellcastingEntry, true);  */
+    if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`);
     const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
     const options = {
       _id: entryId,
@@ -357,7 +358,7 @@ class ActorSheetPF2e extends ActorSheet {
       prepared: false
     };
     await this.actor.updateOwnedItem(spellcastingEntry, true);  */
-
+    if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} to remove spellslot ${spellSlot} for spell level ${spellLevel}`);
     const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
     const options = {
       _id: entryId,
@@ -938,20 +939,6 @@ class ActorSheetPF2e extends ActorSheet {
       this.render();
     });
 
-    Hooks.on("createOwnedItem", (actor, item) => {
-      // Show unprepared spells if creating a new item
-
-      if (item.type == "spell" && item.data.location.value) {
-        const currentLvlToDisplay = {};
-        currentLvlToDisplay[item.data.level.value] = true;
-        this.actor.updateEmbeddedEntity('OwnedItem', {
-          _id: item.data.location.value,
-          'data.showUnpreparedSpells.value': true,
-          'data.displayLevels': currentLvlToDisplay
-        });
-      }
-    });
-
   }
 
   /* -------------------------------------------- */
@@ -1118,6 +1105,7 @@ class ActorSheetPF2e extends ActorSheet {
    */
   async _onDrop(event) {
     event.preventDefault();
+    if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** PF2e _onDrop (spell) override method called *****');
 
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
@@ -1126,19 +1114,22 @@ class ActorSheetPF2e extends ActorSheet {
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
+      
       const dragData = event.dataTransfer.getData('text/plain');
       const dragItem = JSON.parse(dragData);
       // dragItem = this.actor.getOwnedItem(dragJSON.data._id);
 
       // if the dragged item is from a compendium pack.
       if (dragItem.pack) {
+        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from compendium pack dropped on a spellSlot *****');
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
         this.actor.importItemFromCollection(dragItem.pack, dragItem.id, dropID);
         return false;
       }
 
-      // if the dragged item is from a compendium pack.
+      // if the dragged item is a apell.
       if (dragItem && dragItem.data && dragItem.data.type === 'spell') {
+        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell dropped on a spellSlot *****');
         const dropID = $(event.target).parents('.item').attr('data-item-id');
         const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
         const entryId = $(event.target).parents('.item').attr('data-entry-id');
@@ -1149,6 +1140,7 @@ class ActorSheetPF2e extends ActorSheet {
       // else if the dragged item is from another actor and is the data is explicitly provided
       else if (dragItem.data) {
         if (dragItem.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
+          if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell dragged from another actor dropped on a spellSlot *****');
           if (dragItem.actorId === this.actor._id) return false; // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
 
           const dropID = $(event.target).parents('.item-container').attr('data-container-id');
@@ -1168,6 +1160,7 @@ class ActorSheetPF2e extends ActorSheet {
 
       // if the dragged item is a spell and is from the same actor
       if (dragData && dragData.data && dragData.data.type === 'spell' && (dragData.actorId === this.actor.id)) {
+        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell from same actor dropped on a spellcasting entry *****');
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
         if (dropID) {
@@ -1183,6 +1176,7 @@ class ActorSheetPF2e extends ActorSheet {
       // else if the dragged item is from another actor and is the data is explicitly provided
       if (dragData.data) {
         if (dragData.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
+          if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell from another actor dropped on a spellcasting entry *****');
           if (dragData.actorId === this.actor.id) return false; // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
 
           const dropID = $(event.target).parents('.item-container').attr('data-container-id');
@@ -1197,6 +1191,7 @@ class ActorSheetPF2e extends ActorSheet {
 
       // else if the dragged item is from a compendium pack.
       else if (dragData.pack) {
+        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from a compendium pack dropped on a spellcasting entry *****');
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
         this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
@@ -1216,6 +1211,8 @@ class ActorSheetPF2e extends ActorSheet {
         return false;
       }
     }
+
+    if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** PF2e _onDrop (spell) override method finished passing over to _onDropOverride *****');
 
     await this._onDropOverride(event);
   }
@@ -1481,6 +1478,9 @@ class ActorSheetPF2e extends ActorSheet {
       data.name = `New ${data.actionType.capitalize()}`;
       mergeObject(data, { 'data.weaponType.value': data.actionType });
     } else if (data.type === 'spell') {
+      // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
+      this.actor._setShowUnpreparedSpells(data.location, data.level);
+
       data.name = `New  Level ${data.level} ${data.type.capitalize()}`;
       mergeObject(data, {
         'data.level.value': data.level,
