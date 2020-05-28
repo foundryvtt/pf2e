@@ -1,4 +1,9 @@
 /**
+ * @callback criterion
+ * {}
+ */
+
+/**
  * Given an array and a key function, create a map where the key is the value that
  * gets returned when each item is pushed into the function. Accumulate
  * items in an array that have the same key
@@ -26,8 +31,8 @@ export function groupBy(array, criterion) {
  * Example:
  *     // returns {a: 3, b: 5, c: 0}
  *     combineObjects({a: 3, b: 4}, {b: 1, c: 0}, (a, b) => a+b)
- * @param first
- * @param second
+ * @param {{}} first
+ * @param {{}} second
  * @param mergeFunction
  * @return {{}}
  */
@@ -52,7 +57,7 @@ export function combineObjects(first, second, mergeFunction) {
 
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
- * @param string
+ * @param {?string|null} string
  * @return {boolean}
  */
 export function isBlank(string) {
@@ -60,11 +65,44 @@ export function isBlank(string) {
 }
 
 /**
+ * Parses a string, number, null or undefined into a Number
+ * @param {(number|string|null|undefined)} value
+ * @return {(number|null|undefined)} parsed value or undefined/null if either was provided or
+ * undefined if it couldn't be parsed as a number
+ */
+export function toNumber(value) {
+    if (value === null || value === undefined || Number.isInteger(value)) {
+        return value;
+    }
+    const result = parseInt(value, 10);
+    if (Number.isNaN(result)) {
+        return undefined;
+    }
+    return result;
+}
+
+/**
  * Used as a function reference
- * @param x
- * @param y
- * @return {*}
+ * @param {number} x
+ * @param {number} y
+ * @return {number}
  */
 export function add(x, y) {
     return x + y;
+}
+
+
+/**
+ * Adds a + if positive, nothing if 0 or - if negative
+ * @param {number} number
+ * @return {string}
+ */
+export function addSign(number) {
+    if (number < 0) {
+        return `${number}`;
+    }
+    if (number > 0) {
+        return `+${number}`;
+    }
+    return '0';
 }

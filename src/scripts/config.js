@@ -135,7 +135,7 @@ CONFIG.weaponPotencyRunes = {
     "1": "PF2E.WeaponPotencyRune1",
     "2": "PF2E.WeaponPotencyRune2",
     "3": "PF2E.WeaponPotencyRune3",
-    "4": "PF2E.WeaponPotencyRune3",
+    "4": "PF2E.WeaponPotencyRune4",
 }
 
 CONFIG.weaponStrikingRunes = {
