@@ -17,6 +17,12 @@ export class CheckModifiersDialog extends Application {
     this.check = check;
   }
 
+  static defaultOptions() {
+    return {
+      classes: ['dice-roll', 'dialogue'],
+    };
+  }
+
   /**
    * @param {PF2CheckModifier} check
    */
