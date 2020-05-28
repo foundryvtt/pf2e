@@ -165,6 +165,10 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             migrateActorItems(actor, updateData, addWeaponPotencyRune);
         }
         
+        if (worldSchemaVersion < 0.583) {
+            updateData['data.attributes.criticalSpecializations.value'] = [];
+        }
+        
     }
     return updateData;
 };
