@@ -1,10 +1,10 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
-    <ol class="actions-list inventory-list directory-list">
+    <ol class="actions-list inventory-list directory-list strikes-list">
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}} ({{localize 'PF2E.ExperimentalLabel'}})</h3>
         </li>
         {{#each actor.data.actions as |action ai|}}
-        <li class="item" data-action-index="{{ai}}">
+        <li class="item expandable" data-action-index="{{ai}}">
             <div class="item-name rollable">
                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
                     <i class="fas fa-dice-d20"></i>
@@ -15,6 +15,23 @@
                 {{#each action.variants as |variant vi|}}
                     <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                 {{/each}}
+            </div>
+            <div class="item-summary">
+                <div class="item-description">
+                  <p>{{{localize action.description}}}</p>
+                  <hr/>
+                  <dl>
+                    <dt>{{{localize 'PF2E.CritSuccess'}}}</dt>
+                    <dd>{{{localize action.criticalSuccess}}}</dd>
+                    <dt>{{{localize 'PF2E.Success'}}}</dt>
+                    <dd>{{{localize action.success}}}</dd>
+                  </dl>
+                </div>
+                <div class="item-properties tags">
+                    {{#each action.traits as |trait|}}
+                    <span class="tag tag_secondary">{{trait.label}}</span>
+                    {{/each}}
+                </div>
             </div>
         </li>
         {{/each}}

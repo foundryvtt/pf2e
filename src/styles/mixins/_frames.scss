@@ -1,0 +1,47 @@
+@mixin gold-border {
+    /* prettier-ignore */
+    box-shadow:
+        0 0 0 1px #9f725b,
+        0 0 0 2px var(--tertiary),
+        0 0 0 3px #956d58;
+}
+
+@mixin inset-gold-border {
+    border: none;
+    /* prettier-ignore */
+    box-shadow:
+        inset 0 0 0 1px #9f725b,
+        inset 0 0 0 2px var(--tertiary),
+        inset 0 0 0 3px #956d58;
+}
+
+@mixin frame-icon {
+    border: 1px solid var(--body);
+    /* prettier-ignore */
+    box-shadow:
+        0 0 0 1px var(--tertiary),
+        0 0 0 2px #9f725b,
+        inset 0 0 4px rgba(black, 0.5);
+}
+
+@mixin frame-glow {
+    box-shadow: 0 0 10px var(--tertiary);
+}
+
+@mixin brown-border {
+    border: none;
+    /* prettier-ignore */
+    box-shadow:
+        0 0 0 1px #918c88,
+        0 0 0 2px #e1d8cf,
+        0 0 0 3px #a98f39,
+        inset 0 0 8px rgba(0,0,0,0.5),
+        0 0 8px black;
+}
+
+@mixin corner-boxes {
+    border-style: solid;
+    border-image-outset: 0;
+    border-width: 9px;
+    border-image: url('../assets/sheet/corner-box.png') 9 repeat;
+}
