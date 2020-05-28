@@ -11,7 +11,7 @@
                     <h4 class="skill-name rollable">{{skill.label}}</h4>
                     {{!-- <div class="skill-prof skill-container">
                         <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{skill.hover}}">{{{skill.icon}}}</span>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                     </div> --}}
             
                     {{!-- {{#if skill.armor}}
@@ -20,7 +20,7 @@
 
                         <div class="skill-prof button-group">
                             <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-                            <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{skill.hover}}">{{{skill.icon}}}</span>
+                            <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                         <div class="hover-container">
                             <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.label}}-modifier">Modifiers</h6>
                         </div>
@@ -83,7 +83,7 @@
                         
                         {{!-- <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4> --}}
                         <input type="hidden" name="data.items.{{lid}}.data.proficient.value" data-stat-type="item" value="{{lore.data.proficient.value}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{lore.data.hover}}">{{{lore.data.icon}}}</span>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{lore.data.proficient.value}}" title="{{lore.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' lore.data.proficient.value)}}</span>
                     
 
                     
@@ -124,7 +124,7 @@
                     <div class="skill-prof button-group skill-container">
                         {{!-- <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4> --}}
                         <input type="hidden" name="data.martial.{{s}}.rank" value="{{martial.rank}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{martial.hover}}">{{{martial.icon}}}</span>
+                        <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.rank}}" title="{{martial.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.rank)}}</span>
                     </div>
                 </li>
             {{/each}}
@@ -148,7 +148,7 @@
                             {{/if}}
                             {{!-- <h4 class="skill-proficiency pf-title">{{localize "PF2E.ProficiencyRankLabel"}}</h4> --}}
                             <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
-                            <span class="skill-proficiency pf-value pf-rank click-stat-level" title="{{martial.data.hover}}">{{{martial.data.icon}}}</span>
+                            <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.data.proficient.value}}" title="{{martial.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.data.proficient.value)}}</span>
                         
                         
                         </div>
