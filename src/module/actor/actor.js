@@ -323,15 +323,25 @@ export default class extends Actor {
           bonus: { value: 0 },
           map2: -4,
           map3: -8,
-          traits: ['agile', 'finesse', 'nonlethal', 'unarmed'],
+          traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
         }
       }];
       (actorData.items ?? []).concat(unarmed).filter((item) => item.type === 'weapon').forEach((item) => {
-        const modifiers = [
-          AbilityModifier.fromAbilityScore(item.data.ability.value, data.abilities[item.data.ability.value]?.value ?? 0),
-          ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0),
-        ];
-          const attackBonus = getAttackBonus(item.data);
+        const modifiers = [];
+        {
+          let ability = item.data.ability?.value ?? 'str'; // default to Str
+          let score = data.abilities[item.data.ability.value]?.value ?? 0;
+          // naive check for finesse, which should later be changed to take conditions like
+          // enfeebled and clumsy into consideration
+          if ((item.data.traits?.value || []).includes('finesse') && data.abilities.dex.mod > data.abilities[ability].mod) {
+            ability = 'dex';
+            score = data.abilities.dex.value;
+          }
+          modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+        }
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0));
+
+        const attackBonus = getAttackBonus(item.data);
           if (attackBonus !== 0) {
               modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
           }
