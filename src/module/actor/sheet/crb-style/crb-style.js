@@ -51,6 +51,10 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 
+    html.find('.strikes-list').on("click", ".expandable", (event) => {
+      $(event.currentTarget).toggleClass('expanded');
+    });
+
     $('.hover').tooltipster({
         animation: 'fade',
         delay: 200,
