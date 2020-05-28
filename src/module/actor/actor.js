@@ -8,6 +8,7 @@ import {
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
 import { PF2Check } from '../system/rolls.js';
+import { getAttackBonus, getArmorBonus, getResiliencyBonus } from '../item/runes.js';
 
 export default class extends Actor {
   /**
@@ -114,11 +115,18 @@ export default class extends Actor {
     }
 
     // Saves
+    const worn = this.getFirstWornArmor();
     for (const [saveName, save] of Object.entries(data.saves)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
+      if (worn) {
+          const resiliencyBonus = getResiliencyBonus(worn.data);
+          if (resiliencyBonus > 0) {
+              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', resiliencyBonus, PF2ModifierType.ITEM));
+          }
+      }
       if (save.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
@@ -212,10 +220,6 @@ export default class extends Actor {
     {
       const modifiers = [];
       let armorCheckPenalty = 0;
-      // find equipped armor
-      const worn = this.data.items.filter((item) => item.type === 'armor')
-        .filter((armor) => armor.data.armorType.value !== 'shield')
-        .find((armor) => armor.data.equipped.value);
       if (worn) {
         // Dex modifier limited by armor max dex bonus
         const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
@@ -228,7 +232,7 @@ export default class extends Actor {
         }
 
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[worn.data.armorType?.value]?.rank ?? 0));
-        modifiers.push(new PF2Modifier(worn.name, Number(worn.data.armor.value ?? 0), PF2ModifierType.ITEM));
+        modifiers.push(new PF2Modifier(worn.name, getArmorBonus(worn.data), PF2ModifierType.ITEM));
       } else {
         modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
@@ -327,9 +331,10 @@ export default class extends Actor {
           AbilityModifier.fromAbilityScore(item.data.ability.value, data.abilities[item.data.ability.value]?.value ?? 0),
           ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0),
         ];
-        if (item.data.bonus.value !== 0) {
-          modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(item.data.bonus.value) , PF2ModifierType.ITEM));
-        }
+          const attackBonus = getAttackBonus(item.data);
+          if (attackBonus !== 0) {
+              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+          }
         ['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, 'all'].forEach((key) => {
           (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
@@ -364,7 +369,13 @@ export default class extends Actor {
     }
   }
 
-  /* -------------------------------------------- */
+    getFirstWornArmor() {
+        return this.data.items.filter((item) => item.type === 'armor')
+            .filter((armor) => armor.data.armorType.value !== 'shield')
+            .find((armor) => armor.data.equipped.value);
+    }
+
+    /* -------------------------------------------- */
 
   /**
    * Prepare NPC type specific data

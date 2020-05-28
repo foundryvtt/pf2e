@@ -1,3 +1,5 @@
+import { getArmorBonus } from '../item/runes.js';
+
 class Armor {
   static unarmored() {
     return new Armor({
@@ -55,7 +57,7 @@ class Armor {
   }
 
   get armorBonus() {
-    return parseInt(this.data.armor.value, 10);
+    return getArmorBonus(this.data);
   }
 
   wornDexBonus(character) {
