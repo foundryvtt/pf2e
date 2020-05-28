@@ -30,7 +30,16 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
   /* -------------------------------------------- */
 
-  /**
+    _updateObject(event, formData) {
+        // slap checkboxes into critical specialization array
+        formData['data.attributes.criticalSpecializations.value'] = Object.entries(formData)
+            .filter(([key, value]) => key.startsWith('specialization.') && value === true)
+            .map(([key]) => key.replace('specialization.', ''))
+        super._updateObject(event, formData);
+    }
+
+
+        /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
    */
   getData() {
@@ -132,6 +141,17 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
     };
 
+    // critical specializations
+    const currentCriticalSpecializations = new Set(actorData.data.attributes?.criticalSpecializations?.value ?? []);  
+    const criticalSpecializations = Object.entries(CONFIG.PF2E.weaponGroups)
+        .map(([key, label]) => {
+            return {
+                key,
+                label,
+                hasSpecialization: currentCriticalSpecializations.has(key)
+            }
+        });  
+    
     // Skills
     const lores = [];
     const martialSkills = [];
@@ -400,8 +420,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.readonlyEquipment = readonlyEquipment;
     actorData.lores = lores;
     actorData.martialSkills = martialSkills;
-
-
+    actorData.criticalSpecializations = criticalSpecializations;
     for (const entry of spellcastingEntries) {
       if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
         this._preparedSpellSlots(entry, spellbooks[entry._id]);

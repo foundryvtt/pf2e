@@ -164,5 +164,22 @@
 
             {{/each}}
         </ol>
+        <!-- Critical Specializations -->
+        <ol class="lore-header inventory-header directory-list">
+            <li class="item action-header">
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.CriticalSpecializationsHeader"}}</h3>
+            </li>
+        </ol>
+        <ol class="lores-list">
+            {{#each actor.criticalSpecializations}}
+            <li class="skill" >
+                <h4 class="skill-name lore-name-input">{{label}}</h4>
+
+                <div class="skill-prof button-group skill-container">
+                    <input type="checkbox" name="specialization.{{key}}" {{checked hasSpecialization}} data-dtype="Boolean"/>
+                </div>
+            </li>
+            {{/each}}
+        </ol>
     </ol>
 </div>

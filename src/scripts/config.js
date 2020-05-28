@@ -291,21 +291,21 @@ CONFIG.weaponTypes = {
 
 // Weapon Types
 CONFIG.weaponGroups = {
-  club: 'PF2E.WeaponGroupClub',
-  knife: 'PF2E.WeaponGroupKnife',
-  brawling: 'PF2E.WeaponGroupBrawling',
-  spear: 'PF2E.WeaponGroupSpear',
-  sword: 'PF2E.WeaponGroupSword',
-  axe: 'PF2E.WeaponGroupAxe',
-  flail: 'PF2E.WeaponGroupFlail',
-  polearm: 'PF2E.WeaponGroupPolearm',
-  pick: 'PF2E.WeaponGroupPick',
-  hammer: 'PF2E.WeaponGroupHammer',
-  shield: 'PF2E.WeaponGroupShield',
-  dart: 'PF2E.WeaponGroupDart',
-  bow: 'PF2E.WeaponGroupBow',
-  sling: 'PF2E.WeaponGroupSling',
-  bomb: 'PF2E.WeaponGroupBomb',
+    axe: 'PF2E.WeaponGroupAxe',
+    bomb: 'PF2E.WeaponGroupBomb',
+    bow: 'PF2E.WeaponGroupBow',
+    brawling: 'PF2E.WeaponGroupBrawling',
+    club: 'PF2E.WeaponGroupClub',
+    dart: 'PF2E.WeaponGroupDart',
+    flail: 'PF2E.WeaponGroupFlail',
+    hammer: 'PF2E.WeaponGroupHammer',
+    knife: 'PF2E.WeaponGroupKnife',
+    pick: 'PF2E.WeaponGroupPick',
+    polearm: 'PF2E.WeaponGroupPolearm',
+    shield: 'PF2E.WeaponGroupShield',
+    sling: 'PF2E.WeaponGroupSling',
+    spear: 'PF2E.WeaponGroupSpear',
+    sword: 'PF2E.WeaponGroupSword',
 };
 
 // Weapon Descriptions
