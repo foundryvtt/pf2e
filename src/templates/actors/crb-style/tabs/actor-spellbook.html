@@ -22,7 +22,7 @@
                             <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
                             <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
                                 <input type="hidden" name="data.items.{{eid}}.data.focus.points" data-stat-type="item" data-max="3" value="{{entry.data.focus.points}}" data-dtype="Number"/>
-                                <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">{{{entry.data.focus.icon}}}</span>
+                                <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">{{entry.data.focus.icon}}</span>
                             </span>
                         </div>
                         <div class="skill-container focus-pool">
@@ -43,9 +43,9 @@
                         <h4 class="skill-name">{{localize "PF2E.SpellSaveLabel"}}</h4>
 
                         <div class="skill-container skill-proficiency">
-                            <h4 class="pf-title" title="Left-Click to move forward one step. Right-Click to move backwards one step.">Proficiency</h4>
+                            <h4 class="pf-title" title="Left-Click to move forward one step. Right-Click to move backwards one step.">{{localize 'PF2E.ProficiencyLabel'}}</h4>
                             <input type="hidden" name="data.items.{{eid}}.data.proficiency.value" data-stat-type="item" value="{{entry.data.proficiency.value}}" data-dtype="Number"/>
-                            <span class="pf-value pf-rank click-stat-level" title="{{entry.data.spelldc.hover}}">{{{entry.data.spelldc.icon}}}</span>
+                            <span class="pf-value pf-rank click-stat-level" title="{{entry.data.spelldc.hover}}">{{localize (add 'PF2E.ProficiencyLevel' entry.data.proficiency.value)}}</span>
                         </div>
                         <div class="skill-container item-modifier">
                             <h4 class="skill-item pf-title">{{localize "PF2E.ItemBonusShortLabel"}}</h4>
