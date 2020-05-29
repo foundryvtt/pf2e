@@ -170,12 +170,16 @@ class ItemBrowserPF2e extends Application {
     return list;
   }
 
-  filterSpells(li) {
+  async filterSpells(li) {
+    let counter = 0;
+    li.hide();
     for (const spell of li) {
-      if (this.getFilterResult(spell) == false) {
-        $(spell).hide();
-      } else {
+      if (this.getFilterResult(spell)) {
         $(spell).show();
+        if (++counter % 20 === 0) {
+          // Yield to the browser to render what it has
+          await new Promise(r => setTimeout(r, 0));
+        }
       }
     }
   }
@@ -1103,7 +1107,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
 
               // add actor to bestiaryActors object
               bestiaryActors[actor._id] = actor
-            }            
+            }
           }
           console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
         });
