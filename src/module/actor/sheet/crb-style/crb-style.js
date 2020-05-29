@@ -32,6 +32,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.rankName = game.i18n.format("PF2E.ProficiencyLevel"+save.rank);
     }
+    sheetData.data.attributes.classDC.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.classDC.rank);
     
     // limiting the amount of characters for the save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
