@@ -11,16 +11,11 @@ export class CheckModifiersDialog extends Application {
     super({
       title: check.name,
       template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
+      classes: ['dice-roll', 'dialogue'],
       popOut: true,
       width: 380,
     });
     this.check = check;
-  }
-
-  static defaultOptions() {
-    return {
-      classes: ['dice-roll', 'dialogue'],
-    };
   }
 
   /**
