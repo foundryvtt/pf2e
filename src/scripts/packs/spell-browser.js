@@ -48,7 +48,7 @@ class ItemBrowserPF2e extends Application {
 
   activateListeners(html) {
     // show spell card
-    html.find('.item-edit').click((ev) => {
+    html.on('click', '.item-edit', (ev) => {
       const itemId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
       const itemCategory = $(ev.currentTarget).parents('.spell').attr('data-item-category');
       const items = this[itemCategory];
@@ -60,7 +60,7 @@ class ItemBrowserPF2e extends Application {
     });
 
     //show actor card
-    html.find('.actor-edit').click((ev) => {
+    html.on('click', '.actor-edit', (ev) => {
       const actorId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
       const actorCategory = $(ev.currentTarget).parents('.spell').attr('data-actor-category');
       const actors = this[actorCategory];
@@ -90,14 +90,14 @@ class ItemBrowserPF2e extends Application {
     });
 
     // toggle visibility of filter containers
-    html.find('.filtercontainer h3').click((ev) => {
+    html.on('click', '.filtercontainer h3', (ev) => {
       $(ev.target.nextElementSibling).toggle(100, (e) => {
         // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
       });
     });
 
     // toggle hints
-    html.find('input[name=textFilter]').mousedown((ev) => {
+    html.on('mousedown', 'input[name=textFilter]', (ev) => {
       if (event.which == 3) {
         $(html.find('.hint')).toggle(100, (e) => {
           // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
@@ -107,7 +107,7 @@ class ItemBrowserPF2e extends Application {
 
 
     // sort spell list
-    html.find('select[name=sortorder]').on('change', (ev) => {
+    html.on('change', 'select[name=sortorder]', (ev) => {
       const spellList = html.find('li');
       const byName = (ev.target.value == 'true');
       const sortedList = this.sortSpells(spellList, byName);
@@ -119,17 +119,17 @@ class ItemBrowserPF2e extends Application {
     });
 
     // activating or deactivating filters
-    html.find('input[name=textFilter]').on('change paste', (ev) => {
+    html.on('change paste', 'input[name=textFilter]', (ev) => {
       this.sorters.text = ev.target.value;
       this.filterSpells(html.find('li'));
     });
-    html.find('#timefilter select').on('change', (ev) => {
+    html.on('change', '#timefilter select', (ev) => {
       this.sorters.castingtime = ev.target.value;
       this.filterSpells(html.find('li'));
     });
 
     // filters for level, class and school
-    html.find('input[type=checkbox]').click((ev) => {
+    html.on('click', 'input[type=checkbox]', (ev) => {
       const filterType = ev.target.name.split(/-(.+)/)[0];
       const filterTarget = ev.target.name.split(/-(.+)/)[1];
       const filterValue = ev.target.checked;
