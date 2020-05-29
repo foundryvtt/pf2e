@@ -155,7 +155,7 @@
     <ul>
         {{#each data.attributes.ac._modifiers as |modifier|}}
         <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-            <span class="tag">{{modifier.type}}</span>
+            <span class="tag">{{localize (add 'PF2E.ModifierType.' modifier.type)}}</span>
             <span class="label">{{localize modifier.name}}</span>
             <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
         </li>
