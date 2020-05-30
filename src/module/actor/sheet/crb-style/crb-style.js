@@ -56,6 +56,9 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       $(event.currentTarget).parents('.expandable').toggleClass('expanded');
     });
 
+    html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
+    html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
+
     $('.hover').tooltipster({
         animation: 'fade',
         delay: 200,
@@ -68,5 +71,51 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
         theme: 'crb-hover',
         minWidth: 120,
     });
+  }
+
+  onAddCustomModifier(event) {
+    const parent = $(event.currentTarget).parents('.add-modifier');
+    const stat = $(event.currentTarget).attr('data-stat');
+    const modifier = Number(parent.find('.add-modifier-value').val());
+    const name = parent.find('.add-modifier-name').val();
+    const type = parent.find('.add-modifier-type').val();
+    const errors = [];
+    if (!stat || !stat.trim()) {
+      errors.push('Statistic is required.');
+    }
+    if (!modifier || Number.isNaN(modifier)) {
+        errors.push('Modifier value must be a number.');
+    }
+    if (!name || !name.trim()) {
+        errors.push('Name is required.');
+    }
+    if (!type || !type.trim().length) {
+        errors.push('Type is required.');
+    }
+    if (!type && type === 'untyped' && modifier < 0) {
+        errors.push('Only untyped penalties are allowed.');
+    }
+    if (errors.length > 0) {
+        ui.notifications.error(errors.join(' '));
+    } else {
+        this.actor.addCustomModifier(stat, name, modifier, type);
+    }
+  }
+
+  onRemoveCustomModifier(event) {
+    const stat = $(event.currentTarget).attr('data-stat');
+    const name = $(event.currentTarget).attr('data-name');
+    const errors = [];
+    if (!stat || !stat.trim()) {
+      errors.push('Statistic is required.');
+    }
+    if (!name || !name.trim()) {
+      errors.push('Name is required.');
+    }
+    if (errors.length > 0) {
+      ui.notifications.error(errors.join(' '));
+    } else {
+      this.actor.removeCustomModifier(stat, name);
+    }
   }
 }

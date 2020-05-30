@@ -87,8 +87,9 @@ export default class extends Actor {
 
     // custom modifiers
     data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
-    for (const [statistic, modifier] of Object.entries(data.customModifiers)) {
-      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifier); // eslint-disable-line no-param-reassign
+    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+      (modifiers ?? []).forEach((modifier) => { modifier.custom = true; }); // temporary measure until proper migration happens
+      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers); // eslint-disable-line no-param-reassign
     }
 
     // calculate modifiers for conditions (from status effects)
@@ -906,9 +907,10 @@ export default class extends Actor {
   async addCustomModifier(stat, name, value, type) {
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-      customModifiers[stat] = (customModifiers[stat] ?? []).concat([new PF2Modifier(name, value, type)]);
+      const modifier = new PF2Modifier(name, value, type);
+      modifier.custom = true;
+      customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
       await this.update({'data.customModifiers': customModifiers});
-      this.render();
     }
   }
 
@@ -925,11 +927,9 @@ export default class extends Actor {
       statModifiers.splice(modifier, 1);
       customModifiers[stat] = statModifiers;
       await this.update({'data.customModifiers': customModifiers});
-      this.render();
     } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
       customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
       await this.update({'data.customModifiers': customModifiers});
-      this.render();
     }
   }
 }
