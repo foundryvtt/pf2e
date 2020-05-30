@@ -626,7 +626,8 @@ export default class extends Item {
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     rollData.item = itemData;
-    rollData.itemBonus = getAttackBonus(itemData);
+    //rollData.itemBonus = getAttackBonus(itemData); // @putt1 rolling this change back as getAttackBonus does not handle NPCs correctly - hooking
+    rollData.itemBonus = itemData.bonus.value
 
     if (multiAttackPenalty == 2) parts.push(itemData.map2);
     else if (multiAttackPenalty == 3) parts.push(itemData.map3);
