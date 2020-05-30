@@ -1,4 +1,5 @@
 import ActorSheetPF2e from './base.js';
+import chalk from 'chalk';
 
 class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
@@ -19,11 +20,34 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
    */
   get template() {
     const path = 'systems/pf2e/templates/actors/';
-    if (this.actor.getFlag('pf2e', 'editLoot.value')) return `${path}loot-sheet.html`;
+    if (this.actor.getFlag('pf2e', 'editLoot.value')) {
+        return `${path}loot-sheet.html`;
+    }
+
     return `${path}loot-sheet-no-edit.html`;
   }
 
   /* -------------------------------------------- */
+
+  getData() {
+      const sheetData = super.getData();
+
+      this._prepareTraits(sheetData.data.traits);
+
+      // Process default values
+      if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
+
+      return sheetData;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    if (!this.options.editable) return;
+
+    html.find('.isLootEditable').change((ev) => {
+      this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
+    });
+  }
 }
 
 export default ActorSheetPF2eLoot;
