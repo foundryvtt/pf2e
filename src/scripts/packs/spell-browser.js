@@ -6,35 +6,6 @@
  */
 
 class ItemBrowserPF2e extends Application {
-  constructor(app) {
-    super(app);
-
-    this.sorters = {
-      text: '',
-      castingtime: 'null',
-    };
-
-    this.filters = {
-      level: {},
-      classes: {},
-      skills: {},
-      ancestry: {},
-      school: {},
-      traditions: {},
-      armorType: {},
-      group: {},
-      traits: {},
-      itemTypes: {},
-      weaponType: {},
-      proficiencies: {},
-      skills: {},
-      actorSize: {},
-      alignment: {},
-      source: {},
-      featType: {},
-    };
-  }
-
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -47,6 +18,8 @@ class ItemBrowserPF2e extends Application {
   }
 
   activateListeners(html) {
+    this.resetFilters();
+
     // show spell card
     html.on('click', '.item-edit', (ev) => {
       const itemId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
@@ -236,6 +209,33 @@ class ItemBrowserPF2e extends Application {
       }
     }
     return newObj;
+  }
+
+  resetFilters() {
+    this.sorters = {
+      text: '',
+      castingtime: 'null',
+    };
+
+    this.filters = {
+      level: {},
+      classes: {},
+      skills: {},
+      ancestry: {},
+      school: {},
+      traditions: {},
+      armorType: {},
+      group: {},
+      traits: {},
+      itemTypes: {},
+      weaponType: {},
+      proficiencies: {},
+      skills: {},
+      actorSize: {},
+      alignment: {},
+      source: {},
+      featType: {},
+    };
   }
 
   /* -------------------------------------------- */
