@@ -18,7 +18,11 @@ class ItemBrowserPF2e extends Application {
   }
 
   activateListeners(html) {
-    this.resetFilters();
+    this.resetFilters(html);
+    html.on('click', '.clear-filters', (ev) => {
+      this.resetFilters(html);
+      this.filterSpells(html.find('li'));
+    });
 
     // show spell card
     html.on('click', '.item-edit', (ev) => {
@@ -211,7 +215,7 @@ class ItemBrowserPF2e extends Application {
     return newObj;
   }
 
-  resetFilters() {
+  resetFilters(html) {
     this.sorters = {
       text: '',
       castingtime: 'null',
@@ -236,6 +240,10 @@ class ItemBrowserPF2e extends Application {
       source: {},
       featType: {},
     };
+
+    html.find('input[name=textFilter]').val('');
+    html.find('input[name=timefilter]').val('null');
+    html.find('input[type=checkbox]').prop('checked', false);
   }
 
   /* -------------------------------------------- */
