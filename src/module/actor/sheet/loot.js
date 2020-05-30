@@ -1,5 +1,4 @@
 import ActorSheetPF2e from './base.js';
-import chalk from 'chalk';
 
 class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
