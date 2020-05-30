@@ -1275,8 +1275,8 @@ class PackLoader {
 
 
 const packLoader = new PackLoader();
-let spellBrowser = new SpellBrowserPF2e();
-let featBrowser = new FeatBrowserPF2e();
-let inventoryBrowser = new InventoryBrowserPF2e();
-let bestiaryBrowser = new BestiaryBrowserPF2e();
-let actionBrowser = new ActionBrowserPF2e();
+export const spellBrowser = new SpellBrowserPF2e();
+export const featBrowser = new FeatBrowserPF2e();
+export const inventoryBrowser = new InventoryBrowserPF2e();
+export const bestiaryBrowser = new BestiaryBrowserPF2e();
+export const actionBrowser = new ActionBrowserPF2e();
