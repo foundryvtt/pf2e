@@ -6,35 +6,6 @@
  */
 
 class ItemBrowserPF2e extends Application {
-  constructor(app) {
-    super(app);
-
-    this.sorters = {
-      text: '',
-      castingtime: 'null',
-    };
-
-    this.filters = {
-      level: {},
-      classes: {},
-      skills: {},
-      ancestry: {},
-      school: {},
-      traditions: {},
-      armorType: {},
-      group: {},
-      traits: {},
-      itemTypes: {},
-      weaponType: {},
-      proficiencies: {},
-      skills: {},
-      actorSize: {},
-      alignment: {},
-      source: {},
-      featType: {},
-    };
-  }
-
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -47,8 +18,14 @@ class ItemBrowserPF2e extends Application {
   }
 
   activateListeners(html) {
+    this.resetFilters(html);
+    html.on('click', '.clear-filters', (ev) => {
+      this.resetFilters(html);
+      this.filterSpells(html.find('li'));
+    });
+
     // show spell card
-    html.find('.item-edit').click((ev) => {
+    html.on('click', '.item-edit', (ev) => {
       const itemId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
       const itemCategory = $(ev.currentTarget).parents('.spell').attr('data-item-category');
       const items = this[itemCategory];
@@ -60,7 +37,7 @@ class ItemBrowserPF2e extends Application {
     });
 
     //show actor card
-    html.find('.actor-edit').click((ev) => {
+    html.on('click', '.actor-edit', (ev) => {
       const actorId = $(ev.currentTarget).parents('.spell').attr('data-entry-id');
       const actorCategory = $(ev.currentTarget).parents('.spell').attr('data-actor-category');
       const actors = this[actorCategory];
@@ -90,14 +67,14 @@ class ItemBrowserPF2e extends Application {
     });
 
     // toggle visibility of filter containers
-    html.find('.filtercontainer h3').click((ev) => {
+    html.on('click', '.filtercontainer h3', (ev) => {
       $(ev.target.nextElementSibling).toggle(100, (e) => {
         // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
       });
     });
 
     // toggle hints
-    html.find('input[name=textFilter]').mousedown((ev) => {
+    html.on('mousedown', 'input[name=textFilter]', (ev) => {
       if (event.which == 3) {
         $(html.find('.hint')).toggle(100, (e) => {
           // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
@@ -107,7 +84,7 @@ class ItemBrowserPF2e extends Application {
 
 
     // sort spell list
-    html.find('select[name=sortorder]').on('change', (ev) => {
+    html.on('change', 'select[name=sortorder]', (ev) => {
       const spellList = html.find('li');
       const byName = (ev.target.value == 'true');
       const sortedList = this.sortSpells(spellList, byName);
@@ -119,17 +96,17 @@ class ItemBrowserPF2e extends Application {
     });
 
     // activating or deactivating filters
-    html.find('input[name=textFilter]').on('change paste', (ev) => {
+    html.on('change paste', 'input[name=textFilter]', (ev) => {
       this.sorters.text = ev.target.value;
       this.filterSpells(html.find('li'));
     });
-    html.find('#timefilter select').on('change', (ev) => {
+    html.on('change', '#timefilter select', (ev) => {
       this.sorters.castingtime = ev.target.value;
       this.filterSpells(html.find('li'));
     });
 
     // filters for level, class and school
-    html.find('input[type=checkbox]').click((ev) => {
+    html.on('click', 'input[type=checkbox]', (ev) => {
       const filterType = ev.target.name.split(/-(.+)/)[0];
       const filterTarget = ev.target.name.split(/-(.+)/)[1];
       const filterValue = ev.target.checked;
@@ -170,12 +147,16 @@ class ItemBrowserPF2e extends Application {
     return list;
   }
 
-  filterSpells(li) {
+  async filterSpells(li) {
+    let counter = 0;
+    li.hide();
     for (const spell of li) {
-      if (this.getFilterResult(spell) == false) {
-        $(spell).hide();
-      } else {
+      if (this.getFilterResult(spell)) {
         $(spell).show();
+        if (++counter % 20 === 0) {
+          // Yield to the browser to render what it has
+          await new Promise(r => setTimeout(r, 0));
+        }
       }
     }
   }
@@ -232,6 +213,37 @@ class ItemBrowserPF2e extends Application {
       }
     }
     return newObj;
+  }
+
+  resetFilters(html) {
+    this.sorters = {
+      text: '',
+      castingtime: 'null',
+    };
+
+    this.filters = {
+      level: {},
+      classes: {},
+      skills: {},
+      ancestry: {},
+      school: {},
+      traditions: {},
+      armorType: {},
+      group: {},
+      traits: {},
+      itemTypes: {},
+      weaponType: {},
+      proficiencies: {},
+      skills: {},
+      actorSize: {},
+      alignment: {},
+      source: {},
+      featType: {},
+    };
+
+    html.find('input[name=textFilter]').val('');
+    html.find('input[name=timefilter]').val('null');
+    html.find('input[type=checkbox]').prop('checked', false);
   }
 
   /* -------------------------------------------- */
@@ -1103,7 +1115,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
 
               // add actor to bestiaryActors object
               bestiaryActors[actor._id] = actor
-            }            
+            }
           }
           console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
         });
