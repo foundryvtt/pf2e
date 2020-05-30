@@ -1,4 +1,47 @@
 # Patch Notes:
+## Version 1.1.1 
+### New Features
+* (@putt1) Implemented a way to select all fundamental runes for weapons and armors.
+    * Fixes deadly dice being doubled/trippled by attacks that have no striking rune but more than one damage die
+    * Migrates attack boni of 1, 2, 3 and 4 to the potency rune equivalents
+* (@putt1) and (@mdizo) Added an initiative selector to the side bar and automatically applies initiative circumstance bonuses for feats:
+    * Incredible Initiative
+    * Elven Instincts
+    * Eye of Ozem
+    * Harmlessly Cute
+* (tushycat#5011) Bestiary art for the following creatures now included as part of the system:
+    * 
+
+
+### Content Changes
+* (@overdox) Content improvements:
+    * Fix for the broken icon link on Perpetual Infusions (Bomber) #461 (closed)
+    * Renamed the Core Rulebook SRD compendium journal to better reflect it's content #460 (closed) The new name is now Deities.
+* (@kenster421) Added Bestiary for Extinction Curse with Xulgath-family monsters
+* (@putt1) Added plaguestone hazards
+
+
+### Bug Fixes
+* (@mdizo) Fixed the inline CSS from properly rendering images containing () in their filenames on item sheets.
+* (@hooking) Fixed loading prepared spellcasting actors who have an invalid data saved into a spell slot.
+* (@putt1) Fixed price for sorcerer kit
+
+### Core System Improvements
+* (@nikolaj-a) Added link to show AC modifier tooltip as the AC calculation breakdown is not visible anywhere, and it can be hard to keep track of the source of all modifiers.
+* (@nikolaj-a) Added naive support for finesse on strikes, without taking into consideration conditions affecting the actor.
+* (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
+* (@nikolaj-a) Added class DC back into sidebar
+* (@nikolaj-a) Updated save modifiers to use armor name as resiliency item bonus label
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
+* (@nikolaj-a) Added an expandable panel for strike action and outcome descriptions, as well as showing the strike traits.
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/03087cab175ddacb1fa9a863788fe72d/image.png "Strike expandable panel")
+* (@Noires) Changed en.json structure to be easier readable, editable and compatible with i18n editor
+* (@Noires) Significantly improved the translation support for the new character sheet
+* (@mdizo) Laid some basic foundations for future responsive design work.
+* (@abrault) Significant improvements to the compendium browsers
+
+
+
 ## Version 1.1.0 
 ### New Features
 * (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). 
