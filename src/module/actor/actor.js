@@ -124,7 +124,7 @@ export default class extends Actor {
       if (worn) {
           const resiliencyBonus = getResiliencyBonus(worn.data);
           if (resiliencyBonus > 0) {
-              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', resiliencyBonus, PF2ModifierType.ITEM));
+              modifiers.push(new PF2Modifier(worn.name, resiliencyBonus, PF2ModifierType.ITEM));
           }
       }
       if (save.item) {
