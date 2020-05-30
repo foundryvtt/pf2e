@@ -29,7 +29,7 @@
         <div class="deity">
             <div class="dropdown">
                 <label for="deity-dropdown">
-                    deity
+                    {{localize 'PF2E.Deity'}}
                 </label>
                 <input
                     id="pc pc_deity"
@@ -37,7 +37,7 @@
                     type="text"
                     value="{{data.details.deity.value}}"
                     data-dtype="String"
-                    placeholder="Choose A Deity"
+                    placeholder="{{localize 'PF2E.DeitySelectionPlaceholder'}}"
                 />
             </div>
             <img
@@ -164,13 +164,13 @@
     </section>
 
     <h3>
-        Traits & Other Details
+        {{localize 'PF2E.CharacterTraitsHeader'}}
     </h3>
     <section class="character-traits">
         {{> systems/pf2e/templates/actors/crb-style/character-traits.html}}
     </section>
 
-    <h3>Ability Scores</h3>
+    <h3>{{localize 'PF2E.AbilityScoresHeader'}}</h3>
     <section class="character-abilities">
         {{> systems/pf2e/templates/actors/crb-style/character-abilities.html}}
     </section>
