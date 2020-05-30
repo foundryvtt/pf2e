@@ -187,7 +187,7 @@ class ActorSheetPF2e extends ActorSheet {
       spellcastingEntry.data?.tradition?.value === "ritual" || 
       spellcastingEntry.data?.tradition?.value === "focus"
       
-    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data?.slots || {})?.filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell.id === spell._id))
+    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data?.slots || {})?.filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell?.id === spell._id))
     const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? spellLvl
     const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
     const maxSpellLevelToShow = Math.min(10,Math.max(spellLvl, highestSlotPrepared, normalHighestSpellLevel))
