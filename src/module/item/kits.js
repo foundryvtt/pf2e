@@ -75,7 +75,7 @@ kits.set(adventurersPackId, [
  * @param {number} sp
  * @return {CompendiumReference[]}
  */
-function treasure(gp = 0, sp = 0) {
+function treasure(gp = 0, sp = 0, cp = 0) {
     return [
         new CompendiumReference({
             id: coinCompendiumIds.gp,
@@ -84,6 +84,10 @@ function treasure(gp = 0, sp = 0) {
         new CompendiumReference({
             id: coinCompendiumIds.sp,
             quantity: sp
+        }),
+        new CompendiumReference({
+            id: coinCompendiumIds.cp,
+            quantity: cp
         }),
     ].filter(ref => ref.quantity !== 0);
 }
@@ -222,7 +226,7 @@ kits.set('MARsStNVQdc4DRCV', [
 ]);
 // sorcerer kit
 kits.set('edXxkkY3tgX7GLGI', [
-    ...treasure(12, 9),
+    ...treasure(13, 3, 7),
     new CompendiumReference({id: slingBulletId, quantity: 20}),
     new CompendiumReference({id: daggerId}),
     new CompendiumReference({id: slingId}),
