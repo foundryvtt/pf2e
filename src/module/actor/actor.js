@@ -410,7 +410,7 @@ export default class extends Actor {
             initModifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Eye of Ozem') && initSkill === 'perception') {
-            initModifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
+            initModifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
             initModifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
