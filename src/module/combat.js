@@ -8,7 +8,7 @@ export const initiativeFormula = (combatant) => {
     const modifierEnabledInit = data.attributes?.initiative?.totalModifier;
     if (actorType === 'hazard') {
         bonus = data.attributes.stealth.value;
-    } else if (modifierEnabledInit) {
+    } else if (modifierEnabledInit !== undefined) {
         bonus = modifierEnabledInit;
     } else {
         bonus = data.attributes.perception.value;
