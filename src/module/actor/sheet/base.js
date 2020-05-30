@@ -548,6 +548,11 @@ class ActorSheetPF2e extends ActorSheet {
     });
 
     // Roll Attribute Checks
+    html.find('.roll-init').click((ev) => {
+      ev.preventDefault();
+      this.actor.data.data.attributes.initiative.roll(ev);
+    });  
+      
     html.find('.attribute-name').click((ev) => {
       ev.preventDefault();
       const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
