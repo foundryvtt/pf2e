@@ -172,7 +172,7 @@ export class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
-      const slots = getPropertySlots(this.item);
+      const slots = getPropertySlots(this.item.data);
       this.assignPropertySlots(data, slots);
       data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
       data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
