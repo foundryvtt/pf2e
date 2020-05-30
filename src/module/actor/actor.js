@@ -3,12 +3,18 @@
  */
 import CharacterData from './character.js';
 import {
-  DEXTERITY, WISDOM,
-  AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier, PF2CheckModifier,
+    AbilityModifier,
+    DEXTERITY,
+    PF2CheckModifier,
+    PF2Modifier,
+    PF2ModifierType,
+    PF2StatisticModifier,
+    ProficiencyModifier,
+    WISDOM,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
 import { PF2Check } from '../system/rolls.js';
-import { getAttackBonus, getArmorBonus, getResiliencyBonus } from '../item/runes.js';
+import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes.js';
 
 export default class extends Actor {
   /**
@@ -113,7 +119,7 @@ export default class extends Actor {
         + bonusHpPerLevel
         + data.attributes.flatbonushp;
     }
-
+      
     // Saves
     const worn = this.getFirstWornArmor();
     for (const [saveName, save] of Object.entries(data.saves)) {
@@ -386,7 +392,41 @@ export default class extends Actor {
         data.actions.push(action);
       });
     }
+      this.prepareInitiative(data, actorData, statisticsModifiers);
   }
+
+    prepareInitiative(data, actorData, statisticsModifiers) {
+        // Initiative
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
+        const initModifiers = [];
+        // FIXME: this is hard coded for now
+        const feats = new Set(actorData.items
+            .filter(item => item.type === 'feat')
+            .map(item => item.name));
+        if (feats.has('Incredible Initiative')) {
+            initModifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
+        }
+        if (feats.has('Elven Instincts') && initSkill === 'perception') {
+            initModifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
+        }
+        if (feats.has('Eye of Ozem') && initSkill === 'perception') {
+            initModifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
+        }
+        if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
+            initModifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
+        }
+        ['initiative'].forEach((key) => {
+            (statisticsModifiers[key] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => initModifiers.push(m));
+        });
+        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+        data.attributes.initiative = new PF2CheckModifier('Initiative', initValues, initModifiers);
+        data.attributes.initiative.ability = initSkill;
+        data.attributes.initiative.roll = (event) => {
+            PF2Check.roll(new PF2CheckModifier('Initiative', data.attributes.initiative, []), event);
+        };
+    }
 
     getFirstWornArmor() {
         return this.data.items.filter((item) => item.type === 'armor')
@@ -606,7 +646,6 @@ export default class extends Actor {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod', '@itemBonus'];
     const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
-
     // Call the roll helper utility
     DicePF2e.d20Roll({
       event,
