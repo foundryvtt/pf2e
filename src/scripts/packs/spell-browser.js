@@ -777,7 +777,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     options.classes = options.classes.concat('spell-browser-window');
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/inventory-browser.html';
-    options.title = 'Add an Inventory Item';
+    options.title = 'Add Equipment';
     options.width = 800;
     options.height = 700;
     return options;
@@ -840,7 +840,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
   hookCompendiumList() {
     Hooks.on('renderCompendiumDirectory', (app, html, data) => {
       // Inventory Browser Buttons
-      const inventoryImportButton = $(`<button class="inventory-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Inventory Browser</button>`);
+      const inventoryImportButton = $(`<button class="inventory-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Equipment Browser</button>`);
       // const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
 
       if (game.user.isGM) {
