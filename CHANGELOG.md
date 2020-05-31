@@ -12,10 +12,10 @@
     * Elven Instincts
     * Eye of Ozem
     * Harmlessly Cute
-* (@hooking and @nikolaj-a) Automated initiative rolls to automatically update combat tracker.
 
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/7007eb7aacb44242d4bd0554e674c554/image.png "Initiative support")
 
+* (@hooking and @nikolaj-a) Automated initiative rolls to automatically update combat tracker.
 * (tushycat#5011) Bestiary art for the following creatures now included as part of the system:
     * Goblin Pyro
     * Goblin Warchanter
