@@ -407,6 +407,9 @@ export default class extends Actor {
         if (feats.has('Incredible Initiative')) {
             initModifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
         }
+        if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
+          initModifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
+        }
         if (feats.has('Elven Instincts') && initSkill === 'perception') {
             initModifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
         }
