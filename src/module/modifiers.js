@@ -80,6 +80,7 @@ export class PF2Modifier {
     this.enabled = enabled;
     this.ignored = false;
     this.deleted = false;
+    this.custom = false;
     if (source) this.source = source;
     if (notes) this.notes = notes;
   }

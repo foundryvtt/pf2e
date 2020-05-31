@@ -4,6 +4,9 @@
 
 export default function () {
     const templatePaths = [
+        // Actor Sheets Partials (CRB-Style Tooltip)
+        'systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html',
+
         // Actor Sheets Partials (CRB-Syle Sidebar)
         'systems/pf2e/templates/actors/crb-style/sidebar/actor-armorclass.html',
         'systems/pf2e/templates/actors/crb-style/sidebar/actor-class-dc.html',
