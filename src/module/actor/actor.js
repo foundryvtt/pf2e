@@ -364,7 +364,7 @@ export default class extends Actor {
         action.criticalSuccess = flavor.criticalSuccess;
         action.success = flavor.success;
         action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack') }].concat(
-          (item?.data?.traits?.value ?? []).map((trait) => {
+          this.constructor.traits(item?.data?.traits?.value).map((trait) => {
             const key = CONFIG.weaponTraits[trait] ?? trait;
             return { name: trait, label: game.i18n.localize(key) };
           })
@@ -473,6 +473,16 @@ export default class extends Actor {
             .find((armor) => armor.data.equipped.value);
     }
 
+    static traits(source) { 
+      if (Array.isArray(source)) {
+        return source;
+      } else if (typeof source === 'string') {
+        return source.split(',').map((trait) => trait.trim());
+      } else {
+        return [];
+      }
+    }
+
     /* -------------------------------------------- */
 
   /**
@@ -491,10 +501,10 @@ export default class extends Actor {
       criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
       success: 'PF2E.Strike.Default.Success',
     };
-    if ((item?.data?.traits?.value ?? []).includes('unarmed')) {
+    if (this.constructor.traits(item?.data?.traits?.value).includes('unarmed')) {
       flavor.description = 'PF2E.Strike.Unarmed.Description';
       flavor.success = 'PF2E.Strike.Unarmed.Success';
-    } else if ((item?.data?.traits?.value ?? []).find((trait) => trait.startsWith('thrown'))) {
+    } else if (this.constructor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
       flavor.description = 'PF2E.Strike.Combined.Description';
       flavor.success = 'PF2E.Strike.Combined.Success';
     } else if (item?.data?.range?.value === 'melee') {
