@@ -31,7 +31,9 @@
 * (@overdox) Content improvements:
     * Fix for the broken icon link on Perpetual Infusions (Bomber) #461 (closed)
     * Renamed the Core Rulebook SRD compendium journal to better reflect it's content #460 (closed) The new name is now Deities.
-* (@kenster421) Added Bestiary for Extinction Curse with Xulgath-family monsters
+* (@kenster421) Added Bestiary for Extinction Curse: 
+    * Added Xulgath-family monsters
+    * Added NPCs from EC01: The Show Must Go On
 * (@putt1) Added plaguestone hazards
 
 
@@ -46,7 +48,7 @@
 * (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
 * (@nikolaj-a) Added class DC back into sidebar
 * (@nikolaj-a) Improved the initiative chat message to show the skill used when players roll for initiative.
-![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/4efb4e41dae370aa0798c6d4762d6e93/image.png "Initiative message now shows the skill rolled")
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a28bfcc03746f7dd5b92791e3ca87322/image.png "Initiative message now shows the skill rolled")
 * (@nikolaj-a) Updated save modifiers to use armor name as resiliency item bonus label
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
 * (@nikolaj-a) Added an expandable panel for strike action and outcome descriptions, as well as showing the strike traits.
