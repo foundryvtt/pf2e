@@ -59,7 +59,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
     html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
 
-    $('.hover').tooltipster({
+    html.find('.hover').tooltipster({
         animation: 'fade',
         delay: 200,
         trigger: 'click',
