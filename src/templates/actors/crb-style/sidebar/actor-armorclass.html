@@ -146,11 +146,10 @@
         </div>
     </div>
 </div>
-
+<!--
 <div class="hover-content" id="{{uid}}-ac-modifiers">
     <div class="sidebar_title">
         <h2>Armor Class</h2>
-        <!-- <a href="#">+ Add Modifier</a> -->
     </div>
     <ul>
         {{#each data.attributes.ac._modifiers as |modifier|}}
@@ -162,3 +161,7 @@
         {{/each}}
     </ul>
 </div>
+-->
+{{#with data.attributes.ac}}
+{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.ArmorClassLabel' }}
+{{/with}}
