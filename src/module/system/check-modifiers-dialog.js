@@ -1,3 +1,5 @@
+import { PF2Modifier } from '../modifiers.js';
+
 /**
  * Dialog for excluding certain modifiers before rolling a check.
  */
@@ -47,7 +49,7 @@ export class CheckModifiersDialog extends Application {
    * @param {jQuery} html
    */
   activateListeners(html) {
-    html.find('button').click((event) => {
+    html.find('.roll').click((event) => {
       CheckModifiersDialog.roll(this.check, this.callback);
       this.close();
     });
@@ -58,5 +60,38 @@ export class CheckModifiersDialog extends Application {
       this.check.applyStackingRules();
       this.render();
     });
+
+    html.find('.add-modifier-panel').on('click', '.add-modifier', (event) => this.onAddModifier(event));
+  }
+
+  /**
+   * @param {jQuery.Event} event
+   */
+  onAddModifier(event) {
+    const parent = $(event.currentTarget).parents('.add-modifier-panel');
+    const value = Number(parent.find('.add-modifier-value').val());
+    const name = parent.find('.add-modifier-name').val();
+    const type = parent.find('.add-modifier-type').val();
+    const errors = [];
+    if (Number.isNaN(value)) {
+      errors.push('Modifier value must be a number.');
+    } else if (value === 0) {
+      errors.push('Modifier value must not be zero.');
+    }
+    if (!name || !name.trim()) {
+      errors.push('Modifier name is required.');
+    }
+    if (!type || !type.trim().length) {
+      errors.push('Modifier type is required.');
+    }
+    if (!type && type === 'untyped' && value < 0) {
+      errors.push('Only untyped penalties are allowed.');
+    }
+    if (errors.length > 0) {
+      ui.notifications.error(errors.join(' '));
+    } else {
+      this.check.push(new PF2Modifier(name, value, type));
+      this.render();
+    }
   }
 }
