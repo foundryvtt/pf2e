@@ -538,7 +538,7 @@ export default class extends Item {
     if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-    let weaponDamage = (itemData.damage.dice + strikingDice) + rollDie;
+    let weaponDamage = (1 + strikingDice) + rollDie;
     parts = [weaponDamage, '@itemBonus'];
     rollData.itemBonus = bonusDamage;
 
@@ -551,7 +551,7 @@ export default class extends Item {
       partsCritOnly.push(deadlyDamage)
     } else if (critTrait === 'fatal') {
       if (critical === true) {
-        weaponDamage = itemData.damage.dice + critDie;
+        weaponDamage = (1 + strikingDice) + critDie;
         parts = [weaponDamage, '@itemBonus'];
       }
       partsCritOnly.push(1 + critDie);
