@@ -249,7 +249,7 @@ export default class extends Actor {
       });
 
       /* eslint-disable no-param-reassign */
-      data.attributes.ac = new PF2StatisticModifier("Armor Class", modifiers);
+      data.attributes.ac = new PF2StatisticModifier("ac", modifiers);
       // preserve backwards-compatibility
       data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
       data.attributes.ac.check = armorCheckPenalty;
