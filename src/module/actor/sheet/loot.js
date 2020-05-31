@@ -1,6 +1,5 @@
-import ActorSheetPF2e from './base.js';
 
-class ActorSheetPF2eLoot extends ActorSheetPF2e {
+class ActorSheetPF2eLoot extends ActorSheet {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -18,12 +17,14 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
    * @type {String}
    */
   get template() {
-    const path = 'systems/pf2e/templates/actors/';
-    if (this.actor.getFlag('pf2e', 'editLoot.value')) {
-        return `${path}loot-sheet.html`;
-    }
+    const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
+    const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
 
-    return `${path}loot-sheet-no-edit.html`;
+    const isEditable = this.actor.getFlag('pf2e', 'editLoog.value');
+
+    if (isEditable) return editableSheetPath;
+    
+    return nonEditableSheetPath;
   }
 
   /* -------------------------------------------- */
@@ -31,21 +32,24 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
   getData() {
       const sheetData = super.getData();
 
-      this._prepareTraits(sheetData.data.traits);
-
       // Process default values
+      sheetData.flags = sheetData.actor.flags;
       if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
-
+      
       return sheetData;
   }
 
   activateListeners(html) {
     super.activateListeners(html);
-    if (!this.options.editable) return;
 
-    html.find('.isLootEditable').change((ev) => {
-      this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
-    });
+    const shouldListenToEvents = this.options.editable;
+
+    if (shouldListenToEvents) {
+      html.find('.isLootEditable').change((ev) => {
+        this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
+      });
+    }
+
   }
 }
 
