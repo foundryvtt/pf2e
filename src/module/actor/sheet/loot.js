@@ -20,7 +20,7 @@ class ActorSheetPF2eLoot extends ActorSheet {
     const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
     const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
 
-    const isEditable = this.actor.getFlag('pf2e', 'editLoog.value');
+    const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
 
     if (isEditable) return editableSheetPath;
     
@@ -38,6 +38,8 @@ class ActorSheetPF2eLoot extends ActorSheet {
       
       // Precalculate some data to adapt sheet more easily
       sheetData.isShop = sheetData.data.isShop;
+
+      console.log(`Loot data: ${JSON.stringify(sheetData.data)}`);
 
       return sheetData;
   }
