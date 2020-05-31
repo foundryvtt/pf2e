@@ -46,10 +46,6 @@ class ActorSheetPF2e extends ActorSheet {
       return sheetData;
     }
 
-    if (this.actorType == "loot") {
-      return sheetData;
-    }
-
     // Update martial skill labels
     for (const [s, skl] of Object.entries(sheetData.data.martial)) {
       skl.icon = this._getProficiencyIcon(skl.rank);
