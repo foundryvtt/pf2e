@@ -284,7 +284,8 @@ export class PF2StatisticModifier {
    * @returns {PF2Modifier[]}
    */
   get modifiers() {
-    return Object.freeze(this._modifiers);
+    const copy = [].concat(this._modifiers); // shallow copy to enable freezing
+    return Object.freeze(copy);
   }
 
   /**
@@ -321,6 +322,6 @@ export class PF2CheckModifier extends PF2StatisticModifier {
    * @param {PF2Modifier[]} modifiers
    */
   constructor(name, statistic, modifiers= []) {
-    super(name, JSON.parse(JSON.stringify(statistic.modifiers)).concat(modifiers)); // deep clone
+    super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
   }
 }
