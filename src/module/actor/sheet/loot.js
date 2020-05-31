@@ -36,6 +36,9 @@ class ActorSheetPF2eLoot extends ActorSheet {
       sheetData.flags = sheetData.actor.flags;
       if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
       
+      // Precalculate some data to adapt sheet more easily
+      sheetData.isShop = sheetData.data.isShop;
+
       return sheetData;
   }
 
