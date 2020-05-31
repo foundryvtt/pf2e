@@ -88,7 +88,6 @@ export default class extends Actor {
     // custom modifiers
     data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
     for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-      (modifiers ?? []).forEach((modifier) => { modifier.custom = true; }); // temporary measure until proper migration happens
       statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers); // eslint-disable-line no-param-reassign
     }
 
@@ -374,20 +373,20 @@ export default class extends Actor {
           .join(', ');
         // amend strike with a roll property
         action.roll = (event) => {
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), event);
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), {}, event);
         };
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), {}, event)
           },
           {
             label: `MAP ${item.data.map2}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), {}, event)
           },
           {
             label: `MAP ${item.data.map3}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), {}, event)
           },
         ];
         data.actions.push(action);
@@ -429,7 +428,7 @@ export default class extends Actor {
         data.attributes.initiative.ability = initSkill;
         data.attributes.initiative.roll = (event) => {
             const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-            PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), event, (roll) => {
+            PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), {}, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };

@@ -6,20 +6,35 @@
   </div>
   <hr/>
   <div class="modifier-container">
-    {{#each modifiers as |modifier idx|}}
+    {{#each check.modifiers as |modifier idx|}}
     <div style="display: grid; grid-template-columns: 1.5fr 1.5fr 0.5fr 0.7fr; {{#unless modifier.enabled}}text-decoration: line-through; color: darkgrey;{{/unless}}">
       <span style="justify-self: start; text-transform: capitalize;">{{modifier.type}}</span>
       <span style="justify-self: start;">{{localize modifier.name}}</span>
       <span style="justify-self: center;">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-      <input type="checkbox" data-modifier-index="{{idx}}" style="justify-self: center;" {{#if modifier.ignored}}checked="checked"{{/if}}/>
+      <input type="checkbox" data-modifier-index="{{idx}}" style="justify-self: center;" {{#if modifier.ignored}}checked="checked"{{/if}}>
     </div>
     {{/each}}
   </div>
   <hr/>
   <div style="display: grid; grid-template-columns: 3fr 0.5fr 0.7fr;">
     <span style="justify-self: start; font-weight: bold;">Total Modifier:</span>
-    <span style="justify-self: center; font-weight: bold;">{{numberFormat totalModifier decimals=0 sign=true}}</span>
+    <span style="justify-self: center; font-weight: bold;">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
     <span>&nbsp;</span>
+  </div>
+  <hr/>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+    <label style="justify-self: center;">
+      <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
+      Fortune
+    </label>
+    <label style="justify-self: center;">
+      <input type="radio" name="fate" value="none"  {{#if none}}checked{{/if}}>
+      None
+    </label>
+    <label style="justify-self: center;">
+      <input type="radio" name="fate" value="misfortune" {{#if misfortune}}checked{{/if}}>
+      Misfortune
+    </label>
   </div>
   <hr/>
   <div class="add-modifier-panel">
