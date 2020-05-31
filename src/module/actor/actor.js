@@ -374,12 +374,12 @@ export default class extends Actor {
           .join(', ');
         // amend strike with a roll property
         action.roll = (event) => {
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event);
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), event);
         };
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, []), event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), event)
           },
           {
             label: `MAP ${item.data.map2}`,
@@ -433,7 +433,6 @@ export default class extends Actor {
     }
 
     _applyInitiativeRollToCombatTracker(roll) {
-
       if (roll) {
         // check that there is a combat active in this scene
         if (!game.combat) {
