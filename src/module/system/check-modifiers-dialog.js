@@ -8,9 +8,10 @@ export class CheckModifiersDialog extends Application {
 
   /**
    * @param {PF2CheckModifier} check
+   * @param {object} context
    * @param {function} callback
    */
-  constructor(check, callback) {
+  constructor(check, context, callback) {
     super({
       title: check.name,
       template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -19,22 +20,40 @@ export class CheckModifiersDialog extends Application {
       width: 380,
     });
     this.check = check;
+    this.context = context;
     this.callback = callback;
   }
 
   /**
    * @param {PF2CheckModifier} check
+   * @param {object} context
    * @param {function} callback
    */
-  static roll(check, callback) {
-    const tagStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
-    const breakdown = check.modifiers.filter((m) => m.enabled)
-      .map((m) => `<span style="${tagStyle}">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
+  static roll(check, context, callback) {
+    const options = [];
+
+    let dice = '1d20';
+    if (context && context?.fate === 'misfortune') {
+      dice = '2d20kl';
+      options.push('PF2E.TraitMisfortune');
+    } else if (context && context?.fate === 'fortune') {
+      dice = '2d20kh';
+      options.push('PF2E.TraitFortune');
+    }
+
+    const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
+    const modifierBreakdown = check.modifiers.filter((m) => m.enabled)
+      .map((m) => `<span style="${modifierStyle}">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
       .join('');
-    const roll = new Roll(`1d20 + ${check.totalModifier}`, check).roll();
+
+    const optionStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
+    const optionBreakdown = options.map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
+      .join('');
+
+    const roll = new Roll(`${dice} + ${check.totalModifier}`, check).roll();
     roll.toMessage({
       speaker: ChatMessage.getSpeaker(),
-      flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${breakdown}</div>`
+      flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`
     });
     if (callback) {
       callback(roll);
@@ -42,7 +61,15 @@ export class CheckModifiersDialog extends Application {
   }
 
   getData() {
-    return this.check;
+    const fortune = (this?.context?.fate === 'fortune');
+    const misfortune = (this?.context?.fate === 'misfortune');
+    const none = (fortune === misfortune);
+    return {
+      check: this.check,
+      fortune,
+      none,
+      misfortune,
+    };
   }
 
   /**
@@ -50,7 +77,8 @@ export class CheckModifiersDialog extends Application {
    */
   activateListeners(html) {
     html.find('.roll').click((event) => {
-      CheckModifiersDialog.roll(this.check, this.callback);
+      const fate = html.find("input[type=radio][name=fate]:checked").val();
+      CheckModifiersDialog.roll(this.check, mergeObject({ fate }, this.context), this.callback);
       this.close();
     });
 
