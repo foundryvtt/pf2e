@@ -425,7 +425,9 @@ export default class extends Actor {
         data.attributes.initiative.ability = initSkill;
         data.attributes.initiative.roll = (event) => {
             const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-            PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), event);
+            PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), event, (roll) => {
+              console.log(`Rolled initiative ${roll.total} for actor ${actorData.name}.`);
+            });
         };
     }
 
