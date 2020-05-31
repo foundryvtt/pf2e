@@ -6,8 +6,9 @@ export class CheckModifiersDialog extends Application {
 
   /**
    * @param {PF2CheckModifier} check
+   * @param {function} callback
    */
-  constructor(check) {
+  constructor(check, callback) {
     super({
       title: check.name,
       template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -16,12 +17,14 @@ export class CheckModifiersDialog extends Application {
       width: 380,
     });
     this.check = check;
+    this.callback = callback;
   }
 
   /**
    * @param {PF2CheckModifier} check
+   * @param {function} callback
    */
-  static roll(check) {
+  static roll(check, callback) {
     const tagStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
     const breakdown = check.modifiers.filter((m) => m.enabled)
       .map((m) => `<span style="${tagStyle}">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
@@ -31,6 +34,9 @@ export class CheckModifiersDialog extends Application {
       speaker: ChatMessage.getSpeaker(),
       flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${breakdown}</div>`
     });
+    if (callback) {
+      callback(roll);
+    }
   }
 
   getData() {
@@ -42,7 +48,7 @@ export class CheckModifiersDialog extends Application {
    */
   activateListeners(html) {
     html.find('button').click((event) => {
-      CheckModifiersDialog.roll(this.check);
+      CheckModifiersDialog.roll(this.check, this.callback);
       this.close();
     });
 
