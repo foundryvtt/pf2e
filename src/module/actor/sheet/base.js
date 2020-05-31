@@ -2,6 +2,7 @@ import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasur
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import {isCycle} from "../../item/container.js";
 import { isKit, addKit } from '../../item/kits.js';
+import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../../packs/spell-browser.js";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
