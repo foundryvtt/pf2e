@@ -1,16 +1,30 @@
 # Patch Notes:
-## Version 1.1.1 
+## Version 1.2.0 
 ### New Features
 * (@putt1) Implemented a way to select all fundamental runes for weapons and armors.
     * Fixes deadly dice being doubled/trippled by attacks that have no striking rune but more than one damage die
     * Migrates attack boni of 1, 2, 3 and 4 to the potency rune equivalents
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/83540ffac93f3d93e244ad971b3f86f8/image.png "Fundamental rune support")
 * (@putt1) and (@mdizo) Added an initiative selector to the side bar and automatically applies initiative circumstance bonuses for feats:
     * Incredible Initiative
     * Elven Instincts
     * Eye of Ozem
     * Harmlessly Cute
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/7007eb7aacb44242d4bd0554e674c554/image.png "Initiative support")
 * (tushycat#5011) Bestiary art for the following creatures now included as part of the system:
-    * 
+    * Goblin Pyro
+    * Goblin Warchanter
+    * Goblin Warrior
+    * Hobgoblin Archer
+    * Hobgoblin Soldier
+    * Invisible Stalker
+    * Living Hurricane
+    * Living Landslide
+    * Living Whirlwind
+    * Sod Hound
+    * Storm Lord
+    * Zephyrhawk
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a0809641f1497a789a7f7750da001738/image.png "Goblin Warrior")
 
 
 ### Content Changes
