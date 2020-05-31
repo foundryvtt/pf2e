@@ -5,6 +5,8 @@
  * @source https://github.com/syl3r86/Spell-Browser
  */
 
+import Progress from '../progress.js';
+
 class ItemBrowserPF2e extends Application {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -645,6 +647,8 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
       // feats will be stored locally to not require full loading each time the browser is opened
       this.feats = await this.loadFeats();
       this.settingsChanged = false;
+      console.log('Loaded feats');
+      this.close();
     }
 
     const data = {};
@@ -1256,20 +1260,27 @@ class PackLoader {
       this.loadedPacks[entityType] = {};
     }
 
+    // TODO: i18n for progress bar
+    const progress = new Progress({steps: packs.length});
     for (const packId of packs) {
       let data = this.loadedPacks[entityType][packId];
       if (!data) {
         const pack = game.packs.get(packId);
+        progress.advance(`Loading ${pack.metadata.label}`);
         if (pack.metadata.entity === entityType) {
           const content = await pack.getContent();
           data = this.loadedPacks[entityType][packId] = {pack, content};
         } else {
           continue;
         }
+      } else {
+        const {pack} = data;
+        progress.advance(`Loading ${pack.metadata.label}`);
       }
 
       yield data;
     }
+    progress.close('Loading complete');
   }
 }
 
