@@ -44,19 +44,22 @@ export default class extends Actor {
     if (actorData.type === 'character') this._prepareCharacterData(actorData);
     else if (actorData.type === 'npc') this._prepareNPCData(data);
 
-    // TODO: Migrate trait storage format
-    const map = {
-      dr: CONFIG.PF2E.damageTypes,
-      di: CONFIG.PF2E.damageTypes,
-      dv: CONFIG.PF2E.damageTypes,
-      ci: CONFIG.PF2E.conditionTypes,
-      languages: CONFIG.PF2E.languages,
-    };
-    for (const [t, choices] of Object.entries(map)) {
-      const trait = data.traits[t];
-      if (trait == undefined) continue;
-      if (!(trait.value instanceof Array)) {
-        trait.value = TraitSelector5e._backCompat(trait.value, choices);
+
+    if (data.traits !== undefined) {
+      // TODO: Migrate trait storage format
+      const map = {
+        dr: CONFIG.PF2E.damageTypes,
+        di: CONFIG.PF2E.damageTypes,
+        dv: CONFIG.PF2E.damageTypes,
+        ci: CONFIG.PF2E.conditionTypes,
+        languages: CONFIG.PF2E.languages,
+      };
+      for (const [t, choices] of Object.entries(map)) {
+        const trait = data.traits[t];
+        if (trait == undefined) continue;
+        if (!(trait.value instanceof Array)) {
+          trait.value = TraitSelector5e._backCompat(trait.value, choices);
+        }
       }
     }
 
