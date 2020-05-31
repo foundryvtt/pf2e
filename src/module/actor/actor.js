@@ -427,6 +427,31 @@ export default class extends Actor {
             const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
             PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), event, (roll) => {
               console.log(`Rolled initiative ${roll.total} for actor ${actorData.name}.`);
+              if (!game.combat) {
+                ui.notifications.error("No active encounters in the Combat Tracker.");
+                return;
+              }
+              //find token associated with this actor on the active canvas
+              if (canvas.tokens.placeables.length) {
+                let tokenId = '';
+                canvas.tokens.placeables.forEach(placeable => {
+                  if (placeable.data.actorId === this._id) {
+                    tokenId = placeable.id
+                  }
+                });
+                
+                // if matching token found
+                if (tokenId) {
+                  const combatant = game.combat.getCombatantByToken(tokenId);
+                  if(combatant == undefined) {
+                    ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
+                    return;
+                  }
+                  game.combat.setInitiative(combatant._id, roll.total);
+                } else {
+                  ui.notifications.error(`No token found for ${this.name} on the canvas.`);
+                }              
+              } 
             });
         };
     }
