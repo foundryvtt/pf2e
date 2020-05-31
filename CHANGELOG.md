@@ -1,4 +1,77 @@
 # Patch Notes:
+## Version 1.2.0 
+### New Features
+* (@putt1) Implemented a way to select all fundamental runes for weapons and armors.
+    * Fixes deadly dice being doubled/trippled by attacks that have no striking rune but more than one damage die
+    * Migrates attack boni of 1, 2, 3 and 4 to the potency rune equivalents
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/83540ffac93f3d93e244ad971b3f86f8/image.png "Fundamental rune support")
+
+* (@putt1 and @mdizo) Added an initiative selector to the side bar and automatically applies initiative circumstance bonuses for feats:
+    * Incredible Initiative
+    * Elven Instincts
+    * Eye of Ozem
+    * Harmlessly Cute
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/7007eb7aacb44242d4bd0554e674c554/image.png "Initiative support")
+
+* (@hooking and @nikolaj-a) Automated initiative rolls to automatically update combat tracker.
+* (tushycat#5011) Bestiary art for the following creatures now included as part of the system:
+    * Goblin Pyro
+    * Goblin Warchanter
+    * Goblin Warrior
+    * Hobgoblin Archer
+    * Hobgoblin Soldier
+    * Invisible Stalker
+    * Living Hurricane
+    * Living Landslide
+    * Living Whirlwind
+    * Sod Hound
+    * Storm Lord
+    * Zephyrhawk
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a0809641f1497a789a7f7750da001738/image.png "Goblin Warrior")
+
+
+### Content Changes
+* (@overdox) Content improvements:
+    * Fix for the broken icon link on Perpetual Infusions (Bomber) #461 (closed)
+    * Renamed the Core Rulebook SRD compendium journal to better reflect it's content #460 (closed) The new name is now Deities.
+* (@kenster421) Added Bestiary for Extinction Curse: 
+    * Added Xulgath-family monsters
+    * Added NPCs from EC01: The Show Must Go On
+* (@putt1) Added plaguestone hazards
+
+
+### Bug Fixes
+* (@mdizo) Fixed the inline CSS from properly rendering images containing () in their filenames on item sheets.
+* (@hooking) Fixed loading prepared spellcasting actors who have an invalid data saved into a spell slot.
+* (@putt1) Fixed price for sorcerer kit
+
+### Core System Improvements
+* (@nikolaj-a) Added link to show AC modifier tooltip as the AC calculation breakdown is not visible anywhere, and it can be hard to keep track of the source of all modifiers.
+* (@nikolaj-a) Added naive support for finesse on strikes, without taking into consideration conditions affecting the actor.
+* (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
+* (@nikolaj-a) Added an optional callback function parameter to the PF2Check roll and roll dialog to allow reacting to the roll result, like setting an initiative result. 
+* (@nikolaj-a) Added class DC back into sidebar
+* (@nikolaj-a) Improved the initiative chat message to show the skill used when players roll for initiative.
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a28bfcc03746f7dd5b92791e3ca87322/image.png "Initiative message now shows the skill rolled")
+* (@nikolaj-a) Updated save modifiers to use armor name as resiliency item bonus label
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
+* (@nikolaj-a) Added an expandable panel for strike action and outcome descriptions, as well as showing the strike traits.
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/03087cab175ddacb1fa9a863788fe72d/image.png "Strike expandable panel")
+* (@Noires) Changed en.json structure to be easier readable, editable and compatible with i18n editor
+* (@Noires) Significantly improved the translation support for the new character sheet
+* (@mdizo) Laid some basic foundations for future responsive design work.
+* (@abrault) Significant improvements to the compendium browsers
+    * New progress bar when compendium browser is first loading data from the compendium packs
+    * New clear filters button
+    * Optimised performance and refactored code to remove duplication and inefficiencies.
+    * Converted to an ES6 module
+* (@hooking) Removed legacy weapon damage dice selection as it has been replaced by the Striking rune feature.
+
+
+
 ## Version 1.1.0 
 ### New Features
 * (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). 
