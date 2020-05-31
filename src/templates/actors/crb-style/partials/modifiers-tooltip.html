@@ -1,0 +1,33 @@
+<div class="hover-content" id="{{uid}}-perception-modifiers">
+    <div class="sidebar_title">
+        <h2>{{localize title}}</h2>
+    </div>
+    <ul class="modifier-list">
+        {{#each _modifiers as |modifier|}}
+        <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
+            <span class="tag">
+                {{localize (add 'PF2E.ModifierType.' modifier.type)}}
+                {{#if modifier.custom}}<a class="remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}" style="margin-left: 10px;">[Remove]</a>{{/if}}
+            </span>
+            <span class="label">{{localize modifier.name}}</span>
+            <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+        </li>
+        {{/each}}
+        <li class="item add-modifier">
+            <select class="tag add-modifier-type">
+                <option value="">Pick a type</option>
+                <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
+                <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
+                <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
+                <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
+                <option value="circumstance">{{localize 'PF2E.ModifierType.circumstance'}}</option>
+                <option value="untyped">Untyped (Penalty)</option>
+            </select>
+            <span class="label">
+                <input type="text" class="add-modifier-name" placeholder="Modifier Name">
+                <span class="add-modifier-submit" data-stat="{{name}}">+ Add</span>
+            </span>
+            <input type="text" class="data add-modifier-value" placeholder="+1">
+        </li>
+    </ul>
+</div>
