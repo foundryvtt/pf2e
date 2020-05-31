@@ -433,7 +433,7 @@ export default class extends Actor {
 
     _applyInitiativeRollToCombatTracker(roll) {
 
-      if (roll && roll.total) {
+      if (roll) {
         // check that there is a combat active in this scene
         if (!game.combat) {
           ui.notifications.error("No active encounters in the Combat Tracker.");
