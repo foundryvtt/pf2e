@@ -32,18 +32,6 @@
         </select>
     </h4>
 </div>
-<div class="hover-content" id="{{uid}}-initiative-modifiers">
-    <div class="sidebar_title">
-        <h2>{{localize 'PF2E.InitiativeLabel'}}</h2>
-        <!-- <a href="#">+ Add Modifier</a> -->
-    </div>
-    <ul>
-        {{#each data.attributes.initiative._modifiers as |modifier|}}
-        <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-            <span class="tag">{{localize (add 'PF2E.ModifierType.' modifier.type)}}</span>
-            <span class="label">{{localize modifier.name}}</span>
-            <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-        </li>
-        {{/each}}
-    </ul>
-</div>
+{{#with data.attributes.initiative}}
+{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.PerceptionLabel' }}
+{{/with}}
