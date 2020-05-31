@@ -5,6 +5,8 @@
  * @source https://github.com/syl3r86/Spell-Browser
  */
 
+import Progress from '../progress.js';
+
 class ItemBrowserPF2e extends Application {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -265,6 +267,12 @@ class ItemBrowserPF2e extends Application {
     return img[action];
   }
 
+  get _loadedPacks() {
+    return Object.entries(this.settings).flatMap(([collection, {load}]) => {
+      return load ? [collection] : [];
+    });
+  }
+
   openSettings() {
     // Generate HTML for settings menu
     // Spell Browser
@@ -466,62 +474,55 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     let schoolsArr = [];
     const timeArr = [];
 
-    for (const pack of game.packs) {
-      if (pack.metadata.entity == 'Item' && this.settings[pack.collection].load) {
-        console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - Loading`);
-        await pack.getContent().then((content) => {
-          console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - ${content.length} entries found`);
-          for (let spell of content) {
-            spell = spell.data;
-            if (spell.type == 'spell') {
-              // record the pack the spell was read from
-              spell.compendium = pack.collection;
+    for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks)) {
+      console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - ${content.length} entries found`);
+      for (let spell of content) {
+        spell = spell.data;
+        if (spell.type == 'spell') {
+          // record the pack the spell was read from
+          spell.compendium = pack.collection;
 
-              // format spell level for display
-              if (spell.data.level.value === 0) spell.data.level.formated = 'C';
-              else if (spell.data.level.value === 11) spell.data.level.formated = 'F';
-              else spell.data.level.formated = spell.data.level.value;
+          // format spell level for display
+          if (spell.data.level.value === 0) spell.data.level.formated = 'C';
+          else if (spell.data.level.value === 11) spell.data.level.formated = 'F';
+          else spell.data.level.formated = spell.data.level.value;
 
-              // determining classes that can use the spell
-              const classList = Object.keys(CONFIG.PF2E.classTraits);
-              const classIntersection = classList.filter((x) => spell.data.traits.value.includes(x));
+          // determining classes that can use the spell
+          const classList = Object.keys(CONFIG.PF2E.classTraits);
+          const classIntersection = classList.filter((x) => spell.data.traits.value.includes(x));
 
-              if (classIntersection.length !== 0) {
-                if (classesArr.includes(classIntersection) === false) {
-                  classesArr.push(classIntersection);
-                }
-                spell.data.classes = { value: classIntersection };
-              }
+          if (classIntersection.length !== 0) {
+            if (classesArr.includes(classIntersection) === false) {
+              classesArr.push(classIntersection);
+            }
+            spell.data.classes = { value: classIntersection };
+          }
 
-              // recording casting times
-              if (spell.data.time.value !== undefined) {
-                let time = spell.data.time.value.toLowerCase();
-                if (time.indexOf('reaction') != -1) time = 'reaction';
-                if (time != '' && timeArr.includes(time) === false) {
-                  timeArr.push(time);
-                }
-              }
-
-              // format spell level for display
-              if (spell.data.time.value === 'reaction') spell.data.time.img = this._getActionImg('reaction');
-              else if (spell.data.time.value === 'free') spell.data.time.img = this._getActionImg('free');
-              else if (parseInt(spell.data.time.value)) spell.data.time.img = this._getActionImg(parseInt(spell.data.time.value));
-
-              // add spell to spells array
-              spells[(spell._id)] = spell;
-
-              // recording schools
-              if (spell.data.school.value !== undefined) {
-                if (schoolsArr.includes(spell.data.school.value) === false) {
-                  schoolsArr.push(spell.data.school.value);
-                }
-              }
-              spells[(spell._id)] = spell;
+          // recording casting times
+          if (spell.data.time.value !== undefined) {
+            let time = spell.data.time.value.toLowerCase();
+            if (time.indexOf('reaction') != -1) time = 'reaction';
+            if (time != '' && timeArr.includes(time) === false) {
+              timeArr.push(time);
             }
           }
 
-          console.log(`PF2e System | Spell Browser | ${pack.metadata.label} - Loaded`);
-        });
+          // format spell level for display
+          if (spell.data.time.value === 'reaction') spell.data.time.img = this._getActionImg('reaction');
+          else if (spell.data.time.value === 'free') spell.data.time.img = this._getActionImg('free');
+          else if (parseInt(spell.data.time.value)) spell.data.time.img = this._getActionImg(parseInt(spell.data.time.value));
+
+          // add spell to spells array
+          spells[(spell._id)] = spell;
+
+          // recording schools
+          if (spell.data.school.value !== undefined) {
+            if (schoolsArr.includes(spell.data.school.value) === false) {
+              schoolsArr.push(spell.data.school.value);
+            }
+          }
+          spells[(spell._id)] = spell;
+        }
       }
     }
     if (unfoundSpells !== '') {
@@ -646,6 +647,8 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
       // feats will be stored locally to not require full loading each time the browser is opened
       this.feats = await this.loadFeats();
       this.settingsChanged = false;
+      console.log('Loaded feats');
+      this.close();
     }
 
     const data = {};
@@ -668,89 +671,83 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     let ancestryArr = [];
     const timeArr = [];
 
-    for (const pack of game.packs) {
-      if (pack.metadata.entity == 'Item' && this.settings[pack.collection].load) {
-        console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - Loading`);
-        await pack.getContent().then((content) => {
-          console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - ${content.length} entries found`);
-          for (let feat of content) {
-            feat = feat.data;
-            if (feat.type == 'feat') {
-              // record the pack the feat was read from
-              feat.compendium = pack.collection;
+    for await(const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks)) {
+      console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - ${content.length} entries found`);
+      for (let feat of content) {
+        feat = feat.data;
+        if (feat.type == 'feat') {
+          // record the pack the feat was read from
+          feat.compendium = pack.collection;
 
-              // determining attributes from traits
-              if (feat.data.traits.value) {
-                // determine class feats
-                const classList = Object.keys(CONFIG.PF2E.classTraits);
-                const classIntersection = classList.filter((x) => feat.data.traits.value.includes(x));
+          // determining attributes from traits
+          if (feat.data.traits.value) {
+            // determine class feats
+            const classList = Object.keys(CONFIG.PF2E.classTraits);
+            const classIntersection = classList.filter((x) => feat.data.traits.value.includes(x));
 
-                if (classIntersection.length !== 0) {
-                  if (classesArr.includes(classIntersection) === false) {
-                    classesArr.push(classIntersection);
-                  }
-                  feat.data.classes = { value: classIntersection };
+            if (classIntersection.length !== 0) {
+              if (classesArr.includes(classIntersection) === false) {
+                classesArr.push(classIntersection);
+              }
+              feat.data.classes = { value: classIntersection };
+            }
+
+            if (feat.data.featType.value === 'ancestry') {
+              const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
+              const ancestryIntersection = ancestryList.filter((x) => feat.data.traits.value.includes(x));
+
+              if (ancestryIntersection.length !== 0) {
+                if (ancestryArr.includes(ancestryIntersection) === false) {
+                  ancestryArr.push(ancestryIntersection);
                 }
-
-                if (feat.data.featType.value === 'ancestry') {
-                  const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
-                  const ancestryIntersection = ancestryList.filter((x) => feat.data.traits.value.includes(x));
-
-                  if (ancestryIntersection.length !== 0) {
-                    if (ancestryArr.includes(ancestryIntersection) === false) {
-                      ancestryArr.push(ancestryIntersection);
-                    }
-                    feat.data.ancestry = { value: ancestryIntersection };
-                  }
-                }
+                feat.data.ancestry = { value: ancestryIntersection };
               }
-
-              // determine skill feats
-              if (feat.data.featType.value === 'skill') {
-                const skillList = Object.keys(CONFIG.PF2E.skillList);
-                let prerequisitesArr = feat.data.prerequisites.value.split(' ');
-
-                prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
-
-                const skillIntersection = skillList.filter((x) => prerequisitesArr.includes(x));
-
-                if (skillIntersection.length !== 0) {
-                  if (skillsArr.includes(skillIntersection) === false) {
-                    skillsArr.push(skillIntersection);
-                  }
-                  feat.data.skills = { value: skillIntersection };
-                }
-              }
-
-              // format spell level for display
-              feat.data.level.formated = parseInt(feat.data.level.value);
-
-              // format spell level for display
-              let time = '';
-              if (feat.data.actionType.value === 'reaction') {
-                feat.data.actionType.img = this._getActionImg('reaction');
-                time = 'reaction';
-              } else if (feat.data.actionType.value === 'free') {
-                feat.data.actionType.img = this._getActionImg('free');
-                time = 'free';
-              } else if (feat.data.actionType.value === 'passive') {
-                feat.data.actionType.img = this._getActionImg('passive');
-                time = 'passive';
-              } else if (parseInt(feat.data.actions.value)) {
-                feat.data.actionType.img = this._getActionImg(parseInt(feat.data.actions.value));
-                time = feat.data.actions.value.toLowerCase();
-              }
-              if (time != '' && timeArr.includes(time) === false) {
-                timeArr.push(time);
-              }
-
-
-              // add spell to spells array
-              feats[(feat._id)] = feat;
             }
           }
-          console.log(`PF2e System | Feat Browser | ${pack.metadata.label} - Loaded`);
-        });
+
+          // determine skill feats
+          if (feat.data.featType.value === 'skill') {
+            const skillList = Object.keys(CONFIG.PF2E.skillList);
+            let prerequisitesArr = feat.data.prerequisites.value.split(' ');
+
+            prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
+
+            const skillIntersection = skillList.filter((x) => prerequisitesArr.includes(x));
+
+            if (skillIntersection.length !== 0) {
+              if (skillsArr.includes(skillIntersection) === false) {
+                skillsArr.push(skillIntersection);
+              }
+              feat.data.skills = { value: skillIntersection };
+            }
+          }
+
+          // format spell level for display
+          feat.data.level.formated = parseInt(feat.data.level.value);
+
+          // format spell level for display
+          let time = '';
+          if (feat.data.actionType.value === 'reaction') {
+            feat.data.actionType.img = this._getActionImg('reaction');
+            time = 'reaction';
+          } else if (feat.data.actionType.value === 'free') {
+            feat.data.actionType.img = this._getActionImg('free');
+            time = 'free';
+          } else if (feat.data.actionType.value === 'passive') {
+            feat.data.actionType.img = this._getActionImg('passive');
+            time = 'passive';
+          } else if (parseInt(feat.data.actions.value)) {
+            feat.data.actionType.img = this._getActionImg(parseInt(feat.data.actions.value));
+            time = feat.data.actions.value.toLowerCase();
+          }
+          if (time != '' && timeArr.includes(time) === false) {
+            timeArr.push(time);
+          }
+
+
+          // add spell to spells array
+          feats[(feat._id)] = feat;
+        }
       }
     }
 
@@ -784,7 +781,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     options.classes = options.classes.concat('spell-browser-window');
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/inventory-browser.html';
-    options.title = 'Add an Inventory Item';
+    options.title = 'Add Equipment';
     options.width = 800;
     options.height = 700;
     return options;
@@ -847,7 +844,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
   hookCompendiumList() {
     Hooks.on('renderCompendiumDirectory', (app, html, data) => {
       // Inventory Browser Buttons
-      const inventoryImportButton = $(`<button class="inventory-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Inventory Browser</button>`);
+      const inventoryImportButton = $(`<button class="inventory-browser-btn" style="max-width: ${game.user.isGM ? '84' : '96'}%;"><i class="fas fa-fire"></i> Equipment Browser</button>`);
       // const featSettingsButton = $('<button class="feat-browser-settings-btn" style="max-width: 10%;"><i class="fas fa-cog" title="Right click to reset settings."></i></button>');
 
       if (game.user.isGM) {
@@ -915,26 +912,20 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       'backpack',
     ];
 
-    for (const pack of game.packs) {
-      if (pack.metadata.entity == 'Item' && this.settings[pack.collection].load) {
-        console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - Loading`);
-        await pack.getContent().then((content) => {
-          console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - ${content.length} entries found`);
-          for (let item of content) {
-            item = item.data;
-            if (itemTypes.includes(item.type)) {
-              // record the pack the feat was read from
-              item.compendium = pack.collection;
+    for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks)) {
+      console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - ${content.length} entries found`);
+      for (let item of content) {
+        item = item.data;
+        if (itemTypes.includes(item.type)) {
+          // record the pack the feat was read from
+          item.compendium = pack.collection;
 
-              // add item.type into the correct format for filtering
-              item.data.itemTypes = { value: item.type };
+          // add item.type into the correct format for filtering
+          item.data.itemTypes = { value: item.type };
 
-              // add spell to spells array
-              inventoryItems[(item._id)] = item;
-            }
-          }
-          console.log(`PF2e System | Inventory Browser | ${pack.metadata.label} - Loaded`);
-        });
+          // add spell to spells array
+          inventoryItems[(item._id)] = item;
+        }
       }
     }
     console.log('PF2e System | Inventory Browser | Finished loading inventory items');
@@ -1072,54 +1063,49 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     const traitsArr = [];
     const sourceArr = [];
 
-    for (const pack of game.packs) {
-      if (pack.metadata.entity == 'Actor' && this.settings[pack.collection].load) {
-        console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loading`);
-        await pack.getContent().then((content) => {
-          console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - ${content.length} entries found`);
-          for (let actor of content) {
-            actor = actor.data;
-            if (actor.type === "npc") {
-              // record the pack the feat was read from
-              actor.compendium = pack.collection;
-              actor["filters"] = {};
+    for await(const {pack, content} of packLoader.loadPacks('Actor', this._loadedPacks)) {
+      console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - ${content.length} entries found`);
+      for (let actor of content) {
+        actor = actor.data;
+        if (actor.type === "npc") {
+          // record the pack the feat was read from
+          actor.compendium = pack.collection;
+          actor["filters"] = {};
 
-              actor.filters["level"] = actor.data.details.level.value;
-              actor.filters["traits"] = actor.data.traits.traits.value;
-              actor.filters["alignment"] = actor.data.details.alignment.value;
-              actor.filters["actorSize"] = actor.data.traits.size.value;
+          actor.filters["level"] = actor.data.details.level.value;
+          actor.filters["traits"] = actor.data.traits.traits.value;
+          actor.filters["alignment"] = actor.data.details.alignment.value;
+          actor.filters["actorSize"] = actor.data.traits.size.value;
 
-              // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
-              if (actor.data.details.source && actor.data.details.source.value) {
-                let actorSource = actor.data.details.source.value;
-                  if (actorSource.includes('pg.')) {
-                    actor.filters["source"] = actorSource.split('pg.')[0].trim();
-                  } else if (actorSource.includes('page.')) {
-                    actor.filters["source"] = actorSource.split('page.')[0].trim();
-                  } else {
-                    actor.filters["source"] = actorSource
-                  }
-              }
-
-
-              // add the source to the filter list.
-              if (actor.filters.source) {
-                if (!sourceArr.includes(actor.filters.source)) sourceArr.push(actor.filters.source);
-              }
-
-              if (actor.data.traits.traits.value.length) {
-                actor.data.traits.traits.value.forEach(trait => {
-                  if (!traitsArr.includes(trait)) traitsArr.push(trait);
-                })
-              }
-
-              // add actor to bestiaryActors object
-              bestiaryActors[actor._id] = actor
+          // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
+          if (actor.data.details.source && actor.data.details.source.value) {
+            let actorSource = actor.data.details.source.value;
+            if (actorSource.includes('pg.')) {
+              actor.filters["source"] = actorSource.split('pg.')[0].trim();
+            } else if (actorSource.includes('page.')) {
+              actor.filters["source"] = actorSource.split('page.')[0].trim();
+            } else {
+              actor.filters["source"] = actorSource
             }
           }
-          console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
-        });
+
+
+          // add the source to the filter list.
+          if (actor.filters.source) {
+            if (!sourceArr.includes(actor.filters.source)) sourceArr.push(actor.filters.source);
+          }
+
+          if (actor.data.traits.traits.value.length) {
+            actor.data.traits.traits.value.forEach(trait => {
+              if (!traitsArr.includes(trait)) traitsArr.push(trait);
+            })
+          }
+
+          // add actor to bestiaryActors object
+          bestiaryActors[actor._id] = actor
+        }
       }
+      console.log(`PF2e System | Bestiary Browser | ${pack.metadata.label} - Loaded`);
     }
 
     this.traits = traitsArr.sort();
@@ -1242,23 +1228,17 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
     const actions = {};
     const timeArr = [];
 
-    for (const pack of game.packs) {
-      if (pack.metadata.entity == 'Item' && this.settings[pack.collection].load) {
-        console.log(`PF2e System | Action Browser | ${pack.metadata.label} - Loading`);
-        await pack.getContent().then((content) => {
-          console.log(`PF2e System | Action Browser | ${pack.metadata.label} - ${content.length} entries found`);
-          for (let action of content) {
-            action = action.data;
-            if (action.type == 'action') {
-              // update icons for any passive actions
-              if (action.data.actionType.value === 'passive') action.img = this._getActionImg('passive');
-              // record the pack the feat was read from
-              action.compendium = pack.collection;
-              actions[(action._id)] = action;
-            }
-          }
-          console.log(`PF2e System | Action Browser | ${pack.metadata.label} - Loaded`);
-        });
+    for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks)) {
+      console.log(`PF2e System | Action Browser | ${pack.metadata.label} - Loading`);
+      for (let action of content) {
+        action = action.data;
+        if (action.type == 'action') {
+          // update icons for any passive actions
+          if (action.data.actionType.value === 'passive') action.img = this._getActionImg('passive');
+          // record the pack the feat was read from
+          action.compendium = pack.collection;
+          actions[(action._id)] = action;
+        }
       }
     }
 
@@ -1267,9 +1247,47 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
   }
 }
 
+class PackLoader {
+  constructor() {
+    this.loadedPacks = {
+      Actor: {},
+      Item: {},
+    }
+  }
 
-let spellBrowser = new SpellBrowserPF2e();
-let featBrowser = new FeatBrowserPF2e();
-let inventoryBrowser = new InventoryBrowserPF2e();
-let bestiaryBrowser = new BestiaryBrowserPF2e();
-let actionBrowser = new ActionBrowserPF2e();
+  async *loadPacks(entityType, packs) {
+    if (!this.loadedPacks[entityType]) {
+      this.loadedPacks[entityType] = {};
+    }
+
+    // TODO: i18n for progress bar
+    const progress = new Progress({steps: packs.length});
+    for (const packId of packs) {
+      let data = this.loadedPacks[entityType][packId];
+      if (!data) {
+        const pack = game.packs.get(packId);
+        progress.advance(`Loading ${pack.metadata.label}`);
+        if (pack.metadata.entity === entityType) {
+          const content = await pack.getContent();
+          data = this.loadedPacks[entityType][packId] = {pack, content};
+        } else {
+          continue;
+        }
+      } else {
+        const {pack} = data;
+        progress.advance(`Loading ${pack.metadata.label}`);
+      }
+
+      yield data;
+    }
+    progress.close('Loading complete');
+  }
+}
+
+
+const packLoader = new PackLoader();
+export const spellBrowser = new SpellBrowserPF2e();
+export const featBrowser = new FeatBrowserPF2e();
+export const inventoryBrowser = new InventoryBrowserPF2e();
+export const bestiaryBrowser = new BestiaryBrowserPF2e();
+export const actionBrowser = new ActionBrowserPF2e();
