@@ -46,6 +46,7 @@
 * (@nikolaj-a) Added link to show AC modifier tooltip as the AC calculation breakdown is not visible anywhere, and it can be hard to keep track of the source of all modifiers.
 * (@nikolaj-a) Added naive support for finesse on strikes, without taking into consideration conditions affecting the actor.
 * (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
+* (@nikolaj-a) Added an optional callback function parameter to the PF2Check roll and roll dialog to allow reacting to the roll result, like setting an initiative result. 
 * (@nikolaj-a) Added class DC back into sidebar
 * (@nikolaj-a) Improved the initiative chat message to show the skill used when players roll for initiative.
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a28bfcc03746f7dd5b92791e3ca87322/image.png "Initiative message now shows the skill rolled")
@@ -61,6 +62,7 @@
     * New clear filters button
     * Optimised performance and refactored code to remove duplication and inefficiencies.
     * Converted to an ES6 module
+* (@hooking) Removed legacy weapon damage dice selection as it has been replaced by the Striking rune feature.
 
 
 
