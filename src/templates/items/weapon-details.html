@@ -133,19 +133,19 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponDamageLabel"}}</label>
-    <div class="details-container">
-        <select name="data.damage.dice" data-dtype="Number">
+    <div class=".details-container-two-columns">
+        <!-- <select name="data.damage.dice" data-dtype="Number">
             {{#select data.damage.dice}}
             {{#each damageDice as |name type|}}
             <option value="{{type}}">{{name}}</option>
             {{/each}}
             {{/select}}
-        </select>
+        </select> -->
         <select name="data.damage.die" data-dtype="String">
             {{#select data.damage.die}}
             <option value=""></option>
             {{#each damageDie as |name type|}}
-            <option value="{{type}}">{{name}}</option>
+            <option value="{{type}}">1{{name}}</option>
             {{/each}}
             {{/select}}
         </select>
