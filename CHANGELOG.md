@@ -1,4 +1,28 @@
 # Patch Notes:
+## Version 1.3.0 
+### New Features
+* (@nicolaj-a) Added functionality to add/remove modifiers for AC and Perception in the modifiers tooltip
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/8e2f2ba292b358e1e5a2cc98972a499a/image.png "Edit Modifier")
+
+* (@nicolaj-a) Added an option to apply additional modifiers to a specific check before rolling the dice (only works for new roll dialog currently used for Strike actions).
+
+
+### Content Changes
+
+
+### Bug Fixes
+* (@abrault) Limit the scope of the Tooltipster module to the new actor sheet (it was global previously)
+* (@putt1) Fixed issue with focus points making them visible and clickable again
+* (@nicolaj-a) Ensure that the older trait format is better supported preventing player character sheets from opening.
+
+
+### Core System Improvements
+* (@nicolaj-a) Changed behaviour of clicking a Strike action to only trigger the strike description expansion to only trigger when clicking the strike action name.
+* (@nicolaj-a) Added Battlefield Surveyor fighter class feature to the temporary automation for initiative modifiers.
+* (@nicolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
+
+
 ## Version 1.2.0 
 ### New Features
 * (@putt1) Implemented a way to select all fundamental runes for weapons and armors.
