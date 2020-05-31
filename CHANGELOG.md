@@ -45,6 +45,8 @@
 * (@nikolaj-a) Added naive support for finesse on strikes, without taking into consideration conditions affecting the actor.
 * (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
 * (@nikolaj-a) Added class DC back into sidebar
+* (@nikolaj-a) Improved the initiative chat message to show the skill used when players roll for initiative.
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/4efb4e41dae370aa0798c6d4762d6e93/image.png "Initiative message now shows the skill rolled")
 * (@nikolaj-a) Updated save modifiers to use armor name as resiliency item bonus label
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
 * (@nikolaj-a) Added an expandable panel for strike action and outcome descriptions, as well as showing the strike traits.
@@ -53,6 +55,10 @@
 * (@Noires) Significantly improved the translation support for the new character sheet
 * (@mdizo) Laid some basic foundations for future responsive design work.
 * (@abrault) Significant improvements to the compendium browsers
+    * New progress bar when compendium browser is first loading data from the compendium packs
+    * New clear filters button
+    * Optimised performance and refactored code to remove duplication and inefficiencies.
+    * Converted to an ES6 module
 
 
 
