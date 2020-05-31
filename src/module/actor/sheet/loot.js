@@ -1,5 +1,6 @@
 import {calculateWealth} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
+import { inventoryBrowser } from "../../packs/spell-browser.js";
 
 class ActorSheetPF2eLoot extends ActorSheet {
     static get defaultOptions() {
@@ -45,9 +46,6 @@ class ActorSheetPF2eLoot extends ActorSheet {
         
         this._prepareItems(sheetData.actor);
         
-        console.log(`Loot data: ${JSON.stringify(sheetData.data)}`);
-        console.log(`Treasure: ${JSON.stringify(sheetData.totalTreasure)}`);
-        
         return sheetData;
     }
     
@@ -73,8 +71,6 @@ class ActorSheetPF2eLoot extends ActorSheet {
             item.wieldedTwoHanded = (item.type === 'weapon') && (item.data.hands || {}).value;
             
             inventory[type].items.push(item);
-            
-            console.log(`Assigning item ${item.name} to ${type}`);
         }
         
         actorData.inventory = inventory;
@@ -91,19 +87,14 @@ class ActorSheetPF2eLoot extends ActorSheet {
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });
+            html.find('.add-coins-popup button').click(event => this._onAddCoinsPopup(event));
+            html.find('.item-increase-quantity').click(event => this._onIncreaseItemQuantity(event));
+            html.find('.item-decrease-quantity').click(event => this._onDecreaseItemQuantity(event));
+            html.find('.item-delete').click(event => this._onDeleteItem(event));
+            html.find('.item-create').click(event => this._onCreateItem(event));
+            html.find('.inventory-browse').click(event => this._onBrowseItems(event));
+            html.find('.item-edit').click(event => this._onEditItem(event));
         }
-        
-        // Add coins button
-        html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
-        
-        // Increase Item Quantity
-        html.find('.item-increase-quantity').click((event) => this._onIncreaseItemQuantity(event));
-        
-        // Decrease Item Quantity
-        html.find('.item-decrease-quantity').click((event) => this._onDecreaseItemQuantity(event));
-        
-        // Delete Inventory Item
-        html.find('.item-delete').click(ev => this._onDeleteItem(ev));
     }
     
     _onAddCoinsPopup(event) {
@@ -116,7 +107,7 @@ class ActorSheetPF2eLoot extends ActorSheet {
         const item = this.actor.getOwnedItem(itemId).data;
         this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) + 1 });
     }
-
+    
     _onDecreaseItemQuantity(event) {
         const li = $(event.currentTarget).parents('.item');
         const itemId = li.attr('data-item-id');
@@ -152,6 +143,26 @@ class ActorSheetPF2eLoot extends ActorSheet {
                 default: 'Yes',
             }).render(true);
         });
+    }
+    
+    _onCreateItem(event) {
+        event.preventDefault();
+        const header = event.currentTarget;
+        const data = duplicate(header.dataset);
+        data.name = `New ${data.type.capitalize()}`;
+        this.actor.createEmbeddedEntity('OwnedItem', data);
+    }
+    
+    _onEditItem(event) {
+        const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+        const Item = CONFIG.Item.entityClass;
+        const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+        
+        item.sheet.render(true);
+    }
+    
+    _onBrowseItems(event) {
+        inventoryBrowser.render(true)
     }
 }
 
