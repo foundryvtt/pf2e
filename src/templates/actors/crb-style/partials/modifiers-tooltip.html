@@ -7,10 +7,10 @@
         <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
             <span class="tag">
                 {{localize (add 'PF2E.ModifierType.' modifier.type)}}
-                {{#if modifier.custom}}<a class="remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}" style="margin-left: 10px;">[ Remove ]</a>{{/if}}
             </span>
             <span class="label">{{localize modifier.name}}</span>
             <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+            {{#if modifier.custom}}<i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}"></i>{{/if}}
         </li>
         {{/each}}
         <li class="item add-modifier">
