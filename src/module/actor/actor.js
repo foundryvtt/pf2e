@@ -385,20 +385,20 @@ export default class extends Actor {
           .join(', ');
         // amend strike with a roll property
         action.roll = (event) => {
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), {}, event);
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { type: 'attack-roll' }, event);
         };
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), {}, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { type: 'attack-roll' }, event)
           },
           {
             label: `MAP ${item.data.map2}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), {}, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
           },
           {
             label: `MAP ${item.data.map3}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), {}, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
           },
         ];
         data.actions.push(action);
@@ -441,7 +441,7 @@ export default class extends Actor {
         data.attributes.initiative.ability = initSkill;
         data.attributes.initiative.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         data.attributes.initiative.roll = (event) => {
-            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), {}, event, (roll) => {
+            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { type: 'initiative' }, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };
