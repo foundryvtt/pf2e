@@ -413,10 +413,22 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
 
     // Inventory encumbrance
+    // FIXME: this is hard coded for now
+    const featNames = new Set(actorData.items
+      .filter(item => item.type === 'feat')
+      .map(item => item.name));
+
+    let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
+    let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
+    if (featNames.has('Hefty Hauler')) {
+      bonusEncumbranceBulk += 2;
+      bonusLimitBulk += 2;
+    }
     const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
-      actorData.data.attributes.bonusbulk,
+       bonusEncumbranceBulk,
+       bonusLimitBulk,
       bulk
     );
   }

@@ -165,6 +165,10 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             migrateActorItems(actor, updateData, addWeaponPotencyRune);
         }
         
+        if (worldSchemaVersion < 0.583) {
+          migrateActorBonusBulk(actor, updateData);
+        }
+        
     }
     return updateData;
 };
@@ -424,6 +428,11 @@ function _migrateActorOtherSpeeds(actor, updateData) {
     if (typeof actor.data?.attributes?.speed?.otherSpeeds !== 'array') {
         updateData['data.attributes.speed.otherSpeeds'] = [];
     }
+}
+
+function migrateActorBonusBulk(actor, updateData) {
+    updateData['data.attributes.bonusLimitBulk'] = actor.data.attributes.bonusbulk || 0;
+    updateData['data.attributes.bonusEncumbranceBulk'] = actor.data.attributes.bonusbulk || 0;
 }
 
 function _migrateHitPointData(actor, updateData) {
