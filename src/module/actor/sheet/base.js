@@ -567,7 +567,11 @@ class ActorSheetPF2e extends ActorSheet {
     // Roll Skill Checks
     html.find('.skill-name.rollable').click((ev) => {
       const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
-      this.actor.rollSkill(ev, skl);
+      if (this.actor.data.data.skills[skl]?.roll) {
+        this.actor.data.data.skills[skl].roll(ev);
+      } else {
+        this.actor.rollSkill(ev, skl);
+      }
     });
 
     // Roll Recovery Flat Check when Dying
