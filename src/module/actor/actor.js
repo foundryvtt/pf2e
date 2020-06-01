@@ -424,11 +424,12 @@ export default class extends Actor {
                 .forEach((m) => initModifiers.push(m));
         });
         const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+        const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
         data.attributes.initiative = new PF2CheckModifier('initiative', initValues, initModifiers);
         data.attributes.initiative.ability = initSkill;
+        data.attributes.initiative.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         data.attributes.initiative.roll = (event) => {
-            const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-            PF2Check.roll(new PF2CheckModifier(`Initiative: ${skillName}`, data.attributes.initiative), {}, event, (roll) => {
+            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), {}, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };
