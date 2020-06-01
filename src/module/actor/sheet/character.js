@@ -424,6 +424,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       bonusEncumbranceBulk += 2;
       bonusLimitBulk += 2;
     }
+    const equippedLiftingBelt = actorData.items
+      .find(item => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
+    if (equippedLiftingBelt) {
+      bonusEncumbranceBulk += 1;
+      bonusLimitBulk += 1;
+    }
     const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
