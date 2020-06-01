@@ -155,6 +155,10 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
+      updated.roll = (event) => {
+        const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
+        PF2Check.roll(new PF2CheckModifier(label, updated), { type: 'saving-throw' }, event);
+      };
       data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
     }
 
