@@ -250,6 +250,7 @@ CONFIG.weaknessTypes = {
   poison: 'PF2E.DamageTypePoison',
   positive: 'PF2E.DamageTypePositive',
   bleed: 'PF2E.DamageTypeBleed',
+  light: 'PF2E.DamageTypeLight',
   mental: 'PF2E.DamageTypeMental',
   precision: 'PF2E.DamageTypePrecision',
   slashing: 'PF2E.DamageTypeSlashing',
