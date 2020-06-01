@@ -1,0 +1,41 @@
+<div class="tab inventory" data-group="primary">
+    <ol class="currency">
+        {{#each totalTreasure as |value denomination|}}
+        <li class="denomination {{denomination}}">
+            <label>{{value.label}}:</label>
+            <span>{{value.value}}<span>
+        </li>
+        {{/each}}
+        <li class="add-coins-popup" title="{{localize 'PF2E.AddCoinsTitle'}}">
+            <button type="button">+</button>
+        </li>
+    </ol>
+
+    <ol class="inventory-list directory-list inventory-pane">
+    {{#each actor.inventory as |section sid|}}
+        <li class="item inventory-header">
+            <h3 class="item-name">{{section.label}}</h3>
+            <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+            <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+            {{#if ../owner}}
+            <div class="item-controls" style="display: flex">
+                <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+                <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-type="{{sid}}"><i class="fas fa-search"></i></a>
+            </div>
+            {{/if}}
+        </li>
+        {{#each section.items as |item itemId|}}
+            {{#if item.isNotInContainer}}
+                {{> systems/pf2e/templates/actors/tabs/item-line.html item=item owner=../../owner level=1}}                            
+            {{/if}}
+        {{/each}}
+    {{/each}}
+    </ol>
+
+    {{#with data.attributes.encumbrance}}
+    <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
+        <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
+        <span class="encumbrance-label">{{bulk}} / {{encumberedAt}} ({{limit}})</span>
+    </div>
+    {{/with}}
+</div>

@@ -1,0 +1,24 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <header class="sheet-header">
+        <h1 class="charname">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.loot.LootNamePlaceholder'}}"/>
+        </h1>
+        <div class="editsheet">
+            <label>{{localize "PF2E.loot.EditLootLabel"}}</label><input class="isLootEditable" name="flags.pf2e.editLoot.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editLoot.value}}/>
+        </div>
+        <div class="editsheet">
+            <label>{{localize "PF2E.loot.IsShopLabel"}}</label><input class="isShop" name="data.isShop" type="checkbox" data-dtype="Boolean" {{checked data.isShop}}/>
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <section class="sheet-sidebar sidebar">
+        <p>This is edit mode!</p>
+        <div class="bio-item trait-size pf-container">
+            <label class="pf-title">{{localize 'PF2E.ImageLabel'}}</label>
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%" data-edit="img"/>
+        </div>
+    </section>
+    <!------------->
+</form>
