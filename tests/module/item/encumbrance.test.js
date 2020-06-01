@@ -3,16 +3,16 @@ import { calculateEncumbrance } from '../../../src/module/item/encumbrance.js';
 
 describe('should calculate encumbrance', () => {
     test('light bulk is ignored', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 5, light: 9}));
+        const encumbrance = calculateEncumbrance(9, 2, 1, new Bulk({normal: 5, light: 9}));
 
         expect(encumbrance.encumberedAt)
-            .toBe(15);
+            .toBe(16);
         expect(encumbrance.limit)
             .toBe(20);
         expect(encumbrance.bulk)
             .toBe(5);
         expect(encumbrance.encumberedPercentage)
-            .toBe(36);
+            .toBe(34);
         expect(encumbrance.isEncumbered)
             .toBe(false);
         expect(encumbrance.limitPercentage)
@@ -22,7 +22,7 @@ describe('should calculate encumbrance', () => {
     });
 
     test('is encumbered', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 16}));
+        const encumbrance = calculateEncumbrance(9, 1, 1, new Bulk({normal: 16}));
 
         expect(encumbrance.encumberedAt)
             .toBe(15);
@@ -43,7 +43,7 @@ describe('should calculate encumbrance', () => {
     });
 
     test('is over limit', () => {
-        const encumbrance = calculateEncumbrance(9, 1, new Bulk({normal: 21}));
+        const encumbrance = calculateEncumbrance(9, 1, 1, new Bulk({normal: 21}));
 
         expect(encumbrance.encumberedAt)
             .toBe(15);
