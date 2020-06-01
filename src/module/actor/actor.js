@@ -191,6 +191,10 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       data.attributes.perception.value = data.attributes.perception.totalModifier;
+      data.attributes.perception.roll = (event) => {
+        const label = game.i18n.localize('PF2E.PerceptionCheck');
+        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { type: 'perception-check' }, event);
+      };
       /* eslint-enable */
     }
 
