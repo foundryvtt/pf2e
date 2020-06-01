@@ -170,8 +170,8 @@ class PF2eStatusEffects {
     /**
      * Add status effects to a token
      */
-    static async setStatus(token, args = []) {
-        for (const status of Object.values(args)) {
+    static async setStatus(token, effects = []) {
+        for (const status of Object.values(effects)) {
             const statusName = status.name;
             const value = status.value;
 
