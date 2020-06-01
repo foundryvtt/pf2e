@@ -22,27 +22,12 @@
                             <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
                             <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                         <div class="hover-container">
-                            <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.label}}-modifier">{{localize 'PF2E.ModifiersTitle'}}</h6>
+                            <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.name}}-modifiers">{{localize 'PF2E.ModifiersTitle'}}</h6>
                         </div>
                     </div>
-
-                    <div class="hover-content" id="{{../uid}}-{{skill.label}}-modifier">
-                            <div class="sidebar_title">
-                                <h2>{{skill.label}}</h2>
-                                <!-- <a href="#">+ Add Modifier</a> -->
-                            </div>
-                            <ul>
-                                {{#each skill._modifiers as |modifier|}}
-                                <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-                                    <span class="tag">{{localize (add 'PF2E.ModifierType.' modifier.type)}}</span>
-                                    <span class="label">{{localize modifier.name}}</span>
-                                    <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-                                </li>
-                                {{/each}}
-                            </ul>
-                    </div>
-            
-
+                    {{#with skill}}
+                    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
+                    {{/with}}
                 </li>
             {{/each}}
         </ol>
