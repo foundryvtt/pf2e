@@ -1,7 +1,7 @@
 # Patch Notes:
 ## Version 1.3.0 
 ### New Features
-* (@nicolaj-a) Added functionality to add/remove modifiers for AC, Saving Throw and Perception in the modifiers tooltip
+* (@nicolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
 
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/8e2f2ba292b358e1e5a2cc98972a499a/image.png "Edit Modifier")
 
