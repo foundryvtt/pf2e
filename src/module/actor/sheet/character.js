@@ -446,7 +446,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         actorData.data.attributes.shieldBroken = false;
     } else {
         actorData.data.attributes.shield = duplicate(equippedShield.data)
-        actorData.data.attributes.shieldBroken = equippedShield.data.hp.value < equippedShield.data.brokenThreshold.value;
+        actorData.data.attributes.shieldBroken = equippedShield?.data?.hp?.value < equippedShield?.data?.brokenThreshold?.value;
     }
 
     // Inventory encumbrance
