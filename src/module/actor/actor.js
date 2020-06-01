@@ -304,6 +304,10 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
+      updated.roll = (event) => {
+        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
+        PF2Check.roll(new PF2CheckModifier(label, updated), { type: 'skill-check' }, event);
+      };
       data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
     }
 
