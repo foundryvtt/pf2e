@@ -86,7 +86,7 @@ CONFIG.preciousMaterials = {
     coldIron: "PF2E.PreciousMaterialColdIron",
     silver: "PF2E.PreciousMaterialSilver",
     mithral: "PF2E.PreciousMaterialMithral",
-    adamantine: "PF2E.PreciousMaterialAdamantite",
+    adamantine: "PF2E.PreciousMaterialAdamantine",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     dragonhide: "PF2E.PreciousMaterialDragonhide",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
