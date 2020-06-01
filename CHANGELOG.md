@@ -1,4 +1,8 @@
 # Patch Notes:
+## Version 1.3.1
+### Core System Improvements
+* (@mdizo) Improved styling of view modifier hover and workflow for adding custom modifiers.
+
 ## Version 1.3.0 
 ### New Features
 * (@nicolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
