@@ -56,6 +56,8 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       $(event.currentTarget).parents('.expandable').toggleClass('expanded');
     });
 
+    html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
+    html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
     html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
     html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
 
@@ -73,10 +75,20 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
     });
   }
 
+  onIncrementModifierValue(event) {
+    const parent = $(event.currentTarget).parents('.add-modifier');
+    parent.find('.add-modifier-value input[type=number]')[0].stepUp();
+  }
+
+  onDecrementModifierValue(event) {
+    const parent = $(event.currentTarget).parents('.add-modifier');
+    parent.find('.add-modifier-value input[type=number]')[0].stepDown();
+  }
+
   onAddCustomModifier(event) {
     const parent = $(event.currentTarget).parents('.add-modifier');
     const stat = $(event.currentTarget).attr('data-stat');
-    const modifier = Number(parent.find('.add-modifier-value').val());
+    const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
     const name = parent.find('.add-modifier-name').val();
     const type = parent.find('.add-modifier-type').val();
     const errors = [];

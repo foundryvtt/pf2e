@@ -20,7 +20,6 @@
                 min-width: 120px;
                 max-width: 180px;
                 padding: 4px;
-                font-size: 0;
                 line-height: 1;
                 flex-direction: column;
 
@@ -68,14 +67,22 @@
                     @include p-reset;
                     flex: 1 auto;
                     input {
-                        all: initial;
-                        cursor: pointer;
                         color: white;
+                        border: none;
+                        border-radius: 0;
+                        background: transparent;
+                        font-family: $body-serif;
+                        width: 100%;
+                        border-bottom: 1px solid rgba(white, 0.5);
                         &:focus {
                             box-shadow: none;
+                            border-bottom: 1px solid white;
+                            &::placeholder {
+                                color: transparent;
+                            }
                         }
                         &::placeholder {
-                            color: white;
+                            color: rgba(white, 0.8);
                         }
                         &::-webkit-outer-spin-button,
                         &::-webkit-inner-spin-button {
@@ -85,6 +92,21 @@
                         }
                         &[type='number'] {
                             -moz-appearance: textfield;
+                        }
+                    }
+
+                    select {
+                        border-radius: 2px;
+                        height: 18px;
+                        border: 1px solid white;
+                        background: transparent;
+                        cursor: pointer;
+
+                        option {
+                            font-size: 0.8rem;
+                            min-height: 1rem;
+                            color: var(--body);
+                            text-transform: capitalize;
                         }
                     }
 
@@ -108,9 +130,9 @@
                     .item {
                         display: grid;
                         grid:
-                            'data label' min-content
-                            'data type' min-content
-                            /30px 1fr;
+                            'data label close' min-content
+                            'data type close' min-content
+                            / 30px 1fr;
                         margin: 8px 0;
                         align-items: center;
                         column-gap: 8px;
@@ -131,6 +153,9 @@
                             @include flex-center;
                             color: var(--tertiary);
                             width: min-content;
+                            .remove-modifier {
+                                white-space: nowrap;
+                            }
                         }
 
                         .label {
@@ -145,6 +170,66 @@
                             width: min-content;
                             padding-top: 2px;
                         }
+
+                        .remove-modifier {
+                          grid-area: close;
+                          font-size: 0.8rem;
+                          cursor: pointer;
+                        }
+
+                        &.add-modifier {
+                            border-top: 1px solid $sidebar-title-color;
+                            padding-top: 5px;
+                            grid:
+                                'value name name' 1fr
+                                'type type btn' 1fr
+                                /42px 1fr 1fr;
+                            font-size: 0.8rem;
+                            gap: 0.25rem 0.5rem;
+                            align-items: baseline;
+
+                            .add-modifier-value {
+                                grid-area: value;
+                                font-size: 1rem;
+                                text-align: right;
+                                display: grid;
+                                grid:
+                                    'input plus' 1fr
+                                    'input minus' 1fr
+                                    /1fr 10px;
+                                column-gap: 4px;
+                                align-items: center;
+
+                                input {
+                                    grid-area: input;
+                                }
+
+                                .fas {
+                                    font-size: 9px;
+                                    cursor: pointer;
+                                    margin-top: 2px;
+
+                                    &.fa-plus-circle {
+                                        grid-area: plus;
+                                    }
+
+                                    &.fa-minus-circle {
+                                        grid-area: minus;
+                                    }
+                                }
+                            }
+
+                            .add-modifier-name {
+                                grid-area: name;
+                            }
+
+                            .add-modifier-submit {
+                                grid-area: btn;
+                                @include micro;
+                                white-space: nowrap;
+                                text-align: right;
+                            }
+                        }
                     }
 
                     .disabled {
@@ -156,22 +241,6 @@
                         .label {
                             text-decoration: line-through;
                         }
-                    }
-
-                    .add-modifier {
-                      border-top: 1px solid $sidebar-title-color;
-                      padding-top: 5px;
-                    }
-
-                    .add-modifier .add-modifier-name {
-                      width: calc(75%);
-                      @include micro;
-                    }
-
-                    .add-modifier .add-modifier-submit {
-                      width: calc(25%);
-                      @include micro;
-                      text-align: right;
                     }
                 }
             }
