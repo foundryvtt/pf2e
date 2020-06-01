@@ -216,7 +216,7 @@ class PF2eStatusEffects {
                 if (effect !== undefined && status.toggle){
                     await PF2eStatusEffects._updateActorStatus(actor, statusName, 0);
                     token.toggleEffect(src);
-                } else if (effect === undefined) {
+                } else if (effect === undefined && !PF2e.DB.condition[statusName].hasValue) {
                     await PF2eStatusEffects._updateActorStatus(actor, statusName, 1);
                     token.toggleEffect(src);
                 }
