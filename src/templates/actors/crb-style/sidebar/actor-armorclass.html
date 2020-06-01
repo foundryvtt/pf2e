@@ -27,8 +27,8 @@
                 type="number"
                 data-dtype="Number"
                 placeholder="0"
-                name="data.attributes.shield.value"
-                value="{{data.attributes.shield.value}}"
+                name="data.attributes.shield.hp.value"
+                value="{{data.attributes.shield.hp.value}}"
                 title="{{localize 'PF2E.ShieldACBonusTitle'}}"
             />
         </div>
@@ -66,9 +66,15 @@
                     class="data-value"
                     title="{{localize 'PF2E.ShieldACBonusTitle'}}"
                 >
-                    <input type="number" data-dtype="Number" placeholder="0"
-                    name="data.attributes.shield.ac" value="{{data.attributes.shield.ac}}" />
-                </span>
+                  <input
+                    id="shield-hp"
+                    type="number"
+                    placeholder="0"
+                    value="{{data.attributes.shield.armor.value}}"
+                    title="{{localize 'PF2E.ShieldACBonusTitle'}}"
+                    readonly
+                  />
+              </span>
             </li>
             <li>
                 <div class="shield-label">
@@ -87,8 +93,7 @@
                     class="data-value"
                     title="{{localize 'PF2E.ShieldHardnessTitle'}}"
                 >
-                    <input type="number" data-dtype="Number" placeholder="0" 
-                    name="data.attributes.shield.hardness" value="{{data.attributes.shield.hardness}}" />
+                  <input type="number" placeholder="0" value="{{data.attributes.shield.hardness.value}}" readonly/>
                 </span>
             </li>
             <li>
@@ -107,10 +112,7 @@
                 <span
                     class="data-value"
                     title="{{localize 'PF2E.ShieldBTTitle'}}"
-                >
-                    <input type="number" data-dtype="String" placeholder="0" 
-                    name="data.attributes.shield.brokenThreshold" value="{{data.attributes.shield.brokenThreshold}}" readonly/>
-                </span>
+                ><input readonly type="number" value="{{data.attributes.shield.brokenThreshold.value}}"></span>
             </li>
         </ol>
     </div>
@@ -124,14 +126,14 @@
                 {{localize 'PF2E.ShieldLabel'}}<br>{{localize 'PF2E.MaxHitPointsShortLabel'}}
             </label>
             <span class="data-value" title="{{localize 'PF2E.ShieldMaxTitle'}}">
-                <input
-                    id="shield-max"
-                    type="number"
-                    data-dtype="String"
-                    placeholder="0"
-                    name="data.attributes.shield.max"
-                    value="{{data.attributes.shield.max}}"
-                />
+              <input
+                id="shield-max"
+                type="number"
+                placeholder="0"
+                value="{{data.attributes.shield.maxHp.value}}"
+                readonly
+              />
+
             </span>
         </div>
         <div class="shield-status">
@@ -141,8 +143,8 @@
             >
                 {{localize 'PF2E.ShieldBTLabel'}}
             </label>
-            {{#if brokenShield}}<i class="far fa-times-circle"></i>{{/if}}
-            {{#unless brokenShield}}<i class="far fa-circle"></i>{{/unless}}
+            {{#if data.attributes.shieldBroken}}<i class="far fa-times-circle"></i>{{/if}}
+            {{#unless data.attributes.shieldBroken}}<i class="far fa-circle"></i>{{/unless}}
         </div>
     </div>
 </div>

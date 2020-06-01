@@ -271,6 +271,7 @@ function addHpThresholdHardness(item, updateData) {
     if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
         updateData['data.brokenThreshold.value'] = 0;
         updateData['data.hp.value'] = 0;
+        updateData['data.maxHp.value'] = 0;
         updateData['data.hardness.value'] = 0;
     }
     return updateData;

@@ -411,6 +411,35 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     actorData.spellcastingEntries = spellcastingEntries;
 
+    // shield
+    const equippedShield = actorData.items
+       .find(item => item.type === 'armor' 
+             && item.data.equipped.value
+             && item.data.armorType.value === 'shield');  
+    if (equippedShield === undefined) {
+        actorData.data.attributes.shield = {
+            hp: {
+                value: 0,
+            },
+            maxHp: {
+                value: 0,
+            },
+            armor: {
+                value: 0,
+            },
+            hardness: {
+                value: 0,
+            },
+            brokenThreshold: {
+                value: 0,
+            },
+        }
+        actorData.data.attributes.shieldBroken = false;
+    } else {
+        console.log(equippedShield)
+        actorData.data.attributes.shield = equippedShield.data;
+        actorData.data.attributes.shieldBroken = equippedShield.data.hp.value < equippedShield.data.brokenThreshold.value;
+    }
 
     // Inventory encumbrance
     // FIXME: this is hard coded for now
