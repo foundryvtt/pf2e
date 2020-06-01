@@ -1,9 +1,13 @@
 {
   "Actor": {
-    "types": ["character", "npc", "hazard"],
+    "types": [
+      "character",
+      "npc",
+      "hazard"
+    ],
     "templates": {
       "common": {
-        "abilities":{
+        "abilities": {
           "str": {
             "value": 10,
             "min": 3,
@@ -101,7 +105,8 @@
           "levelbonussp": 0,
           "ancestryhp": 0,
           "classhp": 0,
-          "bonusbulk": 0,
+          "bonusLimitBulk": 0,
+          "bonusEncumbranceBulk": 0,
           "resolve": {
             "value": 0
           },
@@ -410,7 +415,7 @@
           },
           "spell9": {
             "max": 0
-          }        ,
+          },
           "spell10": {
             "max": 0
           },
@@ -421,7 +426,9 @@
       }
     },
     "character": {
-      "templates": ["common"],
+      "templates": [
+        "common"
+      ],
       "attributes": {
         "dying": {
           "value": 0,
@@ -465,7 +472,9 @@
       }
     },
     "npc": {
-      "templates": ["common"],
+      "templates": [
+        "common"
+      ],
       "traits": {
         "rarity": {
           "value": "common"
@@ -543,7 +552,11 @@
           "value": [],
           "custom": ""
         },
-        "di": { "custom": "", "value": [], "selected": {} },
+        "di": {
+          "custom": "",
+          "value": [],
+          "selected": {}
+        },
         "dr": [],
         "dv": [],
         "ci": []
@@ -551,7 +564,21 @@
     }
   },
   "Item": {
-    "types": ["weapon", "melee", "armor", "equipment", "consumable", "treasure", "lore", "martial", "spell", "spellcastingEntry", "feat", "action", "backpack"],
+    "types": [
+      "weapon",
+      "melee",
+      "armor",
+      "equipment",
+      "consumable",
+      "treasure",
+      "lore",
+      "martial",
+      "spell",
+      "spellcastingEntry",
+      "feat",
+      "action",
+      "backpack"
+    ],
     "templates": {
       "itemDescription": {
         "description": {
@@ -572,6 +599,18 @@
       "physicalItem": {
         "quantity": {
           "value": 1
+        },
+        "hp": {
+          "value": 0
+        },
+        "maxHp": {
+          "value": 0
+        },
+        "hardness": {
+          "value": 0
+        },
+        "brokenThreshold": {
+          "value": 0
         },
         "weight": {
           "value": 0
@@ -595,7 +634,7 @@
           "value": ""
         },
         "bulkCapacity": {
-          "value": ""  
+          "value": ""
         },
         "negateBulk": {
           "value": "0"
@@ -666,7 +705,11 @@
       }
     },
     "backpack": {
-      "templates": ["itemDescription", "physicalItem", "itemLevel"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "itemLevel"
+      ],
       "capacity": {
         "type": "weight",
         "value": 0,
@@ -681,7 +724,11 @@
       }
     },
     "treasure": {
-      "templates": ["itemDescription", "physicalItem", "itemLevel"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "itemLevel"
+      ],
       "denomitation": {
         "value": "gp"
       },
@@ -690,7 +737,12 @@
       }
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "itemLevel", "magicItem"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "itemLevel",
+        "magicItem"
+      ],
       "weaponType": {
         "value": ""
       },
@@ -744,7 +796,12 @@
       }
     },
     "armor": {
-      "templates": ["itemDescription", "physicalItem", "itemLevel", "magicItem"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "itemLevel",
+        "magicItem"
+      ],
       "armor": {
         "value": 0
       },
@@ -786,7 +843,11 @@
       }
     },
     "melee": {
-      "templates": ["itemDescription", "physicalItem", "magicItem"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "magicItem"
+      ],
       "attack": {
         "value": ""
       },
@@ -799,7 +860,12 @@
       }
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "itemLevel"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "activatedEffect",
+        "itemLevel"
+      ],
       "consumableType": {
         "value": "potion"
       },
@@ -829,10 +895,17 @@
       }
     },
     "equipment": {
-      "templates": ["itemDescription", "physicalItem", "itemLevel"]
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "itemLevel"
+      ]
     },
     "feat": {
-      "templates": ["itemDescription", "itemLevel"],
+      "templates": [
+        "itemDescription",
+        "itemLevel"
+      ],
       "featType": {
         "value": ""
       },
@@ -850,7 +923,9 @@
       }
     },
     "lore": {
-      "templates": ["itemDescription"],
+      "templates": [
+        "itemDescription"
+      ],
       "featType": "",
       "mod": {
         "value": 0
@@ -863,7 +938,9 @@
       }
     },
     "martial": {
-      "templates": ["itemDescription"],
+      "templates": [
+        "itemDescription"
+      ],
       "proficient": {
         "value": 0
       },
@@ -872,7 +949,9 @@
       }
     },
     "action": {
-      "templates": ["itemDescription"],
+      "templates": [
+        "itemDescription"
+      ],
       "actionType": {
         "value": ""
       },
@@ -897,7 +976,10 @@
       }
     },
     "spell": {
-      "templates": ["itemDescription", "itemLevel"],
+      "templates": [
+        "itemDescription",
+        "itemLevel"
+      ],
       "spellType": {
         "value": ""
       },
@@ -959,7 +1041,9 @@
       }
     },
     "spellcastingEntry": {
-      "templates": ["itemDescription"],
+      "templates": [
+        "itemDescription"
+      ],
       "ability": {
         "value": ""
       },

@@ -28,7 +28,19 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     return `${path}actor-sheet.html`;
   }
 
-  /* -------------------------------------------- */
+    async _updateObject(event, formData) {
+        // update shield hp
+        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id
+        if (equippedShieldId !== undefined) {
+            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
+            await shieldEntity.update({
+                'data.hp.value': formData['data.attributes.shield.hp.value']
+            })
+        }
+        await super._updateObject(event, formData);
+    }
+
+    /* -------------------------------------------- */
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -411,14 +423,64 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
     actorData.spellcastingEntries = spellcastingEntries;
 
+    // shield
+    const equippedShield = this.getEquippedShield(actorData.items);  
+    if (equippedShield === undefined) {
+        actorData.data.attributes.shield = {
+            hp: {
+                value: 0,
+            },
+            maxHp: {
+                value: 0,
+            },
+            armor: {
+                value: 0,
+            },
+            hardness: {
+                value: 0,
+            },
+            brokenThreshold: {
+                value: 0,
+            },
+        }
+        actorData.data.attributes.shieldBroken = false;
+    } else {
+        actorData.data.attributes.shield = duplicate(equippedShield.data)
+        actorData.data.attributes.shieldBroken = equippedShield.data.hp.value < equippedShield.data.brokenThreshold.value;
+    }
 
     // Inventory encumbrance
+    // FIXME: this is hard coded for now
+    const featNames = new Set(actorData.items
+      .filter(item => item.type === 'feat')
+      .map(item => item.name));
+
+    let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
+    let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
+    if (featNames.has('Hefty Hauler')) {
+      bonusEncumbranceBulk += 2;
+      bonusLimitBulk += 2;
+    }
+    const equippedLiftingBelt = actorData.items
+      .find(item => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
+    if (equippedLiftingBelt) {
+      bonusEncumbranceBulk += 1;
+      bonusLimitBulk += 1;
+    }
     const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
-      actorData.data.attributes.bonusbulk,
+       bonusEncumbranceBulk,
+       bonusLimitBulk,
       bulk
     );
+  }
+  
+  getEquippedShield(items) {
+      return items
+          .find(item => item.type === 'armor'
+              && item.data.equipped.value
+              && item.data.armorType.value === 'shield')
   }
 
   /* -------------------------------------------- */

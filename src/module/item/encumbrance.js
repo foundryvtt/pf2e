@@ -39,12 +39,12 @@ export class InventoryWeight {
 
 /**
  * @param strengthModifier
- * @param bonusBulkLimit in bulk
+ * @param bonusBulkLimit increased maximum bulk
+ * @param bonusBulkEncumbrance increased bulk until you are encumbered
  * @param combinedBulk
  */
-export function calculateEncumbrance(strengthModifier, bonusBulkLimit, combinedBulk) {
-    const modifier = strengthModifier + bonusBulkLimit;
-    const encumberedAt = modifier + 5;
-    const limit = modifier + 10;
+export function calculateEncumbrance(strengthModifier, bonusBulkEncumbrance, bonusBulkLimit, combinedBulk) {
+    const encumberedAt = strengthModifier + bonusBulkEncumbrance + 5;
+    const limit = strengthModifier + bonusBulkLimit + 10;
     return new InventoryWeight(combinedBulk, encumberedAt, limit);
 }

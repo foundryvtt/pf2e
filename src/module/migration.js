@@ -164,7 +164,12 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.582) {
             migrateActorItems(actor, updateData, addWeaponPotencyRune);
         }
-        
+
+        if (worldSchemaVersion < 0.583) {
+            migrateActorBonusBulk(actor, updateData);
+            migrateActorItems(actor, updateData, addHpThresholdHardness);
+        }
+
     }
     return updateData;
 };
@@ -183,7 +188,7 @@ function addWeaponPotencyRune(item, itemData) {
 function addItemRarityAndLevel(item, itemData) {
     itemData['data.rarity.value'] = 'common';
     if (['treasure', 'backpack'].includes(item.type)) {
-        itemData['data.level.value'] = '0';    
+        itemData['data.level.value'] = '0';
     }
     return itemData;
 }
@@ -260,6 +265,16 @@ function addContainerAttributes(item, itemData) {
         itemData['data.containerId.value'] = '';
     }
     return itemData;
+}
+
+function addHpThresholdHardness(item, updateData) {
+    if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
+        updateData['data.brokenThreshold.value'] = 0;
+        updateData['data.hp.value'] = 0;
+        updateData['data.maxHp.value'] = 0;
+        updateData['data.hardness.value'] = 0;
+    }
+    return updateData;
 }
 
 async function addCoin(actorEntity, treasureId, denomination, quantity) {
@@ -351,13 +366,17 @@ export const migrateItemData = function (item, worldSchemaVersion) {
     if (worldSchemaVersion < 0.579) {
         addContainerAttributes(item, updateData);
     }
-    
+
     if (worldSchemaVersion < 0.580) {
         addItemRarityAndLevel(item, updateData);
     }
 
     if (worldSchemaVersion < 0.582) {
         addWeaponPotencyRune(item, updateData);
+    }
+
+    if (worldSchemaVersion < 0.583) {
+        addHpThresholdHardness(item, updateData);
     }
     // Return the migrated update data
     return updateData;
@@ -424,6 +443,11 @@ function _migrateActorOtherSpeeds(actor, updateData) {
     if (typeof actor.data?.attributes?.speed?.otherSpeeds !== 'array') {
         updateData['data.attributes.speed.otherSpeeds'] = [];
     }
+}
+
+function migrateActorBonusBulk(actor, updateData) {
+    updateData['data.attributes.bonusLimitBulk'] = actor.data.attributes.bonusbulk || 0;
+    updateData['data.attributes.bonusEncumbranceBulk'] = actor.data.attributes.bonusbulk || 0;
 }
 
 function _migrateHitPointData(actor, updateData) {
@@ -584,40 +608,30 @@ function migrateImage(item, updateData) {
     // consumables subfolder
     else if (itemImage?.includes('systems/pf2e/icons/equipment/consumables/') && !itemImage?.includes('systems/pf2e/icons/equipment/consumables/potions/') && itemImage?.includes('potion')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/consumables/', 'systems/pf2e/icons/equipment/consumables/potions/');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/') && !itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/') && itemImage?.includes('elixir')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/') && !itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/') && itemImage?.includes('elixir')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
     }
 
     // specific icon changes
     else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.jpg');
-    }
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
         updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.jpg');
     }
 
