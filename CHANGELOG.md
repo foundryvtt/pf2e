@@ -12,7 +12,7 @@
 ### Content Changes
 * (@putt1) Renamed Adamantite to Adamantine
 * (@putt1) All shields and armors now have the correct broken treshold, hp, hardness, material, grade, potency, resiliency and property runes
-* (@putt1) Corrected the rune and materials settings on all weapons (except alchemical bombs) starting with the letter 'A' through to and including the letter 'O'.
+* (@putt1) Corrected the rune and materials settings on all weapons (except alchemical bombs).
 
 
 ### Bug Fixes
