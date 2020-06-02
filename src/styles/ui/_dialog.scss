@@ -1,0 +1,101 @@
+.dice-checks {
+    background: none;
+    .window-header {
+        border-radius: 0;
+        background: linear-gradient(
+            90deg,
+            #450000 0%,
+            #870000 50%,
+            #450000 100%
+        );
+        @include inset-gold-border;
+        margin-bottom: 2px;
+    }
+    .window-content {
+        @include corner-boxes;
+
+        .dialog-row {
+            display: grid;
+            grid:
+                'mod type value exclude' 1fr
+                / 1.5fr 1fr 36px 50px;
+            align-items: center;
+            padding: 4px 8px;
+            padding-right: 0;
+
+            &.header {
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+
+            .type {
+                grid-area: type;
+                text-transform: capitalize;
+            }
+            .mod {
+                grid-area: mod;
+            }
+            .value {
+                grid-area: value;
+            }
+            .exclude {
+                grid-area: exclude;
+                justify-self: right;
+
+                &.toggle {
+                    width: 24px;
+                    height: 10px;
+                    background: var(--secondary);
+                    margin: 4px auto;
+                    position: relative;
+                    border-radius: 50px;
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
+                        0px 1px 0px rgba(255, 255, 255, 0.2);
+                    label {
+                        display: block;
+                        width: 12px;
+                        height: 12px;
+                        position: absolute;
+                        top: -1px;
+                        left: -2px;
+                        cursor: pointer;
+                        background: #fcfff4;
+                        background: linear-gradient(
+                            to bottom,
+                            #fcfff4 0%,
+                            #dfe5d7 40%,
+                            #b3bead 100%
+                        );
+                        border-radius: 50px;
+                        box-shadow: 0 0 0 1px rgba(black, 0.2),
+                            0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                        transition: all 0.4s ease;
+                    }
+                    input[type='checkbox'] {
+                        visibility: hidden;
+                        &:checked + label {
+                            left: 16px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modifier-container {
+            div:nth-child(even) {
+                background-color: rgba(black, 0.05);
+            }
+
+            .modifier-enabled {
+                filter: opacity(0.5);
+                text-decoration: line-through;
+                .toggle {
+                    background: var(--primary);
+                    input[type='checkbox'] + label {
+                        left: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
