@@ -24,6 +24,9 @@ export function getPropertyRunes(itemData, slots) {
 }
 
 export function getAttackBonus(itemData) {
+    if (itemData.group?.value === 'bomb') {
+        return toNumber(itemData?.bonus?.value) ?? 0;
+    }
     return toNumber(itemData?.potencyRune?.value) ?? 0;
 }
 
