@@ -32,7 +32,7 @@ class PF2eStatusEffects {
 
         if ( game.modules.get("combat-utility-belt") !== undefined 
              && game.modules.get("combat-utility-belt").active
-             && game.settings.get('combat-utility-belt', 'enhanced-conditions(undefined)')
+             && game.settings.get('combat-utility-belt', 'enableEnhancedConditions')
             )
             ui.notifications.info(`<strong>PF2e System & Combat Utility Belt</strong><div>You have the CUB module enabled. This may 
             cause unexpected side effects with the PF2e system at the moment, but this is expected to improve in future releases. If 
@@ -101,6 +101,17 @@ class PF2eStatusEffects {
             window.location.reload(false);
           }
         });
+        game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
+          name: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.name,
+          hint: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.hint,
+          scope: 'world',
+          config: true,
+          default: true,
+          type: Boolean,
+          onChange: () => {
+            window.location.reload(false);
+          }
+        });
 
         /** Create hooks onto FoundryVTT **/
         Hooks.on("renderTokenHUD", (app, html, data) => {
@@ -121,6 +132,16 @@ class PF2eStatusEffects {
                 }
             }
         });
+
+        if (game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
+            Hooks.on("updateCombat", (combat) => {
+                const combatant = combat.combatant;
+                if (combatant) {
+                    const token = canvas.tokens.get(combatant.tokenId);
+                    this._createChatMessage(token, combatant.hidden);
+                }
+            });
+        }
 
         Hooks.on("createToken", (scene, token, options, someId) => {
             console.log('PF2e System | Updating the new token with the actors status effects');
@@ -146,6 +167,64 @@ class PF2eStatusEffects {
                .on("contextmenu", ".effect-control", this._toggleStatus.bind(token))
                .on("mouseover mouseout", ".effect-control", this._showStatusDescr);
        
+    }
+
+    /**
+     * Add status effects to a token
+     */
+    static async setStatus(token, effects = []) {
+        for (const status of Object.values(effects)) {
+            const statusName = status.name;
+            const value = status.value;
+
+            if (!PF2e.DB.condition[statusName]) {
+                console.log(`PF2e System | '${statusName}' is not a vaild condition!`);
+                continue;
+            }
+            const src = `systems/pf2e/icons/conditions/${statusName}.png`;
+            const actor = getProperty(token, "actor");
+
+            let statusEffects = [];
+            if (actor.data.data.statusEffects !== undefined) {
+                statusEffects = duplicate(actor.data.data.statusEffects);
+            }
+            let effect = statusEffects.find( ({ status }) => status === statusName ); //returns undefined if not in here
+
+            if (typeof(value) === "string" && PF2e.DB.condition[statusName].hasValue) {
+                let newValue = 0;
+                if (effect) {
+                    if (value.startsWith("+") || value.startsWith("-"))
+                        newValue = Number(effect.value) + Number(value);
+                    else
+                        newValue = Number(value);
+
+                    if (isNaN(newValue)) continue;
+
+                    if (value === 0) {
+                        await PF2eStatusEffects._updateActorStatus(actor, statusName, 0);
+                        token.toggleEffect(src);
+                    } else {
+                        await PF2eStatusEffects._updateActorStatus(actor, statusName, (newValue >= 0 ? newValue : 0));
+                        if (newValue < 1)
+                            token.toggleEffect(src);
+                    }
+                } else {
+                    if (Number(value) > 0) {
+                        await PF2eStatusEffects._updateActorStatus(actor, statusName, Number(value));
+                        token.toggleEffect(src);
+                    }
+                }
+            } else if (!value) {
+                if (effect !== undefined && status.toggle){
+                    await PF2eStatusEffects._updateActorStatus(actor, statusName, 0);
+                    token.toggleEffect(src);
+                } else if (effect === undefined && !PF2e.DB.condition[statusName].hasValue) {
+                    await PF2eStatusEffects._updateActorStatus(actor, statusName, 1);
+                    token.toggleEffect(src);
+                }
+            }
+        }
+        this._createChatMessage(token);
     }
 
     /**
@@ -408,7 +487,7 @@ class PF2eStatusEffects {
     /**
      * Creates a ChatMessage with the Actors current status effects.
      */
-    static _createChatMessage(token) {
+    static _createChatMessage(token, whisper = false) {
         const actor = getProperty(token, "actor");
         const statusEffects = actor.data.data.statusEffects;
         if (statusEffects.length == 0) return;
@@ -438,12 +517,15 @@ class PF2eStatusEffects {
             </div>
             </div>
         `;
-        ChatMessage.create({
+
+        const chatData = {
             user: game.user._id,
             speaker: { alias: token.name+`'s status effects:` },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER
-        });
+        }
+        if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+        ChatMessage.create(chatData);
 
         bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
         const panToSpeaker = game.settings.get("core", "chatBubblesPan");
