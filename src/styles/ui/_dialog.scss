@@ -16,6 +16,18 @@
         @include corner-boxes;
         padding-top: 0;
 
+        button {
+            @include button;
+            cursor: pointer;
+            font-family: $sans-serif;
+            background-color: var(--secondary);
+            border-radius: 2px;
+            color: white;
+            &:hover {
+                text-shadow: 0 0 2px var(--tertiary);
+            }
+        }
+
         .dialog-row {
             display: grid;
             grid:
@@ -115,7 +127,8 @@
             flex-wrap: nowrap;
             align-items: stretch;
 
-            select, input {
+            select,
+            input {
                 margin-right: 4px;
                 height: auto;
                 border-radius: 2px;
@@ -135,7 +148,15 @@
                 line-height: 1;
                 margin: 0;
                 padding: 4px 0;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 0.75rem;
             }
+        }
+
+        .roll {
+            color: white;
+            background-color: var(--primary);
         }
     }
 }
