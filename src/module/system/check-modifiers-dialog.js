@@ -15,7 +15,7 @@ export class CheckModifiersDialog extends Application {
     super({
       title: check.name,
       template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
-      classes: ['dice-roll', 'dialogue'],
+      classes: ['dice-checks', 'dialog'],
       popOut: true,
       width: 380,
     });
