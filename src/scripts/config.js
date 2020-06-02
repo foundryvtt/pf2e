@@ -1,9 +1,7 @@
 export const CONFIG = {};
-
-CONFIG.chatDamageButtonShieldToggle = false;
-
-// Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
+CONFIG.chatDamageButtonShieldToggle = false; // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
 // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
+
 CONFIG.PF2eStatusEffects = {
   overruledByModule: false,
   lastIconType: 'default',
@@ -11,9 +9,8 @@ CONFIG.PF2eStatusEffects = {
   effectsIconFileType: 'png',
   keepFoundryStatusEffects: true,
   foundryStatusEffects: []
-};
+}; // Ability labels
 
-// Ability labels
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
   "dex": "PF2E.AbilityDex",
@@ -22,14 +19,12 @@ CONFIG.abilities = {
   "wis": "PF2E.AbilityWis",
   "cha": "PF2E.AbilityCha"
 };
-
 CONFIG.attributes = {
   "perception": "PF2E.PerceptionLabel",
   "stealth": "PF2E.StealthLabel",
   "initiative": "PF2E.PerceptionLabel"
-};
+}; // Skill labels
 
-// Skill labels
 CONFIG.skills = {
   "acr": "PF2E.SkillAcr",
   "arc": "PF2E.SkillArc",
@@ -46,10 +41,9 @@ CONFIG.skills = {
   "soc": "PF2E.SkillSoc",
   "ste": "PF2E.SkillSte",
   "sur": "PF2E.SkillSur",
-  "thi": "PF2E.SkillThi",
-};
+  "thi": "PF2E.SkillThi"
+}; // Martial skill labels
 
-// Martial skill labels
 CONFIG.martialSkills = {
   "unarmored": "PF2E.MartialUnarmored",
   "light": "PF2E.MartialLight",
@@ -59,126 +53,115 @@ CONFIG.martialSkills = {
   "martial": "PF2E.MartialMartial",
   "advanced": "PF2E.MartialAdvanced",
   "unarmed": "PF2E.MartialUnarmed"
-};
+}; // Saves labels
 
-// Saves labels
 CONFIG.saves = {
   "reflex": "PF2E.SavesReflex",
   "fortitude": "PF2E.SavesFortitude",
-  "will": "PF2E.SavesWill",
-};
+  "will": "PF2E.SavesWill"
+}; // Inventory currency labels
 
-// Inventory currency labels
 CONFIG.currencies = {
   "pp": "PF2E.CurrencyPP",
   "gp": "PF2E.CurrencyGP",
   "sp": "PF2E.CurrencySP",
-  "cp": "PF2E.CurrencyCP",
+  "cp": "PF2E.CurrencyCP"
 };
-
 CONFIG.preciousMaterialGrades = {
-    low: "PF2E.PreciousMaterialLowGrade",
-    standard: "PF2E.PreciousMaterialStandardGrade",
-    high: "PF2E.PreciousMaterialHighGrade",
+  low: "PF2E.PreciousMaterialLowGrade",
+  standard: "PF2E.PreciousMaterialStandardGrade",
+  high: "PF2E.PreciousMaterialHighGrade"
 };
-
 CONFIG.preciousMaterials = {
-    coldIron: "PF2E.PreciousMaterialColdIron",
-    silver: "PF2E.PreciousMaterialSilver",
-    mithral: "PF2E.PreciousMaterialMithral",
-    adamantine: "PF2E.PreciousMaterialAdamantine",
-    darkwood: "PF2E.PreciousMaterialDarkwood",
-    dragonhide: "PF2E.PreciousMaterialDragonhide",
-    orichalcum: "PF2E.PreciousMaterialOrichalcum",
-}
-
+  coldIron: "PF2E.PreciousMaterialColdIron",
+  silver: "PF2E.PreciousMaterialSilver",
+  mithral: "PF2E.PreciousMaterialMithral",
+  adamantine: "PF2E.PreciousMaterialAdamantine",
+  darkwood: "PF2E.PreciousMaterialDarkwood",
+  dragonhide: "PF2E.PreciousMaterialDragonhide",
+  orichalcum: "PF2E.PreciousMaterialOrichalcum"
+};
 CONFIG.armorPotencyRunes = {
-    "1": "PF2E.ArmorPotencyRune1",
-    "2": "PF2E.ArmorPotencyRune2",
-    "3": "PF2E.ArmorPotencyRune3",
-    "4": "PF2E.ArmorPotencyRune4",
-}
-
+  "1": "PF2E.ArmorPotencyRune1",
+  "2": "PF2E.ArmorPotencyRune2",
+  "3": "PF2E.ArmorPotencyRune3",
+  "4": "PF2E.ArmorPotencyRune4"
+};
 CONFIG.armorResiliencyRunes = {
-    resilient: "PF2E.ArmorResilientRune",
-    greaterResilient: "PF2E.ArmorGreaterResilientRune",
-    majorResilient: "PF2E.ArmorMajorResilientRune",
-}
-
+  resilient: "PF2E.ArmorResilientRune",
+  greaterResilient: "PF2E.ArmorGreaterResilientRune",
+  majorResilient: "PF2E.ArmorMajorResilientRune"
+};
 CONFIG.armorPropertyRunes = {
-    slick: "PF2E.ArmorPropertyRuneSlick",
-    shadow: "PF2E.ArmorPropertyRuneShadow",
-    glamered: "PF2E.ArmorPropertyRuneGlamered",
-    acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
-    coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
-    electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
-    fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
-    greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
-    invisibility: "PF2E.ArmorPropertyRuneInvisibility",
-    sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
-    greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
-    greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
-    greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
-    greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
-    greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
-    greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
-    fortification: "PF2E.ArmorPropertyRuneFortification",
-    rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
-    antimagic: "PF2E.ArmorPropertyRuneAntimagic",
-    majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
-    ethereal: "PF2E.ArmorPropertyRuneEthereal",
-    majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
-    greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
-}
-
+  slick: "PF2E.ArmorPropertyRuneSlick",
+  shadow: "PF2E.ArmorPropertyRuneShadow",
+  glamered: "PF2E.ArmorPropertyRuneGlamered",
+  acidResistant: "PF2E.ArmorPropertyRuneAcidResistant",
+  coldResistant: "PF2E.ArmorPropertyRuneColdResistant",
+  electricityResistant: "PF2E.ArmorPropertyRuneElectricityResistant",
+  fireResistant: "PF2E.ArmorPropertyRuneFireResistant",
+  greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
+  invisibility: "PF2E.ArmorPropertyRuneInvisibility",
+  sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
+  greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
+  greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
+  greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
+  greaterColdResistant: "PF2E.ArmorPropertyRuneGreaterColdResistant",
+  greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
+  greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
+  fortification: "PF2E.ArmorPropertyRuneFortification",
+  rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
+  antimagic: "PF2E.ArmorPropertyRuneAntimagic",
+  majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
+  ethereal: "PF2E.ArmorPropertyRuneEthereal",
+  majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
+  greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification"
+};
 CONFIG.weaponPotencyRunes = {
-    "1": "PF2E.WeaponPotencyRune1",
-    "2": "PF2E.WeaponPotencyRune2",
-    "3": "PF2E.WeaponPotencyRune3",
-    "4": "PF2E.WeaponPotencyRune4",
-}
-
+  "1": "PF2E.WeaponPotencyRune1",
+  "2": "PF2E.WeaponPotencyRune2",
+  "3": "PF2E.WeaponPotencyRune3",
+  "4": "PF2E.WeaponPotencyRune4"
+};
 CONFIG.weaponStrikingRunes = {
-    striking: "PF2E.ArmorStrikingRune",
-    greaterStriking: "PF2E.ArmorGreaterStrikingRune",
-    majorStriking: "PF2E.ArmorMajorStrikingRune",
-}
-
+  striking: "PF2E.ArmorStrikingRune",
+  greaterStriking: "PF2E.ArmorGreaterStrikingRune",
+  majorStriking: "PF2E.ArmorMajorStrikingRune"
+};
 CONFIG.weaponPropertyRunes = {
-    kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
-    returning: "PF2E.WeaponPropertyRuneReturning",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
-    disrupting: "PF2E.WeaponPropertyRuneDisrupting",
-    shifting: "PF2E.WeaponPropertyRuneShifting",
-    wounding: "PF2E.WeaponPropertyRuneWounding",
-    bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
-    corrosive: "PF2E.WeaponPropertyRuneCorrosive",
-    flaming: "PF2E.WeaponPropertyRuneFlaming",
-    frost: "PF2E.WeaponPropertyRuneFrost",
-    shock: "PF2E.WeaponPropertyRuneShock",
-    thundering: "PF2E.WeaponPropertyRuneThundering",
-    grievous: "PF2E.WeaponPropertyRuneGrievous",
-    serrating: "PF2E.WeaponPropertyRuneSerrating",
-    anarchic: "PF2E.WeaponPropertyRuneAnarchic",
-    axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
-    holy: "PF2E.WeaponPropertyRuneHoly",
-    unholy: "PF2E.WeaponPropertyRuneUnholy",
-    dancing: "PF2E.WeaponPropertyRuneDancing",
-    spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
-    greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
-    keen: "PF2E.WeaponPropertyRuneKeen",
-    greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
-    greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
-    greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
-    greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
-    greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
-    greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
-    ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
-    speed: "PF2E.WeaponPropertyRuneSpeed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
-}
+  kinWarding: "PF2E.WeaponPropertyRuneKinWarding",
+  returning: "PF2E.WeaponPropertyRuneReturning",
+  ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+  disrupting: "PF2E.WeaponPropertyRuneDisrupting",
+  shifting: "PF2E.WeaponPropertyRuneShifting",
+  wounding: "PF2E.WeaponPropertyRuneWounding",
+  bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
+  corrosive: "PF2E.WeaponPropertyRuneCorrosive",
+  flaming: "PF2E.WeaponPropertyRuneFlaming",
+  frost: "PF2E.WeaponPropertyRuneFrost",
+  shock: "PF2E.WeaponPropertyRuneShock",
+  thundering: "PF2E.WeaponPropertyRuneThundering",
+  grievous: "PF2E.WeaponPropertyRuneGrievous",
+  serrating: "PF2E.WeaponPropertyRuneSerrating",
+  anarchic: "PF2E.WeaponPropertyRuneAnarchic",
+  axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
+  holy: "PF2E.WeaponPropertyRuneHoly",
+  unholy: "PF2E.WeaponPropertyRuneUnholy",
+  dancing: "PF2E.WeaponPropertyRuneDancing",
+  spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
+  greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
+  keen: "PF2E.WeaponPropertyRuneKeen",
+  greaterDisrupting: "PF2E.WeaponPropertyRuneGreaterDisrupting",
+  greaterCorrosive: "PF2E.WeaponPropertyRuneGreaterCorrosive",
+  greaterFlaming: "PF2E.WeaponPropertyRuneGreaterFlaming",
+  greaterFrost: "PF2E.WeaponPropertyRuneGreaterFrost",
+  greaterShock: "PF2E.WeaponPropertyRuneGreaterShock",
+  greaterThundering: "PF2E.WeaponPropertyRuneGreaterThundering",
+  ancestralEchoing: "PF2E.WeaponPropertyRuneAncestralEchoing",
+  speed: "PF2E.WeaponPropertyRuneSpeed",
+  vorpal: "PF2E.WeaponPropertyRuneVorpal"
+}; // Damage Types
 
-// Damage Types
 CONFIG.damageTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -198,10 +181,9 @@ CONFIG.damageTypes = {
   chaotic: 'PF2E.DamageTypeChaotic',
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil',
-};
+  evil: 'PF2E.DamageTypeEvil'
+}; //Resistance Types
 
-//Resistance Types
 CONFIG.resistanceTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -223,20 +205,18 @@ CONFIG.resistanceTypes = {
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
   all: 'PF2E.ResistanceTypeAll',
-  physical: 'PF2E.ResistanceTypePhysical',
+  physical: 'PF2E.ResistanceTypePhysical'
 };
-
 CONFIG.stackGroups = {
-    bolts: 'PF2E.StackGroupBolts',
-    arrows: 'PF2E.StackGroupArrows',
-    slingBullets: 'PF2E.StackGroupSlingBullets',
-    blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
-    rations: 'PF2E.StackGroupRations',
-    coins: 'PF2E.StackGroupCoins',
-    gems: 'PF2E.StackGroupGems',
-};
+  bolts: 'PF2E.StackGroupBolts',
+  arrows: 'PF2E.StackGroupArrows',
+  slingBullets: 'PF2E.StackGroupSlingBullets',
+  blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
+  rations: 'PF2E.StackGroupRations',
+  coins: 'PF2E.StackGroupCoins',
+  gems: 'PF2E.StackGroupGems'
+}; //Weakness Types
 
-//Weakness Types
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -265,32 +245,28 @@ CONFIG.weaknessTypes = {
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
-  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
-};
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage'
+}; // Weapon Damage Types
 
-// Weapon Damage Types
 CONFIG.weaponDamage = {
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   piercing: 'PF2E.DamageTypePiercing',
   slashing: 'PF2E.DamageTypeSlashing',
-  modular: 'PF2E.DamageTypeModular',
-};
+  modular: 'PF2E.DamageTypeModular'
+}; // Healing Types
 
-// Healing Types
 CONFIG.healingTypes = {
   healing: 'PF2E.HealingTypeHealing',
-  temphp: 'PF2E.HealingTypeTemporaryHealing',
-};
+  temphp: 'PF2E.HealingTypeTemporaryHealing'
+}; // Weapon Types
 
-// Weapon Types
 CONFIG.weaponTypes = {
   simple: 'PF2E.WeaponTypeSimple',
   martial: 'PF2E.WeaponTypeMartial',
   advanced: 'PF2E.WeaponTypeAdvanced',
-  unarmed: 'PF2E.WeaponTypeUnarmed',
-};
+  unarmed: 'PF2E.WeaponTypeUnarmed'
+}; // Weapon Types
 
-// Weapon Types
 CONFIG.weaponGroups = {
   club: 'PF2E.WeaponGroupClub',
   knife: 'PF2E.WeaponGroupKnife',
@@ -306,10 +282,9 @@ CONFIG.weaponGroups = {
   dart: 'PF2E.WeaponGroupDart',
   bow: 'PF2E.WeaponGroupBow',
   sling: 'PF2E.WeaponGroupSling',
-  bomb: 'PF2E.WeaponGroupBomb',
-};
+  bomb: 'PF2E.WeaponGroupBomb'
+}; // Weapon Descriptions
 
-// Weapon Descriptions
 CONFIG.weaponDescriptions = {
   club: 'PF2E.WeaponDescriptionClub',
   knife: 'PF2E.WeaponDescriptionKnife',
@@ -325,45 +300,57 @@ CONFIG.weaponDescriptions = {
   dart: 'PF2E.WeaponDescriptionDart',
   bow: 'PF2E.WeaponDescriptionBow',
   sling: 'PF2E.WeaponDescriptionSling',
-  bomb: 'PF2E.WeaponDescriptionBomb',
+  bomb: 'PF2E.WeaponDescriptionBomb'
 };
-
+CONFIG.usageTraits = {
+  'held-in-one-hand': 'PF2E.TraitHeldOneHand',
+  worn: 'PF2E.TraitWorn',
+  wornnecklace: 'PF2E.TraitWornNecklace',
+  wornheadwear: 'PF2E.TraitWornHeadwear',
+  worngloves: 'PF2E.TraitWornGloves',
+  wornwrist: 'PF2E.TraitWornOnWrists',
+  wornmask: 'PF2E.TraitWornMask',
+  wornbracers: 'PF2E.TraitWornBracers',
+  wornepaulet: 'PF2E.TraitWornEpaulet',
+  worncloak: 'PF2E.TraitWornCloak',
+  worneyepiece: 'PF2E.TraitWornEyepiece',
+  wornbelt: 'PF2E.TraitWornBelt',
+  wornshoes: 'PF2E.TraitWornShoes',
+  worncollar: 'PF2E.TraitWornCollar',
+  
+};
 CONFIG.rarityTraits = {
   common: 'PF2E.TraitCommon',
   uncommon: 'PF2E.TraitUncommon',
-  rare:     'PF2E.TraitRare',
-  unique:   'PF2E.TraitUnique',
-};
+  rare: 'PF2E.TraitRare',
+  unique: 'PF2E.TraitUnique'
+}; // Spell Traditions
 
-// Spell Traditions
 CONFIG.spellTraditions = {
   arcane: 'PF2E.TraitArcane',
   divine: 'PF2E.TraitDivine',
   occult: 'PF2E.TraitOccult',
-  primal: 'PF2E.TraitPrimal',
-};
+  primal: 'PF2E.TraitPrimal'
+}; // Magic Traditon
 
-// Magic Traditon
 CONFIG.magicTraditions = {
-  focus:  'PF2E.TraitFocus',
+  focus: 'PF2E.TraitFocus',
   ritual: 'PF2E.TraitRitual',
   scroll: 'PF2E.TraitScroll',
-  wand:   'PF2E.TraitWand'
+  wand: 'PF2E.TraitWand'
 };
 mergeObject(CONFIG.magicTraditions, CONFIG.spellTraditions);
-
 CONFIG.magicalSchools = {
-  abjuration:    'PF2E.TraitAbjuration',
-  conjuration:   'PF2E.TraitConjuration',
-  divination:    'PF2E.TraitDivination',
-  enchantment:   'PF2E.TraitEnchantment',
-  evocation:     'PF2E.TraitEvocation',
-  illusion:      'PF2E.TraitIllusion',
-  necromancy:    'PF2E.TraitNecromancy',
-  transmutation: 'PF2E.TraitTransmutation',
-};
+  abjuration: 'PF2E.TraitAbjuration',
+  conjuration: 'PF2E.TraitConjuration',
+  divination: 'PF2E.TraitDivination',
+  enchantment: 'PF2E.TraitEnchantment',
+  evocation: 'PF2E.TraitEvocation',
+  illusion: 'PF2E.TraitIllusion',
+  necromancy: 'PF2E.TraitNecromancy',
+  transmutation: 'PF2E.TraitTransmutation'
+}; // Spell Schools
 
-// Spell Schools
 CONFIG.spellSchools = {
   abj: 'PF2E.SpellSchoolAbj',
   con: 'PF2E.SpellSchoolCon',
@@ -372,25 +359,23 @@ CONFIG.spellSchools = {
   evo: 'PF2E.SpellSchoolEvo',
   ill: 'PF2E.SpellSchoolIll',
   nec: 'PF2E.SpellSchoolNec',
-  trs: 'PF2E.SpellSchoolTrs',
+  trs: 'PF2E.SpellSchoolTrs'
 };
-
 CONFIG.classTraits = {
   alchemist: 'PF2E.TraitAlchemist',
   barbarian: 'PF2E.TraitBarbarian',
-  bard:      'PF2E.TraitBard',
-  champion:  'PF2E.TraitChampion',
-  cleric:    'PF2E.TraitCleric',
-  druid:     'PF2E.TraitDruid',
-  fighter:   'PF2E.TraitFighter',
-  monk:      'PF2E.TraitMonk',
-  ranger:    'PF2E.TraitRanger',
-  rogue:     'PF2E.TraitRogue',
-  sorcerer:  'PF2E.TraitSorcerer',
-  wizard:    'PF2E.TraitWizard',
-};
+  bard: 'PF2E.TraitBard',
+  champion: 'PF2E.TraitChampion',
+  cleric: 'PF2E.TraitCleric',
+  druid: 'PF2E.TraitDruid',
+  fighter: 'PF2E.TraitFighter',
+  monk: 'PF2E.TraitMonk',
+  ranger: 'PF2E.TraitRanger',
+  rogue: 'PF2E.TraitRogue',
+  sorcerer: 'PF2E.TraitSorcerer',
+  wizard: 'PF2E.TraitWizard'
+}; // Ancestry Traits
 
-// Ancestry Traits
 CONFIG.ancestryTraits = {
   dwarf: 'PF2E.TraitDwarf',
   elf: 'PF2E.TraitElf',
@@ -408,10 +393,9 @@ CONFIG.ancestryTraits = {
   changeling: 'PF2E.TraitChangeling',
   geniekin: 'PF2E.TraitGeniekin',
   tiefling: 'PF2E.TraitTiefling',
-  shoony: 'PF2E.TraitShoony',
-};
+  shoony: 'PF2E.TraitShoony'
+}; // Weapon Properties
 
-// Weapon Properties
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
   alchemical: 'PF2E.TraitAlchemical',
@@ -507,67 +491,63 @@ CONFIG.weaponTraits = {
   'volley-30': 'PF2E.TraitVolley30',
   uncommon: 'PF2E.TraitUncommon',
   unique: 'PF2E.TraitUnique',
-  'modular-b-P-or-s': 'PF2E.TraitModular',
+  'modular-b-P-or-s': 'PF2E.TraitModular'
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
-
 CONFIG.armorTraits = {
-    bulwark: "PF2E.TraitBulwark",
-    comfort: "PF2E.TraitComfort",
-    flexible: "PF2E.TraitFlexible",
-    noisy: "PF2E.TraitNoisy",
-	apex: "PF2E.TraitApex",
-	invested: "PF2E.TraitInvested",
-	artifact: "PF2E.TraitArtifact",
-	intelligent: "PF2E.TraitIntelligent",
-	magical: "PF2E.TraitMagical",
-}
-mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools);
+  bulwark: "PF2E.TraitBulwark",
+  comfort: "PF2E.TraitComfort",
+  flexible: "PF2E.TraitFlexible",
+  noisy: "PF2E.TraitNoisy",
+  apex: "PF2E.TraitApex",
+  invested: "PF2E.TraitInvested",
+  artifact: "PF2E.TraitArtifact",
+  intelligent: "PF2E.TraitIntelligent",
+  magical: "PF2E.TraitMagical"
+};
+mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools); // Weapon Properties
 
-// Weapon Properties
 CONFIG.equipmentTraits = {
-    extradimensional: "PF2E.TraitExtradimensional",
-    apex: "PF2E.TraitApex",
-    artifact: "PF2E.TraitArtifact",
-    cursed: "PF2E.TraitCursed",
-    invested: "PF2E.TraitInvested",
-    saggorak: "PF2E.TraitSaggorak",
-    staff: "PF2E.TraitStaff",
-    structure: "PF2E.TraitStructure",
-    tattoo: "PF2E.TraitTattoo",
-    wand: "PF2E.TraitWand",
-}
+  extradimensional: "PF2E.TraitExtradimensional",
+  apex: "PF2E.TraitApex",
+  artifact: "PF2E.TraitArtifact",
+  cursed: "PF2E.TraitCursed",
+  invested: "PF2E.TraitInvested",
+  saggorak: "PF2E.TraitSaggorak",
+  staff: "PF2E.TraitStaff",
+  structure: "PF2E.TraitStructure",
+  tattoo: "PF2E.TraitTattoo",
+  wand: "PF2E.TraitWand"
+};
 mergeObject(CONFIG.equipmentTraits, CONFIG.magicalSchools);
-
 CONFIG.consumableTraits = {
-    bomb: "PF2E.TraitBomb",
-    consumable: "PF2E.TraitConsumable",
-    drug: "PF2E.TraitDrug",
-    elixir: "PF2E.TraitElixir",
-    mutagen: "PF2E.TraitMutagen",
-    oil: "PF2E.TraitOil",
-    potion: "PF2E.TraitPotion",
-    scroll: "PF2E.TraitScroll",
-    snare: "PF2E.TraitSnare",
-	trap: "PF2E.TraitTrap",
-	mechanical: "PF2E.TraitMechanical",
-    talisman: "PF2E.TraitTalisman",
-    contact: "PF2E.TraitContact",
-    ingested: "PF2E.TraitIngested",
-    inhaled: "PF2E.TraitInhaled",
-    injury: "PF2E.TraitInjury",
-    poison: "PF2E.TraitPoison",
-    alchemical: "PF2E.TraitAlchemical",
-	virulent: "PF2E.TraitVirulent",
-    healing: "PF2E.TraitHealing",
-    magical: "PF2E.TraitMagical",
-	arcane: "PF2E.TraitArcane",
-}
-mergeObject(CONFIG.consumableTraits, CONFIG.magicalSchools);
+  bomb: "PF2E.TraitBomb",
+  consumable: "PF2E.TraitConsumable",
+  drug: "PF2E.TraitDrug",
+  elixir: "PF2E.TraitElixir",
+  mutagen: "PF2E.TraitMutagen",
+  oil: "PF2E.TraitOil",
+  potion: "PF2E.TraitPotion",
+  scroll: "PF2E.TraitScroll",
+  snare: "PF2E.TraitSnare",
+  trap: "PF2E.TraitTrap",
+  mechanical: "PF2E.TraitMechanical",
+  talisman: "PF2E.TraitTalisman",
+  contact: "PF2E.TraitContact",
+  ingested: "PF2E.TraitIngested",
+  inhaled: "PF2E.TraitInhaled",
+  injury: "PF2E.TraitInjury",
+  poison: "PF2E.TraitPoison",
+  alchemical: "PF2E.TraitAlchemical",
+  virulent: "PF2E.TraitVirulent",
+  healing: "PF2E.TraitHealing",
+  magical: "PF2E.TraitMagical",
+  arcane: "PF2E.TraitArcane"
+};
+mergeObject(CONFIG.consumableTraits, CONFIG.magicalSchools); // Spell Traits
 
-// Spell Traits
 CONFIG.spellTraits = {
   attack: 'PF2E.TraitAttack',
   disease: 'PF2E.TraitDisease',
@@ -592,14 +572,13 @@ CONFIG.spellTraits = {
   misfortune: 'PF2E.TraitMisfortune',
   fungus: 'PF2E.TraitFungus',
   linguistic: 'PF2E.TraitLinguistic',
-  morph: 'PF2E.TraitMorph',
+  morph: 'PF2E.TraitMorph'
 };
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
 mergeObject(CONFIG.spellTraits, CONFIG.magicalSchools);
-mergeObject(CONFIG.spellTraits, CONFIG.classTraits);
+mergeObject(CONFIG.spellTraits, CONFIG.classTraits); // Feat Traits
 
-// Feat Traits
 CONFIG.featTraits = {
   move: 'PF2E.TraitMove',
   manipulate: 'PF2E.TraitManipulate',
@@ -636,7 +615,7 @@ CONFIG.featTraits = {
   alchemical: 'PF2E.TraitAlchemical',
   interact: 'PF2E.TraitInteract',
   aura: 'PF2E.TraitAura',
-  olfactory: 'PF2E.TraitOlfactory',
+  olfactory: 'PF2E.TraitOlfactory'
 };
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
@@ -644,7 +623,6 @@ mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
 mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
-
 CONFIG.monsterTraits = {
   aberration: 'PF2E.TraitAberration',
   acid: 'PF2E.TraitAcid',
@@ -724,23 +702,21 @@ CONFIG.monsterTraits = {
   wight: 'PF2E.TraitWight',
   wraith: 'PF2E.TraitWraith',
   xulgath: 'PF2E.TraitXulgath',
-  zombie: 'PF2E.TraitZombie',
+  zombie: 'PF2E.TraitZombie'
 };
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
-
 CONFIG.hazardTraits = {
   environmental: 'PF2E.TraitEnvironmental',
   haunt: 'PF2E.TraitHaunt',
   magical: 'PF2E.TraitMagical',
-  mechanical: 'PF2E.TraitMechanical',
+  mechanical: 'PF2E.TraitMechanical'
 };
 mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.hazardTraits, CONFIG.magicalSchools);
-mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
-
-// Traits Descriptions
+mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes); // Traits Descriptions
 // TODO: Compute these!
+
 CONFIG.traitsDescriptions = {
   common: 'PF2E.TraitDescriptionCommon',
   uncommon: 'PF2E.TraitDescriptionUncommon',
@@ -922,43 +898,38 @@ CONFIG.traitsDescriptions = {
   ingested: 'PF2E.TraitDescriptionIngested',
   inhaled: 'PF2E.TraitDescriptionInhaled',
   injury: 'PF2E.TraitDescriptionInjury',
-  poison: 'PF2E.TraitDescriptionPoison',
-};
+  poison: 'PF2E.TraitDescriptionPoison'
+}; // Weapon Hands
 
-// Weapon Hands
 CONFIG.weaponHands = {
   1: 'PF2E.WeaponHands1',
   '1+': 'PF2E.WeaponHands1Plus',
-  2: 'PF2E.WeaponHands2',
-};
+  2: 'PF2E.WeaponHands2'
+}; // Item Bonus
 
-// Item Bonus
 CONFIG.itemBonuses = {
   '-2': 'PF2E.ItemBonusMinus2',
   0: 'PF2E.ItemBonus0',
   1: 'PF2E.ItemBonus1',
   2: 'PF2E.ItemBonus2',
-  3: 'PF2E.ItemBonus3',
-};
+  3: 'PF2E.ItemBonus3'
+}; // Damage Dice
 
-// Damage Dice
 CONFIG.damageDice = {
   1: '1',
   2: '2',
   3: '3',
-  4: '4',
-};
+  4: '4'
+}; // Damage Die
 
-// Damage Die
 CONFIG.damageDie = {
   d4: 'PF2E.DamageDieD4',
   d6: 'PF2E.DamageDieD6',
   d8: 'PF2E.DamageDieD8',
   d10: 'PF2E.DamageDieD10',
-  d12: 'PF2E.DamageDieD12',
-};
+  d12: 'PF2E.DamageDieD12'
+}; // Weapon Range
 
-// Weapon Range
 CONFIG.weaponRange = {
   melee: 'PF2E.WeaponRangeMelee',
   reach: 'PF2E.WeaponRangeReach',
@@ -971,45 +942,41 @@ CONFIG.weaponRange = {
   80: 'PF2E.WeaponRange80',
   100: 'PF2E.WeaponRange100',
   120: 'PF2E.WeaponRange120',
-  140: 'PF2E.WeaponRange140',
+  140: 'PF2E.WeaponRange140'
 }; // TODO: Compute range!
-
 // Weapon MAP
+
 CONFIG.weaponMAP = {
   1: '-1/-2',
   2: '-2/-4',
   3: '-3/-6',
   4: '-4/-8',
-  5: '-5/-10',
-};
+  5: '-5/-10'
+}; // Weapon Reload
 
-// Weapon Reload
 CONFIG.weaponReload = {
   '-': '-',
   0: '0',
   1: '1',
   2: '2',
-  3: '3',
-};
+  3: '3'
+}; // Armor Types
 
-// Armor Types
 CONFIG.armorTypes = {
   unarmored: 'PF2E.ArmorTypeUnarmored',
   light: 'PF2E.ArmorTypeLight',
   medium: 'PF2E.ArmorTypeMedium',
   heavy: 'PF2E.ArmorTypeHeavy',
-  shield: 'PF2E.ArmorTypeShield',
-};
+  shield: 'PF2E.ArmorTypeShield'
+}; // Armor Groups
 
-// Armor Groups
 CONFIG.armorGroups = {
   leather: 'PF2E.ArmorGroupLeather',
   composite: 'PF2E.ArmorGroupComposite',
   chain: 'PF2E.ArmorGroupChain',
-  plate: 'PF2E.ArmorGroupPlate',
-};
+  plate: 'PF2E.ArmorGroupPlate'
+}; // Consumable Types
 
-// Consumable Types
 CONFIG.consumableTypes = {
   ammo: 'PF2E.ConsumableTypeAmmo',
   bomb: 'PF2E.ConsumableTypeBomb',
@@ -1023,31 +990,28 @@ CONFIG.consumableTypes = {
   mutagen: 'PF2E.ConsumableTypeMutagen',
   other: 'PF2E.ConsumableTypeOther',
   poison: 'PF2E.ConsumableTypePoison',
-  tool: 'PF2E.ConsumableTypeTool',
-};
+  tool: 'PF2E.ConsumableTypeTool'
+}; // Preparation Type
 
-// Preparation Type
 CONFIG.preparationType = {
   prepared: 'PF2E.PreparationTypePrepared',
   spontaneous: 'PF2E.PreparationTypeSpontaneous',
-  innate: 'PF2E.PreparationTypeInnate',
-};
+  innate: 'PF2E.PreparationTypeInnate'
+}; // Area Types
 
-// Area Types
 CONFIG.areaTypes = {
   burst: 'PF2E.AreaTypeBurst',
   cone: 'PF2E.AreaTypeCone',
   emanation: 'PF2E.AreaTypeEmanation',
-  line: 'PF2E.AreaTypeLine',
-};
+  line: 'PF2E.AreaTypeLine'
+}; // Spell Saves
 
-// Spell Saves
 /* CONFIG.spellBasic = {
   "": "",
   "basic": "Basic"
 } */
-
 // Area Size
+
 CONFIG.areaSizes = {
   5: 'PF2E.AreaSize5',
   10: 'PF2E.AreaSize10',
@@ -1057,10 +1021,9 @@ CONFIG.areaSizes = {
   40: 'PF2E.AreaSize40',
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
-  120: 'PF2E.AreaSize120',
-};
+  120: 'PF2E.AreaSize120'
+}; // Alignment
 
-// Alignment
 CONFIG.alignment = {
   LG: "PF2E.AlignmentLG",
   NG: "PF2E.AlignmentNG",
@@ -1071,9 +1034,8 @@ CONFIG.alignment = {
   LE: "PF2E.AlignmentLE",
   NE: "PF2E.AlignmentNE",
   CE: "PF2E.AlignmentCE"
-}
+}; // Skill List
 
-// Skill List
 CONFIG.skillList = {
   acrobatics: 'PF2E.SkillAcrobatics',
   arcana: 'PF2E.SkillArcana',
@@ -1091,25 +1053,22 @@ CONFIG.skillList = {
   stealth: 'PF2E.SkillStealth',
   survival: 'PF2E.SkillSurvival',
   thievery: 'PF2E.SkillThievery',
-  lore: 'PF2E.SkillLore',
-};
+  lore: 'PF2E.SkillLore'
+}; // Spell Components
 
-// Spell Components
 CONFIG.spellComponents = {
   V: 'PF2E.SpellComponentV',
   S: 'PF2E.SpellComponentS',
-  M: 'PF2E.SpellComponentM',
-};
+  M: 'PF2E.SpellComponentM'
+}; // Spell Types
 
-// Spell Types
 CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',
   save: 'PF2E.SpellTypeSave',
   heal: 'PF2E.SpellTypeHeal',
-  utility: 'PF2E.SpellTypeUtility',
-};
+  utility: 'PF2E.SpellTypeUtility'
+}; // Spell Levels
 
-// Spell Levels
 CONFIG.spellLevels = {
   0: 'PF2E.SpellLevel0',
   1: 'PF2E.SpellLevel1',
@@ -1121,10 +1080,10 @@ CONFIG.spellLevels = {
   7: 'PF2E.SpellLevel7',
   8: 'PF2E.SpellLevel8',
   9: 'PF2E.SpellLevel9',
-  10: 'PF2E.SpellLevel10',
+  10: 'PF2E.SpellLevel10'
 }; // TODO: Compute levels!
-
 // Feat Types
+
 CONFIG.featTypes = {
   bonus: 'PF2E.FeatTypeBonus',
   ancestry: 'PF2E.FeatTypeAncestry',
@@ -1133,91 +1092,125 @@ CONFIG.featTypes = {
   class: 'PF2E.FeatTypeClass',
   classfeature: 'PF2E.FeatTypeClassfeature',
   archetype: 'PF2E.FeatTypeArchetype',
-  ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
-};
+  ancestryfeature: 'PF2E.FeatTypeAncestryfeature'
+}; // Feat Action Types
 
-// Feat Action Types
 CONFIG.featActionTypes = {
   passive: 'PF2E.FeatActionTypePassive',
   action: 'PF2E.FeatActionTypeAction',
   reaction: 'PF2E.FeatActionTypeReaction',
-  free: 'PF2E.FeatActionTypeFree',
-};
+  free: 'PF2E.FeatActionTypeFree'
+}; // Action Action Types
 
-// Action Action Types
 CONFIG.actionTypes = {
   action: 'PF2E.ActionTypeAction',
   reaction: 'PF2E.ActionTypeReaction',
   free: 'PF2E.ActionTypeFree',
-  passive: 'PF2E.ActionTypePassive',
-};
+  passive: 'PF2E.ActionTypePassive'
+}; // Actions Number
 
-// Actions Number
 CONFIG.actionsNumber = {
   1: 'PF2E.ActionNumber1',
   2: 'PF2E.ActionNumber2',
-  3: 'PF2E.ActionNumber3',
+  3: 'PF2E.ActionNumber3'
 };
-
 CONFIG.actionCategories = {
   interaction: "PF2E.ActionCategoryInteraction",
   defensive: "PF2E.ActionCategoryDefensive",
-  offensive: "PF2E.ActionCategoryOffensive",
-}
+  offensive: "PF2E.ActionCategoryOffensive"
+}; // Proficiency Multipliers
 
-// Proficiency Multipliers
 CONFIG.proficiencyLevels = {
   0: 'PF2E.ProficiencyLevel0',
   1: 'PF2E.ProficiencyLevel1',
   2: 'PF2E.ProficiencyLevel2',
   3: 'PF2E.ProficiencyLevel3',
-  4: 'PF2E.ProficiencyLevel4',
-};
+  4: 'PF2E.ProficiencyLevel4'
+}; // Hero Points
 
-// Hero Points
 CONFIG.heroPointLevels = {
   0: 'PF2E.HeroPointLevel0',
   1: 'PF2E.HeroPointLevel1',
   2: 'PF2E.HeroPointLevel2',
-  3: 'PF2E.HeroPointLevel3',
-};
+  3: 'PF2E.HeroPointLevel3'
+}; // Creature Sizes
 
-// Creature Sizes
 CONFIG.actorSizes = {
   tiny: 'PF2E.ActorSizeTiny',
   sm: 'PF2E.ActorSizeSmall',
   med: 'PF2E.ActorSizeMedium',
   lg: 'PF2E.ActorSizeLarge',
   huge: 'PF2E.ActorSizeHuge',
-  grg: 'PF2E.ActorSizeGargantuan',
+  grg: 'PF2E.ActorSizeGargantuan'
 };
-
 CONFIG.speedTypes = {
   swim: 'PF2E.SpeedTypesSwim',
   climb: "PF2E.SpeedTypesClimb",
   fly: "PF2E.SpeedTypesFly",
-  burrow: "PF2E.SpeedTypesBurrow",
+  burrow: "PF2E.SpeedTypesBurrow"
 };
-
 CONFIG.senses = {
   darkvision: 'PF2E.SensesDarkvision',
   greaterDarkvision: 'PF2E.SensesGreaterDarkvision',
   lowLightVision: 'PF2E.SensesLowLightVision',
   scent: 'PF2E.SensesScent',
-  Tremorsense: 'PF2E.SensesTremorsense',
-};
+  Tremorsense: 'PF2E.SensesTremorsense'
+}; // Creature Sizes
 
-// Creature Sizes
 CONFIG.bulkTypes = {
   L: 'PF2E.BulkTypeLight',
-  1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10',
-  11: '11', 12: '12', 13: '13', 14: '14', 15: '15', 16: '16', 17: '17', 18: '18', 19: '19', 20: '20',
-  21: '21', 22: '22', 23: '23', 24: '24', 25: '25', 26: '26', 27: '27', 28: '28', 29: '29', 30: '30',
-  31: '31', 32: '32', 33: '33', 34: '34', 35: '35', 36: '36', 37: '37', 38: '38', 39: '39', 40: '40',
-  41: '41', 42: '42', 43: '43', 44: '44', 45: '45', 46: '46', 47: '47', 48: '48', 49: '49', 50: '50',
-};
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10',
+  11: '11',
+  12: '12',
+  13: '13',
+  14: '14',
+  15: '15',
+  16: '16',
+  17: '17',
+  18: '18',
+  19: '19',
+  20: '20',
+  21: '21',
+  22: '22',
+  23: '23',
+  24: '24',
+  25: '25',
+  26: '26',
+  27: '27',
+  28: '28',
+  29: '29',
+  30: '30',
+  31: '31',
+  32: '32',
+  33: '33',
+  34: '34',
+  35: '35',
+  36: '36',
+  37: '37',
+  38: '38',
+  39: '39',
+  40: '40',
+  41: '41',
+  42: '42',
+  43: '43',
+  44: '44',
+  45: '45',
+  46: '46',
+  47: '47',
+  48: '48',
+  49: '49',
+  50: '50'
+}; // Condition Types
 
-// Condition Types
 CONFIG.conditionTypes = {
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
@@ -1260,10 +1253,9 @@ CONFIG.conditionTypes = {
   undetected: 'PF2E.ConditionTypeUndetected',
   unfriendly: 'PF2E.ConditionTypeUnfriendly',
   unnoticed: 'PF2E.ConditionTypeUnnoticed',
-  wounded: 'PF2E.ConditionTypeWounded',
-};
+  wounded: 'PF2E.ConditionTypeWounded'
+}; // Immunity Types
 
-// Immunity Types
 CONFIG.immunityTypes = {
   'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
@@ -1273,13 +1265,11 @@ CONFIG.immunityTypes = {
   sleep: 'PF2E.ImmunityTypeSleep',
   'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
   visual: 'PF2E.ImmunityTypeVisual',
-  spellDeflection: 'PF2E.ImmunityTypeSpellDeflection',  
-
-    'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
+  spellDeflection: 'PF2E.ImmunityTypeSpellDeflection',
+  'nonlethal attacks': 'PF2E.ImmunityTypeNonlethalAttacks',
   disease: 'PF2E.ImmunityTypeDisease',
   necromancy: 'PF2E.ImmunityTypeNecromancy',
   healing: 'PF2E.ImmunityTypeHealing',
-
   blinded: 'PF2E.ConditionTypeBlinded',
   broken: 'PF2E.ConditionTypeBroken',
   clumsy: 'PF2E.ConditionTypeClumsy',
@@ -1322,7 +1312,6 @@ CONFIG.immunityTypes = {
   unfriendly: 'PF2E.ConditionTypeUnfriendly',
   unnoticed: 'PF2E.ConditionTypeUnnoticed',
   wounded: 'PF2E.ConditionTypeWounded',
-
   acid: 'PF2E.DamageTypeAcid',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
   cold: 'PF2E.DamageTypeCold',
@@ -1341,10 +1330,9 @@ CONFIG.immunityTypes = {
   chaotic: 'PF2E.DamageTypeChaotic',
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil',
-};
+  evil: 'PF2E.DamageTypeEvil'
+}; // Languages
 
-// Languages
 CONFIG.languages = {
   common: 'PF2E.LanguageCommon',
   abyssal: 'PF2E.LanguageAbyssal',
@@ -1400,9 +1388,8 @@ CONFIG.languages = {
   tengu: 'PF2E.LanguageTengu',
   thassilonian: 'PF2E.LanguageThassilonian',
   utopian: 'PF2E.LanguageUtopian',
-  varki: 'PF2E.LanguageVarki',
+  varki: 'PF2E.LanguageVarki'
 };
-
 CONFIG.spellScalingModes = {
   none: 'PF2E.SpellScalingModeNone',
   level1: 'PF2E.SpellScalingModeLevel1',
@@ -1417,9 +1404,8 @@ CONFIG.spellScalingModes = {
   levelseventh: 'PF2E.SpellScalingModeLevelseventh',
   leveleighth: 'PF2E.SpellScalingModeLeveleighth',
   levelninth: 'PF2E.SpellScalingModeLevelninth',
-  leveltenth: 'PF2E.SpellScalingModeLeveltenth',
+  leveltenth: 'PF2E.SpellScalingModeLeveltenth'
 };
-
 CONFIG.attackEffects = {
   "Grab": 'PF2E.AttackEffectGrab',
   "Improved Grab": 'PF2E.AttackEffectImprovedGrab',
@@ -1429,215 +1415,215 @@ CONFIG.attackEffects = {
   "Improved Knockdown": 'PF2E.AttackEffectImprovedKnockdown',
   "Push": 'PF2E.AttackEffectPush',
   "Improved Push": 'PF2E.AttackEffectImprovedPush',
-  "Trip": 'PF2E.AttackEffectTrip',
-}
+  "Trip": 'PF2E.AttackEffectTrip'
+};
 
 CONFIG.monsterAbilities = () => {
   return {
-      "All-Around Vision": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>This monster can see in all directions simultaneously, and therefore can’t be flanked."
-      },
-      "Aquatic Ambush": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster is hiding in water and a creature that hasn’t detected it is within the listed number of feet. <b>Effect</b> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> against this Strike."
-      },
-      "Attack of Opportunity": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Trigger</b> A creature within the monster’s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it’s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn’t count toward the monster’s multiple attack penalty, and its multiple attack penalty doesn’t apply to this Strike."
-      },
-      "At-Will Spells": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>The monster can cast its at-will spells any number of times without using up spell slots."
-      },
-      "Aura": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>A monster’s aura automatically affects everything within a specified emanation around that monster. The monster doesn’t need to spend actions on the aura; rather, the aura’s effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.<br><br> If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.<br><br> The GM might determine that a monster’s aura doesn’t affect its own allies. For example, a creature might be immune to a monster’s frightful presence if they have been around each other for a long time."
-      },
-      "Buck": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>Most monsters that serve as mounts can attempt to\nbuck off unwanted or annoying riders, but most mounts\nwill not use this reaction against a trusted creature unless\nthe mounts are spooked or mistreated. <b>Trigger</b> A creature\nMounts or uses the Command an Animal action while riding\nthe monster. <b>Effect</b> The triggering creature must succeed\nat a Reflex saving throw against the listed DC or fall off the\ncreature and land prone. If the save is a critical failure, the\ntriggering creature also takes 1d6 bludgeoning damage in\naddition to the normal damage for the fall."
-      },
-      "Catch Rock": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster must have a free hand but can Release anything it’s holding as part of this reaction. <b>Trigger</b> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <b>Effect</b> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock."
-      },
-      "Change Shape": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=32\">concentrate</a>, [magical tradition], <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=127\">polymorph</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=157\">transmutation</a>) The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster’s transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn’t gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block."
-      },
-      "Constant Spells": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell\u001crequires."
-      },
-      "Constrict": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC."
-      },
-      "Coven": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=47\">divination</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=106\">mental</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=120\">occult</a>) This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments (page 6), adjusting their levels accordingly. Coven members can sense other members’ locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.<br><br> Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single-action spellcasting activity that has a single verbal component. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-level <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=17\">baleful polymorph</a></i> spell and all the following spells, which the coven can cast at any level up to 5th: <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=15\">augury</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=34\">charm</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=39\">clairaudience</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=40\">clairvoyance</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=90\">dream message</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=159\">illusory disguise</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=161\">illusory scene</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=239\">prying eye</a></i>, and <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=329\">talking corpse</a></i>. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rituals.aspx?ID=9\">control weather</a></i> ritual, with a DC of 23 instead of the standard DC.<br><br> If a coven member leaving the coven or the death of a coven member brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can’t cast coven spells."
-      },
-      "Darkvision": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=59\">darkness</a></i> spell, block normal darkvision. A monster with greater darkvision, however, can see through even these forms of magical darkness."
-      },
-      "Disease": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster’s disease, it attempts a Fortitude save or succumbs to the disease. The level of a disease is the level of the monster in\u001f icting the disease. The disease follows the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rules.aspx?ID=361\">rules for afflictions</a>."
-      },
-      "Engulf": {
-          "actionType": "action",
-          "actionCost": 2,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster’s size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster’s path) or pushed in front of the monster to the end of the monster’s movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.<br><br> A creature that fails its save is pulled into the monster’s body. It is grabbed, is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=35\">slowed 1</a>, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it’s engulfed. An engulfed creature can get free by Escaping against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster’s space.<br><br> If the monster dies, all creatures it has engulfed are automatically released as the monster’s form loses cohesion."
-      },
-      "Fast Healing": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn."
-      },
-      "Ferocity": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Trigger</b> The monster is reduced to 0 HP. <b>Effect</b> The monster avoids being knocked out and remains at 1 HP, but its <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=42\">wounded</a> value increases by 1. When it is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=42\">wounded 3</a>, it can no longer use this ability."
-      },
-      "Frightful Presence": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=206\">aura</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=60\">emotion</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=68\">fear</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=106\">mental</a>) A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster’s Frightful Presence for 1 minute.<br><br> <b>Critical Success</b> The creature is unaffected by the presence.<br> <b>Success</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 1</a>.<br> <b>Failure</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 2</a>.<br> <b>Critical Failure</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 4</a>."
-      },
-      "Grab": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster’s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can’t be used to Strike creatures until the grab is ended.<br><br> Using Grab extends the duration of the monster’s Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Actions.aspx?ID=79\">Escape</a> action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
-      },
-      "Greater Constrict": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=38\">unconscious</a>, and a creature that succeeds is then temporarily immune to falling <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=38\">unconscious</a> from Greater Constrict for 1 minute."
-      },
-      "Improved Grab": {
-          "actionType": "free",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed."
-      },
-      "Improved Knockdown": {
-          "actionType": "free",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Knockdown as a free action triggered by a hit with its initial attack."
-      },
-      "Improved Push": {
-          "actionType": "free",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Push as a free action triggered by a hit with its initial attack."
-      },
-      "Knockdown": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Knockdown in its damage entry. <b>Effect</b> The monster knocks the target prone."
-      },
-      "Lifesense": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors."
-      },
-      "Light Blindness": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When first exposed to bright light, the monster is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=1\">blinded</a> until the end of its next turn. After this exposure, light doesn’t blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it’s <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=7\">dazzled</a>."
-      },
-      "Low-Light Vision": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can see in dim light as though it were bright light, so it ignores the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=4\">concealed</a> condition due to dim light."
-      },
-      "Poison": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster’s poison, it attempts a Fortitude save to avoid becoming poisoned. The level of a poison is the level of the monster inflicting the poison. The poison follows the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rules.aspx?ID=361\">rules for afflictions</a>."
-      },
-      "Push": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Push in its damage entry. <b>Effect</b> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled."
-      },
-      "Regeneration": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying</a> condition never increases beyond <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying 3</a> as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying 4</a>."
-      },
-      "Rend": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>A Rend entry lists a Strike the monster has. <b>Requirements</b> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <b>Effect</b> The monster automatically deals that Strike’s damage again to the enemy."
-      },
-      "Retributive Strike": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> An enemy damages the monster’s ally, and both are within 15 feet of the monster. <b>Effect</b> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster’s level. If the foe is within reach, the monster makes a melee Strike against it."
-      },
-      "Scent": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).<br><br> If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind."
-      },
-      "Shield Block": {
-          "actionType": "reaction",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> The monster has its shield raised and takes damage from a physical attack. <b>Effect</b> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield’s Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield."
-      },
-      "Sneak Attack": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>When the monster Strikes a creature that has the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> condition with an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> melee weapon, an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> weapon."
-      },
-      "Swallow Whole": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=15\">attack</a>) The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can’t use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Skills.aspx?ID=3\">Athletics</a> check opposed by the grabbed creature’s Reflex DC. If it succeeds, it swallows the creature. The monster’s mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can’t attack creatures it has swallowed.<br><br> A swallowed creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=20\">grabbed</a>, is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=35\">slowed 1</a>, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it’s swallowed. If the victim Escapes this ability’s grabbed condition, it exits through the monster’s mouth. This frees any other creature grabbed in the monster’s mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster’s space.<br><br> If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage."
-      },
-      "Swarm Mind": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-      },
-      "Telepathy": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=206\">aura</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=47\">divination</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=103\">magical</a>) A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn’t give any special access to their thoughts, and communicates no more information than normal speech would."
-      },
-      "Throw Rock": {
-          "actionType": "action",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike."
-      },
-      "Trample": {
-          "actionType": "action",
-          "actionCost": 3,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure)."
-      },
-      "Tremorsense": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface."
-      },
-      "Wavesense": {
-          "actionType": "passive",
-          "actionCost": 1,
-          "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>This sense allows a monster to feel vibrations caused by movement through a liquid. It’s an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid."
-      }
-  }
-}
+    "All-Around Vision": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>This monster can see in all directions simultaneously, and therefore can’t be flanked."
+    },
+    "Aquatic Ambush": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster is hiding in water and a creature that hasn’t detected it is within the listed number of feet. <b>Effect</b> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> against this Strike."
+    },
+    "Attack of Opportunity": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Trigger</b> A creature within the monster’s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it’s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn’t count toward the monster’s multiple attack penalty, and its multiple attack penalty doesn’t apply to this Strike."
+    },
+    "At-Will Spells": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>The monster can cast its at-will spells any number of times without using up spell slots."
+    },
+    "Aura": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>A monster’s aura automatically affects everything within a specified emanation around that monster. The monster doesn’t need to spend actions on the aura; rather, the aura’s effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.<br><br> If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.<br><br> The GM might determine that a monster’s aura doesn’t affect its own allies. For example, a creature might be immune to a monster’s frightful presence if they have been around each other for a long time."
+    },
+    "Buck": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>Most monsters that serve as mounts can attempt to\nbuck off unwanted or annoying riders, but most mounts\nwill not use this reaction against a trusted creature unless\nthe mounts are spooked or mistreated. <b>Trigger</b> A creature\nMounts or uses the Command an Animal action while riding\nthe monster. <b>Effect</b> The triggering creature must succeed\nat a Reflex saving throw against the listed DC or fall off the\ncreature and land prone. If the save is a critical failure, the\ntriggering creature also takes 1d6 bludgeoning damage in\naddition to the normal damage for the fall."
+    },
+    "Catch Rock": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br><b>Requirements</b> The monster must have a free hand but can Release anything it’s holding as part of this reaction. <b>Trigger</b> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <b>Effect</b> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock."
+    },
+    "Change Shape": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=32\">concentrate</a>, [magical tradition], <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=127\">polymorph</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=157\">transmutation</a>) The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster’s transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn’t gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block."
+    },
+    "Constant Spells": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell\u001crequires."
+    },
+    "Constrict": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC."
+    },
+    "Coven": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 342</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=47\">divination</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=106\">mental</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=120\">occult</a>) This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments (page 6), adjusting their levels accordingly. Coven members can sense other members’ locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.<br><br> Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single-action spellcasting activity that has a single verbal component. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-level <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=17\">baleful polymorph</a></i> spell and all the following spells, which the coven can cast at any level up to 5th: <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=15\">augury</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=34\">charm</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=39\">clairaudience</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=40\">clairvoyance</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=90\">dream message</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=159\">illusory disguise</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=161\">illusory scene</a></i>, <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=239\">prying eye</a></i>, and <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=329\">talking corpse</a></i>. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rituals.aspx?ID=9\">control weather</a></i> ritual, with a DC of 23 instead of the standard DC.<br><br> If a coven member leaving the coven or the death of a coven member brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can’t cast coven spells."
+    },
+    "Darkvision": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level <i><a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Spells.aspx?ID=59\">darkness</a></i> spell, block normal darkvision. A monster with greater darkvision, however, can see through even these forms of magical darkness."
+    },
+    "Disease": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster’s disease, it attempts a Fortitude save or succumbs to the disease. The level of a disease is the level of the monster in\u001f icting the disease. The disease follows the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rules.aspx?ID=361\">rules for afflictions</a>."
+    },
+    "Engulf": {
+      "actionType": "action",
+      "actionCost": 2,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster’s size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster’s path) or pushed in front of the monster to the end of the monster’s movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.<br><br> A creature that fails its save is pulled into the monster’s body. It is grabbed, is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=35\">slowed 1</a>, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it’s engulfed. An engulfed creature can get free by Escaping against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster’s space.<br><br> If the monster dies, all creatures it has engulfed are automatically released as the monster’s form loses cohesion."
+    },
+    "Fast Healing": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn."
+    },
+    "Ferocity": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Trigger</b> The monster is reduced to 0 HP. <b>Effect</b> The monster avoids being knocked out and remains at 1 HP, but its <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=42\">wounded</a> value increases by 1. When it is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=42\">wounded 3</a>, it can no longer use this ability."
+    },
+    "Frightful Presence": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=206\">aura</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=60\">emotion</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=68\">fear</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=106\">mental</a>) A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster’s Frightful Presence for 1 minute.<br><br> <b>Critical Success</b> The creature is unaffected by the presence.<br> <b>Success</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 1</a>.<br> <b>Failure</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 2</a>.<br> <b>Critical Failure</b> The creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=19\">frightened 4</a>."
+    },
+    "Grab": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster’s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can’t be used to Strike creatures until the grab is ended.<br><br> Using Grab extends the duration of the monster’s Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Actions.aspx?ID=79\">Escape</a> action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+    },
+    "Greater Constrict": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=38\">unconscious</a>, and a creature that succeeds is then temporarily immune to falling <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=38\">unconscious</a> from Greater Constrict for 1 minute."
+    },
+    "Improved Grab": {
+      "actionType": "free",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed."
+    },
+    "Improved Knockdown": {
+      "actionType": "free",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Knockdown as a free action triggered by a hit with its initial attack."
+    },
+    "Improved Push": {
+      "actionType": "free",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can use Push as a free action triggered by a hit with its initial attack."
+    },
+    "Knockdown": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Knockdown in its damage entry. <b>Effect</b> The monster knocks the target prone."
+    },
+    "Lifesense": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors."
+    },
+    "Light Blindness": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When first exposed to bright light, the monster is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=1\">blinded</a> until the end of its next turn. After this exposure, light doesn’t blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it’s <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=7\">dazzled</a>."
+    },
+    "Low-Light Vision": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>The monster can see in dim light as though it were bright light, so it ignores the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=4\">concealed</a> condition due to dim light."
+    },
+    "Poison": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>When a creature is exposed to a monster’s poison, it attempts a Fortitude save to avoid becoming poisoned. The level of a poison is the level of the monster inflicting the poison. The poison follows the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Rules.aspx?ID=361\">rules for afflictions</a>."
+    },
+    "Push": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br><b>Requirements</b> The monster’s last action was a success with a Strike that lists Push in its damage entry. <b>Effect</b> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled."
+    },
+    "Regeneration": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 343</i></a><br>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying</a> condition never increases beyond <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying 3</a> as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=11\">dying 4</a>."
+    },
+    "Rend": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>A Rend entry lists a Strike the monster has. <b>Requirements</b> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <b>Effect</b> The monster automatically deals that Strike’s damage again to the enemy."
+    },
+    "Retributive Strike": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> An enemy damages the monster’s ally, and both are within 15 feet of the monster. <b>Effect</b> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster’s level. If the foe is within reach, the monster makes a melee Strike against it."
+    },
+    "Scent": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).<br><br> If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind."
+    },
+    "Shield Block": {
+      "actionType": "reaction",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br><b>Trigger</b> The monster has its shield raised and takes damage from a physical attack. <b>Effect</b> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield’s Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield."
+    },
+    "Sneak Attack": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>When the monster Strikes a creature that has the <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=16\">flat-footed</a> condition with an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> melee weapon, an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=170\">agile</a> or <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=179\">finesse</a> weapon."
+    },
+    "Swallow Whole": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=15\">attack</a>) The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can’t use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Skills.aspx?ID=3\">Athletics</a> check opposed by the grabbed creature’s Reflex DC. If it succeeds, it swallows the creature. The monster’s mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can’t attack creatures it has swallowed.<br><br> A swallowed creature is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=20\">grabbed</a>, is <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Conditions.aspx?ID=35\">slowed 1</a>, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it’s swallowed. If the victim Escapes this ability’s grabbed condition, it exits through the monster’s mouth. This frees any other creature grabbed in the monster’s mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster’s space.<br><br> If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage."
+    },
+    "Swarm Mind": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
+    },
+    "Telepathy": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>(<a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=206\">aura</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=47\">divination</a>, <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Traits.aspx?ID=103\">magical</a>) A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn’t give any special access to their thoughts, and communicates no more information than normal speech would."
+    },
+    "Throw Rock": {
+      "actionType": "action",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike."
+    },
+    "Trample": {
+      "actionType": "action",
+      "actionCost": 3,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure)."
+    },
+    "Tremorsense": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface."
+    },
+    "Wavesense": {
+      "actionType": "passive",
+      "actionCost": 1,
+      "description": "<b>Source</b> <a href=\"https://paizo.com/products/btq01y0m?Pathfinder-Bestiary\" target=\"_blank\" class=\"external-link\"><i>Bestiary pg. 344</i></a><br>This sense allows a monster to feel vibrations caused by movement through a liquid. It’s an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid."
+    }
+  };
+};
