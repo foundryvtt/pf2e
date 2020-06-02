@@ -136,8 +136,10 @@ class PF2eStatusEffects {
         if (game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             Hooks.on("updateCombat", (combat) => {
                 const combatant = combat.combatant;
-                const token = new Token(combatant.token);
-                this._createChatMessage(token, combatant.hidden);
+                if (combatant) {
+                    const token = canvas.tokens.get(combatant.tokenId);
+                    this._createChatMessage(token, combatant.hidden);
+                }
             });
         }
 
