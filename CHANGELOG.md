@@ -1,6 +1,8 @@
 # Patch Notes:
 ## Version 1.4.0 
 ### New Features
+* (@In3luki) Added a setting to show the conditions of the active combatant in chat for each combat turn.
+* (@In3luki) Added an API to set conditions on a token programatically or via macros
 * (@putt1) Equipping a shield now sets it's values in the sidebar and allows you to udpate it's hp.
 * (@nikolaj-a) Changed saving throw, perception and skill rolls to use the new roll dialog with options to exclude individual modifiers and add new ones (improved styling coming).
 
@@ -15,6 +17,7 @@
 
 ### Bug Fixes
 * (@nikolaj-a) Fixed the heading of the modifiers tooltip for initiative to say initiative and the relevant skill name, instead of just saying perception all the time. 
+* (@In3luki) Fixed error in CUB installation check.
 
 
 ### Core System Improvements
