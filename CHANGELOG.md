@@ -1,4 +1,33 @@
 # Patch Notes:
+## Version 1.4.0 
+### New Features
+* (@In3luki) Added a setting to show the conditions of the active combatant in chat for each combat turn.
+* (@In3luki) Added an API to set conditions on a token programatically or via macros
+* (@putt1) Equipping a shield now sets it's values in the sidebar and allows you to udpate it's hp.
+* (@nikolaj-a) Changed saving throw, perception and skill rolls to use the new roll dialog with options to exclude individual modifiers and add new ones (improved styling coming).
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/379a41caed2150ca478488bd61f9863b/image.png "New Roll Dialog")
+
+
+### Content Changes
+* (@putt1) Renamed Adamantite to Adamantine
+* (@putt1) All shields and armors now have the correct broken treshold, hp, hardness, material, grade, potency, resiliency and property runes
+* (@putt1) Corrected the rune and materials settings on all weapons (except alchemical bombs) starting with the letter 'A' through to and including the letter 'O'.
+
+
+### Bug Fixes
+* (@nikolaj-a) Fixed the heading of the modifiers tooltip for initiative to say initiative and the relevant skill name, instead of just saying perception all the time. 
+* (@In3luki) Fixed error in CUB installation check.
+
+
+### Core System Improvements
+* (@putt1) Updated bulk system to correctly add +2 bulk for hefty hauler feat and +1 bulk when the lifting belt is equipped.
+* (@putt1) Added 'light' as a damage type.
+* (@nikolaj-a) Changed the label for bonus HP and SP per level from shortening 'bonus' to instead shorten 'level', which should make it a little easier to understand.
+* (@nikolaj-a) Localized the heading of the initiative section in the sidebar.
+* (@nikolaj-a) Assigned a proper check type in the context for strikes (attack-roll) and initiative. This should help modules authors easier intercept the correct checks for further decoration.
+
+
 ## Version 1.3.1
 ### Core System Improvements
 * (@mdizo) Improved styling of view modifier hover and workflow for adding custom modifiers.
