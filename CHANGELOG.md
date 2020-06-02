@@ -4,9 +4,9 @@
 * (@In3luki) Added a setting to show the conditions of the active combatant in chat for each combat turn.
 * (@In3luki) Added an API to set conditions on a token programatically or via macros
 * (@putt1) Equipping a shield now sets it's values in the sidebar and allows you to udpate it's hp.
-* (@nikolaj-a) Changed saving throw, perception and skill rolls to use the new roll dialog with options to exclude individual modifiers and add new ones (improved styling coming).
+* (@nikolaj-a and @mdizo) Changed saving throw, perception and skill rolls to use the new roll dialog with options to exclude individual modifiers and add new ones.
 
-![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/379a41caed2150ca478488bd61f9863b/image.png "New Roll Dialog")
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/3aa0a08dd37f63b3f6db1a0500cf928d/chrome_EaKZDZhXCi.png "New Roll Dialog")
 
 
 ### Content Changes
