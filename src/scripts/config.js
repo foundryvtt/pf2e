@@ -1266,6 +1266,7 @@ CONFIG.conditionTypes = {
 
 CONFIG.immunityTypes = {
   'death effects': 'PF2E.ImmunityTypeDeathEffects',
+  'fear effects': 'PF2E.ImmunityTypeFearEffects',
   'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
   'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
   'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',

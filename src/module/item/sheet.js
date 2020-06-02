@@ -110,6 +110,7 @@ export class ItemSheetPF2e extends ItemSheet {
       data.weaponReload = CONFIG.PF2E.weaponReload;
       data.weaponMAP = CONFIG.PF2E.weaponMAP;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
+      data.isBomb = this.item.data.data?.group?.value === 'bomb';
 
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (this.item.type === 'melee') {
