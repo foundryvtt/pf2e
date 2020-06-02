@@ -34,12 +34,16 @@
                 'mod type value exclude' 1fr
                 / 1.5fr 1fr 36px 50px;
             align-items: center;
-            padding: 4px 8px;
-            padding-right: 0;
+            padding: 8px 0;
 
             &.header {
                 font-size: 0.8rem;
                 font-weight: 700;
+                padding-bottom: 0;
+
+                & + hr {
+                    margin-bottom: 0;
+                }
             }
 
             .type {
@@ -51,6 +55,7 @@
             }
             .value {
                 grid-area: value;
+                justify-self: center;
             }
             .exclude {
                 grid-area: exclude;
@@ -96,24 +101,51 @@
         }
 
         .modifier-container {
-            div:nth-child(even) {
-                background-color: rgba(black, 0.05);
-            }
+            display: flex;
+            flex-direction: column;
 
-            .modifier-enabled {
-                filter: opacity(0.5);
-                text-decoration: line-through;
-                .toggle {
-                    background: var(--primary);
-                    input[type='checkbox'] + label {
-                        left: 16px;
+            .dialog-row {
+                border-bottom: 1px solid rgba(black, 0.1);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .tag {
+                    font-family: $sans-serif;
+                    @include button;
+                    border-radius: 2px;
+                    background-color: var(--alt-dark);
+                    width: fit-content;
+                    padding: 4px 8px;
+                    font-size: 0.6rem;
+                    color: white;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+
+                &.modifier-enabled {
+                    text-decoration: line-through;
+                    span {
+                        filter: opacity(0.5);
+                    }
+                    .toggle {
+                        background: var(--primary);
+                        input[type='checkbox'] + label {
+                            left: 16px;
+                        }
                     }
                 }
             }
 
-            .total-mod {
-                font-weight: 700;
+            & + hr {
+                margin-top: 0;
             }
+        }
+
+        .total-mod {
+            font-weight: 700;
+            padding: 0;
         }
 
         .fate {

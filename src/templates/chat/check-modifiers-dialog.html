@@ -8,7 +8,7 @@
   <div class="modifier-container">
     {{#each check.modifiers as |modifier idx|}}
     <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
-      <span class="type">{{modifier.type}}</span>
+      <span class="type tag">{{modifier.type}}</span>
       <span class="mod">{{localize modifier.name}}</span>
       <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
       <div class="exclude toggle">
@@ -17,13 +17,29 @@
       </div>
     </div>
     {{/each}}
+  </div>
   <hr/>
   <div class="dialog-row total-mod">
     <span class="mod">Total Modifier:</span>
     <span class="value">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
   </div>
+  <hr/>
+  
+  <div class="add-modifier-panel">
+      <select class="add-modifier-type">
+        <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
+        <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
+        <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
+        <option value="untyped">Untyped (Penalty)</option>
+        <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
+        <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
+      </select>
+      <input type="text" class="add-modifier-name" placeholder="Modifier Name">
+      <input type="text" class="add-modifier-value" placeholder="+1">
+      <button class="add-modifier">+Add</button>
   </div>
   <hr/>
+
   <div class="fate">
     <label>
       <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
@@ -39,19 +55,6 @@
     </label>
   </div>
   <hr/>
-  <div class="add-modifier-panel">
-      <select class="add-modifier-type">
-        <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
-        <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
-        <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
-        <option value="untyped">Untyped (Penalty)</option>
-        <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
-        <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
-      </select>
-      <input type="text" class="add-modifier-name" placeholder="Modifier Name">
-      <input type="text" class="add-modifier-value" placeholder="+1">
-      <button class="add-modifier">+Add</button>
-  </div>
-  <hr/>
+  
   <button type="button" class="roll">Roll</button>
 </div>
