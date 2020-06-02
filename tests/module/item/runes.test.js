@@ -102,6 +102,23 @@ describe('test runes', () => {
             .toBe(3);
     });
 
+    test('bonus attack from bombs', () => {
+        const itemData = {
+            potencyRune: {
+                value: '3',
+            },
+            bonus: {
+                value: '2'
+            },
+            group: {
+                value: 'bomb'
+            }
+        };
+
+        expect(getAttackBonus(itemData))
+            .toBe(2);
+    });
+
     test('no bonus attack', () => {
         const itemData = {
             potencyRune: {
