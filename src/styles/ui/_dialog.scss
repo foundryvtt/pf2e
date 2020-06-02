@@ -4,15 +4,17 @@
         border-radius: 0;
         background: linear-gradient(
             90deg,
-            #450000 0%,
-            #870000 50%,
-            #450000 100%
+            var(--secondary) 0%,
+            lighten($secondary-color, 10) 50%,
+            var(--secondary) 100%
         );
         @include inset-gold-border;
         margin-bottom: 2px;
+        font-size: 0.75rem;
     }
     .window-content {
         @include corner-boxes;
+        padding-top: 0;
 
         .dialog-row {
             display: grid;
@@ -95,6 +97,44 @@
                         left: 16px;
                     }
                 }
+            }
+
+            .total-mod {
+                font-weight: 700;
+            }
+        }
+
+        .fate {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .add-modifier-panel {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+
+            select, input {
+                margin-right: 4px;
+                height: auto;
+                border-radius: 2px;
+            }
+            .add-modifier-type {
+                flex: 0 30%;
+                width: 100%;
+            }
+            .add-modifier-name {
+                flex: 1 40%;
+            }
+            .add-modifier-value {
+                flex: 1 10%;
+            }
+            .add-modifier {
+                flex: 1 20%;
+                line-height: 1;
+                margin: 0;
+                padding: 4px 0;
             }
         }
     }

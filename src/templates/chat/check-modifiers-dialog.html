@@ -17,15 +17,14 @@
       </div>
     </div>
     {{/each}}
+  <hr/>
+  <div class="dialog-row total-mod">
+    <span class="mod">Total Modifier:</span>
+    <span class="value">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
+  </div>
   </div>
   <hr/>
-  <div>
-    <span>Total Modifier:</span>
-    <span>{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
-    <span>&nbsp;</span>
-  </div>
-  <hr/>
-  <div>
+  <div class="fate">
     <label>
       <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
       Fortune
@@ -41,8 +40,7 @@
   </div>
   <hr/>
   <div class="add-modifier-panel">
-    <div>
-      <select class="add-modifier-type" style="justify-self: start;">
+      <select class="add-modifier-type">
         <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
         <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
         <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
@@ -53,7 +51,6 @@
       <input type="text" class="add-modifier-name" placeholder="Modifier Name">
       <input type="text" class="add-modifier-value" placeholder="+1">
       <button class="add-modifier">+Add</button>
-    </div>
   </div>
   <hr/>
   <button type="button" class="roll">Roll</button>
