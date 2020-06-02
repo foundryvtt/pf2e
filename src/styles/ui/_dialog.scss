@@ -1,0 +1,220 @@
+.dice-checks {
+    background: none;
+    .window-header {
+        border-radius: 0;
+        background: linear-gradient(
+            90deg,
+            var(--secondary) 0%,
+            lighten($secondary-color, 10) 50%,
+            var(--secondary) 100%
+        );
+        @include inset-gold-border;
+        margin-bottom: 2px;
+        font-size: 0.75rem;
+    }
+    .window-content {
+        @include corner-boxes;
+        padding-top: 0;
+
+        button {
+            @include button;
+            cursor: pointer;
+            font-family: $sans-serif;
+            background-color: var(--alt);
+            border-radius: 2px;
+            color: white;
+            &:hover {
+                text-shadow: 0 0 2px var(--tertiary);
+            }
+        }
+
+        .dialog-row {
+            display: grid;
+            grid:
+                'mod type value exclude' 1fr
+                / 1.5fr 1fr 36px 50px;
+            align-items: center;
+            padding: 8px 0;
+
+            &.header {
+                font-size: 0.8rem;
+                font-weight: 700;
+                padding-bottom: 0;
+
+                & + hr {
+                    margin-bottom: 0;
+                }
+            }
+
+            .type {
+                grid-area: type;
+                text-transform: capitalize;
+            }
+            .mod {
+                grid-area: mod;
+            }
+            .value {
+                grid-area: value;
+                justify-self: center;
+            }
+            .exclude {
+                grid-area: exclude;
+                justify-self: right;
+
+                &.toggle {
+                    width: 42px;
+                    height: 16px;
+                    background: var(--secondary);
+                    margin: 4px auto;
+                    position: relative;
+                    border-radius: 50px;
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
+                        0px 1px 0px rgba(255, 255, 255, 0.2);
+                    &::after {
+                        content: 'OFF';
+                        color: #000;
+                        position: absolute;
+                        right: 5px;
+                        z-index: 0;
+                        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+                    }
+                    &::before {
+                        content: 'ON';
+                        color: white;
+                        position: absolute;
+                        left: 6px;
+                        z-index: 0;
+                    }
+                    &::after,
+                    &::before {
+                        @include micro;
+                        top: 4px;
+                    }
+                    label {
+                        display: block;
+                        width: 18px;
+                        height: 14px;
+                        position: absolute;
+                        top: 1px;
+                        right: 1px;
+                        cursor: pointer;
+                        background: #fcfff4;
+                        z-index: 1;
+                        background: linear-gradient(
+                            to bottom,
+                            #fcfff4 0%,
+                            #dfe5d7 40%,
+                            #b3bead 100%
+                        );
+                        border-radius: 50px;
+                        box-shadow: 0 0 0 1px rgba(black, 0.2),
+                            0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                        transition: all 0.4s ease;
+                    }
+                    input[type='checkbox'] {
+                        visibility: hidden;
+                        &:checked + label {
+                            right: 23px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .modifier-container {
+            display: flex;
+            flex-direction: column;
+
+            .dialog-row {
+                border-bottom: 1px solid rgba(black, 0.1);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .tag {
+                    font-family: $sans-serif;
+                    border-radius: 2px;
+                    background-color: var(--sub);
+                    width: fit-content;
+                    padding: 4px 8px;
+                    font-size: 0.6rem;
+                    color: white;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    box-shadow: inset 0 0 0 1px rgba(black, 0.25);
+                }
+
+                &.modifier-enabled {
+                    text-decoration: line-through;
+                    span {
+                        filter: opacity(0.5);
+                    }
+                    .toggle {
+                        background: rgba(black, 0.5);
+                        input[type='checkbox'] + label {
+                            right: 23px;
+                        }
+                    }
+                }
+            }
+
+            & + hr {
+                margin-top: 0;
+            }
+        }
+
+        .total-mod {
+            font-weight: 700;
+            padding: 0;
+        }
+
+        .fate {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+
+            label {
+                cursor: pointer;
+            }
+        }
+
+        .add-modifier-panel {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+
+            select,
+            input {
+                margin-right: 4px;
+                height: auto;
+                border-radius: 2px;
+            }
+            .add-modifier-type {
+                flex: 0 30%;
+                width: 100%;
+                cursor: pointer;
+            }
+            .add-modifier-name {
+                flex: 1 40%;
+            }
+            .add-modifier-value {
+                flex: 1 10%;
+            }
+            .add-modifier {
+                flex: 1 20%;
+                line-height: 1;
+                margin: 0;
+                padding: 4px 0;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 0.75rem;
+            }
+        }
+
+        .roll {
+            color: white;
+            background-color: var(--secondary);
+        }
+    }
+}

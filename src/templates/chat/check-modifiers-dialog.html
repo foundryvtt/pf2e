@@ -1,45 +1,33 @@
-<div>
-  <div style="display: grid; grid-template-columns: 1.5fr 2fr 0.7fr;">
-    <span style="justify-self: start; font-weight: bold;">Type</span>
-    <span style="justify-self: start; font-weight: bold;">Modifier</span>
-    <span style="justify-self: center; font-weight: bold;">Exclude?</span>
+<div class="check-modifiers-content">
+  <div class="dialog-row header">
+    <span class="type">Type</span>
+    <span class="mod">Modifier</span>
+    <span class="exclude"></span>
   </div>
   <hr/>
   <div class="modifier-container">
     {{#each check.modifiers as |modifier idx|}}
-    <div style="display: grid; grid-template-columns: 1.5fr 1.5fr 0.5fr 0.7fr; {{#unless modifier.enabled}}text-decoration: line-through; color: darkgrey;{{/unless}}">
-      <span style="justify-self: start; text-transform: capitalize;">{{modifier.type}}</span>
-      <span style="justify-self: start;">{{localize modifier.name}}</span>
-      <span style="justify-self: center;">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-      <input type="checkbox" data-modifier-index="{{idx}}" style="justify-self: center;" {{#if modifier.ignored}}checked="checked"{{/if}}>
+    <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
+      <span class="type tag">{{modifier.type}}</span>
+      <span class="mod">{{localize modifier.name}}</span>
+      <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+      <div class="exclude toggle">
+        <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{#if modifier.ignored}}checked{{/if}}>
+        <label for="{{idx}}"></label>
+      </div>
     </div>
     {{/each}}
   </div>
   <hr/>
-  <div style="display: grid; grid-template-columns: 3fr 0.5fr 0.7fr;">
-    <span style="justify-self: start; font-weight: bold;">Total Modifier:</span>
-    <span style="justify-self: center; font-weight: bold;">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
-    <span>&nbsp;</span>
+  {{!-- <div class="dialog-row total-mod">
+    <span class="mod">Total Modifier:</span>
+    <span class="value">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
   </div>
-  <hr/>
-  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-    <label style="justify-self: center;">
-      <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
-      Fortune
-    </label>
-    <label style="justify-self: center;">
-      <input type="radio" name="fate" value="none"  {{#if none}}checked{{/if}}>
-      None
-    </label>
-    <label style="justify-self: center;">
-      <input type="radio" name="fate" value="misfortune" {{#if misfortune}}checked{{/if}}>
-      Misfortune
-    </label>
-  </div>
-  <hr/>
+  <hr/> --}}
+  
   <div class="add-modifier-panel">
-    <div style="display: grid; grid-template-columns: 1.5fr 1.5fr 0.5fr 0.7fr;">
-      <select class="add-modifier-type" style="justify-self: start;">
+      <input type="text" class="add-modifier-name" placeholder="Modifier Name">
+      <select class="add-modifier-type">
         <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
         <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
         <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
@@ -47,11 +35,26 @@
         <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
         <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
       </select>
-      <input type="text" class="add-modifier-name"  style="justify-self: start;" placeholder="Modifier Name">
-      <input type="text" class="add-modifier-value" style="justify-self: center;" placeholder="+1">
-      <button class="add-modifier" style="justify-self: center;">+Add</button>
-    </div>
+      <input type="text" class="add-modifier-value" placeholder="+1">
+      <button class="add-modifier">+Add</button>
   </div>
   <hr/>
-  <button type="button" class="roll">Roll</button>
+
+  <div class="fate">
+    <label>
+      <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
+      Fortune
+    </label>
+    <label>
+      <input type="radio" name="fate" value="none"  {{#if none}}checked{{/if}}>
+      None
+    </label>
+    <label>
+      <input type="radio" name="fate" value="misfortune" {{#if misfortune}}checked{{/if}}>
+      Misfortune
+    </label>
+  </div>
+  <hr/>
+  
+  <button type="button" class="roll">Roll ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
 </div>
