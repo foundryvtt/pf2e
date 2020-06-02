@@ -21,7 +21,16 @@
             {{/select}}
         </select>
     </div>
-
+	<div class="form-group">
+        <label>{{localize "PF2E.Usage"}}</label>
+        <select name="data.traits.usage.value" data-dtype="String">
+            {{#select data.traits.usage.value}}
+            {{#each usage as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
