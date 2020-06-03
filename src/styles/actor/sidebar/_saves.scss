@@ -58,7 +58,7 @@ ol.saves-data, ol.difficulty-checks {
 ul.sidebar-saves {
     @include p-reset;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1.1fr 1fr;
 
     .roll-data {
         display: flex;
@@ -70,10 +70,16 @@ ul.sidebar-saves {
 
         &:first-child {
             border-left: none;
+            padding-right: 4px;
         }
 
         &:last-child {
             border-right: none;
+            padding-left: 4px;
+        }
+
+        &:nth-child(2) {
+            padding-left: 1px
         }
 
         .save-label {
