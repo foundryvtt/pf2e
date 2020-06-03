@@ -1,5 +1,7 @@
 # Patch Notes:
-## Version 1.4.1 
+## Version 1.4.2
+* Added support for Foundry v0.6.1
+## Version 1.4.1
 ### Bug Fixes
 * (@putt1) Fixed bomb attack and damage rolls
 * (@In3luki) Fixed conditions to not break when checking for external modules.
