@@ -243,12 +243,10 @@ function applyStackingRules(modifiers) {
       modifiers.splice(idx, 1); // remove any deleted modifiers
     } else if (modifier.ignored) {
       modifier.enabled = false;
-    } else if (modifier.modifier === 0) {
-      modifier.enabled = false; // disable zero modifiers, since they have no impact
-    } else if (modifier.modifier > 0) {
-      total += applyBonus(highestBonus, modifier);
-    } else {
+    } else if (modifier.modifier < 0) {
       total += applyPenalty(lowestPenalty, modifier);
+    } else {
+      total += applyBonus(highestBonus, modifier);
     }
   }
   return total;

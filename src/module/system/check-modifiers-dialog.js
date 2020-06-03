@@ -50,7 +50,8 @@ export class CheckModifiersDialog extends Application {
     const optionBreakdown = options.map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
       .join('');
 
-    const roll = new Roll(`${dice} + ${check.totalModifier}`, check).roll();
+    const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
+    const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
     roll.toMessage({
       speaker: ChatMessage.getSpeaker(),
       flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`
