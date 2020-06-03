@@ -10,6 +10,21 @@
       {{save.label}}
     </h2>
 
+    <div class="save-rank">
+      <input
+        type="hidden"
+        name="data.saves.{{sid}}.rank"
+        value="{{save.rank}}"
+        data-dtype="Number"
+      />
+
+      <h4 class="click-stat-level">
+          <span>
+              {{save.rankName}}
+          </span>
+      </h4>
+    </div>
+
     <div class="save-roll">
       <a class="roll-icon save-name">
         <svg
@@ -26,21 +41,6 @@
         </svg>
       </a>
       <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
-    </div>
-
-    <div class="save-rank">
-      <input
-        type="hidden"
-        name="data.saves.{{sid}}.rank"
-        value="{{save.rank}}"
-        data-dtype="Number"
-      />
-
-      <h4 class="click-stat-level">
-          <span>
-              {{save.rankName}}
-          </span>
-      </h4>
     </div>
 
     <h4 class="button hover" data-tooltip-content="#{{../uid}}-{{sid}}-modifiers">
