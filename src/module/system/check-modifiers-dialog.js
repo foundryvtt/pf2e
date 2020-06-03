@@ -99,19 +99,19 @@ export class CheckModifiersDialog extends Application {
   onAddModifier(event) {
     const parent = $(event.currentTarget).parents('.add-modifier-panel');
     const value = Number(parent.find('.add-modifier-value').val());
-    const name = parent.find('.add-modifier-name').val();
     const type = parent.find('.add-modifier-type').val();
+    let name = parent.find('.add-modifier-name').val();
     const errors = [];
     if (Number.isNaN(value)) {
       errors.push('Modifier value must be a number.');
     } else if (value === 0) {
       errors.push('Modifier value must not be zero.');
     }
-    if (!name || !name.trim()) {
-      errors.push('Modifier name is required.');
-    }
     if (!type || !type.trim().length) {
       errors.push('Modifier type is required.');
+    }
+    if (!name || !name.trim()) {
+      name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
     }
     if (!type && type === 'untyped' && value < 0) {
       errors.push('Only untyped penalties are allowed.');
