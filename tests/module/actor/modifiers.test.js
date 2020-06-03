@@ -50,18 +50,6 @@ describe('#modifiers', () => {
     expect(ProficiencyModifier.fromLevelAndRank(level, rank).modifier).toBe(expectedModifier);
   });
 
-  test('disable all zero modifiers', () => {
-    const modifiers = [
-      new PF2Modifier('Status Modifier', 0, PF2ModifierType.STATUS),
-      new PF2Modifier('Circumstance Modifier', 0, PF2ModifierType.CIRCUMSTANCE),
-      new PF2Modifier('Item Modifier', 0, PF2ModifierType.ITEM),
-    ];
-    new PF2StatisticModifier('Test Stat', modifiers); // apply stacking rules
-    modifiers.forEach((modifier) => {
-      expect(modifier.enabled).toBe(false);
-    });
-  });
-
   each([
     [STRENGTH.withScore(9), -1],
     [STRENGTH.withScore(10), 0],
