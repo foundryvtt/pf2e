@@ -1,4 +1,4 @@
-import {calculateWealth, addCoins} from '../../../src/module/item/treasure.js';
+import {calculateWealth, addCoins, sellAllTreasure} from '../../../src/module/item/treasure.js';
 
 describe('should calculate wealth based on inventory', () => {
     test('empty inventory', () => {
@@ -170,7 +170,7 @@ describe('should calculate wealth based on inventory', () => {
                 cp: 35
             });
     });
-    
+
     test('should be able to add coins to an existing stack', async () => {
         const compendiumIdAndQuantity = new Map();
         const itemIdAndQuantity = new Map();
@@ -254,9 +254,9 @@ describe('should calculate wealth based on inventory', () => {
                         }
                     }
                 },
-            ], 
-            combineStacks: true, 
-            addFromCompendium: (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity), 
+            ],
+            combineStacks: true,
+            addFromCompendium: (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity),
             updateItemQuantity: (item, quantity) => itemIdAndQuantity.set(item._id, quantity),
             coins: {
                 pp: 3,
@@ -271,7 +271,7 @@ describe('should calculate wealth based on inventory', () => {
             .toBe(true);
         expect(itemIdAndQuantity.get('2'))
             .toBe(6);
-        
+
         expect(compendiumIdAndQuantity.size)
             .toBe(2)
         expect(compendiumIdAndQuantity.has('JuNPeK5Qm1w6wpb4'))
@@ -282,5 +282,169 @@ describe('should calculate wealth based on inventory', () => {
             .toBe(true);
         expect(compendiumIdAndQuantity.get('lzJ8AVhRcbFul5fh'))
             .toBe(4);
+    });
+
+    test('sell ignores coins', () => {
+        const value = sellAllTreasure([
+            {
+                type: "treasure",
+                _id: "1",
+                data: {
+                    denomination: {
+                        value: "gp"
+                    },
+                    quantity: {
+                        value: 7
+                    },
+                    value: {
+                        value: 5
+                    },
+                    stackGroup: {
+                        value: 'coins'
+                    }
+                }
+            },
+        ]);
+
+        expect(value).toEqual({
+            treasureIds: [],
+            coins: {
+                pp: 0,
+                gp: 0,
+                sp: 0,
+                cp: 0
+            }
+        });
+    });
+
+    test('sell without coins has the same value as calculateWealth', () => {
+        const items = [
+            {
+                type: "no treasure type",
+                data: {
+                    denomination: {
+                        value: "gp"
+                    },
+                    quantity: {
+                        value: 1
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "treasure",
+            },
+            {
+                type: "treasure",
+                data: {
+                    denomination: {
+                        value: "pp"
+                    },
+                    quantity: {
+                        value: 10
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "treasure",
+                data: {
+                    denomination: {
+                        value: "gp"
+                    },
+                    quantity: {
+                        value: 9
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "treasure",
+                data: {
+                    denomination: {
+                        value: "sp"
+                    },
+                    quantity: {
+                        value: 8
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "treasure",
+                data: {
+                    denomination: {
+                        value: "cp"
+                    },
+                    quantity: {
+                        value: 7
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+        ];
+
+        const {coins} = sellAllTreasure(items);
+        const wealth = calculateWealth(items);
+
+        expect(coins).toEqual(wealth);
+    });
+
+    test('sell only finds treasure', () => {
+        const items = [
+            {
+                type: "weapon",
+                _id: "weapon",
+            },
+            {
+                type: "treasure",
+                _id: "treasure 1",
+                data: {
+                    denomination: {
+                        value: "pp"
+                    },
+                    quantity: {
+                        value: 10
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "treasure",
+                _id: "treasure 2",
+                data: {
+                    denomination: {
+                        value: "gp"
+                    },
+                    quantity: {
+                        value: 9
+                    },
+                    value: {
+                        value: 1
+                    }
+                }
+            },
+            {
+                type: "armor",
+                _id: "armor"
+            },
+        ];
+
+        const {treasureIds} = sellAllTreasure(items);
+        treasureIds.sort();
+
+        expect(treasureIds).toEqual(['treasure 1', 'treasure 2']);
     });
 });
