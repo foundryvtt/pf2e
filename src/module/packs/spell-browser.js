@@ -782,7 +782,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     // options.template = "systems/pf2e/templates/packs/spell-browser.html";
     options.template = 'systems/pf2e/templates/packs/inventory-browser.html';
     options.title = 'Add Equipment';
-    options.width = 800;
+    options.width = 900;
     options.height = 700;
     return options;
   }
