@@ -54,3 +54,63 @@ ol.saves-data, ol.difficulty-checks {
         }
     }
 }
+
+ul.sidebar-saves {
+    @include p-reset;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    .roll-data {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid rgba(black, 0.1);
+        border-left: 1px solid rgba(white, 0.1);
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        .save-label {
+            font-size: 0.75rem;
+            text-transform: capitalize;
+            color: var(--sidebar-label);
+            border: none;
+        }
+
+        .save-roll {
+            @include flex-center;
+            margin: 4px 0 8px;
+
+            h3 {
+                margin: 0;
+                margin-left: 2px;
+            }
+        }
+
+        .save-rank, .button {
+            border-radius: 2px;
+            border: 1px solid rgba(black, 0.5);
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        .save-rank {
+            background-color: var(--secondary);
+            box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+            margin-bottom: 4px;
+            color: white;
+        }
+
+        .button {
+            box-shadow: inset 0 0 0 1px rgba(white, 0.4);
+            background-color: var(--tertiary);
+            color: var(--primary);
+        }
+    }
+}
