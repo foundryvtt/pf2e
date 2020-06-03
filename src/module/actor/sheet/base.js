@@ -537,7 +537,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Roll Save Checks
     html.find('.save-name').click((ev) => {
       ev.preventDefault();
-      const save = ev.currentTarget.parentElement.getAttribute('data-save');
+      const save = $(ev.currentTarget).parents('[data-save]')[0].getAttribute('data-save');
       if (this.actor.data.data.saves[save]?.roll) {
         this.actor.data.data.saves[save].roll(ev);
       } else {
