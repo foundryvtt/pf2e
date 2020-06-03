@@ -1,4 +1,23 @@
 # Patch Notes:
+## Version 1.4.1 
+### Bug Fixes
+* (@putt1) Fixed bomb attack and damage rolls
+* (@In3luki) Fixed conditions to not break when checking for external modules.
+* (@nikolaj-a) Fixed a bug that broke the roll saving throw functionality on the NPC sheet.
+* (@putt1) Fixed armor bulk in equipment compendium
+
+
+### Core System Improvements
+* (@Shandyan) Links to conditions in the Spells and Condition compendia now point to the conditions in the compendium, and so work if the conditions haven't been imported. Also, all condition links are now foundry-only, rather than some pointing to Archives of Nethys.
+* (@putt1) Added immunity for "immune to fear" effects
+* (@putt1 and @mdizo) Improved styling of actor sheet and dialog buttons
+* (@xneoterrax) Improved styling of spellbook tab (thanks for your first contribution!!)
+* (@overdox) Added item usage selector to the equipment sidebar.
+* (@nikolaj-a) Changed the zero check modifiers to not be disabled.
+* (@nikolaj-a) Supply a default modifier name for one off modifiers added in the roll dialog, if none is specified by the user. 
+* (@hooking) Updated Equipment Browser to show an items price.
+
+
 ## Version 1.4.0 
 ### New Features
 * (@In3luki) Added a setting to show the conditions of the active combatant in chat for each combat turn.
