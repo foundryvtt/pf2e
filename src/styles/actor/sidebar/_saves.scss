@@ -1,12 +1,13 @@
-ol.saves-data, ol.difficulty-checks {
+ol.saves-data,
+ol.difficulty-checks {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     li {
         display: grid;
         grid:
-        'label label' auto
-        'icon value' auto
-        / 1fr 1fr;
+            'label label' auto
+            'icon value' auto
+            / 1fr 1fr;
         align-items: center;
         justify-items: center;
         padding: 0 8px;
@@ -15,7 +16,7 @@ ol.saves-data, ol.difficulty-checks {
         .label {
             grid-area: label;
 
-           /*  .skill-label {
+            /*  .skill-label {
                 @include micro;
                 padding: 1px 3px;
                 background: $sidebar-title-color;
@@ -79,7 +80,7 @@ ul.sidebar-saves {
         }
 
         &:nth-child(2) {
-            padding-left: 1px
+            padding-left: 1px;
         }
 
         .save-label {
@@ -102,7 +103,8 @@ ul.sidebar-saves {
             }
         }
 
-        .save-rank, .button {
+        .save-rank,
+        .button {
             border-radius: 2px;
             border: 1px solid rgba(black, 0.5);
             padding: 4px;
@@ -112,7 +114,11 @@ ul.sidebar-saves {
         .save-rank {
             background-color: var(--secondary);
             box-shadow: inset 0 0 0 1px rgba(white, 0.1);
-            color: white;
+
+            h4 {
+                color: white;
+                font-weight: 400;
+            }
         }
 
         .button {
