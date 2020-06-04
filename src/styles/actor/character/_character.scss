@@ -23,10 +23,14 @@
         border-bottom: 1px solid #d3ccbc;
         text-transform: capitalize;
         &::placeholder {
+            filter: opacity(0.5);
             color: var(--body);
         }
         &:focus {
             border-bottom: 1px solid #644f33;
+            &::placeholder {
+                color: transparent;
+            }
         }
     }
     select {
@@ -192,7 +196,7 @@
             }
             &_bonus-bulk {
               flex: 1 33%;
-              
+
               &.encumbrance {
                   margin-right: 8px;
               }
