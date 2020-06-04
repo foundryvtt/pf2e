@@ -1,4 +1,4 @@
-import {calculateWealth, sellAllTreasure, sellTreasure} from '../../item/treasure.js';
+import {calculateWealth, sellAllTreasureSimple, sellTreasure} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import {isCycle} from "../../item/container.js";
 import { isKit, addKit } from '../../item/kits.js';
@@ -53,7 +53,7 @@ class ActorSheetPF2e extends ActorSheet {
       skl.label = CONFIG.PF2E.martialSkills[s];
       skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
     }
-      
+
     // Update save labels
     for (const [s, save] of Object.entries(sheetData.data.saves)) {
       save.icon = this._getProficiencyIcon(save.rank);
@@ -176,11 +176,11 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     //This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-    const isNotLevelBasedSpellcasting = spellcastingEntry.data?.tradition?.value === "wand" || 
-      spellcastingEntry.data?.tradition?.value === "scroll" || 
-      spellcastingEntry.data?.tradition?.value === "ritual" || 
+    const isNotLevelBasedSpellcasting = spellcastingEntry.data?.tradition?.value === "wand" ||
+      spellcastingEntry.data?.tradition?.value === "scroll" ||
+      spellcastingEntry.data?.tradition?.value === "ritual" ||
       spellcastingEntry.data?.tradition?.value === "focus"
-      
+
     const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data?.slots || {})?.filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell?.id === spell._id))
     const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? spellLvl
     const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
@@ -549,8 +549,8 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.roll-init').click((ev) => {
       ev.preventDefault();
       this.actor.data.data.attributes.initiative.roll(ev);
-    });  
-      
+    });
+
     html.find('.attribute-name').click((ev) => {
       ev.preventDefault();
       const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
@@ -1125,7 +1125,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
-      
+
       const dragData = event.dataTransfer.getData('text/plain');
       const dragItem = JSON.parse(dragData);
       // dragItem = this.actor.getOwnedItem(dragJSON.data._id);
@@ -1253,7 +1253,7 @@ class ActorSheetPF2e extends ActorSheet {
                     const createdItem = await actor.createOwnedItem(itemData);
                     const ownedItem = actor.getOwnedItem(createdItem._id);
                     const update = {};
-                    if (containerId) update['data.containerId.value'] = containerId;   
+                    if (containerId) update['data.containerId.value'] = containerId;
                     if (quantity) update['data.quantity.value'] = quantity;
                     await ownedItem.update(update);
                     return createdItem._id;
@@ -1303,7 +1303,7 @@ class ActorSheetPF2e extends ActorSheet {
                 });
             }
             return item;
-        } 
+        }
         const item = await getItem();
         const result = await item.update({'data.containerId.value': ''});
         return result;
@@ -1685,9 +1685,9 @@ class ActorSheetPF2e extends ActorSheet {
 
   _onSellAllTreasure(event) {
       event.preventDefault();
-      sellAllTreasure(this.actor);
+      sellAllTreasureSimple(this.actor);
   }
-    
+
   _onTraitSelector(event) {
     event.preventDefault();
     const a = $(event.currentTarget);
