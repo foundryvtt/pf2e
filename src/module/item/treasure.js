@@ -1,13 +1,12 @@
 import { groupBy, isBlank } from '../utils.js';
 
 /**
- * Converts all non-coin treasure in an actor's inventory to coinage
- * @param actor
- * @return {Promise} Resolves after the treasure is removed and coins updated
+ * Finds all non-coin treasures in a list of items
+ * @return {{treasureIds: Array, coins: Object}} List of treasures to remove and coins to add
  */
-export function sellAllTreasure(actor) {
+export function sellAllTreasure(items) {
     const treasureIds = [];
-    const coins = actor.data.items
+    const coins = items
         .filter(item => item.type === 'treasure'
             && item.data?.denomination?.value !== undefined
             && item.data?.denomination?.value !== null
@@ -31,6 +30,11 @@ export function sellAllTreasure(actor) {
             sp: 0,
             cp: 0
         });
+    return {treasureIds, coins};
+}
+
+export function sellAllTreasureSimple(actor) {
+    const {treasureIds, coins} = sellAllTreasure(actor.data.items);
     return Promise.all([
         actor.deleteEmbeddedEntity("OwnedItem", treasureIds),
         addCoinsSimple(actor, {
