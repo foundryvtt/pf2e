@@ -138,10 +138,12 @@ class PF2eStatusEffects {
 
         if (game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             Hooks.on("updateCombat", (combat) => {
-                const combatant = combat.combatant;
-                if (combatant) {
-                    const token = canvas.tokens.get(combatant.tokenId);
-                    this._createChatMessage(token, combatant.hidden);
+                if (game.user.isGM) {
+                    const combatant = combat.combatant;
+                    if (combatant && combatant.hasRolled) {
+                        const token = canvas.tokens.get(combatant.tokenId);
+                        this._createChatMessage(token, combatant.hidden);
+                    }
                 }
             });
         }
@@ -530,12 +532,13 @@ class PF2eStatusEffects {
         if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients("GM");
         ChatMessage.create(chatData);
 
-        bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
-        const panToSpeaker = game.settings.get("core", "chatBubblesPan");
-        canvas.hud.bubbles.say(token, bubbleContent, {
-            emote: true
-        });
-
+        if (!token.data.hidden) {
+            bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
+            const panToSpeaker = game.settings.get("core", "chatBubblesPan");
+            canvas.hud.bubbles.say(token, bubbleContent, {
+                emote: true
+            });
+        }
     }
 
     /**
