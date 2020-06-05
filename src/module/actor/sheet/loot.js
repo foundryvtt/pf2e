@@ -1,8 +1,8 @@
-import {calculateWealth} from '../../item/treasure.js';
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import { inventoryBrowser } from "../../packs/spell-browser.js";
+import ActorSheetPF2e from './base.js';
 
-class ActorSheetPF2eLoot extends ActorSheet {
+class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -33,16 +33,6 @@ class ActorSheetPF2eLoot extends ActorSheet {
         
         // Precalculate some data to adapt sheet more easily
         sheetData.isShop = sheetData.data.isShop;
-        
-        // Update currency
-        const treasure = calculateWealth(sheetData.actor.items);
-        sheetData.totalTreasure = {};
-        for (const [denomination, value] of Object.entries(treasure)) {
-            sheetData.totalTreasure[denomination] = {
-                value,
-                label: CONFIG.PF2E.currencies[denomination],
-            };
-        }
         
         this._prepareItems(sheetData.actor);
         
@@ -87,6 +77,7 @@ class ActorSheetPF2eLoot extends ActorSheet {
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });
+            /*
             html.find('.add-coins-popup button').click(event => this._onAddCoinsPopup(event));
             html.find('.item-increase-quantity').click(event => this._onIncreaseItemQuantity(event));
             html.find('.item-decrease-quantity').click(event => this._onDecreaseItemQuantity(event));
@@ -94,6 +85,7 @@ class ActorSheetPF2eLoot extends ActorSheet {
             html.find('.item-create').click(event => this._onCreateItem(event));
             html.find('.inventory-browse').click(event => this._onBrowseItems(event));
             html.find('.item-edit').click(event => this._onEditItem(event));
+            */
         }
     }
     

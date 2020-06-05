@@ -47,46 +47,64 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update martial skill labels
-    for (const [s, skl] of Object.entries(sheetData.data.martial)) {
-      skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-      skl.label = CONFIG.PF2E.martialSkills[s];
-      skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
+    if (sheetData.data.martial != undefined)
+    {
+      for (const [s, skl] of Object.entries(sheetData.data.martial)) {
+        skl.icon = this._getProficiencyIcon(skl.rank);
+        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
+        skl.label = CONFIG.PF2E.martialSkills[s];
+        skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
+      }
     }
 
     // Update save labels
-    for (const [s, save] of Object.entries(sheetData.data.saves)) {
-      save.icon = this._getProficiencyIcon(save.rank);
-      save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-      save.label = CONFIG.PF2E.saves[s];
+    if (sheetData.data.saves != undefined)
+    {
+      for (const [s, save] of Object.entries(sheetData.data.saves)) {
+        save.icon = this._getProficiencyIcon(save.rank);
+        save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
+        save.label = CONFIG.PF2E.saves[s];
+      }
     }
 
 
     // Update proficiency label
-    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
-    sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    if (sheetData.data.attributes != undefined)
+    {
+      sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
+      sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    }
 
     // Ability Scores
-    for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
-      abl.label = CONFIG.PF2E.abilities[a];
+    if (sheetData.data.abilities != undefined)
+    {
+      for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+        abl.label = CONFIG.PF2E.abilities[a];
+      }
     }
 
     // Update skill labels
-    for (let [s, skl] of Object.entries(sheetData.data.skills)) {
-      skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-      skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-      skl.label = CONFIG.PF2E.skills[s];
+    if (sheetData.data.skills != undefined)
+    {
+      for (let [s, skl] of Object.entries(sheetData.data.skills)) {
+        skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
+        skl.icon = this._getProficiencyIcon(skl.rank);
+        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
+        skl.label = CONFIG.PF2E.skills[s];
+      }
     }
 
     // update currency based on items
-    const treasure = calculateWealth(sheetData.actor.items);
-    sheetData.totalTreasure = {};
-    for (const [denomination, value] of Object.entries(treasure)) {
-        sheetData.totalTreasure[denomination] = {
-            value,
-            label: CONFIG.PF2E.currencies[denomination],
-        };
+    if (sheetData.actor.item != undefined)
+    {
+      const treasure = calculateWealth(sheetData.actor.items);
+      sheetData.totalTreasure = {};
+      for (const [denomination, value] of Object.entries(treasure)) {
+          sheetData.totalTreasure[denomination] = {
+              value,
+              label: CONFIG.PF2E.currencies[denomination],
+          };
+      }
     }
 
     // Update traits
@@ -111,6 +129,8 @@ class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   _prepareTraits(traits) {
+    if (traits == undefined) return;
+
     const map = {
       languages: CONFIG.PF2E.languages,
       dr: CONFIG.PF2E.resistanceTypes,
