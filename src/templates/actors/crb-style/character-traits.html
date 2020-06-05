@@ -73,7 +73,35 @@
         />
     </span>
 </div>
-<div class="pc pc_bonus-bulk">
+<div class="pc pc_ethnicity">
+    <label for="ethnicity">
+        {{localize 'PF2E.Ethnicity'}}
+    </label>
+    <span>
+        <input
+            id="ethnicity"
+            type="text"
+            name="data.details.ethnicity.value"
+            data-dtype="String"
+            value="{{data.details.ethnicity.value}}"
+        />
+    </span>
+</div>
+<div class="pc pc_nationality">
+  <label for="nationality">
+    {{localize 'PF2E.Nationality'}}
+  </label>
+  <span>
+        <input
+          id="nationality"
+          type="text"
+          name="data.details.nationality.value"
+          data-dtype="String"
+          value="{{data.details.nationality.value}}"
+        />
+    </span>
+</div>
+<div class="pc pc_bonus-bulk encumbrance">
   <label for="bonus-encumbrance-bulk">
     {{localize 'PF2E.BonusEncumbranceBulkLabel'}}
   </label>
@@ -259,4 +287,36 @@
             </a>
         </li>
     </ul>
+</div>
+
+<div class="pc pc_traits">
+  <h4 class="pf-title">
+    {{localize 'PF2E.Traits'}}
+  </h4>
+  <ul class="tags">
+    {{#each data.traits.traits.value as |v k|}}
+    <li class="tag {{k}}">
+      {{v}}
+    </li>
+    {{/each}}
+    <li class="tag edit-btn" for="data.traits.traits">
+      <a class="crb-trait-selector" data-options="monsterTraits">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-plus"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </a>
+    </li>
+  </ul>
 </div>
