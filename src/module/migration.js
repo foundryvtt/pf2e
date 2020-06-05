@@ -170,6 +170,10 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             migrateActorItems(actor, updateData, addHpThresholdHardness);
         }
 
+        if (worldSchemaVersion < 0.584) {
+            updateData['data.details.ethnicity.value'] = '';
+            updateData['data.details.nationality.value'] = '';
+        }
     }
     return updateData;
 };
