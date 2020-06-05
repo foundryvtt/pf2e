@@ -1,4 +1,57 @@
 # Patch Notes:
+## Version 1.4.3
+### Content Changes
+* (Athenos) Added a missing NPC (Ralldar). The lowercase "Bloody Blade Mercenary" has also been fixed.
+* (@kenster421) Added monsters for Extinction Curse 02, 03 and 04.
+* (@overdox) Added the following new items:
+    * Anchor Spear
+    * Azure Worm Repellent
+    * Blightburn Ward
+    * Bomber's Saddle
+    * Crimson Worm Repellent
+    * Green Gut
+    * Heedless Spurs
+    * Life's Last Breath
+    * Purple Worm Repellent
+    * Staff of the Black Desert
+    * Staff of the Black Desert (Greater)
+    * Spear Frog Poison
+    * Yellow Musk Vial
+    * Toad Tears
+    * Rhoka Sword
+    * Gaff
+    * Shears
+* (@overdox) Added the following new spells:
+    * Blightburn Blast
+    * Control Sand
+    * Pillars of Sand
+    * Terminate Bloodline
+    * Undeath's Blessing
+    * Ravenous Reanimation
+    * Daemonic Pact
+* (@overdox) Content fixes 
+    * Moonlit Chain is now correctly set to low-grade silver
+    * Dragonplate is now correctly set to standard-grade dragon hide
+    * Crushing Despair is now named correctly #499 (closed)
+    * Soothe has gained some more experience and now does the correct amount of healing #479 (closed)
+    * The feats Sabotage & Poison Weapon is now correctly indicated as class feats #475 (closed)
+    * Sling has been 'downgraded' to simple weapons #468 (closed)
+    * Added missing feat Dragon Transformation
+    * Abyssal Plague spell has had it information updated
+    * The Bomber class feature is now correctly set to be a class feature, rather than a bonus feat.
+    * Sorcerer bloodlines are now prefixed with 'Bloodline: name of bloodline'
+* (@Shandyan) Updated errata for spells and fixed broken links
+
+### Bug Fixes
+ * (@In3luki) Fixed multiple status effect chat messages showing during combat
+
+
+### Core System Improvements
+* (@abrault) Added tests to treasure selling (this helps make system development more robust)
+* (@putt1) Allow a character to set ethnicity, nationality and traits such as human, humanoid
+* (@hooking) Updated PF2eCombatTracker to better support FVTT modules
+
+
 ## Version 1.4.2
 * Added support for Foundry v0.6.1
 ## Version 1.4.1
