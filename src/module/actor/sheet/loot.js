@@ -1,6 +1,8 @@
 import { AddCoinsPopup } from './AddCoinsPopup.js';
 import { inventoryBrowser } from "../../packs/spell-browser.js";
 import ActorSheetPF2e from './base.js';
+import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk.js';
+import { getContainerMap } from '../../item/container.js';
 
 class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
@@ -49,21 +51,39 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
         };
         
-        for (const item of actorData.items) {
-            var type = item.type || "equipment";
-            
-            item.data.quantity.value = item.data.quantity.value || 0;
-            item.img = item.img || CONST.DEFAULT_TOKEN;
-            item.isNotInContainer = true;
-            
-            item.hasCharges = (item.type === 'consumable') && item.data.charges.max > 0;
-            item.isTwoHanded = (item.type === 'weapon') && !!((item.data.traits.value || []).find((x) => x.startsWith('two-hand')));
-            item.wieldedTwoHanded = (item.type === 'weapon') && (item.data.hands || {}).value;
-            
-            inventory[type].items.push(item);
-        }
+        // Iterate through items, allocating to containers
+        const bulkConfig = {
+            ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
+            ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
+        };
         
-        actorData.inventory = inventory;
+        const bulkItems = itemsFromActorData(actorData);
+        const indexedBulkItems = indexBulkItemsById(bulkItems);
+        const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+        
+        for (const i of actorData.items) {
+            i.img = i.img || CONST.DEFAULT_TOKEN;
+            i.containerData = containers.get(i._id);
+            i.isContainer = i.containerData.isContainer;
+            i.isNotInContainer = i.containerData.isNotInContainer;            
+            i.canBeEquipped = i.isNotInContainer;
+            i.isEquipped = i?.data?.equipped?.value ?? false;
+            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+            
+            // Inventory
+            if (Object.keys(inventory).includes(i.type)) {
+                i.data.quantity.value = i.data.quantity.value || 0;
+                i.data.weight.value = i.data.weight.value || 0;
+                const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
+                i.totalWeight = formatBulk(approximatedBulk);
+                i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
+                i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
+                i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
+                inventory[i.type].items.push(i);
+            }
+            
+            actorData.inventory = inventory;
+        }
     }
     
     // Events

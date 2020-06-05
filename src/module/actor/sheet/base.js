@@ -1182,6 +1182,9 @@ class ActorSheetPF2e extends ActorSheet {
           this.actor.createEmbeddedEntity('OwnedItem', dragData.data);
           return false;
         }
+        else if (dragItem.data.type === 'item') {
+          console.log('An item from another sheet has been dropped here.');
+        }
       }
     }
 
@@ -1263,9 +1266,13 @@ class ActorSheetPF2e extends ActorSheet {
         } catch (err) {
             return false;
         }
+
+        console.log(`Something droppped here.`);
+
         // Case 1 - Import from a Compendium pack
         const actor = this.actor;
         if (data.pack) {
+          console.log(`Comes from compemdium`);
             const pack = game.packs.get(data.pack);
             if (isKit(data.id)) {
                 await addKit(data.id, async (itemId, containerId, quantity) => {
@@ -1288,27 +1295,55 @@ class ActorSheetPF2e extends ActorSheet {
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
-            let sameActor = data.actorId === actor._id;
-            if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
-            if (sameActor){
-              await this.stashOrUnstash(event, actor, () => {
-                  return actor.getOwnedItem(data.id);
-              });
-              return this._onSortItem(event, data.data); // Sort existing items
-            } else {
-              return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
-              });
-            }
+            this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
         }
         // Case 3 - Import from World entity
         else {
+          console.log(`From world entry`);
             let item = game.items.get(data.id);
             if (!item) return;
             return this.stashOrUnstash(event, actor, () => {
                 return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
             });
         }
+    }
+
+    /**
+     * Moves an item between two actors' inventories.
+     * @param {event} event         Event that fired this method.
+     * @param {actor} sourceActorId ID of the actor who originally owns the item.
+     * @param {actor} targetActorId ID of the actor where the item will be stored.
+     * @param {id} itemId           ID of the item to move between the two actors.
+     */
+    async moveItemBetweenActors(event, sourceActorId, targetActorId, itemId) {
+      const sourceActor = game.actors.get(sourceActorId);
+      const targetActor = game.actors.get(targetActorId);
+      const item = sourceActor.getOwnedItem(itemId);
+
+      let isSameActor = sourceActorId === targetActorId;
+
+      if (isSameActor) {
+        await this.stashOrUnstash(event, targetActor, () => { return item; });
+        return this._onSortItem(event, item.data.data);
+      } else {
+        const newItemQuantity = Number(item.data.data.quantity.value) - 1;
+        const hasToRemoveFromSource = newItemQuantity < 1;
+
+        if (hasToRemoveFromSource) {
+          await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+        } else {
+          const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+          await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+        }
+
+        // Create item in the target actor
+        const newItem = await targetActor.createEmbeddedEntity('OwnedItem', duplicate(item));
+        const update = { '_id': newItem._id, 'data.quantity.value': 1 };
+
+        await targetActor.updateEmbeddedEntity('OwnedItem', update);
+
+        return this.stashOrUnstash(event, targetActor, () => { return newItem; });
+      }
     }
 
     async stashOrUnstash(event, actor, getItem) {
