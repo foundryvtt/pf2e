@@ -1348,7 +1348,9 @@ class ActorSheetPF2e extends ActorSheet {
           let newItemData = duplicate(item);
           newItemData.data.quantity.value = 1;
 
-          itemInTargetActor = await targetActor.createOwnedItem(newItemData);
+          const result = await targetActor.createOwnedItem(newItemData);
+
+          itemInTargetActor = targetActor.items.get(result._id);
         }
 
         return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
