@@ -277,28 +277,28 @@ class ItemBrowserPF2e extends Application {
     // Generate HTML for settings menu
     // Spell Browser
     let content = '<h2> Spell Browser</h2>';
-    content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any spells</p>';
+    content += '<p> Which compendium should be loaded? Uncheck each compendium that contains no spells.</p>';
     for (const key in this.settings) {
       content += `<div><input type=checkbox data-browser-type="spell" name="${key}" ${spellBrowser.settings[key].load ? 'checked=true' : ''}><label>${spellBrowser.settings[key].name}</label></div>`;
     }
 
     // Feat Browser
     content += '<h2> Feat Browser</h2>';
-    content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any feats</p>';
+    content += '<p> Which compendium should be loaded? Uncheck each compendium that contains no feats.</p>';
     for (const key in this.settings) {
       content += `<div><input type=checkbox data-browser-type="feat" name="${key}" ${featBrowser.settings[key].load ? 'checked=true' : ''}><label>${featBrowser.settings[key].name}</label></div>`;
     }
 
     // Inventory Browser
     content += '<h2> Inventory Browser</h2>';
-    content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any inventory items</p>';
+    content += '<p> Which compendium should be loaded? Uncheck each compendium that contains no inventory items.</p>';
     for (const key in this.settings) {
       content += `<div><input type=checkbox data-browser-type="inventory" name="${key}" ${inventoryBrowser.settings[key].load ? 'checked=true' : ''}><label>${inventoryBrowser.settings[key].name}</label></div>`;
     }
 
     // Action Browser
     content += '<h2>Action Browser</h2>';
-    content += '<p> Which compendium should be loaded? Uncheck any compendie that dont contain any actions</p>';
+    content += '<p> Which compendium should be loaded? Uncheck each compendium that contains no actions.</p>';
     for (const key in this.settings) {
       content += `<div><input type=checkbox data-browser-type="action" name="${key}" ${actionBrowser.settings[key].load ? 'checked=true' : ''}><label>${actionBrowser.settings[key].name}</label></div>`;
     }
