@@ -1266,9 +1266,6 @@ class ActorSheetPF2e extends ActorSheet {
         } catch (err) {
             return false;
         }
-
-        console.log(`Something droppped here.`);
-
         // Case 1 - Import from a Compendium pack
         const actor = this.actor;
         if (data.pack) {
@@ -1336,13 +1333,25 @@ class ActorSheetPF2e extends ActorSheet {
           await sourceActor.updateEmbeddedEntity('OwnedItem', update);
         }
 
-        // Create item in the target actor
-        const newItem = await targetActor.createEmbeddedEntity('OwnedItem', duplicate(item));
-        const update = { '_id': newItem._id, 'data.quantity.value': 1 };
+        let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
 
-        await targetActor.updateEmbeddedEntity('OwnedItem', update);
+        if (itemInTargetActor !== null)
+        {
+          // Increase amount of item in target actor if there is already an item with the same name
+          const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + 1;
+          const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
+          await targetActor.updateEmbeddedEntity('OwnedItem', update);
+        }
+        else
+        {
+          // If no item with the same name in the target actor, create new item in the target actor
+          let newItemData = duplicate(item);
+          newItemData.data.quantity.value = 1;
 
-        return this.stashOrUnstash(event, targetActor, () => { return newItem; });
+          itemInTargetActor = await targetActor.createOwnedItem(newItemData);
+        }
+
+        return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
       }
     }
 
