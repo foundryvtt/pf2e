@@ -207,6 +207,9 @@ CONFIG.resistanceTypes = {
   all: 'PF2E.ResistanceTypeAll',
   physical: 'PF2E.ResistanceTypePhysical',
   weapon: 'PF2E.ResistanceTypeWeapon',
+  "critical-hits": "PF2E.ResistanceTypeCriticalHits",
+  "draconic resistance": "PF2E.ResistanceTypeDragonResistance",
+  "protean anatomy": "PF2E.ResistanceTypeProteanAnatomy",
 };
 CONFIG.stackGroups = {
   bolts: 'PF2E.StackGroupBolts',
@@ -247,6 +250,11 @@ CONFIG.weaknessTypes = {
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
   'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
+  salt: "PF2E.WeaknessTypeSalt", 
+  'salt water': "PF2E.WeaknessTypeSaltWater", 
+  'vorpal fear': "PF2E.WeaknessTypeVorpalFear", 
+  'vorpal weapons': "PF2E.WeaknessTypeVorpalWeapons",
+  'vampire weaknesses':  "PF2E.WeaknessTypeVampireWeaknesses",
 }; // Weapon Damage Types
 
 CONFIG.weaponDamage = {
@@ -635,6 +643,24 @@ mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
 CONFIG.monsterTraits = {
+  couatl: "PF2E.TraitCouatl",
+  dream: "PF2E.TraitDream",
+  fetchling: "PF2E.TraitFetchling",
+  ifrit: "PF2E.TraitIfrit",
+  oni: "PF2E.TraitOni",
+  oread: "PF2E.TraitOread",
+  petitioner: "PF2E.TraitPetitioner",
+  qlippoth: "PF2E.TraitQlippoth",
+  serpentfolk: "PF2E.TraitSerpentfolk",
+  shadow: "PF2E.TraitShadow",
+  skulk: "PF2E.TraitSkulk",
+  spriggan: "PF2E.TraitSpriggan",
+  suli: "PF2E.TraitSuli",
+  sylph: "PF2E.TraitSylph",
+  tane: "PF2E.TraitTane",
+  time: "PF2E.TraitTime",
+  undine: "PF2E.TraitUndine",
+  urdefhan: "PF2E.TraitUrdefhan",
   aberration: 'PF2E.TraitAberration',
   acid: 'PF2E.TraitAcid',
   aeon: 'PF2E.TraitAeon',
@@ -1342,7 +1368,14 @@ CONFIG.immunityTypes = {
   chaotic: 'PF2E.DamageTypeChaotic',
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil'
+  evil: 'PF2E.DamageTypeEvil',
+  light: 'PF2E.DamageTypeLight',
+  curse: 'PF2E.DamageTypeCurse',
+  olfactory: 'PF2E.DamageTypeOlfactory',
+  confusion: 'PF2E.DamageTypeConfusion',
+  'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
+  emotion: 'PF2E.DamageTypeEmotion',
+  possession: 'PF2E.DamageTypePosession', 
 }; // Languages
 
 CONFIG.languages = {
