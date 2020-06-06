@@ -136,14 +136,12 @@ class PF2eStatusEffects {
             }
         });
 
-        if (game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
+        if ( game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             Hooks.on("updateCombat", (combat) => {
-                if (game.user.isGM) {
-                    const combatant = combat.combatant;
-                    if (combatant && combatant.hasRolled) {
-                        const token = canvas.tokens.get(combatant.tokenId);
-                        this._createChatMessage(token, combatant.hidden);
-                    }
+                const combatant = combat?.combatant;
+                if (combat?.started && combatant?.hasRolled) {
+                    const token = canvas.tokens.get(combatant.tokenId);
+                    this._createChatMessage(token, combatant.hidden);
                 }
             });
         }
