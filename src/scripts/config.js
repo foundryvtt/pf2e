@@ -205,7 +205,8 @@ CONFIG.resistanceTypes = {
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
   all: 'PF2E.ResistanceTypeAll',
-  physical: 'PF2E.ResistanceTypePhysical'
+  physical: 'PF2E.ResistanceTypePhysical',
+  weapon: 'PF2E.ResistanceTypeWeapon',
 };
 CONFIG.stackGroups = {
   bolts: 'PF2E.StackGroupBolts',
@@ -245,7 +246,7 @@ CONFIG.weaknessTypes = {
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
-  'splash-damage': 'PF2E.WeaknessTypeSplashDamage'
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
 }; // Weapon Damage Types
 
 CONFIG.weaponDamage = {
