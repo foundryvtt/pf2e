@@ -52,8 +52,26 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 
-    html.find('.strikes-list').on('click', '.action-name', (event) => {
+    html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
       $(event.currentTarget).parents('.expandable').toggleClass('expanded');
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
+    html.find('.strikes-list .damage-strike').click((event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.damage(event);
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
+    html.find('.strikes-list .critical-strike').click((event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      this.actor.data.data.actions[Number(actionIndex)]?.critical(event);
     });
 
     html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));

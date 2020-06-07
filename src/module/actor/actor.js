@@ -13,7 +13,8 @@ import {
     WISDOM,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
-import { PF2Check } from '../system/rolls.js';
+import { PF2WeaponDamage } from '../system/damage/weapon.js';
+import { PF2Check, PF2DamageRoll } from '../system/rolls.js';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes.js';
 
 export default class extends Actor {
@@ -344,6 +345,7 @@ export default class extends Actor {
           bonus: { value: 0 },
           map2: -4,
           map3: -8,
+          damage: { dice: 1, die: 'd4' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
         }
       }];
@@ -387,9 +389,10 @@ export default class extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         // amend strike with a roll property
-        action.roll = (event) => {
+        action.attack = (event) => {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { type: 'attack-roll' }, event);
         };
+        action.roll = action.attack;
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
@@ -404,6 +407,13 @@ export default class extends Actor {
             roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
           },
         ];
+        const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers);
+        action.damage = (event, options = []) => {
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
+        };
+        action.critical = (event, options = []) => {
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+        };
         data.actions.push(action);
       });
     }
