@@ -114,7 +114,20 @@
     <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
     <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="{{data.materials.type}}"/>
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
+    <input type="text" name="data.primarycheck.value" value="{{data.primarycheck.value}}" data-dtype="{{data.primarycheck.type}}"/>
+</div>
+<div class="form-group">
+        <label>{{localize "PF2E.Rarity"}}</label>
+        <select name="data.traits.rarity.value" data-dtype="String">
+            {{#select data.traits.rarity.value}}
+            {{#each rarity as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellCostLabel"}}</label>
     <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="{{data.cost.type}}"/>
