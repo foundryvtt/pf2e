@@ -275,7 +275,7 @@ export default class extends Actor {
     for (const [skillName, skill] of Object.entries(data.skills)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
-        ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
+        ProficiencyModifier.fromLevelAndRankAndActor(data.details.level.value, skill.rank, actorData),
       ];
       if (skill.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
