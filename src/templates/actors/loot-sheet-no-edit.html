@@ -1,0 +1,29 @@
+<form class="{{cssClass}} updatedNPCSheet"  autocomplete="off">
+
+    <div class="contentcontainer">
+        <div class="npc-title-bar">
+            <h1 class="name">{{actor.name}}</h1>
+            <h1 class="editorLootButton">
+                <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
+                    <label>{{localize "PF2E.loot.EditLootLabel"}}</label>
+                    <input class="isLootEditable" name="flags.pf2e.editLoot.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editLoot.value}}/>
+                </div>
+            </h1>
+            {{#if data.isShop }}
+            <h1 class='isShop'>
+                {{localize "PF2E.loot.ShopLabel"}}
+            </h1>
+            {{/if}}
+        </div>
+
+        <!-- SIDEBAR -->
+        <section class="sheet-sidebar sidebar">
+            {{> systems/pf2e/templates/actors/loot/loot-avatar.html }}
+        </section>
+        <!------------->
+
+        <section class="sheet-body sheet-content">
+            {{> systems/pf2e/templates/actors/loot/loot-inventory.html }}
+        </section> 
+    </div>
+</form>
