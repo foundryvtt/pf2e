@@ -104,7 +104,16 @@
     </select>
     </div>
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.Rarity"}}</label>
+    <select name="data.traits.rarity.value" data-dtype="String">
+        {{#select data.traits.rarity.value}}
+        {{#each rarity as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
     <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="{{data.components.type}}"/>
@@ -122,16 +131,6 @@
     <label>{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
     <input type="text" name="data.secondarycheck.value" value="{{data.secondarycheck.value}}" data-dtype="{{data.secondarycheck.type}}"/>
 </div>
-<div class="form-group">
-        <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity.value" data-dtype="String">
-            {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellCostLabel"}}</label>
     <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="{{data.cost.type}}"/>
