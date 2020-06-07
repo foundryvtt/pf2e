@@ -188,7 +188,7 @@ export const ProficiencyModifier = Object.freeze({
           return UNTRAINED.atLevel(level);
         }
       default: 
-        return fromLevelAndRank(level, rank);
+        return ProficiencyModifier.fromLevelAndRank(level, rank);
     }
 
     return modifier;
