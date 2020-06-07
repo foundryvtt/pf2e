@@ -4,6 +4,7 @@ import ActorSheetPF2eNPC from './actor/sheet/npc.js';
 import UpdatedNPCActorPF2ESheet from './actor/sheet/updatednpcsheet.js';
 import CRBStyleCharacterActorSheetPF2E from './actor/sheet/crb-style/crb-style.js';
 import ActorSheetPF2eHazard from './actor/sheet/hazard.js';
+import ActorSheetPF2eLoot from './actor/sheet/loot.js';
 
 function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
@@ -41,6 +42,12 @@ function registerActors() {
   // Register Hazard Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eHazard, {
     types: ['hazard'],
+    makeDefault: true,
+  });
+
+  // Register Loot Sheet
+  Actors.registerSheet('pf2e', ActorSheetPF2eLoot, {
+    types: ['loot'],
     makeDefault: true,
   });
 }
