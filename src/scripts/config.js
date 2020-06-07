@@ -1098,7 +1098,13 @@ CONFIG.spellComponents = {
   V: 'PF2E.SpellComponentV',
   S: 'PF2E.SpellComponentS',
   M: 'PF2E.SpellComponentM'
-}; // Spell Types
+}; // Spell Category
+
+CONFIG.spellCategories = {
+  spell: 'PF2E.SpellCategorySpell',
+  focus: 'PF2E.SpellCategoryFocus',
+  ritual: 'PF2E.SpellCategoryRitual'
+};// Spell Types
 
 CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',

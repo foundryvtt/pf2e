@@ -19,7 +19,16 @@
         {{/select}}
     </select>
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
+    <select name="data.spellCategorie.value" data-dtype="{{data.spellCategorie.type}}">
+        {{#select data.spellCategorie.value}}
+        {{#each spellCategories as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
 <div class="form-group">
     <label for="data.traditions">
         {{localize "PF2E.SpellTraditionsLabel"}}
