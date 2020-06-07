@@ -205,11 +205,7 @@ CONFIG.resistanceTypes = {
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil',
   all: 'PF2E.ResistanceTypeAll',
-  physical: 'PF2E.ResistanceTypePhysical',
-  weapon: 'PF2E.ResistanceTypeWeapon',
-  "critical-hits": "PF2E.ResistanceTypeCriticalHits",
-  "draconic resistance": "PF2E.ResistanceTypeDragonResistance",
-  "protean anatomy": "PF2E.ResistanceTypeProteanAnatomy",
+  physical: 'PF2E.ResistanceTypePhysical'
 };
 CONFIG.stackGroups = {
   bolts: 'PF2E.StackGroupBolts',
@@ -249,12 +245,7 @@ CONFIG.weaknessTypes = {
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
-  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
-  salt: "PF2E.WeaknessTypeSalt", 
-  'salt water': "PF2E.WeaknessTypeSaltWater", 
-  'vorpal fear': "PF2E.WeaknessTypeVorpalFear", 
-  'vorpal weapons': "PF2E.WeaknessTypeVorpalWeapons",
-  'vampire weaknesses':  "PF2E.WeaknessTypeVampireWeaknesses",
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage'
 }; // Weapon Damage Types
 
 CONFIG.weaponDamage = {
@@ -334,7 +325,7 @@ CONFIG.usageTraits = {
   wornsaddle: 'PF2E.TraitWornSaddle',
   'etched-onto-armor': 'PF2E.TraitEtchedOntoAArmor',
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
-  wornwrist: 'PF2E.TraitWornOnWrists',
+  wornwrist: 'PF2E.TraitWornOnWrists'
 };
 CONFIG.rarityTraits = {
   common: 'PF2E.TraitCommon',
@@ -643,24 +634,6 @@ mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
 CONFIG.monsterTraits = {
-  couatl: "PF2E.TraitCouatl",
-  dream: "PF2E.TraitDream",
-  fetchling: "PF2E.TraitFetchling",
-  ifrit: "PF2E.TraitIfrit",
-  oni: "PF2E.TraitOni",
-  oread: "PF2E.TraitOread",
-  petitioner: "PF2E.TraitPetitioner",
-  qlippoth: "PF2E.TraitQlippoth",
-  serpentfolk: "PF2E.TraitSerpentfolk",
-  shadow: "PF2E.TraitShadow",
-  skulk: "PF2E.TraitSkulk",
-  spriggan: "PF2E.TraitSpriggan",
-  suli: "PF2E.TraitSuli",
-  sylph: "PF2E.TraitSylph",
-  tane: "PF2E.TraitTane",
-  time: "PF2E.TraitTime",
-  undine: "PF2E.TraitUndine",
-  urdefhan: "PF2E.TraitUrdefhan",
   aberration: 'PF2E.TraitAberration',
   acid: 'PF2E.TraitAcid',
   aeon: 'PF2E.TraitAeon',
@@ -1040,7 +1013,7 @@ CONFIG.areaTypes = {
   burst: 'PF2E.AreaTypeBurst',
   cone: 'PF2E.AreaTypeCone',
   emanation: 'PF2E.AreaTypeEmanation',
-  line: 'PF2E.AreaTypeLine'
+  line: 'PF2E.AreaTypeLine',
 }; // Spell Saves
 
 /* CONFIG.spellBasic = {
@@ -1059,6 +1032,7 @@ CONFIG.areaSizes = {
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
   120: 'PF2E.AreaSize120'
+  
 }; // Alignment
 
 CONFIG.alignment = {
@@ -1103,7 +1077,9 @@ CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',
   save: 'PF2E.SpellTypeSave',
   heal: 'PF2E.SpellTypeHeal',
-  utility: 'PF2E.SpellTypeUtility'
+  utility: 'PF2E.SpellTypeUtility',
+  focus: 'PF2E.SpellTypeFocus',
+  ritual: 'PF2E.SpellTypeRitual'
 }; // Spell Levels
 
 CONFIG.spellLevels = {
@@ -1368,14 +1344,7 @@ CONFIG.immunityTypes = {
   chaotic: 'PF2E.DamageTypeChaotic',
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil',
-  light: 'PF2E.DamageTypeLight',
-  curse: 'PF2E.DamageTypeCurse',
-  olfactory: 'PF2E.DamageTypeOlfactory',
-  confusion: 'PF2E.DamageTypeConfusion',
-  'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
-  emotion: 'PF2E.DamageTypeEmotion',
-  possession: 'PF2E.DamageTypePosession', 
+  evil: 'PF2E.DamageTypeEvil'
 }; // Languages
 
 CONFIG.languages = {
@@ -1387,11 +1356,9 @@ CONFIG.languages = {
   auran: 'PF2E.LanguageAuran',
   boggard: 'PF2E.LanguageBoggard',
   celestial: 'PF2E.LanguageCelestial',
-  destrachan: 'PF2E.LanguageDestrachan',
   draconic: 'PF2E.LanguageDraconic',
   druidic: 'PF2E.LanguageDruidic',
   dwarven: 'PF2E.LanguageDwarven',
-  dziriak: 'Pf2E.LanguageDziriak',
   elven: 'PF2E.LanguageElven',
   gnomish: 'PF2E.LanguageGnomish',
   goblin: 'PF2E.LanguageGoblin',
@@ -1400,9 +1367,7 @@ CONFIG.languages = {
   halfling: 'PF2E.LanguageHalfling',
   ignan: 'PF2E.LanguageIgnan',
   iruxi: 'PF2E.LanguageIruxi',
-  jistkan: 'PF2E.LanguageJistkan',
   jotun: 'PF2E.LanguageJotun',
-  jyoti: 'PF2E.LanguageJyoti',
   infernal: 'PF2E.LanguageInfernal',
   orcish: 'PF2E.LanguageOrcish',
   necril: 'PF2E.LanguageNecril',
