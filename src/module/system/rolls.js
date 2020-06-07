@@ -1,4 +1,6 @@
+/* eslint-disable max-classes-per-file */
 import { CheckModifiersDialog } from './check-modifiers-dialog.js';
+import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog.js';
 
 export class PF2Check {
   /**
@@ -15,5 +17,17 @@ export class PF2Check {
     } else {
       new CheckModifiersDialog(check, context, callback).render(true);
     }
+  }
+}
+
+export class PF2DamageRoll {
+  /**
+   * @param {object} damage
+   * @param {object} context
+   * @param {jQuery.Event} event
+   * @param {function} callback
+   */
+  static roll(damage, context = {}, event, callback) {
+    DamageRollModifiersDialog.roll(damage, context, callback);
   }
 }

@@ -13,8 +13,10 @@
             </div>
             <div class="button-group">
                 {{#each action.variants as |variant vi|}}
-                    <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
+                <button class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                 {{/each}}
+                <button class="tag damage-strike">{{localize 'Damage'}}</button>
+                <button class="tag critical-strike">{{localize 'Critical'}}</button>
             </div>
             <div class="item-summary">
                 <div class="item-description">
