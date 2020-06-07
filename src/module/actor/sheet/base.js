@@ -47,46 +47,64 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update martial skill labels
-    for (const [s, skl] of Object.entries(sheetData.data.martial)) {
-      skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-      skl.label = CONFIG.PF2E.martialSkills[s];
-      skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
+    if (sheetData.data.martial != undefined)
+    {
+      for (const [s, skl] of Object.entries(sheetData.data.martial)) {
+        skl.icon = this._getProficiencyIcon(skl.rank);
+        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
+        skl.label = CONFIG.PF2E.martialSkills[s];
+        skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
+      }
     }
 
     // Update save labels
-    for (const [s, save] of Object.entries(sheetData.data.saves)) {
-      save.icon = this._getProficiencyIcon(save.rank);
-      save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-      save.label = CONFIG.PF2E.saves[s];
+    if (sheetData.data.saves != undefined)
+    {
+      for (const [s, save] of Object.entries(sheetData.data.saves)) {
+        save.icon = this._getProficiencyIcon(save.rank);
+        save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
+        save.label = CONFIG.PF2E.saves[s];
+      }
     }
 
 
     // Update proficiency label
-    sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
-    sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    if (sheetData.data.attributes != undefined)
+    {
+      sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
+      sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
+    }
 
     // Ability Scores
-    for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
-      abl.label = CONFIG.PF2E.abilities[a];
+    if (sheetData.data.abilities != undefined)
+    {
+      for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+        abl.label = CONFIG.PF2E.abilities[a];
+      }
     }
 
     // Update skill labels
-    for (let [s, skl] of Object.entries(sheetData.data.skills)) {
-      skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-      skl.icon = this._getProficiencyIcon(skl.rank);
-      skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-      skl.label = CONFIG.PF2E.skills[s];
+    if (sheetData.data.skills != undefined)
+    {
+      for (let [s, skl] of Object.entries(sheetData.data.skills)) {
+        skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
+        skl.icon = this._getProficiencyIcon(skl.rank);
+        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
+        skl.label = CONFIG.PF2E.skills[s];
+      }
     }
 
     // update currency based on items
-    const treasure = calculateWealth(sheetData.actor.items);
-    sheetData.totalTreasure = {};
-    for (const [denomination, value] of Object.entries(treasure)) {
-        sheetData.totalTreasure[denomination] = {
-            value,
-            label: CONFIG.PF2E.currencies[denomination],
-        };
+    if (sheetData.actor.item != undefined)
+    {
+      const treasure = calculateWealth(sheetData.actor.items);
+      sheetData.totalTreasure = {};
+      for (const [denomination, value] of Object.entries(treasure)) {
+          sheetData.totalTreasure[denomination] = {
+              value,
+              label: CONFIG.PF2E.currencies[denomination],
+          };
+      }
     }
 
     // Update traits
@@ -111,6 +129,8 @@ class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   _prepareTraits(traits) {
+    if (traits == undefined) return;
+
     const map = {
       languages: CONFIG.PF2E.languages,
       dr: CONFIG.PF2E.resistanceTypes,
@@ -1162,6 +1182,9 @@ class ActorSheetPF2e extends ActorSheet {
           this.actor.createEmbeddedEntity('OwnedItem', dragData.data);
           return false;
         }
+        else if (dragItem.data.type === 'item') {
+          console.log('An item from another sheet has been dropped here.');
+        }
       }
     }
 
@@ -1246,6 +1269,7 @@ class ActorSheetPF2e extends ActorSheet {
         // Case 1 - Import from a Compendium pack
         const actor = this.actor;
         if (data.pack) {
+          console.log(`Comes from compemdium`);
             const pack = game.packs.get(data.pack);
             if (isKit(data.id)) {
                 await addKit(data.id, async (itemId, containerId, quantity) => {
@@ -1268,27 +1292,69 @@ class ActorSheetPF2e extends ActorSheet {
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
-            let sameActor = data.actorId === actor._id;
-            if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
-            if (sameActor){
-              await this.stashOrUnstash(event, actor, () => {
-                  return actor.getOwnedItem(data.id);
-              });
-              return this._onSortItem(event, data.data); // Sort existing items
-            } else {
-              return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(data.data));  // Create a new Item
-              });
-            }
+            this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
         }
         // Case 3 - Import from World entity
         else {
+          console.log(`From world entry`);
             let item = game.items.get(data.id);
             if (!item) return;
             return this.stashOrUnstash(event, actor, () => {
                 return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
             });
         }
+    }
+
+    /**
+     * Moves an item between two actors' inventories.
+     * @param {event} event         Event that fired this method.
+     * @param {actor} sourceActorId ID of the actor who originally owns the item.
+     * @param {actor} targetActorId ID of the actor where the item will be stored.
+     * @param {id} itemId           ID of the item to move between the two actors.
+     */
+    async moveItemBetweenActors(event, sourceActorId, targetActorId, itemId) {
+      const sourceActor = game.actors.get(sourceActorId);
+      const targetActor = game.actors.get(targetActorId);
+      const item = sourceActor.getOwnedItem(itemId);
+
+      let isSameActor = sourceActorId === targetActorId;
+
+      if (isSameActor) {
+        await this.stashOrUnstash(event, targetActor, () => { return item; });
+        return this._onSortItem(event, item.data.data);
+      } else {
+        const newItemQuantity = Number(item.data.data.quantity.value) - 1;
+        const hasToRemoveFromSource = newItemQuantity < 1;
+
+        if (hasToRemoveFromSource) {
+          await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+        } else {
+          const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+          await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+        }
+
+        let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
+
+        if (itemInTargetActor !== null)
+        {
+          // Increase amount of item in target actor if there is already an item with the same name
+          const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + 1;
+          const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
+          await targetActor.updateEmbeddedEntity('OwnedItem', update);
+        }
+        else
+        {
+          // If no item with the same name in the target actor, create new item in the target actor
+          let newItemData = duplicate(item);
+          newItemData.data.quantity.value = 1;
+
+          const result = await targetActor.createOwnedItem(newItemData);
+
+          itemInTargetActor = targetActor.items.get(result._id);
+        }
+
+        return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
+      }
     }
 
     async stashOrUnstash(event, actor, getItem) {
