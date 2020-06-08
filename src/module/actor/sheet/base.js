@@ -3,6 +3,7 @@ import { AddCoinsPopup } from './AddCoinsPopup.js';
 import {isCycle} from "../../item/container.js";
 import { isKit, addKit } from '../../item/kits.js';
 import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../../packs/spell-browser.js";
+import { MoveLootPopup } from './loot/MoveLootPopup.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1323,38 +1324,63 @@ class ActorSheetPF2e extends ActorSheet {
         await this.stashOrUnstash(event, targetActor, () => { return item; });
         return this._onSortItem(event, item.data.data);
       } else {
-        const newItemQuantity = Number(item.data.data.quantity.value) - 1;
-        const hasToRemoveFromSource = newItemQuantity < 1;
+        const sourceItemQuantity = Number(item.data.data.quantity.value);
 
-        if (hasToRemoveFromSource) {
-          await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
-        } else {
-          const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
-          await sourceActor.updateEmbeddedEntity('OwnedItem', update);
-        }
-
-        let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
-
-        if (itemInTargetActor !== null)
+        // If more than one item can be moved, show a popup to ask how many to move
+        if (sourceItemQuantity > 1)
         {
-          // Increase amount of item in target actor if there is already an item with the same name
-          const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + 1;
-          const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
-          await targetActor.updateEmbeddedEntity('OwnedItem', update);
+          const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
+            console.log(`Accepted moving ${quantity} items`);
+            this._moveItemBetweenActors(event, sourceActor, targetActor, item, quantity);
+          });
+
+          popup.render(true);
         }
         else
         {
-          // If no item with the same name in the target actor, create new item in the target actor
-          let newItemData = duplicate(item);
-          newItemData.data.quantity.value = 1;
-
-          const result = await targetActor.createOwnedItem(newItemData);
-
-          itemInTargetActor = targetActor.items.get(result._id);
+          this._moveItemBetweenActors(event, sourceActor, targetActor, item, 1);
         }
-
-        return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
       }
+    }
+
+    async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
+      const sourceItemQuantity = Number(item.data.data.quantity.value);
+      
+      if (quantity > sourceItemQuantity) {
+        quantity = sourceItemQuantity;
+      }
+
+      const newItemQuantity = sourceItemQuantity - quantity;
+      const hasToRemoveFromSource = newItemQuantity < 1;
+
+      if (hasToRemoveFromSource) {
+        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+      } else {
+        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+        await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+      }
+
+      let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
+
+      if (itemInTargetActor !== null)
+      {
+        // Increase amount of item in target actor if there is already an item with the same name
+        const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
+        const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
+        await targetActor.updateEmbeddedEntity('OwnedItem', update);
+      }
+      else
+      {
+        // If no item with the same name in the target actor, create new item in the target actor
+        let newItemData = duplicate(item);
+        newItemData.data.quantity.value = quantity;
+
+        const result = await targetActor.createOwnedItem(newItemData);
+
+        itemInTargetActor = targetActor.items.get(result._id);
+      }
+
+      return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
     }
 
     async stashOrUnstash(event, actor, getItem) {
