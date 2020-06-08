@@ -136,7 +136,7 @@ class PF2eStatusEffects {
             }
         });
 
-        if ( game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
+        if ( game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             Hooks.on("updateCombat", (combat) => {
                 const combatant = combat?.combatant;
                 if (combat?.started && combatant?.hasRolled) {
