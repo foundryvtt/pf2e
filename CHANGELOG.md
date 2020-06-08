@@ -1,4 +1,66 @@
 # Patch Notes:
+## Version 1.5.0 
+### New Features
+* (@FS) Added a new compendium pack for Pathfinder Bestiary 2.
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/0b4a4cf0083f93bce8f68c2b562e24b0/PZO2104.jpg "Pathfinder Bestiary 2")
+
+* (@nikolaj-a) Added new damage and critical roll buttons for strikes in the Actions tab.
+    * Basic implementation of the damage roll mechanic for strikes.
+    * It supports rudimentary stacking rules for the numeric modifiers and will adjust dice for striking rune, deadly trait, fatal trait, thief version of rogue's racket, some custom modifiers, as well as most creature conditions.
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/7b2ba2bbda6d7a1b1a27b9499d1a6d36/image.png "Updated Damage Rolls")
+
+* (@L4D15) Adds a new type of actor specifically designed to store loot. 
+    * Added support to move items between characters inventories (rather than copying).
+    * Future features will be coming here for shops and an optimised UI.
+
+![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/bf8f3d841e4d0282c7de585999cbf5ca/Annotation_2020-06-08_195934.png "Loot Actor")
+
+### Content Changes
+* (@abrault) Added Weapon Resistance for Fury Barbarian
+* (@Shandyan) Corrected links Actions, Ancestry Features & Class Features compendiums entries
+* (@putt1) Added new immunities, traits and resistances used in Pathfinder Bestiary 2
+* (@overdox) Added all deities from Pathfinder Lost Omens: Gods & Magic
+* (@overdox) Added Abadars Flawless Scale (magic item)
+* (@overdox) Added the new languages; Destrachan, D'ziriak, Jistkan, Jyoti used in Pathfinder Bestiary 2
+* (@overdox) Improvements to spells in the Spell compendium
+    * Changing some of the structure on spells to add support for secondary checks, and secondary casters,
+    * Chaning area to be input type to support for things like "1/2-mile-radius circle centered on you".
+    * Adding Focus and Rituals as spell types.
+    * Moved Ritual and Focus spells to their own category, together with regular spells type
+    * under spell-details on like 26, I have changed traditions to point to 'spellTraditions' rather than 'magicTraditions', because things like 'bludgeoning' and 'bleed' has nothing to do with the type of tradition. The list now shows only the four correct magical traditions: Arcane, Divine, Occult, Primal.
+    * Spell sidebar will now also be displaying if there are primary or secondary checks on the ritual, or if it requires secondary casters.
+    * Updated spell compendium with changes to rituals, focus cantrips and 1st level focus spells.
+* (@overdox) Added missing rituals: 
+    * Planar Binding
+    * Animate Object
+    * Atone
+    * Awaken Animal
+    * Blight
+    * Commune
+    * Commune With Nature
+    * Consecrate
+    * Create Undead
+    * Freedom
+    * Imprisonment
+    * Infernal Pact
+    * Inveigle
+    * Plant Growth
+    * Primal Call
+* (@hooking) Refreshed all Bestiary compendium packs to include data improvements from spells, conditions and updates to the importer.
+
+### Bug Fixes
+* (@overdox) Fixed broken image links on condition entries
+
+
+### Core System Improvements
+* (@In3luki) Improved status effect chat message logic to hide messages for hidden actors and to provide a configuration to disable.
+* (@overdox) Added a dropdown for selecting traits on consumables 
+* (@overdox) Added rarity to spells and new line for Primary Check for rituals
+* (iceman) Improve wording for compendium settings.
+
+
 ## Version 1.4.3
 ### Content Changes
 * (Athenos) Added a missing NPC (Ralldar). The lowercase "Bloody Blade Mercenary" has also been fixed.
