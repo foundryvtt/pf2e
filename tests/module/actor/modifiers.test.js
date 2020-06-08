@@ -6,10 +6,6 @@ import {
 } from 'module/modifiers.js';
 
 describe('#modifiers', () => {
-  test('prevent untyped bonus', () => {
-    expect(() => new PF2Modifier('invalid untyped bonus', 1, PF2ModifierType.UNTYPED)).toThrow(RangeError);
-  });
-
   each([
     [STRENGTH.withScore(10), PF2ModifierType.ABILITY],
     [DEXTERITY.withScore(10), PF2ModifierType.ABILITY],
