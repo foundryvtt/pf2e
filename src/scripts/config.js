@@ -249,7 +249,7 @@ CONFIG.weaknessTypes = {
   orichalcum: 'PF2E.WeaknessTypeOrichalcum',
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
-  'splash-damage': 'PF2E.WeaknessTypeSplashDamage'
+  'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
   salt: "PF2E.WeaknessTypeSalt", 
   'salt water': "PF2E.WeaknessTypeSaltWater", 
   'vorpal fear': "PF2E.WeaknessTypeVorpalFear", 
