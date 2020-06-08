@@ -1321,7 +1321,7 @@ class ActorSheetPF2e extends ActorSheet {
 
       if (isSameActor) {
         await this.stashOrUnstash(event, targetActor, () => { return item; });
-        return this._onSortItem(event, item.data.data);
+        return this._onSortItem(event, item.data);
       } else {
         const newItemQuantity = Number(item.data.data.quantity.value) - 1;
         const hasToRemoveFromSource = newItemQuantity < 1;
