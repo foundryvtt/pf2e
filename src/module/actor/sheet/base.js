@@ -47,7 +47,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update martial skill labels
-    if (sheetData.data.martial != undefined)
+    if (sheetData.data.martial !== undefined)
     {
       for (const [s, skl] of Object.entries(sheetData.data.martial)) {
         skl.icon = this._getProficiencyIcon(skl.rank);
@@ -58,7 +58,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update save labels
-    if (sheetData.data.saves != undefined)
+    if (sheetData.data.saves !== undefined)
     {
       for (const [s, save] of Object.entries(sheetData.data.saves)) {
         save.icon = this._getProficiencyIcon(save.rank);
@@ -69,14 +69,14 @@ class ActorSheetPF2e extends ActorSheet {
 
 
     // Update proficiency label
-    if (sheetData.data.attributes != undefined)
+    if (sheetData.data.attributes !== undefined)
     {
       sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
       sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
     }
 
     // Ability Scores
-    if (sheetData.data.abilities != undefined)
+    if (sheetData.data.abilities !== undefined)
     {
       for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
         abl.label = CONFIG.PF2E.abilities[a];
@@ -84,7 +84,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // Update skill labels
-    if (sheetData.data.skills != undefined)
+    if (sheetData.data.skills !== undefined)
     {
       for (let [s, skl] of Object.entries(sheetData.data.skills)) {
         skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
@@ -95,7 +95,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // update currency based on items
-    if (sheetData.actor.item != undefined)
+    if (sheetData.actor.items !== undefined)
     {
       const treasure = calculateWealth(sheetData.actor.items);
       sheetData.totalTreasure = {};
