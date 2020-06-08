@@ -1,4 +1,12 @@
 # Patch Notes:
+## Version 1.5.1
+### Bug Fixes
+* (@overdox) Quickfix for undefined spells appearing in spellbook
+* (@overdox) Fixed dziriak language
+* (@nikolaj-a) Allow untyped bonuses - Removed exception when trying to create an untyped bonus, as this was not really enforced anywhere in the rules.
+* (@abrault) Fixed total treasure and gold price disappearing from the char sheet
+
+
 ## Version 1.5.0 
 ### New Features
 * (@FS) Added a new compendium pack for Pathfinder Bestiary 2.
