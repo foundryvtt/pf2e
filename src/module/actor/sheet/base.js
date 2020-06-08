@@ -95,7 +95,7 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     // update currency based on items
-    if (sheetData.actor.item != undefined)
+    if (sheetData.actor.items != undefined)
     {
       const treasure = calculateWealth(sheetData.actor.items);
       sheetData.totalTreasure = {};
