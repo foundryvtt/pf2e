@@ -334,7 +334,7 @@ CONFIG.usageTraits = {
   wornsaddle: 'PF2E.TraitWornSaddle',
   'etched-onto-armor': 'PF2E.TraitEtchedOntoAArmor',
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
-  wornwrist: 'PF2E.TraitWornOnWrists',
+  wornwrist: 'PF2E.TraitWornOnWrists'
 };
 CONFIG.rarityTraits = {
   common: 'PF2E.TraitCommon',
@@ -1040,7 +1040,7 @@ CONFIG.areaTypes = {
   burst: 'PF2E.AreaTypeBurst',
   cone: 'PF2E.AreaTypeCone',
   emanation: 'PF2E.AreaTypeEmanation',
-  line: 'PF2E.AreaTypeLine'
+  line: 'PF2E.AreaTypeLine',
 }; // Spell Saves
 
 /* CONFIG.spellBasic = {
@@ -1059,6 +1059,7 @@ CONFIG.areaSizes = {
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
   120: 'PF2E.AreaSize120'
+  
 }; // Alignment
 
 CONFIG.alignment = {
@@ -1097,13 +1098,21 @@ CONFIG.spellComponents = {
   V: 'PF2E.SpellComponentV',
   S: 'PF2E.SpellComponentS',
   M: 'PF2E.SpellComponentM'
-}; // Spell Types
+}; // Spell Category
+
+CONFIG.spellCategories = {
+  spell: 'PF2E.SpellCategorySpell',
+  focus: 'PF2E.SpellCategoryFocus',
+  ritual: 'PF2E.SpellCategoryRitual'
+};// Spell Types
 
 CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',
   save: 'PF2E.SpellTypeSave',
   heal: 'PF2E.SpellTypeHeal',
-  utility: 'PF2E.SpellTypeUtility'
+  utility: 'PF2E.SpellTypeUtility',
+  focus: 'PF2E.SpellTypeFocus',
+  ritual: 'PF2E.SpellTypeRitual'
 }; // Spell Levels
 
 CONFIG.spellLevels = {
@@ -1375,7 +1384,7 @@ CONFIG.immunityTypes = {
   confusion: 'PF2E.DamageTypeConfusion',
   'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
   emotion: 'PF2E.DamageTypeEmotion',
-  possession: 'PF2E.DamageTypePosession', 
+  possession: 'PF2E.DamageTypePosession',
 }; // Languages
 
 CONFIG.languages = {
