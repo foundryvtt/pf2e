@@ -71,9 +71,6 @@ export class PF2Modifier {
    * @param {string} notes
    */
   constructor(name, modifier, type, enabled = true, source = undefined, notes = undefined) {
-    if (type === PF2ModifierType.UNTYPED && modifier > 0) {
-      throw new RangeError('only untyped penalties allowed');
-    }
     this.name = name;
     this.modifier = modifier;
     this.type = type;
