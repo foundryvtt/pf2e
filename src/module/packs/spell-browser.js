@@ -457,7 +457,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
     data.classes = this.classes;
     data.times = this.times;
     data.schools = this.schools;
-    data.traditions = CONFIG.PF2E.spellTraditions;
+    data.traditions = CONFIG.PF2E.magicTraditions;
 
     return data;
   }
