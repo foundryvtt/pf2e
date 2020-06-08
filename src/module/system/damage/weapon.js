@@ -1,10 +1,13 @@
-import { PF2Modifier, PF2StatisticModifier } from '../../modifiers.js';
+import { PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../../modifiers.js';
 
+// eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
   static calculate(weapon, actor, traits = [], statisticsModifiers) {
+    let effectDice = weapon.data.damage.dice ?? 1;
     const diceModifiers = [];
     const numericModifiers = [];
+    const baseTraits = [];
 
     // striking rune
     if (weapon.data?.strikingRune?.value) {
@@ -16,6 +19,7 @@ export class PF2WeaponDamage {
         default: diceNumber = 0;
       }
       if (diceNumber > 0) {
+        effectDice += diceNumber;
         diceModifiers.push({
           name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
           diceNumber,
@@ -40,6 +44,28 @@ export class PF2WeaponDamage {
           traits: ['fire'],
         });
       }
+    }
+
+    // powerful fist
+    if (actor.items.some(i => i.type === 'feat' && i.name === 'Powerful Fist')
+      && traits.some(t => t.name.startsWith('unarmed'))
+    ) {
+      diceModifiers.push({
+        name: 'Powerful Fist',
+        enabled: true,
+        override: { dieSize: 'd6' },
+      });
+    }
+
+    // mystic strikes
+    if (actor.items.some(i => i.type === 'feat' && i.name === 'Mystic Strikes')
+      && traits.some(t => t.name.startsWith('unarmed'))
+    ) {
+      diceModifiers.push({
+        name: 'Mystic Strikes',
+        enabled: true,
+        traits: ['magical'],
+      });
     }
 
     // deadly trait
@@ -72,20 +98,35 @@ export class PF2WeaponDamage {
       });
     });
 
-    // check for Rogue's Racket: Thief
-    let ability = weapon.data.ability?.value ?? 'str'; // default to Str
+    // determine ability modifier
+    let ability;
     {
-      let modifier = Math.floor(((actor.data.abilities[weapon.data.ability.value]?.value ?? 10) - 10) / 2);
+      let modifier;
+      const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown'));
+      if (melee) {
+        ability = 'str';
+        modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+      }
+
+      if (traits.some(t => t.name === 'propulsive')) {
+        ability = 'str';
+        const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+        modifier = (strengthModifier < 0) ? strengthModifier : Math.floor(strengthModifier / 2);
+        baseTraits.push('propulsive');
+      }
+
+      // check for Rogue's Racket: Thief
       if (actor.items.some(i => i.type === 'feat' && i.name === 'Thief Racket') // character has Thief Racket class feature
-        && (traits.some(t => t.name === 'finesse') && (['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown')))) // finesse melee weapon
-        && Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the bonus of the assigned ability
+        && (traits.some(t => t.name === 'finesse') && melee) // finesse melee weapon
+        && Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
       ) {
         ability = 'dex';
         modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
       }
-      numericModifiers.push(
-        new PF2Modifier(game.i18n.localize(CONFIG.abilities[ability]), modifier, 'ability')
-      );
+
+      if (ability) {
+        numericModifiers.push(new PF2Modifier(CONFIG.abilities[ability], modifier, PF2ModifierType.ABILITY));
+      }
     }
 
     // conditions and custom modifiers
@@ -94,7 +135,10 @@ export class PF2WeaponDamage {
       if (weapon.data?.group?.value) {
         stats.push(`${weapon.data?.group?.value}-weapon-group`);
       }
-      stats.concat([`${ability}-damage`, 'damage']).forEach((key) => {
+      if (ability) {
+        stats.push(`${ability}-damage`);
+      }
+      stats.concat(['damage']).forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
           numericModifiers.push(new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type));
         });
@@ -110,10 +154,15 @@ export class PF2WeaponDamage {
         damageType: weapon.data.damage.damageType,
         traits: [],
       },
+      // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
+      // only the weapon's damage die plus any extra dice from a striking rune. They don't count
+      // extra dice from abilities, critical specialization effects, property runes, weapon traits,
+      // or the like.
+      effectDice,
       diceModifiers,
       numericModifiers,
       // the below fields are calculated
-      traits: [],
+      traits: baseTraits,
       formula: {},
     };
 
@@ -136,8 +185,8 @@ export class PF2WeaponDamage {
     const base = JSON.parse(JSON.stringify(damage.base));
 
     // override first, to ensure the dice stacking works properly
-    let overrideDieSize;
-    let overrideDamageType;
+    let overrideDieSize = null;
+    let overrideDamageType = null;
     damage.diceModifiers.filter(dm => dm.enabled).filter(dm => dm.override).forEach(dm => {
       if (critical && dm.critical) {
         overrideDieSize = dm.override.dieSize ?? overrideDieSize;
@@ -194,16 +243,18 @@ export class PF2WeaponDamage {
           // skip
         }
       });
-      const stacked = new PF2StatisticModifier('damage-stacking-rules', modifiers);
-      stacked.modifiers.filter(nm => nm.enabled).filter(nm => !nm.critical || critical).forEach(nm => {
-        let pool = dicePool[nm.damageType ?? base.damageType];
-        if (!pool) {
-          pool = {}
-          dicePool[nm.damageType ?? base.damageType] = pool;
-        }
-        pool.modifier += nm.modifier;
-        (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => { damage.traits.push(t) });
-      });
+      new PF2StatisticModifier('damage-stacking-rules', modifiers).modifiers
+        .filter(nm => nm.enabled)
+        .filter(nm => !nm.critical || critical)
+        .forEach(nm => {
+          let pool = dicePool[nm.damageType ?? base.damageType];
+          if (!pool) {
+            pool = {}
+            dicePool[nm.damageType ?? base.damageType] = pool;
+          }
+          pool.modifier += nm.modifier;
+          (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => { damage.traits.push(t) });
+        });
     }
 
     // build formula
@@ -232,7 +283,7 @@ export class PF2WeaponDamage {
     let p = pool[damageType ?? base.damageType];
     if (!p) {
       p = {}
-      pool[damageType ?? base.damageType] = p;
+      pool[damageType ?? base.damageType] = p; // eslint-disable-line no-param-reassign
     }
     let dice = p[dieSize ?? base.dieSize];
     if (!dice) {
@@ -247,21 +298,25 @@ export class PF2WeaponDamage {
   static buildFormula(pool) {
     let formula = '';
     for (const damageType in pool) {
-      let modifier = 0;
-      for (const dieSize in pool[damageType]) {
-        if (dieSize === 'modifier') {
-          modifier += pool[damageType][dieSize];
-        } else if (formula) {
-          formula += ` + ${pool[damageType][dieSize].diceNumber}${dieSize}`;
-        } else {
-          formula = pool[damageType][dieSize].diceNumber + dieSize;
+      if (Object.prototype.hasOwnProperty.call(pool, damageType)) {
+        let modifier = 0;
+        for (const dieSize in pool[damageType]) {
+          if (Object.prototype.hasOwnProperty.call(pool[damageType], dieSize)) {
+            if (dieSize === 'modifier') {
+              modifier += pool[damageType][dieSize];
+            } else if (formula) {
+              formula += ` + ${pool[damageType][dieSize].diceNumber}${dieSize}`;
+            } else {
+              formula = pool[damageType][dieSize].diceNumber + dieSize;
+            }
+          }
         }
-      }
-      if (modifier !== 0) {
-        if (formula) {
-          formula += `${modifier < 0 ? modifier : ` + ${modifier}` }`;
-        } else {
-          formula = modifier;
+        if (modifier !== 0) {
+          if (formula) {
+            formula += `${modifier < 0 ? modifier : ` + ${modifier}` }`;
+          } else {
+            formula = modifier;
+          }
         }
       }
     }

@@ -346,6 +346,7 @@ export default class extends Actor {
           map2: -4,
           map3: -8,
           damage: { dice: 1, die: 'd4' },
+          range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
         }
       }];
