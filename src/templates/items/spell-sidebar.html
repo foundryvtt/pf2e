@@ -1,17 +1,24 @@
 <h4 class="sidebar-summary">{{localize "PF2E.SpellSummary"}}</h4>
 
-<span class="item-summary">{{lookup spellLevels data.level.value }}</span>
+<span class="item-summary">{{data.spellCategorie.value}} {{lookup spellLevels data.level.value }}</span>
 <span class="item-summary">{{lookup spellSchools data.school.value}}</span>
 <span class="item-summary">{{lookup spellTypes data.spellType.value}}</span>
 <span class="item-summary">{{data.time.value}}</span>
 
 <ol class="item-tags">
+<li class="tag">{{data.traits.rarity.value}}</li>
 {{#each spellComponents}}
     <li class="tag">{{this}}</li>
 {{/each}}
-</ol>
-<ol class="item-tags">
-<li class="tag">{{data.traits.rarity.value}}</li>
+{{#if data.secondarycasters.value}}
+    <li class="tag">{{localize "PF2E.SpellSecondaryCasters"}}</li>
+{{/if}}
+{{#if data.primarycheck.value}}
+    <li class="tag">{{localize "PF2E.SpellPrimaryCheckLabel"}}</li>
+{{/if}}
+{{#if data.secondarycheck.value}}
+    <li class="tag">{{localize "PF2E.SpellSecondaryChecksLabel"}}</li>
+{{/if}}
 </ol>
 <ol class="item-tags">
     {{#if data.prepared.value}}

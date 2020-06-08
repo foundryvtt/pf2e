@@ -19,11 +19,20 @@
         {{/select}}
     </select>
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
+    <select name="data.spellCategorie.value" data-dtype="{{data.spellCategorie.type}}">
+        {{#select data.spellCategorie.value}}
+        {{#each spellCategories as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
 <div class="form-group">
     <label for="data.traditions">
         {{localize "PF2E.SpellTraditionsLabel"}}
-        <a class="trait-selector" data-options="magicTraditions"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-options="spellTraditions"><i class="fas fa-edit"></i></a>
     </label>
     <!-- <input type="text" name="data.traits.value" value="{{data.traits.value}}" data-dtype="{{data.traits.type}}"/> -->
     <ul class="traits-list" style="margin: 3px 0; padding: 0;">
@@ -104,7 +113,16 @@
     </select>
     </div>
 </div>
-
+<div class="form-group">
+    <label>{{localize "PF2E.Rarity"}}</label>
+    <select name="data.traits.rarity.value" data-dtype="String">
+        {{#select data.traits.rarity.value}}
+        {{#each rarity as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
     <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="{{data.components.type}}"/>
@@ -119,15 +137,9 @@
     <input type="text" name="data.primarycheck.value" value="{{data.primarycheck.value}}" data-dtype="{{data.primarycheck.type}}"/>
 </div>
 <div class="form-group">
-        <label>{{localize "PF2E.Rarity"}}</label>
-        <select name="data.traits.rarity.value" data-dtype="String">
-            {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
+    <label>{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
+    <input type="text" name="data.secondarycheck.value" value="{{data.secondarycheck.value}}" data-dtype="{{data.secondarycheck.type}}"/>
+</div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellCostLabel"}}</label>
     <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="{{data.cost.type}}"/>
@@ -145,24 +157,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellAreaLabel"}}</label>
-    <div class="details-container-two-columns">
-        <select name="data.area.value" data-dtype="Number">
-            {{#select data.area.value}}
-            <option value=""></option>
-            {{#each areaSizes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-        <select name="data.area.areaType" data-dtype="String">
-            {{#select data.area.areaType}}
-            <option value=""></option>
-            {{#each areaTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
+	<input type="text" name="data.areasize.value" value="{{data.areasize.value}}" data-dtype="{{data.areasize.type}}"/>         
 </div>
 
 <div class="form-group">
@@ -173,6 +168,10 @@
 <div class="form-group">
     <label>{{localize "PF2E.SpellTimeLabel"}}</label>
     <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="{{data.time.type}}"/>
+</div>
+<div class="form-group">
+    <label>{{localize "PF2E.SpellSecondaryCasters"}}</label>
+    <input type="text" name="data.secondarycasters.value" value="{{data.secondarycasters.value}}" data-dtype="{{data.secondarycasters.type}}"/>
 </div>
 
 <div class="form-group">
