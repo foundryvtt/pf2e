@@ -11,6 +11,7 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
     WISDOM,
+    SkillProficiencyModifier,
 } from '../modifiers.js';
 import { ConditionModifiers } from '../condition-modifiers.js';
 import { PF2Check } from '../system/rolls.js';
@@ -272,10 +273,16 @@ export default class extends Actor {
     }
 
     // Skill modifiers
+    const feats = new Set(actorData.items
+      .filter(item => item.type === 'feat')
+      .map(item => item.name))
+
+    const hasUntrainedImprovisation = feats.has('Untrained Improvisation') || feats.has('Clever Improviser')
+
     for (const [skillName, skill] of Object.entries(data.skills)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
-        ProficiencyModifier.fromLevelAndRankAndActor(data.details.level.value, skill.rank, actorData),
+        SkillProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank, hasUntrainedImprovisation),
       ];
       if (skill.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));

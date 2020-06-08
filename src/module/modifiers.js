@@ -136,10 +136,12 @@ export const AbilityModifier = Object.freeze({
 });
 
 // proficiency ranks
+export const IMPROVISED = Object.freeze({
+  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevelImprovised', level < 7 ? Math.floor(level / 2) : level, PF2ModifierType.PROFICIENCY),
+});
 export const UNTRAINED = Object.freeze({
   // eslint-disable-next-line no-unused-vars
   atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel0', 0, PF2ModifierType.PROFICIENCY),
-  improvised: (level) => new PF2Modifier('PF2E.ProficiencyLevel0', level < 7 ? Math.floor(level / 2) : level, PF2ModifierType.PROFICIENCY)
 });
 export const TRAINED = Object.freeze({
   atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel1', level + 2, PF2ModifierType.PROFICIENCY),
@@ -170,28 +172,22 @@ export const ProficiencyModifier = Object.freeze({
       default: throw new RangeError(`invalid proficiency rank: ${rank}`);
     }
     return modifier;
-  },
+  }
+});
+
+export const SkillProficiencyModifier = Object.freeze({
   /**
    * @param {number} level
    * @param {number} rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-   * @param {object} actor
+   * @param {bool} hasUntrainedImprovisation
    * @returns {PF2Modifier}
    */
-  fromLevelAndRankAndActor: (level, rank, actor) => {
-    switch (rank || 0) {
-      case 0: 
-        const feats = new Set(actor.items.filter(item => item.type === 'feat').map(item => item.name));
-
-        if (feats.has('Untrained Improvisation') || feats.has('Clever Improviser')) {
-          return UNTRAINED.improvised(level);
-        } else {
-          return UNTRAINED.atLevel(level);
-        }
-      default: 
-        return ProficiencyModifier.fromLevelAndRank(level, rank);
+  fromLevelAndRank: (level, rank, hasUntrainedImprovisation) => {
+    if(rank === 0 && hasUntrainedImprovisation) {
+      return IMPROVISED.atLevel(level)
+    } else {
+      return ProficiencyModifier.fromLevelAndRank(level, rank)
     }
-
-    return modifier;
   }
 });
 
