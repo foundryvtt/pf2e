@@ -61,13 +61,11 @@ export const FLAT_FOOTED = Object.freeze({
 export const FRIGHTENED = Object.freeze({
   withValue: (value) => ({
     all: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
-    damage: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const SICKENED = Object.freeze({
   withValue: (value) => ({
     all: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
-    damage: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const STUPEFIED = Object.freeze({
