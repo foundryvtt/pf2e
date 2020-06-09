@@ -104,18 +104,20 @@ class PF2eStatusEffects {
             window.location.reload(false);
           }
         });
-        game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
-          name: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.name,
-          hint: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.hint,
-          scope: 'world',
-          config: true,
-          default: true,
-          type: Boolean,
-          onChange: () => {
-            window.location.reload(false);
-          }
-        });
 
+        if (game.user.isGM) {
+            game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
+              name: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.name,
+              hint: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.hint,
+              scope: 'client',
+              config: true,
+              default: true,
+              type: Boolean,
+              onChange: () => {
+                  window.location.reload(false);
+              }
+            });
+        }
         /** Create hooks onto FoundryVTT **/
         Hooks.on("renderTokenHUD", (app, html, data) => {
             console.log('PF2e System | Rendering PF2e customized status effects');
