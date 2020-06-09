@@ -1,4 +1,12 @@
 # Patch Notes:
+## Version 1.5.2
+### Bug Fixes
+* (@nikolaj-a) Fixed a number of bugs with the damage roll modifier system:
+    * Removed damage penalty from frightened and sickened conditions that were incorrectly being applied.
+    * Reduced the number of bonus damage dice from deadly trait.
+* (@hooking) Fixed multiple status messages from showing in chat.
+
+
 ## Version 1.5.1
 ### Bug Fixes
 * (@overdox) Quickfix for undefined spells appearing in spellbook
