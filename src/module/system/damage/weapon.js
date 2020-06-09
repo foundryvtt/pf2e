@@ -72,9 +72,9 @@ export class PF2WeaponDamage {
     traits.filter(t => t.name.startsWith('deadly-')).forEach(t => {
       let diceNumber;
       switch (weapon.data?.strikingRune?.value) {
-        case 'greaterStriking': diceNumber = 3; break;
-        case 'majorStriking': diceNumber = 4; break;
-        default: diceNumber = 2;
+        case 'greaterStriking': diceNumber = 2; break;
+        case 'majorStriking': diceNumber = 3; break;
+        default: diceNumber = 1;
       }
       diceModifiers.push({
         name: CONFIG.weaponTraits[t.name],
