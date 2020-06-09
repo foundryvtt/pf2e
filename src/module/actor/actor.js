@@ -273,11 +273,21 @@ export default class extends Actor {
     }
 
     // Skill modifiers
+    const feats = new Set(actorData.items
+      .filter(item => item.type === 'feat')
+      .map(item => item.name))
+
+    const hasUntrainedImprovisation = feats.has('Untrained Improvisation')
+
     for (const [skillName, skill] of Object.entries(data.skills)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
       ];
+      if(skill.rank === 0 && hasUntrainedImprovisation) {
+        let bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value
+        modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY))
+      }
       if (skill.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
       }
