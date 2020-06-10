@@ -44,6 +44,17 @@ export class PF2WeaponDamage {
           traits: ['fire'],
         });
       }
+      else if (rune === 'thundering') {
+        diceModifiers.push({
+          name: CONFIG.PF2E.weaponPropertyRunes[rune],
+          diceNumber: 1,
+          dieSize: 'd6',
+          category: this.getDamageCategory('sonic'),
+          damageType: 'sonic',
+          enabled: true,
+          traits: ['sonic'],
+        });
+      }
     }
 
     // powerful fist
