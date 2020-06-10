@@ -97,6 +97,13 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Grippli from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     *  Pathfinder Core Rulebook (Second Edition) © 2019, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter.
     *  Pathfinder Gamemastery Guide © 2020, Paizo Inc.; Authors: Alexander Augunas, Jesse Benner, John Bennett, Logan Bonner, Clinton J. Boomer, Jason Bulmahn, James Case, Paris Crenshaw, Jesse Decker, Robert N. Emerson, Eleanor Ferron, Jaym Gates, Matthew Goetz, T.H. Gulliver, Kev Hamilton, Sasha Laranoa Harving, BJ Hensley, Vanessa Hoskins, Brian R. James, Jason LeMaitre, Lyz Liddell, Luis Loza, Colm Lundberg, Ron Lundeen, Stephen Radney-MacFarland, Jessica Redekop, Alistair Rigg, Mark Seifter, Owen K.C. Stephens, Amber Stewart, Christina Stiles, Landon Winkler, and Linda Zayas-Palmer.    
+* Society
+    * Pathfinder Society Scenario #1–19: Iolite Squad Alpha © 2020, Paizo Inc.; Author: Mike Kimmel.
+	* Pathfinder Society Scenario #1–17: The Perennial Crown Part 2: The Thorned Monarch © 2020, Paizo Inc.; Author: Alexander Augunas.
+	* Pathfinder Society Scenario #1–15: The Blooming Catastrophe © 2020, Paizo Inc.; Author: Mikhail Rekun.
+	* Pathfinder Society Quest #5: The Dragon Who Stole Evoking Day © 2019, Paizo Inc.; Author: Luis Loza.
+	* Pathfinder Society Quest #2: Unforgiving Fire © 2019, Paizo Inc.; Author: Leo Glass.
+	* Pathfinder Society Scenario #1–03: Escaping the Grave © 2019, Paizo Inc.; Author: Adrian Ng.
 * Lost Omens
     *  Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     *  Pathfinder Lost Omens Character Guide (Second Edition) © 2019, Paizo Inc.; Authors: John Compton, Sasha Lindley Hall, Amanda Hamon, Mike Kimmel, Luis Loza, Ron Lundeen, Matt Morris, Patchen Mortimer, Andrew Mullen, Mikhail Rekun, Micheal Sayre, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
