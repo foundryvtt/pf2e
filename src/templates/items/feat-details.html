@@ -45,6 +45,17 @@
 </div>
 
 <div class="form-group">
+    <label>{{localize "PF2E.Rarity"}}</label>
+    <select name="data.traits.rarity.value" data-dtype="String">
+        {{#select data.traits.rarity.value}}
+        {{#each rarity as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
     <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
     <input type="text" name="data.prerequisites.value" value="{{data.prerequisites.value}}"
            data-dtype="{{data.prerequisites.type}}"/>
