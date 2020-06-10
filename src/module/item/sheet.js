@@ -65,7 +65,6 @@ export class ItemSheetPF2e extends ItemSheet {
       // Spell Data
       mergeObject(data, {
         spellTypes: CONFIG.PF2E.spellTypes,
-		spellCategories: CONFIG.PF2E.spellCategories,
         spellSchools: CONFIG.PF2E.spellSchools,
         spellLevels: CONFIG.PF2E.spellLevels,
         magicTraditions: CONFIG.PF2E.magicTraditions,
