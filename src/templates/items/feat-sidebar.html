@@ -3,6 +3,19 @@
 <span class="item-summary">{{lookup featTypes data.featType.value }}</span>
 {{# if data.requirements.value }}<span class="item-summary">{{ data.requirements.value }}</span>{{/if}}
 
+<ol class="item-tags">
+{{#each 
+	data.traits.value as |v|}} <li class="tag">{{v}}
+{{/each}} </li>
+{{#if data.level.value}}
+    <li class="tag">Level {{data.level.value}}</li>
+{{/if}}
+<li class="tag">{{data.traits.rarity.value}}</li>
+{{#if data.actionType.value}}
+	<li class="tag">{{data.actionType.value}}</li>
+{{/if}}
+</ol>
+
 {{#if itemTags.length}}
 <ol class="item-tags">
     {{#each itemTags}}
