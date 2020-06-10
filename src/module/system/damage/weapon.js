@@ -57,17 +57,6 @@ export class PF2WeaponDamage {
       }
     }
 
-    // powerful fist
-    if (actor.items.some(i => i.type === 'feat' && i.name === 'Powerful Fist')
-      && traits.some(t => t.name.startsWith('unarmed'))
-    ) {
-      diceModifiers.push({
-        name: 'Powerful Fist',
-        enabled: true,
-        override: { dieSize: 'd6' },
-      });
-    }
-
     // mystic strikes
     if (actor.items.some(i => i.type === 'feat' && i.name === 'Mystic Strikes')
       && traits.some(t => t.name.startsWith('unarmed'))
