@@ -123,7 +123,7 @@ export default class extends Actor {
         + bonusHpPerLevel
         + data.attributes.flatbonushp;
     }
-      
+
     // Saves
     const worn = this.getFirstWornArmor();
     for (const [saveName, save] of Object.entries(data.saves)) {
@@ -479,30 +479,15 @@ export default class extends Actor {
           return;
         }
 
-        // find token associated with this actor on the active canvas
-        if (canvas.tokens.placeables.length) {
-          let tokenId = '';
-          canvas.tokens.placeables.forEach(placeable => {
-            if (placeable.data.actorId === this._id) {
-              tokenId = placeable.id
-            }
-          });
-          
-          // if matching token found
-          if (tokenId) {
-            const combatant = game.combat.getCombatantByToken(tokenId);
-            if(combatant == undefined) {
-              ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-              return;
-            }
-            game.combat.setInitiative(combatant._id, roll.total);
-          } else {
-            ui.notifications.error(`No token found for ${this.name} on the canvas.`);
-          }              
+        const combatant = game.combat.turns.find(c => c.actor.id === this._id)
+        if(combatant == undefined) {
+          ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
+          return;
         }
+        game.combat.setInitiative(combatant._id, roll.total);
       } else {
         console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
-      }      
+      }
     }
 
     getFirstWornArmor() {
@@ -511,7 +496,7 @@ export default class extends Actor {
             .find((armor) => armor.data.equipped.value);
     }
 
-    static traits(source) { 
+    static traits(source) {
       if (Array.isArray(source)) {
         return source;
       } else if (typeof source === 'string') {
@@ -900,7 +885,7 @@ export default class extends Actor {
   async _setShowUnpreparedSpells(entryId, spellLevel) {
     if (entryId && spellLevel) {
       let spellcastingEntry = this.getOwnedItem(entryId);
-      
+
       if (spellcastingEntry?.data?.data?.prepared?.value === "prepared" && spellcastingEntry?.data?.data?.showUnpreparedSpells?.value === false) {
         if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
         const currentLvlToDisplay = {};
@@ -911,7 +896,7 @@ export default class extends Actor {
           'data.displayLevels': currentLvlToDisplay
         });
       }
-    }    
+    }
   }
 
     /* -------------------------------------------- */
@@ -1023,9 +1008,9 @@ export default class extends Actor {
 Handlebars.registerHelper('if_stamina', function(options) {
   if(game.settings.get('pf2e', 'staminaVariant') > 0) {
     return options.fn(this);
-  } 
+  }
     return ''
-  
+
 });
 
 Handlebars.registerHelper('add', function(a, b) {
