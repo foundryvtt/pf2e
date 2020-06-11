@@ -258,7 +258,7 @@ export class PF2WeaponDamage {
     }
 
     // build formula
-    let formula = this.buildFormula(dicePool);
+    let formula = `{${this.buildFormula(dicePool)}, 1}kh`;
     if (critical) {
       formula = `2 * (${formula})`;
       const critFormula = this.buildFormula(critPool);
