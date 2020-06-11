@@ -2,6 +2,7 @@
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { getPropertySlots } from './runes.js';
+// eslint-disable-next-line import/prefer-default-export
 export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -29,6 +30,13 @@ export class ItemSheetPF2e extends ItemSheet {
     var _this$item$data, _this$item$data$data, _this$item$data$data$;
 
     const data = super.getData();
+    // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
+    // This works because the actor's items are already updated by the time the ItemSheet rerenders.
+    const updatedData = this?.actor?.items?.get(this?.entity?.id)?.data
+    if(updatedData){
+      data.item = updatedData
+      data.data = updatedData.data
+    }
     data.abilities = CONFIG.PF2E.abilities;
     data.saves = CONFIG.PF2E.saves; // Sheet display details
 
@@ -319,7 +327,7 @@ export class ItemSheetPF2e extends ItemSheet {
     // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc) 
     // of NPCs can be edited without problems.
     // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
-    this._onSubmit(event);
+    return this._onSubmit(event);
   }
 
 }
