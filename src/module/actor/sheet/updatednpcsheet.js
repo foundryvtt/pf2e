@@ -125,7 +125,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     sheetData.hasEquipment = false;
     for (const i of sheetData.actor.items) {
       // Equipment
-      if (i.type === 'weapon' || i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable') {
+      if (i.type === 'weapon' || i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'treasure') {
         equipment.push(i);
         sheetData.hasEquipment = true;
       }
