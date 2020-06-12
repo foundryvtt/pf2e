@@ -1,4 +1,37 @@
 # Patch Notes:
+## Version 1.5.3
+### Content Changes
+* (@overdox) General changes:
+    * Bladed scarf is now categories as a martial weapon #519 (closed)
+    * Multiple issues in the compendium is now corrected #526 (closed) thanks @Lanastara for the nicely done bug report
+    * Updated class feature names to include what categorie they belong to, ie Wizards Arcane Thesis or Arcane School, or rangers Hunter's Edge.
+    * GMG (NPC Gallery) is now named NPC Gallery (GMG)
+* (@overdox) Pathfinder Society content:
+    * Added Rain of Embers Stance feat, from Pathfinder Society Quest #2 (closed): Unforgiving Fire pg. 20
+    * Added missing feat, Fey Influence from Pathfinder Society Scenario #1-17: The Perennial Crown Part 2, The Thorned Monarch pg. 30
+* (@overdox) Swapped out or updated various icons
+* (@putt1) Rename orc ranger to gray tusk in Fall of Plaguestone compendium
+* (@Shandyan) Made corrections to the cantrips and 1st level spells to address various errors in spell details (e.g. incorrect traits, damage type, missing areas, incorrect rarities etc).
+
+
+### Bug Fixes
+* (@In3luki) Fixed status effect combat messages when mutliple GMs are in a game
+* (@In3luki) Fixed pressing enter in any input field on the character or NPC sheet rolls an action or attack
+* (@nikolaj-a) Changed the damage roll die modifier for powerful strike to only affect the base fist attack instead of all unarmed strikes. Previously it inadvertently reduced the die size of the various monk stances.
+* (@FS) Fixed issue when editing items on tokens that are not linked to an actor - #193 (closed).
+
+
+### Core System Improvements
+* (@kenster421) Added automated skill bonus for Untrained Improvisation
+* (@abrault) Enabled roll initiative feature on actor sheet to work with PopOut! module.
+* (@overdox) Added rarity selection to feats under details. Feat sidebar now displays the traits that are selected, as well as level, rarity and action type
+* (@hooking) Adding (temporary) support for Thundering weapon runes
+* (@hooking) Improved the UI when editing weapon details to clearly group sections and to provide additional information.
+* (@hooking) Updated custom weapons to have sensible defaults for base weapon damage.
+* (@nikolaj-a) Changed the normal pool part of the damage roll to resolve to a minimum of one damage before any multipliers or divisions.
+* (@putt1) NPCs can now have treasure
+
+
 ## Version 1.5.2
 ### Bug Fixes
 * (@nikolaj-a) Fixed a number of bugs with the damage roll modifier system:
