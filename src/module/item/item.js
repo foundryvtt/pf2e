@@ -301,6 +301,7 @@ export default class extends Item {
       data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
       data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
       data.area.value ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}` : null,
+      data.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
       data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
       data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
     ];
