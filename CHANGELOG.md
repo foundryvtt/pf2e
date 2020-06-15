@@ -10,6 +10,7 @@
     * New compendium for Archetypes added (albeit wip, updates to this will be added later, so feel free to merge it for now)
     * Added all current archetypes to the compendium, excluding multiclass dedications
     * Added missing archetype feat 'Judgement of the Monolith'
+    * Addded materials (chunks and ingots) to the equipment.
 
 
 ### Bug Fixes
