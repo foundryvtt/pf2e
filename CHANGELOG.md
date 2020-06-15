@@ -1,4 +1,31 @@
 # Patch Notes:
+## Version 1.5.4
+### Content Changes
+* (@Shandyan) Corrected spell entries in spell compendium for:
+    * Focus spells
+    * All spells up to and including level 10
+* (@overdox) Compendium update and fixes:
+    * Fixes from #532 (closed) added
+    * Steady Spellcasting have been merged into a sigle feat, as the text is the same for all the relevant classes (Bard, Cleric, Druid, Sorcerer, Wizard)
+    * New compendium for Archetypes added (albeit wip, updates to this will be added later, so feel free to merge it for now)
+    * Added all current archetypes to the compendium, excluding multiclass dedications
+    * Added missing archetype feat 'Judgement of the Monolith'
+    * Addded materials (chunks and ingots) to the equipment.
+
+
+### Bug Fixes
+* (iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
+
+
+### Core System Improvements
+* (@L4D15) When moving stacked items between actors - show a popup to ask how many items you want to move.
+* (@In3luki) Status effect combat messages improvements:
+    * Show status effect combat messages only once per combatant.
+    * Don't show the messages for defeated combatants.
+    * Reset status effect combat message filter after combat has ended
+* (@In3luki) Display area size in spell chat card properties
+
+
 ## Version 1.5.3
 ### Content Changes
 * (@overdox) General changes:
