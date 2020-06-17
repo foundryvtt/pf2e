@@ -723,8 +723,13 @@ class ActorSheetPF2e extends ActorSheet {
             Yes: {
               icon: '<i class="fa fa-check"></i>',
               label: 'Yes',
-              callback: () => {
-                this.actor.deleteOwnedItem(itemId);
+              callback: async () => {
+                await this.actor.deleteOwnedItem(itemId);
+                // clean up any individually targeted modifiers to attack and damage
+                await this.actor.update({
+                  [`data.customModifiers.-=${itemId}-attack`]: null,
+                  [`data.customModifiers.-=${itemId}-damage`]: null,
+                });
                 li.slideUp(200, () => this.render(false));
               },
             },
