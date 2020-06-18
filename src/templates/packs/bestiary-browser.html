@@ -18,7 +18,7 @@
             <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
             <dl>
                 {{#each actorSize as |size key|}}
-                <dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{size}}</dd>
+                <label><dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{size}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -26,7 +26,7 @@
             <h3>{{localize "PF2E.BrowserFilterAlignments"}}</h3>
             <dl style="display:none;">
                 {{#each alignment as |type key|}}
-                <dt><input type="checkbox" name="alignment-{{lower key}}"></dt><dd>{{type}}</dd>
+                <label><dt><input type="checkbox" name="alignment-{{lower key}}"></dt><dd>{{type}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -34,7 +34,7 @@
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
-                <dt><input type="checkbox" name="traits-{{lower trait}}"></dt><dd>{{trait}}</dd>
+                <label><dt><input type="checkbox" name="traits-{{lower trait}}"></dt><dd>{{trait}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -42,7 +42,7 @@
             <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
             <dl style="display:none;">
                 {{#each source as |type key|}}
-                <dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd>
+                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd></label>
                 {{/each}}
             </dl>
         </div>
