@@ -440,7 +440,8 @@ export default class extends Actor {
         action.critical = (event, options = []) => {
           PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };
-        data.actions.push(action);
+        if (!item.data?.unidentified?.value)
+          data.actions.push(action);
       });
     }
       this.prepareInitiative(data, actorData, statisticsModifiers);

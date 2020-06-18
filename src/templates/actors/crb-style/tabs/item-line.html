@@ -8,6 +8,9 @@
             {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
             <i class="far fa-hand-paper"></i>
             {{/if}}
+            {{#if item.data.unidentified.value}}
+            <i class="far fa-question-circle" title="{{localize 'PF2E.ItemUnidentifiedLabel'}}"></i>
+            {{/if}}
         </h4>
         {{#if item.hasCharges}}
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
@@ -43,7 +46,9 @@
         {{#unless item.isSellableTreasure}}
 
         {{/unless}}
+        {{#if item.isEditable}}
         <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+        {{/if}}
         <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
     </div>
     {{/if}}

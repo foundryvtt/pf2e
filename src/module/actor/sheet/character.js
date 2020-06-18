@@ -163,7 +163,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       i.containerData = containers.get(i._id);
       i.isContainer = i.containerData.isContainer;
       i.isNotInContainer = i.containerData.isNotInContainer;
-            
+
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
@@ -172,7 +172,12 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       i.canBeEquipped = i.isNotInContainer;
       i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+
+      if (i?.data?.unidentified?.value && i?.data?.unidentified?.name) {
+        i.name = i.data.unidentified.name || i.name;
+      }
+      i.isEditable = game.user.isGM ? true : !i?.data?.unidentified?.value ?? false;
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
