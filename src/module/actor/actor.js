@@ -1019,19 +1019,3 @@ export default class extends Actor {
     }
   }
 }
-
-Handlebars.registerHelper('if_stamina', function(options) {
-  if(game.settings.get('pf2e', 'staminaVariant') > 0) {
-    return options.fn(this);
-  }
-    return ''
-
-});
-
-Handlebars.registerHelper('add', function(a, b) {
-    return a + b;
-});
-
-Handlebars.registerHelper('multiply', function(a, b) {
-    return a * b;
-});
