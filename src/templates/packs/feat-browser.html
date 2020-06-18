@@ -34,14 +34,14 @@
         <div class="filtercontainer" id="featTypefilter">
             <h3>{{localize "PF2E.BrowserFilterCategory"}}</h3>
             <dl style="display:none;">
-              <dt><input type="checkbox" name="featType-ancestry"></dt><dd>{{localize "PF2E.FeatAncestryHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-ancestryfeature"></dt><dd>{{localize "PF2E.FeaturesAncestryHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-archetype"></dt><dd>{{localize "PF2E.FeatArchetypeHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-bonus"></dt><dd>{{localize "PF2E.FeatBonusHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-class"></dt><dd>{{localize "PF2E.FeatClassHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-classfeature"></dt><dd>{{localize "PF2E.FeaturesClassHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-skill"></dt><dd>{{localize "PF2E.FeatSkillHeader"}}</dd>
-              <dt><input type="checkbox" name="featType-general"></dt><dd>{{localize "PF2E.FeatGeneralHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-ancestry"></dt><dd>{{localize "PF2E.FeatAncestryHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-ancestryfeature"></dt><dd>{{localize "PF2E.FeaturesAncestryHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-archetype"></dt><dd>{{localize "PF2E.FeatArchetypeHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-bonus"></dt><dd>{{localize "PF2E.FeatBonusHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-class"></dt><dd>{{localize "PF2E.FeatClassHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-classfeature"></dt><dd>{{localize "PF2E.FeaturesClassHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-skill"></dt><dd>{{localize "PF2E.FeatSkillHeader"}}</dd>
+              <dt><input type="checkbox" name="feattype-general"></dt><dd>{{localize "PF2E.FeatGeneralHeader"}}</dd>
             </dl>
         </div>
         <div class="filtercontainer" id="levelfilter">
@@ -73,7 +73,7 @@
             <h3>{{localize "PF2E.BrowserFilterClassFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featClasses as |class key|}}
-                <dt><input type="checkbox" name="classes-{{key}}"></dt><dd>{{class}}</dd>
+                <dt><input type="checkbox" name="classes-{{lower key}}"></dt><dd>{{class}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -81,7 +81,7 @@
             <h3>{{localize "PF2E.BrowserFilterSkillFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featSkills as |skill key|}}
-                <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
+                <dt><input type="checkbox" name="skills-{{lower key}}"></dt><dd>{{skill}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -89,7 +89,7 @@
             <h3>{{localize "PF2E.BrowserFilterAncestryFeats"}}</h3>
             <dl style="display:none;">
                 {{#each featAncestry as |ancestry key|}}
-                <dt><input type="checkbox" name="ancestry-{{key}}"></dt><dd>{{ancestry}}</dd>
+                <dt><input type="checkbox" name="ancestry-{{lower key}}"></dt><dd>{{ancestry}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -104,7 +104,11 @@
     </div>
     <ul>
         {{#each feats as |feat id|}}
-        <li class="spell flexrow draggable" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats">
+        <li class="spell flexrow draggable" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats"
+            {{#each feat.data as |attrib id|}}
+                data-{{lower id}}="{{lower attrib.value}}"
+            {{/each}}
+          >
             <div class="spell-image">
                 <img class="" src="{{feat.img}}" title="{{feat.name}}" width="32" height="32"/>
             </div>
@@ -122,9 +126,6 @@
             <div class="spell-tags">
                 <span title="Feat level">{{feat.data.level.formated}}</span>
             </div>
-            {{#each feat.data as |attrib id|}}
-                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
-            {{/each}}
         </li>
         {{/each}}
     </ul>

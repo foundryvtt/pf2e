@@ -17,7 +17,7 @@
             <h3>{{localize "PF2E.BrowserFilterSkills"}}</h3>
             <dl>
                 {{#each skills as |skill key|}}
-                <dt><input type="checkbox" name="skills-{{key}}"></dt><dd>{{skill}}</dd>
+                <dt><input type="checkbox" name="skills-{{lower key}}"></dt><dd>{{skill}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -25,7 +25,7 @@
             <h3>{{localize "PF2E.BrowserFilterProficiencyRequirements"}}</h3>
             <dl style="display:none;">
                 {{#each proficiencies as |proficiency key|}}
-                <dt><input type="checkbox" name="proficiencies-{{key}}"></dt><dd>{{proficiency}}</dd>
+                <dt><input type="checkbox" name="proficiencies-{{lower key}}"></dt><dd>{{proficiency}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -33,7 +33,7 @@
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each actionTraits as |trait key|}}
-                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
+                <dt><input type="checkbox" name="traits-{{lower key}}"></dt><dd>{{trait}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -42,20 +42,19 @@
         {{#each actions as |item id|}}
         <li class="spell flexrow draggable"
           data-entry-compendium="{{item.compendium}}"
-          data-entry-id="{{item._id}}" data-item-category="actions">
+          data-entry-id="{{item._id}}" data-item-category="actions"
+            {{#each item.data as |attrib id|}}
+                data-{{lower id}}="{{lower attrib.value}}"
+            {{/each}}
+            data-skills="{{lower item.data.skill_requirement.skill.skill}}"
+            data-proficiencies="{{lower item.data.skill_requirement.skill.rank}}"
+          >
             <div class="spell-image">
                 <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32"/>
             </div>
             <div class="spell-name">
                 <span class="item-edit" ><a>{{item.name}}</a></span>
             </div>
-            {{#each item.data as |attrib id|}}
-                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
-            {{/each}}
-            <input type="hidden" name="skills"
-                                 value="{{item.data.skill_requirement.skill.skill}}">
-            <input type="hidden" name="proficiencies"
-                                 value="{{item.data.skill_requirement.skill.rank}}">
         </li>
         {{/each}}
     </ul>

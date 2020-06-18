@@ -18,7 +18,7 @@
             <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
             <dl>
                 {{#each actorSize as |size key|}}
-                <dt><input type="checkbox" name="actorSize-{{key}}"></dt><dd>{{size}}</dd>
+                <dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{size}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -26,7 +26,7 @@
             <h3>{{localize "PF2E.BrowserFilterAlignments"}}</h3>
             <dl style="display:none;">
                 {{#each alignment as |type key|}}
-                <dt><input type="checkbox" name="alignment-{{key}}"></dt><dd>{{type}}</dd>
+                <dt><input type="checkbox" name="alignment-{{lower key}}"></dt><dd>{{type}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -34,7 +34,7 @@
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
-                <dt><input type="checkbox" name="traits-{{trait}}"></dt><dd>{{trait}}</dd>
+                <dt><input type="checkbox" name="traits-{{lower trait}}"></dt><dd>{{trait}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -42,7 +42,7 @@
             <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
             <dl style="display:none;">
                 {{#each source as |type key|}}
-                <dt><input type="checkbox" name="source-{{type}}"></dt><dd>{{type}}</dd>
+                <dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd>
                 {{/each}}
             </dl>
         </div>
@@ -51,7 +51,11 @@
         {{#each bestiaryActors as |actor id|}}
         <li class="spell flexrow draggable"
           data-entry-compendium="{{actor.compendium}}"
-          data-entry-id="{{actor._id}}" data-actor-category="bestiaryActors">
+          data-entry-id="{{actor._id}}" data-actor-category="bestiaryActors"
+            {{#each actor.filters as |attrib id|}}
+                data-{{lower id}}="{{lower attrib}}"
+            {{/each}}
+          >
             <div class="spell-image">
                 <img class="" src="{{actor.img}}" title="{{actor.name}}" width="32" height="32"/>
             </div>
@@ -61,13 +65,6 @@
             <div class="spell-tags">
                 <span title="NPC level">{{actor.data.details.level.value}}</span>
             </div>
-            {{#each actor.filters as |attrib id|}}
-                <input type="hidden" name="{{id}}" value="{{attrib}}">
-            {{/each}}
-            <!-- <input type="hidden" name="skills"
-                                 value="{{actor.data.skill_requirement.skill.skill}}">
-            <input type="hidden" name="proficiencies"
-                                 value="{{actor.data.skill_requirement.skill.rank}}"> -->
         </li>
         {{/each}}
     </ul>
