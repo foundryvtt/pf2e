@@ -1421,8 +1421,7 @@ class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
     const item = this.actor.getOwnedItem(itemId);
-    if (!item.data.data?.unidentified?.value)
-      item.roll(event);
+    item.roll(event);
   }
 
   /* -------------------------------------------- */
@@ -1493,73 +1492,73 @@ class ActorSheetPF2e extends ActorSheet {
         this._onAreaEffect(ev);
       }) */
 
-      if (!isUnidentified) {
-        const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
-          case 'action':
+
+      const buttons = $('<div class="item-buttons"></div>');
+      switch (item.data.type) {
+        case 'action':
+          if (chatData.weapon.value) {
             if (chatData.weapon.value) {
-              if (chatData.weapon.value) {
-                buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')}</button>`);
-                buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
-                buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
-                buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
-              }
+              buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')}</button>`);
+              buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
+              buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
+              buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
             }
-            break;
-          case 'weapon':
-            const isAgile = (item.data.data.traits.value || []).includes('agile');
-            if (chatData.isTwohanded) {
-              if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
-              else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
-            }
-            buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')} (+${chatData.attackRoll})</button>`);
-            buttons.append(`<button class="tag weapon_attack2" data-action="weaponAttack2">${chatData.map2}</button>`);
-            buttons.append(`<button class="tag weapon_attack3" data-action="weaponAttack3">${chatData.map3}</button>`);
-            buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
-            buttons.append(`<button class="tag weapon_critical" data-action="weaponDamageCritical">${localize('PF2E.CriticalDamageLabel')}</button>`);
-            break;
-          case 'spell':
-            if (chatData.isSave) buttons.append(`<span class="tag">${localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
-            if (chatData.isAttack) buttons.append(`<span class="tag"><button class="spell_attack" data-action="spellAttack">${localize('PF2E.AttackLabel')}</button></span>`);
-            if (item.data.data.damage.value) buttons.append(`<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
-            break;
-          case 'consumable':
-            if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
-            break;
-          case 'tool':
-            buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
-            break;
-        }
-
-        div.append(buttons);
-
-        buttons.find('button').click((ev) => {
-          ev.preventDefault();
-          ev.stopPropagation();
-
-          // which function gets called depends on the type of button stored in the dataset attribute action
-          switch (ev.target.dataset.action) {
-            case 'toggleHands':
-              item.data.data.hands.value = !item.data.data.hands.value;
-              // this.actor.updateOwnedItem(item.data, true);
-              this.actor.updateEmbeddedEntity('OwnedItem', item.data);
-              this._render();
-
-              break;
-            case 'weaponAttack': item.rollWeaponAttack(ev); break;
-            case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
-            case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
-            case 'weaponDamage': item.rollWeaponDamage(ev); break;
-            case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
-            case 'spellAttack': item.rollSpellAttack(ev); break;
-            case 'spellDamage': item.rollSpellDamage(ev); break;
-            case 'featAttack': item.rollFeatAttack(ev); break;
-            case 'featDamage': item.rollFeatDamage(ev); break;
-            case 'consume': item.rollConsumable(ev); break;
-            case 'toolCheck': item.rollToolCheck(ev); break;
           }
-        });
+          break;
+        case 'weapon':
+          const isAgile = (item.data.data.traits.value || []).includes('agile');
+          if (chatData.isTwohanded) {
+            if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
+            else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
+          }
+          buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')} (+${chatData.attackRoll})</button>`);
+          buttons.append(`<button class="tag weapon_attack2" data-action="weaponAttack2">${chatData.map2}</button>`);
+          buttons.append(`<button class="tag weapon_attack3" data-action="weaponAttack3">${chatData.map3}</button>`);
+          buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
+          buttons.append(`<button class="tag weapon_critical" data-action="weaponDamageCritical">${localize('PF2E.CriticalDamageLabel')}</button>`);
+          break;
+        case 'spell':
+          if (chatData.isSave) buttons.append(`<span class="tag">${localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
+          if (chatData.isAttack) buttons.append(`<span class="tag"><button class="spell_attack" data-action="spellAttack">${localize('PF2E.AttackLabel')}</button></span>`);
+          if (item.data.data.damage.value) buttons.append(`<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
+          break;
+        case 'consumable':
+          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
+          break;
+        case 'tool':
+          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
+          break;
       }
+
+      div.append(buttons);
+
+      buttons.find('button').click((ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        // which function gets called depends on the type of button stored in the dataset attribute action
+        switch (ev.target.dataset.action) {
+          case 'toggleHands':
+            item.data.data.hands.value = !item.data.data.hands.value;
+            // this.actor.updateOwnedItem(item.data, true);
+            this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+            this._render();
+
+            break;
+          case 'weaponAttack': item.rollWeaponAttack(ev); break;
+          case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
+          case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
+          case 'weaponDamage': item.rollWeaponDamage(ev); break;
+          case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
+          case 'spellAttack': item.rollSpellAttack(ev); break;
+          case 'spellDamage': item.rollSpellDamage(ev); break;
+          case 'featAttack': item.rollFeatAttack(ev); break;
+          case 'featDamage': item.rollFeatDamage(ev); break;
+          case 'consume': item.rollConsumable(ev); break;
+          case 'toolCheck': item.rollToolCheck(ev); break;
+        }
+      });
+
       li.append(div.hide());
       div.slideDown(200);
     }

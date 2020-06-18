@@ -69,7 +69,7 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
             i.canBeEquipped = i.isNotInContainer;
             i.isEquipped = i?.data?.equipped?.value ?? false;
             i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
-            
+
             // Inventory
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
@@ -79,6 +79,11 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
                 i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
                 i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
+                i.isEditable = game.user.isGM ? true : !i?.data?.unidentified?.value ?? false;
+
+                if (i?.data?.unidentified?.value && i?.data?.unidentified?.name)
+                    i.name = i.data.unidentified.name || i.name;
+
                 inventory[i.type].items.push(i);
             }
             

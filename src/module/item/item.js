@@ -39,6 +39,10 @@ export default class extends Item {
     const { token } = this.actor;
     const nearestItem = event ? event.currentTarget.closest('.item') : {};
     this.data.contextualData = nearestItem.dataset || {};
+
+    if (this.data.data?.unidentified?.value)
+      this.data.name = this.data.data.unidentified?.name || this.data.name;
+
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
@@ -77,7 +81,10 @@ export default class extends Item {
     const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
     if (data) {
-      data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
+      let description = data.description.value;
+      if (this.data.data?.unidentified?.value)
+        description = this.data.data.description.unidentified || description;
+      data.description.value = TextEditor.enrichHTML(description, htmlOptions);
       return data;
     }
     return;

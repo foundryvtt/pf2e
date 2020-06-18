@@ -368,6 +368,7 @@ export default class extends Actor {
       }
 
       (actorData.items ?? []).concat([unarmed]).filter((item) => item.type === 'weapon').forEach((item) => {
+        const itemName = item.data?.unidentified?.value ? item.data?.unidentified?.name || item.name : item.name;
         const modifiers = [];
         {
           let ability = item.data.ability?.value ?? 'str'; // default to Str
@@ -392,12 +393,12 @@ export default class extends Actor {
           if (item.data?.group?.value) {
             stats.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
           }
-          stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
+          stats.push(`${itemName.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
           stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'all']).forEach((key) => {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
-        const action = new PF2StatisticModifier(item.name, modifiers);
+        const action = new PF2StatisticModifier(itemName, modifiers);
         action.imageUrl = item.img;
         action.glyph = 'A';
         action.type = 'strike';
@@ -440,8 +441,8 @@ export default class extends Actor {
         action.critical = (event, options = []) => {
           PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };
-        if (!item.data?.unidentified?.value)
-          data.actions.push(action);
+
+        data.actions.push(action);
       });
     }
       this.prepareInitiative(data, actorData, statisticsModifiers);

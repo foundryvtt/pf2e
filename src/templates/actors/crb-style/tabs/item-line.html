@@ -9,7 +9,7 @@
             <i class="far fa-hand-paper"></i>
             {{/if}}
             {{#if item.data.unidentified.value}}
-            <i class="far fa-question-circle" title="{{localize 'PF2E.ItemUnidentifiedLabel'}}"></i>
+            {{#if item.data.unidentified.show}}<i class="far fa-question-circle" title="{{localize 'PF2E.ItemUnidentifiedLabel'}}"></i>{{/if}}
             {{/if}}
         </h4>
         {{#if item.hasCharges}}
