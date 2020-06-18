@@ -177,7 +177,6 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       if (i?.data?.unidentified?.value && i?.data?.unidentified?.name) {
         i.name = i.data.unidentified.name || i.name;
       }
-      i.isEditable = game.user.isGM ? true : !i?.data?.unidentified?.value ?? false;
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {

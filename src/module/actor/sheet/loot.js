@@ -79,7 +79,6 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
                 i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
                 i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
-                i.isEditable = game.user.isGM ? true : !i?.data?.unidentified?.value ?? false;
 
                 if (i?.data?.unidentified?.value && i?.data?.unidentified?.name)
                     i.name = i.data.unidentified.name || i.name;

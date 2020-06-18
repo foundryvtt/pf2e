@@ -704,10 +704,12 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
       const Item = CONFIG.Item.entityClass;
-      // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
-      item.sheet.render(true);
+      if (!item.data.data?.unidentified?.value || game.user.isGM)
+        item.sheet.render(true);
+      else
+        ui.notifications.error(game.i18n.localize("PF2E.ItemUnidentifiedEditError"));
     });
 
     // Delete Inventory Item
