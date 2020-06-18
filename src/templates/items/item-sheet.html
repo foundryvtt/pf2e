@@ -23,11 +23,17 @@
                 {{#if detailsActive}}
                     <a class="item " data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                     <a class="item active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                    {{#if hasIdentification}}
+                        <a class="item " data-tab="identification">{{localize "PF2E.ItemIdentificationLabel"}}</a>
+                    {{/if}}
                 {{/if}}
                 {{#unless detailsActive}}
                 <a class="item active" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                     {{#if hasDetails}}
                         <a class="item" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                    {{/if}}
+                    {{#if hasIdentification}}
+                        <a class="item " data-tab="identification">Identification</a>
                     {{/if}}
                 {{/unless}}
             </nav>
@@ -41,6 +47,12 @@
             {{#if hasDetails}}
             <div class="tab item-details" data-tab="details">
                 {{> (detailsTemplate)}}
+            </div>
+            {{/if}}
+
+            {{#if hasIdentification}}
+            <div class="tab item-identification" data-tab="identification">
+                {{> (identificationTemplate)}}
             </div>
             {{/if}}
         </section>

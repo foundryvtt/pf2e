@@ -51,6 +51,13 @@ export class ItemSheetPF2e extends ItemSheet {
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     }); // Damage types
 
+    data.isGM = game.user.isGM;
+
+    if (data.isGM) {
+      data.hasIdentification = ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type);
+      data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
+    }
+
     const dt = duplicate(CONFIG.PF2E.damageTypes);
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
