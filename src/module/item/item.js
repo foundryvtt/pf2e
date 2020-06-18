@@ -450,7 +450,8 @@ export default class extends Item {
     const prof = itemData.weaponType.value || 'simple';
     let parts = ['@itemBonus', `@abilities.${abl}.mod`];
 
-    const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
+    const itemName = this.data.data?.unidentified?.value ? this.data.data?.unidentified?.name || this.name : this.name;
+    const title = `${itemName} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
       parts = ['@itemBonus'];
@@ -601,8 +602,9 @@ export default class extends Item {
     }
 
     // Set the title of the roll
+    const itemName = this.data.data?.unidentified?.value ? this.data.data?.unidentified?.name || this.name : this.name;
     const critTitle = critTrait ? critTrait.toUpperCase() : '';
-    let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${this.name}` : `${localize('PF2E.DamageLabel')}: ${this.name}`;
+    let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${itemName}` : `${localize('PF2E.DamageLabel')}: ${itemName}`;
     if (dtype) title += ` (${dtype})`;
 
 

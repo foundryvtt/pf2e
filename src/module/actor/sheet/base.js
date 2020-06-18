@@ -1469,20 +1469,21 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
-      if (chatData.properties) {
-        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
-        });
+      if (!isUnidentified) {
+        if (chatData.properties) {
+          chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+            props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
+          });
+        }
+        if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
+        // append traits (only style the tags if they contain description data)
+        if (chatData.traits && chatData.traits.length) {
+          chatData.traits.forEach((p) => {
+            if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
+            else props.append(`<span class="tag">${localize(p.label)}</span>`);
+          });
+        }
       }
-      if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
-      // append traits (only style the tags if they contain description data)
-      if (chatData.traits && chatData.traits.length) {
-        chatData.traits.forEach((p) => {
-          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
-          else props.append(`<span class="tag">${localize(p.label)}</span>`);
-        });
-      }
-
       // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
       div.append(props);
@@ -1494,7 +1495,7 @@ class ActorSheetPF2e extends ActorSheet {
         this._onAreaEffect(ev);
       }) */
 
-
+      const itemName = isUnidentified ? item.data.data?.unidentified?.name || item.name : item.name;
       const buttons = $('<div class="item-buttons"></div>');
       switch (item.data.type) {
         case 'action':
@@ -1525,10 +1526,10 @@ class ActorSheetPF2e extends ActorSheet {
           if (item.data.data.damage.value) buttons.append(`<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
           break;
         case 'consumable':
-          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
+          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${itemName}</button></span>`);
           break;
         case 'tool':
-          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
+          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${itemName}</button></span>`);
           break;
       }
 
