@@ -133,8 +133,8 @@ class ItemBrowserPF2e extends Application {
       });
     } else {
       list.sort((a, b) => {
-        const aVal = parseInt($(a).find('input[name=level]').val());
-        const bVal = parseInt($(b).find('input[name=level]').val());
+        const aVal = parseInt(a.dataset.level);
+        const bVal = parseInt(b.dataset.level);
         if (aVal < bVal) return -1;
         if (aVal > bVal) return 1;
         if (aVal == bVal) {
@@ -150,6 +150,7 @@ class ItemBrowserPF2e extends Application {
   }
 
   async filterSpells(li) {
+      console.time('filterSpells')
     let counter = 0;
     li.hide();
     for (const spell of li) {
@@ -161,6 +162,7 @@ class ItemBrowserPF2e extends Application {
         }
       }
     }
+      console.timeEnd('filterSpells')
   }
 
   getFilterResult(element) {
@@ -174,15 +176,14 @@ class ItemBrowserPF2e extends Application {
         } else {
           const targetValue = string.split(':')[1].trim();
           const targetStat = string.split(':')[0].trim();
-          if ($(element).find(`input[name=${targetStat}]`).val().toLowerCase()
-            .indexOf(targetValue) == -1) {
+          if (!element.dataset[targetStat]?.includes(targetValue.toLowerCase())) {
             return false;
           }
         }
       }
     }
     if (this.sorters.castingtime != 'null') {
-      const castingtime = $(element).find('input[name=time]').val().toLowerCase();
+      const castingtime = element.dataset.time;
       if (castingtime != this.sorters.castingtime) {
         return false;
       }
@@ -190,9 +191,9 @@ class ItemBrowserPF2e extends Application {
 
     for (const filter of Object.keys(this.filters)) {
       if (Object.keys(this.filters[filter]).length > 0) {
-        const filteredElements = $(element).find(`input[name=${filter}]`).val();
+        const filteredElements = element.dataset[filter];
         let hide = true;
-        if (filteredElements != undefined) {
+        if (filteredElements) {
           for (const e of filteredElements.split(',')) {
             if (this.filters[filter][e.trim()] == true) {
               hide = false;
@@ -230,17 +231,17 @@ class ItemBrowserPF2e extends Application {
       ancestry: {},
       school: {},
       traditions: {},
-      armorType: {},
+      armortype: {},
       group: {},
       traits: {},
-      itemTypes: {},
-      weaponType: {},
+      itemtypes: {},
+      weapontype: {},
       proficiencies: {},
       skills: {},
-      actorSize: {},
+      actorsize: {},
       alignment: {},
       source: {},
-      featType: {},
+      feattype: {},
     };
 
     html.find('input[name=textFilter]').val('');
@@ -500,7 +501,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
 
           // recording casting times
           if (spell.data.time.value !== undefined) {
-            let time = spell.data.time.value.toLowerCase();
+            let time = spell.data.time.value;
             if (time.indexOf('reaction') != -1) time = 'reaction';
             if (time != '' && timeArr.includes(time) === false) {
               timeArr.push(time);
