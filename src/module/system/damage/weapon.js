@@ -3,7 +3,7 @@ import { PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../../modifi
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
-  static calculate(weapon, actor, traits = [], statisticsModifiers) {
+  static calculate(weapon, actor, traits = [], statisticsModifiers, proficiencyRank = 0) {
     let effectDice = weapon.data.damage.dice ?? 1;
     const diceModifiers = [];
     const numericModifiers = [];
@@ -133,12 +133,15 @@ export class PF2WeaponDamage {
     {
       const stats = [];
       if (weapon.data?.group?.value) {
-        stats.push(`${weapon.data?.group?.value}-weapon-group`);
+        stats.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
       }
       if (ability) {
         stats.push(`${ability}-damage`);
       }
-      stats.concat(['damage']).forEach((key) => {
+      const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
+      stats.push(`${proficiencies[proficiencyRank]}-damage`);
+      stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
+      stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
           numericModifiers.push(new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type));
         });
