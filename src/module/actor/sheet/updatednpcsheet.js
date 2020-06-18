@@ -42,7 +42,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     sheetData.npcWeakActive = this.npcIsWeak()?' active':'';
     sheetData.npcEliteHidden = this.npcIsWeak()?' hidden':'';
     sheetData.npcWeakHidden = this.npcIsElite()?' hidden':'';
-    
+
     // rarity
     sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
     sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
@@ -263,7 +263,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
    *   - attack modifiers
    *   - skill modifiers
    *   - DCs
-   *  If the creature has limits on how many times or how often it can use an ability 
+   *  If the creature has limits on how many times or how often it can use an ability
    *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
    */
   _applyAdjustmentToData(actorData, increase, adjustBackToNormal) {
@@ -329,7 +329,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         const spellDamage = getProperty(item.data, 'damage.value'); //string
         const spellLevel = getProperty(item.data, 'level.value');
         let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
-        
+
         //checking truthy is possible, as it's unlikely that spellDamage = 0 in a damage spell :)
         if ( spellDamage ) {
           if (spellLevel == 0 || spellName.includes('at will')) {
@@ -377,7 +377,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         }
 
       }
-      
+
     }
     return actorData;
   }
@@ -584,7 +584,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         case 'npcAttackEffect': this.expandAttackEffect(attackEffect, ev, item); break;
       }
     });
-    
+
     html.find('a.npc-elite-adjustment').click(e => {
       e.preventDefault();
       console.log(`PF2e System | Adding Elite adjustment to NPC`);
@@ -606,81 +606,5 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
 
   }
 }
-
-Handlebars.registerHelper('if_all', function () {
-  const args = [].slice.apply(arguments);
-  const opts = args.pop();
-
-  let { fn } = opts;
-  for (let i = 0; i < args.length; ++i) {
-    if (args[i]) continue;
-    fn = opts.inverse;
-    break;
-  }
-  return fn(this);
-});
-
-Handlebars.registerHelper('strip_tags', (value, options) => {
-  function strip_tags(input, allowed) { // eslint-disable-line camelcase
-    const _phpCastString = function (value) {
-      const type = typeof value;
-      switch (type) {
-        case 'boolean':
-          return value ? '1' : '';
-        case 'string':
-          return value;
-        case 'number':
-          if (isNaN(value)) {
-            return 'NAN';
-          }
-
-          if (!isFinite(value)) {
-            return `${value < 0 ? '-' : ''}INF`;
-          }
-
-          return `${value}`;
-        case 'undefined':
-          return '';
-        case 'object':
-          if (Array.isArray(value)) {
-            return 'Array';
-          }
-
-          if (value !== null) {
-            return 'Object';
-          }
-
-          return '';
-        case 'function':
-          // fall through
-        default:
-          throw new Error('Unsupported value type');
-      }
-    };
-
-    // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-    allowed = ((`${allowed || ''}`).toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
-
-    const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
-    const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-
-    let after = _phpCastString(input);
-    // removes tha '<' char at the end of the string to replicate PHP's behaviour
-    after = (after.substring(after.length - 1) === '<') ? after.substring(0, after.length - 1) : after;
-
-    // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
-    while (true) {
-      const before = after;
-      after = before.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
-
-      // return once no more tags are removed
-      if (before === after) {
-        return after;
-      }
-    }
-  }
-
-  return strip_tags(String(value));
-});
 
 export default UpdatedNPCActorPF2ESheet;

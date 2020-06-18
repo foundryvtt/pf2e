@@ -2,6 +2,7 @@ import { CONFIG as PF2ECONFIG } from './scripts/config.js';
 import registerSettings from './module/settings.js';
 import loadTemplates from './module/templates.js';
 import { initiativeFormula } from './module/combat.js';
+import registerHandlebarsHelpers from './module/handlebars.js';
 import ItemPF2e from './module/item/item.js';
 import ActorPF2e from './module/actor/actor.js';
 import { PlayerConfigPF2e } from './module/user/playerconfig.js';
@@ -28,13 +29,14 @@ Hooks.once('init', () => {
   CONFIG.Combat.initiative.decimals = 1;
   //Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
-  
-  PlayerConfigPF2e.hookOnRenderSettings();  
+
+  PlayerConfigPF2e.hookOnRenderSettings();
 
   registerSettings();
   loadTemplates();
   registerActors();
   registerSheets();
+  registerHandlebarsHelpers();
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 });
 
@@ -51,14 +53,14 @@ Hooks.once('ready', () => {
  * This function runs after game data has been requested and loaded from the servers, so entities exist
  */
 Hooks.once('setup', () => {
-  
+
   window.PF2e = new PF2e;
-  
+
   // Localize CONFIG objects once up-front
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits', 'preciousMaterialGrades',
     'armorPotencyRunes', 'armorResiliencyRunes', 'armorPropertyRunes', 'weaponPotencyRunes', 'weaponStrikingRunes',
-    'weaponPropertyRunes', 
+    'weaponPropertyRunes',
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups', 'consumableTraits',
     'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
