@@ -38,10 +38,14 @@ export default class extends Item {
     const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
     const { token } = this.actor;
     const nearestItem = event ? event.currentTarget.closest('.item') : {};
+    const unidentified = this.data.data?.unidentified?.value;
     this.data.contextualData = nearestItem.dataset || {};
 
-    if (this.data.data?.unidentified?.value)
+    let originalName = ""
+    if (unidentified) {
+      originalName = duplicate(this.data.name);
       this.data.name = this.data.data.unidentified?.name || this.data.name;
+    }
 
     const templateData = {
       actor: this.actor,
@@ -68,6 +72,9 @@ export default class extends Item {
 
     // Render the template
     chatData.content = await renderTemplate(template, templateData);
+
+    if (unidentified)
+      this.data.name = originalName;
 
     // Create the chat message
     return ChatMessage.create(chatData, { displaySheet: false });
