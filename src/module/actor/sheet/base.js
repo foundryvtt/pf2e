@@ -1445,10 +1445,22 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
-      if (chatData.properties) {
-        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
-        });
+      if (!isUnidentified) {
+        if (chatData.properties) {
+          chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+            props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
+          });
+        }
+        if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
+        // append traits (only style the tags if they contain description data)
+        if (chatData.traits && chatData.traits.length) {
+          chatData.traits.forEach((p) => {
+            if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
+            else props.append(`<span class="tag">${localize(p.label)}</span>`);
+          });
+        }
+      }else if (isUnidentified && game.user.isGM && item.data.data?.unidentified?.skill) {
+        props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${item.data.data?.unidentified?.skill} ${item.data.data?.unidentified?.dc || 0}</span>`)
       }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
       // append traits (only style the tags if they contain description data)
