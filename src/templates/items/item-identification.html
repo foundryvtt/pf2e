@@ -9,6 +9,23 @@
 </div>
 
 <div class="form-group">
+    <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
+    <select name="data.unidentified.skill" data-dtype="String">
+      {{#select data.unidentified.skill}}
+      <option value=""></option>
+      {{#each skills as |label skill|}}
+      <option value="{{skill}}">{{label}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
+    <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
+</div>
+
+<div class="form-group">
     <label>{{localize 'PF2E.ItemUnidentifiedNameLabel'}}</label>
     <input type="text" name="data.unidentified.name" value="{{data.unidentified.name}}" data-dtype="String"/>
 </div>

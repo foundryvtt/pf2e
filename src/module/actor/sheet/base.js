@@ -1483,6 +1483,8 @@ class ActorSheetPF2e extends ActorSheet {
             else props.append(`<span class="tag">${localize(p.label)}</span>`);
           });
         }
+      }else if (isUnidentified && game.user.isGM && item.data.data?.unidentified?.skill) {
+        props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${item.data.data?.unidentified?.skill} ${item.data.data?.unidentified?.dc || 0}</span>`)
       }
       // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 

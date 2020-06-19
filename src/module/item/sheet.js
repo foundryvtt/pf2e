@@ -56,6 +56,7 @@ export class ItemSheetPF2e extends ItemSheet {
     if (data.isGM) {
       data.hasIdentification = ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type);
       data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
+      data.skills = CONFIG.PF2E.skillList;
     }
 
     const dt = duplicate(CONFIG.PF2E.damageTypes);
