@@ -502,6 +502,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     super.activateListeners(html);
 
     if (!this.options.editable) return;
+
+    // listener added because Line 14700 of foundry.js has a bug
+    // it only looks for data-edit="img"
+    html.find('img[data-edit]').click(ev => this._onEditImage(ev));
   }
 
   /**
