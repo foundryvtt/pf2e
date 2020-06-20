@@ -903,11 +903,17 @@ export default class extends Item {
 
       if (actorId && identifiedItemId && unidentifiedItemId) {
         const actor = game.actors.get(actorId);
-        const identifiedItem = game.items.get(identifiedItemId);
-        if (actor && identifiedItem) {
-          actor.deleteOwnedItem(unidentifiedItemId);
-          actor.createOwnedItem(identifiedItem);
+        const identifiedItem = duplicate(game.items.get(identifiedItemId));
+
+        if (!actor) {
+          ui.notifications.error("No vaild actor to identify item!");
+          return;
+        }else if (!identifiedItem) {
+          ui.notifications.error("Identified Item does not exist!");
+          return;
         }
+        identifiedItem._id = unidentifiedItemId;
+        actor.updateOwnedItem(identifiedItem, {overwrite: true});
       }
     }
   }
