@@ -176,7 +176,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       i.canBeEquipped = i.isNotInContainer;
       i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {

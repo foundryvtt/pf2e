@@ -1437,6 +1437,7 @@ class ActorSheetPF2e extends ActorSheet {
     if (item.data.type === 'spellcastingEntry') return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
+    const isUnidentified = item?.data?.data?.unidentified?.value ?? false;
 
     // Toggle summary
     if (li.hasClass('expanded')) {
@@ -1445,21 +1446,21 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
-      if (!isUnidentified) {
-        if (chatData.properties) {
-          chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-            props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
-          });
-        }
-        if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
-        // append traits (only style the tags if they contain description data)
-        if (chatData.traits && chatData.traits.length) {
-          chatData.traits.forEach((p) => {
-            if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
-            else props.append(`<span class="tag">${localize(p.label)}</span>`);
-          });
-        }
-      }else if (isUnidentified && game.user.isGM && item.data.data?.unidentified?.skill) {
+
+      if (chatData.properties) {
+        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
+        });
+      }
+      if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
+      // append traits (only style the tags if they contain description data)
+      if (chatData.traits && chatData.traits.length) {
+        chatData.traits.forEach((p) => {
+          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
+          else props.append(`<span class="tag">${localize(p.label)}</span>`);
+        });
+      }
+      if (isUnidentified && game.user.isGM && item.data.data?.unidentified?.skill) {
         props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${item.data.data?.unidentified?.skill} ${item.data.data?.unidentified?.dc || 0}</span>`)
       }
       if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
@@ -1518,6 +1519,9 @@ class ActorSheetPF2e extends ActorSheet {
           buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
       }
+      if (game.user.isGM && isUnidentified && item.data?.data?.unidentified?.identifiedItemId) {
+        buttons.append(`<span class="tag"><button data-action="identify">${localize("PF2E.ItemIdentifyLabel")}</button>`);
+      }
 
       div.append(buttons);
 
@@ -1543,6 +1547,8 @@ class ActorSheetPF2e extends ActorSheet {
           case 'spellDamage': item.rollSpellDamage(ev); break;
           case 'featDamage': item.rollFeatDamage(ev); break;
           case 'consume': item.rollConsumable(ev); break;
+          case 'toolCheck': item.rollToolCheck(ev); break;
+          case 'identify': item.identify(ev); break;
         }
       });
 

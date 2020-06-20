@@ -886,6 +886,33 @@ export default class extends Item {
     });
   }
 
+  identify(data) {
+    let unidentifiedItemId = "";
+    let identifiedItemId = "";
+    let actorId = "";
+
+    if (typeof(data) === "object"){
+      if (data.unidentifiedItemId && data.identifiedItemId && data.actorId) {
+        unidentifiedItemId = data.unidentifiedItemId;
+        identifiedItemId = data.identifiedItemId;
+        actorId = data.actorId;
+      } else {
+        unidentifiedItemId = this.data._id;
+        identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
+        actorId = this.actor.id;
+      }
+
+      if (actorId && identifiedItemId && unidentifiedItemId) {
+        const actor = game.actors.get(actorId);
+        const identifiedItem = game.items.get(identifiedItemId);
+        if (actor && identifiedItem) {
+          actor.deleteOwnedItem(unidentifiedItemId);
+          actor.createOwnedItem(identifiedItem);
+        }
+      }
+    }
+  }
+
   /* -------------------------------------------- */
 
   static chatListeners(html) {
