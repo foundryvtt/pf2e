@@ -38,14 +38,7 @@ export default class extends Item {
     const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
     const { token } = this.actor;
     const nearestItem = event ? event.currentTarget.closest('.item') : {};
-    const unidentified = this.data.data?.unidentified?.value;
     this.data.contextualData = nearestItem.dataset || {};
-
-    let originalName = ""
-    if (unidentified) {
-      originalName = duplicate(this.data.name);
-      this.data.name = this.data.data.unidentified?.name || this.data.name;
-    }
 
     const templateData = {
       actor: this.actor,
@@ -73,9 +66,6 @@ export default class extends Item {
     // Render the template
     chatData.content = await renderTemplate(template, templateData);
 
-    if (unidentified)
-      this.data.name = originalName;
-
     // Create the chat message
     return ChatMessage.create(chatData, { displaySheet: false });
   }
@@ -88,10 +78,7 @@ export default class extends Item {
     const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
     if (data) {
-      let description = data.description.value;
-      if (this.data.data?.unidentified?.value)
-        description = this.data.data.description.unidentified || description;
-      data.description.value = TextEditor.enrichHTML(description, htmlOptions);
+      data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
       return data;
     }
     return;
@@ -450,8 +437,7 @@ export default class extends Item {
     const prof = itemData.weaponType.value || 'simple';
     let parts = ['@itemBonus', `@abilities.${abl}.mod`];
 
-    const itemName = this.data.data?.unidentified?.value ? this.data.data?.unidentified?.name || this.name : this.name;
-    const title = `${itemName} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
+    const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
     if (this.actor.data.type === 'npc') {
       parts = ['@itemBonus'];
@@ -602,9 +588,8 @@ export default class extends Item {
     }
 
     // Set the title of the roll
-    const itemName = this.data.data?.unidentified?.value ? this.data.data?.unidentified?.name || this.name : this.name;
     const critTitle = critTrait ? critTrait.toUpperCase() : '';
-    let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${itemName}` : `${localize('PF2E.DamageLabel')}: ${itemName}`;
+    let title = critical ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${this.name}` : `${localize('PF2E.DamageLabel')}: ${this.name}`;
     if (dtype) title += ` (${dtype})`;
 
 
@@ -898,6 +883,33 @@ export default class extends Item {
         left: window.innerWidth - 710,
       },
     });
+  }
+
+  identify(data) {
+    let unidentifiedItemId = "";
+    let identifiedItemId = "";
+    let actorId = "";
+
+    if (typeof(data) === "object"){
+      if (data.unidentifiedItemId && data.identifiedItemId && data.actorId) {
+        unidentifiedItemId = data.unidentifiedItemId;
+        identifiedItemId = data.identifiedItemId;
+        actorId = data.actorId;
+      } else {
+        unidentifiedItemId = this.data._id;
+        identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
+        actorId = this.actor.id;
+      }
+
+      if (actorId && identifiedItemId && unidentifiedItemId) {
+        const actor = game.actors.get(actorId);
+        const identifiedItem = game.items.get(identifiedItemId);
+        if (actor && identifiedItem) {
+          actor.deleteOwnedItem(unidentifiedItemId);
+          actor.createOwnedItem(identifiedItem);
+        }
+      }
+    }
   }
 
   /* -------------------------------------------- */

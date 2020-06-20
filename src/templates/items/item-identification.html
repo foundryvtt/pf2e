@@ -3,34 +3,42 @@
     <input type="checkbox" name="data.unidentified.value" value="1" data-dtype="{{data.unidentified.type}}" {{checked data.unidentified.value}}/>
 </div>
 
-<div class="form-group">
-    <label>{{localize 'PF2E.ItemUnidentifiedShowLabel'}}</label>
-    <input type="checkbox" name="data.unidentified.show" value="1" data-dtype="{{data.unidentified.type}}" {{checked data.unidentified.show}}/>
-</div>
+{{#if isUnidentified}}
+    <div class="form-group">
+        <label>{{localize 'PF2E.ItemUnidentifiedShowLabel'}}</label>
+        <input type="checkbox" name="data.unidentified.show" value="1" data-dtype="{{data.unidentified.type}}" {{checked data.unidentified.show}}/>
+    </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
-    <select name="data.unidentified.skill" data-dtype="String">
-      {{#select data.unidentified.skill}}
-      <option value=""></option>
-      {{#each skills as |label skill|}}
-      <option value="{{skill}}">{{label}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
-</div>
+    <div class="form-group">
+        <label>Identified Item</label>
+        <select name="data.unidentified.identifiedItemId" data-dtype="String">
+            {{#select data.unidentified.identifiedItemId}}
+            <option value=""></option>
+            {{#each items}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
 
-<div class="form-group">
-    <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
-    <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
+        <select name="data.unidentified.skill" data-dtype="String">
+        {{#select data.unidentified.skill}}
+        <option value=""></option>
+        {{#each skills as |label skill|}}
+        <option value="{{skill}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+        </select>
+    </div>
 
-<div class="form-group">
-    <label>{{localize 'PF2E.ItemUnidentifiedNameLabel'}}</label>
-    <input type="text" name="data.unidentified.name" value="{{data.unidentified.name}}" data-dtype="String"/>
-</div>
-
-<label>{{localize 'PF2E.ItemUnidentifiedDescriptionLabel'}}</label>
-<div class="editor">
-    {{editor content=data.description.unidentified target="data.description.unidentified" button=true owner=owner editable=editable}}
-</div>
+    <div class="form-group">
+        <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
+        <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
+    </div>
+{{else}}
+    <div class="form-group">
+        <button type="button" data-action="createUnidentifiedCopy">{{localize 'PF2E.ItemUnidentifiedCopyLabel'}}</button>
+    </div>
+{{/if}}
