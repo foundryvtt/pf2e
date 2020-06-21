@@ -912,7 +912,16 @@ export default class extends Item {
           ui.notifications.error("Identified Item does not exist!");
           return;
         }
+
+        const unidentifiedItem = actor.getOwnedItem(unidentifiedItemId);
+
+        if (!unidentifiedItem) {
+          ui.notifications.error("Unidentified Item does not exist!");
+          return;
+        }
+
         identifiedItem._id = unidentifiedItemId;
+        identifiedItem.sort = unidentifiedItem.sort;
         actor.updateOwnedItem(identifiedItem, {overwrite: true});
       }
     }
