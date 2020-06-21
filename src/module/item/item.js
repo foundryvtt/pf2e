@@ -888,20 +888,15 @@ export default class extends Item {
 
   identify() {
     const identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
-    const actorId = this.actor.id;
+    const actor = this.actor;
 
-    if (actorId && identifiedItemId) {
-      const actor = game.actors.get(actorId);
+    if (identifiedItemId && actor) {
       const identifiedItem = duplicate(game.items.get(identifiedItemId));
 
-      if (!actor) {
-        ui.notifications.error("No vaild actor to identify item!");
-        return;
-      }else if (!identifiedItem) {
+      if (!identifiedItem) {
         ui.notifications.error("Identified Item does not exist!");
         return;
       }
-
       identifiedItem._id = this.data._id;
       identifiedItem.sort = this.data._sort;
       actor.updateOwnedItem(identifiedItem, {overwrite: true});
