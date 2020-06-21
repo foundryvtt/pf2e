@@ -161,13 +161,16 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const bulkItems = itemsFromActorData(actorData);
     const indexedBulkItems = indexBulkItemsById(bulkItems);
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
-    
+    // Needed for unidentified items
+    const userIsGM = game.user.isGM;
+
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
       i.containerData = containers.get(i._id);
       i.isContainer = i.containerData.isContainer;
       i.isNotInContainer = i.containerData.isNotInContainer;
-            
+      i.userIsGM = userIsGM;
+
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
