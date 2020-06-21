@@ -57,7 +57,7 @@ export class ItemSheetPF2e extends ItemSheet {
       data.hasIdentification = true;
       data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
       data.skills = CONFIG.PF2E.skillList;
-      data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value);
+      data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value && i.data.type === this.item.type);
     }
 
     data.isUnidentified = this.item.data.data?.unidentified?.value;
