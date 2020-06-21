@@ -52,15 +52,16 @@ export class ItemSheetPF2e extends ItemSheet {
     }); // Damage types
 
     data.isGM = game.user.isGM;
+    data.isUnidentified = this.item.data.data?.unidentified?.value;
 
     if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
       data.hasIdentification = true;
       data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
-      data.skills = CONFIG.PF2E.skillList;
-      data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value && i.data.type === this.item.type);
+      if (data.isUnidentified) {
+        data.skills = CONFIG.PF2E.skillList;
+        data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value && i.data.type === this.item.type);
+      }
     }
-
-    data.isUnidentified = this.item.data.data?.unidentified?.value;
 
     const dt = duplicate(CONFIG.PF2E.damageTypes);
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
