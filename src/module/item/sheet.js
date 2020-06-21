@@ -2,6 +2,8 @@
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { getPropertySlots } from './runes.js';
+import { TraitSelector5e } from '../system/trait-selector.js';
+
 // eslint-disable-next-line import/prefer-default-export
 export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {

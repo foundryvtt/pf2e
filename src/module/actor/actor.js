@@ -18,6 +18,7 @@ import { ConditionModifiers } from '../condition-modifiers.js';
 import { PF2WeaponDamage } from '../system/damage/weapon.js';
 import { PF2Check, PF2DamageRoll } from '../system/rolls.js';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes.js';
+import { TraitSelector5e } from '../system/trait-selector.js';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',

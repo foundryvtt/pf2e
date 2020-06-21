@@ -6,6 +6,7 @@ import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../.
 import { MoveLootPopup } from './loot/MoveLootPopup.js';
 import { SKILL_DICTIONARY } from '../actor.js';
 import { ProficiencyModifier } from '../../modifiers.js';
+import { TraitSelector5e } from '../../system/trait-selector.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

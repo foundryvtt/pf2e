@@ -12,6 +12,15 @@ import {registerSheets} from './module/register-sheets.js';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
 import * as migrations from "./module/migration.js";
 
+require('./styles/pf2e.scss');
+
+// load in the scripts (that were previously just included by <script> tags instead of in the bundle
+require("./scripts/init.js");
+require("./scripts/actor/statusEffects.js");
+require("./scripts/dice.js");
+require("./scripts/chat/chatdamagebuttonsPF2e.js");
+require("./scripts/actor/sheet/itemBehaviour.js");
+
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 
