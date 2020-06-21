@@ -885,45 +885,27 @@ export default class extends Item {
     });
   }
 
-  identify(data) {
-    let unidentifiedItemId = "";
-    let identifiedItemId = "";
-    let actorId = "";
+  identify() {
+    const identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
+    const actorId = this.actor.id;
 
-    if (typeof(data) === "object"){
-      if (data.unidentifiedItemId && data.identifiedItemId && data.actorId) {
-        unidentifiedItemId = data.unidentifiedItemId;
-        identifiedItemId = data.identifiedItemId;
-        actorId = data.actorId;
-      } else {
-        unidentifiedItemId = this.data._id;
-        identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
-        actorId = this.actor.id;
+    if (actorId && identifiedItemId) {
+      const actor = game.actors.get(actorId);
+      const identifiedItem = duplicate(game.items.get(identifiedItemId));
+
+      if (!actor) {
+        ui.notifications.error("No vaild actor to identify item!");
+        return;
+      }else if (!identifiedItem) {
+        ui.notifications.error("Identified Item does not exist!");
+        return;
       }
 
-      if (actorId && identifiedItemId && unidentifiedItemId) {
-        const actor = game.actors.get(actorId);
-        const identifiedItem = duplicate(game.items.get(identifiedItemId));
-
-        if (!actor) {
-          ui.notifications.error("No vaild actor to identify item!");
-          return;
-        }else if (!identifiedItem) {
-          ui.notifications.error("Identified Item does not exist!");
-          return;
-        }
-
-        const unidentifiedItem = actor.getOwnedItem(unidentifiedItemId);
-
-        if (!unidentifiedItem) {
-          ui.notifications.error("Unidentified Item does not exist!");
-          return;
-        }
-
-        identifiedItem._id = unidentifiedItemId;
-        identifiedItem.sort = unidentifiedItem.sort;
-        actor.updateOwnedItem(identifiedItem, {overwrite: true});
-      }
+      identifiedItem._id = this.data._id;
+      identifiedItem.sort = this.data._sort;
+      actor.updateOwnedItem(identifiedItem, {overwrite: true});
+    } else {
+      console.log(`PF2e System | Error: Item '${this.data._id}' could not be identified!`)
     }
   }
 

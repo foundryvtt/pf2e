@@ -1552,7 +1552,7 @@ class ActorSheetPF2e extends ActorSheet {
           case 'featDamage': item.rollFeatDamage(ev); break;
           case 'consume': item.rollConsumable(ev); break;
           case 'toolCheck': item.rollToolCheck(ev); break;
-          case 'identify': item.identify(ev); break;
+          case 'identify': item.identify(); break;
         }
       });
 
