@@ -704,12 +704,9 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.item-edit').click((ev) => {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
       const Item = CONFIG.Item.entityClass;
+      // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
-
-      if (!item.data.data?.unidentified?.value || game.user.isGM)
-        item.sheet.render(true);
-      else
-        ui.notifications.error(game.i18n.localize("PF2E.ItemUnidentifiedEditError"));
+      item.sheet.render(true);
     });
 
     // Delete Inventory Item
@@ -717,12 +714,8 @@ class ActorSheetPF2e extends ActorSheet {
       const li = $(ev.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
-      let name = item.name;
 
-      if (item.data.data?.unidentified?.value && item.data.data?.unidentified?.name)
-        name = item.data.data.unidentified.name;
-
-      renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: name}).then((html) => {
+      renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name}).then((html) => {
         new Dialog({
           title: 'Delete Confirmation',
           content: html,
@@ -1457,11 +1450,6 @@ class ActorSheetPF2e extends ActorSheet {
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
 
-    const isUnidentified = item?.data?.data?.unidentified?.value ?? false;
-
-    if (isUnidentified && item?.data?.data?.description?.unidentified)
-      chatData.description.value = item.data.data.description.unidentified;
-
     // Toggle summary
     if (li.hasClass('expanded')) {
       const summary = li.children('.item-summary');
@@ -1469,21 +1457,20 @@ class ActorSheetPF2e extends ActorSheet {
     } else {
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
-      if (!isUnidentified) {
-        if (chatData.properties) {
-          chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
-            props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
-          });
-        }
-        if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
-        // append traits (only style the tags if they contain description data)
-        if (chatData.traits && chatData.traits.length) {
-          chatData.traits.forEach((p) => {
-            if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
-            else props.append(`<span class="tag">${localize(p.label)}</span>`);
-          });
-        }
+      if (chatData.properties) {
+        chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
+          props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
+        });
       }
+      if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
+      // append traits (only style the tags if they contain description data)
+      if (chatData.traits && chatData.traits.length) {
+        chatData.traits.forEach((p) => {
+          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
+          else props.append(`<span class="tag">${localize(p.label)}</span>`);
+        });
+      }
+
       // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
       div.append(props);
@@ -1495,7 +1482,6 @@ class ActorSheetPF2e extends ActorSheet {
         this._onAreaEffect(ev);
       }) */
 
-      const itemName = isUnidentified ? item.data.data?.unidentified?.name || item.name : item.name;
       const buttons = $('<div class="item-buttons"></div>');
       switch (item.data.type) {
         case 'action':
@@ -1526,10 +1512,10 @@ class ActorSheetPF2e extends ActorSheet {
           if (item.data.data.damage.value) buttons.append(`<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
           break;
         case 'consumable':
-          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${itemName}</button></span>`);
+          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
         case 'tool':
-          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${itemName}</button></span>`);
+          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
       }
 
