@@ -38,7 +38,9 @@
         <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
     </div>
 {{else}}
+    {{#unless isOwned}}
     <div class="form-group">
         <button type="button" data-action="createUnidentifiedCopy">{{localize 'PF2E.ItemUnidentifiedCopyLabel'}}</button>
     </div>
+    {{/unless}}
 {{/if}}
