@@ -19,24 +19,11 @@ module.exports = (env, argv) => {
     let config = {
         context: __dirname,
         entry: {
-            main: "./src/pf2e.js",
+            main: "./src/pf2e.ts",
         },
         mode: "none",
         module: {
             rules: [
-                {
-                    test: /\.m?js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [
-                                ['@babel/preset-env', { "targets": { "node": "current" } }]
-                            ],
-                            plugins: ["@babel/plugin-proposal-optional-chaining"]
-                        }
-                    }
-                },
                 {
                     test: /\.tsx?$/,
                     use: 'ts-loader',
