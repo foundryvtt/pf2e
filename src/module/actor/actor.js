@@ -6,6 +6,7 @@ import {
     AbilityModifier,
     DEXTERITY,
     PF2CheckModifier,
+    PF2DamageDice,
     PF2Modifier,
     PF2ModifierType,
     PF2StatisticModifier,
@@ -88,11 +89,18 @@ export default class extends Actor {
 
     // this will most likely also relevant for NPCs
     const statisticsModifiers = {};
+    const damageDice = {};
 
     // custom modifiers
     data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
     for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
       statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers); // eslint-disable-line no-param-reassign
+    }
+
+    // damage dice
+    data.damageDice = data.damageDice ?? {}; // eslint-disable-line no-param-reassign
+    for (const [attack, dice] of Object.entries(data.damageDice)) {
+      damageDice[attack] = (damageDice[attack] || []).concat(dice); // eslint-disable-line no-param-reassign
     }
 
     // calculate modifiers for conditions (from status effects)
@@ -356,7 +364,7 @@ export default class extends Actor {
           bonus: { value: 0 },
           map2: -4,
           map3: -8,
-          damage: { dice: 1, die: 'd4' },
+          damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
         }
@@ -364,6 +372,7 @@ export default class extends Actor {
 
       // powerful fist
       if ((actorData.items ?? []).some(i => i.type === 'feat' && i.name === 'Powerful Fist')) {
+        unarmed.name = 'Powerful Fist';
         unarmed.data.damage.die = 'd6';
       }
 
@@ -434,12 +443,20 @@ export default class extends Actor {
             roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
           },
         ];
-        const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, proficiencies[item.data.weaponType.value]?.rank ?? 0);
+        const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0);
         action.damage = (event, options = []) => {
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
+          let dmg = damage;
+          if (options.length > 0) {
+            dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
+          }
+          PF2DamageRoll.roll(dmg, { type: 'damage-roll', outcome: 'success', options }, event);
         };
         action.critical = (event, options = []) => {
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          let dmg = damage;
+          if (options.length > 0) {
+            dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
+          }
+          PF2DamageRoll.roll(dmg, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };
 
         data.actions.push(action);
@@ -1018,6 +1035,39 @@ export default class extends Actor {
     } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
       customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
       await this.update({'data.customModifiers': customModifiers});
+    }
+  }
+
+  async addDamageDice(param) {
+    if (!param.name) {
+      throw new Error('name for damage dice is mandatory');
+    }
+    param.selector = param?.selector ?? 'damage';
+    const damageDice = duplicate(this.data.data.damageDice ?? {});
+    if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
+      const dice = new PF2DamageDice(param);
+      dice.custom = true;
+      damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
+      await this.update({'data.damageDice': damageDice});
+    }
+  }
+
+  /**
+   * Removes damage dice, either by index or by name.
+   *
+   * @param {string} selector
+   * @param {string|number} dice name or index of the damage dice to remove
+   */
+  async removeDamageDice(selector, dice) {
+    const damageDice = duplicate(this.data.data.damageDice ?? {});
+    if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
+      const diceModifiers = damageDice[dice];
+      diceModifiers.splice(dice, 1);
+      damageDice[dice] = diceModifiers;
+      await this.update({'data.damageDice': damageDice});
+    } else if (typeof dice === 'string' && damageDice[selector] && damageDice[selector].length > 0) {
+      damageDice[selector] = damageDice[selector].filter((m) => m.name !== dice);
+      await this.update({'data.damageDice': damageDice});
     }
   }
 }
