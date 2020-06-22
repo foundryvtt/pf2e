@@ -320,3 +320,59 @@ export class PF2CheckModifier extends PF2StatisticModifier {
     super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
   }
 }
+
+/**
+ * Encapsulates logic to determine if a specific damage dice modifier should be active or not for a
+ * specific damage roll based on a list of string options. This will often be based on traits, but
+ * that is not a requirement - sneak attack could be an option that is not a trait.
+ */
+export class PF2DamageOptions {
+  constructor(param) {
+    this.all = param?.all ?? [];
+    this.any = param?.any ?? [];
+    this.not = param?.not ?? [];
+  }
+
+  activate(options) {
+    let activate = true;
+    if (this.all.length > 0) {
+      activate = activate && this.all.every(i => options.includes(i));
+    }
+    if (this.any.length > 0) {
+      activate = activate && this.any.some(i => options.includes(i));
+    }
+    if (this.not.length > 0) {
+      activate = activate && !this.not.some(i => options.includes(i));
+    }
+    return activate;
+  }
+}
+
+/**
+ * Represents extra damage dice for one or more weapons or attack actions.
+ */
+export class PF2DamageDice {
+
+  /**
+   * @param {object} param
+   */
+  constructor(param) {
+    if (param.selector) { this.selector = param.selector; } else { throw new Error('selector is mandatory'); }
+    if (param.name) { this.name = param.name } else { throw new Error('name is mandatory'); }
+    this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
+    if (param.dieSize) {
+      this.dieSize = param.dieSize; // default to base attack's damage die, if omitted
+    }
+    this.critical = param?.critical ?? false;
+    this.category = param?.category;
+    this.damageType = param?.damageType;
+    this.traits = param?.traits ?? [];
+    this.override = param?.override; // maybe restrict this object somewhat?
+    this.options = param?.options ?? [];
+    if (!(this.options instanceof PF2DamageOptions)) {
+      this.options =  new PF2DamageOptions(this.options);
+    }
+    this.ignored = this.options.activate([]);
+    this.enabled = this.ignored;
+  }
+}
