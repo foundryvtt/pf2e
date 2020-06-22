@@ -896,7 +896,6 @@ export default class extends Item {
         ui.notifications.error("Identified Item does not exist!");
         return;
       }
-      console.log(this.data);
       identifiedItem._id = this.data._id;
       identifiedItem.sort = this.data.sort;
       actor.updateOwnedItem(identifiedItem, {overwrite: true});
