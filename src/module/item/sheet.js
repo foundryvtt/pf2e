@@ -52,10 +52,16 @@ export class ItemSheetPF2e extends ItemSheet {
     }); // Damage types
 
     data.isGM = game.user.isGM;
+    data.isUnidentified = this.item.data.data?.unidentified?.value;
+    data.isOwned = this.item.isOwned;
 
-    if (data.isGM) {
-      data.hasIdentification = ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type);
+    if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
+      data.hasIdentification = true;
       data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
+      if (data.isUnidentified) {
+        data.skills = CONFIG.PF2E.skillList;
+        data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value && i.data.type === this.item.type);
+      }
     }
 
     const dt = duplicate(CONFIG.PF2E.damageTypes);
@@ -301,6 +307,21 @@ export class ItemSheetPF2e extends ItemSheet {
       [`data.damageRolls.-=${targetKey}`]: null
     });
   }
+
+  _buttonClick(event) {
+    event.preventDefault();
+    if (event.currentTarget?.dataset?.action === "createUnidentifiedCopy") {
+      const item = game.items.get(this.item._id);
+      if (item) {
+        const copy = duplicate(item);
+        copy._id = "";
+        copy.name = `${this.item.name || ""} (${game.i18n.localize("PF2E.ItemUnidentifiedLabel")})`;
+        copy.data.unidentified.value = true;
+        copy.data.unidentified.identifiedItemId = this.item._id;
+        Item.create(copy);
+      }
+    }
+  }
   /* -------------------------------------------- */
 
   /**
@@ -322,6 +343,8 @@ export class ItemSheetPF2e extends ItemSheet {
     html.find('.delete-damage').click(ev => {
       this._deleteDamageRoll(ev);
     });
+
+    html.find('button').click(event => this._buttonClick(event));
   }
   /**
    * Always submit on a form field change. Added because tabbing between fields
