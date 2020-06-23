@@ -1,9 +1,9 @@
-import { PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../../modifiers.js';
+import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../../modifiers.js';
 
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
-  static calculate(weapon, actor, traits = [], statisticsModifiers) {
+  static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options = []) {
     let effectDice = weapon.data.damage.dice ?? 1;
     const diceModifiers = [];
     const numericModifiers = [];
@@ -43,8 +43,7 @@ export class PF2WeaponDamage {
           enabled: true,
           traits: ['fire'],
         });
-      }
-      else if (rune === 'thundering') {
+      } else if (rune === 'thundering') {
         diceModifiers.push({
           name: CONFIG.PF2E.weaponPropertyRunes[rune],
           diceNumber: 1,
@@ -133,12 +132,15 @@ export class PF2WeaponDamage {
     {
       const stats = [];
       if (weapon.data?.group?.value) {
-        stats.push(`${weapon.data?.group?.value}-weapon-group`);
+        stats.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
       }
       if (ability) {
         stats.push(`${ability}-damage`);
       }
-      stats.concat(['damage']).forEach((key) => {
+      const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
+      stats.push(`${proficiencies[proficiencyRank]}-damage`);
+      stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
+      stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
           numericModifiers.push(new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type));
         });
@@ -170,6 +172,42 @@ export class PF2WeaponDamage {
     if (traits.some(t => t.name === 'nonlethal')) {
       damage.traits.push('nonlethal');
     }
+
+    // custom dice
+    {
+      const stats = [];
+      stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
+      stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
+        (damageDice[key] || []).map((d) => new PF2DamageDice(d)).forEach((d) => {
+          // eslint-disable-next-line no-param-reassign
+          d.enabled = d.options.activate(traits.map(t => t.name).concat(options));
+          diceModifiers.push(d);
+        });
+      });
+    }
+
+    // include dice number and size in damage tag
+    diceModifiers.forEach(d => {
+      /* eslint-disable no-param-reassign */
+      d.name = game.i18n.localize(d.name);
+      if (d.diceNumber > 0 && d.dieSize) {
+        d.name += ` +${d.diceNumber}${d.dieSize}`;
+      } else if (d.diceNumber > 0) {
+        d.name += ` +${d.diceNumber}${damage.base.dieSize}`;
+      } else if (d.dieSize) {
+        d.name += ` ${d.dieSize}`;
+      }
+      if (d.diceNumber > 0 || d.dieSize) {
+        if (d.damageType) {
+          d.name += ` ${d.damageType}`;
+        } else if (d.category) {
+          d.name += ` ${d.category}`;
+        } else {
+          d.name += ` ${damage.base.damageType}`;
+        }
+      }
+      /* eslint-enable no-param-reassign */
+    });
 
     damage.formula.success = this.getFormula(damage, false);
     damage.formula.criticalSuccess = this.getFormula(damage, true);
@@ -205,7 +243,8 @@ export class PF2WeaponDamage {
       modifier: 0,
       [base.dieSize]: {
         diceNumber: base.diceNumber,
-      }
+      },
+      base: true,
     };
 
     // dice modifiers always stack
@@ -258,7 +297,7 @@ export class PF2WeaponDamage {
     }
 
     // build formula
-    let formula = `{${this.buildFormula(dicePool)}, 1}kh`;
+    let formula = this.buildFormula(dicePool);
     if (critical) {
       formula = `2 * (${formula})`;
       const critFormula = this.buildFormula(critPool);
@@ -299,25 +338,32 @@ export class PF2WeaponDamage {
     let formula = '';
     for (const damageType in pool) {
       if (Object.prototype.hasOwnProperty.call(pool, damageType)) {
+        let formulaPart = '';
         let modifier = 0;
         for (const dieSize in pool[damageType]) {
           if (Object.prototype.hasOwnProperty.call(pool[damageType], dieSize)) {
-            if (dieSize === 'modifier') {
+            if (dieSize === 'base') {
+              // ignore
+            } else if (dieSize === 'modifier') {
               modifier += pool[damageType][dieSize];
-            } else if (formula) {
-              formula += ` + ${pool[damageType][dieSize].diceNumber}${dieSize}`;
+            } else if (formulaPart) {
+              formulaPart += ` + ${pool[damageType][dieSize].diceNumber}${dieSize}`;
             } else {
-              formula = pool[damageType][dieSize].diceNumber + dieSize;
+              formulaPart = pool[damageType][dieSize].diceNumber + dieSize;
             }
           }
         }
         if (modifier !== 0) {
-          if (formula) {
-            formula += `${modifier < 0 ? modifier : ` + ${modifier}` }`;
+          if (formulaPart) {
+            formulaPart += `${modifier < 0 ? modifier : ` + ${modifier}` }`;
           } else {
-            formula = modifier;
+            formulaPart = modifier;
           }
         }
+        if (pool[damageType].base) {
+          formulaPart = `{${formulaPart}, 1}kh`;
+        }
+        formula += (formula ? ` + ${formulaPart}` : formulaPart);
       }
     }
     return formula;

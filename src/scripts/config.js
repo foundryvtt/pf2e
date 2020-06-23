@@ -1139,7 +1139,10 @@ CONFIG.featTypes = {
   class: 'PF2E.FeatTypeClass',
   classfeature: 'PF2E.FeatTypeClassfeature',
   archetype: 'PF2E.FeatTypeArchetype',
-  ancestryfeature: 'PF2E.FeatTypeAncestryfeature'
+  ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
+  pfsboon: 'PF2E.FeatPFSBoonHeader',
+  deityboon: 'PF2E.FeatDeityBoonHeader',
+  curse: 'PF2E.FeatCurseHeader',
 }; // Feat Action Types
 
 CONFIG.featActionTypes = {

@@ -30,8 +30,10 @@ export class DamageRollModifiersDialog extends Application {
   static roll(damage, context, callback) {
     const options = damage.traits ?? [];
 
+    const baseStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
+    const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize} ${damage.base.damageType}</span>`;
     const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
-    const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter((m) => m.enabled)
+    const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {
         const modifier = isNaN(m.modifier) ? '' : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`; // eslint-disable-line no-restricted-globals
         return `<span style="${modifierStyle}">${game.i18n.localize(m.name)}${modifier}</span>`
@@ -41,11 +43,11 @@ export class DamageRollModifiersDialog extends Application {
     const optionBreakdown = options.map((o) => `<span style="${optionStyle}">${game.i18n.localize(CONFIG.weaponTraits[o])}</span>`)
       .join('');
 
-    const formula = damage.formula[context.outcome ?? 'success'] ?? damage.formula.success;
+    const formula = damage.formula[context.outcome ?? 'success'];
     const roll = new FormulaPreservingRoll(formula, damage).roll();
     roll.toMessage({
       speaker: ChatMessage.getSpeaker(),
-      flavor: `<b>${damage.name}</b> (${context.outcome ?? 'success'})<div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`
+      flavor: `<b>${damage.name}</b> (${context.outcome ?? 'success'})<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>`
     });
     if (callback) {
       callback(roll);

@@ -1,4 +1,65 @@
 # Patch Notes:
+## Version 1.6.0
+### New Features
+* (@nikolaj-a) Added custom damage dice and damage roll options
+
+
+### Content Changes
+* (@overdox) Wrong text for Animal Trainer archetype has now been corrected
+* (@cora) Added four hazards from Ages of Ashes 2 into the adventure path bestiary.
+* (@Shandyan) Compendium updates
+    * Correcting the final (??) set of item/journal links for spells, items, feats etc.
+    * Replaced Aon links in actions, backgrounds and class compendium with links to other compendiums for actions, conditions, feats, equipment, spells, etc. 
+    * AoN links to skills, traits and other rules entries not in Foundry have been left in place (for now).
+* (@Shandyan) Updated spells.db to fix various errors
+    * Made corrections to spells to address issue 554
+    * Corrected text of Modify Memory spell
+    * Made sure all focus spells are correctly listed as Focus rather than Spells.
+* (luke#4754) added ability glossary
+* (TMun#1625) Updated Iconics:
+    * Inventory redone to use containers
+    * All tokens have owner hover now set to hover
+    * Vision set to 5 dim/300dim/300bright for regular/low light/darkvision 
+    * All names in the prototype token have the (level x) removed
+* (@meditatingCybermind & TMun#1625) Added pfs/deity boons and curses
+
+### Bug Fixes
+* (@mirkoRainer) Fixed Religious Text bulk (is L, not negligible).
+
+
+### Core System Improvements
+* (@nikolaj-a) Added support for more custom modifier formats for attack and damage rolls, including by weapon name and weapon ID. This will allow macros to target specific weapons or weapon types with modifiers. Also added an option to target damage modifiers on proficiency, which is needed for some of the class features.
+* (@abrault) Further optimisation to the Compendium Browser improving performance
+* (@mirkoRainer) Allow a character Deity image to be edited (by clicking the image and select a new file for it).
+
+
+## Version 1.5.4
+### Content Changes
+* (@Shandyan) Corrected spell entries in spell compendium for:
+    * Focus spells
+    * All spells up to and including level 10
+* (@overdox) Compendium update and fixes:
+    * Fixes from #532 (closed) added
+    * Steady Spellcasting have been merged into a sigle feat, as the text is the same for all the relevant classes (Bard, Cleric, Druid, Sorcerer, Wizard)
+    * New compendium for Archetypes added (albeit wip, updates to this will be added later, so feel free to merge it for now)
+    * Added all current archetypes to the compendium, excluding multiclass dedications
+    * Added missing archetype feat 'Judgement of the Monolith'
+    * Addded materials (chunks and ingots) to the equipment.
+
+
+### Bug Fixes
+* (iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
+
+
+### Core System Improvements
+* (@L4D15) When moving stacked items between actors - show a popup to ask how many items you want to move.
+* (@In3luki) Status effect combat messages improvements:
+    * Show status effect combat messages only once per combatant.
+    * Don't show the messages for defeated combatants.
+    * Reset status effect combat message filter after combat has ended
+* (@In3luki) Display area size in spell chat card properties
+
+
 ## Version 1.5.3
 ### Content Changes
 * (@overdox) General changes:

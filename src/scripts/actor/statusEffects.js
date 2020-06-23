@@ -148,6 +148,7 @@ class PF2eStatusEffects {
                     lastTokenId = tokenId;
                     this._createChatMessage(token, combatant.hidden);
                 }
+                if (!combat?.started && lastTokenId !== "") lastTokenId = "";
             });
         }
 

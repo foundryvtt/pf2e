@@ -27,7 +27,7 @@
             <h3>{{localize "PF2E.BrowserFilterInventoryTypes"}}</h3>
             <dl>
                 {{#each itemTypes as |type key|}}
-                <dt><input type="checkbox" name="itemTypes-{{key}}"></dt><dd>{{type}}</dd>
+                <label><dt><input type="checkbox" name="itemtypes-{{lower key}}"></dt><dd>{{type}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -35,10 +35,10 @@
             <h3>{{localize "PF2E.BrowserFilterArmorFilters"}}</h3>
             <dl style="display:none;">
                 {{#each armorTypes as |armorType key|}}
-                <dt><input type="checkbox" name="armorType-{{key}}"></dt><dd>{{armorType}}</dd>
+                <label><dt><input type="checkbox" name="armortype-{{lower key}}"></dt><dd>{{armorType}}</dd></label>
                 {{/each}}
                 {{#each armorGroups as |group key|}}
-                <dt><input type="checkbox" name="group-{{key}}"></dt><dd>{{group}}</dd>
+                <label><dt><input type="checkbox" name="group-{{lower key}}"></dt><dd>{{group}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -46,10 +46,10 @@
             <h3>{{localize "PF2E.BrowserFilterWeaponFilters"}}</h3>
             <dl style="display:none;">
                 {{#each weaponTypes as |weaponType key|}}
-                <dt><input type="checkbox" name="weaponType-{{key}}"></dt><dd>{{weaponType}}</dd>
+                <label><dt><input type="checkbox" name="weapontype-{{lower key}}"></dt><dd>{{weaponType}}</dd></label>
                 {{/each}}
                 {{#each weaponGroups as |group key|}}
-                <dt><input type="checkbox" name="group-{{key}}"></dt><dd>{{group}}</dd>
+                <label><dt><input type="checkbox" name="group-{{lower key}}"></dt><dd>{{group}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -57,7 +57,7 @@
             <h3>{{localize "PF2E.BrowserFilterWeaponTraits"}}</h3>
             <dl style="display:none;">
                 {{#each weaponTraits as |trait key|}}
-                <dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{trait}}</dd>
+                <label><dt><input type="checkbox" name="traits-{{lower key}}"></dt><dd>{{trait}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -88,7 +88,11 @@
     </div>
     <ul>
         {{#each inventoryItems as |item id|}}
-        <li class="spell flexrow draggable" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems">
+        <li class="spell flexrow draggable" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems"
+            {{#each item.data as |attrib id|}}
+                data-{{lower id}}="{{lower attrib.value}}"
+            {{/each}}
+          >
             <div class="spell-image">
                 <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32"/>
             </div>
@@ -101,9 +105,6 @@
             <div class="spell-tags">
                 <span title="Item level">{{item.data.level.value}}</span>
             </div>
-            {{#each item.data as |attrib id|}}
-                <input type="hidden" name="{{id}}" value="{{attrib.value}}">
-            {{/each}}
         </li>
         {{/each}}
     </ul>
