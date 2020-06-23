@@ -82,6 +82,14 @@ export default function () {
         // Loot partials
         'systems/pf2e/templates/actors/loot/loot-avatar.html',
         'systems/pf2e/templates/actors/loot/loot-inventory.html',
+
+        // Compendium Browser Partials
+        'systems/pf2e/templates/packs/action-browser.html',
+        'systems/pf2e/templates/packs/bestiary-browser.html',
+        'systems/pf2e/templates/packs/inventory-browser.html',
+        'systems/pf2e/templates/packs/feat-browser.html',
+        'systems/pf2e/templates/packs/spell-browser.html',
+        'systems/pf2e/templates/packs/browser-settings.html',
     ];
     return loadTemplates(templatePaths);
 }

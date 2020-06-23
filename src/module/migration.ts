@@ -3,6 +3,7 @@
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
 import { calculateCarriedArmorBulk, fixWeight } from './item/bulk';
+import { compendiumBrowser } from './packs/compendium-browser';
 import { toNumber } from './utils';
 
 export const migrateWorld = async function () {
@@ -69,6 +70,10 @@ export const migrateWorld = async function () {
             }
         }
     }
+    if (worldSchemaVersion < 0.585) {
+      migrateCompendiumSettings();
+    }
+
     // Set the migration as complete
     game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
     ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
@@ -641,6 +646,26 @@ function migrateImage(item, updateData) {
     }
 
     return updateData;
+}
+
+function migrateCompendiumSettings() {
+  for (const scope of ['FeatBrowser', 'SpellBrowser', 'InventoryBrowser', 'BestiaryBrowser', 'ActionBrowser']) {
+      game.settings.register(scope, 'settings', {
+        name: 'Feat Browser Settings',
+        default: '{}',
+        type: String,
+        scope: 'world',
+      });
+  }
+
+  game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify({
+    'action': JSON.parse(game.settings.get('ActionBrowser', 'settings')),
+    'bestiary': JSON.parse(game.settings.get('BestiaryBrowser', 'settings')),
+    'equipment': JSON.parse(game.settings.get('InventoryBrowser', 'settings')),
+    'feat': JSON.parse(game.settings.get('FeatBrowser', 'settings')),
+    'spell': JSON.parse(game.settings.get('SpellBrowser', 'settings')),
+  }));
+  compendiumBrowser.initCompendiumList();
 }
 
 /* -------------------------------------------- */
