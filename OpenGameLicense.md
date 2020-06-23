@@ -98,12 +98,41 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Core Rulebook (Second Edition) © 2019, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter.
     *  Pathfinder Gamemastery Guide © 2020, Paizo Inc.; Authors: Alexander Augunas, Jesse Benner, John Bennett, Logan Bonner, Clinton J. Boomer, Jason Bulmahn, James Case, Paris Crenshaw, Jesse Decker, Robert N. Emerson, Eleanor Ferron, Jaym Gates, Matthew Goetz, T.H. Gulliver, Kev Hamilton, Sasha Laranoa Harving, BJ Hensley, Vanessa Hoskins, Brian R. James, Jason LeMaitre, Lyz Liddell, Luis Loza, Colm Lundberg, Ron Lundeen, Stephen Radney-MacFarland, Jessica Redekop, Alistair Rigg, Mark Seifter, Owen K.C. Stephens, Amber Stewart, Christina Stiles, Landon Winkler, and Linda Zayas-Palmer.    
 * Society
+    * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
+    * Pathfinder Society Quest #2: Unforgiving Fire © 2019, Paizo Inc.; Author: Leo Glass.
+    * Pathfinder Society Quest #3: Grehunde's Gorget © 2019, Paizo Inc.; Author: Kate Baker.
+    * Pathfinder Society Quest #4: Port Peril Pub Crawl © 2019, Paizo Inc.; Author: James Case.
+    * Pathfinder Society Quest #5: The Dragon Who Stole Evoking Day © 2019, Paizo Inc.; Author: Luis Loza.
+    * Pathfinder Society Quest #6: Archaeology in Aspenthar © 2020, Paizo Inc.; Author: Quinn Murphy.
+    * Pathfinder Society Quest #7: A Curious Claim © 2020, Paizo Inc.; Author: Dennis Muldoon.
+    * Pathfinder Society Quest #8: Shadows of the Black Soverign © 2020, Paizo Inc.; Author: Alexandria Bustion.
+    * Pathfinder Society Quest #9: Wayfinder Origins © 2020, Paizo Inc.; Author: Dustin Knight.
+    * Pathfinder Society Quest #10: The Broken Scales © 2020, Paizo Inc.; Author: Amber Stewart.
+
+    * Pathfinder Society Scenario #1–00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
+    * Pathfinder Society Scenario #1–01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
+    * Pathfinder Society Scenario #1–02: The Mosquito Witch © 2019, Paizo Inc.; Author: Eleanor Ferron.
+    * Pathfinder Society Scenario #1–03: Escaping the Grave © 2019, Paizo Inc.; Author: Adrian Ng.
+    * Pathfinder Society Scenario #1–04: Bandits of Immenwood © 2019, Paizo Inc.; Author: Scott D. Young.
+    * Pathfinder Society Scenario #1–05: Trailblazers' Bounty © 2019, Paizo Inc.; Author: Tineke Bolleman.
+    * Pathfinder Society Scenario #1–06: Lost on the Spirit Road © 2019, Paizo Inc.; Author: Christopher Wasko.
+    * Pathfinder Society Scenario #1–07: Flooded King's Court © 2019, Paizo Inc.; Author: Brian Duckwitz.
+    * Pathfinder Society Scenario #1–08: Revolutiuon on the Riverside © 2019, Paizo Inc.; Author: Kalervo Oikarinen.
+    * Pathfinder Society Scenario #1–09: Star-Crossed Voyages © 2019, Paizo Inc.; Author: Lu Pellazar.
+    * Pathfinder Society Scenario #1–10: Tarnbreaker's Trail © 2019, Paizo Inc.; Author: Steven Hammond.
+    * Pathfinder Society Scenario #1–11: Flames of Rebellion © 2019, Paizo Inc.; Author: Michael Sayre.
+    * Pathfinder Society Scenario #1–12: The Burden of Envy © 2020, Paizo Inc.; Author: Lysle Kapp.
+    * Pathfinder Society Scenario #1–13: Devil at the Crossroads © 2020, Paizo Inc.; Author: Jenny Jarzabski.
+    * Pathfinder Society Scenario #1–14: Lions of Katapesh © 2020, Paizo Inc.; Author: Adam Meyers.
+    * Pathfinder Society Scenario #1–15: The Blooming Catastrophe © 2020, Paizo Inc.; Author: Mikhail Rekun.
+    * Pathfinder Society Scenario #1–16: The Perennial Crown Part 1, Opal of Bhopan © 2020, Paizo Inc.; Author: Thilo Graf.
+    * Pathfinder Society Scenario #1–17: The Perennial Crown Part 2, The Thorned Monarch © 2020, Paizo Inc.; Author: Alex Augunas.
+    * Pathfinder Society Scenario #1–18: Lodge of the Living God © 2020, Paizo Inc.; Author: Alex Greenshields.
     * Pathfinder Society Scenario #1–19: Iolite Squad Alpha © 2020, Paizo Inc.; Author: Mike Kimmel.
-	* Pathfinder Society Scenario #1–17: The Perennial Crown Part 2: The Thorned Monarch © 2020, Paizo Inc.; Author: Alexander Augunas.
-	* Pathfinder Society Scenario #1–15: The Blooming Catastrophe © 2020, Paizo Inc.; Author: Mikhail Rekun.
-	* Pathfinder Society Quest #5: The Dragon Who Stole Evoking Day © 2019, Paizo Inc.; Author: Luis Loza.
-	* Pathfinder Society Quest #2: Unforgiving Fire © 2019, Paizo Inc.; Author: Leo Glass.
-	* Pathfinder Society Scenario #1–03: Escaping the Grave © 2019, Paizo Inc.; Author: Adrian Ng.
+    * Pathfinder Society Scenario #1–20: The Lost Legend © 2020, Paizo Inc.; Author: Chris Sims.
+    * Pathfinder Society Scenario #1–21: Mistress of the Maze © 2020, Paizo Inc.; Author: Christen N. Sowards.
+    * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
+
 * Lost Omens
     *  Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     *  Pathfinder Lost Omens Character Guide (Second Edition) © 2019, Paizo Inc.; Authors: John Compton, Sasha Lindley Hall, Amanda Hamon, Mike Kimmel, Luis Loza, Ron Lundeen, Matt Morris, Patchen Mortimer, Andrew Mullen, Mikhail Rekun, Micheal Sayre, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
