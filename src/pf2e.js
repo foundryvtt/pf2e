@@ -10,6 +10,7 @@ import { PF2e } from './module/pf2e-system.js';
 import registerActors from './module/register-actors.js';
 import {registerSheets} from './module/register-sheets.js';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker.js';
+import PF2eItemDirectory from './module/system/PF2eItemDirectory.js';
 import * as migrations from "./module/migration.js";
 
 Hooks.once('init', () => {
@@ -29,6 +30,8 @@ Hooks.once('init', () => {
   CONFIG.Combat.initiative.decimals = 1;
   //Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
+  //Assign the PF2e Item Directory
+  CONFIG.ui.items = PF2eItemDirectory;
 
   PlayerConfigPF2e.hookOnRenderSettings();
 

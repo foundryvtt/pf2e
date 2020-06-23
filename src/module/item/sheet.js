@@ -52,15 +52,22 @@ export class ItemSheetPF2e extends ItemSheet {
     }); // Damage types
 
     data.isGM = game.user.isGM;
-    data.isUnidentified = this.item.data.data?.unidentified?.value;
     data.isOwned = this.item.isOwned;
 
     if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
       data.hasIdentification = true;
       data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
-      if (data.isUnidentified) {
+
+      data.hasUnidentifiedItem = (this.item.data.data.identification?.unidentifiedItemId);
+      data.isUnidentifiedItem = this.item.data.data.identification?.isUnidentified;
+
+      if (data.hasUnidentifiedItem || data.isUnidentifiedItem) {
         data.skills = CONFIG.PF2E.skillList;
-        data.items = game.items.entities.filter(i => !i.data.data?.unidentified?.value && i.data.type === this.item.type);
+        if (data.isUnidentifiedItem) {
+          const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
+          if (identifiedItem)
+            data.identifiedItemName = identifiedItem.name;
+        }
       }
     }
 
@@ -308,18 +315,68 @@ export class ItemSheetPF2e extends ItemSheet {
     });
   }
 
-  _buttonClick(event) {
+  async _createUnidentifiedVersion() {
+    const item = game.items.get(this.item._id);
+    if (item) {
+      const copy = duplicate(item);
+      mergeObject(copy.data, {
+        identification: {
+          isUnidentified: true,
+          identifiedItemId: this.item._id
+        }
+      })
+      const newItem = await Item.create(copy);
+      // Force item name update to rerender Item Directory sidebar
+      await item.update({
+        name: item.name,
+        data: {
+          identification: {
+            unidentifiedItemId: newItem._id
+          }
+        }
+      }, {diff: false});
+    }
+  }
+
+  _editUnidentifiedVersion() {
+    const unidentifiedItem = game.items.get(this.item.data.data.identification?.unidentifiedItemId);
+    if (unidentifiedItem)
+      unidentifiedItem.sheet.render(true);
+  }
+
+_deleteUnidentifiedVersion() {
+      new Dialog({
+        title: game.i18n.localize('PF2E.DeleteItemTitle'),
+        content: `<p>${game.i18n.localize('PF2E.ItemUnidentifiedDeleteQuestion')}</p>`,
+        buttons: {
+          Yes: {
+            icon: '<i class="fa fa-check"></i>',
+            label: 'Yes',
+            callback: async () => {
+              const unidentifiedItem = game.items.get(this.item.data.data.identification?.unidentifiedItemId);
+              if (unidentifiedItem) {
+                await this.item.update({['data.identification.unidentifiedItemId']: ""});
+                await unidentifiedItem.delete();
+                this.render(true);
+              }
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: 'Cancel',
+          },
+        },
+        default: 'Yes',
+      }).render(true);
+  }
+
+  _onButtonClick(event) {
     event.preventDefault();
-    if (event.currentTarget?.dataset?.action === "createUnidentifiedCopy") {
-      const item = game.items.get(this.item._id);
-      if (item) {
-        const copy = duplicate(item);
-        copy._id = "";
-        copy.name = `${this.item.name || ""} (${game.i18n.localize("PF2E.ItemUnidentifiedLabel")})`;
-        copy.data.unidentified.value = true;
-        copy.data.unidentified.identifiedItemId = this.item._id;
-        Item.create(copy);
-      }
+    const action = event.currentTarget?.dataset?.action;
+    switch (action) {
+      case "createUnidentifiedVersion": this._createUnidentifiedVersion(); break;
+      case "editUnidentifiedVersion": this._editUnidentifiedVersion(); break;
+      case "deleteUnidentifiedVersion": this._deleteUnidentifiedVersion(); break;
     }
   }
   /* -------------------------------------------- */
@@ -344,7 +401,7 @@ export class ItemSheetPF2e extends ItemSheet {
       this._deleteDamageRoll(ev);
     });
 
-    html.find('button').click(event => this._buttonClick(event));
+    html.find('button').click(event => this._onButtonClick(event));
   }
   /**
    * Always submit on a form field change. Added because tabbing between fields

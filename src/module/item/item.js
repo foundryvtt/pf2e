@@ -887,7 +887,7 @@ export default class extends Item {
   }
 
   identify() {
-    const identifiedItemId = this.data.data?.unidentified?.identifiedItemId;
+    const identifiedItemId = this.data.data.identification.identifiedItemId;
     const actor = this.actor;
 
     if (identifiedItemId && actor) {
@@ -897,8 +897,24 @@ export default class extends Item {
         ui.notifications.error("Identified Item does not exist!");
         return;
       }
-      identifiedItem._id = this.data._id;
+      mergeObject(identifiedItem, {
+        _id: this.data._id,
+        sort: this.data.sort,
+        data: {
+          identification: {
+            isUnidentified: false,
+            unidentifiedItemId: "",
+            identifiedItemId: ""
+          }
+        }
+      })
+      console.log(identifiedItem)
+      /*identifiedItem._id = this.data._id;
       identifiedItem.sort = this.data.sort;
+      identifiedItem.data.identification.isUnidentified = false;
+      identifiedItem.data.identification.identifiedItemId = "";
+      identifiedItem.data.identification.unidentifiedItemId = "";*/
+
       actor.updateOwnedItem(identifiedItem, {overwrite: true});
     } else {
       console.log(`PF2e System | Error: Item '${this.data._id}' could not be identified!`)
@@ -975,4 +991,46 @@ export default class extends Item {
   }
 }
 
+  /* -------------------------------------------- */
 
+// Handle copying with attached unidentified item
+Hooks.on('preCreateItem', (item) => {
+  if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+    const identificationData = item.data.identification;
+    // Don't copy unidentifiedItemId
+    if (identificationData?.unidentifiedItemId) {
+      item.data.identification.unidentifiedItemId = "";
+    }
+  }
+});
+
+// Handle deletion of attached unidentified item
+Hooks.on('preDeleteItem', (item) => {
+  if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+    const identificationData = item.data.data.identification;
+    // Item has attached unidentified item with id unidentifiedItemId
+    if (identificationData?.unidentifiedItemId) {
+      const unidentifiedItem = game.items.get(identificationData.unidentifiedItemId);
+      if (unidentifiedItem) {
+        console.log('PF2e System | Delete attached unidentified item');
+        unidentifiedItem.delete();
+      }
+    }
+  }
+})
+
+// Handle orphaned unidentified items
+Hooks.once('ready', () => {
+  console.log('PF2e System | Find and delete orphaned unidentified items');
+  game.items.entities.forEach(async (item) => {
+    if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+      const identificationData = item.data.data.identification;
+      if (identificationData?.identifiedItemId) {
+        const identifiedItem = game.items.get(identificationData.identifiedItemId);
+        // The item this unidentified item was attached to no longer exists
+        if (!identifiedItem) 
+          item.delete();
+      }
+    }
+  });
+})

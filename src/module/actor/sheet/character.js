@@ -170,6 +170,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       i.isContainer = i.containerData.isContainer;
       i.isNotInContainer = i.containerData.isNotInContainer;
       i.userIsGM = userIsGM;
+      i.isUnidentified = i.data.identification?.isUnidentified;
 
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {

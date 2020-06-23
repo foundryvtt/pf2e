@@ -1291,11 +1291,16 @@ class ActorSheetPF2e extends ActorSheet {
         // Case 3 - Import from World entity
         else {
           console.log(`From world entry`);
-            let item = game.items.get(data.id);
-            if (!item) return;
-            return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
-            });
+          let item = game.items.get(data.id);
+          if (!item) return;
+          // Replace original item with unidentified version
+          const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+          if (unidentifiedItemId)
+            item = game.items.get(unidentifiedItemId);
+          if (!item) return;
+          return this.stashOrUnstash(event, actor, () => {
+              return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
+          });
         }
     }
 
@@ -1437,7 +1442,8 @@ class ActorSheetPF2e extends ActorSheet {
     if (item.data.type === 'spellcastingEntry') return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
-    const isUnidentified = item?.data?.data?.unidentified?.value ?? false;
+    const identificationData = item.data.data.identification;
+    const isUnidentified = identificationData.isUnidentified;
 
     // Toggle summary
     if (li.hasClass('expanded')) {
@@ -1460,18 +1466,9 @@ class ActorSheetPF2e extends ActorSheet {
           else props.append(`<span class="tag">${localize(p.label)}</span>`);
         });
       }
-      if (isUnidentified && game.user.isGM && item.data.data?.unidentified?.skill) {
-        props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${item.data.data?.unidentified?.skill} ${item.data.data?.unidentified?.dc || 0}</span>`)
+      if (isUnidentified && game.user.isGM && identificationData.skill) {
+        props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${identificationData.skill} ${identificationData.dc || 0}</span>`)
       }
-      if (chatData.critSpecialization) props.append(`<span class="tag" title="${localize(chatData.critSpecialization.description)}" style="background: rgb(69,74,124); color: white;">${localize(chatData.critSpecialization.label)}</span>`);
-      // append traits (only style the tags if they contain description data)
-      if (chatData.traits && chatData.traits.length) {
-        chatData.traits.forEach((p) => {
-          if (p.description) props.append(`<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`);
-          else props.append(`<span class="tag">${localize(p.label)}</span>`);
-        });
-      }
-
       // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
       div.append(props);
@@ -1519,7 +1516,7 @@ class ActorSheetPF2e extends ActorSheet {
           buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
       }
-      if (game.user.isGM && isUnidentified && item.data?.data?.unidentified?.identifiedItemId) {
+      if (game.user.isGM && isUnidentified && identificationData.identifiedItemId) {
         buttons.append(`<span class="tag"><button data-action="identify">${localize("PF2E.ItemIdentifyLabel")}</button>`);
       }
 

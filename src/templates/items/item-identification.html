@@ -1,59 +1,46 @@
-{{#if isUnidentified}}
-    {{#if isOwned}}
-        <div class="form-group">
-            <label>{{localize 'PF2E.ItemUnidentifiedShowLabel'}}</label>
-            <input type="checkbox" name="data.unidentified.show" value="1" data-dtype="{{data.unidentified.type}}" {{checked data.unidentified.show}}/>
-        </div>
+{{#*inline "editUnidentifiedItem"}}
+<div class="form-group">
+    <label>{{localize 'PF2E.ItemUnidentifiedShowLabel'}}</label>
+    <input type="checkbox" name="data.identification.show" value="1" data-dtype="{{data.identification.type}}" {{checked data.identification.show}}/>
+</div>
 
-        <div class="form-group">
-            <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
-            <select name="data.unidentified.skill" data-dtype="String">
-            {{#select data.unidentified.skill}}
-            <option value=""></option>
-            {{#each skills as |label skill|}}
-            <option value="{{skill}}">{{label}}</option>
-            {{/each}}
-            {{/select}}
-            </select>
-        </div>
+<div class="form-group">
+    <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
+    <select name="data.identification.skill" data-dtype="String">
+    {{#select data.identification.skill}}
+    <option value=""></option>
+    {{#each skills as |label skill|}}
+        <option value="{{skill}}">{{label}}</option>
+    {{/each}}
+    {{/select}}
+    </select>
+</div>
 
-        <div class="form-group">
-            <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
-            <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
-        </div>
+<div class="form-group">
+    <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
+    <input type="text" name="data.identification.dc" value="{{data.identification.dc}}" data-dtype="Number"/>
+</div>
+{{/inline}}
+
+{{#if isOwned}}
+    {{#if isUnidentifiedItem}}
+        {{> editUnidentifiedItem}}
+        <p class="notes">{{localize 'PF2E.ItemIdentificationOwnedEditHint'}}</p>
     {{else}}
-        <div class="form-group">
-            <label>{{localize 'PF2E.ItemUnidentifiedShowLabel'}}</label>
-            <input type="checkbox" name="data.unidentified.show" value="1" data-dtype="{{data.unidentified.type}}" {{checked data.unidentified.show}}/>
-        </div>
-
-        <div class="form-group">
-            <label>{{localize "PF2E.ItemIdentificationSkillLabel"}}</label>
-            <select name="data.unidentified.skill" data-dtype="String">
-            {{#select data.unidentified.skill}}
-            <option value=""></option>
-            {{#each skills as |label skill|}}
-            <option value="{{skill}}">{{label}}</option>
-            {{/each}}
-            {{/select}}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>{{localize 'PF2E.ItemIdentificationDCLabel'}}</label>
-            <input type="text" name="data.unidentified.dc" value="{{data.unidentified.dc}}" data-dtype="Number"/>
-        </div>
-
-        <div class="form-group">
-            <button type="button" data-action="editUnidentifiedVersion">Edit Unidentified Version</button>
-        </div>
-
-        <div class="form-group">
-            <button type="button" data-action="deleteUnidentifiedVersion">Delete Unidentified Version</button>
-        </div>
+        <p class="notes">{{localize 'PF2E.ItemIdentificationOwnedHint'}}</p>
     {{/if}}
 {{else}}
-    <div class="form-group">
-        <button type="button" data-action="createUnidentifiedVersion">{{localize 'PF2E.ItemUnidentifiedCopyLabel'}}</button>
-    </div>
+    {{#if hasUnidentifiedItem}}
+        <p class="notes">{{localize 'PF2E.ItemUnidentifiedEditHint'}}</p>
+        <button type="button" data-action="editUnidentifiedVersion"><i class="fas fa-edit"></i>{{localize 'PF2E.ItemUnidentifiedEditLabel'}}</button>
+        <p class="notes">{{localize 'PF2E.ItemUnidentifiedDeleteHint'}}</p>
+        <button type="button" data-action="deleteUnidentifiedVersion"><i class="fas fa-trash"></i>{{localize 'PF2E.ItemUnidentifiedDeleteLabel'}}</button>
+    {{else}}
+        {{#if isUnidentifiedItem}}
+            {{> editUnidentifiedItem}}
+        {{else}}
+            <p class="notes">{{localize 'PF2E.ItemUnidentifiedAttachHint'}}</p>
+            <button type="button" data-action="createUnidentifiedVersion">{{localize 'PF2E.ItemUnidentifiedAttachLabel'}}</button>
+        {{/if}}
+    {{/if}}
 {{/if}}
