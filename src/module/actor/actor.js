@@ -18,7 +18,10 @@ import { PF2WeaponDamage } from '../system/damage/weapon.js';
 import { PF2Check, PF2DamageRoll } from '../system/rolls.js';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes.js';
 
+const SUPPORTED_ROLL_OPTIONS = Object.freeze(['attack-roll', 'damage-roll']);
+
 export default class extends Actor {
+
   /**
    * Augment the basic actor data with additional dynamic data.
    */
@@ -1068,4 +1071,40 @@ export default class extends Actor {
       await this.update({'data.damageDice': damageDice});
     }
   }
+
+  async toggleRollOption(rollName, optionName) {
+    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName)) {
+      throw new Error(`${rollName} is not a supported roll`);
+    }
+    const flag = `rollOptions.${rollName}.${optionName}`;
+    this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
+  }
+
+  async setRollOption(rollName, optionName, enabled) {
+    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName)) {
+      throw new Error(`${rollName} is not a supported roll`);
+    }
+    const flag = `rollOptions.${rollName}.${optionName}`;
+    this.setFlag(game.system.id, flag, !!enabled);
+  }
+
+  async unsetRollOption(rollName, optionName) {
+    const flag = `rollOptions.${rollName}.${optionName}`;
+    this.unsetFlag(game.system.id, flag);
+  }
+
+  async enableRollOption(rollName, optionName) {
+    this.setRollOption(rollName, optionName, true);
+  }
+
+  async disableRollOption(rollName, optionName) {
+    this.setRollOption(rollName, optionName, false);
+  }
+
+  getRollOptions(rollName) {
+    const flag = this.getFlag(game.system.id, `rollOptions.${rollName}`) ?? {};
+    // convert flag object to array containing the names of all fields with a truthy value
+    return Object.entries(flag).reduce((opts, [key, value]) => opts.concat(value ? key : []), []);
+  }
+
 }
