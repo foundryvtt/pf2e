@@ -897,6 +897,7 @@ export default class extends Item {
         ui.notifications.error("Identified Item does not exist!");
         return;
       }
+      const unidentifiedItemData = this.data.data;
       mergeObject(identifiedItem, {
         _id: this.data._id,
         sort: this.data.sort,
@@ -905,16 +906,21 @@ export default class extends Item {
             isUnidentified: false,
             unidentifiedItemId: "",
             identifiedItemId: ""
+          },
+          containerId: {
+            value: unidentifiedItemData.containerId.value
+          },
+          equipped: {
+            value: unidentifiedItemData.equipped.value
+          },
+          weight: {
+            value: unidentifiedItemData.weight.value
+          },
+          quantity: {
+            value: unidentifiedItemData.quantity.value
           }
         }
       })
-      console.log(identifiedItem)
-      /*identifiedItem._id = this.data._id;
-      identifiedItem.sort = this.data.sort;
-      identifiedItem.data.identification.isUnidentified = false;
-      identifiedItem.data.identification.identifiedItemId = "";
-      identifiedItem.data.identification.unidentifiedItemId = "";*/
-
       actor.updateOwnedItem(identifiedItem, {overwrite: true});
     } else {
       console.log(`PF2e System | Error: Item '${this.data._id}' could not be identified!`)

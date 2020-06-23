@@ -1299,7 +1299,7 @@ class ActorSheetPF2e extends ActorSheet {
             item = game.items.get(unidentifiedItemId);
           if (!item) return;
           return this.stashOrUnstash(event, actor, () => {
-              return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
+              return actor.createOwnedItem(duplicate(item.data));
           });
         }
     }
@@ -1385,7 +1385,8 @@ class ActorSheetPF2e extends ActorSheet {
         const container = $(event.target).parents('[data-item-is-container="true"]');
         if (container[0] !== undefined) {
             const droppedItemId = container.attr('data-item-id')?.trim();
-            const item = await getItem();
+            const ownedItem = await getItem();
+            const item = actor.getOwnedItem(ownedItem._id);
             if (item.type !== 'spell' && !isCycle(item._id, droppedItemId, this.actor.data.items)) {
                 return item.update({
                     'data.containerId.value': droppedItemId,
@@ -1394,7 +1395,8 @@ class ActorSheetPF2e extends ActorSheet {
             }
             return item;
         }
-        const item = await getItem();
+        const ownedItem = await getItem();
+        const item = actor.getOwnedItem(ownedItem._id);
         const result = await item.update({'data.containerId.value': ''});
         return result;
     }
