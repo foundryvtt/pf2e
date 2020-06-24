@@ -1,4 +1,4 @@
-import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes.js';
+import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes';
 
 describe('test runes', () => {
     test('should get rune property slots', () => {

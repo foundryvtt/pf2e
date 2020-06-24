@@ -150,7 +150,7 @@ export function isCycle(itemId, containerId, items) {
  * @return {Map<string, ContainerData>}
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefinitions, bulkConfig) {
+export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefinitions, bulkConfig = {}) {
     const allIds = groupBy(items, item => item._id);
 
     const containerGroups = groupBy(items, item => {

@@ -6,7 +6,7 @@ import {
     calculateCarriedArmorBulk,
     stacks,
     weightToBulk,
-} from '../../../src/module/item/bulk.js';
+} from '../../../src/module/item/bulk';
 
 describe('should calculate bulk', () => {
     test('empty inventory', () => {

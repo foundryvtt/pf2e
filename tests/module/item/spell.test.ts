@@ -1,4 +1,5 @@
-import Spell from 'module/item/spell.js';
+import Spell from '../../../src/module/item/spell';
+import { fetchSpell } from 'tests/setup';
 
 const characterData = require('tests/fixtures/characterData.json');
 const spellcastingEntry = require('tests/fixtures/items/spellcastingEntry.json');

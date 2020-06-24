@@ -1,4 +1,4 @@
-import CharacterData from 'module/actor/character.js';
+import CharacterData from '../../../src/module/actor/character';
 
 const characterData = require('tests/fixtures/characterData.json');
 

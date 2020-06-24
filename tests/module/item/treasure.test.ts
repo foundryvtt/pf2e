@@ -1,4 +1,4 @@
-import {calculateWealth, addCoins, sellAllTreasure} from '../../../src/module/item/treasure.js';
+import {calculateWealth, addCoins, sellAllTreasure} from '../../../src/module/item/treasure';
 
 describe('should calculate wealth based on inventory', () => {
     test('empty inventory', () => {
@@ -256,11 +256,12 @@ describe('should calculate wealth based on inventory', () => {
                 },
             ],
             combineStacks: true,
-            addFromCompendium: (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity),
-            updateItemQuantity: (item, quantity) => itemIdAndQuantity.set(item._id, quantity),
+            addFromCompendium: async (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity),
+            updateItemQuantity: async (item, quantity) => itemIdAndQuantity.set(item._id, quantity),
             coins: {
                 pp: 3,
                 gp: 6,
+                sp: 0,
                 cp: 4,
             }
         });

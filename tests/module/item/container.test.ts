@@ -1,9 +1,9 @@
-import {getContainerMap, isCycle} from '../../../src/module/item/container.js';
-import {stacks, itemsFromActorData, indexBulkItemsById} from '../../../src/module/item/bulk.js';
+import {getContainerMap, isCycle} from '../../../src/module/item/container';
+import {stacks, itemsFromActorData, indexBulkItemsById} from '../../../src/module/item/bulk';
 
 function createItem({
                         id,
-                        weight,
+                        weight = undefined,
                         equippedBulk = undefined,
                         negateBulk = '',
                         bulkCapacity = '',

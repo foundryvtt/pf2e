@@ -1,4 +1,4 @@
-import { addKit } from '../../../src/module/item/kits.js';
+import { addKit } from '../../../src/module/item/kits';
 
 describe('testing kits', () => {
     test('should add an adventurer\'s pack', async () => {

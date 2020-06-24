@@ -1,4 +1,4 @@
-import { add, combineObjects, toNumber, addSign } from '../../src/module/utils.js';
+import { add, combineObjects, toNumber, addSign } from '../../src/module/utils';
 
 describe('should combine objects', () => {
     test('combine two empty objects', () => {

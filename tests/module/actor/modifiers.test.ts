@@ -4,7 +4,7 @@ import {
   UNTRAINED, TRAINED, EXPERT, MASTER, LEGENDARY,
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
   PF2ModifierPredicate
-} from 'module/modifiers.js';
+} from '../../../src/module/modifiers';
 
 describe('#modifiers', () => {
   each([
