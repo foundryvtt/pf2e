@@ -782,7 +782,6 @@ CONFIG.traitsDescriptions = {
   grapple: 'PF2E.TraitDescriptionGrapple',
   halfling: 'PF2E.TraitDescriptionHalfling',
   'jousting-d6': 'PF2E.TraitDescriptionJoustingD6',
-  monk: 'PF2E.TraitDescriptionMonkWeapon',
   nonlethal: 'PF2E.TraitDescriptionNonlethal',
   orc: 'PF2E.TraitDescriptionOrc',
   parry: 'PF2E.TraitDescriptionParry',
