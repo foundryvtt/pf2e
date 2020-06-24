@@ -178,7 +178,10 @@ function applyBonus(highestBonus, modifier) {
   let total = 0;
   const existing = highestBonus[modifier.type];
   if (existing && existing.type === modifier.type) {
-    if (existing.modifier >= modifier.modifier) {
+    if (modifier.type === PF2ModifierType.UNTYPED) {
+      modifier.enabled = true;
+      total = modifier.modifier;
+    } else if (existing.modifier >= modifier.modifier) {
       modifier.enabled = false;
     } else if (existing.modifier < modifier.modifier) {
       existing.enabled = false;
