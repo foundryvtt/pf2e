@@ -36,7 +36,8 @@ export class DamageRollModifiersDialog extends Application {
     const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {
         const modifier = isNaN(m.modifier) ? '' : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`; // eslint-disable-line no-restricted-globals
-        return `<span style="${modifierStyle}">${game.i18n.localize(m.name)}${modifier}</span>`
+        const damageType = (m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '');
+        return `<span style="${modifierStyle}">${game.i18n.localize(m.name)}${modifier}${damageType}</span>`
       }).join('');
 
     const optionStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
