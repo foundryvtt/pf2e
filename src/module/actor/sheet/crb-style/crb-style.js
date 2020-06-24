@@ -62,7 +62,8 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      this.actor.data.data.actions[Number(actionIndex)]?.damage(event);
+      const opts = this.actor.getRollOptions('damage-roll');
+      this.actor.data.data.actions[Number(actionIndex)]?.damage(event, opts);
     });
 
     // the click listener registered on all buttons breaks the event delegation here...
@@ -71,7 +72,8 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      this.actor.data.data.actions[Number(actionIndex)]?.critical(event);
+      const opts = this.actor.getRollOptions('damage-roll');
+      this.actor.data.data.actions[Number(actionIndex)]?.critical(event, opts);
     });
 
     html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
