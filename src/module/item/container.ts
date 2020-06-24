@@ -5,6 +5,16 @@ import {groupBy} from '../utils';
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
+    item: any;
+    heldItems: any;
+    negateBulk: Bulk;
+    heldItemBulk: Bulk;
+    isInContainer: boolean;
+    formattedHeldItemBulk: string;
+    formattedNegateBulk: string;
+    formattedCapacity: string;
+    capacity: Bulk;
+
     constructor({
         item,
         heldItems,

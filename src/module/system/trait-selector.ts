@@ -3,6 +3,9 @@
  * @type {FormApplication}
  */
 export class TraitSelector5e extends FormApplication {
+  searchString: any;
+  _filterTimeout: any;
+  
   constructor(object, options) {
     super(object, options);
 
@@ -47,7 +50,7 @@ export class TraitSelector5e extends FormApplication {
   getData() {
     // Get current values
     const attr = getProperty(this.object.data, this.attribute);
-    if (typeof attr.value === 'string') attr.value = this.constructor._backCompat(attr.value, this.options.choices);
+    if (typeof attr.value === 'string') attr.value = TraitSelector5e._backCompat(attr.value, this.options.choices);
     if (!attr.value) attr.value = '';
 
     const has_values = this.options.has_values;
@@ -57,7 +60,7 @@ export class TraitSelector5e extends FormApplication {
     // Populate choices
     if (has_values) {
       const selected = [];
-      for (const [k, trait] of Object.entries(attr)) {
+      for (const [k, trait] of Object.entries(attr as Record<any, any>)) {
         selected[trait.type] = { value: trait.value, exceptions: trait.exceptions };
       }
 	    for (const [k, v] of Object.entries(choices)) {
@@ -104,8 +107,8 @@ export class TraitSelector5e extends FormApplication {
    * @param {string} searchString    The search string to match
    */
   search(searchString) {
-    const query = new RegExp(RegExp.escape(searchString), "i");
-    this.element.find('li.trait-item').each((i, li) => {
+    const query = new RegExp((RegExp as any).escape(searchString), "i");
+    (this.element as JQuery).find('li.trait-item').each((i, li) => {
       let name = li.getElementsByClassName('trait-label')[0].textContent;
       li.style.display = query.test(name) ? "flex" : "none";
     });
@@ -187,10 +190,10 @@ export class TraitSelector5e extends FormApplication {
    * Update the Actor object with new trait data processed from the form
    * @private
    */
-  _updateObject(event, formData) {
+  async _updateObject(event: Event, formData: any) {
     const choices = [];
     if (this.options.has_values) {
-      for (const [k, v] of Object.entries(formData)) {
+      for (const [k, v] of Object.entries(formData as Record<any, any>)) {
         if(v.length > 1 && v[0]) {
           if ((!isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
             const label = this.options.choices[k];

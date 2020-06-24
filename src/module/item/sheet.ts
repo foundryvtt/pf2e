@@ -31,7 +31,7 @@ export class ItemSheetPF2e extends ItemSheet {
   getData() {
     var _this$item$data, _this$item$data$data, _this$item$data$data$;
 
-    const data = super.getData();
+    const data: any = super.getData();
     // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
     // This works because the actor's items are already updated by the time the ItemSheet rerenders.
     const updatedData = this?.actor?.items?.get(this?.entity?.id)?.data
@@ -161,8 +161,16 @@ export class ItemSheetPF2e extends ItemSheet {
       }
 
       const actionType = data.data.actionType.value || 'action';
-      let actionImg = 0;
-      if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;else if (actionType === 'reaction') actionImg = 'reaction';else if (actionType === 'free') actionImg = 'free';else if (actionType === 'passive') actionImg = 'passive';
+      let actionImg : string | number = 0;
+      if (actionType === 'action')
+        actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
+      else if (actionType === 'reaction')
+        actionImg = 'reaction';
+      else if (actionType === 'free')
+        actionImg = 'free';
+      else if (actionType === 'passive')
+        actionImg = 'passive';
+
       data.item.img = this._getActionImg(actionImg);
       data.categories = CONFIG.PF2E.actionCategories;
       data.weapons = actorWeapons;

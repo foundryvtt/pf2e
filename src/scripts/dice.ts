@@ -1,4 +1,6 @@
-class FormulaPreservingRoll extends Roll {
+import PF2EActor from "../module/actor/actor";
+
+export class FormulaPreservingRoll extends Roll {
   toJSON() {
     const jsonData = super.toJSON();
     jsonData.formula = Roll.cleanFormula(this._replaceData(this._formula));
@@ -7,7 +9,10 @@ class FormulaPreservingRoll extends Roll {
   }
 }
 
-class DicePF2e {
+export class DicePF2e {
+  _rolled: any;
+  terms: any;
+  _formula: any;
   /**
    * A standardized helper function for managing core PF2e "d20 rolls"
    *
@@ -31,11 +36,11 @@ class DicePF2e {
   static d20Roll({
     event, parts, data, template, title, speaker, flavor, advantage = true, situational = true,
     fastForward = true, onClose, dialogOptions,
-  }) {
+  }: { event: JQuery.Event, parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, advantage?: boolean, situational?: boolean, fastForward?: boolean, onClose?: any, dialogOptions?: object }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
-    const _roll = (parts, adv, form) => {
+    const _roll = (parts, adv, form?) => {
       let flav = (flavor instanceof Function) ? flavor(parts, data) : title;
       if (adv === 1) {
         parts[0] = ['2d20kh'];
@@ -140,13 +145,13 @@ class DicePF2e {
    * @param {Object} dialogOptions  Modal dialog options
    */
   static damageRoll({
-    event = {}, partsCritOnly=[], parts, actor, data, template, title, speaker, flavor, critical = false, onClose, dialogOptions,
-  }) {
+    event, partsCritOnly=[], parts, actor, data, template, title, speaker, flavor, critical = false, onClose, dialogOptions,
+  }: { event: JQuery.Event, partsCritOnly?: any[], parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, critical?: boolean, onClose?: any, dialogOptions?: object }) {
     // Inner roll function
     const rollMode = game.settings.get('core', 'rollMode');
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     let rolled = false;
-    const _roll = (parts, crit, form) => {
+    const _roll = (parts, crit, form?) => {
       // Don't include situational bonuses unless they are defined
       if (form) {
         data.itemBonus = form.find('[name="itemBonus"]').val();
@@ -172,7 +177,7 @@ class DicePF2e {
           parts = [`(${parts.join('+')}) * 2`];
         } else {
           let critRoll = new Roll(parts.join('+'), data).alter(0, 2);
-          parts = [critRoll.formula.replace(/\b\d+\b/g, (match) => `${match * 2}`)];
+          parts = [critRoll.formula.replace(/\b\d+\b/g, (match) => `${parseInt(match, 10) * 2}`)];
         }
         parts = parts.concat(partsCritOnly);
       }
@@ -242,7 +247,7 @@ class DicePF2e {
   }
 
   alter(add, multiply) {
-    const rgx = new RegExp(Roll.diceRgx, 'g');
+    const rgx = new RegExp(Roll.rgx.dice, 'g');
     if (this._rolled) throw new Error('You may not alter a Roll which has already been rolled');
 
     // Update dice roll terms
@@ -287,7 +292,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
 
       setInitiativeButton.click((ev) => {
         ev.stopPropagation();
-        CONFIG.Actor.entityClass.setCombatantInitiative(html);
+        PF2EActor.setCombatantInitiative(html);
       });
     }
   }

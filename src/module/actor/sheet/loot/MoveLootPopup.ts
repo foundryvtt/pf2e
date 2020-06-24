@@ -1,5 +1,7 @@
 
 export class MoveLootPopup extends FormApplication {
+    onSubmitCallback: (a: any) => void;
+
     
     constructor(object, options, callback) {
         super(object, options);

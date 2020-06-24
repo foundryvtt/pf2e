@@ -1,10 +1,14 @@
 import { DB } from './system/db';
 import './system/measure';
 
+declare var PF2e: PF2eSystem;
+
 /**
  * Base PF2e system class
  */
-export class PF2e {
+export class PF2eSystem {
+    DB: any;
+    CONFIG: any;
 
     /**
      * TODO: need to remove static content from CONFIG that resides in DB

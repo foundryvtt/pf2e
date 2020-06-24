@@ -19,12 +19,16 @@ import { coinCompendiumIds } from './treasure';
 const kits = new Map();
 
 class CompendiumReference {
+    id: string;
+    quantity: number;
+    holdsItems: CompendiumReference[];
+
     /**
      * @param {string} id
      * @param {number=} quantity
      * @param {CompendiumReference[]} holdsItems
      */
-    constructor({ id, quantity, holdsItems = [] } = {}) {
+    constructor({ id, quantity, holdsItems = [] }: { id?: string, quantity?: number, holdsItems?: CompendiumReference[]} = {}) {
         this.id = id;
         this.quantity = quantity;
         this.holdsItems = holdsItems;

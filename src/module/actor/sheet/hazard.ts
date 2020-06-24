@@ -35,7 +35,7 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
     this._prepareItems(sheetData.actor);
 
     // Update save labels
-    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+    for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
       save.label = CONFIG.PF2E.saves[s];
     }
 
@@ -112,7 +112,7 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
       // Actions
       else if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg = 0;
+        let actionImg: string|number = 0;
         // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
         if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';

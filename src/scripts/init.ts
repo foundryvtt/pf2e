@@ -1,7 +1,8 @@
 /**
  * Activate certain behaviors on FVTT ready hook
  */
- Hooks.once('init', () => {
+//@ts-nocheck
+Hooks.once('init', () => {
    game.pf2e = {
      rollItemMacro,
    };
@@ -69,7 +70,7 @@ async function createItemMacro(item, slot) {
       img: item.img,
       command,
       flags: { 'pf2e.itemMacro': true },
-    }, { displaySheet: false });
+    }, { displaySheet: false }) as Macro;
   }
   game.user.assignHotbarMacro(macro, slot);
 }

@@ -1,6 +1,8 @@
 import { getArmorBonus } from '../item/runes';
 
 class Armor {
+  data: any;
+  
   static unarmored() {
     return new Armor({
       data: {

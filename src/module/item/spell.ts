@@ -2,7 +2,13 @@ import SpellcastingEntry from './spellcastingEntry';
 import CharacterData from '../actor/character';
 
 class Spell {
-  constructor(data, scope = {}) {
+  data: any;
+  castingActor: any;
+  _castLevel: any;
+  _spellcastingEntry: any;
+  _character: any;
+
+  constructor(data, scope: any = {}) {
     this.data = data;
     this.castingActor = scope?.castingActor;
     this._castLevel = scope?.castLevel || this.spellLevel;

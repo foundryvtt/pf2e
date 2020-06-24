@@ -1,3 +1,4 @@
+//@ts-nocheck
 /**
  * @author Farhan Siddiqi
  * @version 0.0.1
@@ -5,6 +6,7 @@
 
 // import { monsterAbilities } from './monsterAbilities';
 import ActorSheetPF2eCharacter from './character';
+import { DicePF2e } from '../../../scripts/dice'
 
 class ActorSheetPF2eCharacterReadOnly extends ActorSheetPF2eCharacter {
   get template() {

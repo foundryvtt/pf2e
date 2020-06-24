@@ -33,7 +33,7 @@ export default function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper('strip_tags', (value, options) => {
-        function strip_tags(input, allowed) { // eslint-disable-line camelcase
+        function strip_tags(input, allowed?) { // eslint-disable-line camelcase
             const _phpCastString = function (value) {
                 const type = typeof value;
                 switch (type) {

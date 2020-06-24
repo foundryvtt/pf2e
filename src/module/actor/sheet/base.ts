@@ -7,12 +7,14 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { SKILL_DICTIONARY } from '../actor';
 import { ProficiencyModifier } from '../../modifiers';
 import { TraitSelector5e } from '../../system/trait-selector';
+import PF2EActor from '../actor';
+import PF2EItem from '../../item/item';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  */
-class ActorSheetPF2e extends ActorSheet {
+abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -44,7 +46,7 @@ class ActorSheetPF2e extends ActorSheet {
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
    */
   getData() {
-    const sheetData = super.getData();
+    const sheetData : any = super.getData();
 
     if (this.actorType === "hazard") {
       return sheetData;
@@ -53,7 +55,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Update martial skill labels
     if (sheetData.data.martial !== undefined)
     {
-      for (const [s, skl] of Object.entries(sheetData.data.martial)) {
+      for (const [s, skl] of Object.entries(sheetData.data.martial as Record<any, any>)) {
         skl.icon = this._getProficiencyIcon(skl.rank);
         skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
         skl.label = CONFIG.PF2E.martialSkills[s];
@@ -64,7 +66,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Update save labels
     if (sheetData.data.saves !== undefined)
     {
-      for (const [s, save] of Object.entries(sheetData.data.saves)) {
+      for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
         save.icon = this._getProficiencyIcon(save.rank);
         save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
         save.label = CONFIG.PF2E.saves[s];
@@ -82,7 +84,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Ability Scores
     if (sheetData.data.abilities !== undefined)
     {
-      for ( let [a, abl] of Object.entries(sheetData.data.abilities)) {
+      for (let [a, abl] of Object.entries(sheetData.data.abilities as Record<any, any>)) {
         abl.label = CONFIG.PF2E.abilities[a];
       }
     }
@@ -90,7 +92,7 @@ class ActorSheetPF2e extends ActorSheet {
     // Update skill labels
     if (sheetData.data.skills !== undefined)
     {
-      for (let [s, skl] of Object.entries(sheetData.data.skills)) {
+      for (let [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
         skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
         skl.icon = this._getProficiencyIcon(skl.rank);
         skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
@@ -126,8 +128,10 @@ class ActorSheetPF2e extends ActorSheet {
     return sheetData;
   }
 
+  abstract _prepareItems(actor: PF2EActor): void;
+
   _findActiveList() {
-    return this.element.find('.tab.active .directory-list');
+    return (this.element as JQuery).find('.tab.active .directory-list');
   }
 
   /* -------------------------------------------- */
@@ -148,19 +152,20 @@ class ActorSheetPF2e extends ActorSheet {
       const trait = traits[t] || {value: [], selected: []};
 
       if (Array.isArray(trait)) {
-        trait.selected = {};
+        // todo this is so wrong...
+        (trait as any).selected = {};
         for (const entry of trait) {
           if (typeof entry === 'object') {
             if ('exceptions' in entry && entry.exceptions != "") {
-              trait.selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
+              (trait as any).selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${entry.exceptions}]`;
             } else {
               let text = `${choices[entry.type]}`;
               if (entry.value !== "")
                 text = `${text} (${entry.value})`;
-              trait.selected[entry.type] = text;
+                (trait as any).selected[entry.type] = text;
             }
           } else {
-            trait.selected[entry] = choices[entry] || `${entry}`;
+            (trait as any).selected[entry] = choices[entry] || `${entry}`;
           }
         }
       } else if (trait.value) {
@@ -187,7 +192,7 @@ class ActorSheetPF2e extends ActorSheet {
   _prepareSpell(actorData, spellbook, spell) {
     const spellLvl = (Number(spell.data.level.value) < 11) ? Number(spell.data.level.value) : 10;
     const isNPC = this.actorType === 'npc';
-    let spellcastingEntry = '';
+    let spellcastingEntry : any = null;
 
     if ((spell.data.location || {}).value) {
       spellcastingEntry = (this.actor.getOwnedItem(spell.data.location.value) || {}).data;
@@ -205,7 +210,7 @@ class ActorSheetPF2e extends ActorSheet {
       spellcastingEntry.data?.tradition?.value === "ritual" ||
       spellcastingEntry.data?.tradition?.value === "focus"
 
-    const spellsSlotsWhereThisIsPrepared = Object.entries(spellcastingEntry.data?.slots || {})?.filter( slotArr => !!Object.values(slotArr[1].prepared).find(slotSpell => slotSpell?.id === spell._id))
+    const spellsSlotsWhereThisIsPrepared = Object.entries((spellcastingEntry.data?.slots || {}) as Record<any, any>)?.filter( slotArr => !!Object.values(slotArr[1].prepared as any[]).find(slotSpell => slotSpell?.id === spell._id))
     const highestSlotPrepared = spellsSlotsWhereThisIsPrepared?.map(slot => parseInt(slot[0].match(/slot(\d+)/)[1],10)).reduce( (acc,cur) => cur>acc ? cur : acc, 0) ?? spellLvl
     const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2)
     const maxSpellLevelToShow = Math.min(10,Math.max(spellLvl, highestSlotPrepared, normalHighestSpellLevel))
@@ -231,7 +236,7 @@ class ActorSheetPF2e extends ActorSheet {
     spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
     // Add chat data
     try {
-      let item = this.actor.getOwnedItem(spell._id);
+      let item = this.actor.getOwnedItem(spell._id) as PF2EItem;
       if (item){
         spell.chatData = item.getChatData({ secrets: this.actor.owner });
       }
@@ -253,17 +258,17 @@ class ActorSheetPF2e extends ActorSheet {
   _preparedSpellSlots(spellcastingEntry, spellbook) {
     // let isNPC = this.actorType === "npc";
 
-    for (const [key, spl] of Object.entries(spellbook)) {
+    for (const [key, spl] of Object.entries(spellbook as Record<any, any>)) {
       if (spl.slots > 0) {
         for (let i = 0; i < spl.slots; i++) {
           const entrySlot = ((spellcastingEntry.data.slots[`slot${key}`] || {}).prepared || {})[i] || null;
 
           if (entrySlot && entrySlot.id) {
             //console.log(`PF2e System | Getting item: ${entrySlot.id}: `);
-            let item = this.actor.getOwnedItem(entrySlot.id);
+            let item : any = this.actor.getOwnedItem(entrySlot.id);
             if (item) {
               //console.log(`PF2e System | Duplicating item: ${item.name}: `, item);
-              let itemCopy = duplicate(item);
+              let itemCopy : any = duplicate(item);
               if (entrySlot.expended) {
                 itemCopy.expended = true;
               }
@@ -671,7 +676,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     // toggle visibility of filter containers
     html.find('.hide-container-toggle').click((ev) => {
-      $(ev.target).parent().siblings().toggle(100, (e) => { });
+      $(ev.target).parent().siblings().toggle(100, () => { });
     });
 
     /* -------------------------------------------- */
@@ -768,10 +773,10 @@ class ActorSheetPF2e extends ActorSheet {
     // change background for dragged over items that are containers
       const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
       containerItems
-        .forEach(elem =>
+        .forEach((elem: HTMLElement) =>
             elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false))
     containerItems
-          .forEach(elem => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
+          .forEach((elem: HTMLElement) => elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false))
 
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
@@ -797,7 +802,7 @@ class ActorSheetPF2e extends ActorSheet {
 
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
       // item = this.actor.items.find(i => { return i.id === itemId });
-      const item = this.actor.getOwnedItem(itemId);
+      const item = this.actor.getOwnedItem(itemId) as PF2EItem;
 
       // which function gets called depends on the type of button stored in the dataset attribute action
       switch (ev.target.dataset.action) {
@@ -1032,8 +1037,8 @@ class ActorSheetPF2e extends ActorSheet {
     const doomed = this.object.data.data.attributes.doomed.value;
 
     // Get the current level and the array of levels
-    const level = parseFloat(field.val());
-    let newLevel = '';
+    const level = parseFloat(field.val()+'');
+    let newLevel;
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
@@ -1061,8 +1066,8 @@ class ActorSheetPF2e extends ActorSheet {
     const statIsItemType = (field.data('stat-type')==undefined) ? false : field.data('stat-type');
 
     // Get the current level and the array of levels
-    const level = parseFloat(field.val());
-    let newLevel = '';
+    const level = parseFloat(field.val()+'');
+    let newLevel;
 
     // Toggle next level - forward on click, backwards on right
     if (event.type === 'click') {
@@ -1108,7 +1113,7 @@ class ActorSheetPF2e extends ActorSheet {
       id: itemId
     }));
   } */
-  _onDragItemStart(event) {
+  _onDragItemStart(event: any): boolean {
     const itemId = event.currentTarget.getAttribute('data-item-id');
     const containerType = event.currentTarget.getAttribute('data-container-type');
 
@@ -1149,7 +1154,7 @@ class ActorSheetPF2e extends ActorSheet {
       if (dragItem.pack) {
         if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from compendium pack dropped on a spellSlot *****');
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-        this.actor.importItemFromCollection(dragItem.pack, dragItem.id, dropID);
+        this.actor.importItemFromCollectionWithLocation(dragItem.pack, dragItem.id, dropID);
         return false;
       }
 
@@ -1223,7 +1228,7 @@ class ActorSheetPF2e extends ActorSheet {
         if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from a compendium pack dropped on a spellcasting entry *****');
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
-        this.actor.importItemFromCollection(dragData.pack, dragData.id, dropID);
+        this.actor.importItemFromCollectionWithLocation(dragData.pack, dragData.id, dropID);
         return false;
       }
 
@@ -1404,7 +1409,7 @@ class ActorSheetPF2e extends ActorSheet {
   _onItemRoll(event) {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-    const item = this.actor.getOwnedItem(itemId);
+    const item = this.actor.getOwnedItem(itemId) as PF2EItem;
     item.roll(event);
   }
 
@@ -1424,12 +1429,12 @@ class ActorSheetPF2e extends ActorSheet {
     const itemType = li.attr('data-item-type');
     // itemData = this.actor.items.find(i => i.id === Number(itemId)),
     // itemData = (this.actor.getOwnedItem(itemId) || {}).data,
-    let item;
+    let item: PF2EItem;
 
     if (itemType === 'spellSlot') return false;
 
     try {
-      item = this.actor.getOwnedItem(itemId);
+      item = this.actor.getOwnedItem(itemId) as PF2EItem;
       if (!item.type) return;
     } catch (err) {
       return false;
@@ -1637,10 +1642,10 @@ class ActorSheetPF2e extends ActorSheet {
         buttons: {
           create: {
             label: 'Create',
-            callback: (html) => {
+            callback: (html: JQuery) => {
               // if ( onClose ) onClose(html, parts, data);
               let name = '';
-              magicTradition = html.find('[name="magicTradition"]').val();
+              magicTradition = html.find('[name="magicTradition"]').val()+'';
               if (magicTradition === 'ritual') {
                 spellcastingType = '';
                 name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
@@ -1654,7 +1659,7 @@ class ActorSheetPF2e extends ActorSheet {
                 spellcastingType = 'prepared';
                 name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
               } else {
-                spellcastingType = html.find('[name="spellcastingType"]').val();
+                spellcastingType = html.find('[name="spellcastingType"]').val()+'';
                 name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
               }
 
@@ -1725,7 +1730,6 @@ class ActorSheetPF2e extends ActorSheet {
       new Dialog({
         title: 'Delete Confirmation',
         content: html,
-        data: item,
         buttons: {
           Yes: {
             icon: '<i class="fa fa-check"></i>',
@@ -1821,7 +1825,7 @@ class ActorSheetPF2e extends ActorSheet {
       if (canvas.templates.objects.children) {
         for (const placeable of canvas.templates.objects.children) {
           console.log(`PF2e | Placeable Found - id: ${placeable.data.id}, scene: ${canvas.scene._id}, type: ${placeable.__proto__.constructor.name}`);
-          if (placeable.data.id === templateData.id & canvas.scene._id === templateScene & placeable.__proto__.constructor.name === 'MeasuredTemplate') {
+          if (placeable.data.id === templateData.id && canvas.scene._id === templateScene && placeable.__proto__.constructor.name === 'MeasuredTemplate') {
             console.log(`PF2e | Deleting MeasuredTemplate ${templateData.id} from Scene ${templateScene}`);
 
             const existingTemplate = new MeasuredTemplate(templateData, templateScene);

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 /***************************************************************************************
  * 
  *   Document that contains the hooks that implement certain feats.

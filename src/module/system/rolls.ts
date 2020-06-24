@@ -11,7 +11,7 @@ export class PF2Check {
    * @param {jQuery.Event} event
    * @param {function} callback
    */
-  static roll(check, context = {}, event, callback) {
+  static roll(check, context: any = {}, event, callback?) {
     // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
     if (context?.options?.length > 0) {
       check.modifiers.forEach(modifier => {
@@ -36,7 +36,7 @@ export class PF2DamageRoll {
    * @param {jQuery.Event} event
    * @param {function} callback
    */
-  static roll(damage, context = {}, event, callback) {
+  static roll(damage, context = {}, event, callback?) {
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     if (userSettingQuickD20Roll !== event.shiftKey) {
       DamageRollModifiersDialog.roll(damage, context, callback);

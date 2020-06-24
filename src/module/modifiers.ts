@@ -62,6 +62,18 @@ export const PF2ModifierType = Object.freeze({
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
  */
 export class PF2Modifier {
+  name: string;
+  modifier: number;
+  type: string;
+  enabled: boolean;
+  source: string;
+  notes: string;
+  ignored: boolean;
+  deleted: boolean;
+  custom: boolean;
+  damageType: string;
+  predicate: any;
+
   /**
    * @param {string} name
    * @param {number} modifier
@@ -290,6 +302,10 @@ function applyStackingRules(modifiers) {
  * modifier.
  */
 export class PF2StatisticModifier {
+  name: string;
+  _modifiers: PF2Modifier[];
+  totalModifier: number;
+
   /**
    * @param {string} name
    * @param {PF2Modifier[]} modifiers
@@ -361,6 +377,10 @@ export class PF2CheckModifier extends PF2StatisticModifier {
  * attack could be an option that is not a trait.
  */
 export class PF2ModifierPredicate {
+  all: any;
+  any: any;
+  not: any;
+
   constructor(param) {
     this.all = param?.all ?? [];
     this.any = param?.any ?? [];
@@ -386,6 +406,20 @@ export class PF2ModifierPredicate {
  * Represents extra damage dice for one or more weapons or attack actions.
  */
 export class PF2DamageDice {
+  selector: any;
+  name: any;
+  diceNumber: any;
+  dieSize: any;
+  critical: any;
+  category: any;
+  damageType: any;
+  traits: any;
+  override: any;
+  options: any;
+  ignored: any;
+  enabled: any;
+  custom: any;
+  predicate: any;
 
   /**
    * @param {object} param

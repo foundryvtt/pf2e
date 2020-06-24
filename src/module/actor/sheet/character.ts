@@ -107,7 +107,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     // const spellbook = {};
     const tempSpellbook = [];
     const spellcastingEntriesList = [];
-    const spellbooks = [];
+    const spellbooks: any = [];
     spellbooks.unassigned = {};
 
     // Spellcasting Entries
@@ -271,7 +271,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         feats[featType].feats.push(i);
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
-          let actionImg = 0;
+          let actionImg: number|string = 0;
           if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
           else if (actionType === 'reaction') actionImg = 'reaction';
           else if (actionType === 'free') actionImg = 'free';
@@ -336,7 +336,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       // Actions
       if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg = 0;
+        let actionImg: number|string = 0;
         if (actionType === 'action') actionImg = parseInt(i.data.actions.value) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';

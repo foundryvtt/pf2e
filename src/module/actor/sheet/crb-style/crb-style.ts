@@ -1,4 +1,5 @@
 import ActorSheetPF2eCharacter from '../character';
+import PF2EActor from '../../actor'
 
 /**
  * Extend the base ActorSheet
@@ -23,19 +24,19 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
    */
   getData() {
-    const sheetData = super.getData();
+    const sheetData: any = super.getData();
 
     sheetData.uid = this.id;
 
     // preparing the name of the rank, as this is displayed on the sheet
     sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
-    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+    for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
       save.rankName = game.i18n.format("PF2E.ProficiencyLevel"+save.rank);
     }
     sheetData.data.attributes.classDC.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.classDC.rank);
     
     // limiting the amount of characters for the save labels
-    for (const [s, save] of Object.entries(sheetData.data.saves)) {
+    for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
@@ -97,20 +98,20 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
 
   onIncrementModifierValue(event) {
     const parent = $(event.currentTarget).parents('.add-modifier');
-    parent.find('.add-modifier-value input[type=number]')[0].stepUp();
+    (parent.find('.add-modifier-value input[type=number]')[0] as HTMLInputElement).stepUp();
   }
 
   onDecrementModifierValue(event) {
     const parent = $(event.currentTarget).parents('.add-modifier');
-    parent.find('.add-modifier-value input[type=number]')[0].stepDown();
+    (parent.find('.add-modifier-value input[type=number]')[0] as HTMLInputElement).stepDown();
   }
 
   onAddCustomModifier(event) {
     const parent = $(event.currentTarget).parents('.add-modifier');
     const stat = $(event.currentTarget).attr('data-stat');
     const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
-    const name = parent.find('.add-modifier-name').val();
-    const type = parent.find('.add-modifier-type').val();
+    const name = parent.find('.add-modifier-name').val() + '';
+    const type = parent.find('.add-modifier-type').val() + '';
     const errors = [];
     if (!stat || !stat.trim()) {
       errors.push('Statistic is required.');

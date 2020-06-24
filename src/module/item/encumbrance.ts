@@ -1,4 +1,8 @@
 export class InventoryWeight {
+    combinedBulk: any;
+    encumberedAt: any;
+    limit: any;
+
     constructor(combinedBulk, encumberedAt, limit) {
         this.combinedBulk = combinedBulk;
         this.encumberedAt = encumberedAt;

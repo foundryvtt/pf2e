@@ -57,9 +57,13 @@ export async function sellTreasure(actor, itemId) {
         && item.data.data?.denomination?.value !== null
         && item.data.data?.stackGroup?.value !== 'coins') {
         let coins = {
-            [item.data.data.denomination.value]:
-                (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1),
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0,
         };
+        coins[item.data.data.denomination.value] = 
+                (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1);
         await actor.deleteEmbeddedEntity("OwnedItem", itemId);
         await addCoinsSimple(actor, {
             coins,
@@ -122,8 +126,8 @@ export async function addCoins({
         cp: 0,
     },
     combineStacks = false,
-    updateItemQuantity = async () => undefined,
-    addFromCompendium = async () => undefined
+    updateItemQuantity = async (item, quantity) => undefined,
+    addFromCompendium = async (compendiumId, quantity) => undefined
 } = {}) {
     const currencies = new Set(Object.keys(coins));
     const topLevelCoins = items
@@ -153,7 +157,7 @@ export function addCoinsSimple(actor, {
         cp: 0,
     },
     combineStacks = false,
-} = {}) {
+} = { }) {
     return addCoins({
         coins,
         combineStacks,

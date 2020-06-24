@@ -6,8 +6,10 @@
 // For modules: await game.settings.set(MODULE_NAME, key, value);
 
 export class PlayerConfigPF2e extends FormApplication {
+    settings: any;
+
     constructor() {
-        super();
+        super({});
         this.settings = getProperty(game.user.data.flags, 'PF2e.settings');
     }
 
@@ -97,10 +99,10 @@ export class PlayerConfigPF2e extends FormApplication {
      * @param {Object} event 
      * @param {Object} formdata 
      */
-    _updateObject(event, formdata) {
+    async _updateObject(event, formdata) {
         console.log('PF2e System | Player Config updating settings');
-        game.user.update({flags: { PF2e:{ settings:formdata } } })
-        document.querySelector("link[id='pf2e-color-scheme']").href = `systems/pf2e/module/user/color-scheme-${formdata.color}.css`;
+        game.user.update({flags: { PF2e:{ settings:formdata } } });
+        (<HTMLAnchorElement>document.querySelector("link[id='pf2e-color-scheme']")).href = `systems/pf2e/module/user/color-scheme-${formdata.color}.css`;
     }
 
     activateListeners(html) {

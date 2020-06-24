@@ -8,6 +8,11 @@
 import Progress from '../progress';
 
 class ItemBrowserPF2e extends Application {
+  sorters: any;
+  filters: Record<any, any>;
+  settings: object;
+  settingsChanged: boolean;
+
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -70,15 +75,15 @@ class ItemBrowserPF2e extends Application {
 
     // toggle visibility of filter containers
     html.on('click', '.filtercontainer h3', (ev) => {
-      $(ev.target.nextElementSibling).toggle(100, (e) => {
+      $(ev.target.nextElementSibling).toggle(100, () => {
         // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
       });
     });
 
     // toggle hints
     html.on('mousedown', 'input[name=textFilter]', (ev) => {
-      if (event.which == 3) {
-        $(html.find('.hint')).toggle(100, (e) => {
+      if (ev.which == 3) {
+        $(html.find('.hint')).toggle(100, () => {
           // $(html).css('min-height', $(html.find('.control-area')).height() + 'px');
         });
       }
@@ -237,7 +242,6 @@ class ItemBrowserPF2e extends Application {
       itemtypes: {},
       weapontype: {},
       proficiencies: {},
-      skills: {},
       actorsize: {},
       alignment: {},
       source: {},
@@ -317,7 +321,7 @@ class ItemBrowserPF2e extends Application {
         },
       },
       default: 'save',
-      close: (html) => {
+      close: (html: JQuery) => {
         const inputs = html.find('input');
         for (const input of inputs) {
           const browserType = $(input).attr('data-browser-type');
@@ -346,7 +350,11 @@ class ItemBrowserPF2e extends Application {
 }
 
 class SpellBrowserPF2e extends ItemBrowserPF2e {
-  constructor(app) {
+  spells: any;
+  classes: any;
+  times: any;
+  schools: any;
+  constructor(app?) {
     super(app);
 
     // load settings
@@ -368,7 +376,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
       if (settings == '') { // if settings are empty create the settings data
         console.log('PF2e System | Spell Browser | Creating settings');
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               load: true,
@@ -381,7 +389,7 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         console.log('PF2e System | Spell Browser | Loading settings');
         const loadedSettings = JSON.parse(settings);
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               // add entry for each item compendium, that is turned on if no settings for it exist already
@@ -454,12 +462,13 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
       this.settingsChanged = false;
     }
 
-    const data = {};
-    data.spells = this.spells;
-    data.classes = this.classes;
-    data.times = this.times;
-    data.schools = this.schools;
-    data.traditions = CONFIG.PF2E.spellTraditions;
+    const data = {
+      spells: this.spells,
+      classes: this.classes,
+      times: this.times,
+      schools: this.schools,
+      traditions: CONFIG.PF2E.spellTraditions,
+    };
 
     return data;
   }
@@ -557,6 +566,11 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
 
 
 class FeatBrowserPF2e extends ItemBrowserPF2e {
+  feats: any;
+  featSkills: any;
+  featAncestry: any;
+  featTimes: any;
+  featClasses: {};
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -568,7 +582,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
     return options;
   }
 
-  constructor(app) {
+  constructor(app?) {
     super(app);
 
     // load settings
@@ -590,7 +604,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
       if (settings == '') { // if settings are empty create the settings data
         console.log('Feat Browser | Creating settings');
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               load: true,
@@ -603,7 +617,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
         console.log('Feat Browser | Loading settings');
         const loadedSettings = JSON.parse(settings);
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               // add entry for each item compendium, that is turned on if no settings for it exist already
@@ -653,7 +667,7 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
       this.close();
     }
 
-    const data = {};
+    const data : any = {};
 
     data.feats = this.feats;
     // data.featClasses = this.featClasses;
@@ -778,6 +792,9 @@ class FeatBrowserPF2e extends ItemBrowserPF2e {
 }
 
 class InventoryBrowserPF2e extends ItemBrowserPF2e {
+  settings: any;
+  inventoryItems: any;
+
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -789,7 +806,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
     return options;
   }
 
-  constructor(app) {
+  constructor(app?) {
     super(app);
 
     // load settings
@@ -811,7 +828,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       if (settings == '') { // if settings are empty create the settings data
         console.log('PF2e System | Inventory Browser | Creating settings');
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               load: true,
@@ -824,7 +841,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
         console.log('PF2e System | Inventory Browser | Loading settings');
         const loadedSettings = JSON.parse(settings);
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               // add entry for each item compendium, that is turned on if no settings for it exist already
@@ -872,7 +889,7 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
       this.settingsChanged = false;
     }
 
-    const data = {};
+    const data : any = {};
     const itemTypes = {
       weapon: 'Weapons',
       armor: 'Armor',
@@ -936,6 +953,9 @@ class InventoryBrowserPF2e extends ItemBrowserPF2e {
 }
 
 class BestiaryBrowserPF2e extends ItemBrowserPF2e {
+  bestiaryActors: any;
+  source: any;
+  traits: any[];
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -946,7 +966,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
     return options;
   }
 
-  constructor(app) {
+  constructor(app?) {
     super(app);
 
     // load settings
@@ -968,7 +988,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       if (settings == '') { // if settings are empty create the settings data
         console.log('PF2e System | Bestiary Browser | Creating settings');
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Actor') {
             settings[compendium.collection] = {
               load: true,
@@ -981,7 +1001,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
         console.log('PF2e System | Bestiary Browser | Loading settings');
         const loadedSettings = JSON.parse(settings);
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Actor') {
             settings[compendium.collection] = {
               // add entry for each item compendium, that is turned on if no settings for it exist already
@@ -1046,7 +1066,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
       this.settingsChanged = false;
     }
 
-    const data = {};
+    const data : any = {};
 
     data.bestiaryActors = this.bestiaryActors;
     data.actorSize = CONFIG.PF2E.actorSizes;
@@ -1119,6 +1139,7 @@ class BestiaryBrowserPF2e extends ItemBrowserPF2e {
 }
 
 class ActionBrowserPF2e extends ItemBrowserPF2e {
+  actions: any;
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.classes = options.classes.concat('spell-browser-window');
@@ -1129,7 +1150,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
     return options;
   }
 
-  constructor(app) {
+  constructor(app?) {
     super(app);
 
     // load settings
@@ -1151,7 +1172,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
       if (settings == '') { // if settings are empty create the settings data
         console.log('Action Browser | Creating settings');
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               load: true,
@@ -1164,7 +1185,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
         console.log('Action Browser | Loading settings');
         const loadedSettings = JSON.parse(settings);
         settings = {};
-        for (const compendium of game.packs) {
+        for (const compendium of game.packs.values()) {
           if (compendium.metadata.entity == 'Item') {
             settings[compendium.collection] = {
               // add entry for each item compendium, that is turned on if no settings for it exist already
@@ -1210,7 +1231,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
       this.settingsChanged = false;
     }
 
-    const data = {};
+    const data : any = {};
 
     const sortedTraits = {};
     Object.keys(CONFIG.PF2E.featTraits).sort().forEach((key) => {
@@ -1250,6 +1271,7 @@ class ActionBrowserPF2e extends ItemBrowserPF2e {
 }
 
 class PackLoader {
+  loadedPacks: { Actor: {}; Item: {}; };
   constructor() {
     this.loadedPacks = {
       Actor: {},

@@ -13,6 +13,7 @@ global.fetchSpell = async (name) => {
   return null;
 };
 
+//@ts-ignore
 global.game = Object.freeze({
   settings: Object.freeze({
     get: (module, settingKey) => {

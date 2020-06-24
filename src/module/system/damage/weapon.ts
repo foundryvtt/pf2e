@@ -152,7 +152,7 @@ export class PF2WeaponDamage {
       });
     }
 
-    const damage = {
+    const damage : any = {
       name: `Damage Roll: ${weapon.name}`,
       base: {
         diceNumber: weapon.data.damage.dice,
@@ -368,7 +368,7 @@ export class PF2WeaponDamage {
           if (formulaPart) {
             formulaPart += `${modifier < 0 ? modifier : ` + ${modifier}` }`;
           } else {
-            formulaPart = modifier;
+            formulaPart = `${modifier}`;
           }
         }
         if (pool[damageType].base) {

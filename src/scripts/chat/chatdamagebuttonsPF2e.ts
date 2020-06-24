@@ -1,5 +1,7 @@
+import PF2EActor from "../../module/actor/actor";
+
 class ChatDamageButtonsPF2e extends Application {
-  constructor(app) {
+  constructor(app?) {
     super(app);
   }
 
@@ -33,14 +35,14 @@ class ChatDamageButtonsPF2e extends Application {
         let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
           attribute = 'attributes.shield';
-          CONFIG.Actor.entityClass.applyDamage(html, 1, 'attributes.shield');
+          PF2EActor.applyDamage(html, 1, 'attributes.shield');
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
         }
         if (ev.shiftKey) {
           ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 1, attribute);
+          PF2EActor.applyDamage(html, 1, attribute);
         }
       });
 
@@ -55,7 +57,7 @@ class ChatDamageButtonsPF2e extends Application {
         if (ev.shiftKey) {
           ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 0.5, attribute);
+          PF2EActor.applyDamage(html, 0.5, attribute);
         }
       });
 
@@ -70,7 +72,7 @@ class ChatDamageButtonsPF2e extends Application {
         if (ev.shiftKey) {
           ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, 2, attribute);
+          PF2EActor.applyDamage(html, 2, attribute);
         }
 
       });
@@ -86,7 +88,7 @@ class ChatDamageButtonsPF2e extends Application {
         if (ev.shiftKey) {
           ChatDamageButtonsPF2e.shiftModifyDamage(html, -1)
         } else {
-          CONFIG.Actor.entityClass.applyDamage(html, -1);
+          PF2EActor.applyDamage(html, -1);
         }
       });
     });
@@ -111,14 +113,14 @@ class ChatDamageButtonsPF2e extends Application {
         buttons: {
           ok: {
             label: 'Ok',
-            callback: async dialogHtml => {
+            callback: async (dialogHtml : JQuery) => {
               const diceTotal = parseFloat(html.find('.dice-total #value').text());
-              let modifier = parseFloat(dialogHtml.find('[name="modifier"]').val());
+              let modifier = parseFloat(dialogHtml.find('[name="modifier"]').val() + '');
               if (isNaN(modifier)) {
                 modifier = 0;
               }
               if (typeof modifier !== undefined) {
-                await CONFIG.Actor.entityClass.applyDamage(html, multiplier, attributePassed, modifier);
+                await PF2EActor.applyDamage(html, multiplier, attributePassed, modifier);
               }
             }
           }

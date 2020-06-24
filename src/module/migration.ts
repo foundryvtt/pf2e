@@ -444,6 +444,7 @@ function _migrateActorLanguages(actor, updateData) {
 }
 
 function _migrateActorOtherSpeeds(actor, updateData) {
+    //@ts-ignore
     if (typeof actor.data?.attributes?.speed?.otherSpeeds !== 'array') {
         updateData['data.attributes.speed.otherSpeeds'] = [];
     }

@@ -1,8 +1,15 @@
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
  */
+
+import { FormulaPreservingRoll } from "../../scripts/dice";
+
 // eslint-disable-next-line import/prefer-default-export,no-undef
 export class DamageRollModifiersDialog extends Application {
+
+  damage: object;
+  context: object;
+  callback: any;
 
   /**
    * @param {object} damage

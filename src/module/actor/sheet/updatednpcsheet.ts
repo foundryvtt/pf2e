@@ -5,6 +5,7 @@
 
 // import { monsterAbilities } from './monsterAbilities';
 import ActorSheetPF2eNPC from './npc';
+import { DicePF2e } from '../../../scripts/dice'
 
 class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
@@ -409,7 +410,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
    * Roll NPC Damage using DamageRoll
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
-  rollNPCDamageRoll(damageRoll, item) {
+  rollNPCDamageRoll(event, damageRoll, item) {
     // Get data
     const itemData = item.data.data;
     const rollData = duplicate(item.actor.data.data);
@@ -564,7 +565,7 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
 
       // which function gets called depends on the type of button stored in the dataset attribute action
       switch (ev.target.dataset.action) {
-        case 'npcDamageRoll': this.rollNPCDamageRoll(damageRoll, item); break;
+        case 'npcDamageRoll': this.rollNPCDamageRoll(ev, damageRoll, item); break;
       }
     });
 

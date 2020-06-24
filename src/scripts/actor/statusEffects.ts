@@ -1,8 +1,16 @@
+
+declare var PF2e: any;
+
 /**
  * Class PF2eStatus which defines the data structure of a status effects
  * Gets populated into Actor.data.data.statusEffects[]
  */
 class PF2eStatus {
+    status: any;
+    active: boolean;
+    type: string;
+    value: number;
+
     constructor(statusName, value=1, active=true) {
         this.status = statusName;
         this.active = active;
@@ -25,6 +33,7 @@ class PF2eStatus {
 class PF2eStatusEffects {
 
     statusEffectChanged: any;
+    static statusEffectChanged: boolean;
 
     static init() {
         if(CONFIG.PF2E.PF2eStatusEffects.overruledByModule) return;
@@ -211,14 +220,9 @@ class PF2eStatusEffects {
 
                     if (isNaN(newValue)) continue;
 
-                    if (value === 0) {
-                        await PF2eStatusEffects._updateActorStatus(actor, statusName, 0);
+                    await PF2eStatusEffects._updateActorStatus(actor, statusName, (newValue >= 0 ? newValue : 0));
+                    if (newValue < 1)
                         token.toggleEffect(src);
-                    } else {
-                        await PF2eStatusEffects._updateActorStatus(actor, statusName, (newValue >= 0 ? newValue : 0));
-                        if (newValue < 1)
-                            token.toggleEffect(src);
-                    }
                 } else {
                     if (Number(value) > 0) {
                         await PF2eStatusEffects._updateActorStatus(actor, statusName, Number(value));
@@ -372,18 +376,19 @@ class PF2eStatusEffects {
      * Increases the value of status effects that can have a value
      */
     static _increaseStatus(event) {
+        let token : any = this;
         event.preventDefault();
-        if (event.shiftKey){ PF2eStatusEffects._onToggleOverlay(event, this); return; }
+        if (event.shiftKey){ PF2eStatusEffects._onToggleOverlay(event, token); return; }
         const f = $(event.currentTarget);
         if (f.attr("src").includes(CONFIG.PF2eStatusEffects.effectsIconFolder)) {
             const status = PF2eStatusEffects._getStatusFromImg(f.attr("src"));
-            const actor = getProperty(this, "actor");
+            const actor = getProperty(token, "actor");
             let value = (f[0].hasAttribute("data-value")) ? Number(f.attr("data-value")) : 0;
-            this.statusEffectChanged = true;
+            token.statusEffectChanged = true;
 
             value++;
             if ( !f.hasClass("active") ) {
-                this.toggleEffect(f.attr("src"));
+                token.toggleEffect(f.attr("src"));
                 f.toggleClass("active");
                 f.wrap("<div class='pf2e-effect-img-container'></div>");
                 f.parent().append("<div class='pf2e-effect-value'>"+ value +"</div>");
@@ -393,31 +398,36 @@ class PF2eStatusEffects {
             PF2eStatusEffects._updateActorStatus(actor, status, value);
         }        
     }
+    
+    // static toggleEffect(arg0: string) {
+    //     throw new Error("Method not implemented.");
+    // }
 
     /**
      * Decreases the value of status effects that can have a value
      */
     static _decreaseStatus(event) {
         event.preventDefault();
-        if (event.shiftKey){ PF2eStatusEffects._onToggleOverlay(event, this); return; }
+        let token : any = this; // this function is using `bind` which passes the token as the `this` through js magic
+        if (event.shiftKey){ PF2eStatusEffects._onToggleOverlay(event, token); return; }
         const f = $(event.currentTarget);
         if (f.attr("src").includes(CONFIG.PF2eStatusEffects.effectsIconFolder)) {
             const status = PF2eStatusEffects._getStatusFromImg(f.attr("src"));
-            const actor = getProperty(this, "actor");
+            const actor = getProperty(token, "actor");
             let value = (f[0].hasAttribute("data-value")) ? Number(f.attr("data-value")) : 0;
 
             if (value>0) {
                 value--;
                 f.next(".pf2e-effect-value").text(value);
                 f.attr("data-value", value);
-                this.statusEffectChanged = true;
+                token.statusEffectChanged = true;
             } 
             if (f.hasClass("active") && value==0) {
-                this.toggleEffect(f.attr("src"));
+                token.toggleEffect(f.attr("src"));
                 f.toggleClass("active");
                 f.next(".pf2e-effect-value").remove();
                 f.unwrap(".pf2e-effect-img-container");
-                this.statusEffectChanged = true;
+                token.statusEffectChanged = true;
             }
             PF2eStatusEffects._updateActorStatus(actor, status, value);
         }
@@ -529,7 +539,7 @@ class PF2eStatusEffects {
             </div>
         `;
 
-        const chatData = {
+        const chatData: any = {
             user: game.user._id,
             speaker: { alias: token.name+`'s status effects:` },
             content: message,

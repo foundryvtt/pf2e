@@ -1,7 +1,10 @@
 import Armor from './armor';
 
 class CharacterData {
-  constructor(data, items) {
+  data: any;
+  _items: any;
+  
+  constructor(data, items?) {
     this.data = data;
     this._items = items;
   }

@@ -5,8 +5,10 @@ import Spell from './spell';
 import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
+import { DicePF2e } from '../../scripts/dice'
+import PF2EActor from '../actor/actor';
 
-export default class extends Item {
+export default class PF2EItem extends Item {
 
   prepareData() {
     super.prepareData();
@@ -48,7 +50,7 @@ export default class extends Item {
     };
 
     // Basic chat message data
-    const chatData = {
+    const chatData : any = {
       user: game.user._id,
       speaker: {
         actor: this.actor._id,
@@ -74,7 +76,7 @@ export default class extends Item {
   /*  Chat Card Data
   /* -------------------------------------------- */
 
-  getChatData(htmlOptions) {
+  getChatData(htmlOptions?) {
     const itemType = this.data.type;
     const data = this[`_${itemType}ChatData`]();
     if (data) {
@@ -420,12 +422,9 @@ export default class extends Item {
    * Roll a Weapon Attack
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollWeaponAttack(event, multiAttackPenalty) {
+  rollWeaponAttack(event, multiAttackPenalty?) {
     if (this.type === 'action') {
-      const itemId = parseInt(this.data.data.weapon.value);
-      const item = this.actor.getOwnedItem(itemId);
-      item.rollWeaponAttack(event, multiAttackPenalty);
-      return;
+      throw 'Wrong item type!';
     }
     if (this.type !== 'weapon' && this.type !== 'melee') throw 'Wrong item type!';
 
@@ -461,7 +460,7 @@ export default class extends Item {
     DicePF2e.d20Roll({
       event,
       parts,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -483,12 +482,6 @@ export default class extends Item {
     const localize = game.i18n.localize.bind(game.i18n);
 
     // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-    if (this.type === 'action') {
-      const itemId = parseInt(this.data.data.weapon.value);
-      const item = this.actor.getOwnedItem(itemId);
-      item.rollWeaponDamage(event);
-      return;
-    }
     if (this.type !== 'weapon') throw 'Wrong item type!';
 
 
@@ -601,7 +594,7 @@ export default class extends Item {
       parts,
       partsCritOnly,
       critical,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -619,7 +612,7 @@ export default class extends Item {
    * Roll a NPC Attack
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollNPCAttack(event, multiAttackPenalty) {
+  rollNPCAttack(event, multiAttackPenalty?) {
     if (this.type !== 'melee') throw 'Wrong item type!';
 
     // Prepare roll data
@@ -640,7 +633,7 @@ export default class extends Item {
     DicePF2e.d20Roll({
       event,
       parts,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -701,7 +694,7 @@ export default class extends Item {
       event,
       parts,
       critical,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -784,7 +777,7 @@ export default class extends Item {
       event,
       parts,
       data: rollData,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
@@ -875,7 +868,7 @@ export default class extends Item {
       event,
       parts,
       data: rollData,
-      actor: this.actor,
+      actor: this.actor as PF2EActor,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
@@ -925,7 +918,7 @@ export default class extends Item {
       // let itemData = actor.items.find(i => i.id === itemId);
       const itemData = (actor.getOwnedItem(itemId) || {}).data;
       if (!itemData) return;
-      const item = new CONFIG.Item.entityClass(itemData, { actor });
+      const item: PF2EItem = new CONFIG.Item.entityClass(itemData, { actor }) as PF2EItem;
 
       // Get the Action
       const action = button.attr('data-action');

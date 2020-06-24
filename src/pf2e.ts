@@ -6,7 +6,7 @@ import registerHandlebarsHelpers from './module/handlebars';
 import ItemPF2e from './module/item/item';
 import ActorPF2e from './module/actor/actor';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
-import { PF2e } from './module/pf2e-system';
+import { PF2eSystem } from './module/pf2e-system';
 import registerActors from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker';
@@ -46,6 +46,7 @@ Hooks.once('init', () => {
   registerActors();
   registerSheets();
   registerHandlebarsHelpers();
+  //@ts-ignore
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 });
 
@@ -63,7 +64,7 @@ Hooks.once('ready', () => {
  */
 Hooks.once('setup', () => {
 
-  window.PF2e = new PF2e;
+  (window as any).PF2e = new PF2eSystem();
 
   // Localize CONFIG objects once up-front
   const toLocalize = [
@@ -83,7 +84,7 @@ Hooks.once('setup', () => {
     'speedTypes', 'senses', 'preciousMaterials'
   ];
   for (const o of toLocalize) {
-    CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e) => {
+    CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {
       obj[e[0]] = game.i18n.localize(e[1]);
       return obj;
     }, {});

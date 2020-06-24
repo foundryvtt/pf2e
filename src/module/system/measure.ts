@@ -1,4 +1,5 @@
 // Code taken from Furyspark's Pathfinder 1st edition system with permission.
+//@ts-nocheck
 
 const degtorad = function(degrees) {
     return degrees * Math.PI / 180;

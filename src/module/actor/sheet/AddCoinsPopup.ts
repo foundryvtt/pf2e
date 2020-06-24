@@ -15,7 +15,7 @@ export class AddCoinsPopup extends FormApplication {
         super.activateListeners(html);
     }
 
-    _updateObject(event, formData) {
+    async _updateObject(event: Event, formData: any) {
         const actor = this.object;
         addCoins({
             coins: {

@@ -19,6 +19,7 @@ import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
+import { DicePF2e } from '../../scripts/dice'
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -54,7 +55,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
   Object.values(SKILL_DICTIONARY)
 ));
 
-export default class extends Actor {
+export default class PF2EActor extends Actor {
 
   /**
    * Augment the basic actor data with additional dynamic data.
@@ -69,12 +70,12 @@ export default class extends Actor {
 
     // Ability modifiers
     if (actorData.type === 'npc') {
-      for (const abl of Object.values(data.abilities)) {
+      for (const abl of Object.values(data.abilities as Record<any, any>)) {
         if (!abl.mod) abl.mod = 0;
         abl.value = abl.mod * 2 + 10;
       }
     } else if (actorData.type == 'character') {
-      for (const abl of Object.values(data.abilities)) {
+      for (const abl of Object.values(data.abilities as Record<any, any>)) {
         abl.mod = Math.floor((abl.value - 10) / 2);
       }
     }
@@ -171,7 +172,7 @@ export default class extends Actor {
 
     // Saves
     const worn = this.getFirstWornArmor();
-    for (const [saveName, save] of Object.entries(data.saves)) {
+    for (const [saveName, save] of Object.entries(data.saves as Record<any, any>)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
@@ -212,7 +213,7 @@ export default class extends Actor {
     }
 
     // Martial
-    for (const skl of Object.values(data.martial)) {
+    for (const skl of Object.values(data.martial as Record<any, any>)) {
       const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0).modifier;
       skl.value = proficiency;
       skl.breakdown = `proficiency(${proficiency})`;
@@ -324,7 +325,7 @@ export default class extends Actor {
 
     const hasUntrainedImprovisation = feats.has('Untrained Improvisation')
 
-    for (const [skillName, skill] of Object.entries(data.skills)) {
+    for (const [skillName, skill] of Object.entries(data.skills as Record<any, any>)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
@@ -447,7 +448,7 @@ export default class extends Actor {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
-        const action = new PF2StatisticModifier(item.name, modifiers);
+        const action : any = new PF2StatisticModifier(item.name, modifiers);
         action.imageUrl = item.img;
         action.glyph = 'A';
         action.type = 'strike';
@@ -456,7 +457,7 @@ export default class extends Actor {
         action.criticalSuccess = flavor.criticalSuccess;
         action.success = flavor.success;
         action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack') }].concat(
-          this.constructor.traits(item?.data?.traits?.value).map((trait) => {
+          PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
             const key = CONFIG.weaponTraits[trait] ?? trait;
             return { name: trait, label: game.i18n.localize(key) };
           })
@@ -590,10 +591,10 @@ export default class extends Actor {
       criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
       success: 'PF2E.Strike.Default.Success',
     };
-    if (this.constructor.traits(item?.data?.traits?.value).includes('unarmed')) {
+    if (PF2EActor.traits(item?.data?.traits?.value).includes('unarmed')) {
       flavor.description = 'PF2E.Strike.Unarmed.Description';
       flavor.success = 'PF2E.Strike.Unarmed.Success';
-    } else if (this.constructor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
+    } else if (PF2EActor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
       flavor.description = 'PF2E.Strike.Combined.Description';
       flavor.success = 'PF2E.Strike.Combined.Success';
     } else if (item?.data?.range?.value === 'melee') {
@@ -648,9 +649,9 @@ export default class extends Actor {
     const dc = recoveryDc + dying;
     let result = '';
 
-    if (flatCheck.result == 20 || flatCheck.result >= (dc+10)) {
+    if (flatCheck.total == 20 || flatCheck.total >= (dc+10)) {
       result = `${game.i18n.localize("PF2E.CritSuccess")  } ${  game.i18n.localize("PF2E.Recovery.critSuccess")}`;
-    } else if (flatCheck.result == 1 || flatCheck.result <= (dc-10)) {
+    } else if (flatCheck.total == 1 || flatCheck.total <= (dc-10)) {
       result = `${game.i18n.localize("PF2E.CritFailure")  } ${  game.i18n.localize("PF2E.Recovery.critFailure")}`;
     } else if (flatCheck.result >= dc) {
       result = `${game.i18n.localize("PF2E.Success")  } ${  game.i18n.localize("PF2E.Recovery.success")}`;
@@ -922,10 +923,10 @@ export default class extends Actor {
    * @param collection {String}     The name of the pack from which to import
    * @param entryId {String}        The ID of the compendium entry to import
    */
-  async importItemFromCollection(collection, entryId, location) {
+  async importItemFromCollectionWithLocation(collection, entryId, location?) {
     // if location parameter missing, then use the super method
     if (location == null) {
-      console.log(`PF2e System | importItemFromCollection | Location not defined for ${entryId} - using super imprt method instead`);
+      console.log(`PF2e System | importItemFromCollectionWithLocation | Location not defined for ${entryId} - using super imprt method instead`);
       super.importItemFromCollection(collection, entryId);
       return;
     }
@@ -933,7 +934,7 @@ export default class extends Actor {
     const pack = game.packs.find(p => p.collection === collection);
     if (pack.metadata.entity !== "Item") return;
     return await pack.getEntity(entryId).then(async ent => {
-      console.log(`PF2e System | importItemFromCollection | Importing using createOwnedItem for ${ent.name} from ${collection}`);
+      console.log(`PF2e System | importItemFromCollectionWithLocation | Importing using createOwnedItem for ${ent.name} from ${collection}`);
       if (ent.type === 'spell') {
 
         // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
@@ -1044,7 +1045,7 @@ export default class extends Actor {
    * @param {PF2ModifierPredicate} predicate
    * @param {string} damageType
    */
-  async addCustomModifier(stat, name, value, type, predicate, damageType) {
+  async addCustomModifier(stat, name, value, type, predicate?, damageType?) {
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
       const modifier = new PF2Modifier(name, value, type);

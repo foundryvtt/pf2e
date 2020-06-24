@@ -1,4 +1,6 @@
 class SpellcastingEntry {
+  data: any;
+
   constructor(data) {
     this.data = data;
   }

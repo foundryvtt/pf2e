@@ -64,7 +64,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // const spellbook = {};
     const tempSpellbook = [];
     const spellcastingEntriesList = [];
-    const spellbooks = [];
+    const spellbooks : any = [];
     spellbooks.unassigned = {};
 
     // Spellcasting Entries
@@ -132,7 +132,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
       // Actions
       else if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg = 0;
+        let actionImg: number|string = 0;
         // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
         if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
@@ -168,7 +168,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
 
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
-          let actionImg = 0;
+          let actionImg: number|string = 0;
           if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
           else if (actionType === 'reaction') actionImg = 'reaction';
           else if (actionType === 'free') actionImg = 'free';
