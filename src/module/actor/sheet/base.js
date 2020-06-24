@@ -787,13 +787,15 @@ class ActorSheetPF2e extends ActorSheet {
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-      this.actor.data.data.actions[Number(actionIndex)]?.roll(event);
+      const opts = this.actor.getRollOptions('attack-roll');
+      this.actor.data.data.actions[Number(actionIndex)]?.roll(event, opts);
     });
 
     html.find('[data-variant-index].variant-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
-      this.actor.data.data.actions[Number(actionIndex)]?.variants[Number(variantIndex)]?.roll(event);
+      const opts = this.actor.getRollOptions('attack-roll');
+      this.actor.data.data.actions[Number(actionIndex)]?.variants[Number(variantIndex)]?.roll(event, opts);
     });
 
     // Item Rolling
