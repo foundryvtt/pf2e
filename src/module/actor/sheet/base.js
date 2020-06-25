@@ -1286,7 +1286,7 @@ class ActorSheetPF2e extends ActorSheet {
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
-            this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
+          this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
         }
         // Case 3 - Import from World entity
         else {
@@ -1294,10 +1294,16 @@ class ActorSheetPF2e extends ActorSheet {
           let item = game.items.get(data.id);
           if (!item) return;
           // Replace original item with unidentified version
-          const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
-          if (unidentifiedItemId)
-            item = game.items.get(unidentifiedItemId);
-          if (!item) return;
+          const createUnidentifiedForNpcs = item.data.data.identification?.createUnidentifiedForNpcs;
+          if (actor.isPC || (!actor.isPC && createUnidentifiedForNpcs)) {
+            const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+            if (unidentifiedItemId) {
+              item = game.items.get(unidentifiedItemId);
+              if (createUnidentifiedForNpcs)
+                await item.update({['data.identification.createUnidentifiedForNpcs']: createUnidentifiedForNpcs ?? false});
+            }
+            if (!item) return;
+          }
           return this.stashOrUnstash(event, actor, () => {
               return actor.createOwnedItem(duplicate(item.data));
           });
@@ -1315,6 +1321,11 @@ class ActorSheetPF2e extends ActorSheet {
       const sourceActor = game.actors.get(sourceActorId);
       const targetActor = game.actors.get(targetActorId);
       const item = sourceActor.getOwnedItem(itemId);
+
+      if (!item) {
+        ui.notifications.error("Moving items which were created on an unlinked token is not supported!");
+        return;
+      }
 
       let isSameActor = sourceActorId === targetActorId;
 
@@ -1342,8 +1353,23 @@ class ActorSheetPF2e extends ActorSheet {
     }
 
     async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
+      const sourceItemId = item._id;
       const sourceItemQuantity = Number(item.data.data.quantity.value);
       
+      // Replace original item with unidentified version if the target is a player
+      // and replace unidentified version with identified version if the targe is an npc
+      if (targetActor.isPC || (!targetActor.isPC && item.data.data.identification?.createUnidentifiedForNpcs)) {
+        const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+        if (unidentifiedItemId) {
+          item = game.items.get(unidentifiedItemId);
+        }
+      } else {
+        const identifiedItemId = item.data.data.identification?.identifiedItemId;
+        if (identifiedItemId) {
+          item = game.items.get(identifiedItemId);
+        }
+      }
+
       if (quantity > sourceItemQuantity) {
         quantity = sourceItemQuantity;
       }
@@ -1352,9 +1378,9 @@ class ActorSheetPF2e extends ActorSheet {
       const hasToRemoveFromSource = newItemQuantity < 1;
 
       if (hasToRemoveFromSource) {
-        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+        await sourceActor.deleteEmbeddedEntity('OwnedItem', sourceItemId);
       } else {
-        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+        const update = { '_id': sourceItemId, 'data.quantity.value': newItemQuantity };
         await sourceActor.updateEmbeddedEntity('OwnedItem', update);
       }
 

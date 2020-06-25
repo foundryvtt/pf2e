@@ -53,6 +53,7 @@ export class ItemSheetPF2e extends ItemSheet {
 
     data.isGM = game.user.isGM;
     data.isOwned = this.item.isOwned;
+    data.isPlayerCharacter = this.actor?.isPC;
 
     if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
       data.hasIdentification = true;
