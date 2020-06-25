@@ -146,24 +146,24 @@ function buildSASS() {
    */
 async function copyFiles(cb) {
   const statics = [
-    'lang',
-    'fonts',
     'assets',
+    'fonts',
+    'lang',
+    'icons',
+    'packs',
     'templates',
     'LICENSE',
     'README.md',
-    'module.json',
-    'system.json',
     'template.json',
   ];
   try {
     for (const file of statics) {
-      if (fs.existsSync(path.join('src', file))) {
-        await fs.copy(path.join('src', file), path.join('dist', file));
+      if (fs.existsSync(path.join('static', file))) {
+        await fs.copy(path.join('static', file), path.join('dist', file));
       }
-    }
-    if (fs.existsSync(path.join('system.json'))) {
-      await fs.copy(path.join('system.json'), path.join('dist', 'system.json'));
+      if (fs.existsSync(path.join('system.json'))) {
+        await fs.copy(path.join('system.json'), path.join('dist', 'system.json'));
+      }      
     }
     return cb();
   } catch (err) {
@@ -179,7 +179,7 @@ function buildWatch() {
   gulp.watch('src/**/*.js', { ignoreInitial: false }, buildJS);
   gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
   gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
-  gulp.watch(['src/fonts', 'src/templates', 'src/*.json', 'src/lang/*.json', 'system.json'], { ignoreInitial: false }, copyFiles);
+  gulp.watch(['static/assets', 'static/fonts', 'static/templates', 'static/*.json', 'static/lang/*.json', 'static/packs', 'static/system.json'], { ignoreInitial: false }, copyFiles);
   gulp.watch('dist/**/*', copyToUserData);
 }
 
@@ -249,11 +249,7 @@ async function copyToUserData(cb) {
 
   let destDir;
   try {
-    if (fs.existsSync(path.resolve('.', 'dist', 'module.json'))
-        || fs.existsSync(path.resolve('.', 'src', 'module.json'))) {
-      destDir = 'modules';
-    } else if (fs.existsSync(path.resolve('.', 'dist', 'system.json'))
-               || fs.existsSync(path.resolve('.', 'src', 'system.json'))) {
+    if (fs.existsSync(path.resolve('.', 'system.json'))) {
       destDir = 'systems';
     } else {
       throw Error(`Could not find ${chalk.blueBright('module.json')} or ${chalk.blueBright('system.json')}`);
