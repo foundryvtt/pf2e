@@ -326,7 +326,7 @@ export class ItemSheetPF2e extends ItemSheet {
         }
       })
       const newItem = await Item.create(copy);
-      // Force item name update to rerender Item Directory sidebar
+      // Force item name update to rerender ItemDirectory sidebar
       await item.update({
         name: item.name,
         data: {
@@ -344,7 +344,7 @@ export class ItemSheetPF2e extends ItemSheet {
       unidentifiedItem.sheet.render(true);
   }
 
-_deleteUnidentifiedVersion() {
+  _deleteUnidentifiedVersion() {
       new Dialog({
         title: game.i18n.localize('PF2E.DeleteItemTitle'),
         content: `<p>${game.i18n.localize('PF2E.ItemUnidentifiedDeleteQuestion')}</p>`,
