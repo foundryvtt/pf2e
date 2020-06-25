@@ -1383,10 +1383,13 @@ class ActorSheetPF2e extends ActorSheet {
 
     async stashOrUnstash(event, actor, getItem) {
         const container = $(event.target).parents('[data-item-is-container="true"]');
+        const ownedItem = await getItem();
+        const item = actor.getOwnedItem(ownedItem._id || ownedItem.id);
+
+        if (!item) return;
+
         if (container[0] !== undefined) {
             const droppedItemId = container.attr('data-item-id')?.trim();
-            const ownedItem = await getItem();
-            const item = actor.getOwnedItem(ownedItem._id);
             if (item.type !== 'spell' && !isCycle(item._id, droppedItemId, this.actor.data.items)) {
                 return item.update({
                     'data.containerId.value': droppedItemId,
@@ -1395,8 +1398,7 @@ class ActorSheetPF2e extends ActorSheet {
             }
             return item;
         }
-        const ownedItem = await getItem();
-        const item = actor.getOwnedItem(ownedItem._id);
+
         const result = await item.update({'data.containerId.value': ''});
         return result;
     }
