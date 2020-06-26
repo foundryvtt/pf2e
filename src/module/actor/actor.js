@@ -172,7 +172,7 @@ export default class extends Actor {
       updated.value = updated.totalModifier;
       updated.roll = (event) => {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { type: 'saving-throw' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw' }, event);
       };
       data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
     }
@@ -212,7 +212,7 @@ export default class extends Actor {
       data.attributes.perception.value = data.attributes.perception.totalModifier;
       data.attributes.perception.roll = (event) => {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
-        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { type: 'perception-check' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check' }, event);
       };
       /* eslint-enable */
     }
@@ -331,7 +331,7 @@ export default class extends Actor {
       updated.value = updated.totalModifier;
       updated.roll = (event) => {
         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { type: 'skill-check' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check' }, event);
       };
       data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
     }
@@ -428,21 +428,21 @@ export default class extends Actor {
           .join(', ');
         // amend strike with a roll property
         action.attack = (event) => {
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { type: 'attack-roll' }, event);
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll' }, event);
         };
         action.roll = action.attack;
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { type: 'attack-roll' }, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll' }, event)
           },
           {
             label: `MAP ${item.data.map2}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll' }, event)
           },
           {
             label: `MAP ${item.data.map3}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { type: 'attack-roll' }, event)
+            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll' }, event)
           },
         ];
         const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0);
@@ -451,14 +451,14 @@ export default class extends Actor {
           if (options.length > 0) {
             dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
           }
-          PF2DamageRoll.roll(dmg, { type: 'damage-roll', outcome: 'success', options }, event);
+          PF2DamageRoll.roll(dmg, { actor: this, type: 'damage-roll', outcome: 'success', options }, event);
         };
         action.critical = (event, options = []) => {
           let dmg = damage;
           if (options.length > 0) {
             dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
           }
-          PF2DamageRoll.roll(dmg, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          PF2DamageRoll.roll(dmg, { actor: this, type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };
         data.actions.push(action);
       });
@@ -500,7 +500,7 @@ export default class extends Actor {
         data.attributes.initiative.ability = initSkill;
         data.attributes.initiative.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         data.attributes.initiative.roll = (event) => {
-            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { type: 'initiative' }, event, (roll) => {
+            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative' }, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };
