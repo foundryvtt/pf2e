@@ -2002,11 +2002,44 @@
 /* ----------------------------------------- */
 /* Trait Selector
 /* ----------------------------------------- */
+#trait-selector .window {
+  overflow-y: hidden;
+}
+
 #trait-selector .trait-list {
+  flex: 1;
   list-style: none;
   margin: 0 0 0.5em;
   padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
+
+#trait-selector .trait-header {
+  flex: 0 0 32px;
+  line-height: 32px;
+  text-align: center;
+  margin: 0;
+}
+
+#trait-selector .trait-header .header-search {
+  flex: 1;
+}
+
+#trait-selector .trait-header .header-search input {
+  background: rgba(255, 255, 245, 0.8);
+  width: calc(100% - 26px);
+  margin: 0 2px;
+}
+
+#trait-selector .trait-footer {
+  flex: 0 0 32px;
+  line-height: 32px;
+  margin: 0;
+  margin-bottom: 5px;
+  border-top: 1px solid grey;
+}
+
 /* ----------------------------------------- */
 /* Special Traits and Flags
 /* ----------------------------------------- */
