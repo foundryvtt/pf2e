@@ -1009,11 +1009,16 @@ export default class extends Actor {
    * @param {string} name
    * @param {number} value
    * @param {string} type
+   * @param {object} options
+   * @param {string} damageType
    */
-  async addCustomModifier(stat, name, value, type) {
+  async addCustomModifier(stat, name, value, type, options, damageType) {
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
       const modifier = new PF2Modifier(name, value, type);
+      if (damageType) {
+        modifier.damageType = damageType;
+      }
       modifier.custom = true;
       customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
       await this.update({'data.customModifiers': customModifiers});

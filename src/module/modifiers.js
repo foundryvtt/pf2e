@@ -371,7 +371,7 @@ export class PF2DamageDice {
     this.damageType = param?.damageType;
     this.traits = param?.traits ?? [];
     this.override = param?.override; // maybe restrict this object somewhat?
-    this.options = param?.options ?? [];
+    this.options = param?.options ?? {};
     if (!(this.options instanceof PF2DamageOptions)) {
       this.options =  new PF2DamageOptions(this.options);
     }
