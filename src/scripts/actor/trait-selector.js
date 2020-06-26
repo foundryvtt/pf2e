@@ -3,13 +3,28 @@
  * @type {FormApplication}
  */
 class TraitSelector5e extends FormApplication {
+  constructor(object, options) {
+    super(object, options);
+
+    //Internal flags
+    this.searchString = null;
+
+    /**
+     * A filtering timeout function reference used to rate limit string filtering operations
+     * @type {number|null}
+     */
+    this._filterTimeout = null;
+  }
+
   static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  options.id = 'trait-selector';
 	  options.classes = ['pf2e'];
 	  options.title = 'Actor Trait Selection';
 	  options.template = 'systems/pf2e/templates/actors/trait-selector.html';
-	  options.width = "auto";
+    options.width = "auto";
+    options.height = 700;
+    options.scrollY = [".trait-list"];
 	  return options;
   }
 
@@ -79,12 +94,32 @@ class TraitSelector5e extends FormApplication {
 	    ordered_choices,
 	    has_values,
 	    has_exceptions,
+	    searchString: this.searchString,
       custom: attr.custom,
     };
   }
 
+  /**
+   * Filter the potential traits to only show ones which match a provided search string
+   * @param {string} searchString    The search string to match
+   */
+  search(searchString) {
+    const query = new RegExp(RegExp.escape(searchString), "i");
+    this.element.find('li.trait-item').each((i, li) => {
+      let name = li.getElementsByClassName('trait-label')[0].textContent;
+      li.style.display = query.test(name) ? "flex" : "none";
+    });
+    this.searchString = searchString;
+  }
+
   activateListeners(html) {
       super.activateListeners(html);
+
+      //Search filtering
+      html.find('input[name="search"]').keyup(this._onFilterResults.bind(this));
+      if (this.searchString) {
+        this.search(this.searchString);
+      }
 
       if (this.options.has_values) {
         html.find('input[id^=input_value]').focusin( (ev) => {
@@ -112,6 +147,21 @@ class TraitSelector5e extends FormApplication {
               html.find(`input[type=checkbox][name="${input_exception.name}"]`).prop('checked', false);
           });
       }
+  }
+
+   /**
+   * Handle trait filtering through search field
+   * Toggle the visibility of indexed trait entries by name match
+   * @private
+   */
+  _onFilterResults(event) {
+    event.preventDefault();
+    let input = event.currentTarget;
+    if ( this._filterTimeout ) {
+      clearTimeout(this._filterTimeout);
+      this._filterTimeout = null;
+    }
+    this._filterTimeout = setTimeout(() => this.search(input.value), 100);
   }
 
   /* -------------------------------------------- */
@@ -152,7 +202,7 @@ class TraitSelector5e extends FormApplication {
       this.object.update({ [`${this.attribute}`]: choices });
     } else {
 	    for (const [k, v] of Object.entries(formData)) {
-        if (v) choices.push(k);
+        if (k !== "search" && v) choices.push(k);
 	    }
 	    this.object.update({
 	      [`${this.attribute}.value`]: choices,
