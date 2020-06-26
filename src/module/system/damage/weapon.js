@@ -1,4 +1,4 @@
-import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../../modifiers.js';
+import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2ModifierPredicate, PF2StatisticModifier } from '../../modifiers.js';
 
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
@@ -146,6 +146,7 @@ export class PF2WeaponDamage {
           if (m.damageType) {
             modifier.damageType = m.damageType;
           }
+          modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(traits.map(t => t.name).concat(options));
           numericModifiers.push(modifier);
         });
       });
@@ -184,7 +185,7 @@ export class PF2WeaponDamage {
       stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
         (damageDice[key] || []).map((d) => new PF2DamageDice(d)).forEach((d) => {
           // eslint-disable-next-line no-param-reassign
-          d.enabled = d.options.activate(traits.map(t => t.name).concat(options));
+          d.enabled = d.predicate.test(traits.map(t => t.name).concat(options));
           diceModifiers.push(d);
         });
       });
