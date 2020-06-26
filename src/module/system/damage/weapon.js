@@ -142,7 +142,11 @@ export class PF2WeaponDamage {
       stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
       stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
-          numericModifiers.push(new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type));
+          const modifier = new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type);
+          if (m.damageType) {
+            modifier.damageType = m.damageType;
+          }
+          numericModifiers.push(modifier);
         });
       });
     }
@@ -197,14 +201,12 @@ export class PF2WeaponDamage {
       } else if (d.dieSize) {
         d.name += ` ${d.dieSize}`;
       }
-      if (d.diceNumber > 0 || d.dieSize) {
-        if (d.damageType) {
-          d.name += ` ${d.damageType}`;
-        } else if (d.category) {
+      if (
+        d.category &&
+        (d.diceNumber > 0 || d.dieSize) &&
+        (!d.damageType || d.damageType === damage.base.damageType)
+      ) {
           d.name += ` ${d.category}`;
-        } else {
-          d.name += ` ${damage.base.damageType}`;
-        }
       }
       /* eslint-enable no-param-reassign */
     });
@@ -282,18 +284,26 @@ export class PF2WeaponDamage {
           // skip
         }
       });
-      new PF2StatisticModifier('damage-stacking-rules', modifiers).modifiers
-        .filter(nm => nm.enabled)
-        .filter(nm => !nm.critical || critical)
-        .forEach(nm => {
-          let pool = dicePool[nm.damageType ?? base.damageType];
-          if (!pool) {
-            pool = {}
-            dicePool[nm.damageType ?? base.damageType] = pool;
-          }
-          pool.modifier += nm.modifier;
-          (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => { damage.traits.push(t) });
-        });
+      Object.entries(modifiers.reduce((accumulator, current) => {
+        // split numeric modifiers into separate lists for each damage type
+        const dmg = current.damageType ?? base.damageType;
+        accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
+        return accumulator;
+      }, {})).map(([damageType, damageTypeModifiers]) => {
+        // apply stacking rules for numeric modifiers of each damage type separately 
+        return new PF2StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
+      }).flatMap(nm => nm)
+      .filter(nm => nm.enabled)
+      .filter(nm => !nm.critical || critical)
+      .forEach(nm => {
+        let pool = dicePool[nm.damageType ?? base.damageType];
+        if (!pool) {
+          pool = {}
+          dicePool[nm.damageType ?? base.damageType] = pool;
+        }
+        pool.modifier = (pool.modifier ?? 0) + nm.modifier;
+        (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => { damage.traits.push(t) });
+      });
     }
 
     // build formula
