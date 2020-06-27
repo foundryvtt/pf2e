@@ -325,29 +325,29 @@ export class PF2CheckModifier extends PF2StatisticModifier {
 }
 
 /**
- * Encapsulates logic to determine if a specific damage dice modifier should be active or not for a
- * specific damage roll based on a list of string options. This will often be based on traits, but
- * that is not a requirement - sneak attack could be an option that is not a trait.
+ * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
+ * on a list of string values. This will often be based on traits, but that is not required - sneak
+ * attack could be an option that is not a trait.
  */
-export class PF2DamageOptions {
+export class PF2ModifierPredicate {
   constructor(param) {
     this.all = param?.all ?? [];
     this.any = param?.any ?? [];
     this.not = param?.not ?? [];
   }
 
-  activate(options) {
-    let activate = true;
+  test(options) {
+    let active = true;
     if (this.all.length > 0) {
-      activate = activate && this.all.every(i => options.includes(i));
+      active = active && this.all.every(i => options.includes(i));
     }
     if (this.any.length > 0) {
-      activate = activate && this.any.some(i => options.includes(i));
+      active = active && this.any.some(i => options.includes(i));
     }
     if (this.not.length > 0) {
-      activate = activate && !this.not.some(i => options.includes(i));
+      active = active && !this.not.some(i => options.includes(i));
     }
-    return activate;
+    return active;
   }
 }
 
@@ -371,11 +371,11 @@ export class PF2DamageDice {
     this.damageType = param?.damageType;
     this.traits = param?.traits ?? [];
     this.override = param?.override; // maybe restrict this object somewhat?
-    this.options = param?.options ?? {};
-    if (!(this.options instanceof PF2DamageOptions)) {
-      this.options =  new PF2DamageOptions(this.options);
+    this.predicate = param?.predicate ?? param?.options ?? {}; // options is the old name for this field
+    if (!(this.predicate instanceof PF2ModifierPredicate)) {
+      this.predicate =  new PF2ModifierPredicate(this.predicate);
     }
-    this.ignored = this.options.activate([]);
+    this.ignored = this.predicate.test([]);
     this.enabled = this.ignored;
   }
 }

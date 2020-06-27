@@ -3,7 +3,7 @@ import {
   STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA,
   UNTRAINED, TRAINED, EXPERT, MASTER, LEGENDARY,
   AbilityModifier, ProficiencyModifier, PF2ModifierType, PF2Modifier, PF2StatisticModifier,
-  PF2DamageOptions
+  PF2ModifierPredicate
 } from 'module/modifiers.js';
 
 describe('#modifiers', () => {
@@ -182,49 +182,49 @@ describe('#modifiers', () => {
     expect(stat.modifiers.length).toBe(1);
   });
 
-  test('ensure damage options without criteria activates with empty options list', () => {
-    const options = new PF2DamageOptions({});
-    expect(options.activate([])).toBe(true);
+  test('ensure modifier predicate without criteria activates with empty options list', () => {
+    const predicate = new PF2ModifierPredicate({});
+    expect(predicate.test([])).toBe(true);
   });
 
-  test('ensure damage options with all criterium activates with single options list', () => {
-    const options = new PF2DamageOptions({ all: ['dummy1'] });
-    expect(options.activate(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
+  test('ensure modifier predicate with all criterium activates with single options list', () => {
+    const predicate = new PF2ModifierPredicate({ all: ['dummy1'] });
+    expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
-  test('ensure damage options with all criterium activates with multiple options list', () => {
-    const options = new PF2DamageOptions({ all: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
+  test('ensure modifier predicate with all criterium activates with multiple options list', () => {
+    const predicate = new PF2ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
-  test('ensure damage options with all criterium deactivates with non-matching options list', () => {
-    const options = new PF2DamageOptions({ all: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy1', 'dummy2', 'dummy3'])).toBe(false);
+  test('ensure modifier predicate with all criterium deactivates with non-matching options list', () => {
+    const predicate = new PF2ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy1', 'dummy2', 'dummy3'])).toBe(false);
   });
 
-  test('ensure damage options with any criterium activates with single options list', () => {
-    const options = new PF2DamageOptions({ any: ['dummy1'] });
-    expect(options.activate(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
+  test('ensure modifier predicate with any criterium activates with single options list', () => {
+    const predicate = new PF2ModifierPredicate({ any: ['dummy1'] });
+    expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
-  test('ensure damage options with any criterium activates with multiple options list', () => {
-    const options = new PF2DamageOptions({ any: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy1', 'dummy2', 'dummy3'])).toBe(true);
+  test('ensure modifier predicate with any criterium activates with multiple options list', () => {
+    const predicate = new PF2ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy1', 'dummy2', 'dummy3'])).toBe(true);
   });
 
-  test('ensure damage options with any criterium deactivates with non-matching options list', () => {
-    const options = new PF2DamageOptions({ any: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy3', 'dummy4', 'dummy5'])).toBe(false);
+  test('ensure modifier predicate with any criterium deactivates with non-matching options list', () => {
+    const predicate = new PF2ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy3', 'dummy4', 'dummy5'])).toBe(false);
   });
 
-  test('ensure damage options with not criterium activates with non-matching options list', () => {
-    const options = new PF2DamageOptions({ not: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy3', 'dummy4', 'dummy5'])).toBe(true);
+  test('ensure modifier predicate with not criterium activates with non-matching options list', () => {
+    const predicate = new PF2ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy3', 'dummy4', 'dummy5'])).toBe(true);
   });
 
-  test('ensure damage options with not criterium deactivates with overlapping options list', () => {
-    const options = new PF2DamageOptions({ not: ['dummy0', 'dummy1', 'dummy2'] });
-    expect(options.activate(['dummy2', 'dummy3', 'dummy4'])).toBe(false);
+  test('ensure modifier predicate with not criterium deactivates with overlapping options list', () => {
+    const predicate = new PF2ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
+    expect(predicate.test(['dummy2', 'dummy3', 'dummy4'])).toBe(false);
   });
 
 });
