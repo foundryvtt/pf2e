@@ -224,7 +224,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         // collect list of entries to use later to match spells against.
         spellcastingEntriesList.push(i._id);
 
-        const spellRank = (i.data.proficient?.value || 0);
+        const spellRank = (i.data.proficiency?.value || 0);
         const spellProficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, spellRank).modifier;
         const spellAbl = i.data.ability.value || 'int';
         const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
