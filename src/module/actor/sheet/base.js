@@ -4,6 +4,7 @@ import {isCycle} from "../../item/container.js";
 import { isKit, addKit } from '../../item/kits.js';
 import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../../packs/spell-browser.js";
 import { MoveLootPopup } from './loot/MoveLootPopup.js';
+import { SKILL_DICTIONARY } from '../actor.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -560,7 +561,8 @@ class ActorSheetPF2e extends ActorSheet {
       ev.preventDefault();
       const save = $(ev.currentTarget).parents('[data-save]')[0].getAttribute('data-save');
       if (this.actor.data.data.saves[save]?.roll) {
-        this.actor.data.data.saves[save].roll(ev);
+        const opts = this.actor.getRollOptions(['all', 'saving-throw', save]);
+        this.actor.data.data.saves[save].roll(ev, opts);
       } else {
         this.actor.rollSave(ev, save);
       }
@@ -576,7 +578,8 @@ class ActorSheetPF2e extends ActorSheet {
       ev.preventDefault();
       const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
       if (this.actor.data.data.attributes[attribute]?.roll) {
-        this.actor.data.data.attributes[attribute]?.roll(ev);
+        const opts = this.actor.getRollOptions(['all', attribute]);
+        this.actor.data.data.attributes[attribute]?.roll(ev, opts);
       } else {
         this.actor.rollAttribute(ev, attribute);
       }
@@ -593,7 +596,8 @@ class ActorSheetPF2e extends ActorSheet {
     html.find('.skill-name.rollable').click((ev) => {
       const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
       if (this.actor.data.data.skills[skl]?.roll) {
-        this.actor.data.data.skills[skl].roll(ev);
+        const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skl] ?? skl]);
+        this.actor.data.data.skills[skl].roll(ev, opts);
       } else {
         this.actor.rollSkill(ev, skl);
       }
@@ -787,14 +791,14 @@ class ActorSheetPF2e extends ActorSheet {
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-      const opts = this.actor.getRollOptions('attack-roll');
+      const opts = this.actor.getRollOptions(['all', 'attack-roll']);
       this.actor.data.data.actions[Number(actionIndex)]?.roll(event, opts);
     });
 
     html.find('[data-variant-index].variant-strike').click((event) => {
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
-      const opts = this.actor.getRollOptions('attack-roll');
+      const opts = this.actor.getRollOptions(['all', 'attack-roll']);
       this.actor.data.data.actions[Number(actionIndex)]?.variants[Number(variantIndex)]?.roll(event, opts);
     });
 
