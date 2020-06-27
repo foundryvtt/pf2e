@@ -135,19 +135,49 @@ export const AbilityModifier = Object.freeze({
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
   // eslint-disable-next-line no-unused-vars
-  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel0', 0, PF2ModifierType.PROFICIENCY),
+  atLevel: (level) => {
+    let modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifer');
+    return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
+  },
+  withoutLevel: () => {
+    return UNTRAINED.atLevel(0);
+  }
 });
 export const TRAINED = Object.freeze({
-  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel1', level + 2, PF2ModifierType.PROFICIENCY),
+  atLevel: (level) => {
+    let modifier = level + game.settings.get('pf2e', 'proficiencyTrainedModifer');
+    return new PF2Modifier('PF2E.ProficiencyLevel1', modifier, PF2ModifierType.PROFICIENCY);
+  },
+  withoutLevel: () => {
+    return TRAINED.atLevel(0);
+  }
 });
 export const EXPERT = Object.freeze({
-  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel2', level + 4, PF2ModifierType.PROFICIENCY),
+  atLevel: (level) => {
+    let modifier = level + game.settings.get('pf2e', 'proficiencyExpertModifer');
+    return new PF2Modifier('PF2E.ProficiencyLevel2', modifier, PF2ModifierType.PROFICIENCY);
+  },
+  withoutLevel: () => {
+    return EXPERT.atLevel(0);
+  }
 });
 export const MASTER = Object.freeze({
-  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel3', level + 6, PF2ModifierType.PROFICIENCY),
+  atLevel: (level) => {
+    let modifier = level + game.settings.get('pf2e', 'proficiencyMasterModifer');
+    return new PF2Modifier('PF2E.ProficiencyLevel3', modifier, PF2ModifierType.PROFICIENCY);
+  },
+  withoutLevel: () => {
+    return MASTER.atLevel(0);
+  }
 });
 export const LEGENDARY = Object.freeze({
-  atLevel: (level) => new PF2Modifier('PF2E.ProficiencyLevel4', level + 8, PF2ModifierType.PROFICIENCY),
+  atLevel: (level) => {
+    let modifier = level + game.settings.get('pf2e', 'proficiencyLegendaryModifer');
+    return new PF2Modifier('PF2E.ProficiencyLevel4', modifier, PF2ModifierType.PROFICIENCY);
+  },
+  withoutLevel: () => {
+    return LEGENDARY.atLevel(0);
+  }
 });
 export const ProficiencyModifier = Object.freeze({
   /**
@@ -156,13 +186,15 @@ export const ProficiencyModifier = Object.freeze({
    * @returns {PF2Modifier}
    */
   fromLevelAndRank: (level, rank) => {
+    const rule = game.settings.get('pf2e', 'proficiencyVariant');
+
     let modifier;
     switch (rank || 0) {
-      case 0: modifier = UNTRAINED.atLevel(level); break;
-      case 1: modifier = TRAINED.atLevel(level); break;
-      case 2: modifier = EXPERT.atLevel(level); break;
-      case 3: modifier = MASTER.atLevel(level); break;
-      case 4: modifier = LEGENDARY.atLevel(level); break;
+      case 0: modifier = (rule === 'ProficiencyWithoutLevel') ? UNTRAINED.withoutLevel() : UNTRAINED.atLevel(level); break;
+      case 1: modifier = (rule === 'ProficiencyWithoutLevel') ? TRAINED.withoutLevel() : TRAINED.atLevel(level); break;
+      case 2: modifier = (rule === 'ProficiencyWithoutLevel') ? EXPERT.withoutLevel() : EXPERT.atLevel(level); break;
+      case 3: modifier = (rule === 'ProficiencyWithoutLevel') ? MASTER.withoutLevel() : MASTER.atLevel(level); break;
+      case 4: modifier = (rule === 'ProficiencyWithoutLevel') ? LEGENDARY.withoutLevel() : LEGENDARY.atLevel(level); break;
       default: throw new RangeError(`invalid proficiency rank: ${rank}`);
     }
     return modifier;
