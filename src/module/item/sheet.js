@@ -53,7 +53,6 @@ export class ItemSheetPF2e extends ItemSheet {
 
     data.isGM = game.user.isGM;
     data.isOwned = this.item.isOwned;
-    data.isPlayerCharacter = this.actor?.isPC;
 
     if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
       data.hasIdentification = true;
@@ -64,11 +63,6 @@ export class ItemSheetPF2e extends ItemSheet {
 
       if (data.hasUnidentifiedItem || data.isUnidentifiedItem) {
         data.skills = CONFIG.PF2E.skillList;
-        if (data.isUnidentifiedItem) {
-          const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
-          if (identifiedItem)
-            data.identifiedItemName = identifiedItem.name;
-        }
       }
     }
 
@@ -317,26 +311,9 @@ export class ItemSheetPF2e extends ItemSheet {
   }
 
   async _createUnidentifiedVersion() {
-    const item = game.items.get(this.item._id);
-    if (item) {
-      const copy = duplicate(item);
-      mergeObject(copy.data, {
-        identification: {
-          isUnidentified: true,
-          identifiedItemId: this.item._id
-        }
-      })
-      const newItem = await Item.create(copy);
-      // Force item name update to rerender ItemDirectory sidebar
-      await item.update({
-        name: item.name,
-        data: {
-          identification: {
-            unidentifiedItemId: newItem._id
-          }
-        }
-      }, {diff: false});
-    }
+    const unidentifiedItem = await this.item.createUnidentifiedVersion();
+    if (unidentifiedItem)
+      unidentifiedItem.sheet.render(true);
   }
 
   _editUnidentifiedVersion() {
@@ -380,6 +357,22 @@ export class ItemSheetPF2e extends ItemSheet {
       case "deleteUnidentifiedVersion": this._deleteUnidentifiedVersion(); break;
     }
   }
+
+  /** @override */
+  get title() {
+    const isUnidentified = this.item.data.data.identification?.isUnidentified;
+    if (isUnidentified) {
+      const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
+      let itemName = this.item.name;
+      if (identifiedItem)
+        itemName = identifiedItem.name;
+
+      return `${itemName} (${game.i18n.localize('PF2E.ItemUnidentifiedVersionLabel')})`;
+    }
+
+    return super.title;
+  }
+
   /* -------------------------------------------- */
 
   /**

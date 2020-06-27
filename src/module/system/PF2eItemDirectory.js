@@ -12,11 +12,12 @@ export default class extends ItemDirectory {
 
     getData() {
         const itemData = super.getData();
+        const isGM = game.user.isGM;
 
         // Handle visibility of unidentified items
         itemData.tree.content = itemData.tree.content.reduce((result, item) => {
             const identificationData = item.data.data.identification;
-            if (game.user.isGM) {
+            if (isGM) {
                 // Filter unidentified items
                 if (!identificationData?.isUnidentified) {
                     result.push(item);

@@ -24,21 +24,21 @@
 
 {{#*inline "editUnidentifiedItemButtons"}}
 <ol class="form-list">
-    <p class="notes">{{localize 'PF2E.ItemUnidentifiedEditHint'}}</p>
     <button type="button" data-action="editUnidentifiedVersion"><i class="fas fa-edit"></i>{{localize 'PF2E.ItemUnidentifiedEditLabel'}}</button>
+    <p class="notes">{{localize 'PF2E.ItemUnidentifiedEditHint'}}</p>
 </ol>
 
 <ol class="form-list">
-    <p class="notes">NPCs get the identified version of an item by default. Check this setting to prevent that.</p>
     <div class="form-group">
         <label>{{localize 'PF2E.ItemUnidentifiedCreateNPCLabel'}}</label>
         <input type="checkbox" name="data.identification.createUnidentifiedForNpcs" value="1" data-dtype="{{data.identification.type}}" {{checked data.identification.createUnidentifiedForNpcs}}/>
     </div>
+    <p class="notes">{{localize 'PF2E.ItemUnidentifiedNPCHint'}}</p>
 </ol>
 
 <ol class="form-list">
-    <p class="notes">{{localize 'PF2E.ItemUnidentifiedDeleteHint'}}</p>
     <button type="button" data-action="deleteUnidentifiedVersion"><i class="fas fa-trash"></i>{{localize 'PF2E.ItemUnidentifiedDeleteLabel'}}</button>
+    <p class="notes">{{localize 'PF2E.ItemUnidentifiedDeleteHint'}}</p>
 </ol>
 {{/inline}}
 
@@ -47,14 +47,11 @@
         {{> editUnidentifiedItem}}
         <p class="notes">{{localize 'PF2E.ItemIdentificationOwnedEditHint'}}</p>
     {{else}}
-        {{#if isPlayerCharacter}}
-            <p class="notes">{{localize 'PF2E.ItemIdentificationOwnedHint'}}</p>
-        {{else}}
-            {{> editUnidentifiedItemButtons}}
-        {{/if}}
+        <p class="notes">{{localize 'PF2E.ItemIdentificationOwnedHint'}}</p>
     {{/if}}
 {{else}}
     {{#if hasUnidentifiedItem}}
+        <p class="notes">{{localize 'PF2E.ItemUnidentifiedAttachHint'}}</p>
         {{> editUnidentifiedItemButtons}}
     {{else}}
         {{#if isUnidentifiedItem}}

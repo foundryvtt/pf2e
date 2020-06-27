@@ -927,6 +927,33 @@ export default class extends Item {
     }
   }
 
+  async createUnidentifiedVersion() {
+    const unidentifiedItemId = this.data.data.identification?.unidentifiedItemId;
+    if (unidentifiedItemId) {
+      console.log(`PF2e System | Error: Item '${this.data._id}' already has an unidentified version with id '${unidentifiedItemId}!'`)
+      return;
+    }
+    const copy = duplicate(this.data);
+    mergeObject(copy.data, {
+      identification: {
+        isUnidentified: true,
+        identifiedItemId: this._id
+      }
+    })
+    const unidentifiedItem = await Item.create(copy);
+    // Force item name update to rerender ItemDirectory sidebar
+    await this.update({
+      name: this.name,
+      data: {
+        identification: {
+          unidentifiedItemId: unidentifiedItem._id
+        }
+      }
+    }, {diff: false});
+
+    return unidentifiedItem;
+  }
+
   /* -------------------------------------------- */
 
   static chatListeners(html) {
