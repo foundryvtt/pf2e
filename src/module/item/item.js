@@ -4,6 +4,7 @@
 import Spell from './spell.js';
 import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes.js';
 import { addSign } from '../utils.js';
+import { ProficiencyModifier } from '../modifiers.js';
 
 export default class extends Item {
 
@@ -166,7 +167,8 @@ export default class extends Item {
         let martialSkill = this.actor.getOwnedItem(prof);
         if (martialSkill.type) {
           proficiency.type = "skill";
-          proficiency.value = (martialSkill.data.data.proficient || {}).value ? ((martialSkill.data.data.proficient || {}).value * 2) + this.actor.data.data.details.level.value : 0;
+          const rank = martialSkill.data.data.proficient?.value || 0;
+          proficiency.value = ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, rank).modifier;
         }
       } catch (err) {
         console.log(`PF2E | Could not find martial skill for ${prof}`)
@@ -539,7 +541,7 @@ export default class extends Item {
     if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-    let damageDice = (itemData.damage.dice ?? 1);  
+    let damageDice = (itemData.damage.dice ?? 1);
     let weaponDamage = (damageDice + strikingDice) + rollDie;
     parts = [weaponDamage, '@itemBonus'];
     rollData.itemBonus = bonusDamage;

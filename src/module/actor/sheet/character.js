@@ -2,6 +2,7 @@ import ActorSheetPF2e from './base.js';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk.js';
 import { calculateEncumbrance } from '../../item/encumbrance.js';
 import { getContainerMap } from '../../item/container.js';
+import { ProficiencyModifier } from '../../modifiers.js';
 
 class ActorSheetPF2eCharacter extends ActorSheetPF2e {
   static get defaultOptions() {
@@ -160,13 +161,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const bulkItems = itemsFromActorData(actorData);
     const indexedBulkItems = indexBulkItemsById(bulkItems);
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
-    
+
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
       i.containerData = containers.get(i._id);
       i.isContainer = i.containerData.isContainer;
       i.isNotInContainer = i.containerData.isNotInContainer;
-            
+
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
@@ -175,7 +176,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       i.canBeEquipped = i.isNotInContainer;
       i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
@@ -223,7 +224,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         // collect list of entries to use later to match spells against.
         spellcastingEntriesList.push(i._id);
 
-        const spellProficiency = i.data.proficiency.value ? (i.data.proficiency.value * 2) + actorData.data.details.level.value : 0;
+        const spellRank = (i.data.proficient?.value || 0);
+        const spellProficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, spellRank).modifier;
         const spellAbl = i.data.ability.value || 'int';
         const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
         if (i.data.spelldc.value != spellAttack) {
@@ -305,7 +307,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
         i.data.hover = CONFIG.PF2E.proficiencyLevels[((i.data.proficient || {}).value)];
 
-        const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
+        const rank = (i.data.proficient?.value || 0);
+        const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank).modifier;
         const modifier = actorData.data.abilities.int.mod;
         const itemBonus = Number((i.data.item || {}).value || 0);
         i.data.itemBonus = itemBonus;
@@ -320,7 +323,8 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
         i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
         i.data.hover = CONFIG.PF2E.proficiencyLevels[((i.data.proficient || {}).value)];
 
-        const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + actorData.data.details.level.value : 0;
+        const rank = (i.data.proficient?.value || 0);
+        const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank).modifier;
         /* const itemBonus = Number((i.data.item || {}).value || 0);
         i.data.itemBonus = itemBonus; */
         i.data.value = proficiency// + itemBonus;
@@ -427,7 +431,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.spellcastingEntries = spellcastingEntries;
 
     // shield
-    const equippedShield = this.getEquippedShield(actorData.items);  
+    const equippedShield = this.getEquippedShield(actorData.items);
     if (equippedShield === undefined) {
         actorData.data.attributes.shield = {
             hp: {
@@ -478,7 +482,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       bulk
     );
   }
-  
+
   getEquippedShield(items) {
       return items
           .find(item => item.type === 'armor'

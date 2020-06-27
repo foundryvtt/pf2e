@@ -212,7 +212,7 @@ export default class extends Actor {
 
     // Martial
     for (const skl of Object.values(data.martial)) {
-      const proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
+      const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0).modifier;
       skl.value = proficiency;
       skl.breakdown = `proficiency(${proficiency})`;
     }
@@ -710,7 +710,8 @@ export default class extends Actor {
     const flavor = `${item.name} Skill Check`;
     const i = item.data;
 
-    const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + this.data.data.details.level.value : 0;
+    const rank = (i.data.proficient?.value || 0);
+    const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
     const modifier = this.data.data.abilities.int.mod;
     const itemBonus = Number((i.data.item || {}).value || 0);
     let rollMod = modifier + proficiency;
