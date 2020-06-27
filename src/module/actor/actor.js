@@ -9,6 +9,7 @@ import {
     PF2DamageDice,
     PF2Modifier,
     PF2ModifierType,
+    PF2ModifierPredicate,
     PF2StatisticModifier,
     ProficiencyModifier,
     WISDOM,
@@ -445,20 +446,13 @@ export default class extends Actor {
             roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll' }, event)
           },
         ];
-        const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0);
         action.damage = (event, options = []) => {
-          let dmg = damage;
-          if (options.length > 0) {
-            dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          }
-          PF2DamageRoll.roll(dmg, { actor: this, type: 'damage-roll', outcome: 'success', options }, event);
+          const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
         };
         action.critical = (event, options = []) => {
-          let dmg = damage;
-          if (options.length > 0) {
-            dmg = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          }
-          PF2DamageRoll.roll(dmg, { actor: this, type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };
         data.actions.push(action);
       });
@@ -1009,10 +1003,10 @@ export default class extends Actor {
    * @param {string} name
    * @param {number} value
    * @param {string} type
-   * @param {object} options
+   * @param {PF2ModifierPredicate} predicate
    * @param {string} damageType
    */
-  async addCustomModifier(stat, name, value, type, options, damageType) {
+  async addCustomModifier(stat, name, value, type, predicate, damageType) {
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
       const modifier = new PF2Modifier(name, value, type);
@@ -1020,6 +1014,14 @@ export default class extends Actor {
         modifier.damageType = damageType;
       }
       modifier.custom = true;
+
+      // modifier predicate
+      modifier.predicate = predicate ?? {};
+      if (!(modifier.predicate instanceof PF2ModifierPredicate)) {
+        modifier.predicate =  new PF2ModifierPredicate(modifier.predicate);
+      }
+      modifier.ignored = !modifier.predicate.test([]);
+
       customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
       await this.update({'data.customModifiers': customModifiers});
     }
