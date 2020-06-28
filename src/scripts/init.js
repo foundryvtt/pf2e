@@ -61,7 +61,7 @@ Hooks.on('hotbarDrop', (bar, data, slot) => {
  */
 async function createItemMacro(item, slot) {
   const command = `game.pf2e.rollItemMacro("${item._id}");`;
-  let macro = game.macros.entities.find((m) => (m.name === item.name) && (m.command === command));
+  let macro = game.macros.entities.find((m) => (m.name === item.name) && (m.data.command === command));
   if (!macro) {
     macro = await Macro.create({
       name: item.name,

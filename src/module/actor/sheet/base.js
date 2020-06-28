@@ -312,11 +312,6 @@ class ActorSheetPF2e extends ActorSheet {
             };
           }
         }
-        if (spl.prepared.length > spl.slots) {
-          for (let i = 0; i < spl.prepared.length - spl.slots; i++) {
-            i.pop();
-          }
-        }
       }
     }
   }
@@ -619,18 +614,6 @@ class ActorSheetPF2e extends ActorSheet {
     // Can be removed later as replaced with .click-stat-level, commented out for now
     // html.find('.proficiency-click').on('click contextmenu', this._onCycleSkillProficiency.bind(this));
 
-    // Prepare Spell Slot
-    html.find('.prepare-click').click((ev) => {
-      const itemId = 10;
-      const slotId = Number($(ev.currentTarget).parents('.item').attr('data-item-id'));
-      const spellLvl = Number($(ev.currentTarget).parents('.item').attr('data-spell-lvl'));
-      const entryId = $(ev.currentTarget).parents('.item').attr('data-entry-id');
-      // spell = this.actor.items.find(i => { return i.id === itemId });
-      const spell = this.actor.getOwnedItem(itemId).data;
-
-      this.actor.allocatePreparedSpellSlot(spellLvl, slotId, spell, entryId);
-    });
-
     // Remove Spell Slot
     html.find('.item-unprepare').click((ev) => {
       const slotId = Number($(ev.currentTarget).parents('.item').attr('data-slot-id'));
@@ -829,10 +812,8 @@ class ActorSheetPF2e extends ActorSheet {
         case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
-        case 'featAttack': item.rollFeatAttack(ev); break;
         case 'featDamage': item.rollFeatDamage(ev); break;
         case 'consume': item.rollConsumable(ev); break;
-        case 'toolCheck': item.rollToolCheck(ev); break;
       }
     });
 
@@ -1548,10 +1529,8 @@ class ActorSheetPF2e extends ActorSheet {
           case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
           case 'spellAttack': item.rollSpellAttack(ev); break;
           case 'spellDamage': item.rollSpellDamage(ev); break;
-          case 'featAttack': item.rollFeatAttack(ev); break;
           case 'featDamage': item.rollFeatDamage(ev); break;
           case 'consume': item.rollConsumable(ev); break;
-          case 'toolCheck': item.rollToolCheck(ev); break;
         }
       });
 

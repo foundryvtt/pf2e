@@ -8,12 +8,6 @@
         {{{data.description.value}}}
     </div>
 
-    <div class="card-buttons">
-        {{#if data.isSave}}<span>{{localize "PF2E.SaveDCLabel"}} {{data.save.dc}} ({{data.save.str}})</span>{{/if}}
-        {{#if data.isAttack}}<button data-action="featAttack">{{localize "PF2E.AttackLabel"}}</button>{{/if}}
-        {{#if data.damage.value}}<button data-action="featDamage">{{localize "PF2E.DamageLabel"}}</button>{{/if}}
-    </div>
-
     <footer class="card-footer">
         {{#each data.properties}}
         <span>{{this}}</span>

@@ -437,7 +437,8 @@ class SpellBrowserPF2e extends ItemBrowserPF2e {
         settingsButton.mousedown((ev) => {
           const rightClick = ev.which === 3;
           if (rightClick) {
-            this.resetSettings();
+            // todo: this isn't actually implemented?
+            //this.resetSettings();
           } else {
             this.openSettings();
           }

@@ -948,14 +948,10 @@ export default class extends Item {
       else if (action === 'spellDamage') item.rollSpellDamage(ev);
 
       // Feat actions
-      else if (action === 'featAttack') item.rollFeatAttack(ev);
       else if (action === 'featDamage') item.rollFeatDamage(ev);
 
       // Consumable usage
       else if (action === 'consume') item.rollConsumable(ev);
-
-      // Tool usage
-      else if (action === 'toolCheck') item.rollToolCheck(ev);
     });
   }
 }
