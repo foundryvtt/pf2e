@@ -946,20 +946,23 @@ export default class extends Item {
         }
       })
     } else {
-      copy = new Item({
+      copy = {
         name: this.data.name,
         img: this.data.img,
         type: this.data.type,
+        folder: this.data.folder,
+        permission: this.data.permission,
         data: {
           identification: {
             isUnidentified: true,
             identifiedItemId: this._id
           }
         }
-      });
+      };
     }
 
     const unidentifiedItem = await Item.create(copy);
+
     // Force item name update to rerender ItemDirectory sidebar
     await this.update({
       name: this.name,

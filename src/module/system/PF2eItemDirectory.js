@@ -60,7 +60,11 @@ export default class extends ItemDirectory {
     _getUnidentifiedVersion(item) {
         const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
         if (unidentifiedItemId) {
-            return game.items.get(unidentifiedItemId);
+            const unidentifiedItem = game.items.get(unidentifiedItemId);
+            if (unidentifiedItem) {
+                unidentifiedItem.data.permission = item.data.permission;
+                return unidentifiedItem;
+            }
         }
         return;
     }
