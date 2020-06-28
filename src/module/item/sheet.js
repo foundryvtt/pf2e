@@ -360,14 +360,16 @@ export class ItemSheetPF2e extends ItemSheet {
 
   /** @override */
   get title() {
-    const isUnidentified = this.item.data.data.identification?.isUnidentified;
-    if (isUnidentified) {
-      const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
-      let itemName = this.item.name;
-      if (identifiedItem)
-        itemName = identifiedItem.name;
+    if (game.user.isGM) {
+      const isUnidentified = this.item.data.data.identification?.isUnidentified;
+      if (isUnidentified) {
+        const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
+        let itemName = this.item.name;
+        if (identifiedItem)
+          itemName = identifiedItem.name;
 
-      return `${itemName} (${game.i18n.localize('PF2E.ItemUnidentifiedVersionLabel')})`;
+        return `${itemName} (${game.i18n.localize('PF2E.ItemUnidentifiedVersionLabel')})`;
+      }
     }
 
     return super.title;

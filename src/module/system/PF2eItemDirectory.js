@@ -10,33 +10,58 @@ export default class extends ItemDirectory {
         });
     }
 
-    getData() {
-        const itemData = super.getData();
-        const isGM = game.user.isGM;
+    initialize() {
 
-        // Handle visibility of unidentified items
-        itemData.tree.content = itemData.tree.content.reduce((result, item) => {
-            const identificationData = item.data.data.identification;
-            if (isGM) {
-                // Filter unidentified items
-                if (!identificationData?.isUnidentified) {
-                    result.push(item);
-                }
+    // Assign Folders
+    this.folders = game.folders.filter(f => f.type === this.constructor.entity);
+
+    // Assign Entities
+    this.entities = this.constructor.collection.reduce((result, item) => {
+        const showItem = this._showItem(item);
+        if (showItem.show) {
+            if (showItem.item) {
+                result.push(showItem.item);
             } else {
-                // Item has an unidentified version, show that instead
-                if (identificationData?.unidentifiedItemId) {
-                    const unidentifiedItem = game.items.get(identificationData.unidentifiedItemId);
-                    if (unidentifiedItem) {
-                        result.push(unidentifiedItem);
+                result.push(item);
+            }
+        }
+        return result;
+    },[]);
+
+    // Build Tree
+    const sortMode = 'n';
+    this.tree = this.constructor.setupFolders(this.folders, this.entities, sortMode);
+    }
+
+    _showItem(item) {
+        if (!item.visible) return {show: false};
+
+        if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+            const identificationData = item.data.data.identification ?? {};
+            // Hide unidentified items by default
+            if (identificationData.isUnidentified) return {show: false};
+
+            if (!game.user.isGM) {
+                // If a player can see the identified version in the item directory
+                // show the unidentified version instead
+                const unidentifiedItem = this._getUnidentifiedVersion(item);
+                if (unidentifiedItem) {
+                    return {
+                        show: true,
+                        item: unidentifiedItem
                     }
-                // Filter unidentified items
-                } else if (!identificationData?.isUnidentified) {
-                    result.push(item);
                 }
             }
-            return result;
-        }, []);
+        }
 
-        return itemData;
+        return {show: true};
+    }
+
+    _getUnidentifiedVersion(item) {
+        const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+        if (unidentifiedItemId) {
+            return game.items.get(unidentifiedItemId);
+        }
+        return;
     }
 }
