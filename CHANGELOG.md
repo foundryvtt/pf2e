@@ -1,5 +1,16 @@
 # Patch Notes:
 
+## Version 1.7.0
+### New Features
+* (ravenmaster_001#5375) Add support for proficiency variant rules.
+
+### Bug Fixes
+* (@nikolaj-a) Fix overflow error in roll dialog
+
+### Core System Improvements
+* (@fryguy1013) Clean up unused code, mostly leftovers from the D&D 5E game system.
+* (@nikolaj-a) Bump Foundry core version compatibility to 0.6.4
+
 ## Version 1.6.1
 ### Content Changes
 * (@Shandyan) Compendium updates
