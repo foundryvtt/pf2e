@@ -37,6 +37,11 @@ export class PF2DamageRoll {
    * @param {function} callback
    */
   static roll(damage, context = {}, event, callback) {
-    DamageRollModifiersDialog.roll(damage, context, callback);
+    const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
+    if (userSettingQuickD20Roll !== event.shiftKey) {
+      DamageRollModifiersDialog.roll(damage, context, callback);
+    } else {
+      new DamageRollModifiersDialog(damage, context, callback).render(true);
+    }
   }
 }
