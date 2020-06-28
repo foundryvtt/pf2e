@@ -1,4 +1,28 @@
 # Patch Notes:
+
+## Version 1.6.1
+### Content Changes
+* (@Shandyan) Compendium updates
+    * Update spells compendium to correct a missed set of focus spells
+    * Update deities, equipment, feats, rollable-table compendia to replace AoN links with Foundry links
+* (@meditatingCybermind) Compendium updates
+    * Updated backgrounds, feats, and PFS boons from missions
+    * Added Lost Omens backgrounds
+* (@meditatingCybermind) Updated OGL with society credits
+
+### Bug Fixes
+* (@iceman76) Correctly calculate when shields are broken.
+* (@iceman76) Correctly highlight buttons for rolling in skills tab.
+* (@nikolaj-a) Fix untyped bonus stacking
+* (@nikolaj-a) Use the actor as speaker when rolling
+
+### Core System Improvements
+* (@iceman76) Add search field to trait selector window & freeze Update Actor button.
+* (@nikolaj-a) Flat damage modifiers with damage type
+* (@nikolaj-a) Conditional custom modifiers
+* (@nikolaj-a) Default attack and damage roll options
+* (@nikolaj-a) Support for default roll options
+
 ## Version 1.6.0
 ### New Features
 * (@nikolaj-a) Added custom damage dice and damage roll options
@@ -48,7 +72,7 @@
 
 
 ### Bug Fixes
-* (iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
+* (@iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
 
 
 ### Core System Improvements
@@ -280,7 +304,7 @@
 
 ## Version 1.3.0 
 ### New Features
-* (@nicolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
+* (@nikolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
 
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/8e2f2ba292b358e1e5a2cc98972a499a/image.png "Edit Modifier")
 
@@ -293,13 +317,13 @@
 ### Bug Fixes
 * (@abrault) Limit the scope of the Tooltipster module to the new actor sheet (it was global previously)
 * (@putt1) Fixed issue with focus points making them visible and clickable again
-* (@nicolaj-a) Ensure that the older trait format is better supported preventing player character sheets from opening.
+* (@nikolaj-a) Ensure that the older trait format is better supported preventing player character sheets from opening.
 
 
 ### Core System Improvements
-* (@nicolaj-a) Changed behaviour of clicking a Strike action to only trigger the strike description expansion to only trigger when clicking the strike action name.
-* (@nicolaj-a) Added Battlefield Surveyor fighter class feature to the temporary automation for initiative modifiers.
-* (@nicolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
+* (@nilolaj-a) Changed behaviour of clicking a Strike action to only trigger the strike description expansion to only trigger when clicking the strike action name.
+* (@nikolaj-a) Added Battlefield Surveyor fighter class feature to the temporary automation for initiative modifiers.
+* (@nikolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
 
 
 ## Version 1.2.0 
