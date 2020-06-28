@@ -19,14 +19,14 @@ global.game = Object.freeze({
       switch (settingKey)
       {
         /* Proficiency Modifiers */
-        case 'proficiencyUntrainedModifer': return 0;
-        case 'proficiencyTrainedModifer':   return 2;
-        case 'proficiencyExpertModifer':    return 4;
-        case 'proficiencyMasterModifer':    return 6;
-        case 'proficiencyLegendaryModifer': return 8;
+        case 'proficiencyUntrainedModifier': return 0;
+        case 'proficiencyTrainedModifier':   return 2;
+        case 'proficiencyExpertModifier':    return 4;
+        case 'proficiencyMasterModifier':    return 6;
+        case 'proficiencyLegendaryModifier': return 8;
 
         /* Variant rules */
-        case 'proficiencyVariant':          return 'ProficiencyWithLevel';
+        case 'proficiencyVariant':           return 'ProficiencyWithLevel';
         default: throw new Error("Undefined setting.");
       }
     },
