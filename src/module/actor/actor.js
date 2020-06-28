@@ -19,7 +19,39 @@ import { PF2WeaponDamage } from '../system/damage/weapon.js';
 import { PF2Check, PF2DamageRoll } from '../system/rolls.js';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes.js';
 
-const SUPPORTED_ROLL_OPTIONS = Object.freeze(['attack-roll', 'damage-roll']);
+export const SKILL_DICTIONARY = Object.freeze({
+  acr: 'acrobatics',
+  arc: 'arcana',
+  ath: 'athletics',
+  cra: 'crafting',
+  dec: 'deception',
+  dip: 'diplomacy',
+  itm: 'intimidation',
+  med: 'medicine',
+  nat: 'nature',
+  occ: 'occultism',
+  prf: 'performance',
+  rel: 'religion',
+  soc: 'society',
+  ste: 'stealth',
+  sur: 'survival',
+  thi: 'thievery'
+});
+
+const SUPPORTED_ROLL_OPTIONS = Object.freeze([
+  'all',
+  'attack-roll',
+  'damage-roll',
+  'saving-throw',
+  'fortitude',
+  'reflex',
+  'will',
+  'perception',
+  'initiative',
+  'skill-check',
+].concat(
+  Object.values(SKILL_DICTIONARY)
+));
 
 export default class extends Actor {
 
@@ -171,9 +203,9 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
-      updated.roll = (event) => {
+      updated.roll = (event, options = []) => {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw', options }, event);
       };
       data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
     }
@@ -194,7 +226,7 @@ export default class extends Actor {
       if (data.attributes.perception.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), PF2ModifierType.ITEM));
       }
-      ['perception', `wis-based`, 'all'].forEach((key) => {
+      ['perception', 'wis-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
@@ -211,9 +243,9 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       data.attributes.perception.value = data.attributes.perception.totalModifier;
-      data.attributes.perception.roll = (event) => {
+      data.attributes.perception.roll = (event, options = []) => {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
-        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check', options }, event);
       };
       /* eslint-enable */
     }
@@ -308,10 +340,7 @@ export default class extends Actor {
       }
 
       // workaround for the shortform skill names
-      const skillDictionary = {acr:'acrobatics',arc:'arcana',ath:'athletics',cra:'crafting',
-        dec:'deception',dip:'diplomacy',itm:'intimidate',med:'medicine',nat:'nature',occ:'occultism',
-        prf:'perform',rel:'religion',soc:'society',ste:'stealth',sur:'survival',thi:'thievery'};
-      const expandedName = skillDictionary[skillName];
+      const expandedName = SKILL_DICTIONARY[skillName];
 
       [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -330,9 +359,9 @@ export default class extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
-      updated.roll = (event) => {
+      updated.roll = (event, options = []) => {
         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check' }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check', options }, event);
       };
       data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
     }
@@ -428,22 +457,22 @@ export default class extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         // amend strike with a roll property
-        action.attack = (event) => {
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll' }, event);
+        action.attack = (event, options = []) => {
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll' }, event)
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
           },
           {
             label: `MAP ${item.data.map2}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll' }, event)
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
           {
             label: `MAP ${item.data.map3}`,
-            roll: (event) =>  PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll' }, event)
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
         ];
         action.damage = (event, options = []) => {
@@ -1108,10 +1137,19 @@ export default class extends Actor {
     this.setRollOption(rollName, optionName, false);
   }
 
-  getRollOptions(rollName) {
-    const flag = this.getFlag(game.system.id, `rollOptions.${rollName}`) ?? {};
-    // convert flag object to array containing the names of all fields with a truthy value
-    return Object.entries(flag).reduce((opts, [key, value]) => opts.concat(value ? key : []), []);
+  /**
+   * @param {string[]} rollNames
+   * @return {string[]}
+   */
+  getRollOptions(rollNames) {
+    const flag = this.getFlag(game.system.id, 'rollOptions') ?? {};
+    return rollNames.flatMap(rollName =>
+      // convert flag object to array containing the names of all fields with a truthy value
+      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [])
+    ).reduce((unique, option) => {
+      // ensure option entries are unique
+      return unique.includes(option) ? unique : unique.concat(option);
+    }, []);
   }
 
 }

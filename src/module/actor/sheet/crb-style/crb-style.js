@@ -62,7 +62,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions('damage-roll');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
       this.actor.data.data.actions[Number(actionIndex)]?.damage(event, opts);
     });
 
@@ -72,7 +72,7 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions('damage-roll');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
       this.actor.data.data.actions[Number(actionIndex)]?.critical(event, opts);
     });
 
