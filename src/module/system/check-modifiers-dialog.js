@@ -20,7 +20,7 @@ export class CheckModifiersDialog extends Application {
       width: 380,
     });
     this.check = check;
-    this.context = context;
+    this.context = context; // might include a reference to actor, so do not do mergeObject or similar
     this.callback = callback;
   }
 
@@ -79,8 +79,8 @@ export class CheckModifiersDialog extends Application {
    */
   activateListeners(html) {
     html.find('.roll').click((event) => {
-      const fate = html.find("input[type=radio][name=fate]:checked").val();
-      CheckModifiersDialog.roll(this.check, mergeObject({ fate }, this.context), this.callback);
+      this.context.fate = html.find("input[type=radio][name=fate]:checked").val();
+      CheckModifiersDialog.roll(this.check, this.context, this.callback);
       this.close();
     });
 
