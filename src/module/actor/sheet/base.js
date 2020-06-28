@@ -5,6 +5,7 @@ import { isKit, addKit } from '../../item/kits.js';
 import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../../packs/spell-browser.js";
 import { MoveLootPopup } from './loot/MoveLootPopup.js';
 import { SKILL_DICTIONARY } from '../actor.js';
+import { ProficiencyModifier } from '../../modifiers.js';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -55,7 +56,7 @@ class ActorSheetPF2e extends ActorSheet {
         skl.icon = this._getProficiencyIcon(skl.rank);
         skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
         skl.label = CONFIG.PF2E.martialSkills[s];
-        skl.value = skl.rank ? (skl.rank * 2) + sheetData.data.details.level.value : 0;
+        skl.value = ProficiencyModifier.fromLevelAndRank(sheetData.data.details.level.value, skl.rank || 0).modifier;
       }
     }
 

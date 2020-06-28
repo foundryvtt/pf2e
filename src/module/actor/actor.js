@@ -212,7 +212,7 @@ export default class extends Actor {
 
     // Martial
     for (const skl of Object.values(data.martial)) {
-      const proficiency = skl.rank ? (skl.rank * 2) + data.details.level.value : 0;
+      const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0).modifier;
       skl.value = proficiency;
       skl.breakdown = `proficiency(${proficiency})`;
     }
@@ -329,8 +329,15 @@ export default class extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
       ];
       if(skill.rank === 0 && hasUntrainedImprovisation) {
-        let bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value
-        modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY))
+        let bonus = 0;
+        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
+        if (rule === 'ProficiencyWithLevel') {
+          bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
+        }
+        else if (rule === 'ProficiencyWithoutLevel') {
+          // No description in Gamemastery Guide on how to handle untrained improvisation.
+        }
+        modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
       }
       if (skill.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
@@ -699,7 +706,8 @@ export default class extends Actor {
     const flavor = `${item.name} Skill Check`;
     const i = item.data;
 
-    const proficiency = (i.data.proficient || {}).value ? ((i.data.proficient || {}).value * 2) + this.data.data.details.level.value : 0;
+    const rank = (i.data.proficient?.value || 0);
+    const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
     const modifier = this.data.data.abilities.int.mod;
     const itemBonus = Number((i.data.item || {}).value || 0);
     let rollMod = modifier + proficiency;
