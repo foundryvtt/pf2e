@@ -933,13 +933,32 @@ export default class extends Item {
       console.log(`PF2e System | Error: Item '${this.data._id}' already has an unidentified version with id '${unidentifiedItemId}!'`)
       return;
     }
-    const copy = duplicate(this.data);
-    mergeObject(copy.data, {
-      identification: {
-        isUnidentified: true,
-        identifiedItemId: this._id
-      }
-    })
+
+    let copy = {};
+    if (this.data.data.identification?.copyEntireItem) {
+      copy = duplicate(this.data);
+      mergeObject(copy, {
+        data: {
+          identification: {
+            isUnidentified: true,
+            identifiedItemId: this._id
+          }
+        }
+      })
+    } else {
+      copy = new Item({
+        name: this.data.name,
+        img: this.data.img,
+        type: this.data.type,
+        data: {
+          identification: {
+            isUnidentified: true,
+            identifiedItemId: this._id
+          }
+        }
+      });
+    }
+
     const unidentifiedItem = await Item.create(copy);
     // Force item name update to rerender ItemDirectory sidebar
     await this.update({

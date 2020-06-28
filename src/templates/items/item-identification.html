@@ -58,6 +58,13 @@
             {{> editUnidentifiedItem}}
         {{else}}
             <p class="notes">{{localize 'PF2E.ItemUnidentifiedAttachHint'}}</p>
+            <ol class="form-list">
+                <div class="form-group">
+                    <label>{{localize 'PF2E.ItemUnidentifiedCopyEntireItemLabel'}}</label>
+                    <input type="checkbox" name="data.identification.copyEntireItem" value="1" data-dtype="{{data.identification.type}}" {{checked data.identification.copyEntireItem}}/>
+                </div>
+                <p class="notes">{{localize 'PF2E.ItemUnidentifiedCopyEntireItemHint'}}</p>
+            </ol>
             <button type="button" data-action="createUnidentifiedVersion">{{localize 'PF2E.ItemUnidentifiedAttachLabel'}}</button>
         {{/if}}
     {{/if}}
