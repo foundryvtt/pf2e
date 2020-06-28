@@ -161,13 +161,13 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const bulkItems = itemsFromActorData(actorData);
     const indexedBulkItems = indexBulkItemsById(bulkItems);
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
-
+    
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
       i.containerData = containers.get(i._id);
       i.isContainer = i.containerData.isContainer;
       i.isNotInContainer = i.containerData.isNotInContainer;
-
+            
       // Read-Only Equipment
       if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
         readonlyEquipment.push(i);
@@ -176,7 +176,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
 
       i.canBeEquipped = i.isNotInContainer;
       i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
@@ -431,7 +431,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     actorData.spellcastingEntries = spellcastingEntries;
 
     // shield
-    const equippedShield = this.getEquippedShield(actorData.items);
+    const equippedShield = this.getEquippedShield(actorData.items);  
     if (equippedShield === undefined) {
         actorData.data.attributes.shield = {
             hp: {
@@ -482,7 +482,7 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
       bulk
     );
   }
-
+  
   getEquippedShield(items) {
       return items
           .find(item => item.type === 'armor'

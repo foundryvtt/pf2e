@@ -330,16 +330,12 @@ export default class extends Actor {
       ];
       if(skill.rank === 0 && hasUntrainedImprovisation) {
         let bonus = 0;
-        const rule = game.settings.get('pf2e', 'proficiencyVariant');
+        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
         if (rule === 'ProficiencyWithLevel') {
-            bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
+          bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
         }
         else if (rule === 'ProficiencyWithoutLevel') {
-            // No description in Gamemastery Guide on how to handle untrained improvisation, following algorithm subject to change.
-            let untrainedModifier = game.settings.get('pf2e', 'proficiencyUntrainedModifer');
-            let trainedModifier = game.settings.get('pf2e', 'proficiencyTrainedModifer');
-            let proficiencyDiff = Math.max(trainedModifier - untrainedModifier, 0);
-            bonus = data.details.level.value < 7 ? Math.floor(proficiencyDiff / 2) : proficiencyDiff;
+          // No description in Gamemastery Guide on how to handle untrained improvisation.
         }
         modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
       }

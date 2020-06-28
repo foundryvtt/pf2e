@@ -1357,7 +1357,7 @@ class ActorSheetPF2e extends ActorSheet {
 
     async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
       const sourceItemQuantity = Number(item.data.data.quantity.value);
-
+      
       if (quantity > sourceItemQuantity) {
         quantity = sourceItemQuantity;
       }

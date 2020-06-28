@@ -541,7 +541,7 @@ export default class extends Item {
     if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
-    let damageDice = (itemData.damage.dice ?? 1);
+    let damageDice = (itemData.damage.dice ?? 1);  
     let weaponDamage = (damageDice + strikingDice) + rollDie;
     parts = [weaponDamage, '@itemBonus'];
     rollData.itemBonus = bonusDamage;
