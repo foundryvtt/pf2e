@@ -209,7 +209,7 @@ CONFIG.resistanceTypes = {
   weapon: 'PF2E.ResistanceTypeWeapon',
   "critical-hits": "PF2E.ResistanceTypeCriticalHits",
   "draconic resistance": "PF2E.ResistanceTypeDragonResistance",
-  "protean anatomy": "PF2E.ResistanceTypeProteanAnatomy",
+  "protean anatomy": "PF2E.ResistanceTypeProteanAnatomy"
 };
 CONFIG.stackGroups = {
   bolts: 'PF2E.StackGroupBolts',
@@ -250,11 +250,11 @@ CONFIG.weaknessTypes = {
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
   'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
-  salt: "PF2E.WeaknessTypeSalt", 
-  'salt water': "PF2E.WeaknessTypeSaltWater", 
-  'vorpal fear': "PF2E.WeaknessTypeVorpalFear", 
+  salt: "PF2E.WeaknessTypeSalt",
+  'salt water': "PF2E.WeaknessTypeSaltWater",
+  'vorpal fear': "PF2E.WeaknessTypeVorpalFear",
   'vorpal weapons': "PF2E.WeaknessTypeVorpalWeapons",
-  'vampire weaknesses':  "PF2E.WeaknessTypeVampireWeaknesses",
+  'vampire weaknesses': "PF2E.WeaknessTypeVampireWeaknesses"
 }; // Weapon Damage Types
 
 CONFIG.weaponDamage = {
@@ -591,7 +591,23 @@ CONFIG.spellTraits = {
   misfortune: 'PF2E.TraitMisfortune',
   fungus: 'PF2E.TraitFungus',
   linguistic: 'PF2E.TraitLinguistic',
-  morph: 'PF2E.TraitMorph'
+  morph: 'PF2E.TraitMorph',
+  air: 'PF2E.TraitAir',
+  auditory: 'PF2E.TraitAuditory',
+  aura: 'PF2E.TraitAura',
+  concentrate: 'PF2E.TraitConcentrate',
+  extradimensional: 'PF2E.TraitExtradimensional',
+  fear: 'PF2E.TraitFear',
+  fortune: 'PF2E.TraitFortune',
+  litany: 'PF2E.TraitLitany',
+  metamagic: 'PF2E.TraitMetamagic',
+  move: 'PF2E.TraitMove',
+  possession: 'PF2E.TraitPossession',
+  prediction: 'PF2E.TraitPrediction',
+  revelation: 'PF2E.TraitRevelation',
+  shadow: 'PF2E.TraitShadow',
+  sleep: 'PF2E.TraitSleep',
+  stance: 'PF2E.TraitStance'
 };
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
@@ -1040,7 +1056,7 @@ CONFIG.areaTypes = {
   burst: 'PF2E.AreaTypeBurst',
   cone: 'PF2E.AreaTypeCone',
   emanation: 'PF2E.AreaTypeEmanation',
-  line: 'PF2E.AreaTypeLine',
+  line: 'PF2E.AreaTypeLine'
 }; // Spell Saves
 
 /* CONFIG.spellBasic = {
@@ -1059,7 +1075,6 @@ CONFIG.areaSizes = {
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
   120: 'PF2E.AreaSize120'
-  
 }; // Alignment
 
 CONFIG.alignment = {
@@ -1104,7 +1119,7 @@ CONFIG.spellCategories = {
   spell: 'PF2E.SpellCategorySpell',
   focus: 'PF2E.SpellCategoryFocus',
   ritual: 'PF2E.SpellCategoryRitual'
-};// Spell Types
+}; // Spell Types
 
 CONFIG.spellTypes = {
   attack: 'PF2E.SpellTypeAttack',
@@ -1141,7 +1156,7 @@ CONFIG.featTypes = {
   ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
   pfsboon: 'PF2E.FeatPFSBoonHeader',
   deityboon: 'PF2E.FeatDeityBoonHeader',
-  curse: 'PF2E.FeatCurseHeader',
+  curse: 'PF2E.FeatCurseHeader'
 }; // Feat Action Types
 
 CONFIG.featActionTypes = {
@@ -1387,7 +1402,7 @@ CONFIG.immunityTypes = {
   confusion: 'PF2E.DamageTypeConfusion',
   'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
   emotion: 'PF2E.DamageTypeEmotion',
-  possession: 'PF2E.DamageTypePosession',
+  possession: 'PF2E.DamageTypePosession'
 }; // Languages
 
 CONFIG.languages = {
