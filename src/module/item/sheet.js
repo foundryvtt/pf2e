@@ -51,6 +51,21 @@ export class ItemSheetPF2e extends ItemSheet {
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     }); // Damage types
 
+    data.isGM = game.user.isGM;
+    data.isOwned = this.item.isOwned;
+
+    if (data.isGM && ['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(type)) {
+      data.hasIdentification = true;
+      data.identificationTemplate = () => `systems/pf2e/templates/items/item-identification.html`
+
+      data.hasUnidentifiedItem = (this.item.data.data.identification?.unidentifiedItemId);
+      data.isUnidentifiedItem = this.item.data.data.identification?.isUnidentified;
+
+      if (data.hasUnidentifiedItem || data.isUnidentifiedItem) {
+        data.skills = CONFIG.PF2E.skillList;
+      }
+    }
+
     const dt = duplicate(CONFIG.PF2E.damageTypes);
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
@@ -294,6 +309,72 @@ export class ItemSheetPF2e extends ItemSheet {
       [`data.damageRolls.-=${targetKey}`]: null
     });
   }
+
+  async _createUnidentifiedVersion() {
+    const unidentifiedItem = await this.item.createUnidentifiedVersion();
+    if (unidentifiedItem)
+      unidentifiedItem.sheet.render(true);
+  }
+
+  _editUnidentifiedVersion() {
+    const unidentifiedItem = game.items.get(this.item.data.data.identification?.unidentifiedItemId);
+    if (unidentifiedItem)
+      unidentifiedItem.sheet.render(true);
+  }
+
+  _deleteUnidentifiedVersion() {
+      new Dialog({
+        title: game.i18n.localize('PF2E.DeleteItemTitle'),
+        content: `<p>${game.i18n.localize('PF2E.ItemUnidentifiedDeleteQuestion')}</p>`,
+        buttons: {
+          Yes: {
+            icon: '<i class="fa fa-check"></i>',
+            label: 'Yes',
+            callback: async () => {
+              const unidentifiedItem = game.items.get(this.item.data.data.identification?.unidentifiedItemId);
+              if (unidentifiedItem) {
+                await this.item.update({['data.identification.unidentifiedItemId']: ""});
+                await unidentifiedItem.delete();
+                this.render(true);
+              }
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: 'Cancel',
+          },
+        },
+        default: 'Yes',
+      }).render(true);
+  }
+
+  _onButtonClick(event) {
+    event.preventDefault();
+    const action = event.currentTarget?.dataset?.action;
+    switch (action) {
+      case "createUnidentifiedVersion": this._createUnidentifiedVersion(); break;
+      case "editUnidentifiedVersion": this._editUnidentifiedVersion(); break;
+      case "deleteUnidentifiedVersion": this._deleteUnidentifiedVersion(); break;
+    }
+  }
+
+  /** @override */
+  get title() {
+    if (game.user.isGM) {
+      const isUnidentified = this.item.data.data.identification?.isUnidentified;
+      if (isUnidentified) {
+        const identifiedItem = game.items.get(this.item.data.data.identification?.identifiedItemId);
+        let itemName = this.item.name;
+        if (identifiedItem)
+          itemName = identifiedItem.name;
+
+        return `${itemName} (${game.i18n.localize('PF2E.ItemUnidentifiedVersionLabel')})`;
+      }
+    }
+
+    return super.title;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -315,6 +396,8 @@ export class ItemSheetPF2e extends ItemSheet {
     html.find('.delete-damage').click(ev => {
       this._deleteDamageRoll(ev);
     });
+
+    html.find('button').click(event => this._onButtonClick(event));
   }
   /**
    * Always submit on a form field change. Added because tabbing between fields
