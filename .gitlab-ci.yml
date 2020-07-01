@@ -1,21 +1,32 @@
 image: node:latest
 
 stages:
-  - build
-  - test
+    - build
+    - test
+
+before_script:
+    - apt-get update
+    - apt-get install zip
 
 cache:
-  paths:
-    - node_modules/
-
-install_dependencies:
-  stage: build
-  script:
-    - npm install
-  artifacts:
     paths:
-      - node_modules/
+        - node_modules/
+
+build:
+    stage: build
+    script:
+        - export
+        - npm ci
+        - node updatebuildno.js --buildno=$CI_PIPELINE_IID --branch=$CI_COMMIT_BRANCH --gitlabpath=$CI_PROJECT_PATH
+        - npm run build
+        - mv dist pf2e
+        - zip pf2e.zip -r pf2e
+    artifacts:
+        paths:
+            - pf2e.zip
+            - system.json
+
 
 testing_testing:
-  stage: test
-  script: npm test
+    stage: test
+    script: npm test
