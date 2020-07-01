@@ -1,5 +1,19 @@
 # Patch Notes:
 
+## Version 1.8.0
+### New Features
+* (@iceman76) Add filters to Feat Browser for boons and curses.
+
+### Content Changes
+* (@iceman76) Compendium updates
+    * Give Pathfinder Society boons the correct feat type.
+    * Remove duplicate Pathfinder Society boon.
+    * Change "Rain of Embers Stance" from class feature to class feat.
+
+### Core System Improvements
+* (@fryguy1013) Major upgrade to the technical foundation of the project, which should help streamline the release process and help us catch some bugs earlier on. A huge thanks for all the hard work that went into this!
+
+
 ## Version 1.7.0
 ### New Features
 * (ravenmaster_001#5375) Add support for proficiency variant rules.
