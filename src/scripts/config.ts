@@ -591,7 +591,23 @@ CONFIG.spellTraits = {
   misfortune: 'PF2E.TraitMisfortune',
   fungus: 'PF2E.TraitFungus',
   linguistic: 'PF2E.TraitLinguistic',
-  morph: 'PF2E.TraitMorph'
+  morph: 'PF2E.TraitMorph',
+  air: 'PF2E.TraitAir',
+  auditory: 'PF2E.TraitAuditory',
+  aura: 'PF2E.TraitAura',
+  concentrate: 'PF2E.TraitConcentrate',
+  extradimensional: 'PF2E.TraitExtradimensional',
+  fear: 'PF2E.TraitFear',
+  fortune: 'PF2E.TraitFortune',
+  litany: 'PF2E.TraitLitany',
+  metamagic: 'PF2E.TraitMetamagic',
+  move: 'PF2E.TraitMove',
+  possession: 'PF2E.TraitPossession',
+  prediction: 'PF2E.TraitPrediction',
+  revelation: 'PF2E.TraitRevelation',
+  shadow: 'PF2E.TraitShadow',
+  sleep: 'PF2E.TraitSleep',
+  stance: 'PF2E.TraitStance'
 };
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
