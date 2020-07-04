@@ -1,12 +1,12 @@
 import {
-  Bulk,
-  BulkConfig,
-  BulkItem,
-  calculateBulk,
-  defaultBulkConfig,
-  formatBulk,
-  StackDefinitions,
-  weightToBulk,
+    Bulk,
+    BulkConfig,
+    BulkItem,
+    calculateBulk,
+    defaultBulkConfig,
+    formatBulk,
+    StackDefinitions,
+    weightToBulk,
 } from './bulk';
 import {groupBy} from '../utils';
 import {PF2Item} from './item-entity';
@@ -15,90 +15,90 @@ import {PF2Item} from './item-entity';
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
-  item: PF2Item;
+    item: PF2Item;
 
-  heldItems: PF2Item[];
+    heldItems: PF2Item[];
 
-  negateBulk: Bulk;
+    negateBulk: Bulk;
 
-  heldItemBulk: Bulk;
+    heldItemBulk: Bulk;
 
-  isInContainer: boolean;
+    isInContainer: boolean;
 
-  formattedHeldItemBulk: string;
+    formattedHeldItemBulk: string;
 
-  formattedNegateBulk: string;
+    formattedNegateBulk: string;
 
-  formattedCapacity: string;
+    formattedCapacity: string;
 
-  capacity: Bulk;
+    capacity: Bulk;
 
-  constructor({
-                item,
-                heldItems,
-                negateBulk,
-                capacity,
-                heldItemBulk,
-                isInContainer,
-                formattedNegateBulk,
-                formattedHeldItemBulk,
-                formattedCapacity,
-              }) {
-    this.item = item;
-    this.heldItems = heldItems;
-    this.negateBulk = negateBulk;
-    this.heldItemBulk = heldItemBulk;
-    this.isInContainer = isInContainer;
-    this.formattedHeldItemBulk = formattedHeldItemBulk;
-    this.formattedNegateBulk = formattedNegateBulk;
-    this.formattedCapacity = formattedCapacity;
-    this.capacity = capacity;
-  }
-
-  get isContainer(): boolean {
-    return !this.capacity.isNegligible;
-  }
-
-  get isCollapsed(): boolean {
-    return this.item?.data?.collapsed?.value ?? false;
-  }
-
-  get isNotInContainer(): boolean {
-    return !this.isInContainer;
-  }
-
-  _getLightBulkCapacityThreshold(): number {
-    if (this.capacity.normal > 0) {
-      // light bulk don't count towards bulk limit
-      return this.capacity.toLightBulk() + 10;
+    constructor({
+                    item,
+                    heldItems,
+                    negateBulk,
+                    capacity,
+                    heldItemBulk,
+                    isInContainer,
+                    formattedNegateBulk,
+                    formattedHeldItemBulk,
+                    formattedCapacity,
+                }) {
+        this.item = item;
+        this.heldItems = heldItems;
+        this.negateBulk = negateBulk;
+        this.heldItemBulk = heldItemBulk;
+        this.isInContainer = isInContainer;
+        this.formattedHeldItemBulk = formattedHeldItemBulk;
+        this.formattedNegateBulk = formattedNegateBulk;
+        this.formattedCapacity = formattedCapacity;
+        this.capacity = capacity;
     }
-    // but do if the container only stores light bulk
-    return this.capacity.light;
-  }
 
-  get fullPercentage(): number {
-    const capacity = this._getLightBulkCapacityThreshold();
-    if (capacity === 0) {
-      return 0;
+    get isContainer(): boolean {
+        return !this.capacity.isNegligible;
     }
-    const heldLightBulk = this.heldItemBulk.toLightBulk();
-    return Math.floor((heldLightBulk / capacity) * 100);
-  }
 
-  get fullPercentageMax100(): number {
-    const percentage = this.fullPercentage;
-    if (percentage > 100) {
-      return 100;
+    get isCollapsed(): boolean {
+        return this.item?.data?.collapsed?.value ?? false;
     }
-    return percentage;
-  }
 
-  get isOverLoaded(): boolean {
-    if (this.capacity.normal > 0) {
-      return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
+    get isNotInContainer(): boolean {
+        return !this.isInContainer;
     }
-    return this.heldItemBulk.toLightBulk() > this.capacity.light;
-  }
+
+    _getLightBulkCapacityThreshold(): number {
+        if (this.capacity.normal > 0) {
+            // light bulk don't count towards bulk limit
+            return this.capacity.toLightBulk() + 10;
+        }
+        // but do if the container only stores light bulk
+        return this.capacity.light;
+    }
+
+    get fullPercentage(): number {
+        const capacity = this._getLightBulkCapacityThreshold();
+        if (capacity === 0) {
+            return 0;
+        }
+        const heldLightBulk = this.heldItemBulk.toLightBulk();
+        return Math.floor((heldLightBulk / capacity) * 100);
+    }
+
+    get fullPercentageMax100(): number {
+        const percentage = this.fullPercentage;
+        if (percentage > 100) {
+            return 100;
+        }
+        return percentage;
+    }
+
+    get isOverLoaded(): boolean {
+        if (this.capacity.normal > 0) {
+            return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
+        }
+        return this.heldItemBulk.toLightBulk() > this.capacity.light;
+    }
 }
 
 /**
@@ -112,38 +112,38 @@ class ContainerData {
  * @return {ContainerData}
  */
 function toContainer(
-  item: PF2Item,
-  heldItems: PF2Item[] = [],
-  heldBulkItems: BulkItem[] = [],
-  isInContainer: boolean,
-  stackDefinitions: StackDefinitions,
-  bulkConfig: BulkConfig,
+    item: PF2Item,
+    heldItems: PF2Item[] = [],
+    heldBulkItems: BulkItem[] = [],
+    isInContainer: boolean,
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig,
 ): ContainerData {
-  const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
-  const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
-  const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
-  return new ContainerData({
-    item,
-    heldItems,
-    negateBulk,
-    capacity,
-    heldItemBulk,
-    isInContainer,
-    formattedNegateBulk: formatBulk(negateBulk),
-    formattedHeldItemBulk: formatBulk(heldItemBulk),
-    formattedCapacity: formatBulk(capacity),
-  });
+    const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
+    const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
+    const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
+    return new ContainerData({
+        item,
+        heldItems,
+        negateBulk,
+        capacity,
+        heldItemBulk,
+        isInContainer,
+        formattedNegateBulk: formatBulk(negateBulk),
+        formattedHeldItemBulk: formatBulk(heldItemBulk),
+        formattedCapacity: formatBulk(capacity),
+    });
 }
 
 function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, PF2Item>): boolean {
-  if (idIndexedItems.has(containerId)) {
-    const currentItem = idIndexedItems.get(containerId);
-    if (itemId === currentItem._id) {
-      return true;
+    if (idIndexedItems.has(containerId)) {
+        const currentItem = idIndexedItems.get(containerId);
+        if (itemId === currentItem._id) {
+            return true;
+        }
+        return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
     }
-    return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
-  }
-  return false;
+    return false;
 }
 
 /**
@@ -154,11 +154,11 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
  * @returns {boolean}
  */
 export function isCycle(itemId: string, containerId: string, items: PF2Item[]): boolean {
-  const idIndexedItems = new Map();
-  for (const item of items) {
-    idIndexedItems.set(item._id, item);
-  }
-  return detectCycle(itemId, containerId, idIndexedItems);
+    const idIndexedItems = new Map();
+    for (const item of items) {
+        idIndexedItems.set(item._id, item);
+    }
+    return detectCycle(itemId, containerId, idIndexedItems);
 }
 
 /**
@@ -174,41 +174,41 @@ export function isCycle(itemId: string, containerId: string, items: PF2Item[]): 
  */
 // eslint-disable-next-line import/prefer-default-export
 export function getContainerMap(
-  items: PF2Item[] = [],
-  bulkItemsById: Map<string, BulkItem> = new Map(),
-  stackDefinitions: StackDefinitions,
-  bulkConfig: BulkConfig = defaultBulkConfig,
+    items: PF2Item[] = [],
+    bulkItemsById: Map<string, BulkItem> = new Map(),
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig = defaultBulkConfig,
 ): Map<string, ContainerData> {
-  const allIds = groupBy(items, item => item._id);
+    const allIds = groupBy(items, item => item._id);
 
-  const containerGroups = groupBy(items, item => {
-    const containerId = item?.data?.containerId?.value;
-    if (allIds.has(containerId)) {
-      return containerId;
-    }
-    return null;
-  });
-
-  const idIndexedContainerData = new Map<string, ContainerData>();
-  items
-    .map((item: PF2Item): [string, PF2Item[], boolean] => {
-      const itemId = item._id;
-      const isInContainer = containerGroups.has(item?.data?.containerId?.value);
-      if (containerGroups.has(itemId)) {
-        return [itemId, containerGroups.get(itemId), isInContainer];
-      }
-      return [itemId, [], isInContainer];
-    })
-    .forEach(([id, heldItems, isInContainer]) => {
-      idIndexedContainerData.set(id, toContainer(
-        allIds.get(id)[0],
-        heldItems,
-        bulkItemsById.get(id)?.holdsItems ?? [],
-        isInContainer,
-        stackDefinitions,
-        bulkConfig,
-      ));
+    const containerGroups = groupBy(items, item => {
+        const containerId = item?.data?.containerId?.value;
+        if (allIds.has(containerId)) {
+            return containerId;
+        }
+        return null;
     });
 
-  return idIndexedContainerData;
+    const idIndexedContainerData = new Map<string, ContainerData>();
+    items
+        .map((item: PF2Item): [string, PF2Item[], boolean] => {
+            const itemId = item._id;
+            const isInContainer = containerGroups.has(item?.data?.containerId?.value);
+            if (containerGroups.has(itemId)) {
+                return [itemId, containerGroups.get(itemId), isInContainer];
+            }
+            return [itemId, [], isInContainer];
+        })
+        .forEach(([id, heldItems, isInContainer]) => {
+            idIndexedContainerData.set(id, toContainer(
+                allIds.get(id)[0],
+                heldItems,
+                bulkItemsById.get(id)?.holdsItems ?? [],
+                isInContainer,
+                stackDefinitions,
+                bulkConfig,
+            ));
+        });
+
+    return idIndexedContainerData;
 }

@@ -1,11 +1,11 @@
-import { addKit } from '../../../src/module/item/kits';
+import {addKit} from '../../../src/module/item/kits';
 
 describe('testing kits', () => {
     test('should add an adventurer\'s pack', async () => {
         const mockFn = jest.fn(async (itemId) => itemId);
-        
+
         await addKit('rxXT8KPBXa08feFD', mockFn);
-        
+
         const {mock} = mockFn;
         expect(mock.calls.length)
             .toBe(11);

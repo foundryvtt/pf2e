@@ -8,34 +8,34 @@ function createItem({
                         negateBulk = '',
                         bulkCapacity = '',
                         containerId = '',
-                        equipped = false
+                        equipped = false,
                     }) {
     return {
         _id: id,
         type: 'equipment',
         data: {
             negateBulk: {
-                value: negateBulk
+                value: negateBulk,
             },
             bulkCapacity: {
-                value: bulkCapacity
+                value: bulkCapacity,
             },
             containerId: {
-                value: containerId
+                value: containerId,
             },
             equipped: {
-                value: equipped
+                value: equipped,
             },
             weight: {
-                value: weight
+                value: weight,
             },
             equippedBulk: {
-                value: equippedBulk
+                value: equippedBulk,
             },
             quantity: {
-                value: 1
-            }
-        }
+                value: 1,
+            },
+        },
     };
 }
 
@@ -49,7 +49,7 @@ describe('should create container data', () => {
                 equippedBulk: '0',
                 negateBulk: '2',
                 bulkCapacity: '4',
-                equipped: true
+                equipped: true,
             }),
             // backpack in backpack
             createItem({
@@ -58,17 +58,17 @@ describe('should create container data', () => {
                 equippedBulk: '0',
                 negateBulk: '2',
                 bulkCapacity: '4',
-                containerId: '1'
+                containerId: '1',
             }),
             createItem({
                 id: '3',
                 weight: '1',
-                containerId: '2'
+                containerId: '2',
             }),
             createItem({
                 id: '4',
                 weight: '2L',
-                containerId: '2'
+                containerId: '2',
             }),
             createItem({
                 id: '5',
@@ -166,12 +166,12 @@ describe('should create container data', () => {
                 equippedBulk: '0',
                 negateBulk: '2',
                 bulkCapacity: '4',
-                equipped: true
+                equipped: true,
             }),
             createItem({
                 id: '2',
                 weight: '4; 9L',
-                containerId: '1'
+                containerId: '1',
             }),
             // belt pouch
             createItem({
@@ -179,12 +179,12 @@ describe('should create container data', () => {
                 weight: 'L',
                 equippedBulk: '0',
                 bulkCapacity: '4L',
-                equipped: true
+                equipped: true,
             }),
             createItem({
                 id: '4',
                 weight: '4L',
-                containerId: '3'
+                containerId: '3',
             }),
             // overloaded belt pouch
             createItem({
@@ -192,12 +192,12 @@ describe('should create container data', () => {
                 weight: 'L',
                 equippedBulk: '0',
                 bulkCapacity: '4L',
-                equipped: true
+                equipped: true,
             }),
             createItem({
                 id: '6',
                 weight: '5L',
-                containerId: '5'
+                containerId: '5',
             }),
             // overloaded backpack
             createItem({
@@ -206,12 +206,12 @@ describe('should create container data', () => {
                 equippedBulk: '0',
                 negateBulk: '2',
                 bulkCapacity: '4',
-                equipped: true
+                equipped: true,
             }),
             createItem({
                 id: '8',
                 weight: '5',
-                containerId: '7'
+                containerId: '7',
             }),
         ];
         const bulkItems = indexBulkItemsById(itemsFromActorData({items}));
@@ -266,15 +266,15 @@ describe('should create container data', () => {
             }),
             createItem({
                 id: '2',
-                containerId: '1'
+                containerId: '1',
             }),
             createItem({
-                id: '3'
+                id: '3',
             }),
             createItem({
                 id: '4',
-                containerId: '2'
-            })
+                containerId: '2',
+            }),
         ];
 
         expect(isCycle('1', '3', items)).toBe(false);
