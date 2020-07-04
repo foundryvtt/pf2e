@@ -4,8 +4,8 @@ import {PF2Item} from './item-entity';
 import {PF2Actor} from '../actor/actor-entity';
 
 interface StackDefinition {
-  size: number;
-  lightBulk: number;
+    size: number;
+    lightBulk: number;
 }
 
 export type StackDefinitions = Record<string, StackDefinition>;
@@ -18,111 +18,111 @@ export type StackDefinitions = Record<string, StackDefinition>;
  * bulk per 1000 coins
  */
 export const stacks: StackDefinitions = {
-  bolts: {
-    size: 10,
-    lightBulk: 1,
-  },
-  arrows: {
-    size: 10,
-    lightBulk: 1,
-  },
-  slingBullets: {
-    size: 10,
-    lightBulk: 1,
-  },
-  blowgunDarts: {
-    size: 10,
-    lightBulk: 1,
-  },
-  rations: {
-    size: 7,
-    lightBulk: 1,
-  },
-  coins: {
-    size: 1000,
-    lightBulk: 10,
-  },
-  gems: {
-    size: 2000,
-    lightBulk: 10,
-  },
+    bolts: {
+        size: 10,
+        lightBulk: 1,
+    },
+    arrows: {
+        size: 10,
+        lightBulk: 1,
+    },
+    slingBullets: {
+        size: 10,
+        lightBulk: 1,
+    },
+    blowgunDarts: {
+        size: 10,
+        lightBulk: 1,
+    },
+    rations: {
+        size: 7,
+        lightBulk: 1,
+    },
+    coins: {
+        size: 1000,
+        lightBulk: 10,
+    },
+    gems: {
+        size: 2000,
+        lightBulk: 10,
+    },
 };
 
 export class Bulk {
-  normal: number;
+    normal: number;
 
-  light: number;
+    light: number;
 
-  constructor({normal = 0, light = 0} = {}) {
-    this.normal = normal + Math.floor(light / 10);
-    this.light = light % 10;
-  }
-
-  get isNegligible(): boolean {
-    return this.normal === 0 && this.light === 0;
-  }
-
-  toLightBulk(): number {
-    return this.normal * 10 + this.light;
-  }
-
-  plus(bulk: Bulk): Bulk {
-    return new Bulk({
-      normal: this.normal + bulk.normal,
-      light: this.light + bulk.light,
-    });
-  }
-
-  minus(bulk: Bulk): Bulk {
-    // 1 bulk is 10 light bulk
-    const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-    const result = thisBulk - otherBulk;
-
-    // bulk can't get negative
-    if (result < 0) {
-      return new Bulk();
+    constructor({normal = 0, light = 0} = {}) {
+        this.normal = normal + Math.floor(light / 10);
+        this.light = light % 10;
     }
-    return new Bulk({
-      normal: Math.floor(result / 10),
-      light: result % 10,
-    });
-  }
 
-  _toSingleNumber(bulk: Bulk): [number, number] {
-    return [
-      this.normal * 10 + this.light,
-      bulk.normal * 10 + bulk.light,
-    ];
-  }
+    get isNegligible(): boolean {
+        return this.normal === 0 && this.light === 0;
+    }
 
-  times(factor: number): Bulk {
-    return new Bulk({
-      normal: this.normal * factor,
-      light: this.light * factor,
-    });
-  }
+    toLightBulk(): number {
+        return this.normal * 10 + this.light;
+    }
 
-  isSmallerThan(bulk: Bulk): boolean {
-    const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-    return thisBulk < otherBulk;
-  }
+    plus(bulk: Bulk): Bulk {
+        return new Bulk({
+            normal: this.normal + bulk.normal,
+            light: this.light + bulk.light,
+        });
+    }
 
-  isBiggerThan(bulk: Bulk): boolean {
-    const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
-    return thisBulk > otherBulk;
-  }
+    minus(bulk: Bulk): Bulk {
+        // 1 bulk is 10 light bulk
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        const result = thisBulk - otherBulk;
 
-  isEqualTo(bulk: Bulk): boolean {
-    return this.normal === bulk.normal && this.light === bulk.light;
-  }
+        // bulk can't get negative
+        if (result < 0) {
+            return new Bulk();
+        }
+        return new Bulk({
+            normal: Math.floor(result / 10),
+            light: result % 10,
+        });
+    }
 
-  isPositive(): boolean {
-    return this.normal > 0 || this.light > 0;
-  }
+    _toSingleNumber(bulk: Bulk): [number, number] {
+        return [
+            this.normal * 10 + this.light,
+            bulk.normal * 10 + bulk.light,
+        ];
+    }
 
-  toString(): string {
-    return `normal: ${this.normal}; light: ${this.light}`;
-  }
+    times(factor: number): Bulk {
+        return new Bulk({
+            normal: this.normal * factor,
+            light: this.light * factor,
+        });
+    }
+
+    isSmallerThan(bulk: Bulk): boolean {
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        return thisBulk < otherBulk;
+    }
+
+    isBiggerThan(bulk: Bulk): boolean {
+        const [thisBulk, otherBulk] = this._toSingleNumber(bulk);
+        return thisBulk > otherBulk;
+    }
+
+    isEqualTo(bulk: Bulk): boolean {
+        return this.normal === bulk.normal && this.light === bulk.light;
+    }
+
+    isPositive(): boolean {
+        return this.normal > 0 || this.light > 0;
+    }
+
+    toString(): string {
+        return `normal: ${this.normal}; light: ${this.light}`;
+    }
 }
 
 /**
@@ -132,74 +132,74 @@ export class Bulk {
  * @return {string}
  */
 export function formatBulk(bulk: Bulk): string {
-  if (bulk.normal === 0 && bulk.light === 0) {
-    return '-';
-  }
-  if (bulk.normal > 0 && bulk.light === 0) {
-    return `${bulk.normal}`;
-  }
-  if (bulk.light === 1 && bulk.normal === 0) {
-    return `L`;
-  }
-  if (bulk.light > 0 && bulk.normal === 0) {
-    return `${bulk.light}L`;
-  }
-  return `${bulk.normal}; ${bulk.light}L`;
+    if (bulk.normal === 0 && bulk.light === 0) {
+        return '-';
+    }
+    if (bulk.normal > 0 && bulk.light === 0) {
+        return `${bulk.normal}`;
+    }
+    if (bulk.light === 1 && bulk.normal === 0) {
+        return `L`;
+    }
+    if (bulk.light > 0 && bulk.normal === 0) {
+        return `${bulk.light}L`;
+    }
+    return `${bulk.normal}; ${bulk.light}L`;
 }
 
 export class BulkItem {
-  id: string;
+    id: string;
 
-  bulk: Bulk;
+    bulk: Bulk;
 
-  quantity: number;
+    quantity: number;
 
-  stackGroup?: string;
+    stackGroup?: string;
 
-  isEquipped: boolean;
+    isEquipped: boolean;
 
-  unequippedBulk?: Bulk;
+    unequippedBulk?: Bulk;
 
-  equippedBulk?: Bulk;
+    equippedBulk?: Bulk;
 
-  holdsItems: BulkItem[];
+    holdsItems: BulkItem[];
 
-  negateBulk: Bulk;
+    negateBulk: Bulk;
 
-  extraDimensionalContainer: boolean;
+    extraDimensionalContainer: boolean;
 
-  constructor({
-                id = '',
-                bulk = new Bulk(),
-                quantity = 1,
-                stackGroup = undefined,
-                isEquipped = false,
-                // value to overrides bulk field when unequipped
-                unequippedBulk = undefined,
-                // value to overrides bulk field when equipped
-                equippedBulk = undefined,
-                holdsItems = [],
-                // some containers like a backpack or back of holding reduce total bulk if 
-                // items are put into it
-                negateBulk = new Bulk(),
-                // extra dimensional containers cease to work when nested inside each other
-                extraDimensionalContainer = false,
-              } = {}) {
-    this.id = id;
-    this.bulk = bulk;
-    this.quantity = quantity;
-    this.stackGroup = stackGroup;
-    this.holdsItems = holdsItems;
-    this.negateBulk = negateBulk;
-    this.unequippedBulk = unequippedBulk;
-    this.equippedBulk = equippedBulk;
-    this.isEquipped = isEquipped;
-    this.extraDimensionalContainer = extraDimensionalContainer;
-  }
+    constructor({
+                    id = '',
+                    bulk = new Bulk(),
+                    quantity = 1,
+                    stackGroup = undefined,
+                    isEquipped = false,
+                    // value to overrides bulk field when unequipped
+                    unequippedBulk = undefined,
+                    // value to overrides bulk field when equipped
+                    equippedBulk = undefined,
+                    holdsItems = [],
+                    // some containers like a backpack or back of holding reduce total bulk if 
+                    // items are put into it
+                    negateBulk = new Bulk(),
+                    // extra dimensional containers cease to work when nested inside each other
+                    extraDimensionalContainer = false,
+                } = {}) {
+        this.id = id;
+        this.bulk = bulk;
+        this.quantity = quantity;
+        this.stackGroup = stackGroup;
+        this.holdsItems = holdsItems;
+        this.negateBulk = negateBulk;
+        this.unequippedBulk = unequippedBulk;
+        this.equippedBulk = equippedBulk;
+        this.isEquipped = isEquipped;
+        this.extraDimensionalContainer = extraDimensionalContainer;
+    }
 
-  get reducesBulk(): boolean {
-    return !this.negateBulk.isNegligible;
-  }
+    get reducesBulk(): boolean {
+        return !this.negateBulk.isNegligible;
+    }
 }
 
 /**
@@ -208,13 +208,13 @@ export class BulkItem {
  * @param item
  */
 function calculateNonStackBulk(item: BulkItem): Bulk {
-  if (item.unequippedBulk !== undefined && item.unequippedBulk !== null && !item.isEquipped) {
-    return item.unequippedBulk;
-  }
-  if (item.equippedBulk !== undefined && item.equippedBulk !== null && item.isEquipped) {
-    return item.equippedBulk;
-  }
-  return item.bulk;
+    if (item.unequippedBulk !== undefined && item.unequippedBulk !== null && !item.isEquipped) {
+        return item.unequippedBulk;
+    }
+    if (item.equippedBulk !== undefined && item.equippedBulk !== null && item.isEquipped) {
+        return item.equippedBulk;
+    }
+    return item.bulk;
 }
 
 type StackGroupOverflow = Record<string, number>;
@@ -227,22 +227,22 @@ type BulkAndOverflow = [Bulk, StackGroupOverflow];
  * @return {[Bulk, {}]}
  */
 function combineBulkAndOverflow(first: BulkAndOverflow, second: BulkAndOverflow): BulkAndOverflow {
-  const [firstBulk, firstOverflow] = first;
-  const [secondBulk, secondOverflow] = second;
-  return [
-    firstBulk.plus(secondBulk),
-    combineObjects(firstOverflow, secondOverflow, add),
-  ];
+    const [firstBulk, firstOverflow] = first;
+    const [secondBulk, secondOverflow] = second;
+    return [
+        firstBulk.plus(secondBulk),
+        combineObjects(firstOverflow, secondOverflow, add),
+    ];
 }
 
 export interface BulkConfig {
-  ignoreCoinBulk: boolean;
-  ignoreContainerOverflow: boolean;
+    ignoreCoinBulk: boolean;
+    ignoreContainerOverflow: boolean;
 }
 
 export const defaultBulkConfig: BulkConfig = {
-  ignoreCoinBulk: false,
-  ignoreContainerOverflow: false,
+    ignoreCoinBulk: false,
+    ignoreContainerOverflow: false,
 };
 
 /**
@@ -254,32 +254,32 @@ export const defaultBulkConfig: BulkConfig = {
  * @return {[Bulk, {}]}
  */
 function calculateStackBulk(
-  itemStacks: Record<string, number>, 
-  stackDefinitions: StackDefinitions, 
-  bulkConfig: BulkConfig = defaultBulkConfig
+    itemStacks: Record<string, number>,
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig = defaultBulkConfig,
 ): BulkAndOverflow {
-  return Object.entries(itemStacks)
-    .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
-    .map(([stackType, quantity]) => {
-      if (!(stackType in stackDefinitions)) {
-        throw new Error(`No stack definition found for stack ${stackType}`);
-      }
-      const {size, lightBulk} = stackDefinitions[stackType];
-      const bulkRelevantQuantity = Math.floor(quantity / size);
-      const itemBulk = new Bulk({light: bulkRelevantQuantity * lightBulk});
-      const overflow: StackGroupOverflow = {[stackType]: quantity % size};
-      const result: BulkAndOverflow = [itemBulk, overflow];
-      return result;
-    })
-    .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
+    return Object.entries(itemStacks)
+        .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
+        .map(([stackType, quantity]) => {
+            if (!(stackType in stackDefinitions)) {
+                throw new Error(`No stack definition found for stack ${stackType}`);
+            }
+            const {size, lightBulk} = stackDefinitions[stackType];
+            const bulkRelevantQuantity = Math.floor(quantity / size);
+            const itemBulk = new Bulk({light: bulkRelevantQuantity * lightBulk});
+            const overflow: StackGroupOverflow = {[stackType]: quantity % size};
+            const result: BulkAndOverflow = [itemBulk, overflow];
+            return result;
+        })
+        .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 }
 
 function calculateItemBulk(item: BulkItem, stackDefinitions: StackDefinitions, bulkConfig: BulkConfig): BulkAndOverflow {
-  const stackName = item.stackGroup;
-  if (isBlank(stackName)) {
-    return [calculateNonStackBulk(item).times(item.quantity), {}];
-  }
-  return calculateStackBulk({[stackName]: item.quantity}, stackDefinitions, bulkConfig);
+    const stackName = item.stackGroup;
+    if (isBlank(stackName)) {
+        return [calculateNonStackBulk(item).times(item.quantity), {}];
+    }
+    return calculateStackBulk({[stackName]: item.quantity}, stackDefinitions, bulkConfig);
 }
 
 /**
@@ -290,8 +290,8 @@ function calculateItemBulk(item: BulkItem, stackDefinitions: StackDefinitions, b
  * @return {boolean|*}
  */
 function isExtraDimensionalOrWorn(item: BulkItem, nestedExtraDimensionalContainer: boolean): boolean {
-  return (item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
-    || (item.reducesBulk && item.isEquipped);
+    return (item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
+        || (item.reducesBulk && item.isEquipped);
 }
 
 /**
@@ -304,10 +304,10 @@ function isExtraDimensionalOrWorn(item: BulkItem, nestedExtraDimensionalContaine
  * @return {Bulk|Bulk|*}
  */
 function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensionalContainer: boolean): Bulk {
-  if (isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer)) {
-    return bulk.minus(item.negateBulk);
-  }
-  return bulk;
+    if (isExtraDimensionalOrWorn(item, nestedExtraDimensionalContainer)) {
+        return bulk.minus(item.negateBulk);
+    }
+    return bulk;
 }
 
 /**
@@ -318,10 +318,10 @@ function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensional
  * @return {{}|*}
  */
 function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem, ignoreContainerOverflow): StackGroupOverflow {
-  if (item.extraDimensionalContainer || ignoreContainerOverflow) {
-    return {};
-  }
-  return overflow;
+    if (item.extraDimensionalContainer || ignoreContainerOverflow) {
+        return {};
+    }
+    return overflow;
 }
 
 /**
@@ -333,29 +333,29 @@ function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem, ig
  * @return {(Bulk|Bulk|{})[]}
  */
 function calculateCombinedBulk(
-  item: BulkItem,
-  stackDefinitions: StackDefinitions,
-  nestedExtraDimensionalContainer: boolean = false,
-  bulkConfig: BulkConfig = defaultBulkConfig,
+    item: BulkItem,
+    stackDefinitions: StackDefinitions,
+    nestedExtraDimensionalContainer: boolean = false,
+    bulkConfig: BulkConfig = defaultBulkConfig,
 ): BulkAndOverflow {
-  const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
-  const [childBulk, childOverflow] = item.holdsItems
-    .map(child => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
-    .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
+    const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
+    const [childBulk, childOverflow] = item.holdsItems
+        .map(child => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
+        .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 
-  // combine item overflow and child overflow
-  const combinedOverflow = combineObjects(
-    mainOverflow,
-    calculateChildOverflow(childOverflow, item, bulkConfig.ignoreContainerOverflow),
-    add,
-  );
-  const [overflowBulk, remainingOverflow] = calculateStackBulk(combinedOverflow, stackDefinitions, bulkConfig);
-  return [
-    mainBulk
-      .plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer))
-      .plus(overflowBulk),
-    remainingOverflow,
-  ];
+    // combine item overflow and child overflow
+    const combinedOverflow = combineObjects(
+        mainOverflow,
+        calculateChildOverflow(childOverflow, item, bulkConfig.ignoreContainerOverflow),
+        add,
+    );
+    const [overflowBulk, remainingOverflow] = calculateStackBulk(combinedOverflow, stackDefinitions, bulkConfig);
+    return [
+        mainBulk
+            .plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer))
+            .plus(overflowBulk),
+        remainingOverflow,
+    ];
 }
 
 /**
@@ -370,15 +370,15 @@ function calculateCombinedBulk(
  * @return {*}
  */
 export function calculateBulk(
-  items: BulkItem[],
-  stackDefinitions: StackDefinitions,
-  nestedExtraDimensionalContainer: boolean = false,
-  bulkConfig: BulkConfig = defaultBulkConfig,
+    items: BulkItem[],
+    stackDefinitions: StackDefinitions,
+    nestedExtraDimensionalContainer: boolean = false,
+    bulkConfig: BulkConfig = defaultBulkConfig,
 ): BulkAndOverflow {
-  const inventory = new BulkItem({
-    holdsItems: items,
-  });
-  return calculateCombinedBulk(inventory, stackDefinitions, nestedExtraDimensionalContainer, bulkConfig);
+    const inventory = new BulkItem({
+        holdsItems: items,
+    });
+    return calculateCombinedBulk(inventory, stackDefinitions, nestedExtraDimensionalContainer, bulkConfig);
 }
 
 
@@ -392,26 +392,26 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * @return {Bulk}
  */
 export function weightToBulk(weight: string | undefined | null): Bulk | undefined {
-  if (weight === undefined || weight === null) {
+    if (weight === undefined || weight === null) {
+        return undefined;
+    }
+    const trimmed = weight.trim();
+    if (/^\d+$/.test(trimmed)) {
+        return new Bulk({normal: parseInt(trimmed, 10)});
+    }
+    const lightMatch = trimmed.match(lightBulkRegex);
+    if (lightMatch) {
+        return new Bulk({light: parseInt(lightMatch[1] || '1', 10)});
+    }
+    const complexMatch = trimmed.match(complexBulkRegex);
+    if (complexMatch) {
+        const [, normal, light] = complexMatch;
+        return new Bulk({
+            normal: parseInt(normal, 10),
+            light: parseInt(light || '1', 10),
+        });
+    }
     return undefined;
-  }
-  const trimmed = weight.trim();
-  if (/^\d+$/.test(trimmed)) {
-    return new Bulk({normal: parseInt(trimmed, 10)});
-  }
-  const lightMatch = trimmed.match(lightBulkRegex);
-  if (lightMatch) {
-    return new Bulk({light: parseInt(lightMatch[1] || '1', 10)});
-  }
-  const complexMatch = trimmed.match(complexBulkRegex);
-  if (complexMatch) {
-    const [, normal, light] = complexMatch;
-    return new Bulk({
-      normal: parseInt(normal, 10),
-      light: parseInt(light || '1', 10),
-    });
-  }
-  return undefined;
 }
 
 type BrokenBulk = Optional<string> | Optional<number>;
@@ -421,13 +421,13 @@ type BrokenBulk = Optional<string> | Optional<number>;
  * @param weight
  */
 export function normalizeWeight(weight: BrokenBulk): string | undefined {
-  if (weight === null || weight === undefined) {
-    return undefined;
-  }
-  // turn numbers into strings
-  const stringWeight = `${weight}`;
-  return stringWeight.toLowerCase()
-    .trim();
+    if (weight === null || weight === undefined) {
+        return undefined;
+    }
+    // turn numbers into strings
+    const stringWeight = `${weight}`;
+    return stringWeight.toLowerCase()
+        .trim();
 }
 
 /**
@@ -437,29 +437,29 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
  * @return {BulkItem}
  */
 export function toBulkItem(item: PF2Item, nestedItems: BulkItem[] = []): BulkItem {
-  const id = item._id;
-  const weight = item.data?.weight?.value;
-  const quantity = item.data?.quantity?.value ?? 0;
-  const isEquipped = item.data?.equipped?.value ?? false;
-  const equippedBulk = item.data?.equippedBulk?.value;
-  const unequippedBulk = item.data?.unequippedBulk?.value;
-  const stackGroup = item.data?.stackGroup?.value;
-  const negateBulk = item.data?.negateBulk?.value;
-  const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
+    const id = item._id;
+    const weight = item.data?.weight?.value;
+    const quantity = item.data?.quantity?.value ?? 0;
+    const isEquipped = item.data?.equipped?.value ?? false;
+    const equippedBulk = item.data?.equippedBulk?.value;
+    const unequippedBulk = item.data?.unequippedBulk?.value;
+    const stackGroup = item.data?.stackGroup?.value;
+    const negateBulk = item.data?.negateBulk?.value;
+    const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
 
-  return new BulkItem({
-    id,
-    bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
-    negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
-    // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
-    unequippedBulk: weightToBulk(normalizeWeight(unequippedBulk)),
-    equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
-    holdsItems: nestedItems,
-    stackGroup,
-    isEquipped,
-    quantity,
-    extraDimensionalContainer,
-  });
+    return new BulkItem({
+        id,
+        bulk: weightToBulk(normalizeWeight(weight)) ?? new Bulk(),
+        negateBulk: weightToBulk(normalizeWeight(negateBulk)) ?? new Bulk(),
+        // this stuff overrides bulk so we don't want to default to 0 bulk if undefined
+        unequippedBulk: weightToBulk(normalizeWeight(unequippedBulk)),
+        equippedBulk: weightToBulk(normalizeWeight(equippedBulk)),
+        holdsItems: nestedItems,
+        stackGroup,
+        isEquipped,
+        quantity,
+        extraDimensionalContainer,
+    });
 }
 
 /**
@@ -470,15 +470,15 @@ export function toBulkItem(item: PF2Item, nestedItems: BulkItem[] = []): BulkIte
  * @return {*}
  */
 function buildContainerTree(items: PF2Item[], groupedItems: Map<string, PF2Item[]>): BulkItem[] {
-  return items
-    .map((item) => {
-      const itemId = item._id;
-      if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
-        const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
-        return toBulkItem(item, itemsInContainer);
-      }
-      return toBulkItem(item);
-    });
+    return items
+        .map((item) => {
+            const itemId = item._id;
+            if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
+                const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
+                return toBulkItem(item, itemsInContainer);
+            }
+            return toBulkItem(item);
+        });
 }
 
 /**
@@ -491,22 +491,22 @@ function buildContainerTree(items: PF2Item[], groupedItems: Map<string, PF2Item[
  * @return {*[]|*}
  */
 export function toBulkItems(items: PF2Item[]): BulkItem[] {
-  const allIds = new Set(items.map(item => item._id));
-  const itemsInContainers = groupBy(items, (item) => {
-    // we want all items in the top level group that are in no container
-    // or are never referenced because we don't want the items to
-    // disappear if the container is being deleted or doesn't have a reference
-    const ref = item.data?.containerId?.value ?? null;
-    if (ref === null || !allIds.has(ref)) {
-      return null;
+    const allIds = new Set(items.map(item => item._id));
+    const itemsInContainers = groupBy(items, (item) => {
+        // we want all items in the top level group that are in no container
+        // or are never referenced because we don't want the items to
+        // disappear if the container is being deleted or doesn't have a reference
+        const ref = item.data?.containerId?.value ?? null;
+        if (ref === null || !allIds.has(ref)) {
+            return null;
+        }
+        return ref;
+    });
+    if (itemsInContainers.has(null)) {
+        const topLevelItems = itemsInContainers.get(null);
+        return buildContainerTree(topLevelItems, itemsInContainers);
     }
-    return ref;
-  });
-  if (itemsInContainers.has(null)) {
-    const topLevelItems = itemsInContainers.get(null);
-    return buildContainerTree(topLevelItems, itemsInContainers);
-  }
-  return [];
+    return [];
 }
 
 const itemTypesWithBulk = new Set<string>();
@@ -522,9 +522,9 @@ itemTypesWithBulk.add('treasure');
  * @param actorData
  */
 export function itemsFromActorData(actorData: PF2Actor): BulkItem[] {
-  const itemsHavingBulk = actorData.items
-    .filter(item => itemTypesWithBulk.has(item.type));
-  return toBulkItems(itemsHavingBulk);
+    const itemsHavingBulk = actorData.items
+        .filter(item => itemTypesWithBulk.has(item.type));
+    return toBulkItems(itemsHavingBulk);
 }
 
 /**
@@ -533,14 +533,14 @@ export function itemsFromActorData(actorData: PF2Actor): BulkItem[] {
  * @return {string}
  */
 export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
-  const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
-  if (bulk.light === 1) {
-    return '1';
-  }
-  if (bulk.normal > 0) {
-    return `${bulk.normal + 1}`;
-  }
-  return '-';
+    const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return '1';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal + 1}`;
+    }
+    return '-';
 }
 
 /**
@@ -549,14 +549,14 @@ export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
  * @return {null|string}
  */
 export function fixWeight(brokenWeight: BrokenBulk): string | null {
-  const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
-  if (bulk.light === 1) {
-    return 'l';
-  }
-  if (bulk.normal > 0) {
-    return `${bulk.normal}`;
-  }
-  return null;
+    const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
+    if (bulk.light === 1) {
+        return 'l';
+    }
+    if (bulk.normal > 0) {
+        return `${bulk.normal}`;
+    }
+    return null;
 }
 
 /**
@@ -565,8 +565,8 @@ export function fixWeight(brokenWeight: BrokenBulk): string | null {
  * @param resultMap
  */
 function fillBulkIndex(bulkItem: BulkItem, resultMap: Map<string, BulkItem>): void {
-  resultMap.set(bulkItem.id, bulkItem);
-  bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
+    resultMap.set(bulkItem.id, bulkItem);
+    bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
 }
 
 /**
@@ -574,7 +574,7 @@ function fillBulkIndex(bulkItem: BulkItem, resultMap: Map<string, BulkItem>): vo
  * @param bulkItems first item is always the inventory, so unpack that first
  */
 export function indexBulkItemsById(bulkItems: BulkItem[] = []): Map<string, BulkItem> {
-  const result = new Map<string, BulkItem>();
-  bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
-  return result;
+    const result = new Map<string, BulkItem>();
+    bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
+    return result;
 }

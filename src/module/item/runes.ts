@@ -1,4 +1,4 @@
-import { isBlank, toNumber } from '../utils';
+import {isBlank, toNumber} from '../utils';
 import {PF2Item, PF2ItemData} from './item-entity';
 
 export function getPropertySlots(itemData: PF2Item): number {

@@ -19,82 +19,82 @@ import {coinCompendiumIds} from './treasure';
 const kits = new Map<string, CompendiumReference[]>();
 
 class CompendiumReference {
-  id: string;
+    id: string;
 
-  quantity?: number;
+    quantity?: number;
 
-  holdsItems: CompendiumReference[];
+    holdsItems: CompendiumReference[];
 
-  /**
-   * @param {string} id
-   * @param {number=} quantity
-   * @param {CompendiumReference[]} holdsItems
-   */
-  constructor({id, quantity, holdsItems = []}: { id: string, quantity?: number, holdsItems?: CompendiumReference[] }) {
-    this.id = id;
-    this.quantity = quantity;
-    this.holdsItems = holdsItems;
-  }
+    /**
+     * @param {string} id
+     * @param {number=} quantity
+     * @param {CompendiumReference[]} holdsItems
+     */
+    constructor({id, quantity, holdsItems = []}: { id: string, quantity?: number, holdsItems?: CompendiumReference[] }) {
+        this.id = id;
+        this.quantity = quantity;
+        this.holdsItems = holdsItems;
+    }
 }
 
 // adventurer's pack
 const adventurersPackId = 'rxXT8KPBXa08feFD';
 kits.set(adventurersPackId, [
-  // backpack
-  new CompendiumReference({
-    id: '3lgwjrFEsQVKzhh7',
-    holdsItems: [
-      // bedroll
-      new CompendiumReference({id: 'fagzYdmfYyMQ6J77'}),
-      // 10 pieces chalk
-      new CompendiumReference({
-        id: 'xShIDyydOMkGvGNb',
-        quantity: 10,
-      }),
-      // flint and steel
-      new CompendiumReference({id: 'UlIxxLm71UdRgCFE'}),
-      // 50ft rope
-      new CompendiumReference({id: 'fyYnQf1NAx9fWFaS'}),
-      // 2 weeks rations
-      new CompendiumReference({
-        id: 'L9ZV076913otGtiB',
-        quantity: 14,
-      }),
-      // soap
-      new CompendiumReference({id: '81aHsD27HFGnq1Nt'}),
-      // 5 torches
-      new CompendiumReference({
-        id: '8Jdw4yAzWYylGePS',
-        quantity: 5,
-      }),
-      // waterskin
-      new CompendiumReference({id: 'VnPh324pKwd2ZB66'}),
-    ],
-  }),
-  // belt pouch
-  new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
-  new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
+    // backpack
+    new CompendiumReference({
+        id: '3lgwjrFEsQVKzhh7',
+        holdsItems: [
+            // bedroll
+            new CompendiumReference({id: 'fagzYdmfYyMQ6J77'}),
+            // 10 pieces chalk
+            new CompendiumReference({
+                id: 'xShIDyydOMkGvGNb',
+                quantity: 10,
+            }),
+            // flint and steel
+            new CompendiumReference({id: 'UlIxxLm71UdRgCFE'}),
+            // 50ft rope
+            new CompendiumReference({id: 'fyYnQf1NAx9fWFaS'}),
+            // 2 weeks rations
+            new CompendiumReference({
+                id: 'L9ZV076913otGtiB',
+                quantity: 14,
+            }),
+            // soap
+            new CompendiumReference({id: '81aHsD27HFGnq1Nt'}),
+            // 5 torches
+            new CompendiumReference({
+                id: '8Jdw4yAzWYylGePS',
+                quantity: 5,
+            }),
+            // waterskin
+            new CompendiumReference({id: 'VnPh324pKwd2ZB66'}),
+        ],
+    }),
+    // belt pouch
+    new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
+    new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
 ]);
 
 function treasure(
-  gp: number = 0,
-  sp: number = 0,
-  cp: number = 0,
+    gp: number = 0,
+    sp: number = 0,
+    cp: number = 0,
 ): CompendiumReference[] {
-  return [
-    new CompendiumReference({
-      id: coinCompendiumIds.gp,
-      quantity: gp,
-    }),
-    new CompendiumReference({
-      id: coinCompendiumIds.sp,
-      quantity: sp,
-    }),
-    new CompendiumReference({
-      id: coinCompendiumIds.cp,
-      quantity: cp,
-    }),
-  ].filter(ref => ref.quantity !== 0);
+    return [
+        new CompendiumReference({
+            id: coinCompendiumIds.gp,
+            quantity: gp,
+        }),
+        new CompendiumReference({
+            id: coinCompendiumIds.sp,
+            quantity: sp,
+        }),
+        new CompendiumReference({
+            id: coinCompendiumIds.cp,
+            quantity: cp,
+        }),
+    ].filter(ref => ref.quantity !== 0);
 }
 
 const studdedArmorId = 'ewQZ0VeL38v3qFnN';
@@ -126,131 +126,131 @@ const writingSetId = 'QJb8S927Yj81EgHH';
 
 // alchemist kit
 kits.set('rdHcMXw4DMOL8IYu', [
-  ...treasure(9, 4),
-  new CompendiumReference({id: studdedArmorId}),
-  new CompendiumReference({id: slingBulletId, quantity: 20}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: slingId}),
-  new CompendiumReference({id: caltropId, quantity: 2}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: alchemistsToolsId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: craftersBookId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(9, 4),
+    new CompendiumReference({id: studdedArmorId}),
+    new CompendiumReference({id: slingBulletId, quantity: 20}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: slingId}),
+    new CompendiumReference({id: caltropId, quantity: 2}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: alchemistsToolsId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: craftersBookId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // barbarian kit
 kits.set('ms8FwuEvsUzwT8q0', [
-  ...treasure(11, 8),
-  new CompendiumReference({id: hideArmorId}),
-  new CompendiumReference({id: javelinId, quantity: 4}),
-  new CompendiumReference({id: sheathId, quantity: 2}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: grapplingHookId}),
+    ...treasure(11, 8),
+    new CompendiumReference({id: hideArmorId}),
+    new CompendiumReference({id: javelinId, quantity: 4}),
+    new CompendiumReference({id: sheathId, quantity: 2}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: grapplingHookId}),
 ]);
 // bard kit
 kits.set('A1gRqfmEx2zdhd6J', [
-  ...treasure(8, 2),
-  new CompendiumReference({id: studdedArmorId}),
-  new CompendiumReference({id: slingBulletId, quantity: 20}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: rapierId}),
-  new CompendiumReference({id: slingId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: musicalInstrumentId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(8, 2),
+    new CompendiumReference({id: studdedArmorId}),
+    new CompendiumReference({id: slingBulletId, quantity: 20}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: rapierId}),
+    new CompendiumReference({id: slingId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: musicalInstrumentId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // champion kit
 kits.set('AbxSVrDbnHS0hU3S', [
-  ...treasure(11, 2),
-  new CompendiumReference({id: hideArmorId}),
-  new CompendiumReference({id: javelinId, quantity: 4}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: crowbarId}),
-  new CompendiumReference({id: grapplingHookId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(11, 2),
+    new CompendiumReference({id: hideArmorId}),
+    new CompendiumReference({id: javelinId, quantity: 4}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: crowbarId}),
+    new CompendiumReference({id: grapplingHookId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // cleric kit
 kits.set('f1l10jVFkdWqiXRB', [
-  ...treasure(13),
-  new CompendiumReference({id: caltropId, quantity: 2}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: religiousSymbolId}),
+    ...treasure(13),
+    new CompendiumReference({id: caltropId, quantity: 2}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: religiousSymbolId}),
 ]);
 // druid kit
 kits.set('qHVFOTVFHEK662E0', [
-  ...treasure(11, 3),
-  new CompendiumReference({id: leatherArmorId}),
-  new CompendiumReference({id: javelinId, quantity: 4}),
-  new CompendiumReference({id: longspearId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: hollyAndMistletoeId}),
+    ...treasure(11, 3),
+    new CompendiumReference({id: leatherArmorId}),
+    new CompendiumReference({id: javelinId, quantity: 4}),
+    new CompendiumReference({id: longspearId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: hollyAndMistletoeId}),
 ]);
 // fighter kit
 kits.set('yE959HPiyGw9FxAM', [
-  ...treasure(12),
-  new CompendiumReference({id: hideArmorId}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: grapplingHookId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(12),
+    new CompendiumReference({id: hideArmorId}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: grapplingHookId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // monk kit
 kits.set('0f3l3Dq2xJek2UMZ', [
-  ...treasure(10, 2),
-  new CompendiumReference({id: longspearId}),
-  new CompendiumReference({id: staffId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: climbingKitId}),
-  new CompendiumReference({id: grapplingHookId}),
-  new CompendiumReference({id: smokestickId}),
+    ...treasure(10, 2),
+    new CompendiumReference({id: longspearId}),
+    new CompendiumReference({id: staffId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: climbingKitId}),
+    new CompendiumReference({id: grapplingHookId}),
+    new CompendiumReference({id: smokestickId}),
 ]);
 // ranger kit
 kits.set('hkMG8iNdSgofrPve', [
-  ...treasure(5, 9),
-  new CompendiumReference({id: leatherArmorId}),
-  new CompendiumReference({id: arrowsId, quantity: 20}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: longbowId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(5, 9),
+    new CompendiumReference({id: leatherArmorId}),
+    new CompendiumReference({id: arrowsId, quantity: 20}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: longbowId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // rogue kit
 kits.set('MARsStNVQdc4DRCV', [
-  ...treasure(9, 6),
-  new CompendiumReference({id: leatherArmorId}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: rapierId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: climbingKitId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(9, 6),
+    new CompendiumReference({id: leatherArmorId}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: rapierId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: climbingKitId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // sorcerer kit
 kits.set('edXxkkY3tgX7GLGI', [
-  ...treasure(13, 3, 7),
-  new CompendiumReference({id: slingBulletId, quantity: 20}),
-  new CompendiumReference({id: daggerId}),
-  new CompendiumReference({id: slingId}),
-  new CompendiumReference({id: caltropId, quantity: 2}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: bandolierId}),
-  new CompendiumReference({id: sheathId}),
+    ...treasure(13, 3, 7),
+    new CompendiumReference({id: slingBulletId, quantity: 20}),
+    new CompendiumReference({id: daggerId}),
+    new CompendiumReference({id: slingId}),
+    new CompendiumReference({id: caltropId, quantity: 2}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: bandolierId}),
+    new CompendiumReference({id: sheathId}),
 ]);
 // wizard kit
 kits.set('09iZbcSifVqwVpWh', [
-  ...treasure(11, 8),
-  new CompendiumReference({id: staffId}),
-  new CompendiumReference({id: adventurersPackId}),
-  new CompendiumReference({id: materialPouchId}),
-  new CompendiumReference({id: writingSetId}),
+    ...treasure(11, 8),
+    new CompendiumReference({id: staffId}),
+    new CompendiumReference({id: adventurersPackId}),
+    new CompendiumReference({id: materialPouchId}),
+    new CompendiumReference({id: writingSetId}),
 ]);
 
 export function isKit(itemId: string): boolean {
-  return kits.has(itemId);
+    return kits.has(itemId);
 }
 
 /**
@@ -259,30 +259,30 @@ export function isKit(itemId: string): boolean {
 type createItemCallback = (itemId: string, containerId?: string, quantity?: number) => Promise<string>;
 
 async function createKitItem(
-  item: CompendiumReference,
-  createItem: createItemCallback,
-  containerId?: string,
+    item: CompendiumReference,
+    createItem: createItemCallback,
+    containerId?: string,
 ): Promise<void> {
-  const itemId = item.id;
-  if (kits.has(itemId)) {
-    const subKits = kits.get(itemId);
-    for (const subKit of subKits) {
-      // eslint-disable-next-line no-await-in-loop
-      await createKitItem(subKit, createItem, undefined);
+    const itemId = item.id;
+    if (kits.has(itemId)) {
+        const subKits = kits.get(itemId);
+        for (const subKit of subKits) {
+            // eslint-disable-next-line no-await-in-loop
+            await createKitItem(subKit, createItem, undefined);
+        }
+    } else {
+        const createItemId = await createItem(itemId, containerId, item.quantity);
+        for (const heldItem of item.holdsItems ?? []) {
+            // eslint-disable-next-line no-await-in-loop
+            await createKitItem(heldItem, createItem, createItemId);
+        }
     }
-  } else {
-    const createItemId = await createItem(itemId, containerId, item.quantity);
-    for (const heldItem of item.holdsItems ?? []) {
-      // eslint-disable-next-line no-await-in-loop
-      await createKitItem(heldItem, createItem, createItemId);
-    }
-  }
 }
 
 export async function addKit(itemId: string, createItem: createItemCallback) {
-  const compendiumReferences = kits.get(itemId);
-  for (const item of compendiumReferences) {
-    // eslint-disable-next-line no-await-in-loop
-    await createKitItem(item, createItem, undefined);
-  }
+    const compendiumReferences = kits.get(itemId);
+    for (const item of compendiumReferences) {
+        // eslint-disable-next-line no-await-in-loop
+        await createKitItem(item, createItem, undefined);
+    }
 }

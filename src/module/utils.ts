@@ -28,18 +28,18 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
  *     combineObjects({a: 3, b: 4}, {b: 1, c: 0}, (a, b) => a+b)
  * @param first
  * @param second
- * @param mergeFunction if duplicate keys exist, both values 
+ * @param mergeFunction if duplicate keys exist, both values
  * are passed into this function to return the result
  * @return
  */
 export function combineObjects<K extends keyof any, V>(
-  first: Record<K, V> | {}, 
-  second: Record<K, V> | {}, 
-  mergeFunction: (first: V, second: V) => V
+    first: Record<K, V> | {},
+    second: Record<K, V> | {},
+    mergeFunction: (first: V, second: V) => V,
 ): Record<K, V> {
     const combinedKeys = new Set([
         ...(Object.keys(first)),
-        ...(Object.keys(second))
+        ...(Object.keys(second)),
     ]);
 
     const combinedObject = {} as Record<K, V>;
