@@ -115,7 +115,7 @@ export async function addCoins({
     combineStacks = false,
     updateItemQuantity = async () => Promise.resolve(),
     addFromCompendium = async () => Promise.resolve(),
-}: AddCoinsParameters = {}) {
+}: AddCoinsParameters = {}): Promise<void> {
     const currencies = new Set(Object.keys(coins));
     const topLevelCoins = items
         .filter(item => combineStacks && isTopLevelCoin(item, currencies));
@@ -144,7 +144,7 @@ export function addCoinsSimple(actor: PF2ActorEntity, {
         cp: 0,
     },
     combineStacks = false,
-}: {coins?: Coins, combineStacks?: boolean} = { }) {
+}: {coins?: Coins, combineStacks?: boolean} = { }): Promise<void> {
     return addCoins({
         coins,
         combineStacks,
@@ -163,7 +163,7 @@ export function addCoinsSimple(actor: PF2ActorEntity, {
     });
 }
 
-export function sellAllTreasureSimple(actor) {
+export function sellAllTreasureSimple(actor: PF2ActorEntity): Promise<void[]> {
   const {treasureIds, coins} = sellAllTreasure(actor.data.items);
   return Promise.all([
     actor.deleteEmbeddedEntity("OwnedItem", treasureIds),
