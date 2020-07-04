@@ -2,7 +2,7 @@ import { addKit } from '../../../src/module/item/kits';
 
 describe('testing kits', () => {
     test('should add an adventurer\'s pack', async () => {
-        const mockFn = jest.fn(async (itemId, containerId, quantity) => itemId);
+        const mockFn = jest.fn(async (itemId) => itemId);
         
         await addKit('rxXT8KPBXa08feFD', mockFn);
         
