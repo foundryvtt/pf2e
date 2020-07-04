@@ -180,7 +180,7 @@ export function sellAllTreasureSimple(actor) {
  * @param itemId
  * @return {Promise} Resolves after the treasure is removed and coins updated
  */
-export async function sellTreasure(actor, itemId) {
+export async function sellTreasure(actor: PF2ActorEntity, itemId: string): Promise<void> {
   const item = actor.getOwnedItem(itemId);
   if (item?.type === 'treasure'
     && item.data.data?.denomination?.value !== undefined

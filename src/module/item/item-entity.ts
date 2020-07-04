@@ -44,5 +44,6 @@ export interface PF2Item {
 
 export interface PF2ItemEntity {
   data: PF2Item;
+  type: string;
   update(value: Record<string, any>): Promise<PF2ItemEntity>;
 }
