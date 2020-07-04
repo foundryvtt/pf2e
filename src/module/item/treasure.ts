@@ -104,18 +104,20 @@ interface AddCoinsParameters {
     addFromCompendium?: (compendiumId: string, quantity: number) => Promise<void>,
 }
 
-export async function addCoins({
-                                   items = [],
-                                   coins = {
-                                       pp: 0,
-                                       gp: 0,
-                                       sp: 0,
-                                       cp: 0,
-                                   },
-                                   combineStacks = false,
-                                   updateItemQuantity = async () => Promise.resolve(),
-                                   addFromCompendium = async () => Promise.resolve(),
-                               }: AddCoinsParameters = {}): Promise<void> {
+export async function addCoins(
+    {
+        items = [],
+        coins = {
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0,
+        },
+        combineStacks = false,
+        updateItemQuantity = async () => Promise.resolve(),
+        addFromCompendium = async () => Promise.resolve(),
+    }: AddCoinsParameters = {},
+): Promise<void> {
     const currencies = new Set(Object.keys(coins));
     const topLevelCoins = items
         .filter(item => combineStacks && isTopLevelCoin(item, currencies));

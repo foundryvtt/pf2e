@@ -33,17 +33,19 @@ class ContainerData {
 
     capacity: Bulk;
 
-    constructor({
-                    item,
-                    heldItems,
-                    negateBulk,
-                    capacity,
-                    heldItemBulk,
-                    isInContainer,
-                    formattedNegateBulk,
-                    formattedHeldItemBulk,
-                    formattedCapacity,
-                }) {
+    constructor(
+        {
+            item,
+            heldItems,
+            negateBulk,
+            capacity,
+            heldItemBulk,
+            isInContainer,
+            formattedNegateBulk,
+            formattedHeldItemBulk,
+            formattedCapacity,
+        },
+    ) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
