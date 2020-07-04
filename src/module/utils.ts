@@ -32,10 +32,10 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
  * are passed into this function to return the result
  * @return
  */
-export function combineObjects<A extends object, B extends object>(
+export function combineObjects<A extends object, B extends object, T>(
   first: A, 
   second: B, 
-  mergeFunction: (first: any, second: any) => any
+  mergeFunction: (first: T, second: T) => T
 ): A & B {
     const combinedKeys = new Set([
         ...(Object.keys(first)),
