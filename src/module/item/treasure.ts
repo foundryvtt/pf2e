@@ -23,11 +23,16 @@ function toCoins(denomination: string, value: number): Coins {
   }
 }
 
-const noCoins: Coins = {
-  pp: 0,
-  gp: 0,
-  sp: 0,
-  cp: 0,
+/**
+ * always return a new copy
+ */
+function noCoins(): Coins {
+  return {
+    pp: 0,
+    gp: 0,
+    sp: 0,
+    cp: 0,
+  }
 }
 
 function combineCoins(first: Coins, second: Coins): Coins {
@@ -55,7 +60,7 @@ export function sellAllTreasure(items: PF2Item[]): SoldItemData {
           const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
           return toCoins(item.data.denomination.value, value);
         })
-        .reduce(combineCoins, noCoins);
+        .reduce(combineCoins, noCoins());
     return {treasureIds, coins};
 }
 
@@ -73,7 +78,7 @@ export function calculateWealth(items: PF2Item[]): Coins {
           const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
           return toCoins(item.data.denomination.value, value);
         })
-        .reduce(combineCoins, noCoins);
+        .reduce(combineCoins, noCoins());
 }
 
 export const coinCompendiumIds = {
