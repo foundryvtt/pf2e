@@ -1,86 +1,104 @@
-import {Bulk, calculateBulk, formatBulk, weightToBulk} from './bulk';
+import {
+  Bulk,
+  BulkConfig,
+  BulkItem,
+  calculateBulk,
+  defaultBulkConfig,
+  formatBulk,
+  StackDefinitions,
+  weightToBulk,
+} from './bulk';
 import {groupBy} from '../utils';
+import {PF2Item} from './item-entity';
 
 /**
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
-    item: any;
-    heldItems: any;
-    negateBulk: Bulk;
-    heldItemBulk: Bulk;
-    isInContainer: boolean;
-    formattedHeldItemBulk: string;
-    formattedNegateBulk: string;
-    formattedCapacity: string;
-    capacity: Bulk;
+  item: PF2Item;
 
-    constructor({
-        item,
-        heldItems,
-        negateBulk,
-        capacity,
-        heldItemBulk,
-        isInContainer,
-        formattedNegateBulk,
-        formattedHeldItemBulk,
-        formattedCapacity,
-    }) {
-        this.item = item;
-        this.heldItems = heldItems;
-        this.negateBulk = negateBulk;
-        this.heldItemBulk = heldItemBulk;
-        this.isInContainer = isInContainer;
-        this.formattedHeldItemBulk = formattedHeldItemBulk;
-        this.formattedNegateBulk = formattedNegateBulk;
-        this.formattedCapacity = formattedCapacity;
-        this.capacity = capacity;
-    }
+  heldItems: PF2Item[];
 
-    get isContainer() {
-        return !this.capacity.isNegligible;
-    }
+  negateBulk: Bulk;
 
-    get isCollapsed() {
-        return this.item?.data?.collapsed?.value ?? false;
-    }
-    
-    get isNotInContainer() {
-        return !this.isInContainer;
-    }
+  heldItemBulk: Bulk;
 
-    _getLightBulkCapacityThreshold() {
-        if (this.capacity.normal > 0) {
-            // light bulk don't count towards bulk limit
-            return this.capacity.toLightBulk() + 10;
-        }
-        // but do if the container only stores light bulk
-        return this.capacity.light;
-    }
+  isInContainer: boolean;
 
-    get fullPercentage() {
-        const capacity = this._getLightBulkCapacityThreshold();
-        if (capacity === 0) {
-            return 0;
-        }
-        const heldLightBulk = this.heldItemBulk.toLightBulk();
-        return Math.floor((heldLightBulk / capacity) * 100);
-    }
-    
-    get fullPercentageMax100() {
-        const percentage = this.fullPercentage;
-        if (percentage > 100) {
-            return 100;
-        }
-        return percentage;
-    }
+  formattedHeldItemBulk: string;
 
-    get isOverLoaded() {
-        if (this.capacity.normal > 0) {
-            return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
-        }
-        return this.heldItemBulk.toLightBulk() > this.capacity.light;
+  formattedNegateBulk: string;
+
+  formattedCapacity: string;
+
+  capacity: Bulk;
+
+  constructor({
+                item,
+                heldItems,
+                negateBulk,
+                capacity,
+                heldItemBulk,
+                isInContainer,
+                formattedNegateBulk,
+                formattedHeldItemBulk,
+                formattedCapacity,
+              }) {
+    this.item = item;
+    this.heldItems = heldItems;
+    this.negateBulk = negateBulk;
+    this.heldItemBulk = heldItemBulk;
+    this.isInContainer = isInContainer;
+    this.formattedHeldItemBulk = formattedHeldItemBulk;
+    this.formattedNegateBulk = formattedNegateBulk;
+    this.formattedCapacity = formattedCapacity;
+    this.capacity = capacity;
+  }
+
+  get isContainer(): boolean {
+    return !this.capacity.isNegligible;
+  }
+
+  get isCollapsed(): boolean {
+    return this.item?.data?.collapsed?.value ?? false;
+  }
+
+  get isNotInContainer(): boolean {
+    return !this.isInContainer;
+  }
+
+  _getLightBulkCapacityThreshold(): number {
+    if (this.capacity.normal > 0) {
+      // light bulk don't count towards bulk limit
+      return this.capacity.toLightBulk() + 10;
     }
+    // but do if the container only stores light bulk
+    return this.capacity.light;
+  }
+
+  get fullPercentage(): number {
+    const capacity = this._getLightBulkCapacityThreshold();
+    if (capacity === 0) {
+      return 0;
+    }
+    const heldLightBulk = this.heldItemBulk.toLightBulk();
+    return Math.floor((heldLightBulk / capacity) * 100);
+  }
+
+  get fullPercentageMax100(): number {
+    const percentage = this.fullPercentage;
+    if (percentage > 100) {
+      return 100;
+    }
+    return percentage;
+  }
+
+  get isOverLoaded(): boolean {
+    if (this.capacity.normal > 0) {
+      return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
+    }
+    return this.heldItemBulk.toLightBulk() > this.capacity.light;
+  }
 }
 
 /**
@@ -93,34 +111,39 @@ class ContainerData {
  * @param bulkConfig
  * @return {ContainerData}
  */
-function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, stackDefinitions, bulkConfig) {
-    const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
-    const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
-    const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
-    return new ContainerData({
-        item,
-        heldItems,
-        negateBulk,
-        capacity,
-        heldItemBulk,
-        isInContainer,
-        formattedNegateBulk: formatBulk(negateBulk),
-        formattedHeldItemBulk: formatBulk(heldItemBulk),
-        formattedCapacity: formatBulk(capacity),
-    });
+function toContainer(
+  item: PF2Item,
+  heldItems: PF2Item[] = [],
+  heldBulkItems: BulkItem[] = [],
+  isInContainer: boolean,
+  stackDefinitions: StackDefinitions,
+  bulkConfig: BulkConfig,
+): ContainerData {
+  const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
+  const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
+  const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
+  return new ContainerData({
+    item,
+    heldItems,
+    negateBulk,
+    capacity,
+    heldItemBulk,
+    isInContainer,
+    formattedNegateBulk: formatBulk(negateBulk),
+    formattedHeldItemBulk: formatBulk(heldItemBulk),
+    formattedCapacity: formatBulk(capacity),
+  });
 }
 
-function detectCycle(itemId, containerId, idIndexedItems) {
-    if (idIndexedItems.has(containerId)) {
-        const currentItem = idIndexedItems.get(containerId);
-        if (itemId === currentItem._id) {
-            return true;
-        } else {
-            return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
-        }
-    } else {
-        return false;
+function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, PF2Item>): boolean {
+  if (idIndexedItems.has(containerId)) {
+    const currentItem = idIndexedItems.get(containerId);
+    if (itemId === currentItem._id) {
+      return true;
     }
+    return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
+  }
+  return false;
 }
 
 /**
@@ -130,12 +153,12 @@ function detectCycle(itemId, containerId, idIndexedItems) {
  * @param items
  * @returns {boolean}
  */
-export function isCycle(itemId, containerId, items) {
-    const idIndexedItems = new Map();
-    for (const item of items) {
-        idIndexedItems.set(item._id, item);
-    }
-    return detectCycle(itemId, containerId, idIndexedItems);
+export function isCycle(itemId: string, containerId: string, items: PF2Item[]): boolean {
+  const idIndexedItems = new Map();
+  for (const item of items) {
+    idIndexedItems.set(item._id, item);
+  }
+  return detectCycle(itemId, containerId, idIndexedItems);
 }
 
 /**
@@ -150,37 +173,42 @@ export function isCycle(itemId, containerId, items) {
  * @return {Map<string, ContainerData>}
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefinitions, bulkConfig = {}) {
-    const allIds = groupBy(items, item => item._id);
+export function getContainerMap(
+  items: PF2Item[] = [],
+  bulkItemsById: Map<string, BulkItem> = new Map(),
+  stackDefinitions: StackDefinitions,
+  bulkConfig: BulkConfig = defaultBulkConfig,
+): Map<string, ContainerData> {
+  const allIds = groupBy(items, item => item._id);
 
-    const containerGroups = groupBy(items, item => {
-        const containerId = item?.data?.containerId?.value;
-        if (allIds.has(containerId)) {
-            return containerId;
-        }
-        return null;
+  const containerGroups = groupBy(items, item => {
+    const containerId = item?.data?.containerId?.value;
+    if (allIds.has(containerId)) {
+      return containerId;
+    }
+    return null;
+  });
+
+  const idIndexedContainerData = new Map<string, ContainerData>();
+  items
+    .map((item: PF2Item): [string, PF2Item[], boolean] => {
+      const itemId = item._id;
+      const isInContainer = containerGroups.has(item?.data?.containerId?.value);
+      if (containerGroups.has(itemId)) {
+        return [itemId, containerGroups.get(itemId), isInContainer];
+      }
+      return [itemId, [], isInContainer];
+    })
+    .forEach(([id, heldItems, isInContainer]) => {
+      idIndexedContainerData.set(id, toContainer(
+        allIds.get(id)[0],
+        heldItems,
+        bulkItemsById.get(id)?.holdsItems ?? [],
+        isInContainer,
+        stackDefinitions,
+        bulkConfig,
+      ));
     });
 
-    const idIndexedContainerData = new Map();
-    items
-        .map(item => {
-            const itemId = item._id;
-            const isInContainer = containerGroups.has(item?.data?.containerId?.value);
-            if (containerGroups.has(itemId)) {
-                return [itemId, containerGroups.get(itemId), isInContainer];
-            }
-            return [itemId, [], isInContainer];
-        })
-        .forEach(([id, heldItems, isInContainer]) => {
-            idIndexedContainerData.set(id, toContainer(
-                allIds.get(id)[0],
-                heldItems,
-                bulkItemsById.get(id)?.holdsItems ?? [],
-                isInContainer,
-                stackDefinitions,
-                bulkConfig
-            ));
-        });
-
-    return idIndexedContainerData;
+  return idIndexedContainerData;
 }

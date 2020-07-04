@@ -1,44 +1,48 @@
+import {Bulk} from './bulk';
+
 export class InventoryWeight {
-    combinedBulk: any;
-    encumberedAt: any;
-    limit: any;
+  combinedBulk: Bulk;
 
-    constructor(combinedBulk, encumberedAt, limit) {
-        this.combinedBulk = combinedBulk;
-        this.encumberedAt = encumberedAt;
-        this.limit = limit;
-    }
+  encumberedAt: number;
 
-    get encumberedPercentage() {
-        const totalTimes10 = this.combinedBulk.toLightBulk();
-        const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
-        return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
-    }
+  limit: number;
 
-    get limitPercentage() {
-        const totalTimes10 = this.combinedBulk.toLightBulk();
-        const limitTimes10 = this.limit * 10 + 10;
-        return Math.floor((totalTimes10 / limitTimes10) * 100);
-    }
+  constructor(combinedBulk: Bulk, encumberedAt: number, limit: number) {
+    this.combinedBulk = combinedBulk;
+    this.encumberedAt = encumberedAt;
+    this.limit = limit;
+  }
 
-    get limitPercentageMax100() {
-        if (this.limitPercentage > 100) {
-            return 100;
-        }
-        return this.limitPercentage;
-    }
+  get encumberedPercentage(): number {
+    const totalTimes10 = this.combinedBulk.toLightBulk();
+    const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
+    return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
+  }
 
-    get isEncumbered() {
-        return this.combinedBulk.normal > this.encumberedAt;
-    }
+  get limitPercentage(): number {
+    const totalTimes10 = this.combinedBulk.toLightBulk();
+    const limitTimes10 = this.limit * 10 + 10;
+    return Math.floor((totalTimes10 / limitTimes10) * 100);
+  }
 
-    get isOverLimit() {
-        return this.combinedBulk.normal > this.limit;
+  get limitPercentageMax100(): number {
+    if (this.limitPercentage > 100) {
+      return 100;
     }
+    return this.limitPercentage;
+  }
 
-    get bulk() {
-        return this.combinedBulk.normal;
-    }
+  get isEncumbered(): boolean {
+    return this.combinedBulk.normal > this.encumberedAt;
+  }
+
+  get isOverLimit(): boolean {
+    return this.combinedBulk.normal > this.limit;
+  }
+
+  get bulk(): number {
+    return this.combinedBulk.normal;
+  }
 }
 
 /**
@@ -47,8 +51,13 @@ export class InventoryWeight {
  * @param bonusBulkEncumbrance increased bulk until you are encumbered
  * @param combinedBulk
  */
-export function calculateEncumbrance(strengthModifier, bonusBulkEncumbrance, bonusBulkLimit, combinedBulk) {
-    const encumberedAt = strengthModifier + bonusBulkEncumbrance + 5;
-    const limit = strengthModifier + bonusBulkLimit + 10;
-    return new InventoryWeight(combinedBulk, encumberedAt, limit);
+export function calculateEncumbrance(
+  strengthModifier: number,
+  bonusBulkEncumbrance: number,
+  bonusBulkLimit: number,
+  combinedBulk: Bulk,
+): InventoryWeight {
+  const encumberedAt = strengthModifier + bonusBulkEncumbrance + 5;
+  const limit = strengthModifier + bonusBulkLimit + 10;
+  return new InventoryWeight(combinedBulk, encumberedAt, limit);
 }
