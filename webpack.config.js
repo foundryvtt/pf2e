@@ -5,7 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+ 
 function getFoundryConfig() {
     const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
     let config;
@@ -57,7 +58,8 @@ module.exports = (env, argv) => {
             new WriteFilePlugin(),
             new MiniCssExtractPlugin({
                 filename: 'styles/pf2e.css'
-            })
+            }),
+            new ProgressBarPlugin()
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js']
