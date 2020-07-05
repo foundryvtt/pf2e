@@ -135,7 +135,7 @@ declare class ChatMessage extends Entity {
 		alias,
 	}?: {
 		scene?: Scene;
-		actor?: Actor;
+		actor?: SystemActorType;
 		token?: Token;
 		alias?: string;
 	}): any;
@@ -149,7 +149,7 @@ declare class ChatMessage extends Entity {
 	}?: {
 		token?: Token;
 		alias?: string;
-	}): { scene: Scene; token: Token; actor: Actor; alias: string };
+	}): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
 
 	/**
 	 * A helper to prepare the speaker object based on a target Actor
@@ -162,7 +162,7 @@ declare class ChatMessage extends Entity {
 		scene?: Scene;
 		actor?: Token;
 		alias?: string;
-	}): { scene: Scene; token: Token; actor: Actor; alias: string };
+	}): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
 
 	/**
 	 * A helper to prepare the speaker object based on a target User
@@ -175,7 +175,7 @@ declare class ChatMessage extends Entity {
 		scene?: Scene;
 		user?: User;
 		alias?: string;
-	}): { scene: Scene; token: Token; actor: Actor; alias: string };
+	}): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
 
 	/* -------------------------------------------- */
 	/*  Roll Data Preparation                       */
@@ -190,5 +190,5 @@ declare class ChatMessage extends Entity {
 	 * Obtain an Actor instance which represents the speaker of this message (if any)
 	 * @param speaker	The speaker data object
 	 */
-	static getSpeakerActor(speaker: object): Actor | null;
+	static getSpeakerActor(speaker: object): SystemActorType | null;
 }

@@ -40,7 +40,7 @@ declare class Token extends PlaceableObject {
 	 * If actorLink is true, then the entity is the true Actor entity
 	 * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
 	 */
-	actor: Actor;
+	actor: SystemActorType;
 
 	/**
 	 * The Token's most recently computed line-of-sight polygon
