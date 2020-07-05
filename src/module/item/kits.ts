@@ -254,7 +254,7 @@ export function isKit(itemId: string): boolean {
 }
 
 /**
- * returns the created item id
+ * async callback that must return the created item id
  */
 type createItemCallback = (itemId: string, containerId?: string, quantity?: number) => Promise<string>;
 
