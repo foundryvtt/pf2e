@@ -277,7 +277,7 @@ async function createKitItem(
     }
 }
 
-export async function addKit(itemId: string, createItem: createItemCallback) {
+export async function addKit(itemId: string, createItem: createItemCallback): Promise<void> {
     const compendiumReferences = kits.get(itemId);
     for (const item of compendiumReferences) {
         // eslint-disable-next-line no-await-in-loop

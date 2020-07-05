@@ -59,8 +59,6 @@ export type Optional<T> = T | null | undefined;
 
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
- * @param {?string|null} string
- * @return {boolean}
  */
 export function isBlank(string: Optional<string>) {
     return string === null || string === undefined || string.trim() === '';
@@ -68,8 +66,8 @@ export function isBlank(string: Optional<string>) {
 
 /**
  * Parses a string, number, null or undefined into a Number
- * @param {(number|string|null|undefined)} value
- * @return {(number|null|undefined)} parsed value or undefined/null if either was provided or
+ * @param value
+ * @return parsed value or undefined/null if either was provided or
  * undefined if it couldn't be parsed as a number
  */
 export function toNumber(value: Optional<string> | Optional<number>): Optional<number> {
@@ -85,9 +83,6 @@ export function toNumber(value: Optional<string> | Optional<number>): Optional<n
 
 /**
  * Used as a function reference
- * @param {number} x
- * @param {number} y
- * @return {number}
  */
 export function add(x: number, y: number): number {
     return x + y;
@@ -96,8 +91,6 @@ export function add(x: number, y: number): number {
 
 /**
  * Adds a + if positive, nothing if 0 or - if negative
- * @param {number} number
- * @return {string}
  */
 export function addSign(number: number): string {
     if (number < 0) {
