@@ -879,6 +879,84 @@ export default class PF2EItem extends Item {
     });
   }
 
+  identify() {
+    const identifiedItemId = this.data.data.identification.identifiedItemId;
+    const actor = this.actor;
+
+    if (identifiedItemId && actor) {
+      const identifiedItem = duplicate(game.items.get(identifiedItemId));
+
+      if (!identifiedItem) {
+        ui.notifications.error(game.i18n.localize('PF2E.ItemIdentificationDoesNotExistError'));
+        return;
+      }
+      const unidentifiedItemData = this.data.data;
+
+      identifiedItem._id = this.data._id;
+      identifiedItem.sort = this.data.sort;
+      identifiedItem.data.identification.isUnidentified = false;
+      identifiedItem.data.identification.unidentifiedItemId = "";
+      identifiedItem.data.identification.identifiedItemId = "";
+      identifiedItem.data.containerId.value = unidentifiedItemData.containerId.value;
+      identifiedItem.data.equipped.value = unidentifiedItemData.equipped.value;
+      identifiedItem.data.weight.value = unidentifiedItemData.weight.value;
+      identifiedItem.data.quantity.value = unidentifiedItemData.quantity.value
+
+      actor.updateOwnedItem(identifiedItem, {overwrite: true});
+    } else {
+      console.log(`PF2e System | Error: Item '${this.data._id}' could not be identified!`)
+    }
+  }
+
+  async createUnidentifiedVersion() {
+    const unidentifiedItemId = this.data.data.identification?.unidentifiedItemId;
+    if (unidentifiedItemId) {
+      console.log(`PF2e System | Error: Item '${this.data._id}' already has an unidentified version with id '${unidentifiedItemId}!'`)
+      return;
+    }
+
+    let copy = {};
+    if (this.data.data.identification?.copyEntireItem) {
+      copy = duplicate(this.data);
+      mergeObject(copy, {
+        data: {
+          identification: {
+            isUnidentified: true,
+            identifiedItemId: this._id
+          }
+        }
+      })
+    } else {
+      copy = {
+        name: this.data.name,
+        img: this.data.img,
+        type: this.data.type,
+        folder: this.data.folder,
+        permission: this.data.permission,
+        data: {
+          identification: {
+            isUnidentified: true,
+            identifiedItemId: this._id
+          }
+        }
+      };
+    }
+
+    const unidentifiedItem = await Item.create(copy);
+
+    // Force item name update to rerender ItemDirectory sidebar
+    await this.update({
+      name: this.name,
+      data: {
+        identification: {
+          unidentifiedItemId: unidentifiedItem._id
+        }
+      }
+    }, {diff: false});
+
+    return unidentifiedItem;
+  }
+
   /* -------------------------------------------- */
 
   static chatListeners(html) {
@@ -949,4 +1027,51 @@ export default class PF2EItem extends Item {
   }
 }
 
+  /* -------------------------------------------- */
 
+// Handle copying with attached unidentified item
+Hooks.on('preCreateItem', (item) => {
+  if (item.data) {
+    // Item is duplicated from the Item Directory sidebar
+    if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+      const identificationData = item.data?.identification;
+      if (identificationData?.unidentifiedItemId) {
+        item.data.identification.unidentifiedItemId = "";
+      }
+    }
+  } else {
+    // Item is created with the 'Create Item' button in the Item Directory
+  }
+});
+
+// Handle deletion of attached unidentified item
+Hooks.on('preDeleteItem', (item) => {
+  if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+    const identificationData = item.data.data?.identification;
+    if (identificationData?.unidentifiedItemId) {
+      // Item has attached unidentified item with id unidentifiedItemId
+      const unidentifiedItem = game.items.get(identificationData.unidentifiedItemId);
+      if (unidentifiedItem) {
+        console.log('PF2e System | Delete attached unidentified item');
+        unidentifiedItem.delete();
+      }
+    }
+  }
+})
+
+// Handle orphaned unidentified items
+Hooks.once('ready', () => {
+  console.log('PF2e System | Find and delete orphaned unidentified items');
+  game.items.entities.forEach(async (item) => {
+    if (['consumable', 'equipment', 'weapon', 'armor', 'backpack', 'treasure'].includes(item.type)) {
+      const identificationData = item.data.data?.identification;
+      if (identificationData?.identifiedItemId) {
+        const identifiedItem = game.items.get(identificationData.identifiedItemId);
+        if (!identifiedItem) {
+          // The item this unidentified item was attached to no longer exists
+          item.delete();
+        }
+      }
+    }
+  });
+})

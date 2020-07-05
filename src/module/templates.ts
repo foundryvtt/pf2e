@@ -79,6 +79,7 @@ export default function () {
         'systems/pf2e/templates/items/melee-details.html',
         'systems/pf2e/templates/items/weapon-details.html',
         'systems/pf2e/templates/items/weapon-sidebar.html',
+        'systems/pf2e/templates/items/item-identification.html',
         // Loot partials
         'systems/pf2e/templates/actors/loot/loot-avatar.html',
         'systems/pf2e/templates/actors/loot/loot-inventory.html',

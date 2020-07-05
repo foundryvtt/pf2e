@@ -1292,16 +1292,27 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
-            this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
+          this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
         }
         // Case 3 - Import from World entity
         else {
           console.log(`From world entry`);
-            let item = game.items.get(data.id);
+          let item = game.items.get(data.id);
+          if (!item) return;
+          // Replace original item with unidentified version
+          const createUnidentifiedForNpcs = item.data.data.identification?.createUnidentifiedForNpcs;
+          if (actor.isPC || (!actor.isPC && createUnidentifiedForNpcs)) {
+            const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+            if (unidentifiedItemId) {
+              item = game.items.get(unidentifiedItemId);
+              if (createUnidentifiedForNpcs)
+                await item.update({['data.identification.createUnidentifiedForNpcs']: createUnidentifiedForNpcs ?? false});
+            }
             if (!item) return;
-            return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
-            });
+          }
+          return this.stashOrUnstash(event, actor, () => {
+              return actor.createOwnedItem(duplicate(item.data));
+          });
         }
     }
 
@@ -1316,6 +1327,11 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
       const sourceActor = game.actors.get(sourceActorId);
       const targetActor = game.actors.get(targetActorId);
       const item = sourceActor.getOwnedItem(itemId);
+
+      if (!item) {
+        ui.notifications.error(game.i18n.localize('PF2E.ItemMoveUnlinkedTokenError'));
+        return;
+      }
 
       let isSameActor = sourceActorId === targetActorId;
 
@@ -1343,7 +1359,22 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     }
 
     async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
+      const sourceItemId = item._id;
       const sourceItemQuantity = Number(item.data.data.quantity.value);
+      
+      // Replace original item with unidentified version if the target is a player
+      // and replace unidentified version with identified version if the targe is an npc
+      if (targetActor.isPC || (!targetActor.isPC && item.data.data.identification?.createUnidentifiedForNpcs)) {
+        const unidentifiedItemId = item.data.data.identification?.unidentifiedItemId;
+        if (unidentifiedItemId) {
+          item = game.items.get(unidentifiedItemId);
+        }
+      } else {
+        const identifiedItemId = item.data.data.identification?.identifiedItemId;
+        if (identifiedItemId) {
+          item = game.items.get(identifiedItemId);
+        }
+      }
 
       if (quantity > sourceItemQuantity) {
         quantity = sourceItemQuantity;
@@ -1353,9 +1384,9 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
       const hasToRemoveFromSource = newItemQuantity < 1;
 
       if (hasToRemoveFromSource) {
-        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+        await sourceActor.deleteEmbeddedEntity('OwnedItem', sourceItemId);
       } else {
-        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+        const update = { '_id': sourceItemId, 'data.quantity.value': newItemQuantity };
         await sourceActor.updateEmbeddedEntity('OwnedItem', update);
       }
 
@@ -1384,9 +1415,13 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
 
     async stashOrUnstash(event, actor, getItem) {
         const container = $(event.target).parents('[data-item-is-container="true"]');
+        const ownedItem = await getItem();
+        const item = actor.getOwnedItem(ownedItem._id || ownedItem.id);
+
+        if (!item) return;
+
         if (container[0] !== undefined) {
             const droppedItemId = container.attr('data-item-id')?.trim();
-            const item = await getItem();
             if (item.type !== 'spell' && !isCycle(item._id, droppedItemId, this.actor.data.items)) {
                 return item.update({
                     'data.containerId.value': droppedItemId,
@@ -1395,7 +1430,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
             }
             return item;
         }
-        const item = await getItem();
+
         const result = await item.update({'data.containerId.value': ''});
         return result;
     }
@@ -1443,6 +1478,8 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     if (item.data.type === 'spellcastingEntry') return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
+    const identificationData = item.data.data.identification;
+    const isUnidentified = identificationData?.isUnidentified;
 
     // Toggle summary
     if (li.hasClass('expanded')) {
@@ -1451,6 +1488,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     } else {
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
+
       if (chatData.properties) {
         chatData.properties.filter((p) => typeof p === 'string').forEach((p) => {
           props.append(`<span class="tag tag_secondary">${localize(p)}</span>`);
@@ -1464,7 +1502,9 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
           else props.append(`<span class="tag">${localize(p.label)}</span>`);
         });
       }
-
+      if (isUnidentified && game.user.isGM && identificationData.skill) {
+        props.append(`<span class="tag">${localize("PF2E.ItemIdentificationDCLabel")} ${identificationData.skill} ${identificationData.dc || 0}</span>`)
+      }
       // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
 
       div.append(props);
@@ -1512,6 +1552,9 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
           buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
       }
+      if (game.user.isGM && isUnidentified && identificationData.identifiedItemId) {
+        buttons.append(`<span class="tag"><button data-action="identify">${localize("PF2E.ItemIdentifyLabel")}</button>`);
+      }
 
       div.append(buttons);
 
@@ -1537,6 +1580,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
           case 'spellDamage': item.rollSpellDamage(ev); break;
           case 'featDamage': item.rollFeatDamage(ev); break;
           case 'consume': item.rollConsumable(ev); break;
+          case 'identify': item.identify(); break;
         }
       });
 
