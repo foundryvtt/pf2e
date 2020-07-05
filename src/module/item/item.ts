@@ -841,44 +841,6 @@ export default class PF2EItem extends Item {
 
   /* -------------------------------------------- */
 
-  /**
-   * Roll Feat Damage
-   * Rely upon the DicePF2e.damageRoll logic for the core implementation
-   */
-  rollFeatDamage(event) {
-    if (this.type !== 'feat') throw 'Wrong item type!';
-
-    // Get data
-    const itemData = this.data.data;
-    const rollData = duplicate(this.actor.data.data);
-    const abl = itemData.ability.value || 'str';
-    const parts = [itemData.damage.value];
-    const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
-
-    // Append damage type to title
-    let title = `${this.name} - ${game.i18n.localize('PF2E.DamageLabel')}`;
-    if (dtype) title += ` (${dtype})`;
-
-    // Add item data to roll
-    rollData.mod = rollData.abilities[abl].mod;
-    rollData.item = itemData;
-
-    // Call the roll helper utility
-    DicePF2e.damageRoll({
-      event,
-      parts,
-      data: rollData,
-      actor: this.actor as PF2EActor,
-      title,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710,
-      },
-    });
-  }
-
   identify() {
     const identifiedItemId = this.data.data.identification.identifiedItemId;
     const actor = this.actor;
@@ -1017,9 +979,6 @@ export default class PF2EItem extends Item {
       // Spell actions
       else if (action === 'spellAttack') item.rollSpellAttack(ev);
       else if (action === 'spellDamage') item.rollSpellDamage(ev);
-
-      // Feat actions
-      else if (action === 'featDamage') item.rollFeatDamage(ev);
 
       // Consumable usage
       else if (action === 'consume') item.rollConsumable(ev);

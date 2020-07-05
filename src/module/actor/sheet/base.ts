@@ -818,7 +818,6 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
         case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
         case 'spellAttack': item.rollSpellAttack(ev); break;
         case 'spellDamage': item.rollSpellDamage(ev); break;
-        case 'featDamage': item.rollFeatDamage(ev); break;
         case 'consume': item.rollConsumable(ev); break;
       }
     });
@@ -1578,7 +1577,6 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
           case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
           case 'spellAttack': item.rollSpellAttack(ev); break;
           case 'spellDamage': item.rollSpellDamage(ev); break;
-          case 'featDamage': item.rollFeatDamage(ev); break;
           case 'consume': item.rollConsumable(ev); break;
           case 'identify': item.identify(); break;
         }
