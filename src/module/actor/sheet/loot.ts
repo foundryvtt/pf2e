@@ -60,7 +60,8 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const bulkItems = itemsFromActorData(actorData);
         const indexedBulkItems = indexBulkItemsById(bulkItems);
         const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
-
+        const userIsGM = game.user.isGM;
+        
         for (const i of actorData.items) {
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);
@@ -79,6 +80,8 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
                 i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
                 i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
+                i.userIsGM = userIsGM;
+                i.isUnidentified = i.data.identification?.isUnidentified;
                 inventory[i.type].items.push(i);
             }
 
