@@ -1,3 +1,5 @@
+import {coinCompendiumIds} from './treasure';
+
 /**
  * The kit key is the item's compendium id.
  *
@@ -11,11 +13,7 @@
  *
  * If the compendium id is a container, you can nest objects into it by
  * setting the holdsItems attribute to an array of CompendiumReference objects.
- *
- * @type {Map<string, CompendiumReference[]>}
  */
-import {coinCompendiumIds} from './treasure';
-
 const kits = new Map<string, CompendiumReference[]>();
 
 class CompendiumReference {
