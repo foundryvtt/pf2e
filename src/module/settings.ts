@@ -1,3 +1,5 @@
+import { compendiumBrowser } from './packs/compendium-browser';
+
 export default function () {
   game.settings.register('pf2e', 'worldSchemaVersion', {
     name: 'Actor Schema Version',
@@ -108,5 +110,15 @@ export default function () {
       doubledamage: "Double the damage",
       doubledice: "Double the number of dice"
     }
+  });
+  game.settings.register('pf2e', 'compendiumBrowserPacks', {
+    name: 'Compendium Browser Packs',
+    hint: 'Settings to exclude packs from loading',
+    default: '{}',
+    type: String,
+    scope: 'world',
+    onChange: (settings) => {
+      compendiumBrowser.loadSettings();
+    },
   });
 }

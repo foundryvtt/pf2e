@@ -2,7 +2,7 @@ import {calculateWealth, sellAllTreasureSimple, sellTreasure} from '../../item/t
 import { AddCoinsPopup } from './AddCoinsPopup';
 import {isCycle} from "../../item/container";
 import { isKit, addKit } from '../../item/kits';
-import { actionBrowser, inventoryBrowser, featBrowser, spellBrowser } from "../../packs/spell-browser";
+import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
 import { SKILL_DICTIONARY } from '../actor';
 import { ProficiencyModifier } from '../../modifiers';
@@ -654,16 +654,16 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     html.find('.sell-all-treasure button').click(ev => this._onSellAllTreasure(ev));
 
     // Feat Browser
-    html.find('.feat-browse').click((ev) => featBrowser.render(true));
+    html.find('.feat-browse').click((ev) => compendiumBrowser.openTab('feat'));
 
     // Action Browser
-    html.find('.action-browse').click((ev) => actionBrowser.render(true));
+    html.find('.action-browse').click((ev) => compendiumBrowser.openTab('action'));
 
     // Spell Browser
-    html.find('.spell-browse').click((ev) => spellBrowser.render(true));
+    html.find('.spell-browse').click((ev) => compendiumBrowser.openTab('spell'));
 
     // Inventory Browser
-    html.find('.inventory-browse').click((ev) => inventoryBrowser.render(true));
+    html.find('.inventory-browse').click((ev) => compendiumBrowser.openTab('equipment'));
 
     // Spell Create
     html.find('.spell-create').click((ev) => this._onItemCreate(ev));
@@ -1344,7 +1344,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
 
     async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
       const sourceItemQuantity = Number(item.data.data.quantity.value);
-      
+
       if (quantity > sourceItemQuantity) {
         quantity = sourceItemQuantity;
       }

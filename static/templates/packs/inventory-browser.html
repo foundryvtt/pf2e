@@ -100,7 +100,13 @@
                 <span class="item-edit" ><a>{{item.name}}</a></span>
             </div>
             <div class="spell-tags">
-                <span title="Item Price">{{item.data.price.value}}</span>
+              <span title="Item Price">
+                {{#if (eq item.type 'treasure')}}
+                  {{item.data.quantity.value}} {{item.data.denomination.value}}
+                {{else}}
+                  {{item.data.price.value}}
+                {{/if}}
+              </span>
             </div>
             <div class="spell-tags">
                 <span title="Item level">{{item.data.level.value}}</span>
