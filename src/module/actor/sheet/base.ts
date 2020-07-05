@@ -1547,9 +1547,6 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
         case 'consumable':
           if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
           break;
-        case 'tool':
-          buttons.append(`<span class="tag"><button class="tool_check" data-action="toolCheck" data-ability="${chatData.ability.value}">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
-          break;
       }
       if (game.user.isGM && isUnidentified && identificationData.identifiedItemId) {
         buttons.append(`<span class="tag"><button data-action="identify">${localize("PF2E.ItemIdentifyLabel")}</button>`);
