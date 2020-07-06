@@ -13,23 +13,6 @@ export default class PF2EItem extends Item {
   prepareData() {
     super.prepareData();
     const item = this.data;
-
-    if (item.type === 'weapon') {
-      // calculate multiple attack penalty tiers
-      const agile = (item.data.traits.value || []).includes('agile');
-      const alternateMAP = (item.data.MAP || {}).value;
-      switch (alternateMAP) {
-        case '1': { item.data.map2 = -1; item.data.map3 = -2; break; }
-        case '2': { item.data.map2 = -2; item.data.map3 = -4; break; }
-        case '3': { item.data.map2 = -3; item.data.map3 = -6; break; }
-        case '4': { item.data.map2 = -4; item.data.map3 = -8; break; }
-        case '5': { item.data.map2 = -5; item.data.map3 = -10; break; }
-        default: {
-          item.data.map2 = agile ? -4 : -5;
-          item.data.map3 = agile ? -8 : -10;
-        }
-      }
-    }
   }
 
   /**
@@ -197,6 +180,10 @@ export default class PF2EItem extends Item {
     data.isFinesse = isFinesse;
     data.properties = properties.filter((p) => !!p);
     data.traits = traits.filter((p) => !!p);
+
+    const map = this.calculateMap();
+    data.map2 = map.map2;
+    data.map3 = map.map3;
     return data;
   }
 
@@ -837,6 +824,32 @@ export default class PF2EItem extends Item {
         this.actor.updateEmbeddedEntity('OwnedItem', { _id: this.data._id, 'data.charges.value': Math.max(chg.value - 1, 0) });
       }
     }
+  }
+
+  calculateMap(): { map2: number, map3: number } {
+    return PF2EItem.calculateMap(this.data);
+  }
+
+  static calculateMap(item: any): { map2: number, map3: number } {
+    if (item.type === 'weapon') {
+      // calculate multiple attack penalty tiers
+      const agile = (item.data.traits.value || []).includes('agile');
+      const alternateMAP = (item.data.MAP || {}).value;
+      switch (alternateMAP) {
+        case '1': return { map2: -1, map3: -2 };
+        case '2': return { map2: -2, map3: -4 };
+        case '3': return { map2: -3, map3: -6 };
+        case '4': return { map2: -4, map3: -8 };
+        case '5': return { map2: -5, map3: -10 };
+        default: {
+          if (agile)
+            return { map2: -4, map3: -8 };
+          else
+            return { map2: -5, map3: -10 };
+        }
+      }
+    }
+    return { map2: -5, map3: -10 };
   }
 
   /* -------------------------------------------- */
