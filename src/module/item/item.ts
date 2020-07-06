@@ -13,23 +13,6 @@ export default class PF2EItem extends Item {
   prepareData() {
     super.prepareData();
     const item = this.data;
-
-    if (item.type === 'weapon') {
-      // calculate multiple attack penalty tiers
-      const agile = (item.data.traits.value || []).includes('agile');
-      const alternateMAP = (item.data.MAP || {}).value;
-      switch (alternateMAP) {
-        case '1': { item.data.map2 = -1; item.data.map3 = -2; break; }
-        case '2': { item.data.map2 = -2; item.data.map3 = -4; break; }
-        case '3': { item.data.map2 = -3; item.data.map3 = -6; break; }
-        case '4': { item.data.map2 = -4; item.data.map3 = -8; break; }
-        case '5': { item.data.map2 = -5; item.data.map3 = -10; break; }
-        default: {
-          item.data.map2 = agile ? -4 : -5;
-          item.data.map3 = agile ? -8 : -10;
-        }
-      }
-    }
   }
 
   /**
@@ -197,6 +180,10 @@ export default class PF2EItem extends Item {
     data.isFinesse = isFinesse;
     data.properties = properties.filter((p) => !!p);
     data.traits = traits.filter((p) => !!p);
+
+    const map = this.calculateMap();
+    data.map2 = map.map2;
+    data.map3 = map.map3;
     return data;
   }
 
@@ -839,45 +826,33 @@ export default class PF2EItem extends Item {
     }
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Roll Feat Damage
-   * Rely upon the DicePF2e.damageRoll logic for the core implementation
-   */
-  rollFeatDamage(event) {
-    if (this.type !== 'feat') throw 'Wrong item type!';
-
-    // Get data
-    const itemData = this.data.data;
-    const rollData = duplicate(this.actor.data.data);
-    const abl = itemData.ability.value || 'str';
-    const parts = [itemData.damage.value];
-    const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
-
-    // Append damage type to title
-    let title = `${this.name} - ${game.i18n.localize('PF2E.DamageLabel')}`;
-    if (dtype) title += ` (${dtype})`;
-
-    // Add item data to roll
-    rollData.mod = rollData.abilities[abl].mod;
-    rollData.item = itemData;
-
-    // Call the roll helper utility
-    DicePF2e.damageRoll({
-      event,
-      parts,
-      data: rollData,
-      actor: this.actor as PF2EActor,
-      title,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710,
-      },
-    });
+  calculateMap(): { map2: number, map3: number } {
+    return PF2EItem.calculateMap(this.data);
   }
+
+  static calculateMap(item: any): { map2: number, map3: number } {
+    if (item.type === 'weapon') {
+      // calculate multiple attack penalty tiers
+      const agile = (item.data.traits.value || []).includes('agile');
+      const alternateMAP = (item.data.MAP || {}).value;
+      switch (alternateMAP) {
+        case '1': return { map2: -1, map3: -2 };
+        case '2': return { map2: -2, map3: -4 };
+        case '3': return { map2: -3, map3: -6 };
+        case '4': return { map2: -4, map3: -8 };
+        case '5': return { map2: -5, map3: -10 };
+        default: {
+          if (agile)
+            return { map2: -4, map3: -8 };
+          else
+            return { map2: -5, map3: -10 };
+        }
+      }
+    }
+    return { map2: -5, map3: -10 };
+  }
+
+  /* -------------------------------------------- */
 
   identify() {
     const identifiedItemId = this.data.data.identification.identifiedItemId;
@@ -1017,9 +992,6 @@ export default class PF2EItem extends Item {
       // Spell actions
       else if (action === 'spellAttack') item.rollSpellAttack(ev);
       else if (action === 'spellDamage') item.rollSpellDamage(ev);
-
-      // Feat actions
-      else if (action === 'featDamage') item.rollFeatDamage(ev);
 
       // Consumable usage
       else if (action === 'consume') item.rollConsumable(ev);
