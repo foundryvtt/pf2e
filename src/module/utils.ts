@@ -1,18 +1,13 @@
 /**
- * @callback criterion
- * {}
- */
-
-/**
  * Given an array and a key function, create a map where the key is the value that
  * gets returned when each item is pushed into the function. Accumulate
  * items in an array that have the same key
  * @param array
  * @param criterion
- * @return {Map<any, any>}
+ * @return
  */
-export function groupBy(array, criterion) {
-    const result = new Map();
+export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
+    const result = new Map<R, T[]>();
     for (const elem of array) {
         const key = criterion(elem);
         if (result.get(key) === undefined) {
@@ -31,18 +26,23 @@ export function groupBy(array, criterion) {
  * Example:
  *     // returns {a: 3, b: 5, c: 0}
  *     combineObjects({a: 3, b: 4}, {b: 1, c: 0}, (a, b) => a+b)
- * @param {{}} first
- * @param {{}} second
- * @param mergeFunction
- * @return {{}}
+ * @param first
+ * @param second
+ * @param mergeFunction if duplicate keys exist, both values
+ * are passed into this function to return the result
+ * @return
  */
-export function combineObjects(first, second, mergeFunction) {
+export function combineObjects<K extends keyof any, V>(
+    first: Record<K, V> | {},
+    second: Record<K, V> | {},
+    mergeFunction: (first: V, second: V) => V,
+): Record<K, V> {
     const combinedKeys = new Set([
         ...(Object.keys(first)),
-        ...(Object.keys(second))
+        ...(Object.keys(second)),
     ]);
 
-    const combinedObject = {};
+    const combinedObject = {} as Record<K, V>;
     for (const name of combinedKeys) {
         if (name in first && name in second) {
             combinedObject[name] = mergeFunction(first[name], second[name]);
@@ -55,12 +55,14 @@ export function combineObjects(first, second, mergeFunction) {
     return combinedObject;
 }
 
+export type Optional<T> = T | null | undefined;
+
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
  * @param {?string|null} string
  * @return {boolean}
  */
-export function isBlank(string) {
+export function isBlank(string: Optional<string>) {
     return string === null || string === undefined || string.trim() === '';
 }
 
@@ -70,9 +72,9 @@ export function isBlank(string) {
  * @return {(number|null|undefined)} parsed value or undefined/null if either was provided or
  * undefined if it couldn't be parsed as a number
  */
-export function toNumber(value) {
-    if (value === null || value === undefined || Number.isInteger(value)) {
-        return value;
+export function toNumber(value: Optional<string> | Optional<number>): Optional<number> {
+    if (value === null || value === undefined || typeof value === 'number') {
+        return value as Optional<number>;
     }
     const result = parseInt(value, 10);
     if (Number.isNaN(result)) {
@@ -87,7 +89,7 @@ export function toNumber(value) {
  * @param {number} y
  * @return {number}
  */
-export function add(x, y) {
+export function add(x: number, y: number): number {
     return x + y;
 }
 
@@ -97,7 +99,7 @@ export function add(x, y) {
  * @param {number} number
  * @return {string}
  */
-export function addSign(number) {
+export function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }

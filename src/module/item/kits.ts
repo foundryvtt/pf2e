@@ -14,13 +14,15 @@
  *
  * @type {Map<string, CompendiumReference[]>}
  */
-import { coinCompendiumIds } from './treasure';
+import {coinCompendiumIds} from './treasure';
 
-const kits = new Map();
+const kits = new Map<string, CompendiumReference[]>();
 
 class CompendiumReference {
     id: string;
-    quantity: number;
+
+    quantity?: number;
+
     holdsItems: CompendiumReference[];
 
     /**
@@ -28,7 +30,7 @@ class CompendiumReference {
      * @param {number=} quantity
      * @param {CompendiumReference[]} holdsItems
      */
-    constructor({ id, quantity, holdsItems = [] }: { id?: string, quantity?: number, holdsItems?: CompendiumReference[]} = {}) {
+    constructor({id, quantity, holdsItems = []}: { id: string, quantity?: number, holdsItems?: CompendiumReference[] }) {
         this.id = id;
         this.quantity = quantity;
         this.holdsItems = holdsItems;
@@ -43,55 +45,54 @@ kits.set(adventurersPackId, [
         id: '3lgwjrFEsQVKzhh7',
         holdsItems: [
             // bedroll
-            new CompendiumReference({ id: 'fagzYdmfYyMQ6J77' }),
+            new CompendiumReference({id: 'fagzYdmfYyMQ6J77'}),
             // 10 pieces chalk
             new CompendiumReference({
                 id: 'xShIDyydOMkGvGNb',
-                quantity: 10
+                quantity: 10,
             }),
             // flint and steel
-            new CompendiumReference({ id: 'UlIxxLm71UdRgCFE' }),
+            new CompendiumReference({id: 'UlIxxLm71UdRgCFE'}),
             // 50ft rope
-            new CompendiumReference({ id: 'fyYnQf1NAx9fWFaS' }),
+            new CompendiumReference({id: 'fyYnQf1NAx9fWFaS'}),
             // 2 weeks rations
             new CompendiumReference({
                 id: 'L9ZV076913otGtiB',
-                quantity: 14
+                quantity: 14,
             }),
             // soap
-            new CompendiumReference({ id: '81aHsD27HFGnq1Nt' }),
+            new CompendiumReference({id: '81aHsD27HFGnq1Nt'}),
             // 5 torches
             new CompendiumReference({
                 id: '8Jdw4yAzWYylGePS',
-                quantity: 5
+                quantity: 5,
             }),
             // waterskin
-            new CompendiumReference({ id: 'VnPh324pKwd2ZB66' }),
+            new CompendiumReference({id: 'VnPh324pKwd2ZB66'}),
         ],
     }),
     // belt pouch
-    new CompendiumReference({ id: 'eFqKVKrf62XOGWUw' }),
-    new CompendiumReference({ id: 'eFqKVKrf62XOGWUw' }),
+    new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
+    new CompendiumReference({id: 'eFqKVKrf62XOGWUw'}),
 ]);
 
-/**
- * @param {number} gp
- * @param {number} sp
- * @return {CompendiumReference[]}
- */
-function treasure(gp = 0, sp = 0, cp = 0) {
+function treasure(
+    gp: number = 0,
+    sp: number = 0,
+    cp: number = 0,
+): CompendiumReference[] {
     return [
         new CompendiumReference({
             id: coinCompendiumIds.gp,
-            quantity: gp
+            quantity: gp,
         }),
         new CompendiumReference({
             id: coinCompendiumIds.sp,
-            quantity: sp
+            quantity: sp,
         }),
         new CompendiumReference({
             id: coinCompendiumIds.cp,
-            quantity: cp
+            quantity: cp,
         }),
     ].filter(ref => ref.quantity !== 0);
 }
@@ -248,29 +249,20 @@ kits.set('09iZbcSifVqwVpWh', [
     new CompendiumReference({id: writingSetId}),
 ]);
 
-
-/**
- * @param {string} itemId
- * @return {boolean}
- */
-export function isKit(itemId) {
+export function isKit(itemId: string): boolean {
     return kits.has(itemId);
 }
 
 /**
- * @callback createItemCallback
- * @param {string} itemId
- * @param {?string} containerId
- * @param {?number} quantity
+ * returns the created item id
  */
+type createItemCallback = (itemId: string, containerId?: string, quantity?: number) => Promise<string>;
 
-/**
- * @param {CompendiumReference} item
- * @param {createItemCallback} createItem
- * @param {?string} containerId
- * @return {Promise<void>}
- */
-async function createKitItem(item, createItem, containerId) {
+async function createKitItem(
+    item: CompendiumReference,
+    createItem: createItemCallback,
+    containerId?: string,
+): Promise<void> {
     const itemId = item.id;
     if (kits.has(itemId)) {
         const subKits = kits.get(itemId);
@@ -287,12 +279,7 @@ async function createKitItem(item, createItem, containerId) {
     }
 }
 
-/**
- * @param {string} itemId
- * @param {createItemCallback} createItem
- * @return {Promise<void>}
- */
-export async function addKit(itemId, createItem) {
+export async function addKit(itemId: string, createItem: createItemCallback) {
     const compendiumReferences = kits.get(itemId);
     for (const item of compendiumReferences) {
         // eslint-disable-next-line no-await-in-loop

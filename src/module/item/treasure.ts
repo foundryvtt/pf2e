@@ -1,75 +1,67 @@
-import { groupBy, isBlank } from '../utils';
+import {groupBy, isBlank} from '../utils';
+import {PF2Item} from './item-entity';
+import {PF2ActorEntity} from '../actor/actor-entity';
+
+interface Coins {
+    pp: number;
+    gp: number;
+    sp: number;
+    cp: number;
+}
+
+interface SoldItemData {
+    treasureIds: string[];
+    coins: Coins;
+}
+
+function toCoins(denomination: string, value: number): Coins {
+    return {
+        pp: denomination === 'pp' ? value : 0,
+        gp: denomination === 'gp' ? value : 0,
+        sp: denomination === 'sp' ? value : 0,
+        cp: denomination === 'cp' ? value : 0,
+    };
+}
+
+/**
+ * always return a new copy
+ */
+function noCoins(): Coins {
+    return {
+        pp: 0,
+        gp: 0,
+        sp: 0,
+        cp: 0,
+    };
+}
+
+function combineCoins(first: Coins, second: Coins): Coins {
+    return {
+        pp: first.pp + second.pp,
+        gp: first.gp + second.gp,
+        sp: first.sp + second.sp,
+        cp: first.cp + second.cp,
+    };
+}
 
 /**
  * Finds all non-coin treasures in a list of items
  * @return {{treasureIds: Array, coins: Object}} List of treasures to remove and coins to add
  */
-export function sellAllTreasure(items) {
+export function sellAllTreasure(items: PF2Item[]): SoldItemData {
     const treasureIds = [];
-    const coins = items
+    const coins: Coins = items
         .filter(item => item.type === 'treasure'
             && item.data?.denomination?.value !== undefined
             && item.data?.denomination?.value !== null
             && item?.data?.stackGroup?.value !== 'coins')
-        .map(item => {
+        .map((item: PF2Item): Coins => {
             treasureIds.push(item._id);
-            return {
-                [item.data.denomination.value]: (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1),
-            };
+            const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
+            return toCoins(item.data.denomination.value, value);
         })
-        .reduce((prev, curr) => {
-            return {
-                pp: prev.pp + (curr.pp || 0),
-                gp: prev.gp + (curr.gp || 0),
-                sp: prev.sp + (curr.sp || 0),
-                cp: prev.cp + (curr.cp || 0),
-            };
-        }, {
-            pp: 0,
-            gp: 0,
-            sp: 0,
-            cp: 0
-        });
+        .reduce(combineCoins, noCoins());
     return {treasureIds, coins};
-}
-
-export function sellAllTreasureSimple(actor) {
-    const {treasureIds, coins} = sellAllTreasure(actor.data.items);
-    return Promise.all([
-        actor.deleteEmbeddedEntity("OwnedItem", treasureIds),
-        addCoinsSimple(actor, {
-            coins,
-            combineStacks: true,
-        })
-    ]);
-}
-
-/**
- * Converts a non-coin treasure in an actor's inventory to coinage
- * @param actor
- * @param itemId
- * @return {Promise} Resolves after the treasure is removed and coins updated
- */
-export async function sellTreasure(actor, itemId) {
-    const item = actor.getOwnedItem(itemId);
-    if (item?.type === 'treasure'
-        && item.data.data?.denomination?.value !== undefined
-        && item.data.data?.denomination?.value !== null
-        && item.data.data?.stackGroup?.value !== 'coins') {
-        let coins = {
-            pp: 0,
-            gp: 0,
-            sp: 0,
-            cp: 0,
-        };
-        coins[item.data.data.denomination.value] = 
-                (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1);
-        await actor.deleteEmbeddedEntity("OwnedItem", itemId);
-        await addCoinsSimple(actor, {
-            coins,
-            combineStacks: true,
-        });
-    }
 }
 
 /**
@@ -77,29 +69,16 @@ export async function sellTreasure(actor, itemId) {
  * @param items
  * @return {*}
  */
-export function calculateWealth(items) {
+export function calculateWealth(items: PF2Item[]): Coins {
     return items
         .filter(item => item.type === 'treasure'
             && item?.data?.denomination?.value !== undefined
             && item?.data?.denomination?.value !== null)
         .map(item => {
-            return {
-                [item.data.denomination.value]: (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1),
-            };
+            const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
+            return toCoins(item.data.denomination.value, value);
         })
-        .reduce((prev, curr) => {
-            return {
-                pp: (prev.pp || 0) + (curr.pp || 0),
-                gp: (prev.gp || 0) + (curr.gp || 0),
-                sp: (prev.sp || 0) + (curr.sp || 0),
-                cp: (prev.cp || 0) + (curr.cp || 0),
-            };
-        }, {
-            pp: 0,
-            gp: 0,
-            sp: 0,
-            cp: 0
-        });
+        .reduce(combineCoins, noCoins());
 }
 
 export const coinCompendiumIds = {
@@ -109,7 +88,7 @@ export const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isTopLevelCoin(item, currencies) {
+function isTopLevelCoin(item: PF2Item, currencies: Set<string>): boolean {
     return item?.type === 'treasure'
         && item?.data?.value?.value === 1
         && item?.data?.stackGroup?.value === 'coins'
@@ -117,18 +96,28 @@ function isTopLevelCoin(item, currencies) {
         && currencies.has(item?.data?.denomination?.value);
 }
 
-export async function addCoins({
-    items = [],
-    coins = {
-        pp: 0,
-        gp: 0,
-        sp: 0,
-        cp: 0,
-    },
-    combineStacks = false,
-    updateItemQuantity = async (item, quantity) => undefined,
-    addFromCompendium = async (compendiumId, quantity) => undefined
-} = {}) {
+interface AddCoinsParameters {
+    items?: PF2Item[],
+    coins?: Coins,
+    combineStacks?: boolean,
+    updateItemQuantity?: (item: PF2Item, quantity: number) => Promise<void>,
+    addFromCompendium?: (compendiumId: string, quantity: number) => Promise<void>,
+}
+
+export async function addCoins(
+    {
+        items = [],
+        coins = {
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0,
+        },
+        combineStacks = false,
+        updateItemQuantity = async () => Promise.resolve(),
+        addFromCompendium = async () => Promise.resolve(),
+    }: AddCoinsParameters = {},
+): Promise<void> {
     const currencies = new Set(Object.keys(coins));
     const topLevelCoins = items
         .filter(item => combineStacks && isTopLevelCoin(item, currencies));
@@ -149,7 +138,7 @@ export async function addCoins({
     }
 }
 
-export function addCoinsSimple(actor, {
+export function addCoinsSimple(actor: PF2ActorEntity, {
     coins = {
         pp: 0,
         gp: 0,
@@ -157,7 +146,7 @@ export function addCoinsSimple(actor, {
         cp: 0,
     },
     combineStacks = false,
-} = { }) {
+}: { coins?: Coins, combineStacks?: boolean } = {}): Promise<void> {
     return addCoins({
         coins,
         combineStacks,
@@ -174,4 +163,37 @@ export function addCoinsSimple(actor, {
             await actor.createOwnedItem(item.data);
         },
     });
+}
+
+export function sellAllTreasureSimple(actor: PF2ActorEntity): Promise<void[]> {
+    const {treasureIds, coins} = sellAllTreasure(actor.data.items);
+    return Promise.all([
+        actor.deleteEmbeddedEntity('OwnedItem', treasureIds),
+        addCoinsSimple(actor, {
+            coins,
+            combineStacks: true,
+        }),
+    ]);
+}
+
+/**
+ * Converts a non-coin treasure in an actor's inventory to coinage
+ * @param actor
+ * @param itemId
+ * @return {Promise} Resolves after the treasure is removed and coins updated
+ */
+export async function sellTreasure(actor: PF2ActorEntity, itemId: string): Promise<void> {
+    const item = actor.getOwnedItem(itemId);
+    if (item?.type === 'treasure'
+        && item.data.data?.denomination?.value !== undefined
+        && item.data.data?.denomination?.value !== null
+        && item.data.data?.stackGroup?.value !== 'coins') {
+        const quantity = (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1);
+        const coins = toCoins(item.data.data.denomination.value, quantity);
+        await actor.deleteEmbeddedEntity('OwnedItem', itemId);
+        await addCoinsSimple(actor, {
+            coins,
+            combineStacks: true,
+        });
+    }
 }
