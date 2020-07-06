@@ -20,6 +20,7 @@ import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
+import PF2EItem from '../item/item';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -404,8 +405,6 @@ export default class PF2EActor extends Actor {
           ability: { value: 'str' },
           weaponType: { value: 'unarmed' },
           bonus: { value: 0 },
-          map2: -4,
-          map3: -8,
           damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
@@ -470,18 +469,19 @@ export default class PF2EActor extends Actor {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
+        let map = PF2EItem.calculateMap(item);
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
             roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
           },
           {
-            label: `MAP ${item.data.map2}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            label: `MAP ${map.map2}`,
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
           {
-            label: `MAP ${item.data.map3}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            label: `MAP ${map.map3}`,
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
         ];
         action.damage = (event, options = []) => {
