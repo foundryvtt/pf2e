@@ -1,42 +1,46 @@
-export class InventoryWeight {
-    combinedBulk: any;
-    encumberedAt: any;
-    limit: any;
+import {Bulk} from './bulk';
 
-    constructor(combinedBulk, encumberedAt, limit) {
+export class InventoryWeight {
+    combinedBulk: Bulk;
+
+    encumberedAt: number;
+
+    limit: number;
+
+    constructor(combinedBulk: Bulk, encumberedAt: number, limit: number) {
         this.combinedBulk = combinedBulk;
         this.encumberedAt = encumberedAt;
         this.limit = limit;
     }
 
-    get encumberedPercentage() {
+    get encumberedPercentage(): number {
         const totalTimes10 = this.combinedBulk.toLightBulk();
         const encumberedAtTimes10 = this.encumberedAt * 10 + 10;
         return Math.floor((totalTimes10 / encumberedAtTimes10) * 100);
     }
 
-    get limitPercentage() {
+    get limitPercentage(): number {
         const totalTimes10 = this.combinedBulk.toLightBulk();
         const limitTimes10 = this.limit * 10 + 10;
         return Math.floor((totalTimes10 / limitTimes10) * 100);
     }
 
-    get limitPercentageMax100() {
+    get limitPercentageMax100(): number {
         if (this.limitPercentage > 100) {
             return 100;
         }
         return this.limitPercentage;
     }
 
-    get isEncumbered() {
+    get isEncumbered(): boolean {
         return this.combinedBulk.normal > this.encumberedAt;
     }
 
-    get isOverLimit() {
+    get isOverLimit(): boolean {
         return this.combinedBulk.normal > this.limit;
     }
 
-    get bulk() {
+    get bulk(): number {
         return this.combinedBulk.normal;
     }
 }
@@ -47,7 +51,12 @@ export class InventoryWeight {
  * @param bonusBulkEncumbrance increased bulk until you are encumbered
  * @param combinedBulk
  */
-export function calculateEncumbrance(strengthModifier, bonusBulkEncumbrance, bonusBulkLimit, combinedBulk) {
+export function calculateEncumbrance(
+    strengthModifier: number,
+    bonusBulkEncumbrance: number,
+    bonusBulkLimit: number,
+    combinedBulk: Bulk,
+): InventoryWeight {
     const encumberedAt = strengthModifier + bonusBulkEncumbrance + 5;
     const limit = strengthModifier + bonusBulkLimit + 10;
     return new InventoryWeight(combinedBulk, encumberedAt, limit);

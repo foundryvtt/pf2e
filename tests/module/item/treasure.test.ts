@@ -10,84 +10,91 @@ describe('should calculate wealth based on inventory', () => {
                 pp: 0,
                 gp: 0,
                 sp: 0,
-                cp: 0
+                cp: 0,
             });
     });
 
     test('sums up treasure', () => {
         const items = [
             {
-                type: "no treasure type",
+                _id: 'ignore',
+                type: 'no treasure type',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 1
+                        value: 1,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
+                data: {},
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "pp"
+                        value: 'pp',
                     },
                     quantity: {
-                        value: 10
+                        value: 10,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 9
+                        value: 9,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "sp"
+                        value: 'sp',
                     },
                     quantity: {
-                        value: 8
+                        value: 8,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "cp"
+                        value: 'cp',
                     },
                     quantity: {
-                        value: 7
+                        value: 7,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
         ];
 
@@ -97,67 +104,71 @@ describe('should calculate wealth based on inventory', () => {
                 pp: 10,
                 gp: 9,
                 sp: 8,
-                cp: 7
+                cp: 7,
             });
     });
 
     test('adjusts value', () => {
         const items = [
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "pp"
+                        value: 'pp',
                     },
                     quantity: {
-                        value: 10
+                        value: 10,
                     },
                     value: {
-                        value: 2
-                    }
-                }
+                        value: 2,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 9
+                        value: 9,
                     },
                     value: {
-                        value: 3
-                    }
-                }
+                        value: 3,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "sp"
+                        value: 'sp',
                     },
                     quantity: {
-                        value: 8
+                        value: 8,
                     },
                     value: {
-                        value: 4
-                    }
-                }
+                        value: 4,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "cp"
+                        value: 'cp',
                     },
                     quantity: {
-                        value: 7
+                        value: 7,
                     },
                     value: {
-                        value: 5
-                    }
-                }
+                        value: 5,
+                    },
+                },
             },
         ];
 
@@ -167,7 +178,7 @@ describe('should calculate wealth based on inventory', () => {
                 pp: 20,
                 gp: 27,
                 sp: 32,
-                cp: 35
+                cp: 35,
             });
     });
 
@@ -178,92 +189,96 @@ describe('should calculate wealth based on inventory', () => {
             items: [
                 // ignored because of only value 1 is taken
                 {
-                    type: "treasure",
-                    _id: "1",
+                    type: 'treasure',
+                    _id: '1',
                     data: {
                         denomination: {
-                            value: "gp"
+                            value: 'gp',
                         },
                         quantity: {
-                            value: 7
+                            value: 7,
                         },
                         value: {
-                            value: 5
+                            value: 5,
                         },
                         stackGroup: {
-                            value: 'coins'
-                        }
-                    }
+                            value: 'coins',
+                        },
+                    },
                 },
                 {
-                    type: "treasure",
-                    _id: "2",
+                    type: 'treasure',
+                    _id: '2',
                     data: {
                         denomination: {
-                            value: "gp"
+                            value: 'gp',
                         },
                         quantity: {
-                            value: 7
+                            value: 7,
                         },
                         value: {
-                            value: 1
+                            value: 1,
                         },
                         stackGroup: {
-                            value: 'coins'
-                        }
-                    }
+                            value: 'coins',
+                        },
+                    },
                 },
                 // ignored becase not added
                 {
-                    type: "treasure",
-                    _id: "3",
+                    type: 'treasure',
+                    _id: '3',
                     data: {
                         denomination: {
-                            value: "sp"
+                            value: 'sp',
                         },
                         quantity: {
-                            value: 6
+                            value: 6,
                         },
                         value: {
-                            value: 1
+                            value: 1,
                         },
                         stackGroup: {
-                            value: 'coins'
-                        }
-                    }
+                            value: 'coins',
+                        },
+                    },
                 },
                 // ignored becase in a container
                 {
-                    type: "treasure",
-                    _id: "4",
+                    type: 'treasure',
+                    _id: '4',
                     data: {
                         denomination: {
-                            value: "cp"
+                            value: 'cp',
                         },
                         quantity: {
-                            value: 6
+                            value: 6,
                         },
                         value: {
-                            value: 1
+                            value: 1,
                         },
                         stackGroup: {
-                            value: 'coins'
+                            value: 'coins',
                         },
                         containerId: {
-                            value: 'yo'
-                        }
-                    }
+                            value: 'yo',
+                        },
+                    },
                 },
             ],
             combineStacks: true,
-            addFromCompendium: async (compendiumId, quantity) => compendiumIdAndQuantity.set(compendiumId, quantity),
-            updateItemQuantity: async (item, quantity) => itemIdAndQuantity.set(item._id, quantity),
+            addFromCompendium: async (compendiumId, quantity) => {
+                compendiumIdAndQuantity.set(compendiumId, quantity);
+            },
+            updateItemQuantity: async (item, quantity) => {
+                itemIdAndQuantity.set(item._id, quantity);
+            },
             coins: {
                 pp: 3,
                 gp: 6,
                 sp: 0,
                 cp: 4,
-            }
+            },
         });
 
         expect(itemIdAndQuantity.size)
@@ -274,7 +289,7 @@ describe('should calculate wealth based on inventory', () => {
             .toBe(6);
 
         expect(compendiumIdAndQuantity.size)
-            .toBe(2)
+            .toBe(2);
         expect(compendiumIdAndQuantity.has('JuNPeK5Qm1w6wpb4'))
             .toBe(true);
         expect(compendiumIdAndQuantity.get('JuNPeK5Qm1w6wpb4'))
@@ -288,22 +303,22 @@ describe('should calculate wealth based on inventory', () => {
     test('sell ignores coins', () => {
         const value = sellAllTreasure([
             {
-                type: "treasure",
-                _id: "1",
+                type: 'treasure',
+                _id: '1',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 7
+                        value: 7,
                     },
                     value: {
-                        value: 5
+                        value: 5,
                     },
                     stackGroup: {
-                        value: 'coins'
-                    }
-                }
+                        value: 'coins',
+                    },
+                },
             },
         ]);
 
@@ -313,85 +328,92 @@ describe('should calculate wealth based on inventory', () => {
                 pp: 0,
                 gp: 0,
                 sp: 0,
-                cp: 0
-            }
+                cp: 0,
+            },
         });
     });
 
     test('sell without coins has the same value as calculateWealth', () => {
         const items = [
             {
-                type: "no treasure type",
+                _id: 'ignore',
+                type: 'no treasure type',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 1
+                        value: 1,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
+                data: {},
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "pp"
+                        value: 'pp',
                     },
                     quantity: {
-                        value: 10
+                        value: 10,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 9
+                        value: 9,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "sp"
+                        value: 'sp',
                     },
                     quantity: {
-                        value: 8
+                        value: 8,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
+                _id: 'ignore',
+                type: 'treasure',
                 data: {
                     denomination: {
-                        value: "cp"
+                        value: 'cp',
                     },
                     quantity: {
-                        value: 7
+                        value: 7,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
         ];
 
@@ -404,42 +426,44 @@ describe('should calculate wealth based on inventory', () => {
     test('sell only finds treasure', () => {
         const items = [
             {
-                type: "weapon",
-                _id: "weapon",
+                type: 'weapon',
+                _id: 'weapon',
+                data: {},
             },
             {
-                type: "treasure",
-                _id: "treasure 1",
+                type: 'treasure',
+                _id: 'treasure 1',
                 data: {
                     denomination: {
-                        value: "pp"
+                        value: 'pp',
                     },
                     quantity: {
-                        value: 10
+                        value: 10,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "treasure",
-                _id: "treasure 2",
+                type: 'treasure',
+                _id: 'treasure 2',
                 data: {
                     denomination: {
-                        value: "gp"
+                        value: 'gp',
                     },
                     quantity: {
-                        value: 9
+                        value: 9,
                     },
                     value: {
-                        value: 1
-                    }
-                }
+                        value: 1,
+                    },
+                },
             },
             {
-                type: "armor",
-                _id: "armor"
+                type: 'armor',
+                _id: 'armor',
+                data: {},
             },
         ];
 
