@@ -577,6 +577,11 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
       // item = this.actor.items.find(i => { return i.id === itemId });
       const item = this.actor.getOwnedItem(itemId);
+      if (item === null || item.data.type !== 'melee') {
+        console.log('PF2e System | clicked an attackEffect, but item was not a melee');
+        return;
+      }
+
       const attackEffect = item.data.data.attackEffects.value[aId];
       console.log('PF2e System | clicked an attackEffect:', attackEffect, ev);
 

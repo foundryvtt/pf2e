@@ -749,6 +749,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.item-increase-quantity').click((event) => {
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId).data;
+      if (!('quantity' in item.data)) { throw new Error('Tried to update quantity on item that does not have quantity'); }
       this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) + 1 });
     });
 
@@ -757,6 +758,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const li = $(event.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
       const item = this.actor.getOwnedItem(itemId).data;
+      if (!('quantity' in item.data)) { throw new Error('Tried to update quantity on item that does not have quantity'); }
       if (Number(item.data.quantity.value) > 0) {
         this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.quantity.value': Number(item.data.quantity.value) - 1 });
       }
@@ -767,6 +769,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
       // item = this.actor.items.find(i => { return i.id === itemId });
       const item = this.actor.getOwnedItem(itemId).data;
+      if (!('prepared' in item.data)) { throw new Error('Tried to update prepared on item that does not have prepared'); }
       item.data.prepared.value = !item.data.prepared.value;
       this.actor.updateEmbeddedEntity('OwnedItem', item);
     });
@@ -956,6 +959,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
       // const itemToEdit = this.actor.items.find(i => i.id === itemId);
       const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      if (itemToEdit.type !== 'spellcastingEntry') throw new Error('Tried to toggle prepared spells on a non-spellcasting entry');
       const bool = !(itemToEdit.data.showUnpreparedSpells || {}).value;
 
       // await this.actor.updateOwnedItem(itemToEdit);
@@ -970,6 +974,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = parentNode.attr('data-item-id');
       const lvl = parentNode.attr('data-level')
       const itemToEdit = this.actor.getOwnedItem(itemId).data;
+      if (itemToEdit.type !== 'spellcastingEntry') throw new Error('Tried to toggle prepared spells on a non-spellcasting entry');
       const currentDisplayLevels = itemToEdit.data.displayLevels || {};
       const bool = (currentDisplayLevels[lvl] === true) ? false : true;
       currentDisplayLevels[lvl] = bool;
@@ -1244,7 +1249,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         let dragItem = game.items.get(dragData.id);
         if (!dragItem) return;
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-        dragItem.data.data.location = {
+        (dragItem.data.data as any).location = {
           value: dropID,
         };
 
@@ -1330,7 +1335,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         await this.stashOrUnstash(event, targetActor, () => { return item; });
         return this._onSortItem(event, item.data);
       } else {
-        const sourceItemQuantity = Number(item.data.data.quantity.value);
+        const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
 
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1)
@@ -1526,10 +1531,12 @@ abstract class ActorSheetPF2e extends ActorSheet {
         // which function gets called depends on the type of button stored in the dataset attribute action
         switch (ev.target.dataset.action) {
           case 'toggleHands':
-            item.data.data.hands.value = !item.data.data.hands.value;
-            // this.actor.updateOwnedItem(item.data, true);
-            this.actor.updateEmbeddedEntity('OwnedItem', item.data);
-            this._render();
+            if (item.data.type == 'weapon') {
+              item.data.data.hands.value = !item.data.data.hands.value;
+              // this.actor.updateOwnedItem(item.data, true);
+              this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+              this._render();
+            }
 
             break;
           case 'weaponAttack': item.rollWeaponAttack(ev); break;
@@ -1558,6 +1565,10 @@ abstract class ActorSheetPF2e extends ActorSheet {
     _toggleContainer(event) {
         const itemId = $(event.currentTarget).parents('.item').data('item-id');
         const item = this.actor.getOwnedItem(itemId);
+        if (item === null || item.data.type !== 'backpack') {
+          return;
+        }
+
         const isCollapsed = item?.data?.data?.collapsed?.value ?? false;
         item.update({'data.collapsed.value': !isCollapsed});
     }

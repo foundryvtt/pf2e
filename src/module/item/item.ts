@@ -7,6 +7,7 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EActor from '../actor/actor';
+import { ItemData } from './dataDefinitions';
 
 export default class PF2EItem extends Item {
 
@@ -73,7 +74,7 @@ export default class PF2EItem extends Item {
 
   _armorChatData() {
     const localize = game.i18n.localize.bind(game.i18n);
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const properties = [
       CONFIG.PF2E.armorTypes[data.armorType.value],
       CONFIG.PF2E.armorGroups[data.group.value],
@@ -93,7 +94,7 @@ export default class PF2EItem extends Item {
   /* -------------------------------------------- */
 
   _equipmentChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const properties = [
       data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null,
     ];
@@ -104,7 +105,7 @@ export default class PF2EItem extends Item {
   /* -------------------------------------------- */
 
   _weaponChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const actorData = this.actor.data;
     const traits = [];
     const itemTraits = data.traits.value;
@@ -114,6 +115,10 @@ export default class PF2EItem extends Item {
     let twohandedDie = '';
     const versatileRegex = '(\\bversatile\\b)-([s]|[b]|[p])';
     const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
+
+    if (this.data.type !== 'weapon') {
+      throw new Error('tried to create a weapon chat data for a non-weapon item');
+    }
 
     if ((data.traits.value || []).length != 0) {
       for (let i = 0; i < data.traits.value.length; i++) {
@@ -150,7 +155,7 @@ export default class PF2EItem extends Item {
     } else {
       try {
         let martialSkill = this.actor.getOwnedItem(prof);
-        if (martialSkill.type) {
+        if (martialSkill.data.type === 'martial') {
           proficiency.type = "skill";
           const rank = martialSkill.data.data.proficient?.value || 0;
           proficiency.value = ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, rank).modifier;
@@ -190,7 +195,7 @@ export default class PF2EItem extends Item {
   /* -------------------------------------------- */
 
   _meleeChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const traits = [];
 
     if ((data.traits.value || []).length != 0) {
@@ -214,7 +219,7 @@ export default class PF2EItem extends Item {
 
   _consumableChatData() {
     const localize = game.i18n.localize.bind(game.i18n);
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     data.consumableType.str = CONFIG.PF2E.consumableTypes[data.consumableType.value];
     data.properties = [data.consumableType.str, `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`];
     data.hasCharges = data.charges.value >= 0;
@@ -223,14 +228,14 @@ export default class PF2EItem extends Item {
 
   _treasureChatData() {
     const localize = game.i18n.localize.bind(game.i18n);
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     return data;
   }
 
   /* -------------------------------------------- */
 
   _toolChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const abl = this.actor.data.data.abilities[data.ability.value].label;
     const prof = data.proficient.value || 0;
     const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
@@ -241,7 +246,7 @@ export default class PF2EItem extends Item {
   /* -------------------------------------------- */
 
   _loreChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     if (this.actor.data.type != 'npc') {
       const abl = this.actor.data.data.abilities[data.ability.value].label;
       const prof = data.proficient.value || 0;
@@ -254,7 +259,7 @@ export default class PF2EItem extends Item {
   /* -------------------------------------------- */
 
   _backpackChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     data.properties = [];
     return data;
   }
@@ -263,12 +268,12 @@ export default class PF2EItem extends Item {
 
   _spellChatData() {
     const localize = game.i18n.localize.bind(game.i18n);
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const ad = this.actor.data.data;
 
     const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
 
-    if (!spellcastingEntry) return;
+    if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') return;
 
     const spellDC = spellcastingEntry.data.data.spelldc.dc;
     const spellAttack = spellcastingEntry.data.data.spelldc.value;
@@ -328,7 +333,7 @@ export default class PF2EItem extends Item {
    * Prepare chat card data for items of the "Feat" type
    */
   _featChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const ad = this.actor.data.data;
 
     /*     let traits = [];
@@ -363,7 +368,7 @@ export default class PF2EItem extends Item {
   }
 
   _actionChatData() {
-    const data = duplicate(this.data.data);
+    const data : any = duplicate(this.data.data);
     const ad = this.actor.data.data;
 
     /* let traits = [];
@@ -469,7 +474,7 @@ export default class PF2EItem extends Item {
     const localize = game.i18n.localize.bind(game.i18n);
 
     // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-    if (this.type !== 'weapon') throw 'Wrong item type!';
+    if (this.data.type !== 'weapon') throw 'Wrong item type!';
 
 
     // Get item and actor data and format it for the damage roll
@@ -518,7 +523,7 @@ export default class PF2EItem extends Item {
     }
 
     // Add bonus damage
-    if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value);
+    if (itemData.bonusDamage && itemData.bonusDamage.value) bonusDamage = parseInt(itemData.bonusDamage.value, 10);
 
     // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
     let damageDice = (itemData.damage.dice ?? 1);  
@@ -639,7 +644,7 @@ export default class PF2EItem extends Item {
   rollNPCDamage(event, critical = false) {
     const localize = game.i18n.localize.bind(game.i18n);
 
-    if (this.type !== 'melee') throw 'Wrong item type!';
+    if (this.data.type !== 'melee') throw 'Wrong item type!';
 
 
     // Get item and actor data and format it for the damage roll
@@ -662,7 +667,7 @@ export default class PF2EItem extends Item {
         partsType.push(`${entry.damage} ${entry.damageType}`);
       });
     } else {
-      parts = [itemData.damage.die];
+      parts = [(itemData as any).damage.die];
     }
 
     // Set the title of the roll
@@ -700,12 +705,11 @@ export default class PF2EItem extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollSpellcastingEntryCheck(event) {
-    if (this.type !== 'spellcastingEntry') throw 'Wrong item type!';
-
     // Prepare roll data
-    const itemData = this.data.data;
+    const itemData = this.data;
+    if (itemData.type !== 'spellcastingEntry') throw 'Wrong item type!';
     const rollData = duplicate(this.actor.data.data);
-    const modifier = itemData.spelldc.value;
+    const modifier = itemData.data.spelldc.value;
     const parts = [modifier];
     const title = `${this.name} - Spellcasting Check`;
 
@@ -729,12 +733,15 @@ export default class PF2EItem extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollSpellAttack(event) {
-    if (this.type !== 'spell') throw 'Wrong item type!';
+    if (this.data.type !== 'spell') throw 'Wrong item type!';
 
     // Prepare roll data
     const itemData = this.data.data;
     const rollData = duplicate(this.actor.data.data);
     const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
+    if (spellcastingEntry.data.type !== 'spellcastingEntry')
+      throw new Error('Spell points to location that is not a spellcasting type');
+
     const spellAttack = spellcastingEntry.data.data.spelldc.value;
     const parts = [spellAttack];
     const title = `${this.name} - Spell Attack Roll`;
@@ -761,7 +768,7 @@ export default class PF2EItem extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollSpellDamage(event) {
-    if (this.type !== 'spell') throw 'Wrong item type!';
+    if (this.data.type !== 'spell') throw 'Wrong item type!';
 
     const localize = game.i18n.localize.bind(game.i18n);
 
@@ -810,8 +817,10 @@ export default class PF2EItem extends Item {
    * Use a consumable item
    */
   rollConsumable(ev) {
-    const itemData = this.data.data;
+    if (this.data.type !== 'consumable')
+      throw new Error('Tried to roll consumable on a non-consumable');
 
+    const itemData = this.data.data;
     // Submit the roll to chat
     const cv = itemData.consume.value;
     const content = `Uses ${this.name}`;
@@ -859,7 +868,7 @@ export default class PF2EItem extends Item {
     return PF2EItem.calculateMap(this.data);
   }
 
-  static calculateMap(item: any): { map2: number, map3: number } {
+  static calculateMap(item: ItemData): { map2: number, map3: number } {
     if (item.type === 'weapon') {
       // calculate multiple attack penalty tiers
       const agile = (item.data.traits.value || []).includes('agile');

@@ -21,6 +21,7 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
+import { SpellcastingEntryData } from '../item/dataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -947,6 +948,8 @@ export default class PF2EActor extends Actor {
   async _setShowUnpreparedSpells(entryId, spellLevel) {
     if (entryId && spellLevel) {
       let spellcastingEntry = this.getOwnedItem(entryId);
+      if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry')
+        return;
 
       if (spellcastingEntry?.data?.data?.prepared?.value === "prepared" && spellcastingEntry?.data?.data?.showUnpreparedSpells?.value === false) {
         if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
