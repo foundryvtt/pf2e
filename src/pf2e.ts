@@ -13,6 +13,7 @@ import PF2eCombatTracker from './module/system/PF2eCombatTracker';
 import PF2eItemDirectory from './module/system/PF2eItemDirectory';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
+import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 
 require('./styles/pf2e.scss');
 
@@ -57,6 +58,7 @@ Hooks.once('init', () => {
   // instead of being locked in our world after we started building with webpack
   // which enforced modules being private
   (window as any).DicePF2e = DicePF2e;
+  (window as any).PF2eStatusEffects = PF2eStatusEffects;
 });
 
 Hooks.once('ready', () => {
