@@ -1,5 +1,5 @@
 import {Bulk} from '../../../src/module/item/bulk';
-import { calculateEncumbrance } from '../../../src/module/item/encumbrance';
+import {calculateEncumbrance} from '../../../src/module/item/encumbrance';
 
 describe('should calculate encumbrance', () => {
     test('light bulk is ignored', () => {
@@ -39,7 +39,7 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.isOverLimit)
             .toBe(false);
         expect(encumbrance.limitPercentageMax100)
-            .toBe(76)
+            .toBe(76);
     });
 
     test('is over limit', () => {
@@ -60,6 +60,6 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.isOverLimit)
             .toBe(true);
         expect(encumbrance.limitPercentageMax100)
-            .toBe(100)
+            .toBe(100);
     });
 });
