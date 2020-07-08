@@ -551,6 +551,14 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
       this._onItemSummary(event);
     });
 
+    // for spellcasting checks
+    html.find('.spellcasting.rollable').click((event) => {
+      event.preventDefault();
+      const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
+      const item = this.actor.getOwnedItem(itemId) as PF2EItem;
+      item.rollSpellcastingEntryCheck(event);
+    });
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
