@@ -699,6 +699,35 @@ export default class PF2EItem extends Item {
    * Roll Spell Damage
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
+  rollSpellcastingEntryCheck(event) {
+    if (this.type !== 'spellcastingEntry') throw 'Wrong item type!';
+
+    // Prepare roll data
+    const itemData = this.data.data;
+    const rollData = duplicate(this.actor.data.data);
+    const modifier = itemData.spelldc.value;
+    const parts = [modifier];
+    const title = `${this.name} - Spellcasting Check`;
+
+    // Call the roll helper utility
+    DicePF2e.d20Roll({
+      event,
+      parts,
+      data: rollData,
+      title,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      dialogOptions: {
+        width: 400,
+        top: event.clientY - 80,
+        left: window.innerWidth - 710,
+      },
+    });
+  }
+
+  /**
+   * Roll Spell Damage
+   * Rely upon the DicePF2e.d20Roll logic for the core implementation
+   */
   rollSpellAttack(event) {
     if (this.type !== 'spell') throw 'Wrong item type!';
 
