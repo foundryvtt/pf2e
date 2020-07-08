@@ -73,13 +73,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2e {
     // Skills
     const lores = [];
 
-    // Needed for unidentified items
-    const userIsGM = game.user.isGM;
-
     // Iterate through items, allocating to containers
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
-      i.userIsGM = userIsGM;
 
       // Spells
       if (i.type === 'spell') {
