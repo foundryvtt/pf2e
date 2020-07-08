@@ -20,16 +20,6 @@ function getFoundryConfig() {
 module.exports = (env, argv) => {
     let config = {
         context: __dirname,
-        optimization: {
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    terserOptions: {
-                        mangle:false
-                    }
-                }),
-            ],
-        },
         entry: {
             main: "./src/pf2e.ts",
         },
@@ -86,6 +76,16 @@ module.exports = (env, argv) => {
         config.output.path = path.join(foundryConfig.dataPath, 'Data', 'systems', foundryConfig.systemName);
 
     if (argv.mode === 'production') {
+        config.optimization = {
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        mangle:false,
+                    }
+                }),
+            ],
+        };
     } else {
         config.devtool = 'inline-source-map';
         config.watch = true;
