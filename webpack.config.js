@@ -6,7 +6,8 @@ const WriteFilePlugin = require('write-file-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
- 
+const TerserPlugin = require('terser-webpack-plugin');
+
 function getFoundryConfig() {
     const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
     let config;
@@ -19,6 +20,16 @@ function getFoundryConfig() {
 module.exports = (env, argv) => {
     let config = {
         context: __dirname,
+        optimization: {
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        mangle:false
+                    }
+                }),
+            ],
+        },
         entry: {
             main: "./src/pf2e.ts",
         },
