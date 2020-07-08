@@ -1,5 +1,62 @@
 # Patch Notes:
 
+## Version 1.9.0
+### New Features
+* (@fryguy1013) Add spell attack modifier to the spell tab on the player character sheet
+* (@fryguy1013) Add recovery roll button next to dying/wounded/doomed
+
+### Content Changes
+* (@ryansobol) Compendium typos
+    * Fix #579 Telekinetic Maneuver misspelled as Telekinetic Manuever on the Spells Compendium
+    * Fix #561 Denizen of Leng wrong damage
+* (@Shandyan) Compendium updates
+    * Fix darkvision ability traits
+    * Fix light hammer and orc knuckle dagger bulk
+    * Fix pickpocket feat type
+    * Fix typo in baomal creature name
+    * Added missing traditions to Stabilize cantrip
+    * Adding missing spells traits
+    * Fix reach spell missing traits
+    * Fix gelatinous cube size
+    * Fix capitalization for bloody blade mercenary
+    * Added Ralldar to Age of Ashes compendium
+    * Fix Emblazon Energy level
+    * Minor errata fixes
+    * Removing duplicate feats
+* (@TMun) Compendium updates
+    * Updated NPC Gallery to include all NPCs up to the downtrodden section in the GMG
+    * Add the arcane spellcaster class feat
+    * Add Shoony Ancestry Blunt Nose feat
+    * General clean up of all feats - linked to compendia, deleted trailing whitespace and removed span id tags
+    * Remove AoN and paizo.com html links and replace single action and reaction images with system copies. Strips out AoN span ID tag from actions and equipment compendia
+    * Corrects mistform elixir
+    * Fixed conditions background color, as well as some links
+
+### Bug Fixes
+* (@fryguy1013) Change the default value of treasure items to be worth 0 gp instead of 1 pp
+* (@fryguy1013) Fix typo in templates.json for spell display levels
+* (@fryguy1013) Add rollmode parameter to DicePF2e.d20Roll so that you can blind roll from a macro
+* (@fryguy1013) Add DicePF2e to the global scope so other modules can use it
+* (@nikolaj-a) Expose status effect API to macros
+
+### Core System Improvements
+* (@fryguy1013) Condense rows in feats section, skills section, and spellbook on "new" character sheet
+* (@fryguy1013) Remove feat attack and tool checks, as it wasn't being used (5E stuff)
+* (@fryguy1013) Refactor MAP calculations to no longer store temporary data in the item's data object
+* (@abrault) Combined compendium browsers
+* (@abrault) Improve compression of images
+* (@abrault) Disable name mangling from the prod build
+* (@ryansobol) Fix item attribute "denomitation" should be spelled "denomination"
+* (@nikolaj-a) Bump Foundry core version compatibility to 0.6.5
+
+### Development Process Improvements
+* (@fryguy1013) Add webpack progress bar plugin so it's easier to see what's going on when doing watch builds
+* (putty#0555) Smaller typings
+* (@ryansobol) Remove gulp dev dependencies
+* (@ryansobol) Fix the foundryconfig example file to be compatible with the project's editorconfig settings
+* (@ryansobol) Fix deprecation warning with node-gyp
+
+
 ## Version 1.8.0
 ### New Features
 * (@iceman76) Add filters to Feat Browser for boons and curses.
