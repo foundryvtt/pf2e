@@ -10,7 +10,6 @@ import { PF2eSystem } from './module/pf2e-system';
 import registerActors from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker';
-import PF2eItemDirectory from './module/system/PF2eItemDirectory';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
@@ -41,8 +40,6 @@ Hooks.once('init', () => {
   CONFIG.Combat.initiative.decimals = 1;
   //Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
-  //Assign the PF2e Item Directory
-  CONFIG.ui.items = PF2eItemDirectory;
 
   PlayerConfigPF2e.hookOnRenderSettings();
 

@@ -8,13 +8,6 @@
             {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
             <i class="far fa-hand-paper"></i>
             {{/if}}
-            {{#if item.isUnidentified}}
-                {{#if item.userIsGM}}
-                    <i class="far fa-question-circle" title="{{localize 'PF2E.ItemUnidentifiedLabel'}}"></i>
-                {{else}}
-                    {{#if item.data.identification.showIconToPlayer}}<i class="far fa-question-circle" title="{{localize 'PF2E.ItemUnidentifiedLabel'}}"></i>{{/if}}
-                {{/if}}
-            {{/if}}
         </h4>
         {{#if item.hasCharges}}
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>

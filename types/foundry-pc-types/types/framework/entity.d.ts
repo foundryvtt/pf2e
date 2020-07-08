@@ -130,21 +130,12 @@ declare class Entity {
 	get id(): string;
 
 	/** @alias Entity.id */
-	set _id(id: string);
-
 	get _id(): string;
 
 	/**
 	 * A convenience accessor for the name attribute of the Entity data object
 	 */
 	get name(): string;
-
-	/**
-	 * A convenience accessor for the sort attribute of the Entity data object
-	 */
-	set sort(index: number);
-
-	get sort(): number;
 
 	/**
 	 * A property which gets or creates a singleton instance of the sheet class used to render and edit data for this
