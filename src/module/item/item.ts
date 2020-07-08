@@ -25,12 +25,12 @@ export default class PF2EItem extends Item {
     const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
     const { token } = this.actor;
     const nearestItem = event ? event.currentTarget.closest('.item') : {};
-    this.data.contextualData = nearestItem.dataset || {};
+    const contextualData = nearestItem.dataset || {};
     const templateData = {
       actor: this.actor,
       tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
-      data: this.getChatData(),
+      data: this.getChatData(undefined, contextualData),
     };
 
     // Basic chat message data
@@ -60,9 +60,9 @@ export default class PF2EItem extends Item {
   /*  Chat Card Data
   /* -------------------------------------------- */
 
-  getChatData(htmlOptions?) {
+  getChatData(htmlOptions?, rollOptions?: any) {
     const itemType = this.data.type;
-    const data = this[`_${itemType}ChatData`]();
+    const data = this[`_${itemType}ChatData`](rollOptions);
     if (data) {
       data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
       return data;
@@ -266,7 +266,7 @@ export default class PF2EItem extends Item {
 
   /* -------------------------------------------- */
 
-  _spellChatData() {
+  _spellChatData(rollOptions?: any) {
     const localize = game.i18n.localize.bind(game.i18n);
     const data : any = duplicate(this.data.data);
     const ad = this.actor.data.data;
@@ -301,8 +301,9 @@ export default class PF2EItem extends Item {
       data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
       data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
     ];
-    if (data.level.value < parseInt((this.data.contextualData || {}).spellLvl)) {
-      props.push(`Heightened: +${parseInt(this.data.contextualData.spellLvl) - data.level.value}`);
+    data.spellLvl = (rollOptions || {}).spellLvl;    
+    if (data.level.value < parseInt(data.spellLvl)) {
+      props.push(`Heightened: +${parseInt(data.spellLvl) - data.level.value}`);
     }
     data.properties = props.filter((p) => p !== null);
 

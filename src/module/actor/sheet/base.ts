@@ -1454,13 +1454,13 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     if (item.data.type === 'spellcastingEntry') return;
 
-    const chatData = item.getChatData({ secrets: this.actor.owner });
-
     // Toggle summary
     if (li.hasClass('expanded')) {
       const summary = li.children('.item-summary');
       summary.slideUp(200, () => summary.remove());
     } else {
+      const chatData = item.getChatData({ secrets: this.actor.owner });
+
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
       if (chatData.properties) {
