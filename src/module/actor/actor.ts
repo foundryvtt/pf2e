@@ -861,11 +861,26 @@ export default class PF2EActor extends Actor {
         return;
       }
       const combatant = game.combat.getCombatantByToken(t.id);
-      if(combatant == undefined) {
+      if(combatant === undefined) {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
-      const initBonus = combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      let initBonus = 0;
+      if (combatant.actor.data.type === "character") {
+        for(const modifier of combatant.actor.data.data.attributes.initiative.modifiers) {
+          if(modifier.enabled && (modifier.type === "circumstance" || modifier.type === "item" || modifier.type === "status")) {
+            initBonus += modifier.modifier;
+          }
+        }
+        
+      }
+      else {
+        initBonus += combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      }
+      //Kept separate from modifier checks above in case of enemies using regular character sheets
+      if (!combatant.actor.isPC) {
+        initBonus += .9;
+      }
       value += initBonus;
       const message = `
       <div class="dice-roll">
