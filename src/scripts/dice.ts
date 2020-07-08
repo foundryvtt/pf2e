@@ -297,3 +297,4 @@ Hooks.on('renderChatMessage', (message, html, data) => {
     }
   }
 });
+(<any>window).DicePF2e = DicePF2e;
