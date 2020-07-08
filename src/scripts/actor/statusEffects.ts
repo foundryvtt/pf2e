@@ -30,7 +30,7 @@ class PF2eStatus {
 /**
  * Class PF2eStatusEffects, which is the module to handle the status effects
  */
-class PF2eStatusEffects {
+export class PF2eStatusEffects {
 
     statusEffectChanged: any;
     static statusEffectChanged: boolean;
@@ -208,7 +208,7 @@ class PF2eStatusEffects {
             if (actor.data.data.statusEffects !== undefined) {
                 statusEffects = duplicate(actor.data.data.statusEffects);
             }
-            let effect = statusEffects.find( ({ status }) => status === statusName ); //returns undefined if not in here
+            const effect = statusEffects.find(statusEffect => statusEffect.status === statusName); // returns undefined if not in here
 
             if (typeof(value) === "string" && PF2e.DB.condition[statusName].hasValue) {
                 let newValue = 0;
