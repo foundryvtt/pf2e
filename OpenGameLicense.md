@@ -87,6 +87,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #151: The Show Must Go On © 2020, Paizo Inc.; Authors: Jason Tondro, with Andrew Mullen, Patrick Renie, David N. Ross, and Michael Sayre.
     *  Pathfinder Adventure Path #152: Legacy of the Lost God © 2020, Paizo Inc.; Authors: Jenny Jarzabski, with Stephen Glicker, Luis Loza, Ron Lundeen, Andrew Mullen, and David N. Ross.
     *  Pathfinder Adventure Path #153: The Show Must Go On © 2020, Paizo Inc.; Authors: Greg A. Vaughan, with Anthony Bono, Jacob W. Michaels, Andrew Mullen, Patrick Renie, Alex Riggs, Timothy Snow, and Amber Stewart.
+	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
     *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
     *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
     *  The Avatar’s Handbook © 2003, Green Ronin Publishing; Authors: Jesse Decker and Chris Thomasson.
