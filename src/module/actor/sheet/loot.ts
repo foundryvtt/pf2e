@@ -38,6 +38,9 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
         this._prepareItems(sheetData.actor);
 
+        // TEMP: Name edit is only available for the GM
+        sheetData.isGM = game.user.isGM;
+
         return sheetData;
     }
 
@@ -81,9 +84,9 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
                 inventory[i.type].items.push(i);
             }
-
-            actorData.inventory = inventory;
         }
+
+        actorData.inventory = inventory;
     }
 
     // Events
