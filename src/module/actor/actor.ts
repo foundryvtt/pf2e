@@ -853,7 +853,6 @@ export default class PF2EActor extends Actor {
   static async setCombatantInitiative(roll) {
     const skillRolled = roll.find('.flavor-text').text();
     const valueRolled = parseFloat(roll.find('.dice-total').text());
-    let value = valueRolled;
     const promises = [];
     for (const t of canvas.tokens.controlled) {
       if (!game.combat) {
@@ -865,6 +864,7 @@ export default class PF2EActor extends Actor {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
+      let value = valueRolled;
       let initBonus = 0;
       //Other actor types track iniative differently, which will give us NaN errors
       if(combatant.actor.data.type === "npc") {
