@@ -865,7 +865,15 @@ export default class PF2EActor extends Actor {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
-      const initBonus = combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      let initBonus = 0;
+      //Other actor types track iniative differently, which will give us NaN errors
+      if(combatant.actor.data.type === "npc") {
+        initBonus += combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      }
+      //Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
+      if (!combatant.actor.isPC) {
+        initBonus += .9;
+      }
       value += initBonus;
       const message = `
       <div class="dice-roll">
