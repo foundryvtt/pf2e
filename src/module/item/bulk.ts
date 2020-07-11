@@ -130,9 +130,9 @@ export class Bulk {
  * Produces strings like: "-", "L", "2L", "3", "3; L", "4; 3L" to display bulk in the frontend
  * bulk comlumn
  * @param bulk
- * @return {string}
+ * @return
  */
-export function formatBulk(bulk) {
+export function formatBulk(bulk: Bulk): string {
     if (bulk.normal === 0 && bulk.light === 0) {
         return '-';
     }
@@ -232,7 +232,6 @@ function calculateNonStackBulk(item: BulkItem): Bulk {
 
 type StackGroupOverflow = Record<string, number>;
 type BulkAndOverflow = [Bulk, StackGroupOverflow];
-
 
 /**
  * Sum up bulk and stack overflows separately

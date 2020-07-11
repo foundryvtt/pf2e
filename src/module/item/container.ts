@@ -46,6 +46,16 @@ class ContainerData {
             formattedNegateBulk,
             formattedHeldItemBulk,
             formattedCapacity,
+        }: {
+            item: ItemPlaceholder;
+            heldItems: ItemPlaceholder[];
+            negateBulk: Bulk;
+            heldItemBulk: Bulk;
+            isInContainer: boolean;
+            formattedHeldItemBulk: string;
+            formattedNegateBulk: string;
+            formattedCapacity: string;
+            capacity: Bulk;
         },
     ) {
         this.item = item;
@@ -122,7 +132,7 @@ function toContainer(
     isInContainer: boolean,
     stackDefinitions: StackDefinitions,
     bulkConfig: BulkConfig,
-) {
+): ContainerData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
     const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
@@ -158,7 +168,6 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
  * @param items
  * @returns
  */
-
 export function isCycle(itemId: string, containerId: string, items: ItemPlaceholder[]): boolean {
     const idIndexedItems = new Map();
     for (const item of items) {
