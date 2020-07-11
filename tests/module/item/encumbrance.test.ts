@@ -75,9 +75,9 @@ describe('should calculate encumbrance based on size', () => {
         );
 
         expect(encumbrance.encumberedAt)
-            .toBe(4);
+            .toBe(3);
         expect(encumbrance.limit)
-            .toBe(7);
+            .toBe(6);
     });
 
     test('large size', () => {
@@ -90,9 +90,9 @@ describe('should calculate encumbrance based on size', () => {
         );
 
         expect(encumbrance.encumberedAt)
-            .toBe(13);
+            .toBe(16);
         expect(encumbrance.limit)
-            .toBe(23);
+            .toBe(26);
     });
 
     test('huge size', () => {
@@ -105,9 +105,9 @@ describe('should calculate encumbrance based on size', () => {
         );
 
         expect(encumbrance.encumberedAt)
-            .toBe(23);
+            .toBe(32);
         expect(encumbrance.limit)
-            .toBe(43);
+            .toBe(52);
     });
 
     test('gargantuan size', () => {
@@ -120,8 +120,8 @@ describe('should calculate encumbrance based on size', () => {
         );
 
         expect(encumbrance.encumberedAt)
-            .toBe(43);
+            .toBe(64);
         expect(encumbrance.limit)
-            .toBe(83);
+            .toBe(104);
     });
 });

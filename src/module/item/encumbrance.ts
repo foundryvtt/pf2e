@@ -60,7 +60,7 @@ export function calculateEncumbrance(
     actorSize: Sizes = 'med',
 ): InventoryWeight {
     const bulkFactor = bulkConversions[actorSize].bulkLimitFactor;
-    const encumberedAt = strengthModifier + bonusBulkEncumbrance + Math.floor(5 * bulkFactor);
-    const limit = strengthModifier + bonusBulkLimit + Math.floor(10 * bulkFactor);
+    const encumberedAt = Math.floor((strengthModifier + bonusBulkEncumbrance + 5) * bulkFactor);
+    const limit = Math.floor((strengthModifier + bonusBulkLimit + 10) * bulkFactor);
     return new InventoryWeight(combinedBulk, encumberedAt, limit);
 }
