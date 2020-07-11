@@ -1,10 +1,10 @@
 import {isBlank, toNumber} from '../utils';
 
 // FIXME: point this to the correct type afterwards
-type ItemToChange = any;
-type ItemDataToChange = any;
+type ItemPlaceholder = any;
+type ItemDataPlaceholder = any;
 
-export function getPropertySlots(itemData: ItemToChange): number {
+export function getPropertySlots(itemData: ItemPlaceholder): number {
     let slots = 0;
     if (itemData?.data?.preciousMaterial?.value === 'orichalcum') {
         slots += 1;
@@ -16,7 +16,7 @@ export function getPropertySlots(itemData: ItemToChange): number {
     return slots;
 }
 
-export function getPropertyRunes(itemData: ItemToChange, slots: number): string[] {
+export function getPropertyRunes(itemData: ItemPlaceholder, slots: number): string[] {
     const runes = [];
     for (let i = 1; i <= slots; i += 1) {
         const rune = itemData.data[`propertyRune${i}`]?.value;
@@ -27,14 +27,14 @@ export function getPropertyRunes(itemData: ItemToChange, slots: number): string[
     return runes;
 }
 
-export function getAttackBonus(itemData: ItemDataToChange): number {
+export function getAttackBonus(itemData: ItemDataPlaceholder): number {
     if (itemData.group?.value === 'bomb') {
         return toNumber(itemData?.bonus?.value) ?? 0;
     }
     return toNumber(itemData?.potencyRune?.value) ?? 0;
 }
 
-export function getArmorBonus(itemData: ItemDataToChange): number {
+export function getArmorBonus(itemData: ItemDataPlaceholder): number {
     const potencyRune = toNumber(itemData?.potencyRune?.value) ?? 0;
     const baseArmor = toNumber(itemData.armor.value) ?? 0;
     return baseArmor + potencyRune;
@@ -45,7 +45,7 @@ strikingRuneValues.set('striking', 1);
 strikingRuneValues.set('greaterStriking', 2);
 strikingRuneValues.set('majorStriking', 3);
 
-export function getStrikingDice(itemData: ItemDataToChange): number {
+export function getStrikingDice(itemData: ItemDataPlaceholder): number {
     return strikingRuneValues.get(itemData?.strikingRune?.value) || 0;
 }
 
@@ -54,6 +54,6 @@ resiliencyRuneValues.set('resilient', 1);
 resiliencyRuneValues.set('greaterResilient', 2);
 resiliencyRuneValues.set('majorResilient', 3);
 
-export function getResiliencyBonus(itemData: ItemDataToChange): number {
+export function getResiliencyBonus(itemData: ItemDataPlaceholder): number {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
 }

@@ -11,15 +11,15 @@ import {
 import {groupBy} from '../utils';
 
 // FIXME: point this to the correct type afterwards
-type ItemToChange = any;
+type ItemPlaceholder = any;
 
 /**
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
-    item: ItemToChange;
+    item: ItemPlaceholder;
 
-    heldItems: ItemToChange[];
+    heldItems: ItemPlaceholder[];
 
     negateBulk: Bulk;
 
@@ -116,8 +116,8 @@ class ContainerData {
  * @return
  */
 function toContainer(
-    item: ItemToChange,
-    heldItems: ItemToChange[] = [],
+    item: ItemPlaceholder,
+    heldItems: ItemPlaceholder[] = [],
     heldBulkItems: BulkItem[] = [],
     isInContainer: boolean,
     stackDefinitions: StackDefinitions,
@@ -139,7 +139,7 @@ function toContainer(
     });
 }
 
-function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, ItemToChange>): boolean {
+function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, ItemPlaceholder>): boolean {
     if (idIndexedItems.has(containerId)) {
         const currentItem = idIndexedItems.get(containerId);
         if (itemId === currentItem._id) {
@@ -159,7 +159,7 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
  * @returns
  */
 
-export function isCycle(itemId: string, containerId: string, items: ItemToChange[]): boolean {
+export function isCycle(itemId: string, containerId: string, items: ItemPlaceholder[]): boolean {
     const idIndexedItems = new Map();
     for (const item of items) {
         idIndexedItems.set(item._id, item);
@@ -180,7 +180,7 @@ export function isCycle(itemId: string, containerId: string, items: ItemToChange
  */
 // eslint-disable-next-line import/prefer-default-export
 export function getContainerMap(
-    items: ItemToChange[] = [],
+    items: ItemPlaceholder[] = [],
     bulkItemsById: Map<string, BulkItem> = new Map(),
     stackDefinitions: StackDefinitions,
     bulkConfig: BulkConfig = defaultBulkConfig,

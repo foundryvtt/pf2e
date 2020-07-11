@@ -1,8 +1,8 @@
 import {groupBy, isBlank} from '../utils';
 
 // FIXME: point this to the correct type afterwards
-type ItemToChange = any;
-type ActorToChange = any;
+type ItemPlaceholder = any;
+type ActorPlaceholder = any;
 
 interface Coins {
     pp: number;
@@ -50,14 +50,14 @@ function combineCoins(first: Coins, second: Coins): Coins {
  * Finds all non-coin treasures in a list of items
  * @return {{treasureIds: Array, coins: Object}} List of treasures to remove and coins to add
  */
-export function sellAllTreasure(items: ItemToChange[]): SoldItemData {
+export function sellAllTreasure(items: ItemPlaceholder[]): SoldItemData {
     const treasureIds = [];
     const coins: Coins = items
         .filter(item => item.type === 'treasure'
             && item.data?.denomination?.value !== undefined
             && item.data?.denomination?.value !== null
             && item?.data?.stackGroup?.value !== 'coins')
-        .map((item: ItemToChange): Coins => {
+        .map((item: ItemPlaceholder): Coins => {
             treasureIds.push(item._id);
             const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
             return toCoins(item.data.denomination.value, value);
@@ -71,7 +71,7 @@ export function sellAllTreasure(items: ItemToChange[]): SoldItemData {
  * @param items
  * @return {*}
  */
-export function calculateWealth(items: ItemToChange[]): Coins {
+export function calculateWealth(items: ItemPlaceholder[]): Coins {
     return items
         .filter(item => item.type === 'treasure'
             && item?.data?.denomination?.value !== undefined
@@ -90,7 +90,7 @@ export const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isTopLevelCoin(item: ItemToChange, currencies: Set<string>): boolean {
+function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean {
     return item?.type === 'treasure'
         && item?.data?.value?.value === 1
         && item?.data?.stackGroup?.value === 'coins'
@@ -99,10 +99,10 @@ function isTopLevelCoin(item: ItemToChange, currencies: Set<string>): boolean {
 }
 
 interface AddCoinsParameters {
-    items?: ItemToChange[],
+    items?: ItemPlaceholder[],
     coins?: Coins,
     combineStacks?: boolean,
-    updateItemQuantity?: (item: ItemToChange, quantity: number) => Promise<void>,
+    updateItemQuantity?: (item: ItemPlaceholder, quantity: number) => Promise<void>,
     addFromCompendium?: (compendiumId: string, quantity: number) => Promise<void>,
 }
 
@@ -140,7 +140,7 @@ export async function addCoins(
     }
 }
 
-export function addCoinsSimple(actor: ActorToChange, {
+export function addCoinsSimple(actor: ActorPlaceholder, {
     coins = {
         pp: 0,
         gp: 0,
@@ -167,7 +167,7 @@ export function addCoinsSimple(actor: ActorToChange, {
     });
 }
 
-export function sellAllTreasureSimple(actor: ActorToChange): Promise<void[]> {
+export function sellAllTreasureSimple(actor: ActorPlaceholder): Promise<void[]> {
     const {treasureIds, coins} = sellAllTreasure(actor.data.items);
     return Promise.all([
         actor.deleteEmbeddedEntity('OwnedItem', treasureIds),
@@ -184,7 +184,7 @@ export function sellAllTreasureSimple(actor: ActorToChange): Promise<void[]> {
  * @param itemId
  * @return {Promise} Resolves after the treasure is removed and coins updated
  */
-export async function sellTreasure(actor: ActorToChange, itemId: string): Promise<void> {
+export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Promise<void> {
     const item = actor.getOwnedItem(itemId);
     if (item?.type === 'treasure'
         && item.data.data?.denomination?.value !== undefined

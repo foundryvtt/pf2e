@@ -2,8 +2,8 @@
 import {add, combineObjects, groupBy, isBlank, Optional} from '../utils';
 
 // FIXME: point this to the correct type afterwards
-type ItemToChange = any;
-type ActorToChange = any;
+type ItemPlaceholder = any;
+type ActorPlaceholder = any;
 
 interface StackDefinition {
     size: number;
@@ -449,7 +449,7 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
  * @param nestedItems
  * @return
  */
-export function toBulkItem(item: ItemToChange, nestedItems: BulkItem[] = []): BulkItem {
+export function toBulkItem(item: ItemPlaceholder, nestedItems: BulkItem[] = []): BulkItem {
     const id = item._id;
     const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
@@ -482,7 +482,7 @@ export function toBulkItem(item: ItemToChange, nestedItems: BulkItem[] = []): Bu
  * @param groupedItems items grouped by data.containerId.value
  * @return
  */
-function buildContainerTree(items: ItemToChange[], groupedItems: Map<string, ItemToChange[]>): BulkItem[] {
+function buildContainerTree(items: ItemPlaceholder[], groupedItems: Map<string, ItemPlaceholder[]>): BulkItem[] {
     return items
         .map((item) => {
             const itemId = item._id;
@@ -504,7 +504,7 @@ function buildContainerTree(items: ItemToChange[], groupedItems: Map<string, Ite
  * @param items
  * @return
  */
-export function toBulkItems(items: ItemToChange[]): BulkItem[] {
+export function toBulkItems(items: ItemPlaceholder[]): BulkItem[] {
     const allIds = new Set(items.map(item => item._id));
     const itemsInContainers = groupBy(items, (item: any) => {
         // we want all items in the top level group that are in no container
@@ -535,7 +535,7 @@ itemTypesWithBulk.add('treasure');
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
  */
-export function itemsFromActorData(actorData: ActorToChange): BulkItem[] {
+export function itemsFromActorData(actorData: ActorPlaceholder): BulkItem[] {
     const itemsHavingBulk = actorData.items
         .filter(item => itemTypesWithBulk.has(item.type));
     return toBulkItems(itemsHavingBulk);
