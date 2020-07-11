@@ -9,6 +9,7 @@ interface StackDefinition {
     size: number;
     lightBulk: number;
 }
+
 export type StackDefinitions = Record<string, StackDefinition>;
 
 /**
@@ -61,6 +62,10 @@ export class Bulk {
 
     get isNegligible(): boolean {
         return this.normal === 0 && this.light === 0;
+    }
+    
+    get isLight(): boolean {
+        return this.toLightBulk() < 10 && !this.isNegligible;
     }
 
     toLightBulk(): number {
@@ -124,6 +129,84 @@ export class Bulk {
     toString(): string {
         return `normal: ${this.normal}; light: ${this.light}`;
     }
+}
+
+// see https://2e.aonprd.com/Rules.aspx?ID=257
+type sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+
+export interface BulkConversion {
+    bulkLimitFactor: number,
+    treatsAsLight: string | null,
+    treatsAsNegligible: string | null,
+}
+
+export type BulkConversions = Record<sizes, BulkConversion>;
+export const bulkConversions: BulkConversions = {
+    tiny: {
+        bulkLimitFactor: 0.5,
+        treatsAsLight: '-',
+        treatsAsNegligible: null,
+    },
+    sm: {
+        bulkLimitFactor: 1,
+        treatsAsLight: 'L',
+        treatsAsNegligible: '-',
+    },
+    med: {
+        bulkLimitFactor: 1,
+        treatsAsLight: 'L',
+        treatsAsNegligible: '-',
+    },
+    lg: {
+        bulkLimitFactor: 2,
+        treatsAsLight: '1',
+        treatsAsNegligible: 'L',
+    },
+    huge: {
+        bulkLimitFactor: 4,
+        treatsAsLight: '2',
+        treatsAsNegligible: '1',
+    },
+    grg: {
+        bulkLimitFactor: 9,
+        treatsAsLight: '4',
+        treatsAsNegligible: '2',
+    },
+};
+
+/**
+ * Whether a given bulk should considered to be downgraded. 
+ * @param normalItemBulk
+ * @param treatsAsDowngrade if given, a string that ranges from '-', 'L', '1', '2', ...
+ * and is equal to the selected cell at https://2e.aonprd.com/Rules.aspx?ID=257
+ * For instance treatAsDowngrade with regards to negligible items for large creates would be '1'
+ * All bulk sizes lower than or equal to this value are considered to be downgraded.
+ */
+function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | null): boolean {
+    return (treatsAsDowngrade === '-' && normalItemBulk.isNegligible)
+        || (treatsAsDowngrade === 'L' && normalItemBulk.isLight)
+        || (normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
+}
+
+export function convertBulkToSize(normalItemBulk: Bulk, targetSize: sizes): Bulk {
+    const {treatsAsNegligible, treatsAsLight} = bulkConversions[targetSize];
+    
+    if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
+        return new Bulk();
+    }
+    
+    // containers also use this conversion for capacity and bulk reduction therefore
+    // preserve number of light bulk for containers such as bandoliers (8L) or belt pouches (3)
+    let lightDowngradeDefault = 1;
+    if ((treatsAsLight === '-' || treatsAsLight === 'L') 
+        && normalItemBulk.isLight) {
+        lightDowngradeDefault = normalItemBulk.light;
+    }
+    
+    if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
+        return new Bulk({light: lightDowngradeDefault});
+    }
+    return normalItemBulk;
 }
 
 /**
@@ -559,7 +642,7 @@ export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
 /**
  * Fix previous borked weight
  * @param brokenWeight
- * @return 
+ * @return
  */
 export function fixWeight(brokenWeight: BrokenBulk): string | null {
     const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
