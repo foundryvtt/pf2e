@@ -919,12 +919,6 @@ describe('Bulk conversions', () => {
                 light: 1,
                 normal: 1,
             }));
-        // bandolier
-        expect(convertBulkToSize(new Bulk({light: 8, normal: 0}), 'med'))
-            .toEqual(new Bulk({
-                light: 8,
-                normal: 0,
-            }));
     });
     
     test('normal and small bulk conversions', () => {
@@ -937,12 +931,6 @@ describe('Bulk conversions', () => {
             .toEqual(new Bulk({
                 light: 1,
                 normal: 1,
-            }));
-        // bandolier
-        expect(convertBulkToSize(new Bulk({light: 8, normal: 0}), 'med'))
-            .toEqual(new Bulk({
-                light: 8,
-                normal: 0,
             }));
     });
     
@@ -964,12 +952,6 @@ describe('Bulk conversions', () => {
             .toEqual(new Bulk({
                 light: 0,
                 normal: 2,
-            }));
-        // bandolier
-        expect(convertBulkToSize(new Bulk({light: 8, normal: 0}), 'lg'))
-            .toEqual(new Bulk({
-                light: 0,
-                normal: 0,
             }));
     });
 
@@ -1003,12 +985,6 @@ describe('Bulk conversions', () => {
             .toEqual(new Bulk({
                 light: 0,
                 normal: 3,
-            }));
-        // bandolier
-        expect(convertBulkToSize(new Bulk({light: 8, normal: 0}), 'huge'))
-            .toEqual(new Bulk({
-                light: 0,
-                normal: 0,
             }));
     });
 
@@ -1054,12 +1030,6 @@ describe('Bulk conversions', () => {
             .toEqual(new Bulk({
                 light: 0,
                 normal: 5,
-            }));
-        // bandolier
-        expect(convertBulkToSize(new Bulk({light: 8, normal: 0}), 'grg'))
-            .toEqual(new Bulk({
-                light: 0,
-                normal: 0,
             }));
     });
 });

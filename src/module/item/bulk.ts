@@ -132,7 +132,7 @@ export class Bulk {
 }
 
 // see https://2e.aonprd.com/Rules.aspx?ID=257
-type sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
 export interface BulkConversion {
     bulkLimitFactor: number,
@@ -140,7 +140,7 @@ export interface BulkConversion {
     treatsAsNegligible: string | null,
 }
 
-export type BulkConversions = Record<sizes, BulkConversion>;
+export type BulkConversions = Record<Sizes, BulkConversion>;
 export const bulkConversions: BulkConversions = {
     tiny: {
         bulkLimitFactor: 0.5,
@@ -168,7 +168,7 @@ export const bulkConversions: BulkConversions = {
         treatsAsNegligible: '1',
     },
     grg: {
-        bulkLimitFactor: 9,
+        bulkLimitFactor: 8,
         treatsAsLight: '4',
         treatsAsNegligible: '2',
     },
@@ -188,23 +188,13 @@ function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | 
         || (normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
 }
 
-export function convertBulkToSize(normalItemBulk: Bulk, targetSize: sizes): Bulk {
+export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
     const {treatsAsNegligible, treatsAsLight} = bulkConversions[targetSize];
-    
     if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
         return new Bulk();
     }
-    
-    // containers also use this conversion for capacity and bulk reduction therefore
-    // preserve number of light bulk for containers such as bandoliers (8L) or belt pouches (3)
-    let lightDowngradeDefault = 1;
-    if ((treatsAsLight === '-' || treatsAsLight === 'L') 
-        && normalItemBulk.isLight) {
-        lightDowngradeDefault = normalItemBulk.light;
-    }
-    
     if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
-        return new Bulk({light: lightDowngradeDefault});
+        return new Bulk({light: 1});
     }
     return normalItemBulk;
 }

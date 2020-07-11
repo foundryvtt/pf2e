@@ -63,3 +63,65 @@ describe('should calculate encumbrance', () => {
             .toBe(100);
     });
 });
+
+describe('should calculate encumbrance based on size', () => {
+    test('tiny size', () => {
+        const encumbrance = calculateEncumbrance(
+            2,
+            0,
+            0,
+            new Bulk(),
+            'tiny'
+        );
+
+        expect(encumbrance.encumberedAt)
+            .toBe(4);
+        expect(encumbrance.limit)
+            .toBe(7);
+    });
+
+    test('large size', () => {
+        const encumbrance = calculateEncumbrance(
+            3,
+            0,
+            0,
+            new Bulk(),
+            'lg'
+        );
+
+        expect(encumbrance.encumberedAt)
+            .toBe(13);
+        expect(encumbrance.limit)
+            .toBe(23);
+    });
+
+    test('huge size', () => {
+        const encumbrance = calculateEncumbrance(
+            3,
+            0,
+            0,
+            new Bulk(),
+            'huge'
+        );
+
+        expect(encumbrance.encumberedAt)
+            .toBe(23);
+        expect(encumbrance.limit)
+            .toBe(43);
+    });
+
+    test('gargantuan size', () => {
+        const encumbrance = calculateEncumbrance(
+            3,
+            0,
+            0,
+            new Bulk(),
+            'grg'
+        );
+
+        expect(encumbrance.encumberedAt)
+            .toBe(43);
+        expect(encumbrance.limit)
+            .toBe(83);
+    });
+});

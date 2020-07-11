@@ -1,4 +1,4 @@
-import {Bulk} from './bulk';
+import {Bulk, bulkConversions, Sizes} from './bulk';
 
 export class InventoryWeight {
     combinedBulk: Bulk;
@@ -50,14 +50,17 @@ export class InventoryWeight {
  * @param bonusBulkLimit increased maximum bulk
  * @param bonusBulkEncumbrance increased bulk until you are encumbered
  * @param combinedBulk
+ * @param actorSize
  */
 export function calculateEncumbrance(
     strengthModifier: number,
     bonusBulkEncumbrance: number,
     bonusBulkLimit: number,
     combinedBulk: Bulk,
+    actorSize: Sizes = 'med',
 ): InventoryWeight {
-    const encumberedAt = strengthModifier + bonusBulkEncumbrance + 5;
-    const limit = strengthModifier + bonusBulkLimit + 10;
+    const bulkFactor = bulkConversions[actorSize].bulkLimitFactor;
+    const encumberedAt = strengthModifier + bonusBulkEncumbrance + Math.floor(5 * bulkFactor);
+    const limit = strengthModifier + bonusBulkLimit + Math.floor(10 * bulkFactor);
     return new InventoryWeight(combinedBulk, encumberedAt, limit);
 }
