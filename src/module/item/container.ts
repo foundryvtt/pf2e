@@ -1,31 +1,53 @@
-import {Bulk, calculateBulk, formatBulk, weightToBulk} from './bulk';
+import {
+    Bulk,
+    BulkConfig,
+    BulkItem,
+    calculateBulk,
+    defaultBulkConfig,
+    formatBulk,
+    StackDefinitions,
+    weightToBulk,
+} from './bulk';
 import {groupBy} from '../utils';
+
+// FIXME: point this to the correct type afterwards
+type ItemToChange = any;
 
 /**
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
-    item: any;
-    heldItems: any;
+    item: ItemToChange;
+
+    heldItems: ItemToChange[];
+
     negateBulk: Bulk;
+
     heldItemBulk: Bulk;
+
     isInContainer: boolean;
+
     formattedHeldItemBulk: string;
+
     formattedNegateBulk: string;
+
     formattedCapacity: string;
+
     capacity: Bulk;
 
-    constructor({
-        item,
-        heldItems,
-        negateBulk,
-        capacity,
-        heldItemBulk,
-        isInContainer,
-        formattedNegateBulk,
-        formattedHeldItemBulk,
-        formattedCapacity,
-    }) {
+    constructor(
+        {
+            item,
+            heldItems,
+            negateBulk,
+            capacity,
+            heldItemBulk,
+            isInContainer,
+            formattedNegateBulk,
+            formattedHeldItemBulk,
+            formattedCapacity,
+        },
+    ) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
@@ -37,19 +59,19 @@ class ContainerData {
         this.capacity = capacity;
     }
 
-    get isContainer() {
+    get isContainer(): boolean {
         return !this.capacity.isNegligible;
     }
 
-    get isCollapsed() {
+    get isCollapsed(): boolean {
         return this.item?.data?.collapsed?.value ?? false;
     }
-    
-    get isNotInContainer() {
+
+    get isNotInContainer(): boolean {
         return !this.isInContainer;
     }
 
-    _getLightBulkCapacityThreshold() {
+    _getLightBulkCapacityThreshold(): number {
         if (this.capacity.normal > 0) {
             // light bulk don't count towards bulk limit
             return this.capacity.toLightBulk() + 10;
@@ -58,7 +80,7 @@ class ContainerData {
         return this.capacity.light;
     }
 
-    get fullPercentage() {
+    get fullPercentage(): number {
         const capacity = this._getLightBulkCapacityThreshold();
         if (capacity === 0) {
             return 0;
@@ -66,8 +88,8 @@ class ContainerData {
         const heldLightBulk = this.heldItemBulk.toLightBulk();
         return Math.floor((heldLightBulk / capacity) * 100);
     }
-    
-    get fullPercentageMax100() {
+
+    get fullPercentageMax100(): number {
         const percentage = this.fullPercentage;
         if (percentage > 100) {
             return 100;
@@ -75,7 +97,7 @@ class ContainerData {
         return percentage;
     }
 
-    get isOverLoaded() {
+    get isOverLoaded(): boolean {
         if (this.capacity.normal > 0) {
             return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
         }
@@ -91,9 +113,16 @@ class ContainerData {
  * @param isInContainer
  * @param stackDefinitions
  * @param bulkConfig
- * @return {ContainerData}
+ * @return
  */
-function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, stackDefinitions, bulkConfig) {
+function toContainer(
+    item: ItemToChange,
+    heldItems: ItemToChange[] = [],
+    heldBulkItems: BulkItem[] = [],
+    isInContainer: boolean,
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig,
+) {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
     const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
@@ -110,27 +139,27 @@ function toContainer(item, heldItems = [], heldBulkItems = [], isInContainer, st
     });
 }
 
-function detectCycle(itemId, containerId, idIndexedItems) {
+function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, ItemToChange>): boolean {
     if (idIndexedItems.has(containerId)) {
         const currentItem = idIndexedItems.get(containerId);
         if (itemId === currentItem._id) {
             return true;
-        } else {
-            return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
         }
-    } else {
-        return false;
-    }
-}
+        return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
 
+    }
+    return false;
+
+}
 /**
  * Detect if a new container id would produce a cycle
  * @param itemId
  * @param containerId
  * @param items
- * @returns {boolean}
+ * @returns
  */
-export function isCycle(itemId, containerId, items) {
+
+export function isCycle(itemId: string, containerId: string, items: ItemToChange[]): boolean {
     const idIndexedItems = new Map();
     for (const item of items) {
         idIndexedItems.set(item._id, item);
@@ -147,10 +176,15 @@ export function isCycle(itemId, containerId, items) {
  * @param bulkItemsById all items on the actor transformed into bulk items; used to look up how much bulk a container stores
  * @param stackDefinitions used to calculated bulk
  * @param bulkConfig used to calculated bulk
- * @return {Map<string, ContainerData>}
+ * @return 
  */
 // eslint-disable-next-line import/prefer-default-export
-export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefinitions, bulkConfig = {}) {
+export function getContainerMap(
+    items: ItemToChange[] = [],
+    bulkItemsById: Map<string, BulkItem> = new Map(),
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig = defaultBulkConfig,
+): Map<string, ContainerData> {
     const allIds = groupBy(items, item => item._id);
 
     const containerGroups = groupBy(items, item => {
@@ -178,7 +212,7 @@ export function getContainerMap(items = [], bulkItemsById = new Map(), stackDefi
                 bulkItemsById.get(id)?.holdsItems ?? [],
                 isInContainer,
                 stackDefinitions,
-                bulkConfig
+                bulkConfig,
             ));
         });
 
