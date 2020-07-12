@@ -12,8 +12,8 @@ declare interface ActorData extends BaseEntityData {
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors extends Collection<Actor> {
-	entities: Actor[];
+declare class Actors extends Collection<SystemActorType> {
+	entities: SystemActorType[];
 
 	/**
 	 * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
@@ -25,7 +25,7 @@ declare class Actors extends Collection<Actor> {
 	/** @override */
 	get object(): Actor;
 
-	values(): IterableIterator<Actor>;
+	values(): IterableIterator<SystemActorType>;
 
 	/* -------------------------------------------- */
 	/*  Sheet Registration Methods                  */
@@ -85,7 +85,7 @@ declare class Actor extends Entity {
 	/**
 	 * Construct the Array of Item instances for the Actor
 	 */
-	items: Collection<Item>;
+	items: Collection<SystemItemType>;
 
 	/**
 	 * Cache an Array of allowed Token images if using a wildcard path
@@ -94,7 +94,7 @@ declare class Actor extends Entity {
 
 	/** @override */
 	static get config(): {
-		baseEntity: Actor;
+		baseEntity: SystemActorType;
 		collection: Actors;
 		embeddedEntities: { OwnedItem: string };
 	};
@@ -131,7 +131,7 @@ declare class Actor extends Entity {
 	 * If the Token data is not linked, create a synthetic Actor using the Token's actorData override
 	 * @param token
 	 */
-	static fromToken(token: Token): Actor;
+	static fromToken(token: Token): SystemActorType;
 
 	/**
 	 * Create a synthetic Token Actor instance which is used in place of an actual Actor.
@@ -139,7 +139,7 @@ declare class Actor extends Entity {
 	 * @param baseActor
 	 * @param token
 	 */
-	static createTokenActor(baseActor: Actor, token: Token): Actor;
+	static createTokenActor(baseActor: SystemActorType, token: Token): SystemActorType;
 
 	/**
 	 * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
@@ -170,14 +170,14 @@ declare class Actor extends Entity {
 		value: number,
 		isDelta?: boolean,
 		isBar?: boolean
-	): Promise<Actor>;
+	): Promise<SystemActorType>;
 
 	/* -------------------------------------------- */
 	/*  Socket Listeners and Handlers
 	/* -------------------------------------------- */
 
 	/** @override */
-	update(data: object, options?: object): Promise<Actor>;
+	update(data: object, options?: object): Promise<SystemActorType>;
 
 	/** @override */
 	delete(options?: object): Promise<string>;
@@ -187,21 +187,21 @@ declare class Actor extends Entity {
 		embeddedName: string,
 		createData: object,
 		options?: object
-	): Promise<Actor>;
+	): Promise<SystemActorType>;
 
 	/** @override */
 	updateEmbeddedEntity(
 		embeddedName: string,
 		updateData: object,
 		options?: object
-	): Promise<Actor>;
+	): Promise<SystemActorType>;
 
 	/** @override */
 	deleteEmbeddedEntity(
 		embeddedName: string,
 		childId: string,
 		options?: object
-	): Promise<Actor>;
+	): Promise<SystemActorType>;
 
 	/** @override */
 	protected _onUpdate(
@@ -222,14 +222,14 @@ declare class Actor extends Entity {
 	 * @param collection	The name of the pack from which to import
 	 * @param entryId		The ID of the compendium entry to import
 	 */
-	importItemFromCollection(collection: string, entryId: string): Item;
+	importItemFromCollection(collection: string, entryId: string): SystemItemType;
 
 	/**
 	 * Get an owned item by it's ID, initialized as an Item entity class
 	 * @param itemId	The ID of the owned item
 	 * @return			An Item class instance for that owned item or null if the itemId does not exist
 	 */
-	getOwnedItem(itemId: string): Item | null;
+	getOwnedItem(itemId: string): SystemItemType | null;
 
 	/**
 	 * Create a new item owned by this Actor.
@@ -238,7 +238,7 @@ declare class Actor extends Entity {
 	 * @param options.rendeSheet	Render the Item sheet for the newly created item data
 	 * @return						A Promise containing the newly created owned Item instance
 	 */
-	createOwnedItem(itemData: object, options?: object): Promise<Item>;
+	createOwnedItem(itemData: object, options?: object): Promise<SystemItemType>;
 
 	/**
 	 * Update an owned item using provided new data
@@ -246,12 +246,12 @@ declare class Actor extends Entity {
 	 * @param options	Item update options
 	 * @return			A Promise resolving to the updated Item object
 	 */
-	updateOwnedItem(itemData: object, options?: object): Promise<Item>;
+	updateOwnedItem(itemData: object, options?: object): Promise<SystemItemType>;
 
 	/**
 	 * @deprecated since 0.4.4 in favor of Entity.updateManyEmbeddedEntities()
 	 */
-	updateManyOwnedItems(data: object, options?: object): Promise<Item[]>;
+	updateManyOwnedItems(data: object, options?: object): Promise<SystemItemType[]>;
 
 	/**
 	 * Delete an owned item by its id. This redirects its arguments to the deleteEmbeddedEntity method.
@@ -259,5 +259,5 @@ declare class Actor extends Entity {
 	 * @param options	Item deletion options
 	 * @return			A Promise resolving to the deleted Owned Item data
 	 */
-	deleteOwnedItem(itemId: string, options?: object): Promise<Item>;
+	deleteOwnedItem(itemId: string, options?: object): Promise<SystemItemType>;
 }

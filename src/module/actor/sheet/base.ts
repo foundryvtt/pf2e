@@ -14,7 +14,7 @@ import PF2EItem from '../../item/item';
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  */
-abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
+abstract class ActorSheetPF2e extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -236,7 +236,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
     // Add chat data
     try {
-      let item = this.actor.getOwnedItem(spell._id) as PF2EItem;
+      let item = this.actor.getOwnedItem(spell._id);
       if (item){
         spell.chatData = item.getChatData({ secrets: this.actor.owner });
       }
@@ -810,7 +810,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
 
       const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
       // item = this.actor.items.find(i => { return i.id === itemId });
-      const item = this.actor.getOwnedItem(itemId) as PF2EItem;
+      const item = this.actor.getOwnedItem(itemId);
 
       // which function gets called depends on the type of button stored in the dataset attribute action
       switch (ev.target.dataset.action) {
@@ -1416,7 +1416,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
   _onItemRoll(event) {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-    const item = this.actor.getOwnedItem(itemId) as PF2EItem;
+    const item = this.actor.getOwnedItem(itemId);
     item.roll(event);
   }
 
@@ -1441,7 +1441,7 @@ abstract class ActorSheetPF2e extends ActorSheet<PF2EActor> {
     if (itemType === 'spellSlot') return false;
 
     try {
-      item = this.actor.getOwnedItem(itemId) as PF2EItem;
+      item = this.actor.getOwnedItem(itemId);
       if (!item.type) return;
     } catch (err) {
       return false;

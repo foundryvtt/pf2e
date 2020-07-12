@@ -11,6 +11,9 @@ declare let ui: {
 	actors: ActorDirectory
 };
 
+declare type SystemActorType = import('../../../src/module/actor/actor').default;
+declare type SystemItemType = import('../../../src/module/item/item').default;
+
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
  * The singleton instance of the Game class is available as the global variable ``game``.
