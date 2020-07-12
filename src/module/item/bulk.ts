@@ -185,7 +185,7 @@ export const bulkConversions: BulkConversions = {
 function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | null): boolean {
     return (treatsAsDowngrade === '-' && normalItemBulk.isNegligible)
         || (treatsAsDowngrade === 'L' && normalItemBulk.isLight)
-        || (normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
+        || (treatsAsDowngrade !== null && normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
 }
 
 export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
