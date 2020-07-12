@@ -1,0 +1,30 @@
+.compendium-browser {
+    @import 'nav';
+    @import 'settings';
+    
+    .tab.browser > div {
+        display: grid;
+
+        grid-template-columns: 320px auto;
+
+        .control-area {
+            grid-column-start: 1;
+        }
+        ul {
+            grid-column-start: 2;
+        }
+    }
+
+    .spell-browser {
+        // TODO: Fix the scrolling issue
+        height: 600px;
+
+        ul {
+            width: auto;
+        }
+
+        dd {
+          text-transform: capitalize;
+        }
+    }
+}

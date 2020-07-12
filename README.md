@@ -15,9 +15,6 @@ Please Note:
 - Functionality is not complete with plenty of work remaining. 
 - If you find any issues or have any feedback please let me know.
 
-### VTT Support:
-Tested with the following virtual table top platforms: 
-*  Foundry VTT v0.5.7.
 
 ### Shoutouts
 

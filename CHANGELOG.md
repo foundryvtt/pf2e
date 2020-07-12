@@ -1,4 +1,144 @@
 # Patch Notes:
+
+## Version 1.9.0
+### New Features
+* (@fryguy1013) Add spell attack modifier to the spell tab on the player character sheet
+* (@fryguy1013) Add recovery roll button next to dying/wounded/doomed
+
+### Content Changes
+* (@ryansobol) Compendium typos
+    * Fix #579 Telekinetic Maneuver misspelled as Telekinetic Manuever on the Spells Compendium
+    * Fix #561 Denizen of Leng wrong damage
+* (@Shandyan) Compendium updates
+    * Fix darkvision ability traits
+    * Fix light hammer and orc knuckle dagger bulk
+    * Fix pickpocket feat type
+    * Fix typo in baomal creature name
+    * Added missing traditions to Stabilize cantrip
+    * Adding missing spells traits
+    * Fix reach spell missing traits
+    * Fix gelatinous cube size
+    * Fix capitalization for bloody blade mercenary
+    * Added Ralldar to Age of Ashes compendium
+    * Fix Emblazon Energy level
+    * Minor errata fixes
+    * Removing duplicate feats
+* (@TMun) Compendium updates
+    * Updated NPC Gallery to include all NPCs up to the downtrodden section in the GMG
+    * Add the arcane spellcaster class feat
+    * Add Shoony Ancestry Blunt Nose feat
+    * General clean up of all feats - linked to compendia, deleted trailing whitespace and removed span id tags
+    * Remove AoN and paizo.com html links and replace single action and reaction images with system copies. Strips out AoN span ID tag from actions and equipment compendia
+    * Corrects mistform elixir
+    * Fixed conditions background color, as well as some links
+
+### Bug Fixes
+* (@fryguy1013) Change the default value of treasure items to be worth 0 gp instead of 1 pp
+* (@fryguy1013) Fix typo in templates.json for spell display levels
+* (@fryguy1013) Add rollmode parameter to DicePF2e.d20Roll so that you can blind roll from a macro
+* (@fryguy1013) Add DicePF2e to the global scope so other modules can use it
+* (@nikolaj-a) Expose status effect API to macros
+
+### Core System Improvements
+* (@fryguy1013) Condense rows in feats section, skills section, and spellbook on "new" character sheet
+* (@fryguy1013) Remove feat attack and tool checks, as it wasn't being used (5E stuff)
+* (@fryguy1013) Refactor MAP calculations to no longer store temporary data in the item's data object
+* (@abrault) Combined compendium browsers
+* (@abrault) Improve compression of images
+* (@abrault) Disable name mangling from the prod build
+* (@ryansobol) Fix item attribute "denomitation" should be spelled "denomination"
+* (@nikolaj-a) Bump Foundry core version compatibility to 0.6.5
+
+### Development Process Improvements
+* (@fryguy1013) Add webpack progress bar plugin so it's easier to see what's going on when doing watch builds
+* (putty#0555) Smaller typings
+* (@ryansobol) Remove gulp dev dependencies
+* (@ryansobol) Fix the foundryconfig example file to be compatible with the project's editorconfig settings
+* (@ryansobol) Fix deprecation warning with node-gyp
+
+
+## Version 1.8.0
+### New Features
+* (@iceman76) Add filters to Feat Browser for boons and curses.
+
+### Content Changes
+* (@iceman76) Compendium updates
+    * Give Pathfinder Society boons the correct feat type.
+    * Remove duplicate Pathfinder Society boon.
+    * Change "Rain of Embers Stance" from class feature to class feat.
+
+### Core System Improvements
+* (@fryguy1013) Major upgrade to the technical foundation of the project, which should help streamline the release process and help us catch some bugs earlier on. A huge thanks for all the hard work that went into this!
+
+
+## Version 1.7.0
+### New Features
+* (ravenmaster_001#5375) Add support for proficiency variant rules.
+
+### Bug Fixes
+* (@nikolaj-a) Fix overflow error in roll dialog
+
+### Core System Improvements
+* (@fryguy1013) Clean up unused code, mostly leftovers from the D&D 5E game system.
+* (@nikolaj-a) Bump Foundry core version compatibility to 0.6.4
+
+## Version 1.6.1
+### Content Changes
+* (@Shandyan) Compendium updates
+    * Update spells compendium to correct a missed set of focus spells
+    * Update deities, equipment, feats, rollable-table compendia to replace AoN links with Foundry links
+* (@meditatingCybermind) Compendium updates
+    * Updated backgrounds, feats, and PFS boons from missions
+    * Added Lost Omens backgrounds
+* (@meditatingCybermind) Updated OGL with society credits
+
+### Bug Fixes
+* (@iceman76) Correctly calculate when shields are broken.
+* (@iceman76) Correctly highlight buttons for rolling in skills tab.
+* (@nikolaj-a) Fix untyped bonus stacking
+* (@nikolaj-a) Use the actor as speaker when rolling
+
+### Core System Improvements
+* (@iceman76) Add search field to trait selector window & freeze Update Actor button.
+* (@nikolaj-a) Flat damage modifiers with damage type
+* (@nikolaj-a) Conditional custom modifiers
+* (@nikolaj-a) Default attack and damage roll options
+* (@nikolaj-a) Support for default roll options
+
+## Version 1.6.0
+### New Features
+* (@nikolaj-a) Added custom damage dice and damage roll options
+
+
+### Content Changes
+* (@overdox) Wrong text for Animal Trainer archetype has now been corrected
+* (@cora) Added four hazards from Ages of Ashes 2 into the adventure path bestiary.
+* (@Shandyan) Compendium updates
+    * Correcting the final (??) set of item/journal links for spells, items, feats etc.
+    * Replaced Aon links in actions, backgrounds and class compendium with links to other compendiums for actions, conditions, feats, equipment, spells, etc. 
+    * AoN links to skills, traits and other rules entries not in Foundry have been left in place (for now).
+* (@Shandyan) Updated spells.db to fix various errors
+    * Made corrections to spells to address issue 554
+    * Corrected text of Modify Memory spell
+    * Made sure all focus spells are correctly listed as Focus rather than Spells.
+* (luke#4754) added ability glossary
+* (TMun#1625) Updated Iconics:
+    * Inventory redone to use containers
+    * All tokens have owner hover now set to hover
+    * Vision set to 5 dim/300dim/300bright for regular/low light/darkvision 
+    * All names in the prototype token have the (level x) removed
+* (@meditatingCybermind & TMun#1625) Added pfs/deity boons and curses
+
+### Bug Fixes
+* (@mirkoRainer) Fixed Religious Text bulk (is L, not negligible).
+
+
+### Core System Improvements
+* (@nikolaj-a) Added support for more custom modifier formats for attack and damage rolls, including by weapon name and weapon ID. This will allow macros to target specific weapons or weapon types with modifiers. Also added an option to target damage modifiers on proficiency, which is needed for some of the class features.
+* (@abrault) Further optimisation to the Compendium Browser improving performance
+* (@mirkoRainer) Allow a character Deity image to be edited (by clicking the image and select a new file for it).
+
+
 ## Version 1.5.4
 ### Content Changes
 * (@Shandyan) Corrected spell entries in spell compendium for:
@@ -14,7 +154,7 @@
 
 
 ### Bug Fixes
-* (iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
+* (@iceman76) Unified apostrophes in item names to fix search functionality in compendium browsers
 
 
 ### Core System Improvements
@@ -246,7 +386,7 @@
 
 ## Version 1.3.0 
 ### New Features
-* (@nicolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
+* (@nikolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
 
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/8e2f2ba292b358e1e5a2cc98972a499a/image.png "Edit Modifier")
 
@@ -259,13 +399,13 @@
 ### Bug Fixes
 * (@abrault) Limit the scope of the Tooltipster module to the new actor sheet (it was global previously)
 * (@putt1) Fixed issue with focus points making them visible and clickable again
-* (@nicolaj-a) Ensure that the older trait format is better supported preventing player character sheets from opening.
+* (@nikolaj-a) Ensure that the older trait format is better supported preventing player character sheets from opening.
 
 
 ### Core System Improvements
-* (@nicolaj-a) Changed behaviour of clicking a Strike action to only trigger the strike description expansion to only trigger when clicking the strike action name.
-* (@nicolaj-a) Added Battlefield Surveyor fighter class feature to the temporary automation for initiative modifiers.
-* (@nicolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
+* (@nilolaj-a) Changed behaviour of clicking a Strike action to only trigger the strike description expansion to only trigger when clicking the strike action name.
+* (@nikolaj-a) Added Battlefield Surveyor fighter class feature to the temporary automation for initiative modifiers.
+* (@nikolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
 
 
 ## Version 1.2.0 

@@ -1,0 +1,64 @@
+<li class="item" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
+    <div class="item-name rollable">
+        <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+        <h4>
+            {{item.name}}
+            {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
+            {{#if item.isTwoHanded}}
+            {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
+            <i class="far fa-hand-paper"></i>
+            {{/if}}
+        </h4>
+        {{#if item.hasCharges}}
+        <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
+        {{/if}}
+    </div>
+    <span class="item-quantity">
+                    <a class="item-decrease-quantity">&ndash;</a>
+                    <span>{{item.data.quantity.value}}</span>
+                    <a class="item-increase-quantity">+</a>
+                </span>
+    <span class="item-weight">{{item.totalWeight}}</span>
+
+    {{#if owner}}
+    <div class="item-controls">
+        {{#if item.isContainer}}
+            {{#if item.containerData.isCollapsed}}
+                <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box"></i></a>
+            {{/if}}
+            {{#unless item.containerData.isCollapsed}}
+                <a class="item-control item-toggle-container" title="{{localize 'PF2E.OpenItemTitle'}}"><i class="fas fa-box-open"></i></a>
+            {{/unless}}
+        {{/if}}
+        {{#unless item.isContainer}}
+        <div style="float: left; width: 22px;">&nbsp;</div>
+        {{/unless}}
+        {{#if item.canBeEquipped}}
+        <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+        {{/if}}
+        {{#if item.isSellableTreasure}}
+        <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
+        {{/if}}
+        {{#unless item.isSellableTreasure}}
+        <div style="float: left; width: 22px;">&nbsp;</div>
+        {{/unless}}
+        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+    </div>
+    {{/if}}
+</li>
+<div class="container-metadata" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
+    {{#unless item.containerData.isCollapsed}}
+        {{#if item.isContainer}}
+            <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
+                <span class="container-capacity-bar" style="width:{{item.containerData.fullPercentageMax100}}%"></span>
+                <span class="container-capacity-label">{{localize 'PF2E.CapacityBarLabel'}}: {{item.containerData.formattedHeldItemBulk}} / {{item.containerData.formattedCapacity}}</span>
+            </div>
+        {{/if}}
+        <div class="container-held-items">
+            {{#each item.containerData.heldItems}}
+            {{> systems/pf2e/templates/actors/tabs/item-line.html item=this owner=../owner level=(add ../level 1)}}
+            {{/each}}
+        </div>
+    {{/unless}}
+</div>

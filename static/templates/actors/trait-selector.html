@@ -1,0 +1,34 @@
+<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
+    {{#unless has_values}}
+    <header class="trait-header flexrow">
+        <div class="header-search">
+            <i class="fas fa-search"></i>
+            <input type="text" name="search" value="{{searchString}}" placeholder="Search" autocomplete="off"/>
+        </div>
+    </header>
+    {{/unless}}
+    <ol class="trait-list">
+        {{#each ordered_choices as |choice key|}}
+        <li class="trait-item">
+            <div class="form-group form-fields">
+                <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
+                <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                {{#if ../has_values}}
+                    <input type="text" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="e.g. 5" data-dtype="Number"/>        
+                {{/if}}
+                {{#if ../has_exceptions}}
+                    <label style="margin-left: 5px;">Exceptions:</label>
+                    <input type="text" id="input_exception_{{key}}" name="{{key}}" value="{{choice.exceptions}}" placeholder="e.g. except {{localize "PF2E.WeaknessTypeSilver"}}" data-dtype="String"/>
+                {{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+    {{#unless has_values}}
+    <div class="form-group-stacked trait-footer">
+        <label>{{localize "PF2E.SpecialLabel"}}:</label>
+        <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
+    </div>
+    {{/unless}}
+    <button class="trait-footer" type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+</form>
