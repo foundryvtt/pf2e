@@ -1,8 +1,12 @@
-declare interface BaseEntityData {
+declare interface BaseEntityData<DataType = any> {
+	_id: string;
 	name: string;
 	type: string;
 	flags: any;
-	data: any;
+	folder: string | null;
+	permission: any;
+	data: DataType;
+	img: string;
 }
 
 /**
@@ -23,9 +27,9 @@ declare interface BaseEntityData {
  * let actorData = {name: "John Doe", type: "character", img: "icons/mystery-man.png"};
  * let actor = new Actor(actorData);
  */
-declare class Entity {
+declare class Entity<DataType = any> {
 	/** The Entity references the raw source data for the object provided through game.data */
-	data: any;
+	data: DataType;
 
 	/** Additional options which were used to configure the Entity */
 	options: any;
