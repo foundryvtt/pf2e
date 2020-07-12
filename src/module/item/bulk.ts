@@ -9,7 +9,6 @@ interface StackDefinition {
     size: number;
     lightBulk: number;
 }
-
 export type StackDefinitions = Record<string, StackDefinition>;
 
 /**
@@ -632,7 +631,7 @@ export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
 /**
  * Fix previous borked weight
  * @param brokenWeight
- * @return
+ * @return 
  */
 export function fixWeight(brokenWeight: BrokenBulk): string | null {
     const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
