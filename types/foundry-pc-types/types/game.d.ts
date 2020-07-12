@@ -13,6 +13,7 @@ declare let ui: {
 
 declare type SystemActorType = import('../../../src/module/actor/actor').default;
 declare type SystemItemType = import('../../../src/module/item/item').default;
+declare type SystemItemDataType = import('../../../src/module/item/dataDefinitions').ItemData;
 
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
