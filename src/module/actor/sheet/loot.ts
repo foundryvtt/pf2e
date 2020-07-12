@@ -1,5 +1,5 @@
 import { AddCoinsPopup } from './AddCoinsPopup';
-import { inventoryBrowser } from "../../packs/spell-browser";
+import { compendiumBrowser } from "../../packs/compendium-browser";
 import ActorSheetPF2e from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
@@ -14,33 +14,33 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
         });
         return options;
     }
-    
+
     get template() {
         const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
         const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
-        
+
         const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
-        
+
         if (isEditable) return editableSheetPath;
-        
+
         return nonEditableSheetPath;
     }
-    
+
     getData() {
         const sheetData = super.getData();
-        
+
         // Process default values
         sheetData.flags = sheetData.actor.flags;
         if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
-        
+
         // Precalculate some data to adapt sheet more easily
         sheetData.isShop = sheetData.data.isShop;
-        
+
         this._prepareItems(sheetData.actor);
-        
+
         return sheetData;
     }
-    
+
     _prepareItems(actorData) {
         const inventory = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
@@ -50,26 +50,26 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
             treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
         };
-        
+
         // Iterate through items, allocating to containers
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
             ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
         };
-        
+
         const bulkItems = itemsFromActorData(actorData);
         const indexedBulkItems = indexBulkItemsById(bulkItems);
         const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
-        
+
         for (const i of actorData.items) {
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);
             i.isContainer = i.containerData.isContainer;
-            i.isNotInContainer = i.containerData.isNotInContainer;            
+            i.isNotInContainer = i.containerData.isNotInContainer;
             i.canBeEquipped = i.isNotInContainer;
             i.isEquipped = i?.data?.equipped?.value ?? false;
-            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
-            
+            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+
             // Inventory
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
@@ -81,18 +81,18 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
                 inventory[i.type].items.push(i);
             }
-            
+
             actorData.inventory = inventory;
         }
     }
-    
+
     // Events
-    
+
     activateListeners(html) {
         super.activateListeners(html);
-        
+
         const shouldListenToEvents = this.options.editable;
-        
+
         if (shouldListenToEvents) {
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });

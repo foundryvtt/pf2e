@@ -35,10 +35,10 @@ export class DicePF2e {
    */
   static d20Roll({
     event, parts, data, template, title, speaker, flavor, advantage = true, situational = true,
-    fastForward = true, onClose, dialogOptions,
-  }: { event: JQuery.Event, parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, advantage?: boolean, situational?: boolean, fastForward?: boolean, onClose?: any, dialogOptions?: object }) {
+    fastForward = true, onClose, dialogOptions, rollMode
+  }: { event: JQuery.Event, parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, advantage?: boolean, situational?: boolean, fastForward?: boolean, onClose?: any, dialogOptions?: object, rollMode?: string }) {
     // Inner roll function
-    const rollMode = game.settings.get('core', 'rollMode');
+    rollMode = rollMode || game.settings.get('core', 'rollMode');
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
     const _roll = (parts, adv, form?) => {
       let flav = (flavor instanceof Function) ? flavor(parts, data) : title;
