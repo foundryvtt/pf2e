@@ -447,7 +447,7 @@ export default class PF2EItem extends Item {
     DicePF2e.d20Roll({
       event,
       parts,
-      actor: this.actor as PF2EActor,
+      actor: this.actor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -581,7 +581,7 @@ export default class PF2EItem extends Item {
       parts,
       partsCritOnly,
       critical,
-      actor: this.actor as PF2EActor,
+      actor: this.actor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -620,7 +620,7 @@ export default class PF2EItem extends Item {
     DicePF2e.d20Roll({
       event,
       parts,
-      actor: this.actor as PF2EActor,
+      actor: this.actor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -681,7 +681,7 @@ export default class PF2EItem extends Item {
       event,
       parts,
       critical,
-      actor: this.actor as PF2EActor,
+      actor: this.actor,
       data: rollData,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -793,7 +793,7 @@ export default class PF2EItem extends Item {
       event,
       parts,
       data: rollData,
-      actor: this.actor as PF2EActor,
+      actor: this.actor,
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
@@ -922,7 +922,7 @@ export default class PF2EItem extends Item {
       // let itemData = actor.items.find(i => i.id === itemId);
       const itemData = (actor.getOwnedItem(itemId) || {}).data;
       if (!itemData) return;
-      const item: PF2EItem = new CONFIG.Item.entityClass(itemData, { actor }) as PF2EItem;
+      const item = new PF2EItem(itemData, { actor });
 
       // Get the Action
       const action = button.attr('data-action');

@@ -29,12 +29,12 @@ declare class ItemSheet extends BaseEntitySheet {
 	/**
 	 * A convenience reference to the Item entity
 	 */
-	get item(): Item;
+	get item(): SystemItemType;
 
 	/**
 	 * The Actor instance which owns this item. This may be null if the item is unowned.
 	 */
-	get actor(): Actor;
+	get actor(): SystemActorType;
 
 	/**
 	 * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
