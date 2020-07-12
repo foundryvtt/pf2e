@@ -146,7 +146,11 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     const { messageId } = li.data();
     const message = game.messages.get(messageId);
 
-    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Skill Check');
+    //Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
+    //Avoid potential confusion and misunderstanding by just allowing NPCs to roll
+    let validActor = (canvas.tokens.controlled?.[0]?.actor?.data?.type === "npc") ?? false;
+    let validRollType = (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ?? false;
+    return validActor && message.isRoll && validRollType;
   };
 
   options.push(
