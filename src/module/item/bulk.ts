@@ -62,6 +62,10 @@ export class Bulk {
     get isNegligible(): boolean {
         return this.normal === 0 && this.light === 0;
     }
+    
+    get isLight(): boolean {
+        return this.toLightBulk() < 10 && !this.isNegligible;
+    }
 
     toLightBulk(): number {
         return this.normal * 10 + this.light;
@@ -124,6 +128,74 @@ export class Bulk {
     toString(): string {
         return `normal: ${this.normal}; light: ${this.light}`;
     }
+}
+
+// see https://2e.aonprd.com/Rules.aspx?ID=257
+export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+
+export interface BulkConversion {
+    bulkLimitFactor: number,
+    treatsAsLight: string | null,
+    treatsAsNegligible: string | null,
+}
+
+export type BulkConversions = Record<Sizes, BulkConversion>;
+export const bulkConversions: BulkConversions = {
+    tiny: {
+        bulkLimitFactor: 0.5,
+        treatsAsLight: '-',
+        treatsAsNegligible: null,
+    },
+    sm: {
+        bulkLimitFactor: 1,
+        treatsAsLight: 'L',
+        treatsAsNegligible: '-',
+    },
+    med: {
+        bulkLimitFactor: 1,
+        treatsAsLight: 'L',
+        treatsAsNegligible: '-',
+    },
+    lg: {
+        bulkLimitFactor: 2,
+        treatsAsLight: '1',
+        treatsAsNegligible: 'L',
+    },
+    huge: {
+        bulkLimitFactor: 4,
+        treatsAsLight: '2',
+        treatsAsNegligible: '1',
+    },
+    grg: {
+        bulkLimitFactor: 8,
+        treatsAsLight: '4',
+        treatsAsNegligible: '2',
+    },
+};
+
+/**
+ * Whether a given bulk should considered to be downgraded. 
+ * @param normalItemBulk
+ * @param treatsAsDowngrade if given, a string that ranges from '-', 'L', '1', '2', ...
+ * and is equal to the selected cell at https://2e.aonprd.com/Rules.aspx?ID=257
+ * For instance treatAsDowngrade with regards to negligible items for large creates would be '1'
+ * All bulk sizes lower than or equal to this value are considered to be downgraded.
+ */
+function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | null): boolean {
+    return (treatsAsDowngrade === '-' && normalItemBulk.isNegligible)
+        || (treatsAsDowngrade === 'L' && normalItemBulk.isLight)
+        || (treatsAsDowngrade !== null && normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
+}
+
+export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
+    const {treatsAsNegligible, treatsAsLight} = bulkConversions[targetSize];
+    if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
+        return new Bulk();
+    }
+    if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
+        return new Bulk({light: 1});
+    }
+    return normalItemBulk;
 }
 
 /**
