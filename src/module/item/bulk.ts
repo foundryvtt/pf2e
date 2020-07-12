@@ -444,7 +444,7 @@ function buildContainerTree(items, groupedItems) {
  */
 export function toBulkItems(items) {
     const allIds = new Set(items.map(item => item._id));
-    const itemsInContainers = groupBy(items, (item) => {
+    const itemsInContainers = groupBy(items, (item: any) => {
         // we want all items in the top level group that are in no container
         // or are never referenced because we don't want the items to
         // disappear if the container is being deleted or doesn't have a reference

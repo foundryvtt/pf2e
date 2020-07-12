@@ -20,6 +20,7 @@ import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
+import PF2EItem from '../item/item';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -404,8 +405,6 @@ export default class PF2EActor extends Actor {
           ability: { value: 'str' },
           weaponType: { value: 'unarmed' },
           bonus: { value: 0 },
-          map2: -4,
-          map3: -8,
           damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
@@ -470,18 +469,19 @@ export default class PF2EActor extends Actor {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
+        let map = PF2EItem.calculateMap(item);
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
             roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
           },
           {
-            label: `MAP ${item.data.map2}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            label: `MAP ${map.map2}`,
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
           {
-            label: `MAP ${item.data.map3}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', item.data.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            label: `MAP ${map.map3}`,
+            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
           },
         ];
         action.damage = (event, options = []) => {
@@ -650,46 +650,32 @@ export default class PF2EActor extends Actor {
     let result = '';
 
     if (flatCheck.total == 20 || flatCheck.total >= (dc+10)) {
-      result = `${game.i18n.localize("PF2E.CritSuccess")  } ${  game.i18n.localize("PF2E.Recovery.critSuccess")}`;
+      result = `${game.i18n.localize("PF2E.CritSuccess")} ${game.i18n.localize("PF2E.Recovery.critSuccess")}`;
     } else if (flatCheck.total == 1 || flatCheck.total <= (dc-10)) {
-      result = `${game.i18n.localize("PF2E.CritFailure")  } ${  game.i18n.localize("PF2E.Recovery.critFailure")}`;
+      result = `${game.i18n.localize("PF2E.CritFailure")} ${game.i18n.localize("PF2E.Recovery.critFailure")}`;
     } else if (flatCheck.result >= dc) {
-      result = `${game.i18n.localize("PF2E.Success")  } ${  game.i18n.localize("PF2E.Recovery.success")}`;
+      result = `${game.i18n.localize("PF2E.Success")} ${game.i18n.localize("PF2E.Recovery.success")}`;
     } else {
-      result = `${game.i18n.localize("PF2E.Failure")  } ${  game.i18n.localize("PF2E.Recovery.failure")}`;
+      result = `${game.i18n.localize("PF2E.Failure")} ${game.i18n.localize("PF2E.Recovery.failure")}`;
     }
-    const dyingName = game.i18n.localize("PF2E.condition.dying.name").toLowerCase();
-    const rollingPartA = game.i18n.localize("PF2E.Recovery.rollingPartA");
-    const rollingPartB = game.i18n.localize("PF2E.Recovery.rollingPartB");
+    const rollingDescription = game.i18n.format("PF2E.Recovery.rollingDescription", { dc, dying });
 
     const message = `
+      ${rollingDescription}.
       <div class="dice-roll">
-      <div class="dice-result">
-        <div class="dice-tooltip" style="display: none;">
-            <section class="tooltip-part">
-              <p class="part-formula" style="padding-top:5px;">${flatCheck.formula}<span class="part-total">${flatCheck.result}</span></p>
-              <p class="dice-rolls" style="padding-left: 3px;">DC ${recoveryDc} + ${dyingName} ${dying}</p>
-            </section>
-        </div>
-        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">
-            ${rollingPartA}  <a class="inline-roll inline-result" title="d20" data-roll="${escape(JSON.stringify(flatCheck))}" style="font-style: normal;">
-            <i class="fas fa-dice-d20"></i> ${flatCheck.result}</a> ${rollingPartB} ${dc}.
-          </span>
-        </div>
-        <div class="dice-total" style="padding: 0 10px; word-break: normal;">
+        <div class="dice-formula" style="padding: 0 10px; word-break: normal;">
           <span style="font-size: 12px; font-weight: 400;">
             ${result}
           </span>
         </div>
       </div>
-      </div>
       `;
-      ChatMessage.create({
-        user: game.user._id,
-        speaker: { actor: this },
-        content: message,
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER
+
+      flatCheck.toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this }),
+        flavor: message
+      }, {
+        rollMode: game.settings.get('core', 'rollMode'),
       });
 
       // No automated update yet, not sure if Community wants that.

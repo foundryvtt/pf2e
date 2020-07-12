@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 function getFoundryConfig() {
     const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
@@ -57,7 +59,8 @@ module.exports = (env, argv) => {
             new WriteFilePlugin(),
             new MiniCssExtractPlugin({
                 filename: 'styles/pf2e.css'
-            })
+            }),
+            new ProgressBarPlugin()
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js']
@@ -73,6 +76,16 @@ module.exports = (env, argv) => {
         config.output.path = path.join(foundryConfig.dataPath, 'Data', 'systems', foundryConfig.systemName);
 
     if (argv.mode === 'production') {
+        config.optimization = {
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        mangle:false,
+                    }
+                }),
+            ],
+        };
     } else {
         config.devtool = 'inline-source-map';
         config.watch = true;

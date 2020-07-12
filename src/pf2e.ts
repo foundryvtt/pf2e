@@ -11,6 +11,8 @@ import registerActors from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker';
 import * as migrations from './module/migration';
+import { DicePF2e } from './scripts/dice';
+import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 
 require('./styles/pf2e.scss');
 
@@ -48,6 +50,12 @@ Hooks.once('init', () => {
   registerHandlebarsHelpers();
   //@ts-ignore
   Combat.prototype._getInitiativeFormula = initiativeFormula;
+
+  // expose a few things to the global world, so that other modules can use our stuff
+  // instead of being locked in our world after we started building with webpack
+  // which enforced modules being private
+  (window as any).DicePF2e = DicePF2e;
+  (window as any).PF2eStatusEffects = PF2eStatusEffects;
 });
 
 Hooks.once('ready', () => {
