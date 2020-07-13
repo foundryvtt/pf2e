@@ -188,7 +188,7 @@ export default class PF2EActor extends Actor {
       if (save.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
-      [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
+      [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
@@ -353,7 +353,7 @@ export default class PF2EActor extends Actor {
       // workaround for the shortform skill names
       const expandedName = SKILL_DICTIONARY[skillName];
 
-      [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
+      [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
@@ -444,7 +444,7 @@ export default class PF2EActor extends Actor {
             stats.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
           }
           stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-          stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'all']).forEach((key) => {
+          stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'attack-roll', 'all']).forEach((key) => {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
