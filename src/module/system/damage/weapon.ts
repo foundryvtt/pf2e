@@ -1,3 +1,4 @@
+import { doubleFormula } from './util';
 import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2ModifierPredicate, PF2StatisticModifier } from '../../modifiers';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -310,7 +311,7 @@ export class PF2WeaponDamage {
     // build formula
     let formula = this.buildFormula(dicePool);
     if (critical) {
-      formula = `2 * (${formula})`;
+      formula = doubleFormula(formula);
       const critFormula = this.buildFormula(critPool);
       if (critFormula) {
         formula += ` + ${critFormula}`;

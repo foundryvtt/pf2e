@@ -477,9 +477,10 @@ class ActorSheetPF2eCharacter extends ActorSheetPF2e {
     const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
     actorData.data.attributes.encumbrance = calculateEncumbrance(
       actorData.data.abilities.str.mod,
-       bonusEncumbranceBulk,
-       bonusLimitBulk,
-      bulk
+      bonusEncumbranceBulk,
+      bonusLimitBulk,
+      bulk,
+      actorData.data?.traits?.size?.value ?? 'med',  
     );
   }
   
