@@ -21,6 +21,7 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
+import { SpellcastingEntryData } from '../item/dataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -187,7 +188,7 @@ export default class PF2EActor extends Actor {
       if (save.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
-      [saveName, `${save.ability}-based`, 'all'].forEach((key) => {
+      [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
@@ -352,7 +353,7 @@ export default class PF2EActor extends Actor {
       // workaround for the shortform skill names
       const expandedName = SKILL_DICTIONARY[skillName];
 
-      [expandedName, `${skill.ability}-based`, 'all'].forEach((key) => {
+      [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
@@ -443,7 +444,7 @@ export default class PF2EActor extends Actor {
             stats.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
           }
           stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-          stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'all']).forEach((key) => {
+          stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'attack-roll', 'all']).forEach((key) => {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
@@ -853,7 +854,6 @@ export default class PF2EActor extends Actor {
   static async setCombatantInitiative(roll) {
     const skillRolled = roll.find('.flavor-text').text();
     const valueRolled = parseFloat(roll.find('.dice-total').text());
-    let value = valueRolled;
     const promises = [];
     for (const t of canvas.tokens.controlled) {
       if (!game.combat) {
@@ -865,7 +865,16 @@ export default class PF2EActor extends Actor {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
-      const initBonus = combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      let value = valueRolled;
+      let initBonus = 0;
+      //Other actor types track iniative differently, which will give us NaN errors
+      if(combatant.actor.data.type === "npc") {
+        initBonus += combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
+      }
+      //Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
+      if (!combatant.actor.isPC) {
+        initBonus += .9;
+      }
       value += initBonus;
       const message = `
       <div class="dice-roll">
@@ -939,6 +948,8 @@ export default class PF2EActor extends Actor {
   async _setShowUnpreparedSpells(entryId, spellLevel) {
     if (entryId && spellLevel) {
       let spellcastingEntry = this.getOwnedItem(entryId);
+      if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry')
+        return;
 
       if (spellcastingEntry?.data?.data?.prepared?.value === "prepared" && spellcastingEntry?.data?.data?.showUnpreparedSpells?.value === false) {
         if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
