@@ -581,7 +581,9 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // Roll Attribute Checks
     html.find('.roll-init').click((ev) => {
       ev.preventDefault();
-      this.actor.data.data.attributes.initiative.roll(ev);
+      const checkType = this.actor.data.data.attributes.initiative.ability;
+      const opts = this.actor.getRollOptions(['all', 'initiative'].concat(SKILL_DICTIONARY[checkType] ?? checkType));
+      this.actor.data.data.attributes.initiative.roll(ev, opts);
     });
 
     html.find('.attribute-name').click((ev) => {

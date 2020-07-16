@@ -532,8 +532,8 @@ export default class PF2EActor extends Actor {
         data.attributes.initiative = new PF2CheckModifier('initiative', initValues, initModifiers);
         data.attributes.initiative.ability = initSkill;
         data.attributes.initiative.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        data.attributes.initiative.roll = (event) => {
-            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative' }, event, (roll) => {
+        data.attributes.initiative.roll = (event, options = []) => {
+            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };
