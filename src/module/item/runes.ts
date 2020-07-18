@@ -69,7 +69,14 @@ interface DiceModifier {
     traits: string[];
 }
 
-function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: Partial<DiceModifier>): DiceModifier {
+
+interface RuneDiceModifier {
+    diceNumber?: number;
+    dieSize?: DamageDieSize;
+    damageType?: string;
+}
+
+function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: RuneDiceModifier): DiceModifier {
     const traits = [];
     if (damageType !== undefined) {
         traits.push(damageType);
@@ -85,7 +92,7 @@ function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 
     };
 }
 
-const runeDamageModifiers = new Map<string, Partial<DiceModifier>>();
+const runeDamageModifiers = new Map<string, RuneDiceModifier>();
 runeDamageModifiers.set('disrupting', {damageType: 'positive'});
 runeDamageModifiers.set('corrosive', {damageType: 'acid'});
 runeDamageModifiers.set('flaming', {damageType: 'fire'});
