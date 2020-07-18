@@ -6,7 +6,7 @@ import {getDamageCategory} from './damage';
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
-  static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options = []) {
+  static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
     let effectDice = weapon.data.damage.dice ?? 1;
     const diceModifiers = [];
     const numericModifiers = [];
@@ -32,26 +32,32 @@ export class PF2WeaponDamage {
       && traits.some(t => t.name.startsWith('unarmed'))
     ) {
       diceModifiers.push({
-        name: 'Mystic Strikes',
-        enabled: true,
-        traits: ['magical'],
-      });
+              name: 'PF2E.MysticStrikes',
+              enabled: true,
+              traits: ['magical'],
+              predicate: {
+                  not: ['non-magical-strike']
+              }
+          });
     }
 
     if (actor.items.some(i => i.type === 'feat' && i.name === 'Metal Strikes')
         && traits.some(t => t.name.startsWith('unarmed'))
     ) {
         diceModifiers.push({
-            name: 'Metal Strikes',
-            enabled: true,
-            traits: ['silver', 'coldiron'],
-        });
+                name: 'PF2E.MetalStrikes',
+                enabled: true,
+                traits: ['silver', 'coldiron'],
+                predicate: {
+                    not: ['non-metal-strike']
+                }
+            });
     }
     
     // ghost touch
     if (hasGhostTouchRune(weapon)) {
         diceModifiers.push({
-            name: 'Ghost Touch',
+            name: 'PF2E.WeaponPropertyRuneGhostTouch',
             enabled: true,
             traits: ['ghostTouch'],
         });  
