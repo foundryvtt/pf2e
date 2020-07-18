@@ -109,7 +109,6 @@ runeDamageModifiers.set('ancestralEchoing', {damageType: 'fire'});
 export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, 4)) {
-        console.log(rune);
         if (runeDamageModifiers.has(rune)) {
             const modifierConfig = runeDamageModifiers.get(rune);
             diceModifiers.push(toModifier(rune, modifierConfig));
