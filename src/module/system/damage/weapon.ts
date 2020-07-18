@@ -122,13 +122,13 @@ export class PF2WeaponDamage {
       if (weaponSpecializationDamage > 0) {
           if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
               numericModifiers.push(new PF2Modifier(
-                  game.i18n.localize('PF2E.GreaterWeaponSpecialization'), 
+                  'PF2E.GreaterWeaponSpecialization', 
                   weaponSpecializationDamage*2, 
                   PF2ModifierType.UNTYPED
               ));
           } else if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
               numericModifiers.push(new PF2Modifier(
-                  game.i18n.localize('PF2E.WeaponSpecialization'), 
+                  'PF2E.WeaponSpecialization', 
                   weaponSpecializationDamage, 
                   PF2ModifierType.UNTYPED
               ));
