@@ -69,7 +69,11 @@ interface DiceModifier {
     traits: string[];
 }
 
-function toModifier(rune, {damageType, dieSize = 'd6', diceNumber = 1}: Partial<DiceModifier> = {}): DiceModifier {
+function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: Partial<DiceModifier>): DiceModifier {
+    const traits = [];
+    if (damageType !== undefined) {
+        traits.push(damageType);
+    }
     return {
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
         diceNumber,
@@ -77,42 +81,38 @@ function toModifier(rune, {damageType, dieSize = 'd6', diceNumber = 1}: Partial<
         category: getDamageCategory(damageType),
         damageType,
         enabled: true,
-        traits: [damageType],
+        traits,
     };
 }
 
-
-const runeDamageModifiers = new Map<string, DiceModifier>();
-
-// needs to be memoized because translation object is not available from the beginning
-export function registerRuneValues() {
-    runeDamageModifiers.set('disrupting', toModifier({damageType: 'positive'}));
-    runeDamageModifiers.set('corrosive', toModifier({damageType: 'acid'}));
-    runeDamageModifiers.set('flaming', toModifier({damageType: 'fire'}));
-    runeDamageModifiers.set('frost', toModifier({damageType: 'cold'}));
-    runeDamageModifiers.set('shock', toModifier({damageType: 'electricity'}));
-    runeDamageModifiers.set('thundering', toModifier({damageType: 'sonic'}));
-    runeDamageModifiers.set('serrating', toModifier({damageType: 'slashing', dieSize: 'd4'}));
-    runeDamageModifiers.set('anarchic', toModifier({damageType: 'chaotic'}));
-    runeDamageModifiers.set('axiomatic', toModifier({damageType: 'lawful'}));
-    runeDamageModifiers.set('holy', toModifier({damageType: 'good'}));
-    runeDamageModifiers.set('unholy', toModifier({damageType: 'evil'}));
-    runeDamageModifiers.set('dancing', toModifier({damageType: 'fire'}));
-    runeDamageModifiers.set('greaterDisrupting', toModifier({damageType: 'positive', diceNumber: 2}));
-    runeDamageModifiers.set('greaterCorrosive', toModifier({damageType: 'acid'}));
-    runeDamageModifiers.set('greaterFlaming', toModifier({damageType: 'fire'}));
-    runeDamageModifiers.set('greaterFrost', toModifier({damageType: 'cold'}));
-    runeDamageModifiers.set('greaterShock', toModifier({damageType: 'electricity'}));
-    runeDamageModifiers.set('greaterThundering', toModifier({damageType: 'sonic'}));
-    runeDamageModifiers.set('ancestralEchoing', toModifier({damageType: 'fire'}));
-}
+const runeDamageModifiers = new Map<string, Partial<DiceModifier>>();
+runeDamageModifiers.set('disrupting', {damageType: 'positive'});
+runeDamageModifiers.set('corrosive', {damageType: 'acid'});
+runeDamageModifiers.set('flaming', {damageType: 'fire'});
+runeDamageModifiers.set('frost', {damageType: 'cold'});
+runeDamageModifiers.set('shock', {damageType: 'electricity'});
+runeDamageModifiers.set('thundering', {damageType: 'sonic'});
+runeDamageModifiers.set('serrating', {dieSize: 'd4'});
+runeDamageModifiers.set('anarchic', {damageType: 'chaotic'});
+runeDamageModifiers.set('axiomatic', {damageType: 'lawful'});
+runeDamageModifiers.set('holy', {damageType: 'good'});
+runeDamageModifiers.set('unholy', {damageType: 'evil'});
+runeDamageModifiers.set('dancing', {damageType: 'fire'});
+runeDamageModifiers.set('greaterDisrupting', {damageType: 'positive', diceNumber: 2});
+runeDamageModifiers.set('greaterCorrosive', {damageType: 'acid'});
+runeDamageModifiers.set('greaterFlaming', {damageType: 'fire'});
+runeDamageModifiers.set('greaterFrost', {damageType: 'cold'});
+runeDamageModifiers.set('greaterShock', {damageType: 'electricity'});
+runeDamageModifiers.set('greaterThundering', {damageType: 'sonic'});
+runeDamageModifiers.set('ancestralEchoing', {damageType: 'fire'});
 
 export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, 4)) {
         console.log(rune);
         if (runeDamageModifiers.has(rune)) {
-            diceModifiers.push(runeDamageModifiers.get(rune));
+            const modifierConfig = runeDamageModifiers.get(rune);
+            diceModifiers.push(toModifier(rune, modifierConfig));
         }
     }
     return diceModifiers;

@@ -18,7 +18,7 @@ energyDamage.add('evil');
 energyDamage.add('good');
 energyDamage.add('lawful');
 
-export function getDamageCategory(damageType: string): string {
+export function getDamageCategory(damageType?: string): string | undefined {
     if (physicalDamage.has(damageType)) {
         return 'physical';
     }
