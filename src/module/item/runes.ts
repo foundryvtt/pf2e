@@ -104,14 +104,12 @@ runeDamageModifiers.set('anarchic', {damageType: 'chaotic'});
 runeDamageModifiers.set('axiomatic', {damageType: 'lawful'});
 runeDamageModifiers.set('holy', {damageType: 'good'});
 runeDamageModifiers.set('unholy', {damageType: 'evil'});
-runeDamageModifiers.set('dancing', {damageType: 'fire'});
 runeDamageModifiers.set('greaterDisrupting', {damageType: 'positive', diceNumber: 2});
 runeDamageModifiers.set('greaterCorrosive', {damageType: 'acid'});
 runeDamageModifiers.set('greaterFlaming', {damageType: 'fire'});
 runeDamageModifiers.set('greaterFrost', {damageType: 'cold'});
 runeDamageModifiers.set('greaterShock', {damageType: 'electricity'});
 runeDamageModifiers.set('greaterThundering', {damageType: 'sonic'});
-runeDamageModifiers.set('ancestralEchoing', {damageType: 'fire'});
 
 export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
     const diceModifiers = [];
