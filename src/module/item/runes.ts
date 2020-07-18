@@ -1,4 +1,5 @@
 import {isBlank, toNumber} from '../utils';
+import {DamageDieSize, getDamageCategory} from '../system/damage/damage';
 
 // FIXME: point this to the correct type afterwards
 type ItemPlaceholder = any;
@@ -56,4 +57,68 @@ resiliencyRuneValues.set('majorResilient', 3);
 
 export function getResiliencyBonus(itemData: ItemDataPlaceholder): number {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
+}
+
+interface DiceModifier {
+    name: string;
+    diceNumber: number;
+    dieSize: DamageDieSize;
+    category: string;
+    damageType: string;
+    enabled: boolean;
+    traits: string[];
+}
+
+function toModifier(rune, {damageType, dieSize = 'd6', diceNumber = 1}: Partial<DiceModifier> = {}): DiceModifier {
+    return {
+        name: CONFIG.PF2E.weaponPropertyRunes[rune],
+        diceNumber,
+        dieSize,
+        category: getDamageCategory(damageType),
+        damageType,
+        enabled: true,
+        traits: [damageType],
+    };
+}
+
+
+const runeDamageModifiers = new Map<string, DiceModifier>();
+
+// needs to be memoized because translation object is not available from the beginning
+export function registerRuneValues() {
+    runeDamageModifiers.set('disrupting', toModifier({damageType: 'positive'}));
+    runeDamageModifiers.set('corrosive', toModifier({damageType: 'acid'}));
+    runeDamageModifiers.set('flaming', toModifier({damageType: 'fire'}));
+    runeDamageModifiers.set('frost', toModifier({damageType: 'cold'}));
+    runeDamageModifiers.set('shock', toModifier({damageType: 'electricity'}));
+    runeDamageModifiers.set('thundering', toModifier({damageType: 'sonic'}));
+    runeDamageModifiers.set('serrating', toModifier({damageType: 'slashing', dieSize: 'd4'}));
+    runeDamageModifiers.set('anarchic', toModifier({damageType: 'chaotic'}));
+    runeDamageModifiers.set('axiomatic', toModifier({damageType: 'lawful'}));
+    runeDamageModifiers.set('holy', toModifier({damageType: 'good'}));
+    runeDamageModifiers.set('unholy', toModifier({damageType: 'evil'}));
+    runeDamageModifiers.set('dancing', toModifier({damageType: 'fire'}));
+    runeDamageModifiers.set('greaterDisrupting', toModifier({damageType: 'positive', diceNumber: 2}));
+    runeDamageModifiers.set('greaterCorrosive', toModifier({damageType: 'acid'}));
+    runeDamageModifiers.set('greaterFlaming', toModifier({damageType: 'fire'}));
+    runeDamageModifiers.set('greaterFrost', toModifier({damageType: 'cold'}));
+    runeDamageModifiers.set('greaterShock', toModifier({damageType: 'electricity'}));
+    runeDamageModifiers.set('greaterThundering', toModifier({damageType: 'sonic'}));
+    runeDamageModifiers.set('ancestralEchoing', toModifier({damageType: 'fire'}));
+}
+
+export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
+    const diceModifiers = [];
+    for (const rune of getPropertyRunes(itemData, 4)) {
+        console.log(rune);
+        if (runeDamageModifiers.has(rune)) {
+            diceModifiers.push(runeDamageModifiers.get(rune));
+        }
+    }
+    return diceModifiers;
+}
+
+export function hasGhostTouchRune(itemData: ItemPlaceholder): boolean {
+    const runes = new Set(getPropertyRunes(itemData, 4));
+    return runes.has('ghostTouch')
 }

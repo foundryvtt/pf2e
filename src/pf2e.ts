@@ -13,6 +13,7 @@ import PF2eCombatTracker from './module/system/PF2eCombatTracker';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
+import {registerRuneValues} from './module/item/runes';
 
 require('./styles/pf2e.scss');
 
@@ -48,6 +49,7 @@ Hooks.once('init', () => {
   registerActors();
   registerSheets();
   registerHandlebarsHelpers();
+  registerRuneValues();
   //@ts-ignore
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 

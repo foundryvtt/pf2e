@@ -442,6 +442,7 @@ CONFIG.weaponTraits = {
   improvised: 'PF2E.TraitImprovised',
   'jousting-d6': 'PF2E.TraitJoustingD6',
   magical: 'PF2E.TraitMagical',
+  ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
   nonlethal: 'PF2E.TraitNonlethal',
   parry: 'PF2E.TraitParry',
   propulsive: 'PF2E.TraitPropulsive',
