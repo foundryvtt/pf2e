@@ -113,7 +113,7 @@ runeDamageModifiers.set('greaterThundering', {damageType: 'sonic'});
 
 export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
     const diceModifiers = [];
-    for (const rune of getPropertyRunes(itemData, 4)) {
+    for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         if (runeDamageModifiers.has(rune)) {
             const modifierConfig = runeDamageModifiers.get(rune);
             diceModifiers.push(toModifier(rune, modifierConfig));
