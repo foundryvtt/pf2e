@@ -123,6 +123,6 @@ export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifie
 }
 
 export function hasGhostTouchRune(itemData: ItemPlaceholder): boolean {
-    const runes = new Set(getPropertyRunes(itemData, 4));
+    const runes = new Set(getPropertyRunes(itemData, getPropertySlots(itemData)));
     return runes.has('ghostTouch')
 }
