@@ -3,15 +3,6 @@ import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2ModifierPredicate, PF2S
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {getDamageCategory} from './damage';
 
-function getWeaponSpecializationDamage(actor, weapon): number {
-    const weaponType = weapon.data?.weaponType?.value;
-    const rank = actor.data.martial[weaponType]?.rank ?? 0;
-    if (rank > 1) {
-        return rank;
-    }
-    return 0;
-}
-
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
@@ -117,7 +108,7 @@ export class PF2WeaponDamage {
       }
       
       // check for weapon specialization
-      const weaponSpecializationDamage = getWeaponSpecializationDamage(actor, weapon);
+      const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
       if (weaponSpecializationDamage > 0) {
           if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
               numericModifiers.push(new PF2Modifier('Greater Weapon Specialization', weaponSpecializationDamage*2, PF2ModifierType.UNTYPED));
