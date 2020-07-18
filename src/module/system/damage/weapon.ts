@@ -37,6 +37,16 @@ export class PF2WeaponDamage {
         traits: ['magical'],
       });
     }
+
+    if (actor.items.some(i => i.type === 'feat' && i.name === 'Metal Strikes')
+        && traits.some(t => t.name.startsWith('unarmed'))
+    ) {
+        diceModifiers.push({
+            name: 'Metal Strikes',
+            enabled: true,
+            traits: ['silver', 'coldiron'],
+        });
+    }
     
     // ghost touch
     if (hasGhostTouchRune(weapon)) {

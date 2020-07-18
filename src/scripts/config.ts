@@ -494,6 +494,7 @@ CONFIG.weaponTraits = {
   'reload-1': 'PF2E.TraitReload1',
   'reload-2': 'PF2E.TraitReload2',
   shove: 'PF2E.TraitShove',
+  silver: "PF2E.PreciousMaterialSilver",
   sonic: 'PF2E.TraitSonic',
   splash: 'PF2E.TraitSplash',
   sweep: 'PF2E.TraitSweep',
@@ -514,7 +515,7 @@ CONFIG.weaponTraits = {
   'volley-30': 'PF2E.TraitVolley30',
   uncommon: 'PF2E.TraitUncommon',
   unique: 'PF2E.TraitUnique',
-  'modular-b-P-or-s': 'PF2E.TraitModular'
+  'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
