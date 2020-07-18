@@ -13,12 +13,12 @@ export class PF2WeaponDamage {
     const baseTraits = [];
 
     // striking rune
-    const diceNumber = getStrikingDice(weapon.data);
-    if (diceNumber > 0) {
-      effectDice += diceNumber;
+    const strikingDice = getStrikingDice(weapon.data);
+    if (strikingDice > 0) {
+      effectDice += strikingDice;
       diceModifiers.push({
         name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
-        diceNumber,
+        diceNumber: strikingDice,
         enabled: true,
         traits: ['magical'],
       });
@@ -49,15 +49,9 @@ export class PF2WeaponDamage {
 
     // deadly trait
     traits.filter(t => t.name.startsWith('deadly-')).forEach(t => {
-      let diceNumber;
-      switch (weapon.data?.strikingRune?.value) {
-        case 'greaterStriking': diceNumber = 2; break;
-        case 'majorStriking': diceNumber = 3; break;
-        default: diceNumber = 1;
-      }
       diceModifiers.push({
         name: CONFIG.weaponTraits[t.name],
-        diceNumber,
+        diceNumber: strikingDice > 1 ? strikingDice : 1,
         dieSize: t.name.substring(t.name.indexOf('-') + 1),
         critical: true,
         enabled: true,
@@ -111,9 +105,17 @@ export class PF2WeaponDamage {
       const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
       if (weaponSpecializationDamage > 0) {
           if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
-              numericModifiers.push(new PF2Modifier('Greater Weapon Specialization', weaponSpecializationDamage*2, PF2ModifierType.UNTYPED));
+              numericModifiers.push(new PF2Modifier(
+                  game.i18n.localize('PF2E.GreaterWeaponSpecialization'), 
+                  weaponSpecializationDamage*2, 
+                  PF2ModifierType.UNTYPED
+              ));
           } else if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
-              numericModifiers.push(new PF2Modifier('Weapon Specialization', weaponSpecializationDamage, PF2ModifierType.UNTYPED));
+              numericModifiers.push(new PF2Modifier(
+                  game.i18n.localize('PF2E.WeaponSpecialization'), 
+                  weaponSpecializationDamage, 
+                  PF2ModifierType.UNTYPED
+              ));
           }   
       }
     }
