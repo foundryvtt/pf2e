@@ -386,10 +386,14 @@ CONFIG.classTraits = {
   cleric: 'PF2E.TraitCleric',
   druid: 'PF2E.TraitDruid',
   fighter: 'PF2E.TraitFighter',
+  investigator: 'PF2E.TraitInvestigator',
   monk: 'PF2E.TraitMonk',
+  oracle: 'PF2E.TraitOracle',
   ranger: 'PF2E.TraitRanger',
   rogue: 'PF2E.TraitRogue',
   sorcerer: 'PF2E.TraitSorcerer',
+  swashbuckler: 'PF2E.TraitSwashbuckler',
+  witch: 'PF2E.TraitWitch',
   wizard: 'PF2E.TraitWizard'
 }; // Ancestry Traits
 
@@ -408,9 +412,15 @@ CONFIG.ancestryTraits = {
   aasimar: 'PF2E.TraitAasimar',
   catfolk: 'PF2E.TraitCatfolk',
   changeling: 'PF2E.TraitChangeling',
+  dhampir: 'PF2E.TraitDhampir',
+  duskwalker: 'PF2E.TraitDuskwalker',
   geniekin: 'PF2E.TraitGeniekin',
-  tiefling: 'PF2E.TraitTiefling',
-  shoony: 'PF2E.TraitShoony'
+  kobold: 'PF2E.TraitKobold',
+  orc: 'PF2E.TraitOrc',
+  ratfolk: 'PF2E.TraitRatfolk',
+  shoony: 'PF2E.TraitShoony',
+  tengu: 'PF2E.TraitTengu',
+  tiefling: 'PF2E.TraitTiefling'
 }; // Weapon Properties
 
 CONFIG.weaponTraits = {
