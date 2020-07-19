@@ -425,6 +425,7 @@ CONFIG.ancestryTraits = {
 
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
+  adamantine: 'PF2E.PreciousMaterialAdamantine',
   alchemical: 'PF2E.TraitAlchemical',
   agile: 'PF2E.TraitAgile',
   attached: 'PF2E.TraitAttached',
