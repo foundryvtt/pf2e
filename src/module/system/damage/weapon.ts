@@ -9,6 +9,13 @@ import {
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {getDamageCategory} from './damage';
 
+function isNonPhyiscalDamage(damageType?: string): boolean {
+    const damageCategory = getDamageCategory(damageType);
+    return damageCategory !== 'physical' 
+        && damageType !== undefined
+        && damageType !== '';
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
@@ -20,26 +27,27 @@ export class PF2WeaponDamage {
 
         // custom damage
         const normalDice = weapon.data?.property1?.dice ?? 0;
+        const weaponDamageType = weapon.data.damage.damageType
         if (normalDice > 0) {
-            const damageType = weapon.data?.property1?.damageType ?? 'slashing';
+            const damageType = weapon.data?.property1?.damageType ?? weaponDamageType;
             diceModifiers.push({
                 name: 'PF2E.WeaponCustomDamageLabel',
                 diceNumber: normalDice,
-                dieSize: weapon.data?.property1?.die ?? 'd6',
-                damageType,
-                traits: getDamageCategory(damageType) !== 'physical' ? [damageType] : [],
+                dieSize: weapon.data?.property1?.die,
+                damageType: damageType ?? weaponDamageType,
+                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
             });
         }
         const critDice = weapon.data?.property1?.critDice ?? 0;
         if (critDice > 0) {
-            const damageType = weapon.data?.property1?.critDamageType ?? 'slashing';
+            const damageType = weapon.data?.property1?.critDamageType ?? weaponDamageType;
             diceModifiers.push({
                 name: 'PF2E.WeaponCustomDamageLabel',
                 diceNumber: critDice,
-                dieSize: weapon.data?.property1?.critDie ?? 'd6',
-                damageType,
+                dieSize: weapon.data?.property1?.critDie,
+                damageType: damageType ?? weaponDamageType,
                 critical: true,
-                traits: getDamageCategory(damageType) !== 'physical' ? [damageType] : [],
+                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
             });
         }
         
