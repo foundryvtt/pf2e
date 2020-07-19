@@ -20,7 +20,6 @@ export class PF2WeaponDamage {
 
         // custom damage
         const normalDice = weapon.data?.property1?.dice ?? 0;
-        const critDice = weapon.data?.property1?.critDice ?? 0;
         if (normalDice > 0) {
             const damageType = weapon.data?.property1?.damageType ?? 'slashing';
             diceModifiers.push({
@@ -31,6 +30,7 @@ export class PF2WeaponDamage {
                 traits: getDamageCategory(damageType) !== 'physical' ? [damageType] : [],
             });
         }
+        const critDice = weapon.data?.property1?.critDice ?? 0;
         if (critDice > 0) {
             const damageType = weapon.data?.property1?.critDamageType ?? 'slashing';
             diceModifiers.push({
