@@ -125,6 +125,7 @@ export class PF2WeaponDamage {
 
             // check for Rogue's Racket: Thief
             if (actor.items.some(i => i.type === 'feat' && i.name === 'Thief Racket') // character has Thief Racket class feature
+                && (!traits.some(t => t.name === 'unarmed')) // NOT unarmed attack
                 && (traits.some(t => t.name === 'finesse') && melee) // finesse melee weapon
                 && Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
             ) {
