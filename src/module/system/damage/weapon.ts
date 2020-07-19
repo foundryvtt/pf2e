@@ -1,84 +1,73 @@
 import { doubleFormula } from './util';
 import { PF2DamageDice, PF2Modifier, PF2ModifierType, PF2ModifierPredicate, PF2StatisticModifier } from '../../modifiers';
+import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
+import {getDamageCategory} from './damage';
 
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
-  static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options = []) {
+  static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
     let effectDice = weapon.data.damage.dice ?? 1;
     const diceModifiers = [];
     const numericModifiers = [];
     const baseTraits = [];
 
     // striking rune
-    if (weapon.data?.strikingRune?.value) {
-      let diceNumber;
-      switch (weapon.data?.strikingRune?.value) {
-        case 'striking': diceNumber = 1; break;
-        case 'greaterStriking': diceNumber = 2; break;
-        case 'majorStriking': diceNumber = 3; break;
-        default: diceNumber = 0;
-      }
-      if (diceNumber > 0) {
-        effectDice += diceNumber;
-        diceModifiers.push({
-          name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
-          diceNumber,
-          enabled: true,
-          traits: ['magical'],
-        });
-      }
+    const strikingDice = getStrikingDice(weapon.data);
+    if (strikingDice > 0) {
+      effectDice += strikingDice;
+      diceModifiers.push({
+        name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
+        diceNumber: strikingDice,
+        enabled: true,
+        traits: ['magical'],
+      });
     }
 
-    // property runes
-    for (const slot of [1, 2, 3, 4]) {
-      const rune = weapon.data[`propertyRune${slot}`]?.value;
-      // flaming rune
-      if (rune === 'flaming') {
-        diceModifiers.push({
-          name: CONFIG.PF2E.weaponPropertyRunes[rune],
-          diceNumber: 1,
-          dieSize: 'd6',
-          category: this.getDamageCategory('fire'),
-          damageType: 'fire',
-          enabled: true,
-          traits: ['fire'],
-        });
-      } else if (rune === 'thundering') {
-        diceModifiers.push({
-          name: CONFIG.PF2E.weaponPropertyRunes[rune],
-          diceNumber: 1,
-          dieSize: 'd6',
-          category: this.getDamageCategory('sonic'),
-          damageType: 'sonic',
-          enabled: true,
-          traits: ['sonic'],
-        });
-      }
-    }
+    getPropertyRuneModifiers(weapon)
+        .forEach((modifier) => diceModifiers.push(modifier));
 
     // mystic strikes
     if (actor.items.some(i => i.type === 'feat' && i.name === 'Mystic Strikes')
       && traits.some(t => t.name.startsWith('unarmed'))
     ) {
       diceModifiers.push({
-        name: 'Mystic Strikes',
-        enabled: true,
-        traits: ['magical'],
-      });
+              name: 'PF2E.MysticStrikes',
+              enabled: true,
+              traits: ['magical'],
+              predicate: {
+                  not: ['suppress-mystic-strike']
+              }
+          });
     }
+
+    if (actor.items.some(i => i.type === 'feat' && i.name === 'Metal Strikes')
+        && traits.some(t => t.name.startsWith('unarmed'))
+    ) {
+        diceModifiers.push({
+                name: 'PF2E.MetalStrikes',
+                enabled: true,
+                traits: ['silver', 'coldiron'],
+                predicate: {
+                    not: ['suppress-metal-strike']
+                }
+            });
+    }
+    
+    // ghost touch
+    if (hasGhostTouchRune(weapon)) {
+        diceModifiers.push({
+            name: 'PF2E.WeaponPropertyRuneGhostTouch',
+            enabled: true,
+            traits: ['ghostTouch'],
+        });  
+    }  
 
     // deadly trait
     traits.filter(t => t.name.startsWith('deadly-')).forEach(t => {
-      let diceNumber;
-      switch (weapon.data?.strikingRune?.value) {
-        case 'greaterStriking': diceNumber = 2; break;
-        case 'majorStriking': diceNumber = 3; break;
-        default: diceNumber = 1;
-      }
       diceModifiers.push({
         name: CONFIG.weaponTraits[t.name],
-        diceNumber,
+        diceNumber: strikingDice > 1 ? strikingDice : 1,
         dieSize: t.name.substring(t.name.indexOf('-') + 1),
         critical: true,
         enabled: true,
@@ -127,6 +116,24 @@ export class PF2WeaponDamage {
       if (ability) {
         numericModifiers.push(new PF2Modifier(CONFIG.abilities[ability], modifier, PF2ModifierType.ABILITY));
       }
+      
+      // check for weapon specialization
+      const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
+      if (weaponSpecializationDamage > 0) {
+          if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
+              numericModifiers.push(new PF2Modifier(
+                  'PF2E.GreaterWeaponSpecialization', 
+                  weaponSpecializationDamage*2, 
+                  PF2ModifierType.UNTYPED
+              ));
+          } else if (actor.items.some(i => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
+              numericModifiers.push(new PF2Modifier(
+                  'PF2E.WeaponSpecialization', 
+                  weaponSpecializationDamage, 
+                  PF2ModifierType.UNTYPED
+              ));
+          }   
+      }
     }
 
     // conditions and custom modifiers
@@ -158,7 +165,7 @@ export class PF2WeaponDamage {
       base: {
         diceNumber: weapon.data.damage.dice,
         dieSize: weapon.data.damage.die,
-        category: this.getDamageCategory(weapon.data.damage.damageType),
+        category: getDamageCategory(weapon.data.damage.damageType),
         damageType: weapon.data.damage.damageType,
         traits: [],
       },
@@ -217,10 +224,6 @@ export class PF2WeaponDamage {
     damage.formula.criticalSuccess = this.getFormula(damage, true);
 
     return damage;
-  }
-
-  static getDamageCategory(damageType) {
-    return ['bludgeoning', 'piercing', 'slashing'].includes(damageType) ? 'physical' : 'energy';
   }
 
   static getFormula(damage, critical) {
