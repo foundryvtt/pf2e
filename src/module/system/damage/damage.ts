@@ -13,10 +13,10 @@ energyDamage.add('fire');
 energyDamage.add('sonic');
 
 export const alignmentDamage = new Set();
-energyDamage.add('chaotic');
-energyDamage.add('evil');
-energyDamage.add('good');
-energyDamage.add('lawful');
+alignmentDamage.add('chaotic');
+alignmentDamage.add('evil');
+alignmentDamage.add('good');
+alignmentDamage.add('lawful');
 
 export function getDamageCategory(damageType?: string): string | undefined {
     if (physicalDamage.has(damageType)) {
