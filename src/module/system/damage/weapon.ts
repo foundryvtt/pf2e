@@ -38,9 +38,7 @@ export class PF2WeaponDamage {
                 name: weapon.name,
                 diceNumber: 1,
                 dieSize: 'd6',
-                category: 'energy',
                 damageType: 'fire',
-                enabled: true,
                 critical: true,
                 traits: ['fire'],
             });
