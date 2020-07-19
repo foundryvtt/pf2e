@@ -60,6 +60,19 @@ export class PF2WeaponDamage {
             });
         }
 
+        if (actor.items.some(i => i.type === 'feat' && i.name === 'Adamantine Strikes')
+            && traits.some(t => t.name.startsWith('unarmed'))
+        ) {
+            diceModifiers.push({
+                name: 'PF2E.AdamantineStrikes',
+                enabled: true,
+                traits: ['adamantine'],
+                predicate: {
+                    not: ['suppress-adamantine-strike'],
+                },
+            });
+        }
+
         // ghost touch
         if (hasGhostTouchRune(weapon)) {
             diceModifiers.push({
