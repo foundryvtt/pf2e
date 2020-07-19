@@ -154,6 +154,26 @@ export class PF2WeaponDamage {
                     ));
                 }
             }
+            
+            // add splash damage
+            const splashDamage = weapon.data?.splashDamage?.value ?? 0;
+            if (splashDamage > 0) {
+                numericModifiers.push(new PF2Modifier(
+                    'PF2E.WeaponSplashDamageLabel',
+                    splashDamage,
+                    PF2ModifierType.UNTYPED,
+                ));
+            }
+
+            // add bonus damage
+            const bonusDamage = weapon.data?.bonusDamage?.value ?? 0;
+            if (bonusDamage > 0) {
+                numericModifiers.push(new PF2Modifier(
+                    'PF2E.WeaponBonusDamageLabel',
+                    bonusDamage,
+                    PF2ModifierType.UNTYPED,
+                ));
+            }
         }
 
         // conditions and custom modifiers
