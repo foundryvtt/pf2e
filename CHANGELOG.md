@@ -1,5 +1,27 @@
 # Patch Notes:
 
+## Version 1.9.2
+### Content Changes
+* (@Shandyan) Compendium updates
+    * Shameless Request Feat Missing from Feat Compendium (issue #599)
+    * Non-Uniform formatting in the Take Cover action (issue #600)
+    * Field Discovery: Chirugeon contains text for Field Discovery: Bomber (issue #603)
+    * Alchemist's Tools entry not up-to-date (issue #605)
+    * Uncanny Bombs feat missing from compendium (issue #607)
+    * Aura of Righteousness and Effortless Concentration is missing from compendium (issue #609)
+* (@TMun) Compendium updates
+    * Updated GMG NPC Gallery with all NPCs
+    * Corrects or adds missing entries in Actions, Bestiary 1 and Spells databases (issues #582, #597, #604, #608, #616)
+
+### Bug Fixes
+* (@nikolaj-a) Fix internal damage dice modifier predicate
+
+### Core System Improvements
+* (putty#0555) Simple weapon property runes, automated weapon specialization, added a few unarmed strike-related monk feats
+* (@abrault) Remove redundant spell level from spellbook
+* (@nikolaj-a) Added roll options for initiative
+
+
 ## Version 1.9.1
 ### Content Changes
 * (@TMun) Compendium updates
