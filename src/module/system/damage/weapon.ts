@@ -18,6 +18,31 @@ export class PF2WeaponDamage {
         const numericModifiers = [];
         const baseTraits = [];
 
+        // custom damage
+        const normalDice = weapon.data?.property1?.dice ?? 0;
+        const critDice = weapon.data?.property1?.critDice ?? 0;
+        if (normalDice > 0) {
+            const damageType = weapon.data?.property1?.damageType ?? 'slashing';
+            diceModifiers.push({
+                name: 'PF2E.WeaponCustomDamageLabel',
+                diceNumber: normalDice,
+                dieSize: weapon.data?.property1?.die ?? 'd6',
+                damageType,
+                traits: getDamageCategory(damageType) !== 'physical' ? [damageType] : [],
+            });
+        }
+        if (critDice > 0) {
+            const damageType = weapon.data?.property1?.critDamageType ?? 'slashing';
+            diceModifiers.push({
+                name: 'PF2E.WeaponCustomDamageLabel',
+                diceNumber: critDice,
+                dieSize: weapon.data?.property1?.critDie ?? 'd6',
+                damageType,
+                critical: true,
+                traits: getDamageCategory(damageType) !== 'physical' ? [damageType] : [],
+            });
+        }
+        
         // striking rune
         const strikingDice = getStrikingDice(weapon.data);
         if (strikingDice > 0) {
