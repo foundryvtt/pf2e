@@ -36,7 +36,7 @@ export class PF2WeaponDamage {
               enabled: true,
               traits: ['magical'],
               predicate: {
-                  not: ['non-magical-strike']
+                  not: ['suppress-mystic-strike']
               }
           });
     }
@@ -49,7 +49,7 @@ export class PF2WeaponDamage {
                 enabled: true,
                 traits: ['silver', 'coldiron'],
                 predicate: {
-                    not: ['non-metal-strike']
+                    not: ['suppress-metal-strike']
                 }
             });
     }
