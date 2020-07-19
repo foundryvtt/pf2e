@@ -223,6 +223,8 @@ export class PF2WeaponDamage {
             ) {
                 d.name += ` ${d.category}`;
             }
+            d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(traits.map(t => t.name).concat(options));
+            d.ignored = !d.enabled;
             /* eslint-enable no-param-reassign */
         });
 
