@@ -9,6 +9,13 @@ import {
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {getDamageCategory} from './damage';
 
+function isNonPhyiscalDamage(damageType?: string): boolean {
+    const damageCategory = getDamageCategory(damageType);
+    return damageCategory !== 'physical' 
+        && damageType !== undefined
+        && damageType !== '';
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
@@ -18,6 +25,32 @@ export class PF2WeaponDamage {
         const numericModifiers = [];
         const baseTraits = [];
 
+        // custom damage
+        const normalDice = weapon.data?.property1?.dice ?? 0;
+        const weaponDamageType = weapon.data.damage.damageType
+        if (normalDice > 0) {
+            const damageType = weapon.data?.property1?.damageType ?? weaponDamageType;
+            diceModifiers.push({
+                name: 'PF2E.WeaponCustomDamageLabel',
+                diceNumber: normalDice,
+                dieSize: weapon.data?.property1?.die,
+                damageType: damageType ?? weaponDamageType,
+                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
+            });
+        }
+        const critDice = weapon.data?.property1?.critDice ?? 0;
+        if (critDice > 0) {
+            const damageType = weapon.data?.property1?.critDamageType ?? weaponDamageType;
+            diceModifiers.push({
+                name: 'PF2E.WeaponCustomDamageLabel',
+                diceNumber: critDice,
+                dieSize: weapon.data?.property1?.critDie,
+                damageType: damageType ?? weaponDamageType,
+                critical: true,
+                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
+            });
+        }
+        
         // striking rune
         const strikingDice = getStrikingDice(weapon.data);
         if (strikingDice > 0) {
@@ -32,7 +65,18 @@ export class PF2WeaponDamage {
 
         getPropertyRuneModifiers(weapon)
             .forEach((modifier) => diceModifiers.push(modifier));
-
+        
+        if (weapon.name === 'Cinderclaw Gauntlet') {
+            diceModifiers.push({
+                name: weapon.name,
+                diceNumber: 1,
+                dieSize: 'd6',
+                damageType: 'fire',
+                critical: true,
+                traits: ['fire'],
+            });
+        }
+        
         // mystic strikes
         if (actor.items.some(i => i.type === 'feat' && i.name === 'Mystic Strikes')
             && traits.some(t => t.name.startsWith('unarmed'))
@@ -125,6 +169,7 @@ export class PF2WeaponDamage {
 
             // check for Rogue's Racket: Thief
             if (actor.items.some(i => i.type === 'feat' && i.name === 'Thief Racket') // character has Thief Racket class feature
+                && (!traits.some(t => t.name === 'unarmed')) // NOT unarmed attack
                 && (traits.some(t => t.name === 'finesse') && melee) // finesse melee weapon
                 && Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
             ) {
@@ -152,6 +197,26 @@ export class PF2WeaponDamage {
                         PF2ModifierType.UNTYPED,
                     ));
                 }
+            }
+            
+            // add splash damage
+            const splashDamage = weapon.data?.splashDamage?.value ?? 0;
+            if (splashDamage > 0) {
+                numericModifiers.push(new PF2Modifier(
+                    'PF2E.WeaponSplashDamageLabel',
+                    splashDamage,
+                    PF2ModifierType.UNTYPED,
+                ));
+            }
+
+            // add bonus damage
+            const bonusDamage = weapon.data?.bonusDamage?.value ?? 0;
+            if (bonusDamage > 0) {
+                numericModifiers.push(new PF2Modifier(
+                    'PF2E.WeaponBonusDamageLabel',
+                    bonusDamage,
+                    PF2ModifierType.UNTYPED,
+                ));
             }
         }
 

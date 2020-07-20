@@ -1,5 +1,19 @@
 # Patch Notes:
 
+## Version 1.9.3
+### Content Changes
+* (@TMun) Add EC3 monsters, correct wizard class and update alchemical bombs for splash damage (issues #612, #596, and #613)
+
+### Bug Fixes
+* (@nikolaj-a) Fix unarmed strike damage for thief (issue #611)
+* (putty#0555) Support the bonus damage UI for strikes
+* (putty#0555) Fixed typo in weapon specialization
+
+### Core System Improvements
+* (putty#0555) Initial support of splash damage for strikes
+* (putty#0555) Automation Cinderclaw Gauntlet
+
+
 ## Version 1.9.2
 ### Content Changes
 * (@Shandyan) Compendium updates
