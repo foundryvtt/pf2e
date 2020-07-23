@@ -1,7 +1,7 @@
 <form class="{{cssClass}} updatedNPCSheet"  autocomplete="off">
 
     <div class="contentcontainer">
-        <div class="npc-title-bar">
+        <div class="npc-title-bar">                        
             {{#if isGM }}
             <h1 class="charname">
                 <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.loot.LootNamePlaceholder'}}"/>
@@ -25,12 +25,12 @@
         </div>
 
         <!-- SIDEBAR -->
-        <section class="sheet-sidebar sidebar">
+        <section class="sheet-sidebar sidebar sidebar-loot">
             {{> systems/pf2e/templates/actors/loot/loot-avatar.html }}
         </section>
         <!------------->
 
-        <section class="sheet-body sheet-content">
+        <section class="sheet-body sheet-content sheet-content-loot">
             {{> systems/pf2e/templates/actors/loot/loot-inventory.html }}
         </section> 
     </div>
