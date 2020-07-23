@@ -16,21 +16,22 @@
                     <input class="isLootEditable" name="flags.pf2e.editLoot.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editLoot.value}}/>
                 </div>
             </h1>
-            --}}
+            
             {{#if data.isShop }}
             <h1 class='isShop'>
                 {{localize "PF2E.loot.ShopLabel"}}
             </h1>
-            {{/if}}
+            {{/if}}    
+            --}}           
         </div>
 
         <!-- SIDEBAR -->
-        <section class="sheet-sidebar sidebar">
+        <section class="sheet-sidebar sidebar sidebar-loot">
             {{> systems/pf2e/templates/actors/loot/loot-avatar.html }}
         </section>
         <!------------->
 
-        <section class="sheet-body sheet-content">
+        <section class="sheet-body sheet-content sheet-content-loot">
             {{> systems/pf2e/templates/actors/loot/loot-inventory.html }}
         </section> 
     </div>
