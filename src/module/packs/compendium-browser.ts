@@ -9,6 +9,7 @@ type TabData<T> = {
   bestiary: T,
   equipment: T
   feat: T,
+  hazard: T,
   spell: T,
 }
 
@@ -34,6 +35,7 @@ class CompendiumBrowser extends Application {
     const settings = {
       'action': {},
       'bestiary': {},
+      'hazard': {},
       'equipment': {},
       'feat': {},
       'spell': {},
@@ -43,7 +45,7 @@ class CompendiumBrowser extends Application {
       if (pack.metadata.entity === 'Item') {
         types = ['action', 'equipment', 'feat', 'spell'];
       } else if (pack.metadata.entity === 'Actor') {
-        types = ['bestiary'];
+        types = ['bestiary', 'hazard'];
       } else {
         continue;
       }
@@ -68,8 +70,8 @@ class CompendiumBrowser extends Application {
       'bestiary': null,
       'equipment': null,
       'feat': null,
+      'hazard': null,
       'spell': null,
-
     }
   }
 
@@ -108,6 +110,9 @@ class CompendiumBrowser extends Application {
         break;
       case 'bestiary':
         data = this.loadBestiary();
+        break;
+      case 'hazard':
+        data = this.loadHazards();
         break;
       default:
         throw `Unknown tab ${tab}`;
@@ -206,6 +211,59 @@ class CompendiumBrowser extends Application {
       alignment: CONFIG.PF2E.alignment,
       traits: _sortedObject(CONFIG.PF2E.monsterTraits),
       languages: _sortedObject(CONFIG.PF2E.languages),
+      source: [...sources].sort(),
+    };
+  }
+
+  async loadHazards() {
+    console.log('PF2e System | Compendium Browser | Started loading actors');
+
+    const hazardActors = {};
+    const sources: Set<string> = new Set();
+
+    for await(const {pack, content} of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
+      console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+      for (let actor of content) {
+        actor = actor.data;
+        if (actor.type === "hazard") {
+          // record the pack the hazard was read from
+          actor.compendium = pack.collection;
+          actor["filters"] = {};
+
+          actor.filters["level"] = actor.data.details.level;
+          actor.filters["traits"] = actor.data.traits.traits.value;
+
+          // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry
+          if (actor.data.details.source && actor.data.details.source.value) {
+            let actorSource = actor.data.details.source.value;
+            if (actorSource.includes('pg.')) {
+              actor.filters["source"] = actorSource.split('pg.')[0].trim();
+            } else if (actorSource.includes('page.')) {
+              actor.filters["source"] = actorSource.split('page.')[0].trim();
+            } else {
+              actor.filters["source"] = actorSource
+            }
+          }
+
+          actor.filters['complex'] = actor.data.details.isComplex ? 'complex' : 'simple';
+
+
+          // add the source to the filter list.
+          if (actor.filters.source) {
+            sources.add(actor.filters.source);
+          }
+
+          // add actor to bestiaryActors object
+          hazardActors[actor._id] = actor
+        }
+      }
+      console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
+    }
+
+    console.log('PF2e System | Compendium Browser | Finished loading Hazard actors');
+    return {
+      hazardActors,
+      traits: _sortedObject(CONFIG.PF2E.hazardTraits),
       source: [...sources].sort(),
     };
   }
@@ -696,6 +754,7 @@ class CompendiumBrowser extends Application {
 
     this.filters = {
       level: {},
+      complex: {},
       classes: {},
       skills: {},
       ancestry: {},
@@ -791,3 +850,4 @@ function _sortedObject(obj) {
 }
 
 export const compendiumBrowser = new CompendiumBrowser();
+// vim: ts=2 sw=2 et
