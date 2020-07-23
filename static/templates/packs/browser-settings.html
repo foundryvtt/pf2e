@@ -38,6 +38,15 @@
       </div>
 
       <div class=setting-section>
+        <h3>{{localize "PF2E.CompendiumBrowser.TabHazard"}}</h3>
+        <dl>
+          {{#each hazard as |conf pack|}}
+          <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}}</dd></label>
+          {{/each}}
+        </dl>
+      </div>
+
+      <div class=setting-section>
         <h3>{{localize "PF2E.CompendiumBrowser.TabSpell"}}</h3>
         <dl>
           {{#each spell as |conf pack|}}
