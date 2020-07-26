@@ -179,6 +179,10 @@ export const migrateActorData = function (actor, worldSchemaVersion) {
             updateData['data.details.ethnicity.value'] = '';
             updateData['data.details.nationality.value'] = '';
         }
+        
+        if (worldSchemaVersion < 0.586) {
+            migrateActorItems(actor, updateData, addSplashDamage);
+        }
     }
     return updateData;
 };
@@ -198,6 +202,13 @@ function addItemRarityAndLevel(item, itemData) {
     itemData['data.rarity.value'] = 'common';
     if (['treasure', 'backpack'].includes(item.type)) {
         itemData['data.level.value'] = '0';
+    }
+    return itemData;
+}
+
+function addSplashDamage(item, itemData) {
+    if (['weapon', 'melee'].includes(item.type)) {
+        itemData['data.splashDamage.value'] = '0';
     }
     return itemData;
 }
@@ -386,6 +397,10 @@ export const migrateItemData = function (item, worldSchemaVersion) {
 
     if (worldSchemaVersion < 0.583) {
         addHpThresholdHardness(item, updateData);
+    }
+
+    if (worldSchemaVersion < 0.586) {
+        addSplashDamage(item, updateData);
     }
     // Return the migrated update data
     return updateData;

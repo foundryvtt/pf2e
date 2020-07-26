@@ -1,5 +1,75 @@
 # Patch Notes:
 
+## Version 1.9.3
+### Content Changes
+* (@TMun) Add EC3 monsters, correct wizard class and update alchemical bombs for splash damage (issues #612, #596, and #613)
+
+### Bug Fixes
+* (@nikolaj-a) Fix unarmed strike damage for thief (issue #611)
+* (putty#0555) Support the bonus damage UI for strikes
+* (putty#0555) Fixed typo in weapon specialization
+
+### Core System Improvements
+* (putty#0555) Initial support of splash damage for strikes
+* (putty#0555) Automation Cinderclaw Gauntlet
+
+
+## Version 1.9.2
+### Content Changes
+* (@Shandyan) Compendium updates
+    * Shameless Request Feat Missing from Feat Compendium (issue #599)
+    * Non-Uniform formatting in the Take Cover action (issue #600)
+    * Field Discovery: Chirugeon contains text for Field Discovery: Bomber (issue #603)
+    * Alchemist's Tools entry not up-to-date (issue #605)
+    * Uncanny Bombs feat missing from compendium (issue #607)
+    * Aura of Righteousness and Effortless Concentration is missing from compendium (issue #609)
+* (@TMun) Compendium updates
+    * Updated GMG NPC Gallery with all NPCs
+    * Corrects or adds missing entries in Actions, Bestiary 1 and Spells databases (issues #582, #597, #604, #608, #616)
+
+### Bug Fixes
+* (@nikolaj-a) Fix internal damage dice modifier predicate
+
+### Core System Improvements
+* (putty#0555) Simple weapon property runes, automated weapon specialization, added a few unarmed strike-related monk feats
+* (@abrault) Remove redundant spell level from spellbook
+* (@nikolaj-a) Added roll options for initiative
+
+
+## Version 1.9.1
+### Content Changes
+* (@TMun) Compendium updates
+    * Add backgrounds from Agents of Edgewatch Player's Guide and update OGL with players guide copyright notice
+    * Add refocus exploration activity to Actions compendium
+    * Remove Age of Ashes duplicate monsters from Bestiary 1
+    * Move Fall of Plaguestone monsters to FoP Bestiary from Bestiary 1 and remove version number from FoP compendium
+    * Correct parazylzed spelling
+    * Add Laslunn from Age of Ashes book 3 to AoA Bestiary
+    * Adds missing class features related to spellcasting
+* (@Shandyan) Compendium updates
+    * Remove Archieve of Nethys links from Archetypes, Backgrounds, Classes, and Class Features compendia
+    * Format error for Quick Alchemy
+    * Update Equipment compendium to replace action images with font symbols
+* (@overdox) The Apocalypse Prophet Equipment update
+* (@meditatingCybermind) Added rage, inspire courage, and raise shield macros to compendium
+
+### Bug Fixes
+* (@fryguy1013) Fix a couple of copy/paste errors with ids that were causing a duplicate id warning in Chrome
+* (@fryguy1013) Refactor spell contextual data so that temporary data doesn't get permanently get stuck in the data object
+* (@nikolaj-a) Remove non-functional damage roll dialog from strikes
+* (@abrault) Remove non-functional loot sheet edit checkbox
+
+### Core System Improvements
+* (@abrault) Double dice for Strikes if using the crit variant
+* (putty#0555) Increase/Decrease bulk limits for differently sized creatures
+* (@nikolaj-a) More custom modifier selectors
+* (@iceman76) Improve setting initiative from chat log for NPCs
+
+### Development Process Improvements
+* (@fryguy1013) TypeScript adaptations
+* (putty#0555) TypeScript adaptations
+
+
 ## Version 1.9.0
 ### New Features
 * (@fryguy1013) Add spell attack modifier to the spell tab on the player character sheet

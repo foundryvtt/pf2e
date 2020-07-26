@@ -386,10 +386,14 @@ CONFIG.classTraits = {
   cleric: 'PF2E.TraitCleric',
   druid: 'PF2E.TraitDruid',
   fighter: 'PF2E.TraitFighter',
+  investigator: 'PF2E.TraitInvestigator',
   monk: 'PF2E.TraitMonk',
+  oracle: 'PF2E.TraitOracle',
   ranger: 'PF2E.TraitRanger',
   rogue: 'PF2E.TraitRogue',
   sorcerer: 'PF2E.TraitSorcerer',
+  swashbuckler: 'PF2E.TraitSwashbuckler',
+  witch: 'PF2E.TraitWitch',
   wizard: 'PF2E.TraitWizard'
 }; // Ancestry Traits
 
@@ -408,13 +412,20 @@ CONFIG.ancestryTraits = {
   aasimar: 'PF2E.TraitAasimar',
   catfolk: 'PF2E.TraitCatfolk',
   changeling: 'PF2E.TraitChangeling',
+  dhampir: 'PF2E.TraitDhampir',
+  duskwalker: 'PF2E.TraitDuskwalker',
   geniekin: 'PF2E.TraitGeniekin',
-  tiefling: 'PF2E.TraitTiefling',
-  shoony: 'PF2E.TraitShoony'
+  kobold: 'PF2E.TraitKobold',
+  orc: 'PF2E.TraitOrc',
+  ratfolk: 'PF2E.TraitRatfolk',
+  shoony: 'PF2E.TraitShoony',
+  tengu: 'PF2E.TraitTengu',
+  tiefling: 'PF2E.TraitTiefling'
 }; // Weapon Properties
 
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
+  adamantine: 'PF2E.PreciousMaterialAdamantine',
   alchemical: 'PF2E.TraitAlchemical',
   agile: 'PF2E.TraitAgile',
   attached: 'PF2E.TraitAttached',
@@ -422,6 +433,7 @@ CONFIG.weaponTraits = {
   backswing: 'PF2E.TraitBackswing',
   bomb: 'PF2E.TraitBomb',
   brutal: 'PF2E.TraitBrutal',
+  chaotic: 'PF2E.TraitChaotic',
   cold: 'PF2E.TraitCold',
   coldiron: 'PF2E.TraitColdiron',
   consumable: 'PF2E.TraitConsumable',
@@ -431,6 +443,7 @@ CONFIG.weaponTraits = {
   'deadly-d12': 'PF2E.TraitDeadlyD12',
   disarm: 'PF2E.TraitDisarm',
   electricity: 'PF2E.TraitElectricity',
+  evil: 'PF2E.TraitEvil',  
   'fatal-d8': 'PF2E.TraitFatalD8',
   'fatal-d10': 'PF2E.TraitFatalD10',
   'fatal-d12': 'PF2E.TraitFatalD12',
@@ -438,12 +451,16 @@ CONFIG.weaponTraits = {
   fire: 'PF2E.TraitFire',
   forceful: 'PF2E.TraitForceful',
   'free-hand': 'PF2E.TraitFreeHand',
+  good: 'PF2E.TraitGood',  
   grapple: 'PF2E.TraitGrapple',
   improvised: 'PF2E.TraitImprovised',
   'jousting-d6': 'PF2E.TraitJoustingD6',
+  lawful: 'PF2E.TraitLawful',
   magical: 'PF2E.TraitMagical',
+  ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
   nonlethal: 'PF2E.TraitNonlethal',
   parry: 'PF2E.TraitParry',
+  poison: 'PF2E.TraitPoison',
   propulsive: 'PF2E.TraitPropulsive',
   range: 'PF2E.TraitRare',
   'range-increment-10': 'PF2E.TraitRangeIncrement10',
@@ -488,6 +505,7 @@ CONFIG.weaponTraits = {
   'reload-1': 'PF2E.TraitReload1',
   'reload-2': 'PF2E.TraitReload2',
   shove: 'PF2E.TraitShove',
+  silver: "PF2E.PreciousMaterialSilver",
   sonic: 'PF2E.TraitSonic',
   splash: 'PF2E.TraitSplash',
   sweep: 'PF2E.TraitSweep',
@@ -508,7 +526,7 @@ CONFIG.weaponTraits = {
   'volley-30': 'PF2E.TraitVolley30',
   uncommon: 'PF2E.TraitUncommon',
   unique: 'PF2E.TraitUnique',
-  'modular-b-P-or-s': 'PF2E.TraitModular'
+  'modular-b-P-or-s': 'PF2E.TraitModular',
 };
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);

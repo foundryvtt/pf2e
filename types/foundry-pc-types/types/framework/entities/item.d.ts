@@ -2,10 +2,10 @@
  * The Collection of Item entities
  * The items collection is accessible within the game as game.items
  */
-declare class Items extends Collection<Item> {
-	entities: Item[];
+declare class Items extends Collection<SystemItemType> {
+	entities: SystemItemType[];
 
-	values(): IterableIterator<Item>;
+	values(): IterableIterator<SystemItemType>;
 
 	/* -------------------------------------------- */
 	/*  Collection Properties                       */
@@ -16,15 +16,15 @@ declare class Items extends Collection<Item> {
 	/**
 	 * Elements of the Items collection are instances of the Item class, or a subclass thereof
 	 */
-	get object(): Item;
+	get object(): SystemItemType;
 
 	/* -------------------------------------------- */
 	/*  Collection Management Methods               */
 	/* -------------------------------------------- */
 
-	insert(entity: Item): void;
+	insert(entity: SystemItemType): void;
 
-	get(id: string, { strict }?: { strict?: boolean }): Item;
+	get(id: string, { strict }?: { strict?: boolean }): SystemItemType;
 
 	/**
 	 * Register an Item sheet class as a candidate which can be used to display Items of a given type
@@ -44,7 +44,7 @@ declare class Items extends Collection<Item> {
 	static get registeredSheets(): any[];
 }
 
-declare class Item extends Entity {
+declare class Item extends Entity<SystemItemDataType> {
 	/**
 	 * Configure the attributes of the ChatMessage Entity
 	 *
@@ -53,7 +53,7 @@ declare class Item extends Entity {
 	 * @returns embeddedEntities	The names of any Embedded Entities within the Entity data structure.
 	 */
 	static get config(): {
-		baseEntity: Item;
+		baseEntity: SystemItemType;
 		collection: Items;
 		embeddedEntities: {};
 	};
@@ -68,7 +68,7 @@ declare class Item extends Entity {
 	/**
 	 * A convenience reference to the Actor entity which owns this item, if any
 	 */
-	get actor(): Actor | null;
+	get actor(): SystemActorType | null;
 
 	/**
 	 * A convenience reference to the image path (data.img) used to represent this Item
@@ -113,10 +113,10 @@ declare class Item extends Entity {
 	 * @param options	Additional options which customize the update workflow
 	 * @return			A Promise which resolves to the updated Entity
 	 */
-	update(data: any, options?: any): Promise<Item>;
+	update(data: any, options?: any): Promise<SystemItemType>;
 
 	/**
 	 * A convenience constructor method to create an Item instance which is owned by an Actor
 	 */
-	static createOwned(itemData: any, actor: Actor): Item;
+	static createOwned(itemData: any, actor: SystemActorType): SystemItemType;
 }

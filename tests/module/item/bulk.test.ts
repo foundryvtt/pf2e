@@ -5,7 +5,7 @@ import {
     itemsFromActorData,
     calculateCarriedArmorBulk,
     stacks,
-    weightToBulk,
+    weightToBulk, convertBulkToSize,
 } from '../../../src/module/item/bulk';
 
 describe('should calculate bulk', () => {
@@ -902,5 +902,134 @@ describe('should calculate bulk', () => {
                 normal: 3,
                 light: 2,
             });
+    });
+});
+
+describe('Bulk conversions', () => {
+    test('tiny bulk conversions', () => {
+        // negligible is light bulk
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 0}), 'tiny'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 0,
+            }));
+        // everything else stays the same
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 1}), 'tiny'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 1,
+            }));
+    });
+    
+    test('normal and small bulk conversions', () => {
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 1}), 'sm'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 1,
+            }));
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 1}), 'med'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 1,
+            }));
+    });
+    
+    test('large bulk conversions', () => {
+        // light bulk is negligible
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 0}), 'lg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // normal bulk is light
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 1}), 'lg'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 0,
+            }));
+        // everything else stays the same
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 2}), 'lg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 2,
+            }));
+    });
+
+    test('huge bulk conversions', () => {
+        // 1 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 0}), 'huge'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 1 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 0}), 'huge'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 1 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 1}), 'huge'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 2 or lower is light bulk
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 2}), 'huge'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 0,
+            }));
+        // everything else stays the same
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 3}), 'huge'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 3,
+            }));
+    });
+
+    test('gargantuan bulk conversions', () => {
+        // 2 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 0}), 'grg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 2 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 1, normal: 0}), 'grg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 2 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 1}), 'grg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 2 or lower is negligible
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 2}), 'grg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 0,
+            }));
+        // 4 or lower is light bulk
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 3}), 'grg'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 0,
+            }));
+        // 4 or lower is light bulk
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 4}), 'grg'))
+            .toEqual(new Bulk({
+                light: 1,
+                normal: 0,
+            }));
+        // everything else stays the same
+        expect(convertBulkToSize(new Bulk({light: 0, normal: 5}), 'grg'))
+            .toEqual(new Bulk({
+                light: 0,
+                normal: 5,
+            }));
     });
 });

@@ -94,7 +94,7 @@ declare class User extends Entity {
 	/**
 	 * Return the Actor instance of the user's impersonated character (or undefined)
 	 */
-	get character(): Actor;
+	get character(): SystemActorType;
 
 	/**
 	 * @override

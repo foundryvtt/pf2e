@@ -50,7 +50,7 @@ export class PlayerConfigPF2e extends FormApplication {
         let color = getProperty(game.user.data.flags, 'PF2e.settings.color');
         if (color == undefined) color = PlayerConfigPF2e.DEFAULTS.color;
 
-        const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/module/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
+        const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/styles/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
         $('head').append(cssLink);
     }
 
@@ -102,7 +102,7 @@ export class PlayerConfigPF2e extends FormApplication {
     async _updateObject(event, formdata) {
         console.log('PF2e System | Player Config updating settings');
         game.user.update({flags: { PF2e:{ settings:formdata } } });
-        (<HTMLAnchorElement>document.querySelector("link[id='pf2e-color-scheme']")).href = `systems/pf2e/module/user/color-scheme-${formdata.color}.css`;
+        (<HTMLLinkElement>document.getElementById('pf2e-color-scheme')).href = `systems/pf2e/styles/user/color-scheme-${formdata.color}.css`;
     }
 
     activateListeners(html) {
