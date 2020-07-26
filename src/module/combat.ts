@@ -23,7 +23,7 @@ export const initiativeFormula = (combatant) => {
 
     // NPC's are always first in PF2e rules
     if (!actor.isPC) {
-        parts.push(0.9);
+        parts.push(0.5);
     }
 
     return parts.join('+');
