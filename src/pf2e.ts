@@ -10,6 +10,7 @@ import { PF2eSystem } from './module/pf2e-system';
 import registerActors from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
 import PF2eCombatTracker from './module/system/PF2eCombatTracker';
+import { PF2Check } from './module/system/rolls';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
@@ -153,6 +154,27 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     return validActor && message.isRoll && validRollType;
   };
 
+  const canHeroPointReroll = (li): boolean => {
+    const message = game.messages.get(li.data('messageId'));
+    const actorId = message.data.speaker.actor;
+    const canReroll = message.getFlag('pf2e', 'canReroll');
+    if (canReroll && actorId) {
+      const actor = game.actors.get(actorId);
+      return actor.owner && actor.data.data.attributes.heroPoints.rank >= 1 && (message.isAuthor || game.user.isGM);
+    }
+    return false;
+  };
+  const canReroll = (li): boolean => {
+    const message = game.messages.get(li.data('messageId'));
+    const actorId = message.data.speaker.actor;
+    const canReroll = message.getFlag('pf2e', 'canReroll');
+    if (canReroll && actorId) {
+      const actor = game.actors.get(actorId);
+      return actor.owner && (message.isAuthor || game.user.isGM);
+    }
+    return false;
+  };
+
   options.push(
     {
       name: 'Apply Damage',
@@ -183,6 +205,30 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
       icon: '<i class="fas fa-fist-raised"></i>',
       condition: canApplyInitiative,
       callback: (li) => ActorPF2e.setCombatantInitiative(li),
+    },
+    {
+      name: 'PF2E.RerollMenu.HeroPoint',
+      icon: '<i class="fas fa-hospital-symbol"></i>',
+      condition: canHeroPointReroll,
+      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {heroPoint: true})
+    },
+    {
+      name: 'PF2E.RerollMenu.KeepNew',
+      icon: '<i class="fas fa-dice"></i>',
+      condition: canReroll,
+      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')))
+    },
+    {
+      name: 'PF2E.RerollMenu.KeepWorst',
+      icon: '<i class="fas fa-dice-one"></i>',
+      condition: canReroll,
+      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'worst'})
+    },
+    {
+      name: 'PF2E.RerollMenu.KeepBest',
+      icon: '<i class="fas fa-dice-six"></i>',
+      condition: canReroll,
+      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'best'})
     },
   );
   return options;
