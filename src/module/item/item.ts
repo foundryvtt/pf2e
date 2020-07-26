@@ -151,7 +151,7 @@ export default class PF2EItem extends Item {
     };
     if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
       proficiency.type = "martial";
-      proficiency.value = actorData.data.martial[prof].value || 0;
+      proficiency.value = actorData.data.martial?.[prof]?.value || 0;
     } else {
       try {
         let martialSkill = this.actor.getOwnedItem(prof);
@@ -165,7 +165,7 @@ export default class PF2EItem extends Item {
       }
     }
     data.proficiency = proficiency
-    data.attackRoll = getAttackBonus(data) + actorData.data.abilities[abl].mod + proficiency.value;
+    data.attackRoll = getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value;
 
     const properties = [
       // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,

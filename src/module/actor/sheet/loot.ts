@@ -1,4 +1,5 @@
 import { AddCoinsPopup } from './AddCoinsPopup';
+import {calculateWealth} from '../../item/treasure';
 import { compendiumBrowser } from "../../packs/compendium-browser";
 import ActorSheetPF2e from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
@@ -29,6 +30,18 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
     getData() {
         const sheetData = super.getData();
 
+        // update currency based on items
+        if (sheetData.actor.items !== undefined)
+        {
+            const treasure = calculateWealth(sheetData.actor.items);
+            sheetData.totalTreasure = {};
+            for (const [denomination, value] of Object.entries(treasure)) {
+                sheetData.totalTreasure[denomination] = {
+                    value,
+                    label: CONFIG.PF2E.currencies[denomination],
+                };
+            }
+        }
         // Process default values
         sheetData.flags = sheetData.actor.flags;
         if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
