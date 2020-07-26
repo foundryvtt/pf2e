@@ -873,7 +873,7 @@ export default class PF2EActor extends Actor {
       }
       //Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
       if (!combatant.actor.isPC) {
-        initBonus += .9;
+        initBonus += .5;
       }
       value += initBonus;
       const message = `
