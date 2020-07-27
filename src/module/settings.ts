@@ -27,8 +27,8 @@ export default function () {
   });
   game.settings.register('pf2e', 'ignoreContainerOverflow', {
     name: 'Do not combine stacks from different containers when calculating bulk',
-    hint: 'When toggled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. ' +
-        'When toggled, the above example will combine all stacks from all containers together and ' +
+    hint: 'When enabled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. ' +
+        'When disabled, the above example will combine all stacks from all containers together and ' +
         'add up to 1 bulk.',
     scope: 'world',
     config: true,
@@ -93,7 +93,7 @@ export default function () {
   });
   game.settings.register('pf2e', 'proficiencyLegendaryModifier', {
     name: 'Legendary proficiency modifier',
-    hint: "Adjust to your liking to compliment the proficiency without level variant rules, requires. Requires recalculation by reload or modifying a value per actor.",
+    hint: "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.",
     scope: 'world',
     config: true,
     default: 8,
