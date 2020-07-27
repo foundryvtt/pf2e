@@ -31,9 +31,6 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
   getData() {
     const sheetData = super.getData();
 
-    this._prepareTraits(sheetData.data.traits);
-    this._prepareItems(sheetData.actor);
-
     // Update save labels
     for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
       save.label = CONFIG.PF2E.saves[s];

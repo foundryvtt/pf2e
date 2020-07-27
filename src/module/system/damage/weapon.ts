@@ -9,9 +9,9 @@ import {
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {getDamageCategory} from './damage';
 
-function isNonPhyiscalDamage(damageType?: string): boolean {
-    const damageCategory = getDamageCategory(damageType);
-    return damageCategory !== 'physical' 
+/** Return true if the given damage type is non-null and not physical; false otherwise. */
+function isNonPhysicalDamage(damageType?: string): boolean {
+    return getDamageCategory(damageType) !== 'physical' 
         && damageType !== undefined
         && damageType !== '';
 }
@@ -35,7 +35,7 @@ export class PF2WeaponDamage {
                 diceNumber: normalDice,
                 dieSize: weapon.data?.property1?.die,
                 damageType: damageType ?? weaponDamageType,
-                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
+                traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
             });
         }
         const critDice = weapon.data?.property1?.critDice ?? 0;
@@ -47,7 +47,7 @@ export class PF2WeaponDamage {
                 dieSize: weapon.data?.property1?.critDie,
                 damageType: damageType ?? weaponDamageType,
                 critical: true,
-                traits: isNonPhyiscalDamage(damageType) ? [damageType] : [],
+                traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
             });
         }
         
