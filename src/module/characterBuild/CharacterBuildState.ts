@@ -10,7 +10,8 @@ export type CharacterBuildState = {
     Background: keyof Backgrounds;
     Class: keyof Classes;
     SubClass?: string;
-    BuildChoices: BuildChoices; // all the various levels and their respective choices
+    ClassBuild: BuildChoices; // actually selected options
+    ChoicesAvailable: BuildChoices[]; // all the various levels and their respective choices
 }
 
 type BuildChoices = {
