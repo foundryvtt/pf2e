@@ -198,7 +198,14 @@ class CompendiumBrowser extends Application {
           }
 
           // add actor to bestiaryActors object
-          bestiaryActors[actor._id] = actor
+          bestiaryActors[actor._id] = actor;
+
+          // Add rarity for filtering
+          actor.filters.rarity = function(){
+            if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
+            if (actor.data.rarity) return actor.data.rarity.value;
+            return { value: "common" };
+          }();
         }
       }
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -212,6 +219,7 @@ class CompendiumBrowser extends Application {
       traits: _sortedObject(CONFIG.PF2E.monsterTraits),
       languages: _sortedObject(CONFIG.PF2E.languages),
       source: [...sources].sort(),
+      rarities: CONFIG.PF2E.rarityTraits,
     };
   }
 
@@ -220,6 +228,7 @@ class CompendiumBrowser extends Application {
 
     const hazardActors = {};
     const sources: Set<string> = new Set();
+    const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
 
     for await(const {pack, content} of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
@@ -254,7 +263,18 @@ class CompendiumBrowser extends Application {
           }
 
           // add actor to bestiaryActors object
-          hazardActors[actor._id] = actor
+          hazardActors[actor._id] = actor;
+
+          // Add rarity for filtering
+          actor.filters.rarity = function(){
+            if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
+            if (actor.data.rarity) return actor.data.rarity.value;
+            for (const rarity of rarities) {
+              const indexOfRarity = actor.data.traits.traits.value.indexOf(rarity);
+              if (indexOfRarity >= 0) return actor.data.traits.traits.value[indexOfRarity];
+            }
+            return "common";
+          }();
         }
       }
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -265,6 +285,7 @@ class CompendiumBrowser extends Application {
       hazardActors,
       traits: _sortedObject(CONFIG.PF2E.hazardTraits),
       source: [...sources].sort(),
+      rarities: CONFIG.PF2E.rarityTraits,
     };
   }
 
@@ -295,6 +316,13 @@ class CompendiumBrowser extends Application {
 
           // add spell to spells array
           inventoryItems[(item._id)] = item;
+
+          // Add rarity for filtering
+          item.data.rarity = function(){
+            if (item.data.traits.rarity) return item.data.traits.rarity;  // TODO: only look in one place once data is fixed
+            if (item.data.rarity) return item.data.rarity;
+            return { value: "common" };
+          }();
         }
       }
     }
@@ -313,6 +341,7 @@ class CompendiumBrowser extends Application {
         treasure: 'Treasure',
         backpack: 'Containers',
       },
+      rarities: CONFIG.PF2E.rarityTraits,
       weaponTypes: CONFIG.PF2E.weaponTypes,
       weaponGroups: CONFIG.PF2E.weaponGroups,
     };
@@ -398,6 +427,13 @@ class CompendiumBrowser extends Application {
 
           // add spell to spells array
           feats[(feat._id)] = feat;
+          
+          // Add rarity for filtering
+          feat.data.rarity = function(){
+            if (feat.data.traits.rarity) return feat.data.traits.rarity;  // TODO: only look in one place once data is fixed
+            if (feat.data.rarity) return feat.data.rarity;
+            return { value: "common" };
+          }();
         }
       }
     }
@@ -421,6 +457,7 @@ class CompendiumBrowser extends Application {
       featSkills: CONFIG.PF2E.skillList,
       featAncestry: ancestryObj,
       featTimes: [...times].sort(),
+      rarities: CONFIG.PF2E.rarityTraits,
     }
   }
 
@@ -478,7 +515,13 @@ class CompendiumBrowser extends Application {
           if (spell.data.school.value !== undefined) {
             schools.add(spell.data.school.value);
           }
-          spells[(spell._id)] = spell;
+          
+          // Add rarity for filtering
+          spell.data.rarity = function(){
+            if (spell.data.traits.rarity) return spell.data.traits.rarity;  // TODO: only look in one place once data is fixed
+            if (spell.data.rarity) return spell.data.rarity;
+            return { value: "common" };
+          }();
         }
       }
     }
@@ -502,6 +545,7 @@ class CompendiumBrowser extends Application {
       schools: schoolsObj,
       traditions: CONFIG.PF2E.spellTraditions,
       spells,
+      rarities: CONFIG.PF2E.rarityTraits,
     };
   }
 
@@ -764,6 +808,7 @@ class CompendiumBrowser extends Application {
       group: {},
       traits: {},
       itemtypes: {},
+      rarity: {},
       weapontype: {},
       proficiencies: {},
       actorsize: {},
