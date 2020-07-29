@@ -1,5 +1,5 @@
 import {isBlank, toNumber} from '../utils';
-import {DamageDieSize, getDamageCategory} from '../system/damage/damage';
+import {DamageDieSize, DamageCategory} from '../system/damage/damage';
 
 // FIXME: point this to the correct type afterwards
 type ItemPlaceholder = any;
@@ -85,7 +85,7 @@ function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
         diceNumber,
         dieSize,
-        category: getDamageCategory(damageType),
+        category: DamageCategory.fromDamageType(damageType),
         damageType,
         enabled: true,
         traits,
