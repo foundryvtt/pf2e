@@ -416,7 +416,7 @@ class CompendiumBrowser extends Application {
             feat.data.actionType.img = this._getActionImg('passive');
             time = 'passive';
           } else if (parseInt(feat.data.actions.value)) {
-            feat.data.actionType.img = this._getActionImg(parseInt(feat.data.actions.value));
+            feat.data.actionType.img = this._getActionImg(feat.data.actions.value);
             time = feat.data.actions.value.toLowerCase();
           }
 
@@ -505,7 +505,7 @@ class CompendiumBrowser extends Application {
             spell.data.time.img = this._getActionImg('free');
           } else if (parseInt(spell.data.time.value)) {
             // parseInt is necessary to handle variable actions count
-            spell.data.time.img = this._getActionImg(parseInt(spell.data.time.value));
+            spell.data.time.img = this._getActionImg(spell.data.time.value);
           }
 
           // add spell to spells array
@@ -719,6 +719,9 @@ class CompendiumBrowser extends Application {
       1: 'systems/pf2e/icons/actions/OneAction.png',
       2: 'systems/pf2e/icons/actions/TwoActions.png',
       3: 'systems/pf2e/icons/actions/ThreeActions.png',
+      '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.png',
+      '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.png',
+      '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.png',
       free: 'systems/pf2e/icons/actions/FreeAction.png',
       reaction: 'systems/pf2e/icons/actions/Reaction.png',
       passive: 'systems/pf2e/icons/actions/Passive.png',
