@@ -191,8 +191,8 @@ export class TraitSelector5e extends FormApplication {
    * @private
    */
   async _updateObject(event: Event, formData: any) {
-    const choices = [];
     if (this.options.has_values) {
+      const choices = [];
       for (const [k, v] of Object.entries(formData as Record<any, any>)) {
         if(v.length > 1 && v[0]) {
           if ((!isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
@@ -204,9 +204,16 @@ export class TraitSelector5e extends FormApplication {
       }
       this.object.update({ [`${this.attribute}`]: choices });
     } else {
+      const choices: string[] = [];
+
+      // Add the non-custom traits...
 	    for (const [k, v] of Object.entries(formData)) {
-        if (k !== "search" && v) choices.push(k);
-	    }
+        if (k !== "search" && k !== "custom" && v) choices.push(k);
+      }
+
+      // And then add the custom trait, if present.
+      if (formData.custom && formData.custom.length > 0) choices.push(formData.custom);
+
 	    this.object.update({
 	      [`${this.attribute}.value`]: choices,
 	      [`${this.attribute}.custom`]: formData.custom,
