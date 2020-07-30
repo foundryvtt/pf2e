@@ -5,7 +5,7 @@ declare var PF2e: any;
  * Class PF2eStatus which defines the data structure of a status effects
  * Gets populated into Actor.data.data.statusEffects[]
  */
-class PF2eStatus {
+export class PF2eStatus {
     status: any;
     active: boolean;
     type: string;
