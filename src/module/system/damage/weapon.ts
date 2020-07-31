@@ -7,11 +7,11 @@ import {
     PF2StatisticModifier,
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
-import {getDamageCategory} from './damage';
+import {DamageCategory} from './damage';
 
 /** Return true if the given damage type is non-null and not physical; false otherwise. */
 function isNonPhysicalDamage(damageType?: string): boolean {
-    return getDamageCategory(damageType) !== 'physical' 
+    return DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
         && damageType !== undefined
         && damageType !== '';
 }
@@ -249,7 +249,7 @@ export class PF2WeaponDamage {
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: weapon.data.damage.die,
-                category: getDamageCategory(weapon.data.damage.damageType),
+                category: DamageCategory.fromDamageType(weapon.data.damage.damageType),
                 damageType: weapon.data.damage.damageType,
                 traits: [],
             },
