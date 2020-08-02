@@ -1,5 +1,46 @@
 # Patch Notes:
 
+## Version 1.9.4
+### New Features
+* (@abrault) Add Hazard tab to Compendium Browser
+* (@abrault) Add context menu to reroll a check
+* (@nikolaj-a) Toggle two-hand and versatile weapon traits
+
+### Content Changes
+* (@TMun) Compendium updates
+    * #563 Adds Gluttondark Babau
+    * #619 Corrects Rain of Embers Stance
+    * #623 Adds Fire Mephit
+    * #624, #631 Adds all AoA Hazards and missing monsters
+    * #628 Assigns rarity for every piece of equipment
+    * #634 Corrects reactive shield level
+    * #637 Corrects Mukradi resistance
+    * #638 Updates all mutagens to include missing drawbacks; standardizes entries
+    * #639 Corrects Bee swarm weakness
+    * #640 Corrected Mountain Stronghold chain Corrects text for silver shields Adds Snare Specialist Feat from CRB
+    * Adds Advanced Player Guide, except for Pets, Familiars and magical items equipment other than rod of cancellation
+* (@Shandyan) Adding traits, including new ones from the Advanced Player's Guide
+
+### Bug Fixes
+* (@abrault) Fix 404 errors with color scheme settings
+* (@abrault) Fix copy-paste error in compendium browser settings
+* (@blacksmithgu) Fix minor errors in setting descriptions
+* (@blacksmithgu) Fix #651: can now add custom item traits
+
+### Core System Improvements
+* (@abrault) Move creature-specific code out of base Actor sheet
+* (@abrault) Change the NPC's init bonus to 0.5
+* (@abrault) Use npc actions for strikes in Hazard edit mode
+* (@abrault) Add missing icons for casting time
+* (@abrault) Adjust compendium css to avoid name spillage
+* (@Delethor) Loot actor dialog: avatar uses less space, inventory uses complete width, and doesn't display equip buttons
+* (@blacksmithgu) Fix typo in 'isNonPhysicalDamage'
+* (@blacksmithgu) Add types to condition modifiers
+* (@blacksmithgu) Add types for damage category
+* (@blacksmithgu) Delete unused readonly sheet implementation
+* (@TheCraiggers) Adds rarity filters for all applicable compendium browser sections
+
+
 ## Version 1.9.3
 ### Content Changes
 * (@TMun) Add EC3 monsters, correct wizard class and update alchemical bombs for splash damage (issues #612, #596, and #613)
