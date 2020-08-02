@@ -24,10 +24,31 @@ export class PF2WeaponDamage {
         const diceModifiers = [];
         const numericModifiers = [];
         const baseTraits = [];
+        let baseDamageDie = weapon.data.damage.die;
+        let baseDamageType = weapon.data.damage.damageType;
+
+        // two-hand trait
+        const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
+        if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
+            baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
+            baseTraits.push(twoHandTrait.name);
+        }
+
+        // versatile trait
+        const versatileTrait = traits.find((t) => t.name.toLowerCase().startsWith('versatile-'));
+        if (versatileTrait && options.some((o) => o === versatileTrait.rollOption)) {
+            const dmg = {
+                b: 'bludgeoning',
+                p: 'piercing',
+                s: 'slashing'
+            };
+            baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
+            baseTraits.push(versatileTrait.name);
+        }
 
         // custom damage
         const normalDice = weapon.data?.property1?.dice ?? 0;
-        const weaponDamageType = weapon.data.damage.damageType
+        const weaponDamageType = baseDamageType
         if (normalDice > 0) {
             const damageType = weapon.data?.property1?.damageType ?? weaponDamageType;
             diceModifiers.push({
@@ -248,9 +269,9 @@ export class PF2WeaponDamage {
             name: `Damage Roll: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
-                dieSize: weapon.data.damage.die,
-                category: DamageCategory.fromDamageType(weapon.data.damage.damageType),
-                damageType: weapon.data.damage.damageType,
+                dieSize: baseDamageDie,
+                category: DamageCategory.fromDamageType(baseDamageType),
+                damageType: baseDamageType,
                 traits: [],
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include

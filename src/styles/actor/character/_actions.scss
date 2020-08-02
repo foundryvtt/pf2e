@@ -118,6 +118,25 @@
                         border: 1px solid var(--body);
                     }
                 }
+
+                .item-properties {
+                    .tag {
+                        &.toggled-on:hover, &.toggled-off:hover {
+                            box-shadow: none;
+                            text-shadow: 0 0 2px white;
+                        }
+
+                        &.toggled-on, &.toggled-off {
+                            cursor: pointer;
+                        }
+
+                        &.toggled-on {
+                            background-color: rgba(23, 31, 105, 0.5);
+                            color: black;
+                            text-shadow: 0 0 2px white;
+                        }
+                    }
+                }
             }
 
             &.expandable {
