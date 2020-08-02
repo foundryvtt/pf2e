@@ -21,7 +21,6 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
-import { SpellcastingEntryData } from '../item/dataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -459,7 +458,27 @@ export default class PF2EActor extends Actor {
         action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack') }].concat(
           PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
             const key = CONFIG.weaponTraits[trait] ?? trait;
-            return { name: trait, label: game.i18n.localize(key) };
+            const option: {name: string, label: string, toggle: boolean, rollName?: string, rollOption?: string, cssClass?: string} = {
+                name: trait,
+                label: game.i18n.localize(key),
+                toggle: false
+            };
+
+            // look for toggleable traits
+            if (trait.startsWith('two-hand-')) {
+                option.rollName = 'damage-roll';
+                option.rollOption = 'two-handed';
+            } else if (trait.startsWith('versatile-')) {
+                option.rollName = 'damage-roll';
+                option.rollOption = trait;
+            }
+
+            // trait can be toggled on/off
+            if (option.rollName && option.rollOption) {
+                option.toggle = true;
+                option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption) ? 'toggled-on' : 'toggled-off';
+            }
+            return option;
           })
         );
         action.breakdown = action.modifiers.filter((m) => m.enabled)
@@ -873,7 +892,7 @@ export default class PF2EActor extends Actor {
       }
       //Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
       if (!combatant.actor.isPC) {
-        initBonus += .9;
+        initBonus += .5;
       }
       value += initBonus;
       const message = `

@@ -1,0 +1,73 @@
+<div class="spell-browser">
+    <div class="control-area">
+        <div class="sortcontainer" id="tagfilter">
+            <input class="" name="textFilter" type="text" value="" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}"/>
+            <div class="hint" style="display:none;">
+                {{{localize "PF2E.HazardBrowserSearchHint"}}}
+            </div>
+            <dl id="sorter">
+                <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
+                <dd><select class="null" name="sortorder">
+                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
+                </select></dd>
+            </dl>
+        </div>
+        <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
+        <div class="filtercontainer" id="hazardComplexfilter">
+            <h3>{{localize "PF2E.BrowserFilterComplexity"}}</h3>
+            <dl>
+                <label><dt><input type="checkbox" name="complex-simple"></dt><dd>{{localize "PF2E.TraitSimple"}}</dd></label>
+                <label><dt><input type="checkbox" name="complex-complex"></dt><dd>{{localize "PF2E.TraitComplex"}}</dd></label>
+            </dl>
+        </div>
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
+            <dl style="display:none;">
+                {{#each traits as |trait key|}}
+                <label><dt><input type="checkbox" name="traits-{{lower trait}}"></dt><dd>{{trait}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="raritiesfilter">
+            <h3>{{localize "PF2E.BrowserFilterRarities"}}</h3>
+            <dl style="display:none;">
+                {{#each rarities as |rarity key|}}
+                <label><dt><input type="checkbox" name="rarity-{{lower key}}"></dt><dd>{{localize rarity}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        {{!-- TODO: Reenable once more hazards have a source
+        <div class="filtercontainer" id="actionTraitfilter">
+            <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
+            <dl style="display:none;">
+                {{#each source as |type key|}}
+                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        --}}
+    </div>
+    <ul>
+        {{#each hazardActors as |actor id|}}
+        <li class="spell flexrow draggable"
+          data-entry-compendium="{{actor.compendium}}"
+          data-entry-id="{{actor._id}}" data-actor-category="hazardActors"
+            {{#each actor.filters as |attrib id|}}
+                data-{{lower id}}="{{lower attrib}}"
+            {{/each}}
+          >
+            <div class="spell-image">
+                <img class="" src="{{actor.img}}" title="{{actor.name}}" width="32" height="32"/>
+            </div>
+            <div class="spell-name">
+                <span class="actor-edit" ><a>{{actor.name}}</a></span>
+            </div>
+            <div class="spell-tags">
+                <span title="NPC level">{{actor.data.details.level}}</span>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+
+</div>

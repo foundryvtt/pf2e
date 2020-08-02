@@ -16,7 +16,7 @@
         <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="actionTraitfilter">
             <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
-            <dl>
+            <dl style="display:none;">
                 {{#each actorSize as |size key|}}
                 <label><dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{size}}</dd></label>
                 {{/each}}
@@ -43,6 +43,14 @@
             <dl style="display:none;">
                 {{#each source as |type key|}}
                 <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="raritiesfilter">
+            <h3>{{localize "PF2E.BrowserFilterRarities"}}</h3>
+            <dl style="display:none;">
+                {{#each rarities as |rarity key|}}
+                <label><dt><input type="checkbox" name="rarity-{{lower key}}"></dt><dd>{{localize rarity}}</dd></label>
                 {{/each}}
             </dl>
         </div>

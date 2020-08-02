@@ -77,6 +77,10 @@ export default class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eChara
       this.actor.data.data.actions[Number(actionIndex)]?.critical(event, opts);
     });
 
+    html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
+        this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
+    });
+
     html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
     html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
     html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));

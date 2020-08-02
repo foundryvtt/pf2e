@@ -1,6 +1,6 @@
-import ActorSheetPF2e from './base';
+import ActorSheetPF2eCreature from './creature';
 
-class ActorSheetPF2eNPC extends ActorSheetPF2e {
+class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   static get defaultOptions() {
     const options = super.defaultOptions;
     mergeObject(options, {

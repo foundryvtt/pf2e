@@ -1,10 +1,10 @@
-import ActorSheetPF2e from './base';
+import ActorSheetPF2eCreature from './creature';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 
-class ActorSheetPF2eCharacter extends ActorSheetPF2e {
+class ActorSheetPF2eCharacter extends ActorSheetPF2eCreature {
   static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {

@@ -32,7 +32,7 @@ export class CheckModifiersDialog extends Application {
    * @param {object} context
    * @param {function} callback
    */
-  static roll(check, context, callback) {
+  static async roll(check, context, callback) {
     const options = [];
 
     let dice = '1d20';
@@ -56,10 +56,11 @@ export class CheckModifiersDialog extends Application {
     const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
     const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
     
-    roll.toMessage({
+    const message = await roll.toMessage({
       speaker: context.actor ? ChatMessage.getSpeaker({ actor: context.actor }) : ChatMessage.getSpeaker(),
-      flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`
+      flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`,
     });
+    await message.setFlag('pf2e', 'canReroll', !context?.fate);
     if (callback) {
       callback(roll);
     }

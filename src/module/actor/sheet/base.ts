@@ -1,11 +1,10 @@
-import {calculateWealth, sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
+import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
 import {isCycle} from "../../item/container";
 import { isKit, addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
 import { SKILL_DICTIONARY } from '../actor';
-import { ProficiencyModifier } from '../../modifiers';
 import { TraitSelector5e } from '../../system/trait-selector';
 import PF2EActor from '../actor';
 import PF2EItem from '../../item/item';
@@ -48,80 +47,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
   getData() {
     const sheetData : any = super.getData();
 
-    if (this.actorType === "hazard") {
-      return sheetData;
-    }
-
-    // Update martial skill labels
-    if (sheetData.data.martial !== undefined)
-    {
-      for (const [s, skl] of Object.entries(sheetData.data.martial as Record<any, any>)) {
-        skl.icon = this._getProficiencyIcon(skl.rank);
-        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-        skl.label = CONFIG.PF2E.martialSkills[s];
-        skl.value = ProficiencyModifier.fromLevelAndRank(sheetData.data.details.level.value, skl.rank || 0).modifier;
-      }
-    }
-
-    // Update save labels
-    if (sheetData.data.saves !== undefined)
-    {
-      for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-        save.icon = this._getProficiencyIcon(save.rank);
-        save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-        save.label = CONFIG.PF2E.saves[s];
-      }
-    }
-
-
-    // Update proficiency label
-    if (sheetData.data.attributes !== undefined)
-    {
-      sheetData.data.attributes.perception.icon = this._getProficiencyIcon(sheetData.data.attributes.perception.rank);
-      sheetData.data.attributes.perception.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
-    }
-
-    // Ability Scores
-    if (sheetData.data.abilities !== undefined)
-    {
-      for (let [a, abl] of Object.entries(sheetData.data.abilities as Record<any, any>)) {
-        abl.label = CONFIG.PF2E.abilities[a];
-      }
-    }
-
-    // Update skill labels
-    if (sheetData.data.skills !== undefined)
-    {
-      for (let [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
-        skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-        skl.icon = this._getProficiencyIcon(skl.rank);
-        skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-        skl.label = CONFIG.PF2E.skills[s];
-      }
-    }
-
-    // update currency based on items
-    if (sheetData.actor.items !== undefined)
-    {
-      const treasure = calculateWealth(sheetData.actor.items);
-      sheetData.totalTreasure = {};
-      for (const [denomination, value] of Object.entries(treasure)) {
-          sheetData.totalTreasure[denomination] = {
-              value,
-              label: CONFIG.PF2E.currencies[denomination],
-          };
-      }
-    }
-
-    // Update traits
-    sheetData.abilities = CONFIG.PF2E.abilities;
-    sheetData.skills = CONFIG.PF2E.skills;
-    sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-    sheetData.alignment = CONFIG.PF2E.alignment;
-    sheetData.rarity = CONFIG.PF2E.rarityTraits;
     this._prepareTraits(sheetData.data.traits);
-
-    // Prepare owned items
     this._prepareItems(sheetData.actor);
 
     // Return data to the sheet
@@ -1436,8 +1362,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
   _onItemSummary(event) {
     event.preventDefault();
 
-    const localize = game.i18n.localize.bind(game.i18n);
-
     const li = $(event.currentTarget).parent().parent();
     const itemId = li.attr('data-item-id');
     const itemType = li.attr('data-item-type');
@@ -1456,13 +1380,19 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     if (item.data.type === 'spellcastingEntry') return;
 
+    const chatData = item.getChatData({ secrets: this.actor.owner });
+
+    this._renderItemSummary(li, item, chatData);
+  }
+
+  _renderItemSummary(li, item, chatData) {
+    const localize = game.i18n.localize.bind(game.i18n);
+
     // Toggle summary
     if (li.hasClass('expanded')) {
       const summary = li.children('.item-summary');
       summary.slideUp(200, () => summary.remove());
     } else {
-      const chatData = item.getChatData({ secrets: this.actor.owner });
-
       const div = $(`<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`);
       const props = $('<div class="item-properties tags"></div>');
       if (chatData.properties) {
@@ -1490,67 +1420,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
         this._onAreaEffect(ev);
       }) */
 
-      const buttons = $('<div class="item-buttons"></div>');
-      switch (item.data.type) {
-        case 'action':
-          if (chatData.weapon.value) {
-            if (chatData.weapon.value) {
-              buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')}</button>`);
-              buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
-              buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
-              buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
-            }
-          }
-          break;
-        case 'weapon':
-          const isAgile = (item.data.data.traits.value || []).includes('agile');
-          if (chatData.isTwohanded) {
-            if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
-            else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
-          }
-          buttons.append(`<button class="weapon_attack tag" data-action="weaponAttack">${localize('PF2E.WeaponStrikeLabel')} (+${chatData.attackRoll})</button>`);
-          buttons.append(`<button class="tag weapon_attack2" data-action="weaponAttack2">${chatData.map2}</button>`);
-          buttons.append(`<button class="tag weapon_attack3" data-action="weaponAttack3">${chatData.map3}</button>`);
-          buttons.append(`<button class="tag weapon_damage" data-action="weaponDamage">${localize('PF2E.DamageLabel')}</button>`);
-          buttons.append(`<button class="tag weapon_critical" data-action="weaponDamageCritical">${localize('PF2E.CriticalDamageLabel')}</button>`);
-          break;
-        case 'spell':
-          if (chatData.isSave) buttons.append(`<span class="tag">${localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${chatData.save.basic} ${chatData.save.str}</span>`);
-          if (chatData.isAttack) buttons.append(`<span class="tag"><button class="spell_attack" data-action="spellAttack">${localize('PF2E.AttackLabel')}</button></span>`);
-          if (item.data.data.damage.value) buttons.append(`<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`);
-          break;
-        case 'consumable':
-          if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
-          break;
-      }
-
-      div.append(buttons);
-
-      buttons.find('button').click((ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-
-        // which function gets called depends on the type of button stored in the dataset attribute action
-        switch (ev.target.dataset.action) {
-          case 'toggleHands':
-            if (item.data.type == 'weapon') {
-              item.data.data.hands.value = !item.data.data.hands.value;
-              // this.actor.updateOwnedItem(item.data, true);
-              this.actor.updateEmbeddedEntity('OwnedItem', item.data);
-              this._render();
-            }
-
-            break;
-          case 'weaponAttack': item.rollWeaponAttack(ev); break;
-          case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
-          case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
-          case 'weaponDamage': item.rollWeaponDamage(ev); break;
-          case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
-          case 'spellAttack': item.rollSpellAttack(ev); break;
-          case 'spellDamage': item.rollSpellDamage(ev); break;
-          case 'consume': item.rollConsumable(ev); break;
-        }
-      });
 
       li.append(div.hide());
       div.slideDown(200);

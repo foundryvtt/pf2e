@@ -19,6 +19,12 @@
             {{localize "PF2E.CompendiumBrowser.TabFeat"}}
         </a>
 
+        {{#if user.isGM}}
+        <a class="item" data-tab="hazard">
+            {{localize "PF2E.CompendiumBrowser.TabHazard"}}
+        </a>
+        {{/if}}
+
         <a class="item" data-tab="spell">
             {{localize "PF2E.CompendiumBrowser.TabSpell"}}
         </a>
@@ -60,6 +66,14 @@
         {{> systems/pf2e/templates/packs/feat-browser.html }}
       </div>
       {{/with}}
+
+      {{#if user.isGM}}
+      {{#with hazard}}
+      <div class="tab browser" data-group="primary" data-tab="hazard">
+        {{> systems/pf2e/templates/packs/hazard-browser.html }}
+      </div>
+      {{/with}}
+      {{/if}}
 
       {{#with spell}}
       <div class="tab browser" data-group="primary" data-tab="spell">

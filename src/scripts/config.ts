@@ -462,7 +462,7 @@ CONFIG.weaponTraits = {
   parry: 'PF2E.TraitParry',
   poison: 'PF2E.TraitPoison',
   propulsive: 'PF2E.TraitPropulsive',
-  range: 'PF2E.TraitRare',
+  range: 'PF2E.TraitRange',
   'range-increment-10': 'PF2E.TraitRangeIncrement10',
   'range-increment-20': 'PF2E.TraitRangeIncrement20',
   'range-increment-30': 'PF2E.TraitRangeIncrement30',
@@ -625,7 +625,9 @@ CONFIG.spellTraits = {
   revelation: 'PF2E.TraitRevelation',
   shadow: 'PF2E.TraitShadow',
   sleep: 'PF2E.TraitSleep',
-  stance: 'PF2E.TraitStance'
+  stance: 'PF2E.TraitStance',
+  cursebound: 'PF2E.TraitCursebound',
+  hex: 'PF2E.TraitHex'
 };
 mergeObject(CONFIG.spellTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.spellTraits, CONFIG.spellTraditions);
@@ -668,7 +670,8 @@ CONFIG.featTraits = {
   alchemical: 'PF2E.TraitAlchemical',
   interact: 'PF2E.TraitInteract',
   aura: 'PF2E.TraitAura',
-  olfactory: 'PF2E.TraitOlfactory'
+  olfactory: 'PF2E.TraitOlfactory',
+  finisher: 'PF2E.TraitFinisher'
 };
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
@@ -785,7 +788,8 @@ CONFIG.hazardTraits = {
 };
 mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.hazardTraits, CONFIG.magicalSchools);
-mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes); // Traits Descriptions
+mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes); 
+mergeObject(CONFIG.hazardTraits, CONFIG.rarityTraits);// Traits Descriptions
 // TODO: Compute these!
 
 CONFIG.traitsDescriptions = {
@@ -968,7 +972,10 @@ CONFIG.traitsDescriptions = {
   ingested: 'PF2E.TraitDescriptionIngested',
   inhaled: 'PF2E.TraitDescriptionInhaled',
   injury: 'PF2E.TraitDescriptionInjury',
-  poison: 'PF2E.TraitDescriptionPoison'
+  poison: 'PF2E.TraitDescriptionPoison',
+  finisher: 'PF2E.TraitDescriptionFinisher',
+  cursebound: 'PF2E.TraitDescriptionCursebound',
+  hex: 'PF2E.TraitDescriptionHex'
 }; // Weapon Hands
 
 CONFIG.weaponHands = {
