@@ -121,6 +121,14 @@ const arrowsId = 'w2ENw2VMPcsbif8g';
 const longbowId = 'MVAWttmT0QDa7LsV';
 const materialPouchId = 'VHxXMvBeBTq2FSdf';
 const writingSetId = 'QJb8S927Yj81EgHH';
+const explorersClothingId = 'dDIPA1WE9ESF67EB';
+const sapId = 'TLQErnOpM9Luy7rL';
+const crossbowId = '62nnVQvGhoVLLl2K';
+const shortSwordId = '7tKkkF8eZ4iCLJtp';
+const boltsId = 'AITVZmakiu3RgfKo';
+const maceId = '9iDqOLNFKxiTcFKE';
+const handCrossbowId = 'XyA6PKV46aNlLXOd';
+const sickleId = 'ynnBwzkzsR6B73iO';
 
 // alchemist kit
 kits.set('rdHcMXw4DMOL8IYu', [
@@ -245,6 +253,46 @@ kits.set('09iZbcSifVqwVpWh', [
     new CompendiumReference({id: adventurersPackId}),
     new CompendiumReference({id: materialPouchId}),
     new CompendiumReference({id: writingSetId}),
+]);
+// investigator kit
+kits.set('QHwdC5gO7wIak5cG', [
+    ...treasure(5, 8, 0),
+    new CompendiumReference({ id: boltsId, quantity: 20 }),
+    new CompendiumReference({ id: crossbowId }),
+    new CompendiumReference({ id: sapId }),
+    new CompendiumReference({ id: shortSwordId }),
+    new CompendiumReference({ id: adventurersPackId }),
+    new CompendiumReference({ id: studdedArmorId }),
+    new CompendiumReference({ id: crowbarId }),
+]);
+// oracle kit
+kits.set('xNzAU2wP0VpbOonl', [
+    ...treasure(9, 4, 8),
+    new CompendiumReference({ id: slingBulletId, quantity: 20 }),
+    new CompendiumReference({ id: slingId }),
+    new CompendiumReference({ id: maceId }),
+    new CompendiumReference({ id: adventurersPackId }),
+    new CompendiumReference({ id: studdedArmorId }),
+]);
+// swashbuckler kit
+kits.set('6ZZMnNFmPbDsNBpz', [
+    ...treasure(6, 3, 0),
+    new CompendiumReference({ id: boltsId, quantity: 20 }),
+    new CompendiumReference({ id: handCrossbowId }),
+    new CompendiumReference({ id: rapierId }),
+    new CompendiumReference({ id: adventurersPackId }),
+    new CompendiumReference({ id: leatherArmorId }),
+]);
+// witch kit
+kits.set('BKd5b2shbykeZCGv', [
+    ...treasure(12, 6, 8),
+    new CompendiumReference({ id: slingBulletId, quantity: 20 }),
+    new CompendiumReference({ id: slingId }),
+    new CompendiumReference({ id: staffId }),
+    new CompendiumReference({ id: sickleId }),
+    new CompendiumReference({ id: adventurersPackId }),
+    new CompendiumReference({ id: explorersClothingId }),
+    new CompendiumReference({ id: materialPouchId }),
 ]);
 
 export function isKit(itemId: string): boolean {
