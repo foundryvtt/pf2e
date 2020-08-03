@@ -1,5 +1,17 @@
 # Patch Notes:
 
+## Version 1.9.5
+### Content Changes
+* (@abrault) Assign more specific feat type to some general feats from the APG
+* (@abrault) Extract most Base64 images from compendia
+* (@abrault) Remove Base64 images from items embedded in compendium actors
+* (@overdox) Added icons to some of the equipment from the APG
+* (@TMun) Compendium updates
+    * Adds The Slithering enemies, traps and items
+    * Adds remaining non-magical items from APG (#656, #659, #662, #664, #665, #666, #667, and #668)
+* (@TMun) Added APG class equipment kits 
+
+
 ## Version 1.9.4
 ### New Features
 * (@abrault) Add Hazard tab to Compendium Browser
@@ -8,16 +20,16 @@
 
 ### Content Changes
 * (@TMun) Compendium updates
-    * #563 Adds Gluttondark Babau
-    * #619 Corrects Rain of Embers Stance
-    * #623 Adds Fire Mephit
-    * #624, #631 Adds all AoA Hazards and missing monsters
-    * #628 Assigns rarity for every piece of equipment
-    * #634 Corrects reactive shield level
-    * #637 Corrects Mukradi resistance
-    * #638 Updates all mutagens to include missing drawbacks; standardizes entries
-    * #639 Corrects Bee swarm weakness
-    * #640 Corrected Mountain Stronghold chain Corrects text for silver shields Adds Snare Specialist Feat from CRB
+    * Adds Gluttondark Babau (#563)
+    * Corrects Rain of Embers Stance (#619)
+    * Adds Fire Mephit (#623)
+    * Adds all AoA Hazards and missing monsters (#624, #631)
+    * Assigns rarity for every piece of equipment (#628)
+    * Corrects reactive shield level (#634)
+    * Corrects Mukradi resistance (#637)
+    * Updates all mutagens to include missing drawbacks; standardizes entries (#638)
+    * Corrects Bee swarm weakness (#639)
+    * Corrected Mountain Stronghold chain Corrects text for silver shields Adds Snare Specialist Feat from CRB (#640)
     * Adds Advanced Player Guide, except for Pets, Familiars and magical items equipment other than rod of cancellation
 * (@Shandyan) Adding traits, including new ones from the Advanced Player's Guide
 
