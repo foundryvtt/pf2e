@@ -388,7 +388,7 @@ export class PF2WeaponDamage {
 
         // apply stacking rules here and distribute on dice pools
         {
-            const modifiers = [];
+            const modifiers: PF2Modifier[] = [];
             damage.numericModifiers.filter(nm => nm.enabled).filter(nm => !nm.critical || critical).forEach(nm => {
                 if (critical && nm.critical) {
                     // critical-only stuff
@@ -405,7 +405,7 @@ export class PF2WeaponDamage {
                 const dmg = current.damageType ?? base.damageType;
                 accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
                 return accumulator;
-            }, {})).map(([damageType, damageTypeModifiers]) => {
+            }, {} as Record<string, PF2Modifier[]>)).map(([damageType, damageTypeModifiers]) => {
                 // apply stacking rules for numeric modifiers of each damage type separately 
                 return new PF2StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
             }).flatMap(nm => nm)
