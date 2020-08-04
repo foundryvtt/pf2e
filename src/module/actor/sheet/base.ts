@@ -552,10 +552,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // Toggle Dying Wounded
     html.find('.dying-click').on('click contextmenu', this._onClickDying.bind(this));
 
-    // Toggle Skill Proficiency
-    // Can be removed later as replaced with .click-stat-level, commented out for now
-    // html.find('.proficiency-click').on('click contextmenu', this._onCycleSkillProficiency.bind(this));
-
     // Remove Spell Slot
     html.find('.item-unprepare').click((ev) => {
       const slotId = Number($(ev.currentTarget).parents('.item').attr('data-slot-id'));
@@ -915,54 +911,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
-
-  /**
-   * Handle cycling proficiency in a Skill
-   * @private
-   */
-  // _onCycleSkillProficiency(event) {
-  //   event.preventDefault();
-  //   const field = $(event.currentTarget).siblings('input[type="hidden"]');
-
-  //   // Get the skill type (used to determine if this is a Lore skill)
-  //   const skillType = $(event.currentTarget).parents('.item').attr('data-item-type');
-  //   const containerType = $(event.currentTarget).parents('.item-container').attr('data-container-type');
-
-  //   // Get the current level and the array of levels
-  //   const level = parseFloat(field.val());
-  //   const levels = [0, 1, 2, 3, 4];
-  //   const idx = levels.indexOf(level);
-  //   let newLevel = '';
-
-  //   // Toggle next level - forward on click, backwards on right
-  //   if (event.type === 'click') {
-  //     newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
-  //   } else if (event.type === 'contextmenu') {
-  //     newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
-  //   }
-
-  //   // Update the field value and save the form
-  //   if (skillType === 'lore' || skillType === 'martial') {
-  //     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-  //     // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-  //     /* itemToEdit.data.proficient.value = newLevel;
-  //     this.actor.updateOwnedItem(itemToEdit); */
-
-  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
-  //   } else if (containerType === 'spellcastingEntry') {
-  //     const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-  //     /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
-  //     itemToEdit.data.proficiency.value = newLevel;
-  //     this.actor.updateOwnedItem(itemToEdit); */
-
-  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
-  //   } else {
-  //     field.val(newLevel);
-  //     this._onSubmit(event);
-  //   }
-  // }
 
   /**
    * Handle cycling of dying
