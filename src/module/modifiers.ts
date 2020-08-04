@@ -77,8 +77,6 @@ export class PF2Modifier {
   notes: string;
   /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
   ignored: boolean;
-  /** If true, this modifier should be deleted on the next update. */
-  deleted: boolean;
   /** If true, this modifier is a custom player-provided modifier. */
   custom: boolean;
   /** The damage type that this modifier does, if it modifies a damage roll. */
@@ -105,7 +103,6 @@ export class PF2Modifier {
     this.type = type;
     this.enabled = enabled;
     this.ignored = false;
-    this.deleted = false;
     this.custom = false;
     if (source) this.source = source;
     if (notes) this.notes = notes;
@@ -228,10 +225,6 @@ export const ProficiencyModifier = Object.freeze({
   }
 });
 
-/**
- * @param {object} highestBonus
- * @param {PF2Modifier} modifier
- */
 /* eslint-disable no-param-reassign */
 function applyBonus(highestBonus: Record<string, PF2Modifier>, modifier: PF2Modifier) {
   let total = 0;
@@ -257,10 +250,6 @@ function applyBonus(highestBonus: Record<string, PF2Modifier>, modifier: PF2Modi
 }
 /* eslint-enable */
 
-/**
- * @param {object} lowestPenalty
- * @param {PF2Modifier} modifier
- */
 /* eslint-disable no-param-reassign */
 function applyPenalty(lowestPenalty: Record<string, PF2Modifier>, modifier: PF2Modifier) {
   let total = 0;
@@ -288,8 +277,7 @@ function applyPenalty(lowestPenalty: Record<string, PF2Modifier>, modifier: PF2M
 
 /**
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
- * provided modifiers, deleting any modifiers marked 'deleted' and setting the 'enabled' field
- * based on whether or not the modifiers are active.
+ * provided modifiers, setting the 'enabled' field based on whether or not the modifiers are active.
  *
  * @param {PF2Modifier[]} modifiers The list of modifiers to apply stacking rules for.
  * @returns {number} The total modifier provided by the given list of modifiers.
@@ -300,9 +288,7 @@ function applyStackingRules(modifiers: PF2Modifier[]) {
   const lowestPenalty = {};
   for (let idx = modifiers.length - 1; idx >= 0; idx -= 1) {
     const modifier = modifiers[idx];
-    if (modifier.deleted) {
-      modifiers.splice(idx, 1); // remove any deleted modifiers
-    } else if (modifier.ignored) {
+    if (modifier.ignored) {
       modifier.enabled = false;
     } else if (modifier.modifier < 0) {
       total += applyPenalty(lowestPenalty, modifier);
@@ -362,7 +348,7 @@ export class PF2StatisticModifier {
 
   /** Delete a modifier from this collection by name. */
   delete(modifierName: string) {
-    this._modifiers.filter((m) => m.name === modifierName).forEach((m) => {m.deleted = true}); // eslint-disable-line no-param-reassign
+    this._modifiers = this._modifiers.filter(m => m.name !== modifierName);
     this.applyStackingRules();
   }
 
