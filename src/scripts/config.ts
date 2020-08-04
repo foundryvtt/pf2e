@@ -93,6 +93,7 @@ CONFIG.armorResiliencyRunes = {
   majorResilient: "PF2E.ArmorMajorResilientRune"
 };
 CONFIG.armorPropertyRunes = {
+  ready: "PF2E.ArmorPropertyRuneReady",
   slick: "PF2E.ArmorPropertyRuneSlick",
   shadow: "PF2E.ArmorPropertyRuneShadow",
   glamered: "PF2E.ArmorPropertyRuneGlamered",
@@ -103,6 +104,7 @@ CONFIG.armorPropertyRunes = {
   greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
   invisibility: "PF2E.ArmorPropertyRuneInvisibility",
   sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
+  greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",  
   greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
   greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
   greaterAcidResistant: "PF2E.ArmorPropertyRuneGreaterAcidResistant",
@@ -110,12 +112,14 @@ CONFIG.armorPropertyRunes = {
   greaterElectricityResistant: "PF2E.ArmorPropertyRuneGreaterElectricityResistant",
   greaterFireResistant: "PF2E.ArmorPropertyRuneGreaterFireResistant",
   fortification: "PF2E.ArmorPropertyRuneFortification",
+  winged: "PF2E.ArmorPropertyRuneWinged",  
   rockBraced: "PF2E.ArmorPropertyRuneRockBraced",
   antimagic: "PF2E.ArmorPropertyRuneAntimagic",
   majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
   ethereal: "PF2E.ArmorPropertyRuneEthereal",
   majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
-  greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification"
+  greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
+  greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
 };
 CONFIG.weaponPotencyRunes = {
   "1": "PF2E.WeaponPotencyRune1",
@@ -133,6 +137,8 @@ CONFIG.weaponPropertyRunes = {
   returning: "PF2E.WeaponPropertyRuneReturning",
   ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
   disrupting: "PF2E.WeaponPropertyRuneDisrupting",
+  pacifying: "PF2E.WeaponPropertyRunePacifying",
+  fearsome: "PF2E.WeaponPropertyRuneFearsome",
   shifting: "PF2E.WeaponPropertyRuneShifting",
   wounding: "PF2E.WeaponPropertyRuneWounding",
   bloodbane: "PF2E.WeaponPropertyRuneBloodbane",
@@ -147,6 +153,7 @@ CONFIG.weaponPropertyRunes = {
   axiomatic: "PF2E.WeaponPropertyRuneAxiomatic",
   holy: "PF2E.WeaponPropertyRuneHoly",
   unholy: "PF2E.WeaponPropertyRuneUnholy",
+  greaterFearsome: "PF2E.WeaponPropertyRuneGreaterFearsome",  
   dancing: "PF2E.WeaponPropertyRuneDancing",
   spellStoring: "PF2E.WeaponPropertyRuneSpellStoring",
   greaterBloodbane: "PF2E.WeaponPropertyRuneGreaterBloodbane",
