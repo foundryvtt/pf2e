@@ -225,55 +225,37 @@ export const ProficiencyModifier = Object.freeze({
   }
 });
 
-/* eslint-disable no-param-reassign */
-function applyBonus(highestBonus: Record<string, PF2Modifier>, modifier: PF2Modifier) {
-  let total = 0;
-  const existing = highestBonus[modifier.type];
-  if (existing && existing.type === modifier.type) {
-    if (modifier.type === PF2ModifierType.UNTYPED) {
-      modifier.enabled = true;
-      total = modifier.modifier;
-    } else if (existing.modifier >= modifier.modifier) {
-      modifier.enabled = false;
-    } else if (existing.modifier < modifier.modifier) {
-      existing.enabled = false;
-      modifier.enabled = true;
-      highestBonus[modifier.type] = modifier;
-      total = (modifier.modifier - existing.modifier); // calculate bonus difference
-    }
-  } else {
-    modifier.enabled = true;
-    highestBonus[modifier.type] = modifier;
-    total = modifier.modifier;
-  }
-  return total;
-}
-/* eslint-enable */
+/** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
+const HIGHER_BONUS = (a: PF2Modifier, b: PF2Modifier) => a.modifier >= b.modifier;
+/** A comparison which rates the first modifier as better than the second if it's modifier is at least as small. */
+const LOWER_PENALTY = (a: PF2Modifier, b: PF2Modifier) => a.modifier <= b.modifier;
 
-/* eslint-disable no-param-reassign */
-function applyPenalty(lowestPenalty: Record<string, PF2Modifier>, modifier: PF2Modifier) {
-  let total = 0;
-  const existing = lowestPenalty[modifier.type];
-  if (modifier.type === PF2ModifierType.UNTYPED) {
+/**
+ * Given a current map of damage type -> best modifier, compare the given modifier against the current best modifier
+ * and update it if it is better (according to the `isBetter` comparison function). Returns the delta in the total modifier
+ * as a result of this update.
+ */
+function applyStacking(best: Record<string, PF2Modifier>, modifier: PF2Modifier, isBetter: (first: PF2Modifier, second: PF2Modifier) => boolean) {
+  // If there is no existing bonus of this type, then add ourselves.
+  const existing = best[modifier.type];
+  if (existing === undefined) {
     modifier.enabled = true;
-    total = modifier.modifier;
-  } else if (existing && existing.type === modifier.type) {
-    if (existing.modifier <= modifier.modifier) {
-      modifier.enabled = false;
-    } else if (existing.modifier > modifier.modifier) {
-      existing.enabled = false;
-      modifier.enabled = true;
-      lowestPenalty[modifier.type] = modifier;
-      total = (modifier.modifier - existing.modifier); // calculate penalty difference
-    }
-  } else {
-    modifier.enabled = true;
-    lowestPenalty[modifier.type] = modifier;
-    total = modifier.modifier;
+    best[modifier.type] = modifier;
+    return modifier.modifier;
   }
-  return total;
+
+  if (isBetter(modifier, existing)) {
+    // If we are a better modifier according to the comparison, then we become the new 'best'.
+    existing.enabled = false;
+    modifier.enabled = true;
+    best[modifier.type] = modifier;
+    return (modifier.modifier - existing.modifier);
+  } else {
+    // Otherwise, the existing modifier is better, so do nothing.
+    modifier.enabled = false;
+    return 0;
+  }
 }
-/* eslint-enable */
 
 /**
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
@@ -282,20 +264,33 @@ function applyPenalty(lowestPenalty: Record<string, PF2Modifier>, modifier: PF2M
  * @param {PF2Modifier[]} modifiers The list of modifiers to apply stacking rules for.
  * @returns {number} The total modifier provided by the given list of modifiers.
  */
-function applyStackingRules(modifiers: PF2Modifier[]) {
+function applyStackingRules(modifiers: PF2Modifier[]): number {
   let total = 0;
-  const highestBonus = {};
-  const lowestPenalty = {};
-  for (let idx = modifiers.length - 1; idx >= 0; idx -= 1) {
-    const modifier = modifiers[idx];
+  const highestBonus: Record<string, PF2Modifier> = {};
+  const lowestPenalty: Record<string, PF2Modifier> = {};
+
+  for (let modifier of modifiers) {
+    // Always disable ignored modifiers and don't do anything further with them.
     if (modifier.ignored) {
       modifier.enabled = false;
-    } else if (modifier.modifier < 0) {
-      total += applyPenalty(lowestPenalty, modifier);
+      continue;
+    }
+
+    // Untyped modifiers always stack, so enable them and add their modifier.
+    if (modifier.type == PF2ModifierType.UNTYPED) {
+      modifier.enabled = true;
+      total += modifier.modifier;
+      continue;
+    }
+
+    // Otherwise, apply stacking rules to positive modifiers and negative modifiers separately.
+    if (modifier.modifier < 0) {
+      total += applyStacking(lowestPenalty, modifier, LOWER_PENALTY);
     } else {
-      total += applyBonus(highestBonus, modifier);
+      total += applyStacking(highestBonus, modifier, HIGHER_BONUS);
     }
   }
+
   return total;
 }
 
