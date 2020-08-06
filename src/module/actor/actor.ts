@@ -206,9 +206,9 @@ export default class PF2EActor extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
-      updated.roll = (event, options = []) => {
+      updated.roll = (event, options = [], callback?) => {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw', options }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw', options }, event, callback);
       };
       data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
     }
@@ -246,9 +246,9 @@ export default class PF2EActor extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       data.attributes.perception.value = data.attributes.perception.totalModifier;
-      data.attributes.perception.roll = (event, options = []) => {
+      data.attributes.perception.roll = (event, options = [], callback?) => {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
-        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check', options }, event);
+        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check', options }, event, callback);
       };
       /* eslint-enable */
     }
@@ -369,9 +369,9 @@ export default class PF2EActor extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       updated.value = updated.totalModifier;
-      updated.roll = (event, options = []) => {
+      updated.roll = (event, options = [], callback?) => {
         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check', options }, event);
+        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check', options }, event, callback);
       };
       data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
     }
