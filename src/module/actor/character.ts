@@ -14,7 +14,7 @@ class CharacterData {
   }
 
   get maxExp() {
-    return 1000;
+    return this.data.details.xp.max;
   }
 
   get exp() {
