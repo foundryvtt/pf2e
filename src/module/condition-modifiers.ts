@@ -64,6 +64,11 @@ export const FRIGHTENED = Object.freeze({
     all: new PF2Modifier('PF2E.condition.frightened.name', -value, PF2ModifierType.STATUS),
   })
 });
+export const PRONE = Object.freeze({
+  get: () => ({
+    'attack-roll': new PF2Modifier('PF2E.condition.prone.name', -2, PF2ModifierType.CIRCUMSTANCE),
+  })
+});
 export const SICKENED = Object.freeze({
   withValue: (value: number) => ({
     all: new PF2Modifier('PF2E.condition.sickened.name', -value, PF2ModifierType.STATUS),
@@ -108,6 +113,7 @@ export const ConditionModifiers = Object.freeze({
       case 'fatigued': modifiers = FATIGUED.get(); break;
       case 'flatFooted': modifiers = FLAT_FOOTED.get(); break;
       case 'frightened': modifiers = FRIGHTENED.withValue(statusEffect.value || 1); break;
+      case 'prone': modifiers = PRONE.get(); break;
       case 'sickened': modifiers = SICKENED.withValue(statusEffect.value || 1); break;
       case 'stupefied': modifiers = STUPEFIED.withValue(statusEffect.value || 1); break;
       case 'unconscious': modifiers = UNCONSCIOUS.get(); break;
