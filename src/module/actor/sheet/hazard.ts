@@ -161,29 +161,6 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
       this.actor.setFlag('pf2e', 'editHazard', { value: ev.target.checked });
     });
   }
-
-  /* -------------------------------------------- */
-
-  /**
-   * This method is called upon form submission after form data is validated
-   * @param event {Event}       The initial triggering submission event
-   * @param formData {Object}   The object of validated form data with which to update the object
-   * @private
-   */
-/*   _updateObject(event, formData) {
-
-    // Format NPC Challenge Rating
-    if (this.actor.data.type === "npc") {
-      let cr = formData["data.details.cr.value"];
-      if ( cr ) {
-        let crs = {"1/8": 0.125, "1/4": 0.25, "1/2": 0.5};
-        formData["data.details.cr.value"] = crs[cr] || parseInt(cr);
-      }
-    }
-
-    // Parent ActorSheet update steps
-    super._updateObject(event, formData);
-  } */
 }
 
 export default ActorSheetPF2eHazard;

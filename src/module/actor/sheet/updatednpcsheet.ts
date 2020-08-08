@@ -244,13 +244,6 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
 
     //modify actordata, including items
     this.actor.update(actorData);
-
-/*  // For testing purposes to not modify the rest of the actor but its name & trait
-    this.actor.update({
-      ['name']: actorData.name,
-      ['data.traits.traits.value']: traits
-    }); */
-
   }
 
   /**
@@ -499,35 +492,6 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     super.activateListeners(html);
     if (!this.options.editable) return;
 
-    /* Roll NPC HP */
-    /*     html.find('.npc-roll-hp').click(ev => {
-  let ad = this.actor.data.data;
-  let hp = new Roll(ad.attributes.hp.formula).roll().total;
-  AudioHelper.play({src: CONFIG.sounds.dice});
-  this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp});
-  }); */
-
-    // NPC SKill Rolling
-    // html.find('.item .npc-skill-name').click(event => {
-    //  event.preventDefault();
-    //  let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
-    //     item = this.actor.getOwnedItem(itemId);
-    //  this.actor.rollLoreSkill(event, item);
-    // });
-
-    // html.find('.skill-input').focusout(async event => {
-    //  let itemId = Number(event.target.attributes["data-item-id"].value);
-    //  const itemToEdit = this.actor.items.find(i => i.id === itemId);
-    //  itemToEdit.data.mod.value = Number(event.target.value);
-
-    //  // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-    //  let skills = this.actor.items.filter(i => i.type == "lore")
-    //  for(let skill of skills)
-    //  {
-    //   await this.actor.updateOwnedItem(skill, true);
-    //  }
-    // });
-
     html.find('.npc-detail-text textarea').focusout(async (event) => {
       event.target.style.height = '5px';
       event.target.style.height = `${event.target.scrollHeight}px`;
@@ -542,17 +506,8 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       this.actor.setFlag('pf2e', 'editNPC', { value: ev.target.checked });
     });
 
-    // NPC Attack summaries
-    // Unbind the base.js click event handler
-    // html.find('.item .melee-name h4').off( "click" );
-    //    html.find('.item .melee-name h4').click(event => {
-    //     event.preventDefault();
-    //       this._onUpNPCAttackSummary(event);
-    //    });
-
     // NPC Weapon Rolling
 
-    // html.find('button.npc-damageroll').off( "click" );
     html.find('button.npc-damageroll').click((ev) => {
       ev.preventDefault();
       ev.stopPropagation();
