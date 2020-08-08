@@ -16,7 +16,13 @@
         <input type="checkbox" name="quickD20roll" {{checked quickD20roll}} data-dtype="Boolean">
         <p class="notes">{{ localize "PF2E.SettingsQuickRollsNotes" }}</p>
     </div>
-    <div style="width: 60%; margin: 20px auto 0px auto;">
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SettingsDataUriHighlightLabel"}}</label>
+        <input type="checkbox" name="highlightDataUri" {{checked highlightDataUri}} data-dtype="Boolean">
+        <p class="notes">{{{ localize "PF2E.SettingsDataUriHighlightNotes" }}}</p>
+    </div>
+        <div style="width: 60%; margin: 20px auto 0px auto;">
         <button type="submit" name="submit" value="1"><i class="fas fa-save"></i> {{localize 'PLAYERS.SaveConfig'}}</button>
     </div>
 </form>
