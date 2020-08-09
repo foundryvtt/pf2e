@@ -1,7 +1,6 @@
-import ActorSheetPF2eCharacter from './actor/sheet/character';
+import CRBStyleCharacterActorSheetPF2E from './actor/sheet/character';
 import ActorSheetPF2eNPC from './actor/sheet/npc';
 import UpdatedNPCActorPF2ESheet from './actor/sheet/updatednpcsheet';
-import CRBStyleCharacterActorSheetPF2E from './actor/sheet/crb-style/crb-style';
 import ActorSheetPF2eHazard from './actor/sheet/hazard';
 import ActorSheetPF2eLoot from './actor/sheet/loot';
 
@@ -9,12 +8,6 @@ function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
 
   // Register Character Sheet
-  Actors.registerSheet('pf2e', ActorSheetPF2eCharacter, {
-    types: ['character'],
-    makeDefault: false,
-  });
-
-  // Register Character Sheet with new UI
   Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
     types: ['character'],
     makeDefault: true,
