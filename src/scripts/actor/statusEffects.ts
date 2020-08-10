@@ -201,7 +201,8 @@ export class PF2eStatusEffects {
                 console.log(`PF2e System | '${statusName}' is not a vaild condition!`);
                 continue;
             }
-            const src = `systems/pf2e/icons/conditions/${statusName}.png`;
+            const srcDir = CONFIG.PF2eStatusEffects.effectsIconFolder;
+            const src = srcDir + `${statusName}.png`;
             const actor = getProperty(token, "actor");
 
             let statusEffects = [];

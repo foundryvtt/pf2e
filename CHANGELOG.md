@@ -1,5 +1,42 @@
 # Patch Notes:
 
+## Version 1.9.6
+### New Features
+* (@fryguy1013) Allow editing max xp (for PFS characters, and homebrew XP)
+
+### Content Changes
+* (putty#0555) Add property runes for APG and Devil at the Dreaming Palace
+* (@overdox) Compendium updates
+    * Equipment icons
+    * Fix corrupted art objects
+    * Other icons
+* (@TMun) Compendium updates
+    * Ki Strike Spell fix and spells.db compaction (#687)
+    * Poison weapon feat chain errors (#673)
+    * Experienced Smuggler skill feat level (#674)
+    * Add Lost Omens Character Guide NPCs and change compendium name (#686)
+    * Club equiment description is misplaced (#654)
+    * Add Exquisite Sword Caneand Exquisite Sword Cane Sheath from Extinction Curse (#670)
+    * Leather armor errors (#678)
+    * Alchemical crossbow bulk error (#680)
+    * Satchel errors (#681)
+
+### Artwork Contributions
+* (Firgof) Multiple bestiary artwork
+
+### Bug Fixes
+* (@atnoslen) Add prone condition attack penalty
+* (@atnoslen) Fix treat wounds macro crit success/failure
+* (@baberg) Fix status icon directory (#685)
+
+### Core System Improvements
+* (@abrault) Add highlight around embedded images
+* (@atnoslen) Added optional callback to actor roll updates.
+
+### Development Improvements
+* (@blacksmithgu) Major cleanup of some part of the code, including removing the old character sheet and simplification of the custom modifier system.
+
+
 ## Version 1.9.5
 ### Content Changes
 * (@abrault) Assign more specific feat type to some general feats from the APG

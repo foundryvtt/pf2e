@@ -552,10 +552,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // Toggle Dying Wounded
     html.find('.dying-click').on('click contextmenu', this._onClickDying.bind(this));
 
-    // Toggle Skill Proficiency
-    // Can be removed later as replaced with .click-stat-level, commented out for now
-    // html.find('.proficiency-click').on('click contextmenu', this._onCycleSkillProficiency.bind(this));
-
     // Remove Spell Slot
     html.find('.item-unprepare').click((ev) => {
       const slotId = Number($(ev.currentTarget).parents('.item').attr('data-slot-id'));
@@ -786,40 +782,17 @@ abstract class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
 
       let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      // let itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // let itemToEdit = (this.actor.getOwnedItem(itemId) || {}).data;
-
       if (!itemId) {
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-        // itemToEdit = this.actor.items.find(i => i.id === itemId);
-        // itemToEdit = this.actor.getOwnedItem(itemId).data;
-        // itemToEdit.data.item.value = Number(event.target.value);
       }
 
-      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      // let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
-      // for(let skill of skills)
-      // {
-      // await this.actor.updateOwnedItem(itemToEdit);
-      // await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.item.value': Number(event.target.value) });
-      // }
     });
 
     // Update Item Name
     html.find('.item-name-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      // itemToEdit.name = event.target.value;
-
-      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      // let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
-      // for(let skill of skills)
-      // {
-      // await this.actor.updateOwnedItem(itemToEdit);
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, name: event.target.value });
-      // }
     });
 
 
@@ -829,22 +802,12 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
       const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level'));
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      // itemToEdit.data.slots["slot" + slotLvl].value = Number(event.target.value);
-
-      // Need to update all items every time because if the user tabbed through and updated many, only the last one would be saved
-      // let items = this.actor.items.filter(i => i.type == itemToEdit.type)
-      // for(let item of items)
-      // {
-      // await this.actor.updateOwnedItem(itemToEdit);
 
       const key = `data.slots.slot${slotLvl}.value`;
       const options = { _id: itemId };
       options[key] = Number(event.target.value);
 
       await this.actor.updateEmbeddedEntity('OwnedItem', options);
-      // }
     });
 
     // Update max slots for Spell Items
@@ -858,7 +821,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
       options[key] = Number(event.target.value);
 
       await this.actor.updateEmbeddedEntity('OwnedItem', options);
-      // }
     });
 
     // Modify select element
@@ -866,18 +828,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-      // itemToEdit.data.ability.value = event.target.value;
-
-      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      // let skills = this.actor.items.filter(i => i.type == itemToEdit.type)
-      // for(let skill of skills)
-      // {
-      // await this.actor.updateOwnedItem(itemToEdit);
-      // await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.ability.value': event.target.value });
-      // }
     });
 
     // Update max slots for Spell Items
@@ -885,13 +836,10 @@ abstract class ActorSheetPF2e extends ActorSheet {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-      // const itemToEdit = this.actor.items.find(i => i.id === itemId);
       const itemToEdit = this.actor.getOwnedItem(itemId).data;
       if (itemToEdit.type !== 'spellcastingEntry') throw new Error('Tried to toggle prepared spells on a non-spellcasting entry');
       const bool = !(itemToEdit.data.showUnpreparedSpells || {}).value;
 
-      // await this.actor.updateOwnedItem(itemToEdit);
-      // await this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.showUnpreparedSpells.value': bool });
     });
 
@@ -915,54 +863,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
-
-  /**
-   * Handle cycling proficiency in a Skill
-   * @private
-   */
-  // _onCycleSkillProficiency(event) {
-  //   event.preventDefault();
-  //   const field = $(event.currentTarget).siblings('input[type="hidden"]');
-
-  //   // Get the skill type (used to determine if this is a Lore skill)
-  //   const skillType = $(event.currentTarget).parents('.item').attr('data-item-type');
-  //   const containerType = $(event.currentTarget).parents('.item-container').attr('data-container-type');
-
-  //   // Get the current level and the array of levels
-  //   const level = parseFloat(field.val());
-  //   const levels = [0, 1, 2, 3, 4];
-  //   const idx = levels.indexOf(level);
-  //   let newLevel = '';
-
-  //   // Toggle next level - forward on click, backwards on right
-  //   if (event.type === 'click') {
-  //     newLevel = levels[(idx === levels.length - 1) ? 0 : idx + 1];
-  //   } else if (event.type === 'contextmenu') {
-  //     newLevel = levels[(idx === 0) ? levels.length - 1 : idx - 1];
-  //   }
-
-  //   // Update the field value and save the form
-  //   if (skillType === 'lore' || skillType === 'martial') {
-  //     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-  //     // const itemToEdit = this.actor.getOwnedItem(itemId).data;
-  //     /* itemToEdit.data.proficient.value = newLevel;
-  //     this.actor.updateOwnedItem(itemToEdit); */
-
-  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
-  //   } else if (containerType === 'spellcastingEntry') {
-  //     const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-  //     // const itemToEdit = this.actor.items.find(i => i.id === itemId);
-  //     /* const itemToEdit = this.actor.getOwnedItem(itemId).data;
-  //     itemToEdit.data.proficiency.value = newLevel;
-  //     this.actor.updateOwnedItem(itemToEdit); */
-
-  //     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
-  //   } else {
-  //     field.val(newLevel);
-  //     this._onSubmit(event);
-  //   }
-  // }
 
   /**
    * Handle cycling of dying
@@ -1045,14 +945,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  /*   _onDragItemStart(event) {
-
-	  event.dataTransfer.setData("text/plain", JSON.stringify({
-      type: "Item",
-      actorId: this.actor._id,
-      id: itemId
-    }));
-  } */
   _onDragItemStart(event: any): boolean {
     const itemId = event.currentTarget.getAttribute('data-item-id');
     const containerType = event.currentTarget.getAttribute('data-container-type');
@@ -1365,8 +1257,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
     const li = $(event.currentTarget).parent().parent();
     const itemId = li.attr('data-item-id');
     const itemType = li.attr('data-item-type');
-    // itemData = this.actor.items.find(i => i.id === Number(itemId)),
-    // itemData = (this.actor.getOwnedItem(itemId) || {}).data,
     let item: PF2EItem;
 
     if (itemType === 'spellSlot') return false;
@@ -1409,18 +1299,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         });
       }
 
-      // if (chatData.area) props.append(`<span class="tag area-tool rollable" style="background: rgb(69,74,124); color: white;" data-area-areaType="${chatData.area.areaType}" data-area-size="${chatData.area.size}">${chatData.area.label}</span>`);
-
       div.append(props);
-
-      /* props.find('.area-tool').click(ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-
-        this._onAreaEffect(ev);
-      }) */
-
-
       li.append(div.hide());
       div.slideDown(200);
     }
@@ -1579,13 +1458,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
                 data: spellcastingEntity,
               };
 
-              // this.actor.createOwnedItem(data, {renderSheet: true});
               this.actor.createEmbeddedEntity('OwnedItem', data);
-
-              /*             let key = `data.attributes.spellcasting.entry.${magicTradition}#${spellcastingType}`
-                let entry = {};
-                entry[key] = spellcastingEntity;
-                this.actor.update(entry);  */
             }
           },
         },

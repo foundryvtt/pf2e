@@ -8,6 +8,8 @@
 export class PlayerConfigPF2e extends FormApplication {
     settings: any;
 
+    static highlightDataUri: boolean = false;
+
     constructor() {
         super({});
         this.settings = getProperty(game.user.data.flags, 'PF2e.settings');
@@ -101,8 +103,22 @@ export class PlayerConfigPF2e extends FormApplication {
      */
     async _updateObject(event, formdata) {
         console.log('PF2e System | Player Config updating settings');
+        PlayerConfigPF2e.highlightDataUri = formdata.highlightDataUri ?? false;
+        this.addRemoveHighlight(PlayerConfigPF2e.highlightDataUri);
         game.user.update({flags: { PF2e:{ settings:formdata } } });
         (<HTMLLinkElement>document.getElementById('pf2e-color-scheme')).href = `systems/pf2e/styles/user/color-scheme-${formdata.color}.css`;
+    }
+
+    addRemoveHighlight(add: boolean) {
+        if (add) {
+            if (!$('style.pf2e-data-highlight').length) {
+                $('<style></style>', {'class': 'pf2e-data-highlight'})
+                    .text('[src^="data:"], [style*="data:"] { border: 3px solid red !important; }')
+                    .appendTo('head');
+            }
+        } else {
+            $('style.pf2e-data-highlight').remove();
+        }
     }
 
     activateListeners(html) {
@@ -115,7 +131,9 @@ export class PlayerConfigPF2e extends FormApplication {
     getData() {
         console.log('PF2e System | Player Config getting data');
         this.settings = getProperty(game.user.data.flags, 'PF2e.settings');
-        return this.settings;
+        return mergeObject(this.settings, {
+            highlightDataUri: PlayerConfigPF2e.highlightDataUri,
+        });
     }
 
 }
