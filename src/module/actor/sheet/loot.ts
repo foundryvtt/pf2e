@@ -12,6 +12,7 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
             classes: options.classes.concat(['pf2e', 'actor', 'loot']),
             width: 650,
             height: 680,
+            tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "inventory" }],
         });
         return options;
     }
@@ -22,7 +23,7 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
         const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
 
-        if (isEditable) return editableSheetPath;
+        if (isEditable && game.user.isGM) return editableSheetPath;
 
         return nonEditableSheetPath;
     }
@@ -42,12 +43,16 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 };
             }
         }
+
         // Process default values
-        sheetData.flags = sheetData.actor.flags;
-        if (sheetData.flags.editLoot === undefined) sheetData.flags.editLoot = { value: false };
+        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value')
+        if (isEditable === undefined) {
+            this.actor.setFlag('pf2e', 'editLoot', { value: false });
+        }
 
         // Precalculate some data to adapt sheet more easily
-        sheetData.isShop = sheetData.data.isShop;
+        sheetData.isLoot = sheetData.data.lootSheetType === "Loot";
+        sheetData.isShop = ! sheetData.isLoot;
 
         this._prepareItems(sheetData.actor);
 
