@@ -97,6 +97,7 @@ export class KitItemSheetPF2e extends ItemSheet {
             "consumable",
             "treasure",
             "backpack",
+            "kit",
         ].includes(item.data.type)) {
             const entry = {
                 pack: dragItem.pack,
