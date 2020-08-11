@@ -245,6 +245,20 @@ export interface ArmorDetailsData {
     }
 }
 
+export interface KitDetailsData {
+    items: {[key: number]: KitEntryData};
+}
+
+export interface KitEntryData {
+    pack?: string;
+    id: string;
+    img: string;
+    quantity: number;
+    name: string;
+    isContainer: boolean;
+    items?: {[key: number]: KitEntryData};
+}
+
 export interface MeleeDetailsData {
     attack: {
         value: string
@@ -528,6 +542,10 @@ export interface ArmorData extends BaseEntityData<ArmorDetailsData & ItemDescrip
     type: 'armor'
 }
 
+export interface KitData extends BaseEntityData<ItemDescriptionData & KitDetailsData> {
+    type: 'kit'
+}
+
 export interface MeleeData extends BaseEntityData<MeleeDetailsData & ItemDescriptionData & PhysicalItemData & MagicItemData> {
     type: 'melee'
 }
@@ -566,7 +584,7 @@ export interface SpellcastingEntryData extends BaseEntityData<SpellcastingEntryD
 
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData;
+    ActionData | SpellData | SpellcastingEntryData | KitData;
 
 export function getPhysicalItemData(item: ItemData): BaseEntityData<PhysicalItemData> | null {
     if (item.type === 'backpack' ||
