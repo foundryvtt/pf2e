@@ -23,7 +23,7 @@ declare class Actors extends Collection<SystemActorType> {
 	tokens: Token[];
 
 	/** @override */
-	get object(): Actor;
+	get object(): SystemActorType;
 
 	values(): IterableIterator<SystemActorType>;
 
@@ -74,8 +74,7 @@ declare class Actors extends Collection<SystemActorType> {
  * @example <caption>Retrieve an existing Actor</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actor extends Entity {
-	data: any;
+declare class Actor extends Entity<SystemActorDataType> {
 
 	/**
 	 * A reference to a placed Token which creates a synthetic Actor
