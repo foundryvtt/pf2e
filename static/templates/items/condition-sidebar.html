@@ -1,0 +1,29 @@
+<h4 class="sidebar-summary">Condition</h4>
+
+<span class="item-summary">{{item.name}}</span>
+
+{{#unless data.duration.perpetual}}
+{{#if data.duration.value}}
+<span class="item-summary">Duration {{data.duration.value}} rounds</span>
+{{else}}
+<span class="item-summary">Duration {{data.duration.text}}</span>
+{{/if}}
+{{/unless}}
+
+{{#if data.modifiers.length}}
+<span class="item-summary">Modifiers</span>
+<ol class="item-tags">
+    {{#each data.modifiers}}
+    <li class="tag">{{this.group}} {{this.type}} {{#if data.value.isValued}}{{data.value.value}}{{else}}{{this.value}}{{/if}}</li>
+    {{/each}}
+</ol>
+{{/if}}
+
+{{#if data.overrides.length}}
+<span class="item-summary">Overrides</span>
+<ol class="item-tags">
+    {{#each data.overrides}}
+    <li class="tag">{{this}}</li>
+    {{/each}}
+</ol>
+{{/if}}

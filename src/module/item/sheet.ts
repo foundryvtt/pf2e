@@ -50,7 +50,7 @@ export class ItemSheetPF2e extends ItemSheet {
       type,
       hasSidebar: true,
       sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack'].includes(type),
+      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack', 'condition'].includes(type),
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     }); // Damage types
 
@@ -151,6 +151,10 @@ export class ItemSheetPF2e extends ItemSheet {
       data.featTags = [data.data.level.value, data.data.traits.value].filter(t => !!t);
 
       this._prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
+    } else if (type === 'condition') {
+      // Condition types
+
+      data.conditions = [];
     } else if (type === 'action') {
       // Action types
       const actorWeapons = [];

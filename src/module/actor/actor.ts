@@ -15,12 +15,14 @@ import {
     WISDOM,
 } from '../modifiers';
 import { ConditionModifiers } from '../condition-modifiers';
+import { PF2eConditionManager } from '../conditions';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
+import { ConditionData } from '../item/dataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -142,8 +144,15 @@ export default class PF2EActor extends Actor {
       damageDice[attack] = (damageDice[attack] || []).concat(dice); // eslint-disable-line no-param-reassign
     }
 
-    // calculate modifiers for conditions (from status effects)
-    data.statusEffects?.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
+    // Conditions
+    const conditions = PF2eConditionManager.getAppliedConditions(
+      Array.from<ConditionData>(actorData.items.filter((i:PF2EItem) => i.type === 'condition'))
+    );
+
+    PF2eConditionManager.getModifiersFromConditions(conditions).forEach(
+      (value: Array<PF2Modifier>, key: string) => {
+        statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value); // eslint-disable-line no-param-reassign      
+      });
 
     // Level, experience, and proficiency
     data.details.level.value = character.level;
