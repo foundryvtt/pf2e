@@ -112,7 +112,6 @@ describe('#modifiers', () => {
       new PF2Modifier('Circumstance Penalty', -1, PF2ModifierType.CIRCUMSTANCE),
       new PF2Modifier('Untyped Penalty', -1, PF2ModifierType.UNTYPED),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(9);
   });
@@ -123,7 +122,6 @@ describe('#modifiers', () => {
       new PF2Modifier('Status Bonus 2', 2, PF2ModifierType.STATUS),
       new PF2Modifier('Status Bonus 3', 3, PF2ModifierType.STATUS),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(3);
   });
@@ -133,7 +131,6 @@ describe('#modifiers', () => {
       new PF2Modifier('First Status Bonus', 2, PF2ModifierType.STATUS),
       new PF2Modifier('Second Status Bonus', 2, PF2ModifierType.STATUS),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(2);
     expect(modifiers[0].enabled).toBe(false);
@@ -146,7 +143,6 @@ describe('#modifiers', () => {
       new PF2Modifier('Status Penalty -2', -2, PF2ModifierType.STATUS),
       new PF2Modifier('Status Penalty -3', -3, PF2ModifierType.STATUS),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-3);
   });
@@ -156,7 +152,6 @@ describe('#modifiers', () => {
       new PF2Modifier('First Status Penalty', -2, PF2ModifierType.STATUS),
       new PF2Modifier('Second Status Penalty', -2, PF2ModifierType.STATUS),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-2);
     expect(modifiers[0].enabled).toBe(false);
@@ -168,7 +163,6 @@ describe('#modifiers', () => {
       new PF2Modifier('First Untyped Penalty', -2, PF2ModifierType.UNTYPED),
       new PF2Modifier('Second Untyped Penalty', -2, PF2ModifierType.UNTYPED),
     ];
-    modifiers.forEach((modifier) => modifier.disabled());
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-4);
   });
