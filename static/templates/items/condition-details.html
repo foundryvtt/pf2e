@@ -1,0 +1,41 @@
+<div class="form-group">
+    <label>{{localize "PF2E.Condition.ActiveLabel"}}</label>
+    <input type="checkbox" name="data.active" value="1" data-dtype="{{data.active.type}}" {{checked data.active}}/>
+    <label>{{localize "PF2E.Condition.RemovableLabel"}}</label>
+    <input type="checkbox" name="data.removable" value="1" data-dtype="{{data.removable.type}}" {{checked data.removable}}/>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.Condition.HasValueLabel"}}</label>
+    <input type="checkbox" name="data.value.isValued" value="1" data-dtype="{{data.value.isValued.type}}" {{checked data.value.isValued}}/>
+    {{#if data.value.isValued}}
+    <label title='{{localize "PF2E.Condition.ImmutableTitle"}}'>{{localize "PF2E.Condition.ImmutableLabel"}}</label>
+    <input type="checkbox" title='{{localize "PF2E.Condition.ImmutableTitle"}}' name="data.value.immutable" value="0" data-dtype="{{data.value.immutable.type}}" {{checked data.value.immutable}}/>
+    {{/if}}
+</div>
+
+{{#if data.value.isValued}}
+<div class="form-group">
+    <label>{{localize "PF2E.Condition.ValueLabel"}}</label>
+    <input type="text" name="data.value.value" value="{{data.value.value}}"
+            data-dtype="{{data.value.value.type}}"/>
+</div>
+{{/if}}
+
+<hr>
+
+
+<div class="form-group">
+    <label>{{localize "PF2E.Condition.PerpetualLabel"}}</label>
+    <input type="checkbox" name="data.duration.perpetual" value="1" data-dtype="{{data.duration.perpetual.type}}" {{checked data.duration.perpetual}}/>
+</div>
+{{#unless data.duration.perpetual}}
+<div class="form-group">
+    <label>{{localize "PF2E.Condition.DurationTextLabel"}}</label>
+    <input type="text" name="data.duration.text" value="{{data.duration.text}}"
+           data-dtype="{{data.duration.text.type}}"/>
+    <label>{{localize "PF2E.Condition.DurationNumberLabel"}}</label>
+    <input type="text" name="data.duration.value" value="{{data.duration.value}}"
+            data-dtype="{{data.duration.value.type}}"/>
+</div>
+{{/unless}}

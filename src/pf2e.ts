@@ -14,6 +14,7 @@ import { PF2Check } from './module/system/rolls';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
+import { PF2eConditionManager } from "./module/conditions"
 
 require('./styles/pf2e.scss');
 
@@ -57,6 +58,7 @@ Hooks.once('init', () => {
   // which enforced modules being private
   (window as any).DicePF2e = DicePF2e;
   (window as any).PF2eStatusEffects = PF2eStatusEffects;
+  (window as any).PF2eConditionManager = PF2eConditionManager;
 });
 
 Hooks.once('ready', () => {
