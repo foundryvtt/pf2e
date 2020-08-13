@@ -590,7 +590,8 @@
       "feat",
       "action",
       "backpack",
-      "kit"
+      "kit",
+      "condition"
     ],
     "templates": {
       "itemDescription": {
@@ -730,6 +731,24 @@
           "critDamage": "",
           "critDamageType": ""
         }
+      },
+      "status": {
+        "active": true,
+        "removable": true,
+        "hud": {
+          "statusName": "",
+          "selectable": true,
+          "img": {
+            "useStatusName": true,
+            "value": ""
+          }
+        },
+        "duration": {
+          "perpetual": true,
+          "value": 0,
+          "text": ""
+        },
+        "modifiers": []
       }
     },
     "backpack": {
@@ -1176,6 +1195,28 @@
         "itemDescription"
       ],
       "items": {}
+    },
+    "condition": {
+      "templates": [
+        "itemDescription",
+        "status"
+      ],
+      "base": "",
+      "value": {
+        "isValued": false,
+        "immutable": false,
+        "value": 0,
+        "modifiers": []
+      },
+      "sources": {
+        "hud": false,
+        "values": []
+      },
+      "alsoApplies": {
+        "linked": [],
+        "unlinked": []
+      },
+      "overrides": []
     }
   }
 }
