@@ -1,7 +1,6 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
-import CharacterData from './character';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -21,8 +20,8 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
-import { ConditionData, ArmorData } from '../item/dataDefinitions';
-import { AbilityData } from './actorDataDefinitions';
+import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
+import { AbilityData, CharacterData, NpcData } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -86,7 +85,6 @@ export default class PF2EActor extends Actor {
     if (actorData.type === 'character') this._prepareCharacterData(actorData);
     else if (actorData.type === 'npc') this._prepareNPCData(actorData);
 
-
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
       const map = {
@@ -120,18 +118,13 @@ export default class PF2EActor extends Actor {
 
   /* -------------------------------------------- */
 
-  /**
-   * Prepare Character type specific data
-   */
-  _prepareCharacterData(actorData) {
+  /** Prepare Character type specific data. */
+  private _prepareCharacterData(actorData: CharacterData) {
     const {data} = actorData;
-    const character = new CharacterData(data, this.items);
     const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
 
-    // Level, experience, and proficiency
-    data.details.level.value = character.level;
-    data.details.xp.max = character.maxExp;
-    data.details.xp.pct = character.xpPercent;
+    // Update experience percentage from raw experience amounts.
+    data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
 
     // Calculate HP and SP
     const bonusHpPerLevel = data.attributes.levelbonushp * data.details.level.value;
@@ -378,15 +371,15 @@ export default class PF2EActor extends Actor {
         advanced: { name: 'Advanced', rank: data?.martial?.advanced?.rank ?? 0 },
         unarmed: { name: 'Unarmed', rank: data?.martial?.unarmed?.rank ?? 0 },
       };
-      (actorData.items ?? []).filter((item) => item.type === 'martial').forEach((item) => {
+      (actorData.items ?? []).filter((item): item is MartialData => item.type === 'martial').forEach((item) => {
         proficiencies[item._id] = {
           name: item.name,
           rank: Number(item?.data?.proficient?.value ?? 0),
         };
       });
 
-      // always append unarmed strike
-      const unarmed = {
+      // Always add a basic unarmed strike.
+      const unarmed: any = {
         _id: 'fist',
         name: game.i18n.localize('PF2E.Strike.Fist.Label'),
         type: 'weapon',
@@ -407,7 +400,7 @@ export default class PF2EActor extends Actor {
         unarmed.data.damage.die = 'd6';
       }
 
-      (actorData.items ?? []).concat([unarmed]).filter((item) => item.type === 'weapon').forEach((item) => {
+      (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).forEach((item) => {
         const modifiers = [];
         {
           let ability = item.data.ability?.value ?? 'str'; // default to Str
@@ -594,7 +587,7 @@ export default class PF2EActor extends Actor {
   /**
    * Prepare NPC type specific data
    */
-  _prepareNPCData(actorData) {
+  private _prepareNPCData(actorData: NpcData) {
     const { data } = actorData;
     const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
 
@@ -618,32 +611,36 @@ export default class PF2EActor extends Actor {
     }
   }
 
-  _prepareCustomModifiers(actorData: any): { statisticsModifiers: any, damageDice: any } {
+  /** Compute custom stat modifiers provided by users or given by conditions. */
+  private _prepareCustomModifiers(actorData: CharacterData | NpcData): {
+    statisticsModifiers: Record<string, any>,
+    damageDice: Record<string, any>
+  } {
     const {data} = actorData;
-    const statisticsModifiers = {};
-    const damageDice = {};
 
-    // custom modifiers
+    // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
+    // TODO: Improve the typing here once we have more types; should be PF2Modifiers & PF2DamageDice (when they are interfaces).
+    const statisticsModifiers: Record<string, any> = {};
+    const damageDice: Record<string, any> = {};
+
+    // Custom Modifiers (which affect d20 rolls and damage).
     data.customModifiers = data.customModifiers ?? {};
     for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
       statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
     }
 
-    // damage dice
+    // Damage Dice (which add dice to damage rolls).
     data.damageDice = data.damageDice ?? {};
     for (const [attack, dice] of Object.entries(data.damageDice)) {
       damageDice[attack] = (damageDice[attack] || []).concat(dice);
     }
 
-    // Conditions
+    // Get all of the active conditions (from the item array), and add their modifiers.
     const conditions = PF2eConditionManager.getAppliedConditions(
-      Array.from<ConditionData>(actorData.items.filter((i:PF2EItem) => i.type === 'condition'))
-    );
-
-    PF2eConditionManager.getModifiersFromConditions(conditions).forEach(
-      (value: Array<PF2Modifier>, key: string) => {
-        statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);      
-      });
+      Array.from<ConditionData>(actorData.items.filter((i): i is ConditionData => i.type === 'condition')));
+    for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions)) {
+      statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
+    }
 
     return {
       statisticsModifiers,
