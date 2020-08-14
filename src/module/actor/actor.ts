@@ -14,7 +14,6 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
-import { ConditionModifiers } from '../condition-modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
@@ -85,7 +84,7 @@ export default class PF2EActor extends Actor {
 
     // Prepare Character data
     if (actorData.type === 'character') this._prepareCharacterData(actorData);
-    else if (actorData.type === 'npc') this._prepareNPCData(actorData.data);
+    else if (actorData.type === 'npc') this._prepareNPCData(actorData);
 
 
     if ('traits' in actorData.data) {
@@ -127,32 +126,7 @@ export default class PF2EActor extends Actor {
   _prepareCharacterData(actorData) {
     const {data} = actorData;
     const character = new CharacterData(data, this.items);
-
-    // this will most likely also relevant for NPCs
-    const statisticsModifiers = {};
-    const damageDice = {};
-
-    // custom modifiers
-    data.customModifiers = data.customModifiers ?? {}; // eslint-disable-line no-param-reassign
-    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers); // eslint-disable-line no-param-reassign
-    }
-
-    // damage dice
-    data.damageDice = data.damageDice ?? {}; // eslint-disable-line no-param-reassign
-    for (const [attack, dice] of Object.entries(data.damageDice)) {
-      damageDice[attack] = (damageDice[attack] || []).concat(dice); // eslint-disable-line no-param-reassign
-    }
-
-    // Conditions
-    const conditions = PF2eConditionManager.getAppliedConditions(
-      Array.from<ConditionData>(actorData.items.filter((i:PF2EItem) => i.type === 'condition'))
-    );
-
-    PF2eConditionManager.getModifiersFromConditions(conditions).forEach(
-      (value: Array<PF2Modifier>, key: string) => {
-        statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value); // eslint-disable-line no-param-reassign      
-      });
+    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
 
     // Level, experience, and proficiency
     data.details.level.value = character.level;
@@ -620,11 +594,61 @@ export default class PF2EActor extends Actor {
   /**
    * Prepare NPC type specific data
    */
-  _prepareNPCData(data) {
-    // As we only capture the NPCs Spell DC attribute, we need to calculate the Spell Attack Roll.
-    // see sidebar on p298 of pf2e core rulebook.
+  _prepareNPCData(actorData) {
+    const { data } = actorData;
+    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
 
-    // data.attributes.spelldc.value = data.attributes.spelldc.dc - 10;
+    // Armor Class
+    {
+      const modifiers = [];
+      const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
+      modifiers.push(new PF2Modifier('PF2E.BaseModifier', base - 10 - data.abilities.dex.mod, PF2ModifierType.UNTYPED));
+      modifiers.push(new PF2Modifier('PF2E.AbilityDex', data.abilities.dex.mod, PF2ModifierType.ABILITY));
+      ['ac', 'dex-based', 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+
+      data.attributes.ac = new PF2StatisticModifier("ac", modifiers);
+      data.attributes.ac.base = base;
+      data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
+      data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
+        data.attributes.ac.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
+    }
+  }
+
+  _prepareCustomModifiers(actorData: any): { statisticsModifiers: any, damageDice: any } {
+    const {data} = actorData;
+    const statisticsModifiers = {};
+    const damageDice = {};
+
+    // custom modifiers
+    data.customModifiers = data.customModifiers ?? {};
+    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+    }
+
+    // damage dice
+    data.damageDice = data.damageDice ?? {};
+    for (const [attack, dice] of Object.entries(data.damageDice)) {
+      damageDice[attack] = (damageDice[attack] || []).concat(dice);
+    }
+
+    // Conditions
+    const conditions = PF2eConditionManager.getAppliedConditions(
+      Array.from<ConditionData>(actorData.items.filter((i:PF2EItem) => i.type === 'condition'))
+    );
+
+    PF2eConditionManager.getModifiersFromConditions(conditions).forEach(
+      (value: Array<PF2Modifier>, key: string) => {
+        statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);      
+      });
+
+    return {
+      statisticsModifiers,
+      damageDice
+    };
   }
 
   getStrikeDescription(item) {
