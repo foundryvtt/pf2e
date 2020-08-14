@@ -1,5 +1,29 @@
 # Patch Notes:
 
+## Version 1.9.7
+### New Features
+* (@atnoslen) Added a condition manager that knows how to deal with overriding and linked conditions, and allows users to add custom conditions.
+
+### Content Changes
+* (@overdox) Compendium changes
+    * Added more equipment icons
+    * Added more spell icons
+* (@TMun) Compendium changes
+    * Add Irori boons and curses (#690)
+    * Re-add Graveknight and Shaitan to Bestiary 1 (#688)
+    * Correct spelling of Gloomglow Mushrooms in AoA bestiary (#689)
+* (@TMun) Added several missing traits
+
+### Bug Fixes
+* (@abrault) Catch NaN error when modifying token attribute
+* (@In3luki) Add check to FormulaPreservingRoll for Foundry 0.7.x compatibility
+* (@nikolaj-a) Fix token HUD shield resource
+
+### Core System Improvements
+* (@abrault) Refactor kits to allow homebrew, and changed the built-in kits to use the new setup
+* (@Ralar) Loot sheet updates: clean up layout and add description field, and fix treasure value
+
+
 ## Version 1.9.6
 ### New Features
 * (@fryguy1013) Allow editing max xp (for PFS characters, and homebrew XP)

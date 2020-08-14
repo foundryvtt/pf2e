@@ -15,12 +15,14 @@ import {
     WISDOM,
 } from '../modifiers';
 import { ConditionModifiers } from '../condition-modifiers';
+import { PF2eConditionManager } from '../conditions';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
+import { ConditionData } from '../item/dataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -142,8 +144,15 @@ export default class PF2EActor extends Actor {
       damageDice[attack] = (damageDice[attack] || []).concat(dice); // eslint-disable-line no-param-reassign
     }
 
-    // calculate modifiers for conditions (from status effects)
-    data.statusEffects?.forEach((effect) => ConditionModifiers.addStatisticModifiers(statisticsModifiers, effect));
+    // Conditions
+    const conditions = PF2eConditionManager.getAppliedConditions(
+      Array.from<ConditionData>(actorData.items.filter((i:PF2EItem) => i.type === 'condition'))
+    );
+
+    PF2eConditionManager.getModifiersFromConditions(conditions).forEach(
+      (value: Array<PF2Modifier>, key: string) => {
+        statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value); // eslint-disable-line no-param-reassign      
+      });
 
     // Level, experience, and proficiency
     data.details.level.value = character.level;
@@ -317,6 +326,13 @@ export default class PF2EActor extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
       /* eslint-enable */
+    }
+
+    // Shield
+    const shield = this.getFirstEquippedShield();
+    if (shield) {
+        data.attributes.shield.value = shield.data.hp.value;
+        data.attributes.shield.max = shield.data.maxHp.value;
     }
 
     // Skill modifiers
@@ -583,6 +599,12 @@ export default class PF2EActor extends Actor {
             .find((armor) => armor.data.equipped.value);
     }
 
+    getFirstEquippedShield() {
+        return this.data.items.filter(item => item.type === 'armor')
+            .filter(armor => armor.data.armorType.value === 'shield')
+            .find(shield => shield.data.equipped.value);
+    }
+
     static traits(source) {
       if (Array.isArray(source)) {
         return source;
@@ -847,15 +869,14 @@ export default class PF2EActor extends Actor {
           </div>
           `;
 
-        const succeslyApplied = await t.actor.modifyTokenAttribute(attribute, value*-1, true, true);
-        if (succeslyApplied ) {
+        t.actor.modifyTokenAttribute(attribute, value*-1, true, true).then(() => {
           ChatMessage.create({
             user: game.user._id,
             speaker: { alias: t.name },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER
           });
-        }
+        });
       }
     } else {
       ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
@@ -995,30 +1016,65 @@ export default class PF2EActor extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    const {hp} = this.data.data.attributes;
-    const {sp} = this.data.data.attributes;
-
-    if ( attribute === 'attributes.shield') {
-      const {shield} = this.data.data.attributes;
-      if (isDelta && value < 0) {
-        value = Math.min( (shield.hardness + value) , 0); // value is now a negative modifier (or zero), taking into account hardness
-        this.update({[`data.attributes.shield.value`]: Math.clamped(0, shield.value + value, shield.max)});
-        attribute = 'attributes.hp';
-      }
+    if (Number.isNaN(value)) {
+      return Promise.reject();
     }
 
-    if (attribute === 'attributes.hp') {
-      if (isDelta) {
-        if (value < 0) {
-          value = this.calculateHealthDelta({hp, sp, delta: value})
+    if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
+      const updateActorData = {};
+      let updateShieldData;
+      if (attribute === 'attributes.shield') {
+        const shield = this.getFirstEquippedShield();
+        if (shield) {
+          let shieldHitPoints = shield.data.hp.value;
+          if (isDelta && value < 0) {
+            // shield block
+            value = Math.min(shield.data.hardness.value + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+            if (value < 0) {
+              attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
+              shieldHitPoints = Math.clamped(shield.data.hp.value + value, 0, shield.data.maxHp.value);
+            }
+          } else {
+            shieldHitPoints = Math.clamped(value, 0, shield.data.maxHp.value)
+          }
+          shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
+          updateActorData['data.attributes.shield.value'] = shieldHitPoints;
+          // actor update is necessary to properly refresh the token HUD resource bar
+          updateShieldData = {
+            '_id': shield._id,
+            data: { hp: { value: shieldHitPoints } } // unfolding is required when update is forced regardless of diff
+          };
+        } else if (isDelta) {
+          attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
         }
-        value = Math.clamped(0, Number(hp.value) + value, hp.max);
       }
-      value = Math.clamped(value, 0, hp.max);
-      return this.update({[`data.attributes.hp.value`]: value});
-    }
 
-    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+      if (attribute === 'attributes.hp') {
+        const {hp, sp} = this.data.data.attributes;
+        if (isDelta) {
+          if (value < 0) {
+            const { update, delta } = this._calculateHealthDelta({hp, sp, delta: value});
+            value = delta;
+            for (const [k, v] of Object.entries(update)) {
+              updateActorData[k] = v;
+            }
+          }
+          value = Math.clamped(Number(hp.value) + value, 0, hp.max);
+        }
+        value = Math.clamped(value, 0, hp.max);
+        updateActorData['data.attributes.hp.value'] = value;
+      }
+
+      return this.update(updateActorData).then(() => {
+        if (updateShieldData) {
+          // this will trigger a second prepareData() call, but is necessary for persisting the shield state
+          this.updateOwnedItem(updateShieldData, { diff: false });
+        }
+        return this;
+      }) as Promise<PF2EActor>;
+    } else {
+      return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    }
   }
 
   /**
@@ -1026,27 +1082,29 @@ export default class PF2EActor extends Actor {
    * This allows for game systems to override this behavior and deploy special logic.
    * @param {object} args   Contains references to the hp, and sp objects.
    */
-  calculateHealthDelta(args) {
+  _calculateHealthDelta(args) {
+    const update = {};
     let {hp, sp, delta} = args;
     if ((hp.temp + delta) >= 0) {
-      const newTempHp = hp.temp + delta;
-      this.update({[`data.attributes.hp.temp`]: newTempHp});
+      update['data.attributes.hp.temp'] = hp.temp + delta;
       delta = 0;
     } else {
+      update['data.attributes.hp.temp'] = 0;
       delta = hp.temp + delta;
-      this.update({[`data.attributes.hp.temp`]: 0});
     }
     if (game.settings.get('pf2e', 'staminaVariant') > 0 && delta < 0) {
       if ((sp.value + delta) >= 0) {
-        const newSP = sp.value + delta;
-        this.update({[`data.attributes.sp.value`]: newSP});
+        update['data.attributes.sp.value'] = sp.value + delta;
         delta = 0;
       } else {
+        update['data.attributes.sp.value'] = 0;
         delta = sp.value + delta;
-        this.update({[`data.attributes.sp.value`]: 0});
       }
     }
-    return delta;
+    return {
+      update,
+      delta
+    };
   }
 
   /**

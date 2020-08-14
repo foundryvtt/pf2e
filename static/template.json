@@ -566,8 +566,13 @@
       }
     },
     "loot": {
-      "templates": [ "currency" ],
-      "isShop": false
+      "templates": [],
+      "details": {
+        "description": {
+          "value": ""
+        }
+      },
+      "lootSheetType": "Loot"
     }
   },
   "Item": {
@@ -584,7 +589,9 @@
       "spellcastingEntry",
       "feat",
       "action",
-      "backpack"
+      "backpack",
+      "kit",
+      "condition"
     ],
     "templates": {
       "itemDescription": {
@@ -724,6 +731,24 @@
           "critDamage": "",
           "critDamageType": ""
         }
+      },
+      "status": {
+        "active": true,
+        "removable": true,
+        "hud": {
+          "statusName": "",
+          "selectable": true,
+          "img": {
+            "useStatusName": true,
+            "value": ""
+          }
+        },
+        "duration": {
+          "perpetual": true,
+          "value": 0,
+          "text": ""
+        },
+        "modifiers": []
       }
     },
     "backpack": {
@@ -1164,6 +1189,34 @@
           "max": 0
         }
       }
+    },
+    "kit": {
+      "templates": [
+        "itemDescription"
+      ],
+      "items": {}
+    },
+    "condition": {
+      "templates": [
+        "itemDescription",
+        "status"
+      ],
+      "base": "",
+      "value": {
+        "isValued": false,
+        "immutable": false,
+        "value": 0,
+        "modifiers": []
+      },
+      "sources": {
+        "hud": false,
+        "values": []
+      },
+      "alsoApplies": {
+        "linked": [],
+        "unlinked": []
+      },
+      "overrides": []
     }
   }
 }

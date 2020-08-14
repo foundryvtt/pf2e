@@ -1,7 +1,7 @@
 import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
 import {isCycle} from "../../item/container";
-import { isKit, addKit } from '../../item/kits';
+import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
 import { SKILL_DICTIONARY } from '../actor';
@@ -1100,39 +1100,37 @@ abstract class ActorSheetPF2e extends ActorSheet {
         }
         // Case 1 - Import from a Compendium pack
         const actor = this.actor;
+        let itemData;
         if (data.pack) {
-          console.log(`Comes from compemdium`);
+            console.log(`Comes from compemdium`);
             const pack = game.packs.get(data.pack);
-            if (isKit(data.id)) {
-                await addKit(data.id, async (itemId, containerId, quantity) => {
-                    const itemData = await pack.getEntry(itemId);
-                    const createdItem = await actor.createOwnedItem(itemData);
-                    const ownedItem = actor.getOwnedItem(createdItem._id);
-                    const update = {};
-                    if (containerId) update['data.containerId.value'] = containerId;
-                    if (quantity) update['data.quantity.value'] = quantity;
-                    await ownedItem.update(update);
-                    return createdItem._id;
-                });
-            } else {
-                return this.stashOrUnstash(event, actor, async () => {
-                    const itemData = await pack.getEntry(data.id);
-                    const item = await actor.createOwnedItem(itemData);
-                    return actor.getOwnedItem(item._id);
-                });
-            }
+            itemData = await pack.getEntry(data.id);
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
             this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
+            return;
         }
         // Case 3 - Import from World entity
         else {
-          console.log(`From world entry`);
-            let item = game.items.get(data.id);
+            console.log(`From world entry`);
+            const item = game.items.get(data.id);
             if (!item) return;
-            return this.stashOrUnstash(event, actor, () => {
-                return actor.createEmbeddedEntity("OwnedItem", duplicate(item.data));
+            itemData = duplicate(item.data);
+        }
+
+        if (itemData.type === 'kit') {
+            await addKit(itemData, async (newItems) => {
+                const items = await actor.createOwnedItem(newItems);
+                if (Array.isArray(items)) {
+                    return items.map(item => item._id);
+                } else {
+                    return [items._id];
+                }
+            });
+        } else {
+            return this.stashOrUnstash(event, actor, async () => {
+                return actor.createOwnedItem(itemData);
             });
         }
     }

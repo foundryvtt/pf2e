@@ -245,6 +245,20 @@ export interface ArmorDetailsData {
     }
 }
 
+export interface KitDetailsData {
+    items: {[key: number]: KitEntryData};
+}
+
+export interface KitEntryData {
+    pack?: string;
+    id: string;
+    img: string;
+    quantity: number;
+    name: string;
+    isContainer: boolean;
+    items?: {[key: number]: KitEntryData};
+}
+
 export interface MeleeDetailsData {
     attack: {
         value: string
@@ -512,6 +526,61 @@ export interface SpellcastingEntryDetailsData {
     }
 }
 
+export interface StatusDetailsData {
+    active: boolean,
+    removable: boolean,
+    hud: {
+        statusName: string,
+        img: {
+            useStatusName: boolean,
+            value: string
+        },
+        selectable: boolean
+    },
+    duration: {
+        perpetual: boolean,
+        value: number,
+        text: string
+    },
+    modifiers: [{
+        type: 'ability' | 'proficiency' | 'status' | 'circumstance' | 'item' | 'untyped'
+        name: string,
+        group: string,
+        value?: number,
+    }]
+}
+
+export interface ConditionDetailsData {
+    base: string,
+    value: {
+        isValued: boolean,
+        immutable: boolean,
+        value: number,
+        modifiers: [{
+            value: number,
+            source: string
+        }]
+    },
+    sources: {
+        hud: boolean,
+        values: [{
+            id: string,
+            type: 'condition' | 'feat' | 'skill'
+        }]
+    },
+    alsoApplies: {
+        linked: [{
+            condition: string,
+            value?: number
+        }],
+        unlinked: [{
+            condition: string,
+            value?: number
+        }]
+    },
+    overrides: []
+}
+
 export interface BackpackData extends BaseEntityData<BackpackDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData> {
     type: 'backpack'
 }
@@ -526,6 +595,10 @@ export interface WeaponData extends BaseEntityData<WeaponDetailsData & ItemDescr
 
 export interface ArmorData extends BaseEntityData<ArmorDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData & MagicItemData> {
     type: 'armor'
+}
+
+export interface KitData extends BaseEntityData<ItemDescriptionData & KitDetailsData> {
+    type: 'kit'
 }
 
 export interface MeleeData extends BaseEntityData<MeleeDetailsData & ItemDescriptionData & PhysicalItemData & MagicItemData> {
@@ -564,9 +637,17 @@ export interface SpellcastingEntryData extends BaseEntityData<SpellcastingEntryD
     type: 'spellcastingEntry'
 }
 
+export interface StatusData extends BaseEntityData<ItemDescriptionData & StatusDetailsData> {
+    type: 'status'
+}
+
+export interface ConditionData extends BaseEntityData<ItemDescriptionData & StatusDetailsData & ConditionDetailsData> {
+    type: 'condition'
+}
+
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData;
+    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
 
 export function getPhysicalItemData(item: ItemData): BaseEntityData<PhysicalItemData> | null {
     if (item.type === 'backpack' ||

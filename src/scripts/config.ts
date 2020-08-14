@@ -19,6 +19,7 @@ CONFIG.abilities = {
   "wis": "PF2E.AbilityWis",
   "cha": "PF2E.AbilityCha"
 };
+
 CONFIG.attributes = {
   "perception": "PF2E.PerceptionLabel",
   "stealth": "PF2E.StealthLabel",
@@ -67,11 +68,13 @@ CONFIG.currencies = {
   "sp": "PF2E.CurrencySP",
   "cp": "PF2E.CurrencyCP"
 };
+
 CONFIG.preciousMaterialGrades = {
   low: "PF2E.PreciousMaterialLowGrade",
   standard: "PF2E.PreciousMaterialStandardGrade",
   high: "PF2E.PreciousMaterialHighGrade"
 };
+
 CONFIG.preciousMaterials = {
   coldIron: "PF2E.PreciousMaterialColdIron",
   silver: "PF2E.PreciousMaterialSilver",
@@ -79,14 +82,17 @@ CONFIG.preciousMaterials = {
   adamantine: "PF2E.PreciousMaterialAdamantine",
   darkwood: "PF2E.PreciousMaterialDarkwood",
   dragonhide: "PF2E.PreciousMaterialDragonhide",
-  orichalcum: "PF2E.PreciousMaterialOrichalcum"
+  orichalcum: "PF2E.PreciousMaterialOrichalcum",
+  'sovereign steel': "PF2E.PreciousMaterialSovereignSteel"
 };
+
 CONFIG.armorPotencyRunes = {
   "1": "PF2E.ArmorPotencyRune1",
   "2": "PF2E.ArmorPotencyRune2",
   "3": "PF2E.ArmorPotencyRune3",
   "4": "PF2E.ArmorPotencyRune4"
 };
+
 CONFIG.armorResiliencyRunes = {
   resilient: "PF2E.ArmorResilientRune",
   greaterResilient: "PF2E.ArmorGreaterResilientRune",
@@ -218,6 +224,7 @@ CONFIG.resistanceTypes = {
   "draconic resistance": "PF2E.ResistanceTypeDragonResistance",
   "protean anatomy": "PF2E.ResistanceTypeProteanAnatomy",
 };
+
 CONFIG.stackGroups = {
   bolts: 'PF2E.StackGroupBolts',
   arrows: 'PF2E.StackGroupArrows',
@@ -257,7 +264,7 @@ CONFIG.weaknessTypes = {
   silver: 'PF2E.WeaknessTypeSilver',
   'area-damage': 'PF2E.WeaknessTypeAreaDamage',
   'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
-  salt: "PF2E.WeaknessTypeSalt", 
+  salt: 'PF2E.WeaknessTypeSalt', 
   'salt water': "PF2E.WeaknessTypeSaltWater", 
   'vorpal fear': "PF2E.WeaknessTypeVorpalFear", 
   'vorpal weapons': "PF2E.WeaknessTypeVorpalWeapons",
@@ -318,6 +325,7 @@ CONFIG.weaponDescriptions = {
   sling: 'PF2E.WeaponDescriptionSling',
   bomb: 'PF2E.WeaponDescriptionBomb'
 };
+
 CONFIG.usageTraits = {
   'held-in-one-hand': 'PF2E.TraitHeldOneHand',
   'held-in-two-hands': 'PF2E.TraitHeldTwoHands',
@@ -343,6 +351,7 @@ CONFIG.usageTraits = {
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
   wornwrist: 'PF2E.TraitWornOnWrists'
 };
+
 CONFIG.rarityTraits = {
   common: 'PF2E.TraitCommon',
   uncommon: 'PF2E.TraitUncommon',
@@ -364,6 +373,7 @@ CONFIG.magicTraditions = {
   wand: 'PF2E.TraitWand'
 };
 mergeObject(CONFIG.magicTraditions, CONFIG.spellTraditions);
+
 CONFIG.magicalSchools = {
   abjuration: 'PF2E.TraitAbjuration',
   conjuration: 'PF2E.TraitConjuration',
@@ -385,6 +395,7 @@ CONFIG.spellSchools = {
   nec: 'PF2E.SpellSchoolNec',
   trs: 'PF2E.SpellSchoolTrs'
 };
+
 CONFIG.classTraits = {
   alchemist: 'PF2E.TraitAlchemist',
   barbarian: 'PF2E.TraitBarbarian',
@@ -435,6 +446,7 @@ CONFIG.weaponTraits = {
   adamantine: 'PF2E.PreciousMaterialAdamantine',
   alchemical: 'PF2E.TraitAlchemical',
   agile: 'PF2E.TraitAgile',
+  artifact: 'PF2E.TraitArtifact',
   attached: 'PF2E.TraitAttached',
   backstabber: 'PF2E.TraitBackstabber',
   backswing: 'PF2E.TraitBackswing',
@@ -443,27 +455,35 @@ CONFIG.weaponTraits = {
   chaotic: 'PF2E.TraitChaotic',
   cold: 'PF2E.TraitCold',
   coldiron: 'PF2E.TraitColdiron',
+  concealable: 'PF2E.TraitConcealable',
   consumable: 'PF2E.TraitConsumable',
+  cursed: 'PF2E.TraitCursed',
   'deadly-d6': 'PF2E.TraitDeadlyD6',
   'deadly-d8': 'PF2E.TraitDeadlyD8',
   'deadly-d10': 'PF2E.TraitDeadlyD10',
   'deadly-d12': 'PF2E.TraitDeadlyD12',
   disarm: 'PF2E.TraitDisarm',
+  earth: 'PF2E.TraitEarth',
   electricity: 'PF2E.TraitElectricity',
+  emotion: 'PF2E.TraitEmotion',
   evil: 'PF2E.TraitEvil',  
   'fatal-d8': 'PF2E.TraitFatalD8',
   'fatal-d10': 'PF2E.TraitFatalD10',
   'fatal-d12': 'PF2E.TraitFatalD12',
+  fear: 'PF2E.TraitFear',
   finesse: 'PF2E.TraitFinesse',
   fire: 'PF2E.TraitFire',
   forceful: 'PF2E.TraitForceful',
+  fortune: 'PF2E.TraitFortune',
   'free-hand': 'PF2E.TraitFreeHand',
   good: 'PF2E.TraitGood',  
   grapple: 'PF2E.TraitGrapple',
   improvised: 'PF2E.TraitImprovised',
   'jousting-d6': 'PF2E.TraitJoustingD6',
   lawful: 'PF2E.TraitLawful',
+  light: 'PF2E.TraitLight',
   magical: 'PF2E.TraitMagical',
+  mental: 'PF2E.TraitMental',
   ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
   nonlethal: 'PF2E.TraitNonlethal',
   parry: 'PF2E.TraitParry',
@@ -538,6 +558,8 @@ CONFIG.weaponTraits = {
 mergeObject(CONFIG.weaponTraits, CONFIG.classTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.weaponTraits, CONFIG.magicalSchools);
+mergeObject(CONFIG.weaponTraits, CONFIG.spellTraditions);
+
 CONFIG.armorTraits = {
   bulwark: "PF2E.TraitBulwark",
   comfort: "PF2E.TraitComfort",
@@ -547,7 +569,10 @@ CONFIG.armorTraits = {
   invested: "PF2E.TraitInvested",
   artifact: "PF2E.TraitArtifact",
   intelligent: "PF2E.TraitIntelligent",
-  magical: "PF2E.TraitMagical"
+  magical: "PF2E.TraitMagical",
+  good: "PF2E.TraitGood",
+  evil: "PF2E.TraitEvil",
+  force: "PF2E.TraitForce"
 };
 mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools); // Weapon Properties
 
@@ -556,16 +581,36 @@ CONFIG.equipmentTraits = {
   apex: "PF2E.TraitApex",
   artifact: "PF2E.TraitArtifact",
   companion: "PF2E.TraitCompanion",
+  chaotic: "PF2E.TraitChaotic",
   cursed: "PF2E.TraitCursed",
   invested: "PF2E.TraitInvested",
+  lawful: "PF2E.TraitLawful",
   magical: "PF2E.TraitMagical",
+  precious: "PF2E.TraitPrecious",
   saggorak: "PF2E.TraitSaggorak",
   staff: "PF2E.TraitStaff",
   structure: "PF2E.TraitStructure",
   tattoo: "PF2E.TraitTattoo",
-  wand: "PF2E.TraitWand"
+  wand: "PF2E.TraitWand",
+  air: "PF2E.TraitAir",
+  focused: "PF2E.TraitFocused",
+  acid: "PF2E.TraitAcid",
+  scrying: "PF2E.TraitScrying",
+  visual: "PF2E.TraitVisual",
+  water: "PF2E.TraitWater",
+  emotion: "PF2E.TraitEmotion",
+  fear: "PF2E.TraitFear",
+  mental: "PF2E.TraitMental",
+  light: "PF2E.TraitLight",
+  death: "PF2E.TraitDeath",
+  evil: "PF2E.TraitEvil",
+  fire: "PF2E.TraitFire",
+  cold: "PF2E.TraitCold"
 };
 mergeObject(CONFIG.equipmentTraits, CONFIG.magicalSchools);
+mergeObject(CONFIG.equipmentTraits, CONFIG.ancestryTraits);
+mergeObject(CONFIG.equipmentTraits, CONFIG.spellTraditions);
+
 CONFIG.consumableTraits = {
   bomb: "PF2E.TraitBomb",
   consumable: "PF2E.TraitConsumable",
@@ -588,9 +633,18 @@ CONFIG.consumableTraits = {
   virulent: "PF2E.TraitVirulent",
   healing: "PF2E.TraitHealing",
   magical: "PF2E.TraitMagical",
-  arcane: "PF2E.TraitArcane"
+  fortune: "PF2E.TraitFortune",
+  auditory: "PF2E.TraitAuditory",
+  polymorph: "PF2E.TraitPolymorph",
+  mental: "PF2E.TraitMental",
+  good: "PF2E.TraitGood",
+  evil: "PF2E.TraitEvil", 
+  fire: "PF2E.TraitFire",
+  fear: "PF2E.TraitFear",
+  visual: "PF2E.TraitVisual"
 };
 mergeObject(CONFIG.consumableTraits, CONFIG.magicalSchools); // Spell Traits
+mergeObject(CONFIG.consumableTraits, CONFIG.spellTraditions);
 
 CONFIG.spellTraits = {
   attack: 'PF2E.TraitAttack',
@@ -686,6 +740,7 @@ mergeObject(CONFIG.featTraits, CONFIG.spellTraditions);
 mergeObject(CONFIG.featTraits, CONFIG.magicalSchools);
 mergeObject(CONFIG.featTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.featTraits, CONFIG.spellTraits);
+
 CONFIG.monsterTraits = {
   couatl: "PF2E.TraitCouatl",
   dream: "PF2E.TraitDream",
@@ -787,6 +842,7 @@ CONFIG.monsterTraits = {
 };
 mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
+
 CONFIG.hazardTraits = {
   environmental: 'PF2E.TraitEnvironmental',
   haunt: 'PF2E.TraitHaunt',
@@ -1107,8 +1163,7 @@ CONFIG.areaSizes = {
   50: 'PF2E.AreaSize50',
   60: 'PF2E.AreaSize60',
   120: 'PF2E.AreaSize120'
-  
-}; // Alignment
+  }; // Alignment
 
 CONFIG.alignment = {
   LG: "PF2E.AlignmentLG",
@@ -1211,6 +1266,7 @@ CONFIG.actionsNumber = {
   2: 'PF2E.ActionNumber2',
   3: 'PF2E.ActionNumber3'
 };
+
 CONFIG.actionCategories = {
   interaction: "PF2E.ActionCategoryInteraction",
   defensive: "PF2E.ActionCategoryDefensive",
@@ -1240,12 +1296,14 @@ CONFIG.actorSizes = {
   huge: 'PF2E.ActorSizeHuge',
   grg: 'PF2E.ActorSizeGargantuan'
 };
+
 CONFIG.speedTypes = {
   swim: 'PF2E.SpeedTypesSwim',
   climb: "PF2E.SpeedTypesClimb",
   fly: "PF2E.SpeedTypesFly",
   burrow: "PF2E.SpeedTypesBurrow"
 };
+
 CONFIG.senses = {
   darkvision: 'PF2E.SensesDarkvision',
   greaterDarkvision: 'PF2E.SensesGreaterDarkvision',
@@ -1499,6 +1557,7 @@ CONFIG.languages = {
   utopian: 'PF2E.LanguageUtopian',
   varki: 'PF2E.LanguageVarki'
 };
+
 CONFIG.spellScalingModes = {
   none: 'PF2E.SpellScalingModeNone',
   level1: 'PF2E.SpellScalingModeLevel1',
@@ -1515,6 +1574,7 @@ CONFIG.spellScalingModes = {
   levelninth: 'PF2E.SpellScalingModeLevelninth',
   leveltenth: 'PF2E.SpellScalingModeLeveltenth'
 };
+
 CONFIG.attackEffects = {
   "Grab": 'PF2E.AttackEffectGrab',
   "Improved Grab": 'PF2E.AttackEffectImprovedGrab',

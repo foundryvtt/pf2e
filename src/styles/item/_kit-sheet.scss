@@ -1,0 +1,35 @@
+.kit-list {
+    ul.kit-items {
+        padding: 0;
+
+        li.kit-item {
+            display: grid;
+            grid-template-columns: 26px 30px auto 10px;
+            align-items: center;
+
+            &:nth-of-type(even) {
+                background-color: rgba(120, 100, 82, 0.1);
+            }
+
+            .kit-item-name {
+                line-height: 1em;
+                height: 1em;
+
+                .fa.fa-globe {
+                    padding: 0 3px;
+                    float: right;
+                }
+            }
+        }
+
+        ul {
+            padding-left: 0.5em;
+            margin-top: 0;
+            grid-column: 1 / 5;
+            
+            &:empty {
+                display: none;
+            }
+        }
+    }
+}
