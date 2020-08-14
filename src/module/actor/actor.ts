@@ -22,7 +22,8 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
-import { ConditionData } from '../item/dataDefinitions';
+import { ConditionData, ArmorData } from '../item/dataDefinitions';
+import { AbilityData } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -68,27 +69,26 @@ export default class PF2EActor extends Actor {
 
     // Get the Actor's data object
     const actorData = this.data;
-    const { data } = actorData;
     this._prepareTokenImg();
 
     // Ability modifiers
     if (actorData.type === 'npc') {
-      for (const abl of Object.values(data.abilities as Record<any, any>)) {
+      for (const abl of Object.values(actorData.data.abilities as Record<string, AbilityData>)) {
         if (!abl.mod) abl.mod = 0;
         abl.value = abl.mod * 2 + 10;
       }
     } else if (actorData.type == 'character') {
-      for (const abl of Object.values(data.abilities as Record<any, any>)) {
+      for (const abl of Object.values(actorData.data.abilities as Record<string, AbilityData>)) {
         abl.mod = Math.floor((abl.value - 10) / 2);
       }
     }
 
     // Prepare Character data
     if (actorData.type === 'character') this._prepareCharacterData(actorData);
-    else if (actorData.type === 'npc') this._prepareNPCData(data);
+    else if (actorData.type === 'npc') this._prepareNPCData(actorData.data);
 
 
-    if (data.traits !== undefined) {
+    if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
       const map = {
         dr: CONFIG.PF2E.damageTypes,
@@ -98,7 +98,7 @@ export default class PF2EActor extends Actor {
         languages: CONFIG.PF2E.languages,
       };
       for (const [t, choices] of Object.entries(map)) {
-        const trait = data.traits[t];
+        const trait = actorData.data.traits[t];
         if (trait == undefined) continue;
         if (!(trait.value instanceof Array)) {
           trait.value = TraitSelector5e._backCompat(trait.value, choices);
@@ -593,14 +593,14 @@ export default class PF2EActor extends Actor {
       }
     }
 
-    getFirstWornArmor() {
-        return this.data.items.filter((item) => item.type === 'armor')
+    getFirstWornArmor(): ArmorData {
+        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
             .filter((armor) => armor.data.armorType.value !== 'shield')
             .find((armor) => armor.data.equipped.value);
     }
 
-    getFirstEquippedShield() {
-        return this.data.items.filter(item => item.type === 'armor')
+    getFirstEquippedShield(): ArmorData {
+        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
             .filter(armor => armor.data.armorType.value === 'shield')
             .find(shield => shield.data.equipped.value);
     }
