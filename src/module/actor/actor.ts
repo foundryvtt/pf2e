@@ -1004,6 +1004,9 @@ export default class PF2EActor extends Actor {
    * @return {Promise}
    */
   async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
+    if (Number.isNaN(value)) {
+      return;
+    }
     const {hp} = this.data.data.attributes;
     const {sp} = this.data.data.attributes;
 
