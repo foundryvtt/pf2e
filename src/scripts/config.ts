@@ -533,6 +533,7 @@ CONFIG.weaponTraits = {
   'reload-2': 'PF2E.TraitReload2',
   shove: 'PF2E.TraitShove',
   silver: "PF2E.PreciousMaterialSilver",
+  staff: "PF2E.TraitStaff",
   sonic: 'PF2E.TraitSonic',
   splash: 'PF2E.TraitSplash',
   sweep: 'PF2E.TraitSweep',
@@ -574,7 +575,8 @@ CONFIG.armorTraits = {
   evil: "PF2E.TraitEvil",
   force: "PF2E.TraitForce"
 };
-mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools); // Weapon Properties
+mergeObject(CONFIG.armorTraits, CONFIG.magicalSchools);
+mergeObject(CONFIG.armorTraits, CONFIG.spellTraditions);
 
 CONFIG.equipmentTraits = {
   extradimensional: "PF2E.TraitExtradimensional",
