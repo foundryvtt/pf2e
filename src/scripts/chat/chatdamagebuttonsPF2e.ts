@@ -35,7 +35,6 @@ class ChatDamageButtonsPF2e extends Application {
         let attribute = 'attributes.hp';
         if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
           attribute = 'attributes.shield';
-          PF2EActor.applyDamage(html, 1, 'attributes.shield');
           html.find('.dice-total-shield-btn').toggleClass('shield-activated');
           CONFIG.PF2E.chatDamageButtonShieldToggle = false;
         }
