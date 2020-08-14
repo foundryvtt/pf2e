@@ -1,3 +1,4 @@
+/* global FormApplication */
 import { addCoins } from '../../item/treasure';
 
 export class AddCoinsPopup extends FormApplication {

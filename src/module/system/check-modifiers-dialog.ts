@@ -1,9 +1,9 @@
+/* global Application, ChatMessage, Roll, ui */
 import { PF2Modifier } from '../modifiers';
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
  */
-// eslint-disable-next-line import/prefer-default-export,no-undef
 export class CheckModifiersDialog extends Application {
   check: any;
   context: any;
@@ -104,8 +104,8 @@ export class CheckModifiersDialog extends Application {
   onAddModifier(event) {
     const parent = $(event.currentTarget).parents('.add-modifier-panel');
     const value = Number(parent.find('.add-modifier-value').val());
-    const type = parent.find('.add-modifier-type').val() + '';
-    let name = parent.find('.add-modifier-name').val() + '';
+    const type = `${parent.find('.add-modifier-type').val()}`;
+    let name = `${parent.find('.add-modifier-name').val()}`;
     const errors = [];
     if (Number.isNaN(value)) {
       errors.push('Modifier value must be a number.');

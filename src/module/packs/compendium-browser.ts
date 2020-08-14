@@ -1,4 +1,59 @@
+/* global Application */
 import Progress from '../progress';
+
+/**
+ * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
+ */
+function _sortedObject(obj) {
+  return Object.fromEntries([...Object.entries(obj)].sort());
+}
+
+class PackLoader {
+  loadedPacks: object;
+
+  constructor() {
+    this.loadedPacks = {
+      Actor: {},
+      Item: {},
+    }
+  }
+
+  async *loadPacks(entityType, packs) {
+    if (!this.loadedPacks[entityType]) {
+      this.loadedPacks[entityType] = {};
+    }
+
+    // TODO: i18n for progress bar
+    const progress = new Progress({steps: packs.length});
+    for (const packId of packs) {
+      let data = this.loadedPacks[entityType][packId];
+      if (!data) {
+        const pack = game.packs.get(packId);
+        if (!pack) {
+          progress.advance('');
+          continue;
+        }
+        progress.advance(`Loading ${pack.metadata.label}`);
+        if (pack.metadata.entity === entityType) {
+          /* eslint-disable-next-line no-await-in-loop */
+          const content = await pack.getContent();
+          data = {pack, content};
+          this.loadedPacks[entityType][packId] = data;
+        } else {
+          continue;
+        }
+      } else {
+        const {pack} = data;
+        progress.advance(`Loading ${pack.metadata.label}`);
+      }
+
+      yield data;
+    }
+    progress.close('Loading complete');
+  }
+}
+
+const packLoader = new PackLoader();
 
 interface PackInfo {
   load: boolean;
@@ -78,8 +133,8 @@ class CompendiumBrowser extends Application {
   hookTab() {
     this.navigationTab = this._tabs[0];
     const _tabCallback = this.navigationTab.callback;
-    this.navigationTab.callback = (event, tabs, active) => {
-      _tabCallback(...arguments);
+    this.navigationTab.callback = (event, tabs, active, ...args) => {
+      _tabCallback(event, tabs, active, ...args);
       this.loadTab(active);
     };
   }
@@ -115,7 +170,7 @@ class CompendiumBrowser extends Application {
         data = this.loadHazards();
         break;
       default:
-        throw `Unknown tab ${tab}`;
+        throw new Error(`Unknown tab ${tab}`);
     }
 
     this.data[tab] = await data;
@@ -139,7 +194,7 @@ class CompendiumBrowser extends Application {
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
       for (let action of content) {
         action = action.data;
-        if (action.type == 'action') {
+        if (action.type === 'action') {
           // update icons for any passive actions
           if (action.data.actionType.value === 'passive') action.img = this._getActionImg('passive');
           // record the pack the feat was read from
@@ -172,22 +227,22 @@ class CompendiumBrowser extends Application {
         if (actor.type === "npc") {
           // record the pack the feat was read from
           actor.compendium = pack.collection;
-          actor["filters"] = {};
+          actor.filters = {};
 
-          actor.filters["level"] = actor.data.details.level.value;
-          actor.filters["traits"] = actor.data.traits.traits.value;
-          actor.filters["alignment"] = actor.data.details.alignment.value;
-          actor.filters["actorSize"] = actor.data.traits.size.value;
+          actor.filters.level = actor.data.details.level.value;
+          actor.filters.traits = actor.data.traits.traits.value;
+          actor.filters.alignment = actor.data.details.alignment.value;
+          actor.filters.actorSize = actor.data.traits.size.value;
 
           // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
           if (actor.data.details.source && actor.data.details.source.value) {
-            let actorSource = actor.data.details.source.value;
+            const actorSource = actor.data.details.source.value;
             if (actorSource.includes('pg.')) {
-              actor.filters["source"] = actorSource.split('pg.')[0].trim();
+              actor.filters.source = actorSource.split('pg.')[0].trim();
             } else if (actorSource.includes('page.')) {
-              actor.filters["source"] = actorSource.split('page.')[0].trim();
+              actor.filters.source = actorSource.split('page.')[0].trim();
             } else {
-              actor.filters["source"] = actorSource
+              actor.filters.source = actorSource
             }
           }
 
@@ -201,11 +256,11 @@ class CompendiumBrowser extends Application {
           bestiaryActors[actor._id] = actor;
 
           // Add rarity for filtering
-          actor.filters.rarity = function(){
+          actor.filters.rarity = (() => {
             if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
             if (actor.data.rarity) return actor.data.rarity.value;
             return { value: "common" };
-          }();
+          })();
         }
       }
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -237,24 +292,24 @@ class CompendiumBrowser extends Application {
         if (actor.type === "hazard") {
           // record the pack the hazard was read from
           actor.compendium = pack.collection;
-          actor["filters"] = {};
+          actor.filters = {};
 
-          actor.filters["level"] = actor.data.details.level;
-          actor.filters["traits"] = actor.data.traits.traits.value;
+          actor.filters.level = actor.data.details.level;
+          actor.filters.traits = actor.data.traits.traits.value;
 
           // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry
           if (actor.data.details.source && actor.data.details.source.value) {
-            let actorSource = actor.data.details.source.value;
+            const actorSource = actor.data.details.source.value;
             if (actorSource.includes('pg.')) {
-              actor.filters["source"] = actorSource.split('pg.')[0].trim();
+              actor.filters.source = actorSource.split('pg.')[0].trim();
             } else if (actorSource.includes('page.')) {
-              actor.filters["source"] = actorSource.split('page.')[0].trim();
+              actor.filters.source = actorSource.split('page.')[0].trim();
             } else {
-              actor.filters["source"] = actorSource
+              actor.filters.source = actorSource
             }
           }
 
-          actor.filters['complex'] = actor.data.details.isComplex ? 'complex' : 'simple';
+          actor.filters.complex = actor.data.details.isComplex ? 'complex' : 'simple';
 
 
           // add the source to the filter list.
@@ -266,7 +321,7 @@ class CompendiumBrowser extends Application {
           hazardActors[actor._id] = actor;
 
           // Add rarity for filtering
-          actor.filters.rarity = function(){
+          actor.filters.rarity = (() => {
             if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
             if (actor.data.rarity) return actor.data.rarity.value;
             for (const rarity of rarities) {
@@ -274,7 +329,7 @@ class CompendiumBrowser extends Application {
               if (indexOfRarity >= 0) return actor.data.traits.traits.value[indexOfRarity];
             }
             return "common";
-          }();
+          })();
         }
       }
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -319,11 +374,11 @@ class CompendiumBrowser extends Application {
           inventoryItems[(item._id)] = item;
 
           // Add rarity for filtering
-          item.data.rarity = function(){
+          item.data.rarity = (() => {
             if (item.data.traits.rarity) return item.data.traits.rarity;  // TODO: only look in one place once data is fixed
             if (item.data.rarity) return item.data.rarity;
             return { value: "common" };
-          }();
+          })();
         }
       }
     }
@@ -364,7 +419,7 @@ class CompendiumBrowser extends Application {
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
       for (let feat of content) {
         feat = feat.data;
-        if (feat.type == 'feat') {
+        if (feat.type === 'feat') {
           // record the pack the feat was read from
           feat.compendium = pack.collection;
 
@@ -405,7 +460,7 @@ class CompendiumBrowser extends Application {
           }
 
           // format spell level for display
-          feat.data.level.formated = parseInt(feat.data.level.value);
+          feat.data.level.formated = parseInt(feat.data.level.value, 10);
 
           // format spell level for display
           let time = '';
@@ -418,12 +473,12 @@ class CompendiumBrowser extends Application {
           } else if (feat.data.actionType.value === 'passive') {
             feat.data.actionType.img = this._getActionImg('passive');
             time = 'passive';
-          } else if (parseInt(feat.data.actions.value)) {
+          } else if (parseInt(feat.data.actions.value, 10)) {
             feat.data.actionType.img = this._getActionImg(feat.data.actions.value);
             time = feat.data.actions.value.toLowerCase();
           }
 
-          if (time != '') {
+          if (time !== '') {
             times.add(time);
           }
 
@@ -432,11 +487,11 @@ class CompendiumBrowser extends Application {
           feats[(feat._id)] = feat;
           
           // Add rarity for filtering
-          feat.data.rarity = function(){
+          feat.data.rarity = (() => {
             if (feat.data.traits.rarity) return feat.data.traits.rarity;  // TODO: only look in one place once data is fixed
             if (feat.data.rarity) return feat.data.rarity;
             return { value: "common" };
-          }();
+          })();
         }
       }
     }
@@ -477,7 +532,7 @@ class CompendiumBrowser extends Application {
       console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
       for (let spell of content) {
         spell = spell.data;
-        if (spell.type == 'spell') {
+        if (spell.type === 'spell') {
           // record the pack the spell was read from
           spell.compendium = pack.collection;
 
@@ -497,7 +552,7 @@ class CompendiumBrowser extends Application {
           // recording casting times
           if (spell.data.time.value !== undefined) {
             let time = spell.data.time.value;
-            if (time.indexOf('reaction') != -1) time = 'reaction';
+            if (time.indexOf('reaction') !== -1) time = 'reaction';
             times.add(time);
           }
 
@@ -506,8 +561,7 @@ class CompendiumBrowser extends Application {
             spell.data.time.img = this._getActionImg('reaction');
           } else if (spell.data.time.value === 'free') {
             spell.data.time.img = this._getActionImg('free');
-          } else if (parseInt(spell.data.time.value)) {
-            // parseInt is necessary to handle variable actions count
+          } else {
             spell.data.time.img = this._getActionImg(spell.data.time.value);
           }
 
@@ -520,11 +574,11 @@ class CompendiumBrowser extends Application {
           }
           
           // Add rarity for filtering
-          spell.data.rarity = function(){
+          spell.data.rarity = (() => {
             if (spell.data.traits.rarity) return spell.data.traits.rarity;  // TODO: only look in one place once data is fixed
             if (spell.data.rarity) return spell.data.rarity;
             return { value: "common" };
-          }();
+          })();
         }
       }
     }
@@ -601,6 +655,7 @@ class CompendiumBrowser extends Application {
           pack: pack.collection,
           id: li.dataset.entryId,
         }));
+        return true;
       }, false);
     });
 
@@ -611,7 +666,7 @@ class CompendiumBrowser extends Application {
 
     // toggle hints
     html.on('mousedown', 'input[name=textFilter]', (ev) => {
-      if (ev.which == 3) {
+      if (ev.which === 3) {
         $(html.find('.hint')).toggle(100);
       }
     });
@@ -620,7 +675,7 @@ class CompendiumBrowser extends Application {
     // sort spell list
     html.on('change', 'select[name=sortorder]', (ev) => {
       const spellList = html.find('.tab.active li');
-      const byName = (ev.target.value == 'true');
+      const byName = (ev.target.value === 'true');
       const sortedList = this.sortSpells(spellList, byName);
       const ol = $(html.find('.tab.active ul'));
       ol[0].innerHTML = [];
@@ -708,13 +763,11 @@ class CompendiumBrowser extends Application {
   }
 
   clearObject(obj) {
-    const newObj = {};
-    for (const key in obj) {
-      if (obj[key] == true) {
-        newObj[key] = true;
-      }
-    }
-    return newObj;
+    return Object.fromEntries(
+      Object.entries(obj).filter(
+        ([key, value]) => value
+      )
+    );
   }
 
   _getActionImg(action) {
@@ -745,8 +798,10 @@ class CompendiumBrowser extends Application {
     for (const spell of li) {
       if (this.getFilterResult(spell)) {
         $(spell).show();
-        if (++counter % 20 === 0) {
+        counter += 1;
+        if (counter % 20 === 0) {
           // Yield to the browser to render what it has
+          /* eslint-disable-next-line no-await-in-loop */
           await new Promise(r => setTimeout(r, 0));
         }
       }
@@ -754,11 +809,11 @@ class CompendiumBrowser extends Application {
   }
 
   getFilterResult(element) {
-    if (this.sorters.text != '') {
+    if (this.sorters.text !== '') {
       const strings = this.sorters.text.split(',');
       for (const string of strings) {
-        if (string.indexOf(':') == -1) {
-          if ($(element).find('.spell-name a')[0].innerHTML.toLowerCase().indexOf(string.toLowerCase().trim()) == -1) {
+        if (string.indexOf(':') === -1) {
+          if ($(element).find('.spell-name a')[0].innerHTML.toLowerCase().indexOf(string.toLowerCase().trim()) === -1) {
             return false;
           }
         } else {
@@ -770,9 +825,9 @@ class CompendiumBrowser extends Application {
         }
       }
     }
-    if (this.sorters.castingtime != 'null') {
+    if (this.sorters.castingtime !== 'null') {
       const castingtime = element.dataset.time;
-      if (castingtime != this.sorters.castingtime) {
+      if (castingtime !== this.sorters.castingtime) {
         return false;
       }
     }
@@ -783,7 +838,7 @@ class CompendiumBrowser extends Application {
         let hide = true;
         if (filteredElements) {
           for (const e of filteredElements.split(',')) {
-            if (this.filters[filter][e.trim()] == true) {
+            if (this.filters[filter][e.trim()] === true) {
               hide = false;
               break;
             }
@@ -834,7 +889,7 @@ class CompendiumBrowser extends Application {
       mappedList = list.map((i, li) => ({value: $(li).find('.spell-name a')[0].innerHTML, li, i}));
     } else {
       // dataset are always strings so all number values will be truthy
-      mappedList = list.map((i, li) => ({value: parseInt(li.dataset.level || -10), li, i}));
+      mappedList = list.map((i, li) => ({value: parseInt(li.dataset.level || -10, 10), li, i}));
     }
 
     mappedList.sort((a, b) => {
@@ -846,58 +901,6 @@ class CompendiumBrowser extends Application {
     })
     return Array.prototype.map.call(mappedList, ({li}) => li);
   }
-}
-
-class PackLoader {
-  loadedPacks: object;
-
-  constructor() {
-    this.loadedPacks = {
-      Actor: {},
-      Item: {},
-    }
-  }
-
-  async *loadPacks(entityType, packs) {
-    if (!this.loadedPacks[entityType]) {
-      this.loadedPacks[entityType] = {};
-    }
-
-    // TODO: i18n for progress bar
-    const progress = new Progress({steps: packs.length});
-    for (const packId of packs) {
-      let data = this.loadedPacks[entityType][packId];
-      if (!data) {
-        const pack = game.packs.get(packId);
-        if (!pack) {
-          progress.advance('');
-          continue;
-        }
-        progress.advance(`Loading ${pack.metadata.label}`);
-        if (pack.metadata.entity === entityType) {
-          const content = await pack.getContent();
-          data = this.loadedPacks[entityType][packId] = {pack, content};
-        } else {
-          continue;
-        }
-      } else {
-        const {pack} = data;
-        progress.advance(`Loading ${pack.metadata.label}`);
-      }
-
-      yield data;
-    }
-    progress.close('Loading complete');
-  }
-}
-
-const packLoader = new PackLoader();
-
-/**
- * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
- */
-function _sortedObject(obj) {
-  return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
 export const compendiumBrowser = new CompendiumBrowser();

@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
@@ -160,9 +158,8 @@ export const AbilityModifier = Object.freeze({
 
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
-  // eslint-disable-next-line no-unused-vars
   atLevel: (level: number) => {
-    let modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
+    const modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
     return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
   },
 });
@@ -269,7 +266,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
   const highestBonus: Record<string, PF2Modifier> = {};
   const lowestPenalty: Record<string, PF2Modifier> = {};
 
-  for (let modifier of modifiers) {
+  for (const modifier of modifiers) {
     // Always disable ignored modifiers and don't do anything further with them.
     if (modifier.ignored) {
       modifier.enabled = false;
@@ -277,7 +274,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
     }
 
     // Untyped modifiers always stack, so enable them and add their modifier.
-    if (modifier.type == PF2ModifierType.UNTYPED) {
+    if (modifier.type === PF2ModifierType.UNTYPED) {
       modifier.enabled = true;
       total += modifier.modifier;
       continue;

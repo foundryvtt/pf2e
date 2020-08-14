@@ -1,10 +1,10 @@
+/* global Handlebars */
 export default function registerHandlebarsHelpers() {
-    Handlebars.registerHelper('add', function(a, b) {
+    Handlebars.registerHelper('add', (a, b) => {
         return a + b;
     });
 
-    Handlebars.registerHelper('if_all', function () {
-        const args = [].slice.apply(arguments);
+    Handlebars.registerHelper('if_all', (...args) => {
         const opts = args.pop();
 
         let { fn } = opts;
@@ -16,7 +16,7 @@ export default function registerHandlebarsHelpers() {
         return fn(this);
     });
 
-    Handlebars.registerHelper('if_stamina', function(options) {
+    Handlebars.registerHelper('if_stamina',(options) => {
         if(game.settings.get('pf2e', 'staminaVariant') > 0) {
             return options.fn(this);
         }
@@ -24,41 +24,41 @@ export default function registerHandlebarsHelpers() {
 
     });
 
-    Handlebars.registerHelper('lower', function(str) {
+    Handlebars.registerHelper('lower', (str) => {
         return String.prototype.toLowerCase.call(str ?? '');
     });
 
-    Handlebars.registerHelper('multiply', function(a, b) {
+    Handlebars.registerHelper('multiply', (a, b) => {
         return a * b;
     });
 
     Handlebars.registerHelper('strip_tags', (value, options) => {
         function strip_tags(input, allowed?) { // eslint-disable-line camelcase
-            const _phpCastString = function (value) {
-                const type = typeof value;
+            const _phpCastString = (phpValue) => {
+                const type = typeof phpValue;
                 switch (type) {
                     case 'boolean':
-                        return value ? '1' : '';
+                        return phpValue ? '1' : '';
                     case 'string':
-                        return value;
+                        return phpValue;
                     case 'number':
-                        if (isNaN(value)) {
+                        if (Number.isNaN(phpValue)) {
                             return 'NAN';
                         }
 
-                        if (!isFinite(value)) {
-                            return `${value < 0 ? '-' : ''}INF`;
+                        if (!Number.isFinite(phpValue)) {
+                            return `${phpValue < 0 ? '-' : ''}INF`;
                         }
 
-                        return `${value}`;
+                        return `${phpValue}`;
                     case 'undefined':
                         return '';
                     case 'object':
-                        if (Array.isArray(value)) {
+                        if (Array.isArray(phpValue)) {
                             return 'Array';
                         }
 
-                        if (value !== null) {
+                        if (phpValue !== null) {
                             return 'Object';
                         }
 

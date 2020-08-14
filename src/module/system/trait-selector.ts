@@ -1,3 +1,4 @@
+/* global FormApplication, getProperty */
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
  * @type {FormApplication}
@@ -9,7 +10,7 @@ export class TraitSelector5e extends FormApplication {
   constructor(object, options) {
     super(object, options);
 
-    //Internal flags
+    // Internal flags
     this.searchString = null;
 
     /**
@@ -53,14 +54,14 @@ export class TraitSelector5e extends FormApplication {
     if (typeof attr.value === 'string') attr.value = TraitSelector5e._backCompat(attr.value, this.options.choices);
     if (!attr.value) attr.value = '';
 
-    const has_values = this.options.has_values;
-    const has_exceptions = this.options.has_exceptions;
+    const hasValues = this.options.has_values;
+    const hasExceptions = this.options.has_exceptions;
     const choices = duplicate(this.options.choices);
 
     // Populate choices
-    if (has_values) {
+    if (hasValues) {
       const selected = [];
-      for (const [k, trait] of Object.entries(attr as Record<any, any>)) {
+      for (const trait of Object.values(attr as Record<any, any>)) {
         selected[trait.type] = { value: trait.value, exceptions: trait.exceptions };
       }
 	    for (const [k, v] of Object.entries(choices)) {
@@ -87,16 +88,16 @@ export class TraitSelector5e extends FormApplication {
 	    }
     }
 
-    const ordered_choices = {};
-    Object.keys(choices).sort(function(a,b) { return (choices[a].label).localeCompare(choices[b].label) }).forEach(function (key) {
-      ordered_choices[key] = choices[key];
+    const orderedChoices = {};
+      Object.keys(choices).sort((a,b) => { return (choices[a].label).localeCompare(choices[b].label) }).forEach((key) => {
+      orderedChoices[key] = choices[key];
     });
 
      // Return data
 	  return {
-	    ordered_choices,
-	    has_values,
-	    has_exceptions,
+	    ordered_choices: orderedChoices,
+	    has_values: hasValues,
+	    has_exceptions: hasExceptions,
 	    searchString: this.searchString,
       custom: attr.custom,
     };
@@ -109,7 +110,7 @@ export class TraitSelector5e extends FormApplication {
   search(searchString) {
     const query = new RegExp((RegExp as any).escape(searchString), "i");
     (this.element as JQuery).find('li.trait-item').each((i, li) => {
-      let name = li.getElementsByClassName('trait-label')[0].textContent;
+      const name = li.getElementsByClassName('trait-label')[0].textContent;
       li.style.display = query.test(name) ? "flex" : "none";
     });
     this.searchString = searchString;
@@ -118,7 +119,7 @@ export class TraitSelector5e extends FormApplication {
   activateListeners(html) {
       super.activateListeners(html);
 
-      //Search filtering
+      // Search filtering
       html.find('input[name="search"]').keyup(this._onFilterResults.bind(this));
       if (this.searchString) {
         this.search(this.searchString);
@@ -144,10 +145,10 @@ export class TraitSelector5e extends FormApplication {
             html.find(`input[type=checkbox][name="${name}]"`).prop('checked', true);
           });
         html.find('input[id^=input_exception]').focusout( (ev) => {
-            const input_exception = ev.currentTarget;
-            const input_value = html.find(`input[id=input_value][name="${input_exception.name}"]`).val();
-            if (input_value === "")
-              html.find(`input[type=checkbox][name="${input_exception.name}"]`).prop('checked', false);
+            const inputException = ev.currentTarget;
+            const inputValue = html.find(`input[id=input_value][name="${inputException.name}"]`).val();
+            if (inputValue === "")
+              html.find(`input[type=checkbox][name="${inputException.name}"]`).prop('checked', false);
           });
       }
   }
@@ -159,7 +160,7 @@ export class TraitSelector5e extends FormApplication {
    */
   _onFilterResults(event) {
     event.preventDefault();
-    let input = event.currentTarget;
+    const input = event.currentTarget;
     if ( this._filterTimeout ) {
       clearTimeout(this._filterTimeout);
       this._filterTimeout = null;
@@ -195,10 +196,10 @@ export class TraitSelector5e extends FormApplication {
       const choices = [];
       for (const [k, v] of Object.entries(formData as Record<any, any>)) {
         if(v.length > 1 && v[0]) {
-          if ((!isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
+          if ((!Number.isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
             const label = this.options.choices[k];
             const exceptions = v[2] || "";
-            choices.push({type: k, label: label, value: v[1], exceptions: exceptions});
+            choices.push({type: k, label, value: v[1], exceptions});
           }
         }
       }

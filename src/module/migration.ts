@@ -1,3 +1,4 @@
+/* global ui, isObjectEmpty, expandObject, Token */
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
@@ -5,187 +6,6 @@
 import { calculateCarriedArmorBulk, fixWeight } from './item/bulk';
 import { compendiumBrowser } from './packs/compendium-browser';
 import { toNumber } from './utils';
-
-export const migrateWorld = async function () {
-    const systemVersion = game.system.data.version;
-    const systemSchemaVersion = Number(game.system.data.schema);
-    const worldSchemaVersion = Number(game.settings.get('pf2e', 'worldSchemaVersion'));
-
-    ui.notifications.info(`Applying PF2E System Migration to version ${systemVersion}. Please be patient and do not close your game or shut down your server.`, { permanent: true });
-
-    // Migrate World Actors
-    for (let a of game.actors.entities) {
-        try {
-            const updateData = migrateActorData(a.data, worldSchemaVersion);
-            if (!isObjectEmpty(updateData)) {
-                console.log(`Migrating Actor entity ${a.name}`);
-                await a.update(updateData, { enforceTypes: false });
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    // Migrate World Items
-    for (let i of game.items.entities) {
-        try {
-            const updateData = migrateItemData(i.data, worldSchemaVersion);
-            if (!isObjectEmpty(updateData)) {
-                console.log(`Migrating Item entity ${i.name}`);
-                await i.update(updateData, { enforceTypes: false });
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    // Migrate Actor Override Tokens
-    for (let s of game.scenes.entities) {
-        try {
-            const updateData = migrateSceneData(s.data, worldSchemaVersion);
-            if (!isObjectEmpty(updateData)) {
-                console.log(`Migrating Scene entity ${s.name}`);
-                await s.update(updateData, { enforceTypes: false });
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    //Migrate World Compendium Packs
-    const packs = game.packs.filter(p => {
-        return (p.metadata.package === 'pf2e') && ['Actor', 'Item', 'Scene'].includes(p.metadata.entity);
-    });
-    for (let p of packs) {
-        //await migrateCompendium(p, worldSchemaVersion);
-    }
-
-    // special migrations
-    if (worldSchemaVersion < 0.576) {
-        for (let a of game.actors.entities) {
-            try {
-                await migrateCoins(a);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-    }
-    if (worldSchemaVersion < 0.585) {
-      migrateCompendiumSettings();
-    }
-
-    // Set the migration as complete
-    game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
-    ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
-};
-
-/* -------------------------------------------- */
-
-/**
- * Apply migration rules to all Entities within a single Compendium pack
- * @param pack
- * @return {Promise}
- */
-export const migrateCompendium = async function (pack, worldSchemaVersion) {
-    const entity = pack.metadata.entity;
-    if (!['Actor', 'Item', 'Scene'].includes(entity)) return;
-
-    // Begin by requesting server-side data model migration and get the migrated content
-    await pack.migrate();
-    const content = await pack.getContent();
-
-    // Iterate over compendium entries - applying fine-tuned migration functions
-    for (let ent of content) {
-        try {
-            let updateData = null;
-            if (entity === 'Item') {
-                updateData = migrateItemData(ent.data, worldSchemaVersion);
-            } else if (entity === 'Actor') {
-                updateData = migrateActorData(ent.data, worldSchemaVersion);
-            } else if (entity === 'Scene') updateData = migrateSceneData(ent.data, worldSchemaVersion);
-            if (!isObjectEmpty(updateData)) {
-                expandObject(updateData);
-                updateData['_id'] = ent._id;
-                await pack.updateEntity(updateData);
-                console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
-};
-
-/* -------------------------------------------- */
-/*  Entity Type Migration Helpers               */
-/* -------------------------------------------- */
-
-/**
- * Migrate a single Actor entity to incorporate latest data model changes
- * Return an Object of updateData to be applied
- * @param {Actor} actor   The actor to Update
- * @param {worldSchemaVersion} actor   The current worldSchemaVersion
- * @return {Object}       The updateData to apply
- */
-export const migrateActorData = function (actor, worldSchemaVersion) {
-    const updateData = {};
-
-    if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
-
-    if (worldSchemaVersion < 0.573) _migrateActorLanguages(actor, updateData);
-
-    if (worldSchemaVersion < 0.578) {
-        migrateActorItemImages(actor, updateData);
-    }
-
-    if (actor.type === 'npc') {
-        if (worldSchemaVersion < 0.559) _migrateNPCItemDamageRolls(actor, updateData);
-
-        if (worldSchemaVersion < 0.566) _migrateNPCItemAttackEffects(actor, updateData);
-
-        if (worldSchemaVersion < 0.571) updateData['data.traits.rarity.value'] = 'common';
-    } else if (actor.type === 'character') {
-        if (worldSchemaVersion < 0.412) _migrateDyingCondition(updateData);
-
-        if (worldSchemaVersion < 0.561) _migrateHitPointData(actor, updateData);
-
-        if (worldSchemaVersion < 0.567) {
-            _migrateClassDC(updateData);
-            updateData['data.attributes.bonusbulk'] = 0;
-        }
-        if (worldSchemaVersion < 0.574) {
-            migrateActorBulkItems(actor, updateData);
-        }
-        if (worldSchemaVersion < 0.579) {
-            addActorContainerAttributes(actor, updateData);
-        }
-
-        if (worldSchemaVersion < 0.580) {
-            migrateActorItems(actor, updateData, addItemRarityAndLevel);
-            _migrateActorOtherSpeeds(actor, updateData);
-        }
-
-        if (worldSchemaVersion < 0.582) {
-            migrateActorItems(actor, updateData, addWeaponPotencyRune);
-        }
-
-        if (worldSchemaVersion < 0.583) {
-            migrateActorBonusBulk(actor, updateData);
-            migrateActorItems(actor, updateData, addHpThresholdHardness);
-        }
-
-        if (worldSchemaVersion < 0.584) {
-            updateData['data.details.ethnicity.value'] = '';
-            updateData['data.details.nationality.value'] = '';
-        }
-        
-        if (worldSchemaVersion < 0.586) {
-            migrateActorItems(actor, updateData, addSplashDamage);
-        }
-    }
-    return updateData;
-};
 
 /* -------------------------------------------- */
 function addWeaponPotencyRune(item, itemData) {
@@ -376,10 +196,10 @@ function migrateBulk(item, updateData) {
  * Migrate a single Item entity to incorporate latest data model changes
  * @param item
  */
-export const migrateItemData = function (item, worldSchemaVersion) {
+export function migrateItemData (item, worldSchemaVersion) {
     const updateData = {};
     // Remove deprecated fields
-    //_migrateRemoveDeprecated(item, updateData);
+    // _migrateRemoveDeprecated(item, updateData);
     if (worldSchemaVersion < 0.574) {
         migrateBulk(item, updateData);
     }
@@ -408,30 +228,6 @@ export const migrateItemData = function (item, worldSchemaVersion) {
 
 /* -------------------------------------------- */
 
-/**
- * Migrate a single Scene entity to incorporate changes to the data model of it's actor data overrides
- * Return an Object of updateData to be applied
- * @param {Object} scene  The Scene data to Update
- * @param {worldSchemaVersion} actor   The current worldSchemaVersion
- * @return {Object}       The updateData to apply
- */
-export const migrateSceneData = function (scene, worldSchemaVersion) {
-    const tokens = duplicate(scene.tokens);
-    return {
-        tokens: tokens.map(t => {
-            const token = new Token(t);
-            if (!token.actor) {
-                t.actorId = null;
-                t.actorData = {};
-            } else if (!t.actorLink) {
-                const updateData = migrateActorData(token.data.actorData, worldSchemaVersion);
-                t.actorData = mergeObject(token.data.actorData, updateData);
-            }
-            return t;
-        })
-    };
-};
-
 /* -------------------------------------------- */
 /*  Low level migration utilities
 /* -------------------------------------------- */
@@ -441,13 +237,13 @@ export const migrateSceneData = function (scene, worldSchemaVersion) {
  * @private
  */
 
-/*function _migrateActorBonuses(actor, updateData) {
+/* function _migrateActorBonuses(actor, updateData) {
   const b = game.system.model.Actor.character.bonuses;
   for ( let k of Object.keys(actor.data.bonuses || {}) ) {
     if ( k in b ) updateData[`data.bonuses.${k}`] = b[k];
     else updateData[`data.bonuses.-=${k}`] = null;
   }
-}*/
+} */
 
 function _migrateActorLanguages(actor, updateData) {
     if (actor.data?.traits?.languages?.value) {
@@ -456,16 +252,14 @@ function _migrateActorLanguages(actor, updateData) {
                 .toLowerCase();
             if (l === 'dwarvish') {
                 return 'dwarven';
-            } else {
-                return l;
             }
+            return l;
         });
     }
 }
 
 function _migrateActorOtherSpeeds(actor, updateData) {
-    //@ts-ignore
-    if (typeof actor.data?.attributes?.speed?.otherSpeeds !== 'array') {
+    if (!Array.isArray(actor.data?.attributes?.speed?.otherSpeeds)) {
         updateData['data.attributes.speed.otherSpeeds'] = [];
     }
 }
@@ -476,29 +270,29 @@ function migrateActorBonusBulk(actor, updateData) {
 }
 
 function _migrateHitPointData(actor, updateData) {
-    updateData['data.attributes.flatbonushp'] = parseInt((actor.data.attributes.flatbonushp || {}).value) || 0;
-    updateData['data.attributes.levelbonushp'] = parseInt((actor.data.attributes.levelbonushp || {}).value) || 0;
-    updateData['data.attributes.flatbonussp'] = parseInt((actor.data.attributes.flatbonussp || {}).value) || 0;
-    updateData['data.attributes.levelbonussp'] = parseInt((actor.data.attributes.levelbonussp || {}).value) || 0;
-    updateData['data.attributes.ancestryhp'] = parseInt((actor.data.attributes.ancestryhp || {}).value) || 0;
-    updateData['data.attributes.classhp'] = parseInt((actor.data.attributes.classhp || {}).value) || 0;
+    updateData['data.attributes.flatbonushp'] = parseInt((actor.data.attributes.flatbonushp || {}).value, 10) || 0;
+    updateData['data.attributes.levelbonushp'] = parseInt((actor.data.attributes.levelbonushp || {}).value, 10) || 0;
+    updateData['data.attributes.flatbonussp'] = parseInt((actor.data.attributes.flatbonussp || {}).value, 10) || 0;
+    updateData['data.attributes.levelbonussp'] = parseInt((actor.data.attributes.levelbonussp || {}).value, 10) || 0;
+    updateData['data.attributes.ancestryhp'] = parseInt((actor.data.attributes.ancestryhp || {}).value, 10) || 0;
+    updateData['data.attributes.classhp'] = parseInt((actor.data.attributes.classhp || {}).value, 10) || 0;
 }
 
 function migrateActorItems(actor, updateData, itemUpdateFunction) {
     if (!actor.items) return;
-    let updatedItems = [];
+    const updatedItems = [];
     const items = duplicate(actor.items);
 
     items.forEach(item => {
         let updatedItem = item;
-        let updatedData = itemUpdateFunction(item, {});
+        const updatedData = itemUpdateFunction(item, {});
         if (!isObjectEmpty(updatedData)) {
             updatedItem = mergeObject(updatedItem, updatedData);
         }
         updatedItems.push(updatedItem);
     });
 
-    updateData['items'] = updatedItems;
+    updateData.items = updatedItems;
 }
 
 function migrateActorBulkItems(actor, updateData) {
@@ -511,31 +305,31 @@ function addActorContainerAttributes(actor, updateData) {
 
 function _migrateNPCItemAttackEffects(actor, updateData) {
     if (!actor.items) return;
-    let updatedItems = [];
+    const updatedItems = [];
     const items = duplicate(actor.items);
 
     items.forEach(item => {
-        let updatedItem = item;
+        const updatedItem = item;
         if (item.type === 'melee' && item.data.attackEffects) {
-            let attackEffects = {
+            const attackEffects = {
                 'value': item.data.attackEffects
             };
             updatedItem.data.attackEffects = attackEffects;
         }
         updatedItems.push(updatedItem);
     });
-    updateData['items'] = updatedItems;
+    updateData.items = updatedItems;
 }
 
 function _migrateNPCItemDamageRolls(actor, updateData) {
     if (!actor.items) return;
-    let updatedItems = [];
+    const updatedItems = [];
     const items = duplicate(actor.items);
 
     items.forEach(item => {
-        let updatedItem = item;
+        const updatedItem = item;
         if (item.type === 'melee' && item.data.damage.die) {
-            let damageRolls = {
+            const damageRolls = {
                 'migrated': {
                     damage: item.data.damage.die,
                     damageType: item.data.damage.damageType
@@ -545,7 +339,7 @@ function _migrateNPCItemDamageRolls(actor, updateData) {
         }
         updatedItems.push(updatedItem);
     });
-    updateData['items'] = updatedItems;
+    updateData.items = updatedItems;
 }
 
 function _migrateClassDC(updateData) {
@@ -586,15 +380,68 @@ function _migrateDyingCondition(updateData) {
     updateData['data.attributes.doomed.max'] = 3;
 }
 
+function migrateImage(item, updateData) {
+    const itemImage = item?.img;
+
+    // folder name change
+    if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/', 'systems/pf2e/icons/equipment/alchemical-items/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/adventuring%20gear/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/adventuring%20gear/', 'systems/pf2e/icons/equipment/adventuring-gear/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/cursed%20items/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/cursed%20items/', 'systems/pf2e/icons/equipment/cursed-items/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held%20items/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/held%20items/', 'systems/pf2e/icons/equipment/held-items/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/intelligent%20items/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/intelligent%20items/', 'systems/pf2e/icons/equipment/intelligent-items/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/worn%20items/')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/worn%20items/', 'systems/pf2e/icons/equipment/worn-items/');
+    }
+
+    // consumables subfolder
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/consumables/') && !itemImage?.includes('systems/pf2e/icons/equipment/consumables/potions/') && itemImage?.includes('potion')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/consumables/', 'systems/pf2e/icons/equipment/consumables/potions/');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/') && !itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/') && itemImage?.includes('elixir')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
+    }
+
+    // specific icon changes
+    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.jpg');
+    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
+        updateData.img = itemImage.replace('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.jpg');
+    }
+
+    return updateData;
+}
+
 async function migrateActorItemImages(actor, updateData) {
     if (!actor.items) return;
-    let updatedItems = [];
+    const updatedItems = [];
 
-    //actor.type can be 'character', 'npc' or undefined
-    //Real actor. Use updateEmbeddedEntity()
+    // actor.type can be 'character', 'npc' or undefined
+    // Real actor. Use updateEmbeddedEntity()
     if (actor.type === 'character' || actor.type === 'npc') {
         actor.items.forEach(item => {
-            let updatedItem = migrateImage(item, {});
+            const updatedItem = migrateImage(item, {});
             if (!isObjectEmpty(updatedItem)) {
                 updatedItem._id = item._id;
                 updatedItems.push(updatedItem);
@@ -608,59 +455,6 @@ async function migrateActorItemImages(actor, updateData) {
             }
         }
     }
-}
-
-function migrateImage(item, updateData) {
-    const itemImage = item?.img;
-
-    // folder name change
-    if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/alchemical%20elixirs/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical%20items/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical%20items/', 'systems/pf2e/icons/equipment/alchemical-items/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/adventuring%20gear/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/adventuring%20gear/', 'systems/pf2e/icons/equipment/adventuring-gear/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/cursed%20items/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/cursed%20items/', 'systems/pf2e/icons/equipment/cursed-items/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held%20items/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held%20items/', 'systems/pf2e/icons/equipment/held-items/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/intelligent%20items/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/intelligent%20items/', 'systems/pf2e/icons/equipment/intelligent-items/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/worn%20items/')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/worn%20items/', 'systems/pf2e/icons/equipment/worn-items/');
-    }
-
-    // consumables subfolder
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/consumables/') && !itemImage?.includes('systems/pf2e/icons/equipment/consumables/potions/') && itemImage?.includes('potion')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/consumables/', 'systems/pf2e/icons/equipment/consumables/potions/');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/') && !itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/') && itemImage?.includes('elixir')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/');
-    }
-
-    // specific icon changes
-    else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/acid-flask.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/alchemists-fire.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/frost-vial.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/frost-vial.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bombers-eye-elixir.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/antidote.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/alchemical-items/bottled-lightning.jpg', 'systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/platinum-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/platinum-pieces.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/gold-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/silver-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/silver-pieces.jpg');
-    } else if (itemImage?.includes('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg')) {
-        updateData['img'] = itemImage.replace('systems/pf2e/icons/equipment/held-items/copper-pieces.jpg', 'systems/pf2e/icons/equipment/treasure/currency/copper-pieces.jpg');
-    }
-
-    return updateData;
 }
 
 function migrateCompendiumSettings() {
@@ -690,7 +484,7 @@ function migrateCompendiumSettings() {
  * A general migration to remove all fields from the data model which are flagged with a _deprecated tag
  * @private
  */
-/*const _migrateRemoveDeprecated = function(ent, updateData) {
+/* const _migrateRemoveDeprecated = function(ent, updateData) {
   const flat = flattenObject(ent.data);
 
   // Identify objects to deprecate
@@ -706,4 +500,213 @@ function migrateCompendiumSettings() {
     parts[parts.length-1] = "-=" + parts[parts.length-1];
     updateData[`data.${parts.join(".")}`] = null;
   }
-};*/
+}; */
+
+/* -------------------------------------------- */
+/*  Entity Type Migration Helpers               */
+/* -------------------------------------------- */
+
+/**
+ * Migrate a single Actor entity to incorporate latest data model changes
+ * Return an Object of updateData to be applied
+ * @param {Actor} actor   The actor to Update
+ * @param {worldSchemaVersion} actor   The current worldSchemaVersion
+ * @return {Object}       The updateData to apply
+ */
+export async function migrateActorData(actor, worldSchemaVersion) {
+    const updateData = {};
+
+    if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
+
+    if (worldSchemaVersion < 0.573) _migrateActorLanguages(actor, updateData);
+
+    if (worldSchemaVersion < 0.578) {
+        migrateActorItemImages(actor, updateData);
+    }
+
+    if (actor.type === 'npc') {
+        if (worldSchemaVersion < 0.559) _migrateNPCItemDamageRolls(actor, updateData);
+
+        if (worldSchemaVersion < 0.566) _migrateNPCItemAttackEffects(actor, updateData);
+
+        if (worldSchemaVersion < 0.571) updateData['data.traits.rarity.value'] = 'common';
+    } else if (actor.type === 'character') {
+        if (worldSchemaVersion < 0.412) _migrateDyingCondition(updateData);
+
+        if (worldSchemaVersion < 0.561) _migrateHitPointData(actor, updateData);
+
+        if (worldSchemaVersion < 0.567) {
+            _migrateClassDC(updateData);
+            updateData['data.attributes.bonusbulk'] = 0;
+        }
+        if (worldSchemaVersion < 0.574) {
+            migrateActorBulkItems(actor, updateData);
+        }
+        if (worldSchemaVersion < 0.579) {
+            addActorContainerAttributes(actor, updateData);
+        }
+
+        if (worldSchemaVersion < 0.580) {
+            migrateActorItems(actor, updateData, addItemRarityAndLevel);
+            _migrateActorOtherSpeeds(actor, updateData);
+        }
+
+        if (worldSchemaVersion < 0.582) {
+            migrateActorItems(actor, updateData, addWeaponPotencyRune);
+        }
+
+        if (worldSchemaVersion < 0.583) {
+            migrateActorBonusBulk(actor, updateData);
+            migrateActorItems(actor, updateData, addHpThresholdHardness);
+        }
+
+        if (worldSchemaVersion < 0.584) {
+            updateData['data.details.ethnicity.value'] = '';
+            updateData['data.details.nationality.value'] = '';
+        }
+        
+        if (worldSchemaVersion < 0.586) {
+            migrateActorItems(actor, updateData, addSplashDamage);
+        }
+    }
+    return updateData;
+};
+
+/**
+ * Migrate a single Scene entity to incorporate changes to the data model of it's actor data overrides
+ * Return an Object of updateData to be applied
+ * @param {Object} scene  The Scene data to Update
+ * @param {worldSchemaVersion} actor   The current worldSchemaVersion
+ * @return {Object}       The updateData to apply
+ */
+export function migrateSceneData (scene, worldSchemaVersion) {
+    const tokens = duplicate(scene.tokens);
+    return {
+        tokens: tokens.map(t => {
+            const token = new Token(t);
+            if (!token.actor) {
+                t.actorId = null;
+                t.actorData = {};
+            } else if (!t.actorLink) {
+                const updateData = migrateActorData(token.data.actorData, worldSchemaVersion);
+                t.actorData = mergeObject(token.data.actorData, updateData);
+            }
+            return t;
+        })
+    };
+};
+
+/**
+ * Apply migration rules to all Entities within a single Compendium pack
+ * @param pack
+ * @return {Promise}
+ */
+export async function migrateCompendium(pack, worldSchemaVersion) {
+    const entity = pack.metadata.entity;
+    if (!['Actor', 'Item', 'Scene'].includes(entity)) return;
+
+    // Begin by requesting server-side data model migration and get the migrated content
+    await pack.migrate();
+    const content = await pack.getContent();
+
+    // Iterate over compendium entries - applying fine-tuned migration functions
+    const promises = []
+    for (const ent of content) {
+        try {
+            let updateData = null;
+            if (entity === 'Item') {
+                updateData = migrateItemData(ent.data, worldSchemaVersion);
+            } else if (entity === 'Actor') {
+                updateData = migrateActorData(ent.data, worldSchemaVersion);
+            } else if (entity === 'Scene') {
+                updateData = migrateSceneData(ent.data, worldSchemaVersion);
+            }
+            if (!isObjectEmpty(updateData)) {
+                expandObject(updateData);
+                updateData._id = ent._id;
+                promises.push(pack.updateEntity(updateData));
+                console.log(`Migrating ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    await Promise.all(promises)
+
+    console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+};
+
+export async function migrateWorld() {
+    const systemVersion = game.system.data.version;
+    const systemSchemaVersion = Number(game.system.data.schema);
+    const worldSchemaVersion = Number(game.settings.get('pf2e', 'worldSchemaVersion'));
+
+    ui.notifications.info(`Applying PF2E System Migration to version ${systemVersion}. Please be patient and do not close your game or shut down your server.`, { permanent: true });
+
+    // Migrate World Actors
+    const actorMigrations = game.actors.entities.map(async a => {
+        try {
+            const updateData = migrateActorData(a.data, worldSchemaVersion);
+            if (!isObjectEmpty(updateData)) {
+                console.log(`Migrating Actor entity ${a.name}`);
+                await a.update(updateData, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    // Migrate World Items
+    const itemMigrations = game.items.entities.map(async i => {
+        try {
+            const updateData = migrateItemData(i.data, worldSchemaVersion);
+            if (!isObjectEmpty(updateData)) {
+                console.log(`Migrating Item entity ${i.name}`);
+                await i.update(updateData, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    // Migrate Actor Override Tokens
+    const sceneMigrations = game.scenes.entities.map(async s => {
+        try {
+            const updateData = migrateSceneData(s.data, worldSchemaVersion);
+            if (!isObjectEmpty(updateData)) {
+                console.log(`Migrating Scene entity ${s.name}`);
+                await s.update(updateData, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    // Migrate World Compendium Packs
+    const packs = game.packs.filter(p => {
+        return (p.metadata.package === 'pf2e') && ['Actor', 'Item', 'Scene'].includes(p.metadata.entity);
+    });
+    const packMigrations = packs.map(async p => {
+        // await migrateCompendium(p, worldSchemaVersion);
+    });
+
+    await Promise.all([...actorMigrations, ...itemMigrations, ...sceneMigrations, ...packMigrations]);
+
+    // special migrations
+    if (worldSchemaVersion < 0.576) {
+        await Promise.all(game.actors.entities.map(async a => {
+            try {
+                await migrateCoins(a);
+            } catch (err) {
+                console.error(err);
+            }
+        }));
+    }
+    if (worldSchemaVersion < 0.585) {
+      migrateCompendiumSettings();
+    }
+
+    // Set the migration as complete
+    game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
+    ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
+};

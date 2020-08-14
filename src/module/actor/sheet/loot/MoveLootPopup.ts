@@ -1,3 +1,4 @@
+/* global FormApplication */
 
 export class MoveLootPopup extends FormApplication {
     onSubmitCallback: (a: any) => void;
@@ -25,13 +26,6 @@ export class MoveLootPopup extends FormApplication {
         super.activateListeners(html);
         
         // Subscribe to events
-    }
-    
-    getData() {
-        return 
-        {
-            
-        }
     }
     
     async _updateObject(event, formData) {

@@ -122,7 +122,7 @@ export const DB = {
             hasValue: true
         },
         unconscious: {
-            alsoSets: ['blinded', 'flatFooted'] //also sets prone, but prone isnt removed automatically when you wake up
+            alsoSets: ['blinded', 'flatFooted'] // also sets prone, but prone isnt removed automatically when you wake up
         },
         undetected: {
             alsoSets: ['flatFooted']

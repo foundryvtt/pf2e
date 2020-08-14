@@ -5,7 +5,6 @@
 import { TraitSelector5e } from '../system/trait-selector';
 import { KitData } from './dataDefinitions';
 
-// eslint-disable-next-line import/prefer-default-export
 export class KitItemSheetPF2e extends ItemSheet {
     static get defaultOptions() {
         const options = super.defaultOptions;

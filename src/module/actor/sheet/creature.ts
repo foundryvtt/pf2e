@@ -21,7 +21,6 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
             }
             break;
           case 'weapon':
-            const isAgile = (item.data.data.traits.value || []).includes('agile');
             if (chatData.isTwohanded) {
               if (chatData.wieldedTwoHands) buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>');
               else buttons.append('<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>');
@@ -40,6 +39,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
           case 'consumable':
             if (chatData.hasCharges) buttons.append(`<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize('PF2E.ConsumableUseLabel')} ${item.name}</button></span>`);
             break;
+          default:
         }
 
         div.append(buttons);
@@ -51,7 +51,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
           // which function gets called depends on the type of button stored in the dataset attribute action
           switch (ev.target.dataset.action) {
             case 'toggleHands':
-              if (item.data.type == 'weapon') {
+              if (item.data.type === 'weapon') {
                 item.data.data.hands.value = !item.data.data.hands.value;
                 // this.actor.updateOwnedItem(item.data, true);
                 this.actor.updateEmbeddedEntity('OwnedItem', item.data);
@@ -67,6 +67,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
             case 'spellAttack': item.rollSpellAttack(ev); break;
             case 'spellDamage': item.rollSpellDamage(ev); break;
             case 'consume': item.rollConsumable(ev); break;
+            default:
           }
         });
     }
@@ -105,7 +106,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         // Ability Scores
         if (sheetData.data.abilities !== undefined)
         {
-            for (let [a, abl] of Object.entries(sheetData.data.abilities as Record<any, any>)) {
+            for (const [a, abl] of Object.entries(sheetData.data.abilities as Record<any, any>)) {
                 abl.label = CONFIG.PF2E.abilities[a];
             }
         }
@@ -113,7 +114,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         // Update skill labels
         if (sheetData.data.skills !== undefined)
         {
-            for (let [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
+            for (const [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
                 skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
                 skl.icon = this._getProficiencyIcon(skl.rank);
                 skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];

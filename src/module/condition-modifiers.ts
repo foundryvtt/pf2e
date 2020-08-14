@@ -1,5 +1,5 @@
+import { PF2eStatus } from '../scripts/actor/statusEffects';
 import { PF2ModifierType, PF2Modifier } from './modifiers';
-import { PF2eStatus } from 'src/scripts/actor/statusEffects';
 
 export const BLINDED = Object.freeze({
   get: () => ({
@@ -121,7 +121,7 @@ export const ConditionModifiers = Object.freeze({
     }
 
     for (const [statistic, modifier] of Object.entries(modifiers)) {
-      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifier); // eslint-disable-line no-param-reassign
+      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifier);
     }
   }
 });
