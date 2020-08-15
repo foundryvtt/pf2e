@@ -424,7 +424,7 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const status = f.attr('data-condition');
 
-        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud);        
+        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud && i.data.sources.values.length < 1) as ConditionData;        
 
         if (event.type === 'contextmenu') {
             // Right click, remove
@@ -476,7 +476,7 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const status = f.attr('data-condition');
 
-        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud) as ConditionData;
+        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud && i.data.sources.values.length < 1) as ConditionData;
 
         const conditionIds = [];
         if (event.type === 'contextmenu') {
