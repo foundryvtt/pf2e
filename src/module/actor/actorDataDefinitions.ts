@@ -1,4 +1,8 @@
 import { ItemData } from "../item/dataDefinitions"
+import { PF2StatisticModifier } from "../modifiers";
+
+/** A type representing the possible ability strings. */
+export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
 /** Data describing the value & modifier for a base ability score. */
 export interface AbilityData {
@@ -10,6 +14,41 @@ export interface AbilityData {
     mod: number;
 }
 
+/** Data describing the proficiency with a given martial type (such as armor proficiency). */
+export interface MartialData {
+    /** The proficiency rank in this martial skill (0 untrained - 4 legendary). */
+    rank: number;
+    /** The actual modifier for this martial type. */
+    value: number;
+    /** A breakdown describing the how the martial proficiency value is computed. */
+    breakdown: string;
+}
+
+/** Basic save data (not including custom modifiers). */
+export interface RawSaveData {
+    /** The proficiency rank for this save. 0 (untrained) - 4 (legendary). */
+    rank: number;
+    /** The ability which this save scales off of. */
+    ability: AbilityString;
+    /** The raw modifier for this save (after applying all modifiers). */
+    value: number;
+    /** Any item-based bonuses to this save. */
+    item: number;
+    /** A breakdown of how the save value is determined. */
+    breakdown: string;
+    /** Extra, user-provided details about this save. */
+    saveDetail: string;
+}
+
+/** Actions that can be called on the save data object. */
+export interface RawSaveActions {
+    /** Roll this save with the given options (caused by the given event, and with the given optional callback). */
+    roll?: (event: any, options: string[], callback?: any) => void;
+}
+
+/** The full save data for a character; includes statistic modifier. */
+export type SaveData = RawSaveData & RawSaveActions & PF2StatisticModifier;
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData {
     /** The six primary ability scores. */
@@ -20,6 +59,25 @@ export interface RawCharacterData {
         int: AbilityData;
         wis: AbilityData;
         cha: AbilityData;
+    }
+
+    /** The three save types. */
+    saves: {
+        fortitude: SaveData;
+        reflex: SaveData;
+        will: SaveData;
+    }
+
+    /** Tracks proficiencies for martial skills. */
+    martial: {
+        unarmored: MartialData;
+        light: MartialData;
+        medium: MartialData;
+        heavy: MartialData;
+        simple: MartialData;
+        martial: MartialData;
+        advanced: MartialData;
+        unarmed: MartialData;
     }
 
     /** Various details about the character, such as level, experience, etc. */

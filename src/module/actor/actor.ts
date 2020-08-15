@@ -22,7 +22,7 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { AbilityData, CharacterData, NpcData } from './actorDataDefinitions';
+import { CharacterData, NpcData, SaveData } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -66,23 +66,11 @@ export default class PF2EActor extends Actor {
   prepareData() {
     super.prepareData();
 
-    // Get the Actor's data object
-    const actorData = this.data;
+    // Synchronize the token image with the actor image, if the token does not currently have an image.
     this._prepareTokenImg();
 
-    // Ability modifiers
-    if (actorData.type === 'npc') {
-      for (const abl of Object.values(actorData.data.abilities as Record<string, AbilityData>)) {
-        if (!abl.mod) abl.mod = 0;
-        abl.value = abl.mod * 2 + 10;
-      }
-    } else if (actorData.type === 'character') {
-      for (const abl of Object.values(actorData.data.abilities as Record<string, AbilityData>)) {
-        abl.mod = Math.floor((abl.value - 10) / 2);
-      }
-    }
-
-    // Prepare Character data
+    // Prepare character & npc data; primarily attribute and action calculation.
+    const actorData = this.data;
     if (actorData.type === 'character') this._prepareCharacterData(actorData);
     else if (actorData.type === 'npc') this._prepareNPCData(actorData);
 
@@ -124,6 +112,11 @@ export default class PF2EActor extends Actor {
     const {data} = actorData;
     const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
 
+    // Compute ability modifiers from raw ability scores.
+    for (const abl of Object.values(actorData.data.abilities)) {
+      abl.mod = Math.floor((abl.value - 10) / 2);
+    }
+
     // Update experience percentage from raw experience amounts.
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
 
@@ -150,51 +143,52 @@ export default class PF2EActor extends Actor {
 
     // Saves
     const worn = this.getFirstWornArmor();
-    for (const [saveName, save] of Object.entries(data.saves as Record<any, any>)) {
+    for (const [saveName, save] of Object.entries(data.saves)) {
+      // Base modifiers from ability scores & level/proficiency rank.
       const modifiers = [
         AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
       ];
+
+      // Add resiliency bonuses for wearing armor with a resiliency rune.
       if (worn) {
-          const resiliencyBonus = getResiliencyBonus(worn.data);
-          if (resiliencyBonus > 0) {
-              modifiers.push(new PF2Modifier(worn.name, resiliencyBonus, PF2ModifierType.ITEM));
-          }
+        const resiliencyBonus = getResiliencyBonus(worn.data);
+        if (resiliencyBonus > 0) {
+          modifiers.push(new PF2Modifier(worn.name, resiliencyBonus, PF2ModifierType.ITEM));
+        }
       }
+
+      // Add explicit item bonuses which were set on this save; hopefully this will be superceded
+      // by just using custom modifiers in the future.
       if (save.item) {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
       }
+
+      // Add custom modifiers relevant to this save.
       [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      // preserve backwards-compatibility
-      let updated;
-      if (save instanceof PF2StatisticModifier) {
-        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the
-        // total modifier
-        updated = mergeObject(save, new PF2StatisticModifier(saveName, modifiers));
-      } else {
-        // ensure the individual saving throw objects has the correct prototype, while retaining the
-        // original data fields
-        updated = mergeObject(new PF2StatisticModifier(saveName, modifiers), save);
-      }
-      updated.breakdown = updated.modifiers.filter((m) => m.enabled)
-        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
-        .join(', ');
-      updated.value = updated.totalModifier;
-      updated.roll = (event, options = [], callback?) => {
-        const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw', options }, event, callback);
-      };
-      data.saves[saveName] = updated;
+      // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
+      // overwrite potentially changed fields.
+      const statisticMod = mergeObject<SaveData>(new PF2StatisticModifier(saveName, modifiers) as SaveData, data.saves[saveName], { overwrite: false });
+      statisticMod.value = statisticMod.totalModifier;
+      statisticMod.breakdown = statisticMod.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+      statisticMod.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
+          PF2Check.roll(new PF2CheckModifier(label, statisticMod), { actor: this, type: 'saving-throw', options }, event, callback);
+        };
+
+      data.saves[saveName] = statisticMod;
     }
 
     // Martial
-    for (const skl of Object.values(data.martial as Record<any, any>)) {
-      const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0).modifier;
-      skl.value = proficiency;
-      skl.breakdown = `proficiency(${proficiency})`;
+    for (const skl of Object.values(data.martial)) {
+      const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0);
+      skl.value = proficiency.modifier;
+      skl.breakdown = `${game.i18n.localize(proficiency.name)} ${proficiency.modifier < 0 ? '' : '+'}${proficiency.modifier}`;
     }
 
     // Perception
@@ -584,6 +578,12 @@ export default class PF2EActor extends Actor {
   private _prepareNPCData(actorData: NpcData) {
     const { data } = actorData;
     const { statisticsModifiers } = this._prepareCustomModifiers(actorData);
+
+    // Compute 'fake' ability scores from ability modifiers (just incase the scores are required for something).
+    for (const abl of Object.values(actorData.data.abilities)) {
+      if (!abl.mod) abl.mod = 0;
+      abl.value = abl.mod * 2 + 10;
+    }
 
     // Armor Class
     {
