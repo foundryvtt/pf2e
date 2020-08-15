@@ -284,7 +284,9 @@ export class PF2eConditionManager {
      * @param {Token} token    The token to add the condition to.
      */
     static async removeConditionFromToken(id:string[], token:Token) {
-        id.forEach(async (i) =>  { await PF2eConditionManager._deleteConditionEntity(i, token); })
+        for (const i of id) {
+            await PF2eConditionManager._deleteConditionEntity(i, token); // eslint-disable-line no-await-in-loop
+        }
     }
 
     static async _deleteConditionEntity(id:string, token:Token) {
