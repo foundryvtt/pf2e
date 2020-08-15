@@ -4,6 +4,8 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
+import { PF2eConditionManager } from '../../conditions';
+import { ConditionData, ConditionDetailsData } from '../../item/dataDefinitions'
 
 class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   static get defaultOptions() {
@@ -470,6 +472,15 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       bulk,
       actorData.data?.traits?.size?.value ?? 'med',  
     );
+
+    if (actorData.data.attributes.encumbrance.isEncumbered && !actorData.items.some((i:ConditionData) => i.type === 'condition' && i.data.base === 'Encumbered' && i.data.source.value === 'PF2eCharacterSheet')) {
+      const condition = PF2eConditionManager.getCondition("Encumbered");
+      condition.data.source.value = "PF2eCharacterSheet";
+      PF2eConditionManager._addConditionEntity(condition, this.token);
+    } else if (!actorData.data.attributes.encumbrance.isEncumbered && actorData.items.some((i:ConditionData) => i.type === 'condition' && i.data.base === 'Encumbered' && i.data.source.value === 'PF2eCharacterSheet')) {
+      const condition:ConditionData = actorData.items.find((i:ConditionData) => i.type === 'condition' && i.data.base === 'Encumbered' && i.data.source.value === 'PF2eCharacterSheet') as ConditionData;
+      PF2eConditionManager.removeConditionFromToken([condition._id], this.token);
+    }
   }
   
   getEquippedShield(items) {
