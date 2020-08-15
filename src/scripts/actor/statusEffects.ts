@@ -436,6 +436,8 @@ export class PF2eStatusEffects {
                 
                 token.statusEffectChanged = true;
 
+                token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.data.base === status).forEach((i:ConditionData) => conditionIds.push(i._id));
+
                 await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
             } else if (condition) {
                 token.statusEffectChanged = true;
@@ -482,7 +484,7 @@ export class PF2eStatusEffects {
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.name === status).forEach((i:ConditionData) => conditionIds.push(i._id));
+                token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.data.base === status).forEach((i:ConditionData) => conditionIds.push(i._id));
 
             } else if (condition) {
                 conditionIds.push(condition._id);
