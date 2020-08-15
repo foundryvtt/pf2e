@@ -304,6 +304,8 @@ export class PF2StatisticModifier {
   _modifiers: PF2Modifier[];
   /** The total modifier for the statistic, after applying stacking rules. */
   totalModifier: number;
+  /** Allow decorating this object with any needed extra fields. */
+  [key: string]: any;
 
   /**
    * @param {string} name The name of this collection of statistic modifiers.

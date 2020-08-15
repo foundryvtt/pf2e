@@ -151,9 +151,9 @@
             <h3 class="defense-title pf-heading">{{localize "PF2E.SavesHeader"}}</h3>
             <ol class="defense-list">
                 {{#each data.saves as |save sid|}}
-                    <li class="npc-defense" data-save="{{sid}}">
-                        <span class="defense-score" title="{{save.breakdown}}">
-                                <input name="data.saves.{{sid}}.value" type="text" value="{{save.value}}"
+                    <li class="npc-defense" data-save="{{sid}}" title="{{save.breakdown}}">
+                        <span class="defense-score">
+                                <input name="data.saves.{{sid}}.base" type="text" value="{{save.base}}"
                                 data-dtype="Number" placeholder="0"/>
                         </span>
                         <h4 class="save-name rollable">{{save.label}}</h4>

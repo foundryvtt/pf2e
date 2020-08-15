@@ -7,6 +7,7 @@
 // import { monsterAbilities } from './monsterAbilities';
 import ActorSheetPF2eNPC from './npc';
 import { DicePF2e } from '../../../scripts/dice'
+import {PF2Modifier, PF2ModifierType} from "../../modifiers";
 
 class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
@@ -265,6 +266,14 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     const positive = increase ? 1 : -1;
     const mod = 2 * positive;
 
+    // adjustment by using custom modifiers
+    const customModifiers = actorData.data.customModifiers ?? {};
+    customModifiers.all = (customModifiers.all ?? []).filter(m => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
+    if (!adjustBackToNormal) {
+      const modifier = new PF2Modifier(increase ? 'Elite' : 'Weak', mod, PF2ModifierType.UNTYPED);
+      customModifiers.all.push(modifier);
+    }
+
     const lvl = parseInt(actorData.data.details.level.value, 10);
     const originalLvl = adjustBackToNormal ? lvl+positive : lvl;
     const hp = parseInt(actorData.data.attributes.hp.max, 10);
@@ -280,18 +289,8 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
     actorData.data.details.level.value = lvl + positive;
 
-    const ac = parseInt(actorData.data.attributes.ac.value, 10);
-    actorData.data.attributes.ac.value = ac + mod;
-
     const perception = parseInt(actorData.data.attributes.perception.value, 10);
     actorData.data.attributes.perception.value = perception + mod;
-
-    const fort = parseInt(actorData.data.saves.fortitude.value, 10);
-    actorData.data.saves.fortitude.value = fort + mod;
-    const refl = parseInt(actorData.data.saves.reflex.value, 10);
-    actorData.data.saves.reflex.value = refl + mod;
-    const will = parseInt(actorData.data.saves.will.value, 10);
-    actorData.data.saves.will.value = will + mod;
 
     for (const item of actorData.items) {
       if (item.type === "melee") {
