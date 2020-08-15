@@ -19,11 +19,6 @@
     {{/each}}
   </div>
   <hr/>
-  {{!-- <div class="dialog-row total-mod">
-    <span class="mod">Total Modifier:</span>
-    <span class="value">{{numberFormat check.totalModifier decimals=0 sign=true}}</span>
-  </div>
-  <hr/> --}}
   
   <div class="add-modifier-panel">
       <input type="text" class="add-modifier-name" placeholder="Modifier Name">
@@ -53,6 +48,18 @@
       <input type="radio" name="fate" value="misfortune" {{#if misfortune}}checked{{/if}}>
       Misfortune
     </label>
+  </div>
+  <hr/>
+
+  <div class="roll-mode-panel">
+    <span class="label">{{localize "PF2E.RollModeLabel"}}</span>
+    <select name="rollmode">
+      {{#select rollMode}}
+      {{#each rollModes as |label key|}}
+      <option value="{{key}}">{{localize label}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
   </div>
   <hr/>
   
