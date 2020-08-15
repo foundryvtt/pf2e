@@ -301,6 +301,7 @@ class CompendiumBrowser extends Application {
       'consumable',
       'treasure',
       'backpack',
+      'kit',
     ];
 
     for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
@@ -333,6 +334,7 @@ class CompendiumBrowser extends Application {
       armorTypes: CONFIG.PF2E.armorTypes,
       armorGroups: CONFIG.PF2E.armorGroups,
       weaponTraits: _sortedObject(CONFIG.PF2E.weaponTraits),
+      // TODO: i18n
       itemTypes: {
         weapon: 'Weapons',
         armor: 'Armor',
@@ -340,6 +342,7 @@ class CompendiumBrowser extends Application {
         consumable: 'Consumables',
         treasure: 'Treasure',
         backpack: 'Containers',
+        kit: 'Kits',
       },
       rarities: CONFIG.PF2E.rarityTraits,
       weaponTypes: CONFIG.PF2E.weaponTypes,
