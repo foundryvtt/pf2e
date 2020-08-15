@@ -1,3 +1,4 @@
+/* global Roll */
 /**
  * Doubles a formula based on the current crit rule
  */

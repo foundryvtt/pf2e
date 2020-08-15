@@ -1,3 +1,4 @@
+/* global FormApplication, getProperty */
 /**
  * Extend the base PlayerConfig class to implement additional logic specialized for PF2e.
  */
@@ -28,20 +29,20 @@ export class PlayerConfigPF2e extends FormApplication {
         let newDefaults = false;
 
         // Always set DEFAULT SETTINGS to the flags if they don't exist. This will prevent the need to always validate if these settings have been set.
-        if (settings == undefined) {
+        if (settings === undefined) {
             console.log('PF2e System | New player without saved PF2e Player Settings | Setting defaults');
             settings = PlayerConfigPF2e.DEFAULTS
-            game.user.update({flags: { PF2e:{ settings:settings } } })
+            game.user.update({flags: { PF2e:{ settings } } })
         } else {
             for (const defaultSetting in PlayerConfigPF2e.DEFAULTS) {
-                if (settings[defaultSetting] == undefined) {
+                if (settings[defaultSetting] === undefined) {
                     settings[defaultSetting] = PlayerConfigPF2e.DEFAULTS[defaultSetting];
                     newDefaults = true;
                 }
             }
-            if (newDefaults == true) {
+            if (newDefaults) {
                 console.log('PF2e System | Saving new default settings to the PF2e Player Settings');
-                game.user.update({flags: { PF2e:{ settings:settings } } })
+                game.user.update({flags: { PF2e:{ settings } } })
             }
         }
 
@@ -50,7 +51,7 @@ export class PlayerConfigPF2e extends FormApplication {
     static activateColorScheme() {
         console.log('PF2e System | Activating Player Configured color scheme');
         let color = getProperty(game.user.data.flags, 'PF2e.settings.color');
-        if (color == undefined) color = PlayerConfigPF2e.DEFAULTS.color;
+        if (color === undefined) color = PlayerConfigPF2e.DEFAULTS.color;
 
         const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/styles/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
         $('head').append(cssLink);
@@ -125,7 +126,7 @@ export class PlayerConfigPF2e extends FormApplication {
         console.log('PF2e System | Player Config activating listeners');
         super.activateListeners(html);
         
-        //not currently needed
+        // not currently needed
     }
 
     getData() {

@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file */
+/* global ChatMessage, ui */
 import { CheckModifiersDialog } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate } from '../modifiers';
@@ -20,7 +20,7 @@ export class PF2Check {
         // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
         if (context?.options?.length > 0) {
             check.modifiers.forEach(modifier => {
-                modifier.ignored = !new PF2ModifierPredicate(modifier.predicate ?? {}).test(context.options); // eslint-disable-line no-param-reassign
+                modifier.ignored = !new PF2ModifierPredicate(modifier.predicate ?? {}).test(context.options);
             });
             check.applyStackingRules();
         }

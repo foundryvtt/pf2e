@@ -17,7 +17,7 @@ export default class Progress {
   }
 
   advance(label) {
-    this._counter++;
+    this._counter += 1;
     this._label = label;
     this._updateUI();
   }

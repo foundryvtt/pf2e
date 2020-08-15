@@ -1,7 +1,7 @@
 import { DB } from './system/db';
 import './system/measure';
 
-declare var PF2e: PF2eSystem;
+declare let PF2e: PF2eSystem;
 
 /**
  * Base PF2e system class
@@ -21,11 +21,11 @@ export class PF2eSystem {
 
         let translated = game.i18n.translations.PF2E;
         if (game.i18n._fallback.PF2E !== undefined) {
-            //overload so all untranslated keys are still english
+            // overload so all untranslated keys are still english
             translated = mergeObject(game.i18n._fallback.PF2E, translated);
         }
-        this.DB = mergeObject(DB, translated); //static content
-        this.CONFIG = CONFIG.PF2E; //shorthand
+        this.DB = mergeObject(DB, translated); // static content
+        this.CONFIG = CONFIG.PF2E; // shorthand
     }
 
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { combineObjects } from "../../utils";
 
 /** The possible standard damage die sizes. */
@@ -27,7 +28,7 @@ export const DamageCategory = Object.freeze({
     fromDamageType: (damageType: string) => CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[damageType] || BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] || damageType,
 
     /** Adds a custom damage type -> category mapping. This method can be used to override base damage type/category mappings. */
-    addCustomDamageType: (category: string, type: string) => CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[type] = category,
+    addCustomDamageType: (category: string, type: string) => {CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[type] = category},
 
     /** Removes the custom mapping for the given type. */
     removeCustomDamageType: (type: string) => delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[type],
@@ -40,8 +41,8 @@ export const DamageCategory = Object.freeze({
 
     /** Get a set of all custom damage categories (exluding the base damage types). */
     customCategories: () => {
-        let result = new Set(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES));
-        for (let base of DamageCategory.baseCategories()) result.delete(base);
+        const result = new Set(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES));
+        for (const base of DamageCategory.baseCategories()) result.delete(base);
 
         return result;
     },
@@ -52,7 +53,7 @@ export const DamageCategory = Object.freeze({
     /** Map a damage category to the set of damage types in it. */
     toDamageTypes: (category: string) => {
         // Get all of the types in the current mappings which map to the given category
-        let types = Object.entries(DamageCategory.currentTypeMappings())
+        const types = Object.entries(DamageCategory.currentTypeMappings())
                           .filter(([key, value]) => value === category)
                           .map(([key, value]) => key);
         
@@ -62,7 +63,7 @@ export const DamageCategory = Object.freeze({
 
     /** Clear all custom damage type mappings. */
     clearCustom: () => Object.keys(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES)
-                             .forEach(function(key) { delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[key]; })
+        .forEach((key) => { delete CUSTOM_DAMAGE_TYPES_TO_CATEGORIES[key]; })
 });
 
 /** Maps damage types to their damage category; these are the immutable base mappings used if there is no override. */

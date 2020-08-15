@@ -1,3 +1,4 @@
+/* global ChatMessage, Roll, getProperty, ui, CONST */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -75,7 +76,7 @@ export default class PF2EActor extends Actor {
         if (!abl.mod) abl.mod = 0;
         abl.value = abl.mod * 2 + 10;
       }
-    } else if (actorData.type == 'character') {
+    } else if (actorData.type === 'character') {
       for (const abl of Object.values(actorData.data.abilities as Record<string, AbilityData>)) {
         abl.mod = Math.floor((abl.value - 10) / 2);
       }
@@ -96,7 +97,7 @@ export default class PF2EActor extends Actor {
       };
       for (const [t, choices] of Object.entries(map)) {
         const trait = actorData.data.traits[t];
-        if (trait == undefined) continue;
+        if (trait === undefined) continue;
         if (!(trait.value instanceof Array)) {
           trait.value = TraitSelector5e._backCompat(trait.value, choices);
         }
@@ -109,7 +110,7 @@ export default class PF2EActor extends Actor {
 
   _prepareTokenImg() {
     if (game.settings.get('pf2e', 'defaultTokenSettings')) {
-      if (this.data.token.img == 'icons/svg/mystery-man.svg' && this.data.token.img != this.img) {
+      if (this.data.token.img === 'icons/svg/mystery-man.svg' && this.data.token.img !== this.img) {
         this.data.token.img = this.img;
       }
     }
@@ -186,7 +187,7 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
         PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'saving-throw', options }, event, callback);
       };
-      data.saves[saveName] = updated; // eslint-disable-line no-param-reassign
+      data.saves[saveName] = updated;
     }
 
     // Martial
@@ -210,7 +211,6 @@ export default class PF2EActor extends Actor {
       });
 
       // preserve backwards-compatibility
-      /* eslint-disable no-param-reassign */
       if (data.attributes.perception instanceof PF2StatisticModifier) {
         // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
         data.attributes.perception = mergeObject(data.attributes.perception, new PF2StatisticModifier('perception', modifiers));
@@ -226,7 +226,6 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
         PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check', options }, event, callback);
       };
-      /* eslint-enable */
     }
 
     // Class DC
@@ -240,7 +239,6 @@ export default class PF2EActor extends Actor {
       });
 
       // preserve backwards-compatibility
-      /* eslint-disable no-param-reassign */
       if (data.attributes.classDC instanceof PF2StatisticModifier) {
         // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
         data.attributes.classDC = mergeObject(data.attributes.classDC, new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers));
@@ -254,7 +252,6 @@ export default class PF2EActor extends Actor {
         data.attributes.classDC.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
-      /* eslint-enable */
     }
 
     // Armor Class
@@ -283,7 +280,6 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      /* eslint-disable no-param-reassign */
       data.attributes.ac = new PF2StatisticModifier("ac", modifiers);
       // preserve backwards-compatibility
       data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
@@ -292,7 +288,6 @@ export default class PF2EActor extends Actor {
         data.attributes.ac.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
-      /* eslint-enable */
     }
 
     // Shield
@@ -356,11 +351,11 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
         PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check', options }, event, callback);
       };
-      data.skills[skillName] = updated; // eslint-disable-line no-param-reassign
+      data.skills[skillName] = updated;
     }
 
     // Automatic Actions
-    data.actions = []; // eslint-disable-line no-param-reassign
+    data.actions = [];
 
     // Strikes
     {
@@ -472,7 +467,7 @@ export default class PF2EActor extends Actor {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
-        let map = PF2EItem.calculateMap(item);
+        const map = PF2EItem.calculateMap(item);
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
@@ -550,7 +545,7 @@ export default class PF2EActor extends Actor {
         }
 
         const combatant = game.combat.turns.find(c => c.actor.id === this._id)
-        if(combatant == undefined) {
+        if (combatant === undefined) {
           ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
           return;
         }
@@ -577,9 +572,8 @@ export default class PF2EActor extends Actor {
         return source;
       } else if (typeof source === 'string') {
         return source.split(',').map((trait) => trait.trim());
-      } else {
-        return [];
       }
+      return [];
     }
 
     /* -------------------------------------------- */
@@ -589,7 +583,7 @@ export default class PF2EActor extends Actor {
    */
   private _prepareNPCData(actorData: NpcData) {
     const { data } = actorData;
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
+    const { statisticsModifiers } = this._prepareCustomModifiers(actorData);
 
     // Armor Class
     {
@@ -712,9 +706,9 @@ export default class PF2EActor extends Actor {
     const dc = recoveryDc + dying;
     let result = '';
 
-    if (flatCheck.total == 20 || flatCheck.total >= (dc+10)) {
+    if (flatCheck.total === 20 || flatCheck.total >= (dc+10)) {
       result = `${game.i18n.localize("PF2E.CritSuccess")} ${game.i18n.localize("PF2E.Recovery.critSuccess")}`;
-    } else if (flatCheck.total == 1 || flatCheck.total <= (dc-10)) {
+    } else if (flatCheck.total === 1 || flatCheck.total <= (dc-10)) {
       result = `${game.i18n.localize("PF2E.CritFailure")} ${game.i18n.localize("PF2E.Recovery.critFailure")}`;
     } else if (flatCheck.result >= dc) {
       result = `${game.i18n.localize("PF2E.Success")} ${game.i18n.localize("PF2E.Recovery.success")}`;
@@ -773,7 +767,7 @@ export default class PF2EActor extends Actor {
       parts,
       data: {
         mod: rollMod,
-        itemBonus: itemBonus
+        itemBonus
       },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
@@ -864,12 +858,10 @@ export default class PF2EActor extends Actor {
       const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
       const messageSender = roll.find('.message-sender').text();
       const flavorText = roll.find('.flavor-text').text();
-      const shieldFlavor = (attribute=='attributes.shield') ? game.i18n.localize("PF2E.UI.applyDamage.shieldActive") : game.i18n.localize("PF2E.UI.applyDamage.shieldInActive");
+      const shieldFlavor = (attribute === 'attributes.shield') ? game.i18n.localize("PF2E.UI.applyDamage.shieldActive") : game.i18n.localize("PF2E.UI.applyDamage.shieldInActive");
       for (const t of canvas.tokens.controlled) {
-        const a = t.actor;
-
         const appliedResult = (value>0) ? game.i18n.localize("PF2E.UI.applyDamage.damaged") + value : game.i18n.localize("PF2E.UI.applyDamage.healed") + value*-1;
-        const modifiedByGM = modifier!==0 ? 'Modified by GM: '+(modifier<0?'-':'+')+modifier : '';
+        const modifiedByGM = modifier!==0 ? `Modified by GM: ${modifier<0 ? '-' : '+'}${modifier}` : '';
         const by = game.i18n.localize("PF2E.UI.applyDamage.by");
         const hitpoints = game.i18n.localize("PF2E.HitPointsHeader").toLowerCase();
         const message = `
@@ -922,17 +914,17 @@ export default class PF2EActor extends Actor {
         return;
       }
       const combatant = game.combat.getCombatantByToken(t.id);
-      if(combatant == undefined) {
+      if(combatant === undefined) {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
       let value = valueRolled;
       let initBonus = 0;
-      //Other actor types track iniative differently, which will give us NaN errors
+      // Other actor types track iniative differently, which will give us NaN errors
       if(combatant.actor.data.type === "npc") {
         initBonus += combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
       }
-      //Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
+      // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
       if (!combatant.actor.isPC) {
         initBonus += .5;
       }
@@ -963,7 +955,7 @@ export default class PF2EActor extends Actor {
         game.combat.setInitiative(combatant._id, value),
       );
     }
-    return Promise.all(promises);
+    await Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -989,7 +981,7 @@ export default class PF2EActor extends Actor {
 
     const pack = game.packs.find(p => p.collection === collection);
     if (pack.metadata.entity !== "Item") return;
-    return await pack.getEntity(entryId).then(async ent => {
+    await pack.getEntity(entryId).then(async ent => {
       console.log(`PF2e System | importItemFromCollectionWithLocation | Importing using createOwnedItem for ${ent.name} from ${collection}`);
       if (ent.type === 'spell') {
 
@@ -1001,14 +993,13 @@ export default class PF2EActor extends Actor {
         };
       }
       delete ent.data._id;
-      return await this.createOwnedItem(ent.data);
+      return this.createOwnedItem(ent.data);
     });
-
   }
 
   async _setShowUnpreparedSpells(entryId, spellLevel) {
     if (entryId && spellLevel) {
-      let spellcastingEntry = this.getOwnedItem(entryId);
+      const spellcastingEntry = this.getOwnedItem(entryId);
       if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry')
         return;
 
@@ -1093,9 +1084,8 @@ export default class PF2EActor extends Actor {
         }
         return this;
       }) as Promise<PF2EActor>;
-    } else {
-      return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
+    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
   }
 
   /**
@@ -1105,7 +1095,8 @@ export default class PF2EActor extends Actor {
    */
   _calculateHealthDelta(args) {
     const update = {};
-    let {hp, sp, delta} = args;
+    const {hp, sp} = args;
+    let {delta} = args;
     if ((hp.temp + delta) >= 0) {
       update['data.attributes.hp.temp'] = hp.temp + delta;
       delta = 0;

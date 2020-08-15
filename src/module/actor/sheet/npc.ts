@@ -1,3 +1,4 @@
+/* global ui, CONST */
 import ActorSheetPF2eCreature from './creature';
 
 class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
@@ -99,7 +100,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       // Weapons
       else if (i.type === 'weapon') {
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0) + actorData.data.martial.simple.value;
         i.data.isAgile = isAgile;
 
         attacks.weapon.items.push(i);
@@ -109,12 +110,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       else if (i.type === 'melee') {
         const weaponType = (i.data.weaponType || {}).value || 'melee';
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0);
+        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0);
         i.data.isAgile = isAgile;
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
@@ -133,7 +134,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
         const actionType = i.data.actionType.value || 'action';
         let actionImg: number|string = 0;
         // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
@@ -141,7 +142,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
@@ -168,7 +169,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
           let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
           else if (actionType === 'reaction') actionImg = 'reaction';
           else if (actionType === 'free') actionImg = 'free';
           i.img = this._getActionImg(actionImg);
@@ -191,7 +192,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       // format spell level for display
       if (spellType === 'reaction') i.img = this._getActionImg('reaction');
       else if (spellType === 'free') i.img = this._getActionImg('free');
-      else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
+      else if (parseInt(spellType, 10)) i.img = this._getActionImg(parseInt(spellType, 10));
 
       // check if the spell has a valid spellcasting entry assigned to the location value.
       if (spellcastingEntriesList.includes(i.data.location.value)) {

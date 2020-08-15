@@ -1,10 +1,7 @@
-import PF2EItem from './item/item';
 import { ConditionData, ConditionDetailsData } from './item/dataDefinitions'
-import { string } from 'yargs';
-import { ConditionModifiers } from './condition-modifiers';
 import { PF2Modifier } from './modifiers';
 
-declare var PF2e: any;
+declare let PF2e: any;
 
 /**
  * A helper class to manage PF2e Conditions.
@@ -69,9 +66,8 @@ export class PF2eConditionManager {
 
         if (PF2eConditionManager._customConditions.has(condition)) {
             return PF2eConditionManager._customConditions.get(condition);
-        } else {
-            return PF2eConditionManager._conditionCache.get(condition);
         }
+        return PF2eConditionManager._conditionCache.get(condition);
     }
 
     /**
@@ -93,7 +89,7 @@ export class PF2eConditionManager {
      */
     static getAppliedConditions(conditions:Array<ConditionData>, modifiers?) : IterableIterator<ConditionData> {
         const appliedConditions = new Map<string, ConditionData>();
-        let overrides = new Array<string>();
+        let overrides: string[] = [];
 
         for (const condition of conditions) {
             const data = condition.data as ConditionDetailsData;
@@ -139,7 +135,7 @@ export class PF2eConditionManager {
         for (const condition of conditions) {
             for (const modifier of condition.data.modifiers) {
                 if (!(conditionModifiers.has(modifier.group))) {
-                    conditionModifiers.set(modifier.group, new Array<PF2Modifier>());
+                    conditionModifiers.set(modifier.group, <Array<PF2Modifier>>[]);
                 }
 
                 if (condition.data.value.isValued) {
@@ -154,6 +150,6 @@ export class PF2eConditionManager {
     }
 }
 
-Hooks.once("ready", function() { //or init?
+Hooks.once("ready", () => { // or init?
     PF2eConditionManager.init();
 });

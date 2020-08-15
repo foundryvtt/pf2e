@@ -3,9 +3,7 @@
  */
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { getPhysicalItemData } from './dataDefinitions';
 
-// eslint-disable-next-line import/prefer-default-export
 export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -30,8 +28,6 @@ export class ItemSheetPF2e extends ItemSheet {
 
 
   getData() {
-    var _this$item$data, _this$item$data$data, _this$item$data$data$;
-
     const data: any = super.getData();
     // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
     // This works because the actor's items are already updated by the time the ItemSheet rerenders.
@@ -58,10 +54,10 @@ export class ItemSheetPF2e extends ItemSheet {
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
-    const stackGroup = (_this$item$data = this.item.data) === null || _this$item$data === void 0 ? void 0 : (_this$item$data$data = _this$item$data.data) === null || _this$item$data$data === void 0 ? void 0 : (_this$item$data$data$ = _this$item$data$data.stackGroup) === null || _this$item$data$data$ === void 0 ? void 0 : _this$item$data$data$.value;
+    const stackGroup = (<any>this.item).data?.data?.stackGroup?.value;
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
     data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
-	data.usage = CONFIG.PF2E.usageTraits; // usage data
+    data.usage = CONFIG.PF2E.usageTraits; // usage data
 
     if (type === 'treasure') {
       data.currencies = CONFIG.currencies;
@@ -100,8 +96,8 @@ export class ItemSheetPF2e extends ItemSheet {
 
       data.martialSkills = martialSkills; // Weapon Data
 
-      const weaponPreciousMaterials = Object.assign({}, CONFIG.PF2E.preciousMaterials);
-      delete weaponPreciousMaterials['dragonhide'];
+      const weaponPreciousMaterials = {...CONFIG.PF2E.preciousMaterials};
+      delete weaponPreciousMaterials.dragonhide;
       const slots = getPropertySlots(this.item.data);
       this.assignPropertySlots(data, slots);
       data.preciousMaterials = weaponPreciousMaterials;
@@ -122,7 +118,7 @@ export class ItemSheetPF2e extends ItemSheet {
       data.weaponReload = CONFIG.PF2E.weaponReload;
       data.weaponMAP = CONFIG.PF2E.weaponMAP;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
-      data.isBomb = this.item.data.type == 'weapon' && this.item.data.data?.group?.value === 'bomb';
+      data.isBomb = this.item.data.type === 'weapon' && this.item.data.data?.group?.value === 'bomb';
 
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
     } else if (this.item.type === 'melee') {

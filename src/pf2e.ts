@@ -1,3 +1,4 @@
+/* global ui, CONST */
 import { CONFIG as PF2ECONFIG } from './scripts/config';
 import registerSettings from './module/settings';
 import loadTemplates from './module/templates';
@@ -38,9 +39,9 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
-  //Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
+  // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
-  //Assign the PF2e Combat Tracker
+  // Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
 
   PlayerConfigPF2e.hookOnRenderSettings();
@@ -50,7 +51,7 @@ Hooks.once('init', () => {
   registerActors();
   registerSheets();
   registerHandlebarsHelpers();
-  //@ts-ignore
+  // @ts-ignore
   Combat.prototype._getInitiativeFormula = initiativeFormula;
 
   // expose a few things to the global world, so that other modules can use our stuff
@@ -107,14 +108,13 @@ Hooks.once('setup', () => {
 /**
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
  */
-Hooks.once("ready", function() {
+Hooks.once("ready", () => {
 
   // Determine whether a system migration is required and feasible
   const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
   const NEEDS_MIGRATION_VERSION = Number(game.system.data.schema);
   const COMPATIBLE_MIGRATION_VERSION = 0.411;
-  let needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
-  const canMigrate = currentVersion >= COMPATIBLE_MIGRATION_VERSION;
+  const needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
 
   // Perform the migration
   if ( needMigration && game.user.isGM ) {
@@ -149,10 +149,10 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     const { messageId } = li.data();
     const message = game.messages.get(messageId);
 
-    //Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
-    //Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-    let validActor = (canvas.tokens.controlled?.[0]?.actor?.data?.type === "npc") ?? false;
-    let validRollType = (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ?? false;
+    // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
+    // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
+    const validActor = (canvas.tokens.controlled?.[0]?.actor?.data?.type === "npc") ?? false;
+    const validRollType = (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ?? false;
     return validActor && message.isRoll && validRollType;
   };
 
@@ -169,8 +169,8 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
   const canReroll = (li): boolean => {
     const message = game.messages.get(li.data('messageId'));
     const actorId = message.data.speaker.actor;
-    const canReroll = message.getFlag('pf2e', 'canReroll');
-    if (canReroll && actorId) {
+    const canRerollMessage = message.getFlag('pf2e', 'canReroll');
+    if (canRerollMessage && actorId) {
       const actor = game.actors.get(actorId);
       return actor.owner && (message.isAuthor || game.user.isGM);
     }
@@ -248,7 +248,7 @@ Hooks.on('preCreateActor', (actor, dir) => {
     });
 
     // Default characters to HasVision = true and Link Data = true
-    if (actor.type == 'character') {
+    if (actor.type === 'character') {
       actor.token.vision = true;
       actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
       actor.token.actorLink = true;

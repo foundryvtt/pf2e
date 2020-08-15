@@ -361,6 +361,7 @@ export interface ActionDetailsData {
     trigger: {
         value: string
     },
+    /* eslint-disable-next-line camelcase */
     skill_requirements: {
         skill: string,
         rank: string

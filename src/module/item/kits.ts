@@ -1,4 +1,3 @@
-/* global duplicate */
 import {KitData, KitDetailsData, KitEntryData, PhysicalItemData} from './dataDefinitions';
 
 type PhysicalItemDataEntry = {
@@ -15,7 +14,7 @@ type createItemsCallback = (itemData: PhysicalItemDataEntry[]) => Promise<string
  * Returns an array of pairs of ItemData and an array of ItemData contained by the first element
  */
 async function getKitItemData(kitData: KitDetailsData | KitEntryData): Promise<[PhysicalItemDataEntry, PhysicalItemDataEntry[]][]> {
-    const itemData = await Promise.all(Object.values(kitData.items).map(async (item) => {
+    const kitItems = await Promise.all(Object.values(kitData.items).map(async (item) => {
         let getItem;
         if (item.pack) {
             const pack = game.packs.get(item.pack);
@@ -32,19 +31,19 @@ async function getKitItemData(kitData: KitDetailsData | KitEntryData): Promise<[
 
         if (itemData.type === 'kit') {
             return getKitItemData(itemData.data);
-        } else {
-            itemData.data.quantity.value = item.quantity;
-
-            // Get items in this container and remove any items that might be contained inside
-            const containedItems = await getKitItemData(item);
-            const containedItemData = containedItems.map(([item]) => item)
-
-            // A non-kit returns an array with a single item and contained-items so  .flat() can work below
-            return [[itemData, containedItemData]];
         }
+
+        itemData.data.quantity.value = item.quantity;
+
+        // Get items in this container and remove any items that might be contained inside
+        const containedItems = await getKitItemData(item);
+        const containedItemData = containedItems.map(([i]) => i)
+
+        // A non-kit returns an array with a single item and contained-items so  .flat() can work below
+        return [[itemData, containedItemData]];
     }));
 
-    return <[PhysicalItemDataEntry, PhysicalItemDataEntry[]][]>itemData.flat();
+    return <[PhysicalItemDataEntry, PhysicalItemDataEntry[]][]>kitItems.flat();
 }
 
 export async function addKit(

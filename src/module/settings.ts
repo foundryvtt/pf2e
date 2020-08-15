@@ -44,7 +44,7 @@ export default function () {
     type: Number,
     choices: {
       0: "Do not use Stamina",
-      1: "Use Stamina" //I plan to expand this, hence the dropdown.
+      1: "Use Stamina" // I plan to expand this, hence the dropdown.
     }
   });
   game.settings.register('pf2e', 'proficiencyVariant', {

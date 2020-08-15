@@ -259,5 +259,6 @@ declare class Actor extends Entity<SystemActorDataType> {
 	 * @param options	Item deletion options
 	 * @return			A Promise resolving to the deleted Owned Item data
 	 */
+	deleteOwnedItem(itemId: string[], options?: object): Promise<SystemItemType[]|SystemItemType>;
 	deleteOwnedItem(itemId: string, options?: object): Promise<SystemItemType>;
 }

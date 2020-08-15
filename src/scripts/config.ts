@@ -195,7 +195,7 @@ CONFIG.damageTypes = {
   lawful: 'PF2E.DamageTypeLawful',
   good: 'PF2E.DamageTypeGood',
   evil: 'PF2E.DamageTypeEvil'
-}; //Resistance Types
+}; // Resistance Types
 
 CONFIG.resistanceTypes = {
   acid: 'PF2E.DamageTypeAcid',
@@ -233,7 +233,7 @@ CONFIG.stackGroups = {
   rations: 'PF2E.StackGroupRations',
   coins: 'PF2E.StackGroupCoins',
   gems: 'PF2E.StackGroupGems'
-}; //Weakness Types
+}; // Weakness Types
 
 CONFIG.weaknessTypes = {
   acid: 'PF2E.DamageTypeAcid',
