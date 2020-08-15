@@ -289,9 +289,6 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
     actorData.data.details.level.value = lvl + positive;
 
-    const perception = parseInt(actorData.data.attributes.perception.value, 10);
-    actorData.data.attributes.perception.value = perception + mod;
-
     for (const item of actorData.items) {
       if (item.type === "melee") {
         // melee type is currently used for both melee and ranged attacks

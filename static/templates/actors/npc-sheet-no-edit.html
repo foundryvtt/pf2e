@@ -44,9 +44,9 @@
         </div>
       
         <div class="stats-line">
-          <span class="inline-stats rollable" data-attribute="perception">
+          <span class="inline-stats rollable" data-attribute="perception" title="{{data.attributes.perception.breakdown}}">
             <label class="stat-title attribute-name">{{localize "PF2E.PerceptionLabel"}}</label>
-            <span class="stat-value attribute-name">+{{data.attributes.perception.value}}</span>
+            <span class="stat-value attribute-name">{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
             <span class="stat-detail perception attribute-name">{{data.traits.senses.value}}</span>
           </span>
         </div>
