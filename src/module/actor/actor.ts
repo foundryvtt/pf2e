@@ -587,21 +587,25 @@ export default class PF2EActor extends Actor {
 
     // Armor Class
     {
-      const modifiers = [];
       const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
-      modifiers.push(new PF2Modifier('PF2E.BaseModifier', base - 10 - data.abilities.dex.mod, PF2ModifierType.UNTYPED));
-      modifiers.push(new PF2Modifier('PF2E.AbilityDex', data.abilities.dex.mod, PF2ModifierType.ABILITY));
+      const modifiers = [
+        new PF2Modifier('PF2E.BaseModifier', base - 10 - data.abilities.dex.mod, PF2ModifierType.UNTYPED),
+        new PF2Modifier(CONFIG.abilities.dex, data.abilities.dex.mod, PF2ModifierType.ABILITY)
+      ];
       ['ac', 'dex-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      data.attributes.ac = new PF2StatisticModifier("ac", modifiers);
-      data.attributes.ac.base = base;
-      data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
-      data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
-        data.attributes.ac.modifiers.filter((m) => m.enabled)
+      const stat = new PF2StatisticModifier("ac", modifiers);
+      // copy all fields from the original save object, exclude fields already defined on the stat
+      Object.entries(data.attributes.ac as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      stat.base = base;
+      stat.value = 10 + stat.totalModifier;
+      stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
+        stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
+      data.attributes.ac = stat;
     }
 
     // Saving Throws
@@ -617,7 +621,7 @@ export default class PF2EActor extends Actor {
 
       const stat = new PF2StatisticModifier(saveName, modifiers);
       // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(save as Record<string, any>).filter(([key, _]) => !stat[key]).forEach(([key, value]) => { stat[key] = value });
+      Object.entries(save as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
@@ -628,6 +632,32 @@ export default class PF2EActor extends Actor {
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
       };
       data.saves[saveName] = stat; 
+    }
+
+    // Perception
+    {
+      const base: number = data.attributes.perception.base ?? Number(data.attributes.perception.value);
+      const modifiers = [
+        new PF2Modifier('PF2E.BaseModifier', base - data.abilities.wis.mod, PF2ModifierType.UNTYPED),
+        new PF2Modifier(CONFIG.abilities.wis, data.abilities.wis.mod, PF2ModifierType.ABILITY)
+      ];
+      ['perception', 'wis-based', 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+
+      const stat = new PF2StatisticModifier('perception', modifiers);
+      // copy all fields from the original save object, exclude fields already defined on the stat
+      Object.entries(data.attributes.perception as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      stat.base = base;
+      stat.value = stat.totalModifier;
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      stat.roll = (event, options = [], callback?) => {
+        const label = game.i18n.localize('PF2E.PerceptionCheck');
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
+      };
+      data.attributes.perception = stat;
     }
 
   }
