@@ -132,30 +132,30 @@
     
     <div class="stats-line">
       <span class="inline-stats">
-        <span class="stat-list major-stat">
+        <span class="stat-list major-stat" title="{{data.attributes.ac.breakdown}}">
           <label class="stat-title">{{localize "PF2E.ArmorClassShortLabel"}}</label>
-          <span class="stat-value" title="{{data.attributes.ac.breakdown}}">{{data.attributes.ac.value}}</span>
+          <span class="stat-value">{{numberFormat data.attributes.ac.value decimals=0}}</span>
           {{#if hasACDetails}}
           <span class="stat-detail">{{data.attributes.ac.details}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="fortitude">
+        <span class="stat-list rollable" data-save="fortitude" title="{{data.saves.fortitude.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesFortitudeShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.fortitude.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.fortitude.value decimals=0 sign=true}}</span>
           {{#if hasFortDetails}}
           <span class="stat-detail save-name">{{data.saves.fortitude.saveDetail}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="reflex">
+        <span class="stat-list rollable" data-save="reflex" title="{{data.saves.reflex.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesReflexShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.reflex.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.reflex.value decimals=0 sign=true}}</span>
           {{#if hasRefDetails}}
           <span class="stat-detail save-name">{{data.saves.reflex.saveDetail}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="will">
+        <span class="stat-list rollable" data-save="will" title="{{data.saves.will.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesWillShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.will.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.will.value decimals=0 sign=true}}</span>
           {{#if hasWillDetails}}
           <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
           {{/if}}

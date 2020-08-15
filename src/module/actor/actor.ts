@@ -603,6 +603,33 @@ export default class PF2EActor extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
     }
+
+    // Saving Throws
+    for (const [saveName, save] of Object.entries(data.saves as Record<string, any>)) {
+      const base: number = save.base ?? Number(save.value);
+      const modifiers = [
+        new PF2Modifier('PF2E.BaseModifier', base - data.abilities[save.ability].mod, PF2ModifierType.UNTYPED),
+        new PF2Modifier(CONFIG.abilities[save.ability], data.abilities[save.ability].mod, PF2ModifierType.ABILITY)
+      ];
+      [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
+        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+
+      const stat = new PF2StatisticModifier(saveName, modifiers);
+      // copy all fields from the original save object, exclude fields already defined on the stat
+      Object.entries(save as Record<string, any>).filter(([key, _]) => !stat[key]).forEach(([key, value]) => { stat[key] = value });
+      stat.base = base;
+      stat.value = stat.totalModifier;
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      stat.roll = (event, options = [], callback?) => {
+        const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
+      };
+      data.saves[saveName] = stat; 
+    }
+
   }
 
   /** Compute custom stat modifiers provided by users or given by conditions. */
