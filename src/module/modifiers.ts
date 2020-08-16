@@ -95,7 +95,7 @@ export class PF2Modifier {
    * @param {string} source The source which this modifier originates from, if any.
    * @param {string} notes Any notes about this modifier.
    */
-  constructor(name: string, modifier: number, type: string, enabled: boolean = true, source: string = undefined, notes: string = undefined) {
+  constructor(name: string, modifier: number, type: string, enabled: boolean = false, source: string = undefined, notes: string = undefined) {
     this.name = name;
     this.modifier = modifier;
     this.type = type;
@@ -104,12 +104,6 @@ export class PF2Modifier {
     this.custom = false;
     if (source) this.source = source;
     if (notes) this.notes = notes;
-  }
-
-  /** Disable this modifier and return `this`. */
-  disabled() {
-    this.enabled = false;
-    return this;
   }
 }
 
