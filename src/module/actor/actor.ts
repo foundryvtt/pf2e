@@ -43,6 +43,25 @@ export const SKILL_DICTIONARY = Object.freeze({
   thi: 'thievery'
 });
 
+const SKILL_EXPANDED = Object.freeze({
+  acrobatics: { ability: 'dex', shortform: 'acr' },
+  arcana: { ability: 'int', shortform: 'arc' },
+  athletics: { ability: 'str', shortform: 'ath' },
+  crafting: { ability: 'int', shortform: 'cra' },
+  deception: { ability: 'cha', shortform: 'dec' },
+  diplomacy: { ability: 'cha', shortform: 'dip' },
+  intimidation: { ability: 'cha', shortform: 'itm' },
+  medicine: { ability: 'wis', shortform: 'med' },
+  nature: { ability: 'wis', shortform: 'nat' },
+  occultism: { ability: 'int', shortform: 'occ' },
+  performance: { ability: 'cha', shortform: 'pfr' },
+  religion: { ability: 'wis', shortform: 'rel' },
+  society: { ability: 'int', shortform: 'soc' },
+  stealth: { ability: 'dex', shortform: 'ste' },
+  survival: { ability: 'wis', shortform: 'sur' },
+  thievery: { ability: 'dex', shortform: 'thi' }
+});
+
 const SUPPORTED_ROLL_OPTIONS = Object.freeze([
   'all',
   'attack-roll',
@@ -54,9 +73,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
   'perception',
   'initiative',
   'skill-check',
-].concat(
-  Object.values(SKILL_DICTIONARY)
-));
+]);
 
 export default class PF2EActor extends Actor {
 
@@ -658,6 +675,42 @@ export default class PF2EActor extends Actor {
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
       data.attributes.perception = stat;
+    }
+
+    // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
+    for (const item of actorData.items) {
+      if (item.type === 'lore') { // skill
+        // normalize skill name to lower-case and dash-separated words
+        const skill = item.name.toLowerCase().replace(/\s+/g, '-');
+        // assume lore, if skill cannot be looked up
+        const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: 'int', shortform: skill };
+
+        const base: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
+        const modifiers = [
+          new PF2Modifier('PF2E.BaseModifier', base - data.abilities[ability].mod, PF2ModifierType.UNTYPED),
+          new PF2Modifier(CONFIG.abilities[ability], data.abilities[ability].mod, PF2ModifierType.ABILITY)
+        ];
+        [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
+          (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        });
+
+        const stat = new PF2StatisticModifier(item.name, modifiers);
+        // copy all fields from the original save object, exclude fields already defined on the stat
+        Object.entries(data.skills[shortform] ?? {} as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+        stat.base = base;
+        stat.expanded = skill;
+        stat.label = item.name;
+        stat.value = stat.totalModifier;
+        stat.visible = true;
+        stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
+        };
+        data.skills[shortform] = stat;
+      }
     }
 
   }
@@ -1262,7 +1315,7 @@ export default class PF2EActor extends Actor {
   }
 
   async toggleRollOption(rollName, optionName) {
-    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName)) {
+    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;
@@ -1270,7 +1323,7 @@ export default class PF2EActor extends Actor {
   }
 
   async setRollOption(rollName, optionName, enabled) {
-    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName)) {
+    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;

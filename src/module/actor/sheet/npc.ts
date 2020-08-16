@@ -1,5 +1,6 @@
 /* global ui, CONST */
 import ActorSheetPF2eCreature from './creature';
+import {SKILL_DICTIONARY} from "../actor";
 
 class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   static get defaultOptions() {
@@ -284,15 +285,14 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
     // NPC SKill Rolling
     html.find('.item .npc-skill-name').click((event) => {
       event.preventDefault();
-      const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      const item = this.actor.getOwnedItem(itemId);
-      this.actor.rollLoreSkill(event, item);
+      const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
+      const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
+      this.actor.data.data.skills[shortform]?.roll(event, opts); // eslint-disable-line no-unused-expressions
     });
 
     html.find('.skill-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.mod.value': Number(event.target.value) });
-      // }
     });
 
     html.find('.spelldc-input').change(async (event) => {
