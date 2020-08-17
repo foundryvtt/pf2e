@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 1.10.2
+### Bug Fixes
+* (@nikolaj-a) Fixed flat modifiers on damage rolls
+* (@atnoslen) Changed "Fascinated" condition to apply penalty on all skill checks instead of the individual skills in preparation for also applying to lore skills
+
+
 ## Version 1.10.1
 ### Bug Fixes
 * (@abrault and @In3luki) Fix hotbar macro drag and drop issue
@@ -7,10 +13,10 @@
 
 ## Version 1.10.0
 ### New Features
-* (nikolaj-a) More capabilities to set roll mode
+* (@nikolaj-a) More capabilities to set roll mode
     * Roll mode dropdown in check roll dialog
     * Support secret option for rolls
-* (nikolaj-a) Tentantive support for conditions on NPCs (attack/damage rolls still not supported)
+* (@nikolaj-a) Tentantive support for conditions on NPCs (attack/damage rolls still not supported)
     * Custom modifiers for NPC armor class
     * Custom modifiers for NPC saving throws
     * Custom modifiers for NPC perception
@@ -22,7 +28,7 @@
 * (@TMun): Corrected entries for equipment compendium up to G
 
 ### Bug Fixes
-* (nikolaj-a) Fix broken UI events for damage and critical damage rolls
+* (@nikolaj-a) Fix broken UI events for damage and critical damage rolls
 * (@abrault) Change title of Treat Wounds result
 * (@atnoslen) Condition manager bugfixes, including drag & drop integration
 * (@Ralar) Better support for dragging items to and from unlinked actors, which should help with the loot sheet
