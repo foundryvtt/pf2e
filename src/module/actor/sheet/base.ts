@@ -1,7 +1,6 @@
 /* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
 import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
-import {isCycle} from "../../item/container";
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
@@ -1132,9 +1131,15 @@ abstract class ActorSheetPF2e extends ActorSheet {
             return true;
         }
 
-        return this.stashOrUnstash(event, actor, async () => {
-            return actor.createOwnedItem(itemData);
-        });
+        const container = $(event.target).parents('[data-item-is-container="true"]');
+        let containerId = null;
+        if (container[0] !== undefined) {
+          containerId = container[0].dataset.itemId?.trim();
+        }
+        return actor.stashOrUnstash(async () => {
+            const newItemData = await actor.createOwnedItem(itemData);
+            return actor.getOwnedItem(newItemData._id);
+        }, containerId);
     }
 
     /**
@@ -1151,8 +1156,13 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
       const isSameActor = sourceActorId === targetActorId;
 
+      const container = $(event.target).parents('[data-item-is-container="true"]');
+      let containerId = null;
+      if (container[0] !== undefined) {
+        containerId = container[0].dataset.itemId?.trim();
+      }
       if (isSameActor) {
-        await this.stashOrUnstash(event, targetActor, () => { return item; });
+        await targetActor.stashOrUnstash(() => { return item; }, containerId);
         return this._onSortItem(event, item.data);
       }
       const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
@@ -1162,74 +1172,16 @@ abstract class ActorSheetPF2e extends ActorSheet {
       {
         const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
           console.log(`Accepted moving ${quantity} items`);
-          this._moveItemBetweenActors(event, sourceActor, targetActor, item, quantity);
+          sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
         });
 
         popup.render(true);
       }
       else
       {
-        this._moveItemBetweenActors(event, sourceActor, targetActor, item, 1);
+        sourceActor.transferItemToActor(targetActor, item, 1, containerId);
       }
       return true;
-    }
-
-    async _moveItemBetweenActors(event, sourceActor, targetActor, item, quantity) {
-      const sourceItemQuantity = Number(item.data.data.quantity.value);
-
-      if (quantity > sourceItemQuantity) {
-        quantity = sourceItemQuantity;
-      }
-
-      const newItemQuantity = sourceItemQuantity - quantity;
-      const hasToRemoveFromSource = newItemQuantity < 1;
-
-      if (hasToRemoveFromSource) {
-        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
-      } else {
-        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
-        await sourceActor.updateEmbeddedEntity('OwnedItem', update);
-      }
-
-      let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
-
-      if (itemInTargetActor !== null)
-      {
-        // Increase amount of item in target actor if there is already an item with the same name
-        const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
-        const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
-        await targetActor.updateEmbeddedEntity('OwnedItem', update);
-      }
-      else
-      {
-        // If no item with the same name in the target actor, create new item in the target actor
-        const newItemData = duplicate(item);
-        newItemData.data.quantity.value = quantity;
-
-        const result = await targetActor.createOwnedItem(newItemData);
-
-        itemInTargetActor = targetActor.items.get(result._id);
-      }
-
-      return this.stashOrUnstash(event, targetActor, () => { return itemInTargetActor; });
-    }
-
-    async stashOrUnstash(event, actor, getItem) {
-        const container = $(event.target).parents('[data-item-is-container="true"]');
-        if (container[0] !== undefined) {
-            const droppedItemId = container.attr('data-item-id')?.trim();
-            const item = await getItem();
-            if (item.type !== 'spell' && !isCycle(item._id, droppedItemId, this.actor.data.items)) {
-                return item.update({
-                    'data.containerId.value': droppedItemId,
-                    'data.equipped.value': false,
-                });
-            }
-            return item;
-        }
-        const item = await getItem();
-        const result = await item.update({'data.containerId.value': ''});
-        return result;
     }
 
   /* -------------------------------------------- */

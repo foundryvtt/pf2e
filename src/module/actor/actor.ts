@@ -17,6 +17,7 @@ import {
 import { PF2eConditionManager } from '../conditions';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
+import {isCycle} from "../item/container";
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
@@ -1143,6 +1144,73 @@ export default class PF2EActor extends Actor {
       }) as Promise<PF2EActor>;
     }
     return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+  }
+
+  /**
+   * Moves an item to another actor's inventory
+   * @param {targetActor} Instance of actor to receiving the item.
+   * @param {item}        Instance of the item being transferred.
+   * @param {quantity}    Number of items to move.
+   * @param {containerId} Id of the container that will contain the item.
+   */
+  async transferItemToActor(targetActor, item, quantity, containerId) {
+      const sourceItemQuantity = Number(item.data.data.quantity.value);
+
+      if (quantity > sourceItemQuantity) {
+        quantity = sourceItemQuantity;
+      }
+
+      const newItemQuantity = sourceItemQuantity - quantity;
+      const hasToRemoveFromSource = newItemQuantity < 1;
+
+      if (hasToRemoveFromSource) {
+        await this.deleteEmbeddedEntity('OwnedItem', item._id);
+      } else {
+        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+        await this.updateEmbeddedEntity('OwnedItem', update);
+      }
+
+      let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
+
+      if (itemInTargetActor !== null)
+      {
+        // Increase amount of item in target actor if there is already an item with the same name
+        const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
+        const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
+        await targetActor.updateEmbeddedEntity('OwnedItem', update);
+      }
+      else
+      {
+        // If no item with the same name in the target actor, create new item in the target actor
+        const newItemData = duplicate(item);
+        newItemData.data.quantity.value = quantity;
+
+        const result = await targetActor.createOwnedItem(newItemData);
+
+        itemInTargetActor = targetActor.items.get(result._id);
+      }
+
+      return targetActor.stashOrUnstash(() => { return itemInTargetActor; }, containerId);
+  }
+
+  /**
+   * Moves an item into the inventory into or out of a container.
+   * @param {getItem}     Lambda returning the item.
+   * @param {containerId} Id of the container that will contain the item.
+   */
+  async stashOrUnstash(getItem, containerId) {
+      const item = await getItem();
+      if (containerId) {
+          if (item.type !== 'spell' && !isCycle(item._id, containerId, this.data.items)) {
+              return item.update({
+                  'data.containerId.value': containerId,
+                  'data.equipped.value': false,
+              });
+          }
+          return item;
+      }
+      const result = await item.update({'data.containerId.value': ''});
+      return result;
   }
 
   /**
