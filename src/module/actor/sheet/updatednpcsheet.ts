@@ -307,13 +307,6 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           }
         }
 
-      } else if (item.type === "lore") {
-        // lore type is currently used for all monster skills
-        const skill = getProperty(item.data, 'mod.value');
-        if (skill !== undefined) {
-          item.data.mod.value = parseInt(skill, 10) + mod;
-        }
-
       } else if (item.type === "spellcastingEntry") {
         const spellDc = getProperty(item.data, 'spelldc.dc');
         if (spellDc !== undefined) {

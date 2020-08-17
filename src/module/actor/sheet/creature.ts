@@ -115,10 +115,9 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         if (sheetData.data.skills !== undefined)
         {
             for (const [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
-                skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
                 skl.icon = this._getProficiencyIcon(skl.rank);
                 skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-                skl.label = CONFIG.PF2E.skills[s];
+                skl.label = skl.label ?? CONFIG.PF2E.skills[s];
             }
         }
 
