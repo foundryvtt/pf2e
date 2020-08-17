@@ -1201,12 +1201,13 @@ export default class PF2EActor extends Actor {
 
   /**
    * Moves an item to another actor's inventory
+   * @param {sourceActor} Instance of actor sending the item.
    * @param {targetActor} Instance of actor to receiving the item.
    * @param {item}        Instance of the item being transferred.
    * @param {quantity}    Number of items to move.
    * @param {containerId} Id of the container that will contain the item.
    */
-  async transferItemToActor(targetActor, item, quantity, containerId) {
+  static async transferItemToActor(sourceActor, targetActor, item, quantity, containerId) {
       const sourceItemQuantity = Number(item.data.data.quantity.value);
 
       if (quantity > sourceItemQuantity) {
@@ -1217,10 +1218,10 @@ export default class PF2EActor extends Actor {
       const hasToRemoveFromSource = newItemQuantity < 1;
 
       if (hasToRemoveFromSource) {
-        await this.deleteEmbeddedEntity('OwnedItem', item._id);
+        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
       } else {
         const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
-        await this.updateEmbeddedEntity('OwnedItem', update);
+        await sourceActor.updateEmbeddedEntity('OwnedItem', update);
       }
 
       let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
@@ -1243,18 +1244,19 @@ export default class PF2EActor extends Actor {
         itemInTargetActor = targetActor.items.get(result._id);
       }
 
-      return targetActor.stashOrUnstash(() => { return itemInTargetActor; }, containerId);
+      return PF2EActor.stashOrUnstash(targetActor, () => { return itemInTargetActor; }, containerId);
   }
 
   /**
    * Moves an item into the inventory into or out of a container.
+   * @param {actor}       Actor whose inventory should be edited.
    * @param {getItem}     Lambda returning the item.
    * @param {containerId} Id of the container that will contain the item.
    */
-  async stashOrUnstash(getItem, containerId) {
+  static async stashOrUnstash(actor, getItem, containerId) {
       const item = await getItem();
       if (containerId) {
-          if (item.type !== 'spell' && !isCycle(item._id, containerId, this.data.items)) {
+          if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items)) {
               return item.update({
                   'data.containerId.value': containerId,
                   'data.equipped.value': false,
