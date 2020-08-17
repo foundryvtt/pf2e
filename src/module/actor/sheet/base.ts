@@ -1109,7 +1109,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         if (container[0] !== undefined) {
           containerId = container[0].dataset.itemId?.trim();
         }
-        return actor.stashOrUnstash(async () => {
+        return PF2EActor.stashOrUnstash(actor, async () => {
             const newItemData = await actor.createOwnedItem(itemData);
             return actor.getOwnedItem(newItemData._id);
         }, containerId);
@@ -1135,7 +1135,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         containerId = container[0].dataset.itemId?.trim();
       }
       if (isSameActor) {
-        await targetActor.stashOrUnstash(() => { return item; }, containerId);
+        await PF2EActor.stashOrUnstash(targetActor, () => { return item; }, containerId);
         return this._onSortItem(event, item.data);
       }
       const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
@@ -1145,14 +1145,14 @@ abstract class ActorSheetPF2e extends ActorSheet {
       {
         const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
           console.log(`Accepted moving ${quantity} items`);
-          sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
+          PF2EActor.transferItemToActor(sourceActor, targetActor, item, quantity, containerId);
         });
 
         popup.render(true);
       }
       else
       {
-        sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+        PF2EActor.transferItemToActor(sourceActor, targetActor, item, 1, containerId);
       }
       return true;
     }
