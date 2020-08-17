@@ -235,10 +235,10 @@ declare class Actor extends Entity<SystemActorDataType> {
 	 * @param itemData				Data for the newly owned item
 	 * @param options				Item creation options
 	 * @param options.rendeSheet	Render the Item sheet for the newly created item data
-	 * @return						A Promise containing the newly created owned Item instance
+	 * @return						A Promise containing the data of the newly created owned Item instance
 	 */
-	createOwnedItem(itemData: object[], options?: object): Promise<SystemItemType[]|SystemItemType>;
-	createOwnedItem(itemData: object, options?: object): Promise<SystemItemType>;
+	createOwnedItem(itemData: object[], options?: object): Promise<itemData[]|itemData>;
+	createOwnedItem(itemData: object, options?: object): Promise<itemData>;
 
 	/**
 	 * Update an owned item using provided new data
