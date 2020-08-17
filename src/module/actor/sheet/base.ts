@@ -7,6 +7,8 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import PF2EActor, { SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import PF2EItem from '../../item/item';
+import { ConditionData } from '../../item/dataDefinitions';
+import { PF2eConditionManager } from '../../conditions';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1102,6 +1104,10 @@ abstract class ActorSheetPF2e extends ActorSheet {
                 return [items._id];
             });
             return true;
+        } else if (itemData.type === 'condition') {
+          const condition = itemData as ConditionData;
+          await PF2eConditionManager._addConditionEntity(condition, this.token);
+          return true;
         }
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
