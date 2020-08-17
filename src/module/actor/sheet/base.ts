@@ -927,6 +927,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         type: 'Item',
         data: item.data,
         actorId: this.actor._id,
+        tokenId: this.actor.token?.id,
         id: itemId,
       }));
     }
@@ -1082,7 +1083,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         }
         // Case 2 - Data explicitly provided
         else if (data.data) {
-            this.moveItemBetweenActors(event, data.actorId, actor._id, data.id);
+            this.moveItemBetweenActors(event, data.actorId, data.tokenId, actor._id, actor.token?.id, data.id);
             return true;
         }
         // Case 3 - Import from World entity
@@ -1116,12 +1117,12 @@ abstract class ActorSheetPF2e extends ActorSheet {
      * @param {actor} targetActorId ID of the actor where the item will be stored.
      * @param {id} itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(event, sourceActorId, targetActorId, itemId) {
-      const sourceActor = game.actors.get(sourceActorId);
-      const targetActor = game.actors.get(targetActorId);
+    async moveItemBetweenActors(event, sourceActorId, sourceTokenId, targetActorId, targetTokenId, itemId) {
+      const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
+      const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
       const item = sourceActor.getOwnedItem(itemId);
 
-      const isSameActor = sourceActorId === targetActorId;
+      const isSameActor = (sourceActorId === targetActorId) && (sourceTokenId === targetTokenId);
 
       if (isSameActor) {
         await this.stashOrUnstash(event, targetActor, () => { return item; });
