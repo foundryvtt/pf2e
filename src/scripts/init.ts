@@ -89,7 +89,7 @@ Hooks.on('canvasInit', async () => {
 /* -------------------------------------------- */
 
 Hooks.on('hotbarDrop', (bar, data, slot) => {
-  if (data.type !== 'Item') return false;
+  if (data.type !== 'Item') return true;
   createItemMacro(data.data, slot);
   return false;
 });
