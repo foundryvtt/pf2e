@@ -292,6 +292,11 @@ export class PF2eConditionManager {
     static async _deleteConditionEntity(id:string, token:Token) {
         const condition = token.actor.data.items.find((i:ConditionData) => i._id === id) as ConditionData;
 
+        if (condition === undefined) {
+            // Condition was already removed.
+            return;
+        }
+
         await token.actor.deleteEmbeddedEntity('OwnedItem', id);
 
         const url = (condition.data.hud.img.useStatusName)?
