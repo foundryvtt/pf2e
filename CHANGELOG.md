@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 1.10.1
+### Bug Fixes
+* (@abrault and @In3luki) Fix hotbar macro drag and drop issue
+
+
 ## Version 1.10.0
 ### New Features
 * (nikolaj-a) More capabilities to set roll mode
