@@ -44,9 +44,9 @@
         </div>
       
         <div class="stats-line">
-          <span class="inline-stats rollable" data-attribute="perception">
+          <span class="inline-stats rollable" data-attribute="perception" title="{{data.attributes.perception.breakdown}}">
             <label class="stat-title attribute-name">{{localize "PF2E.PerceptionLabel"}}</label>
-            <span class="stat-value attribute-name">+{{data.attributes.perception.value}}</span>
+            <span class="stat-value attribute-name">{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
             <span class="stat-detail perception attribute-name">{{data.traits.senses.value}}</span>
           </span>
         </div>
@@ -68,11 +68,13 @@
         <div class="stats-line">
           <span class="inline-stats">
             <label class="stat-title">{{localize "PF2E.SkillsLabel"}}</label>
-            {{#each actor.lores as |lore lid|}}
-            <span class="stat-list item rollable" data-skill="{{lid}}" data-item-id="{{lore._id}}">
-              <span class="stat-minortitle npc-skill-name rollable">{{lore.name}}</span>
-              <span class="stat-value npc-skill-name rollable">+{{lore.data.mod.value}}</span>
+            {{#each actor.data.skills as |skill shortform|}}
+            {{#if skill.visible}}
+            <span class="stat-list item rollable" data-skill="{{shortform}}" title="{{skill.breakdown}}">
+              <span class="stat-minortitle npc-skill-name rollable">{{skill.name}}</span>
+              <span class="stat-value npc-skill-name rollable">{{numberFormat skill.value decimals=0 sign=true}}</span>
             </span>
+            {{/if}}
             {{/each}}
           </span>
         </div>
@@ -132,30 +134,30 @@
     
     <div class="stats-line">
       <span class="inline-stats">
-        <span class="stat-list major-stat">
+        <span class="stat-list major-stat" title="{{data.attributes.ac.breakdown}}">
           <label class="stat-title">{{localize "PF2E.ArmorClassShortLabel"}}</label>
-          <span class="stat-value">{{data.attributes.ac.value}}</span>
+          <span class="stat-value">{{numberFormat data.attributes.ac.value decimals=0}}</span>
           {{#if hasACDetails}}
           <span class="stat-detail">{{data.attributes.ac.details}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="fortitude">
+        <span class="stat-list rollable" data-save="fortitude" title="{{data.saves.fortitude.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesFortitudeShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.fortitude.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.fortitude.value decimals=0 sign=true}}</span>
           {{#if hasFortDetails}}
           <span class="stat-detail save-name">{{data.saves.fortitude.saveDetail}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="reflex">
+        <span class="stat-list rollable" data-save="reflex" title="{{data.saves.reflex.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesReflexShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.reflex.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.reflex.value decimals=0 sign=true}}</span>
           {{#if hasRefDetails}}
           <span class="stat-detail save-name">{{data.saves.reflex.saveDetail}}</span>
           {{/if}}
         </span>
-        <span class="stat-list rollable" data-save="will">
+        <span class="stat-list rollable" data-save="will" title="{{data.saves.will.breakdown}}">
           <label class="stat-title save-name">{{localize "PF2E.SavesWillShort"}}</label>
-          <span class="stat-value save-name">+{{data.saves.will.value}}</span>
+          <span class="stat-value save-name">{{numberFormat data.saves.will.value decimals=0 sign=true}}</span>
           {{#if hasWillDetails}}
           <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
           {{/if}}

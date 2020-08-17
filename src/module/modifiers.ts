@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
@@ -97,7 +95,7 @@ export class PF2Modifier {
    * @param {string} source The source which this modifier originates from, if any.
    * @param {string} notes Any notes about this modifier.
    */
-  constructor(name: string, modifier: number, type: string, enabled: boolean = true, source: string = undefined, notes: string = undefined) {
+  constructor(name: string, modifier: number, type: string, enabled: boolean = false, source: string = undefined, notes: string = undefined) {
     this.name = name;
     this.modifier = modifier;
     this.type = type;
@@ -106,12 +104,6 @@ export class PF2Modifier {
     this.custom = false;
     if (source) this.source = source;
     if (notes) this.notes = notes;
-  }
-
-  /** Disable this modifier and return `this`. */
-  disabled() {
-    this.enabled = false;
-    return this;
   }
 }
 
@@ -160,9 +152,8 @@ export const AbilityModifier = Object.freeze({
 
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
-  // eslint-disable-next-line no-unused-vars
   atLevel: (level: number) => {
-    let modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
+    const modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
     return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
   },
 });
@@ -269,7 +260,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
   const highestBonus: Record<string, PF2Modifier> = {};
   const lowestPenalty: Record<string, PF2Modifier> = {};
 
-  for (let modifier of modifiers) {
+  for (const modifier of modifiers) {
     // Always disable ignored modifiers and don't do anything further with them.
     if (modifier.ignored) {
       modifier.enabled = false;
@@ -277,7 +268,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
     }
 
     // Untyped modifiers always stack, so enable them and add their modifier.
-    if (modifier.type == PF2ModifierType.UNTYPED) {
+    if (modifier.type === PF2ModifierType.UNTYPED) {
       modifier.enabled = true;
       total += modifier.modifier;
       continue;
@@ -307,6 +298,8 @@ export class PF2StatisticModifier {
   _modifiers: PF2Modifier[];
   /** The total modifier for the statistic, after applying stacking rules. */
   totalModifier: number;
+  /** Allow decorating this object with any needed extra fields. */
+  [key: string]: any;
 
   /**
    * @param {string} name The name of this collection of statistic modifiers.

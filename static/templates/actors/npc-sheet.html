@@ -32,7 +32,7 @@
             <h3 class="ac-title pf-heading">{{localize "PF2E.DefencesLabel"}}</h3>
             <ol class="npc-defence-list">
                 <span class="armor-class" title="{{localize "PF2E.ArmorClassLabel"}}">
-                    <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
+                    <input name="data.attributes.ac.base" type="text" value="{{data.attributes.ac.base}}"
                             data-dtype="Number" placeholder="10"/>
                 </span>
                 <span class="shield-value" title="{{localize "PF2E.ShieldACBonusTitle"}}">
@@ -132,7 +132,7 @@
                     
                     <li class="npc-defense" data-attribute="perception">
                         <span class="defense-score">
-                        <input name="data.attributes.perception.value" type="text" value="{{data.attributes.perception.value}}"
+                        <input name="data.attributes.perception.base" type="text" value="{{data.attributes.perception.base}}"
                             data-dtype="Number" placeholder="0"/>
                         </span>
                         <h4 class="attribute-name rollable">{{localize "PF2E.PerceptionLabel"}}</h4>                             
@@ -151,9 +151,9 @@
             <h3 class="defense-title pf-heading">{{localize "PF2E.SavesHeader"}}</h3>
             <ol class="defense-list">
                 {{#each data.saves as |save sid|}}
-                    <li class="npc-defense" data-save="{{sid}}">
-                        <span class="defense-score" title="{{save.breakdown}}">
-                                <input name="data.saves.{{sid}}.value" type="text" value="{{save.value}}"
+                    <li class="npc-defense" data-save="{{sid}}" title="{{save.breakdown}}">
+                        <span class="defense-score">
+                                <input name="data.saves.{{sid}}.base" type="text" value="{{save.base}}"
                                 data-dtype="Number" placeholder="0"/>
                         </span>
                         <h4 class="save-name rollable">{{save.label}}</h4>

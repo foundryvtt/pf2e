@@ -16,7 +16,6 @@ function isNonPhysicalDamage(damageType?: string): boolean {
         && damageType !== '';
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export class PF2WeaponDamage {
 
     static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
@@ -297,7 +296,6 @@ export class PF2WeaponDamage {
             stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
                 (damageDice[key] || []).map((d) => new PF2DamageDice(d)).forEach((d) => {
-                    // eslint-disable-next-line no-param-reassign
                     d.enabled = d.predicate.test(traits.map(t => t.name).concat(options));
                     diceModifiers.push(d);
                 });
@@ -306,7 +304,6 @@ export class PF2WeaponDamage {
 
         // include dice number and size in damage tag
         diceModifiers.forEach(d => {
-            /* eslint-disable no-param-reassign */
             d.name = game.i18n.localize(d.name);
             if (d.diceNumber > 0 && d.dieSize) {
                 d.name += ` +${d.diceNumber}${d.dieSize}`;
@@ -324,7 +321,6 @@ export class PF2WeaponDamage {
             }
             d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(traits.map(t => t.name).concat(options));
             d.ignored = !d.enabled;
-            /* eslint-enable no-param-reassign */
         });
 
         damage.formula.success = this.getFormula(damage, false);
@@ -450,7 +446,7 @@ export class PF2WeaponDamage {
         let p = pool[damageType ?? base.damageType];
         if (!p) {
             p = {};
-            pool[damageType ?? base.damageType] = p; // eslint-disable-line no-param-reassign
+            pool[damageType ?? base.damageType] = p;
         }
         let dice = p[dieSize ?? base.dieSize];
         if (!dice) {

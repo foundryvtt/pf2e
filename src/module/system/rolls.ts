@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file */
+/* global ChatMessage, ui */
 import { CheckModifiersDialog } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate } from '../modifiers';
@@ -17,12 +17,17 @@ export class PF2Check {
      * @param {function} callback
      */
     static roll(check, context: any = {}, event, callback?) {
-        // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
         if (context?.options?.length > 0) {
+            // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach(modifier => {
-                modifier.ignored = !new PF2ModifierPredicate(modifier.predicate ?? {}).test(context.options); // eslint-disable-line no-param-reassign
+                modifier.ignored = !new PF2ModifierPredicate(modifier.predicate ?? {}).test(context.options);
             });
             check.applyStackingRules();
+
+            // change default roll mode to blind GM roll if the 'secret' option is specified
+            if (context.options.map(o => o.toLowerCase()).includes('secret')) {
+              context.secret = true;
+            }
         }
 
         const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
@@ -94,7 +99,13 @@ export class PF2DamageRoll {
      * @param {jQuery.Event} event
      * @param {function} callback
      */
-    static roll(damage, context = {}, event, callback?) {
+    static roll(damage, context: any = {}, event, callback?) {
+        if (context?.options?.length > 0) {
+            // change default roll mode to blind GM roll if the 'secret' option is specified
+            if (context.options.map(o => o.toLowerCase()).includes('secret')) {
+              context.secret = true;
+            }
+        }
         DamageRollModifiersDialog.roll(damage, context, callback);
     }
 }

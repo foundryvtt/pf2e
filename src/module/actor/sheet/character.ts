@@ -1,3 +1,4 @@
+/* global CONST, ui */
 import ActorSheetPF2eCreature from './creature';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
@@ -56,7 +57,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
     // Update dying icon and container width
-    sheetData.data.attributes.dying.containerWidth = 'width: ' + sheetData.data.attributes.dying.max*13 + 'px;';
+    sheetData.data.attributes.dying.containerWidth = `width: ${sheetData.data.attributes.dying.max*13}px;`;
     sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
 
     // Update wounded, maximum wounded, and doomed.
@@ -67,14 +68,14 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     sheetData.uid = this.id;
 
     // preparing the name of the rank, as this is displayed on the sheet
-    sheetData.data.attributes.perception.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.perception.rank);
-    for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-      save.rankName = game.i18n.format("PF2E.ProficiencyLevel"+save.rank);
+    sheetData.data.attributes.perception.rankName = game.i18n.format(`PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`);
+    for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
+      save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
     }
-    sheetData.data.attributes.classDC.rankName = game.i18n.format("PF2E.ProficiencyLevel"+sheetData.data.attributes.classDC.rank);
+    sheetData.data.attributes.classDC.rankName = game.i18n.format(`PF2E.ProficiencyLevel${sheetData.data.attributes.classDC.rank}`);
     
     // limiting the amount of characters for the save labels
-    for (const [_, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
+    for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
@@ -138,7 +139,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       "offensive": { label: "Offensive Actions", actions: [] },
     }
 
-    let readonlyEquipment = [];
+    const readonlyEquipment = [];
 
     const attacks = {
       weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
@@ -191,7 +192,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
           } catch (err) {
             console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
           }
-          attacks["weapon"].items.push(i);
+          attacks.weapon.items.push(i);
         }
         inventory[i.type].items.push(i);
       }
@@ -217,7 +218,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         const spellProficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, spellRank).modifier;
         const spellAbl = i.data.ability.value || 'int';
         const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
-        if (i.data.spelldc.value != spellAttack) {
+        if (i.data.spelldc.value !== spellAttack) {
           const updatedItem = {
             _id: i._id,
             data: {
@@ -245,7 +246,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         else i.data.tradition.ritual = false;
         if ((i.data.tradition || {}).value === 'focus') {
           i.data.tradition.focus = true;
-          if (i.data.focus == undefined) i.data.focus = { points: 1, pool: 1};
+          if (i.data.focus === undefined) i.data.focus = { points: 1, pool: 1};
           i.data.focus.icon = this._getFocusIcon(i.data.focus);
         } else i.data.tradition.focus = false;
 
@@ -261,7 +262,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
           let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
           else if (actionType === 'reaction') actionImg = 'reaction';
           else if (actionType === 'free') actionImg = 'free';
           i.img = this._getActionImg(actionImg);
@@ -278,7 +279,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
                 readonlyActions.defensive.actions.push(i);
                 actorData.hasDefensiveActions = true;
               break;
-              //Should be offensive but throw anything else in there too
+              // Should be offensive but throw anything else in there too
               default:
                 readonlyActions.offensive.actions.push(i);
                 actorData.hasOffensiveActions = true;
@@ -326,7 +327,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
         let actionImg: number|string = 0;
-        if (actionType === 'action') actionImg = parseInt(i.data.actions.value) || 1;
+        if (actionType === 'action') actionImg = parseInt(i.data.actions.value, 10) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
@@ -346,11 +347,10 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
               actorData.hasDefensiveActions = true;
             break;
             case 'offensive':
-              //if (i)
               readonlyActions.offensive.actions.push(i);
               actorData.hasOffensiveActions = true;
             break;
-            //Should be offensive but throw anything else in there too
+            // Should be offensive but throw anything else in there too
             default:
               readonlyActions.offensive.actions.push(i);
               actorData.hasOffensiveActions = true;
@@ -390,7 +390,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     if (embeddedEntityUpdate.length) {
       console.log('PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ', embeddedEntityUpdate);
       this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
-      //ui.notifications.info('PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.');
     }
 
 
@@ -504,7 +503,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
       const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)]?.damage(event, opts);
+      this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
     });
 
     // the click listener registered on all buttons breaks the event delegation here...
@@ -514,7 +513,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
       const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)]?.critical(event, opts);
+      this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
     });
 
     html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
@@ -556,9 +555,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const usedPoint = '<i class="fas fa-dot-circle"></i>';
     const unUsedPoint = '<i class="far fa-circle"></i>';
 
-    for (let i=0; i<=focus.pool; i++) { //creates focus.pool amount of icon options to be selected in the icons object
+    for (let i=0; i<=focus.pool; i++) { // creates focus.pool amount of icon options to be selected in the icons object
       let iconHtml = '';
-      for (let iconColumn=1; iconColumn<=focus.pool; iconColumn++) { //creating focus.pool amount of icons
+      for (let iconColumn=1; iconColumn<=focus.pool; iconColumn++) { // creating focus.pool amount of icons
         iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
       }
       icons[i] = iconHtml;
@@ -581,8 +580,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const parent = $(event.currentTarget).parents('.add-modifier');
     const stat = $(event.currentTarget).attr('data-stat');
     const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
-    const name = parent.find('.add-modifier-name').val() + '';
-    const type = parent.find('.add-modifier-type').val() + '';
+    const name = `${parent.find('.add-modifier-name').val()}`;
+    const type = `${parent.find('.add-modifier-type').val()}`;
     const errors = [];
     if (!stat || !stat.trim()) {
       errors.push('Statistic is required.');

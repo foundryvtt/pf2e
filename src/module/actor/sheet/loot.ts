@@ -1,6 +1,5 @@
-import { AddCoinsPopup } from './AddCoinsPopup';
+/* global CONST */
 import {calculateWealth} from '../../item/treasure';
-import { compendiumBrowser } from "../../packs/compendium-browser";
 import ActorSheetPF2e from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';

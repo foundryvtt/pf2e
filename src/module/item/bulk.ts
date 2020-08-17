@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import {add, combineObjects, groupBy, isBlank, Optional} from '../utils';
 
 // FIXME: point this to the correct type afterwards

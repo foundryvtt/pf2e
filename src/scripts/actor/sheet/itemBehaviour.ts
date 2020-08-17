@@ -1,10 +1,11 @@
-//@ts-nocheck
+/* global ui, getProperty */
+// @ts-nocheck
 
-/***************************************************************************************
+/* *************************************************************************************
  * 
  *   Document that contains the hooks that implement certain feats.
  * 
- ***************************************************************************************/
+ ************************************************************************************* */
 
 Hooks.on("preCreateOwnedItem", (actor, item) => {
     actor.itemBehaviour(item);
@@ -19,18 +20,18 @@ Hooks.on("preUpdateOwnedItem", (actor, item, itemUpdate) => {
     actor.itemBehaviour(item, false);
   });
 
-  /***************************************************************************************
+  /* *************************************************************************************
    *   The hooks call the methods below.
-   ***************************************************************************************/
-Actor.prototype.itemBehaviour = async function(item, create=true) {
+   ************************************************************************************* */
+Actor.prototype.itemBehaviour = async function itemBehaviour(item, create=true) {
 
-    if (item.name == 'Diehard') this.itemFeatDiehard(create);
-    else if (item.name == 'Toughness') this.itemFeatToughness(create);
-    else if (item.name == "Mountain’s Stoutness" || item.name == "Mountain's Stoutness") this.itemFeatMountainsstoutness(create);
+    if (item.name === 'Diehard') this.itemFeatDiehard(create);
+    else if (item.name === 'Toughness') this.itemFeatToughness(create);
+    else if (item.name === "Mountain’s Stoutness" || item.name === "Mountain's Stoutness") this.itemFeatMountainsstoutness(create);
     
 }
 
-Actor.prototype.itemFeatDiehard = async function(create=true) {
+Actor.prototype.itemFeatDiehard = async function itemFeatDiehard(create=true) {
     if (create) {
         console.log('PF2e | Applying Feat effect: Diehard');
         ui.notifications.info("Applied Diehard: your maximum dying level has increased");
@@ -51,11 +52,11 @@ Actor.prototype.itemFeatDiehard = async function(create=true) {
         });
     }
 }
-Actor.prototype.itemFeatToughness = async function (create = true) {
+Actor.prototype.itemFeatToughness = async function itemFeatToughness(create = true) {
     if (create) {
       let recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
       const levelBonusHp = parseInt(getProperty(this.data.data.attributes, 'levelbonushp') || 0, 10);
-      recoveryMod = (recoveryMod==-1) ? -4 : -1; //rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
+      recoveryMod = (recoveryMod === -1) ? -4 : -1; // rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
   
       console.log('PF2e | Applying Feat effect: Toughness');
       ui.notifications.info("Applied Toughness: your maximum HP is increased by your level and your recovery roll DC has decreased");
@@ -66,7 +67,7 @@ Actor.prototype.itemFeatToughness = async function (create = true) {
     } else {
       let recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
       const levelBonusHp = parseInt(getProperty(this.data.data.attributes, 'levelbonushp') || 1, 10);
-      recoveryMod = (recoveryMod==-4) ? -1 : 0; //rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
+      recoveryMod = (recoveryMod === -4) ? -1 : 0; // rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
   
       console.log('PF2e | Removing Feat effect: Toughness');
       ui.notifications.info("Removed Toughness: your maximum HP is decreased by your level and your recovery roll DC has increased");
@@ -76,11 +77,11 @@ Actor.prototype.itemFeatToughness = async function (create = true) {
       });
     }
 };
-Actor.prototype.itemFeatMountainsstoutness = async function (create = true) {
+Actor.prototype.itemFeatMountainsstoutness = async function itemFeatMountainsstoutness(create = true) {
     if (create) {
       let recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
       const levelBonusHp = parseInt(getProperty(this.data.data.attributes, 'levelbonushp') || 0, 10);
-      recoveryMod = (recoveryMod==-1) ? -4 : -1; //rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
+      recoveryMod = (recoveryMod === -1) ? -4 : -1; // rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
   
       console.log('PF2e | Applying Feat effect: Mountain’s Stoutness');
       ui.notifications.info("Applied Mountain’s Stoutness: your maximum HP is increased by your level and your recovery roll DC has decreased");
@@ -91,7 +92,7 @@ Actor.prototype.itemFeatMountainsstoutness = async function (create = true) {
     } else {
       let recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
       const levelBonusHp = parseInt(getProperty(this.data.data.attributes, 'levelbonushp') || 1, 10);
-      recoveryMod = (recoveryMod==-4) ? -1 : 0; //rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
+      recoveryMod = (recoveryMod === -4) ? -1 : 0; // rework if there are more ways then Toughness & Mountain's Stoutness to affect recovery DC
   
       console.log('PF2e | Removing Feat effect: Mountain’s Stoutness');
       ui.notifications.info("Removed Mountain’s Stoutness: your maximum HP is decreased by your level and your recovery roll DC has increased");

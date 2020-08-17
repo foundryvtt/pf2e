@@ -187,7 +187,6 @@ export function isCycle(itemId: string, containerId: string, items: ItemPlacehol
  * @param bulkConfig used to calculated bulk
  * @return 
  */
-// eslint-disable-next-line import/prefer-default-export
 export function getContainerMap(
     items: ItemPlaceholder[] = [],
     bulkItemsById: Map<string, BulkItem> = new Map(),

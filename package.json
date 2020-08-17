@@ -6,8 +6,10 @@
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack",
+    "pretest": "eslint ./src --ext .ts",
     "test": "jest",
-    "lint": "eslint ./src --ext .ts"
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix"
   },
   "author": "",
   "license": "",

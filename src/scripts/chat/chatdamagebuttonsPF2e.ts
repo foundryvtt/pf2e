@@ -1,13 +1,10 @@
+/* global Application, Dialog */
 import PF2EActor from "../../module/actor/actor";
 
 class ChatDamageButtonsPF2e extends Application {
-  constructor(app?) {
-    super(app);
-  }
-
   init() {
     Hooks.on('renderChatMessage', (message, html, data) => {
-      if (!message.isRoll || message.roll.parts[0].faces == 20) return;
+      if (!message.isRoll || message.roll.parts[0].faces === 20) return;
 
       const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
 
@@ -79,7 +76,7 @@ class ChatDamageButtonsPF2e extends Application {
       shieldButton.click((ev) => {
         ev.stopPropagation();
         html.find('.dice-total-shield-btn').toggleClass('shield-activated');
-        CONFIG.PF2E.chatDamageButtonShieldToggle = CONFIG.PF2E.chatDamageButtonShieldToggle ? false : true;
+        CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
       });
 	  
       fullHealingButton.click((ev) => {
@@ -94,11 +91,9 @@ class ChatDamageButtonsPF2e extends Application {
   }
 
   static shiftModifyDamage(html, multiplier, attributePassed='attributes.hp') {
-
-    let promise = new Promise(resolve => {
-      new Dialog({
-        title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
-        content: `<form>
+    new Dialog({
+      title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
+      content: `<form>
                     <div class="form-group">
                         <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
                         <input type="number" name="modifier" value="" placeholder="0">
@@ -109,26 +104,24 @@ class ChatDamageButtonsPF2e extends Application {
                         $(".form-group input").focus();
                     });
                   </script>`,
-        buttons: {
-          ok: {
-            label: 'Ok',
-            callback: async (dialogHtml : JQuery) => {
-              const diceTotal = parseFloat(html.find('.dice-total #value').text());
-              let modifier = parseFloat(dialogHtml.find('[name="modifier"]').val() + '');
-              if (isNaN(modifier)) {
-                modifier = 0;
-              }
-              if (typeof modifier !== undefined) {
-                await PF2EActor.applyDamage(html, multiplier, attributePassed, modifier);
-              }
+      buttons: {
+        ok: {
+          label: 'Ok',
+          callback: async (dialogHtml : JQuery) => {
+            // const diceTotal = parseFloat(html.find('.dice-total #value').text());
+            let modifier = parseFloat(<string>dialogHtml.find('[name="modifier"]').val());
+            if (Number.isNaN(modifier)) {
+              modifier = 0;
+            }
+            if (modifier !== undefined) {
+              await PF2EActor.applyDamage(html, multiplier, attributePassed, modifier);
             }
           }
-        },
-        default: 'ok',
-        close: () => { }
-      }).render(true);
-    });
-
+        }
+      },
+      default: 'ok',
+      close: () => { }
+    }).render(true);
   }
 
 }

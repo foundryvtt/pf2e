@@ -1,8 +1,8 @@
-import PF2EItem from "src/module/item/item";
+/* global getProperty, ui, CONST, ChatMessage, TokenHUD, BasePlaceableHUD */
 import { PF2eConditionManager } from "../../module/conditions";
-import { ConditionData, ConditionDetailsData } from '../../module/item/dataDefinitions'
+import { ConditionData } from '../../module/item/dataDefinitions'
 
-declare var PF2e: any;
+declare let PF2e: any;
 
 /**
  * Class PF2eStatus which defines the data structure of a status effects
@@ -19,16 +19,20 @@ export class PF2eStatus {
         this.status = statusName;
         this.active = active;
         this.source = source;
-        this.type = (getProperty(PF2e.DB.condition, this.status) !== undefined)?'condition':((getProperty(PF2e.DB.status, this.status) !== undefined)?'status':undefined)
+        if (getProperty(PF2e.DB.condition, this.status) !== undefined) {
+            this.type = 'condition';
+        } else if (getProperty(PF2e.DB.status, this.status) !== undefined) {
+            this.type = 'status';
+        }
         if (this.type !== undefined && getProperty(PF2e.DB[this.type][this.status], 'hasValue') !== undefined) {
             this.value = value;
         }
     }
+
     get db() {
         if (this.type === undefined)
             return undefined;
-        else
-            return getProperty(PF2e.DB[this.type], this.status);
+        return getProperty(PF2e.DB[this.type], this.status);
     }
 }
 
@@ -64,12 +68,12 @@ export class PF2eStatusEffects {
         CONFIG.PF2eStatusEffects.effectsIconFileType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
         CONFIG.PF2eStatusEffects.foundryStatusEffects = CONFIG.statusEffects;
         CONFIG.PF2eStatusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
-        /** Update FoundryVTT's CONFIG.statusEffects **/
+        /** Update FoundryVTT's CONFIG.statusEffects */
         this._updateStatusIcons();
     }
 
     static get SETTINGOPTIONS() {
-        //switching to other icons need to migrate all tokens
+        // switching to other icons need to migrate all tokens
         return {
             iconTypes: {
                 default: {
@@ -92,9 +96,9 @@ export class PF2eStatusEffects {
      * Hook PF2e's status effects into FoundryVTT
      */
     static hookIntoFoundry() {
-        /** Register PF2e System setting into FoundryVTT **/
+        /** Register PF2e System setting into FoundryVTT */
         const statusEffectTypeChoices = {}
-        for (let type in PF2eStatusEffects.SETTINGOPTIONS.iconTypes) {
+        for (const type of Object.keys(PF2eStatusEffects.SETTINGOPTIONS.iconTypes)) {
           statusEffectTypeChoices[type] = PF2e.DB.SETTINGS.statusEffectType[type];
         }
 
@@ -137,7 +141,7 @@ export class PF2eStatusEffects {
               }
             });
         }
-        /** Create hooks onto FoundryVTT **/
+        /** Create hooks onto FoundryVTT */
         Hooks.on("renderTokenHUD", (app, html, data) => {
             console.log('PF2e System | Rendering PF2e customized status effects');
             PF2eStatusEffects._hookOnRenderTokenHUD(app, html, data);
@@ -157,86 +161,17 @@ export class PF2eStatusEffects {
             }
         });
 
+
+
         Hooks.on("updateToken", (scene, tokenData) => {
             // For unlinked token updates.
             const token = canvas.tokens.get(tokenData._id);
-            
-            //const token = scene.data.tokens.find(t => t._id === tokenData._id);
 
-            PF2eStatusEffects._updateToken(token);
-            PF2eStatusEffects._updateHUD(canvas.tokens.hud.element, token);
-        });
+            if (token.owner) {
+                token.setFlag('pf2e', 'forceHudUpdate', false);
 
-        Hooks.on("createOwnedItem", async (actor, item) => {
-            //let item = (newItem instanceof PF2EItem) ? newItem.data : newItem;
-            if (item.uuid) {
-                // Got a PF2EItem
-
-                item = item.data;
+                PF2eStatusEffects._updateHUD(canvas.tokens.hud.element, token);
             }
-
-            if (item.type === "condition" && (item.data.alsoApplies.linked.length > 0 || item.data.alsoApplies.unlinked.length)) {
-                game.packs.keys();
-
-                const pack = game.packs.get("pf2e.conditionitems");
-                await pack.getIndex();
-
-                for (const i of item.data.alsoApplies.linked) {
-                    let entry = pack.index.find(e => e.name === i.condition);
-
-                    let entity = await pack.getEntity(entry._id);
-
-                    entity.data.data.sources.hud = item.data.sources.hud;
-                    entity.data.data.sources.values.push({"type":"condition","id":item._id});
-
-                    if (i.value) {
-                        entity.data.data.value.value = i.value;
-                    }
-
-                    await actor.createEmbeddedEntity('OwnedItem', entity);
-                }
-
-                for (const i of item.data.alsoApplies.unlinked) {
-                    let entry = pack.index.find(e => e.name === i.condition);
-
-                    let entity = await pack.getEntity(entry._id);
-
-                    entity.data.data.sources.hud = item.data.sources.hud;
-
-                    if (i.value) {
-                        entity.data.data.value.value = i.value;
-                    }
-
-                    await actor.createEmbeddedEntity('OwnedItem', entity);
-                }
-            }
-
-            let t = canvas.scene.data.tokens.filter(t => t.actorId === actor._id).pop();
-            let token = canvas.tokens.get(t._id);
-
-            PF2eStatusEffects._updateToken(token);
-        });
-
-        Hooks.on("preDeleteOwnedItem", async (actor, item) => {
-            //let item = (newItem instanceof PF2EItem) ? newItem.data : newItem;
-            if (item.uuid) {
-                // Got a PF2EItem
-
-                item = item.data;
-            }
-
-            const remove = new Array();
-
-            if (item.type === "condition") {
-                const x = actor.items.filter(i => i.type === 'condition' && i.data.data.sources.values.length > 0);
-                for (const y of x) {
-                    if (y.data.data.sources.values.some(a => a.id === item._id)) {
-                        remove.push(y._id);
-                    }
-                }
-            }
-
-            await actor.deleteEmbeddedEntity("OwnedItem", remove);
         });
 
         if ( game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
@@ -266,7 +201,7 @@ export class PF2eStatusEffects {
 
     static setPF2eStatusEffectControls(html, token) {
         // Status Effects Controls
-        let effects = html.find(".status-effects");
+        const effects = html.find(".status-effects");
         effects.on("click", ".pf2e-effect-control", this._setStatusValue.bind(token))
                .on("contextmenu", ".pf2e-effect-control", this._setStatusValue.bind(token))
                .on("mouseover mouseout", ".pf2e-effect-control", this._showStatusDescr);
@@ -286,25 +221,25 @@ export class PF2eStatusEffects {
      * Updates the core CONFIG.statusEffects with the new icons
      */
     static _updateStatusIcons() {
-        var sortableConditions = [];
+        const sortableConditions = [];
         let statusEffects = [];
-        let socialEffects = [];
+        const socialEffects = [];
         let imgUrl = '';
-        for (const condition in PF2e.DB.condition) {
+        for (const condition of Object.keys(PF2e.DB.condition)) {
             sortableConditions.push(condition);
         }
         sortableConditions.sort();
         for (const condition of sortableConditions) {
-            if (condition.charAt(0) !== '_' && PF2e.DB.condition._groups.death.find(element => element == condition) === undefined) {
-                imgUrl = CONFIG.PF2eStatusEffects.effectsIconFolder + condition +'.'+ CONFIG.PF2eStatusEffects.effectsIconFileType;
-                if (PF2e.DB.condition._groups.attitudes.find(element => element == condition) !== undefined) {
+            if (condition.charAt(0) !== '_' && PF2e.DB.condition._groups.death.find(element => element === condition) === undefined) {
+                imgUrl = `${CONFIG.PF2eStatusEffects.effectsIconFolder + condition }.${ CONFIG.PF2eStatusEffects.effectsIconFileType}`;
+                if (PF2e.DB.condition._groups.attitudes.find(element => element === condition) !== undefined) {
                     socialEffects.push( imgUrl );
                 } else {
                     statusEffects.push( imgUrl );
                 }
             }
         }
-        socialEffects.sort(function(a, b){
+        socialEffects.sort((a, b) => {
             a = PF2eStatusEffects._getStatusFromImg(a);
             b = PF2eStatusEffects._getStatusFromImg(b);
             return PF2e.DB.condition._groups.attitudes.indexOf(a) - PF2e.DB.condition._groups.attitudes.indexOf(b);
@@ -341,16 +276,14 @@ export class PF2eStatusEffects {
                 i.attr("data-effect", statusName);
                 i.attr("data-condition", condition.name);
 
-                let effect = undefined;
+                const effect = affectingConditions.find(e => e.data.hud.statusName === statusName);
 
-                effect = affectingConditions.find(e => e.data.hud.statusName === statusName);
-
-                if(condition.data.data.value.isValued) {
+                if(condition.data.value.isValued) {
                     i.removeClass('effect-control').addClass('pf2e-effect-control');
-                    //retrieve actor and the current effect value
+                    // retrieve actor and the current effect value
                     
                     i.wrap("<div class='pf2e-effect-img-container'></div>");
-                    let v = $("<div class='pf2e-effect-value' style='display:none'>0</div>");
+                    const v = $("<div class='pf2e-effect-value' style='display:none'>0</div>");
                     i.parent().append(v);
                     
                     if (effect !== undefined) {
@@ -385,13 +318,13 @@ export class PF2eStatusEffects {
             if(conditionName) {
                 // Icon is a condition
 
-                let condition:ConditionData = appliedConditions.find(e => e.name === conditionName);
-                const conditionBase:ConditionData = PF2eConditionManager.getConditionByStatusName(status)?.data;
+                const condition:ConditionData = appliedConditions.find(e => e.name === conditionName);
+                const conditionBase = PF2eConditionManager.getConditionByStatusName(status);
 
                 if(conditionBase?.data.value.isValued) {
                     // Valued condition
 
-                    let v = $(i).siblings('div.pf2e-effect-value').first();
+                    const v = $(i).siblings('div.pf2e-effect-value').first();
 
                     if ($(i).hasClass('active')) {
                         // icon is active.
@@ -408,34 +341,28 @@ export class PF2eStatusEffects {
 
                             v.text(condition.data.value.value);
                         }
-                    } else {
-                        if (condition !== undefined && (
-                            condition.data.active && condition.data.value.value > 0)) {
+                    } else if (condition !== undefined && (
+                        condition.data.active && condition.data.value.value > 0)) {
 
-                                i.addClass('active');
-                                v.removeAttr('style')
-                                    .text(condition.data.value.value);
-                        }
+                        i.addClass('active');
+                        v.removeAttr('style')
+                            .text(condition.data.value.value);
                     }
-                } else {
+                } else if (i.hasClass('active')) {
                     // Toggle condition
 
-                    if (i.hasClass('active')) {
-                        // icon is active.
-                        if (condition === undefined ||
-                            (condition !== undefined && !condition.data.active)) {
-                                // Remove active if no effect was found
-                                // Or effect was found, but not active.
+                    // icon is active.
+                    if (condition === undefined ||
+                        (condition !== undefined && !condition.data.active)) {
+                        // Remove active if no effect was found
+                        // Or effect was found, but not active.
 
-                                i.removeClass('active');
-                        }
-                    } else {
-                        if (condition !== undefined && (
-                            condition.data.active)) {
-
-                                i.addClass('active');
-                        }
+                        i.removeClass('active');
                     }
+                } else if (condition !== undefined && (
+                    condition.data.active)) {
+
+                    i.addClass('active');
                 }
             }
         }
@@ -457,7 +384,11 @@ export class PF2eStatusEffects {
      * Adding the Actors statuseffects to the newly created token.
      */
     static _hookOnCreateToken(scene, tokenData) {
-        PF2eStatusEffects._updateToken(canvas.tokens.get(tokenData._id));
+        const token = canvas.tokens.get(tokenData._id) as Token;
+
+        if (token.owner) {
+            PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));
+        }
     }
 
     /**
@@ -465,12 +396,12 @@ export class PF2eStatusEffects {
      */
     static _hookOnCanvasReady(canvas) {
         const scene = canvas.scene;      
-        const tokenUpdates = [];
         
-        for (let tokenData of scene.data.tokens) {
-            // Only do this for tokens that are linked to their Actors
-            if (tokenData.actorLink) {
-                PF2eStatusEffects._updateToken(canvas.tokens.get(tokenData._id));
+        for (const tokenData of scene.data.tokens) {
+            const token = canvas.tokens.get(tokenData._id);
+
+            if (token.owner) {
+                PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));
             }
         }
     }
@@ -483,7 +414,7 @@ export class PF2eStatusEffects {
      */
     static async _setStatusValue(event) {
         event.preventDefault();
-        let token : any = this;
+        const token : any = this;
         
         if (event.shiftKey) {
             PF2eStatusEffects._onToggleOverlay(event, token);
@@ -493,23 +424,42 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const status = f.attr('data-condition');
 
-        let updateHud = false;
+        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud && i.data.sources.values.length < 1) as ConditionData;        
 
-        if (event.type == 'contextmenu') {
+        if (event.type === 'contextmenu') {
             // Right click, remove
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                updateHud = await PF2eStatusEffects._removeCondition(token, status, true);
-            } else {
-                updateHud = await PF2eStatusEffects._decrementConditionValue(token, status);
-            }
-        } else if (event.type == 'click') {
-            updateHud = await PF2eStatusEffects._incrementConditionValue(token, status);
-        }
 
-        if (updateHud) {
-            PF2eStatusEffects._updateHUD(f.parent().parent(), token); 
+                const conditionIds = [];
+                
+                token.statusEffectChanged = true;
+
+                token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.data.base === status).forEach((i:ConditionData) => conditionIds.push(i._id));
+
+                await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
+            } else if (condition) {
+                token.statusEffectChanged = true;
+                await PF2eConditionManager.updateConditionValue(condition._id, token, condition.data.value.value - 1);
+                if (token.data.actorLink) {
+                    PF2eStatusEffects._updateHUD(f.parent().parent(), token); 
+                }
+            }
+        } else if (event.type === 'click') {
+            token.statusEffectChanged = true;
+            if (condition) {
+                await PF2eConditionManager.updateConditionValue(condition._id, token, condition.data.value.value + 1);
+
+                if (token.data.actorLink) {
+                    PF2eStatusEffects._updateHUD(f.parent().parent(), token); 
+                }
+            } else {
+                const newCondition = PF2eConditionManager.getCondition(status);
+                newCondition.data.sources.hud = true;
+
+                await PF2eConditionManager._addConditionEntity(newCondition, token);
+            }
         }
     }
 
@@ -517,7 +467,7 @@ export class PF2eStatusEffects {
 
     static async _toggleStatus(event) {
         event.preventDefault();
-        const token = this;
+        const token = this as any;
         if (event.shiftKey){
             PF2eStatusEffects._onToggleOverlay(event, token);
             return;
@@ -526,17 +476,33 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const status = f.attr('data-condition');
 
-        let updateHud = false;
+        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === status && i.data.sources.hud && i.data.sources.values.length < 1) as ConditionData;
 
-        if (event.type == 'contextmenu') {
+        const conditionIds = [];
+        if (event.type === 'contextmenu') {
             // Right click, remove
-            updateHud = await PF2eStatusEffects._removeCondition(token, status, event.ctrlKey);
-        } else if (event.type == 'click') {
-            updateHud = await PF2eStatusEffects._addCondition(token, status);
-        }
+            if (event.ctrlKey) {
+                // CTRL key pressed.
+                // Remove all conditions.
+                token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.data.base === status).forEach((i:ConditionData) => conditionIds.push(i._id));
 
-        if (updateHud) {
-            PF2eStatusEffects._updateHUD(f.parent(), token);
+            } else if (condition) {
+                conditionIds.push(condition._id);
+            }
+
+            if (conditionIds.length > 0) {
+                token.statusEffectChanged = true;
+                await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
+            }
+            
+        } else if (event.type === 'click') {
+            if (!condition) {
+                const newCondition = PF2eConditionManager.getCondition(status);
+                newCondition.data.sources.hud = true;
+                token.statusEffectChanged = true;
+                
+                await PF2eConditionManager._addConditionEntity(newCondition, token);
+            }
         }
     }
 
@@ -545,7 +511,7 @@ export class PF2eStatusEffects {
      */
     static _onToggleOverlay(event, token) {
         event.preventDefault();
-        let f = $(event.currentTarget);
+        const f = $(event.currentTarget);
         token.toggleOverlay(f.attr("src"));
         f.siblings().removeClass("overlay");
         f.toggleClass("overlay");
@@ -562,14 +528,14 @@ export class PF2eStatusEffects {
         // Iterate the list to create the chat and bubble chat dialog.
 
         for (const condition of PF2eConditionManager.getAppliedConditions(token.actor.data.items.filter((i:ConditionData) => i.data.active && i.type === 'condition'))) {
-            statusEffectList = statusEffectList + `
-                <li><img src="${CONFIG.PF2eStatusEffects.effectsIconFolder + condition.data.hud.statusName +'.'+ CONFIG.PF2eStatusEffects.effectsIconFileType}" title="${PF2e.DB["condition"][condition.data.hud.statusName].summary}">
+            statusEffectList += `
+                <li><img src="${`${CONFIG.PF2eStatusEffects.effectsIconFolder + condition.data.hud.statusName }.${ CONFIG.PF2eStatusEffects.effectsIconFileType}`}" title="${PF2e.DB.condition[condition.data.hud.statusName].summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${(condition.data.value.isValued) ? condition.data.value.value : ''}</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.data.description.value}</div>
                     </span>
                 </li>`;
-            bubbleContent = bubbleContent + PF2e.DB["condition"][condition.data.hud.statusName].summary + ".<br>";
+            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary  }.<br>`;
         }
 
         if (statusEffectList === '') {
@@ -589,7 +555,7 @@ export class PF2eStatusEffects {
 
         const chatData: any = {
             user: game.user._id,
-            speaker: { alias: token.name+`'s status effects:` },
+            speaker: { alias: `${token.name}'s status effects:` },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER
         }
@@ -598,7 +564,6 @@ export class PF2eStatusEffects {
 
         if (!token.data.hidden) {
             bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
-            const panToSpeaker = game.settings.get("core", "chatBubblesPan");
             canvas.hud.bubbles.say(token, bubbleContent, {
                 emote: true
             });
@@ -619,17 +584,18 @@ export class PF2eStatusEffects {
         const iconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2eStatusEffects.lastIconType];
 
-        for (let scene of game.scenes.values()) {
+        const promises = []
+        for (const scene of game.scenes.values()) {
             const tokenUpdates = [];
 
-            for (let tokenData of scene.data.tokens) {
+            for (const tokenData of scene.data.tokens) {
                 const update = duplicate(tokenData);
-                for (let url of tokenData.effects) {
+                for (const url of tokenData.effects) {
                     if(url.includes(lastIconType.effectsIconFolder)) {
                         const statusName = this._getStatusFromImg(url);
-                        const newUrl = iconType.effectsIconFolder + statusName +'.'+ iconType.effectsIconFileType;
-                        console.log("PF2e System | Migrating effect "+statusName+" of Token "+tokenData.name+" on scene "
-                                    +scene.data.name+" | '"+url+"' to '"+newUrl+"'");
+                        const newUrl = `${iconType.effectsIconFolder + statusName }.${ iconType.effectsIconFileType}`;
+                        console.log(`PF2e System | Migrating effect ${statusName} of Token ${tokenData.name} on scene ${
+                                    scene.data.name} | '${url}' to '${newUrl}'`);
                         const index = update.effects.indexOf(url);
                         if (index > -1) {
                             update.effects.splice(index, 1, newUrl);
@@ -638,8 +604,9 @@ export class PF2eStatusEffects {
                 }
                 tokenUpdates.push(update);
             }
-            await scene.updateEmbeddedEntity("Token", tokenUpdates);
+            promises.push(scene.updateEmbeddedEntity("Token", tokenUpdates));
         }
+        await Promise.all(promises);
 
         CONFIG.PF2eStatusEffects.effectsIconFolder = iconType.effectsIconFolder;
         CONFIG.PF2eStatusEffects.effectsIconFileType = iconType.effectsIconFileType;
@@ -676,236 +643,71 @@ export class PF2eStatusEffects {
         return url.substring(url.lastIndexOf('/')+1, (url.length - CONFIG.PF2eStatusEffects.effectsIconFileType.length-1) );
     }
 
-    /**
-     * Adds a condition to a token.
-     *
-     * @param {Token} token      The token to add the condition to.
-     * @param {String} name      The name of the condition to add.
-     * @param {Number} [value]   (Optional) A value to apply.
-     * @return {Boolean}         Whether an update was made.
-     */
-    static async _addCondition(token, name:string, value?:number) {
-        let needsUpdate = false;
-
-        const condition = token.actor.data.items.find(i => i.type === 'condition' && i.name === name && i.data.sources.hud);
-        
-        if (!condition) {
-            // Status does not exist, add it.
-
-            let entity = duplicate(PF2eConditionManager.getCondition(name));
-
-            entity.data.sources.hud = true;
-            
-            if (value) {
-                entity.data.value.value = value;
-            }
-
-            await token.actor.createEmbeddedEntity('OwnedItem', entity);
-            needsUpdate = true;
-
-            console.log(`PF2e System | Adding condition '${name}'.`);
-        }
-
-        if (needsUpdate) {
-            PF2eStatusEffects._updateToken(token);
-        }
-
-        return needsUpdate;
-    }
-
-    /**
-     * Removes a condition from a token.
-     *
-     * @param {Token} token                    The token to remove the condition from.
-     * @param {String} name                    The name of the condition to remove.
-     * @param {Boolean} [ignoreSource=false]   Ignore HUD only conditions. Default: false
-     * @return {Boolean}                       Whether an update was made.
-     */
-    static async _removeCondition(token, name:string, ignoreSource:boolean=false) {
-        let needsUpdate = false;
-
-        const conditions:Array<ConditionData> = (ignoreSource) ?
-            token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.data.base === name):
-            token.actor.data.items.filter((i:ConditionData) => i.type === 'condition' && i.name === name && i.data.sources.hud);
-
-        for (const condition of conditions) {
-            if (!ignoreSource && condition.data.sources.values.length > 0) {
-                // This condition is applied from another condition.
-                // Do not remove
-    
-                continue;
-            }
-    
-            if (condition._id) {
-                await token.actor.deleteEmbeddedEntity('OwnedItem', condition._id);
-                needsUpdate = true;
-    
-                console.log(`PF2e System | Removing condition '${name}'.`);
-            }
-        }
-
-        
-
-        if (needsUpdate) {
-            PF2eStatusEffects._updateToken(token);
-        }
-
-        return needsUpdate;
-    }
-
-    /**
-     * Increments a condition with a value by a step value.
-     *
-     * @param {Token} token       The token to apply the condition changes to.
-     * @param {String} name       The name of the condition to increment.
-     * @param {Number} [step=1]   The number of units to increment the value by.  Default 1.
-     * @return {Boolean}          Whether an update was made.
-     */
-    static async _incrementConditionValue(token, name:string, step:number=1) {
-        const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.type === 'condition' && i.name === name && i.data.sources.hud);
-
-        if (condition) {
-            return await PF2eStatusEffects._updateConditionValue(token, name, condition.data.value.value + step);
-        } else {
-            return await PF2eStatusEffects._updateConditionValue(token, name, 1);
-        }
-    }
-
-    /**
-     * Decrements a condition with a value by a step value.
-     *
-     * @param {Token} token       The token to apply the condition changes to.
-     * @param {String} name       The name of the condition to decrement.
-     * @param {Number} [step=1]   The number of units to decrement the value by.  Default 1.
-     * @return {Boolean}          Whether an update was made.
-     */
-    static async _decrementConditionValue(token, name:string, step:number=1) {
-        if (token.actor.data.items.some((i:ConditionData) => i.type === 'condition' && i.name === name && i.data.sources.hud)) {
-            return await PF2eStatusEffects._incrementConditionValue(token, name, -step);
-        }
-    }
-
-    /**
-     * Sets the value of a condition.
-     *
-     * @param {Token} token    The token to apply the condition changes to.
-     * @param {String} name    The name of the condition to change.
-     * @param {Number} value   The number of units to decrement the value by.  Default 1.
-     * @return {Boolean}       Whether an update was made.
-     */
-    static async _updateConditionValue(token, name:string, value:number) {
-        const condition:ConditionData = token.actor.data.items.find(i => i.type === 'condition' && i.name === name && i.data.sources.hud);
-
-        if (condition) {
-            if (value === 0) {
-                // Value is zero, remove the status.
-                return await PF2eStatusEffects._removeCondition(token, name);
-            } else {
-                // Apply new value.
-                const update = duplicate(condition);
-                update.data.value.value = value;
-
-                await token.actor.updateEmbeddedEntity("OwnedItem", update);
-
-                console.log(`PF2e System | Setting condition '${name}' to ${value}.`);
-
-                await PF2eStatusEffects._updateToken(token);
-
-                return true;
-            }
-        } else {
-            // Does not have condition,
-            // Add one.
-            if (value > 0) {
-                return await PF2eStatusEffects._addCondition(token, name, 1);
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Updates the token effect data from the set of conditions and non-condition effects.
-     *
-     * @param {Token} token    The token to update status effects.
-     */
-    static async _updateToken(token) {
-        let updates = duplicate(token.data);
-
-        updates.effects = [];
-
-        // Get a list of status that are not conditions.
-        const statuses:Array<string> = token.data.effects.filter(
-            item => Array.from<string>(PF2eConditionManager.statusNames).map(
-                status => CONFIG.PF2eStatusEffects.effectsIconFolder + status +'.'+ CONFIG.PF2eStatusEffects.effectsIconFileType
-            ).indexOf(item) < 0
-        );
-
-        for (const condition of PF2eConditionManager.getAppliedConditions(token.actor.data.items.filter((i:ConditionData) => i.data.active && i.type === 'condition'))) {
-            const url = CONFIG.PF2eStatusEffects.effectsIconFolder + condition.data.hud.statusName +'.'+ CONFIG.PF2eStatusEffects.effectsIconFileType;
-            updates.effects.push(url);
-        }
-
-        // Dedup the effect list to make sure a status icon only displays once.
-        let newSet = [...new Set(updates.effects)].concat(statuses);
-
-        // See if any effects were added or removed
-        // and only update the token if they have been.
-        let added = newSet.filter(item => token.data.effects.indexOf(item) < 0);
-        let removed = token.data.effects.filter(item => newSet.indexOf(item) < 0);
-
-        if (added.length > 0 || removed.length > 0) {
-            updates.effects = newSet;
-            token.statusEffectChanged = true;
-
-            await token.update(updates);
-        }
-    }
-
-
 
     /**
      * Add status effects to a token
      * Legacy function
      */
     static async setStatus(token, effects = []) {
-        const conditions = Array.from(PF2eConditionManager.conditions);
-
         for (const status of Object.values(effects)) {
             const statusName = status.name;
             const value = status.value;
+            const source = (status.source) ? status.source : "PF2eStatusEffects.setStatus";
 
-            const conditionFilter = conditions.filter(c => c.data.data.hud.statusName === statusName);
+            const condition = PF2eConditionManager.getConditionByStatusName(statusName);
 
-            if (conditionFilter.length === 0) {
+            if (!condition) {
                 console.log(`PF2e System | '${statusName}' is not a vaild condition!`);
                 continue;
             }
-            const condition = conditionFilter.pop();
 
-            const effect = token.actor.data.items.find(i => i.type === 'condition' && i.data.data.hud.statusName === statusName);
+            const effect = token.actor.data.items.find((i:ConditionData) => i.data.source.value === source && i.type === "condition" && i.data.hud.statusName === statusName) as ConditionData;
 
-            if (typeof(value) === "string" && condition.data.data.value.isValued) {
-                let newValue = 0;
+            if (typeof(value) === "string" && condition.data.value.isValued) {
                 if (effect) {
-                    if (value.startsWith("+") || value.startsWith("-"))
-                        newValue = Number(effect.data.data.value.value) + Number(value);
-                    else
+                    // Has value with type string
+                    let newValue = 0;
+
+                    if (value.startsWith("+") || value.startsWith("-")) {
+                        // Increment/decrement value
+                        newValue = Number(effect.data.value.value) + Number(value);
+                    } else {
+                        // Set value
                         newValue = Number(value);
-
-                    if (isNaN(newValue)) continue;
-
-                    await PF2eStatusEffects._updateConditionValue(token, condition.name, newValue);
-                } else {
-                    if (Number(value) > 0) {
-                        await PF2eStatusEffects._updateConditionValue(token, condition.name, Number(value));
                     }
+
+                    if (Number.isNaN(newValue)) {
+                        console.log(`PF2e System | '${value}' is not a number!`);
+                        continue;
+                    } 
+
+                    await PF2eConditionManager.updateConditionValue(effect._id, token, newValue);  // eslint-disable-line no-await-in-loop
+                } else if (Number(value) > 0) {
+                    // No effect, but value is a number and is greater than 0.
+                    // Add a new condition with the value.
+
+                    condition.data.source.value = source;
+                    condition.data.value.value = Number(value);
+                    await PF2eConditionManager._addConditionEntity(condition, token);  // eslint-disable-line no-await-in-loop
                 }
             } else if (!value) {
+                // Value was not provided.
+
+                if (condition.data.value.isValued) {
+                    console.log(`PF2e System | '${statusName}' must have a value.`);
+                    continue;
+                }
+
                 if (effect !== undefined && status.toggle){
-                    await PF2eStatusEffects._removeCondition(token, condition.name);
-                } else if (!effect) {
-                    await PF2eStatusEffects._addCondition(token, condition.name);
+                    // Condition exists and toggle was true
+                    // Remove it.
+                    await PF2eConditionManager.removeConditionFromToken([effect._id], token);  // eslint-disable-line no-await-in-loop
+                } else if (effect === undefined) {
+                    // Effect does not exist.  Create it.
+
+                    // Set the source to this function.
+                    condition.data.source.value = source;
+                    await PF2eConditionManager._addConditionEntity(condition, token);  // eslint-disable-line no-await-in-loop
                 }
             }
         }
@@ -917,11 +719,11 @@ export class PF2eStatusEffects {
 * Setting a hook on TokenHUD.clear(), which clears the HUD by fading out it's active HTML and recording the new display state.
 * The hook call passes the TokenHUD and Token objects.
 */
-TokenHUD.prototype.clear = function() {
+TokenHUD.prototype.clear = function clear() {
     BasePlaceableHUD.prototype.clear.call(this);
     Hooks.call("onTokenHUDClear", this, this.object);
 }
 
-Hooks.once("ready", function() { //or init?
+Hooks.once("ready", () => { // or init?
     PF2eStatusEffects.init();
 });

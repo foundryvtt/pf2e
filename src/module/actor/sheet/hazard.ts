@@ -1,3 +1,4 @@
+/* global CONST */
 import ActorSheetPF2e from './base';
 
 class ActorSheetPF2eHazard extends ActorSheetPF2e {
@@ -45,13 +46,13 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
     sheetData.stealthDC = (sheetData.data.attributes.stealth?.value ?? 0) + 10;
     sheetData.hasStealthDescription = sheetData.data.attributes.stealth?.details || false;
 
-    sheetData.hasImmunities = sheetData.data.traits.di.value != [];
+    sheetData.hasImmunities = sheetData.data.traits.di.value !== [];
     sheetData.hasDescription = sheetData.data.details.description || false;
     sheetData.hasDisable = sheetData.data.details.disable || false;
     sheetData.hasRoutineDetails = sheetData.data.details.routine || false;
     sheetData.hasResetDetails = sheetData.data.details.reset || false;
     sheetData.hasHPDetails = sheetData.data.attributes.hp.details || false;
-    sheetData.hasWillSave = sheetData.data.saves.will.value != 0 || false;
+    sheetData.hasWillSave = sheetData.data.saves.will.value !== 0 || false;
 
     sheetData.brokenThreshold = Math.floor(sheetData.data.attributes.hp.max / 2);
 
@@ -87,12 +88,12 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
       if (i.type === 'melee') {
         const weaponType = (i.data.weaponType || {}).value || 'melee';
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0);
+        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0);
         i.data.isAgile = isAgile;
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
@@ -111,7 +112,7 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
         const actionType = i.data.actionType.value || 'action';
         let actionImg: string|number = 0;
         // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
@@ -119,7 +120,7 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),

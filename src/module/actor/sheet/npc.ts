@@ -1,4 +1,6 @@
+/* global ui, CONST */
 import ActorSheetPF2eCreature from './creature';
+import {SKILL_DICTIONARY} from "../actor";
 
 class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   static get defaultOptions() {
@@ -99,7 +101,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       // Weapons
       else if (i.type === 'weapon') {
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0) + actorData.data.martial.simple.value;
+        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0) + actorData.data.martial.simple.value;
         i.data.isAgile = isAgile;
 
         attacks.weapon.items.push(i);
@@ -109,12 +111,12 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       else if (i.type === 'melee') {
         const weaponType = (i.data.weaponType || {}).value || 'melee';
         const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value) || 0);
+        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0);
         i.data.isAgile = isAgile;
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
@@ -133,7 +135,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
         const actionType = i.data.actionType.value || 'action';
         let actionImg: number|string = 0;
         // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
@@ -141,7 +143,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         // get formated traits for read-only npc sheet
         const traits = [];
-        if ((i.data.traits.value || []).length != 0) {
+        if ((i.data.traits.value || []).length !== 0) {
           for (let j = 0; j < i.data.traits.value.length; j++) {
             const traitsObject = {
               label: CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] || (i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1)),
@@ -168,7 +170,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
           let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value) || 1;
+          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
           else if (actionType === 'reaction') actionImg = 'reaction';
           else if (actionType === 'free') actionImg = 'free';
           i.img = this._getActionImg(actionImg);
@@ -191,7 +193,7 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       // format spell level for display
       if (spellType === 'reaction') i.img = this._getActionImg('reaction');
       else if (spellType === 'free') i.img = this._getActionImg('free');
-      else if (parseInt(spellType)) i.img = this._getActionImg(parseInt(spellType));
+      else if (parseInt(spellType, 10)) i.img = this._getActionImg(parseInt(spellType, 10));
 
       // check if the spell has a valid spellcasting entry assigned to the location value.
       if (spellcastingEntriesList.includes(i.data.location.value)) {
@@ -249,20 +251,48 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
+    // NPC Weapon Rolling
+    html.find('button').click((ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+      // item = this.actor.items.find(i => { return i.id === itemId });
+      const item = this.actor.getOwnedItem(itemId);
+
+      // which function gets called depends on the type of button stored in the dataset attribute action
+      switch (ev.target.dataset.action) {
+        case 'weaponAttack': item.rollWeaponAttack(ev); break;
+        case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
+        case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
+        case 'weaponDamage': item.rollWeaponDamage(ev); break;
+        case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
+        case 'npcAttack': item.rollNPCAttack(ev); break;
+        case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
+        case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
+        case 'npcDamage': item.rollNPCDamage(ev); break;
+        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
+        case 'spellAttack': item.rollSpellAttack(ev); break;
+        case 'spellDamage': item.rollSpellDamage(ev); break;
+        case 'consume': item.rollConsumable(ev); break;
+        default: throw new Error('Unknown action type');
+      }
+    });
+
     if (!this.options.editable) return;
 
     // NPC SKill Rolling
     html.find('.item .npc-skill-name').click((event) => {
       event.preventDefault();
-      const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      const item = this.actor.getOwnedItem(itemId);
-      this.actor.rollLoreSkill(event, item);
+      const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
+      const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
+      this.actor.data.data.skills[shortform]?.roll(event, opts); // eslint-disable-line no-unused-expressions
     });
 
     html.find('.skill-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.mod.value': Number(event.target.value) });
-      // }
     });
 
     html.find('.spelldc-input').change(async (event) => {

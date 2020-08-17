@@ -13,6 +13,7 @@ declare let ui: {
 
 declare type SystemActorType = import('../../../src/module/actor/actor').default;
 declare type SystemItemType = import('../../../src/module/item/item').default;
+declare type SystemActorDataType = import('../../../src/module/actor/actorDataDefinitions').ActorData;
 declare type SystemItemDataType = import('../../../src/module/item/dataDefinitions').ItemData;
 
 /**

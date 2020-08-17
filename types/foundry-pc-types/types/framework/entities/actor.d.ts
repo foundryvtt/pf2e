@@ -20,10 +20,10 @@ declare class Actors extends Collection<SystemActorType> {
 	 * Each Actor is referenced by the Token.id.
 	 * @type {Object}
 	 */
-	tokens: Token[];
+	tokens: { [tokenID: string]: Actor };
 
 	/** @override */
-	get object(): Actor;
+	get object(): SystemActorType;
 
 	values(): IterableIterator<SystemActorType>;
 
@@ -74,8 +74,7 @@ declare class Actors extends Collection<SystemActorType> {
  * @example <caption>Retrieve an existing Actor</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actor extends Entity {
-	data: any;
+declare class Actor extends Entity<SystemActorDataType> {
 
 	/**
 	 * A reference to a placed Token which creates a synthetic Actor
@@ -236,10 +235,10 @@ declare class Actor extends Entity {
 	 * @param itemData				Data for the newly owned item
 	 * @param options				Item creation options
 	 * @param options.rendeSheet	Render the Item sheet for the newly created item data
-	 * @return						A Promise containing the newly created owned Item instance
+	 * @return						A Promise containing the data of the newly created owned Item instance
 	 */
-	createOwnedItem(itemData: object[], options?: object): Promise<SystemItemType[]|SystemItemType>;
-	createOwnedItem(itemData: object, options?: object): Promise<SystemItemType>;
+	createOwnedItem(itemData: object[], options?: object): Promise<itemData[]|itemData>;
+	createOwnedItem(itemData: object, options?: object): Promise<itemData>;
 
 	/**
 	 * Update an owned item using provided new data
@@ -260,5 +259,6 @@ declare class Actor extends Entity {
 	 * @param options	Item deletion options
 	 * @return			A Promise resolving to the deleted Owned Item data
 	 */
+	deleteOwnedItem(itemId: string[], options?: object): Promise<SystemItemType[]|SystemItemType>;
 	deleteOwnedItem(itemId: string, options?: object): Promise<SystemItemType>;
 }
