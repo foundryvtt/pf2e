@@ -42,7 +42,7 @@ export class DamageRollModifiersDialog extends Application {
     const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
     const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {
-        const modifier = Number.isNaN(m.modifier) ? '' : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
+        const modifier = (m.modifier === undefined || Number.isNaN(m.modifier)) ? '' : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
         const damageType = (m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '');
         return `<span style="${modifierStyle}">${game.i18n.localize(m.name)}${modifier}${damageType}</span>`
       }).join('');
