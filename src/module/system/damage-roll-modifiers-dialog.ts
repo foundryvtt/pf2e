@@ -36,6 +36,12 @@ export class DamageRollModifiersDialog extends Application {
    */
   static roll(damage, context, callback) {
     const options = damage.traits ?? [];
+    const ctx = context ?? {};
+
+    ctx.rollMode = ctx.rollMode
+      ?? (ctx.secret ? 'blindroll' : undefined)
+      ?? game.settings.get('core', 'rollMode')
+      ?? 'roll';
 
     const baseStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
     const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize} ${damage.base.damageType}</span>`;
@@ -56,6 +62,8 @@ export class DamageRollModifiersDialog extends Application {
     roll.toMessage({
       speaker: ChatMessage.getSpeaker(),
       flavor: `<b>${damage.name}</b> (${context.outcome ?? 'success'})<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>`
+    }, {
+      rollMode: ctx.rollMode ?? 'roll'
     });
     if (callback) {
       callback(roll);
