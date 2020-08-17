@@ -62,6 +62,7 @@ export default function () {
         // Loot partials
         'systems/pf2e/templates/actors/loot/loot-avatar.html',
         'systems/pf2e/templates/actors/loot/loot-inventory.html',
+        'systems/pf2e/templates/actors/loot/item-line.html',
 
         // Compendium Browser Partials
         'systems/pf2e/templates/packs/action-browser.html',

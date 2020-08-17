@@ -41,7 +41,7 @@ export interface PhysicalItemData {
         value: string
     }
     price: {
-        value: number
+        value: string
     }
     invested: {
         value: boolean
@@ -632,7 +632,7 @@ export interface ConsumableData extends BaseEntityData<ConsumableDetailsData & I
     type: 'consumable'
 }
 
-export interface EquipmentData extends BaseEntityData<ItemDescriptionData & ActivatedEffectData & MagicItemData> {
+export interface EquipmentData extends BaseEntityData<ItemDescriptionData & ActivatedEffectData & PhysicalItemData & MagicItemData> {
     type: 'equipment'
 }
 
@@ -677,6 +677,7 @@ export function getPhysicalItemData(item: ItemData): BaseEntityData<PhysicalItem
         item.type === 'treasure' ||
         item.type === 'weapon' ||
         item.type === 'armor' ||
+        item.type === 'equipment' ||
         item.type === 'melee' ||
         item.type === 'consumable') {
         return item;

@@ -16,7 +16,7 @@ interface SoldItemData {
     coins: Coins;
 }
 
-function toCoins(denomination: string, value: number): Coins {
+export function toCoins(denomination: string, value: number): Coins {
     return {
         pp: denomination === 'pp' ? value : 0,
         gp: denomination === 'gp' ? value : 0,
@@ -35,6 +35,25 @@ function noCoins(): Coins {
         sp: 0,
         cp: 0,
     };
+}
+
+export function parseToCoins(value: string): Coins {
+    const coins = noCoins();
+    const re = /[,\s]+/;
+    const denomination = /[gspc]p/;
+    const parts = value.split(re);
+    let currentPart = '';
+    for (const part of parts) {
+        // If we reach a denomination, add that value, otherwise keep building the current number.
+        if (part.match(denomination)) {
+            coins[part] = parseInt(currentPart, 10);
+            currentPart = '';
+        }
+        else {
+            currentPart += part;
+        }
+    }
+    return coins;
 }
 
 function combineCoins(first: Coins, second: Coins): Coins {

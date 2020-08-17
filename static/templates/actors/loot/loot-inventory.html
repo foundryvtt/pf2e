@@ -16,6 +16,7 @@
         <h3 class="item-name">{{section.label}}</h3>
         <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
         <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+        <span class="item-value">{{localize "PF2E.ValueLabel"}}</span>
         <div class="item-controls" style="display: flex">
             {{#if ../owner}}
             <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
@@ -25,7 +26,7 @@
     </li>
     {{#each section.items as |item itemId|}}
         {{#if item.isNotInContainer}}
-            {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=../../owner level=1}}
+            {{> systems/pf2e/templates/actors/loot/item-line.html item=item owner=../../owner level=1}}
         {{/if}}
     {{/each}}
 {{/each}}

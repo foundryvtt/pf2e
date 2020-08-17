@@ -16,6 +16,8 @@ declare type SystemItemType = import('../../../src/module/item/item').default;
 declare type SystemActorDataType = import('../../../src/module/actor/actorDataDefinitions').ActorData;
 declare type SystemItemDataType = import('../../../src/module/item/dataDefinitions').ItemData;
 
+declare type SocketIO = import('@types/socket.io/index.d.ts').default;
+
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
  * The singleton instance of the Game class is available as the global variable ``game``.
@@ -47,7 +49,7 @@ declare class Game {
 	settings: ClientSettings;
 
 	/** A reference to the open Socket.io connection */
-	socket: WebSocket;
+	socket: SocketIO;
 
 	/** The id of the active game user */
 	userId: string;

@@ -7,7 +7,8 @@ import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
-import { ItemData } from './dataDefinitions';
+import { ItemData, getPhysicalItemData } from './dataDefinitions';
+import { parseToCoins, toCoins } from './treasure.ts';
 
 export default class PF2EItem extends Item {
 
@@ -849,6 +850,17 @@ export default class PF2EItem extends Item {
 
   calculateMap(): { map2: number, map3: number } {
     return PF2EItem.calculateMap(this.data);
+  }
+
+  purchasePrice(): { pp: number, gp: number, sp: number, cp: number } {
+    if (this.data.type === 'treasure') {
+        return toCoins(this.data.data.denomination.value, parseInt(this.data.data.value.value, 10));
+    }
+    const physicalItem = getPhysicalItemData(this.data);
+    if (physicalItem) {
+        return parseToCoins(physicalItem.data.price.value);
+    }
+    return { pp: 0, gp: 0, sp: 0, cp: 0 };
   }
 
   static calculateMap(item: ItemData): { map2: number, map3: number } {
