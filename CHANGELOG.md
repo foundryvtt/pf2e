@@ -1,5 +1,33 @@
 # Patch Notes:
 
+## Version 1.10.0
+### New Features
+* (nikolaj-a) More capabilities to set roll mode
+    * Roll mode dropdown in check roll dialog
+    * Support secret option for rolls
+* (nikolaj-a) Tentantive support for conditions on NPCs (attack/damage rolls still not supported)
+    * Custom modifiers for NPC armor class
+    * Custom modifiers for NPC saving throws
+    * Custom modifiers for NPC perception
+    * Custom modifiers for NPC skills
+* (@atnoslen) Custom conditions in the condition manager
+
+### Content Changes
+* (@abrault) Add kits to Compendium Browser
+* (@TMun): Corrected entries for equipment compendium up to G
+
+### Bug Fixes
+* (nikolaj-a) Fix broken UI events for damage and critical damage rolls
+* (@abrault) Change title of Treat Wounds result
+* (@atnoslen) Condition manager bugfixes, including drag & drop integration
+* (@Ralar) Better support for dragging items to and from unlinked actors, which should help with the loot sheet
+
+### Core System Improvements
+* (@abrault) Major code clean up
+* (@blacksmithgu) Better code type information for parts of the character and NPC actors
+* (@mdizo) Reworked character sheet navigation to make room for more tabs
+
+
 ## Version 1.9.7
 ### New Features
 * (@atnoslen) Added a condition manager that knows how to deal with overriding and linked conditions, and allows users to add custom conditions.
