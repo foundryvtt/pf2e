@@ -731,34 +731,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // Item Rolling
     html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
 
-    // NPC Weapon Rolling
-    html.find('button').click((ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-
-      const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-      // item = this.actor.items.find(i => { return i.id === itemId });
-      const item = this.actor.getOwnedItem(itemId);
-
-      // which function gets called depends on the type of button stored in the dataset attribute action
-      switch (ev.target.dataset.action) {
-        case 'weaponAttack': item.rollWeaponAttack(ev); break;
-        case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
-        case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
-        case 'weaponDamage': item.rollWeaponDamage(ev); break;
-        case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
-        case 'npcAttack': item.rollNPCAttack(ev); break;
-        case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
-        case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
-        case 'npcDamage': item.rollNPCDamage(ev); break;
-        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
-        case 'spellAttack': item.rollSpellAttack(ev); break;
-        case 'spellDamage': item.rollSpellDamage(ev); break;
-        case 'consume': item.rollConsumable(ev); break;
-        default: throw new Error('Unknown action type');
-      }
-    });
-
     // Lore Item Rolling
     html.find('.item .lore-score-rollable').click((event) => {
       event.preventDefault();
@@ -904,7 +876,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
     const max = field.data('max') ?? 4;
-    const statIsItemType = field.data('stat-tyle') ?? false;
+    const statIsItemType = field.data('stat-type') ?? false;
 
     // Get the current level and the array of levels
     const level = parseFloat(`${field.val()}`);
