@@ -280,44 +280,57 @@ export class PF2eConditionManager {
     /**
      * Adds a condition to a token.
      *
-     * @param {string} name    A collection of conditions to retrieve modifiers from.
+     * @param {string|string[]} name    A collection of conditions to retrieve modifiers from.
      * @param {Token} token    The token to add the condition to.
      */
-    static async removeConditionFromToken(id:string[], token:Token) {
-        for (const i of id) {
-            await PF2eConditionManager._deleteConditionEntity(i, token); // eslint-disable-line no-await-in-loop
-        }
+    static async removeConditionFromToken(id, token:Token) {
+        id = id instanceof Array ? id : [id];
+        await PF2eConditionManager._deleteConditionEntity(id, token);
     }
 
-    static async _deleteConditionEntity(id:string, token:Token) {
-        const condition = token.actor.data.items.find((i:ConditionData) => i._id === id) as ConditionData;
+    static async _deleteConditionEntity(ids:Array<string>, token) {
+        const list:string[] = [];
+        const stack = new Array<string>(...ids);
+        const effects:{url:string, base:string}[] = [];
 
-        if (condition === undefined) {
-            // Condition was already removed.
-            return;
-        }
+        const updates = duplicate(token.data);
+        let hasUpdates:boolean = false;
 
-        await token.actor.deleteEmbeddedEntity('OwnedItem', id);
+        while (stack.length) {
+            const id = stack.pop();
+            
 
-        const url = (condition.data.hud.img.useStatusName)?
-        `${CONFIG.PF2eStatusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`:
-            condition.data.hud.img.value;
+            const condition = token.actor.data.items.find((i:ConditionData) => i._id === id) as ConditionData;
 
-        if (token.data.effects.includes(url) &&
-            token.actor.data.items.find((i:ConditionData) => i.data.base === condition.name) === undefined) {
+            if (condition) {
+                list.push(id);
+                
+                effects.push({
+                    url:(condition.data.hud.img.useStatusName)?
+                        `${CONFIG.PF2eStatusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`:
+                        condition.data.hud.img.value,
+                    base:condition.data.base
+                });
 
-            const updates = duplicate(token.data);
-            updates.effects.splice(updates.effects.indexOf(url), 1);
-            await token.update(updates);
-        }
-
-        const alsoApplied = token.actor.data.items.filter((appliedCondtion:ConditionData) => appliedCondtion.type === 'condition' && appliedCondtion.data.sources.values.length > 0) as Array<ConditionData>;
-
-        // Needs synchronicity.
-        for (const item of alsoApplied) {
-            if (item.data.sources.values.some(i => i.id === id)) {
-                await PF2eConditionManager._deleteConditionEntity(item._id, token); // eslint-disable-line no-await-in-loop
+                token.actor.data.items
+                .filter((appliedCondtion:ConditionData) => appliedCondtion.type === 'condition' && appliedCondtion.data.sources.values.some(i => i.id === id))
+                .map(i => stack.push(i._id));
             }
+        }
+
+        await token.actor.deleteEmbeddedEntity('OwnedItem', list);
+
+        effects.forEach((effect) => {
+            if (token.data.effects.includes(effect.url) &&
+                token.actor.data.items.find((i:ConditionData) => i.data.base === effect.base) === undefined) {
+
+                updates.effects.splice(updates.effects.indexOf(effect.url), 1);
+                hasUpdates = true;
+            }
+        });
+
+        if (hasUpdates) {
+            await token.update(updates);
         }
     }
 
@@ -327,7 +340,7 @@ export class PF2eConditionManager {
         if (condition) {
             if (value === 0) {
                 // Value is zero, remove the status.
-                await PF2eConditionManager._deleteConditionEntity(id, token);
+                await PF2eConditionManager.removeConditionFromToken(id, token);
             } else {
                 // Apply new value.
                 const update = duplicate(condition);
