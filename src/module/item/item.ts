@@ -904,36 +904,50 @@ export default class PF2EItem extends Item {
         actor = Actor.fromToken(token);
       } else actor = game.actors.get(card.attr('data-actor-id'));
 
-      // Get the Item
-      if (!actor) return;
-      const itemId = card.attr('data-item-id');
-      // let itemData = actor.items.find(i => i.id === itemId);
-      const itemData = (actor.getOwnedItem(itemId) || {}).data;
-      if (!itemData) return;
-      const item = new PF2EItem(itemData, { actor });
-
       // Get the Action
       const action = button.attr('data-action');
 
-      // Weapon attack
-      if (action === 'weaponAttack') item.rollWeaponAttack(ev);
-      else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);
-      else if (action === 'weaponAttack3') item.rollWeaponAttack(ev, 3);
-      else if (action === 'weaponDamage') item.rollWeaponDamage(ev);
-      else if (action === 'weaponDamageCritical') item.rollWeaponDamage(ev, true);
-      else if (action === 'npcAttack') item.rollNPCAttack(ev);
-      else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
-      else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
-      else if (action === 'npcDamage') item.rollNPCDamage(ev);
-      else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
-      else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
+      // Get the Item
+      if (!actor) return;
+      const itemId = card.attr('data-item-id');
+      const itemData = (actor.getOwnedItem(itemId) || {}).data;
+      if (itemData) {
+        const item = new PF2EItem(itemData, { actor });
+        // Weapon attack
+        if (action === 'weaponAttack') item.rollWeaponAttack(ev);
+        else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);
+        else if (action === 'weaponAttack3') item.rollWeaponAttack(ev, 3);
+        else if (action === 'weaponDamage') item.rollWeaponDamage(ev);
+        else if (action === 'weaponDamageCritical') item.rollWeaponDamage(ev, true);
+        else if (action === 'npcAttack') item.rollNPCAttack(ev);
+        else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
+        else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
+        else if (action === 'npcDamage') item.rollNPCDamage(ev);
+        else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
+        else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
 
-      // Spell actions
-      else if (action === 'spellAttack') item.rollSpellAttack(ev);
-      else if (action === 'spellDamage') item.rollSpellDamage(ev);
+        // Spell actions
+        else if (action === 'spellAttack') item.rollSpellAttack(ev);
+        else if (action === 'spellDamage') item.rollSpellDamage(ev);
 
-      // Consumable usage
-      else if (action === 'consume') item.rollConsumable(ev);
+        // Consumable usage
+        else if (action === 'consume') item.rollConsumable(ev);
+
+        return;
+      }
+
+      const strikeIndex = card.attr('data-strike-index');
+      const strikeName = card.attr('data-strike-name');
+      const strikeAction = actor.data.data.actions[Number(strikeIndex)];
+
+      if (strikeAction && strikeAction.name === strikeName) {
+        const opts = actor.getRollOptions(['all', 'attack-roll']);
+        if (action === 'strikeAttack') strikeAction.variants[0].roll(ev, opts);
+        else if (action === 'strikeAttack2') strikeAction.variants[1].roll(ev, opts);
+        else if (action === 'strikeAttack3') strikeAction.variants[2].roll(ev, opts);
+        else if (action === 'strikeDamage') strikeAction.damage(ev, opts);
+        else if (action === 'strikeCritical') strikeAction.critical(ev, opts);
+      }
     });
   }
 }
