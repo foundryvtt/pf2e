@@ -1,4 +1,4 @@
-/* global Handlebars */
+/* global Handlebars TextEditor */
 export default function registerHandlebarsHelpers() {
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
@@ -94,4 +94,8 @@ export default function registerHandlebarsHelpers() {
 
         return strip_tags(String(value));
     });
+
+  Handlebars.registerHelper('enrichHTML', (html) => {
+    return TextEditor.enrichHTML(html);
+  });
 }

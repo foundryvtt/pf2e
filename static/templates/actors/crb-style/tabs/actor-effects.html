@@ -12,6 +12,13 @@
             </div>
             <h4 class="action-name">{{item.name}} {{#if item.data.value.isValued}}{{item.data.value.value}}{{/if}}</h4>
           </div>
+          {{#if item.data.description.value}}
+          <div class="item-summary">
+            <div class="item-description">
+              <p>{{{enrichHTML item.data.description.value}}}</p>
+            </div>
+          </div>
+          {{/if}}
         </li>
         {{/if}}
         {{/each}}
