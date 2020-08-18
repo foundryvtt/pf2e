@@ -1,5 +1,5 @@
 import { ItemData } from "../item/dataDefinitions"
-import { PF2StatisticModifier, PF2CheckModifier } from "../modifiers";
+import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from "../modifiers";
 
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
@@ -111,6 +111,33 @@ export interface RawCharacterData {
         /** The key ability which class saves (and other class-related things) scale off of. */
         keyability: { value: AbilityString; };
 
+        /** Character alignment (LN, N, NG, etc.) */
+        alignment: { value: string; }
+        /** Character class ('barbarian', 'fighter', etc.) */
+        class: { value: string; }
+        /** Character ancestry (their race, generally). */
+        ancestry: { value: string; }
+        /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
+        heritage: { value: string; }
+        /** The diety that the character worships (and an image of the diety symbol). */
+        deity: { value: string, image: string; }
+        /** Character background - their occupation, upbringing, etc. */
+        background: { value: string; }
+        /** How old the character is (user-provided field). */
+        age: { value: string; }
+        /** Character height (user-provided field). */
+        height: { value: string; }
+        /** Character weight (user-provided field). */
+        weight: { value: string; }
+        /** Character gender (user-provided field). */
+        gender: { value: string; }
+        /** Character ethnicity (user-provided field). */
+        ethnicity: { value: string; }
+        /** Character nationality (i.e, what nation they hail from; user-provided field). */
+        nationality: { value: string; }
+        /** User-provided biography for their character; value is HTML. */
+        biography: { value: string; public?: string; }
+
         /** The amount of experience this character has. */
         xp: {
             /** The current experience value.  */
@@ -130,8 +157,6 @@ export interface RawCharacterData {
             /** The minimum level (almost always '1'). */
             min: number;
         }
-
-        [key: string]: any;
     }
 
     /** Various character attributes.  */
@@ -225,6 +250,24 @@ export interface RawCharacterData {
         resolve: { value: number; }
     }
 
+    /** Custom character traits, such as damage resistances/immunities. */
+    traits: {
+        /** The character size (such as 'med'). */
+        size: { value: string; }
+        /** A list of special senses this character has. */
+        senses: LabeledValue[];
+        /** Traits which apply to this actor, like 'air' or 'extradimensional' */
+        traits: { value: string[]; custom: string; }
+        /** Languages which this actor knows and can speak. */
+        languages: { value: string[]; selected: string[]; custom: string; }
+        /** Damage immunities this actor has. */
+        di: { value: string[]; custom: string; }
+        /** Damage resistances that this actor has. */
+        dr: LabeledValue[];
+        /** Damage vulnerabilities that this actor has. */
+        dv: LabeledValue[];
+    }
+
     /** Player skills, used for various skill checks. */
     skills: {
         acr: SkillData;
@@ -244,6 +287,11 @@ export interface RawCharacterData {
         sur: SkillData;
         thi: SkillData;
     }
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
