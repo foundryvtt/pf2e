@@ -921,6 +921,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
   _onDragItemStart(event: any): boolean {
     const itemId = event.currentTarget.getAttribute('data-item-id');
+    const actionIndex = event.currentTarget.getAttribute('data-action-index');
 
     if (itemId) {
       const item = this.actor.getOwnedItem(itemId);
@@ -931,9 +932,19 @@ abstract class ActorSheetPF2e extends ActorSheet {
         tokenId: this.actor.token?.id,
         id: itemId,
       }));
+      
+      return true;
+    } else if (actionIndex) {
+      event.dataTransfer.setData('text/plain', JSON.stringify({
+          type: 'Action',
+          index: actionIndex,
+          actorId: this.actor._id,          
+      }));
+
+      return true;
     }
 
-    return !!itemId;
+    return false;
   }
 
   /* -------------------------------------------- */

@@ -1,0 +1,24 @@
+<div class="pf2e chat-card action-card" data-actor-id="{{actor._id}}" data-strike-name="{{strike.name}}" data-strike-index="{{strikeIndex}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <header class="card-header flexrow">
+        <img src="{{strike.imageUrl}}" title="{{strike.name}}" width="36" height="36"/>
+        <h3>{{localize 'PF2E.WeaponStrikeLabel'}}: {{strike.name}}</h3>
+    </header>
+
+    <div class="card-content">{{{strikeDescription}}}</div>
+
+    <div class="card-buttons">
+        <button data-action="strikeAttack">{{strike.variants.0.label}}</button>
+        <button data-action="strikeAttack2">{{strike.variants.1.label}}</button>
+        <button data-action="strikeAttack3">{{strike.variants.2.label}}</button>
+        <div class="card-buttons-two-column">
+          <button data-action="strikeDamage">{{localize "PF2E.DamageLabel"}}</button>
+          <button data-action="strikeCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+        </div>
+    </div>
+
+    <footer class="card-footer">
+    {{#each strike.traits}}
+        <span title="{{this.description}}">{{this.label}}</span>
+    {{/each}}
+    </footer>
+</div>
