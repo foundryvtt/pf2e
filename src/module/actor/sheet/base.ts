@@ -1140,7 +1140,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
             return true;
         } else if (itemData.type === 'condition') {
           const condition = itemData as ConditionData;
-          await PF2eConditionManager._addConditionEntity(condition, this.token);
+          await PF2eConditionManager.addConditionToToken(condition, this.token);
           return true;
         }
 
