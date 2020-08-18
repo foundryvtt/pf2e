@@ -728,9 +728,9 @@ export default class PF2EActor extends Actor {
     }
 
     // Get all of the active conditions (from the item array), and add their modifiers.
-    const conditions = PF2eConditionManager.getAppliedConditions(
-      Array.from<ConditionData>(actorData.items.filter((i): i is ConditionData => i.type === 'condition')));
-    for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions)) {
+    const conditions = actorData.items.filter((i): i is ConditionData => i.type === 'condition' && i.data.active);
+
+    for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
       statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
     }
 
