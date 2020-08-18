@@ -1,8 +1,16 @@
 import { ItemData } from "../item/dataDefinitions"
-import { PF2StatisticModifier } from "../modifiers";
+import { PF2StatisticModifier, PF2CheckModifier } from "../modifiers";
 
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
+
+/** Generic { value, label, type } type used in various places in data types. */
+export interface LabeledValue {
+    label: string;
+    value: string;
+    type: string;
+    exceptions: string;
+}
 
 /** Data describing the value & modifier for a base ability score. */
 export interface AbilityData {
@@ -40,12 +48,22 @@ export interface RawSkillData {
     armor?: number;
 }
 
+/** Basic initiative-relevant data. */
+export interface RawInitiativeData {
+    /** What skill or ability is currently being used to compute initiative. */
+    ability: string;
+    /** The textual name for what type of initiative is being rolled (usually includes the skill). */
+    label: string;
+}
+
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
     roll?: (event: any, options: string[], callback?: any) => void;
 }
 
+/** The full data for charatcer initiative. */
+export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
 export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
@@ -124,6 +142,8 @@ export interface RawCharacterData {
         classDC: ClassDCData;
         /** Creature armor class, used to defend against attacks. */
         ac: ArmorClassData;
+        /** Initiative, used to determine turn order in combat. */
+        initiative: InitiativeData;
 
         /** The amount of bonus HP gained per level (due a feat or similar). */
         levelbonushp: number;
@@ -138,17 +158,19 @@ export interface RawCharacterData {
         /** Used in variant stamina rules; how much bonus SP is gained per level. */
         levelbonussp?: number;
 
-        /** Data related to character stamina, when using the variant stamina rules. */
-        sp: {
-            /** The current number of stamina points. */
-            value: number;
-            /** The minimum number of stamina points (almost always '0'). */
-            min: number;
-            /** The maximum number of stamina points. */
-            max: number;
-            /** Any details about stamina points. */
-            details: string;
-        };
+        /** A bonus to the maximum amount of bulk that this character can carry. */
+        bonusLimitBulk: number;
+        /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
+        bonusEncumbranceBulk: number;
+
+        /** The current dying level (and maximum) for this character. */
+        dying: { value: number; max: number; }
+        /** The current wounded level (and maximum) for this character. */
+        wounded: { value: number; max: number; }
+        /** The current doomed level (and maximum) for this character. */
+        doomed: { value: number; max: number; }
+        /** The current number of hero points (and maximum) for this character. */
+        heroPoints: { rank: number; max: number; }
 
         /** Data related to character hitpoints. */
         hp: {
@@ -166,6 +188,18 @@ export interface RawCharacterData {
             details: string;
         };
 
+        /** Data related to character stamina, when using the variant stamina rules. */
+        sp: {
+            /** The current number of stamina points. */
+            value: number;
+            /** The minimum number of stamina points (almost always '0'). */
+            min: number;
+            /** The maximum number of stamina points. */
+            max: number;
+            /** Any details about stamina points. */
+            details: string;
+        };
+
         /**
          * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
          * allow for the shield health to be shown in a token.
@@ -177,7 +211,18 @@ export interface RawCharacterData {
             max: number;
         };
 
-        [key: string]: any;
+        /** Records the various land/swim/fly speeds that this actor has. */
+        speed: {
+            /** The actor's primary speed (usually walking/stride speed). */
+            value: string;
+            /** @deprecated Any special speeds this actor has; prefer using `otherSpeeds`. */
+            special: string;
+            /** Other speeds that this actor can use (such as swim, climb, etc). */
+            otherSpeeds: LabeledValue[];
+        }
+
+        /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+        resolve: { value: number; }
     }
 
     /** Player skills, used for various skill checks. */

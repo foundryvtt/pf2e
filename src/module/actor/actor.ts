@@ -23,7 +23,7 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData } from './actorDataDefinitions';
+import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData, InitiativeData } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -490,47 +490,49 @@ export default class PF2EActor extends Actor {
         data.actions.push(action);
       });
     }
-      this.prepareInitiative(data, actorData, statisticsModifiers);
+
+    this.prepareInitiative(actorData, statisticsModifiers);
   }
 
-    prepareInitiative(data, actorData, statisticsModifiers) {
-        // Initiative
+    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, any>) {
+        const { data } = actorData;
+
         const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const initModifiers = [];
+        const modifiers: PF2Modifier[] = [];
+
         // FIXME: this is hard coded for now
-        const feats = new Set(actorData.items
-            .filter(item => item.type === 'feat')
-            .map(item => item.name));
+        const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
         if (feats.has('Incredible Initiative')) {
-            initModifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
+            modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
-          initModifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
+          modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Elven Instincts') && initSkill === 'perception') {
-            initModifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
+            modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Eye of Ozem') && initSkill === 'perception') {
-            initModifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
+            modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
         }
         if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
-            initModifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
+            modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
         }
         ['initiative'].forEach((key) => {
-            (statisticsModifiers[key] || [])
-                .map((m) => duplicate(m))
-                .forEach((m) => initModifiers.push(m));
+            (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
         const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
         const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-        data.attributes.initiative = new PF2CheckModifier('initiative', initValues, initModifiers);
-        data.attributes.initiative.ability = initSkill;
-        data.attributes.initiative.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        data.attributes.initiative.roll = (event, options = []) => {
+        
+        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+        stat.ability = initSkill;
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.roll = (event, options = []) => {
             PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
               this._applyInitiativeRollToCombatTracker(roll);
             });
         };
+
+        data.attributes.initiative = stat;
     }
 
     _applyInitiativeRollToCombatTracker(roll) {
