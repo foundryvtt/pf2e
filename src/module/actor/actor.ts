@@ -23,7 +23,7 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { CharacterData, NpcData, SaveData } from './actorDataDefinitions';
+import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -189,17 +189,17 @@ export default class PF2EActor extends Actor {
 
       // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
       // overwrite potentially changed fields.
-      const statisticMod = mergeObject<SaveData>(new PF2StatisticModifier(saveName, modifiers) as SaveData, data.saves[saveName], { overwrite: false });
-      statisticMod.value = statisticMod.totalModifier;
-      statisticMod.breakdown = statisticMod.modifiers.filter((m) => m.enabled)
+      const stat = mergeObject<SaveData>(new PF2StatisticModifier(saveName, modifiers) as SaveData, data.saves[saveName], { overwrite: false });
+      stat.value = stat.totalModifier;
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
-      statisticMod.roll = (event, options = [], callback?) => {
+      stat.roll = (event, options = [], callback?) => {
           const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
-          PF2Check.roll(new PF2CheckModifier(label, statisticMod), { actor: this, type: 'saving-throw', options }, event, callback);
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
         };
 
-      data.saves[saveName] = statisticMod;
+      data.saves[saveName] = stat;
     }
 
     // Martial
@@ -222,22 +222,17 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      // preserve backwards-compatibility
-      if (data.attributes.perception instanceof PF2StatisticModifier) {
-        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
-        data.attributes.perception = mergeObject(data.attributes.perception, new PF2StatisticModifier('perception', modifiers));
-      } else {
-        // ensure the perception object has the correct prototype, while retaining the original data fields
-        data.attributes.perception = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception);
-      }
-      data.attributes.perception.breakdown = data.attributes.perception.modifiers.filter((m) => m.enabled)
+      const stat = mergeObject<PerceptionData>(new PF2StatisticModifier('perception', modifiers) as PerceptionData, data.attributes.perception, { overwrite: false });
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
-      data.attributes.perception.value = data.attributes.perception.totalModifier;
-      data.attributes.perception.roll = (event, options = [], callback?) => {
+      stat.value = stat.totalModifier;
+      stat.roll = (event, options = [], callback?) => {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
-        PF2Check.roll(new PF2CheckModifier(label, data.attributes.perception), { actor: this, type: 'perception-check', options }, event, callback);
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
+
+      data.attributes.perception = stat;
     }
 
     // Class DC
@@ -250,20 +245,15 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      // preserve backwards-compatibility
-      if (data.attributes.classDC instanceof PF2StatisticModifier) {
-        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
-        data.attributes.classDC = mergeObject(data.attributes.classDC, new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers));
-      } else {
-        // ensure the perception object has the correct prototype, while retaining the original data fields
-        data.attributes.classDC = mergeObject(new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers), data.attributes.classDC);
-      }
-      data.attributes.classDC.value = 10 + data.attributes.classDC.totalModifier;
-      data.attributes.classDC.ability = data.details.keyability.value;
-      data.attributes.classDC.breakdown = [game.i18n.localize('PF2E.ClassDCBase')].concat(
-        data.attributes.classDC.modifiers.filter((m) => m.enabled)
+      const stat = mergeObject<ClassDCData>(new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers) as ClassDCData, data.attributes.classDC, { overwrite: false });
+      stat.value = 10 + stat.totalModifier;
+      stat.ability = data.details.keyability.value;
+      stat.breakdown = [game.i18n.localize('PF2E.ClassDCBase')].concat(
+        stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
+
+      data.attributes.classDC = stat;
     }
 
     // Armor Class
@@ -292,14 +282,15 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      data.attributes.ac = new PF2StatisticModifier("ac", modifiers);
-      // preserve backwards-compatibility
-      data.attributes.ac.value = 10 + data.attributes.ac.totalModifier;
-      data.attributes.ac.check = armorCheckPenalty;
-      data.attributes.ac.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
-        data.attributes.ac.modifiers.filter((m) => m.enabled)
+      const stat = mergeObject<ArmorClassData>(new PF2StatisticModifier("ac", modifiers) as ArmorClassData, data.attributes.ac, { overwrite: false });
+      stat.value = 10 + stat.totalModifier;
+      stat.check = armorCheckPenalty;
+      stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
+        stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
+
+      data.attributes.ac = stat;
     }
 
     // Shield
@@ -316,7 +307,7 @@ export default class PF2EActor extends Actor {
 
     const hasUntrainedImprovisation = feats.has('Untrained Improvisation')
 
-    for (const [skillName, skill] of Object.entries(data.skills as Record<any, any>)) {
+    for (const [skillName, skill] of Object.entries(data.skills)) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
@@ -347,23 +338,17 @@ export default class PF2EActor extends Actor {
       });
 
       // preserve backwards-compatibility
-      let updated;
-      if (skill instanceof PF2StatisticModifier) {
-        // calculate and override fields in PF2StatisticModifier, like the list of modifiers and the total modifier
-        updated = mergeObject(skill, new PF2StatisticModifier(expandedName, modifiers));
-      } else {
-        // ensure the individual skill objects has the correct prototype, while retaining the original data fields
-        updated = mergeObject(new PF2StatisticModifier(expandedName, modifiers), skill);
-      }
-      updated.breakdown = updated.modifiers.filter((m) => m.enabled)
+      const stat = mergeObject<SkillData>(new PF2StatisticModifier(expandedName, modifiers) as SkillData, skill, { overwrite: false });
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
-      updated.value = updated.totalModifier;
-      updated.roll = (event, options = [], callback?) => {
+      stat.value = stat.totalModifier;
+      stat.roll = (event, options = [], callback?) => {
         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
-        PF2Check.roll(new PF2CheckModifier(label, updated), { actor: this, type: 'skill-check', options }, event, callback);
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
       };
-      data.skills[skillName] = updated;
+
+      data.skills[skillName] = stat;
     }
 
     // Automatic Actions

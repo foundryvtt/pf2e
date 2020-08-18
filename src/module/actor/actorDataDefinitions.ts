@@ -24,8 +24,8 @@ export interface MartialData {
     breakdown: string;
 }
 
-/** Basic save data (not including custom modifiers). */
-export interface RawSaveData {
+/** Basic skill and save data (not including custom modifiers). */
+export interface RawSkillData {
     /** The proficiency rank for this save. 0 (untrained) - 4 (legendary). */
     rank: number;
     /** The ability which this save scales off of. */
@@ -36,18 +36,26 @@ export interface RawSaveData {
     item: number;
     /** A breakdown of how the save value is determined. */
     breakdown: string;
-    /** Extra, user-provided details about this save. */
-    saveDetail: string;
+    /** If set, this skill is affected by the armor check penalty. */
+    armor?: number;
 }
 
-/** Actions that can be called on the save data object. */
-export interface RawSaveActions {
-    /** Roll this save with the given options (caused by the given event, and with the given optional callback). */
+/** Any skill or similar which provides a roll option for rolling this save. */
+export interface Rollable {
+    /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
     roll?: (event: any, options: string[], callback?: any) => void;
 }
 
-/** The full save data for a character; includes statistic modifier. */
-export type SaveData = RawSaveData & RawSaveActions & PF2StatisticModifier;
+/** The full data for character perception rolls (which behave similarly to skills). */
+export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
+/** The full data for character AC; includes the armor check penalty. */
+export type ArmorClassData = PF2StatisticModifier & RawSkillData & { check?: number; };
+/** The full data for the class DC; similar to SkillData, but is not rollable. */
+export type ClassDCData = PF2StatisticModifier & RawSkillData;
+/** The full skill data for a character; includes statistic modifier. */
+export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
+/** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
+export type SaveData = SkillData & { saveDetail?: string };
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData {
@@ -82,6 +90,9 @@ export interface RawCharacterData {
 
     /** Various details about the character, such as level, experience, etc. */
     details: {
+        /** The key ability which class saves (and other class-related things) scale off of. */
+        keyability: { value: AbilityString; };
+
         /** The amount of experience this character has. */
         xp: {
             /** The current experience value.  */
@@ -107,6 +118,13 @@ export interface RawCharacterData {
 
     /** Various character attributes.  */
     attributes: {
+        /** The perception skill. */
+        perception: PerceptionData;
+        /** The class DC, used for saves related to class abilities. */
+        classDC: ClassDCData;
+        /** Creature armor class, used to defend against attacks. */
+        ac: ArmorClassData;
+
         /** The amount of bonus HP gained per level (due a feat or similar). */
         levelbonushp: number;
         /** The amount of HP provided per level by the character's class. */
@@ -148,7 +166,38 @@ export interface RawCharacterData {
             details: string;
         };
 
+        /**
+         * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+         * allow for the shield health to be shown in a token.
+         */
+        shield: {
+            /** The current shield health. */
+            value: number;
+            /** The maximum shield health. */
+            max: number;
+        };
+
         [key: string]: any;
+    }
+
+    /** Player skills, used for various skill checks. */
+    skills: {
+        acr: SkillData;
+        arc: SkillData;
+        ath: SkillData;
+        cra: SkillData;
+        dec: SkillData;
+        dip: SkillData;
+        itm: SkillData;
+        med: SkillData;
+        nat: SkillData;
+        occ: SkillData;
+        prf: SkillData;
+        rel: SkillData;
+        soc: SkillData;
+        ste: SkillData;
+        sur: SkillData;
+        thi: SkillData;
     }
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
