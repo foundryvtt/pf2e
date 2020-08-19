@@ -161,19 +161,6 @@ export class PF2eStatusEffects {
             }
         });
 
-
-
-        Hooks.on("updateToken", (scene, tokenData) => {
-            // For unlinked token updates.
-            const token = canvas.tokens.get(tokenData._id);
-
-            if (token.owner) {
-                token.setFlag('pf2e', 'forceHudUpdate', false);
-
-                PF2eStatusEffects._updateHUD(canvas.tokens.hud.element, token);
-            }
-        });
-
         if ( game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             let lastTokenId = "";
             Hooks.on("updateCombat", (combat) => {
@@ -257,7 +244,7 @@ export class PF2eStatusEffects {
         const token = canvas.tokens.get(tokenData._id);
         const statusIcons = html.find("img.effect-control");
 
-        const affectingConditions = token.actor.data.items.filter(i => i.type === 'condition' && i.data.sources.hud)
+        const affectingConditions = token.actor.data.items.filter(i => i.type === 'condition' && i.data.active && i.data.sources.hud)
 
         html.find("div.status-effects").append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
@@ -308,7 +295,7 @@ export class PF2eStatusEffects {
 
     static async _updateHUD(html, token) {
         const statusIcons = html.find("img.effect-control, img.pf2e-effect-control");
-        const appliedConditions = token.actor.data.items.filter(i => i.type === 'condition' && i.data.sources.hud)
+        const appliedConditions = token.actor.data.items.filter(i => i.type === 'condition' && i.data.active && i.data.sources.hud)
 
         for (let i of statusIcons) {
             i = $(i);
@@ -458,7 +445,7 @@ export class PF2eStatusEffects {
                 const newCondition = PF2eConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
 
-                await PF2eConditionManager._addConditionEntity(newCondition, token);
+                await PF2eConditionManager.addConditionToToken(newCondition, token);
             }
         }
     }
@@ -501,7 +488,7 @@ export class PF2eStatusEffects {
                 newCondition.data.sources.hud = true;
                 token.statusEffectChanged = true;
                 
-                await PF2eConditionManager._addConditionEntity(newCondition, token);
+                await PF2eConditionManager.addConditionToToken(newCondition, token);
             }
         }
     }
@@ -688,7 +675,7 @@ export class PF2eStatusEffects {
 
                     condition.data.source.value = source;
                     condition.data.value.value = Number(value);
-                    await PF2eConditionManager._addConditionEntity(condition, token);  // eslint-disable-line no-await-in-loop
+                    await PF2eConditionManager.addConditionToToken(condition, token);  // eslint-disable-line no-await-in-loop
                 }
             } else if (!value) {
                 // Value was not provided.
@@ -707,7 +694,7 @@ export class PF2eStatusEffects {
 
                     // Set the source to this function.
                     condition.data.source.value = source;
-                    await PF2eConditionManager._addConditionEntity(condition, token);  // eslint-disable-line no-await-in-loop
+                    await PF2eConditionManager.addConditionToToken(condition, token);  // eslint-disable-line no-await-in-loop
                 }
             }
         }

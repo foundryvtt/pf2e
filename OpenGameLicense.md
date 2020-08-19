@@ -83,10 +83,14 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #148: Fires of the Haunted City © 2019, Paizo Inc.; Authors: Linda Zayas-Palmer, with Owen K.C. Stephens, James L. Sutter, and Greg Vaughan.
     *  Pathfinder Adventure Path #149: Against the Scarlet Triad © 2019, Paizo Inc.; Authors: John Compton, with Tim Nightengale and James L. Sutter.
     *  Pathfinder Adventure Path #150: Broken Promises © 2019, Paizo Inc.; Authors: Luis Loza, with James Jacobs, Alex Riggs, and Owen K.C. Stephens.
-    *  Extinction Curse Player’s Guide © 2020, Paizo Inc.; Author: Ron Lundeen.    
+    *  Extinction Curse Player’s Guide © 2020, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure Path #151: The Show Must Go On © 2020, Paizo Inc.; Authors: Jason Tondro, with Andrew Mullen, Patrick Renie, David N. Ross, and Michael Sayre.
     *  Pathfinder Adventure Path #152: Legacy of the Lost God © 2020, Paizo Inc.; Authors: Jenny Jarzabski, with Stephen Glicker, Luis Loza, Ron Lundeen, Andrew Mullen, and David N. Ross.
-    *  Pathfinder Adventure Path #153: The Show Must Go On © 2020, Paizo Inc.; Authors: Greg A. Vaughan, with Anthony Bono, Jacob W. Michaels, Andrew Mullen, Patrick Renie, Alex Riggs, Timothy Snow, and Amber Stewart.
+    *  Pathfinder Adventure Path #153: Life's Long Shadows © 2020, Paizo Inc.; Authors: Greg A. Vaughan, with Anthony Bono, Jacob W. Michaels, Andrew Mullen, Patrick Renie, Alex Riggs, Timothy Snow, and Amber Stewart.
+	*  Pathfinder Adventure Path #154: Siege of the Dinosaurs © 2020, Paizo Inc.; Authors: Kate Baker, with Luis Loza, Andrew Mullen, Jason Nelson, Jennifer Povey, David Schwartz, and Amber Stewart.
+	*  Pathfinder Adventure Path #155: Lord of the Black Sands © 2020, Paizo Inc.; Authors: Mikko Kallio, with Andrew Mullen, Nathan Reinecke, David Schwartz, and Scott Young.
+	*  Pathfinder Adventure Path #156: The Apocalypse Project © 2020, Paizo Inc.; Authors: Lyz Liddell, with Mikhail Rekun, Steven Hammond, Kevin Bruan, Andrew Mullen, Patrick Renie, and David N. Ross.
+	*  Pathfinder Adventure Path #157: Devil at the Dreaming Palace © 2020, Paizo Inc.; Authors: James L. Sutter, with Luis Loza, Andrew Mullen, Samantha Phelan, and Patrick Renie.
 	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
     *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
     *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
@@ -109,7 +113,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Quest #7: A Curious Claim © 2020, Paizo Inc.; Author: Dennis Muldoon.
     * Pathfinder Society Quest #8: Shadows of the Black Soverign © 2020, Paizo Inc.; Author: Alexandria Bustion.
     * Pathfinder Society Quest #9: Wayfinder Origins © 2020, Paizo Inc.; Author: Dustin Knight.
-    * Pathfinder Society Quest #10: The Broken Scales © 2020, Paizo Inc.; Author: Amber Stewart.
+    * Pathfinder Society Quest #10: The Broken Scales © 2020, Paizo Inc.; Author: Amber Stewart
+	* Pathfinder Society Quest #11: A Parchment Tree © 2020, Paizo Inc.; Author: Carlos Cabrera.
+	* Pathfinder Society Quest #12: Putrid Seeds © 2020, Paizo Inc.; Author: Cass Reyfield and James Case.
+	* Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
 
     * Pathfinder Society Scenario #1–00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
     * Pathfinder Society Scenario #1–01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
@@ -133,6 +140,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #1–19: Iolite Squad Alpha © 2020, Paizo Inc.; Author: Mike Kimmel.
     * Pathfinder Society Scenario #1–20: The Lost Legend © 2020, Paizo Inc.; Author: Chris Sims.
     * Pathfinder Society Scenario #1–21: Mistress of the Maze © 2020, Paizo Inc.; Author: Christen N. Sowards.
+	* Pathfinder Society Scenario #1–22: Doom of Cassomir © 2020, Paizo Inc.; Author: Calder CaDavid.
+	* Pathfinder Society Scenario #1–23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
+	* Pathfinder Society Scenario #1–24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
+	* Pathfinder Society Scenario #1–25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
@@ -140,7 +151,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Lost Omens Character Guide (Second Edition) © 2019, Paizo Inc.; Authors: John Compton, Sasha Lindley Hall, Amanda Hamon, Mike Kimmel, Luis Loza, Ron Lundeen, Matt Morris, Patchen Mortimer, Andrew Mullen, Mikhail Rekun, Micheal Sayre, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Gods & Magic (Second Edition) © 2020, Paizo Inc.; Authors: Robert Adducci, Amirali Attar Olyaee, Calder CaDavid, James Case, Adam Daigle, Katina Davis, Leo Glass, Joshua Grinlinton, James Jacobs, Virginia Jordan, Jason Keeley, Jacky Leung, Lyz Liddell, Ron Lundeen, Stephanie Lundeen, Jacob W. Michaels, Matt Morris, Dave Nelson, Samantha Phelan, Jennifer Povey, Jessica Redekop, Nathan Reinecke, Patrick Renie, David N. Ross, Simone D. Sallé, Michael Sayre, David Schwartz, Shahreena Shahrani, Isabelle Thorne, Marc Thuot, Jason Tondro, and Diego Valdez.
     *  Pathfinder Lost Omens World Guide (Second Edition) © 2019, Paizo Inc.; Authors: Tanya DePass, James Jacobs, Lyz Liddell, Ron Lundeen, Liane Merciel, Erik Mona, Mark Seifter, James L. Sutter.
-    *  Pathfinder Lost Omens Gods & Magic (Second Edition) © 2020, Paizo Inc.; Authors: Robert Adducci, Amirali Attar Olyaee, Calder CaDavid, James Case, Adam Daigle, Katina Davis, Leo Glass, Joshua Grinlinton, James Jacobs, Virginia Jordan, Jason Keeley, Jacky Leung, Lyz Liddell, Ron Lundeen, Stephanie Lundeen, Jacob W. Michaels, Matt Morris, Dave Nelson, Samantha Phelan, Jennifer Povey, Jessica Redekop, Nathan Reinecke, Patrick Renie, David N. Ross, Simone D. Sallé, Michael Sayre, David Schwartz, Shahreena Shahrani, Isabelle Thorne, Marc Thuot, Jason Tondro, and Diego Valdez.
+    *  Pathfinder Lost Omens Legends (Second Edition) © 2020, Paizo Inc.; Authors: Amirali Attar Olyaee, Alexander Augunas, Kate Baker, Jason Bulmahn, Alexandria Bustion, Carlos Cabrera, Calder CaDavid, Jessica Catalan, Natalie Collazo, Ryan Costello, Jr, Greg Diaz, Fabby Garza Marroquín, Jaym Gates, Alice Grizzle, Steven Hammond, Nicolas Hornyak, James Jacobs, Michelle Jones, Kristina Sisto Kindel, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Sydney Meeker, Liane Merciel, Matt Morris, Patchen Mortimer, Hilary Moon Murphy, Dennis Muldoon, Andrew Mullen, Mikhail Rekun, Michael Sayre, Mark Seifter, Ashton Sperry, Owen K.C. Stephens, and Isabelle Thorne.
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
     *  Pathfinder Critical Fumble Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.

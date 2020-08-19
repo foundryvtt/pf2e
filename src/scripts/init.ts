@@ -1,4 +1,5 @@
-/* global Macro, ChatMessage, ui, SquareGrid, BaseGrid */
+/* global Macro, ChatMessage, ui, SquareGrid, BaseGrid, TextEditor, renderTemplate, CONST  */
+import { SKILL_DICTIONARY } from '../module/actor/actor';
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
@@ -17,8 +18,9 @@ async function createItemMacro(item, slot) {
       img: item.img,
       flags: { 'pf2e.itemMacro': true },
     }, { displaySheet: false }) as Macro;
+
+    game.user.assignHotbarMacro(macro, slot);
   }
-  game.user.assignHotbarMacro(macro, slot);
 }
 
 /**
@@ -39,12 +41,96 @@ function rollItemMacro(itemId) {
   return item.roll();
 }
 
+async function createActionMacro(actionIndex: string, actorId: string, slot: number) {
+    const actor = game.actors.get(actorId);
+    const action = (actor as any).data.data.actions[actionIndex];
+    const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
+    const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, '${action.name}')`;
+    let macro = game.macros.entities.find((m) => (m.name === macroName) && (m.data.command === command));
+    if (!macro) {
+      macro = await Macro.create({
+        command,
+        name: macroName,
+        type: 'script',
+        img: action.imageUrl,
+        flags: { 'pf2e.actionMacro': true },
+      }, { displaySheet: false }) as Macro;
+
+      game.user.assignHotbarMacro(macro, slot);
+    }
+}
+
+async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
+    const actor = game.actors.get(actorId);
+    if (actor) {
+        const action = (actor as any).data.data.actions[actionIndex];
+        if (action && action.name === actionName) {
+            if (action.type === 'strike') {
+                const templateData = {
+                    actor,
+                    strike: action,
+                    strikeIndex: actionIndex,
+                    strikeDescription: TextEditor.enrichHTML(game.i18n.localize(action.description))
+                };
+
+                const messageContent = await renderTemplate('systems/pf2e/templates/chat/strike-card.html', templateData);
+                const chatData: any = {
+                    user: game.user._id,
+                    speaker: {
+                        actor: actor._id,
+                        token: actor.token,
+                        alias: actor.name
+                    },
+                    content: messageContent,
+                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                };
+
+                const rollMode = game.settings.get('core', 'rollMode');
+                if (['gmroll', 'blindroll'].includes(rollMode)) chatData.whisper = ChatMessage.getWhisperRecipients('GM').map(u => u._id);
+                if (rollMode === 'blindroll') chatData.blind = true;
+
+                ChatMessage.create(chatData, {});
+            }
+        } else {
+            ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActionError'));
+        }
+    } else {
+        ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+    }
+}
+
+async function createSkillMacro(skill: string, skillName: string, actorId: string, slot: number) {
+    const dictName = SKILL_DICTIONARY[skill] ?? skill;
+    const command = `
+const actor = game.actors.get('${actorId}');
+if (actor) {
+    const opts = actor.getRollOptions(['all', 'skill-check', '${dictName}']);
+    actor.data.data.skills['${skill}']?.roll(event, opts);
+} else {
+    ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+}`;
+    const macroName = game.i18n.format('PF2E.SkillCheckWithName', {skillName});
+    let macro = game.macros.entities.find((m) => (m.name === macroName) && (m.data.command === command));
+    if (!macro) {
+      macro = await Macro.create({
+        command,
+        name: macroName,
+        type: 'script',
+        img: 'icons/svg/d20-grey.svg',
+        flags: { 'pf2e.skillMacro': true },
+      }, { displaySheet: false }) as Macro;
+
+      game.user.assignHotbarMacro(macro, slot);
+    }
+}
+
 /**
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once('init', () => {
    game.pf2e = {
      rollItemMacro,
+     rollActionMacro,
    };
  });
 
@@ -89,7 +175,15 @@ Hooks.on('canvasInit', async () => {
 /* -------------------------------------------- */
 
 Hooks.on('hotbarDrop', (bar, data, slot) => {
-  if (data.type !== 'Item') return true;
-  createItemMacro(data.data, slot);
-  return false;
+  if (data.type === 'Item') {
+    createItemMacro(data.data, slot);
+    return false;
+  } else if (data.type === 'Action') {
+    createActionMacro(data.index, data.actorId, slot);
+    return false;
+  } else if (data.type === 'Skill') {
+    createSkillMacro(data.skill, data.skillName, data.actorId, slot);
+  }
+
+  return true;
 });

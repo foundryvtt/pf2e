@@ -707,6 +707,13 @@ abstract class ActorSheetPF2e extends ActorSheet {
       li.addEventListener('dragstart', handler, false);
     });
 
+    // Skill Dragging
+    const skillHandler = (ev) => this._onDragSkillStart(ev);
+    html.find('.skill').each((i, li) => {
+        li.setAttribute('draggable', true);
+        li.addEventListener('dragstart', skillHandler, false);
+      });
+
     // change background for dragged over items that are containers
       const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
       containerItems
@@ -921,6 +928,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
   _onDragItemStart(event: any): boolean {
     const itemId = event.currentTarget.getAttribute('data-item-id');
+    const actionIndex = event.currentTarget.getAttribute('data-action-index');
 
     if (itemId) {
       const item = this.actor.getOwnedItem(itemId);
@@ -931,9 +939,35 @@ abstract class ActorSheetPF2e extends ActorSheet {
         tokenId: this.actor.token?.id,
         id: itemId,
       }));
-    }
+      
+      return true;
+    } else if (actionIndex) {
+      event.dataTransfer.setData('text/plain', JSON.stringify({
+          type: 'Action',
+          index: actionIndex,
+          actorId: this.actor._id,          
+      }));
 
-    return !!itemId;
+      return true;
+    }
+    return false;
+  }
+
+  _onDragSkillStart(event: any): boolean {
+      const skill = event.currentTarget.getAttribute('data-skill');
+
+      if (skill) {
+          const skillName = $(event.currentTarget).find('.skill-name').text();
+          event.dataTransfer.setData('text/plain', JSON.stringify({
+              type: 'Skill',
+              skill,
+              skillName,
+              actorId: this.actor._id
+          }));
+
+          return true;
+      }
+      return false;
   }
 
   /* -------------------------------------------- */
@@ -1106,7 +1140,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
             return true;
         } else if (itemData.type === 'condition') {
           const condition = itemData as ConditionData;
-          await PF2eConditionManager._addConditionEntity(condition, this.token);
+          await PF2eConditionManager.addConditionToToken(condition, this.token);
           return true;
         }
 

@@ -1,0 +1,26 @@
+<div class="tab actions actions-pane" data-group="primary" data-tab="effects">
+    <ol class="actions-list inventory-list directory-list strikes-list">
+        <li class="item action-header">
+            <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.ConditionsLabel'}}</h3>
+        </li>
+        {{#each actor.items as |item ii|}}
+        {{#if (eq item.type 'condition')}}
+        <li class="item expandable" data-action-index="{{ii}}">
+          <div class="item-name rollable">
+            <div class="item-image action-strike" style="background-image: url({{item.img}})">
+              <i class="fas fa-dice-d20"></i>
+            </div>
+            <h4 class="action-name">{{item.name}} {{#if item.data.value.isValued}}{{item.data.value.value}}{{/if}}</h4>
+          </div>
+          {{#if item.data.description.value}}
+          <div class="item-summary">
+            <div class="item-description">
+              <p>{{{enrichHTML item.data.description.value}}}</p>
+            </div>
+          </div>
+          {{/if}}
+        </li>
+        {{/if}}
+        {{/each}}
+    </ol>
+</div>
