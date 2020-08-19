@@ -79,6 +79,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
+    // is the stamina variant rule enabled?
+    sheetData.hasStamina = (game.settings.get('pf2e', 'staminaVariant') > 0);
+
     // Return data for rendering
     return sheetData;
   }

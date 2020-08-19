@@ -16,14 +16,6 @@ export default function registerHandlebarsHelpers() {
         return fn(this);
     });
 
-    Handlebars.registerHelper('if_stamina',(options) => {
-        if(game.settings.get('pf2e', 'staminaVariant') > 0) {
-            return options.fn(this);
-        }
-        return ''
-
-    });
-
     Handlebars.registerHelper('lower', (str) => {
         return String.prototype.toLowerCase.call(str ?? '');
     });
