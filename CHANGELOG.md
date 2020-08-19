@@ -1,5 +1,25 @@
 # Patch Notes:
 
+## Version 1.10.3
+### New Features
+* (@nikolaj-a) Add Effects tab on character sheet
+* (@In3luki) Enable drag and drop to hotbar for strike actions and skill checks
+
+### Content Changes
+* (@TMun) Compendium updates:
+    * Update to equipment - Traits, cost, level, handedness corrected.
+    * Added 169 missing items from Lost Omen Legends, AoE and magic items from APG
+* (@TMun) Compendium corrections:
+    * Voz Lirayne does not, in fact, have a longbow (#706)
+    * Lazurite Infused Golem has wrong golem antimagic (#717)
+    * Breastplate of Command and Greater Breastplate of command have the wrong activate action (#718)
+* (@abrault) Update OGL with EC 4-6 and AoE 1
+
+### Core System Improvements
+* (@atnoslen) Refactor of the condition manager to improve then efficiency, and work better with the token HUD.
+* (@blacksmithgu) Added missing type definitions for the creature actors.  
+
+
 ## Version 1.10.2
 ### Bug Fixes
 * (@nikolaj-a) Fixed flat modifiers on damage rolls
