@@ -142,7 +142,7 @@ export class TraitSelector5e extends FormApplication {
       if (this.options.has_exceptions) {
         html.find('input[id^=input_exception]').focusin( (ev) => {
           const name = ev.currentTarget.name;
-            html.find(`input[type=checkbox][name="${name}]"`).prop('checked', true);
+            html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
           });
         html.find('input[id^=input_exception]').focusout( (ev) => {
             const inputException = ev.currentTarget;
@@ -196,7 +196,7 @@ export class TraitSelector5e extends FormApplication {
       const choices = [];
       for (const [k, v] of Object.entries(formData as Record<any, any>)) {
         if(v.length > 1 && v[0]) {
-          if ((!Number.isNaN(v[1]) && v[1] !== "") || this.options.allow_empty_values) {
+          if ((!Number.isNaN(Number(v[1])) && v[1] !== "") || this.options.allow_empty_values) {
             const label = this.options.choices[k];
             const exceptions = v[2] || "";
             choices.push({type: k, label, value: v[1], exceptions});
@@ -208,17 +208,15 @@ export class TraitSelector5e extends FormApplication {
       const choices: string[] = [];
 
       // Add the non-custom traits...
-	    for (const [k, v] of Object.entries(formData)) {
+      for (const [k, v] of Object.entries(formData)) {
         if (k !== "search" && k !== "custom" && v) choices.push(k);
       }
 
-      // And then add the custom trait, if present.
-      if (formData.custom && formData.custom.length > 0) choices.push(formData.custom);
-
-	    this.object.update({
-	      [`${this.attribute}.value`]: choices,
-	      [`${this.attribute}.custom`]: formData.custom,
-	    });
-	  }
-   }
+      this.object.update({
+        [`${this.attribute}.value`]: choices,
+        // Add the custom traits
+        [`${this.attribute}.custom`]: formData.custom,
+      });
+    }
+  }
 }
