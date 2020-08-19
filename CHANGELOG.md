@@ -1,5 +1,19 @@
 # Patch Notes:
 
+## Version 1.10.4
+### Bug Fixes
+* (@abrault) Fix type of spell levels
+* (@In3luki) Fix trait selector
+* (@In3luki) Fix stamina in character sheet
+
+### Content Changes
+* (@TMun) Corrects Divine Font and Tempest Form Entries (#721)
+
+### Core System Improvements
+* (@mdizo) Revamped Character Sheet Navigation
+* (@nikolaj-a) Change character sheet navigation to change title on hover
+
+
 ## Version 1.10.3
 ### New Features
 * (@nikolaj-a) Add Effects tab on character sheet
