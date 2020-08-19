@@ -490,6 +490,21 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find('.sheet-navigation').on('mouseover', '.item', event => {
+      const title = event.currentTarget.dataset.tabTitle;
+      if (title) {
+        $(event.currentTarget).parents('.sheet-navigation').find('.navigation-title').text(title);
+      }
+    });
+
+    html.find('.sheet-navigation').on('mouseout', '.item', event => {
+      const parent = $(event.currentTarget).parents('.sheet-navigation');
+      const title = parent.find('.item.active').data('tabTitle');
+      if (title) {
+        parent.find('.navigation-title').text(title);
+      }
+    });
+
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 
     html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
