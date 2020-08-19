@@ -12,9 +12,9 @@
             systems/pf2e/templates/actors/crb-style/sidebar/actor-health.html}}
 
             <!-- STAMINA (if enabled) -->
-            {{#if_stamina}} {{>
+            {{#if hasStamina}} {{>
                 systems/pf2e/templates/actors/crb-style/sidebar/actor-stamina.html}}
-            {{/if_stamina}}
+            {{/if}}
 
             <!-- ARMOR CLASS -->
             {{>
@@ -47,44 +47,37 @@
 
     <!-- SHEET NAVIGATION -->
     <nav class="sheet-navigation" data-group="primary">
-        <a class="item active" data-tab="character">
+        <span class="navigation-title">{{localize "PF2E.TabCharacterLabel"}}</span>
+        <a class="item active" data-tab="character" data-tab-title="{{localize 'PF2E.TabCharacterLabel'}}">
             <i class="fas fa-address-card"></i>
-            <span>{{localize "PF2E.TabCharacterLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="actions">
+        <a class="item" data-tab="actions" data-tab-title="{{localize 'PF2E.TabActionsLabel'}}">
             <i class="fas fa-bullseye"></i>
-            <span>{{localize "PF2E.TabActionsLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="effects">
+        <a class="item" data-tab="effects" data-tab-title="{{localize 'PF2E.TabEffectsLabel'}}">
             <i class="fas fa-star"></i>
-            <span>{{localize "PF2E.TabEffectsLabel"}}</span>
         </a>
 
-      <a class="item" data-tab="inventory">
+        <a class="item" data-tab="inventory" data-tab-title="{{localize 'PF2E.TabInventoryLabel'}}">
             <i class="fas fa-box-open"></i>
-            <span>{{localize "PF2E.TabInventoryLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="spellbook">
+        <a class="item" data-tab="spellbook" data-tab-title="{{localize 'PF2E.TabSpellbookLabel'}}">
             <i class="fas fa-magic"></i>
-            <span>{{localize "PF2E.TabSpellbookLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="skills">
+        <a class="item" data-tab="skills" data-tab-title="{{localize 'PF2E.TabSkillsLabel'}}">
             <i class="fas fa-hand-sparkles"></i>
-            <span>{{localize "PF2E.TabSkillsLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="feats">
+        <a class="item" data-tab="feats" data-tab-title="{{localize 'PF2E.TabFeatsLabel'}}">
             <i class="fas fa-medal"></i>
-            <span>{{localize "PF2E.TabFeatsLabel"}}</span>
         </a>
 
-        <a class="item" data-tab="biography">
+        <a class="item" data-tab="biography" data-tab-title="{{localize 'PF2E.Biography'}}">
             <i class="fas fa-book-reader"></i>
-            <span>{{localize "PF2E.Biography"}}</span>
         </a>
     </nav>
 
@@ -92,8 +85,7 @@
     <section class="sheet-body">
         <section class="sheet-content">
             <!-- Character -->
-            {{>
-            systems/pf2e/templates/actors/crb-style/tabs/actor-character.html }}
+            {{> systems/pf2e/templates/actors/crb-style/tabs/actor-character.html }}
 
             <!-- Actions -->
             {{> systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html }}

@@ -1,33 +1,64 @@
 nav.sheet-navigation {
     display: inline-flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    height: 20px;
     background: var(--secondary);
     background: url('../assets/sheet/border-pattern.png') repeat-x top,
         url('../assets/sheet/border-pattern.png') repeat-x bottom,
         var(--secondary);
-    @include corner-boxes;
+    transition: all 0.1s ease-out;
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    position: relative;
+
+    span {
+        color: white;
+        margin-right: auto;
+        padding-left: 1rem;
+    }
 
     a {
-        color: $sidebar-label;
-        padding: 4px;
-        font-family: $sans-serif;
+        @include flex-center;
+        height: 24px;
+        width: 24px;
+        margin: 0 6px;
+        border-radius: 50%;
+        z-index: 1;
+        transition: all 0.1s ease-out;
+        color: var(--tertiary);
         font-size: 12px;
-        position: relative;
-        span {
-            display: none;
-            margin-left: 3px;
-        }
+        background-image: url('../assets/sheet/nav-item-inactive.png');
+        background-size: contain;
+
+        /* prettier-ignore */
+        box-shadow:
+            0 0 0 1px var(--tertiary),
+            0 0 0 2px #9f725b,
+            inset 0 0 4px rgba(black, 0.25);
 
         &.active {
-            span {
-                display: inline-flex;
-            }
+            box-shadow:
+            0 0 0 1px var(--tertiary),
+            0 0 0 2px #9f725b,
+            inset 0 0 4px rgba(black, 0.25),
+            0 0 8px var(--tertiary);
         }
 
-        &:hover {
-            span {
-                display: inline-flex;
+        &:hover, &.active {
+            z-index: 2;
+            height: 28px;
+            width: 28px;
+            margin: 0 4px;
+            color: white;
+            background-image: url('../assets/sheet/nav-item.png');
+        }
+
+        .fas {
+            padding-bottom: 0;
+            &.fa-star, &.fa-bullseye, &.fa-address-card {
+                padding-bottom: 0.5px;
             }
         }
     }

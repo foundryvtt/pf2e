@@ -79,6 +79,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
+    // is the stamina variant rule enabled?
+    sheetData.hasStamina = (game.settings.get('pf2e', 'staminaVariant') > 0);
+
     // Return data for rendering
     return sheetData;
   }
@@ -489,6 +492,21 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find('.sheet-navigation').on('mouseover', '.item', event => {
+      const title = event.currentTarget.dataset.tabTitle;
+      if (title) {
+        $(event.currentTarget).parents('.sheet-navigation').find('.navigation-title').text(title);
+      }
+    });
+
+    html.find('.sheet-navigation').on('mouseout', '.item', event => {
+      const parent = $(event.currentTarget).parents('.sheet-navigation');
+      const title = parent.find('.item.active').data('tabTitle');
+      if (title) {
+        parent.find('.navigation-title').text(title);
+      }
+    });
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 

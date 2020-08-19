@@ -25,7 +25,13 @@
 }
 
 @mixin frame-glow {
-    box-shadow: 0 0 10px var(--tertiary);
+    border: 1px solid var(--body);
+    /* prettier-ignore */
+    box-shadow:
+        0 0 0 1px var(--tertiary),
+        0 0 0 2px #9f725b,
+        0 0 0 12px var(--tertiary)
+        inset 0 0 4px rgba(black, 0.5);
 }
 
 @mixin brown-border {
