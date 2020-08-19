@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.SpellLevelLabel"}}</label>
-    <select name="data.level.value" data-dtype="{{data.level.type}}">
+    <select name="data.level.value" data-dtype="Number">
         {{#select data.level.value}}
         {{#each spellLevels as |name lvl|}}
         <option value="{{lvl}}">{{name}}</option>
@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellTypeLabel"}}</label>
-    <select name="data.spellType.value" data-dtype="{{data.spellType.type}}">
+    <select name="data.spellType.value" data-dtype="String">
         {{#select data.spellType.value}}
         {{#each spellTypes as |name type|}}
         <option value="{{type}}">{{name}}</option>
@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
-    <select name="data.spellCategorie.value" data-dtype="{{data.spellCategorie.type}}">
+    <select name="data.spellCategorie.value" data-dtype="String">
         {{#select data.spellCategorie.value}}
         {{#each spellCategories as |label key|}}
         <option value="{{key}}">{{localize label}}</option>
@@ -44,7 +44,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
-    <select name="data.school.value" data-dtype="{{data.school.type}}">
+    <select name="data.school.value" data-dtype="String">
         {{#select data.school.value}}
         {{#each spellSchools as |name sch|}}
         <option value="{{sch}}">{{name}}</option>
@@ -56,7 +56,7 @@
 <div class="form-group">
     <label>{{localize "PF2E.SpellDamageLabel"}}</label>
     <div class="details-container-two-columns">
-        <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+        <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="String"/>
 <!--         <select name="data.damage.applyMod" data-dtype="Boolean">
             {{#select data.damage.applyMod}}
             <option value=""></option>
@@ -65,14 +65,14 @@
         </select> -->
         <div style="display: flex; align-self: center;">
             <label style="flex: 4;">{{localize "PF2E.SpellAbilityModLabel"}}</label>
-            <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="{{data.damage.applyMod}}" {{checked data.damage.applyMod}} style="flex: 1; margin: 0;"/>
+            <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="Boolean" {{checked data.damage.applyMod}} style="flex: 1; margin: 0;"/>
         </div>
     </div>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellDamageTypeLabel"}}</label>
-    <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
+    <select name="data.damageType.value" data-dtype="String">
         {{#select data.damageType.value}}
         <option value=""></option>
         {{#each damageTypes as |name type|}}
@@ -97,13 +97,13 @@
 <div class="form-group">
     <label>{{localize "PF2E.SpellSaveLabel"}}</label>
     <div class="details-container-two-columns">
-    <select name="data.save.basic" data-dtype="{{data.save.type}}">
+    <select name="data.save.basic" data-dtype="String">
         {{#select data.save.basic}}
         <option value=""></option>
         <option value="basic">{{localize "PF2E.SpellBasicSaveOption"}}</option>
         {{/select}}
     </select>
-    <select name="data.save.value" data-dtype="{{data.save.type}}">
+    <select name="data.save.value" data-dtype="String">
         {{#select data.save.value}}
         <option value=""></option>
         {{#each saves as |ability a|}}
@@ -125,29 +125,29 @@
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
-    <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="{{data.components.type}}"/>
+    <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="String"/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
-    <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="{{data.materials.type}}"/>
+    <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="String"/>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
-    <input type="text" name="data.primarycheck.value" value="{{data.primarycheck.value}}" data-dtype="{{data.primarycheck.type}}"/>
+    <input type="text" name="data.primarycheck.value" value="{{data.primarycheck.value}}" data-dtype="String"/>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellSecondaryChecksLabel"}}</label>
-    <input type="text" name="data.secondarycheck.value" value="{{data.secondarycheck.value}}" data-dtype="{{data.secondarycheck.type}}"/>
+    <input type="text" name="data.secondarycheck.value" value="{{data.secondarycheck.value}}" data-dtype="String"/>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellCostLabel"}}</label>
-    <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="{{data.cost.type}}"/>
+    <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="String"/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellTargetLabel"}}</label>
-    <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="{{data.target.type}}"/>
+    <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="String"/>
 </div>
 
 <!-- <div class="form-group">
@@ -157,26 +157,26 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellAreaLabel"}}</label>
-	<input type="text" name="data.areasize.value" value="{{data.areasize.value}}" data-dtype="{{data.areasize.type}}"/>         
+	<input type="text" name="data.areasize.value" value="{{data.areasize.value}}" data-dtype="String"/>         
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellRangeLabel"}}</label>
-    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
+    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellTimeLabel"}}</label>
-    <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="{{data.time.type}}"/>
+    <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.SpellSecondaryCasters"}}</label>
-    <input type="text" name="data.secondarycasters.value" value="{{data.secondarycasters.value}}" data-dtype="{{data.secondarycasters.type}}"/>
+    <input type="text" name="data.secondarycasters.value" value="{{data.secondarycasters.value}}" data-dtype="String"/>
 </div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellDurationLabel"}}</label>
-    <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="{{data.duration.type}}"/>
+    <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="String"/>
 </div>
 
 <!-- <div class="form-group">
