@@ -1,34 +1,61 @@
 nav.sheet-navigation {
     display: inline-flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    height: 20px;
     background: var(--secondary);
     background: url('../assets/sheet/border-pattern.png') repeat-x top,
         url('../assets/sheet/border-pattern.png') repeat-x bottom,
         var(--secondary);
-    @include corner-boxes;
+    transition: all 0.1s ease-out;
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+
+    span {
+        color: white;
+        margin-right: auto;
+        padding-left: 1rem;
+    }
 
     a {
-        color: $sidebar-label;
-        padding: 4px;
-        font-family: $sans-serif;
+        @include flex-center;
+        height: 1.5rem;
+        width: 1.5rem;
+        padding: 0.25rem;
+        margin: 0 4px;
+        border-radius: 50%;
+        z-index: 1;
+        transition: all 0.1s ease-out;
+        color: var(--tertiary);
         font-size: 12px;
-        position: relative;
-        span {
-            display: none;
-            margin-left: 3px;
-        }
+        background-image: url('../assets/sheet/nav-item-inactive.png');
+        background-size: contain;
+
+        /* prettier-ignore */
+        box-shadow:
+            0 0 0 1px var(--tertiary),
+            0 0 0 2px #9f725b,
+            inset 0 0 4px rgba(black, 0.25);
 
         &.active {
-            span {
-                display: inline-flex;
-            }
+            box-shadow:
+            0 0 0 1px var(--tertiary),
+            0 0 0 2px #9f725b,
+            inset 0 0 4px rgba(black, 0.25),
+            0 0 8px var(--tertiary);
         }
 
-        &:hover {
-            span {
-                display: inline-flex;
-            }
+        &:hover, &.active {
+            z-index: 2;
+            height: 1.75rem;
+            width: 1.75rem;
+            color: white;
+            background-image: url('../assets/sheet/nav-item.png');
         }
+
+       &:last-child {
+           margin-right: 8px;
+       }
     }
 }
