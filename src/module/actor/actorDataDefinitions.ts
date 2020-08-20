@@ -59,6 +59,14 @@ export interface RawInitiativeData {
     label: string;
 }
 
+/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
+export interface DexterityModifierCapData {
+    /** The numeric value that constitutes the maximum Dexterity modifier. */
+    value: number;
+    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
+    source: string;
+}
+
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
@@ -219,6 +227,9 @@ export interface RawCharacterData {
         ac: ArmorClassData;
         /** Initiative, used to determine turn order in combat. */
         initiative: InitiativeData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap: DexterityModifierCapData[];
 
         /** The amount of bonus HP gained per level (due a feat or similar). */
         levelbonushp: number;
