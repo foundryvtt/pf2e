@@ -839,6 +839,10 @@ abstract class ActorSheetPF2e extends ActorSheet {
       this.render();
     });
 
+    // Select all text in an input field on focus
+    html.find('input[type=text], input[type=number]').focus((event: any) => {
+      event.currentTarget.select();
+    });
   }
 
   /* -------------------------------------------- */
