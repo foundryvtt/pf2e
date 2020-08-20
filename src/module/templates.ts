@@ -26,6 +26,7 @@ export default function () {
         'systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html',
         'systems/pf2e/templates/actors/crb-style/tabs/item-line.html',
