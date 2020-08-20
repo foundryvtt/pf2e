@@ -23,7 +23,19 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData, InitiativeData, CharacterStrikeTrait, CharacterStrike } from './actorDataDefinitions';
+import {
+  CharacterData,
+  NpcData,
+  SaveData,
+  SkillData,
+  ClassDCData,
+  ArmorClassData,
+  PerceptionData,
+  InitiativeData,
+  CharacterStrikeTrait,
+  CharacterStrike,
+  DexterityModifierCapData
+} from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -259,25 +271,29 @@ export default class PF2EActor extends Actor {
     // Armor Class
     {
       const modifiers = [];
+      const dexCap = duplicate(data.attributes.dexCap ?? []);
       let armorCheckPenalty = 0;
-      if (worn) {
-        // Dex modifier limited by armor max dex bonus
-        const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
-        dexterity.modifier = Math.min(dexterity.modifier, Number(worn.data.dex.value ?? 0));
-        modifiers.push(dexterity);
+      let proficiency = 'unarmored';
 
+      if (worn) {
+        dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
+        proficiency = worn.data.armorType?.value;
         // armor check penalty
         if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
           armorCheckPenalty = Number(worn.data.check.value ?? 0);
         }
-
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[worn.data.armorType?.value]?.rank ?? 0));
         modifiers.push(new PF2Modifier(worn.name, getArmorBonus(worn.data), PF2ModifierType.ITEM));
-      } else {
-        modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
       }
-      // condition modifiers
+
+      // proficiency
+      modifiers.unshift(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[proficiency]?.rank ?? 0));
+
+      // Dex modifier limited by the lowest dex cap, for example from armor
+      const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
+      dexterity.modifier = Math.min(dexterity.modifier, ...dexCap.map(cap => cap.value));
+      modifiers.unshift(dexterity);
+
+      // condition and custom modifiers
       ['ac', 'dex-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
@@ -285,6 +301,12 @@ export default class PF2EActor extends Actor {
       const stat = mergeObject<ArmorClassData>(new PF2StatisticModifier("ac", modifiers) as ArmorClassData, data.attributes.ac, { overwrite: false });
       stat.value = 10 + stat.totalModifier;
       stat.check = armorCheckPenalty;
+      stat.dexCap = dexCap && dexCap.length > 0 && dexCap.reduce((result, current) => {
+        if (result) {
+          return result.value > current.value ? current : result;
+        }
+        return current;
+      });
       stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -593,7 +615,7 @@ export default class PF2EActor extends Actor {
     const { data } = actorData;
     const { statisticsModifiers } = this._prepareCustomModifiers(actorData);
 
-    // Compute 'fake' ability scores from ability modifiers (just incase the scores are required for something).
+    // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
     for (const abl of Object.values(actorData.data.abilities)) {
       if (!abl.mod) abl.mod = 0;
       abl.value = abl.mod * 2 + 10;
@@ -602,9 +624,10 @@ export default class PF2EActor extends Actor {
     // Armor Class
     {
       const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
+      const dexterity = Math.min(data.abilities.dex.mod, ...(data.attributes.dexCap ?? []).map(cap => cap.value));
       const modifiers = [
-        new PF2Modifier('PF2E.BaseModifier', base - 10 - data.abilities.dex.mod, PF2ModifierType.UNTYPED),
-        new PF2Modifier(CONFIG.abilities.dex, data.abilities.dex.mod, PF2ModifierType.ABILITY)
+        new PF2Modifier('PF2E.BaseModifier', base - 10 - dexterity, PF2ModifierType.UNTYPED),
+        new PF2Modifier(CONFIG.abilities.dex, dexterity, PF2ModifierType.ABILITY)
       ];
       ['ac', 'dex-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -1345,6 +1368,34 @@ export default class PF2EActor extends Actor {
       customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
       await this.update({'data.customModifiers': customModifiers});
     }
+  }
+
+  /**
+   * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
+   *
+   * @param {DexterityModifierCapData} dexCap
+   */
+  async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
+    if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
+      throw new Error('numeric value is mandatory');
+    }
+    if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
+      throw new Error('source of cap is mandatory');
+    }
+    await this.update({'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap)});
+  }
+
+  /**
+   * Removes a previously added Dexterity modifier cap to AC.
+   *
+   * @param {string} source
+   */
+  async removeDexterityModifierCap(source: string) {
+    if (!source) {
+      throw new Error('source of cap is mandatory');
+    }
+    const updated = this.data.data.attributes.dexCap.filter(cap => cap.source !== source);
+    await this.update({'data.attributes.dexCap': updated});
   }
 
   async addDamageDice(param) {
