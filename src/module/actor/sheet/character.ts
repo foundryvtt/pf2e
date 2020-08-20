@@ -115,17 +115,17 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Feats
     const feats = {
-      ancestry: { label: game.i18n.localize("PF2E.FeatAncestryHeader"), feats: [] },
-	    ancestryfeature: { label: game.i18n.localize("PF2E.FeaturesAncestryHeader"), feats: [] },
-	    archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
-	    bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
-	    class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
-	    classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
-      skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
-      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
-      pfsboon: { label: game.i18n.localize("PF2E.FeatPFSBoonHeader"), feats: [] },
-      deityboon: { label: game.i18n.localize("PF2E.FeatDeityBoonHeader"), feats: [] },
-      curse: { label: game.i18n.localize("PF2E.FeatCurseHeader"), feats: [] },
+      ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [] },
+	    ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [] },
+	    archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [] },
+	    bonus: { label: 'PF2E.FeatBonusHeader', feats: [] },
+	    class: { label: 'PF2E.FeatClassHeader', feats: [] },
+	    classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [] },
+      skill: { label: 'PF2E.FeatSkillHeader', feats: [] },
+      general: { label: 'PF2E.FeatGeneralHeader', feats: [] },
+      pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [] },
+      deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [] },
+      curse: { label: 'PF2E.FeatCurseHeader', feats: [] },
     };
 
     // Actions
