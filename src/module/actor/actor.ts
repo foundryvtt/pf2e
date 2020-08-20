@@ -23,7 +23,7 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData, InitiativeData } from './actorDataDefinitions';
+import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData, InitiativeData, CharacterStrikeTrait, CharacterStrike } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -394,6 +394,8 @@ export default class PF2EActor extends Actor {
 
       (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).forEach((item) => {
         const modifiers = [];
+
+        // Determine the base ability score for this attack.
         {
           let ability = item.data.ability?.value ?? 'str'; // default to Str
           let score = data.abilities[item.data.ability.value]?.value ?? 0;
@@ -408,10 +410,11 @@ export default class PF2EActor extends Actor {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0));
 
         const attackBonus = getAttackBonus(item.data);
-          if (attackBonus !== 0) {
-              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
-          }
-        // conditions and custom modifiers to attack rolls
+        if (attackBonus !== 0) {
+            modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+        }
+
+        // Conditions and Custom modifiers to attack rolls
         {
           const stats = [];
           if (item.data?.group?.value) {
@@ -422,7 +425,9 @@ export default class PF2EActor extends Actor {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
-        const action : any = new PF2StatisticModifier(item.name, modifiers);
+
+        const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+
         action.imageUrl = item.img;
         action.glyph = 'A';
         action.type = 'strike';
@@ -430,10 +435,11 @@ export default class PF2EActor extends Actor {
         action.description = flavor.description;
         action.criticalSuccess = flavor.criticalSuccess;
         action.success = flavor.success;
-        action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack') }].concat(
+
+        action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false }].concat(
           PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
             const key = CONFIG.weaponTraits[trait] ?? trait;
-            const option: {name: string, label: string, toggle: boolean, rollName?: string, rollOption?: string, cssClass?: string} = {
+            const option: CharacterStrikeTrait = {
                 name: trait,
                 label: game.i18n.localize(key),
                 toggle: false
@@ -456,14 +462,17 @@ export default class PF2EActor extends Actor {
             return option;
           })
         );
+
         action.breakdown = action.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
-        // amend strike with a roll property
+
+        // Add the base attack roll (used for determining on-hit)
         action.attack = (event, options = []) => {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
+
         const map = PF2EItem.calculateMap(item);
         action.variants = [
           {

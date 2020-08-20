@@ -4,6 +4,9 @@ import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } fr
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
+/** A roll function which can be called to roll a given skill. */
+export type RollFunction = (event: any, options: string[], callback?: any) => void;
+
 /** Generic { value, label, type } type used in various places in data types. */
 export interface LabeledValue {
     label: string;
@@ -59,7 +62,52 @@ export interface RawInitiativeData {
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
-    roll?: (event: any, options: string[], callback?: any) => void;
+    roll?: RollFunction;
+}
+
+export interface CharacterStrikeTrait {
+    /** The name of this action. */
+    name: string;
+    /** The label for this action which will be rendered on the UI. */
+    label: string;
+    /** If true, this trait is toggleable. */
+    toggle: boolean;
+    /** The roll this trait applies to, if relevant. */
+    rollName?: string;
+    /** The option that this trait applies to the roll (of type `rollName`). */
+    rollOption?: string;
+    /** An extra css class added to the UI marker for this trait. */
+    cssClass?: string;
+}
+
+/** An strike which a character can use. */
+export interface RawCharacterStrike {
+    /** The type of action; currently just 'strike'. */
+    type: 'strike';
+    /** The image URL for this strike (shown on the UI). */
+    imageUrl: string;
+    /** The glyph for this strike (how many actions it takes, reaction, etc). */
+    glyph: string;
+    /** A description of this strike. */
+    description: string;
+    /** A description of what happens on a critical success. */
+    criticalSuccess: string;
+    /** A description of what happens on a success. */
+    success: string;
+    /** Any traits this strike has. */
+    traits: CharacterStrikeTrait[];
+
+    /** Alias for `attack`. */
+    roll?: RollFunction;
+    /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
+    attack?: RollFunction;
+    /** Roll normal (non-critical) damage for this weapon. */
+    damage?: RollFunction;
+    /** Roll critical damage for this weapon. */
+    critical?: RollFunction;
+
+    /** A list of attack variants which apply the Multiple Attack Penalty. */
+    variants: { label: string; roll: RollFunction; }[]
 }
 
 /** The full data for charatcer initiative. */
@@ -74,6 +122,8 @@ export type ClassDCData = PF2StatisticModifier & RawSkillData;
 export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
 export type SaveData = SkillData & { saveDetail?: string };
+/** The full data for a character action (used primarily for strikes.) */
+export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData {
@@ -293,8 +343,8 @@ export interface RawCharacterData {
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
 
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
+    /** EXPERIMENTAL API: Special strikes which the character can take. */
+    actions: CharacterStrike[];
 }
 
 /** The raw information contained within the actor data object for NPCs. */
