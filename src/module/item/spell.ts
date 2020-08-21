@@ -55,6 +55,13 @@ class Spell {
     if (this.damage.applyMod) {
       parts.push(this.character.abilities[this.spellcastingEntry.ability].mod);
     }
+    if (this.data.data.duration.value === "" && this.castingActor?.items) {
+      const featDangerousSorcery = this.castingActor.items.find(it => it.name === "Dangerous Sorcery");
+      if (featDangerousSorcery !== null) {
+        console.log(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.data.name}`);
+        parts.push(this.castLevel);
+      }
+    }
     return parts.concat(this.heightenedParts);
   }
 
