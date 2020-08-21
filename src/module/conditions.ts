@@ -620,96 +620,106 @@ export class PF2eConditionManager {
             if (c.data.references.parent) {
                 const refCondition = items.find(i => i._id === c.data.references.parent.id);
 
-                const ref = {
-                    id:c.data.references.parent,
-                    name:refCondition.name,
-                    base:refCondition.data.base,
-                    text:''
-                };
-
-                if (refCondition.data.value.isValued) {
-                    ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                if (refCondition) {
+                    const ref = {
+                        id:c.data.references.parent,
+                        name:refCondition.name,
+                        base:refCondition.data.base,
+                        text:''
+                    };
+    
+                    if (refCondition.data.value.isValued) {
+                        ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                    }
+    
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
+    
+                    condition.parents.push(ref);
                 }
-
-                ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                condition.parents.push(ref);
             }
 
             c.data.references.children.forEach(item => {
                 const refCondition = items.find(i => i._id === item.id);
 
-                const ref = {
-                    id:c.data.references.parent,
-                    name:refCondition.name,
-                    base:refCondition.data.base,
-                    text:''
-                };
-
-                if (refCondition.data.value.isValued) {
-                    ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                if (refCondition) {
+                    const ref = {
+                        id:c.data.references.parent,
+                        name:refCondition.name,
+                        base:refCondition.data.base,
+                        text:''
+                    };
+    
+                    if (refCondition.data.value.isValued) {
+                        ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                    }
+    
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
+    
+                    condition.children.push(ref);
                 }
-
-                ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                condition.children.push(ref);
             });
 
             c.data.references.overrides.forEach(item => {
                 const refCondition = items.find(i => i._id === item.id);
 
-                const ref = {
-                    id:c.data.references.parent,
-                    name:refCondition.name,
-                    base:refCondition.data.base,
-                    text:''
-                };
-
-                if (refCondition.data.value.isValued) {
-                    ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                if (refCondition) {
+                    const ref = {
+                        id:c.data.references.parent,
+                        name:refCondition.name,
+                        base:refCondition.data.base,
+                        text:''
+                    };
+    
+                    if (refCondition.data.value.isValued) {
+                        ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                    }
+    
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
+    
+                    condition.overrides.push(ref);
                 }
-
-                ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                condition.overrides.push(ref);
             });
 
             c.data.references.overriddenBy.forEach(item => {
                 const refCondition = items.find(i => i._id === item.id);
 
-                const ref = {
-                    id:c.data.references.parent,
-                    name:refCondition.name,
-                    base:refCondition.data.base,
-                    text:''
-                };
-
-                if (refCondition.data.value.isValued) {
-                    ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                }
-
-                ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                condition.overriddenBy.push(ref);
+                if (refCondition) {
+                    const ref = {
+                        id:c.data.references.parent,
+                        name:refCondition.name,
+                        base:refCondition.data.base,
+                        text:''
+                    };
+    
+                    if (refCondition.data.value.isValued) {
+                        ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                    }
+    
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
+    
+                    condition.overriddenBy.push(ref);
+                } 
             });
 
             c.data.references.immunityFrom.forEach(item => {
                 const refCondition = items.find(i => i._id === item.id);
 
-                const ref = {
-                    id:c.data.references.parent,
-                    name:refCondition.name,
-                    base:refCondition.data.base,
-                    text:''
-                };
-
-                if (refCondition.data.value.isValued) {
-                    ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                if (refCondition) {
+                    const ref = {
+                        id:c.data.references.parent,
+                        name:refCondition.name,
+                        base:refCondition.data.base,
+                        text:''
+                    };
+    
+                    if (refCondition.data.value.isValued) {
+                        ref.name = `${ref.name} ${refCondition.data.value.value}`;
+                    }
+    
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
+    
+                    condition.immunityFrom.push(ref);
                 }
-
-                ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                condition.immunityFrom.push(ref);
             });
         });
 
