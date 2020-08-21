@@ -639,6 +639,15 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       this.actor.removeCustomModifier(stat, name);
     }
   }
+
+  _onSubmit(event: any): Promise<any> {
+    // Limit SP value to data.attributes.sp.max value
+    if (event?.currentTarget?.name === 'data.attributes.sp.value') {
+        event.currentTarget.value = Math.clamped(Number(event.currentTarget.value), Number(this.actor.data.data.attributes?.sp?.min ?? 0), Number(this.actor.data.data.attributes?.sp?.max ?? 0));
+    }
+
+    return super._onSubmit(event);
+  }
 }
 
 export default CRBStyleCharacterActorSheetPF2E;

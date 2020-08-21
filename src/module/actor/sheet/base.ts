@@ -1633,6 +1633,15 @@ abstract class ActorSheetPF2e extends ActorSheet {
     }
   }
 
+  _onSubmit(event: any): Promise<any> {
+    // Limit HP value to data.attributes.hp.max value
+    if (event?.currentTarget?.name === 'data.attributes.hp.value') {
+        event.currentTarget.value = Math.clamped(Number(event.currentTarget.value), Number(this.actor.data.data.attributes.hp?.min ?? 0), Number(this.actor.data.data.attributes.hp?.max ?? 0));
+    }
+
+    return super._onSubmit(event);
+  }
+
   /**
    * Always submit on a form field change. Added because tabbing between fields
    * wasn't working.
