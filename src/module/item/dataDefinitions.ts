@@ -530,6 +530,31 @@ export interface SpellcastingEntryDetailsData {
 export interface StatusDetailsData {
     active: boolean,
     removable: boolean,
+    references: {
+        parent: {
+            id: string,
+            type: 'status' | 'condition' | 'feat' | 'weapon' | 'armor' | 'consumable' | 'equipment' | 'spell'
+        },
+        children: [{
+            id: string,
+            type: 'condition'
+        }],
+        overriddenBy: [{
+            id: string,
+            type: 'condition'
+        }],
+        overrides: [{
+            id: string,
+            type: 'condition'
+        }],
+        /**
+         * This status is immune, and thereby inactive, from the following list.
+         */
+        immunityFrom: [{
+            id: string,
+            type: 'status' | 'condition' | 'feat' | 'weapon' | 'armor' | 'consumable' | 'equipment' | 'spell'
+        }]
+    },
     hud: {
         statusName: string,
         img: {
@@ -544,7 +569,7 @@ export interface StatusDetailsData {
         text: string
     },
     modifiers: [{
-        type: 'ability' | 'proficiency' | 'status' | 'circumstance' | 'item' | 'untyped'
+        type: 'ability' | 'proficiency' | 'status' | 'circumstance' | 'item' | 'untyped',
         name: string,
         group: string,
         value?: number,
@@ -553,6 +578,7 @@ export interface StatusDetailsData {
 
 export interface ConditionDetailsData {
     base: string,
+    group: string,
     value: {
         isValued: boolean,
         immutable: boolean,
@@ -563,11 +589,7 @@ export interface ConditionDetailsData {
         }]
     },
     sources: {
-        hud: boolean,
-        values: [{
-            id: string,
-            type: 'condition' | 'feat' | 'skill'
-        }]
+        hud: boolean
     },
     alsoApplies: {
         linked: [{

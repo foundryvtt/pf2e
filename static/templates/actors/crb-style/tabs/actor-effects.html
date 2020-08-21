@@ -3,24 +3,34 @@
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.ConditionsLabel'}}</h3>
         </li>
-        {{#each actor.items as |item ii|}}
-        {{#if (eq item.type 'condition')}}
+        {{#each data.effects.conditions as |item ii|}}
         <li class="item expandable" data-action-index="{{ii}}">
           <div class="item-name rollable">
             <div class="item-image action-strike" style="background-image: url({{item.img}})">
               <i class="fas fa-dice-d20"></i>
             </div>
-            <h4 class="action-name">{{item.name}} {{#if item.data.value.isValued}}{{item.data.value.value}}{{/if}}</h4>
+            <h4 class="action-name">{{item.name}}{{#unless item.active}}<span>  (Inactive)</span>{{/unless}}</h4>
           </div>
-          {{#if item.data.description.value}}
           <div class="item-summary">
             <div class="item-description">
-              <p>{{{enrichHTML item.data.description.value}}}</p>
+              <p>{{{enrichHTML item.description}}}</p>
+            </div>
+            <div>
+              {{#if item.parents.length}}
+              <p>Applied From:{{#each item.parents as |parent|}} {{{enrichHTML parent.text}}}{{/each}}</p>
+              {{/if}}
+              {{#if item.children.length}}
+              <p>Also Applied:{{#each item.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
+              {{/if}}
+              {{#if item.overrides.length}}
+              <p>Overriding:{{#each item.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+              {{/if}}
+              {{#if item.overriddenBy.length}}
+              <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+              {{/if}}
             </div>
           </div>
-          {{/if}}
         </li>
-        {{/if}}
         {{/each}}
     </ol>
 </div>
