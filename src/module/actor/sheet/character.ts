@@ -4,6 +4,7 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
+import { PF2eConditionManager } from '../../conditions';
 
 class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   static get defaultOptions() {
@@ -79,6 +80,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
+    sheetData.data.effects = {};
+
+    sheetData.data.effects.conditions = PF2eConditionManager.getFlattenedConditions(sheetData.actor.items.filter(i => i.flags.pf2e?.condition && i.type === 'condition'));
     // is the stamina variant rule enabled?
     sheetData.hasStamina = (game.settings.get('pf2e', 'staminaVariant') > 0);
 
