@@ -161,7 +161,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     try {
       const item = this.actor.getOwnedItem(spell._id);
       if (item){
-        spell.chatData = item.getChatData({ secrets: this.actor.owner });
+          spell.spellInfo = item.getSpellInfo();
       }
     } catch (err) {
       console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell)
@@ -208,7 +208,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
                 // Add chat data
                 try {
-                  spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
+                    spl.prepared[i].spellInfo = item.getSpellInfo();
                 } catch (err) {
                   console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
                 }

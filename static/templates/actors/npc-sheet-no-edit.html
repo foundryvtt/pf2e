@@ -407,8 +407,8 @@
                         </div>
         
                         <div class="melee-buttons spell-buttons">
-                          {{#if item.chatData.traits}}
-                            {{#each item.chatData.traits as |trait tid|}}
+                          {{#if item.spellInfo.traits}}
+                            {{#each item.spellInfo.traits as |trait tid|}}
                               {{#if trait.description}}
                                 <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
                               {{else}}
@@ -417,14 +417,14 @@
                             {{/each}}
                           {{/if}}
                             
-                          {{#if item.chatData.isSave}}
-                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
+                          {{#if item.spellInfo.isSave}}
+                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
                           {{/if}}
-                          {{#if item.chatData.isAttack}}
+                          {{#if item.spellInfo.isAttack}}
                             <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
                           {{/if}}
                           {{#if item.data.damage.value}}
-                            <span class="tag"><button data-action="spellDamage">{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
+                            <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
                           {{/if}}
                         </div>
         
@@ -484,8 +484,8 @@
                             </div>
             
                             <div class="melee-buttons spell-buttons">
-                              {{#if item.chatData.traits}}
-                                {{#each item.chatData.traits as |trait tid|}}
+                              {{#if item.spellInfo.traits}}
+                                {{#each item.spellInfo.traits as |trait tid|}}
                                   {{#if trait.description}}
                                     <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
                                   {{else}}
@@ -494,14 +494,14 @@
                                 {{/each}}
                               {{/if}}
                                 
-                              {{#if item.chatData.isSave}}
-                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.chatData.save.dc}} {{item.chatData.save.basic}} {{item.chatData.save.str}}</span>
+                              {{#if item.spellInfo.isSave}}
+                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
                               {{/if}}
-                              {{#if item.chatData.isAttack}}
+                              {{#if item.spellInfo.isAttack}}
                                 <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
                               {{/if}}
                               {{#if item.data.damage.value}}
-                                <span class="tag"><button data-action="spellDamage">{{item.chatData.damageLabel}}: {{item.data.damage.value}}</button></span>
+                                <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
                               {{/if}}
                             </div>
             

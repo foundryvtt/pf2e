@@ -192,13 +192,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
         if (i.type === 'weapon') {
-          let item;
-          try {
-            item = this.actor.getOwnedItem(i._id);
-            i.chatData = item.getChatData({ secrets: this.actor.owner });
-          } catch (err) {
-            console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
-          }
           attacks.weapon.items.push(i);
         }
         inventory[i.type].items.push(i);
@@ -209,7 +202,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         let item;
           try {
             item = this.actor.getOwnedItem(i._id);
-            i.chatData = item.getChatData({ secrets: this.actor.owner });
+            i.spellInfo = item.getSpellInfo();
           } catch (err) {
             console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
           }
