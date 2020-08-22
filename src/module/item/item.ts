@@ -64,6 +64,10 @@ export default class PF2EItem extends Item {
     return data;
   }
 
+  getSpellInfo() {
+    return this._spellChatData();
+  }
+
   /* -------------------------------------------- */
 
   _armorChatData() {
