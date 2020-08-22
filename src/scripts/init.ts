@@ -102,10 +102,10 @@ async function rollActionMacro(actorId: string, actionIndex: number, actionName:
 async function createSkillMacro(skill: string, skillName: string, actorId: string, slot: number) {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
-const actor = game.actors.get('${actorId}');
-if (actor) {
-    const opts = actor.getRollOptions(['all', 'skill-check', '${dictName}']);
-    actor.data.data.skills['${skill}']?.roll(event, opts);
+const a = game.actors.get('${actorId}');
+if (a) {
+    const opts = a.getRollOptions(['all', 'skill-check', '${dictName}']);
+    a.data.data.skills['${skill}']?.roll(event, opts);
 } else {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
