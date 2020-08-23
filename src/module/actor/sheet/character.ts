@@ -93,7 +93,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const inventory = {
       weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
       armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-      equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
+      equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
       consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
       treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
@@ -157,6 +157,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const bulkItems = itemsFromActorData(actorData);
     const indexedBulkItems = indexBulkItemsById(bulkItems);
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+
+    let investedCount = 0; // Tracking invested items
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
@@ -171,8 +173,13 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       }
 
       i.canBeEquipped = i.isNotInContainer;
-      i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+      i.isEquipped = i.data?.equipped?.value ?? false;
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+      i.hasInvestedTrait = i.data?.traits?.value?.includes("invested") ?? false;
+      i.isInvested = i.data?.invested?.value ?? false;
+      if (i.isInvested) {
+        investedCount += 1;
+      }
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
@@ -362,6 +369,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         }
       }
     }
+
+    inventory.equipment.investedItemCount = investedCount; // Tracking invested items
 
     const embeddedEntityUpdate = [];
     // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.

@@ -19,6 +19,9 @@
     {{#each actor.inventory as |section sid|}}
         <div class="inventory-header">
             <h3 class="item-name">{{section.label}}</h3>
+            {{#if (eq sid "equipment")}}
+                <span class="item-invested-total">{{localize "PF2E.InvestedLabel"}} ({{section.investedItemCount}}/10)</span>
+            {{/if}}
             <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
             <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
             {{#if ../owner}}
