@@ -511,7 +511,7 @@ export class PF2eConditionManager {
      * @param {string|string[]} name    A collection of conditions to retrieve modifiers from.
      * @param {Token} token    The token to add the condition to.
      */
-    static async removeConditionFromToken(id:string[], token:Token) {
+    static async removeConditionFromToken(id:string|string[], token:Token) {
         id = id instanceof Array ? id : [id];
         await PF2eConditionManager._deleteConditionEntity(id, token);
 
@@ -606,6 +606,7 @@ export class PF2eConditionManager {
                     value: (c.data.value.isValued) ? c.data.value.value : undefined,
                     description: c.data.description.value,
                     img: c.img,
+                    references: false,
                     parents: [],
                     children: [],
                     overrides: [],
@@ -634,6 +635,7 @@ export class PF2eConditionManager {
     
                     ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
     
+                    condition.references = true;
                     condition.parents.push(ref);
                 }
             }
@@ -655,6 +657,7 @@ export class PF2eConditionManager {
     
                     ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
     
+                    condition.references = true;
                     condition.children.push(ref);
                 }
             });
@@ -676,6 +679,7 @@ export class PF2eConditionManager {
     
                     ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
     
+                    condition.references = true;
                     condition.overrides.push(ref);
                 }
             });
@@ -697,6 +701,7 @@ export class PF2eConditionManager {
     
                     ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
     
+                    condition.references = true;
                     condition.overriddenBy.push(ref);
                 } 
             });
@@ -718,6 +723,7 @@ export class PF2eConditionManager {
     
                     ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
     
+                    condition.references = true;
                     condition.immunityFrom.push(ref);
                 }
             });
