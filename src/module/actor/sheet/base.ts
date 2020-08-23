@@ -644,31 +644,68 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = li.attr('data-item-id');
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
-      const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
-      new Dialog({
-        title: 'Delete Confirmation',
-        content,
-        buttons: {
-          Yes: {
-            icon: '<i class="fa fa-check"></i>',
-            label: 'Yes',
-            callback: async () => {
-              await this.actor.deleteOwnedItem(itemId);
-              // clean up any individually targeted modifiers to attack and damage
-              await this.actor.update({
-                [`data.customModifiers.-=${itemId}-attack`]: null,
-                [`data.customModifiers.-=${itemId}-damage`]: null,
-              });
-              li.slideUp(200, () => this.render(false));
+      if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
+        // Condition Item.
+
+        const condition = item.data as ConditionData;
+        const list: string[] = [];
+        const references = li.find('.condition-references');
+
+        console.log(references.html());
+        
+
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {name:item.name, ref:references.html()});
+        new Dialog({
+          title: 'Remove Condition',
+          content,
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: 'Yes',
+              callback: async () => {
+                this.actor.data.items.filter(i => i.type === 'condition' && i.flags.pf2e?.condition && i.data.base === condition.data.base && i.data.value.value === condition.data.value.value).forEach(
+                  (i: ConditionData) => {
+                    list.push(i._id);
+                  }
+                );
+
+                await PF2eConditionManager.removeConditionFromToken(list, this.token);
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: 'Cancel',
             },
           },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: 'Cancel',
+          default: 'Yes',
+        }).render(true);
+      } else {
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
+        new Dialog({
+          title: 'Delete Confirmation',
+          content,
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: 'Yes',
+              callback: async () => {
+                await this.actor.deleteOwnedItem(itemId);
+                // clean up any individually targeted modifiers to attack and damage
+                await this.actor.update({
+                  [`data.customModifiers.-=${itemId}-attack`]: null,
+                  [`data.customModifiers.-=${itemId}-damage`]: null,
+                });
+                li.slideUp(200, () => this.render(false));
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: 'Cancel',
+            },
           },
-        },
-        default: 'Yes',
-      }).render(true);
+          default: 'Yes',
+        }).render(true);
+      }
     });
 
     // Increase Item Quantity
