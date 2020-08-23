@@ -523,6 +523,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     // the click listener registered on all buttons breaks the event delegation here...
     // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
     html.find('.strikes-list .damage-strike').click((event) => {
+      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
+
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
@@ -533,6 +535,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     // the click listener registered on all buttons breaks the event delegation here...
     // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
     html.find('.strikes-list .critical-strike').click((event) => {
+      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
+
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');

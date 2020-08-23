@@ -34,7 +34,11 @@ import {
   InitiativeData,
   CharacterStrikeTrait,
   CharacterStrike,
-  DexterityModifierCapData
+  DexterityModifierCapData,
+  NPCArmorClassData,
+  NPCSaveData,
+  NPCPerceptionData,
+  NPCSkillData
 } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
@@ -301,12 +305,12 @@ export default class PF2EActor extends Actor {
       const stat = mergeObject<ArmorClassData>(new PF2StatisticModifier("ac", modifiers) as ArmorClassData, data.attributes.ac, { overwrite: false });
       stat.value = 10 + stat.totalModifier;
       stat.check = armorCheckPenalty;
-      stat.dexCap = dexCap && dexCap.length > 0 && dexCap.reduce((result, current) => {
+      stat.dexCap = dexCap.reduce((result, current) => {
         if (result) {
           return result.value > current.value ? current : result;
         }
         return current;
-      });
+      }, null);
       stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -633,15 +637,14 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier("ac", modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(data.attributes.ac as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier("ac", modifiers) as NPCArmorClassData, data.attributes.ac, { overwrite: false });
       stat.base = base;
       stat.value = 10 + stat.totalModifier;
       stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
+
       data.attributes.ac = stat;
     }
 
@@ -656,9 +659,7 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier(saveName, modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(save as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers) as NPCSaveData, data.saves[saveName], { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
@@ -668,6 +669,7 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
       };
+
       data.saves[saveName] = stat; 
     }
 
@@ -682,9 +684,7 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier('perception', modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(data.attributes.perception as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier('perception', modifiers) as NPCPerceptionData, data.attributes.perception, { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
@@ -694,6 +694,7 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
+
       data.attributes.perception = stat;
     }
 
@@ -714,9 +715,7 @@ export default class PF2EActor extends Actor {
           (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
 
-        const stat = new PF2StatisticModifier(item.name, modifiers);
-        // copy all fields from the original save object, exclude fields already defined on the stat
-        Object.entries(data.skills[shortform] ?? {} as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+        const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
         stat.base = base;
         stat.expanded = skill;
         stat.label = item.name;
@@ -729,6 +728,7 @@ export default class PF2EActor extends Actor {
           const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
           PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
         };
+
         data.skills[shortform] = stat;
       }
     }
