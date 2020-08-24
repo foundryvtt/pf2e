@@ -445,7 +445,7 @@ export class PF2DamageDice {
     this.damageType = param?.damageType;
     this.traits = param?.traits ?? [];
     this.override = param?.override; // maybe restrict this object somewhat?
-    this.predicate = param?.predicate ?? param?.options ?? {}; // options is the old name for this field
+    this.predicate = new PF2ModifierPredicate(param?.predicate ?? param?.options ?? {}); // options is the old name for this field
     this.ignored = PF2ModifierPredicate.test(this.predicate, []);
     this.enabled = this.ignored;
     this.custom = param?.custom;
