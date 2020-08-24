@@ -1400,40 +1400,43 @@ export default class PF2EActor extends Actor {
     await this.update({'data.attributes.dexCap': updated});
   }
 
-  async addDamageDice(param) {
-    if (!param.name) {
-      throw new Error('name for damage dice is mandatory');
+  /** Adds custom damage dice. */
+  async addDamageDice(param: PF2DamageDice) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom damage dice only work for characters and NPCs");
     }
-    param.selector = param?.selector ?? 'damage';
+
     const damageDice = duplicate(this.data.data.damageDice ?? {});
     if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
+      // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
+      param.selector = param?.selector ?? 'damage';
+      param.custom = true;
+
+      // The damage dice constructor performs some basic validations for us, like checking that the
+      // name and selector are both defined.
       const dice = new PF2DamageDice(param);
-      dice.custom = true;
+
       damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
       await this.update({'data.damageDice': damageDice});
     }
   }
 
-  /**
-   * Removes damage dice, either by index or by name.
-   *
-   * @param {string} selector
-   * @param {string|number} dice name or index of the damage dice to remove
-   */
-  async removeDamageDice(selector, dice) {
-    const damageDice = duplicate(this.data.data.damageDice ?? {});
-    if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
-      const diceModifiers = damageDice[dice];
-      diceModifiers.splice(dice, 1);
-      damageDice[dice] = diceModifiers;
-      await this.update({'data.damageDice': damageDice});
-    } else if (typeof dice === 'string' && damageDice[selector] && damageDice[selector].length > 0) {
-      damageDice[selector] = damageDice[selector].filter((m) => m.name !== dice);
-      await this.update({'data.damageDice': damageDice});
+  /** Removes damage dice by name. */
+  async removeDamageDice(selector: string, dice: string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom damage dice only work for characters and NPCs");
     }
+
+    const damageDice = duplicate(this.data.data.damageDice ?? {});
+    if (damageDice[selector]) {
+      damageDice[selector] = damageDice[selector].filter(m => m.name !== dice);
+    }
+
+    await this.update({'data.damageDice': damageDice});
   }
 
-  async toggleRollOption(rollName, optionName) {
+  /** Toggle the given roll option (swapping it from true to false, or vice versa). */
+  async toggleRollOption(rollName: string, optionName: string) {
     if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
@@ -1441,7 +1444,8 @@ export default class PF2EActor extends Actor {
     this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
   }
 
-  async setRollOption(rollName, optionName, enabled) {
+  /** Set the given roll option. */
+  async setRollOption(rollName: string, optionName: string, enabled: boolean) {
     if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
@@ -1449,32 +1453,31 @@ export default class PF2EActor extends Actor {
     this.setFlag(game.system.id, flag, !!enabled);
   }
 
-  async unsetRollOption(rollName, optionName) {
+  /** Unset (i.e., delete entirely) the given roll option. */
+  async unsetRollOption(rollName: string, optionName: string) {
     const flag = `rollOptions.${rollName}.${optionName}`;
     this.unsetFlag(game.system.id, flag);
   }
 
-  async enableRollOption(rollName, optionName) {
+  /** Enable the given roll option for thie given roll name. */
+  async enableRollOption(rollName: string, optionName: string) {
     this.setRollOption(rollName, optionName, true);
   }
 
-  async disableRollOption(rollName, optionName) {
+  /** Disable the given roll option for the given roll name. */
+  async disableRollOption(rollName: string, optionName: string) {
     this.setRollOption(rollName, optionName, false);
   }
 
-  /**
-   * @param {string[]} rollNames
-   * @return {string[]}
-   */
-  getRollOptions(rollNames) {
-    const flag = this.getFlag(game.system.id, 'rollOptions') ?? {};
+  /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
+  getRollOptions(rollNames: string[]): string[] {
+    const flag: Record<string, Record<string, boolean>> = this.getFlag(game.system.id, 'rollOptions') ?? {};
     return rollNames.flatMap(rollName =>
       // convert flag object to array containing the names of all fields with a truthy value
-      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [])
+      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [] as string[])
     ).reduce((unique, option) => {
       // ensure option entries are unique
       return unique.includes(option) ? unique : unique.concat(option);
-    }, []);
+    }, [] as string[]);
   }
-
 }
