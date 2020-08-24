@@ -1,3 +1,5 @@
+import { DamageDieSize } from "./system/damage/damage";
+
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
@@ -373,6 +375,23 @@ export class PF2ModifierPredicate {
   /** The options must NOT HAVE ANY of these entries for this predicate to pass. */
   not: string[];
 
+  /** Test if the given predicate passes for the given list of options. */
+  static test(predicate: { all?: string[], any?: string[], not?: string[] }, options: string[]): boolean {
+    const { all, any, not } = predicate;
+
+    let active = true;
+    if (all && all.length > 0) {
+      active = active && all.every(i => options.includes(i));
+    }
+    if (any && any.length > 0) {
+      active = active && any.some(i => options.includes(i));
+    }
+    if (not && not.length > 0) {
+      active = active && !not.some(i => options.includes(i));
+    }
+    return active;
+  }
+
   constructor(param? : { all?: string[], any?: string[], not?: string[] }) {
     this.all = param?.all ?? [];
     this.any = param?.any ?? [];
@@ -381,17 +400,7 @@ export class PF2ModifierPredicate {
 
   /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
   test(options: string[]): boolean {
-    let active = true;
-    if (this.all.length > 0) {
-      active = active && this.all.every(i => options.includes(i));
-    }
-    if (this.any.length > 0) {
-      active = active && this.any.some(i => options.includes(i));
-    }
-    if (this.not.length > 0) {
-      active = active && !this.not.some(i => options.includes(i));
-    }
-    return active;
+    return PF2ModifierPredicate.test(this, options);
   }
 }
 
@@ -399,41 +408,46 @@ export class PF2ModifierPredicate {
  * Represents extra damage dice for one or more weapons or attack actions.
  */
 export class PF2DamageDice {
-  selector: any;
-  name: any;
-  diceNumber: any;
-  dieSize: any;
-  critical: any;
-  category: any;
-  damageType: any;
-  traits: any;
-  override: any;
-  options: any;
-  ignored: any;
-  enabled: any;
-  custom: any;
-  predicate: any;
+  /** The selector used to determine when   */
+  selector: string;
+  /** The name of this damage dice; used as an identifier. */
+  name: string;
+  /** The number of dice to add. */
+  diceNumber: number;
+  /** The size of the dice to add. */
+  dieSize: DamageDieSize;
+  /** If true, these dice only apply on a critical. */
+  critical: boolean;
+  /** The damage category of these dice. */
+  category?: string;
+  /** The damage type of these damage dice. */
+  damageType?: string;
+  /** Any traits which these dice add to the overall damage. */
+  traits: string[];
+  /** If true, these dice overide the base damage dice of the weapon. */
+  override?: boolean;
+  /** If true, these custom dice are being ignored in the damage calculation. */
+  ignored: boolean;
+  /** If true, these custom dice should be considered in the damage calculation. */
+  enabled: boolean;
+  /** If true, these dice are user-provided/custom. */
+  custom: boolean;
+  /** A predicate which limits when this damage dice is actually applied. */
+  predicate?: { all?: string[], any?: string[], not?: string[] };
 
-  /**
-   * @param {object} param
-   */
   constructor(param) {
     if (param.selector) { this.selector = param.selector; } else { throw new Error('selector is mandatory'); }
     if (param.name) { this.name = param.name } else { throw new Error('name is mandatory'); }
     this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
-    if (param.dieSize) {
-      this.dieSize = param.dieSize; // default to base attack's damage die, if omitted
-    }
+    this.dieSize = param?.dieSize;
     this.critical = param?.critical ?? false;
     this.category = param?.category;
     this.damageType = param?.damageType;
     this.traits = param?.traits ?? [];
     this.override = param?.override; // maybe restrict this object somewhat?
     this.predicate = param?.predicate ?? param?.options ?? {}; // options is the old name for this field
-    if (!(this.predicate instanceof PF2ModifierPredicate)) {
-      this.predicate =  new PF2ModifierPredicate(this.predicate);
-    }
-    this.ignored = this.predicate.test([]);
+    this.ignored = PF2ModifierPredicate.test(this.predicate, []);
     this.enabled = this.ignored;
+    this.custom = param?.custom;
   }
 }
