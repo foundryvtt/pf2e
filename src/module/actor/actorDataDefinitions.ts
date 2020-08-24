@@ -123,7 +123,12 @@ export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
 export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
-export type ArmorClassData = PF2StatisticModifier & RawSkillData & { check?: number; };
+export type ArmorClassData = PF2StatisticModifier & RawSkillData & {
+    /** The armor check penalty imposed by the worn armor. */
+    check?: number;
+    /** The cap for the bonus that dexterity can give to AC, if any. If null, there is no cap. */
+    dexCap?: DexterityModifierCapData;
+};
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
 export type ClassDCData = PF2StatisticModifier & RawSkillData;
 /** The full skill data for a character; includes statistic modifier. */
@@ -358,6 +363,21 @@ export interface RawCharacterData {
     actions: CharacterStrike[];
 }
 
+// NPCs have an additional 'base' field used for computing the modifiers.
+/** Normal armor class data, but with an additional 'base' value. */
+export type NPCArmorClassData = ArmorClassData & { base?: number; };
+/** Normal save data, but with an additional 'base' value. */
+export type NPCSaveData = SaveData & { base?: number; };
+/** Normal skill data, but with an additional 'base' value. */
+export type NPCPerceptionData = PerceptionData & { base?: number; };
+/** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
+export type NPCSkillData = SkillData & {
+    base?: number;
+    visible?: boolean;
+    label: string;
+    expanded: string;
+};
+
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
     /** The six primary ability scores. */
@@ -370,13 +390,102 @@ export interface RawNpcData {
         cha: AbilityData;
     }
 
+    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
+    saves: {
+        fortitude: NPCSaveData;
+        reflex: NPCSaveData;
+        will: NPCSaveData;
+    }
+
+    /** Details about this actor, such as alignment or ancestry. */
+    details: {
+        /** The alignment this creature has. */
+        alignment: { value: string; };
+        /** The race of this creature. */
+        ancestry: { value: string; };
+        /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
+        level: { value: number; min: number; }
+        /** Which sourcebook this creature comes from. */
+        source: { value: string; }
+        /** The Archive of Nethys URL for this creature. */
+        nethysUrl: string;
+        /** Information about what is needed to recall knowledge about this creature. */
+        recallKnowledgeText: string;
+        /** Information which shows up on the sidebar of the creature. */
+        sidebarText: string;
+        /** The type of this creature (such as 'undead') */
+        creatureType: string;
+        /** Flavor / descriptive background text for this creature. */
+        flavorText: string;
+    }
+
+    /** Any special attributes for this NPC, such as AC or health. */
+    attributes: {
+        /** The armor class of this NPC. */
+        ac: NPCArmorClassData;
+        /** The perception score for this NPC. */
+        perception: NPCPerceptionData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap?: DexterityModifierCapData[];
+
+        /** The hit points for this actor. */
+        hp: {
+            /** The current number of hitpoints. */
+            value: number;
+            /** The minimum number of hitpoints (almost always 0). */
+            min: number;
+            /** The maximum number of hitpoints. */
+            max: number;
+            /** The current number of temporary hitpoints (if any). */
+            temp?: number;
+            /** The maximum number of temporary hitpoints (if any). */
+            tempmax?: number;
+            /** Any special details about this actor health (such as regeneration, etc.). */
+            details?: string;
+        }
+
+        /** The movement speeds that this NPC has. */
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** @deprecated Special movement speeds. */
+            special: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        }
+
+        /** Textual information about any special benefits that apply to all saves. */
+        allSaves: { value: string; }
+    }
+
+    /** Traits, languages, and other information. */
+    traits: {
+        /** The size of this creature. */
+        size: { value: string; }
+        /** Special senses this creature possesses. */
+        senses: { value: string; }
+        /** Traits that define this creature, like 'humanoid' or 'celestial.' */
+        traits: { value: string[]; custom: string; }
+        /** The rarity of this creature (common, uncommon, etc.) */
+        rarity: { value: string; }
+        /** Languages this creature knows. */
+        languages: { value: string[]; selected: string[]; custom: string; }
+        /** Damage/condition immunities. */
+        di: { value: string[]; custom: string; }
+        /** Damage resistances. */
+        dr: LabeledValue[];
+        /** Damage vulnerabilities. */
+        dv: LabeledValue[];
+    }
+
+    /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
+    skills: Record<string, NPCSkillData>;
+
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
-
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for hazards. */

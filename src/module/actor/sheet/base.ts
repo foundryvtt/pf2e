@@ -768,12 +768,16 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+      if (!('actions' in this.actor.data.data)) throw Error("Experimental strikes are not supported on this actor");
+
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);
       this.actor.data.data.actions[Number(actionIndex)].roll(event, opts);
     });
 
     html.find('[data-variant-index].variant-strike').click((event) => {
+      if (!('actions' in this.actor.data.data)) throw Error("Experimental strikes are not supported on this actor");
+
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);

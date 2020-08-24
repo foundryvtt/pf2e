@@ -141,7 +141,7 @@ export default class PF2EItem extends Item {
     };
     if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
       proficiency.type = "martial";
-      proficiency.value = actorData.data.martial?.[prof]?.value || 0;
+      proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
     } else {
       try {
         const martialSkill = this.actor.getOwnedItem(prof);
