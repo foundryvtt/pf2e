@@ -525,88 +525,88 @@ export default class PF2EActor extends Actor {
     this.prepareInitiative(actorData, statisticsModifiers);
   }
 
-    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, any>) {
-        const { data } = actorData;
+  prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
+    const { data } = actorData;
 
-        const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: PF2Modifier[] = [];
+    const initSkill = data.attributes?.initiative?.ability || 'perception';
+    const modifiers: PF2Modifier[] = [];
 
-        // FIXME: this is hard coded for now
-        const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
-        if (feats.has('Incredible Initiative')) {
-            modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
-          modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Elven Instincts') && initSkill === 'perception') {
-            modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Eye of Ozem') && initSkill === 'perception') {
-            modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
-            modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
-        }
-        ['initiative'].forEach((key) => {
-            (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-        });
-        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
-        const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-        
-        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
-        stat.ability = initSkill;
-        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = (event, options = []) => {
-            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
-              this._applyInitiativeRollToCombatTracker(roll);
-            });
-        };
-
-        data.attributes.initiative = stat;
+    // FIXME: this is hard coded for now
+    const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
+    if (feats.has('Incredible Initiative')) {
+      modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
     }
+    if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Elven Instincts') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Eye of Ozem') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
+      modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
+    }
+    ['initiative'].forEach((key) => {
+      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+    });
+    const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+    const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
+    
+    const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+    stat.ability = initSkill;
+    stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+    stat.roll = (event, options = []) => {
+      PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
+        this._applyInitiativeRollToCombatTracker(roll);
+      });
+    };
 
-    _applyInitiativeRollToCombatTracker(roll) {
-      if (roll) {
-        // check that there is a combat active in this scene
-        if (!game.combat) {
-          ui.notifications.error("No active encounters in the Combat Tracker.");
-          return;
-        }
+    data.attributes.initiative = stat;
+  }
 
-        const combatant = game.combat.turns.find(c => c.actor.id === this._id)
-        if (combatant === undefined) {
-          ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-          return;
-        }
-        game.combat.setInitiative(combatant._id, roll.total);
-      } else {
-        console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
+  _applyInitiativeRollToCombatTracker(roll) {
+    if (roll) {
+      // check that there is a combat active in this scene
+      if (!game.combat) {
+        ui.notifications.error("No active encounters in the Combat Tracker.");
+        return;
       }
-    }
 
-    getFirstWornArmor(): ArmorData {
-        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-            .filter((armor) => armor.data.armorType.value !== 'shield')
-            .find((armor) => armor.data.equipped.value);
-    }
-
-    getFirstEquippedShield(): ArmorData {
-        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-            .filter(armor => armor.data.armorType.value === 'shield')
-            .find(shield => shield.data.equipped.value);
-    }
-
-    static traits(source) {
-      if (Array.isArray(source)) {
-        return source;
-      } else if (typeof source === 'string') {
-        return source.split(',').map((trait) => trait.trim());
+      const combatant = game.combat.turns.find(c => c.actor.id === this._id)
+      if (combatant === undefined) {
+        ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
+        return;
       }
-      return [];
+      game.combat.setInitiative(combatant._id, roll.total);
+    } else {
+      console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
     }
+  }
 
-    /* -------------------------------------------- */
+  getFirstWornArmor(): ArmorData {
+      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
+          .filter((armor) => armor.data.armorType.value !== 'shield')
+          .find((armor) => armor.data.equipped.value);
+  }
+
+  getFirstEquippedShield(): ArmorData {
+      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
+          .filter(armor => armor.data.armorType.value === 'shield')
+          .find(shield => shield.data.equipped.value);
+  }
+
+  static traits(source) {
+    if (Array.isArray(source)) {
+      return source;
+    } else if (typeof source === 'string') {
+      return source.split(',').map((trait) => trait.trim());
+    }
+    return [];
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Prepare NPC type specific data
@@ -737,33 +737,35 @@ export default class PF2EActor extends Actor {
 
   /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData): {
-    statisticsModifiers: Record<string, any>,
-    damageDice: Record<string, any>
+    statisticsModifiers: Record<string, PF2Modifier[]>,
+    damageDice: Record<string, PF2DamageDice[]>
   } {
-    const {data} = actorData;
-
     // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-    // TODO: Improve the typing here once we have more types; should be PF2Modifiers & PF2DamageDice (when they are interfaces).
-    const statisticsModifiers: Record<string, any> = {};
-    const damageDice: Record<string, any> = {};
-
-    // Custom Modifiers (which affect d20 rolls and damage).
-    data.customModifiers = data.customModifiers ?? {};
-    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
-    }
-
-    // Damage Dice (which add dice to damage rolls).
-    data.damageDice = data.damageDice ?? {};
-    for (const [attack, dice] of Object.entries(data.damageDice)) {
-      damageDice[attack] = (damageDice[attack] || []).concat(dice);
-    }
+    const statisticsModifiers: Record<string, PF2Modifier[]> = {};
+    const damageDice: Record<string, PF2DamageDice[]> = {};
 
     // Get all of the active conditions (from the item array), and add their modifiers.
     const conditions = actorData.items.filter((i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active);
 
     for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
       statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
+    }
+
+    // Character-specific custom modifiers & custom damage dice.
+    if (actorData.type === 'character' || actorData.type === 'npc') {
+      const {data} = actorData;
+
+      // Custom Modifiers (which affect d20 rolls and damage).
+      data.customModifiers = data.customModifiers ?? {};
+      for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+        statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+      }
+
+      // Damage Dice (which add dice to damage rolls).
+      data.damageDice = data.damageDice ?? {};
+      for (const [attack, dice] of Object.entries(data.damageDice)) {
+        damageDice[attack] = (damageDice[attack] || []).concat(dice);
+      }
     }
 
     return {

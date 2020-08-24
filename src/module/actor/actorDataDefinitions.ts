@@ -370,6 +370,11 @@ export interface RawNpcData {
         cha: AbilityData;
     }
 
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
