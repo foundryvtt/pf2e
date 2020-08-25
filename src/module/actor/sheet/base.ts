@@ -1285,7 +1285,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       return;
     }
 
-    if (item.data.type === 'spellcastingEntry') return;
+    if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition')  return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
 
