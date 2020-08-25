@@ -570,7 +570,7 @@ export default class PF2EActor extends Actor {
     data.attributes.initiative = stat;
   }
 
-  _applyInitiativeRollToCombatTracker(roll) {
+  _applyInitiativeRollToCombatTracker(roll: Roll) {
     if (roll) {
       // check that there is a combat active in this scene
       if (!game.combat) {
@@ -589,19 +589,22 @@ export default class PF2EActor extends Actor {
     }
   }
 
+  /** Obtain the first equipped armor the character has. */
   getFirstWornArmor(): ArmorData {
       return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
           .filter((armor) => armor.data.armorType.value !== 'shield')
           .find((armor) => armor.data.equipped.value);
   }
 
+  /** Obtain the first equipped shield the character has. */
   getFirstEquippedShield(): ArmorData {
       return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
           .filter(armor => armor.data.armorType.value === 'shield')
           .find(shield => shield.data.equipped.value);
   }
 
-  static traits(source) {
+  /** Convert a comma-delimited list of traits into an array of traits. */
+  static traits(source: string | string[]): string[] {
     if (Array.isArray(source)) {
       return source;
     } else if (typeof source === 'string') {
