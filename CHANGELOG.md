@@ -1,5 +1,30 @@
 # Patch Notes:
 
+## Version 1.10.5
+### New Features
+* (@atnoslen) Remove Condition button added to Effects tab in the character sheet
+* (@KSops) Add Item Investment Tracker
+* (@seanmunkel) Implement dangerous sorcery feat damage
+* (@nikolaj-a) Support for custom Dexterity modifier caps
+* (@nikolaj-a) Add Pathfinder Society tab on character sheet
+
+### Bug Fixes
+* (@abrault) Attempted fix for the temporary db~ file error, by not calling getChatData on all items
+* (@atnoslen) Various bugfixes to make the conditions more robust
+* (@In3luki) Enforce max HP and SP values in actor sheets
+* (@Ralar) Restore player settings button in 0.6.6+
+* (@nikolaj-a) Fix hotbar skill macro to support Furnace
+
+### Content Changes
+* (@overdox) More equipment icons
+* (@TMun) Add Ysoki Language. Removes Osirian (incorrect duplicate of Osiriani) (#723)
+* (@TMun) Equipment and spell fixes (#726, #728, #730, #731)
+
+### Core System Improvements
+* (@In3luki) Select the text in an input field on focus in the actor sheets
+* (@blacksmithgu) A _lot_ of internal changes to improve type definitions and clean up code.
+      
+
 ## Version 1.10.4
 ### Bug Fixes
 * (@abrault) Fix type of spell levels
