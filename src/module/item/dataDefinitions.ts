@@ -672,6 +672,18 @@ export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData |
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
     ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
 
+/** Checks if the given item data is a physical item with a quantity and other physical fields. */
+export function isPhysicalItem(item: ItemData): item is BackpackData | TreasureData | WeaponData | ArmorData | MeleeData | ConsumableData {
+    return ('quantity' in item.data);
+}
+
+/** Asserts that the given item is a physical item, throwing an error if it is not. */
+export function assertPhysicalItem(item: ItemData, error: string): asserts item is BackpackData | TreasureData | WeaponData | ArmorData | MeleeData | ConsumableData {
+    if (!isPhysicalItem(item)) {
+        throw Error(error)
+    }
+}
+
 export function getPhysicalItemData(item: ItemData): BaseEntityData<PhysicalItemData> | null {
     if (item.type === 'backpack' ||
         item.type === 'treasure' ||

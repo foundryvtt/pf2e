@@ -22,7 +22,7 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
-import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
+import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem, assertPhysicalItem } from '../item/dataDefinitions';
 import {
   CharacterData,
   NpcData,
@@ -984,11 +984,11 @@ export default class PF2EActor extends Actor {
    * Apply rolled dice damage to the token or tokens which are currently controlled.
    * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
    *
-   * @param {HTMLElement} roll    The chat entry which contains the roll data
+   * @param {JQuery} roll    The chat entry which contains the roll data
    * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
    * @return {Promise}
    */
-  static async applyDamage(roll, multiplier, attribute='attributes.hp', modifier=0) {
+  static async applyDamage(roll: JQuery, multiplier: number, attribute: string = 'attributes.hp', modifier: number = 0) {
     if (canvas.tokens.controlled.length > 0) {
       const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
       const messageSender = roll.find('.message-sender').text();
@@ -1035,11 +1035,9 @@ export default class PF2EActor extends Actor {
 
   /**
    * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-   *
-   * @param {HTMLElement} roll    The chat entry which contains the roll data
-   * @return {Promise}
+   * @param {JQuery} roll    The chat entry which contains the roll data
    */
-  static async setCombatantInitiative(roll) {
+  static async setCombatantInitiative(roll: JQuery) {
     const skillRolled = roll.find('.flavor-text').text();
     const valueRolled = parseFloat(roll.find('.dice-total').text());
     const promises = [];
@@ -1048,32 +1046,28 @@ export default class PF2EActor extends Actor {
         ui.notifications.error("No active encounters in the Combat Tracker.");
         return;
       }
+
       const combatant = game.combat.getCombatantByToken(t.id);
       if(combatant === undefined) {
         ui.notifications.error("You haven't added this token to the Combat Tracker.");
         return;
       }
-      let value = valueRolled;
-      let initBonus = 0;
-      // Other actor types track iniative differently, which will give us NaN errors
-      if(combatant.actor.data.type === "npc") {
-        initBonus += combatant.actor.data.data.attributes.initiative.circumstance + combatant.actor.data.data.attributes.initiative.status;
-      }
+
       // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
+      let value = valueRolled;
       if (!combatant.actor.isPC) {
-        initBonus += .5;
+        value += 0.5;
       }
-      value += initBonus;
       const message = `
       <div class="dice-roll">
       <div class="dice-result">
         <div class="dice-tooltip" style="display: none;">
             <div class="dice-formula" style="background: 0;">
-              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span> + ${initBonus}</span>
+              <span style="font-size: 10px;">${skillRolled} <span style="font-weight: bold;">${valueRolled}</span></span>
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value} !</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value}!</span>
         </div>
       </div>
       </div>
@@ -1090,6 +1084,7 @@ export default class PF2EActor extends Actor {
         game.combat.setInitiative(combatant._id, value),
       );
     }
+
     await Promise.all(promises);
   }
 
@@ -1106,7 +1101,7 @@ export default class PF2EActor extends Actor {
    * @param collection {String}     The name of the pack from which to import
    * @param entryId {String}        The ID of the compendium entry to import
    */
-  async importItemFromCollectionWithLocation(collection, entryId, location?) {
+  async importItemFromCollectionWithLocation(collection: string, entryId: string, location?: string) {
     // if location parameter missing, then use the super method
     if (location == null) {
       console.log(`PF2e System | importItemFromCollectionWithLocation | Location not defined for ${entryId} - using super imprt method instead`);
@@ -1119,7 +1114,6 @@ export default class PF2EActor extends Actor {
     await pack.getEntity(entryId).then(async ent => {
       console.log(`PF2e System | importItemFromCollectionWithLocation | Importing using createOwnedItem for ${ent.name} from ${collection}`);
       if (ent.type === 'spell') {
-
         // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
         this._setShowUnpreparedSpells(location, ent?.data?.data?.level?.value);
 
@@ -1127,27 +1121,35 @@ export default class PF2EActor extends Actor {
           value: location,
         };
       }
+
       delete ent.data._id;
       return this.createOwnedItem(ent.data);
     });
   }
 
-  async _setShowUnpreparedSpells(entryId, spellLevel) {
-    if (entryId && spellLevel) {
-      const spellcastingEntry = this.getOwnedItem(entryId);
-      if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry')
-        return;
+  async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
+    if (!entryId || !spellLevel) {
+      // TODO: Consider throwing an error on null inputs in the future.
+      return;
+    }
 
-      if (spellcastingEntry?.data?.data?.prepared?.value === "prepared" && spellcastingEntry?.data?.data?.showUnpreparedSpells?.value === false) {
-        if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-        const currentLvlToDisplay = {};
-        currentLvlToDisplay[spellLevel] = true;
-        await this.updateEmbeddedEntity('OwnedItem', {
-          _id: entryId,
-          'data.showUnpreparedSpells.value': true,
-          'data.displayLevels': currentLvlToDisplay
-        });
+    const spellcastingEntry = this.getOwnedItem(entryId);
+    if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') {
+      return;
+    }
+
+    if (spellcastingEntry.data.data?.prepared?.value === "prepared" && spellcastingEntry.data.data?.showUnpreparedSpells?.value === false) {
+      if (CONFIG.debug.hooks === true) {
+        console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
       }
+
+      const currentLvlToDisplay = {};
+      currentLvlToDisplay[spellLevel] = true;
+      await this.updateEmbeddedEntity('OwnedItem', {
+        _id: entryId,
+        'data.showUnpreparedSpells.value': true,
+        'data.displayLevels': currentLvlToDisplay
+      });
     }
   }
 
@@ -1160,10 +1162,9 @@ export default class PF2EActor extends Actor {
    * @param {number} value        The target attribute value
    * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
    * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
-   * @return {Promise}
    */
-  async modifyTokenAttribute(attribute, value, isDelta=false, isBar=true) {
-    if (Number.isNaN(value)) {
+  async modifyTokenAttribute(attribute: string, value: number, isDelta: boolean = false, isBar: boolean = true): Promise<PF2EActor> {
+    if (value === undefined || value === null || Number.isNaN(value)) {
       return Promise.reject();
     }
 
@@ -1224,51 +1225,56 @@ export default class PF2EActor extends Actor {
   }
 
   /**
-   * Moves an item to another actor's inventory
+   * Moves an item to another actor's inventory.
    * @param {sourceActor} Instance of actor sending the item.
    * @param {targetActor} Instance of actor to receiving the item.
    * @param {item}        Instance of the item being transferred.
    * @param {quantity}    Number of items to move.
    * @param {containerId} Id of the container that will contain the item.
    */
-  static async transferItemToActor(sourceActor, targetActor, item, quantity, containerId) {
-      const sourceItemQuantity = Number(item.data.data.quantity.value);
+  static async transferItemToActor(sourceActor: PF2EActor, targetActor: PF2EActor, item: PF2EItem,
+                                   quantity: number, containerId: string): Promise<PF2EItem> {
+    if (!isPhysicalItem(item.data)) {
+      throw Error("Only physical items (with quantities) can be transfered between actors");
+    }
 
-      if (quantity > sourceItemQuantity) {
-        quantity = sourceItemQuantity;
+    // Limit the amount of items transfered to how many are actually available.
+    const sourceItemQuantity = Number(item.data.data.quantity.value);
+    quantity = Math.min(quantity, sourceItemQuantity);
+
+    // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.
+    const newItemQuantity = sourceItemQuantity - quantity;
+    const hasToRemoveFromSource = newItemQuantity < 1;
+
+    if (hasToRemoveFromSource) {
+      await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+    } else {
+      const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
+      await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+    }
+
+    let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
+
+    if (itemInTargetActor !== null) {
+      if (!isPhysicalItem(itemInTargetActor.data)) {
+        throw Error("Only physical items (with quantities) can be transfered between actors - the target item is not physical");
       }
 
-      const newItemQuantity = sourceItemQuantity - quantity;
-      const hasToRemoveFromSource = newItemQuantity < 1;
+      // Increase amount of item in target actor if there is already an item with the same name
+      const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
+      const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
+      await targetActor.updateEmbeddedEntity('OwnedItem', update);
+    } else {
+      // If no item with the same name in the target actor, create new item in the target actor
+      const newItemData = duplicate(item);
+      assertPhysicalItem(newItemData.data, "this should never happen - item should be physical, but is not");
+      newItemData.data.data.quantity.value = quantity;
 
-      if (hasToRemoveFromSource) {
-        await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
-      } else {
-        const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
-        await sourceActor.updateEmbeddedEntity('OwnedItem', update);
-      }
+      const result = await targetActor.createOwnedItem(newItemData);
+      itemInTargetActor = targetActor.items.get(result._id);
+    }
 
-      let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
-
-      if (itemInTargetActor !== null)
-      {
-        // Increase amount of item in target actor if there is already an item with the same name
-        const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
-        const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
-        await targetActor.updateEmbeddedEntity('OwnedItem', update);
-      }
-      else
-      {
-        // If no item with the same name in the target actor, create new item in the target actor
-        const newItemData = duplicate(item);
-        newItemData.data.quantity.value = quantity;
-
-        const result = await targetActor.createOwnedItem(newItemData);
-
-        itemInTargetActor = targetActor.items.get(result._id);
-      }
-
-      return PF2EActor.stashOrUnstash(targetActor, () => { return itemInTargetActor; }, containerId);
+    return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
   }
 
   /**
@@ -1277,7 +1283,7 @@ export default class PF2EActor extends Actor {
    * @param {getItem}     Lambda returning the item.
    * @param {containerId} Id of the container that will contain the item.
    */
-  static async stashOrUnstash(actor, getItem, containerId) {
+  static async stashOrUnstash(actor: PF2EActor, getItem: () => Promise<PF2EItem>, containerId: string): Promise<PF2EItem> {
       const item = await getItem();
       if (containerId) {
           if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items)) {
@@ -1288,16 +1294,19 @@ export default class PF2EActor extends Actor {
           }
           return item;
       }
-      const result = await item.update({'data.containerId.value': ''});
-      return result;
+
+      return item.update({'data.containerId.value': ''});
   }
 
   /**
    * Handle how changes to a Token attribute bar are applied to the Actor.
    * This allows for game systems to override this behavior and deploy special logic.
-   * @param {object} args   Contains references to the hp, and sp objects.
    */
-  _calculateHealthDelta(args) {
+  _calculateHealthDelta(args: {
+    hp: { value: number; temp: number; };
+    sp: { value: number; temp: number; };
+    delta: number
+  }) {
     const update = {};
     const {hp, sp} = args;
     let {delta} = args;
@@ -1395,8 +1404,6 @@ export default class PF2EActor extends Actor {
 
   /**
    * Removes a previously added Dexterity modifier cap to AC.
-   *
-   * @param {string} source
    */
   async removeDexterityModifierCap(source: string) {
     if (this.data.type !== 'character' && this.data.type !== 'npc') {

@@ -1227,7 +1227,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         containerId = container[0].dataset.itemId?.trim();
       }
       if (isSameActor) {
-        await PF2EActor.stashOrUnstash(targetActor, () => { return item; }, containerId);
+        await PF2EActor.stashOrUnstash(targetActor, async () => item, containerId);
         return this._onSortItem(event, item.data);
       }
       const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;

@@ -20,7 +20,7 @@ declare class Actors extends Collection<SystemActorType> {
 	 * Each Actor is referenced by the Token.id.
 	 * @type {Object}
 	 */
-	tokens: { [tokenID: string]: Actor };
+	tokens: { [tokenID: string]: SystemActorType };
 
 	/** @override */
 	get object(): SystemActorType;
