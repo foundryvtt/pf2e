@@ -1327,15 +1327,15 @@ export default class PF2EActor extends Actor {
    * Adds a custom modifier that will be included when determining the final value of a stat. The
    * name parameter must be unique for the custom modifiers for the specified stat, or it will be
    * ignored.
-   *
-   * @param {string} stat
-   * @param {string} name
-   * @param {number} value
-   * @param {string} type
-   * @param {PF2ModifierPredicate} predicate
-   * @param {string} damageType
    */
-  async addCustomModifier(stat, name, value, type, predicate?, damageType?) {
+  async addCustomModifier(stat: string, name: string, value: number, type: string,
+                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
+    // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
+    // similar to how addDamageDice operates.
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom modifiers only work for characters and NPCs");
+    }
+
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
       const modifier = new PF2Modifier(name, value, type);
@@ -1356,22 +1356,21 @@ export default class PF2EActor extends Actor {
     }
   }
 
-  /**
-   * Removes a custom modifier, either by index or by name.
-   *
-   * @param {string} stat
-   * @param {string|number} modifier name or index of the modifier to remove
-   */
-  async removeCustomModifier(stat, modifier) {
+  /** Removes a custom modifier by name. */
+  async removeCustomModifier(stat: string, modifier: number | string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom modifiers only work for characters and NPCs");
+    }
+
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
-      const statModifiers = customModifiers[stat];
-      statModifiers.splice(modifier, 1);
-      customModifiers[stat] = statModifiers;
+      customModifiers[stat].splice(modifier, 1);
       await this.update({'data.customModifiers': customModifiers});
-    } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
-      customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+    } else if (typeof modifier === 'string' && customModifiers[stat]) {
+      customModifiers[stat] = customModifiers[stat].filter(m => m.name !== modifier);
       await this.update({'data.customModifiers': customModifiers});
+    } else {
+      throw Error("Custom modifiers can only be removed by name (string) or index (number)");
     }
   }
 
@@ -1381,12 +1380,16 @@ export default class PF2EActor extends Actor {
    * @param {DexterityModifierCapData} dexCap
    */
   async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom dexterity caps only work for characters and NPCs");
+    }
     if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
       throw new Error('numeric value is mandatory');
     }
     if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
       throw new Error('source of cap is mandatory');
     }
+
     await this.update({'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap)});
   }
 
@@ -1396,11 +1399,18 @@ export default class PF2EActor extends Actor {
    * @param {string} source
    */
   async removeDexterityModifierCap(source: string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom dexterity caps only work for characters and NPCs");
+    }
     if (!source) {
       throw new Error('source of cap is mandatory');
     }
-    const updated = this.data.data.attributes.dexCap.filter(cap => cap.source !== source);
-    await this.update({'data.attributes.dexCap': updated});
+
+    // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
+    if (this.data.data.attributes.dexCap) {
+      const updated = this.data.data.attributes.dexCap.filter(cap => cap.source !== source);
+      await this.update({'data.attributes.dexCap': updated});
+    }
   }
 
   /** Adds custom damage dice. */
@@ -1425,17 +1435,21 @@ export default class PF2EActor extends Actor {
   }
 
   /** Removes damage dice by name. */
-  async removeDamageDice(selector: string, dice: string) {
+  async removeDamageDice(selector: string, dice: number | string) {
     if (this.data.type !== 'character' && this.data.type !== 'npc') {
       throw Error("Custom damage dice only work for characters and NPCs");
     }
 
     const damageDice = duplicate(this.data.data.damageDice ?? {});
-    if (damageDice[selector]) {
-      damageDice[selector] = damageDice[selector].filter(m => m.name !== dice);
+    if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
+      damageDice[selector].splice(dice, 1);
+      await this.update({'data.damageDice': damageDice});
+    } else if (typeof dice === 'string' && damageDice[selector]) {
+      damageDice[selector] = damageDice[selector].filter(d => d.name !== dice);
+      await this.update({'data.damageDice': damageDice});
+    } else {
+      throw Error("Dice can only be removed by name (string) or index (number)");
     }
-
-    await this.update({'data.damageDice': damageDice});
   }
 
   /** Toggle the given roll option (swapping it from true to false, or vice versa). */
