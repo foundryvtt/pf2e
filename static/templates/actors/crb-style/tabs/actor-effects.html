@@ -3,24 +3,47 @@
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.ConditionsLabel'}}</h3>
         </li>
-        {{#each actor.items as |item ii|}}
-        {{#if (eq item.type 'condition')}}
-        <li class="item expandable" data-action-index="{{ii}}">
+        {{#each data.effects.conditions as |item ii|}}
+        <li class="item expandable" data-item-id="{{item.id}}" data-action-index="{{ii}}">
           <div class="item-name rollable">
             <div class="item-image action-strike" style="background-image: url({{item.img}})">
               <i class="fas fa-dice-d20"></i>
             </div>
-            <h4 class="action-name">{{item.name}} {{#if item.data.value.isValued}}{{item.data.value.value}}{{/if}}</h4>
+            <h4 class="action-name">{{item.name}}{{#unless item.active}}<span>  (Inactive)</span>{{/unless}}</h4>
           </div>
-          {{#if item.data.description.value}}
+          <div class="item-controls">
+            <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i class="fas fa-trash"></i></a>
+          </div>
           <div class="item-summary">
             <div class="item-description">
-              <p>{{{enrichHTML item.data.description.value}}}</p>
+              <p>{{{enrichHTML item.description}}}</p>
             </div>
+            {{#if item.references}}
+            <div class="condition-references">
+              {{#if item.parents.length}}
+              <div class="condition-parents">
+                <p>Applied From:{{#each item.parents as |parent|}} <span data-item-id="{{parent.id}}">{{{enrichHTML parent.text}}}</span>{{/each}}</p>
+              </div>
+              {{/if}}
+              {{#if item.children.length}}
+              <div class="condition-children">
+                <p>Also Applied:{{#each item.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
+              </div>
+              {{/if}}
+              {{#if item.overrides.length}}
+              <div class="condition-overriding">
+                <p>Overriding:{{#each item.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+              </div>
+              {{/if}}
+              {{#if item.overriddenBy.length}}
+              <div class="condition-overridden">
+                <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+              </div>
+              {{/if}}
+            </div>
+            {{/if}}
           </div>
-          {{/if}}
         </li>
-        {{/if}}
         {{/each}}
     </ol>
 </div>

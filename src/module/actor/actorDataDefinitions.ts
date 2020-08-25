@@ -4,6 +4,9 @@ import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } fr
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
+/** A roll function which can be called to roll a given skill. */
+export type RollFunction = (event: any, options: string[], callback?: any) => void;
+
 /** Generic { value, label, type } type used in various places in data types. */
 export interface LabeledValue {
     label: string;
@@ -56,10 +59,63 @@ export interface RawInitiativeData {
     label: string;
 }
 
+/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
+export interface DexterityModifierCapData {
+    /** The numeric value that constitutes the maximum Dexterity modifier. */
+    value: number;
+    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
+    source: string;
+}
+
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
-    roll?: (event: any, options: string[], callback?: any) => void;
+    roll?: RollFunction;
+}
+
+export interface CharacterStrikeTrait {
+    /** The name of this action. */
+    name: string;
+    /** The label for this action which will be rendered on the UI. */
+    label: string;
+    /** If true, this trait is toggleable. */
+    toggle: boolean;
+    /** The roll this trait applies to, if relevant. */
+    rollName?: string;
+    /** The option that this trait applies to the roll (of type `rollName`). */
+    rollOption?: string;
+    /** An extra css class added to the UI marker for this trait. */
+    cssClass?: string;
+}
+
+/** An strike which a character can use. */
+export interface RawCharacterStrike {
+    /** The type of action; currently just 'strike'. */
+    type: 'strike';
+    /** The image URL for this strike (shown on the UI). */
+    imageUrl: string;
+    /** The glyph for this strike (how many actions it takes, reaction, etc). */
+    glyph: string;
+    /** A description of this strike. */
+    description: string;
+    /** A description of what happens on a critical success. */
+    criticalSuccess: string;
+    /** A description of what happens on a success. */
+    success: string;
+    /** Any traits this strike has. */
+    traits: CharacterStrikeTrait[];
+
+    /** Alias for `attack`. */
+    roll?: RollFunction;
+    /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
+    attack?: RollFunction;
+    /** Roll normal (non-critical) damage for this weapon. */
+    damage?: RollFunction;
+    /** Roll critical damage for this weapon. */
+    critical?: RollFunction;
+
+    /** A list of attack variants which apply the Multiple Attack Penalty. */
+    variants: { label: string; roll: RollFunction; }[]
 }
 
 /** The full data for charatcer initiative. */
@@ -67,13 +123,20 @@ export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
 export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
-export type ArmorClassData = PF2StatisticModifier & RawSkillData & { check?: number; };
+export type ArmorClassData = PF2StatisticModifier & RawSkillData & {
+    /** The armor check penalty imposed by the worn armor. */
+    check?: number;
+    /** The cap for the bonus that dexterity can give to AC, if any. If null, there is no cap. */
+    dexCap?: DexterityModifierCapData;
+};
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
 export type ClassDCData = PF2StatisticModifier & RawSkillData;
 /** The full skill data for a character; includes statistic modifier. */
 export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
 export type SaveData = SkillData & { saveDetail?: string };
+/** The full data for a character action (used primarily for strikes.) */
+export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData {
@@ -169,6 +232,9 @@ export interface RawCharacterData {
         ac: ArmorClassData;
         /** Initiative, used to determine turn order in combat. */
         initiative: InitiativeData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap: DexterityModifierCapData[];
 
         /** The amount of bonus HP gained per level (due a feat or similar). */
         levelbonushp: number;
@@ -293,9 +359,24 @@ export interface RawCharacterData {
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
 
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
+    /** EXPERIMENTAL API: Special strikes which the character can take. */
+    actions: CharacterStrike[];
 }
+
+// NPCs have an additional 'base' field used for computing the modifiers.
+/** Normal armor class data, but with an additional 'base' value. */
+export type NPCArmorClassData = ArmorClassData & { base?: number; };
+/** Normal save data, but with an additional 'base' value. */
+export type NPCSaveData = SaveData & { base?: number; };
+/** Normal skill data, but with an additional 'base' value. */
+export type NPCPerceptionData = PerceptionData & { base?: number; };
+/** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
+export type NPCSkillData = SkillData & {
+    base?: number;
+    visible?: boolean;
+    label: string;
+    expanded: string;
+};
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
@@ -309,8 +390,102 @@ export interface RawNpcData {
         cha: AbilityData;
     }
 
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
+    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
+    saves: {
+        fortitude: NPCSaveData;
+        reflex: NPCSaveData;
+        will: NPCSaveData;
+    }
+
+    /** Details about this actor, such as alignment or ancestry. */
+    details: {
+        /** The alignment this creature has. */
+        alignment: { value: string; };
+        /** The race of this creature. */
+        ancestry: { value: string; };
+        /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
+        level: { value: number; min: number; }
+        /** Which sourcebook this creature comes from. */
+        source: { value: string; }
+        /** The Archive of Nethys URL for this creature. */
+        nethysUrl: string;
+        /** Information about what is needed to recall knowledge about this creature. */
+        recallKnowledgeText: string;
+        /** Information which shows up on the sidebar of the creature. */
+        sidebarText: string;
+        /** The type of this creature (such as 'undead') */
+        creatureType: string;
+        /** Flavor / descriptive background text for this creature. */
+        flavorText: string;
+    }
+
+    /** Any special attributes for this NPC, such as AC or health. */
+    attributes: {
+        /** The armor class of this NPC. */
+        ac: NPCArmorClassData;
+        /** The perception score for this NPC. */
+        perception: NPCPerceptionData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap?: DexterityModifierCapData[];
+
+        /** The hit points for this actor. */
+        hp: {
+            /** The current number of hitpoints. */
+            value: number;
+            /** The minimum number of hitpoints (almost always 0). */
+            min: number;
+            /** The maximum number of hitpoints. */
+            max: number;
+            /** The current number of temporary hitpoints (if any). */
+            temp?: number;
+            /** The maximum number of temporary hitpoints (if any). */
+            tempmax?: number;
+            /** Any special details about this actor health (such as regeneration, etc.). */
+            details?: string;
+        }
+
+        /** The movement speeds that this NPC has. */
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** @deprecated Special movement speeds. */
+            special: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        }
+
+        /** Textual information about any special benefits that apply to all saves. */
+        allSaves: { value: string; }
+    }
+
+    /** Traits, languages, and other information. */
+    traits: {
+        /** The size of this creature. */
+        size: { value: string; }
+        /** Special senses this creature possesses. */
+        senses: { value: string; }
+        /** Traits that define this creature, like 'humanoid' or 'celestial.' */
+        traits: { value: string[]; custom: string; }
+        /** The rarity of this creature (common, uncommon, etc.) */
+        rarity: { value: string; }
+        /** Languages this creature knows. */
+        languages: { value: string[]; selected: string[]; custom: string; }
+        /** Damage/condition immunities. */
+        di: { value: string[]; custom: string; }
+        /** Damage resistances. */
+        dr: LabeledValue[];
+        /** Damage vulnerabilities. */
+        dv: LabeledValue[];
+    }
+
+    /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
+    skills: Record<string, NPCSkillData>;
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
 }
 
 /** The raw information contained within the actor data object for hazards. */

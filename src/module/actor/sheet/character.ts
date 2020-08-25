@@ -4,6 +4,7 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
+import { PF2eConditionManager } from '../../conditions';
 
 class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   static get defaultOptions() {
@@ -79,6 +80,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       save.short = game.i18n.format(`PF2E.Saves${save.label}Short`); 
     }
 
+    sheetData.data.effects = {};
+
+    sheetData.data.effects.conditions = PF2eConditionManager.getFlattenedConditions(sheetData.actor.items.filter(i => i.flags.pf2e?.condition && i.type === 'condition'));
     // is the stamina variant rule enabled?
     sheetData.hasStamina = (game.settings.get('pf2e', 'staminaVariant') > 0);
 
@@ -97,7 +101,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const inventory = {
       weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
       armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-      equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
+      equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
       consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
       treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
@@ -115,17 +119,17 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Feats
     const feats = {
-      ancestry: { label: game.i18n.localize("PF2E.FeatAncestryHeader"), feats: [] },
-	    ancestryfeature: { label: game.i18n.localize("PF2E.FeaturesAncestryHeader"), feats: [] },
-	    archetype: { label: game.i18n.localize("PF2E.FeatArchetypeHeader"), feats: [] },
-	    bonus: { label: game.i18n.localize("PF2E.FeatBonusHeader"), feats: [] },
-	    class: { label: game.i18n.localize("PF2E.FeatClassHeader"), feats: [] },
-	    classfeature: { label: game.i18n.localize("PF2E.FeaturesClassHeader"), feats: [] },
-      skill: { label: game.i18n.localize("PF2E.FeatSkillHeader"), feats: [] },
-      general: { label: game.i18n.localize("PF2E.FeatGeneralHeader"), feats: [] },
-      pfsboon: { label: game.i18n.localize("PF2E.FeatPFSBoonHeader"), feats: [] },
-      deityboon: { label: game.i18n.localize("PF2E.FeatDeityBoonHeader"), feats: [] },
-      curse: { label: game.i18n.localize("PF2E.FeatCurseHeader"), feats: [] },
+      ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [] },
+	    ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [] },
+	    archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [] },
+	    bonus: { label: 'PF2E.FeatBonusHeader', feats: [] },
+	    class: { label: 'PF2E.FeatClassHeader', feats: [] },
+	    classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [] },
+      skill: { label: 'PF2E.FeatSkillHeader', feats: [] },
+      general: { label: 'PF2E.FeatGeneralHeader', feats: [] },
+      pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [] },
+      deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [] },
+      curse: { label: 'PF2E.FeatCurseHeader', feats: [] },
     };
 
     // Actions
@@ -161,6 +165,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const bulkItems = itemsFromActorData(actorData);
     const indexedBulkItems = indexBulkItemsById(bulkItems);
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+
+    let investedCount = 0; // Tracking invested items
     
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
@@ -175,8 +181,13 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       }
 
       i.canBeEquipped = i.isNotInContainer;
-      i.isEquipped = i?.data?.equipped?.value ?? false;
-      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';  
+      i.isEquipped = i.data?.equipped?.value ?? false;
+      i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+      i.hasInvestedTrait = i.data?.traits?.value?.includes("invested") ?? false;
+      i.isInvested = i.data?.invested?.value ?? false;
+      if (i.isInvested) {
+        investedCount += 1;
+      }
 
         // Inventory
       if (Object.keys(inventory).includes(i.type)) {
@@ -188,13 +199,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
         i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
         if (i.type === 'weapon') {
-          let item;
-          try {
-            item = this.actor.getOwnedItem(i._id);
-            i.chatData = item.getChatData({ secrets: this.actor.owner });
-          } catch (err) {
-            console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
-          }
           attacks.weapon.items.push(i);
         }
         inventory[i.type].items.push(i);
@@ -205,7 +209,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         let item;
           try {
             item = this.actor.getOwnedItem(i._id);
-            i.chatData = item.getChatData({ secrets: this.actor.owner });
+            i.spellInfo = item.getSpellInfo();
           } catch (err) {
             console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`)
           }
@@ -366,6 +370,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       }
     }
 
+    inventory.equipment.investedItemCount = investedCount; // Tracking invested items
+
     const embeddedEntityUpdate = [];
     // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
     for (const i of tempSpellbook) {
@@ -517,6 +523,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     // the click listener registered on all buttons breaks the event delegation here...
     // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
     html.find('.strikes-list .damage-strike').click((event) => {
+      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
+
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
@@ -527,6 +535,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     // the click listener registered on all buttons breaks the event delegation here...
     // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
     html.find('.strikes-list .critical-strike').click((event) => {
+      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
+
       event.preventDefault();
       event.stopPropagation();
       const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
@@ -638,6 +648,15 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     } else {
       this.actor.removeCustomModifier(stat, name);
     }
+  }
+
+  _onSubmit(event: any): Promise<any> {
+    // Limit SP value to data.attributes.sp.max value
+    if (event?.currentTarget?.name === 'data.attributes.sp.value') {
+        event.currentTarget.value = Math.clamped(Number(event.currentTarget.value), Number(this.actor.data.data.attributes?.sp?.min ?? 0), Number(this.actor.data.data.attributes?.sp?.max ?? 0));
+    }
+
+    return super._onSubmit(event);
   }
 }
 

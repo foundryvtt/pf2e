@@ -23,7 +23,23 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { CharacterData, NpcData, SaveData, SkillData, ClassDCData, ArmorClassData, PerceptionData, InitiativeData } from './actorDataDefinitions';
+import {
+  CharacterData,
+  NpcData,
+  SaveData,
+  SkillData,
+  ClassDCData,
+  ArmorClassData,
+  PerceptionData,
+  InitiativeData,
+  CharacterStrikeTrait,
+  CharacterStrike,
+  DexterityModifierCapData,
+  NPCArmorClassData,
+  NPCSaveData,
+  NPCPerceptionData,
+  NPCSkillData
+} from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -259,25 +275,29 @@ export default class PF2EActor extends Actor {
     // Armor Class
     {
       const modifiers = [];
+      const dexCap = duplicate(data.attributes.dexCap ?? []);
       let armorCheckPenalty = 0;
-      if (worn) {
-        // Dex modifier limited by armor max dex bonus
-        const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
-        dexterity.modifier = Math.min(dexterity.modifier, Number(worn.data.dex.value ?? 0));
-        modifiers.push(dexterity);
+      let proficiency = 'unarmored';
 
+      if (worn) {
+        dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
+        proficiency = worn.data.armorType?.value;
         // armor check penalty
         if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
           armorCheckPenalty = Number(worn.data.check.value ?? 0);
         }
-
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[worn.data.armorType?.value]?.rank ?? 0));
         modifiers.push(new PF2Modifier(worn.name, getArmorBonus(worn.data), PF2ModifierType.ITEM));
-      } else {
-        modifiers.push(DEXTERITY.withScore(data.abilities.dex.value));
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial.unarmored.rank));
       }
-      // condition modifiers
+
+      // proficiency
+      modifiers.unshift(ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.martial[proficiency]?.rank ?? 0));
+
+      // Dex modifier limited by the lowest dex cap, for example from armor
+      const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
+      dexterity.modifier = Math.min(dexterity.modifier, ...dexCap.map(cap => cap.value));
+      modifiers.unshift(dexterity);
+
+      // condition and custom modifiers
       ['ac', 'dex-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
@@ -285,6 +305,12 @@ export default class PF2EActor extends Actor {
       const stat = mergeObject<ArmorClassData>(new PF2StatisticModifier("ac", modifiers) as ArmorClassData, data.attributes.ac, { overwrite: false });
       stat.value = 10 + stat.totalModifier;
       stat.check = armorCheckPenalty;
+      stat.dexCap = dexCap.reduce((result, current) => {
+        if (result) {
+          return result.value > current.value ? current : result;
+        }
+        return current;
+      }, null);
       stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -394,6 +420,8 @@ export default class PF2EActor extends Actor {
 
       (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).forEach((item) => {
         const modifiers = [];
+
+        // Determine the base ability score for this attack.
         {
           let ability = item.data.ability?.value ?? 'str'; // default to Str
           let score = data.abilities[item.data.ability.value]?.value ?? 0;
@@ -408,10 +436,11 @@ export default class PF2EActor extends Actor {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0));
 
         const attackBonus = getAttackBonus(item.data);
-          if (attackBonus !== 0) {
-              modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
-          }
-        // conditions and custom modifiers to attack rolls
+        if (attackBonus !== 0) {
+            modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+        }
+
+        // Conditions and Custom modifiers to attack rolls
         {
           const stats = [];
           if (item.data?.group?.value) {
@@ -422,7 +451,9 @@ export default class PF2EActor extends Actor {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
-        const action : any = new PF2StatisticModifier(item.name, modifiers);
+
+        const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+
         action.imageUrl = item.img;
         action.glyph = 'A';
         action.type = 'strike';
@@ -430,10 +461,11 @@ export default class PF2EActor extends Actor {
         action.description = flavor.description;
         action.criticalSuccess = flavor.criticalSuccess;
         action.success = flavor.success;
-        action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack') }].concat(
+
+        action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false }].concat(
           PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
             const key = CONFIG.weaponTraits[trait] ?? trait;
-            const option: {name: string, label: string, toggle: boolean, rollName?: string, rollOption?: string, cssClass?: string} = {
+            const option: CharacterStrikeTrait = {
                 name: trait,
                 label: game.i18n.localize(key),
                 toggle: false
@@ -456,14 +488,17 @@ export default class PF2EActor extends Actor {
             return option;
           })
         );
+
         action.breakdown = action.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
-        // amend strike with a roll property
+
+        // Add the base attack roll (used for determining on-hit)
         action.attack = (event, options = []) => {
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
+
         const map = PF2EItem.calculateMap(item);
         action.variants = [
           {
@@ -494,88 +529,91 @@ export default class PF2EActor extends Actor {
     this.prepareInitiative(actorData, statisticsModifiers);
   }
 
-    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, any>) {
-        const { data } = actorData;
+  prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
+    const { data } = actorData;
 
-        const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: PF2Modifier[] = [];
+    const initSkill = data.attributes?.initiative?.ability || 'perception';
+    const modifiers: PF2Modifier[] = [];
 
-        // FIXME: this is hard coded for now
-        const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
-        if (feats.has('Incredible Initiative')) {
-            modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
-          modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Elven Instincts') && initSkill === 'perception') {
-            modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Eye of Ozem') && initSkill === 'perception') {
-            modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
-        }
-        if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
-            modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
-        }
-        ['initiative'].forEach((key) => {
-            (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-        });
-        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
-        const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-        
-        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
-        stat.ability = initSkill;
-        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = (event, options = []) => {
-            PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
-              this._applyInitiativeRollToCombatTracker(roll);
-            });
-        };
-
-        data.attributes.initiative = stat;
+    // FIXME: this is hard coded for now
+    const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
+    if (feats.has('Incredible Initiative')) {
+      modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
     }
+    if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Elven Instincts') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Eye of Ozem') && initSkill === 'perception') {
+      modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
+    }
+    if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
+      modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
+    }
+    ['initiative'].forEach((key) => {
+      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+    });
+    const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+    const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
+    
+    const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+    stat.ability = initSkill;
+    stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+    stat.roll = (event, options = []) => {
+      PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
+        this._applyInitiativeRollToCombatTracker(roll);
+      });
+    };
 
-    _applyInitiativeRollToCombatTracker(roll) {
-      if (roll) {
-        // check that there is a combat active in this scene
-        if (!game.combat) {
-          ui.notifications.error("No active encounters in the Combat Tracker.");
-          return;
-        }
+    data.attributes.initiative = stat;
+  }
 
-        const combatant = game.combat.turns.find(c => c.actor.id === this._id)
-        if (combatant === undefined) {
-          ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-          return;
-        }
-        game.combat.setInitiative(combatant._id, roll.total);
-      } else {
-        console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
+  _applyInitiativeRollToCombatTracker(roll: Roll) {
+    if (roll) {
+      // check that there is a combat active in this scene
+      if (!game.combat) {
+        ui.notifications.error("No active encounters in the Combat Tracker.");
+        return;
       }
-    }
 
-    getFirstWornArmor(): ArmorData {
-        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-            .filter((armor) => armor.data.armorType.value !== 'shield')
-            .find((armor) => armor.data.equipped.value);
-    }
-
-    getFirstEquippedShield(): ArmorData {
-        return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-            .filter(armor => armor.data.armorType.value === 'shield')
-            .find(shield => shield.data.equipped.value);
-    }
-
-    static traits(source) {
-      if (Array.isArray(source)) {
-        return source;
-      } else if (typeof source === 'string') {
-        return source.split(',').map((trait) => trait.trim());
+      const combatant = game.combat.turns.find(c => c.actor.id === this._id)
+      if (combatant === undefined) {
+        ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
+        return;
       }
-      return [];
+      game.combat.setInitiative(combatant._id, roll.total);
+    } else {
+      console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
     }
+  }
 
-    /* -------------------------------------------- */
+  /** Obtain the first equipped armor the character has. */
+  getFirstWornArmor(): ArmorData {
+      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
+          .filter((armor) => armor.data.armorType.value !== 'shield')
+          .find((armor) => armor.data.equipped.value);
+  }
+
+  /** Obtain the first equipped shield the character has. */
+  getFirstEquippedShield(): ArmorData {
+      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
+          .filter(armor => armor.data.armorType.value === 'shield')
+          .find(shield => shield.data.equipped.value);
+  }
+
+  /** Convert a comma-delimited list of traits into an array of traits. */
+  static traits(source: string | string[]): string[] {
+    if (Array.isArray(source)) {
+      return source;
+    } else if (typeof source === 'string') {
+      return source.split(',').map((trait) => trait.trim());
+    }
+    return [];
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Prepare NPC type specific data
@@ -584,7 +622,7 @@ export default class PF2EActor extends Actor {
     const { data } = actorData;
     const { statisticsModifiers } = this._prepareCustomModifiers(actorData);
 
-    // Compute 'fake' ability scores from ability modifiers (just incase the scores are required for something).
+    // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
     for (const abl of Object.values(actorData.data.abilities)) {
       if (!abl.mod) abl.mod = 0;
       abl.value = abl.mod * 2 + 10;
@@ -593,23 +631,23 @@ export default class PF2EActor extends Actor {
     // Armor Class
     {
       const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
+      const dexterity = Math.min(data.abilities.dex.mod, ...(data.attributes.dexCap ?? []).map(cap => cap.value));
       const modifiers = [
-        new PF2Modifier('PF2E.BaseModifier', base - 10 - data.abilities.dex.mod, PF2ModifierType.UNTYPED),
-        new PF2Modifier(CONFIG.abilities.dex, data.abilities.dex.mod, PF2ModifierType.ABILITY)
+        new PF2Modifier('PF2E.BaseModifier', base - 10 - dexterity, PF2ModifierType.UNTYPED),
+        new PF2Modifier(CONFIG.abilities.dex, dexterity, PF2ModifierType.ABILITY)
       ];
       ['ac', 'dex-based', 'all'].forEach((key) => {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier("ac", modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(data.attributes.ac as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier("ac", modifiers) as NPCArmorClassData, data.attributes.ac, { overwrite: false });
       stat.base = base;
       stat.value = 10 + stat.totalModifier;
       stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')].concat(
         stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
       ).join(', ');
+
       data.attributes.ac = stat;
     }
 
@@ -624,9 +662,7 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier(saveName, modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(save as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers) as NPCSaveData, data.saves[saveName], { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
@@ -636,6 +672,7 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
       };
+
       data.saves[saveName] = stat; 
     }
 
@@ -650,9 +687,7 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = new PF2StatisticModifier('perception', modifiers);
-      // copy all fields from the original save object, exclude fields already defined on the stat
-      Object.entries(data.attributes.perception as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+      const stat = mergeObject(new PF2StatisticModifier('perception', modifiers) as NPCPerceptionData, data.attributes.perception, { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
@@ -662,6 +697,7 @@ export default class PF2EActor extends Actor {
         const label = game.i18n.localize('PF2E.PerceptionCheck');
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
+
       data.attributes.perception = stat;
     }
 
@@ -682,9 +718,7 @@ export default class PF2EActor extends Actor {
           (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
 
-        const stat = new PF2StatisticModifier(item.name, modifiers);
-        // copy all fields from the original save object, exclude fields already defined on the stat
-        Object.entries(data.skills[shortform] ?? {} as Record<string, any>).filter(([key, _]) => stat[key] === undefined).forEach(([key, value]) => { stat[key] = value });
+        const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
         stat.base = base;
         stat.expanded = skill;
         stat.label = item.name;
@@ -697,6 +731,7 @@ export default class PF2EActor extends Actor {
           const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
           PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
         };
+
         data.skills[shortform] = stat;
       }
     }
@@ -705,33 +740,35 @@ export default class PF2EActor extends Actor {
 
   /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData): {
-    statisticsModifiers: Record<string, any>,
-    damageDice: Record<string, any>
+    statisticsModifiers: Record<string, PF2Modifier[]>,
+    damageDice: Record<string, PF2DamageDice[]>
   } {
-    const {data} = actorData;
-
     // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-    // TODO: Improve the typing here once we have more types; should be PF2Modifiers & PF2DamageDice (when they are interfaces).
-    const statisticsModifiers: Record<string, any> = {};
-    const damageDice: Record<string, any> = {};
-
-    // Custom Modifiers (which affect d20 rolls and damage).
-    data.customModifiers = data.customModifiers ?? {};
-    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-      statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
-    }
-
-    // Damage Dice (which add dice to damage rolls).
-    data.damageDice = data.damageDice ?? {};
-    for (const [attack, dice] of Object.entries(data.damageDice)) {
-      damageDice[attack] = (damageDice[attack] || []).concat(dice);
-    }
+    const statisticsModifiers: Record<string, PF2Modifier[]> = {};
+    const damageDice: Record<string, PF2DamageDice[]> = {};
 
     // Get all of the active conditions (from the item array), and add their modifiers.
-    const conditions = actorData.items.filter((i): i is ConditionData => i.type === 'condition' && i.data.active);
+    const conditions = actorData.items.filter((i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active);
 
     for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
       statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
+    }
+
+    // Character-specific custom modifiers & custom damage dice.
+    if (actorData.type === 'character' || actorData.type === 'npc') {
+      const {data} = actorData;
+
+      // Custom Modifiers (which affect d20 rolls and damage).
+      data.customModifiers = data.customModifiers ?? {};
+      for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+        statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+      }
+
+      // Damage Dice (which add dice to damage rolls).
+      data.damageDice = data.damageDice ?? {};
+      for (const [attack, dice] of Object.entries(data.damageDice)) {
+        damageDice[attack] = (damageDice[attack] || []).concat(dice);
+      }
     }
 
     return {
@@ -1290,15 +1327,15 @@ export default class PF2EActor extends Actor {
    * Adds a custom modifier that will be included when determining the final value of a stat. The
    * name parameter must be unique for the custom modifiers for the specified stat, or it will be
    * ignored.
-   *
-   * @param {string} stat
-   * @param {string} name
-   * @param {number} value
-   * @param {string} type
-   * @param {PF2ModifierPredicate} predicate
-   * @param {string} damageType
    */
-  async addCustomModifier(stat, name, value, type, predicate?, damageType?) {
+  async addCustomModifier(stat: string, name: string, value: number, type: string,
+                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
+    // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
+    // similar to how addDamageDice operates.
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom modifiers only work for characters and NPCs");
+    }
+
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
       const modifier = new PF2Modifier(name, value, type);
@@ -1319,59 +1356,104 @@ export default class PF2EActor extends Actor {
     }
   }
 
-  /**
-   * Removes a custom modifier, either by index or by name.
-   *
-   * @param {string} stat
-   * @param {string|number} modifier name or index of the modifier to remove
-   */
-  async removeCustomModifier(stat, modifier) {
+  /** Removes a custom modifier by name. */
+  async removeCustomModifier(stat: string, modifier: number | string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom modifiers only work for characters and NPCs");
+    }
+
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
     if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
-      const statModifiers = customModifiers[stat];
-      statModifiers.splice(modifier, 1);
-      customModifiers[stat] = statModifiers;
+      customModifiers[stat].splice(modifier, 1);
       await this.update({'data.customModifiers': customModifiers});
-    } else if (typeof modifier === 'string' && customModifiers[stat] && customModifiers[stat].length > 0) {
-      customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+    } else if (typeof modifier === 'string' && customModifiers[stat]) {
+      customModifiers[stat] = customModifiers[stat].filter(m => m.name !== modifier);
       await this.update({'data.customModifiers': customModifiers});
+    } else {
+      throw Error("Custom modifiers can only be removed by name (string) or index (number)");
     }
   }
 
-  async addDamageDice(param) {
-    if (!param.name) {
-      throw new Error('name for damage dice is mandatory');
+  /**
+   * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
+   *
+   * @param {DexterityModifierCapData} dexCap
+   */
+  async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom dexterity caps only work for characters and NPCs");
     }
-    param.selector = param?.selector ?? 'damage';
+    if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
+      throw new Error('numeric value is mandatory');
+    }
+    if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
+      throw new Error('source of cap is mandatory');
+    }
+
+    await this.update({'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap)});
+  }
+
+  /**
+   * Removes a previously added Dexterity modifier cap to AC.
+   *
+   * @param {string} source
+   */
+  async removeDexterityModifierCap(source: string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom dexterity caps only work for characters and NPCs");
+    }
+    if (!source) {
+      throw new Error('source of cap is mandatory');
+    }
+
+    // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
+    if (this.data.data.attributes.dexCap) {
+      const updated = this.data.data.attributes.dexCap.filter(cap => cap.source !== source);
+      await this.update({'data.attributes.dexCap': updated});
+    }
+  }
+
+  /** Adds custom damage dice. */
+  async addDamageDice(param: PF2DamageDice) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom damage dice only work for characters and NPCs");
+    }
+
     const damageDice = duplicate(this.data.data.damageDice ?? {});
     if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
+      // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
+      param.selector = param?.selector ?? 'damage';
+      param.custom = true;
+
+      // The damage dice constructor performs some basic validations for us, like checking that the
+      // name and selector are both defined.
       const dice = new PF2DamageDice(param);
-      dice.custom = true;
+
       damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
       await this.update({'data.damageDice': damageDice});
     }
   }
 
-  /**
-   * Removes damage dice, either by index or by name.
-   *
-   * @param {string} selector
-   * @param {string|number} dice name or index of the damage dice to remove
-   */
-  async removeDamageDice(selector, dice) {
+  /** Removes damage dice by name. */
+  async removeDamageDice(selector: string, dice: number | string) {
+    if (this.data.type !== 'character' && this.data.type !== 'npc') {
+      throw Error("Custom damage dice only work for characters and NPCs");
+    }
+
     const damageDice = duplicate(this.data.data.damageDice ?? {});
     if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
-      const diceModifiers = damageDice[dice];
-      diceModifiers.splice(dice, 1);
-      damageDice[dice] = diceModifiers;
+      damageDice[selector].splice(dice, 1);
       await this.update({'data.damageDice': damageDice});
-    } else if (typeof dice === 'string' && damageDice[selector] && damageDice[selector].length > 0) {
-      damageDice[selector] = damageDice[selector].filter((m) => m.name !== dice);
+    } else if (typeof dice === 'string' && damageDice[selector]) {
+      damageDice[selector] = damageDice[selector].filter(d => d.name !== dice);
       await this.update({'data.damageDice': damageDice});
+    } else {
+      throw Error("Dice can only be removed by name (string) or index (number)");
     }
   }
 
-  async toggleRollOption(rollName, optionName) {
+  /** Toggle the given roll option (swapping it from true to false, or vice versa). */
+  async toggleRollOption(rollName: string, optionName: string) {
     if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
@@ -1379,7 +1461,8 @@ export default class PF2EActor extends Actor {
     this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
   }
 
-  async setRollOption(rollName, optionName, enabled) {
+  /** Set the given roll option. */
+  async setRollOption(rollName: string, optionName: string, enabled: boolean) {
     if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
       throw new Error(`${rollName} is not a supported roll`);
     }
@@ -1387,32 +1470,31 @@ export default class PF2EActor extends Actor {
     this.setFlag(game.system.id, flag, !!enabled);
   }
 
-  async unsetRollOption(rollName, optionName) {
+  /** Unset (i.e., delete entirely) the given roll option. */
+  async unsetRollOption(rollName: string, optionName: string) {
     const flag = `rollOptions.${rollName}.${optionName}`;
     this.unsetFlag(game.system.id, flag);
   }
 
-  async enableRollOption(rollName, optionName) {
+  /** Enable the given roll option for thie given roll name. */
+  async enableRollOption(rollName: string, optionName: string) {
     this.setRollOption(rollName, optionName, true);
   }
 
-  async disableRollOption(rollName, optionName) {
+  /** Disable the given roll option for the given roll name. */
+  async disableRollOption(rollName: string, optionName: string) {
     this.setRollOption(rollName, optionName, false);
   }
 
-  /**
-   * @param {string[]} rollNames
-   * @return {string[]}
-   */
-  getRollOptions(rollNames) {
-    const flag = this.getFlag(game.system.id, 'rollOptions') ?? {};
+  /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
+  getRollOptions(rollNames: string[]): string[] {
+    const flag: Record<string, Record<string, boolean>> = this.getFlag(game.system.id, 'rollOptions') ?? {};
     return rollNames.flatMap(rollName =>
       // convert flag object to array containing the names of all fields with a truthy value
-      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [])
+      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [] as string[])
     ).reduce((unique, option) => {
       // ensure option entries are unique
       return unique.includes(option) ? unique : unique.concat(option);
-    }, []);
+    }, [] as string[]);
   }
-
 }

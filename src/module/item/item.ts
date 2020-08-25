@@ -64,6 +64,10 @@ export default class PF2EItem extends Item {
     return data;
   }
 
+  getSpellInfo() {
+    return this._spellChatData();
+  }
+
   /* -------------------------------------------- */
 
   _armorChatData() {
@@ -137,7 +141,7 @@ export default class PF2EItem extends Item {
     };
     if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
       proficiency.type = "martial";
-      proficiency.value = actorData.data.martial?.[prof]?.value || 0;
+      proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
     } else {
       try {
         const martialSkill = this.actor.getOwnedItem(prof);
@@ -406,7 +410,7 @@ export default class PF2EItem extends Item {
     // Prepare roll data
     // let itemData = this.data.data,
     const itemData = this.getChatData();
-    const rollData = duplicate(this.actor.data.data);
+    const rollData = duplicate(this.actor.data.data) as any;
     const isFinesse = itemData.isFinesse;
     const abl = (isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod ? 'dex' : (itemData.ability.value || 'str'));
     const prof = itemData.weaponType.value || 'simple';
@@ -462,7 +466,7 @@ export default class PF2EItem extends Item {
 
     // Get item and actor data and format it for the damage roll
     const itemData = this.data.data;
-    const rollData = duplicate(this.actor.data.data);
+    const rollData = duplicate(this.actor.data.data) as any;
     let rollDie = itemData.damage.die;
     const abl = 'str';
     let abilityMod = rollData.abilities[abl].mod;
@@ -591,7 +595,7 @@ export default class PF2EItem extends Item {
     // Prepare roll data
     // let itemData = this.data.data,
     const itemData = this.getChatData();
-    const rollData = duplicate(this.actor.data.data);
+    const rollData = duplicate(this.actor.data.data) as any;
     const parts = ['@itemBonus'];
     const title = `${this.name} - Attack Roll${(multiAttackPenalty > 1) ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
@@ -628,7 +632,7 @@ export default class PF2EItem extends Item {
 
     // Get item and actor data and format it for the damage roll
     const itemData = this.data.data;
-    const rollData = duplicate(this.actor.data.data);
+    const rollData = duplicate(this.actor.data.data) as any;
     let parts = [];
     const partsType = [];
     const dtype = []; // CONFIG.PF2E.damageTypes[itemData.damage.damageType];
@@ -757,7 +761,7 @@ export default class PF2EItem extends Item {
 
     // Get data
     const itemData = this.data.data;
-    const rollData = duplicate(this.actor.data.data);
+    const rollData = duplicate(this.actor.data.data) as any;
     const isHeal = itemData.spellType.value === 'heal';
     const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 

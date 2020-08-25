@@ -161,7 +161,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     try {
       const item = this.actor.getOwnedItem(spell._id);
       if (item){
-        spell.chatData = item.getChatData({ secrets: this.actor.owner });
+          spell.spellInfo = item.getSpellInfo();
       }
     } catch (err) {
       console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell)
@@ -208,7 +208,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
                 // Add chat data
                 try {
-                  spl.prepared[i].chatData = item.getChatData({ secrets: this.actor.owner });
+                    spl.prepared[i].spellInfo = item.getSpellInfo();
                 } catch (err) {
                   console.log(`PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`, item)
                 }
@@ -578,7 +578,14 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = f.parents('.item').attr('data-item-id');
       const active = f.hasClass('active');
       this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': !active });
+    });
 
+    // Toggle invest
+    html.find('.item-toggle-invest').click((ev) => {
+      const f = $(ev.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      const active = f.hasClass('active');
+      this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.invested.value': !active });
     });
 
     // Trait Selector
@@ -644,31 +651,68 @@ abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = li.attr('data-item-id');
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
-      const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
-      new Dialog({
-        title: 'Delete Confirmation',
-        content,
-        buttons: {
-          Yes: {
-            icon: '<i class="fa fa-check"></i>',
-            label: 'Yes',
-            callback: async () => {
-              await this.actor.deleteOwnedItem(itemId);
-              // clean up any individually targeted modifiers to attack and damage
-              await this.actor.update({
-                [`data.customModifiers.-=${itemId}-attack`]: null,
-                [`data.customModifiers.-=${itemId}-damage`]: null,
-              });
-              li.slideUp(200, () => this.render(false));
+      if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
+        // Condition Item.
+
+        const condition = item.data as ConditionData;
+        const list: string[] = [];
+        const references = li.find('.condition-references');
+
+        console.log(references.html());
+        
+
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {name:item.name, ref:references.html()});
+        new Dialog({
+          title: 'Remove Condition',
+          content,
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: 'Yes',
+              callback: async () => {
+                this.actor.data.items.filter(i => i.type === 'condition' && i.flags.pf2e?.condition && i.data.base === condition.data.base && i.data.value.value === condition.data.value.value).forEach(
+                  (i: ConditionData) => {
+                    list.push(i._id);
+                  }
+                );
+
+                await PF2eConditionManager.removeConditionFromToken(list, this.token);
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: 'Cancel',
             },
           },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: 'Cancel',
+          default: 'Yes',
+        }).render(true);
+      } else {
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
+        new Dialog({
+          title: 'Delete Confirmation',
+          content,
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: 'Yes',
+              callback: async () => {
+                await this.actor.deleteOwnedItem(itemId);
+                // clean up any individually targeted modifiers to attack and damage
+                await this.actor.update({
+                  [`data.customModifiers.-=${itemId}-attack`]: null,
+                  [`data.customModifiers.-=${itemId}-damage`]: null,
+                });
+                li.slideUp(200, () => this.render(false));
+              },
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: 'Cancel',
+            },
           },
-        },
-        default: 'Yes',
-      }).render(true);
+          default: 'Yes',
+        }).render(true);
+      }
     });
 
     // Increase Item Quantity
@@ -724,12 +768,16 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     // Action Rolling (experimental strikes)
     html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+      if (!('actions' in this.actor.data.data)) throw Error("Experimental strikes are not supported on this actor");
+
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);
       this.actor.data.data.actions[Number(actionIndex)].roll(event, opts);
     });
 
     html.find('[data-variant-index].variant-strike').click((event) => {
+      if (!('actions' in this.actor.data.data)) throw Error("Experimental strikes are not supported on this actor");
+
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);
@@ -839,6 +887,10 @@ abstract class ActorSheetPF2e extends ActorSheet {
       this.render();
     });
 
+    // Select all text in an input field on focus
+    html.find('input[type=text], input[type=number]').focus((event: any) => {
+      event.currentTarget.select();
+    });
   }
 
   /* -------------------------------------------- */
@@ -1138,7 +1190,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
                 return [items._id];
             });
             return true;
-        } else if (itemData.type === 'condition') {
+        } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
           const condition = itemData as ConditionData;
           await PF2eConditionManager.addConditionToToken(condition, this.token);
           return true;
@@ -1233,7 +1285,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
       return;
     }
 
-    if (item.data.type === 'spellcastingEntry') return;
+    if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition')  return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
 
@@ -1627,6 +1679,15 @@ abstract class ActorSheetPF2e extends ActorSheet {
         });
       }
     }
+  }
+
+  _onSubmit(event: any): Promise<any> {
+    // Limit HP value to data.attributes.hp.max value
+    if (event?.currentTarget?.name === 'data.attributes.hp.value') {
+        event.currentTarget.value = Math.clamped(Number(event.currentTarget.value), Number(this.actor.data.data.attributes.hp?.min ?? 0), Number(this.actor.data.data.attributes.hp?.max ?? 0));
+    }
+
+    return super._onSubmit(event);
   }
 
   /**

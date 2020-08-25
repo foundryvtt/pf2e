@@ -1,20 +1,34 @@
 /* global Application, ChatMessage, Roll, ui */
-import { PF2Modifier } from '../modifiers';
+import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
+import PF2EActor from '../actor/actor';
+
+export interface CheckModifiersContext {
+  /** Any options which should be used in the roll. */
+  options?: string[];
+  /** If true, this is a secret roll which should only be seen by the GM. */
+  secret?: boolean;
+  /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+  rollMode?: string;
+  /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
+  fate?: string;
+  /** The actor which initiated this roll. */
+  actor?: PF2EActor;
+  /** The type of this roll, like 'perception-check' or 'saving-throw'. */
+  type?: string;
+}
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
  */
 export class CheckModifiersDialog extends Application {
-  check: any;
-  context: any;
-  callback: any;
+  /** The check which is being edited. */
+  check: PF2StatisticModifier;
+  /** Relevant context for this roll, like roll options. */
+  context: CheckModifiersContext;
+  /** Callback called when the roll occurs. */
+  callback?: (roll: Roll) => void;
 
-  /**
-   * @param {PF2CheckModifier} check
-   * @param {object} context
-   * @param {function} callback
-   */
-  constructor(check, context, callback) {
+  constructor(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
     super({
       title: check.name,
       template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -22,6 +36,7 @@ export class CheckModifiersDialog extends Application {
       popOut: true,
       width: 380,
     });
+
     this.check = check;
     this.context = context ?? {}; // might include a reference to actor, so do not do mergeObject or similar
     this.callback = callback;
@@ -32,12 +47,8 @@ export class CheckModifiersDialog extends Application {
     }
   }
 
-  /**
-   * @param {PF2CheckModifier} check
-   * @param {object} context
-   * @param {function} callback
-   */
-  static async roll(check, context, callback) {
+  /** Roll the given check, rendering the roll to the chat menu. */
+  static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
     const options = [];
     const ctx = context ?? {};
 
@@ -93,12 +104,9 @@ export class CheckModifiersDialog extends Application {
     };
   }
 
-  /**
-   * @param {jQuery} html
-   */
-  activateListeners(html) {
+  activateListeners(html: JQuery) {
     html.find('.roll').click((event) => {
-      this.context.fate = html.find("input[type=radio][name=fate]:checked").val();
+      this.context.fate = html.find("input[type=radio][name=fate]:checked").val() as string;
       CheckModifiersDialog.roll(this.check, this.context, this.callback);
       this.close();
     });
@@ -115,10 +123,7 @@ export class CheckModifiersDialog extends Application {
     html.find('[name=rollmode]').change(event => this.onChangeRollMode(event));
   }
 
-  /**
-   * @param {jQuery.Event} event
-   */
-  onAddModifier(event) {
+  onAddModifier(event: JQuery.ClickEvent) {
     const parent = $(event.currentTarget).parents('.add-modifier-panel');
     const value = Number(parent.find('.add-modifier-value').val());
     const type = `${parent.find('.add-modifier-type').val()}`;
@@ -146,11 +151,7 @@ export class CheckModifiersDialog extends Application {
     }
   }
 
-  /**
-   * @param {jQuery.Event} event
-   */
-  onChangeRollMode(event) {
-    this.context.rollMode = $(event.currentTarget).val() ?? 'roll';
+  onChangeRollMode(event: JQuery.ChangeEvent) {
+    this.context.rollMode = ($(event.currentTarget).val() ?? 'roll') as string;
   }
-  
 }
