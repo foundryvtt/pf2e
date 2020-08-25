@@ -1,7 +1,7 @@
 /* global ChatMessage, ui */
-import { CheckModifiersDialog } from './check-modifiers-dialog';
+import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { PF2ModifierPredicate } from '../modifiers';
+import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -10,17 +10,13 @@ interface RerollOptions {
 
 export class PF2Check {
     /**
-     * 
-     * @param {PF2CheckModifier} check
-     * @param {object} context
-     * @param {jQuery.Event} event
-     * @param {function} callback
+     * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
      */
-    static roll(check, context: any = {}, event, callback?) {
+    static roll(check: PF2StatisticModifier, context: CheckModifiersContext = {}, event: JQuery.Event, callback?: (roll: Roll) => void) {
         if (context?.options?.length > 0) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach(modifier => {
-                modifier.ignored = !new PF2ModifierPredicate(modifier.predicate ?? {}).test(context.options);
+                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, context.options)
             });
             check.applyStackingRules();
 
@@ -38,7 +34,8 @@ export class PF2Check {
         }
     }
 
-    static async rerollFromMessage(message, {heroPoint=false, keep='new'}: RerollOptions = {} ) {
+    /** Reroll a rolled check given a chat message. */
+    static async rerollFromMessage(message: ChatMessage, {heroPoint=false, keep='new'}: RerollOptions = {} ) {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
             return;

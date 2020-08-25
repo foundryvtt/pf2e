@@ -343,7 +343,7 @@ export class PF2StatisticModifier {
   }
 
   /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
-  private applyStackingRules() {
+  applyStackingRules() {
     this.totalModifier = applyStackingRules(this._modifiers);
   }
 }
