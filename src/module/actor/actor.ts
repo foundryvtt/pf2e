@@ -777,7 +777,7 @@ export default class PF2EActor extends Actor {
     };
   }
 
-  getStrikeDescription(item) {
+  getStrikeDescription(item: WeaponData) {
     const flavor = {
       description: 'PF2E.Strike.Default.Description',
       criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
@@ -808,7 +808,7 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollSkill(event, skillName) {
+  rollSkill(event: JQuery.Event, skillName: string) {
     const skl = this.data.data.skills[skillName];
     const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
     const parts = ['@mod', '@itemBonus'];
@@ -832,7 +832,11 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollRecovery(event) {
+  rollRecovery(event: JQuery.Event) {
+    if (this.data.type !== 'character') {
+      throw Error("Recovery rolls are only applicable to characters");
+    }
+
     const dying = this.data.data.attributes.dying.value;
     // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
     const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
@@ -881,19 +885,26 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollLoreSkill(event, item) {
+  rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
+    const { data } = item;
+    if (data.type !== 'lore') {
+      throw Error("Can only roll lore skills using lore items");
+    }
+
     const parts = ['@mod', '@itemBonus'];
     const flavor = `${item.name} Skill Check`;
-    const i = item.data;
 
-    const rank = (i.data.proficient?.value || 0);
-    const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
-    const modifier = this.data.data.abilities.int.mod;
-    const itemBonus = Number((i.data.item || {}).value || 0);
-    let rollMod = modifier + proficiency;
-    // Override roll calculation if this is an NPC "lore" skill
-    if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
-      rollMod = i.data.mod.value;
+    let rollMod: number = 0;
+    let itemBonus: number = 0;
+    if (item.actor && item.actor.data && item.actor.data.type === 'character') {
+      const rank = (data.data.proficient?.value || 0);
+      const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
+      const modifier = this.data.data.abilities.int.mod;
+
+      itemBonus = Number((data.data.item || {}).value || 0);
+      rollMod = modifier + proficiency;
+    } else if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
+      rollMod = data.data.mod.value;
     }
 
     // Call the roll helper utility
@@ -915,7 +926,7 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollSave(event, saveName) {
+  rollSave(event: JQuery.Event, saveName: string) {
     const save = this.data.data.saves[saveName];
     const parts = ['@mod', '@itemBonus'];
     const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
@@ -938,7 +949,7 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollAbility(event, abilityName) {
+  rollAbility(event: JQuery.Event, abilityName: string) {
     const skl = this.data.data.abilities[abilityName];
     const parts = ['@mod'];
     const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
@@ -960,7 +971,7 @@ export default class PF2EActor extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollAttribute(event, attributeName) {
+  rollAttribute(event: JQuery.Event, attributeName: string) {
     const skl = this.data.data.attributes[attributeName];
     const parts = ['@mod', '@itemBonus'];
     const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
