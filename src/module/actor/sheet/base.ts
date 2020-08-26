@@ -979,19 +979,22 @@ abstract class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   _onDragItemStart(event: any): boolean {
+    event.stopImmediatePropagation();
+
     const itemId = event.currentTarget.getAttribute('data-item-id');
+    const containerId = event.currentTarget.getAttribute('data-container-id');
     const actionIndex = event.currentTarget.getAttribute('data-action-index');
 
-    if (itemId) {
-      const item = this.actor.getOwnedItem(itemId);
-	    event.dataTransfer.setData('text/plain', JSON.stringify({
+    if (itemId || containerId) {
+      const  item = this.actor.getOwnedItem(itemId || containerId);
+      event.dataTransfer.setData('text/plain', JSON.stringify({
         type: 'Item',
         data: item.data,
         actorId: this.actor._id,
         tokenId: this.actor.token?.id,
         id: itemId,
       }));
-      
+
       return true;
     } else if (actionIndex) {
       event.dataTransfer.setData('text/plain', JSON.stringify({
@@ -1035,15 +1038,13 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-
+    const dragEntitiy = JSON.parse(event.dataTransfer.getData('text/plain') || null);
 
     // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
     if (dropSlotType === 'spellSlot') {
 
-      const dragData = event.dataTransfer.getData('text/plain');
-      const dragItem = JSON.parse(dragData);
+      const dragItem = dragEntitiy;
       // dragItem = this.actor.getOwnedItem(dragJSON.data._id);
-
       // if the dragged item is from a compendium pack.
       if (dragItem.pack) {
         if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from compendium pack dropped on a spellSlot *****');
@@ -1073,7 +1074,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
             value: dropID,
           };
           // this.actor.createOwnedItem(dragData.data);
-          this.actor.createEmbeddedEntity('OwnedItem', dragData.data);
+          this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
           return false;
         }
         else if (dragItem.data.type === 'item') {
@@ -1083,7 +1084,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     }
 
     if (dropContainerType === 'spellcastingEntry') { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
-      const dragData = JSON.parse(event.dataTransfer.getData('text/plain'));
+      const dragData = dragEntitiy;
       // dragItem = this.actor.getOwnedItem(dragData._id);
 
       // if the dragged item is a spell and is from the same actor
@@ -1101,6 +1102,24 @@ abstract class ActorSheetPF2e extends ActorSheet {
         }
       }
 
+      // target and source are spellcastinEntries and need to be sorted
+      if (dragData?.data?.type === 'spellcastingEntry' && dragData.actorId === this.actor.id) {
+        const sourceId = dragData.data._id;
+        const dropId = $(event.target).parents('.item-container').attr('data-container-id');
+
+        if (sourceId !== dropId) {
+          const source: any = this.actor.getOwnedItem(sourceId);
+          const target: any = this.actor.getOwnedItem(dropId);
+          const siblings: any[] = (this.actor as any).items.entries.filter((i: PF2EItem) => i.data.type === 'spellcastingEntry');
+
+          if (source && target) {
+            const sortBefore = (source.data.sort > target.data.sort);
+            source.sortRelative({target, siblings, sortBefore});
+          }
+        }
+
+        return false;
+      }
       // else if the dragged item is from another actor and is the data is explicitly provided
       if (dragData.data) {
         if (dragData.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
@@ -1138,6 +1157,11 @@ abstract class ActorSheetPF2e extends ActorSheet {
         this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
         return false;
       }
+    }
+    
+    if (dragEntitiy?.data?.type === 'spellcastingEntry' && dropContainerType !== 'spellcastingEntry') {
+        // spellcastingEntries can only be dropped on other spellcastingEntries
+        return false;
     }
 
     if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** PF2e _onDrop (spell) override method finished passing over to _onDropOverride *****');
