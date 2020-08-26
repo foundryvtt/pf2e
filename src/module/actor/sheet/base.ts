@@ -460,12 +460,12 @@ abstract class ActorSheetPF2e extends ActorSheet {
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
-  activateListeners(html) {
+  activateListeners(html: JQuery) {
     super.activateListeners(html);
 
     // Pad field width
     html.find('[data-wpad]').each((i, e) => {
-      const text = e.tagName === 'INPUT' ? e.value : e.innerText;
+      const text = e.tagName === 'INPUT' ? (e as HTMLInputElement).value : e.innerText;
       const w = text.length * parseInt(e.getAttribute('data-wpad'), 10) / 2;
       e.setAttribute('style', `flex: 0 0 ${w}px`);
     });
@@ -747,14 +747,14 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // Item Dragging
     const handler = (ev) => this._onDragItemStart(ev);
     html.find('.item').each((i, li) => {
-      li.setAttribute('draggable', true);
+      li.setAttribute('draggable', "true");
       li.addEventListener('dragstart', handler, false);
     });
 
     // Skill Dragging
     const skillHandler = (ev) => this._onDragSkillStart(ev);
     html.find('.skill').each((i, li) => {
-        li.setAttribute('draggable', true);
+        li.setAttribute('draggable', "true");
         li.addEventListener('dragstart', skillHandler, false);
       });
 
@@ -797,7 +797,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
 
     // Update Item Bonus on an actor.item input
-    html.find('.focus-pool-input').change(async (event) => {
+    html.find<HTMLInputElement>('.focus-pool-input').change(async (event) => {
       event.preventDefault();
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
       const focusPool = Math.clamped(Number(event.target.value), 0, 3);
@@ -808,7 +808,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update Item Bonus on an actor.item input
-    html.find('.item-value-input').change(async (event) => {
+    html.find<HTMLInputElement>('.item-value-input').change(async (event) => {
       event.preventDefault();
 
       let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
@@ -820,14 +820,14 @@ abstract class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update Item Name
-    html.find('.item-name-input').change(async (event) => {
+    html.find<HTMLInputElement>('.item-name-input').change(async (event) => {
       const itemId = event.target.attributes['data-item-id'].value;
       await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, name: event.target.value });
     });
 
 
     // Update used slots for Spell Items
-    html.find('.spell-slots-input').change(async (event) => {
+    html.find<HTMLInputElement>('.spell-slots-input').change(async (event) => {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
@@ -841,7 +841,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     });
 
     // Update max slots for Spell Items
-    html.find('.spell-max-input').change(async (event) => {
+    html.find<HTMLInputElement>('.spell-max-input').change(async (event) => {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
@@ -854,7 +854,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     });
 
     // Modify select element
-    html.find('.ability-select').change(async (event) => {
+    html.find<HTMLSelectElement>('.ability-select').change(async (event) => {
       event.preventDefault();
 
       const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
