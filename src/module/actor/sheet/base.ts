@@ -1083,6 +1083,34 @@ abstract class ActorSheetPF2e extends ActorSheet {
       }
     }
 
+    if (dragEntitiy?.data?.type === 'spell' && dragEntitiy.actorId === this.actor._id) {
+        const sourceId = dragEntitiy.data._id;
+        const dropId = $(event.target).parents('.item').attr('data-item-id');
+
+        if (dropSlotType === 'spell') {
+            if (sourceId !== dropId) {
+              const source: any = this.actor.getOwnedItem(sourceId);
+              const sourceLevel = source.data.data.level.value;
+              const sourceLocation = source.data.data.location.value;
+              const target: any = this.actor.getOwnedItem(dropId);
+              const targetLevel = target.data.data.level.value;
+              const targetLocation = target.data.data.location.value;
+
+              if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
+                const siblings: any[] = (this.actor as any).items.entries.filter((i: PF2EItem) =>
+                i.data.type === 'spell' &&
+                i.data.data.level.value === sourceLevel &&
+                i.data.data.location.value === sourceLocation
+                );
+                const sortBefore = (source.data.sort >= target.data.sort);
+                source.sortRelative({target, siblings, sortBefore});
+              }
+            }
+        }
+
+        return false;
+    }
+
     if (dropContainerType === 'spellcastingEntry') { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
       const dragData = dragEntitiy;
       // dragItem = this.actor.getOwnedItem(dragData._id);
@@ -1113,7 +1141,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
           const siblings: any[] = (this.actor as any).items.entries.filter((i: PF2EItem) => i.data.type === 'spellcastingEntry');
 
           if (source && target) {
-            const sortBefore = (source.data.sort > target.data.sort);
+            const sortBefore = (source.data.sort >= target.data.sort);
             source.sortRelative({target, siblings, sortBefore});
           }
         }

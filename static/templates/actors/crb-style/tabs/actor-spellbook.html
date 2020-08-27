@@ -118,7 +118,7 @@
 
                         <!-- Add spell items for each spell level -->
                         {{#each section.spells as |item i|}}
-                        <li class="item" data-spell-lvl="{{lvl}}" data-item-id="{{item._id}}">
+                        <li class="item" data-spell-lvl="{{lvl}}" data-item-id="{{item._id}}" data-item-type="spell">
                             <div class="item-name rollable">
                                 <div class="item-image">
                                     <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
@@ -242,7 +242,7 @@
 
                         <!-- Unprepared Spells -->
                             {{#each section.spells as |item i|}}
-                                <li class="item spellbook-item" data-item-id="{{item._id}}">
+                                <li class="item spellbook-item" data-item-id="{{item._id}}" data-item-type="spell">
                                     <div class="item-name rollable">
                                         
                                         <h4>{{item.name}}</h4>
