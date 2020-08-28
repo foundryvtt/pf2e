@@ -330,10 +330,11 @@ export default class PF2EActor extends Actor {
     const feats = new Set(actorData.items
       .filter(item => item.type === 'feat')
       .map(item => item.name))
-
     const hasUntrainedImprovisation = feats.has('Untrained Improvisation')
 
-    for (const [skillName, skill] of Object.entries(data.skills)) {
+    const skills = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
+
+    for (const [skillName, skill] of Object.entries(data.skills).filter(([shortform, _]) => Object.keys(SKILL_DICTIONARY).includes(shortform))) {
       const modifiers = [
         AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
@@ -343,8 +344,7 @@ export default class PF2EActor extends Actor {
         const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
         if (rule === 'ProficiencyWithLevel') {
           bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
-        }
-        else if (rule === 'ProficiencyWithoutLevel') {
+        } else if (rule === 'ProficiencyWithoutLevel') {
           // No description in Gamemastery Guide on how to handle untrained improvisation.
         }
         modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
@@ -374,8 +374,52 @@ export default class PF2EActor extends Actor {
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
       };
 
-      data.skills[skillName] = stat;
+      skills[skillName] = stat;
     }
+
+    // Lore skills
+    actorData.items.filter(i => i.type === 'lore').forEach(skill => {
+      // normalize skill name to lower-case and dash-separated words
+      const shortform = skill.name.toLowerCase().replace(/\s+/g, '-');
+      const rank = (skill.data as any).proficient.value;
+
+      const modifiers = [
+        AbilityModifier.fromAbilityScore('int', data.abilities.int.value),
+        ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank)
+      ];
+      if(rank === 0 && hasUntrainedImprovisation) {
+        let bonus = 0;
+        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
+        if (rule === 'ProficiencyWithLevel') {
+          bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
+        } else if (rule === 'ProficiencyWithoutLevel') {
+          // No description in Gamemastery Guide on how to handle untrained improvisation.
+        }
+        modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
+      }
+      [shortform, `int-based`, 'skill-check', 'all'].forEach((key) => {
+        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+
+      const stat = mergeObject(new PF2StatisticModifier(skill.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
+      stat.itemID = skill._id;
+      stat.rank = rank ?? 0;
+      stat.shortform = shortform;
+      stat.expanded = skill;
+      stat.value = stat.totalModifier;
+      stat.lore = true;
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      stat.roll = (event, options = [], callback?) => {
+        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
+      };
+
+      skills[shortform] = stat;
+    });
+
+    (data as any).skills = skills;
 
     // Automatic Actions
     data.actions = [];

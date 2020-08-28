@@ -534,7 +534,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     });
 
     // Roll Skill Checks
-    html.find('.skill-name.rollable').click((ev) => {
+    html.find('.skill-name.rollable, .skill-score.rollable').click((ev) => {
       const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
       if (this.actor.data.data.skills[skl]?.roll) {
         const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skl] ?? skl]);
@@ -697,11 +697,18 @@ abstract class ActorSheetPF2e extends ActorSheet {
               label: 'Yes',
               callback: async () => {
                 await this.actor.deleteOwnedItem(itemId);
-                // clean up any individually targeted modifiers to attack and damage
-                await this.actor.update({
-                  [`data.customModifiers.-=${itemId}-attack`]: null,
-                  [`data.customModifiers.-=${itemId}-damage`]: null,
-                });
+                if (item.type === 'lore') {
+                  // normalize skill name to lower-case and dash-separated words
+                  const skill = item.name.toLowerCase().replace(/\s+/g, '-');
+                  // remove derived skill data
+                  await this.actor.update({[`data.skills.-=${skill}`]: null});
+                } else {
+                  // clean up any individually targeted modifiers to attack and damage
+                  await this.actor.update({
+                    [`data.customModifiers.-=${itemId}-attack`]: null,
+                    [`data.customModifiers.-=${itemId}-damage`]: null,
+                  });
+                }
                 li.slideUp(200, () => this.render(false));
               },
             },
@@ -786,15 +793,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     // Item Rolling
     html.find('[data-item-id].item .item-image').click((event) => this._onItemRoll(event));
-
-    // Lore Item Rolling
-    html.find('.item .lore-score-rollable').click((event) => {
-      event.preventDefault();
-      const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-      const item = this.actor.getOwnedItem(itemId);
-      this.actor.rollLoreSkill(event, item);
-    });
-
 
     // Update Item Bonus on an actor.item input
     html.find<HTMLInputElement>('.focus-pool-input').change(async (event) => {
