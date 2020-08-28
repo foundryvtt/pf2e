@@ -118,6 +118,24 @@ export interface RawCharacterStrike {
     variants: { label: string; roll: RollFunction; }[]
 }
 
+/** Basic hitpoints data fields */
+export interface RawHitPointsData {
+    /** The current amount of hitpoints the character has. */
+    value: number;
+    /** The minimum number of hitpoints this character can have; almost always 0. */
+    min: number;
+    /** The maximum number of hitpoints this character has. */
+    max: number;
+    /** If non-null, the amount of temporary hitpoints this character has. */
+    temp?: number;
+    /** The maximum number of temporary hitpoints this character can have. */
+    tempmax?: number;
+    /** Any details about hit points. */
+    details: string;
+}
+
+/** Data related to character hitpoints. */
+export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
 /** The full data for charatcer initiative. */
 export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
@@ -264,20 +282,7 @@ export interface RawCharacterData {
         heroPoints: { rank: number; max: number; }
 
         /** Data related to character hitpoints. */
-        hp: {
-            /** The current amount of hitpoints the character has. */
-            value: number;
-            /** The minimum number of hitpoints this character can have; almost always 0. */
-            min: number;
-            /** The maximum number of hitpoints this character has. */
-            max: number;
-            /** If non-null, the amount of temporary hitpoints this character has. */
-            temp?: number;
-            /** The maximum number of temporary hitpoints this character can have. */
-            tempmax?: number;
-            /** Any details about hit points. */
-            details: string;
-        };
+        hp: HitPointsData;
 
         /** Data related to character stamina, when using the variant stamina rules. */
         sp: {
