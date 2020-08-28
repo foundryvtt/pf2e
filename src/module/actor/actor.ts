@@ -38,7 +38,8 @@ import {
   NPCArmorClassData,
   NPCSaveData,
   NPCPerceptionData,
-  NPCSkillData
+  NPCSkillData,
+  HitPointsData
 } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
@@ -155,7 +156,10 @@ export default class PF2EActor extends Actor {
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
 
     // Calculate HP and SP
-    const bonusHpPerLevel = data.attributes.levelbonushp * data.details.level.value;
+    const hpModifiers = [
+      new PF2Modifier('PF2E.AncestryHP', data.attributes.ancestryhp, PF2ModifierType.UNTYPED)
+    ];
+
     if (game.settings.get('pf2e', 'staminaVariant')) {
       const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
       const halfClassHp = Math.floor(data.attributes.classhp / 2);
@@ -164,16 +168,39 @@ export default class PF2EActor extends Actor {
         + bonusSpPerLevel
         + data.attributes.flatbonussp;
 
-      data.attributes.hp.max = data.attributes.ancestryhp +
-        (halfClassHp*data.details.level.value)
-        + data.attributes.flatbonushp
-        + bonusHpPerLevel;
+      hpModifiers.push(new PF2Modifier('PF2E.ClassHP', (halfClassHp*data.details.level.value), PF2ModifierType.UNTYPED));
     } else {
-      data.attributes.hp.max = data.attributes.ancestryhp
-        + ((data.attributes.classhp + data.abilities.con.mod) * data.details.level.value)
-        + bonusHpPerLevel
-        + data.attributes.flatbonushp;
+      hpModifiers.push(new PF2Modifier('PF2E.AbilityCon', data.abilities.con.mod * data.details.level.value, PF2ModifierType.UNTYPED));
+      hpModifiers.push(new PF2Modifier('PF2E.ClassHP', data.attributes.classhp * data.details.level.value, PF2ModifierType.UNTYPED));
     }
+
+    hpModifiers.push(new PF2Modifier('PF2E.BonusHPperLevel', data.attributes.levelbonushp * data.details.level.value, PF2ModifierType.UNTYPED));
+    hpModifiers.push(new PF2Modifier('PF2E.FlatBonusHP', data.attributes.flatbonushp, PF2ModifierType.UNTYPED));
+
+    (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => {
+      // Set Drained modifier to status * level
+      // TODO: Rework this to not use a hard-coded condition name.
+      if (m.name === game.i18n.localize('PF2E.condition.drained.name')) {
+        m.modifier *= data.details.level.value;
+      }
+
+      hpModifiers.push(m) 
+    });
+
+    const hpStat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", hpModifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
+
+    hpStat.max = hpStat.totalModifier;
+
+    // Make sure the current HP isn't higher than the max HP
+    if ( hpStat.value > hpStat.max ) {
+      hpStat.value = hpStat.max;
+    }
+
+    hpStat.breakdown = hpStat.modifiers.filter((m) => m.enabled)
+    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+    .join(', ');    
+    
+    data.attributes.hp = hpStat;
 
     // Saves
     const worn = this.getFirstWornArmor();
