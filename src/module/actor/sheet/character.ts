@@ -623,9 +623,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     if (!type || !type.trim().length) {
         errors.push('Type is required.');
     }
-    if (!type && type === 'untyped' && modifier < 0) {
-        errors.push('Only untyped penalties are allowed.');
-    }
     if (errors.length > 0) {
         ui.notifications.error(errors.join(' '));
     } else {

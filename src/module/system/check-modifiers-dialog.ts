@@ -140,9 +140,6 @@ export class CheckModifiersDialog extends Application {
     if (!name || !name.trim()) {
       name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
     }
-    if (!type && type === 'untyped' && value < 0) {
-      errors.push('Only untyped penalties are allowed.');
-    }
     if (errors.length > 0) {
       ui.notifications.error(errors.join(' '));
     } else {
