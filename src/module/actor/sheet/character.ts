@@ -499,6 +499,14 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   activateListeners(html) {
     super.activateListeners(html);
 
+    {
+      // ensure correct tab name is displayed after actor update
+      const title = $('.sheet-navigation .active').data('tabTitle');
+      if (title) {
+        html.find('.navigation-title').text(title);
+      }
+    }
+
     html.find('.sheet-navigation').on('mouseover', '.item', event => {
       const title = event.currentTarget.dataset.tabTitle;
       if (title) {
