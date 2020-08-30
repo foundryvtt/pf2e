@@ -134,6 +134,16 @@ export interface RawHitPointsData {
     details: string;
 }
 
+/** Pathfinder Society Organized Play data fields */
+export interface RawPathfinderSocietyData {
+    /** Number assigned to the player. */
+    playerNumber: string;
+    /** Number assigned to the character. */
+    characterNumber: string;
+    /** Is the character currently affected by a level bump? */
+    levelBump: boolean;
+}
+
 /** Data related to character hitpoints. */
 export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
 /** The full data for charatcer initiative. */
@@ -363,6 +373,9 @@ export interface RawCharacterData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+
+    /** Pathfinder Society Organized Play */
+    pfs?: RawPathfinderSocietyData;
 
     /** EXPERIMENTAL API: Special strikes which the character can take. */
     actions: CharacterStrike[];
