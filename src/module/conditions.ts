@@ -494,6 +494,8 @@ export class PF2eConditionManager {
                 c.name = `${c.name} ${c.data.value.value}`;
                 c.data.value.value = unlinkedConditionName.value;
             }
+
+            c.data.sources.hud = condition.data.sources.hud;
             
             await PF2eConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
         }

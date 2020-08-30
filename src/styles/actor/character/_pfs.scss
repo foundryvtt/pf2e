@@ -1,0 +1,39 @@
+.pfs {
+    display: grid;
+    grid-template-columns: 105px 105px;
+    margin-bottom: 20px;
+
+    label {
+        font-family: $sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1;
+        text-transform: uppercase;
+        color: var(--primary);
+    }
+
+    input {
+        font-family: $body-serif;
+        font-weight: bold;
+        border-bottom: 1px solid #d3ccbc;
+        &::placeholder {
+            filter: opacity(0.5);
+            color: var(--body);
+        }
+        &:focus {
+            border-bottom: 1px solid #644f33;
+            &::placeholder {
+                color: transparent;
+            }
+        }
+    }
+
+    input#pfs-player-number {
+        width: 95px;
+        text-align: right;
+    }
+
+    input#pfs-character-number {
+        width: 40px;
+    }
+}

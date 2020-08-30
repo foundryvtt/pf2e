@@ -101,7 +101,7 @@ declare class Combat extends Entity {
 	 * Get a Combatant using its Token id
 	 * @param tokenId The id of the Token for which to acquire the combatant
 	 */
-	getCombatantByToken(tokenId: string): any;
+	getCombatantByToken(tokenId: string): { name: string; actor: SystemActorType; [key: string]: any };
 
 	/**
 	 * Advance the combat to the next round

@@ -1,4 +1,14 @@
 <div class="tab feats feats-pane" data-group="primary" data-tab="pfs">
+    <div class="pfs">
+        <label for="pfs-player-number">Organized Play #</label>
+        <label for="pfs-character-number">Character #</label>
+        <span>
+            <input id="pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" type="text" maxlength="10">&ndash;
+        </span>
+        <span>
+            <input id="pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" type="text" maxlength="4">
+        </span>
+    </div>
     <ol class="actions-list inventory-list directory-list">
         {{#each actor.feats as |section sid|}}
         {{#if (eq section.label 'PF2E.FeatPFSBoonHeader')}}

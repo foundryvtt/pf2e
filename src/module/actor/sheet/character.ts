@@ -499,6 +499,14 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   activateListeners(html) {
     super.activateListeners(html);
 
+    {
+      // ensure correct tab name is displayed after actor update
+      const title = $('.sheet-navigation .active').data('tabTitle');
+      if (title) {
+        html.find('.navigation-title').text(title);
+      }
+    }
+
     html.find('.sheet-navigation').on('mouseover', '.item', event => {
       const title = event.currentTarget.dataset.tabTitle;
       if (title) {
@@ -622,9 +630,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     }
     if (!type || !type.trim().length) {
         errors.push('Type is required.');
-    }
-    if (!type && type === 'untyped' && modifier < 0) {
-        errors.push('Only untyped penalties are allowed.');
     }
     if (errors.length > 0) {
         ui.notifications.error(errors.join(' '));

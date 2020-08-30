@@ -156,6 +156,35 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
+    // NPC Weapon Rolling
+    html.find('button').click((ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+      // item = this.actor.items.find(i => { return i.id === itemId });
+      const item = this.actor.getOwnedItem(itemId);
+
+      // which function gets called depends on the type of button stored in the dataset attribute action
+      switch (ev.target.dataset.action) {
+        case 'weaponAttack': item.rollWeaponAttack(ev); break;
+        case 'weaponAttack2': item.rollWeaponAttack(ev, 2); break;
+        case 'weaponAttack3': item.rollWeaponAttack(ev, 3); break;
+        case 'weaponDamage': item.rollWeaponDamage(ev); break;
+        case 'weaponDamageCritical': item.rollWeaponDamage(ev, true); break;
+        case 'npcAttack': item.rollNPCAttack(ev); break;
+        case 'npcAttack2': item.rollNPCAttack(ev, 2); break;
+        case 'npcAttack3': item.rollNPCAttack(ev, 3); break;
+        case 'npcDamage': item.rollNPCDamage(ev); break;
+        case 'npcDamageCritical': item.rollNPCDamage(ev, true); break;
+        case 'spellAttack': item.rollSpellAttack(ev); break;
+        case 'spellDamage': item.rollSpellDamage(ev); break;
+        case 'consume': item.rollConsumable(ev); break;
+        default: throw new Error('Unknown action type');
+      }
+    });
+
     if (!this.options.editable) return;
 
     html.find('.isHazardEditable').change((ev) => {

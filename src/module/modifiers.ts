@@ -377,7 +377,7 @@ export class PF2ModifierPredicate {
 
   /** Test if the given predicate passes for the given list of options. */
   static test(predicate: { all?: string[], any?: string[], not?: string[] }, options: string[]): boolean {
-    const { all, any, not } = predicate;
+    const { all, any, not } = predicate ?? {};
 
     let active = true;
     if (all && all.length > 0) {

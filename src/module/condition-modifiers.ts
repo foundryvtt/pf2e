@@ -15,6 +15,7 @@ export const CLUMSY = Object.freeze({
 export const DRAINED = Object.freeze({
   withValue: (value: number) => ({
     fortitude: new PF2Modifier('PF2E.condition.drained.name', -value, PF2ModifierType.STATUS),
+    hp: new PF2Modifier('PF2E.condition.drained.name', -value, PF2ModifierType.STATUS),
   })
 });
 export const ENFEEBLED = Object.freeze({
