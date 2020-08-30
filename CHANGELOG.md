@@ -1,5 +1,18 @@
 # Patch Notes:
 
+## Version 1.10.7
+### New Features
+* (@nikolaj-a) Initial implementation of PFS Level Bump
+* (@nikolaj-a) Add editor for public biography
+* (@nikolaj-a) Add sheet for limited character access
+
+### Bug Fixes
+* (@blacksmithgu) Fix loot actor dragging, and types for duplicate, container, and bulk calculation logic
+
+### Content Changes
+* (@TMun) Add new icons from Firgof to bestiary 1 and 2
+
+
 ## Version 1.10.6
 ### New Features
 * (@BoMbY) Modifiers for Maximum HP to support Drained

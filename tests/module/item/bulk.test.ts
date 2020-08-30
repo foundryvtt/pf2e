@@ -2,11 +2,65 @@ import {
     calculateBulk,
     Bulk,
     BulkItem,
-    itemsFromActorData,
+    toBulkItems,
     calculateCarriedArmorBulk,
     stacks,
-    weightToBulk, convertBulkToSize,
+    weightToBulk,
+    convertBulkToSize,
 } from '../../../src/module/item/bulk';
+import { PhysicalItemData } from 'src/module/item/dataDefinitions';
+
+function createItem({
+                        id = 'ignore',
+                        weight = undefined,
+                        unequippedBulk = undefined,
+                        equippedBulk = undefined,
+                        negateBulk = '',
+                        bulkCapacity = '',
+                        containerId = '',
+                        equipped = false,
+                        type = 'equipment',
+                        traits = [],
+                        quantity = 1,
+                        stackGroup = undefined
+                    }): PhysicalItemData & BaseEntityData<{ traits: { value: string[] }}> {
+    return {
+        _id: id,
+        type: type,
+        data: {
+            traits: {
+                value: traits 
+            },
+            negateBulk: {
+                value: negateBulk,
+            },
+            bulkCapacity: {
+                value: bulkCapacity,
+            },
+            containerId: {
+                value: containerId,
+            },
+            equipped: {
+                value: equipped,
+            },
+            weight: {
+                value: weight,
+            },
+            equippedBulk: {
+                value: equippedBulk,
+            },
+            unequippedBulk: {
+                value: unequippedBulk
+            },
+            quantity: {
+                value: quantity,
+            },
+            stackGroup: {
+                value: stackGroup
+            }
+        },
+    } as PhysicalItemData & BaseEntityData<{ traits: { value: string[] }}>;
+}
 
 describe('should calculate bulk', () => {
     test('empty inventory', () => {
@@ -410,100 +464,38 @@ describe('should calculate bulk', () => {
     });
 
     test('should convert an inventory', () => {
-        const actorData = {
-            items: [
-                {
-                    type: 'spell',
-                    _id: 'ignore',
-                    data: {},
-                },
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {
-                        traits: {
-                            value: ['extradimensional'],
-                        },
-                        quantity: {
-                            value: 1,
-                        },
-                        equipped: {
-                            value: false,
-                        },
-                        weight: {
-                            value: 'lala',
-                        },
-                        equippedBulk: {
-                            value: 'l',
-                        },
-                        unequippedBulk: {
-                            value: '1',
-                        },
-                        negateBulk: {
-                            value: '2',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {
-                        quantity: {
-                            value: 1,
-                        },
-                        equipped: {
-                            value: true,
-                        },
-                        weight: {
-                            value: 'L',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'weapon',
-                    data: {
-                        quantity: {
-                            value: 2,
-                        },
-                        weight: {
-                            value: '1',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'weapon',
-                    data: {
-                        stackGroup: {
-                            value: 'arrows',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'treasure',
-                    data: {
-                        denomination: {
-                            value: 'sp',
-                        },
-                        quantity: {
-                            value: 9,
-                        },
-                        value: {
-                            value: 1,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                    },
-                },
-            ],
-        };
-        const items = itemsFromActorData(actorData);
+        const rawItems = [
+            createItem({
+                type: 'armor',
+                weight: 'lala',
+                equippedBulk: 'l',
+                unequippedBulk: '1',
+                negateBulk: '2',
+                traits: ['extradimensional']
+            }),
+            createItem({
+                type: 'armor',
+                equipped: true,
+                weight: 'L'
+            }),
+            createItem({
+                type: 'weapon',
+                quantity: 2,
+                weight: '1'
+            }),
+            createItem({
+                type: 'weapon',
+                stackGroup: 'arrows',
+            }),
+            createItem({
+                type: 'treasure',
+                quantity: 9,
+                stackGroup: 'coins',
+            }),
+        ];
+        const items = toBulkItems(rawItems);
 
-        expect(items.length)
-            .toBe(5);
+        expect(items.length).toBe(5);
 
         const unequippedArmor = items[0];
         expect(unequippedArmor.quantity)
@@ -568,61 +560,27 @@ describe('should calculate bulk', () => {
     });
 
     test('handle string and integer weight values :(', () => {
-        const actorData = {
-            items: [
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {
-                        weight: {
-                            value: 'L',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {
-                        weight: {
-                            value: '1',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {
-                        weight: {
-                            value: '0',
-                        },
-                    },
-                },
-                {
-                    _id: 'ignore',
-                    type: 'armor',
-                    data: {},
-                },
-                {
-                    _id: 'ignore',
-                    type: 'treasure',
-                    data: {
-                        denomination: {
-                            value: 'sp',
-                        },
-                        quantity: {
-                            value: 9,
-                        },
-                        value: {
-                            value: 1,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                    },
-                },
-            ],
-        };
-        const items = itemsFromActorData(actorData);
+        const rawItems = [
+            createItem({
+                type: 'armor',
+                weight: 'L'
+            }),
+            createItem({
+                type: 'armor',
+                weight: '1'
+            }),
+            createItem({
+                type: 'armor',
+                weight: '0'
+            }),
+            createItem({ type: 'armor' }),
+            createItem({
+                type: 'treasure',
+                quantity: 9,
+                stackGroup: 'coins'
+            }),
+        ];
+        const items = toBulkItems(rawItems);
 
         expect(items.length)
             .toBe(5);
@@ -657,63 +615,25 @@ describe('should calculate bulk', () => {
     });
 
     test('should nest items into containers', () => {
-        const actorData = {
-            items: [
-                {
-                    _id: 'test1',
-                    type: 'armor',
-                    data: {},
-                },
-                {
-                    type: 'armor',
-                    _id: 'test2',
-                    data: {
-                        containerId: {value: 'test1'},
-                    },
-                },
-                {
-                    type: 'armor',
-                    _id: 'test3',
-                    data: {
-                        containerId: {value: 'test2'},
-                    },
-                },
-                {
-                    type: 'armor',
-                    _id: 'test4',
-                    data: {
-                        containerId: {value: 'test2'},
-                    },
-                },
-                {
-                    type: 'armor',
-                    _id: 'test5',
-                    data: {},
-                },
-            ],
-        };
-        const items = itemsFromActorData(actorData);
+        const rawItems = [
+            createItem({ id: 'test1', type: 'armor' }),
+            createItem({ id: 'test2', type: 'armor', containerId: 'test1' }),
+            createItem({ id: 'test3', type: 'armor', containerId: 'test2' }),
+            createItem({ id: 'test4', type: 'armor', containerId: 'test2' }),
+            createItem({ id: 'test5', type: 'armor' })
+        ];
+        const items = toBulkItems(rawItems);
 
-        expect(items.length)
-            .toBe(2);
+        expect(items.length).toBe(2);
     });
 
     test('should not nest items that have an containerId that does not exist', () => {
-        const actorData = {
-            items: [
-                {
-                    type: 'armor',
-                    _id: 'test1',
-                    data: {
-                        containerId: {value: 'test2'},
-                    },
-                },
-            ],
-        };
-        const items = itemsFromActorData(actorData);
+        const rawItems = [
+            createItem({ id: 'test1', type: 'armor', containerId: 'test2' })
+        ];
+        const items = toBulkItems(rawItems);
 
-        expect(items.length)
-            .toBe(1);
+        expect(items.length).toBe(1);
     });
 
     test('should calculate carried bulk for armors', () => {
