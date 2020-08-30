@@ -674,7 +674,7 @@ export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData |
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(item: ItemData): item is BackpackData | TreasureData | WeaponData | ArmorData | MeleeData | ConsumableData {
-    return ('quantity' in item.data);
+    return ('data' in item) && ('quantity' in item.data);
 }
 
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
