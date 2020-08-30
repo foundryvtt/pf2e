@@ -8,31 +8,21 @@ import {
     StackDefinitions,
     weightToBulk,
 } from './bulk';
+import {PhysicalItemData} from './dataDefinitions';
 import {groupBy} from '../utils';
-
-// FIXME: point this to the correct type afterwards
-type ItemPlaceholder = any;
 
 /**
  * Datatype that holds container information for *every* item, even non containers
  */
 class ContainerData {
-    item: ItemPlaceholder;
-
-    heldItems: ItemPlaceholder[];
-
+    item: PhysicalItemData;
+    heldItems: PhysicalItemData[];
     negateBulk: Bulk;
-
     heldItemBulk: Bulk;
-
     isInContainer: boolean;
-
     formattedHeldItemBulk: string;
-
     formattedNegateBulk: string;
-
     formattedCapacity: string;
-
     capacity: Bulk;
 
     constructor(
@@ -47,8 +37,8 @@ class ContainerData {
             formattedHeldItemBulk,
             formattedCapacity,
         }: {
-            item: ItemPlaceholder;
-            heldItems: ItemPlaceholder[];
+            item: PhysicalItemData;
+            heldItems: PhysicalItemData[];
             negateBulk: Bulk;
             heldItemBulk: Bulk;
             isInContainer: boolean;
@@ -126,8 +116,8 @@ class ContainerData {
  * @return
  */
 function toContainer(
-    item: ItemPlaceholder,
-    heldItems: ItemPlaceholder[] = [],
+    item: PhysicalItemData,
+    heldItems: PhysicalItemData[] = [],
     heldBulkItems: BulkItem[] = [],
     isInContainer: boolean,
     stackDefinitions: StackDefinitions,
@@ -149,7 +139,7 @@ function toContainer(
     });
 }
 
-function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, ItemPlaceholder>): boolean {
+function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, PhysicalItemData>): boolean {
     if (idIndexedItems.has(containerId)) {
         const currentItem = idIndexedItems.get(containerId);
         if (itemId === currentItem._id) {
@@ -168,7 +158,7 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
  * @param items
  * @returns
  */
-export function isCycle(itemId: string, containerId: string, items: ItemPlaceholder[]): boolean {
+export function isCycle(itemId: string, containerId: string, items: PhysicalItemData[]): boolean {
     const idIndexedItems = new Map();
     for (const item of items) {
         idIndexedItems.set(item._id, item);
@@ -188,7 +178,7 @@ export function isCycle(itemId: string, containerId: string, items: ItemPlacehol
  * @return 
  */
 export function getContainerMap(
-    items: ItemPlaceholder[] = [],
+    items: PhysicalItemData[] = [],
     bulkItemsById: Map<string, BulkItem> = new Map(),
     stackDefinitions: StackDefinitions,
     bulkConfig: BulkConfig = defaultBulkConfig,
@@ -204,25 +194,19 @@ export function getContainerMap(
     });
 
     const idIndexedContainerData = new Map();
-    items
-        .map(item => {
-            const itemId = item._id;
-            const isInContainer = containerGroups.has(item?.data?.containerId?.value);
-            if (containerGroups.has(itemId)) {
-                return [itemId, containerGroups.get(itemId), isInContainer];
-            }
-            return [itemId, [], isInContainer];
-        })
-        .forEach(([id, heldItems, isInContainer]) => {
-            idIndexedContainerData.set(id, toContainer(
-                allIds.get(id)[0],
-                heldItems,
-                bulkItemsById.get(id)?.holdsItems ?? [],
-                isInContainer,
-                stackDefinitions,
-                bulkConfig,
-            ));
-        });
+    for (const item of items) {
+        const isInContainer = containerGroups.has(item?.data?.containerId?.value);
+        const heldItems = containerGroups.get(item._id) || [];
+
+        idIndexedContainerData.set(item._id, toContainer(
+            allIds.get(item._id)[0],
+            heldItems,
+            bulkItemsById.get(item._id)?.holdsItems ?? [],
+            isInContainer,
+            stackDefinitions,
+            bulkConfig,
+        ));
+    }
 
     return idIndexedContainerData;
 }

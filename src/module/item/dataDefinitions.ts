@@ -18,7 +18,7 @@ export interface ItemDescriptionData {
     };
 };
 
-export interface PhysicalItemData {
+export interface PhysicalDetailsData {
     quantity: {
         value: number;
     }
@@ -38,6 +38,9 @@ export interface PhysicalItemData {
         value: number
     }
     equippedBulk: {
+        value: string
+    }
+    unequippedBulk: {
         value: string
     }
     price: {
@@ -604,19 +607,19 @@ export interface ConditionDetailsData {
     overrides: []
 }
 
-export interface BackpackData extends BaseEntityData<BackpackDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData> {
+export interface BackpackData extends BaseEntityData<BackpackDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData> {
     type: 'backpack'
 }
 
-export interface TreasureData extends BaseEntityData<TreasureDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData> {
+export interface TreasureData extends BaseEntityData<TreasureDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData> {
     type: 'treasure'
 }
 
-export interface WeaponData extends BaseEntityData<WeaponDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData & MagicItemData> {
+export interface WeaponData extends BaseEntityData<WeaponDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData & MagicItemData> {
     type: 'weapon'
 }
 
-export interface ArmorData extends BaseEntityData<ArmorDetailsData & ItemDescriptionData & PhysicalItemData & ItemLevelData & MagicItemData> {
+export interface ArmorData extends BaseEntityData<ArmorDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData & MagicItemData> {
     type: 'armor'
 }
 
@@ -624,11 +627,11 @@ export interface KitData extends BaseEntityData<ItemDescriptionData & KitDetails
     type: 'kit'
 }
 
-export interface MeleeData extends BaseEntityData<MeleeDetailsData & ItemDescriptionData & PhysicalItemData & MagicItemData> {
+export interface MeleeData extends BaseEntityData<MeleeDetailsData & ItemDescriptionData & PhysicalDetailsData & MagicItemData> {
     type: 'melee'
 }
 
-export interface ConsumableData extends BaseEntityData<ConsumableDetailsData & ItemDescriptionData & PhysicalItemData & ActivatedEffectData & ItemLevelData> {
+export interface ConsumableData extends BaseEntityData<ConsumableDetailsData & ItemDescriptionData & PhysicalDetailsData & ActivatedEffectData & ItemLevelData> {
     type: 'consumable'
 }
 
@@ -672,27 +675,17 @@ export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData |
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
     ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
 
+/** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
+export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;
+
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
-export function isPhysicalItem(item: ItemData): item is BackpackData | TreasureData | WeaponData | ArmorData | MeleeData | ConsumableData {
+export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
     return ('data' in item) && ('quantity' in item.data);
 }
 
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
-export function assertPhysicalItem(item: ItemData, error: string): asserts item is BackpackData | TreasureData | WeaponData | ArmorData | MeleeData | ConsumableData {
+export function assertPhysicalItem(item: ItemData, error: string): asserts item is PhysicalItemData {
     if (!isPhysicalItem(item)) {
         throw Error(error)
     }
-}
-
-export function getPhysicalItemData(item: ItemData): BaseEntityData<PhysicalItemData> | null {
-    if (item.type === 'backpack' ||
-        item.type === 'treasure' ||
-        item.type === 'weapon' ||
-        item.type === 'armor' ||
-        item.type === 'melee' ||
-        item.type === 'consumable') {
-        return item;
-    }
-    
-    return null;
 }
