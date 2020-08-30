@@ -1,3 +1,16 @@
 <div class="tab biography" data-group="primary" data-tab="biography">
-    {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+    <ul class="directory-list">
+        <li class="action-header">
+            <h3 class="item-name pf-heading">{{localize 'PF2E.BiographyPublicHeading'}}</h3>
+        </li>
+        <li class="biography-content" style="min-height: 200px;">
+            {{editor content=data.details.biography.public target="data.details.biography.public" button=true owner=owner editable=editable}}
+        </li>
+        <li class="action-header">
+            <h3 class="item-name pf-heading">{{localize 'PF2E.BiographyPrivateHeading'}}</h3>
+        </li>
+        <li class="biography-content" style="min-height: 200px;">
+            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        </li>
+    </ul>
 </div>
