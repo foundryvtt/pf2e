@@ -238,7 +238,7 @@ declare class Actor extends Entity<SystemActorDataType> {
 	 * @return						A Promise containing the data of the newly created owned Item instance
 	 */
 	createOwnedItem(itemData: object[], options?: object): Promise<itemData[]|itemData>;
-	createOwnedItem(itemData: object, options?: object): Promise<itemData>;
+	createOwnedItem(itemData: Partial<SystemItemDataType>, options?: object): Promise<SystemActorDataType>;
 
 	/**
 	 * Update an owned item using provided new data

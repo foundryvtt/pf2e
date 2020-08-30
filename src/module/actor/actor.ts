@@ -22,7 +22,7 @@ import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
-import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem, assertPhysicalItem } from '../item/dataDefinitions';
+import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
 import {
   CharacterData,
   NpcData,
@@ -1359,8 +1359,11 @@ export default class PF2EActor extends Actor {
     } else {
       // If no item with the same name in the target actor, create new item in the target actor
       const newItemData = duplicate(item);
-      assertPhysicalItem(newItemData.data, "this should never happen - item should be physical, but is not");
-      newItemData.data.data.quantity.value = quantity;
+      if (!isPhysicalItem(newItemData)) {
+        console.error(newItemData);
+        throw Error("this should never happen - item should be physical, but is not");
+      }
+      newItemData.data.quantity.value = quantity;
 
       const result = await targetActor.createOwnedItem(newItemData);
       itemInTargetActor = targetActor.items.get(result._id);

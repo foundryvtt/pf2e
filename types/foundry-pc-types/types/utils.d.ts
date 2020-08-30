@@ -18,10 +18,18 @@ declare function saveDataToFile(
 declare function readTextFromFile(file: File): Promise<string>;
 
 /**
+ * Duplicate, since it uses serialization, does interesting things with system types
+ * like actors and items; we should record this in our type.
+ */
+declare type DuplicateResult<T> = T extends SystemActorType ? SystemActorDataType
+	: T extends SystemItemType ? SystemItemDataType
+	: T;
+
+/**
  * A cheap data duplication trick, surprisingly relatively performant
  * @param original	Some sort of data
  */
-declare function duplicate<T>(original: T): T;
+declare function duplicate<T>(original: T): DuplicateResult<T>;
 
 /**
  * Learn the named type of a token - extending the functionality of typeof to recognize some core Object types
