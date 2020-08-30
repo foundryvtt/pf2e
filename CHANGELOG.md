@@ -1,5 +1,29 @@
 # Patch Notes:
 
+## Version 1.10.6
+### New Features
+* (@BoMbY) Modifiers for Maximum HP to support Drained
+* (@In3luki) Add drag and drop sorting for spellcasting entries
+* (@In3luki) Add drag and drop sorting to spells
+* (@nikolaj-a) Custom modifiers for PC lore skills
+* (@nikolaj-a) Add organized play numbers to character sheet
+* (@nikolaj-a) Add support for hp-per-level modifier
+
+### Bug Fixes
+* (@abrault) Restore functionality to hazard buttons
+* (@atnoslen) Fix token conditions panel highlighting for conditions applied by other conditions (#736)
+* (@nikolaj-a) Fix tab title on actor update
+* (@nikolaj-a) Fix rolls with modifiers lacking predicates
+
+### Content Changes
+* (@Shandyan) Added back in accidentally deleted DCs and other text
+
+### Core System Improvements
+* (@BoMbY) Remove check for untyped bonuses
+* (@blacksmithgu) Type several utility methods, improve foundry types, finish actor type definitions
+* (@nikolaj-a) Reformat character martial proficiencies
+
+
 ## Version 1.10.5
 ### New Features
 * (@atnoslen) Remove Condition button added to Effects tab in the character sheet
