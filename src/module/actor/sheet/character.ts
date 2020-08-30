@@ -18,7 +18,11 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   }
 
   get template() {
-    return 'systems/pf2e/templates/actors/crb-style/actor-sheet.html';
+    let style = 'crb-style';
+    if (!game.user.isGM && this.actor.limited) {
+      style = 'limited';
+    }
+    return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
   }
 
   async _updateObject(event, formData) {
