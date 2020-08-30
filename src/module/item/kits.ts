@@ -1,29 +1,19 @@
-import {KitData, KitDetailsData, KitEntryData, PhysicalItemData} from './dataDefinitions';
-
-type PhysicalItemDataEntry = {
-    data: PhysicalItemData;
-}
-
-/**
- * async callback that must return the created item ids
- */
-type createItemsCallback = (itemData: PhysicalItemDataEntry[]) => Promise<string[]>;
+import {PhysicalItemData, KitData, KitDetailsData, KitEntryData} from './dataDefinitions';
 
 /**
  * Inflate a KitData.
  * Returns an array of pairs of ItemData and an array of ItemData contained by the first element
  */
-async function getKitItemData(kitData: KitDetailsData | KitEntryData): Promise<[PhysicalItemDataEntry, PhysicalItemDataEntry[]][]> {
+async function getKitItemData(kitData: KitDetailsData | KitEntryData): Promise<[PhysicalItemData, PhysicalItemData[]][]> {
     const kitItems = await Promise.all(Object.values(kitData.items).map(async (item) => {
-        let getItem;
+        let itemData: PhysicalItemData;
         if (item.pack) {
             const pack = game.packs.get(item.pack);
-            getItem = async (id) => pack.getEntry(id);
+            itemData = await pack.getEntry(item.id);
         } else {
-            getItem = async (id) => duplicate((await game.items.get(id))?.data);
+            itemData = duplicate((await game.items.get(item.id))?.data) as PhysicalItemData;
         }
 
-        const itemData = await getItem(item.id);
         if (!itemData) {
             console.warn(`PF2E Kit: ${item.pack ?? 'World Item'} ${item.id} (${item.name}) not found`);
             return [];  // Return empty array that will be removed by flat
@@ -43,17 +33,17 @@ async function getKitItemData(kitData: KitDetailsData | KitEntryData): Promise<[
         return [[itemData, containedItemData]];
     }));
 
-    return <[PhysicalItemDataEntry, PhysicalItemDataEntry[]][]>kitItems.flat();
+    return <[PhysicalItemData, PhysicalItemData[]][]>kitItems.flat();
 }
 
 export async function addKit(
     kitData: KitData, 
-    createItems: createItemsCallback
+    createItems: (itemData: PhysicalItemData[]) => Promise<string[]>
 ): Promise<void> {
     const rootItemData = await getKitItemData(kitData.data);
     const potentialContainers = await createItems(rootItemData.map(([itemData]) => itemData));
     const containedItemData = rootItemData.map((
-        [itemData, items], i) => <[PhysicalItemDataEntry[], string]>[items, potentialContainers[i]]
+        [itemData, items], i) => <[PhysicalItemData[], string]>[items, potentialContainers[i]]
     ).flatMap(
         ([items, containerId]) => items.map(itemData => { 
             itemData.data.containerId.value = containerId;

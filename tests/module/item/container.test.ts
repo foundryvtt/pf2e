@@ -1,5 +1,6 @@
 import {getContainerMap, isCycle} from '../../../src/module/item/container';
-import {stacks, itemsFromActorData, indexBulkItemsById} from '../../../src/module/item/bulk';
+import {stacks, indexBulkItemsById, toBulkItems} from '../../../src/module/item/bulk';
+import {PhysicalItemData} from '../../../src/module/item/dataDefinitions';
 
 function createItem({
                         id,
@@ -9,7 +10,7 @@ function createItem({
                         bulkCapacity = '',
                         containerId = '',
                         equipped = false,
-                    }) {
+                    }): PhysicalItemData {
     return {
         _id: id,
         type: 'equipment',
@@ -36,12 +37,12 @@ function createItem({
                 value: 1,
             },
         },
-    };
+    } as PhysicalItemData;
 }
 
 describe('should create container data', () => {
     test('should create a container map', () => {
-        const items = [
+        const items: PhysicalItemData[] = [
             // backpack
             createItem({
                 id: '1',
@@ -75,7 +76,7 @@ describe('should create container data', () => {
                 weight: 'L',
             }),
         ];
-        const bulkItems = indexBulkItemsById(itemsFromActorData({items}));
+        const bulkItems = indexBulkItemsById(toBulkItems(items));
         const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)
@@ -214,7 +215,7 @@ describe('should create container data', () => {
                 containerId: '7',
             }),
         ];
-        const bulkItems = indexBulkItemsById(itemsFromActorData({items}));
+        const bulkItems = indexBulkItemsById(toBulkItems(items));
         const containerData = getContainerMap(items, bulkItems, stacks);
 
         expect(containerData.size)

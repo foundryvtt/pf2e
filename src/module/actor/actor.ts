@@ -1381,7 +1381,7 @@ export default class PF2EActor extends Actor {
   static async stashOrUnstash(actor: PF2EActor, getItem: () => Promise<PF2EItem>, containerId: string): Promise<PF2EItem> {
       const item = await getItem();
       if (containerId) {
-          if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items)) {
+          if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
               return item.update({
                   'data.containerId.value': containerId,
                   'data.equipped.value': false,

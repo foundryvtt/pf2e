@@ -1,8 +1,5 @@
 import {add, combineObjects, groupBy, isBlank, Optional} from '../utils';
-
-// FIXME: point this to the correct type afterwards
-type ItemPlaceholder = any;
-type ActorPlaceholder = any;
+import { ItemData, isPhysicalItem, PhysicalItemData } from './dataDefinitions';
 
 interface StackDefinition {
     size: number;
@@ -519,7 +516,7 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
  * @param nestedItems
  * @return
  */
-export function toBulkItem(item: ItemPlaceholder, nestedItems: BulkItem[] = []): BulkItem {
+export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = []): BulkItem {
     const id = item._id;
     const weight = item.data?.weight?.value;
     const quantity = item.data?.quantity?.value ?? 0;
@@ -552,7 +549,7 @@ export function toBulkItem(item: ItemPlaceholder, nestedItems: BulkItem[] = []):
  * @param groupedItems items grouped by data.containerId.value
  * @return
  */
-function buildContainerTree(items: ItemPlaceholder[], groupedItems: Map<string, ItemPlaceholder[]>): BulkItem[] {
+function buildContainerTree(items: PhysicalItemData[], groupedItems: Map<string, PhysicalItemData[]>): BulkItem[] {
     return items
         .map((item) => {
             const itemId = item._id;
@@ -574,9 +571,9 @@ function buildContainerTree(items: ItemPlaceholder[], groupedItems: Map<string, 
  * @param items
  * @return
  */
-export function toBulkItems(items: ItemPlaceholder[]): BulkItem[] {
+export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
     const allIds = new Set(items.map(item => item._id));
-    const itemsInContainers = groupBy(items, (item: any) => {
+    const itemsInContainers = groupBy(items, item => {
         // we want all items in the top level group that are in no container
         // or are never referenced because we don't want the items to
         // disappear if the container is being deleted or doesn't have a reference
@@ -593,22 +590,12 @@ export function toBulkItems(items: ItemPlaceholder[]): BulkItem[] {
     return [];
 }
 
-const itemTypesWithBulk = new Set<string>();
-itemTypesWithBulk.add('weapon');
-itemTypesWithBulk.add('armor');
-itemTypesWithBulk.add('equipment');
-itemTypesWithBulk.add('consumable');
-itemTypesWithBulk.add('backpack');
-itemTypesWithBulk.add('treasure');
-
 /**
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
  */
-export function itemsFromActorData(actorData: ActorPlaceholder): BulkItem[] {
-    const itemsHavingBulk = actorData.items
-        .filter(item => itemTypesWithBulk.has(item.type));
-    return toBulkItems(itemsHavingBulk);
+export function itemsFromActorData(actorData: { items: ItemData[] }): BulkItem[] {
+    return toBulkItems(actorData.items.filter(isPhysicalItem));
 }
 
 /**
