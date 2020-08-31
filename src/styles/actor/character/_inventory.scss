@@ -165,13 +165,20 @@
 
     .item-quantity,
     .item-weight,
-    .item-controls {
+    .item-controls,
+    .item-sell-value {
         @include flex-center;
         border-left: 1px solid var(--alt);
     }
 
     .item-invested-total {
         flex: none;
+    }
+
+    .item-sell-value {
+        flex: 0 0 64px;
+        justify-content: flex-end;
+        padding-right: 3px;
     }
 
     .item-quantity {
@@ -188,7 +195,7 @@
     }
 
     .item-weight {
-        flex: 0 0 60px;
+        flex: 0 0 36px;
     }
 
     .item-controls {
@@ -410,6 +417,7 @@
             }
         }
 
+        .item-sell-value,
         .item-quantity,
         .item-weight {
             @include flex-center;
