@@ -763,8 +763,6 @@ CONFIG.featTraits = {
   exploration: 'PF2E.TraitExploration',
   fear: 'PF2E.TraitFear',
   flourish: 'PF2E.TraitFlourish',
-  'half-Elf': 'PF2E.TraitHalfElf',
-  'half-Orc': 'PF2E.TraitHalfOrc',
   instinct: 'PF2E.TraitInstinct',
   magical: 'PF2E.TraitMagical',
   metamagic: 'PF2E.TraitMetamagic',
@@ -778,7 +776,8 @@ CONFIG.featTraits = {
   interact: 'PF2E.TraitInteract',
   aura: 'PF2E.TraitAura',
   olfactory: 'PF2E.TraitOlfactory',
-  finisher: 'PF2E.TraitFinisher'
+  finisher: 'PF2E.TraitFinisher',
+  lineage: 'PF2E.TraitLineage'
 };
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
