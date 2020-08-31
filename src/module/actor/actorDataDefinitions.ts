@@ -134,6 +134,12 @@ export interface RawHitPointsData {
     details: string;
 }
 
+/** A DC value */
+export interface RawDifficultyClassValue {
+    /** The DC value */
+    value: number;
+}
+
 /** Pathfinder Society Organized Play data fields */
 export interface RawPathfinderSocietyData {
     /** Number assigned to the player. */
@@ -144,6 +150,8 @@ export interface RawPathfinderSocietyData {
     levelBump: boolean;
 }
 
+/** An modifiable atttribute with only a value */
+export type DifficultyClassData = PF2StatisticModifier & RawDifficultyClassValue;
 /** Data related to character hitpoints. */
 export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
 /** The full data for charatcer initiative. */
@@ -281,7 +289,8 @@ export interface RawCharacterData {
         bonusLimitBulk: number;
         /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
         bonusEncumbranceBulk: number;
-
+        /** The recovery DC value */
+        recovery: DifficultyClassData;
         /** The current dying level (and maximum) for this character. */
         dying: { value: number; max: number; }
         /** The current wounded level (and maximum) for this character. */

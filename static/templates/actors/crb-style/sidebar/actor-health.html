@@ -46,7 +46,7 @@
       </a>
     </div>
     <div class="dots dying" style="{{data.attributes.dying.containerWidth}}">
-      <label title="{{localize "PF2E.Recovery.roll"}}">{{localize "PF2E.Dying.label"}}</label>
+      <label title="{{localize "PF2E.Recovery.roll"}}" class="hover" data-tooltip-content="#{{uid}}-recovery-modifiers"><i class="fas fa-eye"></i> {{localize "PF2E.Dying.label"}}</label>
       <span title="{{localize "PF2E.Dying.title"}}">
         <input type="hidden" name="data.attributes.dying.value" value="{{data.attributes.dying.value}}" data-dtype="Number"/>
         <span class="proficiency-rank dying-click pf-value">{{{data.attributes.dying.icon}}}</span>
@@ -70,4 +70,7 @@
 </div>
 {{#with data.attributes.hp}}
 {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.HitPointsHeader' }}
+{{/with}}
+{{#with data.attributes.recovery}}
+{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.Recovery.DC' }}
 {{/with}}

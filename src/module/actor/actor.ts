@@ -1,4 +1,4 @@
-/* global ChatMessage, Roll, getProperty, ui, CONST */
+/* global ChatMessage, Roll, ui, CONST */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -39,7 +39,8 @@ import {
   NPCSaveData,
   NPCPerceptionData,
   NPCSkillData,
-  HitPointsData
+  HitPointsData,
+  DifficultyClassData
 } from './actorDataDefinitions';
 
 export const SKILL_DICTIONARY = Object.freeze({
@@ -457,6 +458,52 @@ export default class PF2EActor extends Actor {
     });
 
     (data as any).skills = skills;
+
+    // Recovery
+    {
+      const modifiers = [
+        new PF2Modifier('PF2E.SaveDCLabel', 10, PF2ModifierType.UNTYPED)
+      ];
+      
+      // FIXME: Remove hardcoded feat references
+      if (feats.has('Toughness'))  {
+        modifiers.push(new PF2Modifier('Toughness', -1, PF2ModifierType.UNTYPED))
+      }
+
+      // FIXME: Remove hardcoded feat references
+      if (feats.has('Mountain\'s Stoutness'))  {
+        let stoudnessValue = -1;
+
+        if (feats.has('Toughness')) {
+          stoudnessValue = -3;
+        }
+
+        modifiers.push(new PF2Modifier('Mountain\'s Stoutness', stoudnessValue, PF2ModifierType.UNTYPED))
+      }
+
+      (statisticsModifiers.recovery || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+
+      // Link dying value on character sheet to condition
+      data.attributes.dying.value = 0;
+
+      (statisticsModifiers.dying || []).map((m) => duplicate(m)).forEach((m) => {
+        m.modifier *= -1;
+        data.attributes.dying.value = m.modifier;
+        modifiers.push(m);
+      });
+
+      const stat = mergeObject<DifficultyClassData>(new PF2StatisticModifier('recovery', modifiers) as DifficultyClassData, data.attributes.recovery, { overwrite: false });
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      stat.value = stat.totalModifier;
+      stat.roll = (event, options = [], callback?) => {
+        const label = game.i18n.localize('PF2E.RecoveryCheck');
+        PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'recovery-check', options }, event, callback);
+      };
+
+      data.attributes.recovery = stat;
+    }
 
     // Automatic Actions
     data.actions = [];
@@ -919,18 +966,15 @@ export default class PF2EActor extends Actor {
     }
 
     const dying = this.data.data.attributes.dying.value;
-    // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-    const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
-    const recoveryDc = 10 + recoveryMod;
+    const dc = this.data.data.attributes.recovery.value;
     const flatCheck = new Roll("1d20").roll();
-    const dc = recoveryDc + dying;
     let result = '';
 
     if (flatCheck.total === 20 || flatCheck.total >= (dc+10)) {
       result = `${game.i18n.localize("PF2E.CritSuccess")} ${game.i18n.localize("PF2E.Recovery.critSuccess")}`;
     } else if (flatCheck.total === 1 || flatCheck.total <= (dc-10)) {
       result = `${game.i18n.localize("PF2E.CritFailure")} ${game.i18n.localize("PF2E.Recovery.critFailure")}`;
-    } else if (flatCheck.result >= dc) {
+    } else if (flatCheck.total >= dc) {
       result = `${game.i18n.localize("PF2E.Success")} ${game.i18n.localize("PF2E.Recovery.success")}`;
     } else {
       result = `${game.i18n.localize("PF2E.Failure")} ${game.i18n.localize("PF2E.Recovery.failure")}`;
