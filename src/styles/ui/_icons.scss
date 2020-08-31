@@ -1,0 +1,32 @@
+$icons: (
+    anger: \1f4a2,
+    bang: \1f4a5,
+    collision: \1f4a5,
+    crystal-ball: \1f52e,
+    dizzy: \1f4ab,
+    diamond-with-dot: \1f4a0,
+    gemstone: \1f48e,
+    gem-stone: \1f48e,
+    glowing-star: \1f31f,
+    prayer-beads: \1f4ff,
+    ring: \1f48d,
+    sparkle: \2747,
+    sparkler: \1f387,
+    sparkles: \2728,
+);
+
+
+// Generate icon classes. Code below should not need to be edited
+@mixin icon($name, $icon) {
+    &.#{$name}::before {
+        content: "#{$icon}\fe0e";
+    }
+}
+
+.icon {
+    font-style: normal;
+
+    @each $name, $icon in $icons {
+        @include icon($name, $icon);
+    }
+}
