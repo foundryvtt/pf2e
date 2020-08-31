@@ -1,3 +1,4 @@
+/* global ui */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
@@ -215,6 +216,8 @@ export class ItemSheetPF2e extends ItemSheet {
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
     }
 
+    data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
+
     return data;
   }
 
@@ -326,6 +329,21 @@ export class ItemSheetPF2e extends ItemSheet {
     html.find('.delete-damage').click(ev => {
       this._deleteDamageRoll(ev);
     });
+
+    html.find('.add-rule-element').on('click', event => {
+      const rules = (this.item.data.data as any).rules ?? [];
+      this.item.update({
+        'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }])
+      });
+    });
+    html.find('.rules').on('click', '.remove-rule-element', event => {
+      const rules = duplicate((this.item.data.data as any).rules ?? []);
+      const index = event.currentTarget.dataset.ruleIndex;
+      if (rules && rules.length > index) {
+        rules.splice(index, 1);
+        this.item.update({'data.rules': rules});
+      }
+    });
   }
   /**
    * Always submit on a form field change. Added because tabbing between fields
@@ -341,4 +359,20 @@ export class ItemSheetPF2e extends ItemSheet {
     return this._onSubmit(event);
   }
 
+  _updateObject(event, formData) {
+    // ensure all rules objects are parsed and saved as objects
+    const rules = [];  
+    Object.entries(formData)
+        .filter(([key, _]) => key.startsWith('data.rules.'))
+        .forEach(([_, value]) => {
+          try {
+            rules.push(JSON.parse(value as string));
+          } catch (error) {
+            ui.notifications.warn('Syntax error in rule element definition.');
+            throw error;
+          }
+        });
+    formData['data.rules'] = rules;
+    return super._updateObject(event, formData);
+  }
 }

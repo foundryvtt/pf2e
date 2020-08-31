@@ -90,4 +90,8 @@ export default function registerHandlebarsHelpers() {
   Handlebars.registerHelper('enrichHTML', (html) => {
     return TextEditor.enrichHTML(html);
   });
+
+  Handlebars.registerHelper('json', (html) => {
+    return JSON.stringify(html);
+  });
 }
