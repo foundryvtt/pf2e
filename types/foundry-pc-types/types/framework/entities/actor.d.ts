@@ -198,7 +198,7 @@ declare class Actor extends Entity<SystemActorDataType> {
 	/** @override */
 	deleteEmbeddedEntity(
 		embeddedName: string,
-		childId: string,
+		childId: string | string[],
 		options?: object
 	): Promise<SystemActorType>;
 
