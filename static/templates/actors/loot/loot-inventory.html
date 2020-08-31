@@ -14,6 +14,9 @@
 {{#each actor.inventory as |section sid|}}
     <li class="item inventory-header">
         <h3 class="item-name">{{section.label}}</h3>
+        {{#if (eq sid "treasure")}}
+        <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+        {{/if}}
         <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
         <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
         <div class="item-controls" style="display: flex">
