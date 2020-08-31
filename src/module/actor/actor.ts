@@ -156,7 +156,7 @@ export default class PF2EActor extends Actor {
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
 
     // PFS Level Bump - check and DC modifiers
-    if (data.pfs.levelBump) {
+    if (data.pfs?.levelBump) {
       statisticsModifiers.all = (statisticsModifiers.all || []).concat(
         new PF2Modifier('PF2E.PFS.LevelBump', 1, PF2ModifierType.UNTYPED)
       );
@@ -198,7 +198,7 @@ export default class PF2EActor extends Actor {
       const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
 
       // PFS Level Bump - hit points
-      if (data.pfs.levelBump) {
+      if (data.pfs?.levelBump) {
         const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
         stat.push(new PF2Modifier('PF2E.PFS.LevelBump', hitPointsBump, PF2ModifierType.UNTYPED))
       }
