@@ -481,12 +481,10 @@ export default class PF2EActor extends Actor {
         modifiers.push(new PF2Modifier('Mountain\'s Stoutness', stoudnessValue, PF2ModifierType.UNTYPED))
       }
 
-      ['recovery', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
-           // Since this is a DC modifier, not a check modifier, everything needs to be in reverse          
-           m.modifier *= -1;
-           modifiers.push(m);
-        });
+      (statisticsModifiers.recovery || []).map((m) => duplicate(m)).forEach((m) => {
+          // Since this is a DC modifier, not a check modifier, everything needs to be in reverse          
+          m.modifier *= -1;
+          modifiers.push(m);
       });
 
       // Link dying value on character sheet to condition
