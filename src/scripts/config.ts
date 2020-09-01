@@ -426,9 +426,9 @@ CONFIG.ancestryTraits = {
   elf: 'PF2E.TraitElf',
   gnome: 'PF2E.TraitGnome',
   goblin: 'PF2E.TraitGoblin',
-  halfelf: 'PF2E.TraitHalfElf',
+  'half-elf': 'PF2E.TraitHalfElf',
   halfling: 'PF2E.TraitHalfling',
-  halforc: 'PF2E.TraitHalfOrc',
+  'half-orc': 'PF2E.TraitHalfOrc',
   human: 'PF2E.TraitHuman',
   hobgoblin: 'PF2E.TraitHobgoblin',
   leshy: 'PF2E.TraitLeshy',
@@ -777,7 +777,8 @@ CONFIG.featTraits = {
   aura: 'PF2E.TraitAura',
   olfactory: 'PF2E.TraitOlfactory',
   finisher: 'PF2E.TraitFinisher',
-  lineage: 'PF2E.TraitLineage'
+  lineage: 'PF2E.TraitLineage',
+  vigilante: 'PF2E.TraitVigilante'
 };
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
