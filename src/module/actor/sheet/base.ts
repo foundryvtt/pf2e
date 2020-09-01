@@ -9,6 +9,7 @@ import { TraitSelector5e } from '../../system/trait-selector';
 import PF2EItem from '../../item/item';
 import { ConditionData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
+import { PF2eStatusEffects } from '../../../scripts/actor/statusEffects';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -553,7 +554,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.click-stat-level').on('click contextmenu', this._onClickStatLevel.bind(this));
 
     // Toggle Dying Wounded
-    html.find('.dying-click').on('click contextmenu', this._onClickDying.bind(this));
+    html.find('.dying-click').on('click contextmenu', PF2eStatusEffects._setStatusValue.bind(this.token));
 
     // Remove Spell Slot
     html.find('.item-unprepare').click((ev) => {
@@ -895,35 +896,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  /**
-   * Handle cycling of dying
-   * @private
-   */
-  _onClickDying(event) {
-    event.preventDefault();
-    const field = $(event.currentTarget).siblings('input[type="hidden"]');
-    const maxDying = this.object.data.data.attributes.dying.max;
-    // const wounded = this.object.data.data.attributes.wounded.value;
-    const wounded = 0; // Don't automate wounded when clicking on dying until dying is also automated on damage from chat and Recovery rolls
-    const doomed = this.object.data.data.attributes.doomed.value;
-
-    // Get the current level and the array of levels
-    const level = parseFloat(`${field.val()}`);
-    let newLevel;
-
-    // Toggle next level - forward on click, backwards on right
-    if (event.type === 'click') {
-      newLevel = Math.clamped( (level + 1 + wounded) , 0, maxDying );
-      if (newLevel+doomed >= maxDying) newLevel = maxDying;
-    } else if (event.type === 'contextmenu') {
-      newLevel = Math.clamped( (level - 1) , 0, maxDying );
-      if (newLevel+doomed >= maxDying) newLevel -= doomed;
-    }
-
-    // Update the field value and save the form
-    field.val(newLevel);
-    this._onSubmit(event);
-  }
 
   /**
    * Handle clicking of stat levels. The max level is by default 4.
