@@ -32,7 +32,8 @@ export class PF2FlatModifierRuleElement implements PF2RuleElement {
         if (this.ruleData.selector && this.ruleData.label && this.ruleData.value && this.ruleData.type) {
             const modifier = new PF2Modifier(this.ruleData.label, this.ruleData.value, this.ruleData.type);
             if (this.ruleData.predicate) {
-                modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);                
+                modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, []);
             }
             statisticsModifiers[this.ruleData.selector] = (statisticsModifiers[this.ruleData.selector] || []).concat(modifier);
         } else {
