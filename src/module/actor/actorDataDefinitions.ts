@@ -150,13 +150,13 @@ export interface RawPathfinderSocietyData {
     levelBump: boolean;
     /** Character's current fame */
     fame: number;
-    /** Character's currently slotted faction*/
+    /** Character's currently slotted faction */
     currentFaction: PFSFactionString;
 
-    /** Character's Pathfinder school*/
+    /** Character's Pathfinder school */
     school: PFSSchoolString;
 
-    /** Character's Reputation with all the factions*/
+    /** Character's Reputation with all the factions */
     reputation: PathfinderSocietyReputation;
 }
 
