@@ -393,7 +393,13 @@ export default class PF2EItem extends Item {
     return data;
   }
 
-  /* -------------------------------------------- */
+  _conditionChatData() {
+    const data: any = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
+
+    /* -------------------------------------------- */
   /*  Roll Attacks
   /* -------------------------------------------- */
 
