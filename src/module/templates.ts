@@ -47,6 +47,7 @@ export default function () {
         'systems/pf2e/templates/items/consumable-sidebar.html',
         'systems/pf2e/templates/items/condition-details.html',
         'systems/pf2e/templates/items/condition-sidebar.html',
+        'systems/pf2e/templates/items/effect-sidebar.html',
         'systems/pf2e/templates/items/equipment-details.html',
         'systems/pf2e/templates/items/equipment-sidebar.html',
         'systems/pf2e/templates/items/feat-details.html',
