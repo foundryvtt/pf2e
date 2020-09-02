@@ -1459,6 +1459,22 @@ CONFIG.conditionTypes = {
   wounded: 'PF2E.ConditionTypeWounded'
 }; // Immunity Types
 
+CONFIG.pfsFactions = {
+  EA: 'PF2E.PFS.Factions.EA',
+  GA: 'PF2E.PFS.Factions.GA',
+  HH: 'PF2E.PFS.Factions.HH',
+  VS: 'PF2E.PFS.Factions.VS',
+  RO: 'PF2E.PFS.Factions.RO',
+  VW: 'PF2E.PFS.Factions.VW'
+};
+
+CONFIG.pfsSchools = {
+  none: "PF2E.PFS.School.None",
+  scrolls: "PF2E.PFS.School.Scrolls",
+  spells: "PF2E.PFS.School.Spells",
+  swords: "PF2E.PFS.School.Swords"
+}
+
 CONFIG.immunityTypes = {
   'death effects': 'PF2E.ImmunityTypeDeathEffects',
   'fear effects': 'PF2E.ImmunityTypeFearEffects',
