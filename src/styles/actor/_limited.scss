@@ -30,14 +30,17 @@
                 border: 1px solid darken($green-color, 20);
                 border-radius: 0 3px 3px 0;
                 background: var(--green);
-                background: linear-gradient(var(--green) 0%, darken($green-color, 10) 50%, var(--green) 100%);
+                background: linear-gradient(
+                    var(--green) 0%,
+                    darken($green-color, 10) 50%,
+                    var(--green) 100%
+                );
 
-                &[style="width:100%;"] {
+                &[style='width:100%;'] {
                     border-radius: 0;
                 }
             }
         }
-
     }
 
     h4.plaque {
@@ -59,12 +62,24 @@
     }
 }
 
-footer {
-    margin-top: auto;
-    text-align: left;
-    @include p-reset;
-    
-    p {
-        color: var(--alt);
+.tab {
+    &.character {
+        .character-bio {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            footer {
+                margin-top: auto;
+                text-align: left;
+                @include p-reset;
+                margin-top: auto;
+                margin-bottom: 8px;
+
+                p {
+                    color: var(--alt);
+                }
+            }
+        }
     }
 }
