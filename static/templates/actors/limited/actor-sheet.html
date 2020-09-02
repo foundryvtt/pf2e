@@ -1,7 +1,21 @@
 <form class="{{cssClass}} crb-style limited" autocomplete="off">
     <aside>
         <img class="logo" src="systems/pf2e/assets/pathfinder_logo.png" alt="Pathfinder Second Edition"/>
-        <img height="115" width="115" src="{{actor.img}}" style="margin: 20px 66px;"/>
+        
+        <div class="sidebar">
+            <div class="profile-img" style="background-image: url('{{actor.img}}');">
+                <div class="health-bar">
+                    <div class="bar" style="width: {{percentage data.attributes.hp.value data.attributes.hp.max}}%;"></div>
+                </div>
+            </div>
+            <h4 class="plaque">Appearance</h4>
+            <ul class="stats">
+                {{#if data.details.ancestry.value}}<li>{{data.details.ancestry.value}}</li>{{/if}}
+                {{#if data.details.gender.value}}<li>{{data.details.gender.value}}</li>{{/if}}
+                {{#if data.details.height.value}}<li>{{data.details.height.value}}</li>{{/if}}
+                {{#if data.details.weight.value}}<li>{{data.details.weight.value}}</li>{{/if}}
+            </ul>
+        </div>
     </aside>
 
     <header class="char-header">
@@ -24,20 +38,22 @@
         <section class="sheet-content">
             <!-- Character -->
             <div class="tab character" data-group="primary" data-tab="character">
-                <div>{{{enrichHTML data.details.biography.public}}}</div>
-                <footer>
-                    <p>
-                      This system for FoundryVTT uses trademarks and/or copyrights owned
-                      by Paizo Inc., which are used under Paizo's Community Use Policy. We
-                      are expressly prohibited from charging you to use or access this
-                      content. This system for FoundryVTT is not published, endorsed, or
-                      specifically approved by Paizo Inc. For more information about
-                      Paizo's Community Use Policy, please visit
-                      <a href="https://paizo.com/community/communityuse">paizo.com/communityuse</a>.
-                      For more information about Paizo Inc. and Paizo products, please visit
-                      <a href="https://paizo.com/">paizo.com</a>.
-                    </p>
-                </footer>
+                <div class="character-bio">
+                    <div class="bio">{{{enrichHTML data.details.biography.public}}}</div>
+                    <footer>
+                        <p>
+                        This system for FoundryVTT uses trademarks and/or copyrights owned
+                        by Paizo Inc., which are used under Paizo's Community Use Policy. We
+                        are expressly prohibited from charging you to use or access this
+                        content. This system for FoundryVTT is not published, endorsed, or
+                        specifically approved by Paizo Inc. For more information about
+                        Paizo's Community Use Policy, please visit
+                        <a href="https://paizo.com/community/communityuse">paizo.com/communityuse</a>.
+                        For more information about Paizo Inc. and Paizo products, please visit
+                        <a href="https://paizo.com/">paizo.com</a>.
+                        </p>
+                    </footer>
+                </div>
             </div>
       
             <!-- Effects -->
