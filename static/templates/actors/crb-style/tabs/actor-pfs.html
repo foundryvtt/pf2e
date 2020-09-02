@@ -1,6 +1,6 @@
 <div class="tab feats feats-pane" data-group="primary" data-tab="pfs">
     <div class="pfs">
-        <div class="organized-play">
+        <div class="organized-play spacing">
             <label for="pfs-player-number">{{localize 'PF2E.PFS.OrganizedPlayNumber'}}</label>
             <label for="pfs-character-number">{{localize 'PF2E.PFS.CharacterNumber'}}</label>
             <span>
@@ -18,6 +18,44 @@
             </div>
         </div>
     </div>
+    <div class="pfs">
+        <div class="spacing">
+            <label for="pfs-current-faction">{{localize 'PF2E.PFS.CurrentFaction'}}</label>
+            <span
+                class="pf-value pf-small"
+                title="{{localize 'PF2E.PFS.CurrentFaction'}}"
+            >
+                <select
+                name="data.pfs.currentFaction"
+                data-dtype="text"
+                >
+                    {{#select data.pfs.currentFaction}} 
+                        {{#each pfsFactions as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                        {{/each}} 
+                    {{/select}}
+                </select>
+            </span>
+        </div>
+        <div>
+            <label for="pfs-fame">{{localize 'PF2E.PFS.Fame'}}</label>
+            <span>
+                <input id="pfs-fame" name="data.pfs.fame" value="{{data.pfs.fame}}" type="number">
+            </span>
+        </div>
+    </div>
+
+    <div class="pfs">
+        <div class="spacing">
+            <label for="pfs-reputation">{{localize 'PF2E.PFS.Reputation'}}</label>
+            {{#each data.pfs.reputation as |rep faction|}}
+            <div><span>{{localize (add 'PF2E.PFS.Factions.' faction)}}: 
+                <input class="small-input" id="pfs-rep-{{faction}}" name="data.pfs.reputation.{{faction}}" value="{{rep}}" type="number">
+            </span></div>
+            {{/each}}
+        </div>
+    </div>
+
     <ol class="actions-list inventory-list directory-list">
         {{#each actor.feats as |section sid|}}
         {{#if (eq section.label 'PF2E.FeatPFSBoonHeader')}}
