@@ -47,6 +47,7 @@ export class PF2MageArmorRuleElement implements PF2RuleElement {
                     new PF2Modifier(label, save, PF2ModifierType.ITEM)
                 );
             }
+            actorData.data.attributes.dexCap = (actorData.data.attributes.dexCap ?? []).concat({value: 5, source: label});
         } else {
             console.warn('PF2E | Mage armor requires at least a label field or item name');
         }
