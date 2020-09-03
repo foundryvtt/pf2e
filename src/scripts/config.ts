@@ -335,6 +335,7 @@ CONFIG.usageTraits = {
   worn: 'PF2E.TraitWorn',
   wornamulet: 'PF2E.TraitWornAmulet',
   wornanklets: 'PF2E.TraitWornAnklets',
+  wornbackpack: 'PF2E.TraitWornBackpack',
   wornbarding: 'PF2E.TraitWornBarding',
   wornbelt: 'PF2E.TraitWornBelt',
   wornbracers: 'PF2E.TraitWornBracers',
@@ -426,9 +427,9 @@ CONFIG.ancestryTraits = {
   elf: 'PF2E.TraitElf',
   gnome: 'PF2E.TraitGnome',
   goblin: 'PF2E.TraitGoblin',
-  halfelf: 'PF2E.TraitHalfElf',
+  'half-elf': 'PF2E.TraitHalfElf',
   halfling: 'PF2E.TraitHalfling',
-  halforc: 'PF2E.TraitHalfOrc',
+  'half-orc': 'PF2E.TraitHalfOrc',
   human: 'PF2E.TraitHuman',
   hobgoblin: 'PF2E.TraitHobgoblin',
   leshy: 'PF2E.TraitLeshy',
@@ -628,6 +629,7 @@ CONFIG.equipmentTraits = {
   poison: "PF2E.TraitPoison",
   positive: "PF2E.TraitPositive",
   precious: "PF2E.TraitPrecious",
+  revelation: "PF2E.TraitRevelation",
   saggorak: "PF2E.TraitSaggorak",
   scrying: "PF2E.TraitScrying",
   sonic: "PF2E.TraitSonic",
@@ -763,8 +765,6 @@ CONFIG.featTraits = {
   exploration: 'PF2E.TraitExploration',
   fear: 'PF2E.TraitFear',
   flourish: 'PF2E.TraitFlourish',
-  'half-Elf': 'PF2E.TraitHalfElf',
-  'half-Orc': 'PF2E.TraitHalfOrc',
   instinct: 'PF2E.TraitInstinct',
   magical: 'PF2E.TraitMagical',
   metamagic: 'PF2E.TraitMetamagic',
@@ -778,7 +778,9 @@ CONFIG.featTraits = {
   interact: 'PF2E.TraitInteract',
   aura: 'PF2E.TraitAura',
   olfactory: 'PF2E.TraitOlfactory',
-  finisher: 'PF2E.TraitFinisher'
+  finisher: 'PF2E.TraitFinisher',
+  lineage: 'PF2E.TraitLineage',
+  vigilante: 'PF2E.TraitVigilante'
 };
 mergeObject(CONFIG.featTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.featTraits, CONFIG.classTraits);
@@ -1456,6 +1458,22 @@ CONFIG.conditionTypes = {
   unnoticed: 'PF2E.ConditionTypeUnnoticed',
   wounded: 'PF2E.ConditionTypeWounded'
 }; // Immunity Types
+
+CONFIG.pfsFactions = {
+  EA: 'PF2E.PFS.Factions.EA',
+  GA: 'PF2E.PFS.Factions.GA',
+  HH: 'PF2E.PFS.Factions.HH',
+  VS: 'PF2E.PFS.Factions.VS',
+  RO: 'PF2E.PFS.Factions.RO',
+  VW: 'PF2E.PFS.Factions.VW'
+};
+
+CONFIG.pfsSchools = {
+  none: "PF2E.PFS.School.None",
+  scrolls: "PF2E.PFS.School.Scrolls",
+  spells: "PF2E.PFS.School.Spells",
+  swords: "PF2E.PFS.School.Swords"
+}
 
 CONFIG.immunityTypes = {
   'death effects': 'PF2E.ImmunityTypeDeathEffects',

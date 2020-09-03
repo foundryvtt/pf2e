@@ -34,6 +34,7 @@ export default function () {
         'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
         // Item Sheet Partials
+        'systems/pf2e/templates/items/rules-panel.html',
         'systems/pf2e/templates/items/action-details.html',
         'systems/pf2e/templates/items/action-sidebar.html',
         'systems/pf2e/templates/items/armor-details.html',
@@ -46,6 +47,7 @@ export default function () {
         'systems/pf2e/templates/items/consumable-sidebar.html',
         'systems/pf2e/templates/items/condition-details.html',
         'systems/pf2e/templates/items/condition-sidebar.html',
+        'systems/pf2e/templates/items/effect-sidebar.html',
         'systems/pf2e/templates/items/equipment-details.html',
         'systems/pf2e/templates/items/equipment-sidebar.html',
         'systems/pf2e/templates/items/feat-details.html',

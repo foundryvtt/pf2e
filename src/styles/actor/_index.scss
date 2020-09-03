@@ -1,18 +1,11 @@
-$header-height: 89px;
-
-.crb-style.actor .window-content {
-    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
-    background-repeat: repeat-x, no-repeat;
-    background-size: auto $header-height, cover;
-    background-attachment: local;
-}
-
-.crb-style section.window-content {
+.default section.window-content {
     padding: 0;
     overflow: hidden;
 }
 
-.crb-style form {
+$header-height: 89px;   /* Adjust height of the header */
+
+.crb-style {
     display: grid;
     grid:
         'sidebar header' 75px
@@ -21,6 +14,11 @@ $header-height: 89px;
         / 247px 1fr;
 
     font-family: $body-serif;
+
+    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
+    background-repeat: repeat-x, no-repeat;
+    background-size: auto $header-height, cover;
+    background-attachment: local;
 
     /* prettier-ignore */
     @import 'sidebar',
@@ -96,5 +94,10 @@ $header-height: 89px;
             font-weight: 700;
             color: var(--primary);
         }
+    }
+
+    /* Read-Only Sheet */
+    &.limited {
+        @import 'limited';
     }
 }

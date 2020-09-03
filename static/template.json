@@ -476,7 +476,18 @@
       "pfs": {
         "playerNumber": "",
         "characterNumber": "",
-        "levelBump": false
+        "levelBump": false,
+        "fame": 0,
+        "currentFaction": "EA",
+        "school": "none",
+        "reputation": {
+          "EA": 0,
+          "GA": 0,
+          "HH": 0,
+          "VS": 0,
+          "RO": 0,
+          "VW": 0
+        }
       }
     },
     "npc": {
@@ -596,7 +607,8 @@
       "action",
       "backpack",
       "kit",
-      "condition"
+      "condition",
+      "effect"
     ],
     "templates": {
       "itemDescription": {
@@ -616,7 +628,8 @@
         },
         "usage": {
           "value": "held-in-one-hand"
-        }
+        },
+        "rules": []
       },
       "physicalItem": {
         "quantity": {
@@ -1228,6 +1241,14 @@
         "unlinked": []
       },
       "overrides": []
+    },
+    "effect": {
+      "templates": [
+        "itemDescription"
+      ],
+      "level": {
+        "value": 1
+      }
     }
   }
 }

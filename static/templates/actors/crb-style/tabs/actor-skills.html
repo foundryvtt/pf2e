@@ -53,13 +53,13 @@
                     <input name="item-name-skill-{{skill.itemID}}" data-item-id="{{skill.itemID}}" type="text" data-dtype="String" value="{{skill.name}}" style="color: white;"/>
                 </div>
                 <div class="skill-prof button-group skill-container">
-                   {{#if ../owner}}
-                    <div class="item-controls pf-redbackground">
-                        <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
-                    </div>
-                    {{/if}}
                     <input type="hidden" name="data.items.{{idx}}.data.proficient.value" data-stat-type="item" value="{{skill.rank}}" data-dtype="Number"/>
                     <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.value}}" title="{{skill.breakdown}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
+                    {{#if ../owner}}
+                     <div class="item-controls pf-redbackground">
+                         <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
+                     </div>
+                     {{/if}}
                 </div>
             </li>
         {{/if}}
@@ -76,7 +76,7 @@
                 {{/if}}
             </li>
         </ol>
-        <ol class="lores-list">
+        <ol class="martial-list">
             <!-- Martial Skills -->
             {{#each data.martial as |martial s|}}
             <li class="skill" data-skill="{{s}}" data-item-id="{{martial._id}}">
@@ -95,13 +95,13 @@
                 <input name="item-name-skill-{{martial._id}}" data-item-id="{{martial._id}}" type="text" data-dtype="String" value="{{martial.name}}" style="color: white;"/>
                 </div>
                 <div class="skill-prof button-group skill-container">
+                    <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
+                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.data.proficient.value}}" title="{{martial.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.data.proficient.value)}}</span>
                     {{#if ../owner}}
                     <div class="item-controls pf-redbackground" style="text-align: center">
                         <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                     </div>
                     {{/if}}
-                    <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.data.proficient.value}}" title="{{martial.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.data.proficient.value)}}</span>
                 </div>
             </li>
             {{/each}}

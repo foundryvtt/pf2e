@@ -45,7 +45,8 @@
             font-family: $serif;
         }
         .skills-list,
-        .lores-list {
+        .lores-list,
+        .martial-list {
             list-style: none;
             @include p-reset;
             display: grid;
@@ -123,7 +124,8 @@
             }
         }
 
-        .lores-list {
+        .lores-list,
+        .martial-list {
             .skill {
                 grid:
                     'score name btn' min-content
@@ -147,12 +149,27 @@
                 }
                 .button-group {
                     grid-area: btn;
+                    flex-wrap: nowrap;
+                    margin-left: auto;
 
                     .item-controls {
                         font-size: 10px;
                         margin-top: 1px;
+                        margin-left: 0.5rem;
                     }
                 }
+            }
+        }
+
+        .lores-list {
+            grid-template-columns: 1fr;
+        }
+
+        .martial-list {
+            grid-template: repeat(2, 1fr);
+
+            .item {
+                grid-column: 1 / 3;
             }
         }
 

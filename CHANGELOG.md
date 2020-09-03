@@ -1,5 +1,42 @@
 # Patch Notes:
 
+## Version 1.10.8
+### New Features
+* (@In3luki) Add system setting to automatically draw a crit or fumble card
+* (@KSops) Adding treasure value to loot and character sheets
+* (@meditatingCybermind) Added fame and reputation tracking for PFS
+* (@nikolaj-a) Initial rule element framework with support for flat modifiers on all item types
+* (@nikolaj-a) Add effect as a built-in item type, which can serve as a peg for rule elements
+
+### Bug Fixes
+* (@abrault) Fix error when pfs field is not defined on a character
+* (@abrault) Return the roll from Pf2eDice functions
+
+### Content Changes
+* (@iceman) Improve Treat Wounds macro formatting
+* (@Shandyan) Corrections to bestiaries to add back in accidentally deleted DCs
+* (@TMun) Compendium changes:
+    * Clean up of feat traits and correction of archetype feats from class feats
+    * Adds Edgewatch Detective and Jamleri Dedications and feats
+    * Adds missing Aasimar feats
+    * Added exhale poison action
+    * Added feats from EC6
+    * Add Agents of Edgewatch Book 2 Equipment and Spells
+    * Recreate Iconics with new feats and items, correct errors, add APG Iconics, convert icons to webp (#473)
+    * Evocation school and Biresonant Wayfinder (#741, #744)
+* (@TMun) Update OpenGameLicense.md to add AoE2, PFS #2-00, #2-01, #2-02 and PFB #1
+* (@nikolaj-a) Add spell effects compendium, with an example Inspire Courage spell effect
+
+### Core System Improvements
+* (@abrault) Replace Invest icon with sparkles
+* (@nikolaj-a) Add condition chat card
+* (@nikolaj-a) More information in limited character sheet
+* (@mdizo) Added Open Roads icon to the Pathfinder Society tab
+* (@mdizo) Improved styling of the limited character sheet
+* (@mdizo) Added style matching the character sheet to the Foundry tool menu on the left
+* (@mdizo) More space for the lore skills on the sheet to prevent long names from getting truncated
+
+
 ## Version 1.10.7
 ### New Features
 * (@nikolaj-a) Initial implementation of PFS Level Bump

@@ -24,6 +24,10 @@ export default function registerHandlebarsHelpers() {
         return a * b;
     });
 
+    Handlebars.registerHelper('percentage', (value, max) => {
+        return (max / 100) * value;
+    });
+
     Handlebars.registerHelper('strip_tags', (value, options) => {
         function strip_tags(input, allowed?) { // eslint-disable-line camelcase
             const _phpCastString = (phpValue) => {
@@ -89,5 +93,9 @@ export default function registerHandlebarsHelpers() {
 
   Handlebars.registerHelper('enrichHTML', (html) => {
     return TextEditor.enrichHTML(html);
+  });
+
+  Handlebars.registerHelper('json', (html) => {
+    return JSON.stringify(html);
   });
 }

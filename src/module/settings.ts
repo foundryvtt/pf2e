@@ -121,4 +121,13 @@ export default function () {
       compendiumBrowser.loadSettings();
     },
   });
+  game.settings.register(game.system.id, 'enabledRulesUI', {
+    name: 'Advanced Rule Element UI', 
+    hint: 'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the' +
+        'actors and items if you are not sure what you are doing or make a mistake.',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean
+  });
 }

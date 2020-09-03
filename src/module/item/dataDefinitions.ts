@@ -1,3 +1,5 @@
+import {PF2RuleElementData} from "../rules/rulesDataDefinitions";
+
 export interface ItemDescriptionData {
     description: {
         value: string;
@@ -16,7 +18,8 @@ export interface ItemDescriptionData {
     usage: {
         value: string;
     };
-};
+    rules?: PF2RuleElementData[];
+}
 
 export interface PhysicalDetailsData {
     quantity: {

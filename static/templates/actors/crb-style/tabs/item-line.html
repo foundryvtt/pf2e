@@ -13,6 +13,9 @@
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
         {{/if}}
     </div>
+    {{#if (eq item.type 'treasure')}}
+    <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity.value}} {{item.data.denomination.value}}</span>
+    {{/if}}
     <span class="item-quantity">
                     <a class="item-decrease-quantity">&ndash;</a>
                     <span>{{item.data.quantity.value}}</span>
@@ -35,7 +38,7 @@
 
         {{#if item.canBeEquipped}}
             {{#if item.hasInvestedTrait}}
-                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="fas fa-coins"></i></a>
+                <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
             {{/if}}
             <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}

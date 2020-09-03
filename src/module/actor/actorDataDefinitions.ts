@@ -4,6 +4,12 @@ import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } fr
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
+/** A type representing the possible PFS factions. */
+export type PFSFactionString = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
+
+/** A type representing the possible PFS schools. */
+export type PFSSchoolString = "none" | "scrolls" | "spells" | "swords";
+
 /** A roll function which can be called to roll a given skill. */
 export type RollFunction = (event: any, options: string[], callback?: any) => void;
 
@@ -142,6 +148,26 @@ export interface RawPathfinderSocietyData {
     characterNumber: string;
     /** Is the character currently affected by a level bump? */
     levelBump: boolean;
+    /** Character's current fame */
+    fame: number;
+    /** Character's currently slotted faction */
+    currentFaction: PFSFactionString;
+
+    /** Character's Pathfinder school */
+    school: PFSSchoolString;
+
+    /** Character's Reputation with all the factions */
+    reputation: PathfinderSocietyReputation;
+}
+
+/** PFS faction reputation values */
+export interface PathfinderSocietyReputation {
+    EA: number,
+    GA: number,
+    HH: number,
+    VS: number,
+    RO: number,
+    VW: number
 }
 
 /** Data related to character hitpoints. */

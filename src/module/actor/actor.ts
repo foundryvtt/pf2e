@@ -41,6 +41,7 @@ import {
   NPCSkillData,
   HitPointsData
 } from './actorDataDefinitions';
+import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -106,8 +107,9 @@ export default class PF2EActor extends Actor {
 
     // Prepare character & npc data; primarily attribute and action calculation.
     const actorData = this.data;
-    if (actorData.type === 'character') this._prepareCharacterData(actorData);
-    else if (actorData.type === 'npc') this._prepareNPCData(actorData);
+    const rules = actorData.items.reduce((accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)), []);
+    if (actorData.type === 'character') this._prepareCharacterData(actorData, rules);
+    else if (actorData.type === 'npc') this._prepareNPCData(actorData, rules);
 
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
@@ -143,9 +145,9 @@ export default class PF2EActor extends Actor {
   /* -------------------------------------------- */
 
   /** Prepare Character type specific data. */
-  private _prepareCharacterData(actorData: CharacterData) {
+  private _prepareCharacterData(actorData: CharacterData, rules: PF2RuleElement[]) {
     const {data} = actorData;
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData);
+    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
 
     // Compute ability modifiers from raw ability scores.
     for (const abl of Object.values(actorData.data.abilities)) {
@@ -156,7 +158,7 @@ export default class PF2EActor extends Actor {
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
 
     // PFS Level Bump - check and DC modifiers
-    if (data.pfs.levelBump) {
+    if (data.pfs?.levelBump) {
       statisticsModifiers.all = (statisticsModifiers.all || []).concat(
         new PF2Modifier('PF2E.PFS.LevelBump', 1, PF2ModifierType.UNTYPED)
       );
@@ -198,7 +200,7 @@ export default class PF2EActor extends Actor {
       const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
 
       // PFS Level Bump - hit points
-      if (data.pfs.levelBump) {
+      if (data.pfs?.levelBump) {
         const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
         stat.push(new PF2Modifier('PF2E.PFS.LevelBump', hitPointsBump, PF2ModifierType.UNTYPED))
       }
@@ -699,9 +701,9 @@ export default class PF2EActor extends Actor {
   /**
    * Prepare NPC type specific data
    */
-  private _prepareNPCData(actorData: NpcData) {
+  private _prepareNPCData(actorData: NpcData, rules: PF2RuleElement[]) {
     const { data } = actorData;
-    const { statisticsModifiers } = this._prepareCustomModifiers(actorData);
+    const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
 
     // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
     for (const abl of Object.values(actorData.data.abilities)) {
@@ -820,13 +822,22 @@ export default class PF2EActor extends Actor {
   }
 
   /** Compute custom stat modifiers provided by users or given by conditions. */
-  private _prepareCustomModifiers(actorData: CharacterData | NpcData): {
+  private _prepareCustomModifiers(actorData: CharacterData | NpcData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
     damageDice: Record<string, PF2DamageDice[]>
   } {
     // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
     const statisticsModifiers: Record<string, PF2Modifier[]> = {};
     const damageDice: Record<string, PF2DamageDice[]> = {};
+
+    rules.forEach(rule => {
+        try {
+            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice)
+        } catch (error) {
+            // ensure that a failing rule element does not block actor initialization
+            console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+        }
+    });
 
     // Get all of the active conditions (from the item array), and add their modifiers.
     const conditions = actorData.items.filter((i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active);
