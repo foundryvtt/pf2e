@@ -81,11 +81,11 @@ export class DicePF2e {
     parts = ['1d20'].concat(parts);
     if (  (userSettingQuickD20Roll && !event.altKey && !(event.ctrlKey || event.metaKey) && !event.shiftKey)
           || (!userSettingQuickD20Roll && event.shiftKey) ) {
-      _roll(parts, 0);
+      return _roll(parts, 0);
     } else if (event.altKey) {
-      _roll(parts, 1);
+      return _roll(parts, 1);
     } else if (event.ctrlKey || event.metaKey) {
-      _roll(parts, -1);
+      return _roll(parts, -1);
     } else if (event.shiftKey || !userSettingQuickD20Roll) {
       if (parts.indexOf('@circumstanceBonus') === -1) parts = parts.concat(['@circumstanceBonus']);
       if (parts.indexOf('@itemBonus') === -1) parts = parts.concat(['@itemBonus']);
@@ -100,30 +100,34 @@ export class DicePF2e {
         rollModes: CONFIG.Dice.rollModes,
       };
       const content = await renderTemplate(template, dialogData)
-      new Dialog({
-        title,
-        content,
-        buttons: {
-          advantage: {
-            label: 'Fortune',
-            callback: (html) => _roll(parts, 1, html),
+      let roll;
+      return new Promise(resolve => {
+        new Dialog({
+          title,
+          content,
+          buttons: {
+            advantage: {
+              label: 'Fortune',
+              callback: (html) => {roll = _roll(parts, 1, html)},
+            },
+            normal: {
+              label: 'Normal',
+              callback: (html) => {roll = _roll(parts, 0, html)},
+            },
+            disadvantage: {
+              label: 'Misfortune',
+              callback: (html) => {roll = _roll(parts, -1, html)},
+            },
           },
-          normal: {
-            label: 'Normal',
-            callback: (html) => _roll(parts, 0, html),
+          default: 'normal',
+          close: (html) => {
+            if (onClose) onClose(html, parts, data);
+            resolve(roll);
           },
-          disadvantage: {
-            label: 'Misfortune',
-            callback: (html) => _roll(parts, -1, html),
-          },
-        },
-        default: 'normal',
-        close: (html) => {
-          if (onClose) onClose(html, parts, data);
-        },
-      }, dialogOptions).render(true);
+        }, dialogOptions).render(true);
+      });
     } else {
-      _roll(parts, 0);
+      return _roll(parts, 0);
     }
   }
 
