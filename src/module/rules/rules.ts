@@ -2,6 +2,7 @@ import {CharacterData, NpcData} from "../actor/actorDataDefinitions";
 import {PF2RuleElementData} from "./rulesDataDefinitions";
 import {PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType} from "../modifiers";
 import {ItemData} from "../item/dataDefinitions";
+import {PF2MageArmorRuleElement} from "./spells/mage-armor";
 
 export abstract class PF2RuleElement {
 
@@ -47,7 +48,8 @@ export class PF2FlatModifierRuleElement implements PF2RuleElement {
 export class PF2RuleElements {
 
     static readonly builtin: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = Object.freeze({
-        'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item)
+        'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
+        'PF2E.RuleElement.MageArmor':  (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {}
