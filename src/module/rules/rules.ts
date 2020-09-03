@@ -1,7 +1,8 @@
 import {CharacterData, NpcData} from "../actor/actorDataDefinitions";
 import {PF2RuleElementData} from "./rulesDataDefinitions";
-import {PF2DamageDice, PF2Modifier, PF2ModifierPredicate} from "../modifiers";
+import {PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType} from "../modifiers";
 import {ItemData} from "../item/dataDefinitions";
+import {PF2MageArmorRuleElement} from "./spells/mage-armor";
 
 export abstract class PF2RuleElement {
 
@@ -29,14 +30,17 @@ export class PF2FlatModifierRuleElement implements PF2RuleElement {
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>
     ) {
-        if (this.ruleData.selector && this.ruleData.label && this.ruleData.value && this.ruleData.type) {
-            const modifier = new PF2Modifier(this.ruleData.label, this.ruleData.value, this.ruleData.type);
+        const label = this.ruleData.label ?? this.item?.name;
+        const type = this.ruleData.type ?? PF2ModifierType.UNTYPED;
+        if (this.ruleData.selector && label && this.ruleData.value) {
+            const modifier = new PF2Modifier(label, this.ruleData.value, type);
             if (this.ruleData.predicate) {
-                modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);                
+                modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, []);
             }
             statisticsModifiers[this.ruleData.selector] = (statisticsModifiers[this.ruleData.selector] || []).concat(modifier);
         } else {
-            console.warn('PF2E | Flat modifier requires at least selector, label, value, and type fields');
+            console.warn('PF2E | Flat modifier requires at least a selector field, a label field or item name, and a non-zero value field');
         }
     }
 }
@@ -44,7 +48,8 @@ export class PF2FlatModifierRuleElement implements PF2RuleElement {
 export class PF2RuleElements {
 
     static readonly builtin: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = Object.freeze({
-        'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item)
+        'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
+        'PF2E.RuleElement.MageArmor':  (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {}

@@ -1,0 +1,76 @@
+:root {
+    --border-width: 1px;
+}
+
+/* Toolbar UI */
+#controls .scene-control,
+#controls .control-tool {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 18px;
+    padding: 2px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    border-radius: 0;
+    background: var(--primary);
+    background-image: url('../../assets/sheet/nav-item.png');
+    background-size: contain;
+    background-blend-mode: overlay;
+    border: var(--border-width) solid rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+
+    /* prettier-ignore */
+    box-shadow:
+        inset 0 0 4px rgba(255,255,255, 0.2),
+        inset 0 0 0 1px rgba(122, 0, 0, 0.9),
+        0 0 0 1px #5e0000,
+        0 0 0 2px #3D0000,
+        0 0 0 3px rgba(0,0,0,0.5);
+}
+#controls .control-tools {
+    left: 48px;
+    top: 0;
+}
+
+#controls .scene-control.active,
+#controls .control-tool.active,
+#controls .scene-control:hover,
+#controls .control-tool:hover {
+    position: relative;
+    margin: auto 1px 10px;
+    color: var(--tertiary);
+    border: none;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+    background-color: var(--secondary);
+    background-blend-mode: luminosity;
+}
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 100%;
+    }
+}
+
+#controls .scene-control.active::after,
+#controls .control-tool.active::after,
+#controls .scene-control:hover::after,
+#controls .control-tool:hover::after {
+    position: absolute;
+    content: '';
+    top: calc(-1 * var(--border-width));
+    left: calc(-1 * var(--border-width));
+    z-index: -1;
+    width: calc(100% + var(--border-width) * 2);
+    height: calc(100% + var(--border-width) * 2);
+    background: linear-gradient(
+        45deg,
+        white 0%,
+        var(--primary) 25%,
+        var(--tertiary) 90%,
+        white 100%
+    );
+    background-size: 200% auto;
+    background-position: 0 50%;
+    animation: moveGradient 4s ease infinite;
+}
