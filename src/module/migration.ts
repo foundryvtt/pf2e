@@ -570,6 +570,10 @@ export async function migrateActorData(actor, worldSchemaVersion) {
             updateData['data.details.ethnicity.value'] = '';
             updateData['data.details.nationality.value'] = '';
         }
+
+        if (worldSchemaVersion < 0.586) {
+            migrateActorItems(actor, updateData, addSplashDamage);
+        }
         
         if (worldSchemaVersion < 0.587) {
             migrateActorPFSData(actor, updateData);
