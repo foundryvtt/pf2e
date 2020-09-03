@@ -269,6 +269,12 @@ function migrateActorBonusBulk(actor, updateData) {
     updateData['data.attributes.bonusEncumbranceBulk'] = actor.data.attributes.bonusbulk || 0;
 }
 
+function migrateActorPFSData(actor, updateData) {
+    updateData['data.pfs.reputation'] = {EA: 0, GA: 0, HH: 0, VS: 0, RO: 0, VW: 0};
+    updateData['data.pfs.currentFaction'] = "EA";
+    updateData['data.pfs.fame'] = 0;
+}
+
 function _migrateHitPointData(actor, updateData) {
     updateData['data.attributes.flatbonushp'] = parseInt((actor.data.attributes.flatbonushp || {}).value, 10) || 0;
     updateData['data.attributes.levelbonushp'] = parseInt((actor.data.attributes.levelbonushp || {}).value, 10) || 0;
@@ -565,8 +571,8 @@ export async function migrateActorData(actor, worldSchemaVersion) {
             updateData['data.details.nationality.value'] = '';
         }
         
-        if (worldSchemaVersion < 0.586) {
-            migrateActorItems(actor, updateData, addSplashDamage);
+        if (worldSchemaVersion < 0.587) {
+            migrateActorPFSData(actor, updateData);
         }
     }
     return updateData;
