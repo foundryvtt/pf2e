@@ -257,3 +257,14 @@ Hooks.on('preCreateActor', (actor, dir) => {
   }
 });
 
+Hooks.on('createOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof ActorPF2e) {
+        parent.onCreateOwnedItem(child, options, userId);
+    }
+});
+
+Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof ActorPF2e) {
+        parent.onDeleteOwnedItem(child, options, userId);
+    }
+});

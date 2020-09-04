@@ -1,14 +1,15 @@
 import {ItemData} from "../../item/dataDefinitions";
 import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier, PF2ModifierType} from "../../modifiers";
-import {PF2RuleElement} from "../rules";
+import {PF2RuleElement} from "../rule-element";
 
-export class PF2MageArmorRuleElement implements PF2RuleElement {
+export class PF2MageArmorRuleElement extends PF2RuleElement {
 
     ruleData: any;
     item: ItemData;
 
     constructor(ruleData: any, item: ItemData) {
+        super();
         this.ruleData = ruleData;
         this.item = item;
     }
