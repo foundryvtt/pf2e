@@ -1,4 +1,4 @@
-/* global FormApplication, getProperty, isNewerVersion */
+/* global FormApplication, getProperty */
 /**
  * Extend the base PlayerConfig class to implement additional logic specialized for PF2e.
  */
@@ -76,15 +76,9 @@ export class PlayerConfigPF2e extends FormApplication {
             </button>`
         );
 
-        if (isNewerVersion(game.data.version, '0.6.5')) {
-            // 0.6.6 Refactored the sidebar.
-            const setupButton = html.find("div[id='settings-game']");
-            setupButton.append(configButton);
-        }
-        else {
-            const setupButton = html.find("div[class='game-system']");
-            setupButton.after(configButton);
-        }
+        // 0.6.6 Refactored the sidebar. Try to find the button for either location
+        const setupButton = html.find('.game-system, #settings-game').first();
+        setupButton.prepend(configButton);
 
         configButton.click(ev => {
             new PlayerConfigPF2e().render(true);
