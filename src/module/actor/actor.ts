@@ -698,6 +698,28 @@ export default class PF2EActor extends Actor {
 
   /* -------------------------------------------- */
 
+  onCreateOwnedItem(child, options, userId) {
+    if (!['character', 'npc'].includes(this.data.type)) return;
+    const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+    const updates = {};
+    for (const rule of rules) {
+      rule.onCreate(<CharacterData|NpcData>this.data, child, updates);
+    }
+    this.update(updates);
+  }
+
+  onDeleteOwnedItem(child, options, userId) {
+    if (!['character', 'npc'].includes(this.data.type)) return;
+    const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+    const updates = {};
+    for (const rule of rules) {
+      rule.onDelete(<CharacterData|NpcData>this.data, child, updates);
+    }
+    this.update(updates);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare NPC type specific data
    */
