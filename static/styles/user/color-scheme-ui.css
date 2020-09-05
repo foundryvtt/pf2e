@@ -41,7 +41,8 @@
     text-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
     background-color: var(--secondary);
     background-blend-mode: luminosity;
-    box-shadow: inset 0 0 0 1px var(--body), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 0 1px var(--body),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 
 @keyframes moveGradient {
@@ -73,4 +74,36 @@
     animation: moveGradient 4s ease infinite;
     box-shadow: 0 0 0 1px #9f725b, 0 0 8px var(--tertiary);
     border-radius: 1px;
+}
+
+/* Map Navigation */
+#navigation #scene-list .scene.view,
+#navigation #scene-list .scene.context {
+    border: none;
+    padding: 0;
+    background-image: url('../../assets/dark_tire.png');
+}
+
+#navigation #scene-list .scene.view .scene-name,
+#navigation #scene-list .scene.context .scene-name {
+    border-style: solid;
+    border-image-outset: 0;
+    border-width: 9px;
+    border-image: url('../../assets/sheet/corner-box.png') 9 repeat;
+}
+
+#navigation #scene-list .scene.gm {
+    background-color: var(--alt);
+    border: 1px solid #493C31;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+#navigation #nav-toggle {
+    box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+#navigation #nav-toggle:hover {
+    box-shadow: none;
 }
