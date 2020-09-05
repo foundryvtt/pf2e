@@ -4,8 +4,8 @@
         <div class="actions-tabs-wrapper">
 
             <input class="action-radio" id="en-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" checked>
-            <input class=action-radio id="ex-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}">
-            <input class="action-radio" id="do-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}">
+            <input class=action-radio id="ex-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" disabled>
+            <input class="action-radio" id="do-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" disabled>
             <div class="actions-nav">
                 <label class="tab" id="en-tab" for="en-pointer">Encounter</label>
                 <label class="tab" id="ex-tab" for="ex-pointer">Exploration</label>
@@ -17,13 +17,15 @@
                 <div id="encounter" class="actions-panel">
                     <div class="actions-options">
                         <div class="actions-option flat-footed">
-                            <input type="checkbox" id="flat-footed" name="scales">
+                            <input type="checkbox" id="flat-footed" name="flags.pf2e.rollOptions.all.target:flatFooted" {{checked isTargetFlatFooted}}>
                             <label for="flat-footed">Flat-Footed</label>
                         </div>
+                        <!--
                         <div class="actions-option clan-enemy">
                             <input type="checkbox" id="clan-enemy" name="clan-enemy">
                             <label for="clan-enemy">Clan Enemy</label>
                         </div>
+                        -->
                     </div>
 
                     <ol class="actions-list inventory-list directory-list strikes-list">
