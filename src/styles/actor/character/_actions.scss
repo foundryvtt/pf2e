@@ -119,6 +119,14 @@
             .item-name {
                 display: flex;
                 align-items: center;
+                margin-right: auto;
+
+                h4 {
+                    cursor: pointer;
+                    &:hover {
+                        color: var(--primary);
+                    }
+                }
 
                 .item-image {
                     height: 22px;
@@ -129,6 +137,7 @@
                     margin-right: 8px;
                     font-size: 18px;
                     @include flex-center;
+                    cursor: pointer;
 
                     &.action-strike {
                         @include frame-icon;
@@ -278,9 +287,12 @@
                         margin-bottom: 0.5rem;
                     }
 
-                    .tag_secondary {
-                        background-color: rgba(0, 0, 0, 0.5);
+                    .tag {
                         box-shadow: none;
+
+                        &.tag_secondary {
+                            background-color: rgba(0,0,0,0.8);
+                        }
                     }
                 }
             }
@@ -314,6 +326,11 @@
                         text-shadow: 0 0 2px white;
                     }
                 }
+            }
+        }
+
+        &.strikes-list {
+            .acton-name {
             }
         }
     }
