@@ -18,7 +18,6 @@ class PF2eCritFumbleCards {
 
         Hooks.on('renderChatMessage', (message: any, html: any) => {
             if (message.isAuthor && message.isRoll && message.isContentVisible) {
-                console.log("renderChatMessage")
                 if (message.roll.dice[0].faces === 20 && (message.data.flavor.startsWith('<b>Strike:') || message.data.flavor.includes('Attack Roll'))) {
                     const critButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fab fa-buffer" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
                     const btnContainer1 = $(`<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`);
