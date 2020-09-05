@@ -51,6 +51,8 @@ abstract class ActorSheetPF2e extends ActorSheet {
     this._prepareTraits(sheetData.data.traits);
     this._prepareItems(sheetData.actor);
 
+    sheetData.isTargetFlatFooted = this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted');
+
     // Return data to the sheet
     return sheetData;
   }
