@@ -26,6 +26,7 @@ require("./scripts/dice.ts");
 require("./scripts/chat/chatdamagebuttonsPF2e.ts");
 require("./scripts/chat/crit-fumble-cards.ts");
 require("./scripts/actor/sheet/itemBehaviour.ts");
+require("./scripts/system/canvasDropHandler");
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
