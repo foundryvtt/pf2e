@@ -67,8 +67,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Update wounded, maximum wounded, and doomed.
     sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
-    sheetData.data.attributes.wounded.calculatedMax = sheetData.data.attributes.dying.max - 1;
+    sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
     sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
+    sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max -1;
 
     sheetData.uid = this.id;
 
