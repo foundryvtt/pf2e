@@ -1,4 +1,4 @@
-/* global RollTable */
+/* global ui, RollTable */
 
 class PF2eCritFumbleCards {
     static critTable: any;
@@ -15,6 +15,26 @@ class PF2eCritFumbleCards {
         const hooksOn = this.diceSoNice ? 'diceSoNiceRollComplete' : 'createChatMessage';
         
         Hooks.on(hooksOn, this.handleRoll.bind(this));
+
+        Hooks.on('renderChatMessage', (message: any, html: any) => {
+            if (message.isAuthor && message.isRoll && message.isContentVisible) {
+                console.log("renderChatMessage")
+                if (message.roll.dice[0].faces === 20 && (message.data.flavor.startsWith('<b>Strike:') || message.data.flavor.includes('Attack Roll'))) {
+                    const critButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fab fa-buffer" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
+                    const btnContainer1 = $(`<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`);
+                    btnContainer1.append(critButton);
+                    html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
+
+                    critButton.click((ev) => {
+                        ev.stopPropagation();
+                        this.critTable.draw();
+                    });
+                }
+            }
+        });
+
+        // re-render all chat messages to add the button
+        game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));
     }
 
     static handleRoll(chatMessage: any) {
