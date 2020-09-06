@@ -578,12 +578,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         theme: 'crb-hover',
         minWidth: 120,
     });
-
-    // listener added because Line 14700 of foundry.js has a bug
-    // it only looks for data-edit="img"
-    if (this.options.editable) {
-      html.find('img[data-edit]').click(ev => this._onEditImage(ev));
-    }
   }
 
   /**
