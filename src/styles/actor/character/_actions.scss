@@ -71,18 +71,18 @@
                 }
 
                 .actions-options {
-                    display: grid;
-                    grid-auto-flow: row;
-                    grid-template-columns: repeat(3, 1fr);
-                    column-gap: 2rem;
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin-right: 1rem;
                     margin: 1rem 0;
                     width: 100%;
-                    padding: 0.5rem 2rem;
+                    padding: 0.5rem 1rem;
                     @include frame-elegant;
 
                     .actions-option {
                         display: flex;
                         align-items: center;
+                        width: 100%;
 
                         input {
                             @include p-reset;
@@ -291,7 +291,7 @@
                         box-shadow: none;
 
                         &.tag_secondary {
-                            background-color: rgba(0,0,0,0.8);
+                            background-color: rgba(0, 0, 0, 0.8);
                         }
                     }
                 }
@@ -326,11 +326,6 @@
                         text-shadow: 0 0 2px white;
                     }
                 }
-            }
-        }
-
-        &.strikes-list {
-            .acton-name {
             }
         }
     }
