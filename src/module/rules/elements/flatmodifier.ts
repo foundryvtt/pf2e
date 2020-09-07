@@ -19,10 +19,10 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>
     ) {
+        const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = this.ruleData.label ?? this.item?.name;
-        const type = this.ruleData.type ?? PF2ModifierType.UNTYPED;
-        if (this.ruleData.selector && label && this.ruleData.value) {
-            const modifier = new PF2Modifier(label, this.ruleData.value, type);
+        if (this.ruleData.selector && label && value) {
+            const modifier = new PF2Modifier(label, value, this.ruleData.type ?? PF2ModifierType.UNTYPED);
             if (this.ruleData.predicate) {
                 modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
                 modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, []);
