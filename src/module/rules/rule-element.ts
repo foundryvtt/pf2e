@@ -1,4 +1,4 @@
-/* global getProperty */
+/* global getProperty, Roll */
 import {CharacterData, NpcData} from "../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier} from "../modifiers";
 import {ItemData} from "../item/dataDefinitions";
@@ -27,8 +27,8 @@ export abstract class PF2RuleElement {
     }
 
     resolveValue(valueData, ruleData, item, actorData): number {
-        let value = Number(valueData);
-        if (!Number.isInteger(value) && typeof ruleData.value === 'object') {
+        let value = valueData;
+        if (typeof valueData === 'object') {
             let bracket = getProperty(actorData, 'data.details.level.value');
             if (ruleData.value.field) {
                 const field = String(ruleData.value.field);
@@ -55,6 +55,13 @@ export abstract class PF2RuleElement {
                 .find(b => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
                 ?.value ?? 0;
         }
-        return value;
+
+        if (typeof value === 'string') {
+            const roll = new Roll(value, {...actorData.data, item: item.data});
+            roll.roll();
+            value = roll.total;
+        }
+
+        return Number(value);
     }
 }

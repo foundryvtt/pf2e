@@ -1,4 +1,4 @@
-/* global getProperty, Roll */
+/* global getProperty */
 import {ItemData} from "../../item/dataDefinitions";
 import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2RuleElement} from "../rule-element";
@@ -21,12 +21,7 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
     
     onCreate(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
         const updatedActorData = mergeObject(actorData, updates, {inplace: false});
-        let value = this.ruleData.value;
-        if (this.ruleData.formula) {
-            const roll = new Roll(this.ruleData.formula, updatedActorData.data);
-            roll.roll();
-            value = roll.total;
-        }
+        const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
         if (!value) {
             console.warn('PF2E | Temporary HP requires a non-zero value field or a formula field');

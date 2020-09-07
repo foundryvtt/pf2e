@@ -62,7 +62,7 @@ export const SKILL_DICTIONARY = Object.freeze({
   thi: 'thievery'
 });
 
-const SKILL_EXPANDED = Object.freeze({
+export const SKILL_EXPANDED = Object.freeze({
   acrobatics: { ability: 'dex', shortform: 'acr' },
   arcana: { ability: 'int', shortform: 'arc' },
   athletics: { ability: 'str', shortform: 'ath' },
@@ -147,12 +147,12 @@ export default class PF2EActor extends Actor {
   /** Prepare Character type specific data. */
   private _prepareCharacterData(actorData: CharacterData, rules: PF2RuleElement[]) {
     const {data} = actorData;
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
-
     // Compute ability modifiers from raw ability scores.
     for (const abl of Object.values(actorData.data.abilities)) {
       abl.mod = Math.floor((abl.value - 10) / 2);
     }
+
+    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
 
     // Update experience percentage from raw experience amounts.
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
