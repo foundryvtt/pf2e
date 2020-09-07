@@ -20,7 +20,7 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
         damageDice: Record<string, PF2DamageDice[]>
     ) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
-        const label = this.ruleData.label ?? this.item?.name;
+        const label = super.getDefaultLabel(this.ruleData, this.item);
         if (this.ruleData.selector && label && value) {
             const modifier = new PF2Modifier(label, value, this.ruleData.type ?? PF2ModifierType.UNTYPED);
             if (this.ruleData.predicate) {

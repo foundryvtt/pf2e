@@ -22,6 +22,10 @@ export abstract class PF2RuleElement {
     ) {}
 
     // helper methods
+    getDefaultLabel(ruleData, item): string {
+        return game.i18n.localize(ruleData.label ?? item?.name);
+    }
+
     resolveValue(valueData, ruleData, item, actorData): number {
         let value = Number(valueData);
         if (!Number.isInteger(value) && typeof ruleData.value === 'object') {
@@ -49,7 +53,7 @@ export abstract class PF2RuleElement {
             }
             value = (valueData.brackets ?? [])
                 .find(b => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
-                ?.value ?? bracket;
+                ?.value ?? 0;
         }
         return value;
     }
