@@ -5,6 +5,7 @@ import {PF2FlatModifierRuleElement} from "./elements/flatmodifier";
 import {PF2MageArmorRuleElement} from "./spells/mage-armor";
 import {PF2FixedProficiencyRuleElement} from "./elements/fixed-proficiency";
 import {PF2TempHPRuleElement} from "./elements/temphp";
+import {PF2DexterityModifierCapRuleElement} from "./elements/dexterity-modifier-cap";
 
 export {PF2RuleElement};
 
@@ -13,6 +14,7 @@ export class PF2RuleElements {
     static readonly builtin: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = Object.freeze({
         'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
         'PF2E.RuleElement.MageArmor':  (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
+        'PF2E.RuleElement.DexterityModifierCap':  (ruleData, item) => new PF2DexterityModifierCapRuleElement(ruleData, item),
         'PF2E.RuleElement.FixedProficiency':  (ruleData, item) => new PF2FixedProficiencyRuleElement(ruleData, item),
         'PF2E.RuleElement.TempHP':  (ruleData, item) => new PF2TempHPRuleElement(ruleData, item),
     });
