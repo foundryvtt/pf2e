@@ -19,6 +19,7 @@
                 list-style: none;
                 @include p-reset;
                 border-radius: 3px;
+                margin-bottom: 1rem;
 
                 .tab {
                     display: block;
@@ -27,8 +28,8 @@
                     text-decoration: none;
                     background-color: var(--alt);
                     cursor: pointer;
-                    border-right: 1px solid darken($alt-color, 10);
-                    border-left: 1px solid lighten($alt-color, 10);
+                    border-right: 1px solid rgba(0, 0, 0, 0.2);
+                    border-left: 1px solid rgba(255, 255, 255, 0.3);
                     box-shadow: 0 1px 0 1px darken($alt-color, 10);
 
                     &.tab-active {
@@ -61,8 +62,8 @@
                     /* animation: fadein 0.8s; */
 
                     &.active {
-                        display: grid;
-                        justify-content: center;
+                        display: flex;
+                        flex-direction: column;
                     }
                 }
 
@@ -70,8 +71,7 @@
                     display: flex;
                     flex-wrap: wrap;
                     margin-right: 1rem;
-                    margin: 1rem 0;
-                    width: 100%;
+                    margin: 0 1rem 1rem;
                     padding: 0.5rem 1rem;
                     @include frame-elegant;
 
