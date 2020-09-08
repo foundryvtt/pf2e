@@ -3,18 +3,15 @@
 
         <div class="actions-tabs-wrapper">
 
-            <input class="action-radio" id="en-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" checked>
-            <input class=action-radio id="ex-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" disabled>
-            <input class="action-radio" id="do-pointer" type="radio" name="flags.pf2e.sheet.tab" value="{{flags.pf2e.sheet.tab}}" disabled>
-            <div class="actions-nav">
-                <label class="tab" id="en-tab" for="en-pointer">Encounter</label>
-                <label class="tab" id="ex-tab" for="ex-pointer">Exploration</label>
-                <label class="tab" id="do-tab" for="do-pointer">Downtime</label>
-            </div>
+            <ol class="actions-nav">
+                <li class="tab tab-active" id="en-tab" for="en-pointer">Encounter</label>
+                <li class="tab" id="ex-tab" for="ex-pointer">Exploration</label>
+                <li class="tab" id="do-tab" for="do-pointer">Downtime</label>
+            </ol>
 
             <div class="actions-panels">
 
-                <div id="encounter" class="actions-panel">
+                <div id="encounter" class="actions-panel active">
                     <div class="actions-options">
                         <div class="actions-option flat-footed">
                             <input type="checkbox" id="flat-footed" name="flags.pf2e.rollOptions.all.target:flatFooted" {{checked isTargetFlatFooted}}>
