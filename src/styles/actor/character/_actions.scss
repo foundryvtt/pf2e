@@ -31,6 +31,12 @@
                     border-left: 1px solid lighten($alt-color, 10);
                     box-shadow: 0 1px 0 1px darken($alt-color, 10);
 
+                    &.tab-active {
+                        background-color: var(--primary);
+                        box-shadow: 0 1px 0 1px darken($primary-color, 10),
+                            inset 0 0 3px rgba(255, 255, 255, 0.2);
+                    }
+
                     &:first-child {
                         border-radius: 3px 0 0 3px;
                         border-left: none;
@@ -47,27 +53,17 @@
                 }
             }
 
-            #en-pointer:checked ~ .actions-panels #encounter,
-            #ex-pointer:checked ~ .actions-panels #exploration,
-            #do-pointer:checked ~ .actions-panels #downtime {
-                display: grid;
-                justify-items: center;
-            }
-
-            #en-pointer:checked ~ .actions-nav #en-tab,
-            #ex-pointer:checked ~ .actions-nav #ex-tab,
-            #do-pointer:checked ~ .actions-nav #do-tab {
-                background-color: var(--primary);
-                box-shadow: 0 1px 0 1px darken($primary-color, 10),
-                    inset 0 0 3px rgba(255, 255, 255, 0.2);
-            }
-
             .actions-panels {
                 min-height: min-content;
                 width: 100%;
                 .actions-panel {
                     display: none;
                     /* animation: fadein 0.8s; */
+
+                    &.active {
+                        display: grid;
+                        justify-content: center;
+                    }
                 }
 
                 .actions-options {
