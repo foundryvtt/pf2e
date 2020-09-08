@@ -527,6 +527,18 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       }
     });
 
+    // handle sub-tab navigation on the actions tab
+    html.find('.actions-nav').on('click', '.tab:not(.tab-active)', event => {
+        const target = $(event.currentTarget);
+        const nav = target.parents('.actions-nav');
+        // deselect current tab and panel
+        nav.children('.tab-active').removeClass('tab-active');
+        nav.siblings('.actions-panels').children('.actions-panel.active').removeClass('active')
+        // select new tab and panel
+        target.addClass('tab-active');
+        nav.siblings('.actions-panels').children(`#${target.data('panel')}`).addClass('active');
+    });
+
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 
     html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {

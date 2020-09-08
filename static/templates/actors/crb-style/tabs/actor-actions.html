@@ -4,9 +4,9 @@
         <div class="actions-tabs-wrapper">
 
             <ol class="actions-nav">
-                <li class="tab tab-active" id="en-tab" for="en-pointer">Encounter</label>
-                <li class="tab" id="ex-tab" for="ex-pointer">Exploration</label>
-                <li class="tab" id="do-tab" for="do-pointer">Downtime</label>
+                <li class="tab tab-active" id="en-tab" data-panel="encounter">{{localize 'PF2E.TabActionsEncounterLabel'}}</li>
+                <li class="tab" id="ex-tab" data-panel="exploration">{{localize 'PF2E.TabActionsExplorationLabel'}}</li>
+                <li class="tab" id="do-tab"  data-panel="downtime">{{localize 'PF2E.TabActionsDowntimeLabel'}}</li>
             </ol>
 
             <div class="actions-panels">
@@ -15,7 +15,7 @@
                     <div class="actions-options">
                         <div class="actions-option flat-footed">
                             <input type="checkbox" id="flat-footed" name="flags.pf2e.rollOptions.all.target:flatFooted" {{checked isTargetFlatFooted}}>
-                            <label for="flat-footed">Flat-Footed</label>
+                            <label for="flat-footed">{{localize 'PF2E.TargetFlatFootedLabel'}}</label>
                         </div>
                         <!--
                         <div class="actions-option clan-enemy">
