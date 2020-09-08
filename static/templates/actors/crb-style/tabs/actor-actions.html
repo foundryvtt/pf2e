@@ -70,12 +70,13 @@
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
                                 {{#if ../owner}}
                                 <div class="item-controls" style="display: flex">
-                                    <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
-                                    <a class="item-control action-browse" title="{{localize "PF2E.OpenActionBrowserTitle"}}" data-type="feat"><i class="fas fa-search"></i></a>
+                                    <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
+                                    <a class="item-control action-browse" title="{{localize 'PF2E.OpenActionBrowserTitle'}}" data-type="feat"><i class="fas fa-search"></i></a>
                                 </div>
                                 {{/if}}
                             </li>
                             {{#each section.actions as |action aid|}}
+                            {{#if action.encounter}}
                             <li class="item" data-item-id="{{action._id}}">
                                 <div class="item-name rollable">
                                     <div class="item-image" style="background-image: url({{action.img}})">
@@ -87,24 +88,85 @@
                                 </div>
                                 {{#if ../../owner}}
                                 <div class="item-controls">
-                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
                                     {{#unless action.feat}}
-                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                                    <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                                     {{/unless}}
                                 </div>
                                 {{/if}}
                             </li>
+                            {{/if}}
                             {{/each}}
                         {{/each}}
                     </ol>
                 </div>
 
                 <div id="exploration" class="actions-panel">
-                    <h1>Exploration Page Test</h1>
+                    <ol class="actions-list inventory-list directory-list strikes-list">
+                        <li class="item action-header">
+                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
+                            {{#if owner}}
+                            <div class="item-controls" style="display: flex">
+                                <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
+                                <a class="item-control action-browse" title="{{localize 'PF2E.OpenActionBrowserTitle'}}" data-type="feat"><i class="fas fa-search"></i></a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{#each actor.actions.free.actions as |action aid|}}
+                        {{#if action.exploration}}
+                        <li class="item" data-item-id="{{action._id}}">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url({{action.img}})">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <h4>{{action.name}}</h4>
+                            </div>
+                            {{#if ../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                                {{#unless action.feat}}
+                                <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
+                                {{/unless}}
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                    </ol>
                 </div>
 
                 <div id="downtime" class="actions-panel">
-                    <h1>Downtime Page Test</h1>
+                    <ol class="actions-list inventory-list directory-list strikes-list">
+                        <li class="item action-header">
+                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
+                            {{#if owner}}
+                            <div class="item-controls" style="display: flex">
+                                <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
+                                <a class="item-control action-browse" title="{{localize 'PF2E.OpenActionBrowserTitle'}}" data-type="feat"><i class="fas fa-search"></i></a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{#each actor.actions.free.actions as |action aid|}}
+                        {{#if action.downtime}}
+                        <li class="item" data-item-id="{{action._id}}">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url({{action.img}})">
+                                  <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <h4>{{action.name}}</h4>
+                            </div>
+                            {{#if ../owner}}
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                                {{#unless action.feat}}
+                                <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
+                                {{/unless}}
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                    </ol>
                 </div>
 
             </div>
@@ -112,7 +174,4 @@
         </div>
     </div>
 </div>
-
-
                <!-- ********** ACTIONS ************ -->
-
