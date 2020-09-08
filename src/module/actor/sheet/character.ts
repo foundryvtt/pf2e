@@ -406,6 +406,12 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
     }
 
+    // assign mode to actions
+    Object.values(actions).flatMap(section => section.actions).forEach((action: any) => {
+        action.downtime = action.data.traits.value.includes('downtime');
+        action.exploration = action.data.traits.value.includes('exploration');
+        action.encounter = !(action.downtime || action.exploration);
+    });
 
     // Assign and return
     actorData.inventory = inventory;
