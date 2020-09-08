@@ -26,6 +26,7 @@ require("./scripts/dice.ts");
 require("./scripts/chat/chatdamagebuttonsPF2e.ts");
 require("./scripts/chat/crit-fumble-cards.ts");
 require("./scripts/actor/sheet/itemBehaviour.ts");
+require("./scripts/system/canvasDropHandler");
 
 Hooks.once('init', () => {
   console.log('PF2e | Initializing Pathfinder 2nd Edition System');
@@ -257,3 +258,14 @@ Hooks.on('preCreateActor', (actor, dir) => {
   }
 });
 
+Hooks.on('createOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof ActorPF2e) {
+        parent.onCreateOwnedItem(child, options, userId);
+    }
+});
+
+Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof ActorPF2e) {
+        parent.onDeleteOwnedItem(child, options, userId);
+    }
+});

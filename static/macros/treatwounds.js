@@ -21,7 +21,7 @@ let toChat = (content, rollString) => {
 const handleCrits = (roll) => roll === 1 ? -10 : (roll === 20 ? 10 : 0);
 
 let rollTreatWounds = (args) => {
-  let {DC, bonus, med, name} = args;
+  let {DC, bonus, med, name, magicHands} = args;
 
   const roll = new Roll(`d20`).roll().total;
   const crit = handleCrits(roll)
@@ -29,9 +29,9 @@ let rollTreatWounds = (args) => {
   let message = `${name} Treats Wounds at a DC ${DC}... they roll a [[${roll}+${med.value}]] and`;
 
   if (roll + crit + med.value >= DC+10) {
-      toChat(`${message} critically succeed!`, `4d8+${bonus}`);
+      toChat(`${message} critically succeed!`, (magicHands ? `32+${bonus}` : `4d8+${bonus}`));
   } else if (roll+crit + med.value >= DC) {
-      toChat(`${message} succeed.`, `2d8+${bonus}`);
+      toChat(`${message} succeed.`, (magicHands ? `16+${bonus}` : `2d8+${bonus}`));
   } else if (roll + crit + med.value < DC-10) {
       toChat(`${message} critically fail! The target takes damage.`, '1d8');
   } else if (roll+crit + med.value < DC) {
@@ -80,27 +80,29 @@ close: html => {
       const {name} = token;
       let prof = html.find('[name="dc-type"]')[0].value || "trained";
       let mod = parseInt(html.find('[name="modifier"]')[0].value) || 0;
+      let magicHands = token.actor.itemTypes.feat.some(i => i.data.name.startsWith('Magic Hands'));
+      let medic = token.actor.itemTypes.feat.some(i => i.data.name.startsWith('Medic Dedication'));
       if (prof === 'legendary') {
           if (med.rank >= 4) {
-              return rollTreatWounds({DC: 40+mod, bonus: 50, med, name});
+              return rollTreatWounds({DC: 40+mod, bonus: (medic ? 65 : 50), med, name, magicHands});
           }
           prof = 'master';
       } 
       if (prof === 'master') {
           if (med.rank >= 3) {
-              return rollTreatWounds({DC: 30+mod, bonus: 30, med, name});
+              return rollTreatWounds({DC: 30+mod, bonus: (medic ? 40 : 30), med, name, magicHands});
           }
           prof = 'expert';
       }
       if (prof === 'expert') {
           if (med.rank >= 2) {
-              return rollTreatWounds({DC: 20+mod, bonus: 10, med, name});
+              return rollTreatWounds({DC: 20+mod, bonus: (medic ? 15 : 10), med, name, magicHands});
           }
           prof = 'trained';
       }
       if (prof === 'trained') {
           if (med.rank >= 1) {
-              return rollTreatWounds({DC: 15+mod, bonus: 0, med, name});
+              return rollTreatWounds({DC: 15+mod, bonus: 0, med, name, magicHands});
           }
       }
       toChat(`${name} is not trained in Medicine, and doesn't know how to treat wounds!`);

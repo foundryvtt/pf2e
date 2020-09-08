@@ -1,4 +1,4 @@
-import {doubleFormula} from './util';
+/* global Roll */
 import {
     PF2DamageDice,
     PF2Modifier,
@@ -8,6 +8,16 @@ import {
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
+
+/** A pool of damage dice & modifiers, grouped by damage type. */
+export type DamagePool = Record<string, {
+    /** The static amount of damage of the current damage type. */
+    modifier?: number,
+    /** If true, this is the 'base' damage of the weapon or attack; some abilities scale off of base damage dice. */
+    base?: boolean,
+    /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
+    dice?: Record<string, number>
+}>;
 
 /** Return true if the given damage type is non-null and not physical; false otherwise. */
 function isNonPhysicalDamage(damageType?: string): boolean {
@@ -329,8 +339,9 @@ export class PF2WeaponDamage {
         return damage;
     }
 
-    static getFormula(damage, critical) {
-        const base = JSON.parse(JSON.stringify(damage.base));
+    /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
+    static getFormula(damage, critical: boolean) {
+        const base = duplicate(damage.base);
 
         // override first, to ensure the dice stacking works properly
         let overrideDieSize = null;
@@ -347,14 +358,11 @@ export class PF2WeaponDamage {
         base.dieSize = overrideDieSize ?? base.dieSize;
         base.damageType = overrideDamageType ?? base.damageType;
 
-        const dicePool = {};
-        const critPool = {};
+        const dicePool: DamagePool = {};
+        const critPool: DamagePool = {};
         dicePool[base.damageType] = {
-            modifier: 0,
-            [base.dieSize]: {
-                diceNumber: base.diceNumber,
-            },
             base: true,
+            dice: { [base.dieSize]: base.diceNumber }
         };
 
         // dice modifiers always stack
@@ -362,8 +370,7 @@ export class PF2WeaponDamage {
             if (critical && dm.critical) {
                 // critical-only stuff
                 if (dm.diceNumber) {
-                    const pool = this.ensureDicePool(base, critPool, dm.damageType, dm.dieSize);
-                    pool[dm.damageType ?? base.damageType][dm.dieSize ?? base.dieSize].diceNumber += dm.diceNumber;
+                    this.addDice(critPool, dm.damageType ?? base.damageType, dm.dieSize ?? base.dieSize, dm.diceNumber);
                 }
                 (dm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
                     damage.traits.push(t);
@@ -371,8 +378,7 @@ export class PF2WeaponDamage {
             } else if (!dm.critical) {
                 // regular pool
                 if (dm.diceNumber) {
-                    const pool = this.ensureDicePool(base, dicePool, dm.damageType, dm.dieSize);
-                    pool[dm.damageType ?? base.damageType][dm.dieSize ?? base.dieSize].diceNumber += dm.diceNumber;
+                    this.addDice(dicePool, dm.damageType ?? base.damageType, dm.dieSize ?? base.dieSize, dm.diceNumber);
                 }
                 (dm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
                     damage.traits.push(t);
@@ -423,7 +429,7 @@ export class PF2WeaponDamage {
         // build formula
         let formula = this.buildFormula(dicePool);
         if (critical) {
-            formula = doubleFormula(formula);
+            formula = this.doubleFormula(formula);
             const critFormula = this.buildFormula(critPool);
             if (critFormula) {
                 formula += ` + ${critFormula}`;
@@ -433,64 +439,67 @@ export class PF2WeaponDamage {
         return formula;
     }
 
-    /**
-     * Creates any intermediary objects in the dice pool for the specified damage type and die size.
-     *
-     * @param base
-     * @param pool
-     * @param damageType
-     * @param dieSize
-     * @return {*}
-     */
-    static ensureDicePool(base, pool, damageType, dieSize) {
-        let p = pool[damageType ?? base.damageType];
-        if (!p) {
-            p = {};
-            pool[damageType ?? base.damageType] = p;
-        }
-        let dice = p[dieSize ?? base.dieSize];
-        if (!dice) {
-            dice = {
-                diceNumber: 0,
-            };
-            p[dieSize ?? base.dieSize] = dice;
-        }
+    /** Add dice to the given damage pool. */
+    public static addDice(pool: DamagePool, damageType: string, dieSize: string, count: number): DamagePool {
+        // Ensure that the damage pool for this given damage type exists...
+        pool[damageType] = pool[damageType] || {};
+        const damagePool = pool[damageType];
+
+        // And then add the given number of dice of the given size.
+        damagePool.dice = damagePool.dice || {};
+        damagePool.dice[dieSize] = (damagePool.dice[dieSize] ?? 0) + count;
         return pool;
     }
 
-    static buildFormula(pool) {
-        let formula = '';
-        for (const damageType in pool) {
-            if (Object.prototype.hasOwnProperty.call(pool, damageType)) {
-                let formulaPart = '';
-                let modifier = 0;
-                for (const dieSize in pool[damageType]) {
-                    if (Object.prototype.hasOwnProperty.call(pool[damageType], dieSize)) {
-                        if (dieSize === 'base') {
-                            // ignore
-                        } else if (dieSize === 'modifier') {
-                            modifier += pool[damageType][dieSize];
-                        } else if (formulaPart) {
-                            formulaPart += ` + ${pool[damageType][dieSize].diceNumber}${dieSize}`;
-                        } else {
-                            formulaPart = pool[damageType][dieSize].diceNumber + dieSize;
-                        }
-                    }
-                }
-                if (modifier !== 0) {
-                    if (formulaPart) {
-                        formulaPart += `${modifier < 0 ? modifier : ` + ${modifier}`}`;
-                    } else {
-                        formulaPart = `${modifier}`;
-                    }
-                }
-                if (pool[damageType].base) {
-                    formulaPart = `{${formulaPart}, 1}kh`;
-                }
-                formula += (formula ? ` + ${formulaPart}` : formulaPart);
+    /** Converts a damage pool to a final string formula. */
+    public static buildFormula(pool: DamagePool): string {
+        // First collect all of the individual components of the pool into one flattened list...
+        const parts: string[] = [];
+        let minValue = 0;
+        for (const info of Object.values(pool)) {
+            // Add all of the dice components; each individual dice adds one to the minimum value.
+            for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
+                minValue += count;
+                parts.push(`${count}${dieSize}`);
+            }
+
+            // Add the modifier if present.
+            if (info.modifier) {
+                minValue += info.modifier;
+                parts.push(info.modifier.toString());
             }
         }
-        return formula;
+
+        // To avoid out-of-bounds exceptions, shortcircuit with the empty string if there are no damage components whatsoever.
+        if (parts.length === 0) {
+            return "";
+        }
+
+        // Then correct signs (adding '+' or '-' as appropriate) and join; don't modify the first component.
+        const formula = [parts[0]].concat(parts.slice(1).flatMap(part => {
+            if (part.startsWith("-")) {
+                return ["-", part.substring(1)];
+            } else {
+                return ["+", part];
+            }
+        })).join(" ");
+
+        // Finally, if the minimum formula value can be 0 or lower, lower bound it.
+        if (minValue <= 0) {
+            return `{${formula}, 1}kh`;
+        } else {
+            return formula;
+        }
     }
 
+    /** Double a textual formula based on the current crit rules. */
+    static doubleFormula(formula: string): string {
+        const rule = game.settings.get('pf2e', 'critRule');
+        if (rule === 'doubledamage') {
+            return `2 * (${formula})`;
+        } else {
+            const critRoll = new Roll(formula, {}).alter(0, 2);
+            return critRoll.formula.replace(/\b\d+\b/g, (match) => `${parseInt(match, 10) * 2}`);
+        }
+    }
 }

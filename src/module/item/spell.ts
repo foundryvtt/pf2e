@@ -57,8 +57,8 @@ class Spell {
     }
     if (this.data.data.duration.value === "" && this.castingActor?.items) {
       const featDangerousSorcery = this.castingActor.items.find(it => it.name === "Dangerous Sorcery");
-      if (featDangerousSorcery !== null) {
-        console.log(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.data.name}`);
+      if (featDangerousSorcery !== null && !this.isFocusSpell && this.spellLevel !== 0) {
+        console.log(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
         parts.push(this.castLevel);
       }
     }

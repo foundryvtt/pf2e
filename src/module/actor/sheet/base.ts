@@ -51,6 +51,8 @@ abstract class ActorSheetPF2e extends ActorSheet {
     this._prepareTraits(sheetData.data.traits);
     this._prepareItems(sheetData.actor);
 
+    sheetData.isTargetFlatFooted = this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted');
+
     // Return data to the sheet
     return sheetData;
   }
@@ -408,12 +410,19 @@ abstract class ActorSheetPF2e extends ActorSheet {
    * @private
    */
   _getDoomedIcon(level) {
-    const icons = {
-      0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      1: '<i class="fas fa-skull"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
-      2: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="far fa-circle"></i>',
-      3: '<i class="fas fa-skull"></i><i class="fas fa-skull"></i><i class="fas fa-skull"></i>',
-    };
+    const maxDying = this.object.data.data.attributes.dying.max || 4;
+    const icons = {};
+    const usedPoint = '<i class="fas fa-skull"></i>';
+    const unUsedPoint = '<i class="far fa-circle"></i>';
+
+    for (let i=0; i<maxDying; i++) {
+        let iconHtml = '';
+        for (let iconColumn=1; iconColumn<maxDying; iconColumn++) {
+            iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
+        }
+        icons[i] = iconHtml;
+    }
+
     return icons[level];
   }
 

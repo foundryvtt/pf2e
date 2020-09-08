@@ -727,7 +727,7 @@ export default class PF2EItem extends Item {
    * Roll Spell Damage
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
-  rollSpellAttack(event) {
+  rollSpellAttack(event, multiAttackPenalty?) {
     if (this.data.type !== 'spell') throw new Error('Wrong item type!');
 
     // Prepare roll data
@@ -738,8 +738,12 @@ export default class PF2EItem extends Item {
       throw new Error('Spell points to location that is not a spellcasting type');
 
     const spellAttack = spellcastingEntry.data.data.spelldc.value;
-    const parts = [spellAttack];
+    const parts:number[] = [spellAttack];
     const title = `${this.name} - Spell Attack Roll`;
+
+    const map = this.calculateMap();
+    if (multiAttackPenalty === 2) parts.push(map.map2);
+    else if (multiAttackPenalty === 3) parts.push(map.map3);
 
     // Call the roll helper utility
     DicePF2e.d20Roll({
@@ -944,6 +948,8 @@ export default class PF2EItem extends Item {
 
         // Spell actions
         else if (action === 'spellAttack') item.rollSpellAttack(ev);
+        else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
+        else if (action === 'spellAttack3') item.rollSpellAttack(ev, 3);
         else if (action === 'spellDamage') item.rollSpellDamage(ev);
 
         // Consumable usage
