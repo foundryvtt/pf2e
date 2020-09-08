@@ -360,35 +360,19 @@ export class ItemSheetPF2e extends ItemSheet {
   }
 
   _updateObject(event, formData) {
-    if (formData?.data?.rules) { // 0.7.x
-        // ensure all rules objects are parsed and saved as objects
-        const rules = [];
-        Object.entries(formData.data.rules)
-            .forEach(([_, value]) => {
-            try {
-                rules.push(JSON.parse(value as string));
-            } catch (error) {
-                ui.notifications.warn('Syntax error in rule element definition.');
-                throw error;
-            }
-            });
-        formData.data.rules = rules;
-    } else { // 0.6.6
-        // ensure all rules objects are parsed and saved as objects
-        const rules = [];
-        Object.entries(formData)
-            .filter(([key, _]) => key.startsWith('data.rules.'))
-            .forEach(([_, value]) => {
-            try {
-                rules.push(JSON.parse(value as string));
-            } catch (error) {
-                ui.notifications.warn('Syntax error in rule element definition.');
-                throw error;
-            }
-            });
-        formData['data.rules'] = rules;
-    }
-
+    // ensure all rules objects are parsed and saved as objects
+    const rules = [];  
+    Object.entries(formData)
+        .filter(([key, _]) => key.startsWith('data.rules.'))
+        .forEach(([_, value]) => {
+          try {
+            rules.push(JSON.parse(value as string));
+          } catch (error) {
+            ui.notifications.warn('Syntax error in rule element definition.');
+            throw error;
+          }
+        });
+    formData['data.rules'] = rules;
     return super._updateObject(event, formData);
   }
 }
