@@ -36,7 +36,7 @@ class PF2eCritFumbleCards {
 
                         fumbleButton.click((event) => {
                             event.stopPropagation();
-                            this.critTable.draw();
+                            this.fumbleTable.draw();
                             event.currentTarget.blur();
                         })
 
@@ -46,7 +46,7 @@ class PF2eCritFumbleCards {
             });
 
             // re-render all chat messages to add the buttons
-            game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));    
+            game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));
         }
     }
 
