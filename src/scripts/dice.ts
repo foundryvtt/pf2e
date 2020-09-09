@@ -41,8 +41,9 @@ export class DicePF2e {
    */
   static async d20Roll({
     event, parts, data, template, title, speaker, flavor, advantage = true, situational = true,
-    fastForward = true, onClose, dialogOptions, rollMode
-  }: { event: JQuery.Event, parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, advantage?: boolean, situational?: boolean, fastForward?: boolean, onClose?: any, dialogOptions?: object, rollMode?: string }) {
+    fastForward = true, onClose, dialogOptions, rollMode, rollType = ''
+  }: { event: JQuery.Event, parts: any[], actor?: PF2EActor, data: any, template?: string, title: string, speaker: object, flavor?: any, advantage?: boolean, situational?: boolean, 
+       fastForward?: boolean, onClose?: any, dialogOptions?: object, rollMode?: string, rollType?: string }) {
     // Inner roll function
     rollMode = rollMode || game.settings.get('core', 'rollMode');
     const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
@@ -68,7 +69,14 @@ export class DicePF2e {
       roll.toMessage(
         {
           speaker,
-          flavor: flav
+          flavor: flav,
+          flags: {
+              pf2e: {
+                  context: {
+                      type: rollType
+                  }
+              }
+          }
         },
         {
           rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
@@ -283,7 +291,8 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
         if (dice.total === 20) html.find('.dice-total').addClass('success');
         else if (dice.total === 1) html.find('.dice-total').addClass('failure');
 
-        if ((message.isAuthor || game.user.isGM) && (message.data.flavor.startsWith('<b>Skill Check') || message.data.flavor.startsWith('<b>Perception Check'))) {
+        const context = message.getFlag('pf2e', 'context');
+        if ((message.isAuthor || game.user.isGM) && (context?.type === 'skill-check' || context?.type === 'perception-check')) {
             const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
             const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative")
             const setInitiativeButton = $(`<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`);
