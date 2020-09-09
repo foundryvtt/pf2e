@@ -22,29 +22,31 @@ class PF2eCritFumbleCards {
             Hooks.on('renderChatMessage', (message: any, html: any) => {
                 if (message.isAuthor && message.isRoll && message.isContentVisible) {
                     if (message.roll.dice[0].faces === 20 && (message.data.flavor.startsWith('<b>Strike:') || message.data.flavor.includes('Attack Roll'))) {
-                        const critButton = $(`<button id="critCardButton.${message._id}" class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
-                        const fumbleButton = $(`<button id="fumbleCardButton.${message._id}" class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize('PF2E.CriticalFumbleCardButtonTitle')}"></i></button>`);
+                        const critButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
+                        const fumbleButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize('PF2E.CriticalFumbleCardButtonTitle')}"></i></button>`);
                         const btnContainer1 = $(`<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`);
                         btnContainer1.append(critButton);
                         btnContainer1.append(fumbleButton);
+
+                        critButton.click((event) => {
+                            event.stopPropagation();
+                            this.critTable.draw();
+                            event.currentTarget.blur();
+                        })
+
+                        fumbleButton.click((event) => {
+                            event.stopPropagation();
+                            this.critTable.draw();
+                            event.currentTarget.blur();
+                        })
+
                         html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
                     }
                 }
             });
 
-            // register global event listener for all created buttons
-            $(document).on('click', '[id^=critCardButton], [id^=fumbleCardButton]', (event) => {
-                event.stopPropagation();
-                if (event?.currentTarget?.id.startsWith('critCardButton')) {
-                    this.critTable.draw();
-                } else {
-                    this.fumbleTable.draw();
-                }
-                event.currentTarget.blur();
-            });
-
             // re-render all chat messages to add the buttons
-            game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));
+            game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));    
         }
     }
 
