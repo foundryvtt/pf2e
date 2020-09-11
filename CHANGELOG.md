@@ -1,5 +1,24 @@
 # Patch Notes:
 
+## Version 1.10.10
+### New Features
+* (@nikolaj-a) Damage dice rule element
+
+### Bug Fixes
+* (@In3luki) Fix card button click expanding roll details
+* (@In3luki) Fix fumble button drawing from crit table
+* (@In3luki) Fix initiative button on skill rolls and remove references to roll.parts
+
+### Content Changes
+* (@Shandyan) Adding effects and cross-links to alchemical items
+* (@nikolaj-a) Add damage dice rule element to the rogue Sneak Attack class feature
+
+### Core System Improvements
+* (@In3luki) Critical Hit and Fumble Cards improvements
+    * Add context flag to all d20 rolls and use context.type in all hooks
+    * Add context to roll flags and move flag creation inside roll.toMessage()
+
+
 ## Version 1.10.9
 ### New Features
 * (@abrault) Add rule element for Temporary Hit Points
