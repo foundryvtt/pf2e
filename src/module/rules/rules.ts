@@ -6,6 +6,7 @@ import {PF2MageArmorRuleElement} from "./spells/mage-armor";
 import {PF2FixedProficiencyRuleElement} from "./elements/fixed-proficiency";
 import {PF2TempHPRuleElement} from "./elements/temphp";
 import {PF2DexterityModifierCapRuleElement} from "./elements/dexterity-modifier-cap";
+import {PF2DamageDiceRuleElement} from "./elements/damage-dice";
 
 export {PF2RuleElement};
 
@@ -17,6 +18,7 @@ export class PF2RuleElements {
         'PF2E.RuleElement.DexterityModifierCap':  (ruleData, item) => new PF2DexterityModifierCapRuleElement(ruleData, item),
         'PF2E.RuleElement.FixedProficiency':  (ruleData, item) => new PF2FixedProficiencyRuleElement(ruleData, item),
         'PF2E.RuleElement.TempHP':  (ruleData, item) => new PF2TempHPRuleElement(ruleData, item),
+        'PF2E.RuleElement.DamageDice': (ruleData, item) => new PF2DamageDiceRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {}

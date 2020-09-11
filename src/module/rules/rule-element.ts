@@ -26,12 +26,12 @@ export abstract class PF2RuleElement {
         return game.i18n.localize(ruleData.label ?? item?.name);
     }
 
-    resolveValue(valueData, ruleData, item, actorData): number {
+    resolveValue(valueData, ruleData, item, actorData, defaultValue: any = 0): any {
         let value = valueData;
         if (typeof valueData === 'object') {
             let bracket = getProperty(actorData, 'data.details.level.value');
-            if (ruleData.value.field) {
-                const field = String(ruleData.value.field);
+            if (valueData.field) {
+                const field = String(valueData.field);
                 const separator = field.indexOf('|');
                 const source = field.substring(0, separator);
                 switch (source) {
@@ -53,7 +53,7 @@ export abstract class PF2RuleElement {
             }
             value = (valueData.brackets ?? [])
                 .find(b => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
-                ?.value ?? 0;
+                ?.value ?? defaultValue;
         }
 
         if (typeof value === 'string') {
@@ -62,6 +62,10 @@ export abstract class PF2RuleElement {
             value = roll.total;
         }
 
-        return Number(value);
+        if (Number.isInteger(Number(value))) {
+            value = Number(value);
+        }
+
+        return value;
     }
 }

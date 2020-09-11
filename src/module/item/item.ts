@@ -453,6 +453,7 @@ export default class PF2EItem extends Item {
       parts,
       actor: this.actor,
       data: rollData,
+      rollType: 'attack-roll',
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
@@ -624,6 +625,7 @@ export default class PF2EItem extends Item {
       parts,
       actor: this.actor,
       data: rollData,
+      rollType: 'attack-roll',
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {
@@ -750,6 +752,7 @@ export default class PF2EItem extends Item {
       event,
       parts,
       data: rollData,
+      rollType: 'attack-roll',
       title,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       dialogOptions: {

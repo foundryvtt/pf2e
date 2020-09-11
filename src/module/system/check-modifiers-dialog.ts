@@ -50,7 +50,7 @@ export class CheckModifiersDialog extends Application {
   /** Roll the given check, rendering the roll to the chat menu. */
   static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
     const options = [];
-    const ctx = context ?? {};
+    const ctx = (context as any) ?? {};
 
     let dice = '1d20';
     if (ctx.fate === 'misfortune') {
@@ -59,6 +59,19 @@ export class CheckModifiersDialog extends Application {
     } else if (ctx.fate === 'fortune') {
       dice = '2d20kh';
       options.push('PF2E.TraitFortune');
+    }
+
+    if (ctx.actor) {
+        ctx.actor = ctx.actor._id;
+    }
+    if (ctx.token) {
+        ctx.token = ctx.token._id;
+    }
+    if (ctx.user) {
+        ctx.user = ctx.user._id;
+    }
+    if (ctx.item) {
+        ctx.item = ctx.item._id;
     }
 
     ctx.rollMode = ctx.rollMode
@@ -77,14 +90,20 @@ export class CheckModifiersDialog extends Application {
 
     const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
     const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
-    
-    const message = await roll.toMessage({
+
+    await roll.toMessage({
       speaker: ctx.actor ? ChatMessage.getSpeaker({ actor: ctx.actor }) : ChatMessage.getSpeaker(),
       flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`,
+      flags: {
+        pf2e: {
+          canReroll: !ctx.fate,
+          context: ctx
+        }
+      }
     }, {
       rollMode: ctx.rollMode ?? 'roll'
     });
-    await message.setFlag('pf2e', 'canReroll', !ctx.fate);
+
     if (callback) {
       callback(roll);
     }
