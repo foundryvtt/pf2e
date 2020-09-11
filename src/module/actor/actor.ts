@@ -463,31 +463,33 @@ export default class PF2EActor extends Actor {
     // Speeds
     {
       const label = game.i18n.localize('PF2E.SpeedTypesLand');
-      const modifiers = [
-        new PF2Modifier(
-          game.i18n.format('PF2E.SpeedBaseLabel', { type: label }),
-          Number(data.attributes.speed.value ?? 0),
-          PF2ModifierType.UNTYPED
-        )
-      ];
+      const base = Number(data.attributes.speed.value ?? 0);
+      const modifiers = [];
       ['land-speed', 'speed'].forEach((key) => {
         (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
       const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers) as any, data.attributes.speed, { overwrite: false });
-      stat.value = stat.totalModifier;
+      stat.total = base + stat.totalModifier;
       stat.type = 'land';
+      stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
       data.attributes.speed = stat;
     }
     for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
       const speed = data.attributes.speed.otherSpeeds[idx];
-      const modifiers = [
-        new PF2Modifier(game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label }), Number(speed.value ?? 0), PF2ModifierType.UNTYPED)
-      ];
+      const base = Number(speed.value ?? 0)
+      const modifiers = [];
       [`${speed.type}-speed`, 'speed'].forEach((key) => {
         (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
       const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
-      stat.value = stat.totalModifier;
+      stat.total = base + stat.totalModifier;
+      stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
       data.attributes.speed.otherSpeeds[idx] = stat;
     }
 

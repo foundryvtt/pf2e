@@ -62,7 +62,7 @@
     <label for="land-speed">
         {{localize 'PF2E.Speed'}}
     </label>
-    <span>
+    <span class="speed">
         <input
             id="land-speed"
             type="text"
@@ -71,6 +71,7 @@
             value="{{data.attributes.speed.value}}"
             placeholder="0"
         />
+        <span title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</span>
     </span>
 </div>
 <div class="pc pc_ethnicity">
@@ -200,8 +201,8 @@
         </h4>
         <ol class="tags">
             {{#each data.attributes.speed.otherSpeeds as |speed k|}}
-            <li class="tag {{k}}">
-                {{localize speed.label}} ({{speed.value}})
+            <li class="tag {{k}}" title="{{speed.breakdown}}">
+                {{localize speed.label}} ({{speed.total}})
             </li>
             {{/each}}
             <li class="tag edit-btn" for="data.attributes.speed.otherSpeeds">
