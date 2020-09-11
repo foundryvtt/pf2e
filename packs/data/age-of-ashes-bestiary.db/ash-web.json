@@ -1,0 +1,250 @@
+{
+    "_id": "z3zWW4jLADAei1uo",
+    "name": "Ash Web",
+    "permission": {
+        "default": 0
+    },
+    "type": "hazard",
+    "data": {
+        "source": {
+            "value": ""
+        },
+        "flavourText": "",
+        "nethysUrl": "",
+        "recallKnowledgeText": "",
+        "sidebarText": "",
+        "creatureType": "",
+        "saves": {
+            "fortitude": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "attributes": {
+            "hasHealth": true,
+            "ac": {
+                "value": 28
+            },
+            "hp": {
+                "value": 100,
+                "max": 100,
+                "temp": 0,
+                "tempmax": 0,
+                "details": ""
+            },
+            "hardness": 0,
+            "stealth": {
+                "value": 31,
+                "details": "(expert)"
+            }
+        },
+        "details": {
+            "isComplex": false,
+            "level": 10,
+            "disable": "Survival DC 27 (expert) to remove a 10-foot-square patch of ash web without triggering the spores.",
+            "description": "This dangerous sooty black mold readily releases its toxic spores when disturbed. The entire swath of fungus in area B2 is a single organism. There are nine 10-foot-square patches to remove, but the whole organism dies once it takes enough damage.",
+            "reset": "",
+            "routine": ""
+        },
+        "statusEffects": [],
+        "schema": {
+            "version": {
+                "value": ""
+            }
+        },
+        "traits": {
+            "traits": {
+                "value": [
+                    "environmental",
+                    "custom"
+                ],
+                "custom": "Fungus"
+            },
+            "di": {
+                "custom": "",
+                "value": [
+                    "acid",
+                    "critical-hits",
+                    "electricity",
+                    "fire",
+                    "object-immunities",
+                    "precision-damage"
+                ],
+                "selected": {}
+            },
+            "dr": [],
+            "dv": [],
+            "ci": []
+        }
+    },
+    "flags": {
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
+    },
+    "img": "icons/svg/mystery-man.svg",
+    "token": {
+        "flags": {},
+        "name": "Ash Web",
+        "displayName": 20,
+        "img": "icons/svg/mystery-man.svg",
+        "tint": null,
+        "width": 1,
+        "height": 1,
+        "scale": 1,
+        "lockRotation": false,
+        "rotation": 0,
+        "vision": false,
+        "dimSight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "brightLight": 0,
+        "sightAngle": 360,
+        "lightAngle": 360,
+        "lightAlpha": 1,
+        "actorId": "z3zWW4jLADAei1uo",
+        "actorLink": false,
+        "actorData": {},
+        "disposition": -1,
+        "displayBars": 20,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "randomImg": false
+    },
+    "items": [
+        {
+            "_id": "eV1zBAr9CgzQ2C5X",
+            "flags": {},
+            "name": "Spore Explosion",
+            "type": "action",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "data": {
+                "description": {
+                    "value": "<p><strong>Trigger</strong>: A creature moves into the ash web’s space or damages the web with any type of damage other than cold damage.</p>\n<p><strong>Requirements</strong>: The ash web is not in direct sunlight.</p>\n<p><strong> Effect</strong>: The triggering creature and all creatures within 10 feet of that creature are exposed to ash web spores.</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [],
+                    "selected": {}
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actionCategory": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 100000
+        },
+        {
+            "_id": "0tHs3BRTN0UIM4j7",
+            "flags": {},
+            "name": "Ash Web Spores",
+            "type": "action",
+            "img": "icons/svg/mystery-man.svg",
+            "data": {
+                "description": {
+                    "value": "<p>The @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} condition from ash web remains even after the poison’s duration ends. The condition’s value reduces by 1 per hour. Gugs are immune to this poison; instead, they have vivid and strange dreams when they sleep after ingesting ash web.</p>\n<p>Saving Throw Fortitude DC 29</p>\n<p><strong>Maximum Duration</strong>:&nbsp; 6 rounds;</p>\n<p><strong> Stage 1</strong>: [[/r 2d6 #poison]]&nbsp; poison damage and @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 1 (1 round);</p>\n<p><strong> Stage 2</strong>: [[/r 4d6 #posion]]&nbsp; poison damage and @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 2 (1 round);</p>\n<p><strong> Stage 3</strong>: [[/r 6d6 #posion]]&nbsp; poison and @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 3 (1 round).</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "poison",
+                        "custom"
+                    ],
+                    "selected": {
+                        "poison": "Poison",
+                        "custom": "Inhaled"
+                    },
+                    "custom": "Inhaled"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actionCategory": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 200000
+        }
+    ]
+}
