@@ -188,6 +188,9 @@ export class PF2WeaponDamage {
             if (melee) {
                 ability = 'str';
                 modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                options.push('melee')
+            } else {
+                options.push('ranged')
             }
 
             if (traits.some(t => t.name === 'propulsive')) {
