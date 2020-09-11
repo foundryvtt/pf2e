@@ -460,6 +460,37 @@ export default class PF2EActor extends Actor {
 
     (data as any).skills = skills;
 
+    // Speeds
+    {
+      const label = game.i18n.localize('PF2E.SpeedTypesLand');
+      const modifiers = [
+        new PF2Modifier(
+          game.i18n.format('PF2E.SpeedBaseLabel', { type: label }),
+          Number(data.attributes.speed.value ?? 0),
+          PF2ModifierType.UNTYPED
+        )
+      ];
+      ['land-speed', 'speed'].forEach((key) => {
+        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+      const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers) as any, data.attributes.speed, { overwrite: false });
+      stat.value = stat.totalModifier;
+      stat.type = 'land';
+      data.attributes.speed = stat;
+    }
+    for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
+      const speed = data.attributes.speed.otherSpeeds[idx];
+      const modifiers = [
+        new PF2Modifier(game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label }), Number(speed.value ?? 0), PF2ModifierType.UNTYPED)
+      ];
+      [`${speed.type}-speed`, 'speed'].forEach((key) => {
+        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+      const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
+      stat.value = stat.totalModifier;
+      data.attributes.speed.otherSpeeds[idx] = stat;
+    }
+
     // Automatic Actions
     data.actions = [];
 
