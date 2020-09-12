@@ -1,0 +1,82 @@
+{
+    "name": "Spell Effect: Guidance",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect",
+    "data": {
+        "description": {
+            "value": "<p>Implemented: Adds +1 to perception, attack, skill check rolls</p>\n<p>Not implemented: End on use</p>",
+            "chat": "",
+            "unidentified": ""
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "value": []
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "perception",
+                "label": "Guidance",
+                "value": 1,
+                "type": "status",
+                "predicate": {
+                    "all": [
+                        "guidance"
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "attack",
+                "label": "Guidance",
+                "value": 1,
+                "type": "status",
+                "predicate": {
+                    "all": [
+                        "guidance"
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "skill-check",
+                "label": "Guidance",
+                "value": 1,
+                "type": "status",
+                "predicate": {
+                    "all": [
+                        "guidance"
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "saving-throw",
+                "label": "Guidance",
+                "value": 1,
+                "type": "status",
+                "predicate": {
+                    "all": [
+                        "guidance"
+                    ]
+                }
+            }
+        ],
+        "level": {
+            "value": 1
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/guidance.jpg",
+    "_id": "3qHKBDF7lrHw8jFK"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "fIpzDpuwLdIS4tW5",
+    "name": "Effect: Bestial Mutagen (Lesser)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect",
+    "data": {
+        "description": {
+            "value": "<p>Granted by <a class=\"entity-link\" draggable=\"true\" data-pack=\"pf2e.equipment-srd\" data-id=\"IQK9N2mEOyAj3iWU\"> Bestial Mutagen (Lesser)</a></p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Athletics checks</li>\n<li>+1 item bonus to unarmed attack rolls</li>\n<li>-1 penalty to AC</li>\n<li>-2 to penalty Reflex saves</li>\n</ul>\n<p>Unimplemented effects:&nbsp;</p>\n<ul>\n<li>Gain a claw unarmed attack</li>\n<li>Gain a jaws unarmed attack</li>\n</ul>",
+            "chat": "",
+            "unidentified": ""
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "value": []
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "athletics",
+                "label": "Bestial Mutagen (Lesser)",
+                "value": 1,
+                "type": "item"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "ac",
+                "label": "Bestial Mutagen (Lesser)",
+                "value": -1,
+                "type": "untyped"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "reflex",
+                "label": "Bestial Mutagen (Lesser)",
+                "value": -2,
+                "type": "untyped"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "attack",
+                "label": "Bestial Mutagen, Lesser (Unarmed attacks)",
+                "value": 1,
+                "type": "item",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ]
+                }
+            }
+        ],
+        "level": {
+            "value": 1
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bestial-mutagen.jpg"
+}
