@@ -4,10 +4,8 @@
   "version": "1.8.0",
   "description": "",
   "scripts": {
-    "build": "node ./packs/packbuilder.js & webpack --mode production",
+    "build": "webpack --mode production",
     "build:dev": "webpack",
-    "build:packs": "node ./packs/packbuilder.js",
-    "extractPacks": "node ./packs/extractpacks.js",
     "pretest": "eslint ./src --ext .ts",
     "test": "jest",
     "lint": "eslint ./src --ext .ts",
@@ -62,8 +60,7 @@
   },
   "dependencies": {
     "ky": "^0.18.0",
-    "ky-universal": "^0.5.0",
-    "nedb": "^1.8.0"
+    "ky-universal": "^0.5.0"
   },
   "jest": {
     "preset": "ts-jest",
