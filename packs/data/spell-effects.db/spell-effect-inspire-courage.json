@@ -1,0 +1,60 @@
+{
+    "_id": "beReeFroAx24hj83",
+    "name": "Spell Effect: Inspire Courage",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect",
+    "data": {
+        "description": {
+            "value": "<p>You are inspired by words or tunes of encouragement. You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>",
+            "chat": "",
+            "unidentified": ""
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "value": []
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "attack",
+                "label": "Inspire Courage",
+                "value": 1,
+                "type": "status"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "damage",
+                "label": "Inspire Courage",
+                "value": 1,
+                "type": "status"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "will",
+                "label": "Inspire Courage (vs fear)",
+                "value": 1,
+                "type": "status",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                }
+            }
+        ],
+        "level": {
+            "value": 1
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/inspire-courage.jpg"
+}
