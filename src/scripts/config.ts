@@ -859,6 +859,7 @@ CONFIG.monsterTraits = {
   kobold: 'PF2E.TraitKobold',
   merfolk: 'PF2E.TraitMerfolk',
   mindless: 'PF2E.TraitMindless',
+  minion: 'PF2E.TraitMinion',
   monitor: 'PF2E.TraitMonitor',
   mummy: 'PF2E.TraitMummy',
   mutant: 'PF2E.TraitMutant',
