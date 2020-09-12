@@ -1,0 +1,259 @@
+{
+    "_id": "Pmi71NUPAIE3YMws",
+    "name": "Vision of Dahak",
+    "permission": {
+        "default": 0
+    },
+    "type": "hazard",
+    "data": {
+        "source": {
+            "value": ""
+        },
+        "flavourText": "",
+        "nethysUrl": "",
+        "recallKnowledgeText": "",
+        "sidebarText": "",
+        "creatureType": "",
+        "saves": {
+            "fortitude": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "attributes": {
+            "hasHealth": true,
+            "ac": {
+                "value": 27
+            },
+            "hp": {
+                "value": 130,
+                "max": 130,
+                "temp": 0,
+                "tempmax": 0,
+                "details": ""
+            },
+            "hardness": 0,
+            "stealth": {
+                "value": 16,
+                "details": ""
+            }
+        },
+        "details": {
+            "isComplex": true,
+            "level": 8,
+            "disable": "Religion DC 26 (expert) to utter prayers to a non-evil deity to counteract Dahak’s presence (prayers to Apsu allow this check to be made if the character is merely trained in Religion), Thievery DC 30 (expert) to divert the hazard’s energies back upon themselves, or a successful dispel magic (4th level; counteract DC 26).",
+            "description": "Blasts of fire and smoke pour out of the tunnel walls to coalesce into the burning form of Dahak himself; a PC who succeeds at a DC 20 Religion check to Recall Knowledge notes that the fiery dragon closely resembles classical depictions of the draconic god of destruction.",
+            "reset": "The vision of Dahak deactivates and resets automatically once no creatures remain within the Huntergate way station.",
+            "routine": "(2 actions) The vision of Dahak manifests next to the creature that is closest to the center of the way station, then uses its Breath Weapon in a direction that catches the most possible targets in its area."
+        },
+        "statusEffects": [],
+        "schema": {
+            "version": {
+                "value": ""
+            }
+        },
+        "traits": {
+            "traits": {
+                "value": [
+                    "fire",
+                    "magical",
+                    "custom"
+                ],
+                "custom": "Rare"
+            },
+            "di": {
+                "custom": "",
+                "value": [
+                    "critical-hits",
+                    "fire",
+                    "object-immunities",
+                    "precision-damage"
+                ],
+                "selected": {}
+            },
+            "dr": [],
+            "dv": [
+                {
+                    "type": "cold",
+                    "label": "Cold",
+                    "value": "10",
+                    "exceptions": ""
+                }
+            ],
+            "ci": []
+        },
+        "customModifiers": {}
+    },
+    "flags": {
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
+    },
+    "img": "icons/svg/mystery-man.svg",
+    "token": {
+        "flags": {},
+        "name": "Vision of Dahak",
+        "displayName": 20,
+        "img": "icons/svg/mystery-man.svg",
+        "tint": null,
+        "width": 1,
+        "height": 1,
+        "scale": 1,
+        "lockRotation": false,
+        "rotation": 0,
+        "vision": false,
+        "dimSight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "brightLight": 0,
+        "sightAngle": 360,
+        "lightAngle": 360,
+        "lightAlpha": 1,
+        "actorId": "Pmi71NUPAIE3YMws",
+        "actorLink": false,
+        "actorData": {},
+        "disposition": -1,
+        "displayBars": 20,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "randomImg": false
+    },
+    "items": [
+        {
+            "_id": "7wokY8VtRk0KvDhV",
+            "flags": {},
+            "name": "Manifest",
+            "type": "action",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "data": {
+                "description": {
+                    "value": "<p><strong>Trigger</strong>: A creature is within the way station.</p>\n<p><strong> Effect</strong>:&nbsp; The vision of Dahak appears in a 15-foot space adjacent to that creature and rolls initiative.</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [],
+                    "selected": {}
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actionCategory": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 100000
+        },
+        {
+            "_id": "Omu620MVyXotE5Nc",
+            "flags": {},
+            "name": "Breath Weapon",
+            "type": "action",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "data": {
+                "description": {
+                    "value": "<p>The vision of Dahak unleashes a blast of fire from its burning maw, creating a 60-foot cone that deals [[/r 6d6 #fire]] fire damage to all creatures within (DC 26 basic Reflex save).</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "fire"
+                    ],
+                    "selected": {
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "fire": "Fire"
+                    },
+                    "custom": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actionCategory": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 200000
+        }
+    ]
+}

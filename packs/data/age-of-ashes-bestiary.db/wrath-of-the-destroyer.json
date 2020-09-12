@@ -1,0 +1,561 @@
+{
+    "_id": "VQiBBu6D2srK6Fmj",
+    "name": "Wrath of the Destroyer",
+    "permission": {
+        "default": 0
+    },
+    "type": "hazard",
+    "data": {
+        "source": {
+            "value": ""
+        },
+        "flavourText": "",
+        "nethysUrl": "",
+        "recallKnowledgeText": "",
+        "sidebarText": "",
+        "creatureType": "",
+        "saves": {
+            "fortitude": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 22
+            },
+            "reflex": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "attributes": {
+            "hasHealth": true,
+            "ac": {
+                "value": 30
+            },
+            "hp": {
+                "value": 72,
+                "max": 72,
+                "temp": 0,
+                "tempmax": 0,
+                "details": ""
+            },
+            "hardness": 18,
+            "stealth": {
+                "value": 22,
+                "details": "(Expert) to notice subtle vapors of magical energy seething across the doors."
+            }
+        },
+        "details": {
+            "isComplex": true,
+            "level": 10,
+            "disable": "Thievery DC 29 to disrupt the divine magic, Religion DC 29 to placate the wrathful energies, or dispel magic (5th level; counteract DC 26).",
+            "description": "These heavy doors, carved with an image of Dahak, echo with a hatred so powerful that it can kill anyone who comes nearby, manifesting a vision of Dahak’s head emerging from the doors to strike at a foe.",
+            "reset": "The trap deactivates and resets if 1 minute passes without any creature being in range.",
+            "routine": "On its initiative, the wrath of the destroyer targets the closest target in area C6 with Face of the Fatal Divine."
+        },
+        "statusEffects": [],
+        "schema": {
+            "version": {
+                "value": ""
+            }
+        },
+        "traits": {
+            "traits": {
+                "value": [
+                    "magical"
+                ],
+                "custom": ""
+            },
+            "di": {
+                "custom": "",
+                "value": [
+                    "critical-hits",
+                    "fire",
+                    "object-immunities",
+                    "precision-damage"
+                ],
+                "selected": {}
+            },
+            "dr": [],
+            "dv": [],
+            "ci": []
+        }
+    },
+    "flags": {
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        },
+        "exportSource": {
+            "world": "age-of-ashes",
+            "system": "pf2e",
+            "coreVersion": "0.6.2",
+            "systemVersion": "1.5.3"
+        }
+    },
+    "img": "icons/svg/mystery-man.svg",
+    "token": {
+        "flags": {},
+        "name": "Wrath of the Destroyer",
+        "displayName": 20,
+        "img": "icons/svg/mystery-man.svg",
+        "tint": null,
+        "width": 1,
+        "height": 1,
+        "scale": 1,
+        "lockRotation": false,
+        "rotation": 0,
+        "vision": false,
+        "dimSight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "brightLight": 0,
+        "sightAngle": 360,
+        "lightAngle": 360,
+        "lightAlpha": 1,
+        "actorId": "VQiBBu6D2srK6Fmj",
+        "actorLink": false,
+        "actorData": {},
+        "disposition": -1,
+        "displayBars": 20,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "randomImg": false
+    },
+    "items": [
+        {
+            "_id": "fINveZMkSiZN9kMX",
+            "flags": {},
+            "name": "Expunge",
+            "type": "action",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "data": {
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A non-worshipper of Dahak touches either door leading to C7<br><br><strong>Effect </strong>The hazard targets the creature with Face of the Fatal Divine, then rolls initiative.</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [],
+                    "selected": {}
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actionCategory": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 100000
+        },
+        {
+            "_id": "LnwQpnNyyd6h5Xx0",
+            "flags": {},
+            "name": "Face of the Fatal Divine",
+            "type": "action",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "data": {
+                "description": {
+                    "value": "<p>The creature beholds the face of Dahak as it emerges to bite with its burning jaws, targeting the creature with @Compendium[pf2e.spells-srd.tlcrVRqW1MSKJ5IC]{Phantasmal Killer} (5th level, Will DC 29).</p>",
+                    "chat": "",
+                    "unidentified": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "death",
+                        "divine",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental"
+                    ],
+                    "selected": {
+                        "death": "Death",
+                        "divine": "Divine",
+                        "emotion": "Emotion",
+                        "fear": "Fear",
+                        "illusion": "Illusion",
+                        "mental": "Mental"
+                    },
+                    "custom": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "weapon": {
+                    "value": ""
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "skill": "",
+                    "rank": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "skill": "",
+                        "rank": ""
+                    }
+                }
+            },
+            "sort": 200000
+        },
+        {
+            "_id": "DLqj6vKaxkFLJMBr",
+            "flags": {},
+            "name": "Phantasmal Killer",
+            "type": "spell",
+            "img": "systems/pf2e/icons/spells/phantasmal-killer.jpg",
+            "data": {
+                "description": {
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 1.</p>\r<p>\n<b>Failure</b> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 2.</p>\r<p>\n<b>Critical Failure</b> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionspf2e.sDPxOjQ9kx2RZE8D]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 4. This effect has the incapacitation trait.</p>\r<p>\n<hr><b>Heightened </b> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>",
+                    "chat": "",
+                    "unidentified": "",
+                    "type": "String",
+                    "label": "Description"
+                },
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=219",
+                    "type": "String",
+                    "label": "Source"
+                },
+                "traits": {
+                    "value": [
+                        "death",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental"
+                    ],
+                    "type": "String",
+                    "label": "Spell Traits"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "level": {
+                    "value": 4,
+                    "type": "Number",
+                    "label": "Spell Level"
+                },
+                "spellType": {
+                    "value": "save",
+                    "type": "String",
+                    "label": "Spell Type"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "type": "String",
+                    "label": "Spell Traditions"
+                },
+                "school": {
+                    "value": "ill",
+                    "type": "String",
+                    "label": "Spell School"
+                },
+                "components": {
+                    "value": "somatic, verbal",
+                    "type": "String",
+                    "label": "Spell Components"
+                },
+                "materials": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Materials"
+                },
+                "target": {
+                    "value": "1 living creature",
+                    "type": "String",
+                    "label": "Target"
+                },
+                "range": {
+                    "value": "120 feet",
+                    "type": "String",
+                    "label": "Range"
+                },
+                "area": {
+                    "value": null,
+                    "type": "String",
+                    "label": "Area",
+                    "areaType": ""
+                },
+                "time": {
+                    "value": "2",
+                    "type": "String",
+                    "label": "Casting Time"
+                },
+                "duration": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Duration"
+                },
+                "damage": {
+                    "value": "4d6",
+                    "applyMod": false,
+                    "type": "String",
+                    "label": "Spell Damage"
+                },
+                "damageType": {
+                    "value": "mental",
+                    "type": "String",
+                    "label": "Damage Type"
+                },
+                "scaling": {
+                    "mode": "none",
+                    "formula": ""
+                },
+                "save": {
+                    "basic": "",
+                    "type": "String",
+                    "label": "Saving Throw",
+                    "value": ""
+                },
+                "sustained": {
+                    "value": false,
+                    "type": "Boolean",
+                    "label": "Can be Sustained"
+                },
+                "cost": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Cost"
+                },
+                "ability": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Spellcasting Ability"
+                },
+                "prepared": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Prepared Spell"
+                },
+                "location": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Spellcasting Entry Location"
+                },
+                "containerId": {
+                    "value": ""
+                }
+            },
+            "sort": 100001
+        },
+        {
+            "_id": "NCn8HaQsvwfruerm",
+            "flags": {},
+            "name": "Phantasmal Killer",
+            "type": "spell",
+            "img": "systems/pf2e/icons/spells/phantasmal-killer.jpg",
+            "data": {
+                "description": {
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 1.</p>\r<p>\n<b>Failure</b> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 2.</p>\r<p>\n<b>Critical Failure</b> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionspf2e.sDPxOjQ9kx2RZE8D]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 4. This effect has the incapacitation trait.</p>\r<p>\n<hr><b>Heightened </b> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>",
+                    "chat": "",
+                    "unidentified": "",
+                    "type": "String",
+                    "label": "Description"
+                },
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=219",
+                    "type": "String",
+                    "label": "Source"
+                },
+                "traits": {
+                    "value": [
+                        "death",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental"
+                    ],
+                    "type": "String",
+                    "label": "Spell Traits"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "level": {
+                    "value": 4,
+                    "type": "Number",
+                    "label": "Spell Level"
+                },
+                "spellType": {
+                    "value": "save",
+                    "type": "String",
+                    "label": "Spell Type"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "type": "String",
+                    "label": "Spell Traditions"
+                },
+                "school": {
+                    "value": "ill",
+                    "type": "String",
+                    "label": "Spell School"
+                },
+                "components": {
+                    "value": "somatic, verbal",
+                    "type": "String",
+                    "label": "Spell Components"
+                },
+                "materials": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Materials"
+                },
+                "target": {
+                    "value": "1 living creature",
+                    "type": "String",
+                    "label": "Target"
+                },
+                "range": {
+                    "value": "120 feet",
+                    "type": "String",
+                    "label": "Range"
+                },
+                "area": {
+                    "value": null,
+                    "type": "String",
+                    "label": "Area",
+                    "areaType": ""
+                },
+                "time": {
+                    "value": "2",
+                    "type": "String",
+                    "label": "Casting Time"
+                },
+                "duration": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Duration"
+                },
+                "damage": {
+                    "value": "4d6",
+                    "applyMod": false,
+                    "type": "String",
+                    "label": "Spell Damage"
+                },
+                "damageType": {
+                    "value": "mental",
+                    "type": "String",
+                    "label": "Damage Type"
+                },
+                "scaling": {
+                    "mode": "none",
+                    "formula": ""
+                },
+                "save": {
+                    "basic": "",
+                    "type": "String",
+                    "label": "Saving Throw",
+                    "value": ""
+                },
+                "sustained": {
+                    "value": false,
+                    "type": "Boolean",
+                    "label": "Can be Sustained"
+                },
+                "cost": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Cost"
+                },
+                "ability": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Spellcasting Ability"
+                },
+                "prepared": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Prepared Spell"
+                },
+                "location": {
+                    "value": "",
+                    "type": "String",
+                    "label": "Spellcasting Entry Location"
+                },
+                "containerId": {
+                    "value": ""
+                }
+            },
+            "sort": 100001
+        }
+    ]
+}
