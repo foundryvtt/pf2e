@@ -152,6 +152,13 @@ export default class PF2EActor extends Actor {
       abl.mod = Math.floor((abl.value - 10) / 2);
     }
 
+    // Toggles
+    (data as any).toggles = {
+      actions: [
+        { label: 'PF2E.TargetFlatFootedLabel', inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`, checked: this.getFlag(game.system.id, 'rollOptions.all.target:flatFooted') }
+      ]
+    };
+
     const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
 
     // Update experience percentage from raw experience amounts.
