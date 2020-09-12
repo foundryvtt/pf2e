@@ -1,0 +1,27 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <!-- HEADER -->
+  <header class="sheet-header">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <section class="header-details">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}"/>
+      </h1>
+    </section>
+  </header>
+
+  <!-- BODY -->
+  <section class="sheet-content" style="margin-top: 10px;">
+    <label for="{{data._id}}-master"><b>Master</b></label>
+    <select id="{{data._id}}-master" name="data.master.id">
+      {{#select data.master.id}}
+      <option value="">Select a master...</option>
+      {{#each masters as |master idx|}}
+      <option value="{{master.data._id}}">{{master.name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+    <div><b>Level</b> {{data.master.level}}</div>
+  </section>
+
+</form>
