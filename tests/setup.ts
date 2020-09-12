@@ -1,13 +1,13 @@
-const readline = require('readline');
+const path = require('path');
 const fs = require('fs');
 
 export const fetchSpell = async (name) => {
-  const rl = readline.createInterface({
-    terminal: false,
-    input: fs.createReadStream('./static/packs/spells.db'),
-  });
-  for await (const line of rl) {
-    const json = JSON.parse(line);
+  const spellsDb = './packs/data/spells.db/';
+  const spellFiles = fs.readdirSync(spellsDb);
+
+  for (const file of spellFiles) {
+    const content = fs.readFileSync(path.resolve(spellsDb, file));
+    const json = JSON.parse(content);
     if (json.name === name) return json;
   }
   return null;
