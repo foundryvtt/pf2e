@@ -901,10 +901,15 @@ export default class PF2EActor extends Actor {
       const master = game.actors.get(data.master.id);
       if (master) {
         data.master.name = master?.name;
-        data.master.level = master.data.data.details.level.value;
+        data.master.level = master.data.data.details.level.value ?? 0;
       } else {
         data.master.name = undefined;
-        data.master.level = undefined;
+        data.master.level = 0;
+      }
+
+      data.attributes.hp.max = data.master.level * 5;
+      if (data.attributes.hp.value > data.attributes.hp.max) {
+          data.attributes.hp.value = data.attributes.hp.max;
       }
     }
   }

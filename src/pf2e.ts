@@ -70,7 +70,7 @@ function _updateMinionActors(master: ActorPF2e = undefined) {
   game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
     .filter(minion => !master || minion.data.data.master.id === master.data._id)
-    .forEach(minion => minion.update({ 'data.master.updated': new Date().getTime() }));
+    .forEach(minion => minion.update({ 'data.master.updated': new Date().toISOString() }));
 }
 
 Hooks.once('ready', () => {
