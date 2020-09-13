@@ -897,26 +897,46 @@ export default class PF2EActor extends Actor {
   private _prepareFamiliarData(actorData: FamiliarData, rules: PF2RuleElement[]) {
     const { data } = actorData;
 
+    let master;
     if (data?.master?.id && game.actors) {
-      const master = game.actors.get(data.master.id);
-      if (master) {
-        data.master.name = master?.name;
-        data.master.level = master.data.data.details.level.value ?? 0;
-      } else {
-        data.master.name = undefined;
-        data.master.level = 0;
-      }
+      master = game.actors.get(data.master.id);
+    }
+    if (master) {
+      data.master.name = master?.name;
+      data.master.level = master.data.data.details.level.value ?? 0;
+    } else {
+      data.master.name = undefined;
+      data.master.level = 0;
+    }
+    data.details.level.value = data.master.level;
 
-      data.attributes.hp.max = data.master.level * 5;
-      if (data.attributes.hp.value > data.attributes.hp.max) {
-          data.attributes.hp.value = data.attributes.hp.max;
-      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
+
+    // hit points
+    {
+      const modifiers = [
+        new PF2Modifier('PF2E.MasterLevelHP', data.master.level * 5, PF2ModifierType.UNTYPED)
+      ];
+      (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      (statisticsModifiers['hp-per-level'] || []).map((m) => duplicate(m)).forEach((m) => {
+        m.modifier *= data.details.level.value;
+        modifiers.push(m)
+      });
+
+      const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
+      stat.max = stat.totalModifier;
+      stat.value = master ? Math.min(stat.value, stat.max) : stat.value; // retain current hit points value if no master is defined yet
+      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
+        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      data.attributes.hp = stat;
     }
   }
 
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-  private _prepareCustomModifiers(actorData: CharacterData | NpcData, rules: PF2RuleElement[]): {
+  private _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
     damageDice: Record<string, PF2DamageDice[]>
   } {
@@ -941,7 +961,7 @@ export default class PF2EActor extends Actor {
     }
 
     // Character-specific custom modifiers & custom damage dice.
-    if (actorData.type === 'character' || actorData.type === 'npc') {
+    if (['character', 'familiar', 'npc'].includes(actorData.type)) {
       const {data} = actorData;
 
       // Custom Modifiers (which affect d20 rolls and damage).
@@ -1541,8 +1561,8 @@ export default class PF2EActor extends Actor {
                           predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
     // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
     // similar to how addDamageDice operates.
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom modifiers only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
     }
 
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -1567,8 +1587,8 @@ export default class PF2EActor extends Actor {
 
   /** Removes a custom modifier by name. */
   async removeCustomModifier(stat: string, modifier: number | string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom modifiers only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
     }
 
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -1589,8 +1609,8 @@ export default class PF2EActor extends Actor {
    * @param {DexterityModifierCapData} dexCap
    */
   async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom dexterity caps only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
     }
     if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
       throw new Error('numeric value is mandatory');
@@ -1606,8 +1626,8 @@ export default class PF2EActor extends Actor {
    * Removes a previously added Dexterity modifier cap to AC.
    */
   async removeDexterityModifierCap(source: string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom dexterity caps only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
     }
     if (!source) {
       throw new Error('source of cap is mandatory');
@@ -1622,8 +1642,8 @@ export default class PF2EActor extends Actor {
 
   /** Adds custom damage dice. */
   async addDamageDice(param: PF2DamageDice) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom damage dice only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
     }
 
     const damageDice = duplicate(this.data.data.damageDice ?? {});
@@ -1643,8 +1663,8 @@ export default class PF2EActor extends Actor {
 
   /** Removes damage dice by name. */
   async removeDamageDice(selector: string, dice: number | string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom damage dice only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
     }
 
     const damageDice = duplicate(this.data.data.damageDice ?? {});

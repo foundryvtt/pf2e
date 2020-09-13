@@ -22,7 +22,12 @@
       {{/select}}
     </select>
     <div><b>Level</b> {{data.master.level}}</div>
-    <div><b>Hit Points</b> <input name="data.attributes.hp.value" value="{{data.attributes.hp.value}}"/> / {{data.attributes.hp.max}}</div>
+    <div>
+      <b>Hit Points</b>
+      <input name="data.attributes.hp.value" value="{{data.attributes.hp.value}}"/>
+      <span>/</span>
+      <span title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</span>
+    </div>
   </section>
 
 </form>
