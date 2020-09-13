@@ -65,7 +65,7 @@ Hooks.once('init', () => {
   (window as any).PF2eConditionManager = PF2eConditionManager;
 });
 
-/* Update minion-type actors to trigger another prepare data cycle to update their stats */
+/* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
 function _updateMinionActors(master: ActorPF2e = undefined) {
   game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
