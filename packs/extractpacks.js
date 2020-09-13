@@ -32,7 +32,7 @@ if (args.length > 0) {
         // Extract single pack
         const file = path.resolve(foundryPacksPath, arg);
         if (fs.existsSync(file)) {
-            extractPack(file, arg).catch(err => console.error(err)).then(() => {
+            extractPack(file, arg).then(() => {
                 console.log('Moving extracted files from temp directory to data directory...');
                 try {
                     const outPath = path.resolve(dataPath, arg);
@@ -53,7 +53,7 @@ if (args.length > 0) {
                     console.error(e.message);
                 }
                 console.log('Extraction complete.');
-            });
+            }).catch(err => console.error(err));
         } else {
             console.error(`File not found: '${file}'`);
         }
@@ -131,10 +131,15 @@ async function extractPack(filePath, packName) {
           .replace(/\s/gi, '-')
           .replace('--', '-');
 
-        const outFile = path.resolve(outPath, `${entityName}.json`);
+        const outFileName = `${entityName}.json`;
+        const outFile = path.resolve(outPath, outFileName);
 
         if (fs.existsSync(outFile)) {
             throw `Error: Duplicate name '${entity.name}' in pack: ${packName}`;
+        }
+
+        if (entitiyIdChanged(entity, packName, outFileName)) {
+            throw `Error: The id '${entity._id}' of entity '${entity.name}' does not match the current id. Entities that are already in the system must keep their current id.`
         }
 
         try {
@@ -146,6 +151,16 @@ async function extractPack(filePath, packName) {
     }
     console.log(`Finished extracting ${count} entities from pack: ${packName}`);
     return count;
+}
+
+function entitiyIdChanged(newEntity, packName, fileName) {
+    const oldFile = path.resolve(dataPath, packName, fileName);
+    if (fs.existsSync(oldFile)) {
+        const oldEntity = JSON.parse(fs.readFileSync(oldFile));
+        return !(oldEntity._id === newEntity._id);
+    } else {
+        return false;
+    }
 }
 
 function sanitizeEntity(entity) {
