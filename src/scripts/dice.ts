@@ -284,7 +284,7 @@ export class DicePF2e {
  */
 Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
     if (!message.isRoll) return;
-    const dice = message.roll.dice[0];
+    const dice: any = message.roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
 
     if (message.roll.dice.length && (message as any).isContentVisible) {
