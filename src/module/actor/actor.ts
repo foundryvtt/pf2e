@@ -24,22 +24,23 @@ import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
 import {
-  CharacterData,
-  NpcData,
-  SaveData,
-  SkillData,
-  ClassDCData,
-  ArmorClassData,
-  PerceptionData,
-  InitiativeData,
-  CharacterStrikeTrait,
-  CharacterStrike,
-  DexterityModifierCapData,
-  NPCArmorClassData,
-  NPCSaveData,
-  NPCPerceptionData,
-  NPCSkillData,
-  HitPointsData
+    CharacterData,
+    NpcData,
+    SaveData,
+    SkillData,
+    ClassDCData,
+    ArmorClassData,
+    PerceptionData,
+    InitiativeData,
+    CharacterStrikeTrait,
+    CharacterStrike,
+    DexterityModifierCapData,
+    NPCArmorClassData,
+    NPCSaveData,
+    NPCPerceptionData,
+    NPCSkillData,
+    HitPointsData,
+    FamiliarData
 } from './actorDataDefinitions';
 import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
 
@@ -110,6 +111,7 @@ export default class PF2EActor extends Actor {
     const rules = actorData.items.reduce((accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)), []);
     if (actorData.type === 'character') this._prepareCharacterData(actorData, rules);
     else if (actorData.type === 'npc') this._prepareNPCData(actorData, rules);
+    else if (actorData.type === 'familiar') this._prepareFamiliarData(actorData, rules);
 
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
@@ -892,7 +894,23 @@ export default class PF2EActor extends Actor {
 
   }
 
-  /** Compute custom stat modifiers provided by users or given by conditions. */
+  private _prepareFamiliarData(actorData: FamiliarData, rules: PF2RuleElement[]) {
+    const { data } = actorData;
+
+    if (data?.master?.id && game.actors) {
+      const master = game.actors.get(data.master.id);
+      if (master) {
+        data.master.name = master?.name;
+        data.master.level = master.data.data.details.level.value;
+      } else {
+        data.master.name = undefined;
+        data.master.level = undefined;
+      }
+    }
+  }
+
+
+    /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
     damageDice: Record<string, PF2DamageDice[]>
