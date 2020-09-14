@@ -32,6 +32,12 @@
       <b>Armor Class</b>
       <span>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</span>
     </div>
+    {{#each data.saves as |save idx|}}
+    <div title="{{save.breakdown}}">
+      <b>{{localize save.name}}</b>
+      <span>{{numberFormat save.value decimals=0 sign=true}}</span>
+    </div>
+    {{/each}}
   </section>
 
 </form>
