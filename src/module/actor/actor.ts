@@ -904,33 +904,55 @@ export default class PF2EActor extends Actor {
     if (master) {
       data.master.name = master?.name;
       data.master.level = master.data.data.details.level.value ?? 0;
+      data.details.level.value = data.master.level;
+
+      const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
+
+      // hit points
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevelHP', data.master.level * 5, PF2ModifierType.UNTYPED)
+        ];
+        (statisticsModifiers.hp || []).map(m => duplicate(m)).forEach(m => modifiers.push(m));
+        (statisticsModifiers['hp-per-level'] || []).map(m => duplicate(m)).forEach(m => {
+          m.modifier *= data.details.level.value;
+          modifiers.push(m)
+        });
+
+        const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
+        stat.max = stat.totalModifier;
+        stat.value = Math.min(stat.value, stat.max);
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.attributes.hp = stat;
+      }
+
+      // armor class
+      {
+        const source = master.data.data.attributes.ac.modifiers.filter(modifier => !['status', 'circumstance'].includes(modifier.type));
+        const base = 10 + new PF2StatisticModifier('base', source).totalModifier;
+        const modifiers = [];
+        ['ac', 'dex-based', 'all'].forEach(key => (statisticsModifiers[key] || []).map(m => duplicate(m)).forEach(m => modifiers.push(m)));
+        const stat = new PF2StatisticModifier('ac', modifiers);
+        stat.value = base + stat.totalModifier;
+        stat.breakdown = [game.i18n.format('PF2E.MasterArmorClass', { base })].concat(
+          stat.modifiers.filter(m => m.enabled).map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        ).join(', ');
+        data.attributes.ac = stat;
+      }
     } else {
       data.master.name = undefined;
       data.master.level = 0;
-    }
-    data.details.level.value = data.master.level;
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
-
-    // hit points
-    {
-      const modifiers = [
-        new PF2Modifier('PF2E.MasterLevelHP', data.master.level * 5, PF2ModifierType.UNTYPED)
-      ];
-      (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-      (statisticsModifiers['hp-per-level'] || []).map((m) => duplicate(m)).forEach((m) => {
-        m.modifier *= data.details.level.value;
-        modifiers.push(m)
-      });
-
-      const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
-      stat.max = stat.totalModifier;
-      stat.value = master ? Math.min(stat.value, stat.max) : stat.value; // retain current hit points value if no master is defined yet
-      stat.breakdown = stat.modifiers.filter((m) => m.enabled)
-        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
-        .join(', ');
-      data.attributes.hp = stat;
+      data.details.level.value = 0;
+      data.attributes.hp = {
+        value: data.attributes.hp.value,
+        max: data.attributes.hp.value,
+      };
+      data.attributes.ac = {
+        value: 10,
+        breakdown: game.i18n.localize('PF2E.ArmorClassBase')
+      };
     }
   }
 
