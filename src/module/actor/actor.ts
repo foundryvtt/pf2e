@@ -941,6 +941,21 @@ export default class PF2EActor extends Actor {
         ).join(', ');
         data.attributes.ac = stat;
       }
+
+      // saving throws
+      for (const [saveName, save] of Object.entries(master.data.data.saves as SaveData[])) {
+        const source = save.modifiers.filter(modifier => !['status', 'circumstance'].includes(modifier.type));
+        const modifiers = [
+          new PF2Modifier(`PF2E.MasterSavingThrow.${saveName}`, new PF2StatisticModifier('base', source).totalModifier, PF2ModifierType.UNTYPED)
+        ];
+        [save.name, `${save.ability}-based`, 'saving-throw', 'all'].forEach(key => (statisticsModifiers[key] || []).map(m => duplicate(m)).forEach(m => modifiers.push(m)));
+        const stat = new PF2StatisticModifier(CONFIG.saves[saveName], modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.saves[saveName] = stat;
+      }
     } else {
       data.master.name = undefined;
       data.master.level = 0;
@@ -952,6 +967,11 @@ export default class PF2EActor extends Actor {
       data.attributes.ac = {
         value: 10,
         breakdown: game.i18n.localize('PF2E.ArmorClassBase')
+      };
+      data.saves = {
+        fortitude: { value: 0 },
+        reflex: { value: 0 },
+        will: { value: 0 }
       };
     }
   }
