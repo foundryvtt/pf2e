@@ -620,6 +620,7 @@ export default class PF2EActor extends Actor {
 
         // Add the base attack roll (used for determining on-hit)
         action.attack = (event, options = []) => {
+          options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
@@ -628,15 +629,24 @@ export default class PF2EActor extends Actor {
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
           {
             label: `MAP ${map.map2}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
           {
             label: `MAP ${map.map3}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
         ];
         action.damage = (event, options = []) => {
