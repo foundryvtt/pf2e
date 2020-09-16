@@ -1,19 +1,36 @@
 {
     "_id": "sFaAWmy1szDRmFtk",
-    "name": "Confounding Betrayal",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "(expert)",
+                "value": 21
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "Allies appear to shed their disguises and reveal themselves to be malevolent monsters.",
+            "disable": "DC 28 Deception (expert) twice to confound the haunt with your own deceptions, or DC 28 Occultism (trained) twice to create a ward against the haunt’s mental influence ",
+            "isComplex": true,
+            "level": 8,
+            "reset": "The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.",
+            "routine": "(1 action; illusion, incapacitation, occult) The haunt continues to confound victims’ senses and inspire them to commit violence against each other. Each creature in the haunt’s area must attempt a DC 26 Will save. <b>Critical Success</b> The creature is unaffected and temporarily immune for 1 minute.<b>Success</b> The creature is unaffected.<b>Failure</b> The creature is confused for 1 round.<b>Critical Failure</b> The creature is confused for 1 minute."
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,137 +48,120 @@
                 "value": 0
             }
         },
-        "attributes": {
-            "hasHealth": false,
-            "ac": {
-                "value": 10
-            },
-            "hp": {
-                "value": 0,
-                "max": 0,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 0,
-            "stealth": {
-                "value": 21,
-                "details": "(expert)"
-            }
-        },
-        "details": {
-            "isComplex": true,
-            "level": 8,
-            "disable": "DC 28 Deception (expert) twice to confound the haunt with your own deceptions, or DC 28 Occultism (trained) twice to create a ward against the haunt’s mental influence ",
-            "description": "Allies appear to shed their disguises and reveal themselves to be malevolent monsters.",
-            "reset": "The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.",
-            "routine": "(1 action; illusion, incapacitation, occult) The haunt continues to confound victims’ senses and inspire them to commit violence against each other. Each creature in the haunt’s area must attempt a DC 26 Will save. <b>Critical Success</b> The creature is unaffected and temporarily immune for 1 minute.<b>Success</b> The creature is unaffected.<b>Failure</b> The creature is confused for 1 round.<b>Critical Failure</b> The creature is confused for 1 minute."
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "haunt"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
-                "value": [],
-                "selected": {}
+                "selected": {},
+                "value": []
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "haunt"
+                ]
+            }
         }
     },
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Confounding Betrayal",
-        "displayName": 0,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "sFaAWmy1szDRmFtk",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 0,
-        "bar1": {},
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "QrgnumULVnz8pWfK",
-            "flags": {},
-            "name": "Unmask",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<b>Trigger</b> Two or more creatures enter the haunt’s area; <b>Effect</b> Each creature sees the forms of nearby creatures shift and change, appearing to transform into fiendish or aberrant beings with a thirst for blood. Each creature in the area must attempt a DC 30 Will save.<b>CriticalSuccess</b> The creature sees through the illusions entirely and is temporarily immune to the haunt’s routine for 1 minute.<b>Success</b> The creature is unaffected by the strange images.<b>Failure</b> The creature believes the illusions to be true; if they become confused by the haunt’s routine, they can’t attempt flat checks to end the confused condition when they take damage.<b>CriticalFailure</b> As failure, but the creature is left with a lingering suspicion of others and can’t benefit from Aid reactions for 24 hours.",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> Two or more creatures enter the haunt’s area; <b>Effect</b> Each creature sees the forms of nearby creatures shift and change, appearing to transform into fiendish or aberrant beings with a thirst for blood. Each creature in the area must attempt a DC 30 Will save.<b>CriticalSuccess</b> The creature sees through the illusions entirely and is temporarily immune to the haunt’s routine for 1 minute.<b>Success</b> The creature is unaffected by the strange images.<b>Failure</b> The creature believes the illusions to be true; if they become confused by the haunt’s routine, they can’t attempt flat checks to end the confused condition when they take damage.<b>CriticalFailure</b> As failure, but the creature is left with a lingering suspicion of others and can’t benefit from Aid reactions for 24 hours."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "illusion",
                         "occult"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
                 }
-            }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Unmask",
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Confounding Betrayal",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "sFaAWmy1szDRmFtk",
+        "actorLink": false,
+        "bar1": {},
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Confounding Betrayal",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

@@ -1,19 +1,37 @@
 {
     "_id": "zNIjGSxkG8xyDLgR",
-    "name": "Dragon Pillar",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 24
+            },
+            "hardness": 14,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 56,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 56
+            },
+            "stealth": {
+                "details": "+0 or Detect Magic",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "A 10-foot-tall wooden pole topped by a wooden carving of Dahak’s head. Each dragon pillar’s head has been treated with something to give it a distinct color, as indicated in the specific encounter, but regardless of color, plumes of smoke waft up from the mouth.",
+            "disable": "Athletics DC 26 (expert) to push the pillar over, or Thievery DC 26 (expert) on the pillar to erase the magic runes that power it, or dispel magic (4th level; counteract DC 22) to dispel the pillar’s magic.",
+            "isComplex": false,
+            "level": 6,
+            "reset": "The dragon pillar deactivates and resets as soon as it perceives no appropriate targets in range.",
+            "routine": "(1 action) On its initiative, the dragon pillar fires an eye beam at the closest target within 120 feet."
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,61 +49,38 @@
                 "value": null
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 24
-            },
-            "hp": {
-                "value": 56,
-                "max": 56,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 14,
-            "stealth": {
-                "value": 0,
-                "details": "+0 or Detect Magic"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 6,
-            "disable": "Athletics DC 26 (expert) to push the pillar over, or Thievery DC 26 (expert) on the pillar to erase the magic runes that power it, or dispel magic (4th level; counteract DC 22) to dispel the pillar’s magic.",
-            "description": "A 10-foot-tall wooden pole topped by a wooden carving of Dahak’s head. Each dragon pillar’s head has been treated with something to give it a distinct color, as indicated in the specific encounter, but regardless of color, plumes of smoke waft up from the mouth.",
-            "reset": "The dragon pillar deactivates and resets as soon as it perceives no appropriate targets in range.",
-            "routine": "(1 action) On its initiative, the dragon pillar fires an eye beam at the closest target within 120 feet."
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "magical",
-                    "custom"
-                ],
-                "custom": "Rare"
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "fire",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
-        },
-        "customModifiers": {}
+            "traits": {
+                "custom": "Rare",
+                "value": [
+                    "magical",
+                    "custom"
+                ]
+            }
+        }
     },
     "flags": {
         "pf2e_updatednpcsheet": {
@@ -95,564 +90,418 @@
         }
     },
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Dragon Pillar",
-        "displayName": 20,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "zNIjGSxkG8xyDLgR",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 20,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "HSs8knjTJuMzsAQr",
-            "flags": {},
-            "name": "Recognize Ally",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>A dragon pillar can see through its empty eye sockets, and it can recognize Cinderclaws and their allies. A character disguised as a Cinderclaw can trick a dragon pillar into perceiving it as a Cinderclaw ally by using Deception to @Compendium[pf2e.actionspf2e.AJstokjdG6iDjVjE]{Impersonate}. A dragon pillar always uses Perception for initiative.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>A dragon pillar can see through its empty eye sockets, and it can recognize Cinderclaws and their allies. A character disguised as a Cinderclaw can trick a dragon pillar into perceiving it as a Cinderclaw ally by using Deception to @Compendium[pf2e.actionspf2e.AJstokjdG6iDjVjE]{Impersonate}. A dragon pillar always uses Perception for initiative.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "selected": {}
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "selected": {},
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 100000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Recognize Ally",
+            "sort": 100000,
+            "type": "action"
         },
         {
             "_id": "jZsVGuNQlvV5TkQ9",
-            "flags": {},
-            "name": "Perception and Vision",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
-                "description": {
-                    "value": "<p>+16 Perception, Darkvision (60 feet)</p>",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [],
-                    "selected": {}
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "passive"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
                 },
-                "requirements": {
-                    "value": ""
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
-                }
-            },
-            "sort": 200000
-        },
-        {
-            "_id": "4icc49aRVqYcnJqC",
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "name": "Dispel Magic",
-            "type": "spell",
-            "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
-            "data": {
                 "description": {
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.&nbsp;</span></p>",
                     "chat": "",
                     "unidentified": "",
-                    "type": "String",
-                    "label": "Description"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78",
-                    "type": "String",
-                    "label": "Source"
-                },
-                "traits": {
-                    "value": [
-                        "abjuration"
-                    ],
-                    "type": "String",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    }
+                    "value": "<p>+16 Perception, Darkvision (60 feet)</p>"
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "level": {
-                    "value": 2,
-                    "type": "Number",
-                    "label": "Spell Level"
-                },
-                "spellType": {
-                    "value": "utility",
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Perception and Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "4icc49aRVqYcnJqC",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
                     "type": "String",
-                    "label": "Spell Type"
-                },
-                "spellCategory": {
                     "value": ""
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ],
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
                     "type": "String",
-                    "label": "Spell Traditions"
+                    "value": null
                 },
-                "school": {
-                    "value": "abj",
-                    "type": "String",
-                    "label": "Spell School"
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
-                    "value": "somatic, verbal",
+                    "label": "Spell Components",
                     "type": "String",
-                    "label": "Spell Components"
+                    "value": "somatic, verbal"
                 },
-                "materials": {
-                    "value": "",
-                    "type": "String",
-                    "label": "Materials"
+                "containerId": {
+                    "value": ""
                 },
-                "target": {
-                    "value": "1 spell effect or unattended magic item",
+                "cost": {
+                    "label": "Cost",
                     "type": "String",
-                    "label": "Target"
-                },
-                "range": {
-                    "value": "120 feet",
-                    "type": "String",
-                    "label": "Range"
-                },
-                "area": {
-                    "value": null,
-                    "type": "String",
-                    "label": "Area",
-                    "areaType": ""
-                },
-                "time": {
-                    "value": "2",
-                    "type": "String",
-                    "label": "Casting Time"
-                },
-                "duration": {
-                    "value": "",
-                    "type": "String",
-                    "label": "Duration"
+                    "value": ""
                 },
                 "damage": {
-                    "value": "",
                     "applyMod": false,
+                    "label": "Spell Damage",
                     "type": "String",
-                    "label": "Spell Damage"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "",
+                    "label": "Damage Type",
                     "type": "String",
-                    "label": "Damage Type"
+                    "value": ""
                 },
-                "scaling": {
-                    "mode": "none",
-                    "formula": ""
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.&nbsp;</span></p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 2
+                },
+                "location": {
+                    "label": "Spellcasting Entry Location",
+                    "type": "String",
+                    "value": ""
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "120 feet"
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "save": {
                     "basic": "",
-                    "type": "String",
                     "label": "Saving Throw",
+                    "type": "String",
                     "value": ""
                 },
-                "sustained": {
-                    "value": false,
-                    "type": "Boolean",
-                    "label": "Can be Sustained"
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
                 },
-                "cost": {
-                    "value": "",
+                "school": {
+                    "label": "Spell School",
                     "type": "String",
-                    "label": "Cost"
+                    "value": "abj"
                 },
-                "ability": {
-                    "value": "",
-                    "type": "String",
-                    "label": "Spellcasting Ability"
-                },
-                "prepared": {
-                    "value": "",
-                    "type": "String",
-                    "label": "Prepared Spell"
-                },
-                "location": {
-                    "value": "",
-                    "type": "String",
-                    "label": "Spellcasting Entry Location"
-                },
-                "primarycheck": {
+                "secondarycasters": {
                     "value": ""
                 },
                 "secondarycheck": {
                     "value": ""
                 },
-                "areasize": {
-                    "value": ""
-                },
-                "secondarycasters": {
-                    "value": ""
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
                 },
                 "spellCategorie": {
                     "value": "spell"
                 },
-                "containerId": {
+                "spellCategory": {
                     "value": ""
-                }
-            },
-            "sort": 1100000
-        },
-        {
-            "_id": "i7B8yhwnUu48ZFdz",
-            "flags": {},
-            "name": "Dragon Pillar Glance",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
-            "data": {
-                "description": {
-                    "value": "<p><strong>Trigger</strong>: The dragon pillar sees a creature within 120 feet who isn’t a recognized Cinderclaw or Cinderclaw ally.</p>\n<p><strong> Effect</strong>:&nbsp; &nbsp;The dragon pillar makes an eye beam @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} against the triggering creature, then rolls initiative.</p>",
-                    "chat": "",
-                    "unidentified": ""
                 },
-                "source": {
-                    "value": ""
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": "1 spell effect or unattended magic item"
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
                 },
                 "traits": {
-                    "value": [],
-                    "selected": {}
-                },
-                "rarity": {
-                    "value": "common"
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "abjuration"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                }
+            },
+            "flags": {
+                "_sheetTab": "details"
+            },
+            "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
+            "name": "Dispel Magic",
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "i7B8yhwnUu48ZFdz",
+            "data": {
+                "actionCategory": {
+                    "value": ""
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong>: The dragon pillar sees a creature within 120 feet who isn’t a recognized Cinderclaw or Cinderclaw ally.</p>\n<p><strong> Effect</strong>:&nbsp; &nbsp;The dragon pillar makes an eye beam @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} against the triggering creature, then rolls initiative.</p>"
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                },
                 "skill_requirement": {
                     "skill": {
-                        "skill": "",
-                        "rank": ""
+                        "rank": "",
+                        "skill": ""
                     }
-                }
-            },
-            "sort": 1200000
-        },
-        {
-            "_id": "HPLwJZH8RwLW9c13",
-            "flags": {},
-            "name": "Black Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "<p>DC 24 Fortitude save.</p>\n<hr>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 24 hours.</p>",
-                    "chat": "",
-                    "unidentified": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Dragon Pillar Glance",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "HPLwJZH8RwLW9c13",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>DC 24 Fortitude save.</p>\n<hr>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 1 hour.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} for 24 hours.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "Range 120 feet",
+                    "selected": {
+                        "custom": "Range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "incapacitation": "Incapacitation"
+                    },
                     "value": [
                         "divine",
                         "evocation",
                         "incapacitation",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "incapacitation": "Incapacitation",
-                        "custom": "Range 120 feet"
-                    },
-                    "custom": "Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
-                }
-            },
-            "sort": 1300000
-        },
-        {
-            "_id": "uapfpdQSjUz13nBn",
-            "flags": {},
-            "name": "Eye Beam",
-            "type": "melee",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "<p><strong>Range</strong>: 120 feet.</p>\n<p><strong>Effect</strong>: The target is subjected to an effect determined by the pillar’s color and summarized in the passive actions. On a critical hit, the target’s save result is one degree worse.</p>",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "evocation",
-                        "custom"
-                    ],
-                    "selected": {
-                        "evocation": "Evocation",
-                        "custom": "Divine, Range 120 feet"
-                    },
-                    "custom": "Divine, Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "quantity": {
-                    "value": 1
-                },
-                "hp": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "weight": {
-                    "value": 0
-                },
-                "equippedBulk": {
+                "weapon": {
                     "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "equipped": {
-                    "value": false
-                },
-                "identified": {
-                    "value": false
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "property1": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property2": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property3": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Black Eye Beam",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "uapfpdQSjUz13nBn",
+            "data": {
                 "attack": {
                     "value": ""
                 },
-                "damageRolls": {},
-                "bonus": {
-                    "value": "20"
-                },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "Black Eye Beam",
                         "Blue Eye Beam",
@@ -662,483 +511,634 @@
                         "Red Eye Beam",
                         "Violet Eye Beam",
                         "Yellow Eye Beam"
-                    ],
-                    "custom": ""
+                    ]
+                },
+                "bonus": {
+                    "value": "20"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damageRolls": {},
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Range</strong>: 120 feet.</p>\n<p><strong>Effect</strong>: The target is subjected to an effect determined by the pillar’s color and summarized in the passive actions. On a critical hit, the target’s save result is one degree worse.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "Divine, Range 120 feet",
+                    "selected": {
+                        "custom": "Divine, Range 120 feet",
+                        "evocation": "Evocation"
+                    },
+                    "value": [
+                        "evocation",
+                        "custom"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
                 }
             },
-            "sort": 1400000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Eye Beam",
+            "sort": 1400000,
+            "type": "melee"
         },
         {
             "_id": "Od7nphkGvQM8Iv5L",
-            "flags": {},
-            "name": "Blue Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>DC 24 Fortitude save.</p>\n<hr>\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} for 1 hour.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} permanently.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>DC 24 Fortitude save.</p>\n<hr>\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} for 1 hour.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dTwPJuKgBQCMxixg]{Petrified} permanently.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "Range 120 feet",
+                    "selected": {
+                        "custom": "Range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "incapacitation": "Incapacitation"
+                    },
                     "value": [
                         "divine",
                         "evocation",
                         "incapacitation",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "incapacitation": "Incapacitation",
-                        "custom": "Range 120 feet"
-                    },
-                    "custom": "Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 1500000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Blue Eye Beam",
+            "sort": 1500000,
+            "type": "action"
         },
         {
             "_id": "SHZi101TqFOYWlIL",
-            "flags": {},
-            "name": "Green Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>[[/r 6d6 #poison]] poison damage.</p>\n<p>DC 24 basic Reflex save.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>[[/r 6d6 #poison]] poison damage.</p>\n<p>DC 24 basic Reflex save.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "Range 120 feet",
+                    "selected": {
+                        "custom": "Range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "poison": "Poison"
+                    },
                     "value": [
                         "divine",
                         "evocation",
                         "poison",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "poison": "Poison",
-                        "custom": "Range 120 feet"
-                    },
-                    "custom": "Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 1600000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Green Eye Beam",
+            "sort": 1600000,
+            "type": "action"
         },
         {
             "_id": "jI9GCbJaB0b3F4Kw",
-            "flags": {},
-            "name": "Indigo Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>DC 24 Will save.</p>\n<hr>\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled} by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled}, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} for [[/r1d4+1]] rounds. A @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled} creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>DC 24 Will save.</p>\n<hr>\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 round.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled} by the dragon pillar and remains within 60 feet of it at all times, defending the dragon pillar from all non-Cinderclaws. While a target is @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled}, it is treated as a Cinderclaw ally by the dragon pillar. The dragon pillar can control up to 3 targets at a time; any targets in excess who critically fail this saving throw are instead @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} for [[/r1d4+1]] rounds. A @Compendium[pf2e.conditionspf2e.9qGBRpbX9NEwtAAr]{Controlled} creature can attempt a new Will save once every 24 hours to escape control, but doing so automatically causes the dragon pillar to attack it with a new eye beam to attempt to re-establish control. The control ends if the pillar is destroyed.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "Range 120 feet",
+                    "selected": {
+                        "custom": "Range 120 feet",
+                        "divination": "Divination",
+                        "evocation": "Evocation",
+                        "incapacitation": "Incapacitation"
+                    },
                     "value": [
                         "divination",
                         "evocation",
                         "incapacitation",
                         "custom"
-                    ],
-                    "selected": {
-                        "divination": "Divination",
-                        "evocation": "Evocation",
-                        "incapacitation": "Incapacitation",
-                        "custom": "Range 120 feet"
-                    },
-                    "custom": "Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 1700000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Indigo Eye Beam",
+            "sort": 1700000,
+            "type": "action"
         },
         {
             "_id": "Ari4IpvWQTIYV64K",
-            "flags": {},
-            "name": "Yellow Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>[[/r 6d6 #electricity]] electricity damage.</p>\n<p>DC 24 basic Reflex save.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>[[/r 6d6 #electricity]] electricity damage.</p>\n<p>DC 24 basic Reflex save.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "Range 120 feet",
+                    "selected": {
+                        "custom": "Range 120 feet",
+                        "divine": "Divine",
+                        "electricity": "Electricity",
+                        "evocation": "Evocation"
+                    },
                     "value": [
                         "divine",
                         "electricity",
                         "evocation",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "electricity": "Electricity",
-                        "evocation": "Evocation",
-                        "custom": "Range 120 feet"
-                    },
-                    "custom": "Range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 1800000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Yellow Eye Beam",
+            "sort": 1800000,
+            "type": "action"
         },
         {
             "_id": "sXWZxvJlU7LZrpHC",
-            "flags": {},
-            "name": "Orange Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>[[/r 6d6 #acid]] acid damage.</p>\n<p>DC 24 basic Reflex save.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>[[/r 6d6 #acid]] acid damage.</p>\n<p>DC 24 basic Reflex save.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "range 120 feet",
+                    "selected": {
+                        "acid": "Acid",
+                        "custom": "range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation"
+                    },
                     "value": [
                         "acid",
                         "divine",
                         "evocation",
                         "custom"
-                    ],
-                    "selected": {
-                        "acid": "Acid",
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "custom": "range 120 feet"
-                    },
-                    "custom": "range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 1900000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Orange Eye Beam",
+            "sort": 1900000,
+            "type": "action"
         },
         {
             "_id": "jNcUglLORusRcA4f",
-            "flags": {},
-            "name": "Red Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>[[/r 6d6 #fire]] fire damage.&nbsp;</p>\n<p>DC 24 basic Reflex save.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>[[/r 6d6 #fire]] fire damage.&nbsp;</p>\n<p>DC 24 basic Reflex save.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "range 120 feet",
+                    "selected": {
+                        "custom": "range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "fire": "Fire"
+                    },
                     "value": [
                         "divine",
                         "evocation",
                         "fire",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "fire": "Fire",
-                        "custom": "range 120 feet"
-                    },
-                    "custom": "range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 2000000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Red Eye Beam",
+            "sort": 2000000,
+            "type": "action"
         },
         {
             "_id": "w5Yk889pfRGklcLm",
-            "flags": {},
-            "name": "Violet Eye Beam",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>DC 24 Will save.</p>\n<hr>\n<p><strong>Critical Success:</strong> The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 1.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 3.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 7.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>DC 24 Will save.</p>\n<hr>\n<p><strong>Critical Success:</strong> The target is unaffected.</p>\n<p><strong>Success</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 1.</p>\n<p><strong>Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 3.</p>\n<p><strong>Critical Failure</strong>: The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 7.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "range 120 feet",
+                    "selected": {
+                        "custom": "range 120 feet",
+                        "divine": "Divine",
+                        "evocation": "Evocation",
+                        "incapacitation": "Incapacitation"
+                    },
                     "value": [
                         "divine",
                         "evocation",
                         "incapacitation",
                         "custom"
-                    ],
-                    "selected": {
-                        "divine": "Divine",
-                        "evocation": "Evocation",
-                        "incapacitation": "Incapacitation",
-                        "custom": "range 120 feet"
-                    },
-                    "custom": "range 120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 2100000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Violet Eye Beam",
+            "sort": 2100000,
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Dragon Pillar",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "zNIjGSxkG8xyDLgR",
+        "actorLink": false,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Dragon Pillar",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

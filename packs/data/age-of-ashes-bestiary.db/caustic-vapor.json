@@ -1,19 +1,36 @@
 {
     "_id": "axCgEgk7n1yXpgdp",
-    "name": "Caustic Vapor",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "(Master)",
+                "value": 40
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "The door slams shut, and poison gas fills the room.",
+            "disable": "Occultism DC 36 (master) or Religion DC 36 (master) to exorcise the spirits.",
+            "isComplex": false,
+            "level": 1,
+            "reset": "The trap resets after 1 day.",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,53 +48,31 @@
                 "value": null
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 0
-            },
-            "hp": {
-                "value": 10,
-                "max": 10,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 0,
-            "stealth": {
-                "value": 40,
-                "details": "(Master)"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 1,
-            "disable": "Occultism DC 36 (master) or Religion DC 36 (master) to exorcise the spirits.",
-            "description": "The door slams shut, and poison gas fills the room.",
-            "reset": "The trap resets after 1 day.",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
-                "value": [],
-                "selected": {}
+                "selected": {},
+                "value": []
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {
@@ -88,162 +83,167 @@
         }
     },
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Caustic Vapor",
-        "displayName": 20,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "axCgEgk7n1yXpgdp",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 20,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "RjIX3v1EU84c920i",
-            "flags": {},
-            "name": "Breath Snatcher",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
-                "description": {
-                    "value": "<p><strong>Trigger</strong>: A living creature other than an ooze spends at least 3 rounds in the room;</p>\n<p><strong>Effect</strong>: The trap activates and fills the area with caustic nightmare vapor, exposing all creatures within.</p>",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "conjuration",
-                        "occult"
-                    ],
-                    "selected": {
-                        "conjuration": "Conjuration",
-                        "occult": "Occult"
-                    },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong>: A living creature other than an ooze spends at least 3 rounds in the room;</p>\n<p><strong>Effect</strong>: The trap activates and fills the area with caustic nightmare vapor, exposing all creatures within.</p>"
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                },
                 "skill_requirement": {
                     "skill": {
-                        "skill": "",
-                        "rank": ""
+                        "rank": "",
+                        "skill": ""
                     }
-                }
-            },
-            "sort": 100000
-        },
-        {
-            "_id": "lcdFqkdanjf6Jdom",
-            "flags": {},
-            "name": "Caustic Nightmare Vapor",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "<p>Oozes are immune to this poison; Saving Throw DC 38 Fortitude;</p>\n<p><strong> Onset</strong>: 1 round;</p>\n<p><strong> Maximum Duration</strong>: 6 rounds;</p>\n<p><strong> Stage 1</strong>: [[/r 4d6 #acid]] acid damage and @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} (1 round);</p>\n<p><strong> Stage 2</strong>: [[/r 6d6 #acid]] acid damage, confused, and&nbsp; @Compendium[pf2e.conditionspf2e.AJh5ex99aV6VTggg]{Flat-Footed} (1 round);</p>\n<p><strong> Stage 3</strong>: [[/r 8d6 #acid]] acid damage, confused, flat-footed, and @Compendium[pf2e.conditionspf2e.e1XGnhKNSQIm5IXg]{Stupefied} 2 (1 round)</p>",
-                    "chat": "",
-                    "unidentified": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "acid",
-                        "poison"
-                    ],
+                    "custom": "",
                     "selected": {
-                        "acid": "Acid",
-                        "poison": "Poison"
+                        "conjuration": "Conjuration",
+                        "occult": "Occult"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "conjuration",
+                        "occult"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Breath Snatcher",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "lcdFqkdanjf6Jdom",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Oozes are immune to this poison; Saving Throw DC 38 Fortitude;</p>\n<p><strong> Onset</strong>: 1 round;</p>\n<p><strong> Maximum Duration</strong>: 6 rounds;</p>\n<p><strong> Stage 1</strong>: [[/r 4d6 #acid]] acid damage and @Compendium[pf2e.conditionspf2e.yblD8fOR1J8rDwEQ]{Confused} (1 round);</p>\n<p><strong> Stage 2</strong>: [[/r 6d6 #acid]] acid damage, confused, and&nbsp; @Compendium[pf2e.conditionspf2e.AJh5ex99aV6VTggg]{Flat-Footed} (1 round);</p>\n<p><strong> Stage 3</strong>: [[/r 8d6 #acid]] acid damage, confused, flat-footed, and @Compendium[pf2e.conditionspf2e.e1XGnhKNSQIm5IXg]{Stupefied} 2 (1 round)</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
                 },
                 "skill_requirement": {
                     "skill": {
-                        "skill": "",
-                        "rank": ""
+                        "rank": "",
+                        "skill": ""
                     }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "selected": {
+                        "acid": "Acid",
+                        "poison": "Poison"
+                    },
+                    "value": [
+                        "acid",
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 200000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Caustic Nightmare Vapor",
+            "sort": 200000,
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Caustic Vapor",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "axCgEgk7n1yXpgdp",
+        "actorLink": false,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Caustic Vapor",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

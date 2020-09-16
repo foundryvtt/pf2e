@@ -1,19 +1,36 @@
 {
     "_id": "v2xIxZ9ZZ6fJyATF",
-    "name": "Poisoned Lock",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 15
+            },
+            "hardness": 6,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 24
+            },
+            "stealth": {
+                "details": "(trained)",
+                "value": 7
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "A spring-loaded, poisoned spine is hidden near the keyhole of a lock. Disabling or breaking the trap does not disable or break the lock.",
+            "disable": "Thievery DC 17 (trained) on the spring mechanism",
+            "isComplex": false,
+            "level": 1,
+            "reset": "",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,251 +48,116 @@
                 "value": 0
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 15
-            },
-            "hp": {
-                "value": 24,
-                "max": 24,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 6,
-            "stealth": {
-                "value": 7,
-                "details": "(trained)"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 1,
-            "disable": "Thievery DC 17 (trained) on the spring mechanism",
-            "description": "A spring-loaded, poisoned spine is hidden near the keyhole of a lock. Disabling or breaking the trap does not disable or break the lock.",
-            "reset": "",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Poisoned Lock",
-        "displayName": 0,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "v2xIxZ9ZZ6fJyATF",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 0,
-        "bar1": {},
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "1bvXbELRBoJTBqsR",
-            "flags": {},
-            "name": "Spring",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
-                "description": {
-                    "value": "<b>Trigger</b> A creature tries to unlock or Pick the Lock. <b>Effect</b> A spine extends to attack the triggering creature.",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "attack"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> A creature tries to unlock or Pick the Lock. <b>Effect</b> A spine extends to attack the triggering creature."
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
                 "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                }
-            }
-        },
-        {
-            "_id": "vFBoAHwlrVTu9wKm",
-            "flags": {},
-            "name": "spine",
-            "type": "melee",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "",
-                    "chat": "",
-                    "unidentified": ""
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "custom": ""
+                    "custom": "",
+                    "value": [
+                        "attack"
+                    ]
                 },
-                "rarity": {
-                    "value": "common"
+                "trigger": {
+                    "value": ""
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "quantity": {
-                    "value": 1
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Spring",
+            "type": "action"
+        },
+        {
+            "_id": "vFBoAHwlrVTu9wKm",
+            "data": {
+                "attack": {
+                    "value": ""
                 },
-                "hp": {
-                    "value": 0
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "cladis poison"
+                    ]
                 },
-                "maxHp": {
-                    "value": 0
-                },
-                "hardness": {
-                    "value": 0
+                "bonus": {
+                    "value": 13
                 },
                 "brokenThreshold": {
                     "value": 0
                 },
-                "weight": {
-                    "value": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "equipped": {
-                    "value": false
-                },
-                "identified": {
-                    "value": false
-                },
-                "stackGroup": {
-                    "value": ""
-                },
                 "bulkCapacity": {
-                    "value": ""
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
                     "value": ""
                 },
                 "collapsed": {
                     "value": false
                 },
-                "property1": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property2": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property3": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "attack": {
+                "containerId": {
                     "value": ""
                 },
                 "damageRolls": [
@@ -284,70 +166,188 @@
                         "damageType": "piercing"
                     }
                 ],
-                "bonus": {
-                    "value": 13
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
                 },
-                "attackEffects": {
-                    "value": [
-                        "cladis poison"
-                    ],
-                    "custom": ""
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "melee"
+                },
+                "weight": {
+                    "value": 0
                 }
-            }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "spine",
+            "type": "melee"
         },
         {
             "_id": "HoWRGPkBlJjsL9zl",
-            "flags": {},
-            "name": "Cladis Poison",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Passive.png",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<b>Saving Throw</b> DC 19 Fortitude; <b>Maximum Duration</b> 4 hours; <b>Stage 1</b> 1d6 poison damage and drained 1 (1 hour); <b>Stage 2</b> 2d6 poison damage and drained 2 (1 hour); <b>Stage 3</b> 3d6 poison damage and drained 2 (1 hour)",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<b>Saving Throw</b> DC 19 Fortitude; <b>Maximum Duration</b> 4 hours; <b>Stage 1</b> 1d6 poison damage and drained 1 (1 hour); <b>Stage 2</b> 2d6 poison damage and drained 2 (1 hour); <b>Stage 3</b> 3d6 poison damage and drained 2 (1 hour)"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "poison"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
                 }
-            }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Cladis Poison",
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Poisoned Lock",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "v2xIxZ9ZZ6fJyATF",
+        "actorLink": false,
+        "bar1": {},
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Poisoned Lock",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

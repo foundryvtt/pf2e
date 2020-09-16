@@ -1,19 +1,37 @@
 {
     "_id": "l7WhZMoYlQC8lELj",
-    "name": "Dragonstorm",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "(Legendary)",
+                "value": 40
+            }
+        },
+        "creatureType": "",
+        "customModifiers": {},
+        "details": {
+            "description": "A massive storm stirs in the skies above Breachill and Citadel Altaerein. As specific events begin during the three waves of the manifestation’s retribution, the dragonstorm wreaks localized havoc.",
+            "disable": "The dragonstorm can’t be disabled—only endured. It ends only once the attack on Breachill and Citadel Altaerein is over.",
+            "isComplex": false,
+            "level": 18,
+            "reset": "",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,57 +49,34 @@
                 "value": null
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 0
-            },
-            "hp": {
-                "value": 10,
-                "max": 10,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 0,
-            "stealth": {
-                "value": 40,
-                "details": "(Legendary)"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 18,
-            "disable": "The dragonstorm can’t be disabled—only endured. It ends only once the attack on Breachill and Citadel Altaerein is over.",
-            "description": "A massive storm stirs in the skies above Breachill and Citadel Altaerein. As specific events begin during the three waves of the manifestation’s retribution, the dragonstorm wreaks localized havoc.",
-            "reset": "",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
             "traits": {
+                "custom": "Rare",
                 "value": [
                     "environmental",
                     "magical",
                     "custom"
-                ],
-                "custom": "Rare"
-            },
-            "di": {
-                "custom": "",
-                "value": [],
-                "selected": {}
-            },
-            "dr": [],
-            "dv": [],
-            "ci": []
-        },
-        "customModifiers": {}
+                ]
+            }
+        }
     },
     "flags": {
         "pf2e_updatednpcsheet": {
@@ -91,402 +86,407 @@
         }
     },
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Dragonstorm",
-        "displayName": 20,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "l7WhZMoYlQC8lELj",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 20,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "XzC7Tpe9v9HjnSor",
-            "flags": {},
-            "name": "Localized Dragonstorm",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
-                "description": {
-                    "value": "<p><strong>Trigger</strong>: A new wave begins;</p>\n<p><strong>Effect</strong>: Roll [[/r 1d10]]&nbsp; to determine which effect manifests from the following possibilities. The placement of these effects is guided by Dahak’s will, and they should manifest in the most detrimental locations possible to the PCs.</p>",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "air"
-                    ],
-                    "selected": {
-                        "air": "Air"
-                    },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong>: A new wave begins;</p>\n<p><strong>Effect</strong>: Roll [[/r 1d10]]&nbsp; to determine which effect manifests from the following possibilities. The placement of these effects is guided by Dahak’s will, and they should manifest in the most detrimental locations possible to the PCs.</p>"
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "selected": {
+                        "air": "Air"
+                    },
+                    "value": [
+                        "air"
+                    ]
+                },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 100000
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Localized Dragonstorm",
+            "sort": 100000,
+            "type": "action"
         },
         {
             "_id": "0dYMOi8x5GT5a1Yq",
-            "flags": {},
-            "name": "1-2 Acid Rain",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>A torrent of acid drenches creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #acid]] acid damage (DC 42 basic Reflex save). Creatures that critically fail also take [[/r 5 #persistent acid]] persistent acid damage.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>A torrent of acid drenches creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #acid]] acid damage (DC 42 basic Reflex save). Creatures that critically fail also take [[/r 5 #persistent acid]] persistent acid damage.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "acid"
-                    ],
+                    "custom": "",
                     "selected": {
                         "acid": "Acid"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "acid"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 200000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "1-2 Acid Rain",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "2tkYDAIULPFGgxZg",
-            "flags": {},
-            "name": "3-4 Freezing Wind",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>A barrage of freezing wind and hail assaults all creatures in a 20-foot burst. Creatures in the area take [[/r 3d10 #cold]] cold damage and [[/r 3d10 #bludgeoning]] bludgeoning damage (DC 42 basic Reflex save). Creatures that critically fail are @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 round.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>A barrage of freezing wind and hail assaults all creatures in a 20-foot burst. Creatures in the area take [[/r 3d10 #cold]] cold damage and [[/r 3d10 #bludgeoning]] bludgeoning damage (DC 42 basic Reflex save). Creatures that critically fail are @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 round.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "cold"
-                    ],
+                    "custom": "",
                     "selected": {
                         "cold": "Cold"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "cold"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 300000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "3-4 Freezing Wind",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "tmioSSIeBsfcu9eY",
-            "flags": {},
-            "name": "5-6 Bolts of Lightning",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>Several bolts of lightning strike all creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #electricity]] electricity damage (DC 42 basic Reflex save). Creatures that critically fail their saves become @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} and @Compendium[pf2e.conditionspf2e.9PR9y0bi4JPKnHPR]{Deafened} for 1 round.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>Several bolts of lightning strike all creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #electricity]] electricity damage (DC 42 basic Reflex save). Creatures that critically fail their saves become @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} and @Compendium[pf2e.conditionspf2e.9PR9y0bi4JPKnHPR]{Deafened} for 1 round.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "electricity"
-                    ],
+                    "custom": "",
                     "selected": {
                         "electricity": "Electricity"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "electricity"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 400000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "5-6 Bolts of Lightning",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "xN7xuZd6V7GrLGii",
-            "flags": {},
-            "name": "7-8 Flaming Vortex",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>Gouts of flame fall on all creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #fire]] fire damage (DC 42 basic Reflex save). Creatures that critically fail their saves also take [[/r 5 #persistent fire]] persistent fire damage.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>Gouts of flame fall on all creatures in a 20-foot burst. Creatures in the area take [[/r 6d10 #fire]] fire damage (DC 42 basic Reflex save). Creatures that critically fail their saves also take [[/r 5 #persistent fire]] persistent fire damage.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "fire"
-                    ],
+                    "custom": "",
                     "selected": {
                         "fire": "Fire"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "fire"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 500000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "7-8 Flaming Vortex",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "yRzCy4eBcJG8ydmJ",
-            "flags": {},
-            "name": "9-10 Poison Miasma",
-            "type": "action",
-            "img": "icons/svg/mystery-man.svg",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<p>Poisonous mist rolls forth, covering a 20-foot burst for 1 round. Creatures within the mist become @Compendium[pf2e.conditionspf2e.DmAIPqOBomZ7H95W]{Concealed}, and creatures outside it become concealed to creatures within it. Creatures within the mist take [[/r 6d10 #poison]] poison damage (DC 42 basic Fortitude save). Creatures that critically fail their saves become @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 2.</p>",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<p>Poisonous mist rolls forth, covering a 20-foot burst for 1 round. Creatures within the mist become @Compendium[pf2e.conditionspf2e.DmAIPqOBomZ7H95W]{Concealed}, and creatures outside it become concealed to creatures within it. Creatures within the mist take [[/r 6d10 #poison]] poison damage (DC 42 basic Fortitude save). Creatures that critically fail their saves become @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 2.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "poison"
-                    ],
+                    "custom": "",
                     "selected": {
                         "poison": "Poison"
                     },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "skill": "",
-                        "rank": ""
-                    }
+                "weapon": {
+                    "value": ""
                 }
             },
-            "sort": 600000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "9-10 Poison Miasma",
+            "sort": 600000,
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Dragonstorm",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "l7WhZMoYlQC8lELj",
+        "actorLink": false,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Dragonstorm",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

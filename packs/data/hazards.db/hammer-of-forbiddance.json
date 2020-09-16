@@ -1,19 +1,36 @@
 {
     "_id": "tbwGr6FIr5WpvQ6l",
-    "name": "Hammer Of Forbiddance",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 32
+            },
+            "hardness": 22,
+            "hasHealth": true,
+            "hp": {
+                "details": "; <b>Joint Hardness</b>16, <b>Joint HP</b> 64 (BT 32)",
+                "max": 88,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 88
+            },
+            "stealth": {
+                "details": "(expert)",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "An enormous hammer at an edifice’s entrance swings down in an attempt to damage a creature entering an area, push it back, and prevent it from going any further.",
+            "disable": "Thievery DC 28 (expert) once on the hammer itself and once on its joint to prevent the hammer from swinging",
+            "isComplex": false,
+            "level": 11,
+            "reset": "The trap resets over the course of the round, and is ready to swing again 1 round later.",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,254 +48,120 @@
                 "value": 0
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 32
-            },
-            "hp": {
-                "value": 88,
-                "max": 88,
-                "temp": 0,
-                "tempmax": 0,
-                "details": "; <b>Joint Hardness</b>16, <b>Joint HP</b> 64 (BT 32)"
-            },
-            "hardness": 22,
-            "stealth": {
-                "value": 20,
-                "details": "(expert)"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 11,
-            "disable": "Thievery DC 28 (expert) once on the hammer itself and once on its joint to prevent the hammer from swinging",
-            "description": "An enormous hammer at an edifice’s entrance swings down in an attempt to damage a creature entering an area, push it back, and prevent it from going any further.",
-            "reset": "The trap resets over the course of the round, and is ready to swing again 1 round later.",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "magical",
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "magical",
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Hammer Of Forbiddance",
-        "displayName": 0,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "tbwGr6FIr5WpvQ6l",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 0,
-        "bar1": {},
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "caUgV11OydLsLw1j",
-            "flags": {},
-            "name": "Forbid Entry",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
-                "description": {
-                    "value": "<b>Trigger</b> A creature attempts to enter through the entrance. <b>Effect</b> The hammer swings down, making an attack against the triggering creature.",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "abjuration",
-                        "attack",
-                        "divine"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> A creature attempts to enter through the entrance. <b>Effect</b> The hammer swings down, making an attack against the triggering creature."
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
                 "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                }
-            }
-        },
-        {
-            "_id": "pLuxXYKq1Wi28Czn",
-            "flags": {},
-            "name": "hammer",
-            "type": "melee",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "",
-                    "chat": "",
-                    "unidentified": ""
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "custom": ""
+                    "custom": "",
+                    "value": [
+                        "abjuration",
+                        "attack",
+                        "divine"
+                    ]
                 },
-                "rarity": {
-                    "value": "common"
+                "trigger": {
+                    "value": ""
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "quantity": {
-                    "value": 1
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Forbid Entry",
+            "type": "action"
+        },
+        {
+            "_id": "pLuxXYKq1Wi28Czn",
+            "data": {
+                "attack": {
+                    "value": ""
                 },
-                "hp": {
-                    "value": 0
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "the target is knocked back 10 feet and must succeed at a DC 30 Will save or be unable to enter the edifice through any entrance for 24 hours (on a critical hit, the target automatically fails the Will save)",
+                        "no multiple attack penalty"
+                    ]
                 },
-                "maxHp": {
-                    "value": 0
-                },
-                "hardness": {
-                    "value": 0
+                "bonus": {
+                    "value": 28
                 },
                 "brokenThreshold": {
                     "value": 0
                 },
-                "weight": {
-                    "value": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "equipped": {
-                    "value": false
-                },
-                "identified": {
-                    "value": false
-                },
-                "stackGroup": {
-                    "value": ""
-                },
                 "bulkCapacity": {
-                    "value": ""
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
                     "value": ""
                 },
                 "collapsed": {
                     "value": false
                 },
-                "property1": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property2": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property3": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "attack": {
+                "containerId": {
                     "value": ""
                 },
                 "damageRolls": [
@@ -287,20 +170,137 @@
                         "damageType": "bludgeoning"
                     }
                 ],
-                "bonus": {
-                    "value": 28
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
                 },
-                "attackEffects": {
-                    "value": [
-                        "the target is knocked back 10 feet and must succeed at a DC 30 Will save or be unable to enter the edifice through any entrance for 24 hours (on a critical hit, the target automatically fails the Will save)",
-                        "no multiple attack penalty"
-                    ],
-                    "custom": ""
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "melee"
+                },
+                "weight": {
+                    "value": 0
                 }
-            }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "hammer",
+            "type": "melee"
         }
-    ]
+    ],
+    "name": "Hammer Of Forbiddance",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "tbwGr6FIr5WpvQ6l",
+        "actorLink": false,
+        "bar1": {},
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Hammer Of Forbiddance",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }
