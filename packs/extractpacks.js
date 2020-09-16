@@ -118,7 +118,7 @@ async function extractPack(filePath, packName) {
         sanitizeEntity(entity);
 
         // Pretty print json data
-        outData = JSON.stringify(entity, null, 4);
+        outData = JSONstringifyOrder(entity, 4);
         // Add new line to end of data
         outData += '\n';
 
@@ -180,6 +180,14 @@ function sanitizeEntity(entity) {
     // TODO: Check if there can be anything important in flags.pf2e
     delete entity.flags.pf2e;
 
+}
+
+function JSONstringifyOrder(obj, space)
+{
+    const allKeys = [];
+    JSON.stringify(obj, (key, value) => { allKeys.push(key); return value; });
+    allKeys.sort();
+    return JSON.stringify(obj, allKeys, space);
 }
 
 async function getAllData(filename) {
