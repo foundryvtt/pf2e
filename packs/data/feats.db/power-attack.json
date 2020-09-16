@@ -1,79 +1,54 @@
 {
     "_id": "2xk4jdwcCfmasYfT",
-    "name": "Power Attack",
-    "permission": {
-        "default": 0
-    },
-    "type": "feat",
     "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "label": "Action Type",
+            "type": "String",
+            "value": "action"
+        },
+        "actions": {
+            "label": "Number of Actions",
+            "type": "String",
+            "value": "2"
+        },
         "description": {
-            "value": "<p>You unleash a particularly powerful attack that clobbers your foe but leaves you a bit unsteady. Make a melee Strike. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, you deal an extra die of weapon damage. If you’re at least 10th level, increase this to two extra dice, and if you’re at least 18th level, increase it to three extra dice.</p>",
             "chat": "",
+            "label": "Description",
+            "type": "String",
             "unidentified": "",
-            "type": "String",
-            "label": "Description"
+            "value": "<p>You unleash a particularly powerful attack that clobbers your foe but leaves you a bit unsteady. Make a melee Strike. This counts as two attacks when calculating your multiple attack penalty. If this Strike hits, you deal an extra die of weapon damage. If you’re at least 10th level, increase this to two extra dice, and if you’re at least 18th level, increase it to three extra dice.</p>"
         },
-        "source": {
-            "value": "",
+        "featType": {
+            "label": "Feat Type",
             "type": "String",
-            "label": "Source"
+            "value": "class"
         },
-        "traits": {
-            "value": [
-                "fighter",
-                "flourish"
-            ],
+        "level": {
+            "label": "Feat Level",
             "type": "String",
-            "label": "Traits",
-            "custom": "",
-            "rarity": {
-                "value": "common"
-            }
+            "value": "1"
+        },
+        "prerequisites": {
+            "label": "Prerequisites",
+            "type": "String",
+            "value": ""
         },
         "rarity": {
             "value": "common"
         },
-        "usage": {
-            "value": "held-in-one-hand"
-        },
-        "level": {
-            "value": "1",
-            "type": "String",
-            "label": "Feat Level"
-        },
-        "featType": {
-            "value": "class",
-            "type": "String",
-            "label": "Feat Type"
-        },
-        "actionType": {
-            "value": "action",
-            "type": "String",
-            "label": "Action Type"
-        },
-        "actionCategory": {
-            "value": ""
-        },
-        "actions": {
-            "value": "2",
-            "type": "String",
-            "label": "Number of Actions"
-        },
-        "prerequisites": {
-            "value": "",
-            "type": "String",
-            "label": "Prerequisites"
-        },
         "rules": [
             {
                 "key": "PF2E.RuleElement.DamageDice",
-                "selector": "damage",
                 "predicate": {
                     "all": [
                         "melee",
                         "power-attack"
                     ]
                 },
+                "selector": "damage",
                 "value": {
                     "brackets": [
                         {
@@ -83,8 +58,8 @@
                             }
                         },
                         {
-                            "start": 10,
                             "end": 17,
+                            "start": 10,
                             "value": {
                                 "diceNumber": 2
                             }
@@ -102,8 +77,33 @@
                 "key": "PF2E.RuleElement.ToggleProperty",
                 "property": "flags.pf2e.rollOptions.damage-roll.power-attack"
             }
-        ]
+        ],
+        "source": {
+            "label": "Source",
+            "type": "String",
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "label": "Traits",
+            "rarity": {
+                "value": "common"
+            },
+            "type": "String",
+            "value": [
+                "fighter",
+                "flourish"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
     },
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg"
+    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "name": "Power Attack",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
 }

@@ -1,19 +1,36 @@
 {
     "_id": "SUQJPKt8N7rxx7Q1",
-    "name": "Spiked Doorframe",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "hardness": 11,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 44,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 44
+            },
+            "stealth": {
+                "details": "Trained",
+                "value": 25
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "Spikes lance out of the doorframe to skewer anyone who attempts to open the door.",
+            "disable": "Thievery DC 20 (trained) to deactivate a trigger built into the door’s handle",
+            "isComplex": false,
+            "level": 4,
+            "reset": "",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,57 +48,35 @@
                 "value": null
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 21
-            },
-            "hp": {
-                "value": 44,
-                "max": 44,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 11,
-            "stealth": {
-                "value": 25,
-                "details": "Trained"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 4,
-            "disable": "Thievery DC 20 (trained) to deactivate a trigger built into the door’s handle",
-            "description": "Spikes lance out of the doorframe to skewer anyone who attempts to open the door.",
-            "reset": "",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {
@@ -92,208 +87,90 @@
         }
     },
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Spiked Doorframe",
-        "displayName": 20,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "SUQJPKt8N7rxx7Q1",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 20,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "IJhw9ETWROv5Y9rt",
-            "flags": {},
-            "name": "Spikes",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/OneAction.png",
             "data": {
-                "description": {
-                    "value": "<p>The door is opened.</p>\n<p><strong>Effect</strong>: The trap makes an attack against the creature that opened the door.</p>",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "attack"
-                    ],
-                    "selected": {
-                        "attack": "Attack"
-                    },
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "actionCategory": {
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The door is opened.</p>\n<p><strong>Effect</strong>: The trap makes an attack against the creature that opened the door.</p>"
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                },
                 "skill_requirement": {
                     "skill": {
-                        "skill": "",
-                        "rank": ""
+                        "rank": "",
+                        "skill": ""
                     }
-                }
-            },
-            "sort": 100000
-        },
-        {
-            "_id": "pFweIlOkcH38fuxf",
-            "flags": {},
-            "name": "Spikes",
-            "type": "melee",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "",
-                    "chat": "",
-                    "unidentified": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "selected": {}
+                    "custom": "",
+                    "selected": {
+                        "attack": "Attack"
+                    },
+                    "value": [
+                        "attack"
+                    ]
                 },
-                "rarity": {
-                    "value": "common"
+                "trigger": {
+                    "value": ""
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "quantity": {
-                    "value": 1
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Spikes",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "pFweIlOkcH38fuxf",
+            "data": {
+                "attack": {
+                    "value": ""
                 },
-                "hp": {
-                    "value": 0
+                "attackEffects": {
+                    "value": []
                 },
-                "maxHp": {
-                    "value": 0
-                },
-                "hardness": {
-                    "value": 0
+                "bonus": {
+                    "value": "17"
                 },
                 "brokenThreshold": {
                     "value": 0
                 },
-                "weight": {
-                    "value": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "equipped": {
-                    "value": false
-                },
-                "identified": {
-                    "value": false
-                },
-                "stackGroup": {
-                    "value": ""
-                },
                 "bulkCapacity": {
-                    "value": ""
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
                     "value": ""
                 },
                 "collapsed": {
                     "value": false
                 },
-                "property1": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property2": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property3": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "attack": {
+                "containerId": {
                     "value": ""
                 },
                 "damageRolls": {
@@ -302,17 +179,140 @@
                         "damageType": "piercing"
                     }
                 },
-                "bonus": {
-                    "value": "17"
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
                 },
-                "attackEffects": {
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "selected": {},
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "melee"
+                },
+                "weight": {
+                    "value": 0
                 }
             },
-            "sort": 200000
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Spikes",
+            "sort": 200000,
+            "type": "melee"
         }
-    ]
+    ],
+    "name": "Spiked Doorframe",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "SUQJPKt8N7rxx7Q1",
+        "actorLink": false,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Spiked Doorframe",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

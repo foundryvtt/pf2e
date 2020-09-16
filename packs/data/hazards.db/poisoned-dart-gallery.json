@@ -1,19 +1,36 @@
 {
     "_id": "lVqVDjXnHboMif7F",
-    "name": "Poisoned Dart Gallery",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "to destroy the control panel and disable the trap",
+                "max": 56,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 56
+            },
+            "stealth": {
+                "details": "(expert) or DC 31 (master) to notice the control panel",
+                "value": 16
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "Countless holes to launch poison darts from line a long hallway with a hidden control panel on the far end.",
+            "disable": "Thievery DC 21 (expert) on the control panel deactivates the trap.",
+            "isComplex": true,
+            "level": 8,
+            "reset": "The trap deactivates and resets after 1 minute.",
+            "routine": "(1 action) The trap launches one dart against every creature in the gallery as 1 action. Because it launches darts continuously, the trap can also use the Continuous Barrage free action (see below) to launch darts at each creature during that creature’s turn."
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,251 +48,117 @@
                 "value": 0
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 27
-            },
-            "hp": {
-                "value": 56,
-                "max": 56,
-                "temp": 0,
-                "tempmax": 0,
-                "details": "to destroy the control panel and disable the trap"
-            },
-            "hardness": 0,
-            "stealth": {
-                "value": 16,
-                "details": "(expert) or DC 31 (master) to notice the control panel"
-            }
-        },
-        "details": {
-            "isComplex": true,
-            "level": 8,
-            "disable": "Thievery DC 21 (expert) on the control panel deactivates the trap.",
-            "description": "Countless holes to launch poison darts from line a long hallway with a hidden control panel on the far end.",
-            "reset": "The trap deactivates and resets after 1 minute.",
-            "routine": "(1 action) The trap launches one dart against every creature in the gallery as 1 action. Because it launches darts continuously, the trap can also use the Continuous Barrage free action (see below) to launch darts at each creature during that creature’s turn."
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Poisoned Dart Gallery",
-        "displayName": 0,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "lVqVDjXnHboMif7F",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 0,
-        "bar1": {},
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "KFCwJINs8Uu4riRs",
-            "flags": {},
-            "name": "Dart Volley",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
-                "description": {
-                    "value": "<b>Trigger</b> A creature enters the hallway or ends its turn in the hallway. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative.",
-                    "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                "actionCategory": {
                     "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "attack"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> A creature enters the hallway or ends its turn in the hallway. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative."
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
                 "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                }
-            }
-        },
-        {
-            "_id": "3oSIIlS5PZwciZ3k",
-            "flags": {},
-            "name": "poisoned dart",
-            "type": "melee",
-            "img": "icons/svg/mystery-man.svg",
-            "data": {
-                "description": {
-                    "value": "",
-                    "chat": "",
-                    "unidentified": ""
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "custom": ""
+                    "custom": "",
+                    "value": [
+                        "attack"
+                    ]
                 },
-                "rarity": {
-                    "value": "common"
+                "trigger": {
+                    "value": ""
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "quantity": {
-                    "value": 1
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Dart Volley",
+            "type": "action"
+        },
+        {
+            "_id": "3oSIIlS5PZwciZ3k",
+            "data": {
+                "attack": {
+                    "value": ""
                 },
-                "hp": {
-                    "value": 0
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "flesset poison",
+                        "no multiple attack penalty"
+                    ]
                 },
-                "maxHp": {
-                    "value": 0
-                },
-                "hardness": {
-                    "value": 0
+                "bonus": {
+                    "value": 21
                 },
                 "brokenThreshold": {
                     "value": 0
                 },
-                "weight": {
-                    "value": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "equipped": {
-                    "value": false
-                },
-                "identified": {
-                    "value": false
-                },
-                "stackGroup": {
-                    "value": ""
-                },
                 "bulkCapacity": {
-                    "value": ""
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
                     "value": ""
                 },
                 "collapsed": {
                     "value": false
                 },
-                "property1": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property2": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "property3": {
-                    "value": "",
-                    "dice": 0,
-                    "die": "",
-                    "damageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "critDamage": "",
-                    "critDamageType": ""
-                },
-                "attack": {
+                "containerId": {
                     "value": ""
                 },
                 "damageRolls": [
@@ -284,120 +167,237 @@
                         "damageType": "piercing"
                     }
                 ],
-                "bonus": {
-                    "value": 21
-                },
-                "attackEffects": {
-                    "value": [
-                        "flesset poison",
-                        "no multiple attack penalty"
-                    ],
-                    "custom": ""
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            }
-        },
-        {
-            "_id": "hkSWLZaKG41zef8w",
-            "flags": {},
-            "name": "Continuous Barrage",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/FreeAction.png",
-            "data": {
                 "description": {
-                    "value": "<b>Trigger</b> A creature within the active gallery finishes an action. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature.",
                     "chat": "",
-                    "unidentified": ""
-                },
-                "source": {
+                    "unidentified": "",
                     "value": ""
                 },
-                "traits": {
-                    "value": [],
-                    "custom": ""
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": []
+                },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "poisoned dart",
+            "type": "melee"
+        },
+        {
+            "_id": "hkSWLZaKG41zef8w",
+            "data": {
+                "actionCategory": {
+                    "value": ""
                 },
                 "actionType": {
                     "value": "free"
                 },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
                 "actions": {
                     "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> A creature within the active gallery finishes an action. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature."
+                },
+                "rarity": {
+                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "trigger": {
-                    "value": ""
-                },
                 "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
-                }
-            }
-        },
-        {
-            "_id": "eY731rvsYJZ2o5Sh",
-            "flags": {},
-            "name": "Flesset Poison",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Passive.png",
-            "data": {
-                "description": {
-                    "value": "<b>Saving Throw</b> DC 22 Fortitude; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b> 1d6 poison damage and clumsy 1 (1 round); <b>Stage 2</b> 2d6 poison damage and clumsy 2 (1 round); <b>Stage 3</b> 3d6 poison damage and clumsy 3 (1 round)",
-                    "chat": "",
-                    "unidentified": ""
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "poison"
-                    ],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "custom": "",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
                 }
-            }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
+            "name": "Continuous Barrage",
+            "type": "action"
+        },
+        {
+            "_id": "eY731rvsYJZ2o5Sh",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Saving Throw</b> DC 22 Fortitude; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b> 1d6 poison damage and clumsy 1 (1 round); <b>Stage 2</b> 2d6 poison damage and clumsy 2 (1 round); <b>Stage 3</b> 3d6 poison damage and clumsy 3 (1 round)"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "poison"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Flesset Poison",
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Poisoned Dart Gallery",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "lVqVDjXnHboMif7F",
+        "actorLink": false,
+        "bar1": {},
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Poisoned Dart Gallery",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }

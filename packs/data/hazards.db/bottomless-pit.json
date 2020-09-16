@@ -1,19 +1,36 @@
 {
     "_id": "xkqjwu1ox0pQLOnb",
-    "name": "Bottomless Pit",
-    "permission": {
-        "default": 0
-    },
-    "type": "hazard",
     "data": {
-        "source": {
-            "value": ""
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "hardness": 9,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 36,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 36
+            },
+            "stealth": {
+                "details": "(or 0 if the trapdoor is disabled or broken) or <i>detect magic</i>",
+                "value": 20
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "An iron trapdoor covers an infinitely deep 10-foot-square pit.",
+            "disable": "Thievery DC 28 (trained) to remove the trapdoor",
+            "isComplex": false,
+            "level": 9,
+            "reset": "The trap still causes creatures to fall forever if they fall in, but the trapdoor must be reset manually for the trap to become hidden again.",
+            "routine": ""
         },
         "flavourText": "",
         "nethysUrl": "",
         "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": "",
         "saves": {
             "fortitude": {
                 "rank": 0,
@@ -31,139 +48,122 @@
                 "value": 0
             }
         },
-        "attributes": {
-            "hasHealth": true,
-            "ac": {
-                "value": 28
-            },
-            "hp": {
-                "value": 36,
-                "max": 36,
-                "temp": 0,
-                "tempmax": 0,
-                "details": ""
-            },
-            "hardness": 9,
-            "stealth": {
-                "value": 20,
-                "details": "(or 0 if the trapdoor is disabled or broken) or <i>detect magic</i>"
-            }
-        },
-        "details": {
-            "isComplex": false,
-            "level": 9,
-            "disable": "Thievery DC 28 (trained) to remove the trapdoor",
-            "description": "An iron trapdoor covers an infinitely deep 10-foot-square pit.",
-            "reset": "The trap still causes creatures to fall forever if they fall in, but the trapdoor must be reset manually for the trap to become hidden again.",
-            "routine": ""
-        },
-        "statusEffects": [],
         "schema": {
             "version": {
                 "value": ""
             }
         },
+        "sidebarText": "",
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
         "traits": {
-            "traits": {
-                "value": [
-                    "magical",
-                    "mechanical"
-                ],
-                "custom": ""
-            },
+            "ci": [],
             "di": {
                 "custom": "",
+                "selected": {},
                 "value": [
                     "critical-hits",
                     "object-immunities",
                     "precision-damage"
-                ],
-                "selected": {}
+                ]
             },
             "dr": [],
             "dv": [],
-            "ci": []
+            "traits": {
+                "custom": "",
+                "value": [
+                    "magical",
+                    "mechanical"
+                ]
+            }
         }
     },
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
-    "token": {
-        "flags": {},
-        "name": "Bottomless Pit",
-        "displayName": 0,
-        "img": "icons/svg/mystery-man.svg",
-        "tint": null,
-        "width": 1,
-        "height": 1,
-        "scale": 1,
-        "lockRotation": false,
-        "rotation": 0,
-        "vision": false,
-        "dimSight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "brightLight": 0,
-        "sightAngle": 360,
-        "lightAngle": 360,
-        "lightAlpha": 1,
-        "actorId": "xkqjwu1ox0pQLOnb",
-        "actorLink": false,
-        "actorData": {},
-        "disposition": -1,
-        "displayBars": 0,
-        "bar1": {},
-        "bar2": {},
-        "randomImg": false
-    },
     "items": [
         {
             "_id": "WJtDPJzNrJO19H6k",
-            "flags": {},
-            "name": "Infinite Pitfall",
-            "type": "action",
-            "img": "systems/pf2e/icons/actions/Reaction.png",
             "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
                 "description": {
-                    "value": "<b>Trigger</b> A creature walks onto the trapdoor. <b>Effect</b> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling (page 472). The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.",
                     "chat": "",
-                    "unidentified": ""
+                    "unidentified": "",
+                    "value": "<b>Trigger</b> A creature walks onto the trapdoor. <b>Effect</b> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling (page 472). The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [],
-                    "custom": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actionCategory": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                },
-                "actions": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
+                    "custom": "",
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "skill": "",
-                    "rank": ""
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
                 }
-            }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Infinite Pitfall",
+            "type": "action"
         }
-    ]
+    ],
+    "name": "Bottomless Pit",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorData": {},
+        "actorId": "xkqjwu1ox0pQLOnb",
+        "actorLink": false,
+        "bar1": {},
+        "bar2": {},
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
+        "disposition": -1,
+        "flags": {},
+        "height": 1,
+        "img": "icons/svg/mystery-man.svg",
+        "lightAlpha": 1,
+        "lightAngle": 360,
+        "lockRotation": false,
+        "name": "Bottomless Pit",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 360,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
 }
