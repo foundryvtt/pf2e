@@ -914,7 +914,9 @@ export default class PF2EActor extends Actor {
     if (master) {
       data.master.name = master?.name;
       data.master.level = master.data.data.details.level.value ?? 0;
+      data.master.ability = data.master.ability ?? 'cha';
       data.details.level.value = data.master.level;
+      const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
       const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
 
@@ -966,6 +968,21 @@ export default class PF2EActor extends Actor {
           .join(', ');
         data.saves[saveName] = stat;
       }
+
+      // perception
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED),
+          new PF2Modifier(`PF2E.MasterAbility.${data.master.ability}`, spellcastingAbilityModifier, PF2ModifierType.UNTYPED)
+        ];
+        ['perception', 'wis-based', 'all'].forEach(key => (statisticsModifiers[key] || []).map(m => duplicate(m)).forEach(m => modifiers.push(m)));
+        const stat = new PF2StatisticModifier('perception', modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.attributes.perception = stat;
+      }
     } else {
       data.master.name = undefined;
       data.master.level = 0;
@@ -982,6 +999,9 @@ export default class PF2EActor extends Actor {
         fortitude: { value: 0 },
         reflex: { value: 0 },
         will: { value: 0 }
+      };
+      data.attributes.perception = {
+        value: 0
       };
     }
   }

@@ -12,19 +12,31 @@
 
   <!-- BODY -->
   <section class="sheet-content" style="margin-top: 10px;">
-    <label for="{{data._id}}-master"><b>Master</b></label>
-    <select id="{{data._id}}-master" name="data.master.id">
-      {{#select data.master.id}}
-      <option value="">Select a master...</option>
-      {{#each masters as |master idx|}}
-      <option value="{{master.data._id}}">{{master.name}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
+    <div>
+      <label for="{{data._id}}-master"><b>Master</b></label>
+      <select id="{{data._id}}-master" name="data.master.id">
+        {{#select data.master.id}}
+        <option value="">Select a master...</option>
+        {{#each masters as |master idx|}}
+        <option value="{{master.data._id}}">{{master.name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
     <div><b>Level</b> {{data.master.level}}</div>
     <div>
-      <b>Hit Points</b>
-      <input name="data.attributes.hp.value" value="{{data.attributes.hp.value}}"/>
+      <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
+      <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
+        {{#select data.master.ability}}
+        {{#each abilities as |ability abbr|}}
+        <option value="{{abbr}}">{{ability}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+    <div>
+      <label for="{{data._id}}-hit-points"><b>Hit Points</b></label>
+      <input id="{{data._id}}-hit-points" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}"/>
       <span>/</span>
       <span title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</span>
     </div>
@@ -38,6 +50,10 @@
       <span>{{numberFormat save.value decimals=0 sign=true}}</span>
     </div>
     {{/each}}
+    <div title="{{data.attributes.perception.breakdown}}">
+      <b>Perception</b>
+      <span>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
+    </div>
   </section>
 
 </form>
