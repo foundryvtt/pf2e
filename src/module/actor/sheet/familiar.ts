@@ -27,6 +27,9 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
             .filter(actor => actor.hasPerm(game.user, "OWNER"))
             .filter(actor => owners.some(owner => actor.hasPerm(owner, "OWNER")));
 
+        // list of abilities that can be selected as spellcasting ability
+        (sheet as any).abilities = CONFIG.PF2E.abilities;
+
         return sheet;
     }
 
