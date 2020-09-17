@@ -1737,7 +1737,7 @@ export default class PF2EActor extends Actor {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
+    return this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
   }
 
   /** Set the given roll option. */
@@ -1746,23 +1746,23 @@ export default class PF2EActor extends Actor {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.setFlag(game.system.id, flag, !!enabled);
+    return this.setFlag(game.system.id, flag, !!enabled);
   }
 
   /** Unset (i.e., delete entirely) the given roll option. */
   async unsetRollOption(rollName: string, optionName: string) {
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.unsetFlag(game.system.id, flag);
+    return this.unsetFlag(game.system.id, flag);
   }
 
   /** Enable the given roll option for thie given roll name. */
   async enableRollOption(rollName: string, optionName: string) {
-    this.setRollOption(rollName, optionName, true);
+    return this.setRollOption(rollName, optionName, true);
   }
 
   /** Disable the given roll option for the given roll name. */
   async disableRollOption(rollName: string, optionName: string) {
-    this.setRollOption(rollName, optionName, false);
+    return this.setRollOption(rollName, optionName, false);
   }
 
   /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
