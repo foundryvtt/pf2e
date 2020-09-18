@@ -907,6 +907,9 @@ export default class PF2EActor extends Actor {
   private _prepareFamiliarData(actorData: FamiliarData, rules: PF2RuleElement[]) {
     const { data } = actorData;
 
+    // traits
+    data.traits.traits.value = ['minion'];
+
     let master;
     if (data?.master?.id && game.actors) {
       master = game.actors.get(data.master.id);
@@ -918,7 +921,17 @@ export default class PF2EActor extends Actor {
       data.details.level.value = data.master.level;
       const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
+      // base size
+      data.traits.size.value = 'tiny';
+      data.traits.size.label = CONFIG.PF2E.actorSizes[data.traits.size.value];
+
+      // base senses
+      data.traits.senses = [{ type: 'lowLightVision', label: game.i18n.localize('PF2E.SensesLowLightVision') }];
+
       const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
+
+      // amend the familiar traits with size
+      data.traits.traits.value.unshift(game.i18n.localize(`PF2E.ActorSize${data.traits.size.label}`));
 
       // hit points
       {
@@ -967,6 +980,20 @@ export default class PF2EActor extends Actor {
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         data.saves[saveName] = stat;
+      }
+
+      // perception
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
+        ];
+        ['attack', 'all'].forEach(key => (statisticsModifiers[key] || []).map(m => duplicate(m)).forEach(m => modifiers.push(m)));
+        const stat = new PF2StatisticModifier('attack', modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.attack = stat;
       }
 
       // perception
