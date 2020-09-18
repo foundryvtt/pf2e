@@ -983,6 +983,26 @@ export default class PF2EActor extends Actor {
           .join(', ');
         data.attributes.perception = stat;
       }
+
+      // skills
+      for (const [shortform, skillName] of Object.entries(CONFIG.PF2E.skills)) {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
+        ];
+        if (['acr','ste'].includes(shortform)) {
+          modifiers.push(new PF2Modifier(`PF2E.MasterAbility.${data.master.ability}`, spellcastingAbilityModifier, PF2ModifierType.UNTYPED));
+        }
+        const expanded = SKILL_DICTIONARY[shortform];
+        const ability = SKILL_EXPANDED[expanded].ability;
+        [expanded, `${ability}-based`, 'skill-check', 'all'].forEach(key => (statisticsModifiers[key] || []).map(m => duplicate(m)).forEach(m => modifiers.push(m)));
+        const stat = new PF2StatisticModifier(game.i18n.localize(`PF2E.Skill${skillName}`), modifiers);
+        stat.value = stat.totalModifier;
+        stat.ability = ability;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.skills[shortform] = stat;
+      }
     } else {
       data.master.name = undefined;
       data.master.level = 0;
