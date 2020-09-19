@@ -910,6 +910,9 @@ export default class PF2EActor extends Actor {
     // traits
     data.traits.traits.value = ['minion'];
 
+    // traits
+    data.traits.traits.value = [CONFIG.monsterTraits.minion];
+
     let master;
     if (data?.master?.id && game.actors) {
       master = game.actors.get(data.master.id);
@@ -1053,8 +1056,16 @@ export default class PF2EActor extends Actor {
     }
   }
 
+  async createEmbeddedEntity(embeddedName, data, options?: undefined): Promise<PF2EActor> {
+    if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
+      ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
+      return null;
+    } else {
+      return super.createEmbeddedEntity(embeddedName, data, options);
+    }
+  }
 
-    /** Compute custom stat modifiers provided by users or given by conditions. */
+  /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
     damageDice: Record<string, PF2DamageDice[]>
