@@ -1,4 +1,4 @@
-/* global CONST */
+/* global CONST, Dialog */
 class ActorSheetPF2eFamiliar extends ActorSheet {
 
     static get defaultOptions() {
@@ -7,7 +7,7 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
             classes: options.classes.concat(['actor', 'familiar']),
             width: 650,
             height: 680,
-            tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
+            tabs: [{navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes"}],
         });
         return options;
     }
@@ -36,6 +36,47 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
     // Events
     activateListeners(html) {
         super.activateListeners(html);
+
+        if (!this.isEditable) return;
+
+        // expand and condense item description
+        html.find('.item-list').on('click', '.expandable', event => {
+            $(event.currentTarget).removeClass('expandable').addClass('expanded');
+        });
+
+        html.find('.item-list').on('click', '.expanded', event => {
+            $(event.currentTarget).removeClass('expanded').addClass('expandable');
+        });
+
+        // item controls
+        html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-edit', event => {
+            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
+            const Item = CONFIG.Item.entityClass;
+            new Item(this.actor.getOwnedItem(itemID).data, { actor: this.actor }).sheet.render(true);
+            return false;
+        });
+
+        html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-delete', event => {
+            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
+            const item = this.actor.getOwnedItem(itemID);
+            new Dialog({
+                title: `Remove ${item.type}?`,
+                content: `<p>Are you sure you want to remove ${item.name}?</p>`,
+                buttons: {
+                    delete: {
+                        icon: '<i class="fas fa-trash"></i>',
+                        label: 'Remove',
+                        callback: () => { this.actor.deleteOwnedItem(itemID); }
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: 'Cancel'
+                    }
+                },
+                default: 'cancel'
+            }).render(true);
+            return false;
+        });
     }
 }
 
