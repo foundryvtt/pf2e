@@ -893,6 +893,7 @@ mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
 CONFIG.hazardTraits = {
+  auditory: 'PF2E.TraitAuditory',
   environmental: 'PF2E.TraitEnvironmental',
   haunt: 'PF2E.TraitHaunt',
   magical: 'PF2E.TraitMagical',
