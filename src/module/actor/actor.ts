@@ -933,6 +933,30 @@ export default class PF2EActor extends Actor {
 
       const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
 
+      if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
+          data.attributes.speed.otherSpeeds.push({
+              breakdown: 'Base Land Speed 25',
+              label: 'Land',
+              type: 'land',
+              value: 25
+          });
+      }
+      for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
+        const speed = data.attributes.speed.otherSpeeds[idx];
+        const base = Number(speed.value ?? 0)
+        const modifiers = [];
+        [`${speed.type}-speed`, 'speed'].forEach((key) => {
+          (statisticsModifiers[key as string] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        });
+        const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
+        stat.total = base + stat.totalModifier;
+        stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        ).join(', ');
+        data.attributes.speed.otherSpeeds[idx] = stat;
+      }
+
       // amend the familiar traits with size
       data.traits.traits.value.unshift(`PF2E.ActorSize${data.traits.size.label}`);
 
@@ -1001,7 +1025,7 @@ export default class PF2EActor extends Actor {
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         stat.roll = (event, options = [], callback?) => {
-          PF2Check.roll(new PF2CheckModifier('Attack Roll', stat), { actor: this, type: 'attack-roll', options }, event);
+          PF2Check.roll(new PF2CheckModifier('Attack Roll', stat), { actor: this, type: 'attack-roll', options }, event, callback);
         };
         data.attack = stat;
       }
