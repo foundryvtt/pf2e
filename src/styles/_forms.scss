@@ -54,62 +54,6 @@
     .dots span {
         cursor: pointer;
     }
-    .tags {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: stretch;
-        justify-content: flex-start;
-        .tag {
-            display: inline-flex;
-            flex-wrap: nowrap;
-            color: white;
-            background-color: var(--primary);
-            @include micro;
-            border: none;
-            border-radius: 2px;
-            padding: 3px 4px;
-            margin-bottom: 2px;
-            box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-            & + .tag,
-            &:first-child {
-                margin-right: 3px;
-            }
-            &.edit-btn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: white;
-                border-radius: 0;
-                a {
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: var(--primary);
-                    svg {
-                        height: 9px;
-                        width: auto;
-                    }
-                }
-            }
-
-            &_primary {
-                background-color: var(--primary);
-            }
-
-            &_secondary {
-                background-color: var(--secondary);
-            }
-
-            &_tertiary {
-                background-color: var(--tertiary);
-            }
-
-            &_alt {
-                background-color: var(--alt);
-            }
-        }
-    }
 }
 
 .pf2e.sheet form .tag {
