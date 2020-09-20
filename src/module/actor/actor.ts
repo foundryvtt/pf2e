@@ -951,7 +951,7 @@ export default class PF2EActor extends Actor {
       data.traits.size.label = CONFIG.PF2E.actorSizes[data.traits.size.value];
 
       // base senses
-      data.traits.senses = [{ type: 'lowLightVision', label: game.i18n.localize('PF2E.SensesLowLightVision') }];
+      data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision' }];
 
       const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
 
