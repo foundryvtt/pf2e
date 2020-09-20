@@ -51,7 +51,7 @@
       <b>Size</b>
       <span>{{localize (add 'PF2E.ActorSize' data.traits.size.label)}}</span>
     </div>
-    <div title="{{data.attributes.perception.breakdown}}">
+    <div title="{{data.attributes.perception.breakdown}}" data-perception-check>
       <b>Perception</b>
       <span>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
     </div>
@@ -73,24 +73,24 @@
       <b>Armor Class</b>
       <span>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</span>
     </div>
-    {{#each data.saves as |save idx|}}
-    <div title="{{save.breakdown}}">
-      <b>{{localize save.name}}</b>
-      <span>{{numberFormat save.value decimals=0 sign=true}}</span>
+    {{#each data.saves}}
+    <div title="{{this.breakdown}}" data-saving-throw="{{@key}}">
+      <b>{{localize this.name}}</b>
+      <span>{{numberFormat this.value decimals=0 sign=true}}</span>
     </div>
     {{/each}}
 
     <h2>Offenses</h2>
-    <div title="{{data.attack.breakdown}}">
+    <div title="{{data.attack.breakdown}}" data-attack-roll>
       <b>Attack Roll</b>
       <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
     </div>
 
     <h2>Skills</h2>
-    {{#each data.skills as |skill shortform|}}
-    <div title="{{skill.breakdown}}">
-      <b>{{skill.name}}</b>
-      <span>{{numberFormat skill.value decimals=0 sign=true}}</span>
+    {{#each data.skills}}
+    <div title="{{this.breakdown}}" data-skill-check="{{@key}}">
+      <b>{{this.name}}</b>
+      <span>{{numberFormat this.value decimals=0 sign=true}}</span>
     </div>
     {{/each}}
 
