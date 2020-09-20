@@ -61,6 +61,12 @@
       <span style="border: solid 1px silver;">{{sense.label}}{{#if sense.value}} ({{sense.value}}){{/if}}</span>
       {{/each}}
     </div>
+    <div>
+      <b>Speed</b>
+      {{#each data.attributes.speed.otherSpeeds}}
+      <span style="border: solid 1px silver;" title="{{this.breakdown}}">{{localize this.label}} ({{this.total}})</span>
+      {{/each}}
+    </div>
 
     <h2>Defenses</h2>
     <div>
