@@ -47,7 +47,7 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
         });
 
         html.find('[data-skill-check]:not([data-skill-check=""])').on('click', '*', event => {
-            const skill = $(event.currentTarget).closest('[data-skill]').attr('data-skill');
+            const skill = $(event.currentTarget).closest('[data-skill-check]').attr('data-skill-check');
             const options = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skill] ?? skill]);
             this.actor.data.data.skills[skill].roll(event, options);
         });
