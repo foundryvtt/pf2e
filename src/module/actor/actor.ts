@@ -1,4 +1,4 @@
-/* global ChatMessage, Roll, getProperty, ui, CONST */
+/* global ChatMessage, Roll, getProperty, isObjectEmpty, ui, CONST */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -761,22 +761,44 @@ export default class PF2EActor extends Actor {
 
   onCreateOwnedItem(child, options, userId) {
     if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
     const updates = {};
     for (const rule of rules) {
       rule.onCreate(<CharacterData|NpcData>this.data, child, updates);
     }
     this.update(updates);
+    const tokenUpdates = getProperty(updates, 'token');
+    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
+      this._updateAllTokens(tokenUpdates);
+    }
   }
 
   onDeleteOwnedItem(child, options, userId) {
     if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
     const updates = {};
     for (const rule of rules) {
       rule.onDelete(<CharacterData|NpcData>this.data, child, updates);
     }
     this.update(updates);
+    const tokenUpdates = getProperty(updates, 'token');
+    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
+      this._updateAllTokens(tokenUpdates);
+    }
+  }
+
+  async _updateAllTokens(updates) {
+    const promises = [];
+    for (const scene of game.scenes.values()) {
+      for (const token of scene.getEmbeddedCollection('Token')) {
+        if (token.actorId === this.id) {
+          promises.push(scene.updateEmbeddedEntity('Token', mergeObject(updates, {_id: token._id}, {inplace: false})));
+        }
+      }
+    }
+    return Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -1674,6 +1696,8 @@ export default class PF2EActor extends Actor {
    */
   static async stashOrUnstash(actor: PF2EActor, getItem: () => Promise<PF2EItem>, containerId: string): Promise<PF2EItem> {
       const item = await getItem();
+      if (!item) return null;
+
       if (containerId) {
           if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
               return item.update({
