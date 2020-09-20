@@ -370,7 +370,9 @@ CONFIG.spellTraditions = {
   arcane: 'PF2E.TraitArcane',
   divine: 'PF2E.TraitDivine',
   occult: 'PF2E.TraitOccult',
-  primal: 'PF2E.TraitPrimal'
+  primal: 'PF2E.TraitPrimal',
+  focus: 'PF2E.TraitFocus',
+  ritual: 'PF2E.TraitRitual'
 }; // Magic Traditon
 
 CONFIG.magicTraditions = {
