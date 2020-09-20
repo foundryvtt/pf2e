@@ -982,10 +982,14 @@ export default class PF2EActor extends Actor {
         stat.breakdown = stat.modifiers.filter(m => m.enabled)
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[save.name]) });
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
+        };
         data.saves[saveName] = stat;
       }
 
-      // perception
+      // attack
       {
         const modifiers = [
           new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
@@ -996,6 +1000,9 @@ export default class PF2EActor extends Actor {
         stat.breakdown = stat.modifiers.filter(m => m.enabled)
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          PF2Check.roll(new PF2CheckModifier('Attack Roll', stat), { actor: this, type: 'attack-roll', options }, event);
+        };
         data.attack = stat;
       }
 
@@ -1011,6 +1018,10 @@ export default class PF2EActor extends Actor {
         stat.breakdown = stat.modifiers.filter(m => m.enabled)
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.localize('PF2E.PerceptionCheck');
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
+        };
         data.attributes.perception = stat;
       }
 
@@ -1031,6 +1042,10 @@ export default class PF2EActor extends Actor {
         stat.breakdown = stat.modifiers.filter(m => m.enabled)
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[shortform]) });
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
+        };
         data.skills[shortform] = stat;
       }
     } else {

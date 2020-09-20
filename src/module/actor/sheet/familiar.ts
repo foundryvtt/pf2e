@@ -1,4 +1,6 @@
 /* global CONST, Dialog */
+import {SKILL_DICTIONARY} from "../actor";
+
 class ActorSheetPF2eFamiliar extends ActorSheet {
 
     static get defaultOptions() {
@@ -37,7 +39,28 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        if (!this.isEditable) return;
+        // rollable stats
+        html.find('[data-saving-throw]:not([data-saving-throw=""])').on('click', '*', event => {
+            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw');
+            const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
+            this.actor.data.data.saves[save].roll(event, options);
+        });
+
+        html.find('[data-skill-check]:not([data-skill-check=""])').on('click', '*', event => {
+            const skill = $(event.currentTarget).closest('[data-skill]').attr('data-skill');
+            const options = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skill] ?? skill]);
+            this.actor.data.data.skills[skill].roll(event, options);
+        });
+
+        html.find('[data-perception-check]').on('click', '*', event => {
+            const options = this.actor.getRollOptions(['all', 'perception']);
+            this.actor.data.data.attributes.perception.roll(event, options);
+        });
+
+        html.find('[data-attack-roll]').on('click', '*', event => {
+            const options = this.actor.getRollOptions(['all', 'attack']);
+            (this.actor.data.data as any).attack.roll(event, options);
+        });
 
         // expand and condense item description
         html.find('.item-list').on('click', '.expandable', event => {
@@ -47,6 +70,8 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
         html.find('.item-list').on('click', '.expanded', event => {
             $(event.currentTarget).removeClass('expanded').addClass('expandable');
         });
+
+        if (!this.isEditable) return;
 
         // item controls
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-edit', event => {
