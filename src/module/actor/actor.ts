@@ -934,7 +934,7 @@ export default class PF2EActor extends Actor {
       const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
 
       // amend the familiar traits with size
-      data.traits.traits.value.unshift(game.i18n.localize(`PF2E.ActorSize${data.traits.size.label}`));
+      data.traits.traits.value.unshift(`PF2E.ActorSize${data.traits.size.label}`);
 
       // hit points
       {
