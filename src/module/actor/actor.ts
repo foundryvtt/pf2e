@@ -957,7 +957,6 @@ export default class PF2EActor extends Actor {
 
       if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
           data.attributes.speed.otherSpeeds.push({
-              breakdown: 'Base Land Speed 25',
               label: 'Land',
               type: 'land',
               value: 25
