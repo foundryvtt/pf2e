@@ -14,20 +14,13 @@
   <section class="sheet-content" style="margin-top: 10px;">
     <div>
       {{#each data.traits.traits.value as |trait idx|}}
-      <span style="border: solid 1px black; text-transform: uppercase;">{{trait}}</span>
-      {{/each}}
-    </div>
-
-    <h2>Master</h2>
-    <div>
-      {{#each data.traits.traits.value as |trait idx|}}
       <span style="border: solid 1px black; text-transform: uppercase;">{{localize trait}}</span>
       {{/each}}
     </div>
 
     <h2>Master</h2>
     <div>
-      <label for="{{data._id}}-master"><b>Master</b></label>
+      <label for="{{data._id}}-master"><b>Master Actor</b></label>
       <select id="{{data._id}}-master" name="data.master.id">
         {{#select data.master.id}}
         <option value="">Select a master...</option>
