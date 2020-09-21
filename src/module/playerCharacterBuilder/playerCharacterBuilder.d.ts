@@ -1,5 +1,5 @@
 import PF2EActor from "../actor/actor";
-import { RawCharacterData } from "../actor/actorDataDefinitions";
+import { AbilityString, RawCharacterData } from "../actor/actorDataDefinitions";
 
 /**
  * The overarching player character builder class.
@@ -64,7 +64,7 @@ type BuildChoice = {
 }
 
 type ChoicePrerequisite = {
-    abilityScore?: string; //TODO: Find type definition for an ability score
+    abilityScore?: { ability: AbilityString, score: number};
     choice?: BuildChoice;
     skillProficiency?: SkillProficiencyPreReq;
     trait: TraitPrerequisite;
