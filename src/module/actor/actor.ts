@@ -1332,8 +1332,8 @@ export default class PF2EActor extends Actor {
       event,
       parts,
       data: {
-        mod: save.value - save.item,
-        itemBonus: save.item
+        mod: save.value - (save.item ?? 0),
+        itemBonus: save.item ?? 0 
       },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),

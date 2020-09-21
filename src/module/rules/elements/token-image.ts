@@ -22,16 +22,21 @@ export class PF2TokenImageRuleElement extends PF2RuleElement {
         }
 
         mergeObject(updates, {
-            'token.overlayEffect': value,
+            'token.img': value,
             'flags.pf2e.token.imgsource': item._id,
         });
+        if (!getProperty(actorData, 'flags.pf2e.token.img')) {
+            mergeObject(updates, {
+                'flags.pf2e.token.img': getProperty(actorData, 'token.img'),
+            });
+        }
     }
     
     onDelete(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
-        const updatedActorData = mergeObject(actorData, updates, {inplace: false});
-        if (getProperty(updatedActorData, 'flags.pf2e.token.imgsource') === item._id) {
+        if (getProperty(actorData, 'flags.pf2e.token.imgsource') === item._id) {
             mergeObject(updates, {
-                'token.overlayEffect': null,
+                'token.img': getProperty(actorData, 'flags.pf2e.token.img'),
+                'flags.pf2e.token.-=img': null,
                 'flags.pf2e.token.-=imgsource': null,
             });
         }
