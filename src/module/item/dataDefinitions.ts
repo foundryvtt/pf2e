@@ -1,3 +1,4 @@
+import { AbilityString } from "../actor/actorDataDefinitions";
 import {PF2RuleElementData} from "../rules/rulesDataDefinitions";
 
 export interface ItemDescriptionData {
@@ -184,7 +185,7 @@ export interface WeaponDetailsData {
         value: string
     },
     ability: {
-        value: string
+        value: AbilityString
     },
     MAP: {
         value: string
@@ -429,7 +430,7 @@ export interface SpellDetailsData {
         value: string
     },
     ability: {
-        value: string
+        value: AbilityString
     },
     prepared: {
         value: boolean
@@ -441,7 +442,7 @@ export interface SpellDetailsData {
 
 export interface SpellcastingEntryDetailsData {
     ability: {
-        value: string
+        value: AbilityString
     },
     spelldc: {
         value: 0,

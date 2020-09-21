@@ -1,3 +1,4 @@
+import { AbilityString } from "./actor/actorDataDefinitions";
 import { DamageDieSize } from "./system/damage/damage";
 
 /**
@@ -135,7 +136,7 @@ export const AbilityModifier = Object.freeze({
    * @param {number} score The score of this ability.
    * @returns {PF2Modifier} The modifier provided by the given ability score.
    */
-  fromAbilityScore: (ability: string, score: number) => {
+  fromAbilityScore: (ability: AbilityString, score: number): PF2Modifier => {
     switch (ability) {
       case 'str': return STRENGTH.withScore(score);
       case 'dex': return DEXTERITY.withScore(score);
