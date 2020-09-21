@@ -60,7 +60,7 @@ export interface RawSkillData {
 /** Basic initiative-relevant data. */
 export interface RawInitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
-    ability: AbilityString;
+    ability: string;
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
     label: string;
 }
