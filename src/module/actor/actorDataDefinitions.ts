@@ -4,6 +4,9 @@ import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } fr
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
+/** A type representing the possible proficiency strings. */
+export type ProficiencyString = "untrained" | "trained" | "expert" | "master" | "legendary";
+
 /** A type representing the possible PFS factions. */
 export type PFSFactionString = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
