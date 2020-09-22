@@ -4,6 +4,7 @@ import UpdatedNPCActorPF2ESheet from './actor/sheet/updatednpcsheet';
 import ActorSheetPF2eHazard from './actor/sheet/hazard';
 import ActorSheetPF2eLoot from './actor/sheet/loot';
 import ActorSheetPF2eFamiliar from "./actor/sheet/familiar";
+import ActorSheetPF2eVehicle from "./actor/sheet/vehicle";
 
 function registerActors() {
   Actors.unregisterSheet('core', ActorSheet);
@@ -41,6 +42,12 @@ function registerActors() {
   // Register Loot Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eFamiliar, {
     types: ['familiar'],
+    makeDefault: true,
+  });
+
+  // Register Vehicle Sheet
+  Actors.registerSheet('pf2e', ActorSheetPF2eVehicle, {
+    types: ['vehicle'],
     makeDefault: true,
   });
 }

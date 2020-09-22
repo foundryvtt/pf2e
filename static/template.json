@@ -1,6 +1,13 @@
 {
   "Actor": {
-    "types": ["character", "npc", "hazard", "loot", "familiar"],
+    "types": [
+      "character",
+      "npc",
+      "hazard",
+      "loot",
+      "familiar",
+      "vehicle"
+    ],
     "templates": {
       "common": {
         "abilities": {
@@ -639,6 +646,71 @@
           "value": ["minion"]
         }
       }
+    },
+    "vehicle": {
+      "templates": [],
+      "attributes": {
+        "ac": {
+          "min": 0,
+          "value": 0,
+          "item": 0,
+          "check": 0,
+          "details": ""
+        },
+        "hardness": 0,
+        "hp": {
+          "value": 10,
+          "min": 0,
+          "max": 10,
+          "brokenThreshold": 5,
+          "details": ""
+        }
+      },
+      "saves": {
+        "fortitude": {
+          "rank": 0,
+          "item": 0,
+          "value": 0,
+          "breakdown": "",
+          "saveDetail": ""
+        }
+      },
+      "details": {
+        "description": "",
+        "level": {
+          "value": 1
+        },
+        "price": 0,
+        "space": {
+          "long": 0,
+          "wide": 0,
+          "high": 0
+        },
+        "crew": "1 pilot",
+        "passengers": "",
+        "pilotingCheck": "",
+        "AC": 0,
+        "speed": 0
+      },
+      "traits": {
+        "rarity": {
+          "value": "common"
+        },
+        "size": {
+          "value": "lg"
+        },
+        "traits": {
+          "value": [],
+          "custom": ""
+        },
+        "di": {
+          "value": ["critical-hits","object-immunities","precision-damage"],
+          "custom": ""
+        },
+        "dr": [],
+        "dv": [],
+        "ci": []
+      }
     }
   },
   "Item": {
@@ -1106,7 +1178,7 @@
       "spellType": {
         "value": ""
       },
-	  "spellCategory": {
+      "spellCategory": {
         "value": ""
       },
       "traditions": {
@@ -1198,8 +1270,7 @@
       "proficiency": {
         "value": 0
       },
-      "displayLevels": {
-      },
+      "displayLevels": {},
       "slots": {
         "slot0": {
           "prepared": [],
