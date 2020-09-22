@@ -1,4 +1,4 @@
-/* global ChatMessage, Roll, getProperty, ui, CONST */
+/* global ChatMessage, Roll, getProperty, isObjectEmpty, ui, CONST */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -24,22 +24,23 @@ import { DicePF2e } from '../../scripts/dice'
 import PF2EItem from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
 import {
-  CharacterData,
-  NpcData,
-  SaveData,
-  SkillData,
-  ClassDCData,
-  ArmorClassData,
-  PerceptionData,
-  InitiativeData,
-  CharacterStrikeTrait,
-  CharacterStrike,
-  DexterityModifierCapData,
-  NPCArmorClassData,
-  NPCSaveData,
-  NPCPerceptionData,
-  NPCSkillData,
-  HitPointsData
+    CharacterData,
+    NpcData,
+    SaveData,
+    SkillData,
+    ClassDCData,
+    ArmorClassData,
+    PerceptionData,
+    InitiativeData,
+    CharacterStrikeTrait,
+    CharacterStrike,
+    DexterityModifierCapData,
+    NPCArmorClassData,
+    NPCSaveData,
+    NPCPerceptionData,
+    NPCSkillData,
+    HitPointsData,
+    FamiliarData
 } from './actorDataDefinitions';
 import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
 
@@ -110,6 +111,7 @@ export default class PF2EActor extends Actor {
     const rules = actorData.items.reduce((accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)), []);
     if (actorData.type === 'character') this._prepareCharacterData(actorData, rules);
     else if (actorData.type === 'npc') this._prepareNPCData(actorData, rules);
+    else if (actorData.type === 'familiar') this._prepareFamiliarData(actorData, rules);
 
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
@@ -151,6 +153,13 @@ export default class PF2EActor extends Actor {
     for (const abl of Object.values(actorData.data.abilities)) {
       abl.mod = Math.floor((abl.value - 10) / 2);
     }
+
+    // Toggles
+    (data as any).toggles = {
+      actions: [
+        { label: 'PF2E.TargetFlatFootedLabel', inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`, checked: this.getFlag(game.system.id, 'rollOptions.all.target:flatFooted') }
+      ]
+    };
 
     const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
 
@@ -460,6 +469,39 @@ export default class PF2EActor extends Actor {
 
     (data as any).skills = skills;
 
+    // Speeds
+    {
+      const label = game.i18n.localize('PF2E.SpeedTypesLand');
+      const base = Number(data.attributes.speed.value ?? 0);
+      const modifiers = [];
+      ['land-speed', 'speed'].forEach((key) => {
+        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+      const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers) as any, data.attributes.speed, { overwrite: false });
+      stat.total = base + stat.totalModifier;
+      stat.type = 'land';
+      stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
+      data.attributes.speed = stat;
+    }
+    for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
+      const speed = data.attributes.speed.otherSpeeds[idx];
+      const base = Number(speed.value ?? 0)
+      const modifiers = [];
+      [`${speed.type}-speed`, 'speed'].forEach((key) => {
+        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      });
+      const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
+      stat.total = base + stat.totalModifier;
+      stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      ).join(', ');
+      data.attributes.speed.otherSpeeds[idx] = stat;
+    }
+
     // Automatic Actions
     data.actions = [];
 
@@ -578,6 +620,7 @@ export default class PF2EActor extends Actor {
 
         // Add the base attack roll (used for determining on-hit)
         action.attack = (event, options = []) => {
+          options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
           PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
@@ -586,15 +629,24 @@ export default class PF2EActor extends Actor {
         action.variants = [
           {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
           {
             label: `MAP ${map.map2}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
           {
             label: `MAP ${map.map3}`,
-            roll: (event, options = []) => PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('Multiple Attack Penalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
           },
         ];
         action.damage = (event, options = []) => {
@@ -709,22 +761,44 @@ export default class PF2EActor extends Actor {
 
   onCreateOwnedItem(child, options, userId) {
     if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
     const updates = {};
     for (const rule of rules) {
       rule.onCreate(<CharacterData|NpcData>this.data, child, updates);
     }
     this.update(updates);
+    const tokenUpdates = getProperty(updates, 'token');
+    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
+      this._updateAllTokens(tokenUpdates);
+    }
   }
 
   onDeleteOwnedItem(child, options, userId) {
     if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
     const updates = {};
     for (const rule of rules) {
       rule.onDelete(<CharacterData|NpcData>this.data, child, updates);
     }
     this.update(updates);
+    const tokenUpdates = getProperty(updates, 'token');
+    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
+      this._updateAllTokens(tokenUpdates);
+    }
+  }
+
+  async _updateAllTokens(updates) {
+    const promises = [];
+    for (const scene of game.scenes.values()) {
+      for (const token of scene.getEmbeddedCollection('Token')) {
+        if (token.actorId === this.id) {
+          promises.push(scene.updateEmbeddedEntity('Token', mergeObject(updates, {_id: token._id}, {inplace: false})));
+        }
+      }
+    }
+    return Promise.all(promises);
   }
 
   /* -------------------------------------------- */
@@ -852,8 +926,218 @@ export default class PF2EActor extends Actor {
 
   }
 
+  private _prepareFamiliarData(actorData: FamiliarData, rules: PF2RuleElement[]) {
+    const { data } = actorData;
+
+    // traits
+    data.traits.traits.value = ['minion'];
+
+    // traits
+    data.traits.traits.value = [CONFIG.monsterTraits.minion];
+
+    let master;
+    if (data?.master?.id && game.actors) {
+      master = game.actors.get(data.master.id);
+    }
+    if (master) {
+      data.master.name = master?.name;
+      data.master.level = master.data.data.details.level.value ?? 0;
+      data.master.ability = data.master.ability ?? 'cha';
+      data.details.level.value = data.master.level;
+      const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
+
+      // base size
+      data.traits.size.value = 'tiny';
+      data.traits.size.label = CONFIG.PF2E.actorSizes[data.traits.size.value];
+
+      // base senses
+      data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision' }];
+
+      const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
+      const FILTER_MODIFIER = (modifier: PF2Modifier) => ![PF2ModifierType.ABILITY, PF2ModifierType.PROFICIENCY, PF2ModifierType.ITEM].includes(modifier.type);
+
+      if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
+          data.attributes.speed.otherSpeeds.push({
+              label: 'Land',
+              type: 'land',
+              value: 25
+          });
+      }
+      for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
+        const speed = data.attributes.speed.otherSpeeds[idx];
+        const base = Number(speed.value ?? 0)
+        const modifiers = [];
+        [`${speed.type}-speed`, 'speed'].forEach((key) => {
+          (statisticsModifiers[key as string] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m));
+        });
+        const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
+        stat.total = base + stat.totalModifier;
+        stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label })} ${base}`].concat(
+        stat.modifiers.filter((m) => m.enabled)
+          .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        ).join(', ');
+        data.attributes.speed.otherSpeeds[idx] = stat;
+      }
+
+      // amend the familiar traits with size
+      data.traits.traits.value.unshift(`PF2E.ActorSize${data.traits.size.label}`);
+
+      // hit points
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevelHP', data.master.level * 5, PF2ModifierType.UNTYPED)
+        ];
+        (statisticsModifiers.hp || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m));
+        (statisticsModifiers['hp-per-level'] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => {
+          m.modifier *= data.details.level.value;
+          modifiers.push(m)
+        });
+
+        const stat = mergeObject<HitPointsData>(new PF2StatisticModifier("hp", modifiers) as HitPointsData, data.attributes.hp, { overwrite: false });
+        stat.max = stat.totalModifier;
+        stat.value = Math.min(stat.value, stat.max);
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        data.attributes.hp = stat;
+      }
+
+      // armor class
+      {
+        const source = master.data.data.attributes.ac.modifiers.filter(modifier => !['status', 'circumstance'].includes(modifier.type));
+        const base = 10 + new PF2StatisticModifier('base', source).totalModifier;
+        const modifiers = [];
+        ['ac', 'dex-based', 'all'].forEach(key =>
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+        );
+        const stat = new PF2StatisticModifier('ac', modifiers);
+        stat.value = base + stat.totalModifier;
+        stat.breakdown = [game.i18n.format('PF2E.MasterArmorClass', { base })].concat(
+          stat.modifiers.filter(m => m.enabled).map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        ).join(', ');
+        data.attributes.ac = stat;
+      }
+
+      // saving throws
+      for (const [saveName, save] of Object.entries(master.data.data.saves as SaveData[])) {
+        const source = save.modifiers.filter(modifier => !['status', 'circumstance'].includes(modifier.type));
+        const modifiers = [
+          new PF2Modifier(`PF2E.MasterSavingThrow.${saveName}`, new PF2StatisticModifier('base', source).totalModifier, PF2ModifierType.UNTYPED)
+        ];
+        [save.name, `${save.ability}-based`, 'saving-throw', 'all'].forEach(key =>
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+        );
+        const stat = new PF2StatisticModifier(CONFIG.saves[saveName], modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[save.name]) });
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
+        };
+        data.saves[saveName] = stat;
+      }
+
+      // attack
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
+        ];
+        ['attack', 'all'].forEach(key =>
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+        );
+        const stat = new PF2StatisticModifier('attack', modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          PF2Check.roll(new PF2CheckModifier('Attack Roll', stat), { actor: this, type: 'attack-roll', options }, event, callback);
+        };
+        data.attack = stat;
+      }
+
+      // perception
+      {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED),
+          new PF2Modifier(`PF2E.MasterAbility.${data.master.ability}`, spellcastingAbilityModifier, PF2ModifierType.UNTYPED)
+        ];
+        ['perception', 'wis-based', 'all'].forEach(key =>
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+        );
+        const stat = new PF2StatisticModifier('perception', modifiers);
+        stat.value = stat.totalModifier;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.localize('PF2E.PerceptionCheck');
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
+        };
+        data.attributes.perception = stat;
+      }
+
+      // skills
+      for (const [shortform, skillName] of Object.entries(CONFIG.PF2E.skills)) {
+        const modifiers = [
+          new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
+        ];
+        if (['acr','ste'].includes(shortform)) {
+          modifiers.push(new PF2Modifier(`PF2E.MasterAbility.${data.master.ability}`, spellcastingAbilityModifier, PF2ModifierType.UNTYPED));
+        }
+        const expanded = SKILL_DICTIONARY[shortform];
+        const ability = SKILL_EXPANDED[expanded].ability;
+        [expanded, `${ability}-based`, 'skill-check', 'all'].forEach(key =>
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+        );
+        const stat = new PF2StatisticModifier(game.i18n.localize(`PF2E.Skill${skillName}`), modifiers);
+        stat.value = stat.totalModifier;
+        stat.ability = ability;
+        stat.breakdown = stat.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+        stat.roll = (event, options = [], callback?) => {
+          const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[shortform]) });
+          PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
+        };
+        data.skills[shortform] = stat;
+      }
+    } else {
+      data.master.name = undefined;
+      data.master.level = 0;
+      data.details.level.value = 0;
+      data.attributes.hp = {
+        value: data.attributes.hp.value,
+        max: data.attributes.hp.value,
+      };
+      data.attributes.ac = {
+        value: 10,
+        breakdown: game.i18n.localize('PF2E.ArmorClassBase')
+      };
+      data.saves = {
+        fortitude: { value: 0 },
+        reflex: { value: 0 },
+        will: { value: 0 }
+      };
+      data.attributes.perception = {
+        value: 0
+      };
+    }
+  }
+
+  async createEmbeddedEntity(embeddedName, data, options?: undefined): Promise<PF2EActor> {
+    if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
+      ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
+      return null;
+    } else {
+      return super.createEmbeddedEntity(embeddedName, data, options);
+    }
+  }
+
   /** Compute custom stat modifiers provided by users or given by conditions. */
-  private _prepareCustomModifiers(actorData: CharacterData | NpcData, rules: PF2RuleElement[]): {
+  private _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
     damageDice: Record<string, PF2DamageDice[]>
   } {
@@ -878,7 +1162,7 @@ export default class PF2EActor extends Actor {
     }
 
     // Character-specific custom modifiers & custom damage dice.
-    if (actorData.type === 'character' || actorData.type === 'npc') {
+    if (['character', 'familiar', 'npc'].includes(actorData.type)) {
       const {data} = actorData;
 
       // Custom Modifiers (which affect d20 rolls and damage).
@@ -1059,8 +1343,8 @@ export default class PF2EActor extends Actor {
       event,
       parts,
       data: {
-        mod: save.value - save.item,
-        itemBonus: save.item
+        mod: save.value - (save.item ?? 0),
+        itemBonus: save.item ?? 0 
       },
       title: flavor,
       speaker: ChatMessage.getSpeaker({ actor: this }),
@@ -1422,6 +1706,8 @@ export default class PF2EActor extends Actor {
    */
   static async stashOrUnstash(actor: PF2EActor, getItem: () => Promise<PF2EItem>, containerId: string): Promise<PF2EItem> {
       const item = await getItem();
+      if (!item) return null;
+
       if (containerId) {
           if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
               return item.update({
@@ -1478,8 +1764,8 @@ export default class PF2EActor extends Actor {
                           predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
     // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
     // similar to how addDamageDice operates.
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom modifiers only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
     }
 
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -1504,8 +1790,8 @@ export default class PF2EActor extends Actor {
 
   /** Removes a custom modifier by name. */
   async removeCustomModifier(stat: string, modifier: number | string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom modifiers only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
     }
 
     const customModifiers = duplicate(this.data.data.customModifiers ?? {});
@@ -1526,8 +1812,8 @@ export default class PF2EActor extends Actor {
    * @param {DexterityModifierCapData} dexCap
    */
   async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom dexterity caps only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
     }
     if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
       throw new Error('numeric value is mandatory');
@@ -1543,8 +1829,8 @@ export default class PF2EActor extends Actor {
    * Removes a previously added Dexterity modifier cap to AC.
    */
   async removeDexterityModifierCap(source: string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom dexterity caps only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
     }
     if (!source) {
       throw new Error('source of cap is mandatory');
@@ -1559,8 +1845,8 @@ export default class PF2EActor extends Actor {
 
   /** Adds custom damage dice. */
   async addDamageDice(param: PF2DamageDice) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom damage dice only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
     }
 
     const damageDice = duplicate(this.data.data.damageDice ?? {});
@@ -1580,8 +1866,8 @@ export default class PF2EActor extends Actor {
 
   /** Removes damage dice by name. */
   async removeDamageDice(selector: string, dice: number | string) {
-    if (this.data.type !== 'character' && this.data.type !== 'npc') {
-      throw Error("Custom damage dice only work for characters and NPCs");
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
     }
 
     const damageDice = duplicate(this.data.data.damageDice ?? {});
@@ -1602,7 +1888,7 @@ export default class PF2EActor extends Actor {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
+    return this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
   }
 
   /** Set the given roll option. */
@@ -1611,23 +1897,23 @@ export default class PF2EActor extends Actor {
       throw new Error(`${rollName} is not a supported roll`);
     }
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.setFlag(game.system.id, flag, !!enabled);
+    return this.setFlag(game.system.id, flag, !!enabled);
   }
 
   /** Unset (i.e., delete entirely) the given roll option. */
   async unsetRollOption(rollName: string, optionName: string) {
     const flag = `rollOptions.${rollName}.${optionName}`;
-    this.unsetFlag(game.system.id, flag);
+    return this.unsetFlag(game.system.id, flag);
   }
 
   /** Enable the given roll option for thie given roll name. */
   async enableRollOption(rollName: string, optionName: string) {
-    this.setRollOption(rollName, optionName, true);
+    return this.setRollOption(rollName, optionName, true);
   }
 
   /** Disable the given roll option for the given roll name. */
   async disableRollOption(rollName: string, optionName: string) {
-    this.setRollOption(rollName, optionName, false);
+    return this.setRollOption(rollName, optionName, false);
   }
 
   /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */

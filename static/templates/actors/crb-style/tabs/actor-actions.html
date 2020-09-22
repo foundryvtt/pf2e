@@ -13,16 +13,14 @@
 
                 <div id="encounter" class="actions-panel active">
                     <div class="actions-options">
-                        <div class="actions-option flat-footed">
-                            <input type="checkbox" id="flat-footed" name="flags.pf2e.rollOptions.all.target:flatFooted" {{checked isTargetFlatFooted}}>
-                            <label for="flat-footed">{{localize 'PF2E.TargetFlatFootedLabel'}}</label>
+                        {{#each data.toggles.actions as |toggle idx|}}
+                        <div class="actions-option">
+                            <label>
+                                <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+                                <span>{{localize toggle.label}}</span>
+                            </label>
                         </div>
-                        <!--
-                        <div class="actions-option clan-enemy">
-                            <input type="checkbox" id="clan-enemy" name="clan-enemy">
-                            <label for="clan-enemy">Clan Enemy</label>
-                        </div>
-                        -->
+                        {{/each}}
                     </div>
 
                     <ol class="actions-list inventory-list directory-list strikes-list">

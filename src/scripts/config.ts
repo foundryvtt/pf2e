@@ -370,7 +370,9 @@ CONFIG.spellTraditions = {
   arcane: 'PF2E.TraitArcane',
   divine: 'PF2E.TraitDivine',
   occult: 'PF2E.TraitOccult',
-  primal: 'PF2E.TraitPrimal'
+  primal: 'PF2E.TraitPrimal',
+  focus: 'PF2E.TraitFocus',
+  ritual: 'PF2E.TraitRitual'
 }; // Magic Traditon
 
 CONFIG.magicTraditions = {
@@ -859,6 +861,7 @@ CONFIG.monsterTraits = {
   kobold: 'PF2E.TraitKobold',
   merfolk: 'PF2E.TraitMerfolk',
   mindless: 'PF2E.TraitMindless',
+  minion: 'PF2E.TraitMinion',
   monitor: 'PF2E.TraitMonitor',
   mummy: 'PF2E.TraitMummy',
   mutant: 'PF2E.TraitMutant',
@@ -892,6 +895,7 @@ mergeObject(CONFIG.monsterTraits, CONFIG.ancestryTraits);
 mergeObject(CONFIG.monsterTraits, CONFIG.damageTypes);
 
 CONFIG.hazardTraits = {
+  auditory: 'PF2E.TraitAuditory',
   environmental: 'PF2E.TraitEnvironmental',
   haunt: 'PF2E.TraitHaunt',
   magical: 'PF2E.TraitMagical',

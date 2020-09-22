@@ -1,5 +1,68 @@
 # Patch Notes:
 
+## Version 1.10.11
+### New Features
+* (@abrault) Add rule elements on tokens to change size and image
+* (@nikolaj-a) Add familiar actor type and sheet
+    * Add hit points to familiar
+    * Add custom modifier support to familiars
+    * Add armor class to familiar
+    * Add saving throws to familiar
+    * Add perception to familiar
+    * Add skills to familiar
+    * Add details to familiar
+    * Add conditions and effects to familiar
+    * Add rolls to familiar
+    * Add speeds to familiar
+    * Sense and speed tags to familiar
+    * Add Core Rulebook familiar abilities compendium
+    * Add Advanced Player's Guide familiar abilities compendium
+    * Ignore certain modifiers on familiars
+
+* (@mdizo) Basic styling of the familiar sheet
+* (@nikolaj-a) Toggle property rule element
+* (@nikolaj-a) Bass speed rule element
+* (@nikolaj-a) Sense rule element
+
+### Bug Fixes
+* (@abrault) Fix logo height to prevent sidebar jumping
+* (@abrault) Fix saves from hazards
+* (@In3luki) Fix crit and fumble buttons potentially crashing the browser
+* (@In3luki) Fix spells test for the new data structure
+* (@In3luki) Fix errors for rolls with no dice
+* (@nikolaj-a) Return promise when setting roll option
+* (@nikolaj-a) Add all weapon traits as options to attack rolls from strikes
+
+### Content Changes
+* (@overdox) Spell Icon update
+* (@overdox) Removing unused duplicate icons
+* (@Shandyan) Alchemical poison formatting
+* (@Shandyan) Compendium corrections (class features & spells)
+* (@TMun) Fixes missing details from errata and fixes class kit loadout (#769, #770) 
+* (@TMun) Fixes Toughness description per errata 1 (#759)
+* (@TMun) Repackage. Closes #788, #781, #779 and #78. Corrects part of #786
+* (@TMun) Adds heightening information to Synesthesia spell
+* (@nikolaj-a) Power Attack feat rules
+
+### Core System Improvements
+* (@JensChup) Added UnitPrice for LootSheet
+* (@TMun) Adds Focus and Ritual to Spell Traditions since they can be flagged as that for backend heightening
+* (@mdizo) Moved CSS classes for "tags" to global scope
+* (@nikolaj-a) Add a melee or ranged damage option
+* (@nikolaj-a) Add modifier system for character speeds
+* (@nikolaj-a) Dynamic toggles on character sheet
+* (@nikolaj-a) Add minion trait
+
+### Development Improvements
+* (@In3luki) Extract individual compendium entries into separate JSON files
+    * Use NeDB to extract and build pack files
+    * Remove duplicate entries from two compendium packs
+    * Add /static/packs/ directory to .gitignore
+    * Add previously broken entry to pathfinder-bestiary-2.db
+    * Add entityIdChanged() check to pack extraction
+    * Sort extracted JSON data by its keys and extract all entities as sorted JSON
+
+
 ## Version 1.10.10
 ### New Features
 * (@nikolaj-a) Damage dice rule element

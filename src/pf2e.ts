@@ -16,6 +16,7 @@ import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 import { PF2eConditionManager } from "./module/conditions"
+import {FamiliarData} from "./module/actor/actorDataDefinitions";
 
 require('./styles/pf2e.scss');
 
@@ -64,9 +65,20 @@ Hooks.once('init', () => {
   (window as any).PF2eConditionManager = PF2eConditionManager;
 });
 
+/* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
+function _updateMinionActors(master: ActorPF2e = undefined) {
+  game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
+    .filter(minion => !!minion.data.data?.master?.id)
+    .filter(minion => !master || minion.data.data.master.id === master.data._id)
+    .forEach(minion => minion.update({ 'data.master.updated': new Date().toISOString() }));
+}
+
 Hooks.once('ready', () => {
   PlayerConfigPF2e.init();
   PlayerConfigPF2e.activateColorScheme();
+
+  // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
+  _updateMinionActors();
 });
 
 /* -------------------------------------------- */
@@ -256,6 +268,11 @@ Hooks.on('preCreateActor', (actor, dir) => {
       actor.token.actorLink = true;
     }
   }
+});
+
+Hooks.on('updateActor', (actor, dir) => {
+  // ensure minion-type actors with the updated actor as master should also be updated
+  _updateMinionActors(actor);
 });
 
 Hooks.on('createOwnedItem', (parent, child, options, userId) => {

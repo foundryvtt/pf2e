@@ -1,4 +1,4 @@
-/* global ui, RollTable */
+/* global RollTable */
 
 class PF2eCritFumbleCards {
     static critTable: any;
@@ -22,20 +22,20 @@ class PF2eCritFumbleCards {
             Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
                 if (message.isAuthor && message.isRoll && (message as any).isContentVisible) {
                     const context = message.getFlag('pf2e', 'context');
-                    if (message.roll.dice[0].faces === 20 && context?.type === 'attack-roll') {
+                    if (message.roll.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
                         const critButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
                         const fumbleButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize('PF2E.CriticalFumbleCardButtonTitle')}"></i></button>`);
                         const btnContainer1 = $(`<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`);
                         btnContainer1.append(critButton);
                         btnContainer1.append(fumbleButton);
 
-                        critButton.click((event) => {
+                        critButton.on('click', (event) => {
                             event.stopPropagation();
                             this.critTable.draw();
                             event.currentTarget.blur();
                         })
 
-                        fumbleButton.click((event) => {
+                        fumbleButton.on('click', (event) => {
                             event.stopPropagation();
                             this.fumbleTable.draw();
                             event.currentTarget.blur();
@@ -45,9 +45,6 @@ class PF2eCritFumbleCards {
                     }
                 }
             });
-
-            // re-render all chat messages to add the buttons
-            game.messages.entities.map((message) => (ui as any).chat.updateMessage(message));
         }
     }
 
@@ -76,7 +73,7 @@ class PF2eCritFumbleCards {
     }
 }
 
-Hooks.once("ready", async () => {
+Hooks.once("renderChatLog", async () => {
     game.settings.register('pf2e', 'critFumbleButtons', {
         name: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.name"),
         hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.hint"),
@@ -102,6 +99,6 @@ Hooks.once("ready", async () => {
     });
 
     if (game.settings.get('pf2e', 'drawCritFumble') || game.settings.get('pf2e', 'critFumbleButtons')) {
-        PF2eCritFumbleCards.init();
+        await PF2eCritFumbleCards.init();
     }
 });

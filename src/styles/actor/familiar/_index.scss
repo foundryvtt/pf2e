@@ -1,0 +1,132 @@
+.familiar {
+    b {
+        font-family: $sans-serif;
+    }
+    .window-content {
+        background: url('../assets/sheet-bg.jpg');
+        background-repeat: repeat-x, no-repeat;
+        background-size: cover;
+        background-attachment: local;
+    }
+    .sheet-header {
+        img {
+            flex: 0 0 90px;
+            width: 90px;
+            height: 100%;
+        }
+    }
+    .container {
+        display: grid;
+        grid:
+            'master offense' min-content
+            'basic-stats defense' min-content
+            'skills skills' min-content
+            'conditions effects' min-content
+            / 1fr 1fr;
+        column-gap: 1em;
+        row-gap: 1.5em;
+
+        margin-top: 1em;
+        font-family: $body-serif;
+    }
+    .traits {
+        margin: 0.25em 0;
+        padding-left: 10px;
+        span {
+            color: white;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 0.25em 0.5em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background-color: var(--primary);
+            border: 1px solid var(--tertiary);
+        }
+    }
+
+    .master {
+        grid-area: master;
+    }
+    .basic-stats {
+        grid-area: basic-stats;
+    }
+    .offense {
+        grid-area: offense;
+    }
+    .defense {
+        grid-area: defense;
+    }
+    .skills {
+        grid-area: skills;
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            .skill-item {
+                display: flex;
+                align-items: center;
+                flex-basis: calc(100% / 3);
+
+                span {
+                    margin-left: 0.25em;
+                }
+            }
+        }
+    }
+
+    .conditions,
+    .effects {
+        .item {
+            margin: 0.25em 0;
+        }
+        .item-list {
+            list-style: none;
+            padding-left: 0;
+            .item-name {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                h4 {
+                    @include p-reset;
+                }
+                .item-controls {
+                    margin-left: auto;
+                }
+
+                &:hover {
+                    h4 {
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+
+        .item.expandable .item-summary {
+            display: none;
+        }
+
+        .item.expanded .item-summary {
+            display: block;
+        }
+
+        .item-image {
+            @include flex-center;
+            height: 40px;
+            width: 40px;
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
+            margin-right: 0.5em;
+
+            i {
+                display: none;
+                font-size: 2em;
+                color: var(--primary);
+            }
+            &:hover {
+                background: none !important;
+                i {
+                    display: block;
+                }
+            }
+        }
+    }
+}

@@ -544,6 +544,17 @@ export interface RawLootData {
     [key: string]: any;
 }
 
+/** The raw information contained within the actor data object for familiar actors. */
+export interface RawFamiliarData {
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
 export interface ActorEntityData<T> extends BaseEntityData<T> {
     items: ItemData[];
@@ -570,4 +581,9 @@ export interface LootData extends ActorEntityData<RawLootData> {
     type: 'loot';
 }
 
-export type ActorData = CharacterData | NpcData | HazardData | LootData;
+export interface FamiliarData extends ActorEntityData<RawFamiliarData> {
+    type: 'familiar';
+    master: { id?: string, name?: string, level?: number };
+}
+
+export type ActorData = CharacterData | NpcData | HazardData | LootData | FamiliarData;

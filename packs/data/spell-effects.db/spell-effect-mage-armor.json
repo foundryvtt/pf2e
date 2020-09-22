@@ -1,0 +1,91 @@
+{
+    "_id": "qkwb5DD3zmKwvbk0",
+    "data": {
+        "containerId": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<div title=\"Page 349\">\n<div>\n<div>\n<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n</div>\n</div>\n</div>"
+        },
+        "level": {
+            "value": 1
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mage Armor",
+                "selector": "ac",
+                "type": "item",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mage Armor",
+                "selector": "saving-throw",
+                "type": "item",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 4,
+                            "value": 1
+                        },
+                        {
+                            "end": 9,
+                            "start": 8,
+                            "value": 2
+                        },
+                        {
+                            "start": 10,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.DexterityModifierCap",
+                "label": "Mage Armor",
+                "value": 5
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/mage-armor.jpg",
+    "name": "Spell Effect: Mage Armor",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

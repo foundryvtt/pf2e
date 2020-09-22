@@ -606,4 +606,8 @@ declare class Entity<DataType = any> {
 	 * Serializing an Entity should simply serialize it's inner data, not the entire instance
 	 */
 	toJSON(): BaseEntityData;
+
+    static can(user: User, action: string, target: Entity): boolean;
+
+    can(user: User, action: string): boolean;
 }

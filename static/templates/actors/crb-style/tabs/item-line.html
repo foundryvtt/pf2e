@@ -13,8 +13,16 @@
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
         {{/if}}
     </div>
-    {{#if (eq item.type 'treasure')}}
-    <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity.value}} {{item.data.denomination.value}}</span>
+    {{#if lootsheet}}
+        {{#if (eq item.type 'treasure')}}
+            <span class="item-sell-value">{{item.data.value.value}} {{item.data.denomination.value}}</span>
+        {{else}}
+            <span class="item-sell-value">{{item.data.price.value}}</span>
+        {{/if}}
+    {{else}}
+        {{#if (eq item.type 'treasure')}}
+            <span class="item-sell-value">{{multiply item.data.value.value item.data.quantity.value}} {{item.data.denomination.value}}</span>
+        {{/if}}
     {{/if}}
     <span class="item-quantity">
                     <a class="item-decrease-quantity">&ndash;</a>

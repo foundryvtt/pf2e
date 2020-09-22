@@ -1,5 +1,5 @@
 /* global getProperty, Roll */
-import {CharacterData, NpcData} from "../actor/actorDataDefinitions";
+import {CharacterData, FamiliarData, NpcData} from "../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier} from "../modifiers";
 import {ItemData} from "../item/dataDefinitions";
 
@@ -10,13 +10,13 @@ export abstract class PF2RuleElement {
     onDelete(actorData: CharacterData|NpcData, item: ItemData, updates: any) {}
 
     onBeforePrepareData(
-        actorData: CharacterData | NpcData,
+        actorData: CharacterData | NpcData | FamiliarData,
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>
     ) {}
 
     onAfterPrepareData(
-        actorData: CharacterData | NpcData,
+        actorData: CharacterData | NpcData | FamiliarData,
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>
     ) {}
