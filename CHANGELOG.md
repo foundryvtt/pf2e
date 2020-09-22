@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 1.10.12
+### Bug Fixes
+* (@nikolaj-a) Fix PFS level bump slider
+* (@nikolaj-a) Fix the creature conditions
+
+
 ## Version 1.10.11
 ### New Features
 * (@abrault) Add rule elements on tokens to change size and image
