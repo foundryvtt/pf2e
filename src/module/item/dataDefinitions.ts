@@ -430,7 +430,7 @@ export interface SpellDetailsData {
         value: string
     },
     ability: {
-        value: string
+        value: AbilityString
     },
     prepared: {
         value: boolean
@@ -442,7 +442,7 @@ export interface SpellDetailsData {
 
 export interface SpellcastingEntryDetailsData {
     ability: {
-        value: string
+        value: AbilityString
     },
     spelldc: {
         value: 0,
