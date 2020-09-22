@@ -177,9 +177,6 @@ function sanitizeEntity(entity) {
 
     // Delete unneeded flags
     delete entity.flags._sheetTab;
-    // TODO: Check if there can be anything important in flags.pf2e
-    delete entity.flags.pf2e;
-
 }
 
 function JSONstringifyOrder(obj, space)
