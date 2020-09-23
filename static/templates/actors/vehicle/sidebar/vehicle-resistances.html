@@ -1,0 +1,98 @@
+<div class="sidebar_title">
+    <h2>{{localize 'PF2E.ResistancesLabel'}}</h2>
+</div>
+
+<ol class="resistances tags">
+    {{#each data.traits.dr.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    {{#if owner}}
+    <li class="tag edit-btn" for="data.traits.dr">
+        <a class="crb-trait-selector" data-options="resistanceTypes" data-has-values="true">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-plus"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </a>
+    </li>
+    {{/if}}
+</ol>
+
+<div class="sidebar_title">
+    <h2>{{localize 'PF2E.WeaknessesLabel'}}</h2>
+</div>
+
+<ol class="weaknesses tags">
+    {{#each data.traits.dv.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    {{#if owner}}
+    <li class="tag edit-btn" for="data.traits.dv">
+        <a class="crb-trait-selector" data-options="weaknessTypes" data-has-values="true">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-plus"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </a>
+    </li>
+    {{/if}}
+</ol>
+
+<div class="sidebar_title">
+    <h2>{{localize 'PF2E.ImmunitiesLabel'}}</h2>
+</div>
+
+<ol class="immunities tags">
+    {{#each data.traits.di.selected as |v k|}}
+    <li class="tag {{k}}">
+        {{v}}
+    </li>
+    {{/each}}
+    {{#if owner}}
+    <li class="tag edit-btn" for="data.traits.di">
+        <a class="crb-trait-selector" data-options="immunityTypes">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-plus"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </a>
+    </li>
+    {{/if}}
+</ol>

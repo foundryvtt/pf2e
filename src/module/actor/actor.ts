@@ -1131,6 +1131,9 @@ export default class PF2EActor extends Actor {
     if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
       ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
       return null;
+    } else if (this.data.type === 'vehicle' && !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(data.type)) {
+      ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
+      return null;
     } else {
       return super.createEmbeddedEntity(embeddedName, data, options);
     }

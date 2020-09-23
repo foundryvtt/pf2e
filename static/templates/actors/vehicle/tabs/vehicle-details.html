@@ -1,0 +1,129 @@
+<div class="tab details character" data-group="primary" data-tab="details">
+    <ul class="directory-list">
+        <li class="details-content">
+            <div class="bio-item trait-size pf-container">
+                <section class="vehicle-details">
+                    <div class="frame">
+                        {{!-- <label class="pf-title">{{localize "PF2E.ImageLabel"}}</label> --}}
+                        <img class="actor-image" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%"
+                            data-edit="img" />
+                    </div>
+                    <div class="detail-sheet">
+                        <div title="{{localize "PF2E.vehicle.PropertyDescriptionPrice"}}">
+                            <label for="data.details.price">{{localize "PF2E.PriceLabel"}}</label>
+                            <span>
+                                <input id="vehicle vehicle_price" name="data.details.price" type="text"
+                                    value="{{data.details.price}}" data-type="Number" value="0" placeholder="0">
+                            </span>
+                        </div>
+                        <div>
+                            <label for="data.traits.rarity.value">{{localize "PF2E.Rarity"}}</label>
+                            <select class="pf-value pf-small pf-width-100" name="data.traits.rarity.value"
+                                data-dtype="String">
+                                {{#select data.traits.rarity.value}}
+                                {{#each actorRarities as |label key|}}
+                                <option value="{{key}}">{{localize label}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+
+                        <div class="row-nr-2 span-2-columns"
+                            title="{{localize "PF2E.vehicle.PropertyDescriptionSpeed"}}">
+                            <label for="data.details.speed">{{localize "PF2E.Speed"}}</label>
+                            <span>
+                                <input id="vehicle vehicle_speed" name="data.details.speed" type="text"
+                                    value="{{data.details.speed}}" data-type="Number" value="0" placeholder="0">
+                            </span>
+                        </div>
+
+                        <div class="detail-small row-nr-3" title="{{localize "PF2E.vehicle.PropertyDescriptionSpace"}}">
+                            <div class="inputSplit">
+                                <label for="data.details.space.long">{{localize "PF2E.vehicle.SpaceLongLabel"}}</label>
+                                <span>
+                                    <input id="vehicle vehicle_spaceLong" name="data.details.space.long" type="text"
+                                        value="{{data.details.space.long}}" data-type="Number" value="0"
+                                        placeholder="0">
+                                </span>
+                            </div>
+                            <div class="inputSplit">
+                                <label for="data.details.space.wide">{{localize "PF2E.vehicle.SpaceWideLabel"}}</label>
+                                <span>
+                                    <input id="vehicle vehicle_spaceWide" name="data.details.space.wide" type="text"
+                                        value="{{data.details.space.wide}}" data-type="Number" value="0"
+                                        placeholder="0">
+                                </span>
+                            </div>
+                            <div class="inputSplit">
+                                <label for="data.details.space.high">{{localize "PF2E.vehicle.SpaceHighLabel"}}</label>
+                                <span>
+                                    <input id="vehicle vehicle_spaceHigh" name="data.details.space.high" type="text"
+                                        value="{{data.details.space.high}}" data-type="Number" value="0"
+                                        placeholder="0">
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row-nr-3">
+                            <label for="data.traits.size.value">{{localize "PF2E.SizeLabel"}}</label>
+                            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value"
+                                data-dtype="String">
+                                {{#select data.traits.size.value}}
+                                {{#each actorSizes as |label size|}}
+                                <option value="{{size}}">{{label}}</option>
+                                {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                <section class="vehicle-properties">
+                    <div class="detailsInput flexitem-5" title="{{localize "PF2E.vehicle.PropertyDescriptionCrew"}}">
+                        <label for="data.details.crew">{{localize "PF2E.vehicle.CrewLabel"}}</label>
+                        <span>
+                            <input id="vehicle vehicle_crew" name="data.details.crew" type="text"
+                                value="{{data.details.crew}}" data-type="String">
+                        </span>
+                    </div>
+                    <div class="detailsInput flexitem-1"
+                        title="{{localize "PF2E.vehicle.PropertyDescriptionPassengers"}}">
+                        <label for="data.details.passengers">{{localize "PF2E.vehicle.PassengersLabel"}}</label>
+                        <span>
+                            <input id="vehicle vehicle_passengers" name="data.details.passengers" type="text"
+                                value="{{data.details.passengers}}" data-type="String">
+                        </span>
+                    </div>
+                    <div class="detailsInput flexitem-5"
+                        title="{{localize "PF2E.vehicle.PropertyDescriptionPilotingCheck"}}">
+                        <label for="data.details.pilotingCheck">{{localize "PF2E.vehicle.PilotingCheckLabel"}}</label>
+                        <span>
+                            <input id="vehicle vehicle_pilotingCheck" name="data.details.pilotingCheck" type="text"
+                                value="{{data.details.pilotingCheck}}" data-type="String">
+                        </span>
+                    </div>
+
+                    {{#if owner}}
+                    <div class="detailsInput flexitem-full">
+                        <h4 class="pf-title">{{localize 'PF2E.Traits'}}</h4>
+                        <ul class="tags">
+                            {{#each data.traits.traits.selected as |v k|}}
+                            <li class="tag {{k}}">{{v}}</li>
+                            {{/each}}
+                            <li class="tag edit-btn" for="data.traits.traits">
+                                <a class="crb-trait-selector" data-options="monsterTraits">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-plus">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {{/if}}
+                </section>
+            </div>
+        </li>
+    </ul>
+</div>

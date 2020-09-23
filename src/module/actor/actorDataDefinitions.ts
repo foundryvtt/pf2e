@@ -555,6 +555,12 @@ export interface RawFamiliarData {
     [key: string]: any;
 }
 
+/** The raw information contained within the actor data object for vehicle actors. */
+export interface RawVehicleData {
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
 export interface ActorEntityData<T> extends BaseEntityData<T> {
     items: ItemData[];
@@ -586,4 +592,9 @@ export interface FamiliarData extends ActorEntityData<RawFamiliarData> {
     master: { id?: string, name?: string, level?: number };
 }
 
-export type ActorData = CharacterData | NpcData | HazardData | LootData | FamiliarData;
+/** Wrapper type for vehicle-specific data. */
+export interface VehicleData extends ActorEntityData<RawVehicleData> {
+    type: 'vehicle';
+}
+
+export type ActorData = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;

@@ -65,6 +65,18 @@ export default function () {
         'systems/pf2e/templates/actors/loot/loot-avatar.html',
         'systems/pf2e/templates/actors/loot/loot-inventory.html',
 
+        // Vehicle partials
+        'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html',
+        'systems/pf2e/templates/actors/vehicle/vehicle-header.html',
+        'systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.html',
+        'systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.html',
+        'systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.html',
+        'systems/pf2e/templates/actors/vehicle/sidebar/vehicle-resistances.html',
+        'systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.html',
+        'systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.html',
+        'systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.html',
+        'systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.html',
+
         // Compendium Browser Partials
         'systems/pf2e/templates/packs/action-browser.html',
         'systems/pf2e/templates/packs/bestiary-browser.html',
