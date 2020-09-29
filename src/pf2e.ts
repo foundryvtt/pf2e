@@ -176,7 +176,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     const canReroll = message.getFlag('pf2e', 'canReroll');
     if (canReroll && actorId) {
       const actor = game.actors.get(actorId);
-      return actor.owner && actor.data.data.attributes.heroPoints.rank >= 1 && (message.isAuthor || game.user.isGM);
+      return actor.owner && actor.data.data.attributes.heroPoints?.rank >= 1 && (message.isAuthor || game.user.isGM);
     }
     return false;
   };
