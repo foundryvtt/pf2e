@@ -33,7 +33,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">This +1 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels in the shape of lion’s heads. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a –2 item penalty to Stealth checks to Hide and Sneak and Deception checks to Impersonate.</span></p>\n<p><span class=\"fontstyle0\"><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Command; </span></p>\n<p><span class=\"fontstyle0\"><strong>Frequency</strong> once per day; </span></p>\n<p><span class=\"fontstyle0\"><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who’s frightened reduces their frightened value by 1.</span></p>"
+            "value": "<p><span class=\"fontstyle0\">This +1 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels in the shape of lion&rsquo;s heads. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a &ndash;2 item penalty to Stealth checks to Hide and Sneak and Deception checks to Impersonate.</span></p>\n<p><span class=\"fontstyle0\"><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Command</span></p>\n<p><span class=\"fontstyle0\"><strong>Frequency</strong> once per day</span></p>\n<p><span class=\"fontstyle0\"><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who&rsquo;s frightened reduces their frightened value by 1.</span></p>\n<p><span class=\"fontstyle0\">@Compendium[pf2e.spell-effects.G0lG7IIZnCZtYi6v]{Effect: Breastplate of Command}</span></p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Diplomacy checks</li>\n<li>&ndash;2 item penalty to Stealth checks to Hide and Sneak</li>\n<li>-2 item penalty to&nbsp;Deception checks to Impersonate</li>\n</ul>"
         },
         "dex": {
             "label": "Dex Modifier Cap",
@@ -157,6 +157,39 @@
             "label": "Resilient",
             "type": "String"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breastplate of Command (Hide, Sneak)",
+                "predicate": {
+                    "any": [
+                        "hide",
+                        "sneak"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breastplate of Command (Impersonate)",
+                "predicate": {
+                    "any": [
+                        "impersonate"
+                    ]
+                },
+                "selector": "deception",
+                "type": "item",
+                "value": -2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
