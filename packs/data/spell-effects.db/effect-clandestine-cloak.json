@@ -1,0 +1,64 @@
+{
+    "_id": "Uadsb25G18pKdZ2e",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Stealth checks&nbsp;</li>\n<li>+1 item bonus to Deception checks to Impersonate a forgettable background character</li>\n<li>a -1 item penalty to Diplomacy and Intimidation checks.</li>\n</ul>"
+        },
+        "level": {
+            "value": 6
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Clandestine Cloak (Impersonate forgettable person)",
+                "predicate": {
+                    "any": [
+                        "impersonate"
+                    ]
+                },
+                "selector": "deception",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "intimidation",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "flags": {},
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.jpg",
+    "name": "Effect: Clandestine Cloak",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}
