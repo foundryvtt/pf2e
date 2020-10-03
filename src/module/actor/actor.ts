@@ -1659,6 +1659,16 @@ export default class PF2EActor extends Actor {
       throw Error("Only physical items (with quantities) can be transfered between actors");
     }
 
+    if (!sourceActor.can(game.user, 'update')) {
+        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
+        return null;
+    }
+    if (!targetActor.can(game.user, 'update')) {
+        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
+        return null;
+    }
+
+
     // Limit the amount of items transfered to how many are actually available.
     const sourceItemQuantity = Number(item.data.data.quantity.value);
     quantity = Math.min(quantity, sourceItemQuantity);
