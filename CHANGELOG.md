@@ -1,5 +1,27 @@
 # Patch Notes:
 
+## Version 1.10.13
+
+This is most likely the last version that will support version 0.6.6 of Foundry.
+
+### Bug Fixes
+* (@abrault) Fix reroll menu check
+* (@abrault) Check if user can update actors before moving item
+
+### New Features
+* (@JensChup) Added Vehicle sheet
+
+### Content Changes
+* (@Shandyan) Rule elements for items A through C
+* (@JohnSBarden) Fixes for Enervation and Agonizing Despair (#763)
+* (@JohnSBarden) APG Spell fixes (#763)
+
+### Development Improvements
+* (@blacksmithgu) Delete now unused conditions code
+* (@mdizo) UX: Removed hardcoded styles on chat tags
+* (@mdizo) Added Gelasio Bold
+
+
 ## Version 1.10.12
 ### Bug Fixes
 * (@nikolaj-a) Fix PFS level bump slider
