@@ -1,0 +1,106 @@
+{{!-- TODO: Localize all strings --}}
+
+<form class="{{cssClass}} crb-style" autocomplete="off">
+    <!-- HEADER -->
+    <div class="sheet-header">
+        <h1 class="charname">
+            <input name="name" type="text" value="{{actor.name}}"
+                placeholder="{{localize 'PF2E.vehicle.NamePlaceholder'}}" />
+        </h1>
+        {{!-- <div class="editsheet">
+            <label>{{localize "PF2E.loot.EditLootLabel"}}</label>
+            <input class="isLootEditable" name="actor.flags.pf2e.editLoot.value" type="checkbox" data-dtype="Boolean" {{checked
+                actor.flags.pf2e.editLoot.value}} />
+        </div> --}}
+        <div class="traits-bar">
+            <span class="trait size">{{actorSize}}</span>
+        </div>
+        {{!-- <h1 class='level'>{{localize 'PF2E.vehicle.VehicleString'}} {{data.details.level.value}}</h1> --}}
+        
+
+    </div>
+    <!-- SIDEBAR -->
+    <section class="sheet-sidebar sidebar">
+        <div class="bio-item trait-size pf-container">
+            <label class="pf-title">{{localize "PF2E.ImageLabel"}}</label>
+            <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%"
+                data-edit="img" />
+            <label for="data.traits.size.value">{{localize "PF2E.SizeLabel"}}</label>
+            <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="String">
+                {{#select data.traits.size.value}}
+                {{#each actorSizes as |label size|}}
+                <option value="{{size}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </section>
+    <!-- BODY -->
+    <section class="sheet-body content">
+        <nav class="sheet-navigation" data-group="primary">
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item active" data-tab="inventory">{{localize "PF2E.TabInventoryLabel"}}</a>
+                <a class="item" data-tab="actions">{{localize "PF2E.TabActionsLabel"}}</a>
+                <a class="item" data-tab="description">{{localize 'PF2E.TabDescriptionLabel'}}</a>
+            </nav>
+        </nav>
+
+        <div class="sheet-content">
+            <div class="tab inventory" data-group="primary" data-tab="inventory">
+                <ol class="currency">
+                    {{#each totalTreasure as |value denomination|}}
+                    <li class="denomination {{denomination}}">
+                        <label>{{value.label}}:</label>
+                        <span>{{value.value}}<span>
+                    </li>
+                    {{/each}}
+                    <li class="add-coins-popup" title="{{localize 'PF2E.AddCoinsTitle'}}">
+                        <button type="button">+</button>
+                    </li>
+                </ol>
+
+                <ol class="inventory-list directory-list inventory-pane">
+                    {{#each actor.inventory as |section sid|}}
+                    <li class="item inventory-header">
+                        <h3 class="item-name">{{section.label}}</h3>
+                        {{#if (eq sid "treasure")}}
+                        <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
+                        {{/if}}
+                        <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
+                        <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
+                        <div class="item-controls" style="display: flex">
+                            {{#if ../owner}}
+                            <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}"
+                                data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+                            <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}"
+                                data-type="{{sid}}"><i class="fas fa-search"></i></a>
+                            {{/if}}
+                        </div>
+                    </li>
+                    {{#each section.items as |item itemId|}}
+                    {{#if item.isNotInContainer}}
+                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=../../owner level=1}}
+                    {{/if}}
+                    {{/each}}
+                    {{/each}}
+                </ol>
+
+                {{#with data.attributes.encumbrance}}
+                <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
+                    <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
+                    <span class="encumbrance-label">{{bulk}} / {{encumberedAt}} ({{limit}})</span>
+                </div>
+                {{/with}}
+
+            </div>
+            <div class="tab actions" data-group="primary" data-tab="description">
+                <!-- TODO: Actions tab -->
+            </div>
+            <div class="tab description" data-group="primary" data-tab="description">
+                {{editor content=data.details.description.value target="data.details.description.value" button=true
+                owner=owner editable=editable}}
+            </div>
+        </div>
+
+    </section>
+</form>

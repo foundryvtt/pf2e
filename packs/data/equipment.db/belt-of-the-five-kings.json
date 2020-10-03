@@ -16,7 +16,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Made from interlocking plates of silver and gold, this heavy belt bears stylized miniature images of five kingly dwarves. You gain a +1 circumstance bonus to Diplomacy checks to Make an Impression with dwarves or make a Request from dwarves. You also gain a +1 circumstance bonus to Intimidation checks against giants and orcs.<br></span></p>\n<p><span>The belt also grants you darkvision and the ability to understand, speak, and write the Dwarven language.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Frequency</strong> once per day; <strong>Requirements</strong> You are a dwarf; <strong>Effect</strong> You tighten the belt one notch to gain temporary Hit Points equal to your level and grant allies within 20 feet of you darkvision. Both effects last for 10 minutes.</span></p>"
+            "value": "<p>Made from interlocking plates of silver and gold, this heavy belt bears stylized miniature images of five kingly dwarves. You gain a +1 circumstance bonus to Diplomacy checks to Make an Impression with dwarves or make a Request from dwarves. You also gain a +1 circumstance bonus to Intimidation checks against giants and orcs.</p>\n<p>The belt also grants you darkvision and the ability to understand, speak, and write the Dwarven language.</p>\n<p><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> You are a dwarf</p>\n<p><strong>Effect</strong> You tighten the belt one notch to gain temporary Hit Points equal to your level and grant allies within 20 feet of you darkvision. Both effects last for 10 minutes.</p>\n<p>@Compendium[pf2e.spell-effects.cg5qyeMJUh6b4fta]{Effect: Belt of the Five Kings (Wearer)}</p>\n<p>@Compendium[pf2e.spell-effects.fbSFwwp60AuDDKpK]{Effect: Belt of the Five Kings (Allies)}</p>"
         },
         "equipped": {
             "value": false
@@ -60,6 +60,33 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Belt of 5 Kings (dwarves)",
+                "predicate": {
+                    "all": [
+                        "dwarves"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Belt of 5 Kings (giants, orcs)",
+                "predicate": {
+                    "any": [
+                        "giants",
+                        "orcs"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },

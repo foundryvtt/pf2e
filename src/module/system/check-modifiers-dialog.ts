@@ -79,9 +79,8 @@ export class CheckModifiersDialog extends Application {
       ?? game.settings.get('core', 'rollMode')
       ?? 'roll';
 
-    const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
     const modifierBreakdown = check.modifiers.filter((m) => m.enabled)
-      .map((m) => `<span style="${modifierStyle}">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
+      .map((m) => `<span class="tag tag_secondary">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
       .join('');
 
     const optionStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
@@ -93,7 +92,7 @@ export class CheckModifiersDialog extends Application {
 
     await roll.toMessage({
       speaker: ctx.actor ? ChatMessage.getSpeaker({ actor: ctx.actor }) : ChatMessage.getSpeaker(),
-      flavor: `<b>${check.name}</b><div style="display: flex; flex-wrap: wrap;">${modifierBreakdown}${optionBreakdown}</div>`,
+      flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>`,
       flags: {
         pf2e: {
           canReroll: !ctx.fate,

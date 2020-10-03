@@ -1,0 +1,27 @@
+<header class="char-header">
+    <div class="char-details">
+        <h1 class="char-name">
+            <input name="name" type="text" value="{{actor.name}}"
+                placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}" />
+        </h1>
+        <div class="traits-bar">
+            {{#if isNotCommon}}  
+                <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
+            {{/if}} 
+            <span class="trait size">{{actorSize}}</span>
+            <!-- Put Trait #each here-->
+            {{#each actor.data.traits.traits.selected as |trait id|}}
+            <span class="trait">{{trait}}</span>
+            {{/each}}
+        </div>
+    </div>
+    <div class="char-level">
+        <div class="level">
+            <label>
+                {{localize 'PF2E.vehicle.VehicleLevelLabel'}}
+            </label>
+            <input name="data.details.level.value" type="text" value="{{data.details.level.value}}" data-dtype="Number"
+                placeholder="1" size="2" />
+        </div>
+    </div>
+</header>

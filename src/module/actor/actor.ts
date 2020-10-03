@@ -1131,6 +1131,9 @@ export default class PF2EActor extends Actor {
     if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
       ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
       return null;
+    } else if (this.data.type === 'vehicle' && !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(data.type)) {
+      ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
+      return null;
     } else {
       return super.createEmbeddedEntity(embeddedName, data, options);
     }
@@ -1655,6 +1658,16 @@ export default class PF2EActor extends Actor {
     if (!isPhysicalItem(item.data)) {
       throw Error("Only physical items (with quantities) can be transfered between actors");
     }
+
+    if (!sourceActor.can(game.user, 'update')) {
+        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
+        return null;
+    }
+    if (!targetActor.can(game.user, 'update')) {
+        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
+        return null;
+    }
+
 
     // Limit the amount of items transfered to how many are actually available.
     const sourceItemQuantity = Number(item.data.data.quantity.value);

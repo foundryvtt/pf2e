@@ -1,0 +1,66 @@
+<form class="{{cssClass}} crb-style" autocomplete="off">
+    <aside>
+        {{!-- <img class="logo" src="systems/pf2e/assets/pathfinder_logo.png" alt="pathfinder logo" srcset="" /> --}}
+        <div class="sidebar" data-group="dashboard" data-tab="sidebar">
+            <!-- HEALTH -->
+            {{>systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.html}}
+
+            <!-- ARMOR CLASS -->
+            {{>systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.html}}
+
+            <!-- Saves -->
+            {{>systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.html}}
+
+            <!-- Resistances -->
+            {{>systems/pf2e/templates/actors/vehicle/sidebar/vehicle-resistances.html}}
+        </div>
+    </aside>
+    
+    <!-- HEADER -->
+    {{> systems/pf2e/templates/actors/vehicle/vehicle-header.html }}
+
+    <!-- SHEET NAVIGATION -->
+    <nav class="sheet-navigation" data-group="primary">
+        <span class="navigation-title">{{localize "PF2E.TabDetailsLabel"}}</span>
+
+        <a class="item" data-tab="details" data-tab-title="{{localize 'PF2E.TabDetailsLabel'}}">
+            <i class="fas fa-dharmachakra"></i>
+        </a>
+        
+        <a class="item" data-tab="actions" data-tab-title="{{localize 'PF2E.TabActionsLabel'}}">
+            <i class="fas fa-bullseye"></i>
+        </a>
+
+        {{!-- <a class="item" data-tab="effects" data-tab-title="{{localize 'PF2E.TabEffectsLabel'}}">
+            <i class="fas fa-star"></i>
+        </a> --}}
+
+        <a class="item" data-tab="inventory" data-tab-title="{{localize 'PF2E.TabInventoryLabel'}}">
+            <i class="fas fa-box-open"></i>
+        </a>
+
+        <a class="item" data-tab="description" data-tab-title="{{localize 'PF2E.TabDescriptionLabel'}}">
+            <i class="fas fa-book-reader"></i>
+        </a>
+    </nav>
+
+    <!-- BODY -->
+    <section class="sheet-body">
+        <section class="sheet-content">
+            <!-- DETAILS -->
+            {{> systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.html }}
+
+            <!-- Actions -->
+            {{> systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.html }}
+
+            {{!-- <!-- Effects -->
+            {{> systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html }} --}}
+
+            <!-- INVENTORY -->
+            {{> systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.html }}
+
+            <!-- INVENTORY -->
+            {{> systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.html }}
+        </section>
+    </section>
+</form>

@@ -18,7 +18,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You need these tools to create items from raw materials with the Craft skill. Sterling artisan’s tools give you a +1 item bonus to the check. Different sets are needed for different work, as determined by the GM; for example, blacksmith’s tools differ from woodworker’s tools.&nbsp;</p>"
+            "value": "<p>You need these tools to create items from raw materials with the Craft skill. Sterling artisan’s tools give you a +1 item bonus to the check.</p>\n<p>Different sets are needed for different work, as determined by the GM; for example, blacksmith’s tools differ from woodworker’s tools.</p>\n<hr>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Crafting roll to Craft items</li>\n</ul>"
         },
         "equipped": {
             "label": "Equipped",
@@ -70,6 +70,20 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Artisan's Tools, Sterling (craft items)",
+                "predicate": {
+                    "all": [
+                        "craft"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
