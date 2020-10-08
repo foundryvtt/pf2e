@@ -135,24 +135,20 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
       // Actions
       else if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        if (i.flags && i.flags.pf2e_updatednpcsheet && i.flags.pf2e_updatednpcsheet.npcActionType && i.flags.pf2e_updatednpcsheet.npcActionType.value) {
-          switch (i.flags.pf2e_updatednpcsheet.npcActionType.value) {
-            case 'interaction':
-              reorgActions.interaction.actions[actionType].actions.push(i);
-              sheetData.hasInteractionActions = true;
-              break;
-            case 'defensive':
-              reorgActions.defensive.actions[actionType].actions.push(i);
-              sheetData.hasDefensiveActions = true;
-              break;
-              // Should be offensive but throw anything else in there too
-            default:
-              reorgActions.offensive.actions[actionType].actions.push(i);
-              sheetData.hasOffensiveActions = true;
-          }
-        } else {
-          reorgActions.offensive.actions[actionType].actions.push(i);
-          sheetData.hasOffensiveActions = true;
+        const actionCategory = i.data.actionCategory?.value || 'offensive';
+        switch (actionCategory) {
+          case 'interaction':
+            reorgActions.interaction.actions[actionType].actions.push(i);
+            sheetData.hasInteractionActions = true;
+            break;
+          case 'defensive':
+            reorgActions.defensive.actions[actionType].actions.push(i);
+            sheetData.hasDefensiveActions = true;
+            break;
+            // Should be offensive but throw anything else in there too
+          default:
+            reorgActions.offensive.actions[actionType].actions.push(i);
+            sheetData.hasOffensiveActions = true;
         }
       }
       // Give Melee/Ranged an img
@@ -453,12 +449,12 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
           type: 'action',
           data: {
             actionType: { value: newAbilityInfo.actionType },
+            actionCategory: { value: 'offensive' },
             source: { value: '' },
             description: { value: newAbilityInfo.description },
             traits: { value: [] },
             actions: { value: newAbilityInfo.actionCost },
           },
-          flags: { pf2e_updatednpcsheet: { npcActionType: 'offensive' } },
         };
 
         const traitRegEx = /(?:Traits.aspx.+?">)(?:<\w+>)*(.+?)(?:<\/\w+>)*(?:<\/a>)/g;
