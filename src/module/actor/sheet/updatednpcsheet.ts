@@ -129,6 +129,12 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     for (const i of sheetData.actor.items) {
       // Equipment
       if (i.type === 'weapon' || i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'treasure') {
+        // non-strict because `quantity.value` can be a string
+        // eslint-disable-next-line eqeqeq
+        if (i.data.quantity.value != 1) {
+          // `i` is a copy, so we can append the quantity to it without updating the original
+          i.name += ` (${i.data.quantity.value})`;
+        }
         equipment.push(i);
         sheetData.hasEquipment = true;
       }
