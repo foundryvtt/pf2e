@@ -1,46 +1,68 @@
 {
-    "_id": "PEjcy9CxelKC3Kp6",
+    "_id": "ySpOZlKUbcxWhKQ6",
     "data": {
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": 2,
+                "value": 14
             },
             "con": {
                 "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 6,
+                "value": 22
             },
             "dex": {
                 "min": 3,
-                "mod": 4,
-                "value": 18
-            },
-            "int": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
-            },
-            "str": {
-                "min": 3,
                 "mod": 3,
                 "value": 16
             },
+            "int": {
+                "min": 3,
+                "mod": -5,
+                "value": 0
+            },
+            "str": {
+                "min": 3,
+                "mod": 7,
+                "value": 24
+            },
             "wis": {
                 "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": 0,
+                "value": 10
             }
         },
         "attributes": {
             "ac": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 9,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
+                "base": 22,
+                "breakdown": "Base Armor Class 10, Base Modifier +9, Dexterity +3",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 18
+                "name": "ac",
+                "totalModifier": 12,
+                "value": 22
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +81,12 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": 30,
+                "details": "negative healing",
+                "max": 190,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": 30
+                "value": 190
             },
             "init": {
                 "bonus": 0,
@@ -78,11 +100,32 @@
             "levelbonushp": 0,
             "levelbonussp": 0,
             "perception": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 15,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 15,
+                "breakdown": "Base Modifier +15, Wisdom +0",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
-                "value": 7
+                "totalModifier": 15,
+                "value": 15
             },
             "resolve": {
                 "value": 0
@@ -104,7 +147,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": "20 feet, climb 20 feet, fly 20 feet"
+                "value": "30 feet"
             }
         },
         "currency": {
@@ -121,9 +164,11 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
-                "value": "CN"
+                "value": "NE"
             },
             "ancestry": {
                 "value": ""
@@ -149,7 +194,7 @@
             },
             "level": {
                 "min": 1,
-                "value": 2
+                "value": 7
             },
             "nethysUrl": "",
             "recallKnowledgeText": "",
@@ -202,28 +247,91 @@
         },
         "saves": {
             "fortitude": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 12,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.AbilityCon",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "con",
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +12, Constitution +6",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 9
+                "totalModifier": 18,
+                "value": 18
             },
             "reflex": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 8,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
-                "breakdown": "",
+                "base": 11,
+                "breakdown": "Base Modifier +8, Dexterity +3",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 10
+                "totalModifier": 11,
+                "value": 11
             },
             "will": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 13,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +13, Wisdom +0",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 5
+                "totalModifier": 13,
+                "value": 13
             }
         },
         "schema": {
@@ -250,13 +358,37 @@
                 "value": 0
             },
             "ath": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 13,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 7,
+                        "name": "PF2E.AbilityStr",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +13, Strength +7",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 20,
+                "value": 20,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
@@ -408,31 +540,51 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "death effects",
+                    "disease",
+                    "mental",
+                    "paralyzed",
+                    "positive",
+                    "unconscious"
+                ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "exceptions": "",
+                    "label": "Positive",
+                    "type": "positive",
+                    "value": "10"
+                },
+                {
+                    "exceptions": "",
+                    "label": "Slashing",
+                    "type": "slashing",
+                    "value": "10"
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": [
-                    "common",
-                    "sylvan"
-                ]
+                "value": []
             },
             "rarity": {
-                "value": "common"
+                "value": "rare"
             },
             "senses": {
                 "value": "darkvision"
             },
             "size": {
-                "value": "sm"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "fey"
+                    "aberration",
+                    "mindless",
+                    "undead",
+                    "zombie"
                 ]
             }
         }
@@ -452,7 +604,7 @@
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
-            "_id": "0BaYiM0QVSPdLoIA",
+            "_id": "8V2Z2GRynfRJyT7O",
             "data": {
                 "description": {
                     "chat": "",
@@ -464,44 +616,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics",
-            "type": "lore"
-        },
-        {
-            "_id": "ugFNypQgtvXoArRK",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
+                    "value": 20
                 },
                 "proficient": {
                     "value": 0
@@ -526,359 +641,21 @@
             "type": "lore"
         },
         {
-            "_id": "SazfQVNS4lYLpm6r",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Deception",
-            "type": "lore"
-        },
-        {
-            "_id": "zzgflbyrN1tv2BS3",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth",
-            "type": "lore"
-        },
-        {
-            "_id": "PCytOdylz3vMj2WE",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": "11"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "vcmf69l6gk885bonz5j41g": {
-                        "damage": "1d8+3",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "selected": {},
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "claw",
-            "type": "melee"
-        },
-        {
-            "_id": "eGuMBSFkjeJsBOLy",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": "11"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "selected": [],
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "fangs",
-            "type": "melee"
-        },
-        {
-            "_id": "glyWTuwYyEk8AaC1",
+            "_id": "4T0hd15HFgEoLTEv",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The zrukbat assumes the shape of any Small object or ornamentation, although the zrukbat’s mimicked objects usually have unrealistic or suspicious quirks. This doesn’t change the zrukbat’s size but can alter their coloration and visual appearance. They have an automatic result of 23 on Deception checks and DCs to pass as the mimicked object."
+                    "value": "The ofalth zombie is permanently slowed 1 and can’t use reactions."
                 },
                 "rarity": {
                     "value": "common"
@@ -902,13 +679,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "selected": [],
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal",
-                        "transmutation"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -921,26 +692,27 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
-            "name": "Dubious Shifting",
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Slow",
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "ekdPtlR0pjDVDM4T",
+            "_id": "pxtdz9Cb1KUHXsrM",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": "2"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The zrukbat flies up to its Speed and makes a claw Strike at the end of its move. If the claw attack hits, the target must succeed on a DC 15 Fortitude saving throw or be blinded for 1 round (or blinded for 1 minute on a critical failure). If the Strike was a critical hit, the target’s save result is one degree of success worse."
+                    "value": "Theofalth zombie gains fast healing 2 as long as it is in the Catacombs or another area with a high concentration of dead."
                 },
                 "rarity": {
                     "value": "common"
@@ -949,6 +721,12 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -971,18 +749,468 @@
                 }
             },
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
-            "name": "Go for the Eyes",
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Corpse Wallow",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "Tbf45tR5JDVDyJCc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>10 feet, DC 24</p>\n<p>The zombie emits an aura of rot and disease that causes wounds to fester and turn sour. Any living creature that starts its turn within 10 feet of the Ofalth Zombie and is not at full Hit Points takes 1d6 damage as its wounds fester. Creatures that take a critical hit from the Ofalth Zombie also take this damage immediately.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "aura",
+                        "disease",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Rotting Aura",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "Ry9m2AVrebalVrSx",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Wretched Weeps"
+                    ]
+                },
+                "bonus": {
+                    "value": "18"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "melee"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "fist",
+            "sort": 400000,
+            "type": "melee"
+        },
+        {
+            "_id": "PoQgBkVgVkqOOV5e",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Wretched Weeps"
+                    ]
+                },
+                "bonus": {
+                    "value": "17"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "range-increment-30"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "fling offal",
+            "sort": 500000,
+            "type": "melee"
+        },
+        {
+            "_id": "9dxZ2UN0t2f32r0f",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": " The ofalth zombie makes a fling offal Strike and compares the attack roll result to the AC of any foes within the area of a 15-foot cone emanating from the ofalth zombie. This counts as two attacks for the ofalth zombie’s multiple attack penalty. The ofalth zombie can’t use Bury in Offal again until it moves at least 10 feet to a different space."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Bury in Offal",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "lmVllcsiFHe8ybRy",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Saving Throw</strong> DC 22 Fortitude; <strong>Stage 1</strong> carrier with no ill effect (1 day); <strong>Stage 2</strong> 2d8 persistend bleed damage every hour and enfeebled 1 (1 day); <strong>Stage 3</strong> 2d8 persistent bleed damage every hour and enfeebled 2 (1 day)</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.png",
+            "name": "Wretched Weeps",
+            "sort": 600000,
             "type": "action"
         }
     ],
-    "name": "Zrukbat",
+    "name": "Ofalth Zombie",
     "permission": {
         "default": 0
     },
     "token": {
         "actorData": {},
-        "actorId": "PEjcy9CxelKC3Kp6",
+        "actorId": "ySpOZlKUbcxWhKQ6",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
@@ -1001,7 +1229,7 @@
         "lightAlpha": 1,
         "lightAngle": 360,
         "lockRotation": false,
-        "name": "Zrukbat",
+        "name": "Ofalth Zombie",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,

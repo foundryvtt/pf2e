@@ -1,46 +1,76 @@
 {
-    "_id": "PEjcy9CxelKC3Kp6",
+    "_id": "AYNIAAxV7TbIKPI4",
     "data": {
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": 0,
+                "value": 10
             },
             "con": {
                 "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 5,
+                "value": 20
             },
             "dex": {
                 "min": 3,
-                "mod": 4,
-                "value": 18
-            },
-            "int": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
-            },
-            "str": {
-                "min": 3,
                 "mod": 3,
                 "value": 16
             },
+            "int": {
+                "min": 3,
+                "mod": -5,
+                "value": 0
+            },
+            "str": {
+                "min": 3,
+                "mod": 6,
+                "value": 22
+            },
             "wis": {
                 "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": 0,
+                "value": 10
             }
         },
         "attributes": {
             "ac": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 9,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
+                "base": 22,
+                "breakdown": "Base Armor Class 10, Base Modifier +9, Dexterity +3, Elite +2",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 18
+                "name": "ac",
+                "totalModifier": 14,
+                "value": 24
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +90,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": 30,
+                "max": 115,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": 30
+                "value": 115
             },
             "init": {
                 "bonus": 0,
@@ -78,11 +108,40 @@
             "levelbonushp": 0,
             "levelbonussp": 0,
             "perception": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 12,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +12, Wisdom +0, Elite +2",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
-                "value": 7
+                "totalModifier": 14,
+                "value": 14
             },
             "resolve": {
                 "value": 0
@@ -104,7 +163,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": "20 feet, climb 20 feet, fly 20 feet"
+                "value": "25 feet"
             }
         },
         "currency": {
@@ -121,9 +180,22 @@
                 "value": 0
             }
         },
+        "customModifiers": {
+            "all": [
+                {
+                    "custom": false,
+                    "enabled": true,
+                    "ignored": false,
+                    "modifier": 2,
+                    "name": "Elite",
+                    "type": "untyped"
+                }
+            ]
+        },
+        "damageDice": {},
         "details": {
             "alignment": {
-                "value": "CN"
+                "value": "N"
             },
             "ancestry": {
                 "value": ""
@@ -149,7 +221,7 @@
             },
             "level": {
                 "min": 1,
-                "value": 2
+                "value": 6
             },
             "nethysUrl": "",
             "recallKnowledgeText": "",
@@ -202,28 +274,115 @@
         },
         "saves": {
             "fortitude": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 11,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 5,
+                        "name": "PF2E.AbilityCon",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "con",
-                "breakdown": "",
+                "base": 16,
+                "breakdown": "Base Modifier +11, Constitution +5, Elite +2",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 9
+                "totalModifier": 18,
+                "value": 18
             },
             "reflex": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 11,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "dex",
-                "breakdown": "",
+                "base": 14,
+                "breakdown": "Base Modifier +11, Dexterity +3, Elite +2",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 10
+                "totalModifier": 16,
+                "value": 16
             },
             "will": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 7,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 7,
+                "breakdown": "Base Modifier +7, Wisdom +0, Elite +2",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 5
+                "totalModifier": 9,
+                "value": 9
             }
         },
         "schema": {
@@ -250,13 +409,45 @@
                 "value": 0
             },
             "ath": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 9,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.AbilityStr",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 15,
+                "breakdown": "Base Modifier +9, Strength +6, Elite +2",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 17,
+                "value": 17,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
@@ -408,31 +599,52 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "bleed",
+                    "death effects",
+                    "disease",
+                    "doomed",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "mental",
+                    "necromancy",
+                    "nonlethal attacks",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "unconscious"
+                ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "exceptions": "",
+                    "label": "Fire",
+                    "type": "fire",
+                    "value": "5"
+                }
+            ],
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": [
-                    "common",
-                    "sylvan"
-                ]
+                "value": []
             },
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "senses": {
                 "value": "darkvision"
             },
             "size": {
-                "value": "sm"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "fey"
+                    "construct",
+                    "mindless",
+                    "elite"
                 ]
             }
         }
@@ -452,7 +664,7 @@
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
-            "_id": "0BaYiM0QVSPdLoIA",
+            "_id": "CHG1m5rGImyOxW5k",
             "data": {
                 "description": {
                     "chat": "",
@@ -464,44 +676,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics",
-            "type": "lore"
-        },
-        {
-            "_id": "ugFNypQgtvXoArRK",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
+                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -523,192 +698,44 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
+            "sort": 300000,
             "type": "lore"
         },
         {
-            "_id": "SazfQVNS4lYLpm6r",
+            "_id": "0yo458L980s9JXH6",
             "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": "1"
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
+                    "value": "<p>The rotting hides and molding straw stuffing of skinstitches are ideal nesting grounds for vermin and insect swarms. Any animal swarm sharing a space with a skinstitch gains fast healing 3. Additionally, if a creature deals at least 10 piercing or slashing damage to the skinstitch, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>"
                 },
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
-                "source": {
+                "requirements": {
                     "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Deception",
-            "type": "lore"
-        },
-        {
-            "_id": "zzgflbyrN1tv2BS3",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth",
-            "type": "lore"
-        },
-        {
-            "_id": "PCytOdylz3vMj2WE",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": "11"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "vcmf69l6gk885bonz5j41g": {
-                        "damage": "1d8+3",
-                        "damageType": "slashing"
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
                     }
                 },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -716,33 +743,37 @@
                     "selected": {},
                     "value": []
                 },
+                "trigger": {
+                    "value": ""
+                },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
+                "weapon": {
+                    "value": ""
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "claw",
-            "type": "melee"
+            "name": "Pest Haven",
+            "sort": 400000,
+            "type": "action"
         },
         {
-            "_id": "eGuMBSFkjeJsBOLy",
+            "_id": "1wPZqdlI8xQ4yfN9",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "Skitterstitch Venom"
+                    ]
                 },
                 "bonus": {
-                    "value": "11"
+                    "total": 17,
+                    "value": "17"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -757,8 +788,8 @@
                     "value": ""
                 },
                 "damageRolls": {
-                    "0": {
-                        "damage": "1d6+3",
+                    "11hvrj9vyoyl95wj14udp": {
+                        "damage": "2d8+10",
                         "damageType": "piercing"
                     }
                 },
@@ -845,8 +876,14 @@
                 },
                 "traits": {
                     "custom": "",
-                    "selected": [],
-                    "value": []
+                    "selected": {
+                        "forceful": "Forceful",
+                        "reach-10": "Reach 10 ft"
+                    },
+                    "value": [
+                        "forceful",
+                        "reach-10"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -861,24 +898,25 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "fangs",
+            "sort": 500000,
             "type": "melee"
         },
         {
-            "_id": "glyWTuwYyEk8AaC1",
+            "_id": "S8lzbxGXfumHXYYq",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The zrukbat assumes the shape of any Small object or ornamentation, although the zrukbat’s mimicked objects usually have unrealistic or suspicious quirks. This doesn’t change the zrukbat’s size but can alter their coloration and visual appearance. They have an automatic result of 23 on Deception checks and DCs to pass as the mimicked object."
+                    "value": " The skinstitch makes a blade Strike against an animal or humanoid. On a success, the skinstitch slices a long strip of flesh from the target; if the skinstitch dealt damage, it deals an additional 1d6+4 persistent bleed damage."
                 },
                 "rarity": {
                     "value": "common"
@@ -902,62 +940,7 @@
                 },
                 "traits": {
                     "custom": "",
-                    "selected": [],
-                    "value": [
-                        "concentrate",
-                        "polymorph",
-                        "primal",
-                        "transmutation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
-            "name": "Dubious Shifting",
-            "type": "action"
-        },
-        {
-            "_id": "ekdPtlR0pjDVDM4T",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "2"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": " The zrukbat flies up to its Speed and makes a claw Strike at the end of its move. If the claw attack hits, the target must succeed on a DC 15 Fortitude saving throw or be blinded for 1 round (or blinded for 1 minute on a critical failure). If the Strike was a critical hit, the target’s save result is one degree of success worse."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
+                    "selected": {},
                     "value": []
                 },
                 "trigger": {
@@ -972,17 +955,333 @@
             },
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
-            "name": "Go for the Eyes",
+            "name": "Flay",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "HHDLYWqh0LHr49Uu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The skinstitch hasn’t used this ability since the last time it successfully used its Flay ability; <strong>Effect </strong>The skinstitch sews flayed flesh to its body to seal tears and rents. The skinstitch regains 8 Hit Points.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "selected": {
+                        "manipulate": "Manipulate"
+                    },
+                    "value": [
+                        "manipulate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Stitch Skin",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "n4IYsyn6jwdp0itB",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 17,
+                    "value": "17"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damageRolls": {
+                    "9ttdu7zftik9g94nyv6sie": {
+                        "damage": "2d4+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "selected": {
+                        "agile": "Agile",
+                        "sweep": "Sweep"
+                    },
+                    "value": [
+                        "agile",
+                        "sweep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "melee"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "blade legs",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "iJUSlDT7ZVFtjNSy",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Skitterstitches host a spider swarm within themselves, which erupts out when the Skitterstitch is destroyed</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Spider Swarm Host",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "EWsYBE6UDRYE7p46",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Saving Throw</strong> DC 23 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 1d10 poison, flat-footed, and clumsy 1 (1 round); <strong>Stage 2</strong> 1d10 poison, flat-footed, and clumsy 2 (1 round)</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Skitterstitch Venom",
+            "sort": 900000,
             "type": "action"
         }
     ],
-    "name": "Zrukbat",
+    "name": "Skitterstitch",
     "permission": {
         "default": 0
     },
     "token": {
         "actorData": {},
-        "actorId": "PEjcy9CxelKC3Kp6",
+        "actorId": "AYNIAAxV7TbIKPI4",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
@@ -1001,10 +1300,10 @@
         "lightAlpha": 1,
         "lightAngle": 360,
         "lockRotation": false,
-        "name": "Zrukbat",
+        "name": "Elite Skinstitch (Copy)",
         "randomImg": false,
         "rotation": 0,
-        "scale": 1,
+        "scale": 1.2,
         "sightAngle": 360,
         "tint": null,
         "vision": false,
