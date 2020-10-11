@@ -246,6 +246,9 @@
                             <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
                         {{/each}}
                     {{/if_all}}
+                    {{#if_all item.data item.data.attackEffects item.data.attackEffects.custom}}
+                      <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
+                    {{/if_all}}
                 </div>
             </div>
             {{#if ../../owner}}
