@@ -1931,7 +1931,11 @@ export default class PF2EActor extends Actor {
 
   /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
   getRollOptions(rollNames: string[]): string[] {
-    const flag: Record<string, Record<string, boolean>> = this.getFlag(game.system.id, 'rollOptions') ?? {};
+    return PF2EActor.getRollOptions(this.data.flags, rollNames);
+  }
+
+  static getRollOptions(flags: BaseEntityData["flags"], rollNames: string[]): string[] {
+    const flag: Record<string, Record<string, boolean>> = flags[game.system.id]?.rollOptions ?? {};
     return rollNames.flatMap(rollName =>
       // convert flag object to array containing the names of all fields with a truthy value
       Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [] as string[])
