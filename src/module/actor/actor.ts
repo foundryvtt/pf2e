@@ -1455,6 +1455,36 @@ export default class PF2EActor extends Actor {
   }
 
   /**
+   * Apply rolled dice damage to the token or tokens which are currently controlled.
+   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+   *
+   * @return {Promise}
+   */
+  static async rollSave(ev, item) {
+    if (canvas.tokens.controlled.length > 0) {
+      for (const t of canvas.tokens.controlled) {
+        const actor = t.actor as PF2EActor;
+        const save = $(ev.currentTarget).attr('data-save');
+        const itemTraits = item?.data?.data?.traits?.value;
+
+        if (actor.data.data.saves[save]?.roll) {
+          let opts = actor.getRollOptions(['all', 'saving-throw', save]);
+          if (itemTraits) {
+            opts = opts.concat(itemTraits);
+          }
+          actor.data.data.saves[save].roll(ev, opts);
+        } else {
+          actor.rollSave(ev, save);
+        }
+      }
+    } else {
+      ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
    * @param {JQuery} roll    The chat entry which contains the roll data
    */
