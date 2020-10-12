@@ -8,6 +8,7 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
 import { ItemData } from './dataDefinitions';
+import PF2EActor from '../actor/actor';
 
 export default class PF2EItem extends Item {
 
@@ -957,6 +958,7 @@ export default class PF2EItem extends Item {
 
         // Consumable usage
         else if (action === 'consume') item.rollConsumable(ev);
+        else if (action === 'save') PF2EActor.rollSave(ev, item);
 
         return;
       }
