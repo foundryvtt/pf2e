@@ -49,8 +49,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   _prepareItems(actorData) {
     // Actions
     const attacks = {
-      melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },
-      ranged: { label: 'NPC Ranged Attack', items: [], type: 'melee' },
+      melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
+      ranged: { label: 'NPC Ranged Attack', prefix: 'PF2E.NPCAttackRanged', items: [], type: 'melee' },
     };
 
     // Actions
