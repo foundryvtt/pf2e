@@ -348,6 +348,26 @@ function _migrateNPCItemDamageRolls(actor, updateData) {
     updateData.items = updatedItems;
 }
 
+function _migrateNPCItemAction(actor, updateData) {
+    if (!actor.items) return;
+    const updatedItems = [];
+    const items = duplicate(actor.items);
+
+    items.forEach(item => {
+        const updatedItem = item;
+        if (item.type === 'action' && Object.prototype.hasOwnProperty.call(item.flags, 'pf2e_updatednpcsheet')) {
+            const oldValue = item.flags.pf2e_updatednpcsheet.npcActionType?.value;
+            if (!item.data.actionCategory?.value) {
+                updatedItem.data.actionCategory = { value: oldValue || 'offensive' };
+            }
+    
+            delete updatedItem.flags.pf2e_updatednpcsheet;
+        }
+        updatedItems.push(updatedItem);
+    });
+    updateData.items = updatedItems;
+}
+
 function _migrateClassDC(updateData) {
     const classDC = {
         'rank': 0,
@@ -536,6 +556,8 @@ export function migrateActorData(actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.566) _migrateNPCItemAttackEffects(actor, updateData);
 
         if (worldSchemaVersion < 0.571) updateData['data.traits.rarity.value'] = 'common';
+
+        if (worldSchemaVersion < 0.588) _migrateNPCItemAction(actor, updateData);
     } else if (actor.type === 'character') {
         if (worldSchemaVersion < 0.412) _migrateDyingCondition(updateData);
 
