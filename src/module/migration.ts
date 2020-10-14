@@ -519,7 +519,7 @@ function migrateCompendiumSettings() {
  * @param {worldSchemaVersion} actor   The current worldSchemaVersion
  * @return {Object}       The updateData to apply
  */
-export async function migrateActorData(actor, worldSchemaVersion) {
+export function migrateActorData(actor, worldSchemaVersion) {
     const updateData = {};
 
     if (worldSchemaVersion < 0.544) _migrateStaminaVariant(updateData);
