@@ -4,7 +4,7 @@
 ### Bug Fixes
 * (@JensChup) Added fix for wrong speaker in chatmessage when other token was selected (#813)
 * (@lotrein) Added icon padding and width rules to prevent icon shrinkage due to long titles. Added similar styles to effects/inventory/spellbook tabs (#682)
-* (iceman) Make entire toggle clickable in check modifier dialog
+* (@iceman) Make entire toggle clickable in check modifier dialog
 
 ### New Features
 * (@abrault) Add flag to lock proficiencies
@@ -24,7 +24,6 @@
 * (@TMun) Pathfinder Society
     * PFS Season 1 bestiary
     * PFS Season 2 bestiary
-    * PFS Season 3 bestiary
 * (@TMun) Add precious trait to alchemical items and adds 'affixed to armor' for talismans
 * (@TMun) Correct class kit armor entries for new leather armor ID
 * (@TMun) Corrects incorrect usage of apotrophe - standardizes <E2><80><99> to '
