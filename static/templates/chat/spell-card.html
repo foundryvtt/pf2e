@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-buttons">
-        {{#if data.isSave}}<span>Save DC {{data.save.dc}} {{data.save.basic}} {{data.save.str}}</span>{{/if}}
+        {{#if data.isSave}}<button data-action="save" data-save="{{data.save.value}}">Save DC {{data.save.dc}} {{data.save.basic}} {{data.save.str}}</button>{{/if}}
         {{#if data.isAttack}}
         <div class="spell-attack-buttons">
             <button data-action="spellAttack">Attack</button>

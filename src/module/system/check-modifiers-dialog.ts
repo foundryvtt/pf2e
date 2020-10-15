@@ -61,7 +61,9 @@ export class CheckModifiersDialog extends Application {
       options.push('PF2E.TraitFortune');
     }
 
+    let speaker: PF2EActor;
     if (ctx.actor) {
+        speaker = ctx.actor;
         ctx.actor = ctx.actor._id;
     }
     if (ctx.token) {
@@ -91,7 +93,7 @@ export class CheckModifiersDialog extends Application {
     const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
 
     await roll.toMessage({
-      speaker: ctx.actor ? ChatMessage.getSpeaker({ actor: ctx.actor }) : ChatMessage.getSpeaker(),
+      speaker: ChatMessage.getSpeaker({actor: speaker}),
       flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>`,
       flags: {
         pf2e: {

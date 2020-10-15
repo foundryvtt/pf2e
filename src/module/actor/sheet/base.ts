@@ -52,6 +52,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     this._prepareItems(sheetData.actor);
 
     sheetData.isTargetFlatFooted = this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted');
+    sheetData.isProficiencyLocked = this.actor.getFlag(game.system.id, 'proficiencyLock');
 
     // Return data to the sheet
     return sheetData;
@@ -943,7 +944,8 @@ abstract class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const field = $(event.currentTarget).siblings('input[type="hidden"]');
     const max = field.data('max') ?? 4;
-    const statIsItemType = field.data('stat-type') ?? false;
+    const {statType, category} = field.data();
+    if (this.actor.getFlag('pf2e', 'proficiencyLock') && category === 'proficiency') return;
 
     // Get the current level and the array of levels
     const level = parseFloat(`${field.val()}`);
@@ -957,7 +959,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
     }
     // Update the field value and save the form
 
-    if(statIsItemType === 'item') {
+    if(statType === 'item') {
       let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
       if (itemId === undefined) {
         // Then item is spellcastingEntry, this could be refactored
@@ -965,7 +967,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         // Lore Skills, Martial Skills and Spellcasting Entries the same structure.
 
         itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id');
-        if ($(event.currentTarget).attr('title') === game.i18n.localize("PF2E.Focus.pointTitle")) {
+        if (category === 'focus') {
           const item = this.actor.getOwnedItem(itemId);
           const focusPoolSize = getProperty(item.data, 'data.focus.pool') || 1;
           newLevel = Math.clamped( newLevel , 0, focusPoolSize );

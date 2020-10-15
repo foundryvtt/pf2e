@@ -45,6 +45,9 @@
         {{#each data.attackEffects.value as |v k|}}
             <span class="tag {{k}}">{{v}}</span>
         {{/each}}
+        {{#if item.data.attackEffects.custom}}
+            <span class="tag">{{data.attackEffects.custom}}</span>
+        {{/if}}
     </ul>
 </div>
 

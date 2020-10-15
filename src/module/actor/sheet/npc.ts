@@ -49,9 +49,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   _prepareItems(actorData) {
     // Actions
     const attacks = {
-      melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },
-      ranged: { label: 'NPC Ranged Attack', items: [], type: 'melee' },
-      weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
+      melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
+      ranged: { label: 'NPC Ranged Attack', prefix: 'PF2E.NPCAttackRanged', items: [], type: 'melee' },
     };
 
     // Actions
@@ -100,11 +99,8 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
       // Weapons
       else if (i.type === 'weapon') {
-        const isAgile = (i.data.traits.value || []).includes('agile');
-        i.data.bonus.total = (parseInt(i.data.bonus.value, 10) || 0) + actorData.data.martial.simple.value;
-        i.data.isAgile = isAgile;
+        // we don't want to do anything if they're a weapon. They should be using the melee attacks
 
-        attacks.weapon.items.push(i);
       }
 
       // NPC Generic Attacks

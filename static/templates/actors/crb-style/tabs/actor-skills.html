@@ -10,7 +10,7 @@
                 <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                 <h4 class="skill-name rollable">{{skill.label}}</h4>
                 {{!-- <div class="skill-prof skill-container">
-                    <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
+                    <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number" data-category="proficiency"/>
                     <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                 </div> --}}
         
@@ -18,7 +18,7 @@
                 <h4 class="skill-armor" title="{{localize 'PF2E.ArmorCheckPenalty'}}"><i class="fas fa-shield-alt"></i></h4>
                 {{/if}} --}}
                     <div class="skill-prof button-group">
-                        <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
+                        <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number" data-category="proficiency"/>
                         <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                     <div class="hover-container">
                         <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.name}}-modifiers">{{localize 'PF2E.ModifiersTitle'}}</h6>
@@ -53,7 +53,7 @@
                     <input name="item-name-skill-{{skill.itemID}}" data-item-id="{{skill.itemID}}" type="text" data-dtype="String" value="{{skill.name}}" style="color: white;"/>
                 </div>
                 <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.items.{{idx}}.data.proficient.value" data-stat-type="item" value="{{skill.rank}}" data-dtype="Number"/>
+                    <input type="hidden" name="data.items.{{idx}}.data.proficient.value" data-stat-type="item" value="{{skill.rank}}" data-dtype="Number" data-category="proficiency"/>
                     <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.value}}" title="{{skill.breakdown}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
                     {{#if ../owner}}
                      <div class="item-controls pf-redbackground">
@@ -83,7 +83,7 @@
                 <h1 class="skill-score lore-score" title="{{martial.breakdown}}">{{numberFormat martial.value decimals=0 sign=true}}</h1>        
                 <h4 class="skill-name lore-name-input">{{martial.label}}</h4>
                 <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.martial.{{s}}.rank" value="{{martial.rank}}" data-dtype="Number"/>
+                    <input type="hidden" name="data.martial.{{s}}.rank" value="{{martial.rank}}" data-dtype="Number" data-category="proficiency"/>
                     <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.rank}}" title="{{martial.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.rank)}}</span>
                 </div>
             </li>
@@ -95,7 +95,7 @@
                 <input name="item-name-skill-{{martial._id}}" data-item-id="{{martial._id}}" type="text" data-dtype="String" value="{{martial.name}}" style="color: white;"/>
                 </div>
                 <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
+                    <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number" data-category="proficiency"/>
                     <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.data.proficient.value}}" title="{{martial.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.data.proficient.value)}}</span>
                     {{#if ../owner}}
                     <div class="item-controls pf-redbackground" style="text-align: center">
