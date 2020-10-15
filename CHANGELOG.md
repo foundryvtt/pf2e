@@ -1,5 +1,50 @@
 # Patch Notes:
 
+## Version 1.10.14
+### Bug Fixes
+* (@JensChup) Added fix for wrong speaker in chatmessage when other token was selected (#813)
+* (@lotrein) Added icon padding and width rules to prevent icon shrinkage due to long titles. Added similar styles to effects/inventory/spellbook tabs (#682)
+* (iceman) Make entire toggle clickable in check modifier dialog
+
+### New Features
+* (@abrault) Add flag to lock proficiencies
+* (@nikolaj-a) Roll option support for flat modifier rule element, enabling support for conditional modifiers on passive stats like AC and speed
+* (@fryguy) Add save button to spell saves
+
+### Content Changes
+* (@overdox) Icon updates
+* (@fryguy) Compendium updates:
+    * Add Agents of Edgewatch 1 bestiary
+    * Add Agents of Edgewatch 2 bestiary
+    * Add Agents of Edgewatch 3 bestiary
+    * Fix typos in critical hit deck
+* (@fryguy) Add description for oracle and witch
+* (@fryguy) NPC action category migration
+* (@TMun) Lost Omens: Pathfinder Society backgrounds, equipment, feats, and spells
+* (@TMun) Pathfinder Society
+    * PFS Season 1 bestiary
+    * PFS Season 2 bestiary
+    * PFS Season 3 bestiary
+* (@TMun) Add precious trait to alchemical items and adds 'affixed to armor' for talismans
+* (@TMun) Correct class kit armor entries for new leather armor ID
+* (@TMun) Corrects incorrect usage of apotrophe - standardizes <E2><80><99> to '
+* (@TMun) Corrections
+    * Kobold Breath link incorrect (#799)
+    * Identify Magic Traits (#800)
+    * Agents of Edgewatch 3 feats, archetype and items added (#801)
+    * Corrects name for Potion of Flying (Standard) (#820)
+
+### Core System Improvements
+* (@fryguy) Since attackEffects uses the trait selector, we need to also show "custom" effects
+* (@fryguy) Remove compendium items from the NPC sheet, as they didn't work anyways
+* (@fryguy) Add "Melee" or "Ranged" in front of NPC attacks to make them more like the creature statblocks. Also so that it was more clear why there were two "dagger" attack buttons on certain NPCs when they have a ranged and melee attack.
+* (@fryguy) Add item quantity to the item display on NPC items
+* (@fryguy) Update the npc sheet to use `data.actionCatgegory` (which is what's editable in the UI) instead of `data.pf2e_updatednpcsheet.npcActionType` (which doesn't seem to be set anywhere).
+* (@fryguy) Remove the item edit buttons on the non-editable npc sheet (to make more room)
+* (@fryguy) Fix lint mistake in the migration code
+* (@Kevin) Brushed up the contributing page, and moved the OGL to the files being distributed with the system
+
+
 ## Version 1.10.13
 
 This is most likely the last version that will support version 0.6.6 of Foundry.
