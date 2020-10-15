@@ -1506,7 +1506,7 @@ export default class PF2EActor extends Actor {
 
       // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
       let value = valueRolled;
-      if (!combatant.actor.isPC) {
+      if (!combatant.actor.hasPlayerOwner) {
         value += 0.5;
       }
       const message = `
