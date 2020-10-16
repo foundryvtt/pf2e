@@ -1,6 +1,9 @@
 /* global CONST */
 import ActorSheetPF2e from './base';
 
+/**
+ * @category Actor
+ */
 class ActorSheetPF2eHazard extends ActorSheetPF2e {
   static get defaultOptions() {
     const options = super.defaultOptions;

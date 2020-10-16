@@ -14,6 +14,10 @@
  * @example
  * // Construct a DicePool from a string formula
  * let pool = DicePool.fromFormula("{4d6,3d8,2d10}kh");
+ * 
+ * 
+ * @category Other
+ * 
  */
 declare class DicePool {
 	/**

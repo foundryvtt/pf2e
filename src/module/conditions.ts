@@ -8,7 +8,7 @@ declare let PF2e: any;
 
 /**
  * A helper class to manage PF2e Conditions.
- *
+ * @category PF2
  */
 export class PF2eConditionManager {
     static _compediumConditions = new Map<string, ConditionData>();

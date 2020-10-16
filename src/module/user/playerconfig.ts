@@ -6,6 +6,9 @@
 // For users: game.user.update({flags: {PF2e:{ settings: {key:value} } } })
 // For modules: await game.settings.set(MODULE_NAME, key, value);
 
+/**
+ * @category Other
+ */
 export class PlayerConfigPF2e extends FormApplication {
     settings: any;
 

@@ -26,6 +26,9 @@ function isNonPhysicalDamage(damageType?: string): boolean {
         && damageType !== '';
 }
 
+/**
+ * @category PF2
+ */
 export class PF2WeaponDamage {
 
     static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {

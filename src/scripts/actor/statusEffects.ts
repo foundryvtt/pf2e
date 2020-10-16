@@ -7,6 +7,7 @@ declare let PF2e: any;
 /**
  * Class PF2eStatus which defines the data structure of a status effects
  * Gets populated into Actor.data.data.statusEffects[]
+ * @category PF2
  */
 export class PF2eStatus {
     status: string;
@@ -38,6 +39,7 @@ export class PF2eStatus {
 
 /**
  * Class PF2eStatusEffects, which is the module to handle the status effects
+ * @category PF2
  */
 export class PF2eStatusEffects {
 

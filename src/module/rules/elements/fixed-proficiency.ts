@@ -8,6 +8,9 @@ const KNOWN_TARGETS = {
     ac: {ability: 'dex', shortform: 'ac'},
 };
 
+/**
+ * @category RuleElement
+ */
 export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
 
     ruleData: any;

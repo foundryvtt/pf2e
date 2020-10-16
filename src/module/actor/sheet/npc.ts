@@ -2,6 +2,9 @@
 import ActorSheetPF2eCreature from './creature';
 import {SKILL_DICTIONARY} from "../actor";
 
+/**
+ * @category Actor
+ */
 class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   static get defaultOptions() {
     const options = super.defaultOptions;

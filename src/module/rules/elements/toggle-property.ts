@@ -4,6 +4,9 @@ import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier} from "../../modifiers";
 import {PF2RuleElement} from "../rule-element";
 
+/**
+ * @category RuleElement
+ */
 export class PF2TogglePropertyRuleElement extends PF2RuleElement {
 
     ruleData: any;

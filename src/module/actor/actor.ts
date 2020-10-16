@@ -95,6 +95,9 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
   'skill-check',
 ]);
 
+/**
+ * @category Actor
+ */
 export default class PF2EActor extends Actor {
 
   /**

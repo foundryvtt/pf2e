@@ -3,6 +3,9 @@ import {ItemData} from "../../item/dataDefinitions";
 import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2RuleElement} from "../rule-element";
 
+/**
+ * @category RuleElement
+ */
 export class PF2TokenImageRuleElement extends PF2RuleElement {
 
     ruleData: any;

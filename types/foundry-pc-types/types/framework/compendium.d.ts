@@ -47,6 +47,9 @@
  *
  * // If we decide to remove an entry from the compendium we can do that by the entry ID
  * pack.removeEntry(entry.id);
+ * 
+ * 
+ * @category Other
  */
 declare class Compendium extends Application {
 	/**

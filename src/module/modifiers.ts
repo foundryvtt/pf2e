@@ -61,6 +61,7 @@ export const PF2ModifierType = Object.freeze({
 
 /**
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
+ * @category PF2
  */
 export class PF2Modifier {
   /** The name of this modifier; should generally be a localization key (see en.json). */
@@ -292,6 +293,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
  * statistic or check can have multiple modifiers, even of the same type, but the stacking rules are
  * applied to ensure that only a single bonus and penalty of each type is applied to the total
  * modifier.
+ * @category PF2
  */
 export class PF2StatisticModifier {
   /** The name of this collection of modifiers for a statistic. */
@@ -350,6 +352,7 @@ export class PF2StatisticModifier {
 
 /**
  * Represents the list of modifiers for a specific check.
+ * @category PF2
  */
 export class PF2CheckModifier extends PF2StatisticModifier {
   /**
@@ -366,6 +369,7 @@ export class PF2CheckModifier extends PF2StatisticModifier {
  * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
  * on a list of string values. This will often be based on traits, but that is not required - sneak
  * attack could be an option that is not a trait.
+ * @category PF2
  */
 export class PF2ModifierPredicate {
   /** The options must have ALL of these entries for this predicate to pass.  */
@@ -406,6 +410,7 @@ export class PF2ModifierPredicate {
 
 /**
  * Represents extra damage dice for one or more weapons or attack actions.
+ * @category PF2
  */
 export class PF2DamageDice {
   /** The selector used to determine when   */

@@ -6,6 +6,9 @@ import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 
+/**
+ * @category Other
+ */
 class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {

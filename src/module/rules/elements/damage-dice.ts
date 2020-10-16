@@ -3,6 +3,9 @@ import {ItemData} from "../../item/dataDefinitions";
 import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier} from "../../modifiers";
 
+/**
+ * @category RuleElement
+ */
 export class PF2DamageDiceRuleElement extends PF2RuleElement {
 
     ruleData: any;

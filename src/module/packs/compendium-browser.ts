@@ -8,6 +8,9 @@ function _sortedObject(obj) {
   return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
+/**
+ * @category Other
+ */
 class PackLoader {
   loadedPacks: object;
 
@@ -68,6 +71,9 @@ type TabData<T> = {
   spell: T,
 }
 
+/**
+ * @category Other
+ */
 class CompendiumBrowser extends Application {
   sorters: any;
   filters: Record<any, any>;

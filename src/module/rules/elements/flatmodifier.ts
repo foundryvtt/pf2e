@@ -4,6 +4,9 @@ import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType} from "../../modifiers";
 import PF2EActor from "../../actor/actor";
 
+/**
+ * @category RuleElement
+ */
 export class PF2FlatModifierRuleElement extends PF2RuleElement {
 
     ruleData: any;
