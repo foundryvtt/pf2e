@@ -13,6 +13,7 @@ import {groupBy} from '../utils';
 
 /**
  * Datatype that holds container information for *every* item, even non containers
+ * @category Other
  */
 class ContainerData {
     item: PhysicalItemData;

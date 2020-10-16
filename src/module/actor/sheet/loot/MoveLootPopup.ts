@@ -1,5 +1,8 @@
 /* global FormApplication */
 
+/**
+ * @category Other
+ */
 export class MoveLootPopup extends FormApplication {
     onSubmitCallback: (a: any) => void;
 

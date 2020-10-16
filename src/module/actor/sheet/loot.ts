@@ -4,6 +4,9 @@ import ActorSheetPF2e from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 
+/**
+ * @category Actor
+ */
 class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;

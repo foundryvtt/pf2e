@@ -13,6 +13,7 @@ import { PF2eConditionManager } from '../../conditions';
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
+ * @category Actor
  */
 abstract class ActorSheetPF2e extends ActorSheet {
   /** @override */

@@ -10,6 +10,9 @@ import { DicePF2e } from '../../scripts/dice'
 import { ItemData } from './dataDefinitions';
 import PF2EActor from '../actor/actor';
 
+/**
+ * @category PF2
+ */
 export default class PF2EItem extends Item {
 
   /**

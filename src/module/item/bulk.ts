@@ -45,6 +45,9 @@ export const stacks: StackDefinitions = {
     },
 };
 
+/**
+ * @category Other
+ */
 export class Bulk {
     normal: number;
 
@@ -216,6 +219,9 @@ export function formatBulk(bulk: Bulk): string {
     return `${bulk.normal}; ${bulk.light}L`;
 }
 
+/**
+ * @category Other
+ */
 export class BulkItem {
     id: string;
 

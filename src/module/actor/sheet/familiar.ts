@@ -1,6 +1,10 @@
 /* global CONST, Dialog */
 import {SKILL_DICTIONARY} from "../actor";
 
+
+/**
+ * @category Actor
+ */
 class ActorSheetPF2eFamiliar extends ActorSheet {
 
     static get defaultOptions() {

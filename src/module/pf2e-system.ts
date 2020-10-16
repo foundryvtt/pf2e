@@ -5,6 +5,7 @@ declare let PF2e: PF2eSystem;
 
 /**
  * Base PF2e system class
+ * @category PF2
  */
 export class PF2eSystem {
     DB: any;

@@ -5,6 +5,9 @@
 
 import { FormulaPreservingRoll } from "../../scripts/dice";
 
+/**
+ * @category Other
+ */
 export class DamageRollModifiersDialog extends Application {
 
   damage: object;

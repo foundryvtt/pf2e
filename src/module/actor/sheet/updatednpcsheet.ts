@@ -9,6 +9,9 @@ import ActorSheetPF2eNPC from './npc';
 import { DicePF2e } from '../../../scripts/dice'
 import {PF2Modifier, PF2ModifierType} from "../../modifiers";
 
+/**
+ * @category Other
+ */
 class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
     const path = 'systems/pf2e/templates/actors/';

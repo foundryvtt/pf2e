@@ -1,3 +1,7 @@
+
+/**
+ * @category Other
+ */
 class SpellcastingEntry {
   data: any;
 

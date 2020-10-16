@@ -12,6 +12,9 @@ const SIZES = {
     'gargantuan': 4,
 };
 
+/**
+ * @category RuleElement
+ */
 export class PF2TokenSizeRuleElement extends PF2RuleElement {
 
     ruleData: any;

@@ -1,6 +1,9 @@
 /* global Dialog, Roll, renderTemplate */
 import PF2EActor from "../module/actor/actor";
 
+/**
+ * @category Other
+ */
 export class FormulaPreservingRoll extends Roll {
   toJSON() {
     const jsonData = super.toJSON();
@@ -15,6 +18,9 @@ export class FormulaPreservingRoll extends Roll {
   }
 }
 
+/**
+ * @category Other
+ */
 export class DicePF2e {
   _rolled: any;
   terms: any;

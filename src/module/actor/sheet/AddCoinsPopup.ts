@@ -1,6 +1,9 @@
 /* global FormApplication */
 import { addCoins } from '../../item/treasure';
 
+/**
+ * @category Other
+ */
 export class AddCoinsPopup extends FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
