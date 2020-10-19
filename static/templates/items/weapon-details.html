@@ -214,7 +214,7 @@
 
     <li class="form-group">
         <label>{{localize "PF2E.ItemDescription"}}</label>
-        <input type="text" name="data.property1.value" value="{{data.property1.value}}" data-dtype="{{data.property1.type}}"/>
+        <input type="text" name="data.property1.value" value="{{data.property1.value}}" data-dtype="String"/>
     </li>
 
     <li class="form-group">
@@ -364,7 +364,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponRangeLabel"}}</label>
-    <select name="data.range.value" data-dtype="{{data.range.type}}">
+    <select name="data.range.value" data-dtype="String">
         {{#select data.range.value}}
         <option value=""></option>
         {{#each weaponRange as |name type|}}
@@ -377,7 +377,7 @@
 
 <div class="form-group">
         <label>{{localize "PF2E.WeaponReloadLabel"}}</label>
-        <select name="data.reload.value" data-dtype="{{data.reload.type}}">
+        <select name="data.reload.value" data-dtype="String">
             {{#select data.reload.value}}
             <option value=""></option>
             {{#each weaponReload as |name type|}}
@@ -400,7 +400,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponMAPLabel"}}</label>
-    <select name="data.MAP.value" data-dtype="{{data.MAP.type}}">
+    <select name="data.MAP.value" data-dtype="String">
         {{#select data.MAP.value}}
         <option value="">{{localize "PF2E.WeaponMAPDefaultOption"}}</option>
         {{#each weaponMAP as |name type|}}
