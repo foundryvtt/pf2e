@@ -22,7 +22,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ActionActionsLabel"}}</label>
-    <select name="data.actions.value" data-dtype="{{data.actions.type}}">
+    <select name="data.actions.value" data-dtype="String">
         {{#select data.actions.value}}
         <option value=""></option>
         {{#each actionsNumber as |name type|}}
@@ -67,7 +67,7 @@
     {{/each}}
     {{/select}}
   </select>
-  <select name="data.skill_requirement.skill.rank" data-dtype="data.skill_requirement.skill.type">
+  <select name="data.skill_requirement.skill.rank" data-dtype="String">
     {{#select data.skill_requirement.skill.rank}}
     <option value=""></option>
     {{#each proficiencies as |label proficiency_value|}}
