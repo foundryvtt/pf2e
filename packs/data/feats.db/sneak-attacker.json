@@ -39,7 +39,40 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": {
+                                "dieSize": "d4"
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "dieSize": "d6"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
