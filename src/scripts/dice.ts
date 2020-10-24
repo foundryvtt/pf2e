@@ -198,8 +198,8 @@ export class DicePF2e {
         if (rule === 'doubledamage') {
           rollParts = [`(${rollParts.join('+')}) * 2`];
         } else {
-          const critRoll = new Roll(rollParts.join('+'), data).alter(0, 2);
-          rollParts = [critRoll.formula.replace(/\b\d+\b/g, (match) => `${parseInt(match, 10) * 2}`)];
+          const critRoll = new Roll(rollParts.join('+'), data).alter(2, 0, {multiplyNumeric: true});
+          rollParts = [critRoll.formula];
         }
         rollParts = rollParts.concat(partsCritOnly);
       }
