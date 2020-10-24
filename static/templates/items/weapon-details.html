@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeLabel"}}</label>
-    <select name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
+    <select name="data.weaponType.value" data-dtype="String">
         {{#select data.weaponType.value}}
         <option value=""></option>
         {{#each weaponTypes as |name type|}}
@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
-    <select name="data.group.value" data-dtype="{{data.group.type}}">
+    <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
         <option value=""></option>
         {{#each weaponGroups as |name type|}}
@@ -389,7 +389,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponAbilityLabel"}}</label>
-    <select name="data.ability.value" data-dtype="{{data.ability.type}}">
+    <select name="data.ability.value" data-dtype="String">
         {{#select data.ability.value}}
         {{#each abilities as |ability a|}}
         <option value="{{a}}">{{localize ability}}</option>
@@ -425,7 +425,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorEquippedLabel"}}</label>
-    <input type="checkbox" name="data.equipped.value" value="1" data-dtype="{{data.equipped.type}}" {{checked data.equipped.value}}/>
+    <input type="checkbox" name="data.equipped.value" value="1" data-dtype="Boolean" {{checked data.equipped.value}}/>
 </div>
 
 <!-- <div class="bio-item form-group-stacked pf-container">
