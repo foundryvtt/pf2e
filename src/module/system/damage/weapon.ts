@@ -26,6 +26,9 @@ function isNonPhysicalDamage(damageType?: string): boolean {
         && damageType !== '';
 }
 
+/**
+ * @category PF2
+ */
 export class PF2WeaponDamage {
 
     static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
@@ -501,8 +504,8 @@ export class PF2WeaponDamage {
         if (rule === 'doubledamage') {
             return `2 * (${formula})`;
         } else {
-            const critRoll = new Roll(formula, {}).alter(0, 2);
-            return critRoll.formula.replace(/\b\d+\b/g, (match) => `${parseInt(match, 10) * 2}`);
+            const critRoll = new Roll(formula, {}).alter(2, 0, {multiplyNumeric: true});
+            return critRoll.formula;
         }
     }
 }

@@ -1,5 +1,8 @@
 import { getArmorBonus } from '../item/runes';
 
+/**
+ * @category Other
+ */
 class Armor {
   data: any;
   

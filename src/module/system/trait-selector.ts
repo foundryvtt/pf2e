@@ -2,6 +2,7 @@
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
  * @type {FormApplication}
+ * @category Other
  */
 export class TraitSelector5e extends FormApplication {
   searchString: any;

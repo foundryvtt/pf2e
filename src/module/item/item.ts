@@ -10,6 +10,9 @@ import { DicePF2e } from '../../scripts/dice'
 import { ItemData } from './dataDefinitions';
 import PF2EActor from '../actor/actor';
 
+/**
+ * @category PF2
+ */
 export default class PF2EItem extends Item {
 
   /**
@@ -907,9 +910,10 @@ export default class PF2EItem extends Item {
       const messageId = button.parents('.message').attr('data-message-id');
       const senderId = game.messages.get(messageId).user._id;
       const card = button.parents('.chat-card');
+      const action = button.attr('data-action');
 
-      // Confirm roll permission
-      if (!game.user.isGM && (game.user._id !== senderId)) return;
+        // Confirm roll permission
+      if (!game.user.isGM && (game.user._id !== senderId) && (action !== 'save')) return;
 
       // Get the Actor from a synthetic Token
       let actor;
@@ -927,9 +931,6 @@ export default class PF2EItem extends Item {
         if (!token) return;
         actor = Actor.fromToken(token);
       } else actor = game.actors.get(card.attr('data-actor-id'));
-
-      // Get the Action
-      const action = button.attr('data-action');
 
       // Get the Item
       if (!actor) return;

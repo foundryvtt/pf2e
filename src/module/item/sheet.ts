@@ -5,6 +5,9 @@
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 
+/**
+ * @category Other
+ */
 export class ItemSheetPF2e extends ItemSheet {
   static get defaultOptions() {
     const options = super.defaultOptions;

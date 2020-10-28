@@ -19,6 +19,7 @@ export interface CheckModifiersContext {
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
+ * @category Other
  */
 export class CheckModifiersDialog extends Application {
   /** The check which is being edited. */

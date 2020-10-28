@@ -1,5 +1,8 @@
 import { compendiumBrowser } from './packs/compendium-browser';
 
+/**
+ * @ignore
+*/
 export default function () {
   game.settings.register('pf2e', 'worldSchemaVersion', {
     name: 'Actor Schema Version',
@@ -123,7 +126,7 @@ export default function () {
   });
   game.settings.register(game.system.id, 'enabledRulesUI', {
     name: 'Advanced Rule Element UI', 
-    hint: 'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the' +
+    hint: 'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the ' +
         'actors and items if you are not sure what you are doing or make a mistake.',
     scope: 'world',
     config: true,

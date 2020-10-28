@@ -1,6 +1,10 @@
 import SpellcastingEntry from './spellcastingEntry';
 import CharacterData from '../actor/character';
 
+
+/**
+ * @category Other
+ */
 class Spell {
   data: any;
   castingActor: any;

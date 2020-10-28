@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeLabel"}}</label>
-    <select name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
+    <select name="data.weaponType.value" data-dtype="String">
         {{#select data.weaponType.value}}
         <option value=""></option>
         {{#each weaponTypes as |name type|}}
@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
-    <select name="data.group.value" data-dtype="{{data.group.type}}">
+    <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
         <option value=""></option>
         {{#each weaponGroups as |name type|}}
@@ -214,7 +214,7 @@
 
     <li class="form-group">
         <label>{{localize "PF2E.ItemDescription"}}</label>
-        <input type="text" name="data.property1.value" value="{{data.property1.value}}" data-dtype="{{data.property1.type}}"/>
+        <input type="text" name="data.property1.value" value="{{data.property1.value}}" data-dtype="String"/>
     </li>
 
     <li class="form-group">
@@ -364,7 +364,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponRangeLabel"}}</label>
-    <select name="data.range.value" data-dtype="{{data.range.type}}">
+    <select name="data.range.value" data-dtype="String">
         {{#select data.range.value}}
         <option value=""></option>
         {{#each weaponRange as |name type|}}
@@ -377,7 +377,7 @@
 
 <div class="form-group">
         <label>{{localize "PF2E.WeaponReloadLabel"}}</label>
-        <select name="data.reload.value" data-dtype="{{data.reload.type}}">
+        <select name="data.reload.value" data-dtype="String">
             {{#select data.reload.value}}
             <option value=""></option>
             {{#each weaponReload as |name type|}}
@@ -389,7 +389,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponAbilityLabel"}}</label>
-    <select name="data.ability.value" data-dtype="{{data.ability.type}}">
+    <select name="data.ability.value" data-dtype="String">
         {{#select data.ability.value}}
         {{#each abilities as |ability a|}}
         <option value="{{a}}">{{localize ability}}</option>
@@ -400,7 +400,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponMAPLabel"}}</label>
-    <select name="data.MAP.value" data-dtype="{{data.MAP.type}}">
+    <select name="data.MAP.value" data-dtype="String">
         {{#select data.MAP.value}}
         <option value="">{{localize "PF2E.WeaponMAPDefaultOption"}}</option>
         {{#each weaponMAP as |name type|}}
@@ -425,7 +425,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorEquippedLabel"}}</label>
-    <input type="checkbox" name="data.equipped.value" value="1" data-dtype="{{data.equipped.type}}" {{checked data.equipped.value}}/>
+    <input type="checkbox" name="data.equipped.value" value="1" data-dtype="Boolean" {{checked data.equipped.value}}/>
 </div>
 
 <!-- <div class="bio-item form-group-stacked pf-container">

@@ -8,6 +8,9 @@ interface TempHPRuleData {
     formula?: string;
 }
 
+/**
+ * @category RuleElement
+ */
 export class PF2TempHPRuleElement extends PF2RuleElement {
 
     ruleData: TempHPRuleData;

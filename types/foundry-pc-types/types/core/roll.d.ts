@@ -211,8 +211,8 @@ declare class Roll {
 	/**
 	 * Alter the Roll formula by adding or multiplying the number of dice included in each roll term
 	 *
-	 * @param add		A number of dice to add to each Die term
 	 * @param multiply	A multiplier for the number of dice in each Die term
+	 * @param add		A number of dice to add to each Die term
 	 *
 	 * @example
 	 * let r = new Roll("4d8 + 4 + 2d4");
@@ -220,7 +220,7 @@ declare class Roll {
 	 * r.formula;
 	 * > 9d8 + 4 + 5d4
 	 */
-	alter(add: number, multiple: number): Roll;
+    alter(multiply: number, add: number, options?: {multiplyNumeric: boolean}): Roll;
 
 	/**
 	 * Clean a dice roll formula, returning the formatted string with proper spacing

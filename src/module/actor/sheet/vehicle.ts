@@ -4,6 +4,9 @@ import { getContainerMap } from '../../item/container';
 import ActorSheetPF2e from './base';
 import {calculateWealth} from '../../item/treasure';
 
+/**
+ * @category Actor
+ */
 class ActorSheetPF2eVehicle extends ActorSheetPF2e {
 
     static get defaultOptions() {

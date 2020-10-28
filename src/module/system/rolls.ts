@@ -8,6 +8,9 @@ interface RerollOptions {
     keep?: 'new' | 'best' | 'worst';
 };
 
+/**
+ * @category PF2
+ */
 export class PF2Check {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
@@ -88,7 +91,9 @@ export class PF2Check {
         await newMessage.setFlag('pf2e', 'canReroll', false);
     }
 }
-
+/**
+ * @category PF2
+ */
 export class PF2DamageRoll {
     /**
      * @param {object} damage

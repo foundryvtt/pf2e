@@ -1,5 +1,51 @@
 # Patch Notes:
 
+## Version 1.10.15
+
+This version of the PF2E system requires at least version of 0.7.5 of Foundry.
+
+### Bug Fixes
+* (@abrault) Fix dice multiplication in critical rule
+* (@fryguy) Remove strike class from status effect html
+* (@TMun) Corrects title of 'show status effects' and adds space to 'the actors' in system game settings
+* (@TMun) Corrected types for various entity field:
+    * Correct typing for condition value from string to int. Change doomed and slowed to be valued
+    * Changes types to string for data.property1.value, data.range.value, data.reload.value and data.MAP.value (#828)
+    * Adds field types to feat details, weapon details, and action details
+    * Remove null values from data.skill_requirement.skill.rank and data.actions.value
+* (@TMun) Coverts traits to title case in en.json. Adds clockwork and herald traits from AoE4. Alphabetize some of config.ts (#834)
+* (nikolaj-a) Replace calls to deprecated isPC method
+* (nikolaj-a) Familiar non-owner permission issue
+* (nikolaj-a) Allow players to roll saving throw from spell chat card
+
+### New Features
+* (@fryguy) Add rules element for Sneak Attacker
+
+### Content Changes
+* (@fryguy) Add Agents of Edgewatch 4 bestiary
+* (@overdox) Icon updates
+* (@overdox) Remove unused test icons
+* (@TMun) Adds AoE4 spells and equipment
+* (@TMun) Icon updates
+* (@TMun) Regeneration of all item roll tables. Now only hold CRB-listed items and weighted.
+* (@TMun) Compendia issues
+    * Update flaming-sphere.json (#840)
+    * Swaps Armbands of Athleticism Greater and normal versions (#836)
+    * Corrects rollable tables, adds percentages explicitly, updates GMG SRD. Adds Deck of Many Things effects. Corrects Rod of Wonder Links (#827)
+    * Correct draconic exemplar link, update ancestry features
+    * Update conditionitems.db to use draggable links instead of compendium links. Add inline rolls for flat checks and remove duplicate links within a single entry
+    * Corrects text for panache and adds a rule element for improvised weapons
+    * Fix apostrophe's and update actions.db to 0.7.x standard. Cleanup of HTML tags and extraneous spaces. Made all entries into a common format
+
+### Core System Improvements
+* (@georg.doehring) Use localization for "modifiers"
+* (nikolaj-a) Change UI theme name to better reflect its actual progress
+* (nikolaj-a) Update minimum compatible Foundry version to 0.7.5
+
+### Development Improvements
+* (@Kevin) Add auto-docs
+
+
 ## Version 1.10.14
 ### Bug Fixes
 * (@JensChup) Added fix for wrong speaker in chatmessage when other token was selected (#813)

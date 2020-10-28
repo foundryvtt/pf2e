@@ -1,5 +1,8 @@
 import {Bulk, bulkConversions, Sizes} from './bulk';
 
+/**
+ * @category Other
+ */
 export class InventoryWeight {
     combinedBulk: Bulk;
 

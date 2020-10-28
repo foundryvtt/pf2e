@@ -1,5 +1,8 @@
 import Armor from './armor';
 
+/**
+ * @category Other
+ */
 class CharacterData {
   data: any;
   _items: any;

@@ -3,6 +3,9 @@ import {CharacterData, FamiliarData, NpcData} from "../actor/actorDataDefinition
 import {PF2DamageDice, PF2Modifier} from "../modifiers";
 import {ItemData} from "../item/dataDefinitions";
 
+/**
+ * @category RuleElement
+ */
 export abstract class PF2RuleElement {
 
     onCreate(actorData: CharacterData|NpcData, item: ItemData, updates: any) {}

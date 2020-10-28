@@ -117,7 +117,7 @@ declare class Actor extends Entity<SystemActorDataType> {
 	 * A boolean flag for whether this Actor is a player-owned character.
 	 * True if any User who is not a GM has ownership rights over the Actor entity.
 	 */
-	get isPC(): boolean;
+	get hasPlayerOwner(): boolean;
 
 	/**
 	 * Test whether an Actor entity is a synthetic representation of a Token (if true) or a full Entity (if false)

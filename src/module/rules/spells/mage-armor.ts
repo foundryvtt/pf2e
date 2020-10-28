@@ -3,6 +3,9 @@ import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier, PF2ModifierType} from "../../modifiers";
 import {PF2RuleElement} from "../rule-element";
 
+/**
+ * @category RuleElement
+ */
 export class PF2MageArmorRuleElement extends PF2RuleElement {
 
     ruleData: any;
