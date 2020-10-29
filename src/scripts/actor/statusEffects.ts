@@ -525,7 +525,7 @@ export class PF2eStatusEffects {
 
         const chatData: any = {
             user: game.user._id,
-            speaker: { alias: `${token.name}'s status effects:` },
+            speaker: { alias: game.i18n.format("PF2E.StatusEffects", {name: token.name}) },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER
         }
