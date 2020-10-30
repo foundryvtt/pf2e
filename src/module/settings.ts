@@ -1,3 +1,4 @@
+/* global CONST */
 import { compendiumBrowser } from './packs/compendium-browser';
 
 /**
@@ -19,6 +20,38 @@ export default function () {
     config: true,
     default: true,
     type: Boolean,
+  });
+  game.settings.register('pf2e', 'defaultTokenSettingsName', {
+    name: 'Default Token Name display',
+    hint: "The setting for the default token's name display",
+    scope: 'world',
+    config: true,
+    default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    type: Number,
+    choices: {
+      [CONST.TOKEN_DISPLAY_MODES.NONE]: "Never Displayed",
+      [CONST.TOKEN_DISPLAY_MODES.CONTROL]: "When Controlled",
+      [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: "Hovered by Owner",
+      [CONST.TOKEN_DISPLAY_MODES.HOVER]: "Hovered by Anyone",
+      [CONST.TOKEN_DISPLAY_MODES.OWNER]: "Always for Owner",
+      [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: "Always for Anyone",
+    }
+  });
+  game.settings.register('pf2e', 'defaultTokenSettingsBar', {
+    name: 'Default Token Bar display',
+    hint: "The setting for the default token's bar display",
+    scope: 'world',
+    config: true,
+    default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    type: Number,
+    choices: {
+      [CONST.TOKEN_DISPLAY_MODES.NONE]: "Never Displayed",
+      [CONST.TOKEN_DISPLAY_MODES.CONTROL]: "When Controlled",
+      [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: "Hovered by Owner",
+      [CONST.TOKEN_DISPLAY_MODES.HOVER]: "Hovered by Anyone",
+      [CONST.TOKEN_DISPLAY_MODES.OWNER]: "Always for Owner",
+      [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: "Always for Anyone",
+    }
   });
   game.settings.register('pf2e', 'ignoreCoinBulk', {
     name: 'Coins are weightless',
