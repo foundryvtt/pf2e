@@ -1,16 +1,16 @@
 {
-    "_id": "88VcnxbKPF2QkPiF",
+    "_id": "U6jOmV5RAkj32qOi",
     "data": {
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 4,
+                "value": 16
             },
             "con": {
                 "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 2,
+                "value": 14
             },
             "dex": {
                 "min": 3,
@@ -19,28 +19,50 @@
             },
             "int": {
                 "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 1,
+                "value": 12
             },
             "str": {
                 "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 3,
+                "value": 16
             },
             "wis": {
                 "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 2,
+                "value": 14
             }
         },
         "attributes": {
             "ac": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
+                "base": 19,
+                "breakdown": "Base Armor Class 10, Base Modifier +4, Dexterity +4",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 22
+                "name": "ac",
+                "totalModifier": 8,
+                "value": 18
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +82,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": 95,
+                "max": 45,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": 95
+                "value": 45
             },
             "init": {
                 "bonus": 0,
@@ -78,11 +100,32 @@
             "levelbonushp": 0,
             "levelbonussp": 0,
             "perception": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +6, Wisdom +2",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
-                "value": 12
+                "totalModifier": 8,
+                "value": 8
             },
             "resolve": {
                 "value": 0
@@ -104,8 +147,8 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Mobility",
-                        "value": ""
+                        "type": "Burrow",
+                        "value": "5 feet"
                     }
                 ],
                 "special": "",
@@ -127,12 +170,13 @@
             }
         },
         "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
-                "value": "CN"
+                "value": "CE"
             },
             "ancestry": {
-                "value": ""
+                "value": "Ghoul"
             },
             "biography": {
                 "public": "",
@@ -141,11 +185,12 @@
             "class": {
                 "value": ""
             },
-            "creatureType": "",
+            "creatureType": "Undead",
             "deity": {
                 "image": "systems/pf2e/assets/sheet/deity.png",
                 "value": ""
             },
+            "flavorText": "Ghasts—feral, foul-smelling, and constantly hungry—are the more powerful kin of ghouls. They are relentless in the pursuit of their prey.<br><br>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +200,13 @@
             },
             "level": {
                 "min": 1,
-                "value": 6
+                "value": 2
             },
-            "nethysUrl": "",
-            "recallKnowledgeText": "",
+            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=219",
+            "recallKnowledgeText": "Recall Knowledge : DC 16",
             "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "Bestiary pg. 169"
             }
         },
         "martial": {
@@ -208,28 +253,91 @@
         },
         "saves": {
             "fortitude": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "PF2E.AbilityCon",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "con",
-                "breakdown": "",
+                "base": 9,
+                "breakdown": "Base Modifier +4, Constitution +2",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 15
+                "totalModifier": 6,
+                "value": 6
             },
             "reflex": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +6, Dexterity +4",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 16
+                "totalModifier": 10,
+                "value": 10
             },
             "will": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 8,
+                "breakdown": "Base Modifier +6, Wisdom +2",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 10
+                "totalModifier": 8,
+                "value": 8
             }
         },
         "schema": {
@@ -239,13 +347,37 @@
         },
         "skills": {
             "acr": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 10,
+                "breakdown": "Base Modifier +6, Dexterity +4",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 10,
+                "value": 10,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
@@ -256,13 +388,37 @@
                 "value": 0
             },
             "ath": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": "+3",
+                        "name": "PF2E.AbilityStr",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 7,
+                "breakdown": "Base Modifier +4, Strength ++3",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": "4+3",
+                "value": "4+3",
+                "visible": true
             },
             "cra": {
                 "ability": "int",
@@ -345,21 +501,69 @@
                 "value": 0
             },
             "ste": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 10,
+                "breakdown": "Base Modifier +6, Dexterity +4",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 10,
+                "value": 10,
+                "visible": true
             },
             "sur": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 8,
+                "breakdown": "Base Modifier +6, Wisdom +2",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
@@ -413,8 +617,10 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "",
-                "value": []
+                "custom": "death effects, disease, paralyzed, poison, unconscious",
+                "value": [
+                    "custom"
+                ]
             },
             "dr": [],
             "dv": [],
@@ -422,14 +628,15 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "common"
+                    "common",
+                    "necril"
                 ]
             },
             "rarity": {
-                "value": "rare"
+                "value": "unique"
             },
             "senses": {
-                "value": ""
+                "value": "darkvision"
             },
             "size": {
                 "value": "med"
@@ -437,8 +644,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "human",
-                    "humanoid"
+                    "ghoul",
+                    "undead"
                 ]
             }
         }
@@ -447,7 +654,7 @@
     "flags": {
         "pf2e": {
             "editNPC": {
-                "value": false
+                "value": true
             }
         },
         "pf2e_updatednpcsheet": {
@@ -459,161 +666,20 @@
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
-            "_id": "bn0Z3k2gK4VsKjQ4",
+            "_id": "phoQ0yOkbf9saI2l",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 16,
-                    "value": "16"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "1d6+6"
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+6",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "selected": {
-                        "agile": "Agile",
-                        "sweep": "Sweep"
-                    },
                     "value": [
-                        "agile",
-                        "sweep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Hatchet",
-            "sort": 300000,
-            "type": "melee"
-        },
-        {
-            "_id": "YFBnzaEl7UBKGHLo",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "Muscle Striker"
+                        "ghast fever",
+                        "paralysis"
                     ]
                 },
                 "bonus": {
-                    "total": 16,
-                    "value": "16"
+                    "total": 11,
+                    "value": "12"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -629,11 +695,11 @@
                 },
                 "damage": {
                     "damageType": "piercing",
-                    "die": "1d6+8"
+                    "die": "1d6+5"
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d6+8",
+                        "damage": "2d6+4",
                         "damageType": "piercing"
                     }
                 },
@@ -711,6 +777,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -718,17 +785,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "selected": {},
                     "value": [
-                        "deadly d10",
-                        "range increment 60 feet"
+                        "finesse"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "ranged"
                 },
                 "weight": {
                     "value": 0
@@ -739,22 +801,24 @@
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Composite Shortbow",
-            "sort": 400000,
+            "name": "Jaws",
+            "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "EoEZjFDg31YP4hUr",
+            "_id": "OcYo8NrM7fSjcymh",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "paralysis"
+                    ]
                 },
                 "bonus": {
-                    "total": 16,
-                    "value": "16"
+                    "total": 11,
+                    "value": "12"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -770,11 +834,11 @@
                 },
                 "damage": {
                     "damageType": "slashing",
-                    "die": "1d6+6"
+                    "die": "1d4+5"
                 },
                 "damageRolls": {
                     "0": {
-                        "damage": "1d6+6",
+                        "damage": "2d4+4",
                         "damageType": "slashing"
                     }
                 },
@@ -852,6 +916,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -859,21 +924,13 @@
                     "value": ""
                 },
                 "traits": {
-                    "selected": {
-                        "agile": "Agile",
-                        "sweep": "Sweep"
-                    },
                     "value": [
                         "agile",
-                        "sweep",
-                        "thrown 10 feet"
+                        "finesse"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "ranged"
                 },
                 "weight": {
                     "value": 0
@@ -884,15 +941,15 @@
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Hatchet",
-            "sort": 500000,
+            "name": "Claw",
+            "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "QXq9Nn7zGrJqJnuV",
+            "_id": "PyFErFbzMDaAJsUV",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -903,7 +960,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>@Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Striking} from concealment doesn’t cause the bandit to become @Compendium[pf2e.conditionspf2e.1wQY3JYyhMYeeV2G]{Observed}.</p>"
+                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a DC 18 Fortitude save or become sickened 1 (plus slowed 1 as long as itʼs sickened on a critical failure). While within the aura, the creature takes a &ndash;2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -911,6 +968,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirement": {
                     "skill": {
                         "rank": "",
@@ -925,8 +983,10 @@
                     "value": ""
                 },
                 "traits": {
-                    "selected": {},
-                    "value": []
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -941,26 +1001,199 @@
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Experienced Ambusher",
+            "name": "Stench",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "kwPsIpitPBaF09gf",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": " <b>Requirements</b> The ghast is adjacent to the corpse of a creature that died within the last hour. <b>Effect</b> The ghast devours a chunk of the corpse and regains 3d6 Hit Points. It can regain Hit Points from any given corpse only once."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Consume Flesh",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "aQpfm3tCsEdIkopd",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Saving Throw</strong> Fortitude DC 18;</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 3d8 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 3d8 # negative damage]] negative damage and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghast the next midnight.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Ghast Fever",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "EgQHWy3kEnjf7oLy",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Any living creature (including elves) hit by a ghast's attack must succeed at a DC 16 Fortitude save or become @Compendium[pf2e.conditionspf2e.6uEgoh53GbXuHpTF]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "incapacitation",
+                        "occult",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Paralysis",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "MCOjIjgJTtdMmKyA",
+            "_id": "oOLDphXSDdy4Tq1K",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": ""
+                    "value": 1
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>&nbsp;A bandit deals an additional [[/r 2d6 #precision]] precision damage to @Compendium[pf2e.conditionspf2e.AJh5ex99aV6VTggg]{Flat-Footed} creatures.</p>"
+                    "value": " The ghast jumps up to half its Speed. This movement doesn’t trigger reactions."
                 },
                 "rarity": {
                     "value": "common"
@@ -968,12 +1201,7 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -982,8 +1210,9 @@
                     "value": ""
                 },
                 "traits": {
-                    "selected": {},
-                    "value": []
+                    "value": [
+                        "move"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -998,12 +1227,12 @@
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Sneak Attack",
+            "name": "Swift Leap",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "lAZv5wBV9YR8Mocp",
+            "_id": "WZOZOittOrHs2O5S",
             "data": {
                 "description": {
                     "chat": "",
@@ -1015,7 +1244,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 14
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1023,6 +1252,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -1041,7 +1271,7 @@
             "type": "lore"
         },
         {
-            "_id": "EslvLcsOUId3mFLd",
+            "_id": "KXACVl5byzP0flk1",
             "data": {
                 "description": {
                     "chat": "",
@@ -1053,7 +1283,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 14
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1061,6 +1291,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -1079,7 +1310,7 @@
             "type": "lore"
         },
         {
-            "_id": "hznmFVwouf8dXyUP",
+            "_id": "btGDpqDD5oCWtyxM",
             "data": {
                 "description": {
                     "chat": "",
@@ -1091,7 +1322,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 12
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1099,82 +1330,7 @@
                 "rarity": {
                     "value": "common"
                 },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Intimidation",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "jZ765a8rPjSa1TXl",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Society",
-            "sort": 1100000,
-            "type": "lore"
-        },
-        {
-            "_id": "2p0i5rO3YFnIUKdb",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -1189,11 +1345,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
-            "_id": "29znGASxw3B2s89T",
+            "_id": "miBeut5UCoiwN3p0",
             "data": {
                 "description": {
                     "chat": "",
@@ -1205,7 +1361,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 12
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -1213,6 +1369,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -1226,69 +1383,12 @@
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Survival",
-            "sort": 1300000,
+            "name": "Intimidation",
+            "sort": 1100000,
             "type": "lore"
         },
         {
-            "_id": "a4SSMVjAQgcwes1C",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A target damaged by the bandit&rsquo;s @Compendium[pf2e.equipment-srd.hIgqLgH3YcLZBeoT]{Shortbow} @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} must succeed at a DC 22 Fortitude save or be @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 until the end of the bandit&rsquo;s next turn.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "selected": [],
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Muscle Striker",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "CDCwXayq3NXDaBiB",
+            "_id": "I51lmeNTjjMfT3Eu",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1364,7 +1464,7 @@
                 "level": {
                     "label": "Item Level",
                     "type": "Number",
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1456,6 +1556,7 @@
                     "type": "String",
                     "value": ""
                 },
+                "rules": [],
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1473,6 +1574,9 @@
                 "traits": {
                     "custom": "",
                     "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "deadly-d10",
@@ -1494,236 +1598,14 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/equipment/composite-shortbow.png",
+            "flags": {},
+            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.png",
             "name": "Composite Shortbow",
-            "sort": 1500000,
+            "sort": 1200000,
             "type": "weapon"
         },
         {
-            "_id": "rdK0MhUJpiTD0Q31",
-            "data": {
-                "MAP": {
-                    "value": ""
-                },
-                "ability": {
-                    "label": "Offensive Ability",
-                    "type": "String",
-                    "value": "str"
-                },
-                "bonus": {
-                    "label": "Item Bonus",
-                    "type": "String",
-                    "value": 0
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "dice": 1,
-                    "die": "d6",
-                    "label": "damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>This small axe can be used in close combat or thrown.</p>"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": {
-                    "label": "Weapon Group",
-                    "type": "String",
-                    "value": "axe"
-                },
-                "hands": {
-                    "label": "Hands",
-                    "type": "String",
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": null
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "label": "Price",
-                    "type": "String",
-                    "value": "4 sp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "label": "Primary Property",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "type": "String",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "label": "Secondary Property",
-                    "type": "String",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "label": "Tertiary Property",
-                    "type": "String",
-                    "value": ""
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
-                    "value": 2
-                },
-                "range": {
-                    "label": "Weapon Range",
-                    "type": "String",
-                    "value": "10"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "reload": {
-                    "label": "Reload",
-                    "type": "String",
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "splashDamage": {
-                    "value": 0
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "strikingRune": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Weapon Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": [],
-                    "type": "String",
-                    "value": [
-                        "agile",
-                        "sweep",
-                        "thrown-10"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "label": "Weapon Category",
-                    "type": "String",
-                    "value": "martial"
-                },
-                "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
-                    "value": "-"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/equipment/hatchet.png",
-            "name": "Hatchet",
-            "sort": 1600000,
-            "type": "weapon"
-        },
-        {
-            "_id": "TWsNNEaUiCalth3H",
+            "_id": "Lma6fc1cKnL7ObP4",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1804,7 +1686,7 @@
                 "level": {
                     "label": "Item Level",
                     "type": "Number",
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1836,6 +1718,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1875,36 +1758,85 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "_sheetTab": "description"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/equipment/weapons/arrows.jpg",
             "name": "Arrows",
-            "sort": 1800000,
+            "sort": 1300000,
             "type": "consumable"
         },
         {
-            "_id": "5POWwJTdcA0KHWau",
+            "_id": "tbVGzaGfZiWh2z7T",
             "data": {
-                "armor": {
-                    "label": "AC Bonus",
-                    "type": "Number",
-                    "value": 1
-                },
-                "armorType": {
-                    "label": "Armor Category",
-                    "type": "String",
-                    "value": "light"
-                },
-                "brokenThreshold": {
-                    "value": null
-                },
-                "bulkCapacity": {
+                "actionCategory": {
                     "value": ""
                 },
-                "check": {
-                    "label": "Check Penalty",
-                    "type": "String",
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Negative Healing",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "U4mx6nAal2UDRgr5",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": "12"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
                     "value": ""
                 },
                 "collapsed": {
@@ -1913,36 +1845,28 @@
                 "containerId": {
                     "value": ""
                 },
+                "damageRolls": {
+                    "cgojlgxjn96x00k6yhoq9h": {
+                        "damage": "1d6+4",
+                        "damageType": "piercing"
+                    }
+                },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p><span class=\"fontstyle0\">This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it’s so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</span> </p>"
-                },
-                "dex": {
-                    "label": "Dex Modifier Cap",
-                    "type": "String",
-                    "value": "3"
+                    "value": ""
                 },
                 "equipped": {
-                    "label": "Equipped",
-                    "type": "Boolean",
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": "L"
-                },
-                "group": {
-                    "label": "Group",
-                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
-                    "value": null
+                    "value": 0
                 },
                 "hp": {
-                    "value": null
+                    "value": 0
                 },
                 "identified": {
                     "value": false
@@ -1950,23 +1874,11 @@
                 "invested": {
                     "value": false
                 },
-                "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": 0
-                },
                 "maxHp": {
-                    "value": null
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
-                },
-                "potency": {
-                    "label": "Armor Potency",
-                    "type": "String"
-                },
-                "potencyRune": {
-                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1975,9 +1887,7 @@
                     "value": ""
                 },
                 "price": {
-                    "label": "Price",
-                    "type": "String",
-                    "value": "2 sp"
+                    "value": 0
                 },
                 "property1": {
                     "critDamage": "",
@@ -1987,8 +1897,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Property Rune 1",
-                    "type": "Number",
                     "value": ""
                 },
                 "property2": {
@@ -1999,8 +1907,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Property Rune 2",
-                    "type": "Number",
                     "value": ""
                 },
                 "property3": {
@@ -2011,93 +1917,61 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Property Rune 3",
-                    "type": "Number",
-                    "value": ""
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
                     "value": ""
                 },
                 "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
                     "value": 1
                 },
                 "rarity": {
                     "value": "common"
                 },
-                "resiliencyRune": {
-                    "value": ""
-                },
-                "resilient": {
-                    "label": "Resilient",
-                    "type": "String"
-                },
+                "rules": [],
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "speed": {
-                    "label": "Speed Penalty",
-                    "type": "String",
                     "value": ""
                 },
                 "stackGroup": {
                     "value": ""
                 },
-                "strength": {
-                    "label": "Required Strength",
-                    "type": "String",
-                    "value": "10"
-                },
                 "traits": {
-                    "label": "Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": "Comfort"
+                    "custom": "",
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "range-increment-60",
+                        "reload-0"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "ranged"
+                },
                 "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
-                    "value": "1"
+                    "value": 0
                 }
             },
             "effects": [],
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/padded-armor.jpg",
-            "name": "Padded Armor",
-            "sort": 1900000,
-            "type": "armor"
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Shortbow",
+            "sort": 1500000,
+            "type": "melee"
         }
     ],
-    "name": "Bitter Truth Bandits",
+    "name": "Smiler",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "88VcnxbKPF2QkPiF",
+        "actorId": "U6jOmV5RAkj32qOi",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2112,15 +1986,19 @@
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Bitter Truth Bandits",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Smiler",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
         "width": 1
     },
