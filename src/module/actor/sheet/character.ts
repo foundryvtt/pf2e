@@ -138,6 +138,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [] },
       deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [] },
       curse: { label: 'PF2E.FeatCurseHeader', feats: [] },
+      familiarmaster: { label: 'PF2E.FeatFamiliarMasterHeader', feats: [] },
     };
 
     // Actions

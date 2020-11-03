@@ -1304,6 +1304,7 @@ CONFIG.featTypes = {
   pfsboon: 'PF2E.FeatPFSBoonHeader',
   deityboon: 'PF2E.FeatDeityBoonHeader',
   curse: 'PF2E.FeatCurseHeader',
+  familiarmaster: 'PF2E.FeatFamiliarMasterHeader',
 }; // Feat Action Types
 
 CONFIG.featActionTypes = {
