@@ -1,5 +1,5 @@
 {
-    "_id": "keCgklXcy4HZgQIL",
+    "_id": "XyHk8ChyuOkJuhVZ",
     "data": {
         "abilities": {
             "cha": {
@@ -9,8 +9,8 @@
             },
             "con": {
                 "min": 3,
-                "mod": 9,
-                "value": 28
+                "mod": 6,
+                "value": 22
             },
             "dex": {
                 "min": 3,
@@ -24,8 +24,8 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+9",
-                "value": 28
+                "mod": 6,
+                "value": 22
             },
             "wis": {
                 "min": 3,
@@ -35,12 +35,42 @@
         },
         "attributes": {
             "ac": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 17,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": -1,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
+                "base": 28,
+                "breakdown": "Base Armor Class 10, Base Modifier +17, Dexterity -1, Elite +2",
                 "check": 0,
-                "details": "",
+                "details": "; construct armor",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "42"
+                "name": "ac",
+                "totalModifier": 18,
+                "value": 28
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +89,12 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": "255",
+                "details": "Hardness 10",
+                "max": 90,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "255"
+                "value": 90
             },
             "init": {
                 "bonus": 0,
@@ -78,20 +108,49 @@
             "levelbonushp": 0,
             "levelbonussp": 0,
             "perception": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 15,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 15,
+                "breakdown": "Base Modifier +15, Wisdom +0, Elite +2",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
-                "value": 26
+                "totalModifier": 17,
+                "value": 17
             },
             "resolve": {
                 "value": 0
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
+                "brokenThreshold": "0",
+                "hardness": 10,
+                "max": "0",
                 "min": 0,
                 "value": 0
             },
@@ -121,12 +180,16 @@
                 "value": 0
             }
         },
+        "customModifiers": {
+            "all": []
+        },
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "N"
             },
             "ancestry": {
-                "value": "Golem"
+                "value": "Animated Object"
             },
             "biography": {
                 "public": "",
@@ -140,7 +203,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.png",
                 "value": ""
             },
-            "flavorText": "Crafted from a nigh-indestructible metal of great rarity, adamantine golems can’t be destroyed except by the most powerful foes. Crafting an adamantine golem requires a quantity of adamantine so massive that collecting it usually requires mounting a mining expedition to a distant planet, the Plane of Earth, or an Outer Plane.<br><br>",
+            "flavorText": "As with any humanoid animated statues of Medium size, giant animated statues are used to guard locations of importance, but their increased size and power make them most useful in large vaults, spacious chambers, or outdoor locations. Animated objects of this strength and size are ideal for tasks and responsibilities usually performed by golems, and more powerful animated objects are thus all but unheard of.<br><br>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +213,13 @@
             },
             "level": {
                 "min": 1,
-                "value": "18"
+                "value": 8
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=243",
-            "recallKnowledgeText": "Recall Knowledge : DC 43",
-            "sidebarText": "<h3 class=\"title\">Adamantine Golems</h3>The incredible amount of adamantine necessary to create a single adamantine golem is worth more than many nations&#x2019; treasuries. The powerful heart of an adamantine golem can be turned into a legendary forge for blacksmithing.",
+            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=22",
+            "recallKnowledgeText": "Recall Knowledge : DC 23",
+            "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 189"
+                "value": "Bestiary pg. 21"
             }
         },
         "martial": {
@@ -203,28 +266,115 @@
         },
         "saves": {
             "fortitude": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 11,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.AbilityCon",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "con",
-                "breakdown": "",
+                "base": 19,
+                "breakdown": "Base Modifier +11, Constitution +6, Elite +2",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 33
+                "totalModifier": 19,
+                "value": 19
             },
             "reflex": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 11,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": -1,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "dex",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +11, Dexterity -1, Elite +2",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 27
+                "totalModifier": 12,
+                "value": 12
             },
             "will": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 9,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 0,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 11,
+                "breakdown": "Base Modifier +9, Wisdom +0, Elite +2",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "value": 29
+                "totalModifier": 11,
+                "value": 11
             }
         },
         "schema": {
@@ -251,13 +401,45 @@
                 "value": 0
             },
             "ath": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 11,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.AbilityStr",
+                        "type": "ability"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 2,
+                        "name": "Elite",
+                        "type": "untyped"
+                    }
+                ],
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 17,
+                "breakdown": "Base Modifier +11, Strength +6, Elite +2",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 19,
+                "value": 19,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
@@ -408,19 +590,12 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "bleed, death effects, disease, doomed, drained, fatigued, fire, healing, magic, mental, necromancy, nonlethal attacks, paralyzed, poison, sickened, unconscious",
+                "custom": "bleed, death effects, disease, doomed, drained, fatigued, healing, mental, necromancy, nonlethal attacks, paralyzed, poison, sickened, unconscious",
                 "value": [
                     "custom"
                 ]
             },
-            "dr": [
-                {
-                    "exceptions": "vorpal adamantine",
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "20"
-                }
-            ],
+            "dr": [],
             "dv": [],
             "languages": {
                 "custom": "",
@@ -428,7 +603,7 @@
                 "value": []
             },
             "rarity": {
-                "value": "rare"
+                "value": "common"
             },
             "senses": {
                 "value": "darkvision"
@@ -440,31 +615,41 @@
                 "custom": "",
                 "value": [
                     "construct",
-                    "golem",
+                    "earth",
                     "mindless"
                 ]
             }
         }
     },
+    "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": true
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
-            "_id": "3RchvgPIdNc2KUu9",
+            "_id": "aGg1kw2fRdZFdeew",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
                     "value": [
-                        "destructive strike"
+                        "Grab"
                     ]
                 },
                 "bonus": {
-                    "total": 35,
-                    "value": 35
+                    "total": 19,
+                    "value": "21"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -480,14 +665,14 @@
                 },
                 "damage": {
                     "damageType": "bludgeoning",
-                    "die": "3d10+17"
+                    "die": "2d12+6"
                 },
-                "damageRolls": [
-                    {
-                        "damage": "3d10+17",
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d12+8",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -562,6 +747,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -570,9 +756,7 @@
                 },
                 "traits": {
                     "value": [
-                        "deadly 3d12",
-                        "magical",
-                        "reach 15 feet"
+                        "magical"
                     ]
                 },
                 "usage": {
@@ -582,293 +766,200 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Fist",
+            "name": "Stone Fist",
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "L4OGr85ZFnsYlmit",
+            "_id": "ZtVK4wU2SnZ0H3zl",
             "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "attack": {
                     "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 12,
+                    "value": "14"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "die": "2d6+6"
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+8",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "2d8+2",
+                        "damageType": "fire"
+                    }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "harmed by acid (9d10, 2d10 from areas or persistent damage); healed by fire (area 2d10 HP); slowed by electricity <br> A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem’s stat block, with the full rules appearing here. If an entry lists multiple types (such as “cold and water”), either type of spell can affect the golem. <b>Harmed By</b> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical. <b>Healed By</b> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical. <b>Slowed By</b> Any magic of this type that targets the golem causes it to be slowed 1 for 2d6 rounds instead of the usual effect. If the golem starts its turn in an area of this type of magic, it’s slowed 1 for that round. <b>Vulnerable To</b> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
+                "equipped": {
+                    "value": false
                 },
-                "source": {
+                "equippedBulk": {
                     "value": ""
                 },
-                "traits": {
-                    "value": []
+                "hardness": {
+                    "value": 0
                 },
-                "trigger": {
+                "hp": {
+                    "value": 0
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Golem Antimagic",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "wW41T2Rqe1HsYWiK",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
+                "preciousMaterialGrade": {
                     "value": ""
                 },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "When the adamantine golem is at 0 HP, it isn’t destroyed. Instead, it enters repair mode, during which it is slowed 1, can’t take reactions, and can take only the Self-Repair action. Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can’t take any reactions until the start of its next turn. If a critical hit with an adamantine vorpal weapon reduces the golem to 0 HP, or if such a weapon hits it while it’s already at 0 HP, then the golem is destroyed."
+                "price": {
+                    "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
                     "value": ""
                 },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Repair Mode",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "GliiYsgCIg3rdZ5a",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The golem can be targeted by @Compendium[pf2e.spells-srd.ihbRf964JDXztcy3]{Disjunction} and @Compendium[pf2e.spells-srd.9HpwDN4MYQJnW0LG]{Dispel Magic}. If targeted by such a spell of 9th level or higher, the golem has its resistance to physical damage lowered to 15 and is slowed 1 (or slowed 2 if in repair mode) for 1d4 rounds. During this time, if the golem is reduced to 0 HP while already in repair mode, it is destroyed."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Vulnerable to Dispelling",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "grrGcmbt2tnL36tN",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "On a critical hit, the adamantine golem’s fist Strike breaks the target’s armor, if any, in addition to dealing damage to the target. If the target has a shield raised, the golem breaks the shield instead."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Destructive Strike",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "7oaUFXYYOKxFTw4S",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
+                "quantity": {
                     "value": 1
                 },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The adamantine golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a DC 45 Fortitude save.<br> <b>Critical Success</b> The creature takes no damage and its armor takes no damage.<br> <b>Success</b> The golem halts its movement and cannot enter the creature’s square.<br> <b>Failure</b> The resisting creature is damaged and its armor takes damage as if hit by the adamantine golem’s fist."
-                },
                 "rarity": {
                     "value": "common"
                 },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Inexorable March",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "QIPvgEw3eXLxKT8d",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": " The golem repairs itself, regaining 30 Hit Points."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
+                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
                     "value": [
-                        "manipulate"
+                        "fire",
+                        "magical",
+                        "range increment 80 feet"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {}
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Flaming Coal",
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "FHYZijWKqxyPWq4b",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Like normal objects, an giant animated statue has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once an giant animated statue is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 24.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -880,14 +971,72 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Self-Repair",
-            "sort": 700000,
+            "name": "Construct Armor",
+            "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "Cb2C8LIPyMVI1r9J",
+            "_id": "v0n7ntTptPAp7TPz",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing [[/r 15 # cold damage]] cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal [[/r 2d8+2 # fire damage]] fire damage.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Brazier",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "M203mlcBNFvAqyIJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -901,7 +1050,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The golem vents a 30-foot cone of superheated steam from its internal forge. This deals [[/r 15d6 # fire damage]] fire damage to all creatures in the cone (DC 40 basic Reflex). The golem can't use Vent again for 1d6 rounds."
+                    "value": " The statue grinds a creature it has grabbed into the red-hot coals of its brazier. The target takes [[/r 3d8 # fire damage]] fire damage and [[/r 1d8 # persistent fire damage]] persistent fire damage."
                 },
                 "rarity": {
                     "value": "common"
@@ -909,6 +1058,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -931,14 +1081,66 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Vent",
-            "sort": 800000,
+            "name": "Burn Alive",
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "fmY3y3VABcIzpI9v",
+            "_id": "Ym1beTSPqyIJm34C",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<b>Requirements</b> The monster’s last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster’s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can’t be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster’s Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Grab",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "TrvtMQLdPCginZlQ",
             "data": {
                 "description": {
                     "chat": "",
@@ -950,7 +1152,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 38
+                    "value": 19
                 },
                 "proficient": {
                     "value": 0
@@ -958,6 +1160,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -968,25 +1171,141 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 700000,
             "type": "lore"
+        },
+        {
+            "_id": "b0vvj0Goc8cH8sH9",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Fast Healing 5",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "QlMKYLdaF5xd0vap",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Each day at dawn, if the guardian has been destroyed, it re‑forms in this room. Its maximum Hit Points are permanently reduced by 10, but it is otherwise restored to its full, lower Hit Point total. Once the statue&rsquo;s maximum Hit Points would be 60 or fewer, it can no longer be restored in this manner and is permanently destroyed.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Divine Restoration",
+            "sort": 900000,
+            "type": "action"
         }
     ],
-    "name": "Adamantine Golem",
+    "name": "Guardian of the Faithful",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorData": {},
-        "actorId": "keCgklXcy4HZgQIL",
+        "actorId": "XyHk8ChyuOkJuhVZ",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -995,19 +1314,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 2,
+        "height": 3,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5,
+            "type": ""
+        },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Adamantine Golem",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Guardian of the Faithful",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 2
+        "width": 3
     },
     "type": "npc"
 }
