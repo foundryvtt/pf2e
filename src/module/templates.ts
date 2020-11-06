@@ -50,6 +50,7 @@ export default function () {
         'systems/pf2e/templates/items/effect-sidebar.html',
         'systems/pf2e/templates/items/equipment-details.html',
         'systems/pf2e/templates/items/equipment-sidebar.html',
+        'systems/pf2e/templates/items/familiarMasterAbility-sidebar.html',
         'systems/pf2e/templates/items/feat-details.html',
         'systems/pf2e/templates/items/feat-sidebar.html',
         'systems/pf2e/templates/items/kit-details.html',

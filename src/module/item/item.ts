@@ -411,7 +411,11 @@ export default class PF2EItem extends Item {
 
   _familiarMasterAbilityChatData() {
     const data: any = duplicate(this.data.data);
-    data.properties = [];
+    if (data.familiar.id) {
+      data.familiar = game.actors.get(data.familiar.id);
+    } else {
+      data.familiar = null;
+    }
     return data;
   }
 

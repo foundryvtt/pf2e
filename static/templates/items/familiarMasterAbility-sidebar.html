@@ -1,0 +1,14 @@
+<h4 class="sidebar-summary">{{localize "PF2E.ItemSummary"}}</h4>
+
+<div class="inventory-details">
+    <div class="form-group">
+        <label>Familiar</label>
+        <select name="data.familiar.id" data-dtype="String">
+            {{#select data.familiar.id}}
+            {{#each familiars as |familiar|}}
+            <option value="{{familiar._id}}">{{familiar.name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</div>

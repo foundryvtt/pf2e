@@ -1,4 +1,4 @@
-/* global ui */
+/* global ui, CONST */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
@@ -218,7 +218,22 @@ export class ItemSheetPF2e extends ItemSheet {
       // Lore-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
     } else if (type === 'familiarMasterAbility') {
-      data.hasSidebar = false;
+      // Familiar Master Ability-specific data
+      const slots = getPropertySlots(this.item.data);
+      this.assignPropertySlots(data, slots);
+
+      if (this.actor) {
+        const owners = Object.entries(this.actor.data.permission)
+            .filter(([id, permission], idx) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
+            .map(([userID, _], idx) => game.users.get(userID));
+        data.familiars = game.actors.entities.filter(actor => ['familiar'].includes(actor.data.type))
+            .filter(actor => actor.hasPerm(game.user, "OWNER"))
+            .filter(actor => owners.some(owner => actor.hasPerm(owner, "OWNER")));
+        console.log("Familiars:", data.familiars);
+      } else {
+        data.familiar = [];
+        console.log("No actor");
+      }
     }
 
     data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
