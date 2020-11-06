@@ -32,6 +32,7 @@ export class ItemSheetPF2e extends ItemSheet {
 
 
   getData() {
+    console.log("Preparing sheet data");
     const data: any = super.getData();
     // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
     // This works because the actor's items are already updated by the time the ItemSheet rerenders.
@@ -50,7 +51,7 @@ export class ItemSheetPF2e extends ItemSheet {
       type,
       hasSidebar: true,
       sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack', 'condition'].includes(type),
+      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack', 'condition', 'familiarMasterAbility'].includes(type),
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     }); // Damage types
 

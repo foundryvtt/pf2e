@@ -18,7 +18,8 @@ export function registerSheets() {
       "action",
       "backpack",
       "condition",
-      "effect"
+      "effect",
+      "familiarMasterAbility",
     ], makeDefault: true });    
     Items.registerSheet('pf2e', KitItemSheetPF2e, { types: ['kit'], makeDefault: true });    
 }

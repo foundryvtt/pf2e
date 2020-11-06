@@ -363,6 +363,7 @@ class CompendiumBrowser extends Application {
       'treasure',
       'backpack',
       'kit',
+      'familiarMasterAbility',
     ];
 
     for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
@@ -404,6 +405,7 @@ class CompendiumBrowser extends Application {
         treasure: 'Treasure',
         backpack: 'Containers',
         kit: 'Kits',
+        familiarMasterAbility: 'Familiar Master Abilities',
       },
       rarities: CONFIG.PF2E.rarityTraits,
       weaponTypes: CONFIG.PF2E.weaponTypes,

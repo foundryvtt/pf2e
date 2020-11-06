@@ -45,7 +45,8 @@ Hooks.on('dropCanvasData', async (c: any, data: any) => {
                      'backpack',
                      'kit',
                      'condition',
-                     'effect'
+                     'effect',
+                     'familiarMasterAbility'
                     ].includes(itemData.type)
                 ) {
                     switch(itemData.type) {

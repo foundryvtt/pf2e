@@ -674,9 +674,14 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
     type: 'condition'
 }
 
+export interface FamiliarMasterAbilityData extends BaseEntityData<ItemDescriptionData> {
+    type: 'familiarMasterAbility'
+}
+
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
+    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData |
+    FamiliarMasterAbilityData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;
