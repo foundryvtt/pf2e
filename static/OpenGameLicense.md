@@ -122,6 +122,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	
 	* Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
 	* Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
+	* Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
 
     * Pathfinder Society Scenario #1–00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
     * Pathfinder Society Scenario #1–01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
@@ -156,6 +157,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #2-02: Mountain of Sea and Sky © 2020, Paizo Inc.; Authors: Adrian Ng
 	* Pathfinder Society Scenario #2-03: Catastrophe's Spark © 2020, Paizo Inc.; Authors: Tineke Bolleman
 	* Pathfinder Society Scenario #2-04: Path of Kings © 2020, Paizo Inc.; Authors: Luis Loza
+	* Pathfinder Society Scenario #2-05: Balancing the Scales © 2020, Paizo Inc.; Authors: Jessica Catalan
+	* Pathfinder Society Scenario #2-06: The Crashing Wave © 2020, Paizo Inc.; Authors: Dustin Knight
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens

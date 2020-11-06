@@ -903,8 +903,10 @@ CONFIG.hazardTraits = {
   auditory: 'PF2E.TraitAuditory',
   environmental: 'PF2E.TraitEnvironmental',
   haunt: 'PF2E.TraitHaunt',
+  inhaled: 'PF2E.TraitInhaled',
   magical: 'PF2E.TraitMagical',
-  mechanical: 'PF2E.TraitMechanical'
+  mechanical: 'PF2E.TraitMechanical',
+  summon: 'PF2E.TraitSummon'
 };
 mergeObject(CONFIG.hazardTraits, CONFIG.damageTypes);
 mergeObject(CONFIG.hazardTraits, CONFIG.magicalSchools);
