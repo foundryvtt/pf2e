@@ -218,7 +218,7 @@ export class ItemSheetPF2e extends ItemSheet {
     } else if (type === 'lore') {
       // Lore-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-    } else if (type == 'familiarMasterAbility') {
+    } else if (type === 'familiarMasterAbility') {
       data.hasSidebar = false;
     }
 
