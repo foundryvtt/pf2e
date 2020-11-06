@@ -51,7 +51,7 @@ export class ItemSheetPF2e extends ItemSheet {
       type,
       hasSidebar: true,
       sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
-      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack', 'condition', 'familiarMasterAbility'].includes(type),
+      hasDetails: ['consumable', 'equipment', 'feat', 'spell', 'weapon', 'armor', 'action', 'melee', 'backpack', 'condition'].includes(type),
       detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
     }); // Damage types
 
@@ -218,6 +218,8 @@ export class ItemSheetPF2e extends ItemSheet {
     } else if (type === 'lore') {
       // Lore-specific data
       data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+    } else if (type == 'familiarMasterAbility') {
+      data.hasSidebar = false;
     }
 
     data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
