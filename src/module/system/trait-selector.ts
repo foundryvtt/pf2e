@@ -51,7 +51,15 @@ export class TraitSelector5e extends FormApplication {
    */
   getData() {
     // Get current values
-    const attr = getProperty(this.object.data, this.attribute);
+    let attr = getProperty(this.object.data, this.attribute);
+    if (attr === undefined) {
+      // if it's completely not there, we should fill with something useful
+      attr = {
+        value: [],
+        "selected": [],
+        "custom": ""
+      };
+    }
     if (typeof attr.value === 'string') attr.value = TraitSelector5e._backCompat(attr.value, this.options.choices);
     if (!attr.value) attr.value = '';
 
