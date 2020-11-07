@@ -1226,7 +1226,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
         const actor = this.actor;
         let itemData;
         if (data.pack) {
-            console.log(`Comes from compemdium`);
+            console.log(`Comes from compendium`);
             const pack = game.packs.get(data.pack);
             itemData = await pack.getEntry(data.id);
         }
