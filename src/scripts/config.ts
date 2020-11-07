@@ -424,7 +424,7 @@ CONFIG.classTraits = {
   swashbuckler: 'PF2E.TraitSwashbuckler',
   witch: 'PF2E.TraitWitch',
   wizard: 'PF2E.TraitWizard'
-}; // Ancestry Traits
+}; // Class Traits
 
 CONFIG.ancestryTraits = {
   dwarf: 'PF2E.TraitDwarf',
@@ -450,7 +450,7 @@ CONFIG.ancestryTraits = {
   shoony: 'PF2E.TraitShoony',
   tengu: 'PF2E.TraitTengu',
   tiefling: 'PF2E.TraitTiefling'
-}; // Weapon Properties
+}; // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
