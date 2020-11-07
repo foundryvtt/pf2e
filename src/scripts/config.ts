@@ -515,6 +515,13 @@ CONFIG.ancestryTraits = {
   tiefling: 'PF2E.TraitTiefling'
 }; // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
+CONFIG.ancestryItemTraits = {
+  humanoid: 'PF2E.TraitHumanoid',
+  plant: 'PF2E.TraitPlant',
+};
+mergeObject(CONFIG.ancestryItemTraits, CONFIG.ancestryTraits);
+
+
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
   adamantine: 'PF2E.PreciousMaterialAdamantine',

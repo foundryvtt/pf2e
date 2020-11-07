@@ -1,6 +1,8 @@
 import {PF2RuleElementData} from "../rules/rulesDataDefinitions";
 import {AbilityString} from "../actor/actorDataDefinitions";
 
+export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+
 export interface ItemDescriptionData {
     description: {
         value: string;
@@ -306,6 +308,46 @@ export interface ConsumableDetailsData {
     autoDestroy: {
         value: boolean,
         _deprecated: boolean
+    }
+}
+
+export interface BoostFlawInfo {
+    str: boolean
+    dex: boolean
+    con: boolean
+    int: boolean
+    wis: boolean
+    cha: boolean
+}
+
+export interface ABCFeatureEntryData {
+    pack?: string;
+    id: string;
+    img: string;
+    name: string;
+    items?: {[key: number]: ABCFeatureEntryData};
+}
+
+export interface AncestryDetailsData {
+    additionalLanguages: {
+        value: string[],
+        custom: string
+    }
+    boosts: BoostFlawInfo[]
+    flaws: BoostFlawInfo[]
+    hp: number
+    items: {[key: number]: ABCFeatureEntryData}
+    languages: {
+        value: string[],
+        custom: string
+    }
+    speed: number
+    size: Sizes
+    traits: {
+        rarity: {
+            value: string
+        }
+        value: string[]
     }
 }
 
@@ -643,6 +685,10 @@ export interface EquipmentData extends BaseEntityData<ItemDescriptionData & Acti
     type: 'equipment'
 }
 
+export interface AncestryData extends BaseEntityData<ItemDescriptionData & AncestryDetailsData> {
+    type: 'ancestry'
+}
+
 export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescriptionData & ItemLevelData> {
     type: 'feat'
 }
@@ -677,7 +723,8 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
 
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
+    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData |
+    AncestryData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;

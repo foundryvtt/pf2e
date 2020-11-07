@@ -37,6 +37,8 @@ export default function () {
         'systems/pf2e/templates/items/rules-panel.html',
         'systems/pf2e/templates/items/action-details.html',
         'systems/pf2e/templates/items/action-sidebar.html',
+        'systems/pf2e/templates/items/ancestry-details.html',
+        'systems/pf2e/templates/items/ancestry-sidebar.html',
         'systems/pf2e/templates/items/armor-details.html',
         'systems/pf2e/templates/items/armor-sidebar.html',
         'systems/pf2e/templates/items/backpack-details.html',
