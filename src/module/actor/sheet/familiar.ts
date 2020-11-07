@@ -1,5 +1,6 @@
 /* global CONST, Dialog */
 import {SKILL_DICTIONARY} from "../actor";
+import {FamiliarData} from '../actorDataDefinitions';
 
 
 /**
@@ -37,6 +38,49 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
         (sheet as any).abilities = CONFIG.PF2E.abilities;
 
         return sheet;
+    }
+
+    async _onDrop(event) {
+        const dropTarget = $(event.target);
+        const dragData = event.dataTransfer.getData('text/plain');
+        const dragItem = JSON.parse(dragData);
+
+        if (dragItem.type !== 'Item') return;
+
+        let item;
+
+        if (dragItem.pack) {
+            item = await game.packs.get(dragItem.pack).getEntity(dragItem.id);
+        } else {
+            item = game.items.get(dragItem.id);
+        }
+
+        console.log("Overriding familiar sheet _onDrop");
+        if ("familiarMasterAbility" === item.data.type) {
+            console.log("Got familiarMasterAbility", item);
+            console.log(this.actor.data.data);
+            console.log((this.actor.data.data as FamiliarData).master);
+            let masterId = (this.actor.data.data as FamiliarData).master?.id;
+            console.log("masterId", masterId);
+            let master;
+            if (masterId && game.actors) {
+              master = game.actors.get(masterId);
+              console.log("Found master", master);
+            }
+            if (master) {
+                console.log("Found master", master);
+                await item.update({
+                    familiar: {
+                        id: this.actor.data._id
+                    }
+                });
+                console.log("Updated item", item);
+                master.createOwnedItem([item]);
+            }
+        } else {
+            console.log("Calling super method");
+            await super._onDrop(event);
+        }
     }
 
     // Events
