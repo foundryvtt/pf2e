@@ -135,20 +135,20 @@ export class PF2Modifier {
    * @param {string} type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
    * @param {PF2ModifierPredicate} predicate The predicate driving whether the modifier should be initially toggled or not.
    */
-  constructor(name: string, modifier: number, type: string, predicate = ALWAYS_TRUE_PREDICATE) {
+  constructor(name: string, modifier: number, type: string, predicate = ALWAYS_TRUE_PREDICATE, toggled: boolean = true) {
     this.name = name;
     this.modifier = modifier;
     this.type = type;
     this.custom = false;
     this.predicate = predicate;
-    this.toggled = true;
+    this.toggled = toggled;
   }
 
   /**
    * Returns a copy of the modifier. Useful to decouple the toggled state for a new check.
    */
   copy() {
-    return new PF2Modifier(this.name, this.modifier, this.type, this.predicate);
+    return new PF2Modifier(this.name, this.modifier, this.type, this.predicate, this.toggled);
   }
 
   /** Flips the toggled state for this modifier. */

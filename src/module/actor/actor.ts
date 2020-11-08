@@ -203,8 +203,8 @@ export default class PF2EActor extends Actor {
         modifiers.push(new PF2Modifier('PF2E.BonusHPperLevel', data.attributes.levelbonushp * data.details.level.value, PF2ModifierType.UNTYPED));
       }
   
-      (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-      (statisticsModifiers['hp-per-level'] || []).map((m) => duplicate(m)).forEach((m) => {
+      (statisticsModifiers.hp || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
+      (statisticsModifiers['hp-per-level'] || []).map((m) => m.copy()).forEach((m) => {
         m.modifier *= data.details.level.value;
         modifiers.push(m)
       });
@@ -249,7 +249,7 @@ export default class PF2EActor extends Actor {
 
       // Add custom modifiers relevant to this save.
       [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
@@ -282,7 +282,7 @@ export default class PF2EActor extends Actor {
         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), PF2ModifierType.ITEM));
       }
       ['perception', 'wis-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject<PerceptionData>(new PF2StatisticModifier('perception', modifiers) as PerceptionData, data.attributes.perception, { overwrite: false });
@@ -303,7 +303,7 @@ export default class PF2EActor extends Actor {
         ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.classDC.rank ?? 0),
       ];
       ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject<ClassDCData>(new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers) as ClassDCData, data.attributes.classDC, { overwrite: false });
@@ -340,7 +340,7 @@ export default class PF2EActor extends Actor {
 
       // condition and custom modifiers
       ['ac', 'dex-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject<ArmorClassData>(new PF2StatisticModifier("ac", modifiers) as ArmorClassData, data.attributes.ac, { overwrite: false });
@@ -398,7 +398,7 @@ export default class PF2EActor extends Actor {
       const expandedName = SKILL_DICTIONARY[skillName];
 
       [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       // preserve backwards-compatibility
@@ -434,7 +434,7 @@ export default class PF2EActor extends Actor {
         modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
       }
       [shortform, `int-based`, 'skill-check', 'all'].forEach((key) => {
-        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[(key as any)] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject(new PF2StatisticModifier(skill.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
@@ -461,7 +461,7 @@ export default class PF2EActor extends Actor {
       const base = Number(data.attributes.speed.value ?? 0);
       const modifiers = [];
       ['land-speed', 'speed'].forEach((key) => {
-        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[(key as any)] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
       const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers) as any, data.attributes.speed, { overwrite: false });
       stat.total = base + stat.totalModifier;
@@ -474,7 +474,7 @@ export default class PF2EActor extends Actor {
       const base = Number(speed.value ?? 0)
       const modifiers = [];
       [`${speed.type}-speed`, 'speed'].forEach((key) => {
-        (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[(key as any)] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
       const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
       stat.total = base + stat.totalModifier;
@@ -681,7 +681,7 @@ export default class PF2EActor extends Actor {
       modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
     }
     ['initiative'].forEach((key) => {
-      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
     });
     const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
     const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
@@ -809,7 +809,7 @@ export default class PF2EActor extends Actor {
         new PF2Modifier(CONFIG.abilities.dex, dexterity, PF2ModifierType.ABILITY)
       ];
       ['ac', 'dex-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject(new PF2StatisticModifier("ac", modifiers) as NPCArmorClassData, data.attributes.ac, { overwrite: false });
@@ -828,7 +828,7 @@ export default class PF2EActor extends Actor {
         new PF2Modifier(CONFIG.abilities[save.ability], data.abilities[save.ability].mod, PF2ModifierType.ABILITY)
       ];
       [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers) as NPCSaveData, data.saves[saveName], { overwrite: false });
@@ -851,7 +851,7 @@ export default class PF2EActor extends Actor {
         new PF2Modifier(CONFIG.abilities.wis, data.abilities.wis.mod, PF2ModifierType.ABILITY)
       ];
       ['perception', 'wis-based', 'all'].forEach((key) => {
-        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+        (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
       });
 
       const stat = mergeObject(new PF2StatisticModifier('perception', modifiers) as NPCPerceptionData, data.attributes.perception, { overwrite: false });
@@ -880,7 +880,7 @@ export default class PF2EActor extends Actor {
           new PF2Modifier(CONFIG.abilities[ability], data.abilities[ability].mod, PF2ModifierType.ABILITY)
         ];
         [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
-          (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+          (statisticsModifiers[key] || []).map((m) => m.copy()).forEach((m) => modifiers.push(m));
         });
 
         const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
@@ -943,7 +943,7 @@ export default class PF2EActor extends Actor {
         const base = Number(speed.value ?? 0)
         const modifiers = [];
         [`${speed.type}-speed`, 'speed'].forEach((key) => {
-          (statisticsModifiers[key as string] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m));
+          (statisticsModifiers[key as string] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m));
         });
         const stat = mergeObject(new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers) as any, speed, { overwrite: false });
         stat.total = base + stat.totalModifier;
@@ -959,8 +959,8 @@ export default class PF2EActor extends Actor {
         const modifiers = [
           new PF2Modifier('PF2E.MasterLevelHP', data.master.level * 5, PF2ModifierType.UNTYPED)
         ];
-        (statisticsModifiers.hp || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m));
-        (statisticsModifiers['hp-per-level'] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => {
+        (statisticsModifiers.hp || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m));
+        (statisticsModifiers['hp-per-level'] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => {
           m.modifier *= data.details.level.value;
           modifiers.push(m)
         });
@@ -978,7 +978,7 @@ export default class PF2EActor extends Actor {
         const base = 10 + new PF2StatisticModifier('base', source).totalModifier;
         const modifiers = [];
         ['ac', 'dex-based', 'all'].forEach(key =>
-          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m))
         );
         const stat = new PF2StatisticModifier('ac', modifiers);
         stat.value = base + stat.totalModifier;
@@ -993,7 +993,7 @@ export default class PF2EActor extends Actor {
           new PF2Modifier(`PF2E.MasterSavingThrow.${saveName}`, new PF2StatisticModifier('base', source).totalModifier, PF2ModifierType.UNTYPED)
         ];
         [save.name, `${save.ability}-based`, 'saving-throw', 'all'].forEach(key =>
-          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m))
         );
         const stat = new PF2StatisticModifier(CONFIG.saves[saveName], modifiers);
         stat.value = stat.totalModifier;
@@ -1011,7 +1011,7 @@ export default class PF2EActor extends Actor {
           new PF2Modifier('PF2E.MasterLevel', data.details.level.value, PF2ModifierType.UNTYPED)
         ];
         ['attack', 'all'].forEach(key =>
-          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m))
         );
         const stat = new PF2StatisticModifier('attack', modifiers);
         stat.value = stat.totalModifier;
@@ -1029,7 +1029,7 @@ export default class PF2EActor extends Actor {
           new PF2Modifier(`PF2E.MasterAbility.${data.master.ability}`, spellcastingAbilityModifier, PF2ModifierType.UNTYPED)
         ];
         ['perception', 'wis-based', 'all'].forEach(key =>
-          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m))
         );
         const stat = new PF2StatisticModifier('perception', modifiers);
         stat.value = stat.totalModifier;
@@ -1052,7 +1052,7 @@ export default class PF2EActor extends Actor {
         const expanded = SKILL_DICTIONARY[shortform];
         const ability = SKILL_EXPANDED[expanded].ability;
         [expanded, `${ability}-based`, 'skill-check', 'all'].forEach(key =>
-          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
+          (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => m.copy()).forEach(m => modifiers.push(m))
         );
         const stat = new PF2StatisticModifier(game.i18n.localize(`PF2E.Skill${skillName}`), modifiers);
         stat.value = stat.totalModifier;
