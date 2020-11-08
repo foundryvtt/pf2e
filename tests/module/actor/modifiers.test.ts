@@ -133,8 +133,8 @@ describe('#modifiers', () => {
     ];
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(2);
-    expect(modifiers[0].enabled).toBe(false);
-    expect(modifiers[1].enabled).toBe(true);
+    expect(stat.enabledModifiers).toHaveLength(1);
+    expect(stat.enabledModifiers).toContain(modifiers[1])
   });
 
   test('enable only lowest penalty when stacking applied for overlapping modifiers', () => {
@@ -154,8 +154,8 @@ describe('#modifiers', () => {
     ];
     const stat = new PF2StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-2);
-    expect(modifiers[0].enabled).toBe(false);
-    expect(modifiers[1].enabled).toBe(true);
+    expect(stat.enabledModifiers).toHaveLength(1);
+    expect(stat.enabledModifiers).toContain(modifiers[1]);
   });
 
   test('ensure untyped penalties always are enabled and stacks', () => {

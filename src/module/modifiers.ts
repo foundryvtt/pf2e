@@ -60,6 +60,51 @@ export const PF2ModifierType = Object.freeze({
 });
 
 /**
+ * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
+ * on a list of string values. This will often be based on traits, but that is not required - sneak
+ * attack could be an option that is not a trait.
+ * @category PF2
+ */
+export class PF2ModifierPredicate {
+  /** The options must have ALL of these entries for this predicate to pass.  */
+  all: string[];
+  /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
+  any: string[];
+  /** The options must NOT HAVE ANY of these entries for this predicate to pass. */
+  not: string[];
+
+  /** Test if the given predicate passes for the given list of options. */
+  static test(predicate: { all?: string[], any?: string[], not?: string[] }, options: string[]): boolean {
+    const { all, any, not } = predicate ?? {};
+
+    let active = true;
+    if (all && all.length > 0) {
+      active = active && all.every(i => options.includes(i));
+    }
+    if (any && any.length > 0) {
+      active = active && any.some(i => options.includes(i));
+    }
+    if (not && not.length > 0) {
+      active = active && !not.some(i => options.includes(i));
+    }
+    return active;
+  }
+
+  constructor(param?: { all?: string[], any?: string[], not?: string[] }) {
+    this.all = param?.all ?? [];
+    this.any = param?.any ?? [];
+    this.not = param?.not ?? [];
+  }
+
+  /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
+  test(options: string[]): boolean {
+    return PF2ModifierPredicate.test(this, options);
+  }
+}
+
+const ALWAYS_TRUE_PREDICATE = Object.freeze(new PF2ModifierPredicate({}));
+
+/**
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
  * @category PF2
  */
@@ -70,20 +115,14 @@ export class PF2Modifier {
   modifier: number;
   /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
   type: string;
-  /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
-  enabled: boolean;
-  /** The source which this modifier originates from, if any. */
-  source: string;
-  /** Any notes about this modifier. */
-  notes: string;
-  /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
-  ignored: boolean;
+  /** If false, this modifier should be explicitly ignored in calculation; it should only be set by user action. */
+  toggled: boolean;
   /** If true, this modifier is a custom player-provided modifier. */
   custom: boolean;
   /** The damage type that this modifier does, if it modifies a damage roll. */
   damageType: string;
   /** A predicate which determines when this modifier is active. */
-  predicate: any;
+  predicate: PF2ModifierPredicate;
   /** If true, this modifier is only active on a critical hit. */
   critical: boolean;
   /** The list of traits that this modifier gives to the underlying attack, if any. */
@@ -94,19 +133,33 @@ export class PF2Modifier {
    * @param {string} name The name for the modifier; should generally be a localization key.
    * @param {number} modifier The actual numeric benefit/penalty that this modifier provides.
    * @param {string} type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
-   * @param {boolean} enabled If true, this modifier will be applied to the result; otherwise, it will not.
-   * @param {string} source The source which this modifier originates from, if any.
-   * @param {string} notes Any notes about this modifier.
+   * @param {PF2ModifierPredicate} predicate The predicate driving whether the modifier should be initially toggled or not.
    */
-  constructor(name: string, modifier: number, type: string, enabled: boolean = true, source: string = undefined, notes: string = undefined) {
+  constructor(name: string, modifier: number, type: string, predicate = ALWAYS_TRUE_PREDICATE) {
     this.name = name;
     this.modifier = modifier;
     this.type = type;
-    this.enabled = enabled;
-    this.ignored = false;
     this.custom = false;
-    if (source) this.source = source;
-    if (notes) this.notes = notes;
+    this.predicate = predicate;
+    this.toggled = true;
+  }
+
+  /**
+   * Returns a copy of the modifier. Useful to decouple the toggled state for a new check.
+   */
+  copy() {
+    return new PF2Modifier(this.name, this.modifier, this.type, this.predicate);
+  }
+
+  /** Flips the toggled state for this modifier. */
+  toggle() {
+    this.toggled = !this.toggled;
+  }
+
+  /** Toggles this modifier on or off depending on the given options. Returns the new toggled state. */
+  toggleFor(options: string[]): boolean {
+    this.toggled = this.predicate.test(options);
+    return this.toggled;
   }
 }
 
@@ -226,28 +279,14 @@ const LOWER_PENALTY = (a: PF2Modifier, b: PF2Modifier) => a.modifier <= b.modifi
 
 /**
  * Given a current map of damage type -> best modifier, compare the given modifier against the current best modifier
- * and update it if it is better (according to the `isBetter` comparison function). Returns the delta in the total modifier
- * as a result of this update.
+ * and update it if it is better (according to the `isBetter` comparison function).
  */
 function applyStacking(best: Record<string, PF2Modifier>, modifier: PF2Modifier, isBetter: (first: PF2Modifier, second: PF2Modifier) => boolean) {
   // If there is no existing bonus of this type, then add ourselves.
   const existing = best[modifier.type];
-  if (existing === undefined) {
-    modifier.enabled = true;
-    best[modifier.type] = modifier;
-    return modifier.modifier;
-  }
 
-  if (isBetter(modifier, existing)) {
-    // If we are a better modifier according to the comparison, then we become the new 'best'.
-    existing.enabled = false;
-    modifier.enabled = true;
+  if (existing === undefined || isBetter(modifier, existing)) {
     best[modifier.type] = modifier;
-    return (modifier.modifier - existing.modifier);
-  } else {
-    // Otherwise, the existing modifier is better, so do nothing.
-    modifier.enabled = false;
-    return 0;
   }
 }
 
@@ -258,34 +297,30 @@ function applyStacking(best: Record<string, PF2Modifier>, modifier: PF2Modifier,
  * @param {PF2Modifier[]} modifiers The list of modifiers to apply stacking rules for.
  * @returns {number} The total modifier provided by the given list of modifiers.
  */
-function applyStackingRules(modifiers: PF2Modifier[]): number {
-  let total = 0;
+function applyStackingRules(modifiers: readonly PF2Modifier[]): { modifier: PF2Modifier, enabled: boolean }[] {
   const highestBonus: Record<string, PF2Modifier> = {};
   const lowestPenalty: Record<string, PF2Modifier> = {};
 
   for (const modifier of modifiers) {
     // Always disable ignored modifiers and don't do anything further with them.
-    if (modifier.ignored) {
-      modifier.enabled = false;
-      continue;
-    }
-
-    // Untyped modifiers always stack, so enable them and add their modifier.
-    if (modifier.type === PF2ModifierType.UNTYPED) {
-      modifier.enabled = true;
-      total += modifier.modifier;
+    if (!modifier.toggled) {
       continue;
     }
 
     // Otherwise, apply stacking rules to positive modifiers and negative modifiers separately.
     if (modifier.modifier < 0) {
-      total += applyStacking(lowestPenalty, modifier, LOWER_PENALTY);
+      applyStacking(lowestPenalty, modifier, LOWER_PENALTY);
     } else {
-      total += applyStacking(highestBonus, modifier, HIGHER_BONUS);
+      applyStacking(highestBonus, modifier, HIGHER_BONUS);
     }
   }
 
-  return total;
+  return modifiers.map(m => {
+    return {
+      modifier: m,
+      enabled: m.type === PF2ModifierType.UNTYPED || lowestPenalty[m.type] === m || highestBonus[m.type] === m
+    };
+  });
 }
 
 /**
@@ -299,54 +334,96 @@ export class PF2StatisticModifier {
   /** The name of this collection of modifiers for a statistic. */
   name: string;
   /** The list of modifiers which affect the statistic. */
-  _modifiers: PF2Modifier[];
+  _modifiers: { modifier: PF2Modifier, enabled: boolean }[];
   /** The total modifier for the statistic, after applying stacking rules. */
   totalModifier: number;
+  /** Options inherent to this statistic, e.g. weapon traits for the weapon attack stat. */
+  options?: string[];
   /** Allow decorating this object with any needed extra fields. */
   [key: string]: any;
 
   /**
    * @param {string} name The name of this collection of statistic modifiers.
    * @param {PF2Modifier[]} modifiers All relevant modifiers for this statistic.
+   * @param {string[]} options Roll options to be considered for intially toggling modifiers.
    */
-  constructor(name: string, modifiers: PF2Modifier[]) {
+  constructor(name: string, modifiers: PF2Modifier[] = [], options: string[] = []) {
     this.name = name;
-    this._modifiers = modifiers || [];
+    this._modifiers = modifiers.map(modifier => { return { modifier, enabled: true }; });
     { // de-duplication
-      const seen = [];
-      this._modifiers.filter((m) => {
-        const found = seen.find((o) => o.name === m.name) !== undefined;
-        if (!found) seen.push(m);
-        return found;
+      const seen: Set<string> = new Set();
+      this._modifiers = this._modifiers.filter((m) => {
+        const found = seen.has(m.modifier.name)
+        if (!found) seen.add(m.modifier.name);
+        return !found;
       });
-      this._modifiers = seen;
     }
     this.applyStackingRules();
   }
 
   /** Get the list of all modifiers in this collection (as a read-only list). */
   get modifiers(): readonly PF2Modifier[] {
-    return Object.freeze([].concat(this._modifiers));
+    return Object.freeze([].concat(this._modifiers.map(m => m.modifier)));
+  }
+
+  /** Get the list of only the enabled modifiers that would apply on this statistic. */
+  get enabledModifiers(): readonly PF2Modifier[] {
+    return Object.freeze(this._modifiers.filter(m => m.enabled).map(m => m.modifier));
+  }
+
+  /** Format the enabled modifiers as a comma separated list. */
+  formatBreakdown(): string {
+    return this.enabledModifiers
+      .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+      .join(', ');
   }
 
   /** Add a modifier to this collection. */
   push(modifier: PF2Modifier) {
     // de-duplication
-    if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
-      this._modifiers.push(modifier);
+    if (this._modifiers.find((o) => o.modifier.name === modifier.name) === undefined) {
+      this._modifiers.push({ modifier, enabled: true });
       this.applyStackingRules();
     }
   }
 
   /** Delete a modifier from this collection by name. */
   delete(modifierName: string) {
-    this._modifiers = this._modifiers.filter(m => m.name !== modifierName);
+    this._modifiers = this._modifiers.filter(m => m.modifier.name !== modifierName);
     this.applyStackingRules();
   }
 
   /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
   applyStackingRules() {
-    this.totalModifier = applyStackingRules(this._modifiers);
+    this._modifiers = applyStackingRules(this.modifiers);
+    this.totalModifier = this.enabledModifiers.map(m => m.modifier).reduce((sum, m) => sum + m, 0);
+  }
+
+  /** 
+   * Set the options for this statistic. Each modifier's predicate will be tested against these 
+   * options to determine if it should be initially toggled.
+   */
+  setOptions(options: string[]) {
+    this.options = options;
+    this.evaluateModifiersToggledState();
+    this.applyStackingRules();
+  }
+
+  /** 
+   * Add options for this statistic. Each modifier's predicate will be tested against these 
+   * options to determine if it should be initially toggled.
+   */
+  addOptions(options: string[]) {
+    this.options = this.options.concat(options);
+    this.evaluateModifiersToggledState();
+    this.applyStackingRules();
+  }
+
+  /**
+   * Tests every modifier against the current set of options.
+   */
+  protected evaluateModifiersToggledState() {
+    this._modifiers.forEach(m => m.modifier.toggleFor(this.options));
   }
 }
 
@@ -361,50 +438,10 @@ export class PF2CheckModifier extends PF2StatisticModifier {
    * @param {PF2Modifier[]} modifiers Additional modifiers to add to this check.
    */
   constructor(name: string, statistic: PF2StatisticModifier, modifiers: PF2Modifier[] = []) {
-    super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
-  }
-}
-
-/**
- * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
- * on a list of string values. This will often be based on traits, but that is not required - sneak
- * attack could be an option that is not a trait.
- * @category PF2
- */
-export class PF2ModifierPredicate {
-  /** The options must have ALL of these entries for this predicate to pass.  */
-  all: string[];
-  /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
-  any: string[];
-  /** The options must NOT HAVE ANY of these entries for this predicate to pass. */
-  not: string[];
-
-  /** Test if the given predicate passes for the given list of options. */
-  static test(predicate: { all?: string[], any?: string[], not?: string[] }, options: string[]): boolean {
-    const { all, any, not } = predicate ?? {};
-
-    let active = true;
-    if (all && all.length > 0) {
-      active = active && all.every(i => options.includes(i));
+    super(name, statistic.modifiers.map(m => m.copy()).concat(modifiers));
+    if (statistic.options !== undefined) {
+      this.setOptions(statistic.options);
     }
-    if (any && any.length > 0) {
-      active = active && any.some(i => options.includes(i));
-    }
-    if (not && not.length > 0) {
-      active = active && !not.some(i => options.includes(i));
-    }
-    return active;
-  }
-
-  constructor(param? : { all?: string[], any?: string[], not?: string[] }) {
-    this.all = param?.all ?? [];
-    this.any = param?.any ?? [];
-    this.not = param?.not ?? [];
-  }
-
-  /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
-  test(options: string[]): boolean {
-    return PF2ModifierPredicate.test(this, options);
   }
 }
 
@@ -413,8 +450,6 @@ export class PF2ModifierPredicate {
  * @category PF2
  */
 export class PF2DamageDice {
-  /** The selector used to determine when   */
-  selector: string;
   /** The name of this damage dice; used as an identifier. */
   name: string;
   /** The number of dice to add. */
@@ -429,19 +464,15 @@ export class PF2DamageDice {
   damageType?: string;
   /** Any traits which these dice add to the overall damage. */
   traits: string[];
-  /** If true, these dice overide the base damage dice of the weapon. */
-  override?: boolean;
-  /** If true, these custom dice are being ignored in the damage calculation. */
-  ignored: boolean;
-  /** If true, these custom dice should be considered in the damage calculation. */
-  enabled: boolean;
+  /** If true, these dice sice and damage types override the base values of the weapon. */
+  override?: { dieSize?: string, damageType?: string };
   /** If true, these dice are user-provided/custom. */
   custom: boolean;
   /** A predicate which limits when this damage dice is actually applied. */
-  predicate?: { all?: string[], any?: string[], not?: string[] };
+  predicate: PF2ModifierPredicate;
 
   constructor(param) {
-    if (param.selector) { this.selector = param.selector; } else { throw new Error('selector is mandatory'); }
+    if (param.selector) { throw new Error('Cannot set selector on damage die, instead pass it directly to the Actor.addDamageDice method.'); }
     if (param.name) { this.name = param.name } else { throw new Error('name is mandatory'); }
     this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
     this.dieSize = param?.dieSize;
@@ -449,10 +480,8 @@ export class PF2DamageDice {
     this.category = param?.category;
     this.damageType = param?.damageType;
     this.traits = param?.traits ?? [];
-    this.override = param?.override; // maybe restrict this object somewhat?
+    this.override = param?.override;
     this.predicate = new PF2ModifierPredicate(param?.predicate ?? param?.options ?? {}); // options is the old name for this field
-    this.ignored = PF2ModifierPredicate.test(this.predicate, []);
-    this.enabled = this.ignored;
     this.custom = param?.custom;
   }
 }

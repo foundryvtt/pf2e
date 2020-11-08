@@ -1,7 +1,7 @@
 /* global ChatMessage, ui */
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
+import { PF2StatisticModifier } from '../modifiers';
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -17,11 +17,7 @@ export class PF2Check {
      */
     static roll(check: PF2StatisticModifier, context: CheckModifiersContext = {}, event: JQuery.Event, callback?: (roll: Roll) => void) {
         if (context?.options?.length > 0) {
-            // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
-            check.modifiers.forEach(modifier => {
-                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, context.options)
-            });
-            check.applyStackingRules();
+            check.addOptions(context.options);
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map(o => o.toLowerCase()).includes('secret')) {

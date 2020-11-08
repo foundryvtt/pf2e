@@ -6,15 +6,17 @@
   </div>
   <hr/>
   <div class="modifier-container">
-    {{#each check.modifiers as |modifier idx|}}
-    <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
+    {{#each check._modifiers as |mod idx|}}
+    <div class="dialog-row {{#unless mod.enabled}}modifier-enabled{{/unless}}">
+      {{#with mod.modifier as |modifier|}}
       <span class="type tag">{{modifier.type}}</span>
       <span class="mod">{{localize modifier.name}}</span>
       <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
       <label class="exclude toggle">
-        <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{#if modifier.ignored}}checked{{/if}}>
+        <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{#unless modifier.toggled}}checked{{/unless}}>
         <label for="{{idx}}"></label>
       </label>
+      {{/with}}
     </div>
     {{/each}}
   </div>

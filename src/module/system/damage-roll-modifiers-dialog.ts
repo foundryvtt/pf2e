@@ -49,7 +49,7 @@ export class DamageRollModifiersDialog extends Application {
     const baseStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
     const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize} ${damage.base.damageType}</span>`;
     const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
-    const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
+    const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {
         const modifier = (m.modifier === undefined || Number.isNaN(m.modifier)) ? '' : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
         const damageType = (m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '');

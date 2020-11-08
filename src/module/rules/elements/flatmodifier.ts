@@ -29,7 +29,12 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
             const modifier = new PF2Modifier(label, value, this.ruleData.type ?? PF2ModifierType.UNTYPED);
             if (this.ruleData.predicate) {
                 modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
-                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, PF2EActor.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []));
+
+                // We're toggling off the modifier if it shouldn't apply by default, given the
+                // rule provided roll-options. This is necessary for static statistics, such as
+                // speed or AC, but will be ignored for any rolls, as we're going to re-evaluate
+                // the predicate (and the toggled state) given the actual roll options.
+                modifier.toggleFor(PF2EActor.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []));
             }
             statisticsModifiers[this.ruleData.selector] = (statisticsModifiers[this.ruleData.selector] || []).concat(modifier);
         } else {

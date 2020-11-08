@@ -60,7 +60,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         if (target) {
             for (const modifier of target.modifiers) {
                 if (modifier.type === PF2ModifierType.ITEM && modifier.modifier > 0) {
-                    modifier.ignored = true;
+                    modifier.toggled = false;
                 }
             }
             target.applyStackingRules();

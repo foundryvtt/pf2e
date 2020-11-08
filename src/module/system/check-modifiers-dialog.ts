@@ -82,7 +82,7 @@ export class CheckModifiersDialog extends Application {
       ?? game.settings.get('core', 'rollMode')
       ?? 'roll';
 
-    const modifierBreakdown = check.modifiers.filter((m) => m.enabled)
+    const modifierBreakdown = check.enabledModifiers
       .map((m) => `<span class="tag tag_secondary">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`)
       .join('');
 
@@ -134,7 +134,7 @@ export class CheckModifiersDialog extends Application {
 
     html.find('.modifier-container').on('click', 'input[type=checkbox]', (event) => {
       const index = Number(event.currentTarget.getAttribute('data-modifier-index'));
-      this.check.modifiers[index].ignored = event.currentTarget.checked;
+      this.check.modifiers[index].toggle();
       this.check.applyStackingRules();
       this.render();
     });

@@ -1,4 +1,5 @@
 import {isBlank, toNumber} from '../utils';
+import { PF2DamageDice } from '../modifiers'
 import {DamageDieSize, DamageCategory} from '../system/damage/damage';
 
 // FIXME: point this to the correct type afterwards
@@ -59,37 +60,25 @@ export function getResiliencyBonus(itemData: ItemDataPlaceholder): number {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
 }
 
-interface DiceModifier {
-    name: string;
-    diceNumber: number;
-    dieSize: DamageDieSize;
-    category: string;
-    damageType: string;
-    enabled: boolean;
-    traits: string[];
-}
-
-
 interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
     damageType?: string;
 }
 
-function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: RuneDiceModifier): DiceModifier {
+function toModifier(rune: string, { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier): PF2DamageDice {
     const traits = [];
     if (damageType !== undefined) {
         traits.push(damageType);
     }
-    return {
+    return new PF2DamageDice({
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
         diceNumber,
         dieSize,
         category: DamageCategory.fromDamageType(damageType),
         damageType,
-        enabled: true,
         traits,
-    };
+    });
 }
 
 const runeDamageModifiers = new Map<string, RuneDiceModifier>();
@@ -111,7 +100,7 @@ runeDamageModifiers.set('greaterFrost', {damageType: 'cold'});
 runeDamageModifiers.set('greaterShock', {damageType: 'electricity'});
 runeDamageModifiers.set('greaterThundering', {damageType: 'sonic'});
 
-export function getPropertyRuneModifiers(itemData: ItemPlaceholder): DiceModifier[] {
+export function getPropertyRuneModifiers(itemData: ItemPlaceholder): PF2DamageDice[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         if (runeDamageModifiers.has(rune)) {
