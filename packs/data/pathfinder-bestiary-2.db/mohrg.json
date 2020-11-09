@@ -5,42 +5,64 @@
             "cha": {
                 "min": 3,
                 "mod": 5,
-                "value": 10
+                "value": 20
             },
             "con": {
                 "min": 3,
                 "mod": 4,
-                "value": 10
+                "value": 18
             },
             "dex": {
                 "min": 3,
                 "mod": 4,
-                "value": 10
+                "value": 18
             },
             "int": {
                 "min": 3,
                 "mod": 1,
-                "value": 10
+                "value": 12
             },
             "str": {
                 "min": 3,
                 "mod": 6,
-                "value": 10
+                "value": 22
             },
             "wis": {
                 "min": 3,
                 "mod": 3,
-                "value": 10
+                "value": 16
             }
         },
         "attributes": {
             "ac": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
+                "base": 28,
+                "breakdown": "Base Armor Class 10, Base Modifier +14, Dexterity +4",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "28"
+                "name": "ac",
+                "totalModifier": 18,
+                "value": 28
             },
             "allSaves": {
                 "value": ""
@@ -78,10 +100,31 @@
             "levelbonushp": 0,
             "levelbonussp": 0,
             "perception": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 17,
+                "breakdown": "Base Modifier +14, Wisdom +3",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 17,
                 "value": 17
             },
             "resolve": {
@@ -121,6 +164,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -202,27 +247,90 @@
         },
         "saves": {
             "fortitude": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityCon",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "con",
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +14, Constitution +4",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 18,
                 "value": 18
             },
             "reflex": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 12,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
-                "breakdown": "",
+                "base": 16,
+                "breakdown": "Base Modifier +12, Dexterity +4",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 16,
                 "value": 16
             },
             "will": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 10,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 3,
+                        "name": "PF2E.AbilityWis",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "wis",
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +10, Wisdom +3",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 13,
                 "value": 13
             }
         },
@@ -233,13 +341,37 @@
         },
         "skills": {
             "acr": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 12,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 16,
+                "breakdown": "Base Modifier +12, Dexterity +4",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 16,
+                "value": 16,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
@@ -250,13 +382,37 @@
                 "value": 0
             },
             "ath": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 12,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 6,
+                        "name": "PF2E.AbilityStr",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +12, Strength +6",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 18,
+                "value": 18,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
@@ -283,12 +439,36 @@
                 "value": 0
             },
             "itm": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 5,
+                        "name": "PF2E.AbilityCha",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "cha",
-                "breakdown": "",
+                "base": 19,
+                "breakdown": "Base Modifier +14, Charisma +5",
+                "expanded": "intimidation",
                 "item": 0,
+                "label": "Intimidation",
                 "mod": 0,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 19,
+                "value": 19,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
@@ -331,21 +511,69 @@
                 "value": 0
             },
             "soc": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 1,
+                        "name": "PF2E.AbilityInt",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "int",
-                "breakdown": "",
+                "base": 15,
+                "breakdown": "Base Modifier +14, Intelligence +1",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 15,
+                "value": 15,
+                "visible": true
             },
             "ste": {
+                "_modifiers": [
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 14,
+                        "name": "PF2E.BaseModifier",
+                        "type": "untyped"
+                    },
+                    {
+                        "custom": false,
+                        "enabled": true,
+                        "ignored": false,
+                        "modifier": 4,
+                        "name": "PF2E.AbilityDex",
+                        "type": "ability"
+                    }
+                ],
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +14, Dexterity +4",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 18,
+                "value": 18,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
@@ -458,7 +686,7 @@
     "flags": {
         "pf2e": {
             "editNPC": {
-                "value": true
+                "value": false
             }
         },
         "pf2e_updatednpcsheet": {
@@ -467,6 +695,7 @@
             }
         }
     },
+    "img": "icons/svg/mystery-man.svg",
     "items": [
         {
             "_id": "NshCFgqhon7NfWbq",
