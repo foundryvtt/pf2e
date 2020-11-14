@@ -215,7 +215,7 @@ export class PF2eStatusEffects {
         conditions.sort((a, b) => {
             return a.name.localeCompare(b.name);
         }).forEach(c => {
-            effects.push(`${CONFIG.PF2eStatusEffects.effectsIconFolder}${c.data.hud.statusName}.${ CONFIG.PF2eStatusEffects.effectsIconFileType}`);
+            effects.push((c.data.hud.img.useStatusName)?`${CONFIG.PF2eStatusEffects.effectsIconFolder}${c.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`:c.data.hud.img.value);
         });
 
         CONFIG.statusEffects = (CONFIG.PF2eStatusEffects.keepFoundryStatusEffects) ?
