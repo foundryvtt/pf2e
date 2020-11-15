@@ -1254,8 +1254,17 @@ abstract class ActorSheetPF2e extends ActorSheet {
             return true;
         } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
           const condition = itemData as ConditionData;
-          await PF2eConditionManager.addConditionToToken(condition, this.token);
-          return true;
+          const token = actor.token
+            ? actor.token
+            : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
+
+          if (token) {
+            await PF2eConditionManager.addConditionToToken(condition, token);
+            return true;
+          } else {
+            ui.notifications.error("You do not control this actor.");
+            return false;
+          }
         }
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
