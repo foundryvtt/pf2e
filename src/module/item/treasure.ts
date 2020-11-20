@@ -127,7 +127,7 @@ export async function addCoins(
 
     for (const denomination of currencies) {
         const quantity = coins[denomination];
-        if (quantity > 0) {
+        if (quantity > 0 || quantity < 0) {
             if (coinsByDenomination.has(denomination)) {
                 // eslint-disable-next-line no-await-in-loop
                 await updateItemQuantity(coinsByDenomination.get(denomination)[0], quantity);
