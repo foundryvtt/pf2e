@@ -229,7 +229,6 @@ export class ItemSheetPF2e extends ItemSheet {
         data.familiars = game.actors.entities.filter(actor => ['familiar'].includes(actor.data.type))
             .filter(actor => actor.hasPerm(game.user, "OWNER"))
             .filter(actor => owners.some(owner => actor.hasPerm(owner, "OWNER")));
-        console.log("Familiars:", data.familiars);
       } else {
         data.familiar = [];
         console.log("No actor");

@@ -40,46 +40,22 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
         return sheet;
     }
 
-    async _onDrop(event) {
-        const dropTarget = $(event.target);
-        const dragData = event.dataTransfer.getData('text/plain');
-        const dragItem = JSON.parse(dragData);
-
-        if (dragItem.type !== 'Item') return;
-
-        let item;
-
-        if (dragItem.pack) {
-            item = await game.packs.get(dragItem.pack).getEntity(dragItem.id);
-        } else {
-            item = game.items.get(dragItem.id);
-        }
-
-        console.log("Overriding familiar sheet _onDrop");
-        if ("familiarMasterAbility" === item.data.type) {
-            console.log("Got familiarMasterAbility", item);
-            console.log(this.actor.data.data);
-            console.log((this.actor.data.data as FamiliarData).master);
+    /** @override */
+    async _onDropItemCreate(itemData) {
+        if ("familiarMasterAbility" === itemData.type) {
             let masterId = (this.actor.data.data as FamiliarData).master?.id;
-            console.log("masterId", masterId);
             let master;
             if (masterId && game.actors) {
-              master = game.actors.get(masterId);
-              console.log("Found master", master);
-            }
-            if (master) {
-                console.log("Found master", master);
-                await item.update({
-                    familiar: {
+                master = game.actors.get(masterId);
+                if (master) {
+                    itemData.data.familiar = {
                         id: this.actor.data._id
-                    }
-                });
-                console.log("Updated item", item);
-                master.createOwnedItem([item]);
+                    };
+                    return master.createOwnedItem([itemData]);
+                }
             }
         } else {
-            console.log("Calling super method");
-            await super._onDrop(event);
+            return (ActorSheet as any).prototype._onDropItemCreate.call(this, itemData);
         }
     }
 
