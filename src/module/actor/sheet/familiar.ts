@@ -42,17 +42,20 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
 
     /** @override */
     async _onDropItemCreate(itemData) {
-        if ("familiarMasterAbility" === itemData.type) {
-            let masterId = (this.actor.data.data as FamiliarData).master?.id;
-            let master;
+        if (itemData.type === "familiarMasterAbility") {
+            const masterId = (this.actor.data.data as FamiliarData).master?.id;
             if (masterId && game.actors) {
-                master = game.actors.get(masterId);
+                const master = game.actors.get(masterId);
                 if (master) {
                     itemData.data.familiar = {
                         id: this.actor.data._id
                     };
                     return master.createOwnedItem([itemData]);
+                } else {
+                    return false;
                 }
+            } else {
+                return false;
             }
         } else {
             return (ActorSheet as any).prototype._onDropItemCreate.call(this, itemData);
