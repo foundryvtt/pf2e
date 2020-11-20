@@ -1,5 +1,6 @@
 /* global CONST, Dialog */
 import {SKILL_DICTIONARY} from "../actor";
+import {FamiliarData} from '../actorDataDefinitions';
 
 
 /**
@@ -37,6 +38,28 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
         (sheet as any).abilities = CONFIG.PF2E.abilities;
 
         return sheet;
+    }
+
+    /** @override */
+    async _onDropItemCreate(itemData) {
+        if (itemData.type === "familiarMasterAbility") {
+            const masterId = (this.actor.data.data as FamiliarData).master?.id;
+            if (masterId && game.actors) {
+                const master = game.actors.get(masterId);
+                if (master) {
+                    itemData.data.familiar = {
+                        id: this.actor.data._id
+                    };
+                    return master.createOwnedItem([itemData]);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return (ActorSheet as any).prototype._onDropItemCreate.call(this, itemData);
+        }
     }
 
     // Events
