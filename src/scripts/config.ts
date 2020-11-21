@@ -953,6 +953,7 @@ CONFIG.traitsDescriptions = {
   'reach-15': 'PF2E.TraitDescriptionReach15',
   'reach-20': 'PF2E.TraitDescriptionReach20',
   'reach-25': 'PF2E.TraitDescriptionReach25',
+  'reach-40': 'PF2E.TraitDescriptionReach40',
   shove: 'PF2E.TraitDescriptionShove',
   sweep: 'PF2E.TraitDescriptionSweep',
   tethered: 'PF2E.TraitDescriptionTethered',
