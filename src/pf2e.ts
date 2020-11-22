@@ -123,6 +123,7 @@ Hooks.once('setup', () => {
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
     'speedTypes', 'senses', 'preciousMaterials', 'prerequisitePlaceholders', 'ancestryItemTraits',
+    'levels',
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {

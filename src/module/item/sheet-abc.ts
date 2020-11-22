@@ -3,7 +3,7 @@
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData, BackgroundData } from './dataDefinitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
 
 /**
  * @category Other
@@ -63,12 +63,30 @@ export class ABCItemSheetPF2e extends ItemSheet {
             this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
 
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
+        } else if (this.item.data.type === 'class') {
+            const itemData = (<ClassData>this.item.data).data;
+
+            data.rarityChoices = CONFIG.PF2E.rarityTraits;
+            data.skills = CONFIG.PF2E.skills;
+            data.proficiencyChoices = CONFIG.PF2E.proficiencyLevels;
+      
+            this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+            this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
+            this._prepareTraits(data.data.ancestryFeatLevels, CONFIG.PF2E.levels);
+            this._prepareTraits(data.data.classFeatLevels, CONFIG.PF2E.levels);
+            this._prepareTraits(data.data.generalFeatLevels, CONFIG.PF2E.levels);
+            this._prepareTraits(data.data.skillFeatLevels, CONFIG.PF2E.levels);
+            this._prepareTraits(data.data.skillIncreaseLevels, CONFIG.PF2E.levels);
+            this._prepareTraits(data.data.abilityBoostLevels, CONFIG.PF2E.levels);
+
+            data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
         }
 
         return data;
     }
 
     _prepareTraits(traits, choices) {
+        if (traits === undefined) { return; }
         if (traits.value) {
             traits.selected = traits.value.reduce((obj, t) => {
                 obj[t] = choices[t];
@@ -87,7 +105,8 @@ export class ABCItemSheetPF2e extends ItemSheet {
         const options = {
             name: a.parents('label').attr('for'),
             title: a.parent().text().trim(),
-            choices: CONFIG.PF2E[a.attr('data-options')]
+            choices: CONFIG.PF2E[a.attr('data-options')],
+            no_custom: a.attr('data-no-custom') ?? true,
         };
         new TraitSelector5e(this.item, options).render(true);
     }
@@ -114,12 +133,12 @@ export class ABCItemSheetPF2e extends ItemSheet {
         if ([
             "feat",
         ].includes(item.data.type)) {
-            const entry = {
+            const entry : ABCFeatureEntryData = {
                 pack: dragItem.pack,
                 id: dragItem.id,
                 img: item.data.img,
                 name: item.name,
-                items: {}
+                level: item.data.data.level.value,
             };
 
             let items : { [key: number]: ABCFeatureEntryData };
@@ -130,6 +149,9 @@ export class ABCItemSheetPF2e extends ItemSheet {
                 pathPrefix = 'data.items';
             } else if (this.item.data.type === 'background') {
                 items = (this.item.data as BackgroundData).data.items;
+                pathPrefix = 'data.items';
+            } else if (this.item.data.type === 'class') {
+                items = (this.item.data as ClassData).data.items;
                 pathPrefix = 'data.items';
             } else {
                 throw new Error('Unknown data type');
@@ -158,7 +180,9 @@ export class ABCItemSheetPF2e extends ItemSheet {
         this.item.update({
             [`data.items.${path}`]: null
         });
+    }
 
+    addSkill(event) {
     }
 
     activateListeners(html) {

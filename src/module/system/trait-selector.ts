@@ -66,6 +66,7 @@ export class TraitSelector5e extends FormApplication {
     const hasValues = this.options.has_values;
     const hasPlaceholders = this.options.has_placeholders;
     const hasExceptions = this.options.has_exceptions;
+    const noCustom = this.options.no_custom;
     const choices = duplicate(this.options.choices);
 
     // Populate choices
@@ -117,7 +118,8 @@ export class TraitSelector5e extends FormApplication {
 	    ordered_choices: orderedChoices,
       has_values: hasValues,
       has_placeholders: hasPlaceholders,
-	    has_exceptions: hasExceptions,
+      has_exceptions: hasExceptions,
+      no_custom: noCustom,
 	    searchString: this.searchString,
       custom: attr.custom,
     };
@@ -257,8 +259,7 @@ export class TraitSelector5e extends FormApplication {
 
       this.object.update({
         [`${this.attribute}.value`]: choices,
-        // Add the custom traits
-        [`${this.attribute}.custom`]: formData.custom,
+        ...(this.options.no_custom ? {} : { [`${this.attribute}.custom`]: formData.custom })
       });
     }
   }
