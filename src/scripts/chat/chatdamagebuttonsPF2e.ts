@@ -88,6 +88,82 @@ class ChatDamageButtonsPF2e extends Application {
         }
       });
     });
+
+    Hooks.on('renderChatMessage', (message, html, data) => {
+      const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
+      if (!damageRoll) return;
+
+      const full = $(`<button style="flex: 1 1 0;" title="Apply full damage to selected tokens."><i class="fas fa-heart-broken"></i></button>`);
+      const half = $(`<button style="flex: 1 1 0;" title="Apply half damage to selected tokens."><i class="fas fa-chevron-down"></i></button>`);
+      const double = $(`<button style="flex: 1 1 0;" title="Apply double damage to selected tokens."><i class="fas fa-angle-double-up"></i></button>`);
+      const shield = $(`<button class="dice-total-shield-btn" style="flex: 1 1 0;" title="Toggle the shield block status of the selected tokens."><i class="fas fa-shield-alt"></i></button>`);
+      const heal = $(`<button style="flex: 1 1 0;" title="Apply full healing to selected tokens."><i class="fas fa-heart"></i></button>`);
+      
+      const buttons = $(`<div style="display: flex; margin-top: 3px;"></div>`);
+      buttons.append(full, half, double, shield, heal);
+      html.append(buttons);
+
+      // Handle button clicks
+      full.on('click', event => {
+        event.stopPropagation();
+        let attribute = 'attributes.hp';
+        if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
+          attribute = 'attributes.shield';
+          shield.toggleClass('shield-activated');
+          CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+        }
+        if (event.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute)
+        } else {
+          PF2EActor.applyDamage(html, 1, attribute);
+        }
+      });
+
+      half.on('click', event => {
+        event.stopPropagation();
+        let attribute = 'attributes.hp';
+        if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
+          attribute = 'attributes.shield';
+          shield.toggleClass('shield-activated');
+          CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+        }
+        if (event.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute)
+        } else {
+          PF2EActor.applyDamage(html, 0.5, attribute);
+        }
+      });
+
+      double.on('click', event => {
+        event.stopPropagation();
+        let attribute = 'attributes.hp';
+        if (CONFIG.PF2E.chatDamageButtonShieldToggle) {
+          attribute = 'attributes.shield';
+          shield.toggleClass('shield-activated');
+          CONFIG.PF2E.chatDamageButtonShieldToggle = false;
+        }
+        if (event.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute)
+        } else {
+          PF2EActor.applyDamage(html, 2, attribute);
+        }
+      });
+
+      shield.on('click', event => {
+        event.stopPropagation();
+        shield.toggleClass('shield-activated');
+        CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
+      });
+
+      heal.on('click', event => {
+        event.stopPropagation();
+        if (event.shiftKey) {
+          ChatDamageButtonsPF2e.shiftModifyDamage(html, -1)
+        } else {
+          PF2EActor.applyDamage(html, -1);
+        }
+      });
+    });
   }
 
   static shiftModifyDamage(html, multiplier, attributePassed='attributes.hp') {
