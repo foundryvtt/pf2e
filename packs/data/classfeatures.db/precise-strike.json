@@ -19,7 +19,7 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
         "prerequisites": {
             "value": ""
@@ -27,7 +27,107 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache",
+                        "melee"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ],
+                    "not": [
+                        "finisher"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 2
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 3
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": 4
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": 5
+                        },
+                        {
+                            "start": 17,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "finisher",
+                        "panache",
+                        "melee"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": {
+                                "diceNumber": 6
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 7
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
