@@ -13,7 +13,7 @@ describe("Load json file", () => {
         const input = json["PF2E"]["condition"]["blinded"]["summary"];
         // EQUAL TO:  const input = json.PF2E.condition.blinded.summary;
         
-        const output = 'You’re unable to see.'; 
+        const output = "You're unable to see."; 
 
         expect(input).toEqual(output);
     });
