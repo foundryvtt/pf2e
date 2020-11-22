@@ -72,6 +72,14 @@
                 {{/each}}
             </dl>
         </div>
+        <div class="filtercontainer" id="traitsfilter">
+            <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
+            <dl style="display:none;">
+                {{#each spellTraits as |trait key|}}
+                <label><dt><input type="checkbox" name="traits-{{lower key}}"></dt><dd>{{localize trait}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
     </div>
     <ul>
         {{#each spells as |spell id|}}
