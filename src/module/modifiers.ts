@@ -82,6 +82,8 @@ export class PF2Modifier {
   custom: boolean;
   /** The damage type that this modifier does, if it modifies a damage roll. */
   damageType: string;
+  /** The damage category */
+  category: string;
   /** A predicate which determines when this modifier is active. */
   predicate: any;
   /** If true, this modifier is only active on a critical hit. */
