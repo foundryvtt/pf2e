@@ -351,6 +351,21 @@ export interface AncestryDetailsData {
     }
 }
 
+export interface BackgroundDetailsData {
+    boosts: BoostFlawInfo[]
+    items: {[key: number]: KitEntryData}
+    traits: {
+        rarity: {
+            value: string
+        }
+        value: string[]
+    }
+    trainedLore: string
+    trainedSkills: {
+        value: string[]
+    }
+}
+
 export interface FeatDetailsData {
     featType: {
         value: string
@@ -689,6 +704,10 @@ export interface AncestryData extends BaseEntityData<ItemDescriptionData & Ances
     type: 'ancestry'
 }
 
+export interface BackgroundData extends BaseEntityData<ItemDescriptionData & BackgroundDetailsData> {
+    type: 'background'
+}
+
 export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescriptionData & ItemLevelData> {
     type: 'feat'
 }
@@ -724,7 +743,7 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
     ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData |
-    AncestryData;
+    AncestryData | BackgroundData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;

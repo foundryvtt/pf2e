@@ -41,6 +41,8 @@ export default function () {
         'systems/pf2e/templates/items/ancestry-sidebar.html',
         'systems/pf2e/templates/items/armor-details.html',
         'systems/pf2e/templates/items/armor-sidebar.html',
+        'systems/pf2e/templates/items/background-details.html',
+        'systems/pf2e/templates/items/background-sidebar.html',
         'systems/pf2e/templates/items/backpack-details.html',
         'systems/pf2e/templates/items/backpack-sidebar.html',
         'systems/pf2e/templates/items/treasure-sidebar.html',

@@ -1253,7 +1253,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
             itemData = duplicate(item.data);
         }
 
-        if (itemData.type === 'ancestry') {
+        if (itemData.type === 'ancestry' || itemData.type === 'background') {
           // ignore these (for now)...
           return false;
         }

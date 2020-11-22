@@ -3,7 +3,7 @@
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData } from './dataDefinitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData } from './dataDefinitions';
 
 /**
  * @category Other
@@ -42,16 +42,28 @@ export class ABCItemSheetPF2e extends ItemSheet {
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
         });
 
-        const itemData = (<AncestryData>this.item.data).data;
+        if (this.item.data.type === 'ancestry') {
+            const itemData = (<AncestryData>this.item.data).data;
 
-        data.actorSizes = CONFIG.PF2E.actorSizes;
-        data.rarityChoices = CONFIG.PF2E.rarityTraits;
-        data.ancestryVision = CONFIG.PF2E.ancestryVision;
+            data.actorSizes = CONFIG.PF2E.actorSizes;
+            data.rarityChoices = CONFIG.PF2E.rarityTraits;
+            data.ancestryVision = CONFIG.PF2E.ancestryVision;
 
-        this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+            this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
 
-        data.size = CONFIG.PF2E.actorSizes[itemData.size];
-        data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
+            data.size = CONFIG.PF2E.actorSizes[itemData.size];
+            data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
+        } else if (this.item.data.type === 'background') {
+            const itemData = (<BackgroundData>this.item.data).data;
+
+            data.rarityChoices = CONFIG.PF2E.rarityTraits;
+            data.skills = CONFIG.PF2E.skills;
+      
+            this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+            this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
+
+            data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
+        }
 
         return data;
     }
@@ -115,6 +127,9 @@ export class ABCItemSheetPF2e extends ItemSheet {
 
             if (this.item.data.type === 'ancestry') {
                 items = (this.item.data as AncestryData).data.items;
+                pathPrefix = 'data.items';
+            } else if (this.item.data.type === 'background') {
+                items = (this.item.data as BackgroundData).data.items;
                 pathPrefix = 'data.items';
             } else {
                 throw new Error('Unknown data type');
