@@ -19,7 +19,7 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
         "prerequisites": {
             "value": ""
@@ -27,7 +27,41 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.panache"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "tumble-through"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ]
+                },
+                "roll-options": [
+                    "speed",
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": 5
+            }
+        ],
         "source": {
             "value": ""
         },
