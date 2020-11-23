@@ -505,6 +505,19 @@ export default class PF2EActor extends Actor {
       data.attributes.speed.otherSpeeds[idx] = stat;
     }
 
+    // Familiar Abilities
+    {
+      const modifiers = [];
+      (statisticsModifiers['familiar-abilities'] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+
+      const stat = mergeObject(new PF2StatisticModifier('familiar-abilities', modifiers) as any, data.attributes.familiarAbilities, { overwrite: false });
+      stat.value = stat.totalModifier;
+      stat.breakdown = stat.modifiers.filter(m => m.enabled)
+        .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      data.attributes.familiarAbilities = stat;
+    }
+
     // Automatic Actions
     data.actions = [];
 
@@ -946,6 +959,10 @@ export default class PF2EActor extends Actor {
       data.master.name = master?.name;
       data.master.level = master.data.data.details.level.value ?? 0;
       data.master.ability = data.master.ability ?? 'cha';
+      data.master.familiarAbilities = {
+        breakdown: master.data.data.attributes.familiarAbilities.breakdown,
+        value: master.data.data.attributes.familiarAbilities.value
+      };
       data.details.level.value = data.master.level;
       const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
@@ -1110,6 +1127,10 @@ export default class PF2EActor extends Actor {
     } else {
       data.master.name = undefined;
       data.master.level = 0;
+      data.master.familiarAbilities = {
+        breakdown: '',
+        value: 0
+      };
       data.details.level.value = 0;
       data.attributes.hp = {
         value: data.attributes.hp.value,
