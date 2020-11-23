@@ -1,5 +1,92 @@
 # Patch Notes:
 
+## Version 1.10.16
+### Bug Fixes
+* (@stwlam) Fix issues preventing creation and correct rendering of custom conditions
+* (@stwlam) Fix application of conditions when dropping condition items on actor sheets
+* (@stwlam) Adjust item-sheet HTML to take on intended styling
+* (@mathmanpi) Fix shield HP tooltip. Closes #455
+* (@SLATE) Fixed NPC gallery not showing up in Bestiary source filter. Closes #858
+* (@SLATE) Added traits to spell chat card. Closes #821
+
+### New Features
+* (@fryguy) Allow configuring the default token settings that get set
+* (@SLATE) Added spell traits filter to compendium browser
+
+### Content Changes
+* (@Sirrus233) Fix broken path to Dagger icon in Guard NPC sheet
+* (@fryguy) Add Agents of Edgewatch 5 bestiary
+* (@TMun) Add missing monsters and hazards from EC1, correct Abrikandilu
+* (@TMun) Add missing EC2 monsters and hazards
+* (@TMun) Adds EC3 traps
+* (@TMun) Adds Bounty 3 NPC to PFS Season 2
+* (@TMun) Adds missing EC4 monsters and traps
+* (@TMun) Adds EC hazard traits
+* (@TMun) Adds PFS 2-05 and 2-06 monsters
+* (@TMun) Compendia content fixes:
+    * Corrects Gust of Wind, Needle of Vengeance, and Vampiric Maiden to saving throws.
+      Charitable Urge was incorrectly labelled. Closes #838 and #842
+    * Standardize typography for spells up to R
+    * Fix spell text and links
+    * Fix Mohrg. Closes #859
+    * Adds Warden Spells as a Ranger Class Feature. Closes #860
+    * Fixes mending spell from #862. Numerous spell fixes. Closes #861
+    * Correct Stratagem spelling. Closes #847
+    * Fix size of Adamantine Golem and 3nd level scrool to 3rd level scroll. Closes #851
+    * Correct Minderhal spelling in icon. Closes #854
+    * Fix token default to 2x2 instead of 1x1 for Gelatinous Cube
+    * Fix backgrounds that had truncated descriptions. Closes #856
+    * Update Pummeling Rubble - move text from `area` to `areasize`
+    * Change wilding word to saving throw
+* (@SLATE) Add creatures for PFS 2-07, 2-08
+* (@SLATE) Added Second Chance Spell feat
+* (@SLATE) Errata v2:
+    * Classes
+    * Class Features
+    * Feats
+    * Spells
+    * Actions
+    * Equipment
+* (@SLATE) Cleanup compendium entries formatting, including condition links:
+    * Actions
+    * Backgrounds
+    * Classes
+    * Class Features
+    * Feats
+    * Spells
+    * Equipment
+    * Hazards
+    * Bestiary 1
+    * PFS Season 1 bestiary
+    * PFS season 2 bestiary
+    * Gamemastery Guide
+    * NPC Gallery
+    * Iconics
+    * Critical Deck
+    * Age of Ashes bestiary
+    * Agents of Edgewatch bestiary
+* (@SLATE) Compendia content fixes:
+    * Fix Ward Domain spell
+    * Fix Accursed Forge-Spurned and Thea from Age of Ashes book 4. Closes #864
+    * Change Invoke Reckoning from one action to a reaction for Age of Ashes Skeletal Hellknight. Closes #865
+    * Broken condition links in Umbral Dragon. Closes #866
+    * Added `bulkcapacity` and `negatebulk` to the knapsacks. Closes #867
+    * Fix damage for Burglar from the GMG. Closes #868
+    * Fix safe passage spell area of effect. Closes #870
+    * Changed some creature names from plural to singular. Added missing Tyrroicese. Closes #872
+    * Fix range and area for Animated Assault, Fungal Infestation, Lightning Storm, Spike Stones, and Transmute Rock to Mud. Closes #874
+    * Change cursebound and hex traits from custom traits to built-in traits
+
+### Core System Improvements
+* (@georg.doehring) Status effects chat message translatable
+* (@profounddark) Swashbuckler rule elements, Panache and Precise Strike
+* (@mathmanpi) Add item effects to items starting with D
+* (@nikolaj-a) Separate damage types on damage roll chat card
+
+### Development Improvements
+* (@fryguy) Fix some typos/documentation
+
+
 ## Version 1.10.15
 
 This version of the PF2E system requires at least version of 0.7.5 of Foundry.
@@ -14,9 +101,9 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
     * Adds field types to feat details, weapon details, and action details
     * Remove null values from data.skill_requirement.skill.rank and data.actions.value
 * (@TMun) Coverts traits to title case in en.json. Adds clockwork and herald traits from AoE4. Alphabetize some of config.ts (#834)
-* (nikolaj-a) Replace calls to deprecated isPC method
-* (nikolaj-a) Familiar non-owner permission issue
-* (nikolaj-a) Allow players to roll saving throw from spell chat card
+* (@nikolaj-a) Replace calls to deprecated isPC method
+* (@nikolaj-a) Familiar non-owner permission issue
+* (@nikolaj-a) Allow players to roll saving throw from spell chat card
 
 ### New Features
 * (@fryguy) Add rules element for Sneak Attacker
@@ -39,8 +126,8 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
 
 ### Core System Improvements
 * (@georg.doehring) Use localization for "modifiers"
-* (nikolaj-a) Change UI theme name to better reflect its actual progress
-* (nikolaj-a) Update minimum compatible Foundry version to 0.7.5
+* (@nikolaj-a) Change UI theme name to better reflect its actual progress
+* (@nikolaj-a) Update minimum compatible Foundry version to 0.7.5
 
 ### Development Improvements
 * (@Kevin) Add auto-docs
