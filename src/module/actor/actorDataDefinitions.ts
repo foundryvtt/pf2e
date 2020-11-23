@@ -317,6 +317,9 @@ export interface RawCharacterData {
         /** The current number of hero points (and maximum) for this character. */
         heroPoints: { rank: number; max: number; }
 
+        /** The number of familiar abilities this character's familiar has access to. */
+        familiarAbilities: number;
+
         /** Data related to character hitpoints. */
         hp: HitPointsData;
 
