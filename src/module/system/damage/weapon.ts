@@ -8,6 +8,7 @@ import {
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
+import { option } from 'yargs';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
@@ -60,6 +61,13 @@ export class PF2WeaponDamage {
             };
             baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
             tags.push(versatileTrait.name);
+        }
+
+        //thrown-X traits
+        const thrownTrait = traits.find((t) => t.name.toLowerCase().startsWith('thrown-'));
+        if (thrownTrait && options.some((o) => o === thrownTrait.rollOption)) {
+            options.push('thrown');
+            tags.push(thrownTrait.name);
         }
 
         // custom damage
@@ -191,11 +199,17 @@ export class PF2WeaponDamage {
         let ability;
         {
             let modifier;
-            const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown'));
-            if (melee) {
+            const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown-'));
+            const isThrown = traits.some(t => t.name.toLowerCase() == 'thrown') || options.includes('thrown');
+            // skips if a throwable melee weapon but thrown toggle is on
+            if (melee && !isThrown) {
                 ability = 'str';
                 modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 options.push('melee')
+            } else if (isThrown) {
+                ability = 'str';
+                modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                options.push('ranged');
             } else {
                 options.push('ranged')
             }

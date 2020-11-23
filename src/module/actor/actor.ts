@@ -559,6 +559,12 @@ export default class PF2EActor extends Actor {
             ability = 'dex';
             score = data.abilities.dex.value;
           }
+          // look for thrown melee weapons when toggled on
+          const isThrowing = this.getRollOptions(['all']).includes('thrown-weapon');
+          if ((item.data.traits?.value || []).some(t => t.startsWith('thrown-')) && isThrowing){
+            ability = 'dex';
+            score = data.abilities.dex.value;
+          }
           modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
         }
         modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencies[item.data.weaponType.value]?.rank ?? 0));
@@ -606,6 +612,9 @@ export default class PF2EActor extends Actor {
             } else if (trait.startsWith('versatile-')) {
                 option.rollName = 'damage-roll';
                 option.rollOption = trait;
+            } else if (trait.startsWith('thrown-')) {
+                option.rollName = 'all';
+                option.rollOption = 'thrown-weapon';
             }
 
             // trait can be toggled on/off
