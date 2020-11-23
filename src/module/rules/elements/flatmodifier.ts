@@ -27,6 +27,12 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (this.ruleData.selector && label && value) {
             const modifier = new PF2Modifier(label, value, this.ruleData.type ?? PF2ModifierType.UNTYPED);
+            if (this.ruleData.damageType) {
+                modifier.damageType = this.ruleData.damageType;
+            }
+            if (this.ruleData.damageCategory) {
+                modifier.damageCategory = this.ruleData.damageCategory;
+            }
             if (this.ruleData.predicate) {
                 modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
                 modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, PF2EActor.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []));

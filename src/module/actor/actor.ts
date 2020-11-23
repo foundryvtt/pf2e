@@ -1807,7 +1807,9 @@ export default class PF2EActor extends Actor {
    * ignored.
    */
   async addCustomModifier(stat: string, name: string, value: number, type: string,
-                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
+                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string,
+                          damageCategory?: string
+  ) {
     // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
     // similar to how addDamageDice operates.
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
@@ -1819,6 +1821,9 @@ export default class PF2EActor extends Actor {
       const modifier = new PF2Modifier(name, value, type);
       if (damageType) {
         modifier.damageType = damageType;
+      }
+      if (damageCategory) {
+        modifier.damageCategory = damageCategory;
       }
       modifier.custom = true;
 
