@@ -16,7 +16,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>An elegant, colorful gem cut into a complex geometric pattern is slotted into a narrow metal band that fits around your brow. You gain a +3 item bonus to checks to Recall Knowledge, regardless of the skill. When you invest the diadem, you either increase your Intelligence score by 2 or increase it to 18, whichever would give you a higher score. This gives you additional trained skills and languages, as normal for increasing your Intelligence score. You must select skills and languages the first time you invest the item, and whenever you invest the same <em>diadem of intellect</em>, you get the same skills and languages you chose the first time.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> envision; <strong>Frequency</strong> once per hour; <strong>Effect</strong> You gain the effects of hypercognition.</span></p>"
+            "value": "<p><span>An elegant, colorful gem cut into a complex geometric pattern is slotted into a narrow metal band that fits around your brow. You gain a +3 item bonus to checks to Recall Knowledge, regardless of the skill. When you invest the diadem, you either increase your Intelligence score by 2 or increase it to 18, whichever would give you a higher score. This gives you additional trained skills and languages, as normal for increasing your Intelligence score. You must select skills and languages the first time you invest the item, and whenever you invest the same <em>diadem of intellect</em>, you get the same skills and languages you chose the first time.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> envision; <strong>Frequency</strong> once per hour; <strong>Effect</strong> You gain the effects of hypercognition.</span></p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+3 item bonus to checks to Recall Knowledge</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -60,6 +60,19 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "item",
+                "value": 3
+            }
+        ],
         "source": {
             "value": ""
         },

@@ -11,12 +11,16 @@ import {DamageCategory} from './damage';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
-    /** The static amount of damage of the current damage type. */
-    modifier?: number,
     /** If true, this is the 'base' damage of the weapon or attack; some abilities scale off of base damage dice. */
     base?: boolean,
-    /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
-    dice?: Record<string, number>
+    categories: {
+        [category: string]: {
+            /** The static amount of damage of the current damage type and category. */
+            modifier?: number,
+            /** Maps the die face ('d4', 'd6', 'd8', 'd10', 'd12') to the number of dice of that type. */
+            dice?: Record<string, number>
+        }
+    }
 }>;
 
 /** Return true if the given damage type is non-null and not physical; false otherwise. */
@@ -35,7 +39,7 @@ export class PF2WeaponDamage {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
         const numericModifiers = [];
-        const baseTraits = [];
+        const tags = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
 
@@ -43,7 +47,7 @@ export class PF2WeaponDamage {
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
-            baseTraits.push(twoHandTrait.name);
+            tags.push(twoHandTrait.name);
         }
 
         // versatile trait
@@ -55,7 +59,7 @@ export class PF2WeaponDamage {
                 s: 'slashing'
             };
             baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
-            baseTraits.push(versatileTrait.name);
+            tags.push(versatileTrait.name);
         }
 
         // custom damage
@@ -200,7 +204,7 @@ export class PF2WeaponDamage {
                 ability = 'str';
                 const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 modifier = (strengthModifier < 0) ? strengthModifier : Math.floor(strengthModifier / 2);
-                baseTraits.push('propulsive');
+                tags.push('propulsive');
             }
 
             // check for Rogue's Racket: Thief
@@ -297,12 +301,14 @@ export class PF2WeaponDamage {
             diceModifiers,
             numericModifiers,
             // the below fields are calculated
-            traits: baseTraits,
+            tags,
+            traits: (traits ?? []).map(t => t.name),
             formula: {},
         };
 
         // non-lethal trait
         if (traits.some(t => t.name === 'nonlethal')) {
+            damage.tags.push('nonlethal');
             damage.traits.push('nonlethal');
         }
 
@@ -368,7 +374,11 @@ export class PF2WeaponDamage {
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
-            dice: { [base.dieSize]: base.diceNumber }
+            categories: {
+                [base.category ?? DamageCategory.fromDamageType(base.damageType)]: {
+                    dice: { [base.dieSize]: base.diceNumber }
+                }
+            }
         };
 
         // dice modifiers always stack
@@ -376,18 +386,20 @@ export class PF2WeaponDamage {
             if (critical && dm.critical) {
                 // critical-only stuff
                 if (dm.diceNumber) {
-                    this.addDice(critPool, dm.damageType ?? base.damageType, dm.dieSize ?? base.dieSize, dm.diceNumber);
+                    this.addDice(critPool, dm.damageType ?? base.damageType, dm.category, dm.dieSize ?? base.dieSize, dm.diceNumber);
                 }
-                (dm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
-                    damage.traits.push(t);
+                (dm.traits ?? []).forEach(t => {
+                    if (!damage.tags.includes(t)) { damage.tags.push(t); }
+                    if (!damage.traits.includes(t)) { damage.traits.push(t); }
                 });
             } else if (!dm.critical) {
                 // regular pool
                 if (dm.diceNumber) {
-                    this.addDice(dicePool, dm.damageType ?? base.damageType, dm.dieSize ?? base.dieSize, dm.diceNumber);
+                    this.addDice(dicePool, dm.damageType ?? base.damageType, dm.category, dm.dieSize ?? base.dieSize, dm.diceNumber);
                 }
-                (dm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
-                    damage.traits.push(t);
+                (dm.traits ?? []).forEach(t => {
+                    if (!damage.tags.includes(t)) { damage.tags.push(t); }
+                    if (!damage.traits.includes(t)) { damage.traits.push(t); }
                 });
             } else {
                 // skip
@@ -420,12 +432,18 @@ export class PF2WeaponDamage {
                 .filter(nm => nm.enabled)
                 .filter(nm => !nm.critical || critical)
                 .forEach(nm => {
-                    let pool = dicePool[nm.damageType ?? base.damageType];
+                    const damageType = nm.damageType ?? base.damageType;
+                    let pool = dicePool[damageType];
                     if (!pool) {
-                        pool = {};
-                        dicePool[nm.damageType ?? base.damageType] = pool;
+                        pool = { categories: {} };
+                        dicePool[damageType] = pool;
                     }
-                    pool.modifier = (pool.modifier ?? 0) + nm.modifier;
+                    let category = pool.categories[nm.category ?? DamageCategory.fromDamageType(damageType)];
+                    if (!category) {
+                        category = {};
+                        pool.categories[nm.category ?? DamageCategory.fromDamageType(damageType)] = category;
+                    }
+                    category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
                         damage.traits.push(t);
                     });
@@ -433,50 +451,86 @@ export class PF2WeaponDamage {
         }
 
         // build formula
-        let formula = this.buildFormula(dicePool);
+        const partials: {[damageType: string]: { [damageCategory: string]: string }} = {};
+        let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
-            const critFormula = this.buildFormula(critPool);
+            for (const [damageType, categories] of Object.entries(partials)) {
+                for (const [damageCategory, f] of Object.entries(categories)) {
+                    partials[damageType][damageCategory] = this.doubleFormula(f);
+                }
+            }
+            const critFormula = this.buildFormula(critPool, partials);
             if (critFormula) {
                 formula += ` + ${critFormula}`;
             }
         }
 
-        return formula;
+        return {
+            formula,
+            partials,
+            data: {
+                effectiveDamageDice: damage.effectDice
+            }
+        };
     }
 
     /** Add dice to the given damage pool. */
-    public static addDice(pool: DamagePool, damageType: string, dieSize: string, count: number): DamagePool {
+    public static addDice(pool: DamagePool, damageType: string, category: string, dieSize: string, count: number): DamagePool {
         // Ensure that the damage pool for this given damage type exists...
-        pool[damageType] = pool[damageType] || {};
+        pool[damageType] = pool[damageType] || { categories: {} };
         const damagePool = pool[damageType];
 
+        // Ensure that the damage category sub-pool for this given damage category exists...
+        damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] = damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)] || {};
+        const damageCategory = damagePool.categories[category ?? DamageCategory.fromDamageType(damageType)];
+
         // And then add the given number of dice of the given size.
-        damagePool.dice = damagePool.dice || {};
-        damagePool.dice[dieSize] = (damagePool.dice[dieSize] ?? 0) + count;
+        damageCategory.dice = damageCategory.dice || {};
+        damageCategory.dice[dieSize] = (damageCategory.dice[dieSize] ?? 0) + count;
         return pool;
     }
 
     /** Converts a damage pool to a final string formula. */
-    public static buildFormula(pool: DamagePool): string {
+    public static buildFormula(pool: DamagePool, partials: {[damageType: string]: { [damageCategory: string]: string } } = {}): string {
         // First collect all of the individual components of the pool into one flattened list...
         const parts: string[] = [];
         let minValue = 0;
-        for (const info of Object.values(pool)) {
-            // Add all of the dice components; each individual dice adds one to the minimum value.
-            for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
-                minValue += count;
-                parts.push(`${count}${dieSize}`);
-            }
+        for (const [type, cats] of Object.entries(pool)) {
+            for (const [category, info] of Object.entries(cats.categories)) {
+                const p = [];
+                // Add all of the dice components; each individual dice adds one to the minimum value.
+                for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
+                    minValue += count;
+                    parts.push(`${count}${dieSize}`);
+                    p.push(`${count}${dieSize}`);
+                }
+    
+                // Add the modifier if present.
+                if (info.modifier) {
+                    minValue += info.modifier;
+                    parts.push(info.modifier.toString());
+                    p.push(info.modifier.toString());
+                }
 
-            // Add the modifier if present.
-            if (info.modifier) {
-                minValue += info.modifier;
-                parts.push(info.modifier.toString());
+                partials[type] = partials[type] ?? {};
+                let formula = partials[type][category];
+                let offset = 0;
+                if (!formula) {
+                    formula = p[0];
+                    offset = 1;
+                }
+                partials[type][category] = [formula].concat(p.slice(offset).flatMap(part => {
+                    if (part.startsWith("-")) {
+                        return ["-", part.substring(1)];
+                    } else {
+                        return ["+", part];
+                    }
+                })).join(" ");
             }
         }
 
-        // To avoid out-of-bounds exceptions, shortcircuit with the empty string if there are no damage components whatsoever.
+        // To avoid out-of-bounds exceptions, short-circuit with the empty string if there are no damage components whatsoever.
         if (parts.length === 0) {
             return "";
         }

@@ -2,7 +2,7 @@
 
     <!-- ITEM SHEET HEADER -->
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64"/>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" />
         <h1><input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}"/></h1>
     </header>
 
@@ -19,7 +19,7 @@
         <!-- ITEM SHEET BODY -->
         <section class="sheet-body">
 
-            <nav class="sheet-tabs tabs" data-tab-container="primary">
+            <h4 class="sheet-tabs tabs" data-tab-container="primary">
             {{#if detailsActive}}
                 <a class="item " data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                 <a class="item active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
@@ -36,7 +36,7 @@
                 <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
             {{/unless}}
-            </nav>
+            </h4>
 
             <!-- Item Description -->
             <div class="tab item-description active" data-tab="description">

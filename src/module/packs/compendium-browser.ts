@@ -491,7 +491,7 @@ class CompendiumBrowser extends Application {
 
           // add spell to spells array
           feats[(feat._id)] = feat;
-          
+
           // Add rarity for filtering
           feat.data.rarity = (() => {
             if (feat.data.traits.rarity) return feat.data.traits.rarity;  // TODO: only look in one place once data is fixed
@@ -578,7 +578,7 @@ class CompendiumBrowser extends Application {
           if (spell.data.school.value !== undefined) {
             schools.add(spell.data.school.value);
           }
-          
+
           // Add rarity for filtering
           spell.data.rarity = (() => {
             if (spell.data.traits.rarity) return spell.data.traits.rarity;  // TODO: only look in one place once data is fixed
@@ -609,6 +609,7 @@ class CompendiumBrowser extends Application {
       traditions: CONFIG.PF2E.spellTraditions,
       spells,
       rarities: CONFIG.PF2E.rarityTraits,
+      spellTraits: CONFIG.PF2E.spellOtherTraits,
     };
   }
 

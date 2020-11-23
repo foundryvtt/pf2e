@@ -254,10 +254,12 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
 Hooks.on('preCreateActor', (actor, dir) => {
   if (game.settings.get('pf2e', 'defaultTokenSettings')) {
     // Set wounds, advantage, and display name visibility
+    const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
+    const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
     mergeObject(actor, {
       'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
-      'token.displayName': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display name to be on owner hover
-      'token.displayBars': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display bars to be on owner hover
+      'token.displayName': nameMode, // Default display name to be on owner hover
+      'token.displayBars': barMode, // Default display bars to be on owner hover
       'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
       'token.name': actor.name, // Set token name to actor name
     });

@@ -124,7 +124,7 @@ export class PF2eConditionManager {
             data.flags.pf2e = {};
         }
 
-        data.flags.pef2e.condition = true;
+        data.flags.pf2e.condition = true;
 
         PF2eConditionManager._customConditions.set(name, data);
         PF2eConditionManager._customStatusNames.set(data.data.hud.statusName, data);
