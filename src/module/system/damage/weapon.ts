@@ -292,6 +292,9 @@ export class PF2WeaponDamage {
                     if (m.damageType) {
                         modifier.damageType = m.damageType;
                     }
+                    if (m.damageCategory) {
+                        modifier.damageCategory = m.damageCategory;
+                    }
                     modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(traits.map(t => t.name).concat(options));
                     numericModifiers.push(modifier);
                 });
@@ -452,10 +455,10 @@ export class PF2WeaponDamage {
                         pool = { categories: {} };
                         dicePool[damageType] = pool;
                     }
-                    let category = pool.categories[nm.category ?? DamageCategory.fromDamageType(damageType)];
+                    let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
                     if (!category) {
                         category = {};
-                        pool.categories[nm.category ?? DamageCategory.fromDamageType(damageType)] = category;
+                        pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
                     }
                     category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? []).filter(t => !damage.traits.includes(t)).forEach(t => {
