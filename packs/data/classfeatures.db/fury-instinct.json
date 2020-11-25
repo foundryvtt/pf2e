@@ -38,7 +38,60 @@
         },
         "usage": {
             "value": "held-in-one-hand"
-        }
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "ac",
+                "value": -1,
+                "type": "rage",
+                "label": "rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "damage",
+                "label": "Rage",
+                "predicate": {
+                    "not": [
+                        "agile"
+                    ],
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 7,
+                            "end": 14,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.rage",
+                "label": "Rage"
+            }
+        ]
     },
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/fury-instinct.jpg",
