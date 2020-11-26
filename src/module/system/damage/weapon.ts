@@ -199,13 +199,13 @@ export class PF2WeaponDamage {
         {
             let modifier;
             const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown-'));
-            const isThrown = traits.some(t => t.name.toLowerCase() === 'thrown') || options.includes('thrown');
+            const thrown = options.includes('thrown');
             // skips if a throwable melee weapon but thrown toggle is on
-            if (melee && !isThrown) {
+            if (melee && !thrown) {
                 ability = 'str';
                 modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 options.push('melee')
-            } else if (isThrown) {
+            } else if (thrown) {
                 ability = 'str';
                 modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 options.push('ranged');
