@@ -573,8 +573,9 @@ export default class PF2EActor extends Actor {
             score = data.abilities.dex.value;
           }
           // look for thrown melee weapons when toggled on
+          
           const isThrowing = this.getRollOptions(['all']).includes('thrown-weapon');
-          if ((item.data.traits?.value || []).some(t => t.startsWith('thrown-')) && isThrowing){
+          if ((item.data.traits?.value || []).some(t => t.startsWith('thrown-')) && isThrowing){ 
             ability = 'dex';
             score = data.abilities.dex.value;
           }
