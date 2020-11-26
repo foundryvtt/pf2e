@@ -8,7 +8,6 @@ import {
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
-import { option } from 'yargs';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
