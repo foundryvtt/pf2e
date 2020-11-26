@@ -444,7 +444,7 @@ export class PF2eConditionManager {
      * @param {Token} token    The token to add the condition to.
      */
     static async addConditionToToken(name:string|ConditionData, token:Token) {
-        const condition:ConditionData = name instanceof String ? PF2eConditionManager.getCondition(name as string) : name as ConditionData;
+        const condition:ConditionData = typeof name === 'string' ? PF2eConditionManager.getCondition(name) : name;
 
         const returnValue = await PF2eConditionManager._addConditionEntity(condition, token);
 
