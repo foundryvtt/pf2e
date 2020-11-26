@@ -10,7 +10,7 @@ export interface ItemDescriptionData {
         value: string;
     };
     traits: {
-        value: string;
+        value: string[];
     };
     rarity: {
         value: 'common' | 'uncommon' | 'rare' | 'unique';
