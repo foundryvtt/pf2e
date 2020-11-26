@@ -246,7 +246,7 @@ export interface RawCharacterData {
         height: { value: string; }
         /** Character weight (user-provided field). */
         weight: { value: string; }
-        /** Character gender (user-provided field). */
+        /** Character gender/pronouns (user-provided field). */
         gender: { value: string; }
         /** Character ethnicity (user-provided field). */
         ethnicity: { value: string; }
