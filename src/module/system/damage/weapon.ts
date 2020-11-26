@@ -62,7 +62,7 @@ export class PF2WeaponDamage {
             tags.push(versatileTrait.name);
         }
 
-        //thrown-X traits
+        // thrown-X traits
         const thrownTrait = traits.find((t) => t.name.toLowerCase().startsWith('thrown-'));
         if (thrownTrait && options.some((o) => o === thrownTrait.rollOption)) {
             options.push('thrown');
@@ -199,7 +199,7 @@ export class PF2WeaponDamage {
         {
             let modifier;
             const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown-'));
-            const isThrown = traits.some(t => t.name.toLowerCase() == 'thrown') || options.includes('thrown');
+            const isThrown = traits.some(t => t.name.toLowerCase() === 'thrown') || options.includes('thrown');
             // skips if a throwable melee weapon but thrown toggle is on
             if (melee && !isThrown) {
                 ability = 'str';
