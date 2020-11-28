@@ -771,43 +771,52 @@ export default class PF2EActor extends Actor {
   /* -------------------------------------------- */
 
   onCreateOwnedItem(child, options, userId) {
-    if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const updates = {};
+    const tokens = {};
+    for (const scene of game.scenes.values()) {
+      scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => duplicate(token))
+        .forEach(token => { tokens[token._id] = token; });
+    }
+    const actorUpdates = {};
     for (const rule of rules) {
-      rule.onCreate(<CharacterData|NpcData>this.data, child, updates);
+      rule.onCreate(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
     }
-    this.update(updates);
-    const tokenUpdates = getProperty(updates, 'token');
-    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
-      this._updateAllTokens(tokenUpdates);
-    }
+    this._updateAllTokens(actorUpdates, tokens);
   }
 
   onDeleteOwnedItem(child, options, userId) {
-    if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const updates = {};
+    const tokens = {};
+    for (const scene of game.scenes.values()) {
+      scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => duplicate(token))
+        .forEach(token => { tokens[token._id] = token; });
+    }
+    const actorUpdates = {};
     for (const rule of rules) {
-      rule.onDelete(<CharacterData|NpcData>this.data, child, updates);
+      rule.onDelete(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
     }
-    this.update(updates);
-    const tokenUpdates = getProperty(updates, 'token');
-    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
-      this._updateAllTokens(tokenUpdates);
-    }
+    this._updateAllTokens(actorUpdates, tokens);
   }
 
-  async _updateAllTokens(updates) {
+  async _updateAllTokens(actorUpdates: any, tokens: any) {
     const promises = [];
+    if (actorUpdates && !isObjectEmpty(actorUpdates)) {
+      promises.push(this.update(actorUpdates));
+    }
     for (const scene of game.scenes.values()) {
-      for (const token of scene.getEmbeddedCollection('Token')) {
-        if (token.actorId === this.id) {
-          promises.push(scene.updateEmbeddedEntity('Token', mergeObject(updates, {_id: token._id}, {inplace: false})));
-        }
-      }
+      const local = scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => tokens[token._id])
+        .filter(token => !!token);
+      promises.push(scene.updateEmbeddedEntity('Token', local));
     }
     return Promise.all(promises);
   }

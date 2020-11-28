@@ -22,8 +22,8 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
         this.item = item;
     }
     
-    onCreate(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
-        const updatedActorData = mergeObject(actorData, updates, {inplace: false});
+    onCreate(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any) {
+        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
         if (!value) {
@@ -31,20 +31,20 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
         }
 
         if (getProperty(updatedActorData, 'data.attributes.hp.temp') < value) {
-            mergeObject(updates, {
+            mergeObject(actorUpdates, {
                 'data.attributes.hp.temp': value,
                 'data.attributes.hp.tempsource': item._id,
             });
         }
     }
     
-    onDelete(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
-        const updatedActorData = mergeObject(actorData, updates, {inplace: false});
+    onDelete(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any) {
+        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
         if (getProperty(updatedActorData, 'data.attributes.hp.tempsource') === item._id) {
-            mergeObject(updates, {
+            mergeObject(actorUpdates, {
                 'data.attributes.hp.temp': 0,
-                'data.attributes.hp.-=tempsource': null,
             });
+            getProperty(actorUpdates, 'data.attributes.hp')['-=tempsource'] = null;
         }
     }
 
