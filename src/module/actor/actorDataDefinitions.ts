@@ -90,6 +90,8 @@ export interface CharacterStrikeTrait {
     rollName?: string;
     /** The option that this trait applies to the roll (of type `rollName`). */
     rollOption?: string;
+    /** the Item ID to apply the roll option to */
+    rollTarget?: string;
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
 }

@@ -572,10 +572,9 @@ export default class PF2EActor extends Actor {
             ability = 'dex';
             score = data.abilities.dex.value;
           }
-          // look for thrown melee weapons when toggled on
-          
-          const isThrowing = this.getRollOptions(['all']).includes('thrown-weapon');
-          if ((item.data.traits?.value || []).some(t => t.startsWith('thrown-')) && isThrowing){ 
+          // look for thrown melee weapons when toggled on, work-around for the fist strike
+          const thrown = (item._id != "fist") ? PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'attack-roll']).includes('thrown') : false;
+          if (thrown){ 
             ability = 'dex';
             score = data.abilities.dex.value;
           }
@@ -628,13 +627,14 @@ export default class PF2EActor extends Actor {
                 option.rollOption = trait;
             } else if (trait.startsWith('thrown-')) {
                 option.rollName = 'all';
-                option.rollOption = 'thrown-weapon';
+                option.rollOption = 'thrown';
             }
 
             // trait can be toggled on/off
             if (option.rollName && option.rollOption) {
                 option.toggle = true;
-                option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption) ? 'toggled-on' : 'toggled-off';
+                option.rollTarget = item._id;
+                option.cssClass = PF2EActor.getRollOptions(this.items.get(item._id).data.flags, [option.rollName]).includes(option.rollOption) ? 'toggled-on' : 'toggled-off';
             }
             return option;
           })
@@ -676,10 +676,18 @@ export default class PF2EActor extends Actor {
           },
         ];
         action.damage = (event, options = []) => {
+          if (item._id != "fist") {
+            options = options.concat(PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'damage-roll']));
+          };
+          console.log(options);
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
           PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
         };
         action.critical = (event, options = []) => {
+          if (item._id != "fist") {
+            options = options.concat(PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'damage-roll']));
+          };
+          console.log(options);
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
           PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
         };

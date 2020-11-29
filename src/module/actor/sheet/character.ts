@@ -5,6 +5,7 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
+import PF2EActor from '../actor';
 
 /**
  * @category Other
@@ -579,7 +580,11 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     });
 
     html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
-        this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
+        // this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
+        // this sets the rollOptions on the ITEM.
+        const item = event.currentTarget.dataset.rollTarget;
+        const flag = `rollOptions.${event.currentTarget.dataset.rollName}.${event.currentTarget.dataset.rollOption}`;
+        this.actor.items.get(item).setFlag(game.system.id, flag, !this.actor.items.get(item).getFlag(game.system.id, flag));
     });
 
     html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));

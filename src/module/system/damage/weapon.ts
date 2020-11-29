@@ -42,7 +42,7 @@ export class PF2WeaponDamage {
         const tags = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
-
+        
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
@@ -63,12 +63,10 @@ export class PF2WeaponDamage {
         }
 
         // thrown-X traits
-        const thrownTrait = traits.find((t) => t.name.toLowerCase().startsWith('thrown-'));
-        if (thrownTrait && options.some((o) => o === thrownTrait.rollOption)) {
-            options.push('thrown');
-            tags.push(thrownTrait.name);
+        if (options.includes('thrown')) {
+            tags.push('thrown');
         }
-
+        
         // custom damage
         const normalDice = weapon.data?.property1?.dice ?? 0;
         const weaponDamageType = baseDamageType
@@ -199,7 +197,7 @@ export class PF2WeaponDamage {
         {
             let modifier;
             const melee = ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) || traits.some(t => t.name.startsWith('thrown-'));
-            const thrown = traits.some(t => t.name.toLowerCase() === 'thrown') || options.includes('thrown');
+            const thrown = options.includes('thrown');
             // skips if a throwable melee weapon but thrown toggle is on
             if (melee && !thrown) {
                 ability = 'str';
