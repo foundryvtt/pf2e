@@ -12,6 +12,7 @@ import {PF2TokenImageRuleElement} from "./elements/token-image";
 import {PF2TokenSizeRuleElement} from "./elements/token-size";
 import {PF2BaseSpeedRuleElement} from "./elements/base-speed";
 import {PF2SenseRuleElement} from "./elements/sense";
+import {PF2TokenEffectIconRuleElement} from "./elements/token-effect-icon";
 
 export {PF2RuleElement};
 
@@ -28,6 +29,7 @@ export class PF2RuleElements {
         'PF2E.RuleElement.TempHP':  (ruleData, item) => new PF2TempHPRuleElement(ruleData, item),
         'PF2E.RuleElement.DamageDice': (ruleData, item) => new PF2DamageDiceRuleElement(ruleData, item),
         'PF2E.RuleElement.ToggleProperty': (ruleData, item) => new PF2TogglePropertyRuleElement(ruleData, item),
+        'PF2E.RuleElement.TokenEffectIcon': (ruleData, item) => new PF2TokenEffectIconRuleElement(ruleData, item),
         'PF2E.RuleElement.TokenImage': (ruleData, item) => new PF2TokenImageRuleElement(ruleData, item),
         'PF2E.RuleElement.TokenSize': (ruleData, item) => new PF2TokenSizeRuleElement(ruleData, item),
         'PF2E.RuleElement.BaseSpeed': (ruleData, item) => new PF2BaseSpeedRuleElement(ruleData, item),
