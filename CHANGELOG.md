@@ -1,21 +1,56 @@
 # Patch Notes:
 
+## Version 1.10.17
+### Bug Fixes
+* (@CarlosFdez) Fix type check in addConditionToToken
+* (@nikolaj-a) Fix non-condition token status icons (#782)
+
+### New Features
+* (@mathmanpi) Add rule elements to count available familiar abilities
+* (@nikolaj-a) Support damage type and category for flat modifier rule element
+* (@nikolaj-a) Token effect icon rule element
+
+### Content Changes
+* (Evil Slime) Fix ogre spider damage
+* (@TMun) Compendia content fixes:
+    * Correct waterskin text for errata 2
+    * Change the format of the Flaming Sphere Area
+    * De-pluralizes Spiritbound Aluums
+    * Delete magma dragons from AoA Bestiary
+    * Fixes One-eye Amnin club attack
+    * Corrects trick magic item feat action requirement
+    * Adds weaknesses/resistance to clockwork assassin
+    * Changes giant immunities from custom to labeled value
+* (SLATE) Cleanup compendium entries formatting, including condition links, for feats
+* (SLATE) Compendia content fixes:
+    * Fix minor NPC issues with 1-22 and fixes quotes on zombie flesh golem
+    * Fix Awesome Blow feat level
+    * Fix description of Assurance feat to indicate it can be selected multiple times
+* (@Sirrus233) Update Charm spell with proper heightening info
+
+### Core System Improvements
+* (@profounddark) Updated initiative to improve predicate support
+* (Evil Slime and fryguy) Change gender textbox to also include pronouns. Closes #886
+* (fryguy) Remove experimental disclaimer from strikes
+* (@nikolaj-a) Tweak rule element create and delete hooks
+
+
 ## Version 1.10.16
 ### Bug Fixes
 * (@stwlam) Fix issues preventing creation and correct rendering of custom conditions
 * (@stwlam) Fix application of conditions when dropping condition items on actor sheets
 * (@stwlam) Adjust item-sheet HTML to take on intended styling
 * (@mathmanpi) Fix shield HP tooltip. Closes #455
-* (@SLATE) Fixed NPC gallery not showing up in Bestiary source filter. Closes #858
-* (@SLATE) Added traits to spell chat card. Closes #821
+* (SLATE) Fixed NPC gallery not showing up in Bestiary source filter. Closes #858
+* (SLATE) Added traits to spell chat card. Closes #821
 
 ### New Features
-* (@fryguy) Allow configuring the default token settings that get set
-* (@SLATE) Added spell traits filter to compendium browser
+* (fryguy) Allow configuring the default token settings that get set
+* (SLATE) Added spell traits filter to compendium browser
 
 ### Content Changes
 * (@Sirrus233) Fix broken path to Dagger icon in Guard NPC sheet
-* (@fryguy) Add Agents of Edgewatch 5 bestiary
+* (fryguy) Add Agents of Edgewatch 5 bestiary
 * (@TMun) Add missing monsters and hazards from EC1, correct Abrikandilu
 * (@TMun) Add missing EC2 monsters and hazards
 * (@TMun) Adds EC3 traps
@@ -38,16 +73,16 @@
     * Fix backgrounds that had truncated descriptions. Closes #856
     * Update Pummeling Rubble - move text from `area` to `areasize`
     * Change wilding word to saving throw
-* (@SLATE) Add creatures for PFS 2-07, 2-08
-* (@SLATE) Added Second Chance Spell feat
-* (@SLATE) Errata v2:
+* (SLATE) Add creatures for PFS 2-07, 2-08
+* (SLATE) Added Second Chance Spell feat
+* (SLATE) Errata v2:
     * Classes
     * Class Features
     * Feats
     * Spells
     * Actions
     * Equipment
-* (@SLATE) Cleanup compendium entries formatting, including condition links:
+* (SLATE) Cleanup compendium entries formatting, including condition links:
     * Actions
     * Backgrounds
     * Classes
@@ -65,7 +100,7 @@
     * Critical Deck
     * Age of Ashes bestiary
     * Agents of Edgewatch bestiary
-* (@SLATE) Compendia content fixes:
+* (SLATE) Compendia content fixes:
     * Fix Ward Domain spell
     * Fix Accursed Forge-Spurned and Thea from Age of Ashes book 4. Closes #864
     * Change Invoke Reckoning from one action to a reaction for Age of Ashes Skeletal Hellknight. Closes #865
@@ -84,7 +119,7 @@
 * (@nikolaj-a) Separate damage types on damage roll chat card
 
 ### Development Improvements
-* (@fryguy) Fix some typos/documentation
+* (fryguy) Fix some typos/documentation
 
 
 ## Version 1.10.15
@@ -93,7 +128,7 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
 
 ### Bug Fixes
 * (@abrault) Fix dice multiplication in critical rule
-* (@fryguy) Remove strike class from status effect html
+* (fryguy) Remove strike class from status effect html
 * (@TMun) Corrects title of 'show status effects' and adds space to 'the actors' in system game settings
 * (@TMun) Corrected types for various entity field:
     * Correct typing for condition value from string to int. Change doomed and slowed to be valued
@@ -106,10 +141,10 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
 * (@nikolaj-a) Allow players to roll saving throw from spell chat card
 
 ### New Features
-* (@fryguy) Add rules element for Sneak Attacker
+* (fryguy) Add rules element for Sneak Attacker
 
 ### Content Changes
-* (@fryguy) Add Agents of Edgewatch 4 bestiary
+* (fryguy) Add Agents of Edgewatch 4 bestiary
 * (@overdox) Icon updates
 * (@overdox) Remove unused test icons
 * (@TMun) Adds AoE4 spells and equipment
@@ -142,17 +177,17 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
 ### New Features
 * (@abrault) Add flag to lock proficiencies
 * (@nikolaj-a) Roll option support for flat modifier rule element, enabling support for conditional modifiers on passive stats like AC and speed
-* (@fryguy) Add save button to spell saves
+* (fryguy) Add save button to spell saves
 
 ### Content Changes
 * (@overdox) Icon updates
-* (@fryguy) Compendium updates:
+* (fryguy) Compendium updates:
     * Add Agents of Edgewatch 1 bestiary
     * Add Agents of Edgewatch 2 bestiary
     * Add Agents of Edgewatch 3 bestiary
     * Fix typos in critical hit deck
-* (@fryguy) Add description for oracle and witch
-* (@fryguy) NPC action category migration
+* (fryguy) Add description for oracle and witch
+* (fryguy) NPC action category migration
 * (@TMun) Lost Omens: Pathfinder Society backgrounds, equipment, feats, and spells
 * (@TMun) Pathfinder Society
     * PFS Season 1 bestiary
@@ -167,13 +202,13 @@ This version of the PF2E system requires at least version of 0.7.5 of Foundry.
     * Corrects name for Potion of Flying (Standard) (#820)
 
 ### Core System Improvements
-* (@fryguy) Since attackEffects uses the trait selector, we need to also show "custom" effects
-* (@fryguy) Remove compendium items from the NPC sheet, as they didn't work anyways
-* (@fryguy) Add "Melee" or "Ranged" in front of NPC attacks to make them more like the creature statblocks. Also so that it was more clear why there were two "dagger" attack buttons on certain NPCs when they have a ranged and melee attack.
-* (@fryguy) Add item quantity to the item display on NPC items
-* (@fryguy) Update the npc sheet to use `data.actionCatgegory` (which is what's editable in the UI) instead of `data.pf2e_updatednpcsheet.npcActionType` (which doesn't seem to be set anywhere).
-* (@fryguy) Remove the item edit buttons on the non-editable npc sheet (to make more room)
-* (@fryguy) Fix lint mistake in the migration code
+* (fryguy) Since attackEffects uses the trait selector, we need to also show "custom" effects
+* (fryguy) Remove compendium items from the NPC sheet, as they didn't work anyways
+* (fryguy) Add "Melee" or "Ranged" in front of NPC attacks to make them more like the creature statblocks. Also so that it was more clear why there were two "dagger" attack buttons on certain NPCs when they have a ranged and melee attack.
+* (fryguy) Add item quantity to the item display on NPC items
+* (fryguy) Update the npc sheet to use `data.actionCatgegory` (which is what's editable in the UI) instead of `data.pf2e_updatednpcsheet.npcActionType` (which doesn't seem to be set anywhere).
+* (fryguy) Remove the item edit buttons on the non-editable npc sheet (to make more room)
+* (fryguy) Fix lint mistake in the migration code
 * (@Kevin) Brushed up the contributing page, and moved the OGL to the files being distributed with the system
 
 
