@@ -406,7 +406,7 @@ export interface RawCharacterData {
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
 
-    /** EXPERIMENTAL API: Special strikes which the character can take. */
+    /** Special strikes which the character can take. */
     actions: CharacterStrike[];
 }
 
