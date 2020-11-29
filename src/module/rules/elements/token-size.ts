@@ -26,7 +26,7 @@ export class PF2TokenSizeRuleElement extends PF2RuleElement {
         this.item = item;
     }
     
-    onCreate(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
+    onCreate(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = SIZES[this.ruleData.value] ?? 
             this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
 
@@ -34,13 +34,17 @@ export class PF2TokenSizeRuleElement extends PF2RuleElement {
             console.warn('PF2E | Token Image requires a non-empty value field');
         }
 
-        mergeObject(updates, {
-            'token.width': value,
+        tokens.forEach(token => {
+            token.height = value;
+            token.width = value;
+        });
+        mergeObject(actorUpdates, {
             'token.height': value,
+            'token.width': value,
             'flags.pf2e.token.sizesource': item._id,
         });
         if (!getProperty(actorData, 'flags.pf2e.token.size')) {
-            mergeObject(updates, {
+            mergeObject(actorUpdates, {
                 'flags.pf2e.token.size': {
                     height: getProperty(actorData, 'token.height'),
                     width: getProperty(actorData, 'token.width'),
@@ -49,14 +53,20 @@ export class PF2TokenSizeRuleElement extends PF2RuleElement {
         }
     }
     
-    onDelete(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
+    onDelete(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.sizesource') === item._id) {
-            mergeObject(updates, {
+            tokens.forEach(token => {
+                token.height = getProperty(actorData, 'flags.pf2e.token.size.height');
+                token.width = getProperty(actorData, 'flags.pf2e.token.size.width');
+            });
+            mergeObject(actorUpdates, {
                 'token.height': getProperty(actorData, 'flags.pf2e.token.size.height'),
                 'token.width': getProperty(actorData, 'flags.pf2e.token.size.width'),
-                'flags.pf2e.token.-=sizesource': null,
-                'flags.pf2e.token.-=size': null,
+                'flags.pf2e.token': {},
             });
+            const token = getProperty(actorUpdates, 'flags.pf2e.token');
+            token['-=size'] = null;
+            token['-=sizesource'] = null;
         }
     }
 
