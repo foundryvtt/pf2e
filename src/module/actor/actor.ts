@@ -676,7 +676,7 @@ export default class PF2EActor extends Actor {
           },
         ];
         action.damage = (event, options = []) => {
-          if (item._id != "fist") {
+          if (item._id !== "fist") {
             options = options.concat(PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'damage-roll']));
           };
           console.log(options);
@@ -684,7 +684,7 @@ export default class PF2EActor extends Actor {
           PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
         };
         action.critical = (event, options = []) => {
-          if (item._id != "fist") {
+          if (item._id !== "fist") {
             options = options.concat(PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'damage-roll']));
           };
           console.log(options);
