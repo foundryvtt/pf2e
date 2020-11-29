@@ -445,6 +445,7 @@ export class PF2eStatusEffects {
 
         const f = $(event.currentTarget);
         const status = f.attr('data-condition');
+        const src = f.attr("src");
 
         const condition:ConditionData = token.actor.data.items.find((i:ConditionData) => i.flags.pf2e?.condition && i.type === 'condition' && i.name === status && i.data.sources.hud && i.data.references.parent === undefined) as ConditionData;
 
@@ -454,8 +455,8 @@ export class PF2eStatusEffects {
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                token.actor.data.items.filter((i:ConditionData) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.base === status).forEach((i:ConditionData) => conditionIds.push(i._id));
-
+                token.actor.data.items.filter((i:ConditionData) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.base === status)
+                    .forEach((i:ConditionData) => conditionIds.push(i._id));
             } else if (condition) {
                 conditionIds.push(condition._id);
             }
@@ -463,15 +464,18 @@ export class PF2eStatusEffects {
             if (conditionIds.length > 0) {
                 token.statusEffectChanged = true;
                 await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
+            } else if (token.data.effects.includes(src)) {
+                await token.toggleEffect(src);
             }
-            
         } else if (event.type === 'click') {
-            if (!condition) {
+            if (!condition && status) {
                 const newCondition = PF2eConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
                 token.statusEffectChanged = true;
                 
                 await PF2eConditionManager.addConditionToToken(newCondition, token);
+            } else if (!token.data.effects.includes(src)) {
+                await token.toggleEffect(src);
             }
         }
     }
