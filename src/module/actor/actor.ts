@@ -505,6 +505,19 @@ export default class PF2EActor extends Actor {
       data.attributes.speed.otherSpeeds[idx] = stat;
     }
 
+    // Familiar Abilities
+    {
+      const modifiers = [];
+      (statisticsModifiers['familiar-abilities'] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+
+      const stat = mergeObject(new PF2StatisticModifier('familiar-abilities', modifiers) as any, data.attributes.familiarAbilities, { overwrite: false });
+      stat.value = stat.totalModifier;
+      stat.breakdown = stat.modifiers.filter(m => m.enabled)
+        .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+        .join(', ');
+      data.attributes.familiarAbilities = stat;
+    }
+
     // Automatic Actions
     data.actions = [];
 
@@ -678,29 +691,19 @@ export default class PF2EActor extends Actor {
 
   prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
     const { data } = actorData;
-
     const initSkill = data.attributes?.initiative?.ability || 'perception';
     const modifiers: PF2Modifier[] = [];
 
-    // FIXME: this is hard coded for now
-    const feats = new Set(actorData.items.filter(item => item.type === 'feat').map(item => item.name));
-    if (feats.has('Incredible Initiative')) {
-      modifiers.push(new PF2Modifier('Incredible Initiative', 2, PF2ModifierType.CIRCUMSTANCE));
-    }
-    if (feats.has('Battlefield Surveyor') && initSkill === 'perception') {
-      modifiers.push(new PF2Modifier('Battlefield Surveyor', 2, PF2ModifierType.CIRCUMSTANCE));
-    }
-    if (feats.has('Elven Instincts') && initSkill === 'perception') {
-      modifiers.push(new PF2Modifier('Elven Instincts', 2, PF2ModifierType.CIRCUMSTANCE));
-    }
-    if (feats.has('Eye of Ozem') && initSkill === 'perception') {
-      modifiers.push(new PF2Modifier('Eye of Ozem', 2, PF2ModifierType.CIRCUMSTANCE));
-    }
-    if (feats.has('Harmlessly Cute') && initSkill === 'dec') {
-      modifiers.push(new PF2Modifier('Harmlessly Cute', 1, PF2ModifierType.CIRCUMSTANCE));
-    }
     ['initiative'].forEach((key) => {
-      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+      const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
+      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
+        // checks if predicated rule is true with only skill name option
+        if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
+          // toggles these so the predicate rule will be included when totalmodifier is calculated
+          m.enabled = true;
+          m.ignored = false;
+        }
+        modifiers.push(m)});
     });
     const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
     const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
@@ -709,6 +712,11 @@ export default class PF2EActor extends Actor {
     stat.ability = initSkill;
     stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
     stat.roll = (event, options = []) => {
+      const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
+      // push skill name to options if not already there
+      if (!options.includes(skillFullName)) {
+        options.push(skillFullName);
+      }
       PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
         this._applyInitiativeRollToCombatTracker(roll);
       });
@@ -763,43 +771,52 @@ export default class PF2EActor extends Actor {
   /* -------------------------------------------- */
 
   onCreateOwnedItem(child, options, userId) {
-    if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const updates = {};
+    const tokens = {};
+    for (const scene of game.scenes.values()) {
+      scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => duplicate(token))
+        .forEach(token => { tokens[token._id] = token; });
+    }
+    const actorUpdates = {};
     for (const rule of rules) {
-      rule.onCreate(<CharacterData|NpcData>this.data, child, updates);
+      rule.onCreate(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
     }
-    this.update(updates);
-    const tokenUpdates = getProperty(updates, 'token');
-    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
-      this._updateAllTokens(tokenUpdates);
-    }
+    this._updateAllTokens(actorUpdates, tokens);
   }
 
   onDeleteOwnedItem(child, options, userId) {
-    if (!['character', 'npc'].includes(this.data.type)) return;
+    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const updates = {};
+    const tokens = {};
+    for (const scene of game.scenes.values()) {
+      scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => duplicate(token))
+        .forEach(token => { tokens[token._id] = token; });
+    }
+    const actorUpdates = {};
     for (const rule of rules) {
-      rule.onDelete(<CharacterData|NpcData>this.data, child, updates);
+      rule.onDelete(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
     }
-    this.update(updates);
-    const tokenUpdates = getProperty(updates, 'token');
-    if (tokenUpdates && !isObjectEmpty(tokenUpdates)) {
-      this._updateAllTokens(tokenUpdates);
-    }
+    this._updateAllTokens(actorUpdates, tokens);
   }
 
-  async _updateAllTokens(updates) {
+  async _updateAllTokens(actorUpdates: any, tokens: any) {
     const promises = [];
+    if (actorUpdates && !isObjectEmpty(actorUpdates)) {
+      promises.push(this.update(actorUpdates));
+    }
     for (const scene of game.scenes.values()) {
-      for (const token of scene.getEmbeddedCollection('Token')) {
-        if (token.actorId === this.id) {
-          promises.push(scene.updateEmbeddedEntity('Token', mergeObject(updates, {_id: token._id}, {inplace: false})));
-        }
-      }
+      const local = scene.getEmbeddedCollection('Token')
+        .filter(token => token.actorId === this.id)
+        .map(token => tokens[token._id])
+        .filter(token => !!token);
+      promises.push(scene.updateEmbeddedEntity('Token', local));
     }
     return Promise.all(promises);
   }
@@ -946,6 +963,10 @@ export default class PF2EActor extends Actor {
       data.master.name = master?.name;
       data.master.level = master.data.data.details.level.value ?? 0;
       data.master.ability = data.master.ability ?? 'cha';
+      data.master.familiarAbilities = {
+        breakdown: master.data.data.attributes.familiarAbilities.breakdown,
+        value: master.data.data.attributes.familiarAbilities.value
+      };
       data.details.level.value = data.master.level;
       const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
@@ -1110,6 +1131,10 @@ export default class PF2EActor extends Actor {
     } else {
       data.master.name = undefined;
       data.master.level = 0;
+      data.master.familiarAbilities = {
+        breakdown: '',
+        value: 0
+      };
       data.details.level.value = 0;
       data.attributes.hp = {
         value: data.attributes.hp.value,
@@ -1807,7 +1832,9 @@ export default class PF2EActor extends Actor {
    * ignored.
    */
   async addCustomModifier(stat: string, name: string, value: number, type: string,
-                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string) {
+                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string,
+                          damageCategory?: string
+  ) {
     // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
     // similar to how addDamageDice operates.
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
@@ -1819,6 +1846,9 @@ export default class PF2EActor extends Actor {
       const modifier = new PF2Modifier(name, value, type);
       if (damageType) {
         modifier.damageType = damageType;
+      }
+      if (damageCategory) {
+        modifier.damageCategory = damageCategory;
       }
       modifier.custom = true;
 

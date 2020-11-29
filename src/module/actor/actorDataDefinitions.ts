@@ -246,7 +246,7 @@ export interface RawCharacterData {
         height: { value: string; }
         /** Character weight (user-provided field). */
         weight: { value: string; }
-        /** Character gender (user-provided field). */
+        /** Character gender/pronouns (user-provided field). */
         gender: { value: string; }
         /** Character ethnicity (user-provided field). */
         ethnicity: { value: string; }
@@ -316,6 +316,9 @@ export interface RawCharacterData {
         doomed: { value: number; max: number; }
         /** The current number of hero points (and maximum) for this character. */
         heroPoints: { rank: number; max: number; }
+
+        /** The number of familiar abilities this character's familiar has access to. */
+        familiarAbilities: number;
 
         /** Data related to character hitpoints. */
         hp: HitPointsData;
@@ -403,7 +406,7 @@ export interface RawCharacterData {
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
 
-    /** EXPERIMENTAL API: Special strikes which the character can take. */
+    /** Special strikes which the character can take. */
     actions: CharacterStrike[];
 }
 
