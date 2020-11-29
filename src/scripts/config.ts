@@ -177,24 +177,24 @@ CONFIG.weaponPropertyRunes = {
 
 CONFIG.damageTypes = {
   acid: 'PF2E.DamageTypeAcid',
+  bleed: 'PF2E.DamageTypeBleed',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  chaotic: 'PF2E.DamageTypeChaotic',
   cold: 'PF2E.DamageTypeCold',
+  electricity: 'PF2E.DamageTypeElectricity',
+  evil: 'PF2E.DamageTypeEvil',
   fire: 'PF2E.DamageTypeFire',
   force: 'PF2E.DamageTypeForce',
-  electricity: 'PF2E.DamageTypeElectricity',
-  sonic: 'PF2E.DamageTypeSonic',
+  good: 'PF2E.DamageTypeGood',
+  lawful: 'PF2E.DamageTypeLawful',
+  mental: 'PF2E.DamageTypeMental',
   negative: 'PF2E.DamageTypeNegative',
   piercing: 'PF2E.DamageTypePiercing',
   poison: 'PF2E.DamageTypePoison',
   positive: 'PF2E.DamageTypePositive',
-  bleed: 'PF2E.DamageTypeBleed',
-  mental: 'PF2E.DamageTypeMental',
   precision: 'PF2E.DamageTypePrecision',
   slashing: 'PF2E.DamageTypeSlashing',
-  chaotic: 'PF2E.DamageTypeChaotic',
-  lawful: 'PF2E.DamageTypeLawful',
-  good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil'
+  sonic: 'PF2E.DamageTypeSonic',
 }; // Resistance Types
 
 CONFIG.resistanceTypes = {
