@@ -573,7 +573,7 @@ export default class PF2EActor extends Actor {
             score = data.abilities.dex.value;
           }
           // look for thrown melee weapons when toggled on, work-around for the fist strike
-          const thrown = (item._id != "fist") ? PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'attack-roll']).includes('thrown') : false;
+          const thrown = (item._id !== "fist") ? PF2EActor.getRollOptions(this.items.get(item._id).data.flags, ['all', 'attack-roll']).includes('thrown') : false;
           if (thrown){ 
             ability = 'dex';
             score = data.abilities.dex.value;
