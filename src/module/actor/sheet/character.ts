@@ -118,9 +118,9 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     //Character Build
     const characterBuildChoices: BuildChoices = {
-      ancestry: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
-      background: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
-      class: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
+      ancestry: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
+      background: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
+      class: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
     }
 
     // Spellbook
@@ -183,7 +183,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
 
     let investedCount = 0; // Tracking invested items
-    
     for (const i of actorData.items) {
       i.img = i.img || CONST.DEFAULT_TOKEN;
       i.containerData = containers.get(i._id);
@@ -205,7 +204,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         investedCount += 1;
       }
 
-        // Inventory
+      // Inventory
       if (Object.keys(inventory).includes(i.type)) {
         i.data.quantity.value = i.data.quantity.value || 0;
         i.data.weight.value = i.data.weight.value || 0;
@@ -218,6 +217,11 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
           attacks.weapon.items.push(i);
         }
         inventory[i.type].items.push(i);
+      }
+
+      // Build Choices
+      else if (i.type === 'buildChoice') {
+        characterBuildChoices[i.category].choices.push(i)
       }
 
       // Spells
