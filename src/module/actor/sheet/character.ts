@@ -115,6 +115,13 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
     };
 
+    //Character Build
+    const characterBuild = {
+      ancestry: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
+      background: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
+      class: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
+    }
+
     // Spellbook
     // const spellbook = {};
     const tempSpellbook = [];
@@ -418,6 +425,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Assign and return
     actorData.inventory = inventory;
+    actorData.characterBuild = characterBuild;
     // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
     if (Object.keys(spellbooks.unassigned).length) {
       actorData.orphanedSpells = true;
