@@ -5,6 +5,7 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
+import { BuildChoices } from 'types/foundry-pc-types/types/characterbuild';
 
 /**
  * @category Other
@@ -116,7 +117,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     };
 
     //Character Build
-    const characterBuild = {
+    const characterBuildChoices: BuildChoices = {
       ancestry: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
       background: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
       class: { label: game.i18n.localize("PF2E.Ancestry"), choice: [] },
@@ -425,7 +426,7 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Assign and return
     actorData.inventory = inventory;
-    actorData.characterBuild = characterBuild;
+    actorData.characterBuildChoices = characterBuildChoices;
     // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
     if (Object.keys(spellbooks.unassigned).length) {
       actorData.orphanedSpells = true;
