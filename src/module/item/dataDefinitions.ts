@@ -646,6 +646,10 @@ export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescripti
     type: 'feat'
 }
 
+export interface BuildChoiceData extends BaseEntityData<FeatData> {
+    buildChoiceCategory: string;
+}
+
 export interface LoreData extends BaseEntityData<LoreDetailsData & ItemDescriptionData> {
     type: 'lore'
 }
