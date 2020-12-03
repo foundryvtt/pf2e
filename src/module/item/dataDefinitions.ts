@@ -326,6 +326,12 @@ export interface FeatDetailsData {
     }
 }
 
+export interface BuildChoiceDetailsData {
+    category: {
+        value: string;
+    }
+}
+
 export interface LoreDetailsData {
     featType: string,
     mod: {
@@ -646,8 +652,8 @@ export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescripti
     type: 'feat'
 }
 
-export interface BuildChoiceData extends BaseEntityData<FeatData> {
-    buildChoiceCategory: string;
+export interface BuildChoiceData extends BaseEntityData<FeatDetailsData & BuildChoiceDetailsData & ItemDescriptionData & ItemLevelData> {
+    type: 'buildChoice'
 }
 
 export interface LoreData extends BaseEntityData<LoreDetailsData & ItemDescriptionData> {
@@ -680,7 +686,7 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
 
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
+    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData | BuildChoiceData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;
