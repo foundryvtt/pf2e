@@ -550,6 +550,8 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
 
+    html.find('.character-builder-button').click((ev) => this._onCharacterBuilder(ev));
+
     html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
       $(event.currentTarget).parents('.expandable').toggleClass('expanded');
     });

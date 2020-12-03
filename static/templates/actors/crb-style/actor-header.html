@@ -9,18 +9,19 @@
             />
         </h1>
         {{#if readonlySheet}}
-            <div class="editsheet">
-                <label>
-                    Edit?
-                </label>
-                <input
-                    class="isNPCEditable"
-                    name="flags.pf2e.editSheet.value"
-                    type="checkbox"
-                    data-dtype="Boolean"
-                    {{checked flags.pf2e.editSheet.value}}
-                />
-            </div>
+        <div class="editsheet">
+            <label>
+                Edit?
+            </label>
+            <input
+                class="isNPCEditable"
+                name="flags.pf2e.editSheet.value"
+                type="checkbox"
+                data-dtype="Boolean"
+                {{checked
+                flags.pf2e.editSheet.value}}
+            />
+        </div>
         {{/if}}
         <div class="dots">
             <h4>
@@ -34,9 +35,13 @@
                 data-dtype="Number"
                 data-category="heroPoint"
             />
-            <span class="click-stat-level" title="{{data.attributes.heroPoints.hover}}">
+            <span
+                class="click-stat-level"
+                title="{{data.attributes.heroPoints.hover}}"
+            >
                 {{{data.attributes.heroPoints.icon}}}
             </span>
+            <a class="character-builder-button">Build</a>
         </div>
     </div>
     <div class="char-level">
@@ -82,8 +87,18 @@
                 ></span>
             </div>
             <div class="info">
-                <a href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/home" target="_blank">Wiki</a>
-                <a href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/master/CHANGELOG.md" target="_blank">Changelog</a>
+                <a
+                    href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/home"
+                    target="_blank"
+                >
+                    Wiki
+                </a>
+                <a
+                    href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/master/CHANGELOG.md"
+                    target="_blank"
+                >
+                    Changelog
+                </a>
             </div>
         </div>
     </div>

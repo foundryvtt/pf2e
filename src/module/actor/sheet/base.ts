@@ -9,6 +9,7 @@ import { TraitSelector5e } from '../../system/trait-selector';
 import PF2EItem from '../../item/item';
 import { ConditionData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
+import { CharacterBuilder } from '../../system/characterbuilder';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1644,6 +1645,11 @@ abstract class ActorSheetPF2e extends ActorSheet {
       has_exceptions: (a.attr('data-has-exceptions') === 'true'),
     };
     new TraitSelector5e(this.actor, options).render(true);
+  }
+
+  _onCharacterBuilder(event) {
+    event.preventDefault();
+    new CharacterBuilder(this.actor, {}).render(true);
   }
 
   _onAreaEffect(event) {
