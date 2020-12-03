@@ -1,13 +1,13 @@
 {
-    "_id": "beReeFroAx24hj83",
+    "_id": "bP40jr6wE6MCsRvY",
     "data": {
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You are inspired by words or tunes of encouragement. You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.CDuN9kzyxBZ4cShq]{Golden Legion Epaulet}.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 status bonus to attack rolls</li>\n<li>+1 status bonus to damage rolls</li>\n<li>+1 status bonus to saving throws against fear</li>\n</ul>"
         },
         "level": {
-            "value": 1
+            "value": 3
         },
         "rarity": {
             "value": "common"
@@ -15,27 +15,25 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Inspire Courage",
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Inspire Courage",
                 "selector": "damage",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Inspire Courage (vs fear)",
+                "label": "Golden Legion Epaulets (vs fear)",
                 "predicate": {
                     "all": [
                         "fear"
                     ]
                 },
-                "selector": "will",
+                "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
@@ -51,9 +49,13 @@
         }
     },
     "effects": [],
-    "flags": {},
-    "img": "systems/pf2e/icons/spells/inspire-courage.jpg",
-    "name": "Spell Effect: Inspire Courage",
+    "flags": {
+        "core": {
+            "sourceId": "Item.1THCulhJ5roTvkjM"
+        }
+    },
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/golden-legion-epaulet.jpg",
+    "name": "Effect: Golden Legion Epaulet",
     "permission": {
         "default": 0
     },
