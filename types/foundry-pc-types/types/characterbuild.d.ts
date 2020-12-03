@@ -1,4 +1,4 @@
-import PF2EItem from "../../../src/module/item/item";
+import { ItemData } from "../../../src/module/item/dataDefinitions";
 
 declare interface BuildChoices {
     ancestry: BuildChoice;
@@ -8,5 +8,5 @@ declare interface BuildChoices {
 
 declare interface BuildChoice {
     label: string;
-    choice: PF2EItem[]
+    choices: ItemData[]
 }
