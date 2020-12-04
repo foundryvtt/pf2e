@@ -20,18 +20,7 @@ export class CharacterBuilder extends FormApplication {
     if (actor.data.type === "character") { 
       const {data} = actor.data
       this.data = data
-      if (this.data.build) {
-        this.build = this.data.build
-      } else {
-        this.build = {
-          choices: {
-            ancestry: { label: "Ancestry", choices: [] },
-            background: { label: "Background", choices: [] },
-            class: { label: "Class", choices: [] }
-          },
-          isValid: false
-        }
-      }
+      this.build = this.data.build
     }
   }
 
