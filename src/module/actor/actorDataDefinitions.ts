@@ -1,5 +1,6 @@
 import { ItemData } from "../item/dataDefinitions"
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from "../modifiers";
+import { Build } from "../system/characterbuilder";
 
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
@@ -405,6 +406,9 @@ export interface RawCharacterData {
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
+
+    /** Character Build Data  */
+    build?: Build;
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];

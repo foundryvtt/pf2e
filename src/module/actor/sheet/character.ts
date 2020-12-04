@@ -5,7 +5,6 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
-import { BuildChoices } from 'types/foundry-pc-types/types/characterbuild';
 
 /**
  * @category Other
@@ -116,13 +115,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
     };
 
-    //Character Build
-    const characterBuildChoices: BuildChoices = {
-      ancestry: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
-      background: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
-      class: { label: game.i18n.localize("PF2E.Ancestry"), choices: [] },
-    }
-
     // Spellbook
     // const spellbook = {};
     const tempSpellbook = [];
@@ -217,11 +209,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
           attacks.weapon.items.push(i);
         }
         inventory[i.type].items.push(i);
-      }
-
-      // Build Choices
-      else if (i.type === 'buildChoice') {
-        characterBuildChoices[i.category].choices.push(i)
       }
 
       // Spells
@@ -430,7 +417,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     // Assign and return
     actorData.inventory = inventory;
-    actorData.characterBuildChoices = characterBuildChoices;
     // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
     if (Object.keys(spellbooks.unassigned).length) {
       actorData.orphanedSpells = true;

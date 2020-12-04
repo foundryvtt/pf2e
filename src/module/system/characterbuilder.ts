@@ -1,7 +1,8 @@
 /* global FormApplication */
 
-import { BuildChoices } from "../../../types/foundry-pc-types/types/characterbuild";
 import PF2EActor from "../actor/actor";
+import { RawCharacterData } from "../actor/actorDataDefinitions";
+import { ItemData } from "../item/dataDefinitions";
 
 /**
  * Character build page
@@ -9,16 +10,29 @@ import PF2EActor from "../actor/actor";
  * @category Other
  */
 export class CharacterBuilder extends FormApplication {
-  buildChoices: BuildChoices = {
-    ancestry: { label: "Ancestry", choices: [] },
-    background: { label: "Background", choices: [] },
-    class: { label: "Class", choices: [] },
-  };
-  categories: string[];
+  build: Build;
+  categories: BuildCategories;
   actor: PF2EActor;
+  data: RawCharacterData;
   constructor(actor: PF2EActor, options: FormApplicationOptions) {
     super(actor, options);
     this.actor = actor;
+    if (actor.data.type === "character") { 
+      const {data} = actor.data
+      this.data = data
+      if (this.data.build) {
+        this.build = this.data.build
+      } else {
+        this.build = {
+          choices: {
+            ancestry: { label: "Ancestry", choices: [] },
+            background: { label: "Background", choices: [] },
+            class: { label: "Class", choices: [] }
+          },
+          isValid: false
+        }
+      }
+    }
   }
 
     static get defaultOptions() {
@@ -33,20 +47,26 @@ export class CharacterBuilder extends FormApplication {
   }
 
   getData() {
-     // Return data
+     // Return data for View
 	  return {
-	    buildChoices: this.buildChoices // [{ label: "test 1"}, { label: "test 2"}]
+	    build: this.build
     };
   }
+}
 
-  activateListeners(html) {
-    html.find('.build-choice-create').click((ev) => this._onBuildChoiceCreate(ev));
 
-  }
+export interface Build {
+  choices: BuildCategories,
+  isValid: boolean
+}
 
-  _onBuildChoiceCreate(event) {
-    event.preventDefault();
-    var newChoice = { name: 'New Build Choice', type: 'buildChoice', img: '/icons/svg/d20-black.svg' }
-    this.actor.createEmbeddedEntity('OwnedItem', newChoice)
-  }
+export interface BuildCategories {
+  ancestry: BuildChoice;
+  background: BuildChoice;
+  class: BuildChoice;
+}
+
+export interface BuildChoice {
+  label: string;
+  choices: string[] // list of Item Ids
 }

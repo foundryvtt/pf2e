@@ -35,12 +35,10 @@ Class Features
 <form autocomplete="off" onsubmit="event.preventDefault();">
     <div>
         <ol class="character-build-list inventory-list directory-list inventory-pane">
-            {{#each buildChoices as |choice choiceId|}}
+            {{#each build.choices as |choice choiceId|}}
                 <div class="inventory-header">
                     <h3 class="build-choice-category item-name">{{choice.label}}</h3>
-                    <div class="item-controls">
-                        <a class="build-choice-create item-control" title="{{localize "PF2E.CreateItemTitle"}}" data-type="buildChoice"><i class="fas fa-plus"></i></a>
-                     </div>
+                    <p>{{json choice}}</p>
                 </div>
             {{/each}}
         </ol>
