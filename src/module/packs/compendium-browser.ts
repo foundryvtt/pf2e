@@ -77,6 +77,7 @@ type TabData<T> = {
 class CompendiumBrowser extends Application {
   sorters: any;
   filters: Record<any, any>;
+  ranges: any;
   settings: TabData<{[key: string]: PackInfo}>;
   navigationTab: any;
   data: TabData<object>;
@@ -631,6 +632,7 @@ class CompendiumBrowser extends Application {
   activateListeners(html) {
     super.activateListeners(html);
     this.resetFilters(html);
+    
     html.on('click', '.clear-filters', (ev) => {
       this.resetFilters(html);
       this.filterSpells(html.find('.tab.active li'));
@@ -701,7 +703,7 @@ class CompendiumBrowser extends Application {
       this.filterSpells(html.find('.tab.active li'));
     });
 
-    // filters for level, class and school
+    // filters for spell level, class and school
     html.on('click', 'input[type=checkbox]', (ev) => {
       const filterType = ev.target.name.split(/-(.+)/)[0];
       const filterTarget = ev.target.name.split(/-(.+)/)[1];
@@ -713,6 +715,20 @@ class CompendiumBrowser extends Application {
       }
       this.filterSpells(html.find('.tab.active li'));
     });
+    
+    // filter for levels
+      html.on('input change paste', 'input[name*=Bound]', (ev) => {
+          const type = ev.target.name.split("-")[1];
+          
+          const parentDiv = ev.target.parentElement;
+          const lowerBoundElement = parentDiv.querySelector('input[name*=lowerBound]');
+          const upperBoundElement = parentDiv.querySelector('input[name*=upperBound]');
+          
+          this.ranges[type].lowerBound = (<HTMLInputElement>lowerBoundElement).value;
+          this.ranges[type].upperBound = (<HTMLInputElement>upperBoundElement).value;
+          
+          this.filterSpells(html.find('.tab.active li'));
+      });
 
     html.on('click', 'button.save-settings', (ev) => {
       const formData = new FormData(html.find('.compendium-browser-settings form')[0]);
@@ -854,8 +870,24 @@ class CompendiumBrowser extends Application {
         if (hide) return false;
       }
     }
-
-    return true;
+    
+    return this.isWithinFilteredBounds(element);
+  }
+  
+  isWithinFilteredBounds(element) : boolean {
+      const rangeIdentifiers = Object.keys(this.ranges);
+      
+      for(const range of rangeIdentifiers) {
+          const lowerBound = this.ranges[range].lowerBound;
+          const upperBound = this.ranges[range].upperBound ;
+          const filter = +(element.dataset[range]);
+          
+          if(filter < lowerBound || upperBound < filter) {
+              return false;
+          }
+      }
+      
+      return true
   }
 
   resetFilters(html) {
@@ -883,6 +915,10 @@ class CompendiumBrowser extends Application {
       alignment: {},
       source: {},
       feattype: {},
+    };
+    
+    this.ranges = {
+        level: {lowerBound: -1, upperBound: 30},    
     };
 
     html.find('.tab.browser input[name=textFilter]').val('');

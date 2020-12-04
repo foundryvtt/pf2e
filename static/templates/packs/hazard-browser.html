@@ -21,7 +21,7 @@
                 <label><dt><input type="checkbox" name="complex-complex"></dt><dd>{{localize "PF2E.TraitComplex"}}</dd></label>
             </dl>
         </div>
-        <div class="filtercontainer" id="actionTraitfilter">
+        <div class="filtercontainer" id="traitfilter">
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
@@ -47,6 +47,14 @@
             </dl>
         </div>
         --}}
+      <div class="filtercontainer rangecontainer" id="levelfilter">
+        <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
+        <div style="display:none;">
+          <input type="number" name="lowerBound-level" value="-1" min="-1" max="25">
+          -
+          <input type="number" name="upperBound-level" value="25" min="-1" max="25">
+        </div>
+      </div>
     </div>
     <ul>
         {{#each hazardActors as |actor id|}}
