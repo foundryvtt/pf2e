@@ -5,8 +5,10 @@
   "description": "",
   "scripts": {
     "build": "node ./packs/packbuilder.js & webpack --mode production",
+    "build-debug": "node ./packs/packbuilder.js --debug & webpack --mode production",
     "build:dev": "webpack",
     "build:packs": "node ./packs/packbuilder.js",
+    "build:packs-debug": "node ./packs/packbuilder.js --debug",
     "extractPacks": "node ./packs/extractpacks.js",
     "pretest": "eslint ./src --ext .ts",
     "test": "jest",

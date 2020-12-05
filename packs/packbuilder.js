@@ -1,9 +1,24 @@
 var path = require('path');
 var fs = require('fs-extra');
 var Datastore = require('nedb');
+const process = require('process'); 
+var debug = false;
+var args = process.argv;
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 const staticPacksPath = path.resolve(process.cwd(), 'static/packs');
+
+console.log(process.argv); 
+args.forEach((val, index) => { 
+    if (val ==="--debug")
+    {
+        debug = true;
+    }
+}); 
+
+if (debug) {
+    console.log("debug mode enabled")
+}
 
 async function buildPacks() {
     const packs = fs.readdirSync(packsDataPath);
@@ -27,6 +42,7 @@ async function buildPacks() {
             for (const fileName of packFiles) {
                 const sourceFilePath = path.resolve(packsDataPath, pack, fileName);
                 const content = fs.readFileSync(sourceFilePath);
+                if (debug) {console.log(fileName)}
                 let entitiy;
                 try {
                     // Parse file content
