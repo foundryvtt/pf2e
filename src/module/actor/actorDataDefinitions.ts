@@ -533,6 +533,9 @@ export interface RawNpcData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+
+    /** Special strikes which the creature can take. */
+    actions: CharacterStrike[];
 }
 
 /** The raw information contained within the actor data object for hazards. */

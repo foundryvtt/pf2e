@@ -335,7 +335,40 @@
         {{/each}}
    	 {{/each}}
     </ol>
-    
+
+    <ol class="actions-list inventory-list directory-list strikes-list">
+      <li class="item action-header">
+        <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}} (Experimental)</h3>
+      </li>
+      {{#each actor.data.actions as |action ai|}}
+      <li class="item expandable" data-action-index="{{ai}}">
+        <div class="melee-name rollable">
+          <!--
+          <div class="actions-title">
+          -->
+          <div class="item-image" style="background-image: url({{action.imageUrl}})"></div>
+          <h4>
+            {{localize action.attackRollType}}
+            <span class="strike">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></span>
+          </h4>
+          <div class="melee-buttons">
+            {{#each action.traits as |trait ti|}}
+            <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+            {{/each}}
+            {{#each action.variants as |variant vi|}}
+            <span class="tag"><button type="button" class="tag variant-strike" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-variant-index="{{vi}}">{{variant.label}}</button></span>
+            {{/each}}
+            <span class="tag"><button type="button" class="tag damage-strike">{{localize 'Damage'}}</button></span>
+            <span class="tag"><button type="button" class="tag critical-strike">{{localize 'Critical'}}</button></span>
+          </div>
+          <!--
+          </div>
+          -->
+        </div>
+      </li>
+      {{/each}}
+    </ol>
+
     {{#if hasSpells}}
     {{#each actor.spellcastingEntries as |entry eid|}}
     <hr>

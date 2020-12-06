@@ -472,6 +472,35 @@ abstract class ActorSheetPF2e extends ActorSheet {
       this._onItemSummary(event);
     });
 
+    // strikes
+    html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
+      $(event.currentTarget).parents('.expandable').toggleClass('expanded');
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
+    html.find('.strikes-list .damage-strike').on('click',event => {
+      if (!['character', 'npc'].includes(this.actor.data.type)) throw Error("This sheet only works for characters and NPCs");
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+      this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
+    html.find('.strikes-list .critical-strike').on('click', event => {
+      if (!['character', 'npc'].includes(this.actor.data.type)) throw Error("This sheet only works for characters and NPCs");
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+      this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
+    });
+
     // for spellcasting checks
     html.find('.spellcasting.rollable').click((event) => {
       event.preventDefault();
@@ -776,7 +805,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     html.find('[data-variant-index].variant-strike').click((event) => {
       if (!('actions' in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
-
+      event.stopImmediatePropagation();
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);
