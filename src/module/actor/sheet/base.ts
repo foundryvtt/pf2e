@@ -1649,7 +1649,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
   _onCharacterBuilder(event) {
     event.preventDefault();
-    console.log(this.actor)
     if (this.actor.data.type === "character") {
       new CharacterBuilder(this.actor, {}).render(true);
     }
