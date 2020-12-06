@@ -17,6 +17,13 @@ import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 import { PF2eConditionManager } from "./module/conditions"
 import {FamiliarData} from "./module/actor/actorDataDefinitions";
+import {
+    AbilityModifier,
+    PF2CheckModifier,
+    PF2Modifier, PF2ModifierType,
+    PF2StatisticModifier,
+    ProficiencyModifier
+} from "./module/modifiers";
 
 require('./styles/pf2e.scss');
 
@@ -63,6 +70,13 @@ Hooks.once('init', () => {
   (window as any).DicePF2e = DicePF2e;
   (window as any).PF2eStatusEffects = PF2eStatusEffects;
   (window as any).PF2eConditionManager = PF2eConditionManager;
+  (window as any).PF2ModifierType = PF2ModifierType;
+  (window as any).PF2Modifier = PF2Modifier;
+  (window as any).AbilityModifier = AbilityModifier;
+  (window as any).ProficiencyModifier = ProficiencyModifier;
+  (window as any).PF2StatisticModifier = PF2StatisticModifier;
+  (window as any).PF2CheckModifier = PF2CheckModifier;
+  (window as any).PF2Check = PF2Check;
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
