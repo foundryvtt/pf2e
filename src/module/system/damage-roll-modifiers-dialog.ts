@@ -64,8 +64,12 @@ export class DamageRollModifiersDialog extends Application {
       ?? game.settings.get('core', 'rollMode')
       ?? 'roll';
 
+    let damageBaseModifier = '';
+    if (damage.base.modifier) {
+        damageBaseModifier = damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
+    }
     const baseStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
-    const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize} ${damage.base.damageType}</span>`;
+    const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
     const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
     const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {

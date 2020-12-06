@@ -875,10 +875,10 @@ export default class PF2EItem extends Item {
   }
 
   static calculateMap(item: ItemData): { map2: number, map3: number } {
-    if (item.type === 'weapon') {
+    if (['melee', 'weapon'].includes(item.type)) {
       // calculate multiple attack penalty tiers
       const agile = (item.data.traits.value || []).includes('agile');
-      const alternateMAP = (item.data.MAP || {}).value;
+      const alternateMAP = ((item.data as any).MAP || {}).value;
       switch (alternateMAP) {
         case '1': return { map2: -1, map3: -2 };
         case '2': return { map2: -2, map3: -4 };
