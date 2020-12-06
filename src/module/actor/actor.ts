@@ -256,15 +256,15 @@ export default class PF2EActor extends Actor {
 
       // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
       // overwrite potentially changed fields.
-      const stat = mergeObject<SaveData>(new PF2StatisticModifier(saveName, modifiers) as SaveData, data.saves[saveName], { overwrite: false });
+      const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
+      const stat = mergeObject<SaveData>(new PF2StatisticModifier(label, modifiers) as SaveData, data.saves[saveName], { overwrite: false });
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
       stat.roll = (event, options = [], callback?) => {
-          const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
           PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
-        };
+      };
 
       data.saves[saveName] = stat;
     }
@@ -289,13 +289,13 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = mergeObject<PerceptionData>(new PF2StatisticModifier('perception', modifiers) as PerceptionData, data.attributes.perception, { overwrite: false });
+      const label = game.i18n.localize('PF2E.PerceptionCheck');
+      const stat = mergeObject<PerceptionData>(new PF2StatisticModifier(label, modifiers) as PerceptionData, data.attributes.perception, { overwrite: false });
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       stat.value = stat.totalModifier;
       stat.roll = (event, options = [], callback?) => {
-        const label = game.i18n.localize('PF2E.PerceptionCheck');
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
 
@@ -415,13 +415,13 @@ export default class PF2EActor extends Actor {
       });
 
       // preserve backwards-compatibility
-      const stat = mergeObject<SkillData>(new PF2StatisticModifier(expandedName, modifiers) as SkillData, skill, { overwrite: false });
+      const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
+      const stat = mergeObject<SkillData>(new PF2StatisticModifier(label, modifiers) as SkillData, skill, { overwrite: false });
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       stat.value = stat.totalModifier;
       stat.roll = (event, options = [], callback?) => {
-        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: game.i18n.localize(CONFIG.skills[skillName]) });
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
       };
 
@@ -452,7 +452,8 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = mergeObject(new PF2StatisticModifier(skill.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
+      const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
+      const stat = mergeObject(new PF2StatisticModifier(label, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
       stat.itemID = skill._id;
       stat.rank = rank ?? 0;
       stat.shortform = shortform;
@@ -463,7 +464,6 @@ export default class PF2EActor extends Actor {
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       stat.roll = (event, options = [], callback?) => {
-        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
       };
 
@@ -594,7 +594,8 @@ export default class PF2EActor extends Actor {
           });
         }
 
-        const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+        const label = `Strike: ${item.name}`;
+        const action = new PF2StatisticModifier(label, modifiers) as CharacterStrike;
 
         action.imageUrl = item.img;
         action.glyph = 'A';
@@ -638,7 +639,7 @@ export default class PF2EActor extends Actor {
         // Add the base attack roll (used for determining on-hit)
         action.attack = (event, options = []) => {
           options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
+          PF2Check.roll(new PF2CheckModifier(label, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
 
@@ -648,21 +649,21 @@ export default class PF2EActor extends Actor {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action), { actor: this, type: 'attack-roll', options }, event)
             }
           },
           {
             label: `MAP ${map.map2}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
             }
           },
           {
             label: `MAP ${map.map3}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
             }
           },
         ];
@@ -708,17 +709,18 @@ export default class PF2EActor extends Actor {
     });
     const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
     const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-    
-    const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+
+    const label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName })
+    const stat = new PF2CheckModifier(label, initValues, modifiers) as InitiativeData;
     stat.ability = initSkill;
-    stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+    stat.label = label;
     stat.roll = (event, options = []) => {
       const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
       // push skill name to options if not already there
       if (!options.includes(skillFullName)) {
         options.push(skillFullName);
       }
-      PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
+      PF2Check.roll(new PF2CheckModifier(label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
         this._applyInitiativeRollToCombatTracker(roll);
       });
     };
@@ -871,14 +873,14 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers) as NPCSaveData, data.saves[saveName], { overwrite: false });
+      const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
+      const stat = mergeObject(new PF2StatisticModifier(label, modifiers) as NPCSaveData, data.saves[saveName], { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       stat.roll = (event, options = [], callback?) => {
-        const label = game.i18n.format('PF2E.SavingThrowWithName', { saveName: game.i18n.localize(CONFIG.saves[saveName]) });
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'saving-throw', options }, event, callback);
       };
 
@@ -896,14 +898,14 @@ export default class PF2EActor extends Actor {
         (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
       });
 
-      const stat = mergeObject(new PF2StatisticModifier('perception', modifiers) as NPCPerceptionData, data.attributes.perception, { overwrite: false });
+      const label = game.i18n.localize('PF2E.PerceptionCheck');
+      const stat = mergeObject(new PF2StatisticModifier(label, modifiers) as NPCPerceptionData, data.attributes.perception, { overwrite: false });
       stat.base = base;
       stat.value = stat.totalModifier;
       stat.breakdown = stat.modifiers.filter((m) => m.enabled)
         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
         .join(', ');
       stat.roll = (event, options = [], callback?) => {
-        const label = game.i18n.localize('PF2E.PerceptionCheck');
         PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
       };
 
@@ -930,7 +932,8 @@ export default class PF2EActor extends Actor {
           (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
 
-        const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
+        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
+        const stat = mergeObject(new PF2StatisticModifier(label, modifiers) as NPCSkillData, data.skills[shortform], { overwrite: false });
         stat.base = base;
         stat.expanded = skill;
         stat.label = item.name;
@@ -940,7 +943,6 @@ export default class PF2EActor extends Actor {
           .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         stat.roll = (event, options = [], callback?) => {
-          const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
           PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'skill-check', options }, event, callback);
         };
 
@@ -1003,11 +1005,11 @@ export default class PF2EActor extends Actor {
           })
         );
 
-
         // Add the base attack roll (used for determining on-hit)
+        const label = `Strike: ${action.name}`;
         action.attack = (event, options = []) => {
           options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
+          PF2Check.roll(new PF2CheckModifier(label, action), { actor: this, type: 'attack-roll', options }, event);
         };
         action.roll = action.attack;
 
@@ -1017,19 +1019,19 @@ export default class PF2EActor extends Actor {
             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action), { actor: this, type: 'attack-roll', options }, event)
             }
           }, {
             label: `MAP ${map.map2}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
             }
           }, {
             label: `MAP ${map.map3}`,
             roll: (event, options = []) => {
               options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+              PF2Check.roll(new PF2CheckModifier(label, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
             }
           },
         ];
@@ -1193,13 +1195,13 @@ export default class PF2EActor extends Actor {
         ['perception', 'wis-based', 'all'].forEach(key =>
           (statisticsModifiers[key] || []).filter(FILTER_MODIFIER).map(m => duplicate(m)).forEach(m => modifiers.push(m))
         );
-        const stat = new PF2StatisticModifier('perception', modifiers);
+        const label = game.i18n.localize('PF2E.PerceptionCheck');
+        const stat = new PF2StatisticModifier(label, modifiers);
         stat.value = stat.totalModifier;
         stat.breakdown = stat.modifiers.filter(m => m.enabled)
           .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
           .join(', ');
         stat.roll = (event, options = [], callback?) => {
-          const label = game.i18n.localize('PF2E.PerceptionCheck');
           PF2Check.roll(new PF2CheckModifier(label, stat), { actor: this, type: 'perception-check', options }, event, callback);
         };
         data.attributes.perception = stat;
