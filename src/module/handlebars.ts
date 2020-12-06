@@ -16,6 +16,11 @@ export default function registerHandlebarsHelpers() {
         return fn(this);
     });
 
+    Handlebars.registerHelper('any', (...args) => {
+        const opts = args.pop();
+        return args.some(v => !!v) ? opts : opts.inverse;
+    });
+
     Handlebars.registerHelper('lower', (str) => {
         return String.prototype.toLowerCase.call(str ?? '');
     });
@@ -98,4 +103,5 @@ export default function registerHandlebarsHelpers() {
   Handlebars.registerHelper('json', (html) => {
     return JSON.stringify(html);
   });
+
 }

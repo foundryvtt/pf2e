@@ -4,9 +4,9 @@
 {{# if data.requirements.value }}<span class="item-summary">{{ data.requirements.value }}</span>{{/if}}
 
 <ol class="item-tags">
-{{#each 
-	data.traits.value as |v|}} <li class="tag">{{v}}
-{{/each}} </li>
+{{#each data.traits.value as |v|}}
+    <li class="tag">{{v}}</li>
+{{/each}} 
 {{#if data.level.value}}
     <li class="tag">Level {{data.level.value}}</li>
 {{/if}}
@@ -15,6 +15,15 @@
 	<li class="tag">{{data.actionType.value}}</li>
 {{/if}}
 </ol>
+
+{{#unless (any (eq data.featType.value "classfeature") (eq data.featType.value "ancestryfeature") (eq data.featType.value "curse") (eq data.featType.value "dietyboon") )}}
+  <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
+  <ol class="item-tags">
+  {{#each data.prerequisites.value as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+  {{/each}}
+  </ol>
+{{/unless}}
 
 {{#if itemTags.length}}
 <ol class="item-tags">
