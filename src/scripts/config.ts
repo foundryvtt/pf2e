@@ -358,7 +358,11 @@ CONFIG.usageTraits = {
   wornsaddle: 'PF2E.TraitWornSaddle',
   'etched-onto-armor': 'PF2E.TraitEtchedOntoAArmor',
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
-  wornwrist: 'PF2E.TraitWornOnWrists'
+  wornwrist: 'PF2E.TraitWornOnWrists',
+  'etched-onto-thrown-weapon': "PF2E.TraitEtchedOntoAThrownWeapon",
+  'etched-onto-melee-weapon': "PF2E.TraitEtchedOntoAMeleeWeapon",
+  'etched-onto-clan-dagger': "PF2E.TraitEtchedOntoAClanDagger",
+  'etched-onto-lm-nonmetal-armor': "PF2E.TraitEtchedOntoLightMedNMArmor"
 };
 
 CONFIG.rarityTraits = {
