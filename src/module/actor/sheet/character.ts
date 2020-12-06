@@ -5,6 +5,7 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
+import PF2EActor from "../actor";
 
 /**
  * @category Other
@@ -276,11 +277,10 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         feats[featType].feats.push(i);
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
-          let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
-          else if (actionType === 'reaction') actionImg = 'reaction';
-          else if (actionType === 'free') actionImg = 'free';
-          i.img = this._getActionImg(actionImg);
+          i.img = PF2EActor.getActionGraphics(
+            actionType,
+            parseInt((i.data.actions || {}).value, 10) || 1
+          ).imageUrl;
           actions[actionType].actions.push(i);
 
           // Read-Only Actions
@@ -341,12 +341,10 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       // Actions
       if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg: number|string = 0;
-        if (actionType === 'action') actionImg = parseInt(i.data.actions.value, 10) || 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
-        i.img = this._getActionImg(actionImg);
+        i.img = PF2EActor.getActionGraphics(
+          actionType,
+          parseInt((i.data.actions || {}).value, 10) || 1
+        ).imageUrl;
         if (actionType === 'passive') actions.free.actions.push(i);
         else actions[actionType].actions.push(i);
 

@@ -1826,6 +1826,28 @@ export default class PF2EActor extends Actor {
     };
   }
 
+  static getActionGraphics(actionType: string, actionCount?: number): {imageUrl: string, actionGlyph: string} {
+    let actionImg: number|string = 0;
+    if (actionType === 'action') actionImg = actionCount ?? 1;
+    else if (actionType === 'reaction') actionImg = 'reaction';
+    else if (actionType === 'free') actionImg = 'free';
+    else if (actionType === 'passive') actionImg = 'passive';
+    const graphics = {
+      0: { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' },
+      1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
+      2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
+      3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
+      free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
+      reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
+      passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+    };
+    const actionGraphics = graphics[actionImg];
+    return {
+      imageUrl: actionGraphics.imageUrl,
+      actionGlyph: actionGraphics.actionGlyph,
+    };
+  }
+
   /**
    * Adds a custom modifier that will be included when determining the final value of a stat. The
    * name parameter must be unique for the custom modifiers for the specified stat, or it will be
