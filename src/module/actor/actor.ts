@@ -1935,7 +1935,6 @@ export default class PF2EActor extends Actor {
     else if (actionType === 'free') actionImg = 'free';
     else if (actionType === 'passive') actionImg = 'passive';
     const graphics = {
-      0: { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' },
       1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
       2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
       3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
@@ -1943,7 +1942,7 @@ export default class PF2EActor extends Actor {
       reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
       passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
     };
-    const actionGraphics = graphics[actionImg];
+    const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
     return {
       imageUrl: actionGraphics.imageUrl,
       actionGlyph: actionGraphics.actionGlyph,
