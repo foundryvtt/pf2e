@@ -1,4 +1,4 @@
-/* global Application, ChatMessage, Roll */
+/* global Application, ChatMessage, Roll, CONST */
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
  */
@@ -138,12 +138,14 @@ export class DamageRollModifiersDialog extends Application {
     dice3d.then(_ => {
         const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
         ChatMessage.create({
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             speaker: ChatMessage.getSpeaker(),
             flavor: `
                 <b>${damage.name}</b> (${outcome})
                 <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
             `,
-            content,
+            content: content.trim(),
+            roll: new Roll("0").roll(), // dummy roll to ensure Dice So Nice does not break
             flags: {
                 [game.system.id]: {
                     'damageRoll': rollData
