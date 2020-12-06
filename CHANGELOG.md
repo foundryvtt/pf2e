@@ -1,5 +1,37 @@
 # Patch Notes:
 
+## Version 1.10.18
+### Bug Fixes
+* (fryguy) Sort the list of damage types so that they're easier to find in the dropdown. Closes #416
+* (SLATE) Shorten usage text to prevent UI breakage. Closes #913
+* (nikolaj-a) Damage roll chat message type, for integrate better with Tabbed Chat module
+
+### New Features
+* (nikolaj-a) Add experimental strikes to NPC sheet
+
+### Content Changes
+* (Kaiser) Immunities of NPCs moved out of custom field for Bestiary 1, Bestiary 2, Plaguestone bestiary, Agents of Edgewatch bestiary, Extinction Curse bestiary, Age of Ashes bestiary, Slithering, and Pathfinder Society season 1 and 2
+* (Kaiser) Usage corrections for runes, aeon stones, talisman, and various worn items
+* (Shandyan) Rules effects items starting with D through I
+* (stwlam) Fill in missing data for a few focus spells
+* (stwlam) Fix/cleanup Treat Wounds macro
+* (TMun) Remove duplicate bestiary entries
+* (SLATE) Remove trailing spaces in feat names, item names, and deity names
+* (SLATE) Convert prerequisite information for the new format in item sheets
+* (SLATE) Add two creatures and hazard from PFS 1-00
+
+### Core System Improvements
+* (SLATE) More obvious placement of prerequisites in item sheet
+* (Trollderim) Add color and cursor change for ability check hovering
+* (Trollderim) Add filtering by level for equipment, hazards, and monsters in Compendium Browser
+* (nikolaj-a) Expose roll-related classes to macros. Closes #876
+* (nikolaj-a) Popout support for specific chat cards
+
+### Development Improvements
+* (SLATE) Added debug flag to pack builder and added commands that will enable debugging
+* (nikolaj-a) Make action icons available in actor class
+
+
 ## Version 1.10.17
 ### Bug Fixes
 * (@CarlosFdez) Fix type check in addConditionToToken
