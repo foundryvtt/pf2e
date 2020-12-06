@@ -1424,6 +1424,14 @@ CONFIG.speedTypes = {
   burrow: "PF2E.SpeedTypesBurrow"
 };
 
+CONFIG.prerequisitePlaceholders = {
+  prerequisite1: 'PF2E.Prerequisite1',
+  prerequisite2: "PF2E.Prerequisite2",
+  prerequisite3: "PF2E.Prerequisite3",
+  prerequisite4: "PF2E.Prerequisite4",
+  prerequisite5: "PF2E.Prerequisite5"
+};
+
 CONFIG.senses = {
   darkvision: 'PF2E.SensesDarkvision',
   greaterDarkvision: 'PF2E.SensesGreaterDarkvision',
