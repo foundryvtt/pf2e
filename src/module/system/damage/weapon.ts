@@ -45,8 +45,12 @@ export class PF2WeaponDamage {
             };
         }
 
+        // ensure the base damage object exists
+        weapon.data.damage = weapon.data.damage ?? {};
+
+        const damageRolls = Array.isArray(weapon.data.damageRolls) ? weapon.data.damageRolls : Object.values(weapon.data.damageRolls);
         let parsedBaseDamage = false;
-        for (const dmg of weapon.data.damageRolls) {
+        for (const dmg of damageRolls) {
             let dice = null;
             let die = null;
             let modifier = 0;
