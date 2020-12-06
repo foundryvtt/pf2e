@@ -40,6 +40,11 @@ export default class PF2EItem extends Item {
         token: this.actor.token,
         alias: this.actor.name,
       },
+      flags: {
+        core: {
+          canPopout: true
+        }
+      },
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
     };
 

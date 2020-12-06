@@ -147,6 +147,9 @@ export class DamageRollModifiersDialog extends Application {
             content: content.trim(),
             roll: new Roll("0").roll(), // dummy roll to ensure Dice So Nice does not break
             flags: {
+                core: {
+                    canPopout: true
+                },
                 [game.system.id]: {
                     'damageRoll': rollData
                 }
