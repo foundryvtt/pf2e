@@ -177,24 +177,24 @@ CONFIG.weaponPropertyRunes = {
 
 CONFIG.damageTypes = {
   acid: 'PF2E.DamageTypeAcid',
+  bleed: 'PF2E.DamageTypeBleed',
   bludgeoning: 'PF2E.DamageTypeBludgeoning',
+  chaotic: 'PF2E.DamageTypeChaotic',
   cold: 'PF2E.DamageTypeCold',
+  electricity: 'PF2E.DamageTypeElectricity',
+  evil: 'PF2E.DamageTypeEvil',
   fire: 'PF2E.DamageTypeFire',
   force: 'PF2E.DamageTypeForce',
-  electricity: 'PF2E.DamageTypeElectricity',
-  sonic: 'PF2E.DamageTypeSonic',
+  good: 'PF2E.DamageTypeGood',
+  lawful: 'PF2E.DamageTypeLawful',
+  mental: 'PF2E.DamageTypeMental',
   negative: 'PF2E.DamageTypeNegative',
   piercing: 'PF2E.DamageTypePiercing',
   poison: 'PF2E.DamageTypePoison',
   positive: 'PF2E.DamageTypePositive',
-  bleed: 'PF2E.DamageTypeBleed',
-  mental: 'PF2E.DamageTypeMental',
   precision: 'PF2E.DamageTypePrecision',
   slashing: 'PF2E.DamageTypeSlashing',
-  chaotic: 'PF2E.DamageTypeChaotic',
-  lawful: 'PF2E.DamageTypeLawful',
-  good: 'PF2E.DamageTypeGood',
-  evil: 'PF2E.DamageTypeEvil'
+  sonic: 'PF2E.DamageTypeSonic',
 }; // Resistance Types
 
 CONFIG.resistanceTypes = {
@@ -358,7 +358,11 @@ CONFIG.usageTraits = {
   wornsaddle: 'PF2E.TraitWornSaddle',
   'etched-onto-armor': 'PF2E.TraitEtchedOntoAArmor',
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
-  wornwrist: 'PF2E.TraitWornOnWrists'
+  wornwrist: 'PF2E.TraitWornOnWrists',
+  'etched-onto-thrown-weapon': "PF2E.TraitEtchedOntoAThrownWeapon",
+  'etched-onto-melee-weapon': "PF2E.TraitEtchedOntoAMeleeWeapon",
+  'etched-onto-clan-dagger': "PF2E.TraitEtchedOntoAClanDagger",
+  'etched-onto-lm-nonmetal-armor': "PF2E.TraitEtchedOntoLightMedNMArmor"
 };
 
 CONFIG.rarityTraits = {
@@ -1422,6 +1426,14 @@ CONFIG.speedTypes = {
   climb: "PF2E.SpeedTypesClimb",
   fly: "PF2E.SpeedTypesFly",
   burrow: "PF2E.SpeedTypesBurrow"
+};
+
+CONFIG.prerequisitePlaceholders = {
+  prerequisite1: 'PF2E.Prerequisite1',
+  prerequisite2: "PF2E.Prerequisite2",
+  prerequisite3: "PF2E.Prerequisite3",
+  prerequisite4: "PF2E.Prerequisite4",
+  prerequisite5: "PF2E.Prerequisite5"
 };
 
 CONFIG.senses = {

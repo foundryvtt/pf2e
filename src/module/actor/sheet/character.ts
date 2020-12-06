@@ -5,6 +5,7 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
+import PF2EActor from "../actor";
 
 /**
  * @category Other
@@ -276,11 +277,10 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         feats[featType].feats.push(i);
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
-          let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
-          else if (actionType === 'reaction') actionImg = 'reaction';
-          else if (actionType === 'free') actionImg = 'free';
-          i.img = this._getActionImg(actionImg);
+          i.img = PF2EActor.getActionGraphics(
+            actionType,
+            parseInt((i.data.actions || {}).value, 10) || 1
+          ).imageUrl;
           actions[actionType].actions.push(i);
 
           // Read-Only Actions
@@ -341,12 +341,10 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       // Actions
       if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg: number|string = 0;
-        if (actionType === 'action') actionImg = parseInt(i.data.actions.value, 10) || 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
-        i.img = this._getActionImg(actionImg);
+        i.img = PF2EActor.getActionGraphics(
+          actionType,
+          parseInt((i.data.actions || {}).value, 10) || 1
+        ).imageUrl;
         if (actionType === 'passive') actions.free.actions.push(i);
         else actions[actionType].actions.push(i);
 
@@ -549,34 +547,6 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     });
 
     html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
-
-    html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
-      $(event.currentTarget).parents('.expandable').toggleClass('expanded');
-    });
-
-    // the click listener registered on all buttons breaks the event delegation here...
-    // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
-    html.find('.strikes-list .damage-strike').click((event) => {
-      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
-
-      event.preventDefault();
-      event.stopPropagation();
-      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
-    });
-
-    // the click listener registered on all buttons breaks the event delegation here...
-    // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
-    html.find('.strikes-list .critical-strike').click((event) => {
-      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
-
-      event.preventDefault();
-      event.stopPropagation();
-      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
-    });
 
     html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
         this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);

@@ -1,4 +1,4 @@
-/* global Application, ChatMessage, Roll */
+/* global Application, ChatMessage, Roll, CONST */
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
  */
@@ -64,8 +64,12 @@ export class DamageRollModifiersDialog extends Application {
       ?? game.settings.get('core', 'rollMode')
       ?? 'roll';
 
+    let damageBaseModifier = '';
+    if (damage.base.modifier) {
+        damageBaseModifier = damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
+    }
     const baseStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
-    const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize} ${damage.base.damageType}</span>`;
+    const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
     const modifierStyle = 'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
     const modifierBreakdown = [].concat(damage.diceModifiers).concat(damage.numericModifiers).filter(m => m.enabled).filter(m => !m.critical || context.outcome === 'criticalSuccess')
       .map((m) => {
@@ -134,13 +138,18 @@ export class DamageRollModifiersDialog extends Application {
     dice3d.then(_ => {
         const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
         ChatMessage.create({
+            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             speaker: ChatMessage.getSpeaker(),
             flavor: `
                 <b>${damage.name}</b> (${outcome})
                 <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
             `,
-            content,
+            content: content.trim(),
+            roll: new Roll("0").roll(), // dummy roll to ensure Dice So Nice does not break
             flags: {
+                core: {
+                    canPopout: true
+                },
                 [game.system.id]: {
                     'damageRoll': rollData
                 }

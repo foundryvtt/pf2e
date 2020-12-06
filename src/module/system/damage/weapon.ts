@@ -35,6 +35,80 @@ function isNonPhysicalDamage(damageType?: string): boolean {
  */
 export class PF2WeaponDamage {
 
+    static calculateStrikeNPC(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
+        damageDice = duplicate(damageDice);
+
+        // adapt weapon type (melee, ranged, thrown)
+        if (!weapon.data.range) {
+            weapon.data.range = {
+                value: (weapon.data?.weaponType?.value === 'ranged' ? 'ranged' : 'melee')
+            };
+        }
+
+        let parsedBaseDamage = false;
+        for (const dmg of weapon.data.damageRolls) {
+            let dice = null;
+            let die = null;
+            let modifier = 0;
+            const parts = dmg.damage.split('');
+            let digits = '';
+            let operator = null;
+            for (const part of parts) {
+                const digit = Number(part);
+                if (part === 'd') {
+                    dice = Number(digits);
+                    digits = '';
+                } else if ('+-'.includes(part)) {
+                    if (operator) {
+                        // deal with the previous flat modifier part
+                        if (operator === '-') {
+                            modifier -= Number(digits);
+                        } else if (operator === '+') {
+                            modifier += Number(digits);
+                        }
+                    } else {
+                        die = `d${digits}`;
+                    }
+                    digits = '';
+                    operator = part;
+                } else if (!Number.isNaN(digit)) {
+                    digits += part;
+                }
+            }
+            if (!die) {
+                die = `d${digits}`;
+            } else if (operator === '-') {
+                modifier -= Number(digits);
+            } else if (operator === '+') {
+                modifier += Number(digits);
+            }
+
+            if (parsedBaseDamage) {
+                // amend damage dice with all the extra damage
+                const dd = damageDice.damage ?? [];
+                dd.push({
+                    selector: 'damage',
+                    name: 'Base',
+                    diceNumber: dice,
+                    dieSize: die,
+                    damageType: dmg.damageType
+                });
+                damageDice.damage = dd;
+            } else {
+                weapon.data.damage.dice = dice;
+                weapon.data.damage.die = die;
+                if (weapon.data.range.value !== 'ranged') {
+                    modifier -= actor.data.abilities.str.mod;
+                }
+                weapon.data.damage.modifier = modifier;
+                weapon.data.damage.damageType = dmg.damageType;
+                parsedBaseDamage = true;
+            }
+        }
+
+        return PF2WeaponDamage.calculate(weapon, actor, traits, statisticsModifiers, damageDice, proficiencyRank, options);
+    }
+
     static calculate(weapon, actor, traits = [], statisticsModifiers, damageDice, proficiencyRank = 0, options: string[] = []) {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
@@ -292,6 +366,7 @@ export class PF2WeaponDamage {
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,
+                modifier: weapon.data.damage.modifier,
                 category: DamageCategory.fromDamageType(baseDamageType),
                 damageType: baseDamageType,
                 traits: [],
@@ -379,7 +454,8 @@ export class PF2WeaponDamage {
             base: true,
             categories: {
                 [base.category ?? DamageCategory.fromDamageType(base.damageType)]: {
-                    dice: { [base.dieSize]: base.diceNumber }
+                    dice: { [base.dieSize]: base.diceNumber },
+                    modifier: base.modifier ?? 0,
                 }
             }
         };

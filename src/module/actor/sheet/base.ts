@@ -445,25 +445,6 @@ abstract class ActorSheetPF2e extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Get the action image to use for a particular action type.
-   * @private
-   */
-  _getActionImg(action) {
-    const img = {
-      0: 'icons/svg/mystery-man.svg',
-      1: 'systems/pf2e/icons/actions/OneAction.png',
-      2: 'systems/pf2e/icons/actions/TwoActions.png',
-      3: 'systems/pf2e/icons/actions/ThreeActions.png',
-      free: 'systems/pf2e/icons/actions/FreeAction.png',
-      reaction: 'systems/pf2e/icons/actions/Reaction.png',
-      passive: 'systems/pf2e/icons/actions/Passive.png',
-    };
-    return img[action];
-  }
-
-  /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
 
@@ -489,6 +470,35 @@ abstract class ActorSheetPF2e extends ActorSheet {
     // NPC Attack summaries
     html.find('.item .melee-name h4').click((event) => {
       this._onItemSummary(event);
+    });
+
+    // strikes
+    html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
+      $(event.currentTarget).parents('.expandable').toggleClass('expanded');
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
+    html.find('.strikes-list .damage-strike').on('click',event => {
+      if (!['character', 'npc'].includes(this.actor.data.type)) throw Error("This sheet only works for characters and NPCs");
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+      this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
+    });
+
+    // the click listener registered on all buttons breaks the event delegation here...
+    // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
+    html.find('.strikes-list .critical-strike').on('click', event => {
+      if (!['character', 'npc'].includes(this.actor.data.type)) throw Error("This sheet only works for characters and NPCs");
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+      this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
     });
 
     // for spellcasting checks
@@ -795,7 +805,7 @@ abstract class ActorSheetPF2e extends ActorSheet {
 
     html.find('[data-variant-index].variant-strike').click((event) => {
       if (!('actions' in this.actor.data.data)) throw Error("Strikes are not supported on this actor");
-
+      event.stopImmediatePropagation();
       const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
       const variantIndex = $(event.currentTarget).attr('data-variant-index');
       const opts = this.actor.getRollOptions(['all', 'attack-roll']);

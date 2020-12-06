@@ -16,7 +16,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>The opaque crystal lenses of these sleek goggles do not obscure vision, but rather enhance it. While wearing the goggles, you gain a +1 item bonus to Perception checks involving sight.<br /></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Frequency</strong> once per day; <strong>Effect</strong> Rotating the lenses 90 degrees, you gain darkvision for 1 hour.&nbsp;</span></p>"
+            "value": "<p>The opaque crystal lenses of these sleek goggles do not obscure vision, but rather enhance it. While wearing the goggles, you gain a +1 item bonus to Perception checks involving sight.</p>\n<p><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Rotating the lenses 90 degrees, you gain darkvision for 1 hour.&nbsp;</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Perception checks involving sight</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -60,6 +60,20 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Goggles of Night (sight)",
+                "predicate": {
+                    "all": [
+                        "sight"
+                    ]
+                },
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -72,7 +86,7 @@
                 "value": "common"
             },
             "usage": {
-                "value": "held-in-one-hand"
+                "value": "worneyepiece"
             },
             "value": [
                 "invested",
@@ -87,6 +101,7 @@
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/goggles-of-night.jpg",
     "name": "Goggles of Night",
