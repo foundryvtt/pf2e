@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 1.10.19
+### Bug Fixes
+* (nikolaj-a) Fix sheet opening bug
+
+
 ## Version 1.10.18
 ### Bug Fixes
 * (fryguy) Sort the list of damage types so that they're easier to find in the dropdown. Closes #416
