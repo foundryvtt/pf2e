@@ -1,5 +1,18 @@
 # Patch Notes:
 
+## Version 1.10.20
+### Bug Fixes
+* (nikolaj-a) Fix broken actor sheet for spells with long casting time
+* (nikolaj-a) Fix broken strikes for new NPC actors
+* (nikolaj-a) Fix loading feats in the Compendium Browser
+
+### Content Changes
+* (stwlam) Treat Wounds macro: fill in bonuses, make medicine-check message mirror skill checks
+* (SLATE) Unicode/HTML entity cleanup and fixed trailing spaces and newlines in paragraph tags
+* (SLATE) Convert all prerequisite strings to arrays for better data format compatibility
+* (nikolaj-a) Spell effect icons for example spell effects
+
+
 ## Version 1.10.19
 ### Bug Fixes
 * (nikolaj-a) Fix sheet opening bug
