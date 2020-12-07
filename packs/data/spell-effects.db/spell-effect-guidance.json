@@ -4,7 +4,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Implemented: Adds +1 to perception, attack, skill check rolls</p>\n<p>Not implemented: End on use</p>"
+            "value": "<p>You have divine guidance, granting you a +1 status bonus to one attack roll, Perception check, saving throw, or skill check you attempt before the duration ends. You choose which roll to use the bonus on before rolling. If you use the bonus, the spell ends. Either way, you are then temporarily immune for 1 hour.</p>"
         },
         "level": {
             "value": 1
@@ -21,7 +21,7 @@
                         "guidance"
                     ]
                 },
-                "selector": "perception",
+                "selector": "attack",
                 "type": "status",
                 "value": 1
             },
@@ -33,7 +33,7 @@
                         "guidance"
                     ]
                 },
-                "selector": "attack",
+                "selector": "perception-check",
                 "type": "status",
                 "value": 1
             },
@@ -60,6 +60,9 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
             }
         ],
         "source": {
@@ -72,7 +75,12 @@
             "value": "held-in-one-hand"
         }
     },
-    "flags": {},
+    "effects": [],
+    "flags": {
+        "core": {
+            "sourceId": "Item.3CSrwAv3lk4qpHCy"
+        }
+    },
     "img": "systems/pf2e/icons/spells/guidance.jpg",
     "name": "Spell Effect: Guidance",
     "permission": {
