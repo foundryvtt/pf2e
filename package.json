@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "test-system",
-  "version": "1.8.0",
+  "name": "foundry-pf2e",
+  "version": "1.1.20",
   "description": "",
   "scripts": {
-    "build": "node ./packs/packbuilder.js & webpack --mode production",
-    "build-debug": "node ./packs/packbuilder.js --debug & webpack --mode production",
+    "build": "node ./packs/packbuilder.js && webpack --mode production",
+    "build-debug": "node ./packs/packbuilder.js --debug && webpack --mode production",
     "build:dev": "webpack",
     "build:packs": "node ./packs/packbuilder.js",
     "build:packs-debug": "node ./packs/packbuilder.js --debug",
@@ -25,6 +25,7 @@
     "@babel/preset-typescript": "^7.10.1",
     "@types/jest": "^26.0.3",
     "@types/jquery": "^3.5.0",
+    "@types/node": "^14.0.13",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
     "@typescript-eslint/parser": "^3.5.0",
@@ -51,14 +52,16 @@
     "jest-each": "^26.0.1",
     "json-stringify-pretty-compact": "^2.0.0",
     "mini-css-extract-plugin": "^0.9.0",
+    "nedb": "^1.8.0",
     "prettier": "^2.0.5",
     "progress-bar-webpack-plugin": "^2.1.0",
     "sass": "^1.26.1",
     "sass-loader": "^8.0.2",
     "ts-jest": "^26.1.1",
     "ts-loader": "^7.0.5",
+    "ts-node": "^9.1.0",
     "typedoc": "^0.19.2",
-    "typescript": "^3.8.2",
+    "typescript": "^3.9.7",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "write-file-webpack-plugin": "^4.5.1",
@@ -66,8 +69,7 @@
   },
   "dependencies": {
     "ky": "^0.18.0",
-    "ky-universal": "^0.5.0",
-    "nedb": "^1.8.0"
+    "ky-universal": "^0.5.0"
   },
   "jest": {
     "preset": "ts-jest",
