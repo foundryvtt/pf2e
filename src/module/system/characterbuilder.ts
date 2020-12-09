@@ -2,9 +2,10 @@
 
 import PF2EActor from "../actor/actor";
 import { RawCharacterData } from "../actor/actorDataDefinitions";
-import { ItemData } from "../item/dataDefinitions";
 import PF2EItem from "../item/item";
 
+// TODO: Delete from Build if Deleted from Actor
+ 
 /**
  * Character build page
  * @type {FormApplication}
@@ -51,22 +52,31 @@ export class CharacterBuilder extends FormApplication {
     // Exit if this thin isn't an item.
     if (dragItem.type !== 'Item') return;
 
-    // TODO: Add case where item is dropped from actor sheet
     let item: PF2EItem;
     if (dragItem.pack) {
+      // From Compendium
         item = await game.packs.get(dragItem.pack).getEntity(dragItem.id);
+    } else if (dragItem.data) {
+      // From Existing Item on Actor
+      item = this.actor.getOwnedItem(dragItem.id);
     } else {
+      // From imported Items
         item = game.items.get(dragItem.id);
     }
     // Updated Item build data.
     item.data.data.build = { selectedAt: { value: containerId }, isValid: { value: false} };
-    // Add Item to sheet
-    // TODO: conditional if Item already exists on sheet
-    const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
-    // Add OwnedItem Id to Actor Build data
-    this.build.choices[containerId].choices.push(ownedItem._id);
-    const newActor = await this.actor.update({'data.build': this.build});
 
+    // Add Item to Actor
+    if (!dragItem.data) { // don't create another item since it comes from the Actor
+      const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
+      // Add OwnedItem Id to Actor Build data
+      this.build.choices[containerId].choices.push(ownedItem._id);
+    } else {
+      this.build.choices[containerId].choices.push(dragItem.id);
+    }
+    const updatedActor = await this.actor.update({'data.build': this.build});
+    this.actor = updatedActor;
+    this.render();
   }
 
   _canDragDrop(selector) {
