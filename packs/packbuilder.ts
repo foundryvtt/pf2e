@@ -61,8 +61,12 @@ class Compendium {
     // Replace all compendium entities linked by name to links by ID
     return JSON.stringify(entryData).replace(
       /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]/g,
-      (_match, packName: string, entityName: string) => {
-        const entityId: string | undefined = Compendium._namesToIds.get(packName).get(entityName);
+      (match, packName: string, entityName: string) => {
+        const namesToIds = Compendium._namesToIds.get(packName);
+        if (namesToIds === undefined) {
+          throw Error(`Bad pack reference in "${match}"`);
+        }
+        const entityId: string | undefined = namesToIds.get(entityName);
         if (entityId === undefined ) {
           console.warn(`Couldn't find ${entityName} in ${packName}.`);
           return `@Compendium[pf2e.${packName}.${entityName}]`;
@@ -78,6 +82,9 @@ class Compendium {
       path.resolve(Compendium.outDir, this.packDir),
       this.data.map(this._finalize).join("\n") + "\n"
     );
+    // } catch (_error) {
+    //   throw Error(`Failed to compile ${this.packDir}`);
+    // }
 
     console.log(`Pack "${this.name}" with ${this.data.length} entries built successfully.`);
     return this.data.length;
