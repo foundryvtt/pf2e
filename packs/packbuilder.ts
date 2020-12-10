@@ -1,21 +1,19 @@
 import * as path from "path";
 import * as fs from "fs";
 
-interface ObjectWithKeys {
-  [key: string]: unknown;
-}
-type NotUndefined<T> = T extends undefined ? never: T;
-interface ObjectWithDefinedValues extends ObjectWithKeys {
-  [key: string]: NotUndefined<string | ObjectWithKeys>;
+interface SerializableData {
+  [key: string]: { } | null;
 }
 
-interface PackEntityData extends ObjectWithDefinedValues {
+interface PackEntityData extends SerializableData {
   _id: string;
   name: string;
   type?: string;
-  data: ObjectWithDefinedValues;
-  flags: { [key: string]: ObjectWithDefinedValues };
+  img?: string;
+  data: SerializableData;
+  flags: { [key: string]: SerializableData };
   permission: { default: 0 };
+  items?: { img: string }[];
 }
 
 class Compendium {
@@ -28,47 +26,84 @@ class Compendium {
   static _systemPackData = JSON.parse(
     fs.readFileSync("system.json", "utf-8")
   ).packs as { name: string, path: string }[];
+  static _worldItemLinkPattern = new RegExp(
+    /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[[^\]]+\]/
+  );
 
-  constructor(packDir: string, jsonData: PackEntityData[]) {
-    this.packDir = packDir;
-    const packName = Compendium._systemPackData.find(
-      (pack) => path.basename(pack.path) === path.basename(packDir)
-    ).name;
-    Compendium._namesToIds.set(packName, new Map());
-    const packMap = Compendium._namesToIds.get(packName);
-    for (const jsonDatum of jsonData) {
-      packMap.set(jsonDatum.name, jsonDatum._id);
-    }
+  constructor(packDir: string, parsedData: unknown[]) {
+    if (this._isPackData(parsedData)) {
+      this.packDir = packDir;
+      this.name = Compendium._systemPackData.find(
+        (pack) => path.basename(pack.path) === path.basename(packDir)
+      ).name;
+      Compendium._namesToIds.set(this.name, new Map());
+      const packMap = Compendium._namesToIds.get(this.name);
 
-    if (this._isPackData(jsonData, packName)) {
-      this.name = packName;
-
-      jsonData.sort((a, b) => {
+      parsedData.sort((a, b) => {
         if (a._id === b._id) {
-          throw Error(`_id collision in ${packName}: ${a._id}`)
+          throw Error(`_id collision in ${this.name}: ${a._id}`)
         }
         return a._id > b._id ? 1 : -1;
       });
 
-      this.data = jsonData;
+      this.data = parsedData;
+
+      for (const entityData of this.data) {
+        // Populate Compendium._namesToIds for later conversion of compendium links
+        packMap.set(entityData.name, entityData._id);
+
+        // Check img paths
+        if (typeof entityData.img === "string") {
+          const imgPaths = [entityData.img ?? ""].concat(
+            entityData.hasOwnProperty("items") ?
+              entityData.items.map((itemData) => itemData.img ?? "") : []
+          );
+          const entityName = entityData.name;
+          for (const imgPath of imgPaths) {
+            if (imgPath.startsWith("data:image")) {
+              console.warn(`${entityName} (${this.name}) has base64-encoded image data: `
+                           + `${imgPath.slice(0, 64)}...`);
+            } else {
+              const repoImgPath = path.resolve(
+                process.cwd(), "static", decodeURIComponent(imgPath).replace("systems/pf2e/", "")
+              );
+              if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
+                console.warn(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
+              }
+            }
+          }
+        }
+      }
 
     } else {
-      throw Error(`Data supplied for ${packName} does not resemble Foundry entity data.`);
+      throw Error(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
     }
   }
 
-  _finalize(entryData: PackEntityData) {
+  _finalize(entityData: PackEntityData) {
     // Replace all compendium entities linked by name to links by ID
-    return JSON.stringify(entryData).replace(
-      /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]/g,
+    const stringified = JSON.stringify(entityData);
+    const worldItemLink = Compendium._worldItemLinkPattern.exec(stringified);
+    if (worldItemLink !== null) {
+      console.warn(`${entityData.name} (${this.name}) has a link to a world item: `
+                   + `${worldItemLink[0]}`);
+    }
+
+    return JSON.stringify(entityData).replace(
+      /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
       (match, packName: string, entityName: string) => {
         const namesToIds = Compendium._namesToIds.get(packName);
         if (namesToIds === undefined) {
-          throw Error(`Bad pack reference in "${match}"`);
+          throw Error(`${entityData.name} (${this.name}) has bad pack reference: ${match}`);
         }
+        if (!match.endsWith("{")) {
+          console.log(`${entityData.name} (${this.name}) has a link with no label: ${match}`);
+        }
+
         const entityId: string | undefined = namesToIds.get(entityName);
         if (entityId === undefined ) {
-          console.warn(`Couldn't find ${entityName} in ${packName}.`);
+          console.warn(`${entityData.name} (${this.name}) has broken link to ${entityName} `
+                       + `(${packName}).`);
           return `@Compendium[pf2e.${packName}.${entityName}]`;
         } else {
           return `@Compendium[pf2e.${packName}.${entityId}]`;
@@ -80,17 +115,14 @@ class Compendium {
   async save(): Promise<number> {
     await fs.promises.writeFile(
       path.resolve(Compendium.outDir, this.packDir),
-      this.data.map(this._finalize).join("\n") + "\n"
+      this.data.map((datum) => this._finalize(datum)).join("\n") + "\n"
     );
-    // } catch (_error) {
-    //   throw Error(`Failed to compile ${this.packDir}`);
-    // }
-
     console.log(`Pack "${this.name}" with ${this.data.length} entries built successfully.`);
+
     return this.data.length;
   }
 
-  _isEntityData(entityData: any, packName: string): entityData is PackEntityData {
+  _isEntityData(entityData: any): entityData is PackEntityData {
     const checks = Object.entries({
       name: (data: any) => typeof data.name === "string",
       // type: (data: any) => typeof data.type === "string",
@@ -105,7 +137,7 @@ class Compendium {
 
     if (failedChecks.length > 0) {
       console.warn(
-        `${entityData.name} (${packName}) has invalid or missing keys: ` +
+        `${entityData.name} (${this.name}) has invalid or missing keys: ` +
           `${failedChecks.join(", ")}`
       );
 
@@ -116,8 +148,8 @@ class Compendium {
     return true;
   }
 
-  _isPackData(packData: any, packName: string): packData is PackEntityData[] {
-    return packData.every((entityData: any) => this._isEntityData(entityData, packName));
+  _isPackData(packData: any): packData is PackEntityData[] {
+    return packData.every((entityData: any) => this._isEntityData(entityData));
   }
 
 }
@@ -130,7 +162,6 @@ export async function buildPacks(): Promise<void> {
   // ¡Aviso!
   // Loads all packs into memory for the sake of making all entity name/id mappings available
   const packs = await Promise.all(packDirs.map(async (packDir) => {
-    console.log(`Collecting data from ${packDir}.`);
     const filenames = await fs.promises.readdir(path.resolve(packsDataPath, packDir));
     const filePaths = filenames.map((filename) => path.resolve(packsDataPath, packDir, filename));
     const jsonData = await Promise.all(filePaths.map(async (filePath) => {
