@@ -29,7 +29,73 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+          {
+            "key": "PF2E.RuleElement.ToggleProperty",
+            "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-positive",
+            "label": "Target Undead Creature"
+          },
+          {
+            "key": "PF2E.RuleElement.ToggleProperty",
+            "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-negative",
+            "label": "Target Living Creature"
+          },
+          {
+            "key": "PF2E.RuleElement.FlatModifier",
+            "selector": "damage",
+            "value": 1,
+            "damageType": "positive",
+            "label": "Spirit Strike against Undead",
+            "predicate": {
+              "all": [
+                "spirit-strikes-positive"
+              ]
+            }
+          },
+          {
+            "key": "PF2E.RuleElement.FlatModifier",
+            "selector": "damage",
+            "value": 1,
+            "damageType": "negative",
+            "label": "Spirit Strike against Living",
+            "predicate": {
+              "all": [
+                "spirit-strikes-negative"
+              ]
+            }
+          },
+          {
+            "key": "PF2E.RuleElement.DamageDice",
+            "selector": "damage",
+            "traits": [
+              "magical"
+            ]
+          },
+          {
+            "key": "PF2E.RuleElement.DamageDice",
+            "selector": "damage",
+            "traits": [
+              "negative"
+            ],
+            "predicate": {
+              "all": [
+                "spirit-strikes-negative"
+              ]
+            }
+          },
+          {
+            "key": "PF2E.RuleElement.DamageDice",
+            "selector": "damage",
+            "traits": [
+              "positive"
+            ],
+            "predicate": {
+              "all": [
+                "spirit-strikes-positive"
+              ]
+            }
+          }
+        ],
         "source": {
             "value": ""
         },
