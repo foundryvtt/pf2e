@@ -1,3 +1,5 @@
+import { ItemData } from "./item/dataDefinitions";
+
 /* global Handlebars TextEditor */
 export default function registerHandlebarsHelpers() {
     Handlebars.registerHelper('add', (a, b) => {
@@ -97,5 +99,9 @@ export default function registerHandlebarsHelpers() {
 
   Handlebars.registerHelper('json', (html) => {
     return JSON.stringify(html);
+  });
+  
+  Handlebars.registerHelper('getItem', (items: ItemData[], itemId: string) => {
+    return items.find(x => x._id === itemId);
   });
 }

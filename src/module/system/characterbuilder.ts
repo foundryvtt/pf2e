@@ -5,6 +5,8 @@ import { RawCharacterData } from "../actor/actorDataDefinitions";
 import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
+// TODO: Don't allow duplicate BuildChoice unless it's equipment
+// TODO: Create Template for line item in Build View
  
 /**
  * Character build page
@@ -52,6 +54,7 @@ export class CharacterBuilder extends FormApplication {
     // Exit if this thin isn't an item.
     if (dragItem.type !== 'Item') return;
 
+    console.log(dragItem);
     let item: PF2EItem;
     if (dragItem.pack) {
       // From Compendium
@@ -97,8 +100,11 @@ export class CharacterBuilder extends FormApplication {
 
   getData() {
      // Return data for View
-	  return {
-	    build: this.build
+     return {
+      ...super.getData(),
+      build: this.build,
+      items: this.actor.items,
+      owner: this.actor.owner
     };
   }
 }

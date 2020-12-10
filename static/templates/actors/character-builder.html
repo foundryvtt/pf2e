@@ -26,12 +26,16 @@ option here) Ability Boosts Class Feat Skill Feat --}}
         <ol
             class="character-build-list inventory-list directory-list inventory-pane"
         >
-            {{#each build.choices as |choice choiceId|}}
-            <div class="inventory-header" data-container-id="{{choiceId}}">
+            {{#each build.choices as |choiceCategory choiceCategoryId|}}
+            <div class="inventory-header" data-container-id="{{choiceCategoryId}}">
                 <h3 class="build-choice-category item-name">
-                    {{choice.label}}
-                </h3>
-                <p>{{json choice}}</p>
+                    {{choiceCategory.label}}
+                </h3> 
+                <ol class="item-list">
+                    {{#each choiceCategory.choices as |choice choiceId|}}
+                        {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=(getItem ../../items choice) owner=../../owner level=1}}  
+                    {{/each}}
+                </ol>
             </div>
             {{/each}}
         </ol>
