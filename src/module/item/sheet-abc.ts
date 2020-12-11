@@ -2,6 +2,7 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
+import { AbilityString } from '../actor/actorDataDefinitions';
 import { TraitSelector5e } from '../system/trait-selector';
 import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
 
@@ -31,16 +32,16 @@ export class ABCItemSheetPF2e extends ItemSheet {
      * Start with the base item data and extending with additional properties for rendering.
      */
     getData() {
-        const data: any = super.getData();
         const type = this.item.type;
 
-        mergeObject(data, {
+        const data : any = {
+            ...super.getData(),
             type,
             hasSidebar: this.item.data.type !== 'class',
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
-        });
+        };
 
         if (this.item.data.type === 'ancestry') {
             const itemData = (<AncestryData>this.item.data).data;
@@ -50,6 +51,9 @@ export class ABCItemSheetPF2e extends ItemSheet {
             data.ancestryVision = CONFIG.PF2E.ancestryVision;
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+
+            data.selectedBoosts = Object.fromEntries(Object.entries(itemData.boosts).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
+            data.selectedFlaws = Object.fromEntries(Object.entries(itemData.flaws).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
 
             data.size = CONFIG.PF2E.actorSizes[itemData.size];
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
@@ -62,6 +66,8 @@ export class ABCItemSheetPF2e extends ItemSheet {
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
             this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
 
+            data.selectedBoosts = Object.fromEntries(Object.entries(itemData.boosts).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
+
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
         } else if (this.item.data.type === 'class') {
             const itemData = (<ClassData>this.item.data).data;
@@ -70,7 +76,8 @@ export class ABCItemSheetPF2e extends ItemSheet {
             data.skills = CONFIG.PF2E.skills;
             data.proficiencyChoices = CONFIG.PF2E.proficiencyLevels;
       
-            this._prepareTraits(data.data.keyAbility, CONFIG.PF2E.abilities);
+            data.selectedKeyAbility = this.getLocalizedAbilities(itemData.keyAbility);
+
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
             this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
             this._prepareTraits(data.data.ancestryFeatLevels, CONFIG.PF2E.levels);
@@ -86,7 +93,18 @@ export class ABCItemSheetPF2e extends ItemSheet {
         return data;
     }
 
-    _prepareTraits(traits, choices) {
+    private getLocalizedAbilities(traits: { value: AbilityString[] }): { [key:string]: string } {
+        if (traits !== undefined && traits.value) {
+            if (traits.value.length === 6)
+                return { free: game.i18n.localize('PF2E.AbilityFree') };
+            return Object.fromEntries(traits.value
+                .map((x:string) => [ x, CONFIG.PF2E.abilities[x] ]));
+        }
+
+        return {};
+    }
+
+    _prepareTraits(traits: any, choices: any) {
         if (traits === undefined) { return; }
         if (traits.value) {
             traits.selected = traits.value.reduce((obj, t) => {

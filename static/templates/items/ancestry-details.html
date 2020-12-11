@@ -30,54 +30,46 @@
     <input type="text" name="data.speed" value="{{data.speed}}" data-dtype="Number"/>
 </div>
 
-<table>
-    <tr>
-        <th>&nbsp;</td>
-        <th>{{localize "PF2E.AbilityId.str"}}</th>
-        <th>{{localize "PF2E.AbilityId.dex"}}</th>
-        <th>{{localize "PF2E.AbilityId.con"}}</th>
-        <th>{{localize "PF2E.AbilityId.int"}}</th>
-        <th>{{localize "PF2E.AbilityId.wis"}}</th>
-        <th>{{localize "PF2E.AbilityId.cha"}}</th>
-    </tr>
+{{#each data.boosts as |boost idx|}}
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.boosts.{{idx}}">
+        {{localize "PF2E.AbilityBoost"}}
+        <a class="trait-selector" data-options="abilities" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
 
-    {{#each data.boosts as |boost idx|}}
-    <tr>
-        <td>
-            {{localize "PF2E.AbilityBoost"}}
-        </td>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.str" data-dtype="Boolean" {{checked boost.str}}></th>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.dex" data-dtype="Boolean" {{checked boost.dex}}></th>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.con" data-dtype="Boolean" {{checked boost.con}}></th>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.int" data-dtype="Boolean" {{checked boost.int}}></th>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.wis" data-dtype="Boolean" {{checked boost.wis}}></th>
-        <th><input type="checkbox" name="data.boosts.{{idx}}.cha" data-dtype="Boolean" {{checked boost.cha}}></th>
-    </tr>
-    {{/each}}
+    <ul class="abc-traits-list">
+        {{#each (lookup ../selectedBoosts idx) as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+{{/each}}
 
-    {{#each data.flaws as |flaw idx|}}
-    <tr>
-        <td>
-            {{localize "PF2E.AbilityFlaw"}}
-        </td>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.str" data-dtype="Boolean" {{checked flaw.str}}></th>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.dex" data-dtype="Boolean" {{checked flaw.dex}}></th>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.con" data-dtype="Boolean" {{checked flaw.con}}></th>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.int" data-dtype="Boolean" {{checked flaw.int}}></th>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.wis" data-dtype="Boolean" {{checked flaw.wis}}></th>
-        <th><input type="checkbox" name="data.flaws.{{idx}}.cha" data-dtype="Boolean" {{checked flaw.cha}}></th>
-    </tr>
-    {{/each}}
+{{#each data.flaws as |flaw idx|}}
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.flaws.{{idx}}">
+        {{localize "PF2E.AbilityFlaw"}}
+        <a class="trait-selector" data-options="abilities" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    {{lookup selectedFlaws @idx}}
+    <ul class="abc-traits-list">
+        {{#each (lookup ../selectedFlaws idx) as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+{{/each}}
    
 </table>
 
-<div class="form-group-stacked">
+<div class="form-group form-group-trait">
     <label class="pf-title" for="data.languages">
         {{localize "PF2E.Languages"}}
         <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
     </label>
 
-    <ul class="traits-list">
+    <ul class="abc-traits-list">
         {{#each data.languages.value as |v k|}}
         <span class="tag {{k}}">
             {{v}}
@@ -86,13 +78,13 @@
     </ul>
 </div>
 
-<div class="form-group-stacked">
+<div class="form-group form-group-trait">
     <label class="pf-title" for="data.additionalLanguages">
         {{localize "PF2E.LanguagesAdditional"}}
         <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
     </label>
 
-    <ul class="traits-list">
+    <ul class="abc-traits-list">
         {{#each data.additionalLanguages.value as |v k|}}
         <span class="tag {{k}}">
             {{v}}
@@ -101,12 +93,12 @@
     </ul>
 </div>
 
-<div class="form-group-stacked">
+<div class="form-group form-group-trait">
     <label for="data.traits">
         {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-options="ancestryItemTraits"><i class="fas fa-edit"></i></a>
     </label>
-    <ul class="traits-list">
+    <ul class="abc-traits-list">
         {{#each data.traits.selected as |v k|}}
             <span class="tag {{k}}">{{v}}</span>
         {{/each}}

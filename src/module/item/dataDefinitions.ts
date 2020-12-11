@@ -1,6 +1,5 @@
-import { Proficency } from "../actor/actorDataDefinitions";
-import {PF2RuleElementData} from "../rules/rulesDataDefinitions";
-import {AbilityString} from "../actor/actorDataDefinitions";
+import { AbilityString, Proficency } from "../actor/actorDataDefinitions";
+import { PF2RuleElementData } from "../rules/rulesDataDefinitions";
 
 export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -312,15 +311,6 @@ export interface ConsumableDetailsData {
     }
 }
 
-export interface BoostFlawInfo {
-    str: boolean
-    dex: boolean
-    con: boolean
-    int: boolean
-    wis: boolean
-    cha: boolean
-}
-
 export interface ABCFeatureEntryData {
     pack?: string
     id: string
@@ -334,10 +324,10 @@ export interface AncestryDetailsData {
         value: string[],
         custom: string
     }
-    boosts: BoostFlawInfo[]
-    flaws: BoostFlawInfo[]
+    boosts: { [key: string]: { value: AbilityString[] } }
+    flaws: { [key: string]: { value: AbilityString[] } }
     hp: number
-    items: {[key: number]: ABCFeatureEntryData}
+    items: { [key: number]: ABCFeatureEntryData }
     languages: {
         value: string[],
         custom: string
@@ -353,8 +343,8 @@ export interface AncestryDetailsData {
 }
 
 export interface BackgroundDetailsData {
-    boosts: BoostFlawInfo[]
-    items: {[key: number]: ABCFeatureEntryData}
+    boosts: { [key: string]: { value: AbilityString[] } }
+    items: { [key: number]: ABCFeatureEntryData}
     traits: {
         rarity: {
             value: string
@@ -368,8 +358,8 @@ export interface BackgroundDetailsData {
 }
 
 export interface ClassDetailsData {
-    keyAbility: BoostFlawInfo
-    items: {[key: number]: ABCFeatureEntryData}
+    keyAbility: { value: AbilityString[] }
+    items: { [key: number]: ABCFeatureEntryData}
     traits: {
         rarity: {
             value: string
@@ -388,7 +378,7 @@ export interface ClassDetailsData {
         martial: Proficency
         advanced: Proficency
         unarmed: Proficency
-        other: { name: string; rank: Proficency }[]
+        other: { name: string; rank: Proficency }
     }
     defenses: {
         unarmored: Proficency

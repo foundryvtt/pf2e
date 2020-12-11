@@ -14,29 +14,19 @@
     <input type="text" name="data.hp" data-dtype="String" value="{{data.hp}}">
 </div>
 
-<table>
-    <tr>
-        <th>&nbsp;</td>
-        <th>{{localize "PF2E.AbilityId.str"}}</th>
-        <th>{{localize "PF2E.AbilityId.dex"}}</th>
-        <th>{{localize "PF2E.AbilityId.con"}}</th>
-        <th>{{localize "PF2E.AbilityId.int"}}</th>
-        <th>{{localize "PF2E.AbilityId.wis"}}</th>
-        <th>{{localize "PF2E.AbilityId.cha"}}</th>
-    </tr>
 
-    <tr>
-        <td>
-            {{localize "PF2E.KeyAbilityLabel"}}
-        </td>
-        <th><input type="checkbox" name="data.keyAbility.str" data-dtype="Boolean" {{checked data.keyAbility.str}}></th>
-        <th><input type="checkbox" name="data.keyAbility.dex" data-dtype="Boolean" {{checked data.keyAbility.dex}}></th>
-        <th><input type="checkbox" name="data.keyAbility.con" data-dtype="Boolean" {{checked data.keyAbility.con}}></th>
-        <th><input type="checkbox" name="data.keyAbility.int" data-dtype="Boolean" {{checked data.keyAbility.int}}></th>
-        <th><input type="checkbox" name="data.keyAbility.wis" data-dtype="Boolean" {{checked data.keyAbility.wis}}></th>
-        <th><input type="checkbox" name="data.keyAbility.cha" data-dtype="Boolean" {{checked data.keyAbility.cha}}></th>
-    </tr>
-</table>
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.keyAbility">
+        {{localize "PF2E.KeyAbilityLabel"}}
+        <a class="trait-selector" data-options="abilities" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each selectedKeyAbility as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
 
 <div class="form-group">
     <label>{{localize "PF2E.ClassDCLabel"}}</label>
