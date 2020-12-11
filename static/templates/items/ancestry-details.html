@@ -78,12 +78,17 @@
     </ul>
 </div>
 
-<div class="form-group form-group-trait">
+<div class="form-group additional-language">
     <label class="pf-title" for="data.additionalLanguages">
         {{localize "PF2E.LanguagesAdditional"}}
         <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
     </label>
 
+    <input type="text" name="data.additionalLanguages.count" value="{{data.additionalLanguages.count}}" data-dtype="Number"/>
+    <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
+</div>
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.additionalLanguages">&nbsp;</label>
     <ul class="abc-traits-list">
         {{#each data.additionalLanguages.value as |v k|}}
         <span class="tag {{k}}">

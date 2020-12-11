@@ -321,6 +321,7 @@ export interface ABCFeatureEntryData {
 
 export interface AncestryDetailsData {
     additionalLanguages: {
+        count: number, // plus int
         value: string[],
         custom: string
     }
