@@ -68,7 +68,7 @@ class Compendium {
                 process.cwd(), "static", decodeURIComponent(imgPath).replace("systems/pf2e/", "")
               );
               if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
-                console.warn(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
+                throw Error(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
               }
             }
           }
@@ -85,8 +85,8 @@ class Compendium {
     const stringified = JSON.stringify(entityData);
     const worldItemLink = Compendium._worldItemLinkPattern.exec(stringified);
     if (worldItemLink !== null) {
-      console.warn(`${entityData.name} (${this.name}) has a link to a world item: `
-                   + `${worldItemLink[0]}`);
+      throw Error(`${entityData.name} (${this.name}) has a link to a world item: `
+                  + `${worldItemLink[0]}`);
     }
 
     return JSON.stringify(entityData).replace(
@@ -97,7 +97,7 @@ class Compendium {
           throw Error(`${entityData.name} (${this.name}) has bad pack reference: ${match}`);
         }
         if (!match.endsWith("{")) {
-          console.log(`${entityData.name} (${this.name}) has a link with no label: ${match}`);
+          throw Error(`${entityData.name} (${this.name}) has a link with no label: ${match}`);
         }
 
         const entityId: string | undefined = namesToIds.get(entityName);
@@ -112,8 +112,8 @@ class Compendium {
     );
   }
 
-  async save(): Promise<number> {
-    await fs.promises.writeFile(
+  save(): number {
+    fs.writeFileSync(
       path.resolve(Compendium.outDir, this.packDir),
       this.data.map((datum) => this._finalize(datum)).join("\n") + "\n"
     );
@@ -136,13 +136,9 @@ class Compendium {
     ).filter((key) => key !== null);
 
     if (failedChecks.length > 0) {
-      console.warn(
-        `${entityData.name} (${this.name}) has invalid or missing keys: ` +
-          `${failedChecks.join(", ")}`
+      throw Error(
+        `${entityData.name} (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
       );
-
-      return true;
-      // return false;
     }
 
     return true;
@@ -154,29 +150,29 @@ class Compendium {
 
 }
 
-export async function buildPacks(): Promise<void> {
+export function buildPacks(): void {
   const packsDataPath = path.resolve(process.cwd(), "packs/data");
 
-  const packDirs = await fs.promises.readdir(packsDataPath);
+  const packDirs = fs.readdirSync(packsDataPath);
 
   // ¡Aviso!
   // Loads all packs into memory for the sake of making all entity name/id mappings available
-  const packs = await Promise.all(packDirs.map(async (packDir) => {
-    const filenames = await fs.promises.readdir(path.resolve(packsDataPath, packDir));
+  const packs = packDirs.map((packDir) => {
+    const filenames = fs.readdirSync(path.resolve(packsDataPath, packDir));
     const filePaths = filenames.map((filename) => path.resolve(packsDataPath, packDir, filename));
-    const jsonData = await Promise.all(filePaths.map(async (filePath) => {
-      const jsonString = await fs.promises.readFile(filePath, "utf-8");
+    const jsonData = filePaths.map((filePath) => {
+      const jsonString = fs.readFileSync(filePath, "utf-8");
       try {
-        return JSON.parse(jsonString) as Promise<PackEntityData>;
+        return JSON.parse(jsonString) as unknown;
       } catch (error) {
         throw Error(`File ${filePath} could not be parsed: ${error.message}`);
       }
-    }));
+    });
 
     return new Compendium(packDir, jsonData);
-  }));
+  });
 
-  const entityCounts = await Promise.all(packs.map(async (pack) => pack.save()));
+  const entityCounts = packs.map((pack) => pack.save());
   const total = entityCounts.reduce(
     (runningTotal, entityCount) => runningTotal + entityCount, 0
   );
