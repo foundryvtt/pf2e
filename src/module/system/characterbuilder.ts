@@ -7,6 +7,8 @@ import PF2EItem from "../item/item";
 // TODO: Delete from Build if Deleted from Actor
 // TODO: Don't allow duplicate BuildChoice unless it's equipment
 // TODO: Create Template for line item in Build View
+// TODO: Allow deletion from CharacterBuild window (delete only from Build but not from Actor)
+// TODO: Add more than just ABCs
  
 /**
  * Character build page
