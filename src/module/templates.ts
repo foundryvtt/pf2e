@@ -85,6 +85,9 @@ export default function () {
         'systems/pf2e/templates/packs/hazard-browser.html',
         'systems/pf2e/templates/packs/spell-browser.html',
         'systems/pf2e/templates/packs/browser-settings.html',
+
+        // Character Build partials
+        'systems/pf2e/templates/actors/characterBuilder/build-line-item.html',
     ];
     return loadTemplates(templatePaths);
 }

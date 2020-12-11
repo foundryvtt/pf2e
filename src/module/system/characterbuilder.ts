@@ -40,6 +40,7 @@ export class CharacterBuilder extends FormApplication {
       }
       actor.update({'data.build': this.build})
     }
+    console.log(actor);
   }
 
   async _onDrop(event: DragEvent) {
@@ -51,7 +52,7 @@ export class CharacterBuilder extends FormApplication {
     const dragItem = JSON.parse(dragData);
     const containerId: (keyof BuildCategories) = dropTarget.data('containerId') ?? dropTarget.parents('[data-container-id]').data('containerId');
 
-    // Exit if this thin isn't an item.
+    // Exit if this thing isn't an item.
     if (dragItem.type !== 'Item') return;
 
     console.log(dragItem);
@@ -91,7 +92,7 @@ export class CharacterBuilder extends FormApplication {
     options.id = 'character-builder';
     options.classes = [];
     options.title = 'Character Builder';
-    options.template = 'systems/pf2e/templates/actors/character-builder.html';
+    options.template = 'systems/pf2e/templates/actors/characterBuilder/character-builder.html';
     options.width = 500;
     options.height = 700;
     options.dragDrop = [{dropSelector: '.inventory-header'}]; // What css selector is droppable
