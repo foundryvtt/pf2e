@@ -1,4 +1,5 @@
 import { DamageDieSize } from "./system/damage/damage";
+import {AbilityString} from "./actor/actorDataDefinitions";
 
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
@@ -134,11 +135,11 @@ export const CHARISMA = Object.freeze({
 export const AbilityModifier = Object.freeze({
   /**
    * Create a modifier from a given ability type and score.
-   * @param {string} ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
+   * @param {AbilityString} ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
    * @param {number} score The score of this ability.
    * @returns {PF2Modifier} The modifier provided by the given ability score.
    */
-  fromAbilityScore: (ability: string, score: number) => {
+  fromAbilityScore: (ability: AbilityString, score: number) => {
     switch (ability) {
       case 'str': return STRENGTH.withScore(score);
       case 'dex': return DEXTERITY.withScore(score);
