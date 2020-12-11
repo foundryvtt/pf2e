@@ -36,7 +36,7 @@ export class ABCItemSheetPF2e extends ItemSheet {
 
         mergeObject(data, {
             type,
-            hasSidebar: true,
+            hasSidebar: this.item.data.type !== 'class',
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
@@ -70,6 +70,7 @@ export class ABCItemSheetPF2e extends ItemSheet {
             data.skills = CONFIG.PF2E.skills;
             data.proficiencyChoices = CONFIG.PF2E.proficiencyLevels;
       
+            this._prepareTraits(data.data.keyAbility, CONFIG.PF2E.abilities);
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
             this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
             this._prepareTraits(data.data.ancestryFeatLevels, CONFIG.PF2E.levels);
