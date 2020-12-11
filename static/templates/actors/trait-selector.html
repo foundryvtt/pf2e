@@ -32,7 +32,7 @@
         </li>
         {{/each}}
     </ol>
-    {{#unless (any has_values has_placeholders)}}
+    {{#unless (any has_values has_placeholders no_custom)}}
     <div class="form-group-stacked trait-footer">
         <label>{{localize "PF2E.SpecialLabel"}}:</label>
         <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
