@@ -8,7 +8,7 @@ If you would like to contribute to the project then I welcome all support. If yo
 
 The project uses webpack to package the SASS files needed for a build and can create a local distribution for your own Foundry server. If you want to give it a go yourself follow these steps:
 
-* Clone the repo into a local folder in your dev environment `git clone https://gitlab.com/hooking/foundry-vtt---pathfinder-2e.git pf2e-dev`
+* Clone the repo into a local folder in your dev environment `git clone https://gitlab.com/hooking/foundry-vtt---pathfinder-2e.git master`
 
 * Install the Javascript dependencies with `npm ci`
 
