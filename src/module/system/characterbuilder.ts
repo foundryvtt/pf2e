@@ -2,10 +2,10 @@
 
 import PF2EActor from "../actor/actor";
 import { RawCharacterData } from "../actor/actorDataDefinitions";
+import { isPhysicalItem } from "../item/dataDefinitions";
 import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
-// TODO: Don't allow duplicate BuildChoice unless it's equipment
 // TODO: Create Template for line item in Build View
 // TODO: Allow deletion from CharacterBuild window (delete only from Build but not from Actor)
 // TODO: Add more than just ABCs
@@ -66,7 +66,9 @@ export class CharacterBuilder extends FormApplication {
       // From Existing Item on Actor
       item = this.actor.getOwnedItem(dragItem.id);
       // Don't add something to the build twice from the same actor.
-      if (this.build.choices[containerId].choices.find(x => x.itemId === item._id)) { return; }
+      if (this.build.choices[containerId].choices.find(x => x.itemId === item._id)) { 
+        return; 
+      }
     } else {
       // From imported Items
         item = game.items.get(dragItem.id);
@@ -77,6 +79,12 @@ export class CharacterBuilder extends FormApplication {
     // Add Item to Actor
     if (!dragItem.data) { // don't create another item since it comes from the Actor
       const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
+      if (!isPhysicalItem(item.data)) {
+        if (this.build.choices[containerId].choices.find(x => x.itemName === item.data.name)) {
+          // Don't allow two of the same non-physical items
+          return;
+        }
+      }
       // Add OwnedItem Id to Actor Build data
       this.build.choices[containerId].choices.push({ itemId: ownedItem._id, itemName: ownedItem.name });
     } else {
