@@ -534,6 +534,11 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
       }
     });
 
+    // filter strikes
+    html.find('.toggle-unready-strikes').on('click', event => {
+      this.actor.setFlag(game.system.id, 'showUnreadyStrikes', !this.actor.getFlag(game.system.id, 'showUnreadyStrikes'));
+    });
+
     // handle sub-tab navigation on the actions tab
     html.find('.actions-nav').on('click', '.tab:not(.tab-active)', event => {
         const target = $(event.currentTarget);
