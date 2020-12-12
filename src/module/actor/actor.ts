@@ -550,6 +550,9 @@ export default class PF2EActor extends Actor {
           damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
+          equipped: {
+              value: true // consider checking for free hands
+          },
         }
       };
 
@@ -597,6 +600,8 @@ export default class PF2EActor extends Actor {
         const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
 
         action.imageUrl = item.img;
+        action.item = item?._id;
+        action.ready = item?.data?.equipped?.value ?? false;
         action.glyph = 'A';
         action.type = 'strike';
         const flavor = this.getStrikeDescription(item);
