@@ -1,4 +1,5 @@
 import { ItemData } from "./item/dataDefinitions";
+import { BuildItemMetaData } from "./system/characterbuilder";
 
 /* global Handlebars TextEditor */
 export default function registerHandlebarsHelpers() {
@@ -101,7 +102,7 @@ export default function registerHandlebarsHelpers() {
     return JSON.stringify(html);
   });
   
-  Handlebars.registerHelper('getItem', (items: ItemData[], itemId: string) => {
-    return items.find(x => x._id === itemId);
+  Handlebars.registerHelper('getItem', (items: ItemData[], itemId: BuildItemMetaData) => {
+    return items.find(x => x._id === itemId.itemId);
   });
 }

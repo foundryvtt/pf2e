@@ -54,10 +54,10 @@ export class CharacterBuilder extends FormApplication {
     const dragItem = JSON.parse(dragData);
     const containerId: (keyof BuildCategories) = dropTarget.data('containerId') ?? dropTarget.parents('[data-container-id]').data('containerId');
 
+    console.log(dragItem);
     // Exit if this thing isn't an item.
     if (dragItem.type !== 'Item') return;
 
-    console.log(dragItem);
     let item: PF2EItem;
     if (dragItem.pack) {
       // From Compendium
@@ -65,6 +65,8 @@ export class CharacterBuilder extends FormApplication {
     } else if (dragItem.data) {
       // From Existing Item on Actor
       item = this.actor.getOwnedItem(dragItem.id);
+      // Don't add something to the build twice from the same actor.
+      if (this.build.choices[containerId].choices.find(x => x.itemId === item._id)) { return; }
     } else {
       // From imported Items
         item = game.items.get(dragItem.id);
@@ -76,9 +78,9 @@ export class CharacterBuilder extends FormApplication {
     if (!dragItem.data) { // don't create another item since it comes from the Actor
       const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
       // Add OwnedItem Id to Actor Build data
-      this.build.choices[containerId].choices.push(ownedItem._id);
+      this.build.choices[containerId].choices.push({ itemId: ownedItem._id, itemName: ownedItem.name });
     } else {
-      this.build.choices[containerId].choices.push(dragItem.id);
+      this.build.choices[containerId].choices.push({ itemId: dragItem.id, itemName: dragItem.name });
     }
     const updatedActor = await this.actor.update({'data.build': this.build});
     this.actor = updatedActor;
@@ -126,5 +128,10 @@ export interface BuildCategories {
 
 export interface BuildChoice {
   label: string;
-  choices: string[] // list of Item Ids
+  choices: BuildItemMetaData[]
+}
+
+export interface BuildItemMetaData {
+  itemId: string;
+  itemName: string;
 }
