@@ -44,6 +44,21 @@
     {{/each}}
     </ol>
 
+  <div class="wealth">
+    <div class="wealth-label inventory-header">
+      <h3 class="item-name">{{localize 'PF2E.TotalWealth'}}</h3>
+    </div>
+    <ol class="currency">
+      {{#each totalWealth as |value denomination|}}
+      <li class="denomination {{denomination}}">
+        <div class="currency-image"></div>
+        {{!-- <label>{{value.label}}:</label> --}}
+        <span>{{value.value}}</span>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+
     {{#with data.attributes.encumbrance}}
     <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
         <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.jpg" alt="Encumbrance">
