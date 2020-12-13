@@ -8,6 +8,8 @@ import {
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
+import {CONFIG} from "../../../scripts/config";
+import {toNumber} from "../../utils";
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
@@ -227,6 +229,14 @@ export class PF2WeaponDamage {
                 enabled: true,
                 traits: ['ghostTouch'],
             });
+        }
+
+        // backstabber trait
+        if (traits.some(t => t.name === 'backstabber') && options.includes('target:flatFooted')) {
+            const value = toNumber(weapon.data?.potencyRune?.value) ?? 0;
+            const modifier = new PF2Modifier(CONFIG.weaponTraits.backstabber, value > 2 ? 2 : 1, PF2ModifierType.UNTYPED);
+            modifier.damageCategory = 'precision';
+            numericModifiers.push(modifier);
         }
 
         // deadly trait
