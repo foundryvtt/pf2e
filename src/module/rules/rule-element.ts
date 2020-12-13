@@ -1,7 +1,7 @@
 /* global getProperty, Roll */
 import {CharacterData, FamiliarData, NpcData} from "../actor/actorDataDefinitions";
 import {PF2DamageDice, PF2Modifier} from "../modifiers";
-import {ItemData} from "../item/dataDefinitions";
+import {ItemData, WeaponData} from "../item/dataDefinitions";
 
 /**
  * @category RuleElement
@@ -15,7 +15,8 @@ export abstract class PF2RuleElement {
     onBeforePrepareData(
         actorData: CharacterData | NpcData | FamiliarData,
         statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>
+        damageDice: Record<string, PF2DamageDice[]>,
+        strikes: WeaponData[]
     ) {}
 
     onAfterPrepareData(
