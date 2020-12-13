@@ -178,19 +178,7 @@ export class PF2WeaponDamage {
             });
         }
 
-        getPropertyRuneModifiers(weapon)
-            .forEach((modifier) => diceModifiers.push(modifier));
-        
-        if (weapon.name === 'Cinderclaw Gauntlet') {
-            diceModifiers.push({
-                name: weapon.name,
-                diceNumber: 1,
-                dieSize: 'd6',
-                damageType: 'fire',
-                critical: true,
-                traits: ['fire'],
-            });
-        }
+        getPropertyRuneModifiers(weapon).forEach((modifier) => diceModifiers.push(modifier));
         
         // mystic strikes
         if (actor.items.some(i => i.type === 'feat' && i.name === 'Mystic Strikes')
