@@ -30,10 +30,11 @@ export class PF2StrikeRuleElement extends PF2RuleElement {
             type: (actorData.type === 'npc' ? 'melee' : 'weapon'),
             img: this.ruleData.img ?? this.item.img,
             data: {
-                ability: { value: this.ruleData.ability ?? 'str' },
-                weaponType: { value: this.ruleData.category ?? 'simple' },
+                ability: { value: this.ruleData.ability || 'str' },
+                weaponType: { value: this.ruleData.category || 'unarmed' },
+                group: { value: this.ruleData.group || 'brawling' },
                 damage: this.ruleData.damage?.base ?? { dice: 1, die: 'd4', damageType: 'bludgeoning' },
-                range: { value: this.ruleData.range ?? 'melee' },
+                range: { value: this.ruleData.range || 'melee' },
                 traits: { value: this.ruleData.traits ?? [] },
                 equipped: { value: true },
             }
