@@ -568,7 +568,7 @@ export default class PF2EActor extends Actor {
         // Determine the base ability score for this attack.
         let ability;
         {
-          ability = item.data.ability?.value ?? 'str'; // default to Str
+          ability = item.data.ability?.value || 'str'; // default to Str
           let score = data.abilities[ability]?.value ?? 0;
           // naive check for finesse, which should later be changed to take conditions like
           // enfeebled and clumsy into consideration
