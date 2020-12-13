@@ -124,6 +124,29 @@ if (a) {
     }
 }
 
+async function createToggleMacro(property: string, label: string, actorId: string, slot: number) {
+    const command =
+`const a = game.actors.get('${actorId}');
+if (a) {
+    const value = getProperty(a, 'data.${property}');
+    a.update({'${property}': !value});
+} else {
+    ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+}`;
+    const macroName = game.i18n.format('PF2E.ToggleWithName', { property: label });
+    let macro = game.macros.entities.find((m) => (m.name === macroName) && (m.data.command === command));
+    if (!macro) {
+        macro = await Macro.create({
+            command,
+            name: macroName,
+            type: 'script',
+            img: 'icons/svg/d20-grey.svg',
+            flags: { 'pf2e.skillMacro': true },
+        }, {}) as Macro;
+    }
+    game.user.assignHotbarMacro(macro, slot);
+}
+
 /**
  * Activate certain behaviors on FVTT ready hook
  */
@@ -183,6 +206,8 @@ Hooks.on('hotbarDrop', (bar, data, slot) => {
     return false;
   } else if (data.type === 'Skill') {
     createSkillMacro(data.skill, data.skillName, data.actorId, slot);
+  } else if (data.type === 'Toggle') {
+    createToggleMacro(data.property, data.label, data.actorId, slot);
   }
 
   return true;
