@@ -128,10 +128,10 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         if (sheetData.actor.items !== undefined)
         {
             const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = this.parseCoinsToActorSheetData(treasure);
+            sheetData.totalTreasure = ActorSheetPF2eCreature.parseCoinsToActorSheetData(treasure);
             
             const totalWealth = calculateTotalWealth(sheetData.actor.items);
-            sheetData.totalWealth = this.parseCoinsToActorSheetData(totalWealth);
+            sheetData.totalWealth = ActorSheetPF2eCreature.parseCoinsToActorSheetData(totalWealth);
         }
 
         // Update traits
@@ -145,7 +145,7 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         return sheetData;
     }
 
-    private parseCoinsToActorSheetData(treasure: Coins) {
+    private static parseCoinsToActorSheetData(treasure: Coins) {
         const coins = {};
         for (const [denomination, value] of Object.entries(treasure)) {
             coins[denomination] = {
