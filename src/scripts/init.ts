@@ -18,9 +18,8 @@ async function createItemMacro(item, slot) {
       img: item.img,
       flags: { 'pf2e.itemMacro': true },
     }, { displaySheet: false }) as Macro;
-
-    game.user.assignHotbarMacro(macro, slot);
   }
+  game.user.assignHotbarMacro(macro, slot);
 }
 
 /**
@@ -55,9 +54,8 @@ async function createActionMacro(actionIndex: string, actorId: string, slot: num
         img: action.imageUrl,
         flags: { 'pf2e.actionMacro': true },
       }, { displaySheet: false }) as Macro;
-
-      game.user.assignHotbarMacro(macro, slot);
     }
+    game.user.assignHotbarMacro(macro, slot);
 }
 
 async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
@@ -119,9 +117,8 @@ if (a) {
         img: 'icons/svg/d20-grey.svg',
         flags: { 'pf2e.skillMacro': true },
       }, { displaySheet: false }) as Macro;
-
-      game.user.assignHotbarMacro(macro, slot);
     }
+    game.user.assignHotbarMacro(macro, slot);
 }
 
 async function createToggleMacro(property: string, label: string, actorId: string, slot: number) {
