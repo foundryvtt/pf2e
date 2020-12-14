@@ -1,5 +1,75 @@
 # Patch Notes:
 
+## Version 1.10.21
+### Bug Fixes
+* (nikolaj-a) Ensure hotbar assignment is repeatable
+* (nikolaj-a) Fix invalid ability abbreviation. Closes #849
+* (nikolaj-a) Add jaws strike for razortooth goblin. Closes #725
+
+### New Features
+* (Trollderim) Add UI element in the inventory which sums up the total gold value of a character's inventory
+* (nikolaj-a) Add Strike rule element
+
+### Content Changes
+* (putty) Compendium additions, changes, and fixes:
+    * Add Menace Under Otari Bestiary
+    * Use same attributes for trapmaster as Menace under Otari
+    * Add Smoking Sword and automate Spirit Strikes
+    * Fix stats and abilities for wyrmling and giant spider
+* (Kaiser) Crit and fumble deck typos fixed
+* (Shandyan) Compendium changes:
+    * Rules effects for items starting with J through N
+    * Added token effect icons to spell effects
+    * Corrections to items. Closes #920
+* (profounddark) Updated swashbuckler class features with finisher toggle
+* (SLATE) Clean up compendia, like removing trailing spaces, invalid characters etc:
+    * Cleanup pfs season 1 bestiary.db
+    * Cleanup pfs season 2 bestiary.db
+    * Cleanup spell effects.db
+    * Cleanup spells.db
+    * Cleanup the slithering bestiary.db
+    * Cleanup pathfinder society boons.db
+    * Cleanup pathfinder bestiary.db
+    * Cleanup npc gallery.db
+    * Cleanup iconics.db
+    * Cleanup gmg srd.db
+    * Cleanup fall of plaguestone.db
+    * Cleanup extinction curse bestiary.db
+    * Cleanup equipment.db
+    * Cleanup deities.db
+    * Cleanup actions.db of unicode
+    * Cleanup conditionspf2e
+    * Cleanup feats.db
+* (SLATE) Fixed some names and added missing goblin skeletons
+* (SLATE) Added Troubles in Otari bestiary and items
+* (nikolaj-a) Remove hardcoded Cinderclaw Gauntlet damage, and fix related damage dice rule element
+
+### Core System Improvements
+* (@abrault) Add force option to Fixed Proficiency Rule Element
+* (fryguy) Initial work for supporting drag and drop ancestries, backgrounds, and classes
+* (Kaiser) Action icons recreated - old ones had compression artefacts
+* (Hermann) Add callbacks to weapon damage functions for better utilization from macros
+* (nikolaj-a) Localize actor and item types in create dialog
+* (nikolaj-a) Toggle for hiding strikes of unequipped weapons
+* (nikolaj-a) Make toggles draggable to the hotbar
+* (nikolaj-a) Support for backstabber weapon trait
+* (nikolaj-a) Injectable properties in rule element selectors
+
+### Development Improvements
+* (@mirkoRainer) Update CONTRIBUTING.md since the pf2e-dev does not exist anymore
+* (stwlam) Tighten up the compendium assembly process:
+    * Typescript implementation of packbuilder
+    * Replace all links by ids with links by name, change over to packbuilder.ts
+    * Generate many warnings from packbuilder.ts
+    * Add system-local mystery-man.png, fix broken links to one from Foundry
+    * Fix remaining broken-image-link and missing-label warnings - Above warnings now fatal - File-system work in packbuilder.ts now synchronous
+    * Fix more pack issues, make base64-encoded image data fatal
+    * Fix all but one of the remaining broken links
+* (stwlam) Update CONTRIBUTING.md with Compendium content guidelines.
+* (nikolaj-a) Update vulnerable dependency versions
+* (nikolaj-a) Salvage use of AbilityString type
+
+
 ## Version 1.10.20
 ### Bug Fixes
 * (nikolaj-a) Fix broken actor sheet for spells with long casting time
