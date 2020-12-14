@@ -8,7 +8,6 @@ import {
 } from '../../modifiers';
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
-import {CONFIG} from "../../../scripts/config";
 import {toNumber} from "../../utils";
 
 /** A pool of damage dice & modifiers, grouped by damage type. */

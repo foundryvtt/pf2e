@@ -29,10 +29,11 @@ export class PF2DamageDiceRuleElement extends PF2RuleElement {
             mergeObject(value, bracketed, { inplace: true, overwrite: true});
             delete value.value;
         }
+        const selector = super.resolveInjectedProperties(value.selector, this.ruleData, this.item, actorData);
         value.name = super.getDefaultLabel(value, this.item);
-        if (this.ruleData.selector && value.name && value) {
+        if (selector && value.name && value) {
             const dice = new PF2DamageDice(value);
-            damageDice[value.selector] = (damageDice[value.selector] || []).concat(dice);
+            damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
             console.warn('PF2E | Damage dice requires at least a selector field, and a label field or item name');
         }

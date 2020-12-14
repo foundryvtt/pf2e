@@ -30,6 +30,17 @@ export abstract class PF2RuleElement {
         return game.i18n.localize(ruleData.label ?? item?.name);
     }
 
+    resolveInjectedProperties(source, ruleData, itemData, actorData): string {
+        const objects = {
+            actor: actorData,
+            item: itemData,
+            rule: ruleData,
+        }
+        return (source ?? '').replace(/{(actor|item|rule)\|(.*)}/g, (match, obj, prop) => {
+            return getProperty(objects[obj] ?? itemData, prop);
+        });
+    }
+
     resolveValue(valueData, ruleData, item, actorData, defaultValue: any = 0): any {
         let value = valueData;
         if (typeof valueData === 'object') {
