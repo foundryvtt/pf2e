@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 1.10.22
+### Bug Fixes
+* (putty) Fix parsing for missing and non-conforming prices
+* (nikolaj-a) Omit breakdown of familiar abilities, if none is present on the master
+
 ## Version 1.10.21
 ### Bug Fixes
 * (nikolaj-a) Ensure hotbar assignment is repeatable
