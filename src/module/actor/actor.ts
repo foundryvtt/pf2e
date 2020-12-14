@@ -671,13 +671,13 @@ export default class PF2EActor extends Actor {
             }
           },
         ];
-        action.damage = (event, options = []) => {
+        action.damage = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
         };
-        action.critical = (event, options = []) => {
+        action.critical = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event, callback);
         };
         data.actions.push(action);
       });
