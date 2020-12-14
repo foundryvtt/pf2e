@@ -1,0 +1,73 @@
+.abc-list {
+    ul.abc-items {
+        padding: 0;
+
+        li.abc-item {
+            display: grid;
+            grid-template-columns: 26px auto 20px 10px;
+            align-items: center;
+
+            &:nth-of-type(even) {
+                background-color: rgba(120, 100, 82, 0.1);
+            }
+
+            .abc-item-name {
+                margin-left: 0.25em;
+                line-height: 1em;
+                height: 1em;
+
+                .fa.fa-globe {
+                    padding: 0 3px;
+                    float: right;
+                }
+            }
+
+            .abc-item-level {
+                line-height: 1em;
+                height: 1em;
+                font-weight: bold;
+            }
+        }
+
+        ul {
+            padding-left: 0.5em;
+            margin-top: 0;
+            grid-column: 1 / 5;
+            
+            &:empty {
+                display: none;
+            }
+        }
+    }
+}
+
+.pf2e.item form .form-group-trait {
+    height: auto;
+    margin: 2px 0;
+
+    label {
+        vertical-align: top;
+    }
+}
+
+div.form-group-trait > ul.abc-traits-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    span.tag {
+        float: none;
+    }
+}
+
+.pf2e.item form .other-weapons {
+    input { flex: 2; }
+    select { flex: 1; }
+}
+
+.pf2e.item form .additional-language {
+    input { flex: 0.5; }
+    span { flex: 2.5; }
+}

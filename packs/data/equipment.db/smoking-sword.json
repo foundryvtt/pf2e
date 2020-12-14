@@ -1,0 +1,223 @@
+{
+    "_id": "onFxlajKyWpHZcXt",
+    "data": {
+        "MAP": {
+            "value": ""
+        },
+        "ability": {
+            "value": "str"
+        },
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "brokenThreshold": {
+            "value": 0
+        },
+        "bulkCapacity": {
+            "value": ""
+        },
+        "collapsed": {
+            "value": false
+        },
+        "containerId": {
+            "value": ""
+        },
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d6",
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p><strong>Stoke Flames</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span>&nbsp;(concentrate)</p>\n<p>Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can&rsquo;t use it again for 10 minutes.</p>"
+        },
+        "equipped": {
+            "value": false
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": {
+            "value": ""
+        },
+        "hands": {
+            "value": ""
+        },
+        "hardness": {
+            "value": 0
+        },
+        "hp": {
+            "value": 0
+        },
+        "identified": {
+            "value": false
+        },
+        "invested": {
+            "value": false
+        },
+        "level": {
+            "value": "3"
+        },
+        "maxHp": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": "1"
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": "60 gp"
+        },
+        "property1": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "criticalConditionType": "",
+            "criticalConditionValue": null,
+            "damageType": "",
+            "dice": null,
+            "die": "",
+            "strikeConditionType": "",
+            "strikeConditionValue": null,
+            "value": ""
+        },
+        "property2": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "value": ""
+        },
+        "property3": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "value": ""
+        },
+        "propertyRune1": {
+            "value": ""
+        },
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": {
+            "value": "1"
+        },
+        "range": {
+            "value": ""
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "stoke-flames"
+                    ]
+                },
+                "selector": "smoking-sword-damage"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Stoke Flames",
+                "property": "flags.pf2e.rollOptions.damage-roll.stoke-flames"
+            },
+            {
+                "damageType": "fire",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "stoke-flames"
+                    ]
+                },
+                "selector": "smoking-sword-damage",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": {
+            "value": ""
+        },
+        "strikingRune": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "evocation",
+                "fire",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weaponType": {
+            "value": ""
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "effects": [],
+    "flags": {
+        "core": {
+            "sourceId": "Item.VEUHB6eaaNRNYLPL"
+        },
+        "exportSource": {
+            "coreVersion": "0.7.7",
+            "system": "pf2e",
+            "systemVersion": "1.10.20.2419",
+            "world": "otari"
+        }
+    },
+    "img": "systems/pf2e/icons/equipment/weapons/longsword.png",
+    "name": "Smoking Sword",
+    "permission": {
+        "default": 0
+    },
+    "type": "weapon"
+}

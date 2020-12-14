@@ -786,6 +786,12 @@ abstract class ActorSheetPF2e extends ActorSheet {
         li.addEventListener('dragstart', skillHandler, false);
       });
 
+    // Toggle Dragging
+    html.find('[data-toggle-property][data-toggle-label]').each((i, li) => {
+      li.setAttribute('draggable', "true");
+      li.addEventListener('dragstart', event => this._onDragToggleStart(event), false);
+    });
+
     // change background for dragged over items that are containers
       const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
       containerItems
@@ -1045,6 +1051,21 @@ abstract class ActorSheetPF2e extends ActorSheet {
       return false;
   }
 
+  _onDragToggleStart(event: any): boolean {
+      const property = event.currentTarget.getAttribute('data-toggle-property');
+      const label = event.currentTarget.getAttribute('data-toggle-label');
+      if (property) {
+          event.dataTransfer.setData('text/plain', JSON.stringify({
+              type: 'Toggle',
+              property,
+              label,
+              actorId: this.actor._id
+          }));
+          return true;
+      }
+      return false;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -1253,6 +1274,11 @@ abstract class ActorSheetPF2e extends ActorSheet {
             itemData = duplicate(item.data);
         }
 
+        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+          // ignore these (for now)...
+          return false;
+        }
+    
         if (itemData.type === 'kit') {
             await addKit(itemData, async (newItems) => {
                 const items = await actor.createOwnedItem(newItems);

@@ -164,7 +164,7 @@ export default class PF2EActor extends Actor {
       ]
     };
 
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
+    const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
 
     // Update experience percentage from raw experience amounts.
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
@@ -550,6 +550,9 @@ export default class PF2EActor extends Actor {
           damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
+          equipped: {
+              value: true // consider checking for free hands
+          },
         }
       };
 
@@ -559,14 +562,14 @@ export default class PF2EActor extends Actor {
         unarmed.data.damage.die = 'd6';
       }
 
-      (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).forEach((item) => {
+      (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
         const modifiers = [];
 
         // Determine the base ability score for this attack.
         let ability;
         {
-          ability = item.data.ability?.value ?? 'str'; // default to Str
-          let score = data.abilities[item.data.ability.value]?.value ?? 0;
+          ability = item.data.ability?.value || 'str'; // default to Str
+          let score = data.abilities[ability]?.value ?? 0;
           // naive check for finesse, which should later be changed to take conditions like
           // enfeebled and clumsy into consideration
           if ((item.data.traits?.value || []).includes('finesse') && data.abilities.dex.mod > data.abilities[ability].mod) {
@@ -597,6 +600,8 @@ export default class PF2EActor extends Actor {
         const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
 
         action.imageUrl = item.img;
+        action.item = item?._id;
+        action.ready = item?.data?.equipped?.value ?? false;
         action.glyph = 'A';
         action.type = 'strike';
         const flavor = this.getStrikeDescription(item);
@@ -682,7 +687,7 @@ export default class PF2EActor extends Actor {
 
     rules.forEach(rule => {
       try {
-          rule.onAfterPrepareData(actorData, statisticsModifiers, damageDice)
+          rule.onAfterPrepareData(actorData, statisticsModifiers, damageDice);
       } catch (error) {
           // ensure that a failing rule element does not block actor initialization
           console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
@@ -829,7 +834,7 @@ export default class PF2EActor extends Actor {
    */
   private _prepareNPCData(actorData: NpcData, rules: PF2RuleElement[]) {
     const { data } = actorData;
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
+    const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
 
     // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
     for (const abl of Object.values(actorData.data.abilities)) {
@@ -914,7 +919,7 @@ export default class PF2EActor extends Actor {
     data.actions = [];
 
     // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-    for (const item of actorData.items) {
+    for (const item of actorData.items.concat(strikes)) {
       if (item.type === 'lore') { // skill
         // normalize skill name to lower-case and dash-separated words
         const skill = item.name.toLowerCase().replace(/\s+/g, '-');
@@ -1033,13 +1038,13 @@ export default class PF2EActor extends Actor {
             }
           },
         ];
-        action.damage = (event, options = []) => {
+        action.damage = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculateStrikeNPC(item, actorData, action.traits, statisticsModifiers, damageDice, 1, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
         };
-        action.critical = (event, options = []) => {
+        action.critical = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculateStrikeNPC(item, actorData, action.traits, statisticsModifiers, damageDice, 1, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event, callback);
         };
 
         data.actions.push(action);
@@ -1272,15 +1277,17 @@ export default class PF2EActor extends Actor {
   /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
-    damageDice: Record<string, PF2DamageDice[]>
+    damageDice: Record<string, PF2DamageDice[]>,
+    strikes: any[]
   } {
     // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
     const statisticsModifiers: Record<string, PF2Modifier[]> = {};
     const damageDice: Record<string, PF2DamageDice[]> = {};
+    const strikes: WeaponData[] = [];
 
     rules.forEach(rule => {
         try {
-            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice)
+            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice, strikes);
         } catch (error) {
             // ensure that a failing rule element does not block actor initialization
             console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
@@ -1313,7 +1320,8 @@ export default class PF2EActor extends Actor {
 
     return {
       statisticsModifiers,
-      damageDice
+      damageDice,
+      strikes,
     };
   }
 

@@ -111,7 +111,7 @@ Hooks.once('setup', () => {
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits', 'preciousMaterialGrades',
     'armorPotencyRunes', 'armorResiliencyRunes', 'armorPropertyRunes', 'weaponPotencyRunes', 'weaponStrikingRunes',
-    'weaponPropertyRunes',
+    'weaponPropertyRunes', 'rarityTraits',
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups', 'consumableTraits',
     'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
@@ -122,7 +122,8 @@ Hooks.once('setup', () => {
     'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
-    'speedTypes', 'senses', 'preciousMaterials', 'prerequisitePlaceholders'
+    'speedTypes', 'senses', 'preciousMaterials', 'prerequisitePlaceholders', 'ancestryItemTraits',
+    'levels',
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {
