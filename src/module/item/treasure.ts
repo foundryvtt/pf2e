@@ -86,14 +86,20 @@ function calculateValueOfTreasure(items: ItemPlaceholder[]) {
  * Converts the price of an item to the Coin structure
  * @param item
  */
-function extractPriceFromItem(item: ItemPlaceholder) : Coins {    
-    const priceTag = item.data?.price?.value;
+function extractPriceFromItem(item: ItemPlaceholder) : Coins {
     // This requires preprocessing, as large gold values contain , for their value
-    const valueString = priceTag.split(" ")[0].replace(/,/g, '');
-    const value = parseInt(valueString, 10);
-    const denomination = priceTag.split(" ")[1];
-    
-    return toCoins(denomination, value);
+    const priceTag = item.data?.price?.value
+        ?.toString()
+        ?.trim()
+        ?.replace(/,/g, '') 
+        ?? '';
+    const regex = /^(\d+)(?:\s*)(pp|gp|sp|cp)$/;
+    if (regex.test(priceTag)) {
+        const [, value, denomination] = priceTag.match(regex);
+        return toCoins(denomination, parseInt(value, 10));
+    } else {
+        return toCoins("gp", 0)
+    }
 }
 
 /**
