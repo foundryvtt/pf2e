@@ -1071,8 +1071,8 @@ export default class PF2EActor extends Actor {
       data.master.level = master.data.data.details.level.value ?? 0;
       data.master.ability = data.master.ability ?? 'cha';
       data.master.familiarAbilities = {
-        breakdown: master.data.data.attributes.familiarAbilities.breakdown,
-        value: master.data.data.attributes.familiarAbilities.value
+        breakdown: master.data.data.attributes.familiarAbilities?.breakdown ?? '',
+        value: master.data.data.attributes.familiarAbilities?.value ?? 0
       };
       data.details.level.value = data.master.level;
       const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
