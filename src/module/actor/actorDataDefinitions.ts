@@ -605,4 +605,4 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
     type: 'vehicle';
 }
 
-export type ActorData = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
+export type ActorDataPF2e = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
