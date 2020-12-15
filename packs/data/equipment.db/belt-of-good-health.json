@@ -1,5 +1,5 @@
 {
-    "_id": "onFxlajKyWpHZcXt",
+    "_id": "AhvjU4QbinWPM9t3",
     "data": {
         "MAP": {
             "value": ""
@@ -34,7 +34,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Stoke Flames</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span>&nbsp;(concentrate)</p>\n<p>Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can&rsquo;t use it again for 10 minutes.</p>"
+            "value": "<p>When you put on this belt, its silver buckle begins to glow, which slowly spreads into the heart-shaped jewel in the center. You increase your maximum Hit Points and current Hit Points by 4. If you remove the belt, you immediately decrease both your maximum and current HP by 4.</p>"
         },
         "equipped": {
             "value": false
@@ -61,7 +61,7 @@
             "value": false
         },
         "level": {
-            "value": "3"
+            "value": "4"
         },
         "maxHp": {
             "value": 0
@@ -70,7 +70,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": "1"
+            "value": ""
         },
         "preciousMaterial": {
             "value": ""
@@ -79,7 +79,7 @@
             "value": ""
         },
         "price": {
-            "value": "60 gp"
+            "value": "85 gp"
         },
         "property1": {
             "critDamage": "",
@@ -89,7 +89,7 @@
             "criticalConditionType": "",
             "criticalConditionValue": null,
             "damageType": "",
-            "dice": null,
+            "dice": 0,
             "die": "",
             "strikeConditionType": "",
             "strikeConditionValue": null,
@@ -139,36 +139,7 @@
         "reload": {
             "value": ""
         },
-        "rules": [
-            {
-                "damageType": "fire",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "PF2E.RuleElement.DamageDice",
-                "predicate": {
-                    "all": [
-                        "stoke-flames"
-                    ]
-                },
-                "selector": "{item|_id}-damage"
-            },
-            {
-                "key": "PF2E.RuleElement.ToggleProperty",
-                "label": "Stoke Flames",
-                "property": "flags.pf2e.rollOptions.damage-roll.stoke-flames"
-            },
-            {
-                "damageType": "fire",
-                "key": "PF2E.RuleElement.FlatModifier",
-                "predicate": {
-                    "not": [
-                        "stoke-flames"
-                    ]
-                },
-                "selector": "{item|_id}-damage",
-                "value": 1
-            }
-        ],
+        "rules": [],
         "source": {
             "value": ""
         },
@@ -186,10 +157,12 @@
             "rarity": {
                 "value": "common"
             },
+            "usage": {
+                "value": "wornbelt"
+            },
             "value": [
-                "evocation",
-                "fire",
-                "magical"
+                "magical",
+                "necromancy"
             ]
         },
         "usage": {
@@ -205,19 +178,19 @@
     "effects": [],
     "flags": {
         "core": {
-            "sourceId": "Item.VEUHB6eaaNRNYLPL"
+            "sourceId": "Item.ZPDNXvMhxm59rgxz"
         },
         "exportSource": {
-            "coreVersion": "0.7.7",
+            "coreVersion": "0.7.8",
             "system": "pf2e",
-            "systemVersion": "1.10.20.2419",
+            "systemVersion": "1.10.22.2523",
             "world": "otari"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/longsword.png",
-    "name": "Smoking Sword",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bellflower-toolbelt.jpg",
+    "name": "Belt of Good Health",
     "permission": {
         "default": 0
     },
-    "type": "weapon"
+    "type": "equipment"
 }

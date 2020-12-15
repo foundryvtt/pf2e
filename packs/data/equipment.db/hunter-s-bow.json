@@ -1,11 +1,11 @@
 {
-    "_id": "onFxlajKyWpHZcXt",
+    "_id": "RapaDb10oJZOjujo",
     "data": {
         "MAP": {
             "value": ""
         },
         "ability": {
-            "value": "str"
+            "value": "dex"
         },
         "bonus": {
             "value": 0
@@ -26,7 +26,7 @@
             "value": ""
         },
         "damage": {
-            "damageType": "slashing",
+            "damageType": "piercing",
             "dice": 1,
             "die": "d6",
             "value": ""
@@ -34,7 +34,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Stoke Flames</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span>&nbsp;(concentrate)</p>\n<p>Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can&rsquo;t use it again for 10 minutes.</p>"
+            "value": "<p>Stealthy hunters and rogues can use this +1 magic shortbow to attack from hiding. If you use this bow to Strike a target that can&rsquo;t see you and you get a critical hit, the target takes an extra [[/r 1d6 # piercing]] damage (this is in addition to sneak attack damage if you&rsquo;re a rogue).</p>"
         },
         "equipped": {
             "value": false
@@ -43,7 +43,7 @@
             "value": ""
         },
         "group": {
-            "value": ""
+            "value": "bow"
         },
         "hands": {
             "value": ""
@@ -89,7 +89,7 @@
             "criticalConditionType": "",
             "criticalConditionValue": null,
             "damageType": "",
-            "dice": null,
+            "dice": 0,
             "die": "",
             "strikeConditionType": "",
             "strikeConditionValue": null,
@@ -131,7 +131,7 @@
             "value": "1"
         },
         "range": {
-            "value": ""
+            "value": "60"
         },
         "rarity": {
             "value": "common"
@@ -141,32 +141,20 @@
         },
         "rules": [
             {
-                "damageType": "fire",
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacker is hidden, undetected, or unnoticed",
+                "property": "flags.pf2e.rollOptions.damage-roll.self:hidden"
+            },
+            {
+                "critical": true,
+                "damageType": "piercing",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "PF2E.RuleElement.DamageDice",
                 "predicate": {
-                    "all": [
-                        "stoke-flames"
-                    ]
+                  "any": ["self:hidden", "self:undetected", "self:unnoticed"]
                 },
                 "selector": "{item|_id}-damage"
-            },
-            {
-                "key": "PF2E.RuleElement.ToggleProperty",
-                "label": "Stoke Flames",
-                "property": "flags.pf2e.rollOptions.damage-roll.stoke-flames"
-            },
-            {
-                "damageType": "fire",
-                "key": "PF2E.RuleElement.FlatModifier",
-                "predicate": {
-                    "not": [
-                        "stoke-flames"
-                    ]
-                },
-                "selector": "{item|_id}-damage",
-                "value": 1
             }
         ],
         "source": {
@@ -187,8 +175,8 @@
                 "value": "common"
             },
             "value": [
+                "deadly-d10",
                 "evocation",
-                "fire",
                 "magical"
             ]
         },
@@ -196,26 +184,26 @@
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "value": ""
+            "value": "martial"
         },
         "weight": {
-            "value": "-"
+            "value": "1"
         }
     },
     "effects": [],
     "flags": {
         "core": {
-            "sourceId": "Item.VEUHB6eaaNRNYLPL"
+            "sourceId": "Item.CHX8M6GrjYhjc4Sw"
         },
         "exportSource": {
-            "coreVersion": "0.7.7",
+            "coreVersion": "0.7.8",
             "system": "pf2e",
-            "systemVersion": "1.10.20.2419",
+            "systemVersion": "1.10.22.2523",
             "world": "otari"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/longsword.png",
-    "name": "Smoking Sword",
+    "img": "systems/pf2e/icons/equipment/weapons/shortbow.png",
+    "name": "Hunter's Bow",
     "permission": {
         "default": 0
     },
