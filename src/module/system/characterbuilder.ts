@@ -7,6 +7,7 @@ import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
 // TODO: Group multiple of the same Physical Item
+// TODO: allow player to include items not Owned by the Actor (allow them to build in advance of level up)
  
 /**
  * Character build page
