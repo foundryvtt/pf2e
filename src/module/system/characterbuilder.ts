@@ -1,6 +1,5 @@
 /* global FormApplication */
 
-import { htmlPrefilter } from "jquery";
 import PF2EActor from "../actor/actor";
 import { RawCharacterData } from "../actor/actorDataDefinitions";
 import { isPhysicalItem } from "../item/dataDefinitions";
