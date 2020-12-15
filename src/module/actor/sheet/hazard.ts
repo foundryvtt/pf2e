@@ -1,6 +1,6 @@
 /* global CONST */
 import ActorSheetPF2e from './base';
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Actor

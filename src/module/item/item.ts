@@ -8,7 +8,7 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
 import { ItemData } from './dataDefinitions';
-import PF2EActor from '../actor/actor';
+import { PF2EActor } from '../actor/actor';
 
 /**
  * @category PF2

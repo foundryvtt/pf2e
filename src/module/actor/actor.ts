@@ -40,7 +40,8 @@ import {
     NPCPerceptionData,
     NPCSkillData,
     HitPointsData,
-    FamiliarData
+    FamiliarData,
+    ActorDataPF2e
 } from './actorDataDefinitions';
 import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
 
@@ -98,8 +99,20 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
 /**
  * @category Actor
  */
-export default class PF2EActor extends Actor {
+export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> extends Actor<PF2EDataType> {
 
+  constructor(data: BaseEntityData<any>, options?: any) {
+    super(data, options);
+    try {
+      if (this.constructor.name === "PF2EActor") {
+        return new CONFIG.PF2E.Actor.entityClasses[data.type](data, options);
+      }
+    } catch (_error) {
+      console.debug(`Unrecognized Actor type: ${data.type}`);
+    
+    }
+  }
+ 
   /**
    * Augment the basic actor data with additional dynamic data.
    */
@@ -110,7 +123,7 @@ export default class PF2EActor extends Actor {
     this._prepareTokenImg();
 
     // Prepare character & npc data; primarily attribute and action calculation.
-    const actorData = this.data;
+    const actorData : ActorDataPF2e = this.data;
     const rules = actorData.items.reduce((accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)), []);
     if (actorData.type === 'character') this._prepareCharacterData(actorData, rules);
     else if (actorData.type === 'npc') this._prepareNPCData(actorData, rules);
@@ -2139,3 +2152,10 @@ export default class PF2EActor extends Actor {
     }, [] as string[]);
   }
 }
+
+export class PF2ECharacter extends PF2EActor {}
+export class PF2ENPC extends PF2EActor {}
+export class PF2EHazard extends PF2EActor {}
+export class PF2ELoot extends PF2EActor {}
+export class PF2EFamiliar extends PF2EActor {}
+export class PF2EVehicle extends PF2EActor {}

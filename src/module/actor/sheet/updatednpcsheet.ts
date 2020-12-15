@@ -8,7 +8,7 @@
 import ActorSheetPF2eNPC from './npc';
 import { DicePF2e } from '../../../scripts/dice'
 import {PF2Modifier, PF2ModifierType} from "../../modifiers";
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Other
