@@ -5,7 +5,7 @@ import {SKILL_DICTIONARY} from "../actor";
 /**
  * @category Actor
  */
-class ActorSheetPF2eFamiliar extends ActorSheet {
+export class ActorSheetPF2eFamiliar extends ActorSheet {
 
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -109,4 +109,3 @@ class ActorSheetPF2eFamiliar extends ActorSheet {
     }
 }
 
-export default ActorSheetPF2eFamiliar;

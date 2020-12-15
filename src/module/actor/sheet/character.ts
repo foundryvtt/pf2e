@@ -1,5 +1,5 @@
 /* global CONST, ui */
-import ActorSheetPF2eCreature from './creature';
+import { ActorSheetPF2eCreature } from './creature';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
@@ -10,7 +10,7 @@ import { PF2EActor } from "../actor";
 /**
  * @category Other
  */
-class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
+export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['default', 'sheet', 'actor', 'pc'],
@@ -659,5 +659,3 @@ class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     return super._onSubmit(event);
   }
 }
-
-export default CRBStyleCharacterActorSheetPF2E;

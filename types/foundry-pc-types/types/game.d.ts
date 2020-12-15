@@ -14,7 +14,7 @@ declare let ui: {
 declare type SystemActorDataType = import('../../../src/module/actor/actorDataDefinitions').ActorDataPF2e;
 declare type SystemItemDataType = import('../../../src/module/item/dataDefinitions').ItemData;
 declare type SystemActorType = import('../../../src/module/actor/actor').PF2EActor;
-declare type SystemItemType = import('../../../src/module/item/item').default;
+declare type SystemItemType = import('../../../src/module/item/item').PF2EItem;
 
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.

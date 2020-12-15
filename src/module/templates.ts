@@ -2,7 +2,7 @@
  * @format
  */
 
-export default function () {
+export function loadPF2ETemplates() {
     const templatePaths = [
         // Actor Sheets Partials (CRB-Style Tooltip)
         'systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html',

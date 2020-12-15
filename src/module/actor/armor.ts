@@ -3,7 +3,7 @@ import { getArmorBonus } from '../item/runes';
 /**
  * @category Other
  */
-class Armor {
+export class Armor {
   data: any;
   
   static unarmored() {
@@ -69,5 +69,3 @@ class Armor {
     return Math.min(character.abilities.dex.mod, this.maxDex);
   }
 }
-
-export default Armor;

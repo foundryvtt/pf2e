@@ -1,16 +1,16 @@
 /* global ui, CONST */
 import { CONFIG as PF2ECONFIG } from './scripts/config';
-import registerSettings from './module/settings';
-import loadTemplates from './module/templates';
+import { registerSettings } from './module/settings';
+import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
-import registerHandlebarsHelpers from './module/handlebars';
-import ItemPF2e from './module/item/item';
+import { registerHandlebarsHelpers } from './module/handlebars';
+import { PF2EItem } from './module/item/item';
 import { PF2EActor, PF2ECharacter, PF2EFamiliar, PF2EHazard, PF2ELoot, PF2ENPC, PF2EVehicle } from './module/actor/actor';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
-import registerActors from './module/register-actors';
+import { registerActors } from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
-import PF2eCombatTracker from './module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
 import { PF2Check } from './module/system/rolls';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
@@ -47,7 +47,7 @@ Hooks.once('init', () => {
     }
   }
   // Assign actor/item classes.
-  CONFIG.Item.entityClass = ItemPF2e;
+  CONFIG.Item.entityClass = PF2EItem;
   CONFIG.Actor.entityClass = PF2EActor;
   // Automatically advance world time by 6 seconds each round
   CONFIG.time.roundTime = 6;
@@ -70,7 +70,7 @@ Hooks.once('init', () => {
   PlayerConfigPF2e.hookOnRenderSettings();
 
   registerSettings();
-  loadTemplates();
+  loadPF2ETemplates();
   registerActors();
   registerSheets();
   registerHandlebarsHelpers();
@@ -169,7 +169,7 @@ Hooks.once("ready", () => {
 });
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**

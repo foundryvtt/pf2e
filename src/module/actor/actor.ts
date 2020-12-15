@@ -21,7 +21,7 @@ import {isCycle} from "../item/container";
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice'
-import PF2EItem from '../item/item';
+import { PF2EItem } from '../item/item';
 import { ConditionData, ArmorData, MartialData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
 import {
     CharacterData,

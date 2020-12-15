@@ -1,13 +1,13 @@
 /* global CONST */
 import {calculateWealth} from '../../item/treasure';
-import ActorSheetPF2e from './base';
+import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 
 /**
  * @category Actor
  */
-class ActorSheetPF2eLoot extends ActorSheetPF2e {
+export class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -126,4 +126,3 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
     }
 }
 
-export default ActorSheetPF2eLoot;

@@ -2,7 +2,7 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-import Spell from './spell';
+import { Spell } from './spell';
 import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
@@ -13,7 +13,7 @@ import { PF2EActor } from '../actor/actor';
 /**
  * @category PF2
  */
-export default class PF2EItem extends Item {
+export class PF2EItem extends Item {
 
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
