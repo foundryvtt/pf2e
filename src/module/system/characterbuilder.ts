@@ -7,7 +7,6 @@ import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
 // TODO: Group multiple of the same Physical Item
-// TODO: allow player to include items not Owned by the Actor (allow them to build in advance of level up)
  
 /**
  * Character build page
@@ -77,7 +76,8 @@ export class CharacterBuilder extends FormApplication {
 
     // Add Item to Actor
     if (!dragItem.data) { // don't create another item since it comes from the Actor
-      const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
+      // uncommenting this creates a new owned item for the 
+      // const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
       if (!isPhysicalItem(item.data)) {
         if (this.build.choices[containerId].choices.find(x => x.itemName === item.data.name)) {
           // Don't allow two of the same non-physical items
@@ -85,9 +85,9 @@ export class CharacterBuilder extends FormApplication {
         }
       }
       // Add OwnedItem Id to Actor Build data
-      this.build.choices[containerId].choices.push({ itemId: ownedItem._id, itemName: ownedItem.name });
+      this.build.choices[containerId].choices.push({ itemId: item._id, itemName: item.name });
     } else {
-      this.build.choices[containerId].choices.push({ itemId: dragItem.id, itemName: dragItem.name });
+      this.build.choices[containerId].choices.push({ itemId: item.id, itemName: item.name });
     }
     await this.updateBuildOnActor();
   }
