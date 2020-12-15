@@ -49,6 +49,8 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
+  // Automatically advance world time by 6 seconds each round
+  CONFIG.time.roundTime = 6;
   // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
   // Assign the PF2e Combat Tracker
