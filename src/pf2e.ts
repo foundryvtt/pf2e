@@ -24,6 +24,7 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier
 } from "./module/modifiers";
+import {WorldClockApplication} from "./module/system/world-clock-application";
 
 require('./styles/pf2e.scss');
 
@@ -165,6 +166,11 @@ Hooks.once("ready", () => {
       ui.notifications.error(`Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`, {permanent: true});
     }
     migrations.migrateWorld();
+  }
+
+  // world clock singleton application
+  if (game.user.isGM) {
+    game[game.system.id].worldclock = new WorldClockApplication();
   }
 });
 
@@ -315,5 +321,24 @@ Hooks.on('createOwnedItem', (parent, child, options, userId) => {
 Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
         parent.onDeleteOwnedItem(child, options, userId);
+    }
+});
+
+// world clock application
+Hooks.on('getSceneControlButtons', (controls: any[]) => {
+    controls.find(c => c.name === 'token').tools.push({
+        name: "worldclock",
+        title: "CONTROLS.WorldClock",
+        icon: "fas fa-clock",
+        visible: game.user.isGM,
+        onClick: () => game[game.system.id]?.worldclock?.render(true),
+        button: true
+    });
+});
+
+Hooks.on('updateWorldTime', (total, diff) => {
+    const worldclock = game[game.system.id]?.worldclock;
+    if (worldclock) {
+        worldclock.render(false);
     }
 });
