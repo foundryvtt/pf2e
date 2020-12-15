@@ -13,7 +13,7 @@ import { PF2EActor } from '../actor/actor';
 /**
  * @category PF2
  */
-export class PF2EItem extends Item {
+export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
@@ -482,12 +482,12 @@ export class PF2EItem extends Item {
   rollWeaponDamage(event, critical = false) {
     const localize = game.i18n.localize.bind(game.i18n);
 
+    const item : ItemData = this.data;
     // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-    if (this.data.type !== 'weapon') throw new Error('Wrong item type!');
-
+    if (item.type !== 'weapon') throw new Error('Wrong item type!');
+    const itemData  = item.data;
 
     // Get item and actor data and format it for the damage roll
-    const itemData = this.data.data;
     const rollData = duplicate(this.actor.data.data) as any;
     let rollDie = itemData.damage.die;
     const abl = 'str';
@@ -650,11 +650,12 @@ export class PF2EItem extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollNPCDamage(event, critical = false) {
-    if (this.data.type !== 'melee') throw new Error('Wrong item type!');
+    const item : ItemData = this.data;
+    if (item.type !== 'melee') throw new Error('Wrong item type!');
 
 
     // Get item and actor data and format it for the damage roll
-    const itemData = this.data.data;
+    const itemData = item.data;
     const rollData = duplicate(this.actor.data.data) as any;
     let parts = [];
     const partsType = [];
@@ -712,7 +713,7 @@ export class PF2EItem extends Item {
    */
   rollSpellcastingEntryCheck(event) {
     // Prepare roll data
-    const itemData = this.data;
+    const itemData : ItemData = this.data;
     if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
     const rollData = duplicate(this.actor.data.data);
     const modifier = itemData.data.spelldc.value;
@@ -739,10 +740,11 @@ export class PF2EItem extends Item {
    * Rely upon the DicePF2e.d20Roll logic for the core implementation
    */
   rollSpellAttack(event, multiAttackPenalty?) {
-    if (this.data.type !== 'spell') throw new Error('Wrong item type!');
+    const item : ItemData = this.data;
+    if (item.type !== 'spell') throw new Error('Wrong item type!');
 
     // Prepare roll data
-    const itemData = this.data.data;
+    const itemData = item.data;
     const rollData = duplicate(this.actor.data.data);
     const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
     if (spellcastingEntry.data.type !== 'spellcastingEntry')
@@ -779,7 +781,8 @@ export class PF2EItem extends Item {
    * Rely upon the DicePF2e.damageRoll logic for the core implementation
    */
   rollSpellDamage(event) {
-    if (this.data.type !== 'spell') throw new Error('Wrong item type!');
+    const item : ItemData = this.data;
+    if (item.type !== 'spell') throw new Error('Wrong item type!');
 
     const localize = game.i18n.localize.bind(game.i18n);
 
@@ -788,7 +791,7 @@ export class PF2EItem extends Item {
     const cardData = card ? card.dataset : {};
 
     // Get data
-    const itemData = this.data.data;
+    const itemData = item.data;
     const rollData = duplicate(this.actor.data.data) as any;
     const isHeal = itemData.spellType.value === 'heal';
     const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
@@ -828,10 +831,11 @@ export class PF2EItem extends Item {
    * Use a consumable item
    */
   rollConsumable(ev) {
-    if (this.data.type !== 'consumable')
-      throw new Error('Tried to roll consumable on a non-consumable');
+    const item : ItemData = this.data;
+    if (item.type !== 'consumable')
+      throw Error('Tried to roll consumable on a non-consumable');
 
-    const itemData = this.data.data;
+    const itemData = item.data;
     // Submit the roll to chat
     const cv = itemData.consume.value;
     const content = `Uses ${this.name}`;
