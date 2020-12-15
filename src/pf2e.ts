@@ -17,6 +17,13 @@ import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 import { PF2eConditionManager } from "./module/conditions"
 import {FamiliarData} from "./module/actor/actorDataDefinitions";
+import {
+    AbilityModifier,
+    PF2CheckModifier,
+    PF2Modifier, PF2ModifierType,
+    PF2StatisticModifier,
+    ProficiencyModifier
+} from "./module/modifiers";
 
 require('./styles/pf2e.scss');
 
@@ -42,6 +49,8 @@ Hooks.once('init', () => {
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
   CONFIG.Actor.entityClass = ActorPF2e;
+  // Automatically advance world time by 6 seconds each round
+  CONFIG.time.roundTime = 6;
   // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
   // Assign the PF2e Combat Tracker
@@ -63,6 +72,13 @@ Hooks.once('init', () => {
   (window as any).DicePF2e = DicePF2e;
   (window as any).PF2eStatusEffects = PF2eStatusEffects;
   (window as any).PF2eConditionManager = PF2eConditionManager;
+  (window as any).PF2ModifierType = PF2ModifierType;
+  (window as any).PF2Modifier = PF2Modifier;
+  (window as any).AbilityModifier = AbilityModifier;
+  (window as any).ProficiencyModifier = ProficiencyModifier;
+  (window as any).PF2StatisticModifier = PF2StatisticModifier;
+  (window as any).PF2CheckModifier = PF2CheckModifier;
+  (window as any).PF2Check = PF2Check;
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
@@ -97,7 +113,7 @@ Hooks.once('setup', () => {
   const toLocalize = [
     'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits', 'preciousMaterialGrades',
     'armorPotencyRunes', 'armorResiliencyRunes', 'armorPropertyRunes', 'weaponPotencyRunes', 'weaponStrikingRunes',
-    'weaponPropertyRunes',
+    'weaponPropertyRunes', 'rarityTraits',
     'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups', 'consumableTraits',
     'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
     'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
@@ -108,7 +124,8 @@ Hooks.once('setup', () => {
     'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
     'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
     'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
-    'speedTypes', 'senses', 'preciousMaterials'
+    'speedTypes', 'senses', 'preciousMaterials', 'prerequisitePlaceholders', 'ancestryItemTraits',
+    'levels',
   ];
   for (const o of toLocalize) {
     CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {

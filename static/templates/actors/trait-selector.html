@@ -1,5 +1,5 @@
 <form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
-    {{#unless has_values}}
+    {{#unless (any has_values has_placeholders)}}
     <header class="trait-header flexrow">
         <div class="header-search">
             <i class="fas fa-search"></i>
@@ -13,6 +13,13 @@
             <div class="form-group form-fields">
                 <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
                 <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                {{#if ../has_placeholders}}
+                    {{#each choice as |v k|}}
+                        {{#if (eq k "chosen")}}
+                            <input type="text" id="input_placeholder_{{key}}" name="{{key}}" value="{{v}}" placeholder="e.g. Medic Dedication" data-dtype="String"/>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}                   
                 {{#if ../has_values}}
                     <input type="text" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="e.g. 5" data-dtype="Number"/>        
                 {{/if}}
@@ -20,11 +27,12 @@
                     <label style="margin-left: 5px;">Exceptions:</label>
                     <input type="text" id="input_exception_{{key}}" name="{{key}}" value="{{choice.exceptions}}" placeholder="e.g. except {{localize "PF2E.WeaknessTypeSilver"}}" data-dtype="String"/>
                 {{/if}}
+                 
             </div>
         </li>
         {{/each}}
     </ol>
-    {{#unless has_values}}
+    {{#unless (any has_values has_placeholders no_custom)}}
     <div class="form-group-stacked trait-footer">
         <label>{{localize "PF2E.SpecialLabel"}}:</label>
         <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>

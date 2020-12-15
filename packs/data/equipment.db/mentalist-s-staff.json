@@ -42,7 +42,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p><span>This polished wooden staff bears a swirling motif reminiscent of the folds of a brain. While wielding the staff, you gain a +2 circumstance bonus to checks to identify mental magic.<br></span></p>\n<p><span><strong>Activate</strong> Cast a Spell; <strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.<br></span></p>\n<p><span><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</span></p>\n<ul>\n<li><strong>Cantrip</strong> @Compendium[pf2e.spells-srd.4gBIw4IDrSfFHik4]{Daze}</li>\n<li><strong>1st</strong> @Compendium[pf2e.spells-srd.D442XMADp01qJ7Cs]{Mindlink} @Compendium[pf2e.spells-srd.R8bqnYiThB6MYTxD]{Phantom Pain}</li>\n</ul>"
+            "value": "<p>This polished wooden staff bears a swirling motif reminiscent of the folds of a brain. While wielding the staff, you gain a +2 circumstance bonus to checks to identify mental magic.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<ul>\n<li><strong>Cantrip</strong> @Compendium[pf2e.spells-srd.Daze]{Daze}</li>\n<li><strong>1st</strong> @Compendium[pf2e.spells-srd.Mindlink]{Mindlink} @Compendium[pf2e.spells-srd.Phantom Pain]{Phantom Pain}</li>\n</ul>\n<p><strong>Craft Requirements</strong>&nbsp;Supply one casting of all listed levels of all listed spells.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 circumstance bonus to checks to identify mental magic</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -167,6 +167,21 @@
             "type": "String",
             "value": ""
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mentalist's Staff (identifying mental magic)",
+                "predicate": {
+                    "all": [
+                        "identify-magic",
+                        "mental"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -209,6 +224,7 @@
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/staves/mentalist-staff.jpg",
     "name": "Mentalist's Staff",

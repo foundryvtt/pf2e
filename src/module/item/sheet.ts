@@ -265,6 +265,8 @@ export class ItemSheetPF2e extends ItemSheet {
     const options = {
       name: a.parents('label').attr('for'),
       title: a.parent().text().trim(),
+      width: ((a.attr('data-width')) || "auto"),
+      has_placeholders: (a.attr('data-has-placeholders') === 'true'),
       choices: CONFIG.PF2E[a.attr('data-options')]
     };
     new TraitSelector5e(this.item, options).render(true);

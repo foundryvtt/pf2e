@@ -3,6 +3,7 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { getContainerMap } from '../../item/container';
 import ActorSheetPF2e from './base';
 import {calculateWealth} from '../../item/treasure';
+import PF2EActor from "../actor";
 
 /**
  * @category Actor
@@ -127,12 +128,10 @@ class ActorSheetPF2eVehicle extends ActorSheetPF2e {
             // Actions
             if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                let actionImg: number|string = 0;
-                if (actionType === 'action') actionImg = parseInt(i.data.actions.value, 10) || 1;
-                else if (actionType === 'reaction') actionImg = 'reaction';
-                else if (actionType === 'free') actionImg = 'free';
-                else if (actionType === 'passive') actionImg = 'passive';
-                i.img = this._getActionImg(actionImg);
+                i.img = PF2EActor.getActionGraphics(
+                    actionType,
+                    parseInt((i.data.actions || {}).value, 10) || 1
+                ).imageUrl;
                 if (actionType === 'passive') actions.free.actions.push(i);
                 else actions[actionType].actions.push(i);
 

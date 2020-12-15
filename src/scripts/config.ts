@@ -11,6 +11,29 @@ CONFIG.PF2eStatusEffects = {
   foundryStatusEffects: []
 }; // Ability labels
 
+CONFIG.levels = {
+  1: 'PF2E.Level1',
+  2: 'PF2E.Level2',
+  3: 'PF2E.Level3',
+  4: 'PF2E.Level4',
+  5: 'PF2E.Level5',
+  6: 'PF2E.Level6',
+  7: 'PF2E.Level7',
+  8: 'PF2E.Level8',
+  9: 'PF2E.Level9',
+  10: 'PF2E.Level10',
+  11: 'PF2E.Level11',
+  12: 'PF2E.Level12',
+  13: 'PF2E.Level13',
+  14: 'PF2E.Level14',
+  15: 'PF2E.Level15',
+  16: 'PF2E.Level16',
+  17: 'PF2E.Level17',
+  18: 'PF2E.Level18',
+  19: 'PF2E.Level19',
+  20: 'PF2E.Level20',
+};
+
 CONFIG.abilities = {
   "str": "PF2E.AbilityStr",
   "dex": "PF2E.AbilityDex",
@@ -358,7 +381,11 @@ CONFIG.usageTraits = {
   wornsaddle: 'PF2E.TraitWornSaddle',
   'etched-onto-armor': 'PF2E.TraitEtchedOntoAArmor',
   'etched-onto-a-weapon': 'PF2E.TraitEtchedOntoAWeapon',
-  wornwrist: 'PF2E.TraitWornOnWrists'
+  wornwrist: 'PF2E.TraitWornOnWrists',
+  'etched-onto-thrown-weapon': "PF2E.TraitEtchedOntoAThrownWeapon",
+  'etched-onto-melee-weapon': "PF2E.TraitEtchedOntoAMeleeWeapon",
+  'etched-onto-clan-dagger': "PF2E.TraitEtchedOntoAClanDagger",
+  'etched-onto-lm-nonmetal-armor': "PF2E.TraitEtchedOntoLightMedNMArmor"
 };
 
 CONFIG.rarityTraits = {
@@ -510,6 +537,13 @@ CONFIG.ancestryTraits = {
   tengu: 'PF2E.TraitTengu',
   tiefling: 'PF2E.TraitTiefling'
 }; // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
+
+CONFIG.ancestryItemTraits = {
+  humanoid: 'PF2E.TraitHumanoid',
+  plant: 'PF2E.TraitPlant',
+};
+mergeObject(CONFIG.ancestryItemTraits, CONFIG.ancestryTraits);
+
 
 CONFIG.weaponTraits = {
   acid: 'PF2E.TraitAcid',
@@ -1394,12 +1428,12 @@ CONFIG.actionCategories = {
 }; // Proficiency Multipliers
 
 CONFIG.proficiencyLevels = {
-  0: 'PF2E.ProficiencyLevel0',
-  1: 'PF2E.ProficiencyLevel1',
-  2: 'PF2E.ProficiencyLevel2',
-  3: 'PF2E.ProficiencyLevel3',
-  4: 'PF2E.ProficiencyLevel4'
-}; // Hero Points
+  0: 'PF2E.ProficiencyLevel0', // untrained
+  1: 'PF2E.ProficiencyLevel1', // trained
+  2: 'PF2E.ProficiencyLevel2', // expert
+  3: 'PF2E.ProficiencyLevel3', // master
+  4: 'PF2E.ProficiencyLevel4', // legendary
+}; // Proficiency Levels
 
 CONFIG.heroPointLevels = {
   0: 'PF2E.HeroPointLevel0',
@@ -1422,6 +1456,14 @@ CONFIG.speedTypes = {
   climb: "PF2E.SpeedTypesClimb",
   fly: "PF2E.SpeedTypesFly",
   burrow: "PF2E.SpeedTypesBurrow"
+};
+
+CONFIG.prerequisitePlaceholders = {
+  prerequisite1: 'PF2E.Prerequisite1',
+  prerequisite2: "PF2E.Prerequisite2",
+  prerequisite3: "PF2E.Prerequisite3",
+  prerequisite4: "PF2E.Prerequisite4",
+  prerequisite5: "PF2E.Prerequisite5"
 };
 
 CONFIG.senses = {

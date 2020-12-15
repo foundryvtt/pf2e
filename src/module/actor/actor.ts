@@ -164,7 +164,7 @@ export default class PF2EActor extends Actor {
       ]
     };
 
-    const { statisticsModifiers, damageDice } = this._prepareCustomModifiers(actorData, rules);
+    const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
 
     // Update experience percentage from raw experience amounts.
     data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
@@ -550,6 +550,9 @@ export default class PF2EActor extends Actor {
           damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
           range: { value: 'melee' },
           traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
+          equipped: {
+              value: true // consider checking for free hands
+          },
         }
       };
 
@@ -559,13 +562,14 @@ export default class PF2EActor extends Actor {
         unarmed.data.damage.die = 'd6';
       }
 
-      (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).forEach((item) => {
+      (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
         const modifiers = [];
 
         // Determine the base ability score for this attack.
+        let ability;
         {
-          let ability = item.data.ability?.value ?? 'str'; // default to Str
-          let score = data.abilities[item.data.ability.value]?.value ?? 0;
+          ability = item.data.ability?.value || 'str'; // default to Str
+          let score = data.abilities[ability]?.value ?? 0;
           // naive check for finesse, which should later be changed to take conditions like
           // enfeebled and clumsy into consideration
           if ((item.data.traits?.value || []).includes('finesse') && data.abilities.dex.mod > data.abilities[ability].mod) {
@@ -588,7 +592,7 @@ export default class PF2EActor extends Actor {
             stats.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
           }
           stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-          stats.concat(['attack', `${item.data.ability.value}-attack`, `${item.data.ability.value}-based`, `${item._id}-attack`, 'attack-roll', 'all']).forEach((key) => {
+          stats.concat(['attack', `${ability}-attack`, `${ability}-based`, `${item._id}-attack`, 'attack-roll', 'all']).forEach((key) => {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
           });
         }
@@ -596,6 +600,8 @@ export default class PF2EActor extends Actor {
         const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
 
         action.imageUrl = item.img;
+        action.item = item?._id;
+        action.ready = item?.data?.equipped?.value ?? false;
         action.glyph = 'A';
         action.type = 'strike';
         const flavor = this.getStrikeDescription(item);
@@ -665,13 +671,13 @@ export default class PF2EActor extends Actor {
             }
           },
         ];
-        action.damage = (event, options = []) => {
+        action.damage = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
         };
-        action.critical = (event, options = []) => {
+        action.critical = (event, options = [], callback?) => {
           const damage = PF2WeaponDamage.calculate(item, actorData, action.traits, statisticsModifiers, damageDice, proficiencies[item.data.weaponType.value]?.rank ?? 0, options);
-          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event, callback);
         };
         data.actions.push(action);
       });
@@ -681,7 +687,7 @@ export default class PF2EActor extends Actor {
 
     rules.forEach(rule => {
       try {
-          rule.onAfterPrepareData(actorData, statisticsModifiers, damageDice)
+          rule.onAfterPrepareData(actorData, statisticsModifiers, damageDice);
       } catch (error) {
           // ensure that a failing rule element does not block actor initialization
           console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
@@ -828,11 +834,11 @@ export default class PF2EActor extends Actor {
    */
   private _prepareNPCData(actorData: NpcData, rules: PF2RuleElement[]) {
     const { data } = actorData;
-    const { statisticsModifiers } = this._prepareCustomModifiers(actorData, rules);
+    const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
 
     // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
     for (const abl of Object.values(actorData.data.abilities)) {
-      if (!abl.mod) abl.mod = 0;
+      abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
       abl.value = abl.mod * 2 + 10;
     }
 
@@ -909,8 +915,11 @@ export default class PF2EActor extends Actor {
       data.attributes.perception = stat;
     }
 
+    // Automatic Actions
+    data.actions = [];
+
     // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-    for (const item of actorData.items) {
+    for (const item of actorData.items.concat(strikes)) {
       if (item.type === 'lore') { // skill
         // normalize skill name to lower-case and dash-separated words
         const skill = item.name.toLowerCase().replace(/\s+/g, '-');
@@ -941,6 +950,104 @@ export default class PF2EActor extends Actor {
         };
 
         data.skills[shortform] = stat;
+      } else if (item.type === 'melee') {
+        const modifiers = [];
+
+        // traits
+        const traits = PF2EActor.traits(item?.data?.traits?.value);
+
+        // Determine the base ability score for this attack.
+        let ability;
+        {
+          ability = (item.data as any).weaponType?.value === 'ranged' ? 'dex' : 'str';
+          const bonus = Number(item.data?.bonus?.value ?? 0);
+          if (traits.includes('finesse')) {
+            ability = 'dex';
+          } else if (traits.includes('brutal')) {
+            ability = 'str';
+          }
+          modifiers.push(
+            new PF2Modifier('PF2E.BaseModifier', bonus - data.abilities[ability].mod, PF2ModifierType.UNTYPED),
+            new PF2Modifier(CONFIG.abilities[ability], data.abilities[ability].mod, PF2ModifierType.ABILITY)
+          );
+        }
+
+        // Conditions and Custom modifiers to attack rolls
+        {
+          const stats = [];
+          stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
+          stats.concat(['attack', `${ability}-attack`, `${ability}-based`, `${item._id}-attack`, 'attack-roll', 'all']).forEach((key) => {
+            (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+          });
+        }
+
+        // action image
+        const {imageUrl, actionGlyph} = PF2EActor.getActionGraphics(
+            (item as any).data?.actionType?.value || 'action',
+            parseInt(((item as any).data?.actions || {}).value, 10) || 1
+        );
+
+        const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+        action.glyph = actionGlyph;
+        action.imageUrl = imageUrl;
+        action.type = 'strike';
+        action.attackRollType = (item.data as any).weaponType?.value === 'ranged' ? 'PF2E.NPCAttackRanged' : 'PF2E.NPCAttackMelee';
+        action.breakdown = action.modifiers.filter(m => m.enabled)
+          .map(m => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+          .join(', ');
+
+        action.traits = [{ name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false }].concat(
+          traits.map(trait => {
+            const key = CONFIG.weaponTraits[trait] ?? trait;
+            const option: CharacterStrikeTrait = {
+              name: trait,
+              label: key,
+              toggle: false
+            };
+            return option;
+          })
+        );
+
+
+        // Add the base attack roll (used for determining on-hit)
+        action.attack = (event, options = []) => {
+          options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+          PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event);
+        };
+        action.roll = action.attack;
+
+        const map = PF2EItem.calculateMap(item);
+        action.variants = [
+          {
+            label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action), { actor: this, type: 'attack-roll', options }, event)
+            }
+          }, {
+            label: `MAP ${map.map2}`,
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
+          }, {
+            label: `MAP ${map.map3}`,
+            roll: (event, options = []) => {
+              options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+              PF2Check.roll(new PF2CheckModifier(`Strike: ${action.name}`, action, [new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED)]), { actor: this, type: 'attack-roll', options }, event)
+            }
+          },
+        ];
+        action.damage = (event, options = [], callback?) => {
+          const damage = PF2WeaponDamage.calculateStrikeNPC(item, actorData, action.traits, statisticsModifiers, damageDice, 1, options);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
+        };
+        action.critical = (event, options = [], callback?) => {
+          const damage = PF2WeaponDamage.calculateStrikeNPC(item, actorData, action.traits, statisticsModifiers, damageDice, 1, options);
+          PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'criticalSuccess', options }, event, callback);
+        };
+
+        data.actions.push(action);
       }
     }
 
@@ -964,8 +1071,8 @@ export default class PF2EActor extends Actor {
       data.master.level = master.data.data.details.level.value ?? 0;
       data.master.ability = data.master.ability ?? 'cha';
       data.master.familiarAbilities = {
-        breakdown: master.data.data.attributes.familiarAbilities.breakdown,
-        value: master.data.data.attributes.familiarAbilities.value
+        breakdown: master.data.data.attributes.familiarAbilities?.breakdown ?? '',
+        value: master.data.data.attributes.familiarAbilities?.value ?? 0
       };
       data.details.level.value = data.master.level;
       const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
@@ -1170,15 +1277,17 @@ export default class PF2EActor extends Actor {
   /** Compute custom stat modifiers provided by users or given by conditions. */
   private _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
     statisticsModifiers: Record<string, PF2Modifier[]>,
-    damageDice: Record<string, PF2DamageDice[]>
+    damageDice: Record<string, PF2DamageDice[]>,
+    strikes: any[]
   } {
     // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
     const statisticsModifiers: Record<string, PF2Modifier[]> = {};
     const damageDice: Record<string, PF2DamageDice[]> = {};
+    const strikes: WeaponData[] = [];
 
     rules.forEach(rule => {
         try {
-            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice)
+            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice, strikes);
         } catch (error) {
             // ensure that a failing rule element does not block actor initialization
             console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
@@ -1211,7 +1320,8 @@ export default class PF2EActor extends Actor {
 
     return {
       statisticsModifiers,
-      damageDice
+      damageDice,
+      strikes,
     };
   }
 
@@ -1823,6 +1933,27 @@ export default class PF2EActor extends Actor {
     return {
       update,
       delta
+    };
+  }
+
+  static getActionGraphics(actionType: string, actionCount?: number): {imageUrl: string, actionGlyph: string} {
+    let actionImg: number|string = 0;
+    if (actionType === 'action') actionImg = actionCount ?? 1;
+    else if (actionType === 'reaction') actionImg = 'reaction';
+    else if (actionType === 'free') actionImg = 'free';
+    else if (actionType === 'passive') actionImg = 'passive';
+    const graphics = {
+      1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
+      2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
+      3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
+      free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
+      reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
+      passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+    };
+    const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
+    return {
+      imageUrl: actionGraphics.imageUrl,
+      actionGlyph: actionGraphics.actionGlyph,
     };
   }
 

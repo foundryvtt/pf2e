@@ -5,6 +5,8 @@ import { Build } from "../system/characterbuilder";
 /** A type representing the possible ability strings. */
 export type AbilityString = "str" | "dex" | "con" | "int" | "wis" | "cha";
 
+export type Proficency = 0 | 1 | 2 | 3 | 4; // untrained, trained, expert, master, legendary
+
 /** A type representing the possible PFS factions. */
 export type PFSFactionString = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
@@ -537,6 +539,9 @@ export interface RawNpcData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+
+    /** Special strikes which the creature can take. */
+    actions: CharacterStrike[];
 }
 
 /** The raw information contained within the actor data object for hazards. */
@@ -604,4 +609,4 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
     type: 'vehicle';
 }
 
-export type ActorData = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
+export type ActorDataPF2e = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;

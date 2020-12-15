@@ -14,7 +14,7 @@
             </dl>
         </div>
         <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
-        <div class="filtercontainer" id="actionTraitfilter">
+        <div class="filtercontainer" id="sizefilter">
             <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
             <dl style="display:none;">
                 {{#each actorSize as |size key|}}
@@ -22,7 +22,7 @@
                 {{/each}}
             </dl>
         </div>
-        <div class="filtercontainer" id="actionTraitfilter">
+        <div class="filtercontainer" id="alignmentfilter">
             <h3>{{localize "PF2E.BrowserFilterAlignments"}}</h3>
             <dl style="display:none;">
                 {{#each alignment as |type key|}}
@@ -30,7 +30,7 @@
                 {{/each}}
             </dl>
         </div>
-        <div class="filtercontainer" id="actionTraitfilter">
+        <div class="filtercontainer" id="traitfilter">
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
@@ -38,7 +38,7 @@
                 {{/each}}
             </dl>
         </div>
-        <div class="filtercontainer" id="actionTraitfilter">
+        <div class="filtercontainer" id="sourcefilter">
             <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
             <dl style="display:none;">
                 {{#each source as |type key|}}
@@ -53,6 +53,14 @@
                 <label><dt><input type="checkbox" name="rarity-{{lower key}}"></dt><dd>{{localize rarity}}</dd></label>
                 {{/each}}
             </dl>
+        </div>
+        <div class="filtercontainer rangecontainer" id="levelfilter">
+          <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
+          <div style="display:none;">
+              <input type="number" name="lowerBound-level" value="-1" min="-1" max="25"> 
+              - 
+              <input type="number" name="upperBound-level" value="25" min="-1" max="25">
+          </div>
         </div>
     </div>
     <ul>

@@ -1,4 +1,4 @@
-import {calculateWealth} from '../../item/treasure';
+import {Coins, calculateWealth, calculateTotalWealth} from '../../item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import ActorSheetPF2e from './base';
 
@@ -128,13 +128,10 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         if (sheetData.actor.items !== undefined)
         {
             const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = {};
-            for (const [denomination, value] of Object.entries(treasure)) {
-                sheetData.totalTreasure[denomination] = {
-                    value,
-                    label: CONFIG.PF2E.currencies[denomination],
-                };
-            }
+            sheetData.totalTreasure = ActorSheetPF2eCreature.parseCoinsToActorSheetData(treasure);
+            
+            const totalWealth = calculateTotalWealth(sheetData.actor.items);
+            sheetData.totalWealth = ActorSheetPF2eCreature.parseCoinsToActorSheetData(totalWealth);
         }
 
         // Update traits
@@ -146,5 +143,17 @@ export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
 
         return sheetData;
+    }
+
+    private static parseCoinsToActorSheetData(treasure: Coins) {
+        const coins = {};
+        for (const [denomination, value] of Object.entries(treasure)) {
+            coins[denomination] = {
+                value,
+                label: CONFIG.PF2E.currencies[denomination],
+            };
+        }
+        
+        return coins
     }
 }

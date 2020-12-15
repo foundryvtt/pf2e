@@ -289,7 +289,7 @@ export class DicePF2e {
  * Highlight critical success or failure on d20 rolls
  */
 Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
-    if (!message.isRoll) return;
+    if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
     const dice: any = message.roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
 

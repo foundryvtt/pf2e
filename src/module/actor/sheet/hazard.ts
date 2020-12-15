@@ -1,5 +1,6 @@
 /* global CONST */
 import ActorSheetPF2e from './base';
+import PF2EActor from "../actor";
 
 /**
  * @category Actor
@@ -113,13 +114,10 @@ class ActorSheetPF2eHazard extends ActorSheetPF2e {
       // Actions
       else if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg: string|number = 0;
-        // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
-        i.img = this._getActionImg(actionImg);
+        i.img = PF2EActor.getActionGraphics(
+          actionType,
+          parseInt((i.data.actions || {}).value, 10) || 1
+        ).imageUrl;
 
         // get formated traits for read-only npc sheet
         const traits = [];

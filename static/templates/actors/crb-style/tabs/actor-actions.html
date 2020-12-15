@@ -15,7 +15,7 @@
                     <div class="actions-options">
                         {{#each data.toggles.actions as |toggle idx|}}
                         <div class="actions-option">
-                            <label>
+                            <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
                                 <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
                                 <span>{{localize toggle.label}}</span>
                             </label>
@@ -26,8 +26,12 @@
                     <ol class="actions-list inventory-list directory-list strikes-list">
                         <li class="item action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}}</h3>
+                            <div class="item-controls">
+                                <a class="item-control toggle-unready-strikes" title="{{localize 'PF2E.ToggleUnreadyStrikes'}}"><i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i></a>
+                            </div>
                         </li>
                         {{#each actor.data.actions as |action ai|}}
+                        {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                         <li class="item expandable" data-action-index="{{ai}}">
                             <div class="item-name rollable">
                                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
@@ -62,6 +66,7 @@
                                 </div>
                             </div>
                         </li>
+                        {{/if}}
                         {{/each}}
                         {{#each actor.actions as |section sid|}}
                             <li class="item action-header">

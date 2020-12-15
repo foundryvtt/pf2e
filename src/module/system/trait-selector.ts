@@ -51,12 +51,22 @@ export class TraitSelector5e extends FormApplication {
    */
   getData() {
     // Get current values
-    const attr = getProperty(this.object.data, this.attribute);
+    let attr = getProperty(this.object.data, this.attribute);
+    if (attr === undefined) {
+      // if it's completely not there, we should fill with something useful
+      attr = {
+        value: [],
+        "selected": [],
+        "custom": ""
+      };
+    }
     if (typeof attr.value === 'string') attr.value = TraitSelector5e._backCompat(attr.value, this.options.choices);
     if (!attr.value) attr.value = '';
 
     const hasValues = this.options.has_values;
+    const hasPlaceholders = this.options.has_placeholders;
     const hasExceptions = this.options.has_exceptions;
+    const noCustom = this.options.no_custom;
     const choices = duplicate(this.options.choices);
 
     // Populate choices
@@ -79,7 +89,16 @@ export class TraitSelector5e extends FormApplication {
 		        chosen: false,
 		      };
         }
-	    }
+      }
+    } else if (hasPlaceholders)  {
+      let idx=0;
+      for (const [k, v] of Object.entries(choices)) {
+        choices[k] = {
+          label: v,
+          chosen: attr.value[idx],
+        };
+        idx +=1;
+      }
     } else {
 	    for (const [k, v] of Object.entries(choices)) {
 	      choices[k] = {
@@ -97,8 +116,10 @@ export class TraitSelector5e extends FormApplication {
      // Return data
 	  return {
 	    ordered_choices: orderedChoices,
-	    has_values: hasValues,
-	    has_exceptions: hasExceptions,
+      has_values: hasValues,
+      has_placeholders: hasPlaceholders,
+      has_exceptions: hasExceptions,
+      no_custom: noCustom,
 	    searchString: this.searchString,
       custom: attr.custom,
     };
@@ -133,6 +154,20 @@ export class TraitSelector5e extends FormApplication {
         });
         if (!this.options.allow_empty_values) {
           html.find('input[id^=input_value]').focusout( (ev) => {
+            const input = ev.currentTarget;
+            if (input.value === "")
+              html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
+          });
+        }
+      }
+
+      if (this.options.has_placeholders) {
+        html.find('input[id^=input_placeholder]').focusin( (ev) => {
+          const name = ev.currentTarget.name;
+          html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
+        });
+        if (this.options.allow_empty_values) {
+          html.find('input[id^=input_placeholder]').focusout( (ev) => {
             const input = ev.currentTarget;
             if (input.value === "")
               html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
@@ -205,6 +240,15 @@ export class TraitSelector5e extends FormApplication {
         }
       }
       this.object.update({ [`${this.attribute}`]: choices });
+    } else if (this.options.has_placeholders) {
+        const choices = [];
+        for (const [k, v] of Object.entries(formData as Record<any, any>)) {
+          if(v.length > 1 && v[0]) {
+              if (k)
+                choices.push(v[1].trim())
+          }
+        }
+        this.object.update({ [`${this.attribute}`]: choices });      
     } else {
       const choices: string[] = [];
 
@@ -215,8 +259,7 @@ export class TraitSelector5e extends FormApplication {
 
       this.object.update({
         [`${this.attribute}.value`]: choices,
-        // Add the custom traits
-        [`${this.attribute}.custom`]: formData.custom,
+        ...(this.options.no_custom ? {} : { [`${this.attribute}.custom`]: formData.custom })
       });
     }
   }

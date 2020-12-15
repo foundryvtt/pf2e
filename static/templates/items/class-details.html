@@ -1,0 +1,309 @@
+<div class="form-group">
+    <label>{{localize "PF2E.Rarity"}}</label>
+    <select name="data.traits.rarity.value" data-dtype="String">
+        {{#select data.traits.rarity.value}}
+        {{#each rarityChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.HitPointsHeader"}}</label>
+    <input type="text" name="data.hp" data-dtype="String" value="{{data.hp}}">
+</div>
+
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.keyAbility">
+        {{localize "PF2E.KeyAbilityLabel"}}
+        <a class="trait-selector" data-options="abilities" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each selectedKeyAbility as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.ClassDCLabel"}}</label>
+    <select name="data.classDC" data-dtype="Number">
+        {{#select data.classDC}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.PerceptionLabel"}}</label>
+    <select name="data.perception" data-dtype="Number">
+        {{#select data.perception}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.SavesFortitude"}}</label>
+    <select name="data.savingThrows.fortitude" data-dtype="Number">
+        {{#select data.savingThrows.fortitude}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.SavesReflex"}}</label>
+    <select name="data.savingThrows.reflex" data-dtype="Number">
+        {{#select data.savingThrows.reflex}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.SavesWill"}}</label>
+    <select name="data.savingThrows.will" data-dtype="Number">
+        {{#select data.savingThrows.will}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.WeaponTypeSimple"}}</label>
+    <select name="data.attacks.simple" data-dtype="Number">
+        {{#select data.attacks.simple}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.WeaponTypeMartial"}}</label>
+    <select name="data.attacks.martial" data-dtype="Number">
+        {{#select data.attacks.martial}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.WeaponTypeAdvanced"}}</label>
+    <select name="data.attacks.advanced" data-dtype="Number">
+        {{#select data.attacks.advanced}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.WeaponTypeUnarmed"}}</label>
+    <select name="data.attacks.unarmed" data-dtype="Number">
+        {{#select data.attacks.unarmed}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group other-weapons">
+    <label>{{localize "PF2E.WeaponTypeSpecial"}}</label>
+    <input type="text" name="data.attacks.other.name" data-dtype="String" value="{{data.attacks.other.name}}">
+    <select name="data.attacks.other.rank" data-dtype="Number">
+        {{#select data.attacks.other.rank}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.ArmorTypeUnarmored"}}</label>
+    <select name="data.defenses.unarmored" data-dtype="Number">
+        {{#select data.defenses.unarmored}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.ArmorTypeLight"}}</label>
+    <select name="data.defenses.light" data-dtype="Number">
+        {{#select data.defenses.light}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.ArmorTypeMedium"}}</label>
+    <select name="data.defenses.medium" data-dtype="Number">
+        {{#select data.defenses.medium}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+
+<div class="form-group">
+    <label>{{localize "PF2E.ArmorTypeHeavy"}}</label>
+    <select name="data.defenses.heavy" data-dtype="Number">
+        {{#select data.defenses.heavy}}
+        {{#each proficiencyChoices as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.trainedSkills">
+        {{localize "PF2E.TrainedSkillsLabel"}}
+        <a class="trait-selector" data-options="skills"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.trainedSkills.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.AdditionalSkills"}}</label>
+    <input type="text" name="data.trainedSkills.additional" data-dtype="String" value="{{data.attacks.other.name}}">
+</div>
+
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.ancestryFeatLevels">
+        {{localize "PF2E.AncestryFeatLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.ancestryFeatLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.classFeatLevels">
+        {{localize "PF2E.ClassFeatLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.classFeatLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.generalFeatLevels">
+        {{localize "PF2E.GeneralFeatLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.generalFeatLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.skillFeatLevels">
+        {{localize "PF2E.SkillFeatLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.skillFeatLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.skillIncreaseLevels">
+        {{localize "PF2E.SkillIncreaseLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.skillIncreaseLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="form-group form-group-trait">
+    <label class="pf-title" for="data.abilityBoostLevels">
+        {{localize "PF2E.AbilityBoostLevels"}}
+        <a class="trait-selector" data-options="levels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+    </label>
+
+    <ul class="abc-traits-list">
+        {{#each data.abilityBoostLevels.selected as |v k|}}
+        <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
+{{~#*inline "abcItems"~}}
+<ul class='abc-items'>
+{{~#each items as |item i|}}
+<li class="abc-item" data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+  <img class="-item-image" src="{{item.img}}">
+  <div class="abc-item-name">{{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}</div>
+  <div class="abc-item-level">{{item.level}}</div>
+  <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype='String'>
+  <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype='String'>
+  <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype='String'>
+  <a class="abc-item-remove" data-action='remove'><i class="fa fa-times"></i></a>
+  {{#if item.items~}}
+  {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
+  {{~/if}}
+</li>
+{{/each~}}
+</ul>
+{{~/inline~}}
+
+<div class="form-group-stacked abc-list">
+    <label for="data.traits">
+        {{localize "PF2E.ClassFeatures"}}
+    </label>
+    {{#> abcItems data}}data.{{/abcItems}}
+    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+</div>

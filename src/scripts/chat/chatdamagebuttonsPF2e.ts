@@ -4,7 +4,8 @@ import PF2EActor from "../../module/actor/actor";
 class ChatDamageButtonsPF2e extends Application {
   init() {
     Hooks.on('renderChatMessage', (message, html, data) => {
-      if (!message.isRoll || message.roll?.dice[0]?.faces === 20) return;
+      const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
+      if (damageRoll || !message.isRoll || message.roll?.dice[0]?.faces === 20) return;
 
       const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
 

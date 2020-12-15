@@ -1,5 +1,8 @@
-import {PF2RuleElementData} from "../rules/rulesDataDefinitions";
 import { BuildCategories } from "../system/characterbuilder";
+import { AbilityString, Proficency } from "../actor/actorDataDefinitions";
+import { PF2RuleElementData } from "../rules/rulesDataDefinitions";
+
+export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
 export interface ItemDescriptionData {
     description: {
@@ -186,7 +189,7 @@ export interface WeaponDetailsData {
         value: string
     },
     ability: {
-        value: string
+        value: AbilityString
     },
     MAP: {
         value: string
@@ -308,6 +311,95 @@ export interface ConsumableDetailsData {
         value: boolean,
         _deprecated: boolean
     }
+}
+
+export interface ABCFeatureEntryData {
+    pack?: string
+    id: string
+    img: string
+    name: string
+    level: number
+}
+
+export interface AncestryDetailsData {
+    additionalLanguages: {
+        count: number, // plus int
+        value: string[],
+        custom: string
+    }
+    boosts: { [key: string]: { value: AbilityString[] } }
+    flaws: { [key: string]: { value: AbilityString[] } }
+    hp: number
+    items: { [key: number]: ABCFeatureEntryData }
+    languages: {
+        value: string[],
+        custom: string
+    }
+    speed: number
+    size: Sizes
+    traits: {
+        rarity: {
+            value: string
+        }
+        value: string[]
+    }
+}
+
+export interface BackgroundDetailsData {
+    boosts: { [key: string]: { value: AbilityString[] } }
+    items: { [key: number]: ABCFeatureEntryData}
+    traits: {
+        rarity: {
+            value: string
+        }
+        value: string[]
+    }
+    trainedLore: string
+    trainedSkills: {
+        value: string[]
+    }
+}
+
+export interface ClassDetailsData {
+    keyAbility: { value: AbilityString[] }
+    items: { [key: number]: ABCFeatureEntryData}
+    traits: {
+        rarity: {
+            value: string
+        }
+        value: string[]
+    }
+    hp: number
+    perception: Proficency
+    savingThrows: {
+        fortitude: Proficency
+        reflex: Proficency
+        will: Proficency
+    }
+    attacks: {
+        simple: Proficency
+        martial: Proficency
+        advanced: Proficency
+        unarmed: Proficency
+        other: { name: string; rank: Proficency }
+    }
+    defenses: {
+        unarmored: Proficency
+        light: Proficency
+        medium: Proficency
+        heavy: Proficency
+    }
+    trainedSkills: {
+        value: string[]
+        additional: number
+    }
+    classDC: Proficency
+    ancestryFeatLevels: { value: number[] }
+    classFeatLevels: { value: number[] }
+    generalFeatLevels: { value: number[] }
+    skillFeatLevels: { value: number[] }
+    skillIncreaseLevels: { value: number[] }
+    abilityBoostLevels: { value: number[] }
 }
 
 export interface FeatDetailsData {
@@ -440,7 +532,7 @@ export interface SpellDetailsData {
         value: string
     },
     ability: {
-        value: string
+        value: AbilityString
     },
     prepared: {
         value: boolean
@@ -452,7 +544,7 @@ export interface SpellDetailsData {
 
 export interface SpellcastingEntryDetailsData {
     ability: {
-        value: string
+        value: AbilityString
     },
     spelldc: {
         value: 0,
@@ -653,6 +745,18 @@ export interface EquipmentData extends BaseEntityData<ItemDescriptionData & Acti
     type: 'equipment'
 }
 
+export interface AncestryData extends BaseEntityData<ItemDescriptionData & AncestryDetailsData> {
+    type: 'ancestry'
+}
+
+export interface BackgroundData extends BaseEntityData<ItemDescriptionData & BackgroundDetailsData> {
+    type: 'background'
+}
+
+export interface ClassData extends BaseEntityData<ItemDescriptionData & ClassDetailsData> {
+    type: 'class'
+}
+
 export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescriptionData & ItemLevelData> {
     type: 'feat'
 }
@@ -687,7 +791,8 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
 
 export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
-    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData;
+    ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData |
+    AncestryData | BackgroundData | ClassData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;

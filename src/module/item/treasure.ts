@@ -4,7 +4,7 @@ import {groupBy, isBlank} from '../utils';
 type ItemPlaceholder = any;
 type ActorPlaceholder = any;
 
-interface Coins {
+export interface Coins {
     pp: number;
     gp: number;
     sp: number;
@@ -66,12 +66,11 @@ export function sellAllTreasure(items: ItemPlaceholder[]): SoldItemData {
     return {treasureIds, coins};
 }
 
-/**
- * Sums up all treasures in an actor's inventory and fills the
+/** \brief Sums up the value of all treasure in inventory
+ * 
  * @param items
- * @return {*}
  */
-export function calculateWealth(items: ItemPlaceholder[]): Coins {
+function calculateValueOfTreasure(items: ItemPlaceholder[]) {
     return items
         .filter(item => item.type === 'treasure'
             && item?.data?.denomination?.value !== undefined
@@ -81,6 +80,73 @@ export function calculateWealth(items: ItemPlaceholder[]): Coins {
             return toCoins(item.data.denomination.value, value);
         })
         .reduce(combineCoins, noCoins());
+}
+
+/**
+ * Converts the price of an item to the Coin structure
+ * @param item
+ */
+function extractPriceFromItem(item: ItemPlaceholder) : Coins {
+    // This requires preprocessing, as large gold values contain , for their value
+    const priceTag = item.data?.price?.value
+        ?.toString()
+        ?.trim()
+        ?.replace(/,/g, '') 
+        ?? '';
+    const regex = /^(\d+)(?:\s*)(pp|gp|sp|cp)$/;
+    if (regex.test(priceTag)) {
+        const [, value, denomination] = priceTag.match(regex);
+        return toCoins(denomination, parseInt(value, 10));
+    } else {
+        return toCoins("gp", 0)
+    }
+}
+
+/**
+ * Utility function to be used with various categories
+ * @param items
+ * @param category
+ */
+function calculateWealthForCategory(items: ItemPlaceholder[], category: string) : Coins {
+    if(category === 'treasure') {
+        return calculateValueOfTreasure(items);
+    } else {
+        return items
+            .filter(item => item.type === category)
+            .map(item => {
+                return extractPriceFromItem(item);
+            })
+            .reduce(combineCoins, noCoins());
+    }
+}
+
+/**
+ * Sums up all wealth of a character, not just the treasure, but all other equipment
+ * @param items
+ */
+export function calculateTotalWealth(items: ItemPlaceholder[]): Coins {
+    const itemTypes = [
+        'weapon',
+        'armor',
+        'equipment',
+        'consumable',
+        'treasure',
+        'backpack',
+    ];
+    
+    return itemTypes.map(itemType => {
+        return calculateWealthForCategory(items, itemType);
+    })
+        .reduce(combineCoins, noCoins());
+}
+
+/**
+ * Sums up all treasures in an actor's inventory
+ * @param items
+ * @return {*}
+ */
+export function calculateWealth(items: ItemPlaceholder[]): Coins {
+    return calculateWealthForCategory(items, 'treasure');
 }
 
 export const coinCompendiumIds = {

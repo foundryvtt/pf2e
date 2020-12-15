@@ -1,13 +1,9 @@
-<h4 class="sidebar-summary">Class Levels</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.ClassSummary"}}</h4>
 
-<div class="inventory-details">
-    <div class="form-group">
-        <label>Levels:</label>
-        <input type="text" name="data.levels.value" value="{{data.levels.value}}" data-dtype="{{data.levels.type}}"/>
-    </div>
+<ol class="item-tags">
+{{#each data.traits.selected as |v|}}
+    <li class="tag">{{v}}</li>
+{{/each}}
+<li class="tag">{{rarity}}</li>
+</ol>
 
-    <div class="form-group-stacked">
-        <label>{{data.subclass.label}}:</label>
-        <input type="text" name="data.subclass.value" value="{{data.subclass.value}}" data-dtype="{{data.subclass.type}}"/>
-    </div>
-</div>

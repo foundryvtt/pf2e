@@ -1,6 +1,6 @@
 /* global ui, CONST */
 import ActorSheetPF2eCreature from './creature';
-import {SKILL_DICTIONARY} from "../actor";
+import PF2EActor, {SKILL_DICTIONARY} from "../actor";
 
 /**
  * @category Actor
@@ -132,13 +132,10 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       // Actions
       else if (i.type === 'action') {
         const actionType = i.data.actionType.value || 'action';
-        let actionImg: number|string = 0;
-        // if (actionType === "action") actionImg = parseInt(i.data.actions.value) || 1;
-        if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
-        i.img = this._getActionImg(actionImg);
+        i.img = PF2EActor.getActionGraphics(
+          actionType,
+          parseInt((i.data.actions || {}).value, 10) || 1
+        ).imageUrl;
 
         // get formated traits for read-only npc sheet
         const traits = [];
@@ -168,11 +165,10 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         if (Object.keys(actions).includes(actionType)) {
           i.feat = true;
-          let actionImg: number|string = 0;
-          if (actionType === 'action') actionImg = parseInt((i.data.actions || {}).value, 10) || 1;
-          else if (actionType === 'reaction') actionImg = 'reaction';
-          else if (actionType === 'free') actionImg = 'free';
-          i.img = this._getActionImg(actionImg);
+          i.img = PF2EActor.getActionGraphics(
+            actionType,
+            parseInt((i.data.actions || {}).value, 10) || 1
+          ).imageUrl;
           actions[actionType].actions.push(i);
         }
       }
@@ -190,9 +186,9 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
       const spellType = i.data.time.value;
 
       // format spell level for display
-      if (spellType === 'reaction') i.img = this._getActionImg('reaction');
-      else if (spellType === 'free') i.img = this._getActionImg('free');
-      else if (parseInt(spellType, 10)) i.img = this._getActionImg(parseInt(spellType, 10));
+      if (spellType === 'reaction') i.img = PF2EActor.getActionGraphics('reaction').imageUrl;
+      else if (spellType === 'free') i.img = PF2EActor.getActionGraphics('free').imageUrl;
+      else if (parseInt(spellType, 10)) i.img = PF2EActor.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
 
       // check if the spell has a valid spellcasting entry assigned to the location value.
       if (spellcastingEntriesList.includes(i.data.location.value)) {

@@ -97,6 +97,9 @@ export class CheckModifiersDialog extends Application {
       speaker: ChatMessage.getSpeaker({actor: speaker}),
       flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>`,
       flags: {
+        core: {
+          canPopout: true
+        },
         pf2e: {
           canReroll: !ctx.fate,
           context: ctx

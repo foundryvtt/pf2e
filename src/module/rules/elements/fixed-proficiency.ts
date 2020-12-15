@@ -56,10 +56,15 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         const {data} = actorData;
         const skill = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const target = data.skills[skill] ?? data.attributes[skill];
+        const label = this.getDefaultLabel(this.ruleData, this.item);
+        const force = this.ruleData.force;
 
         if (target) {
             for (const modifier of target.modifiers) {
                 if (modifier.type === PF2ModifierType.ITEM && modifier.modifier > 0) {
+                    modifier.ignored = true;
+                }
+                if (force && modifier.type === PF2ModifierType.PROFICIENCY && modifier.label !== label) {
                     modifier.ignored = true;
                 }
             }
