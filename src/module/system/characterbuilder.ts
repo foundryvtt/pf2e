@@ -6,6 +6,7 @@ import { isPhysicalItem } from "../item/dataDefinitions";
 import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
+// TODO: Group multiple of the same Physical Item
  
 /**
  * Character build page
