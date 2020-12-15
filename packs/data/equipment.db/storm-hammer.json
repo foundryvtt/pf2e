@@ -1,5 +1,5 @@
 {
-    "_id": "onFxlajKyWpHZcXt",
+    "_id": "EuTZxxwdVeN6Xg3A",
     "data": {
         "MAP": {
             "value": ""
@@ -26,15 +26,15 @@
             "value": ""
         },
         "damage": {
-            "damageType": "slashing",
+            "damageType": "bludgeoning",
             "dice": 1,
-            "die": "d6",
+            "die": "d8",
             "value": ""
         },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Stoke Flames</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span>&nbsp;(concentrate)</p>\n<p>Until the end of your turn, the blade deals 1d6 extra fire damage instead of just 1. After you use this action, you can&rsquo;t use it again for 10 minutes.</p>"
+            "value": "<p>Sparks of crackling electricity arc from this +1 magic warhammer, and the head thrums with distant thunder. Any hit with this hammer deals [[/r 1 # electricity]]&nbsp;extra electricity damage. You can use a special action while holding the hammer to transform the sparks into lightning bolts.</p>\n<p><strong>Electrify</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span>&nbsp;(concentrate) Until the end of your turn, the hammer deals [[/r 1d6 # electricity]] extra electricity damage instead of just 1. After you use this action, you can&rsquo;t use it again for 10 minutes.</p>"
         },
         "equipped": {
             "value": false
@@ -43,7 +43,7 @@
             "value": ""
         },
         "group": {
-            "value": ""
+            "value": "hammer"
         },
         "hands": {
             "value": ""
@@ -89,7 +89,7 @@
             "criticalConditionType": "",
             "criticalConditionValue": null,
             "damageType": "",
-            "dice": null,
+            "dice": 0,
             "die": "",
             "strikeConditionType": "",
             "strikeConditionValue": null,
@@ -141,28 +141,28 @@
         },
         "rules": [
             {
-                "damageType": "fire",
+                "damageType": "electricity",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "PF2E.RuleElement.DamageDice",
                 "predicate": {
                     "all": [
-                        "stoke-flames"
+                        "electrify"
                     ]
                 },
                 "selector": "{item|_id}-damage"
             },
             {
                 "key": "PF2E.RuleElement.ToggleProperty",
-                "label": "Stoke Flames",
-                "property": "flags.pf2e.rollOptions.damage-roll.stoke-flames"
+                "label": "Electrify",
+                "property": "flags.pf2e.rollOptions.damage-roll.electrify"
             },
             {
-                "damageType": "fire",
+                "damageType": "electricity",
                 "key": "PF2E.RuleElement.FlatModifier",
                 "predicate": {
                     "not": [
-                        "stoke-flames"
+                        "electrify"
                     ]
                 },
                 "selector": "{item|_id}-damage",
@@ -187,35 +187,36 @@
                 "value": "common"
             },
             "value": [
+                "electricity",
                 "evocation",
-                "fire",
-                "magical"
+                "magical",
+                "shove"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "value": ""
+            "value": "martial"
         },
         "weight": {
-            "value": "-"
+            "value": "1"
         }
     },
     "effects": [],
     "flags": {
         "core": {
-            "sourceId": "Item.VEUHB6eaaNRNYLPL"
+            "sourceId": "Item.xprqivqb0j4enGwo"
         },
         "exportSource": {
-            "coreVersion": "0.7.7",
+            "coreVersion": "0.7.8",
             "system": "pf2e",
-            "systemVersion": "1.10.20.2419",
+            "systemVersion": "1.10.22.2523",
             "world": "otari"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/longsword.png",
-    "name": "Smoking Sword",
+    "img": "systems/pf2e/icons/equipment/weapons/warhammer.jpg",
+    "name": "Storm Hammer",
     "permission": {
         "default": 0
     },
