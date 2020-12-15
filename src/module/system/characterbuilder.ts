@@ -5,7 +5,6 @@ import { RawCharacterData } from "../actor/actorDataDefinitions";
 import { isPhysicalItem } from "../item/dataDefinitions";
 import PF2EItem from "../item/item";
 
-// TODO: Delete from Build if Deleted from Actor
 // TODO: Group multiple of the same Physical Item
  
 /**
@@ -76,8 +75,6 @@ export class CharacterBuilder extends FormApplication {
 
     // Add Item to Actor
     if (!dragItem.data) { // don't create another item since it comes from the Actor
-      // uncommenting this creates a new owned item for the Actor
-      // const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
       if (!isPhysicalItem(item.data)) {
         if (this.build.choices[containerId].choices.find(x => x.itemName === item.data.name)) {
           // Don't allow two of the same non-physical items
