@@ -4,7 +4,7 @@ import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
-import { PF2EItem } from './module/item/item';
+import { PF2EAction, PF2EAncestry, PF2EArmor, PF2EBackground, PF2EBackpack, PF2EClass, PF2ECondition, PF2EConsumable, PF2EEquipment, PF2EFeat, PF2EItem, PF2EKit, PF2ELore, PF2EMartial, PF2EMelee, PF2ESpell, PF2ESpellcastingEntry, PF2EStatus, PF2ETreasure, PF2EWeapon } from './module/item/item';
 import { PF2EActor, PF2ECharacter, PF2EFamiliar, PF2EHazard, PF2ELoot, PF2ENPC, PF2EVehicle } from './module/actor/actor';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
@@ -66,7 +66,31 @@ Hooks.once('init', () => {
       familiar: PF2EFamiliar,
       vehicle: PF2EVehicle,
     }
-  }
+  };
+
+  CONFIG.PF2E.Item = {
+    entityClasses: {
+      'backpack': PF2EBackpack,
+      'treasure': PF2ETreasure,
+      'weapon': PF2EWeapon,
+      'armor': PF2EArmor,
+      'kit': PF2EKit,
+      'melee': PF2EMelee,
+      'consumable': PF2EConsumable,
+      'equipment': PF2EEquipment,
+      'ancestry': PF2EAncestry,
+      'background': PF2EBackground,
+      'class': PF2EClass,
+      'feat': PF2EFeat,
+      'lore': PF2ELore,
+      'martial': PF2EMartial,
+      'action': PF2EAction,
+      'spell': PF2ESpell,
+      'spellcastingEntry': PF2ESpellcastingEntry,
+      'status': PF2EStatus,
+      'condition': PF2ECondition,
+    }
+  };
 
   PlayerConfigPF2e.hookOnRenderSettings();
 

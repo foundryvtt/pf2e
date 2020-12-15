@@ -7,13 +7,24 @@ import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
-import { ItemData } from './dataDefinitions';
+import { ActionData, AncestryData, ArmorData, BackgroundData, BackpackData, ClassData, ConditionData, ConsumableData, EquipmentData, FeatData, ItemData, KitData, LoreData, MartialData, MeleeData, SpellcastingEntryData, SpellData, StatusData, TreasureData, WeaponData } from './dataDefinitions';
 import { PF2EActor } from '../actor/actor';
 
 /**
  * @category PF2
  */
 export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
+
+  constructor(data: BaseEntityData<any>, options?: any) {
+    super(data, options);
+    try {
+      if (this.constructor.name === "PF2EItem") {
+        return new CONFIG.PF2E.Item.entityClasses[data.type](data, options);
+      }
+    } catch (_error) {
+      console.debug(`Unrecognized Item type: ${data.type}`);
+    }
+  }
 
   /**
    * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
@@ -989,4 +1000,23 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
   }
 }
 
+export class PF2EBackpack extends PF2EItem<BackpackData> {}
+export class PF2ETreasure extends PF2EItem<TreasureData> {}
+export class PF2EWeapon extends PF2EItem<WeaponData> {}
+export class PF2EArmor extends PF2EItem<ArmorData> {}
+export class PF2EKit extends PF2EItem<KitData> {}
+export class PF2EMelee extends PF2EItem<MeleeData> {}
+export class PF2EConsumable extends PF2EItem<ConsumableData> {}
+export class PF2EEquipment extends PF2EItem<EquipmentData> {}
+export class PF2EAncestry extends PF2EItem<AncestryData> {}
+export class PF2EBackground extends PF2EItem<BackgroundData> {}
+export class PF2EClass extends PF2EItem<ClassData> {}
+export class PF2EFeat extends PF2EItem<FeatData> {}
+export class PF2ELore extends PF2EItem<LoreData> {}
+export class PF2EMartial extends PF2EItem<MartialData> {}
+export class PF2EAction extends PF2EItem<ActionData> {}
+export class PF2ESpell extends PF2EItem<SpellData> {}
+export class PF2ESpellcastingEntry extends PF2EItem<SpellcastingEntryData> {}
+export class PF2EStatus extends PF2EItem<StatusData> {}
+export class PF2ECondition extends PF2EItem<ConditionData> {}
 
