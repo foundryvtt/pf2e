@@ -1,14 +1,12 @@
 /* global FormApplication */
 
+import { htmlPrefilter } from "jquery";
 import PF2EActor from "../actor/actor";
 import { RawCharacterData } from "../actor/actorDataDefinitions";
 import { isPhysicalItem } from "../item/dataDefinitions";
 import PF2EItem from "../item/item";
 
 // TODO: Delete from Build if Deleted from Actor
-// TODO: Create Template for line item in Build View
-// TODO: Allow deletion from CharacterBuild window (delete only from Build but not from Actor)
-// TODO: Add more than just ABCs
  
 /**
  * Character build page
@@ -90,6 +88,10 @@ export class CharacterBuilder extends FormApplication {
     } else {
       this.build.choices[containerId].choices.push({ itemId: dragItem.id, itemName: dragItem.name });
     }
+    await this.updateBuildOnActor();
+  }
+
+  async updateBuildOnActor() {
     const updatedActor = await this.actor.update({'data.build': this.build});
     this.actor = updatedActor;
     this.render();
@@ -109,6 +111,22 @@ export class CharacterBuilder extends FormApplication {
     options.height = 700;
     options.dragDrop = [{dropSelector: '.inventory-header'}]; // What css selector is droppable
     return options;
+  }
+
+  activateListeners(html: JQuery<HTMLElement>) {
+    super.activateListeners(html);
+    html.find('.item-delete').click((event) => {
+      this._onBuildItemDelete(event);
+    });
+  };
+
+  _onBuildItemDelete(event) {
+    event.preventDefault();
+    const target = $(event.target);
+    const itemId = target.data('itemName') ?? target.parents('[data-item-id]').data('itemId');
+    const containerId: (keyof BuildCategories) = target.data('containerId') ?? target.parents('[data-container-id]').data('containerId');
+    this.build.choices[containerId].choices = this.build.choices[containerId].choices.filter(x => x.itemId !== itemId);
+    this.updateBuildOnActor();
   }
 
   getData() {
