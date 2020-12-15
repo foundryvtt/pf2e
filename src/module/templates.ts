@@ -4,6 +4,9 @@
 
 export function loadPF2ETemplates() {
     const templatePaths = [
+        // world clock
+        'systems/pf2e/templates/system/world-clock.html',
+
         // Actor Sheets Partials (CRB-Style Tooltip)
         'systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html',
 
