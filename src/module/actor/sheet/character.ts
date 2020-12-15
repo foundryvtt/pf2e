@@ -1,4 +1,4 @@
-git /* global CONST, ui */
+/* global CONST, ui */
 import ActorSheetPF2eCreature from './creature';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';

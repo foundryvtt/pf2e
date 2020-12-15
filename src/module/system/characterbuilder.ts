@@ -76,7 +76,7 @@ export class CharacterBuilder extends FormApplication {
 
     // Add Item to Actor
     if (!dragItem.data) { // don't create another item since it comes from the Actor
-      // uncommenting this creates a new owned item for the 
+      // uncommenting this creates a new owned item for the Actor
       // const ownedItem = await this.actor.createEmbeddedEntity('OwnedItem', item.data);
       if (!isPhysicalItem(item.data)) {
         if (this.build.choices[containerId].choices.find(x => x.itemName === item.data.name)) {
