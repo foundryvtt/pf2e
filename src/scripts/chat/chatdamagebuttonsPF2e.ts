@@ -1,5 +1,5 @@
 /* global Application, Dialog */
-import PF2EActor from "../../module/actor/actor";
+import { PF2EActor } from "../../module/actor/actor";
 
 class ChatDamageButtonsPF2e extends Application {
   init() {

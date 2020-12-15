@@ -14,7 +14,7 @@ declare const CONFIG: {
 	 * Configuration for the default Actor entity class
 	 */
 	Actor: {
-		entityClass: typeof Actor,
+		entityClass: any,
 		collection: Actors,
 		sheetClasses: typeof ActorSheet
 	},

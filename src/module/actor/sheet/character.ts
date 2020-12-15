@@ -5,7 +5,7 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Other

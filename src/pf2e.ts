@@ -5,7 +5,7 @@ import loadTemplates from './module/templates';
 import { initiativeFormula } from './module/combat';
 import registerHandlebarsHelpers from './module/handlebars';
 import ItemPF2e from './module/item/item';
-import ActorPF2e from './module/actor/actor';
+import { PF2EActor, PF2ECharacter, PF2EFamiliar, PF2EHazard, PF2ELoot, PF2ENPC, PF2EVehicle } from './module/actor/actor';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
 import registerActors from './module/register-actors';
@@ -16,7 +16,7 @@ import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 import { PF2eConditionManager } from "./module/conditions"
-import {FamiliarData} from "./module/actor/actorDataDefinitions";
+import { FamiliarData } from "./module/actor/actorDataDefinitions";
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -48,13 +48,24 @@ Hooks.once('init', () => {
   }
   // Assign actor/item classes.
   CONFIG.Item.entityClass = ItemPF2e;
-  CONFIG.Actor.entityClass = ActorPF2e;
+  CONFIG.Actor.entityClass = PF2EActor;
   // Automatically advance world time by 6 seconds each round
   CONFIG.time.roundTime = 6;
   // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
   // Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
+
+  CONFIG.PF2E.Actor = {
+    entityClasses: {
+      character: PF2ECharacter,
+      npc: PF2ENPC,
+      hazard: PF2EHazard,
+      loot: PF2ELoot,
+      familiar: PF2EFamiliar,
+      vehicle: PF2EVehicle,
+    }
+  }
 
   PlayerConfigPF2e.hookOnRenderSettings();
 
@@ -82,8 +93,8 @@ Hooks.once('init', () => {
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: ActorPF2e = undefined) {
-  game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
+function _updateMinionActors(master: PF2EActor = undefined) {
+  game.actors.entities.filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
     .filter(minion => !master || minion.data.data.master.id === master.data._id)
     .filter(minion => minion.can(game.user, 'owner'))
@@ -214,31 +225,31 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
       name: 'Apply Damage',
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 1),
+      callback: (li) => PF2EActor.applyDamage(li, 1),
     },
     {
       name: 'Apply Healing',
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApplyHealing,
-      callback: (li) => ActorPF2e.applyDamage(li, -1),
+      callback: (li) => PF2EActor.applyDamage(li, -1),
     },
     {
       name: 'Double Damage',
       icon: '<i class="fas fa-user-injured"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 2),
+      callback: (li) => PF2EActor.applyDamage(li, 2),
     },
     {
       name: 'Half Damage',
       icon: '<i class="fas fa-user-shield"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+      callback: (li) => PF2EActor.applyDamage(li, 0.5),
     },
     {
       name: 'Set as Initiative',
       icon: '<i class="fas fa-fist-raised"></i>',
       condition: canApplyInitiative,
-      callback: (li) => ActorPF2e.setCombatantInitiative(li),
+      callback: (li) => PF2EActor.setCombatantInitiative(li),
     },
     {
       name: 'PF2E.RerollMenu.HeroPoint',
@@ -296,13 +307,13 @@ Hooks.on('updateActor', (actor, dir) => {
 });
 
 Hooks.on('createOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
+    if (parent instanceof PF2EActor) {
         parent.onCreateOwnedItem(child, options, userId);
     }
 });
 
 Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
+    if (parent instanceof PF2EActor) {
         parent.onDeleteOwnedItem(child, options, userId);
     }
 });

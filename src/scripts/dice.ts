@@ -1,5 +1,5 @@
 /* global Dialog, Roll, renderTemplate */
-import PF2EActor from "../module/actor/actor";
+import { PF2EActor } from "../module/actor/actor";
 
 /**
  * @category Other

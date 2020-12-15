@@ -3,7 +3,7 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { getContainerMap } from '../../item/container';
 import ActorSheetPF2e from './base';
 import {calculateWealth} from '../../item/treasure';
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Actor

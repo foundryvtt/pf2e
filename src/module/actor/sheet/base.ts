@@ -4,7 +4,7 @@ import { AddCoinsPopup } from './AddCoinsPopup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
-import PF2EActor, { SKILL_DICTIONARY } from '../actor';
+import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import PF2EItem from '../../item/item';
 import { ConditionData } from '../../item/dataDefinitions';
