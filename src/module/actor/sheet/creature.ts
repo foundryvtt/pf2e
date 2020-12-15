@@ -1,12 +1,12 @@
 import {Coins, calculateWealth, calculateTotalWealth} from '../../item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
-import ActorSheetPF2e from './base';
+import { ActorSheetPF2e } from './base';
 
 /**  
  * Base class for NPC and character sheets
  * @category Actor
 */
-export default abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
+export abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
     _renderItemSummary(li, item, chatData) {
         super._renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');

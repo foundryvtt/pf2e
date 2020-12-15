@@ -1,11 +1,11 @@
-import SpellcastingEntry from './spellcastingEntry';
-import CharacterData from '../actor/character';
+import { SpellcastingEntry } from './spellcastingEntry';
+import { CharacterData } from '../actor/character';
 
 
 /**
  * @category Other
  */
-class Spell {
+export class Spell {
   data: any;
   castingActor: any;
   _castLevel: any;
@@ -121,4 +121,3 @@ class Spell {
   }
 }
 
-export default Spell;

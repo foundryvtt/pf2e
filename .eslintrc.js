@@ -42,7 +42,7 @@ module.exports = {
       'prefer-destructuring': 'off',
       'no-plusplus': ['error', { "allowForLoopAfterthoughts": true }],
       'lines-between-class-members': ['error', 'always', {'exceptAfterSingleLine': true}],
-      'import/prefer-default-export': 'warn',
+      'import/no-default-export': 'error',
       'no-continue': 'off',
       'no-constant-condition': ['error', { "checkLoops": false }],
       'import/prefer-default-export': 'off',

@@ -4,7 +4,7 @@ import { compendiumBrowser } from './packs/compendium-browser';
 /**
  * @ignore
 */
-export default function () {
+export function registerSettings() {
   game.settings.register('pf2e', 'worldSchemaVersion', {
     name: 'Actor Schema Version',
     hint: "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",

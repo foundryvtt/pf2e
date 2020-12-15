@@ -1,9 +1,9 @@
-import Armor from './armor';
+import { Armor } from './armor';
 
 /**
  * @category Other
  */
-class CharacterData {
+export class CharacterData {
   data: any;
   _items: any;
   
@@ -66,5 +66,3 @@ class CharacterData {
     return Armor.unarmored();
   }
 }
-
-export default CharacterData;

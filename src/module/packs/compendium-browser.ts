@@ -1,5 +1,5 @@
 /* global Application */
-import Progress from '../progress';
+import { Progress } from '../progress';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
