@@ -7,7 +7,7 @@
  */
 
 let messageContent = ''
-const rune_image = "systems/pf2e/icons/equipment/runes/fundamental-weapon-runes/striking.jpg"
+const rune_image = "systems/pf2e/icons/spells/magic-weapon.jpg"
 const activate_icon = "☑"
 const deactivate_icon = "☒"
 
@@ -34,13 +34,12 @@ if (!actor) {
                     weapon.data.strikingRune.magicWeapon = true
                 }
 
-                // +1 item bonus
-                if (weapon.data.bonus.value == 0) {
-                    messageContent += "<br> " + activate_icon + " Item Bonus +1"
-                    weapon.data.bonus.value = 1
-                    weapon.data.bonus.magicWeapon = true
+                // +1 item bonus => potency rune
+                if (weapon.data.potencyRune.value == "") {
+                    messageContent += "<br> " + activate_icon + " Potency Rune (+1)"
+                    weapon.data.potencyRune.value = 1
+                    weapon.data.potencyRune.magicWeapon = true
                 }
-
             } else {
                 messageContent = 'Dectivates Magic Weapon on ' + pronoun + ' ' + weapon.name
 
@@ -51,15 +50,14 @@ if (!actor) {
                     delete weapon.data.strikingRune.magicWeapon
                 }
                 
-                // +1 item bonus
-                if (weapon.data.bonus.hasOwnProperty("magicWeapon")) {
-                    messageContent += "<br> " + deactivate_icon + " Item Bonus +1"
-                    weapon.data.bonus.value = 0
-                    delete weapon.data.bonus.magicWeapon
+                // +1 item bonus => potency rune
+                if (weapon.data.potencyRune.hasOwnProperty("magicWeapon")) {
+                    messageContent += "<br> " + deactivate_icon + " Potency Rune (+1)"
+                    weapon.data.potencyRune.value = ""
+                    delete weapon.data.potencyRune.magicWeapon
                 }
             };
             token.toggleEffect(rune_image)
-            
         } else {
             ui.notifications.warn("You must have a weapon equipped.");
         }
