@@ -2151,6 +2151,14 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
       return unique.includes(option) ? unique : unique.concat(option);
     }, [] as string[]);
   }
+
+  getAbilityMod(ability: string): number {
+    return this.data.data.abilities[ability].mod;
+  }
+
+  get level(): number {
+    return this.data.data.details.level.value;
+  }
 }
 
 export class PF2ECharacter extends PF2EActor {}

@@ -1,18 +1,22 @@
 import { SpellcastingEntry } from './spellcastingEntry';
-import { CharacterData } from '../actor/character';
 
+interface ActorInterface {
+  getOwnedItem(spellcastingEntryId: any);
+  getAbilityMod(ability: any): any;
+  items: any;
+  level: number;
+}
 
 /**
  * @category Other
  */
 export class Spell {
   data: any;
-  castingActor: any;
-  _castLevel: any;
+  castingActor: ActorInterface;
+  _castLevel: number;
   _spellcastingEntry: any;
-  _character: any;
 
-  constructor(data, scope: any = {}) {
+  constructor(data, scope: { castingActor?: ActorInterface, castLevel?: number } = {}) {
     this.data = data;
     this.castingActor = scope?.castingActor;
     this._castLevel = scope?.castLevel || this.spellLevel;
@@ -35,13 +39,6 @@ export class Spell {
     return this.data.data.level.value;
   }
 
-  get character() {
-    if (!this._character) {
-      this._character = new CharacterData(this.castingActor.data.data);
-    }
-    return this._character;
-  }
-
   get damage() {
     return this.data.data.damage;
   }
@@ -57,7 +54,7 @@ export class Spell {
     const parts = [];
     if (this.damageValue) parts.push(this.damage.value);
     if (this.damage.applyMod) {
-      parts.push(this.character.abilities[this.spellcastingEntry.ability].mod);
+      parts.push(this.castingActor.getAbilityMod(this.spellcastingEntry.ability));
     }
     if (this.data.data.duration.value === "" && this.castingActor?.items) {
       const featDangerousSorcery = this.castingActor.items.find(it => it.name === "Dangerous Sorcery");
@@ -77,7 +74,7 @@ export class Spell {
   // level.
   get castLevel() {
     if (this.autoScalingSpell) {
-      return Math.ceil(this.character.level / 2);
+      return Math.ceil(this.castingActor.level / 2);
     }
     return this._castLevel;
   }

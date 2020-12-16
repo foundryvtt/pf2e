@@ -13,6 +13,9 @@ const spellcastingEntryItem = {
 const actor = {
   getOwnedItem: jest.fn().mockImplementation(() => spellcastingEntryItem),
   data: characterData,
+  items: [],
+  get level() { return characterData.data.details.level.value },
+  getAbilityMod: (ability: string) => 3,
 };
 
 beforeAll(async () => {
