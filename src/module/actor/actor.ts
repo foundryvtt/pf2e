@@ -76,17 +76,20 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  */
 export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> extends Actor<PF2EDataType> {
 
-  constructor(data: BaseEntityData<any>, options?: any) {
-    super(data, options);
-    try {
-      if (this.constructor.name === "PF2EActor") {
-        return new CONFIG.PF2E.Actor.entityClasses[data.type](data, options);
+  constructor(data: ActorDataPF2e, options?: any) {
+    if (options?.pf2e?.ready) {
+      super(data, options);
+    } else {
+      try {
+        const ready = { pf2e: { ready: true } };
+        return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
+      } catch (_error) {
+        super(data, options);  // eslint-disable-line constructor-super
+        console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
       }
-    } catch (_error) {
-      console.debug(`Unrecognized Actor type: ${data.type}`);
     }
   }
- 
+
   /**
    * Augment the basic actor data with additional dynamic data.
    */
