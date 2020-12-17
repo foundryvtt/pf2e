@@ -157,7 +157,20 @@
             "label": "Resilient",
             "type": "String"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Bulwark (vs. damaging effects)",
+                "predicate": {
+                    "all": [
+                        "damage"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "ability",
+                "value": 3
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
