@@ -47,33 +47,16 @@
               <label><dt><input type="checkbox" name="feattype-curse"></dt><dd>{{localize "PF2E.FeatCurseHeader"}}</dd></label>
             </dl>
         </div>
-        <div class="filtercontainer" id="levelfilter">
-            <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
-            <dl style="display:none;">
-              <label><dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.LevelLabel"}} 1</dd></label>
-              <label><dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.LevelLabel"}} 2</dd></label>
-              <label><dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.LevelLabel"}} 3</dd></label>
-              <label><dt><input type="checkbox" name="level-4"></dt><dd>{{localize "PF2E.LevelLabel"}} 4</dd></label>
-              <label><dt><input type="checkbox" name="level-5"></dt><dd>{{localize "PF2E.LevelLabel"}} 5</dd></label>
-              <label><dt><input type="checkbox" name="level-6"></dt><dd>{{localize "PF2E.LevelLabel"}} 6</dd></label>
-              <label><dt><input type="checkbox" name="level-7"></dt><dd>{{localize "PF2E.LevelLabel"}} 7</dd></label>
-              <label><dt><input type="checkbox" name="level-8"></dt><dd>{{localize "PF2E.LevelLabel"}} 8</dd></label>
-              <label><dt><input type="checkbox" name="level-9"></dt><dd>{{localize "PF2E.LevelLabel"}} 9</dd></label>
-              <label><dt><input type="checkbox" name="level-10"></dt><dd>{{localize "PF2E.LevelLabel"}} 10</dd></label>
-              <label><dt><input type="checkbox" name="level-11"></dt><dd>{{localize "PF2E.LevelLabel"}} 11</dd></label>
-              <label><dt><input type="checkbox" name="level-12"></dt><dd>{{localize "PF2E.LevelLabel"}} 12</dd></label>
-              <label><dt><input type="checkbox" name="level-13"></dt><dd>{{localize "PF2E.LevelLabel"}} 13</dd></label>
-              <label><dt><input type="checkbox" name="level-14"></dt><dd>{{localize "PF2E.LevelLabel"}} 14</dd></label>
-              <label><dt><input type="checkbox" name="level-15"></dt><dd>{{localize "PF2E.LevelLabel"}} 15</dd></label>
-              <label><dt><input type="checkbox" name="level-16"></dt><dd>{{localize "PF2E.LevelLabel"}} 16</dd></label>
-              <label><dt><input type="checkbox" name="level-17"></dt><dd>{{localize "PF2E.LevelLabel"}} 17</dd></label>
-              <label><dt><input type="checkbox" name="level-18"></dt><dd>{{localize "PF2E.LevelLabel"}} 18</dd></label>
-              <label><dt><input type="checkbox" name="level-19"></dt><dd>{{localize "PF2E.LevelLabel"}} 19</dd></label>
-              <label><dt><input type="checkbox" name="level-20"></dt><dd>{{localize "PF2E.LevelLabel"}} 20</dd></label>
-            </dl>
+        <div class="filtercontainer rangecontainer" id="levelfilter">
+          <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
+          <div style="display:none;">
+            <input type="number" name="lowerBound-level" value="1" min="1" max="20">
+            -
+            <input type="number" name="upperBound-level" value="20" min="1" max="20">
+          </div>
         </div>
         <div class="filtercontainer" id="classfilter">
-            <h3>{{localize "PF2E.BrowserFilterClassFeats"}}</h3>
+            <h3>{{localize "PF2E.BrowserFilterClass"}}</h3>
             <dl style="display:none;">
                 {{#each featClasses as |class key|}}
                 <label><dt><input type="checkbox" name="classes-{{lower key}}"></dt><dd>{{class}}</dd></label>
@@ -81,7 +64,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="skillfilter">
-            <h3>{{localize "PF2E.BrowserFilterSkillFeats"}}</h3>
+            <h3>{{localize "PF2E.BrowserFilterSkills"}}</h3>
             <dl style="display:none;">
                 {{#each featSkills as |skill key|}}
                 <label><dt><input type="checkbox" name="skills-{{lower key}}"></dt><dd>{{skill}}</dd></label>
@@ -89,7 +72,7 @@
             </dl>
         </div>
         <div class="filtercontainer" id="ancestryfilter">
-            <h3>{{localize "PF2E.BrowserFilterAncestryFeats"}}</h3>
+            <h3>{{localize "PF2E.BrowserFilterAncestries"}}</h3>
             <dl style="display:none;">
                 {{#each featAncestry as |ancestry key|}}
                 <label><dt><input type="checkbox" name="ancestry-{{lower key}}"></dt><dd>{{ancestry}}</dd></label>
