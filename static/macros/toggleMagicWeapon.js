@@ -26,7 +26,7 @@ if (!actor) {
         if (weapon) {
             if (weapon.flags.magicWeapon == undefined) {
                 messageContent = 'Activates Magic Weapon on ' + pronoun + ' ' + weapon.name
-                weapon.flags.magicWeapon = [];
+                weapon.flags.macro.magicWeapon = [];
 
                 // striking rune
                 if (weapon.data.strikingRune.value  == "") {
