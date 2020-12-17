@@ -24,38 +24,39 @@ if (!actor) {
             .find(weapon => weapon.data.equipped.value);
         
         if (weapon) {
-            if (!token.data.effects.includes(rune_image)) {
+            if (weapon.flags.magicWeapon == undefined) {
                 messageContent = 'Activates Magic Weapon on ' + pronoun + ' ' + weapon.name
+                weapon.flags.magicWeapon = [];
 
                 // striking rune
                 if (weapon.data.strikingRune.value  == "") {
                     messageContent += "<br> " + activate_icon + " Striking Rune"
                     weapon.data.strikingRune.value = "striking"
-                    weapon.data.strikingRune.magicWeapon = true
+                    weapon.flags.magicWeapon.push("striking")
                 }
 
                 // +1 item bonus => potency rune
                 if (weapon.data.potencyRune.value == "") {
                     messageContent += "<br> " + activate_icon + " Potency Rune (+1)"
-                    weapon.data.potencyRune.value = 1
-                    weapon.data.potencyRune.magicWeapon = true
+                    weapon.data.potencyRune.value = "1"
+                    weapon.flags.magicWeapon.push("potency")
                 }
             } else {
                 messageContent = 'Dectivates Magic Weapon on ' + pronoun + ' ' + weapon.name
 
                 // striking rune
-                if (weapon.data.strikingRune.hasOwnProperty("magicWeapon")) {
+                if (weapon.flags.magicWeapon.includes("striking")) {
                     messageContent += "<br> " + deactivate_icon + " Striking Rune"
                     weapon.data.strikingRune.value = ""
-                    delete weapon.data.strikingRune.magicWeapon
                 }
                 
                 // +1 item bonus => potency rune
-                if (weapon.data.potencyRune.hasOwnProperty("magicWeapon")) {
+                if (weapon.flags.magicWeapon.includes("potency")) {
                     messageContent += "<br> " + deactivate_icon + " Potency Rune (+1)"
                     weapon.data.potencyRune.value = ""
-                    delete weapon.data.potencyRune.magicWeapon
                 }
+
+                delete weapon.flags.magicWeapon
             };
             token.toggleEffect(rune_image)
         } else {
