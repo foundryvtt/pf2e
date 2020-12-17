@@ -24,7 +24,7 @@ if (!actor) {
             .find(weapon => weapon.data.equipped.value);
         
         if (weapon) {
-            if (weapon.flags.magicWeapon == undefined) {
+            if (weapon.flags.macro.magicWeapon == undefined) {
                 messageContent = 'Activates Magic Weapon on ' + pronoun + ' ' + weapon.name
                 weapon.flags.macro.magicWeapon = [];
 
@@ -32,31 +32,31 @@ if (!actor) {
                 if (weapon.data.strikingRune.value  == "") {
                     messageContent += "<br> " + activate_icon + " Striking Rune"
                     weapon.data.strikingRune.value = "striking"
-                    weapon.flags.magicWeapon.push("striking")
+                    weapon.flags.macro.magicWeapon.push("striking")
                 }
 
                 // +1 item bonus => potency rune
                 if (weapon.data.potencyRune.value == "") {
                     messageContent += "<br> " + activate_icon + " Potency Rune (+1)"
                     weapon.data.potencyRune.value = "1"
-                    weapon.flags.magicWeapon.push("potency")
+                    weapon.flags.macro.magicWeapon.push("potency")
                 }
             } else {
                 messageContent = 'Dectivates Magic Weapon on ' + pronoun + ' ' + weapon.name
 
                 // striking rune
-                if (weapon.flags.magicWeapon.includes("striking")) {
+                if (weapon.flags.macro.magicWeapon.includes("striking")) {
                     messageContent += "<br> " + deactivate_icon + " Striking Rune"
                     weapon.data.strikingRune.value = ""
                 }
                 
                 // +1 item bonus => potency rune
-                if (weapon.flags.magicWeapon.includes("potency")) {
+                if (weapon.flags.macro.magicWeapon.includes("potency")) {
                     messageContent += "<br> " + deactivate_icon + " Potency Rune (+1)"
                     weapon.data.potencyRune.value = ""
                 }
 
-                delete weapon.flags.magicWeapon
+                delete weapon.flags.macro.magicWeapon
             };
             token.toggleEffect(rune_image)
         } else {
