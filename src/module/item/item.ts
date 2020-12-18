@@ -15,14 +15,17 @@ import { PF2EActor } from '../actor/actor';
  */
 export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
-  constructor(data: BaseEntityData<any>, options?: any) {
-    super(data, options);
-    try {
-      if (this.constructor.name === "PF2EItem") {
-        return new CONFIG.PF2E.Item.entityClasses[data.type](data, options);
+  constructor(data: ItemData, options?: any) {
+    if (options?.pf2e?.ready) {
+      super(data, options);
+    } else {
+      try {
+        const ready = { pf2e: { ready: true } };
+        return new CONFIG.PF2E.Item.entityClasses[data.type](data, { ...ready, ...options });
+      } catch (_error) {
+        super(data, options); // eslint-disable-line constructor-super
+        console.warn(`Unrecognized Item type (${data.type}): falling back to PF2EItem`);
       }
-    } catch (_error) {
-      console.debug(`Unrecognized Item type: ${data.type}`);
     }
   }
 
