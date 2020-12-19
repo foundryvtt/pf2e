@@ -1,5 +1,48 @@
 # Patch Notes:
 
+## Version 1.10.23
+### Bug Fixes
+* (Chup) Added confirmation dialog to 'Sell all treasure' button. Closes #576
+* (Trollderim) Fix quantity consideration in total wealth calculation
+* (Hermann) Fix callbacks to weapon damage functions
+* (nikolaj-a) Fix condition chat bubble grammar errors
+
+### New Features
+* (@nikolaj-a) Initial version of effect panel
+* (nikolaj-a) Add set property rule element
+
+### Content Changes
+* (putty) Set items to identified by default
+* (putty) Add remaining missing NPCs, hazards, and items for Beginner Box and Troubles in Otari
+* (putty) Add blinded flag to hunter's bow, to make it work with a toggle
+* (putty) Use more generic approach to trigger smoking sword damage
+* (Shandyan) Item effects for O and P
+* (SLATE) Moved wayfinder to razmiri (from ramziri)
+* (SLATE) Fixed all typos for retaliation
+* (SLATE) Added formulated sunlight, a ration for leshys that require photosynthesis
+* (TMun) Correct values of starknife again
+* (TMun) Fixes equipment data entry errors
+* (Mothringer) Add error message to treat wounds macro when no token is selected instead of silently failing
+
+### Core System Improvements
+* (Trollderim) Clean up UI of compendium browser
+* (nikolaj-a) Automatically advance world clock every combat round
+* (nikolaj-a) Basic world clock application
+* (nikolaj-a) Align apply damage icons with context menu
+* (nikolaj-a) Setting to disable condition chat bubbles
+
+### Development Improvements
+* (fryguy) Hack the actor constructor so that we can have polymorphism in the future without having a million line actor class
+* (fryguy) Remove default exports from codebase, and add linter check
+* (fryguy) Make the PF2EItem generic so that it's potentially type-safe in the future.
+* (fryguy) Add the same polymorphism factory hack to Items as well as Actors
+* (fryguy) Remove character helper class
+* (fryguy) Separate PF2EActor prepareXData functions into their own subclasses instead of having it all in the same file
+* (stwlam) Add missing @type dependencies
+* (stwlam) Rename ActorData in actorDataDefinitions.ts so it doesn't collide with ActorData in actor.d.ts
+* (stwlam) Remove discarded item/actor construction in favor of checking options
+
+
 ## Version 1.10.22
 ### Bug Fixes
 * (putty) Fix parsing for missing and non-conforming prices
