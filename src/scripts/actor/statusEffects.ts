@@ -518,7 +518,7 @@ export class PF2eStatusEffects {
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.data.description.value}</div>
                     </span>
                 </li>`;
-            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary  }.<br>`;
+            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary}<br>`;
         }
 
         if (statusEffectList === '') {
@@ -601,15 +601,14 @@ export class PF2eStatusEffects {
      * Helper to change condition summary info from YOU to I
      */
     static _changeYouToI(content) {
-        content = content.replace(/you’re/g,"I’m");
-        content = content.replace(/You’re/g,"I’m");
-        // content = content.replace(/’re/g,"’m");
+        content = content.replace(/you're/g,"I'm");
+        content = content.replace(/You're/g,"I'm");
         content = content.replace(/Your/g,"My");
         content = content.replace(/your/g,"my");
         content = content.replace(/You are/g,"I am");
         content = content.replace(/you are/g,"I am");
-        content = content.replace(/You can’t/g,"I can’t");
-        content = content.replace(/you can’t/g,"I can’t");
+        content = content.replace(/You can't/g,"I can't");
+        content = content.replace(/you can't/g,"I can't");
         content = content.replace(/You can/g,"I can");
         content = content.replace(/you can/g,"I can");
         content = content.replace(/You have/g,"I have");
