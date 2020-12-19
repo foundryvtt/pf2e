@@ -28,6 +28,7 @@ import {
     ProficiencyModifier
 } from "./module/modifiers";
 import {WorldClockApplication} from "./module/system/world-clock-application";
+import {EffectPanel} from "./module/system/effect-panel";
 
 require('./styles/pf2e.scss');
 
@@ -199,6 +200,12 @@ Hooks.once("ready", () => {
   if (game.user.isGM) {
     game[game.system.id].worldclock = new WorldClockApplication();
   }
+
+  // effect panel singleton application
+  game[game.system.id].effectPanel = new EffectPanel();
+  if (game.user.getFlag(game.system.id, 'showEffectPanel')) {
+      game[game.system.id].effectPanel.render(true);
+  }
 });
 
 // Activate global listeners
@@ -342,18 +349,51 @@ Hooks.on('updateActor', (actor, dir) => {
 Hooks.on('createOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
         parent.onCreateOwnedItem(child, options, userId);
+
+        game[game.system.id].effectPanel.refresh();
     }
 });
 
 Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
         parent.onDeleteOwnedItem(child, options, userId);
+
+        game[game.system.id].effectPanel.refresh();
     }
+});
+
+Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof PF2EActor) {
+        game[game.system.id].effectPanel.refresh();
+    }
+});
+
+// effect panel
+Hooks.on('updateUser', (user, diff, options, id) => {
+    game[game.system.id].effectPanel.refresh();
+});
+
+Hooks.on('controlToken', (token, selected) => {
+    game[game.system.id].effectPanel.refresh();
 });
 
 // world clock application
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls.find(c => c.name === 'token').tools.push({
+        name: "effectpanel",
+        title: "CONTROLS.EffectPanel",
+        icon: "fas fa-star",
+        onClick: toggled => {
+            if (toggled) {
+                game[game.system.id].effectPanel.render(true);
+            } else {
+                game[game.system.id].effectPanel.close();
+            }
+            game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
+        },
+        active: !!game.user.getFlag(game.system.id, 'showEffectPanel'),
+        toggle: true
+    },{
         name: "worldclock",
         title: "CONTROLS.WorldClock",
         icon: "fas fa-clock",

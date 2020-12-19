@@ -1,0 +1,27 @@
+<section class="effect-panel">
+  {{#if actor}}
+  {{#each conditions}}
+  <div data-item-id="{{#unless this.locked}}{{this.id}}{{/unless}}" title="{{this.name}}{{this.breakdown}}" style="background-image: url({{this.img}});">
+    {{#if this.locked}}
+    <div class="badge" style="top: 1px; right: 1px;">
+      <i class="fas fa-lock"></i>
+    </div>
+    {{/if}}
+    {{#if this.value}}
+    <div class="badge" style="bottom: 1px; left: 1px;">
+      <b>{{this.value}}</b>
+    </div>
+    {{/if}}
+  </div>
+  {{/each}}
+
+  {{#if (and conditions.length effects.length)}}
+  <hr>
+  {{/if}}
+
+  {{#each effects}}
+  <div data-item-id="{{this._id}}" title="{{this.name}}" style="background-image: url({{this.img}})">
+  </div>
+  {{/each}}
+  {{/if}}
+</section>
