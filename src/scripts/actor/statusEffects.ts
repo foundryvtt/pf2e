@@ -138,9 +138,18 @@ export class PF2eStatusEffects {
               config: true,
               default: true,
               type: Boolean,
-              onChange: () => {
-                  window.location.reload(false);
-              }
+            });
+            game.settings.register(game.system.id, 'showConditionChatBubbles', {
+                name: 'Show Condition Chat Bubbles',
+                hint: 'When enabled, a token will speak out any changes to conditions applied from the token HUD' +
+                    ' condition panel.',
+                scope: 'world',
+                config: true,
+                default: true,
+                type: Boolean,
+                onChange: () => {
+                    window.location.reload(false);
+                }
             });
         }
         /** Create hooks onto FoundryVTT */
@@ -536,7 +545,7 @@ export class PF2eStatusEffects {
         if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients("GM");
         ChatMessage.create(chatData);
 
-        if (!token.data.hidden) {
+        if (!token.data.hidden && game.settings.get(game.system.id, 'showConditionChatBubbles')) {
             bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
             canvas.hud.bubbles.say(token, bubbleContent, {
                 emote: true
