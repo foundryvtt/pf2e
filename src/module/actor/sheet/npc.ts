@@ -1,11 +1,11 @@
 /* global ui, CONST */
-import ActorSheetPF2eCreature from './creature';
-import PF2EActor, {SKILL_DICTIONARY} from "../actor";
+import { ActorSheetPF2eCreature } from './creature';
+import { PF2EActor, SKILL_DICTIONARY } from "../actor";
 
 /**
  * @category Actor
  */
-class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
+export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   static get defaultOptions() {
     const options = super.defaultOptions;
     mergeObject(options, {
@@ -308,4 +308,3 @@ class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
   }
 }
 
-export default ActorSheetPF2eNPC;

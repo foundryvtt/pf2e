@@ -1,6 +1,6 @@
 /* global Application, ChatMessage, Roll, ui */
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import PF2EActor from '../actor/actor';
+import { PF2EActor } from '../actor/actor';
 
 export interface CheckModifiersContext {
   /** Any options which should be used in the roll. */

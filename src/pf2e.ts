@@ -1,22 +1,25 @@
 /* global ui, CONST */
 import { CONFIG as PF2ECONFIG } from './scripts/config';
-import registerSettings from './module/settings';
-import loadTemplates from './module/templates';
+import { registerSettings } from './module/settings';
+import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
-import registerHandlebarsHelpers from './module/handlebars';
-import ItemPF2e from './module/item/item';
-import ActorPF2e from './module/actor/actor';
+import { registerHandlebarsHelpers } from './module/handlebars';
+import { PF2EAction, PF2EAncestry, PF2EArmor, PF2EBackground, PF2EBackpack, PF2EClass, PF2ECondition, PF2EConsumable, PF2EEquipment, PF2EFeat, PF2EItem, PF2EKit, PF2ELore, PF2EMartial, PF2EMelee, PF2ESpell, PF2ESpellcastingEntry, PF2EStatus, PF2ETreasure, PF2EWeapon } from './module/item/item';
+import { PF2EActor, PF2EHazard, PF2ELoot, PF2EVehicle } from './module/actor/actor';
+import { PF2ECharacter } from './module/actor/character';
+import { PF2ENPC } from './module/actor/npc';
+import { PF2EFamiliar } from './module/actor/familiar';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
-import registerActors from './module/register-actors';
+import { registerActors } from './module/register-actors';
 import {registerSheets} from './module/register-sheets';
-import PF2eCombatTracker from './module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
 import { PF2Check } from './module/system/rolls';
 import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
 import { PF2eConditionManager } from "./module/conditions"
-import {FamiliarData} from "./module/actor/actorDataDefinitions";
+import { FamiliarData } from "./module/actor/actorDataDefinitions";
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -24,6 +27,8 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier
 } from "./module/modifiers";
+import {WorldClockApplication} from "./module/system/world-clock-application";
+import {EffectPanel} from "./module/system/effect-panel";
 
 require('./styles/pf2e.scss');
 
@@ -47,17 +52,54 @@ Hooks.once('init', () => {
     }
   }
   // Assign actor/item classes.
-  CONFIG.Item.entityClass = ItemPF2e;
-  CONFIG.Actor.entityClass = ActorPF2e;
+  CONFIG.Item.entityClass = PF2EItem;
+  CONFIG.Actor.entityClass = PF2EActor;
+  // Automatically advance world time by 6 seconds each round
+  CONFIG.time.roundTime = 6;
   // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
   CONFIG.Combat.initiative.decimals = 1;
   // Assign the PF2e Combat Tracker
   CONFIG.ui.combat = PF2eCombatTracker;
 
+  CONFIG.PF2E.Actor = {
+    entityClasses: {
+      character: PF2ECharacter,
+      npc: PF2ENPC,
+      hazard: PF2EHazard,
+      loot: PF2ELoot,
+      familiar: PF2EFamiliar,
+      vehicle: PF2EVehicle,
+    }
+  };
+
+  CONFIG.PF2E.Item = {
+    entityClasses: {
+      'backpack': PF2EBackpack,
+      'treasure': PF2ETreasure,
+      'weapon': PF2EWeapon,
+      'armor': PF2EArmor,
+      'kit': PF2EKit,
+      'melee': PF2EMelee,
+      'consumable': PF2EConsumable,
+      'equipment': PF2EEquipment,
+      'ancestry': PF2EAncestry,
+      'background': PF2EBackground,
+      'class': PF2EClass,
+      'feat': PF2EFeat,
+      'lore': PF2ELore,
+      'martial': PF2EMartial,
+      'action': PF2EAction,
+      'spell': PF2ESpell,
+      'spellcastingEntry': PF2ESpellcastingEntry,
+      'status': PF2EStatus,
+      'condition': PF2ECondition,
+    }
+  };
+
   PlayerConfigPF2e.hookOnRenderSettings();
 
   registerSettings();
-  loadTemplates();
+  loadPF2ETemplates();
   registerActors();
   registerSheets();
   registerHandlebarsHelpers();
@@ -80,8 +122,8 @@ Hooks.once('init', () => {
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: ActorPF2e = undefined) {
-  game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
+function _updateMinionActors(master: PF2EActor = undefined) {
+  game.actors.entities.filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
     .filter(minion => !master || minion.data.data.master.id === master.data._id)
     .filter(minion => minion.can(game.user, 'owner'))
@@ -153,10 +195,21 @@ Hooks.once("ready", () => {
     }
     migrations.migrateWorld();
   }
+
+  // world clock singleton application
+  if (game.user.isGM) {
+    game[game.system.id].worldclock = new WorldClockApplication();
+  }
+
+  // effect panel singleton application
+  game[game.system.id].effectPanel = new EffectPanel();
+  if (game.user.getFlag(game.system.id, 'showEffectPanel')) {
+      game[game.system.id].effectPanel.render(true);
+  }
 });
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**
@@ -212,31 +265,31 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
       name: 'Apply Damage',
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 1),
+      callback: (li) => PF2EActor.applyDamage(li, 1),
     },
     {
       name: 'Apply Healing',
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApplyHealing,
-      callback: (li) => ActorPF2e.applyDamage(li, -1),
+      callback: (li) => PF2EActor.applyDamage(li, -1),
     },
     {
       name: 'Double Damage',
       icon: '<i class="fas fa-user-injured"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 2),
+      callback: (li) => PF2EActor.applyDamage(li, 2),
     },
     {
       name: 'Half Damage',
       icon: '<i class="fas fa-user-shield"></i>',
       condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+      callback: (li) => PF2EActor.applyDamage(li, 0.5),
     },
     {
       name: 'Set as Initiative',
       icon: '<i class="fas fa-fist-raised"></i>',
       condition: canApplyInitiative,
-      callback: (li) => ActorPF2e.setCombatantInitiative(li),
+      callback: (li) => PF2EActor.setCombatantInitiative(li),
     },
     {
       name: 'PF2E.RerollMenu.HeroPoint',
@@ -294,13 +347,65 @@ Hooks.on('updateActor', (actor, dir) => {
 });
 
 Hooks.on('createOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
+    if (parent instanceof PF2EActor) {
         parent.onCreateOwnedItem(child, options, userId);
+
+        game[game.system.id].effectPanel.refresh();
     }
 });
 
 Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
+    if (parent instanceof PF2EActor) {
         parent.onDeleteOwnedItem(child, options, userId);
+
+        game[game.system.id].effectPanel.refresh();
+    }
+});
+
+Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
+    if (parent instanceof PF2EActor) {
+        game[game.system.id].effectPanel.refresh();
+    }
+});
+
+// effect panel
+Hooks.on('updateUser', (user, diff, options, id) => {
+    game[game.system.id].effectPanel.refresh();
+});
+
+Hooks.on('controlToken', (token, selected) => {
+    game[game.system.id].effectPanel.refresh();
+});
+
+// world clock application
+Hooks.on('getSceneControlButtons', (controls: any[]) => {
+    controls.find(c => c.name === 'token').tools.push({
+        name: "effectpanel",
+        title: "CONTROLS.EffectPanel",
+        icon: "fas fa-star",
+        onClick: toggled => {
+            if (toggled) {
+                game[game.system.id].effectPanel.render(true);
+            } else {
+                game[game.system.id].effectPanel.close();
+            }
+            game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
+        },
+        active: !!game.user.getFlag(game.system.id, 'showEffectPanel'),
+        toggle: true
+    },{
+        name: "worldclock",
+        title: "CONTROLS.WorldClock",
+        icon: "fas fa-clock",
+        visible: game.user.isGM,
+        onClick: () => game[game.system.id]?.worldclock?.render(true),
+        button: true
+    });
+});
+
+Hooks.on('updateWorldTime', (total, diff) => {
+    const worldclock = game[game.system.id]?.worldclock;
+    if (worldclock) {
+        worldclock.render(false);
     }
 });

@@ -4,9 +4,9 @@ import { AddCoinsPopup } from './AddCoinsPopup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
-import PF2EActor, { SKILL_DICTIONARY } from '../actor';
+import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
-import PF2EItem from '../../item/item';
+import { PF2EItem } from '../../item/item';
 import { ConditionData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 
@@ -15,7 +15,7 @@ import { PF2eConditionManager } from '../../conditions';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-abstract class ActorSheetPF2e extends ActorSheet {
+export abstract class ActorSheetPF2e extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -1650,8 +1650,29 @@ abstract class ActorSheetPF2e extends ActorSheet {
   }
 
   _onSellAllTreasure(event) {
-      event.preventDefault();
-      sellAllTreasureSimple(this.actor);
+    event.preventDefault();
+    // Render confirmation modal dialog
+    renderTemplate('systems/pf2e/templates/actors/sell-all-treasure-dialog.html').then((html) => {
+      new Dialog({
+        title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
+        content: html,
+        buttons: {
+          Yes: {
+            icon: '<i class="fa fa-check"></i>',
+            label: 'Yes',
+            callback: async () => {
+              console.log('PF2e | Selling all treasure: ', this.actor);
+              sellAllTreasureSimple(this.actor);
+            },
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: 'Cancel',
+          },
+        },
+        default: 'Yes',
+      }).render(true);
+    });
   }
 
   _onTraitSelector(event) {
@@ -1806,4 +1827,3 @@ abstract class ActorSheetPF2e extends ActorSheet {
   }
 }
 
-export default ActorSheetPF2e;

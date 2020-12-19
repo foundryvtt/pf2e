@@ -14,6 +14,7 @@ import {PF2BaseSpeedRuleElement} from "./elements/base-speed";
 import {PF2SenseRuleElement} from "./elements/sense";
 import {PF2TokenEffectIconRuleElement} from "./elements/token-effect-icon";
 import {PF2StrikeRuleElement} from "./elements/strike";
+import {PF2SetPropertyRuleElement} from "./elements/set-property";
 
 export {PF2RuleElement};
 
@@ -35,6 +36,7 @@ export class PF2RuleElements {
         'PF2E.RuleElement.TokenSize': (ruleData, item) => new PF2TokenSizeRuleElement(ruleData, item),
         'PF2E.RuleElement.BaseSpeed': (ruleData, item) => new PF2BaseSpeedRuleElement(ruleData, item),
         'PF2E.RuleElement.Sense': (ruleData, item) => new PF2SenseRuleElement(ruleData, item),
+        'PF2E.RuleElement.SetProperty': (ruleData, item) => new PF2SetPropertyRuleElement(ruleData, item),
         'PF2E.RuleElement.Strike': (ruleData, item) => new PF2StrikeRuleElement(ruleData, item),
     });
 

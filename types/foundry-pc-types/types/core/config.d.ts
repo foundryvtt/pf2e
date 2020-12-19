@@ -14,7 +14,7 @@ declare const CONFIG: {
 	 * Configuration for the default Actor entity class
 	 */
 	Actor: {
-		entityClass: typeof Actor,
+		entityClass: any,
 		collection: Actors,
 		sheetClasses: typeof ActorSheet
 	},
@@ -23,7 +23,7 @@ declare const CONFIG: {
 	 * Configuration for the default Item entity class
 	 */
 	Item: {
-		entityClass: typeof Item,
+		entityClass: any,
 		collection: Items,
 		sheetClasses: typeof ItemSheet
 	},

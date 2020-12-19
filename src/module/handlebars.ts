@@ -1,5 +1,5 @@
 /* global Handlebars TextEditor */
-export default function registerHandlebarsHelpers() {
+export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
     });

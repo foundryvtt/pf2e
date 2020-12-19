@@ -1,0 +1,24 @@
+<section>
+  <h1>{{datetime}}</h1>
+  <div class="input-grid">
+    <button data-advance-time="6">{{localize 'PF2E.WorldClock.Button.AddOneRound'}}</button>
+    <button data-advance-time="60">{{localize 'PF2E.WorldClock.Button.AddOneMinute'}}</button>
+    <button data-advance-time="600">{{localize 'PF2E.WorldClock.Button.AddTenMinutes'}}</button>
+    <button data-advance-time="3600">{{localize 'PF2E.WorldClock.Button.AddOneHour'}}</button>
+    <button data-advance-time="86400">{{localize 'PF2E.WorldClock.Button.AddOneDay'}}</button>
+    <button data-advance-time="604800">{{localize 'PF2E.WorldClock.Button.AddOneWeek'}}</button>
+  </div>
+  <hr>
+  <div class="input-grid">
+    <input id="diff-value" type="number" placeholder="{{localize 'PF2E.WorldClock.Placeholder'}}">
+    <select id="diff-unit">
+      <option value="1">{{localize 'PF2E.WorldClock.Unit.Seconds'}}</option>
+      <option value="6">{{localize 'PF2E.WorldClock.Unit.Rounds'}}</option>
+      <option value="60">{{localize 'PF2E.WorldClock.Unit.Minutes'}}</option>
+      <option value="3600">{{localize 'PF2E.WorldClock.Unit.Hours'}}</option>
+      <option value="86400">{{localize 'PF2E.WorldClock.Unit.Days'}}</option>
+      <option value="604800">{{localize 'PF2E.WorldClock.Unit.Weeks'}}</option>
+    </select>
+    <button id="advance">{{localize 'PF2E.WorldClock.Button.Advance'}}</button>
+  </div>
+</section>

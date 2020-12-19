@@ -96,7 +96,8 @@ function extractPriceFromItem(item: ItemPlaceholder) : Coins {
     const regex = /^(\d+)(?:\s*)(pp|gp|sp|cp)$/;
     if (regex.test(priceTag)) {
         const [, value, denomination] = priceTag.match(regex);
-        return toCoins(denomination, parseInt(value, 10));
+        const quantity = parseInt(item.data?.quantity?.value ?? '0', 10);
+        return toCoins(denomination, parseInt(value, 10) * quantity);
     } else {
         return toCoins("gp", 0)
     }

@@ -138,9 +138,18 @@ export class PF2eStatusEffects {
               config: true,
               default: true,
               type: Boolean,
-              onChange: () => {
-                  window.location.reload(false);
-              }
+            });
+            game.settings.register(game.system.id, 'showConditionChatBubbles', {
+                name: 'Show Condition Chat Bubbles',
+                hint: 'When enabled, a token will speak out any changes to conditions applied from the token HUD' +
+                    ' condition panel.',
+                scope: 'world',
+                config: true,
+                default: true,
+                type: Boolean,
+                onChange: () => {
+                    window.location.reload(false);
+                }
             });
         }
         /** Create hooks onto FoundryVTT */
@@ -509,7 +518,7 @@ export class PF2eStatusEffects {
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.data.description.value}</div>
                     </span>
                 </li>`;
-            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary  }.<br>`;
+            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary}<br>`;
         }
 
         if (statusEffectList === '') {
@@ -536,7 +545,7 @@ export class PF2eStatusEffects {
         if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients("GM");
         ChatMessage.create(chatData);
 
-        if (!token.data.hidden) {
+        if (!token.data.hidden && game.settings.get(game.system.id, 'showConditionChatBubbles')) {
             bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
             canvas.hud.bubbles.say(token, bubbleContent, {
                 emote: true
@@ -592,15 +601,14 @@ export class PF2eStatusEffects {
      * Helper to change condition summary info from YOU to I
      */
     static _changeYouToI(content) {
-        content = content.replace(/you’re/g,"I’m");
-        content = content.replace(/You’re/g,"I’m");
-        // content = content.replace(/’re/g,"’m");
+        content = content.replace(/you're/g,"I'm");
+        content = content.replace(/You're/g,"I'm");
         content = content.replace(/Your/g,"My");
         content = content.replace(/your/g,"my");
         content = content.replace(/You are/g,"I am");
         content = content.replace(/you are/g,"I am");
-        content = content.replace(/You can’t/g,"I can’t");
-        content = content.replace(/you can’t/g,"I can’t");
+        content = content.replace(/You can't/g,"I can't");
+        content = content.replace(/you can't/g,"I can't");
         content = content.replace(/You can/g,"I can");
         content = content.replace(/you can/g,"I can");
         content = content.replace(/You have/g,"I have");

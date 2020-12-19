@@ -5,15 +5,15 @@
  */
 
 // import { monsterAbilities } from './monsterAbilities';
-import ActorSheetPF2eNPC from './npc';
+import { ActorSheetPF2eNPC } from './npc';
 import { DicePF2e } from '../../../scripts/dice'
 import {PF2Modifier, PF2ModifierType} from "../../modifiers";
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Other
  */
-class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
+export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
     const path = 'systems/pf2e/templates/actors/';
 
@@ -570,4 +570,3 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   }
 }
 
-export default UpdatedNPCActorPF2ESheet;
