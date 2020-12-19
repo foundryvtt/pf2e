@@ -4,6 +4,9 @@
 
 export function loadPF2ETemplates() {
     const templatePaths = [
+        // effect panel
+        'systems/pf2e/templates/system/effect-panel.html',
+
         // world clock
         'systems/pf2e/templates/system/world-clock.html',
 
