@@ -1,15 +1,14 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
-	<div class="contentcontainer">
+	<div class="container">
   
-    <div class="npc-title-bar">
+    <header class="title-bar">
       <h1 class='name'>{{actor.name}}</h1>
         <h1 class="editHazardButton">
-          <div style="font-size: 10px; font-weight: normal; margin-right: 150px; text-align: center;">
-            <label>{{localize "PF2E.EditHazardLabel"}}</label><input class="isHazardEditable" name="flags.pf2e.editHazard.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editHazard.value}}/>
-          </div>
+            <label>{{localize "PF2E.EditHazardLabel"}}</label>
+            <input class="isHazardEditable" name="flags.pf2e.editHazard.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editHazard.value}}/>
         </h1>
       <h1 class='level'>Hazard {{data.details.level}}</h1>
-    </div>
+    </header>
     
     <div class="top-section">
     
@@ -35,11 +34,10 @@
         {{#if data.details.isComplex}}
         <div class="stats-line rich-description">
           <span class="inline-stats rollable" data-attribute="stealth">
-            <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}}</label>
-            <span class="stat-value attribute-name">+{{data.attributes.stealth.value}}</span>
+            <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}} <span class="stat-value attribute-name">+{{data.attributes.stealth.value}}</span></label>
           </span>
           {{#if hasStealthDescription}}
-            <div>{{{enrichHTML data.attributes.stealth.details}}}</div>
+            <p>{{{enrichHTML data.attributes.stealth.details}}}</p>
           {{/if}}
         </div>
         {{else}}
@@ -59,7 +57,7 @@
           <span class="inline-stats">
               <label class="stat-title">{{localize "PF2E.HazardDescriptionLabel"}}</label>
           </span>
-          <div>{{{enrichHTML data.details.description}}}</div>
+          <p>{{{enrichHTML data.details.description}}}</p>
         </div>
         {{/if}}
 
@@ -73,7 +71,7 @@
       <span class="inline-stats">
           <label class="stat-title">{{localize "PF2E.HazardDisableLabel"}}</label>
       </span>
-      <div>{{{enrichHTML data.details.disable}}}</div>
+      <p>{{{enrichHTML data.details.disable}}}</p>
     </div>
     {{/if}}
 
@@ -263,15 +261,13 @@
         {{/each}}
       {{/each}}
     </ol>
-
-    <hr>
     
     {{#if hasRoutineDetails}}
     <div class="stats-line rich-description">
       <span class="inline-stats" title="{{localize 'PF2E.HazardRoutineTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardRoutineLabel"}}</label>
       </span>
-      <div>{{{enrichHTML data.details.routine}}}</div>
+      <p>{{{enrichHTML data.details.routine}}}</p>
     </div>
 
     <hr>
@@ -282,7 +278,7 @@
       <span class="inline-stats" title="{{localize 'PF2E.HazardResetTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardResetLabel"}}</label>
       </span>
-      <div>{{{enrichHTML data.details.reset}}}</div>
+      <p>{{{enrichHTML data.details.reset}}}</p>
     </div>
     {{/if}}
 
