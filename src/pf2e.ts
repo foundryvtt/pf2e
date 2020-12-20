@@ -373,6 +373,10 @@ Hooks.on('updateUser', (user, diff, options, id) => {
     game[game.system.id].effectPanel.refresh();
 });
 
+Hooks.on('updateToken', (scene, token, data, diff, id) => {
+    game[game.system.id].effectPanel.refresh();
+});
+
 Hooks.on('controlToken', (token, selected) => {
     game[game.system.id].effectPanel.refresh();
 });
