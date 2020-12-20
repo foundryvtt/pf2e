@@ -33,14 +33,14 @@
         </div>
       
         {{#if data.details.isComplex}}
-        <div class="stats-line">
+        <div class="stats-line rich-description">
           <span class="inline-stats rollable" data-attribute="stealth">
             <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}}</label>
             <span class="stat-value attribute-name">+{{data.attributes.stealth.value}}</span>
-            {{#if hasStealthDescription}}
-              <span class="stat-detail stealth attribute-name">{{{data.attributes.stealth.details}}}</span>
-            {{/if}}
           </span>
+          {{#if hasStealthDescription}}
+            <div>{{{enrichHTML data.attributes.stealth.details}}}</div>
+          {{/if}}
         </div>
         {{else}}
         <div class="stats-line">
@@ -55,11 +55,11 @@
         {{/if}}
             
         {{#if hasDescription}}
-        <div class="stats-line">
+        <div class="stats-line rich-description">
           <span class="inline-stats">
               <label class="stat-title">{{localize "PF2E.HazardDescriptionLabel"}}</label>
-              <span class="stat-value">{{{data.details.description}}}</span>
           </span>
+          <div>{{{enrichHTML data.details.description}}}</div>
         </div>
         {{/if}}
 
@@ -69,11 +69,11 @@
     <hr>
     
     {{#if hasDisable}}
-    <div class="stats-line">
+    <div class="stats-line rich-description">
       <span class="inline-stats">
           <label class="stat-title">{{localize "PF2E.HazardDisableLabel"}}</label>
-          <span class="stat-value">{{{data.details.disable}}}</span>
       </span>
+      <div>{{{enrichHTML data.details.disable}}}</div>
     </div>
     {{/if}}
 
@@ -267,22 +267,22 @@
     <hr>
     
     {{#if hasRoutineDetails}}
-    <div class="stats-line">
+    <div class="stats-line rich-description">
       <span class="inline-stats" title="{{localize 'PF2E.HazardRoutineTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardRoutineLabel"}}</label>
-          <span class="stat-value">{{{data.details.routine}}}</span>
       </span>
+      <div>{{{enrichHTML data.details.routine}}}</div>
     </div>
 
     <hr>
     {{/if}}
     
     {{#if hasResetDetails}}
-    <div class="stats-line">
+    <div class="stats-line rich-description">
       <span class="inline-stats" title="{{localize 'PF2E.HazardResetTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardResetLabel"}}</label>
-          <span class="stat-value">{{{data.details.reset}}}</span>
       </span>
+      <div>{{{enrichHTML data.details.reset}}}</div>
     </div>
     {{/if}}
 
