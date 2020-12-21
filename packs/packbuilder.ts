@@ -2,7 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 interface SerializableData {
-  [key: string]: { } | null;
+  [key: string]: { } | null | undefined;
 }
 
 interface PackEntityData extends SerializableData {
@@ -16,9 +16,8 @@ interface PackEntityData extends SerializableData {
   items?: { img: string }[];
 }
 
-const throwPackError = (message: string) => {
+const PackError = (message: string) => {
   console.error(`Error: ${message}`);
-  process.exit(1);
 };
 
 class Compendium {
@@ -32,21 +31,29 @@ class Compendium {
     fs.readFileSync("system.json", "utf-8")
   ).packs as { name: string, path: string }[];
   static _worldItemLinkPattern = new RegExp(
-    /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[[^\]]+\]/
+    /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
   );
 
   constructor(packDir: string, parsedData: unknown[]) {
     if (this._isPackData(parsedData)) {
       this.packDir = packDir;
-      this.name = Compendium._systemPackData.find(
+      const compendium = Compendium._systemPackData.find(
         (pack) => path.basename(pack.path) === path.basename(packDir)
-      ).name;
+      );
+      if (compendium === undefined) {
+        throw PackError(`Compendium at ${packDir} has no name set.`);
+      }
+      this.name = compendium.name;
+
       Compendium._namesToIds.set(this.name, new Map());
       const packMap = Compendium._namesToIds.get(this.name);
+      if (packMap === undefined) {
+        throw PackError(`Compendium ${this.name} (${packDir}) was not found.`);
+      }
 
       parsedData.sort((a, b) => {
         if (a._id === b._id) {
-          throwPackError(`_id collision in ${this.name}: ${a._id}`);
+          throw PackError(`_id collision in ${this.name}: ${a._id}`);
         }
         return a._id > b._id ? 1 : -1;
       });
@@ -60,28 +67,28 @@ class Compendium {
         // Check img paths
         if (typeof entityData.img === "string") {
           const imgPaths = [entityData.img ?? ""].concat(
-            entityData.hasOwnProperty("items") ?
+            Array.isArray(entityData.items) ?
               entityData.items.map((itemData) => itemData.img ?? "") : []
           );
           const entityName = entityData.name;
           for (const imgPath of imgPaths) {
             if (imgPath.startsWith("data:image")) {
-              throwPackError(`${entityName} (${this.name}) has base64-encoded image data: `
-                             + `${imgPath.slice(0, 64)}...`);
+              throw PackError(`${entityName} (${this.name}) has base64-encoded image data: `
+                              + `${imgPath.slice(0, 64)}...`);
             }
 
             const repoImgPath = path.resolve(
               process.cwd(), "static", decodeURIComponent(imgPath).replace("systems/pf2e/", "")
             );
             if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
-              throwPackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
+              throw PackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
             }
           }
         }
       }
 
     } else {
-      throwPackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
+      throw PackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
     }
   }
 
@@ -90,19 +97,20 @@ class Compendium {
     const stringified = JSON.stringify(entityData);
     const worldItemLink = Compendium._worldItemLinkPattern.exec(stringified);
     if (worldItemLink !== null) {
-      throwPackError(`${entityData.name} (${this.name}) has a link to a world item: `
-                  + `${worldItemLink[0]}`);
+      throw PackError(`${entityData.name} (${this.name}) has a link to a world item: `
+                      + `${worldItemLink[0]}`);
     }
 
     return JSON.stringify(entityData).replace(
       /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
       (match, packName: string, entityName: string) => {
         const namesToIds = Compendium._namesToIds.get(packName);
+        const link = match.replace(/\{$/, "");
         if (namesToIds === undefined) {
-          throwPackError(`${entityData.name} (${this.name}) has bad pack reference: ${match}`);
+          throw PackError(`${entityData.name} (${this.name}) has a bad pack reference: ${link}`);
         }
         if (!match.endsWith("{")) {
-          throwPackError(`${entityData.name} (${this.name}) has a link with no label: ${match}`);
+          throw PackError(`${entityData.name} (${this.name}) has a link with no label: ${link}`);
         }
 
         const entityId: string | undefined = namesToIds.get(entityName);
@@ -141,7 +149,7 @@ class Compendium {
     ).filter((key) => key !== null);
 
     if (failedChecks.length > 0) {
-      throwPackError(
+      throw PackError(
         `${entityData.name} (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
       );
     }
@@ -170,7 +178,7 @@ export function buildPacks(): void {
       try {
         return JSON.parse(jsonString) as unknown;
       } catch (error) {
-        throwPackError(`File ${filePath} could not be parsed: ${error.message}`);
+        throw PackError(`File ${filePath} could not be parsed: ${error.message}`);
       }
     });
 
@@ -185,7 +193,7 @@ export function buildPacks(): void {
   if (entityCounts.length > 0) {
     console.log(`Created ${entityCounts.length} packs with ${total} entities.`);
   } else {
-    throwPackError("No data available to build packs.");
+    throw PackError("No data available to build packs.");
   }
 }
 
