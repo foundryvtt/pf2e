@@ -80,25 +80,27 @@ export class PF2WeaponDamage {
                     digits += part;
                 }
             }
-            if (!die) {
+            if (dice && !die) {
                 die = `d${digits}`;
             } else if (operator === '-') {
                 modifier -= Number(digits);
-            } else if (operator === '+') {
+            } else {
                 modifier += Number(digits);
             }
 
             if (parsedBaseDamage) {
                 // amend damage dice with any extra dice
-                const dd = damageDice.damage ?? [];
-                dd.push({
-                    selector: 'damage',
-                    name: 'Base',
-                    diceNumber: dice,
-                    dieSize: die,
-                    damageType: dmg.damageType
-                });
-                damageDice.damage = dd;
+                if (dice && die) {
+                    const dd = damageDice.damage ?? [];
+                    dd.push({
+                        selector: 'damage',
+                        name: 'Base',
+                        diceNumber: dice,
+                        dieSize: die,
+                        damageType: dmg.damageType
+                    });
+                    damageDice.damage = dd;
+                }
                 // amend numeric modifiers with any flat modifier
                 if (modifier) {
                     const modifiers = statisticsModifiers.damage ?? [];
