@@ -89,6 +89,8 @@ export class DamageRollModifiersDialog extends Application {
         traits: damage.traits ?? [],
         types: {},
         total: 0,
+        diceResults: {},
+        baseDamageDice: damage.effectDice,
     };
     const dsnData: any = {throws: [{dice:[]}]};
     let content = `
@@ -99,12 +101,14 @@ export class DamageRollModifiersDialog extends Application {
     for (const [damageType, categories] of Object.entries(formula.partials)) {
         content += `<div class="damage-type ${damageType}">`;
         content += `<h3 class="flexrow"><span>${damageType}</span><i class="fa fa-${DamageRollModifiersDialog.getDamageTypeIcon(damageType)}"></i></h3>`;
+        rollData.diceResults[damageType] = {};
         for (const [damageCategory, partial] of Object.entries(categories)) {
             const roll: any = new Roll(partial as string, formula.data).roll();
             const damageValue = rollData.types[damageType] ?? {};
             damageValue[damageCategory] = roll.total;
             rollData.types[damageType] = damageValue;
             rollData.total += roll.total;
+            rollData.diceResults[damageType][damageCategory] = [];
             const dice = roll.dice.flatMap(d => d.results.map(r => {
                   dsnData.throws[0].dice.push({
                       result: r.result,
@@ -113,6 +117,7 @@ export class DamageRollModifiersDialog extends Application {
                       vectors:[],
                       options:{}
                   });
+                  rollData.diceResults[damageType][damageCategory].push(r.result);
                   return `<li class="roll die d${d.faces}">${r.result}</li>`;
                 })).join('\n');
             content += `
