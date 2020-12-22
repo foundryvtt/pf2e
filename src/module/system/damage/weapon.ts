@@ -89,7 +89,7 @@ export class PF2WeaponDamage {
             }
 
             if (parsedBaseDamage) {
-                // amend damage dice with all the extra damage
+                // amend damage dice with any extra dice
                 const dd = damageDice.damage ?? [];
                 dd.push({
                     selector: 'damage',
@@ -99,6 +99,14 @@ export class PF2WeaponDamage {
                     damageType: dmg.damageType
                 });
                 damageDice.damage = dd;
+                // amend numeric modifiers with any flat modifier
+                if (modifier) {
+                    const modifiers = statisticsModifiers.damage ?? [];
+                    const dm = new PF2Modifier('Base', modifier, 'untyped');
+                    dm.damageType = dmg.damageType;
+                    modifiers.push(dm);
+                    statisticsModifiers.damage = modifiers;
+                }
             } else {
                 weapon.data.damage.dice = dice;
                 weapon.data.damage.die = die;
