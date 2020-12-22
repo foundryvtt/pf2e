@@ -58,7 +58,7 @@ export class ItemSheetPF2e extends ItemSheet {
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
-    const stackGroup = (<any>this.item).data?.data?.stackGroup?.value;
+    const stackGroup = data?.stackGroup?.value;
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
     data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
     data.usage = CONFIG.PF2E.usageTraits; // usage data
@@ -88,7 +88,7 @@ export class ItemSheetPF2e extends ItemSheet {
       });
 
       this._prepareTraits(data.data.traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
-    } else if (this.item.type === 'weapon') {
+    } else if (type === 'weapon') {
       // get a list of all custom martial skills
       const martialSkills = [];
 
@@ -102,7 +102,7 @@ export class ItemSheetPF2e extends ItemSheet {
 
       const weaponPreciousMaterials = {...CONFIG.PF2E.preciousMaterials};
       delete weaponPreciousMaterials.dragonhide;
-      const slots = getPropertySlots(this.item.data);
+      const slots = getPropertySlots(data);
       this.assignPropertySlots(data, slots);
       data.preciousMaterials = weaponPreciousMaterials;
       data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
@@ -122,10 +122,10 @@ export class ItemSheetPF2e extends ItemSheet {
       data.weaponReload = CONFIG.PF2E.weaponReload;
       data.weaponMAP = CONFIG.PF2E.weaponMAP;
       data.bulkTypes = CONFIG.PF2E.bulkTypes;
-      data.isBomb = this.item.data.type === 'weapon' && this.item.data.data?.group?.value === 'bomb';
+      data.isBomb = type === 'weapon' && data?.group?.value === 'bomb';
 
       this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
-    } else if (this.item.type === 'melee') {
+    } else if (type === 'melee') {
       // Melee Data
       const actions = {};
 
@@ -200,7 +200,7 @@ export class ItemSheetPF2e extends ItemSheet {
       this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
     } else if (type === 'armor') {
       // Armor data
-      const slots = getPropertySlots(this.item.data);
+      const slots = getPropertySlots(data);
       this.assignPropertySlots(data, slots);
       data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
       data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
