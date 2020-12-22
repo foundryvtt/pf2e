@@ -1,223 +1,303 @@
-var path = require('path');
-var fs = require('fs-extra');
-var Datastore = require('nedb');
+const path = require("path");
+const fs = require("fs");
+const Datastore = require("nedb-promises");
+const yargs = require("yargs");
 
-const config = getFoundryConfig();
-const foundryPacksPath = path.resolve(config.dataPath, 'Data/systems/pf2e/packs');
+const PackError = (message) => `Error: ${message}`;
 
-const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
-const dataPath = path.resolve(process.cwd(), 'packs/data');
+// include commander in git clone of commander repo
 
-if (!fs.existsSync(foundryPacksPath)) {
-   throw "Error: Foundry directory not found! Check your foundryconfig.json.";
-}
-if (fs.existsSync(tempDataPath)) {
-    console.log('Cleaning up old temp data...');
-    fs.rmdirSync(tempDataPath, {recursive: true});
-}
-fs.mkdir(tempDataPath);
+const args = yargs(process.argv.slice(2))
+      .command(
+        "$0 <packDb> <foundryConfig>",
+        "Extract one or all compendium packs to packs/data",
+        () => {
+          yargs
+            .positional("packDb", {
+              describe: 'A compendium pack filename (*.db) or otherwise "all"',
+            })
+            .positional("foundryConfig", {
+              describe: "The path to your local Foundry server's config.json file"
+            })
+            .example([
+              ["npm run $0 spells.db /path/to/foundryvtt/Config/options.json"],
+              ["npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json"],
+              ["npm run $0 all /path/to/foundryvtt/Config/options.json"]
+            ]);
+        })
+      // .strict()
+      .help(false)
+      .version(false)
+      .parse();
 
-if (!fs.existsSync(dataPath)) {
-    fs.mkdir(dataPath);
-}
 
-const args = process.argv.slice(2);
+const config = (() => {
+  try {
+    const content = fs.readFileSync(args.foundryConfig, {encoding: "utf-8"});
+    return JSON.parse(content);
+  } catch (_error) {
+    throw PackError(`No Foundry config file found at ${args.foundryConfig}`);
+  }
+})();
 
-if (args.length > 0) {
-    const arg = args[0].trim().replace("'", '');
-    if (arg === 'all') {
-        // Extract all Packs
-        extractAllPacks().catch(err => console.error(err));
-    } else if (arg.endsWith('.db')) {
-        // Extract single pack
-        const file = path.resolve(foundryPacksPath, arg);
-        if (fs.existsSync(file)) {
-            extractPack(file, arg).then(() => {
-                console.log('Moving extracted files from temp directory to data directory...');
-                try {
-                    const outPath = path.resolve(dataPath, arg);
-                    if (fs.existsSync(outPath)) {
-                        // Remove the old ./packs/data/[packname].db/ directory recursively
-                        fs.rmdirSync(outPath, { recursive: true });
-                    }
-                    // Create a new ./packs/data/[packname].db/ directory
-                    fs.mkdirSync(outPath);
-                    // Move files from ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
-                    const tempFiles = fs.readdirSync(path.resolve(tempDataPath, arg));
-                    for (const file of tempFiles) {
-                        fs.renameSync(path.resolve(tempDataPath, arg, file), path.resolve(outPath, file));
-                    }
-                    // Remove ./packs/temp-data/ directory recursively
-                    fs.rmdirSync(tempDataPath, {recursive: true});
-                } catch (e) {
-                    console.error(e.message);
-                }
-                console.log('Extraction complete.');
-            }).catch(err => console.error(err));
-        } else {
-            console.error(`File not found: '${file}'`);
-        }
-    } else {
-        // Wrong args
-        console.log(`The first argument must be a specific pack file name e.g. 'spells.db' or 'all'.`);
-    }
-} else {
-    // No args
-    console.log(`Please supply a specific pack file name e.g. 'spells.db', or 'all' to extract all packs.`);
-}
+const packsPath = path.resolve(config.dataPath, "Data/systems/pf2e/packs");
+const tempDataPath = path.resolve(process.cwd(), "packs/temp-data");
+const dataPath = path.resolve(process.cwd(), "packs/data");
 
-async function extractAllPacks() {
-    const foundryPacks = await fs.readdir(foundryPacksPath);
-    const startTime = process.hrtime();
-    let packCount = 0;
-    let entitiyCount = 0;
-    for (const pack of foundryPacks) {
-        if (!pack.endsWith('.db')) continue;
-        packCount += 1;
-        const filePath = path.resolve(foundryPacksPath, pack);
-        try {
-            entitiyCount += await extractPack(filePath, pack)
-        } catch (e) {
-            throw e;
-        }
-    }
-    const endTime = process.hrtime(startTime);
-    console.log(`Extraction of ${entitiyCount} entities from ${packCount} packs succeeded in ${endTime[0]} seconds.`);
-    console.log('Moving extracted files from temp directory to data directory...');
-    try {
-        // Remove old ./packs/data/ directory recursively
-        await fs.rmdir(dataPath, { recursive: true });
-        // Rename ./packs/data-temp/ to ./packs/data/
-        fs.rename(tempDataPath, dataPath);
-    } catch (e) {
-        throw e.message;
-    }
-    console.log('Extraction complete.');
-}
+const idsToNames = new Map();
 
-async function extractPack(filePath, packName) {
-    console.log(`Extracting pack: ${packName}`)
-    const outPath = path.resolve(tempDataPath, packName);
+const linkPatterns = {
+  world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
+  compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
+  components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/
+};
 
-    if (!fs.existsSync(outPath)) {
-        fs.mkdir(outPath);
-    }
+function entityIdChanged(newEntity, packDir, fileName) {
+  const oldFile = path.resolve(dataPath, packDir, fileName);
+  if (fs.existsSync(oldFile)) {
+    const oldEntity = JSON.parse(fs.readFileSync(oldFile));
 
-    const packEntities = await getAllData(filePath).then((result) => {
-        return result;
-    }, (err) => {
-        throw(err);
-    });
-
-    let outData;
-    let count = 0;
-    for (const entity of packEntities) {
-        count += 1;
-
-        // Remove or replace unwanted values from the entitiy
-        sanitizeEntity(entity);
-
-        // Pretty print json data
-        outData = JSONstringifyOrder(entity, 4);
-        // Add new line to end of data
-        outData += '\n';
-
-        let entityName = entity.name || entity._id;
-        // Remove all non-alphanumeric characters from the name
-        entityName = entityName
-          .toLowerCase()
-          .replace(/[^a-z0-9]/gi, ' ')
-          .trim()
-          .replace(/\s/gi, '-')
-          .replace('--', '-');
-
-        const outFileName = `${entityName}.json`;
-        const outFile = path.resolve(outPath, outFileName);
-
-        if (fs.existsSync(outFile)) {
-            throw `Error: Duplicate name '${entity.name}' in pack: ${packName}`;
-        }
-
-        if (entitiyIdChanged(entity, packName, outFileName)) {
-            throw `Error: The id '${entity._id}' of entity '${entity.name}' does not match the current id. Entities that are already in the system must keep their current id.`
-        }
-
-        try {
-            // Write the json file
-            fs.writeFile(outFile, outData);
-        } catch (e) {
-            throw `Writing file '${outFile}' failed with error: ${e.message}`;
-        }
-    }
-    console.log(`Finished extracting ${count} entities from pack: ${packName}`);
-    return count;
-}
-
-function entitiyIdChanged(newEntity, packName, fileName) {
-    const oldFile = path.resolve(dataPath, packName, fileName);
-    if (fs.existsSync(oldFile)) {
-        const oldEntity = JSON.parse(fs.readFileSync(oldFile));
-        return !(oldEntity._id === newEntity._id);
-    } else {
-        return false;
-    }
+    return !(oldEntity._id === newEntity._id);
+  } else {
+    return false;
+  }
 }
 
 function sanitizeEntity(entity) {
-    // Remove individual permissions
-    entity.permission = {
-        default: 0
-    };
+  // Remove individual permissions
+  entity.permission = {
+    default: 0
+  };
 
-    // Delete folder value
-    delete entity.folder;
+  // Delete folder value
+  delete entity.folder;
 
-    // Delete sort value
-    delete entity.sort;
+  // Delete sort value
+  delete entity.sort;
 
-    // Delete unneeded flags
-    delete entity.flags._sheetTab;
+  // Delete unneeded flags
+  delete entity.flags._sheetTab;
+
+  return entity;
 }
 
-function JSONstringifyOrder(obj, space)
-{
-    const allKeys = [];
-    JSON.stringify(obj, (key, value) => { allKeys.push(key); return value; });
-    allKeys.sort();
-    return JSON.stringify(obj, allKeys, space);
+const newEntityIdMap = { };
+
+function convertLinks(entityData, packName) {
+  newEntityIdMap[entityData._id] = entityData.name;
+  const entityJson = JSON.stringify(sanitizeEntity(entityData));
+
+  // Link checks
+
+  const worldItemLinks = Array.from(entityJson.matchAll(linkPatterns.world));
+  if (worldItemLinks.length > 0) {
+    const linkString = worldItemLinks.map((match) => match[0]).join(", ");
+    throw PackError(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
+  }
+
+  const compendiumLinks = Array.from(
+    entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
+  const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith("{"));
+
+  if (linksLackingLabels.length > 0) {
+    const linkString = linksLackingLabels.map((match) => match[0]).join(", ");
+    throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
+  }
+
+  // Convert links by ID to links by name
+
+  const notFound = [ ];
+  const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
+    const [match, packId, entityId] = linkById.match(linkPatterns.components);
+
+    const packMap = idsToNames.get(packId);
+    if (packMap === undefined) {
+      throw PackError(`Pack ${packId} has no ID-to-name map.`);
+    }
+
+    const entityName = packMap.get(entityId);
+    if (entityName === undefined) {
+      const newName = newEntityIdMap[entityId];
+      if (newName === undefined) {
+        notFound.push(match.replace(/\{$/, ""));
+      } else {
+        partiallyConverted.replace(entityId, newName);
+      }
+    }
+
+    const replacePattern = new RegExp(`(?<!"_id":")${entityId}`);
+    return partiallyConverted.replace(replacePattern, entityName);
+  }, entityJson);
+
+  // In case some new items with links to other new items weren't found
+  if (notFound.length > 0) {
+    const idsNotFound = notFound.join(", ");
+    console.debug(`Warning: Unable to find names for the following links in ${entityData.name} `
+                  + `(${packName}): ${idsNotFound}`);
+  }
+
+  return JSON.parse(convertedJson);
 }
+
 
 async function getAllData(filename) {
-    const packDB = new Datastore({
-        filename,
-        corruptAlertThreshold: 10
-    });
+  const packDB = Datastore.create({ filename, corruptAlertThreshold: 10 });
+  await packDB.load();
 
-    packDB.loadDatabase((err) => {
-        if (err) {
-            throw err;
-        }
-    });
-
-    const data = new Promise((resolve, reject) => {
-        packDB.find({ }, function (err, docs) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(docs);
-            }
-        });
-    });
-
-    return data;
+  return packDB.find({ });
 }
 
-function getFoundryConfig() {
-    const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
-    let config;
+async function extractPack(filePath, packFilename) {
+  console.log(`Extracting pack: ${packFilename}`);
+  const outPath = path.resolve(tempDataPath, packFilename);
 
-    if (fs.existsSync(configPath)) {
-        config = fs.readJSONSync(configPath);
-        return config;
+  const packEntities = await getAllData(filePath);
+
+  const count = await packEntities.reduce(async (runningCount, entityData) => {
+    // Remove or replace unwanted values from the entity
+    const preparedEntity = convertLinks(entityData, packFilename);
+
+    // Pretty print JSON data
+    const outData = (() => {
+      const allKeys = [ ];
+      JSON.stringify(preparedEntity, (key, value) => {
+        allKeys.push(key);
+        return value;
+      });
+      allKeys.sort();
+
+      const newJson = JSON.stringify(preparedEntity, allKeys, 4);
+      return `${newJson}\n`;
+    })();
+
+    // Remove all non-alphanumeric characters from the name
+    const entityName = entityData.name
+          .toLowerCase()
+          .replace(/[^a-z0-9]/gi, " ")
+          .trim()
+          .replace(/\s/gi, "-")
+          .replace("--", "-");
+
+    const outFileName = `${entityName}.json`;
+    const outFilePath = path.resolve(outPath, outFileName);
+
+    if (fs.existsSync(outFilePath)) {
+      throw PackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
     }
+
+    if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
+      throw PackError(`The ID "${entityData._id}" of entity "${entityData.name}" does not match `
+                      + "the current ID. Entities that are already in the system must keep their "
+                      + "current ID.");
+    }
+
+    // Write the JSON file
+    await fs.promises.writeFile(outFilePath, outData, "utf-8");
+
+    return (await runningCount) + 1;
+  }, 0);
+
+  return count;
 }
+
+function populateIdNameMap() {
+  const systemPackData = JSON.parse(
+    fs.readFileSync(path.resolve(process.cwd(), "system.json"), "utf-8")
+  ).packs;
+  const packDirs = fs.readdirSync(dataPath);
+
+  for (const packDir of packDirs) {
+    const systemPack = systemPackData.find(
+      (pack) => path.basename(pack.path) === packDir
+    );
+    if (systemPack === undefined) {
+      throw PackError(`Compendium at ${packDir} has no name in the local system.json file.`);
+    }
+
+    const packMap = new Map();
+    idsToNames.set(systemPack.name, packMap);
+
+    const filenames = fs.readdirSync(path.resolve(dataPath, packDir));
+    const filePaths = filenames.map((filename) => path.resolve(dataPath, packDir, filename));
+
+    for (const filePath of filePaths) {
+      const jsonString = fs.readFileSync(filePath, "utf-8");
+      const entityData = (() => {
+        try {
+          return JSON.parse(jsonString);
+        } catch (error) {
+          throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+        }
+      })();
+      packMap.set(entityData._id, entityData.name);
+    }
+  }
+}
+
+// Extract one or all packs
+async function extractPacks() {
+  if (!fs.existsSync(dataPath)) {
+    await fs.promises.mkdir(dataPath);
+  }
+  if (!fs.existsSync(packsPath)) {
+    throw Error("Foundry directory not found! Check your foundryconfig.json.");
+  }
+
+  console.log("Cleaning up old temp data...");
+  await fs.promises.rmdir(tempDataPath, { recursive: true });
+  await fs.promises.mkdir(tempDataPath);
+
+  populateIdNameMap();
+
+
+  const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
+        .filter((filename) => filename.endsWith(".db"))
+        .map((filename) => path.resolve(packsPath, filename));
+
+  return foundryPacks.map(async (filePath) => {
+    const filename = path.basename(filePath);
+
+    if (!filename.endsWith(".db")) {
+      throw PackError(`Pack file is not a DB file: '${filename}'`);
+    }
+    if (!fs.existsSync(filePath)) {
+      throw PackError(`File not found: '${filename}'`);
+    }
+
+    const outDirPath = path.resolve(dataPath, filename);
+    const tempOutDirPath = path.resolve(tempDataPath, filename);
+
+    await fs.promises.mkdir(tempOutDirPath);
+
+    const entityCount = await extractPack(filePath, filename);
+
+    if (fs.existsSync(outDirPath)) {
+      // Remove the old ./packs/data/[packname].db/ directory recursively
+      await fs.promises.rmdir(outDirPath, { recursive: true });
+    }
+    // Create a new ./packs/data/[packname].db/ directory
+    await fs.promises.mkdir(outDirPath);
+
+    // Move files from ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
+    const tempFiles = await fs.promises.readdir(path.resolve(tempDataPath, filename));
+
+    await Promise.all(
+      tempFiles.map(async (tempFile) => fs.promises.rename(
+        path.resolve(tempDataPath, filename, tempFile),
+        path.resolve(outDirPath, tempFile)))
+    );
+
+    // Remove ./packs/temp-data/ directory recursively
+
+    console.log(`Finished extracting ${entityCount} entities from pack ${filename}`);
+    return entityCount;
+
+  }).reduce(async (runningTotal, entityCount) => runningTotal + (await entityCount), 0);
+}
+
+extractPacks().then((grandTotal) => {
+  console.log(`Extraction complete (${grandTotal} total entities).`);
+  fs.rmdirSync(tempDataPath, { recursive: true });
+}).catch((error) => {
+  console.error(PackError(error));
+});

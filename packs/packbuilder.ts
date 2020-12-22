@@ -41,7 +41,7 @@ class Compendium {
         (pack) => path.basename(pack.path) === path.basename(packDir)
       );
       if (compendium === undefined) {
-        throw PackError(`Compendium at ${packDir} has no name set.`);
+        throw PackError(`Compendium at ${packDir} has no name in the local system.json file.`);
       }
       this.name = compendium.name;
 
