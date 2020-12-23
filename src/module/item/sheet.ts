@@ -58,7 +58,7 @@ export class ItemSheetPF2e extends ItemSheet {
     if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
     data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
-    const stackGroup = data?.stackGroup?.value;
+    const stackGroup = data.data?.stackGroup?.value;
     data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
     data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
     data.usage = CONFIG.PF2E.usageTraits; // usage data
