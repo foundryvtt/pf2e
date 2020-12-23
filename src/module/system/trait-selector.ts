@@ -95,7 +95,7 @@ export class TraitSelector5e extends FormApplication {
       for (const [k, v] of Object.entries(choices)) {
         choices[k] = {
           label: v,
-          chosen: attr.value[idx],
+          chosen: attr[idx],
         };
         idx +=1;
       }
