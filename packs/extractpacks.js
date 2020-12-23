@@ -152,6 +152,7 @@ async function extractPack(filePath, packFilename) {
   const outPath = path.resolve(tempDataPath, packFilename);
 
   const packEntities = await getAllData(filePath);
+  const idPattern = /^[a-z0-9]{20,}$/g;
 
   const count = await packEntities.reduce(async (runningCount, entityData) => {
     // Remove or replace unwanted values from the entity
@@ -159,14 +160,20 @@ async function extractPack(filePath, packFilename) {
 
     // Pretty print JSON data
     const outData = (() => {
-      const allKeys = [ ];
+      const allKeys = new Set();
+      const idKeys = [ ];
       JSON.stringify(preparedEntity, (key, value) => {
-        allKeys.push(key);
+        if (idPattern.test(key)) {
+          idKeys.push(key);
+        } else {
+          allKeys.add(key);
+        }
+
         return value;
       });
-      allKeys.sort();
+      const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
 
-      const newJson = JSON.stringify(preparedEntity, allKeys, 4);
+      const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);
       return `${newJson}\n`;
     })();
 
