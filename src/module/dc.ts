@@ -73,25 +73,12 @@ simpleDCs.set('expert', 20);
 simpleDCs.set('master', 30);
 simpleDCs.set('legendary', 40);
 
-export function adjustDC(dc: number, adjustment: DCAdjustment = 'normal') {
-    return dc + dcAdjustments.get(adjustment);
-}
-
-export function calculateDC(level: number, adjustment: DCAdjustment = 'normal'): number {
-    // assume lv 0 item if not found
-    const dc = dcByLevel.get(level) ?? 14;
-    return adjustDC(dc, adjustment);
-}
-
-export function calculateSimpleDC(rank: ProficiencyRank, adjustment: DCAdjustment = 'normal'): number {
-    const dc = simpleDCs.get(rank) ?? 10;
-    return adjustDC(dc, adjustment);
-}
-
-export function calculateSpellDC(spellLevel, adjustment: DCAdjustment = 'normal'): number {
-    const leveledDCValue = (spellLevel * 2) - 1;
-    return calculateDC(leveledDCValue, adjustment);
-}
+const simpleDCsWithoutLevel = new Map<ProficiencyRank, number>();
+simpleDCsWithoutLevel.set('untrained', 10);
+simpleDCsWithoutLevel.set('trained', 15);
+simpleDCsWithoutLevel.set('expert', 20);
+simpleDCsWithoutLevel.set('master', 25);
+simpleDCsWithoutLevel.set('legendary', 30);
 
 export function rarityToDCAdjustment(rarity: Rarity = 'common'): PositiveDCAdjustment {
     if (rarity === 'uncommon') {
@@ -105,27 +92,53 @@ export function rarityToDCAdjustment(rarity: Rarity = 'common'): PositiveDCAdjus
     }
 }
 
-export function calculateDCByRarity(level: number, rarity: Rarity = 'common'): number {
-    const adjustment = rarityToDCAdjustment(rarity);
-    return calculateDC(level, adjustment);
+export function adjustDC(dc: number, adjustment: DCAdjustment = 'normal') {
+    return dc + dcAdjustments.get(adjustment);
 }
 
-export function calculateSpellDCByRarity(level: number, rarity: Rarity = 'common'): number {
-    const adjustment = rarityToDCAdjustment(rarity);
-    return calculateSpellDC(level, adjustment);
+export function adjustDCByRarity(dc: number, rarity: Rarity = 'common') {
+    return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 
-export function calculateSimpleDCByRarity(rank: ProficiencyRank, rarity: Rarity = 'common'): number {
-    const adjustment = rarityToDCAdjustment(rarity);
-    return calculateSimpleDC(rank, adjustment);
+interface DCOptions {
+    proficiencyWithoutLevel?: boolean;
 }
 
 /**
- * Used to shift DCs around the adjustment table Rarity increases 
+ * Normal Level Based DCs
+ * @param level
+ * @param proficiencyWithoutLevel
+ */
+export function calculateDC(level: number, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+    // assume level 0 if garbage comes in
+    const dc = dcByLevel.get(level) ?? 14;
+    if (proficiencyWithoutLevel) {
+        // -1 shouldn't be subtracted since it's just 
+        // a creature level and not related to PC levels
+        return dc - Math.max(level, 0);
+    } else {
+        return dc;
+    }
+}
+
+export function calculateSimpleDC(rank: ProficiencyRank, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+    if (proficiencyWithoutLevel) {
+        return simpleDCsWithoutLevel.get(rank) ?? 10;
+    } else {
+        return simpleDCs.get(rank) ?? 10;
+    }
+}
+
+export function calculateSpellDC(spellLevel, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+    return calculateDC((spellLevel * 2) - 1, {proficiencyWithoutLevel});
+}
+
+/**
+ * Used to shift DCs around the adjustment table Rarity increases
  * the adjustment while Lores reduce it.
  * This function determines which adjustment you start from when you
  * create a difficulty scale from incredibly easy to very hard
- * 
+ *
  * Important: this operation is not associative because
  * of the lower and upper bounds
  */
@@ -138,8 +151,8 @@ export function combineDCAdjustments(first: DCAdjustment, second: DCAdjustment):
 }
 
 /**
- * Given a DC made starting at an adjustment create an array of 
- * growing difficulties starting from the adjusted position in 
+ * Given a DC made starting at an adjustment create an array of
+ * growing difficulties starting from the adjusted position in
  * the table at https://2e.aonprd.com/Rules.aspx?ID=555
  */
 export function createDifficultyScale(

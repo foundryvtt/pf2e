@@ -1,16 +1,14 @@
 import {
-    calculateDC,
-    calculateDCByRarity,
-    calculateSimpleDCByRarity,
+    adjustDCByRarity,
+    calculateDC, calculateSimpleDC,
     calculateSpellDC,
-    calculateSpellDCByRarity,
     combineDCAdjustments,
     createDifficultyScale,
     rarityToDCAdjustment,
 } from '../../src/module/dc';
 
 describe('test DCs', () => {
-    test('should calculate dc by level', () => {
+    test('calculate DC by level', () => {
         expect(calculateDC(-1))
             .toBe(13);
         expect(calculateDC(0))
@@ -66,33 +64,104 @@ describe('test DCs', () => {
         expect(calculateDC(25))
             .toBe(50);
     });
-    
-    test('should return DCs by level', () => {
-        expect(calculateDCByRarity(1, 'common'))
-            .toBe(15);
-    });
 
+    test('should calculate DC by level without proficiency', () => {
+        expect(calculateDC(-1, {proficiencyWithoutLevel: true}))
+            .toBe(13);
+        expect(calculateDC(0, {proficiencyWithoutLevel: true}))
+            .toBe(14);
+        expect(calculateDC(1, {proficiencyWithoutLevel: true}))
+            .toBe(14);
+        expect(calculateDC(2, {proficiencyWithoutLevel: true}))
+            .toBe(14);
+        expect(calculateDC(3, {proficiencyWithoutLevel: true}))
+            .toBe(15);
+        expect(calculateDC(4, {proficiencyWithoutLevel: true}))
+            .toBe(15);
+        expect(calculateDC(5, {proficiencyWithoutLevel: true}))
+            .toBe(15);
+        expect(calculateDC(6, {proficiencyWithoutLevel: true}))
+            .toBe(16);
+        expect(calculateDC(7, {proficiencyWithoutLevel: true}))
+            .toBe(16);
+        expect(calculateDC(8, {proficiencyWithoutLevel: true}))
+            .toBe(16);
+        expect(calculateDC(9, {proficiencyWithoutLevel: true}))
+            .toBe(17);
+        expect(calculateDC(10, {proficiencyWithoutLevel: true}))
+            .toBe(17);
+        expect(calculateDC(11, {proficiencyWithoutLevel: true}))
+            .toBe(17);
+        expect(calculateDC(12, {proficiencyWithoutLevel: true}))
+            .toBe(18);
+        expect(calculateDC(13, {proficiencyWithoutLevel: true}))
+            .toBe(18);
+        expect(calculateDC(14, {proficiencyWithoutLevel: true}))
+            .toBe(18);
+        expect(calculateDC(15, {proficiencyWithoutLevel: true}))
+            .toBe(19);
+        expect(calculateDC(16, {proficiencyWithoutLevel: true}))
+            .toBe(19);
+        expect(calculateDC(17, {proficiencyWithoutLevel: true}))
+            .toBe(19);
+        expect(calculateDC(18, {proficiencyWithoutLevel: true}))
+            .toBe(20);
+        expect(calculateDC(19, {proficiencyWithoutLevel: true}))
+            .toBe(20);
+        expect(calculateDC(20, {proficiencyWithoutLevel: true}))
+            .toBe(20);
+        expect(calculateDC(21, {proficiencyWithoutLevel: true}))
+            .toBe(21);
+        expect(calculateDC(22, {proficiencyWithoutLevel: true}))
+            .toBe(22);
+        expect(calculateDC(23, {proficiencyWithoutLevel: true}))
+            .toBe(23);
+        expect(calculateDC(24, {proficiencyWithoutLevel: true}))
+            .toBe(24);
+        expect(calculateDC(25, {proficiencyWithoutLevel: true}))
+            .toBe(25);
+    });
+    
     test('unknown DC should become 0 level DC', () => {
-        expect(calculateDCByRarity(-2, 'common'))
+        expect(calculateDC(-2))
+            .toBe(14);
+        expect(calculateDC(-2, {proficiencyWithoutLevel: true}))
             .toBe(14);
     });
 
     test('rarities should affect DC', () => {
-        expect(calculateDCByRarity(1, 'uncommon'))
+        expect(adjustDCByRarity(calculateDC(1), 'uncommon'))
             .toBe(17);
-        expect(calculateDCByRarity(1, 'rare'))
+        expect(adjustDCByRarity(calculateDC(1), 'rare'))
             .toBe(20);
-        expect(calculateDCByRarity(1, 'unique'))
+        expect(adjustDCByRarity(calculateDC(1), 'unique'))
             .toBe(25);
     });
 
-    test('rarities should affect DC', () => {
-        expect(calculateSimpleDCByRarity('trained', 'uncommon'))
-            .toBe(17);
-        expect(calculateSimpleDCByRarity('trained', 'rare'))
+    test('simple DCs', () => {
+        expect(calculateSimpleDC('untrained'))
+            .toBe(10);
+        expect(calculateSimpleDC('trained'))
+            .toBe(15);
+        expect(calculateSimpleDC('expert'))
             .toBe(20);
-        expect(calculateSimpleDCByRarity('trained', 'unique'))
+        expect(calculateSimpleDC('master'))
+            .toBe(30);
+        expect(calculateSimpleDC('legendary'))
+            .toBe(40);
+    });
+
+    test('simple DCs without proficiency', () => {
+        expect(calculateSimpleDC('untrained', {proficiencyWithoutLevel: true}))
+            .toBe(10);
+        expect(calculateSimpleDC('trained', {proficiencyWithoutLevel: true}))
+            .toBe(15);
+        expect(calculateSimpleDC('expert', {proficiencyWithoutLevel: true}))
+            .toBe(20);
+        expect(calculateSimpleDC('master', {proficiencyWithoutLevel: true}))
             .toBe(25);
+        expect(calculateSimpleDC('legendary', {proficiencyWithoutLevel: true}))
+            .toBe(30);
     });
 
     test('should return adjustment by rarity', () => {
@@ -177,11 +246,6 @@ describe('test DCs', () => {
             .toBe(36);
         expect(calculateSpellDC(10))
             .toBe(39);
-    });
-
-    test('should calcualte spell dc levels', () => {
-        expect(calculateSpellDCByRarity(2, 'uncommon'))
-            .toBe(20);
     });
 
 });
