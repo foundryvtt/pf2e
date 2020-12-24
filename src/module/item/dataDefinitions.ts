@@ -1,7 +1,11 @@
-import { AbilityString, Proficency } from "../actor/actorDataDefinitions";
-import { PF2RuleElementData } from "../rules/rulesDataDefinitions";
+import {AbilityString, Proficency} from '../actor/actorDataDefinitions';
+import {PF2RuleElementData} from '../rules/rulesDataDefinitions';
 
 export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+
+export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
+
+export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
 export interface ItemDescriptionData {
     description: {
@@ -16,7 +20,7 @@ export interface ItemDescriptionData {
         value: string;
     };
     rarity: {
-        value: 'common' | 'uncommon' | 'rare' | 'unique';
+        value: Rarity;
     };
     usage: {
         value: string;
@@ -255,7 +259,7 @@ export interface ArmorDetailsData {
 }
 
 export interface KitDetailsData {
-    items: {[key: number]: KitEntryData};
+    items: { [key: number]: KitEntryData };
 }
 
 export interface KitEntryData {
@@ -265,7 +269,7 @@ export interface KitEntryData {
     quantity: number;
     name: string;
     isContainer: boolean;
-    items?: {[key: number]: KitEntryData};
+    items?: { [key: number]: KitEntryData };
 }
 
 export interface MeleeDetailsData {
@@ -345,7 +349,7 @@ export interface AncestryDetailsData {
 
 export interface BackgroundDetailsData {
     boosts: { [key: string]: { value: AbilityString[] } }
-    items: { [key: number]: ABCFeatureEntryData}
+    items: { [key: number]: ABCFeatureEntryData }
     traits: {
         rarity: {
             value: string
@@ -360,7 +364,7 @@ export interface BackgroundDetailsData {
 
 export interface ClassDetailsData {
     keyAbility: { value: AbilityString[] }
-    items: { [key: number]: ABCFeatureEntryData}
+    items: { [key: number]: ABCFeatureEntryData }
     traits: {
         rarity: {
             value: string
@@ -778,7 +782,7 @@ export interface ConditionData extends BaseEntityData<ItemDescriptionData & Stat
     type: 'condition'
 }
 
-export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData | 
+export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData |
     MeleeData | ConsumableData | EquipmentData | FeatData | LoreData | MartialData |
     ActionData | SpellData | SpellcastingEntryData | KitData | StatusData | ConditionData |
     AncestryData | BackgroundData | ClassData;
@@ -794,6 +798,6 @@ export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
 export function assertPhysicalItem(item: ItemData, error: string): asserts item is PhysicalItemData {
     if (!isPhysicalItem(item)) {
-        throw Error(error)
+        throw Error(error);
     }
 }
