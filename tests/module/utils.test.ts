@@ -1,4 +1,4 @@
-import {add, combineObjects, toNumber, addSign} from '../../src/module/utils';
+import {add, addSign, combineObjects, padArray, toNumber} from '../../src/module/utils';
 
 describe('should combine objects', () => {
     test('combine two empty objects', () => {
@@ -78,5 +78,22 @@ describe('format sign for numbers', () => {
     test('positive', () => {
         expect(addSign(1))
             .toEqual('+1');
+    });
+});
+
+describe('pad array', () => {
+    test('empty', () => {
+        expect(padArray([], 2, 1))
+            .toEqual([1, 1]);
+    });
+
+    test('full', () => {
+        expect(padArray([1, 2], 2, 3))
+            .toEqual([1, 2]);
+    });
+
+    test('one off', () => {
+        expect(padArray([1], 2, 2))
+            .toEqual([1, 2]);
     });
 });

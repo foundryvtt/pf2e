@@ -17,7 +17,7 @@ export interface ItemDescriptionData {
         value: string;
     };
     traits: {
-        value: string;
+        value: string|string[];
     };
     rarity: {
         value: Rarity;
@@ -793,6 +793,10 @@ export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
     return ('data' in item) && ('quantity' in item.data);
+}
+
+export function isLevelItem(item: ItemData): item is ItemData & BaseEntityData<ItemLevelData> {
+    return ('data' in item) && ('level' in item.data);
 }
 
 /** Asserts that the given item is a physical item, throwing an error if it is not. */

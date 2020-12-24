@@ -19,6 +19,7 @@ import {
     ActorDataPF2e
 } from './actorDataDefinitions';
 import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
+import {parseTraits} from '../traits';
 
 export const SKILL_DICTIONARY = Object.freeze({
   acr: 'acrobatics',
@@ -206,12 +207,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
 
   /** Convert a comma-delimited list of traits into an array of traits. */
   static traits(source: string | string[]): string[] {
-    if (Array.isArray(source)) {
-      return source;
-    } else if (typeof source === 'string') {
-      return source.split(',').map((trait) => trait.trim());
-    }
-    return [];
+    return parseTraits(source);
   }
 
   /* -------------------------------------------- */
