@@ -1,50 +1,122 @@
-const xpDifferences = new Map();
-xpDifferences.set(-4, 10);
-xpDifferences.set(-3, 15);
-xpDifferences.set(-2, 20);
-xpDifferences.set(-1, 30);
-xpDifferences.set(0, 40);
-xpDifferences.set(1, 60);
-xpDifferences.set(2, 80);
-xpDifferences.set(3, 120);
-xpDifferences.set(4, 160);
+/**
+ * This file uses JSDoc (see https://jsdoc.app/tags-type.html) to
+ * at least somewhat get type safety and prevent easy typing mistakes
+ *
+ * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
+ */
 
+/* global ui */
+/* global Dialog */
+
+/** @type {Map<number, number>} */
+const xpCreatureDifferences = new Map();
+xpCreatureDifferences.set(-4, 10);
+xpCreatureDifferences.set(-3, 15);
+xpCreatureDifferences.set(-2, 20);
+xpCreatureDifferences.set(-1, 30);
+xpCreatureDifferences.set(0, 40);
+xpCreatureDifferences.set(1, 60);
+xpCreatureDifferences.set(2, 80);
+xpCreatureDifferences.set(3, 120);
+xpCreatureDifferences.set(4, 160);
+
+// for some reason Paizo thought it was a good idea to give 
+// simple hazards entirely different and incredibly small xp values
+/** @type {Map<number, number>} */
+const xpSimpleHazardDifferences = new Map();
+xpSimpleHazardDifferences.set(-4, 2);
+xpSimpleHazardDifferences.set(-3, 3);
+xpSimpleHazardDifferences.set(-2, 4);
+xpSimpleHazardDifferences.set(-1, 6);
+xpSimpleHazardDifferences.set(0, 8);
+xpSimpleHazardDifferences.set(1, 12);
+xpSimpleHazardDifferences.set(2, 16);
+xpSimpleHazardDifferences.set(3, 24);
+xpSimpleHazardDifferences.set(4, 32);
+
+/**
+ * @param partyLevel {number}
+ * @param entityLevel {number}
+ * @param values {Map<number, number>}
+ * @returns {number}
+ */
+function getXPFromMap(partyLevel, entityLevel, values) {
+    // add +1 to all levels to account for -1 levels
+    const difference = (entityLevel + 1) - (partyLevel + 1);
+    const boundedDifference = Math.clamped(difference, -4, 4);
+    return values.get(boundedDifference);
+}
+
+/**
+ * @param partyLevel {number}
+ * @param npcLevel {number}
+ * @returns {number}
+ */
 function getCreatureXP(partyLevel, npcLevel) {
-    // add +1 to all levels to account for -1 npc levels
-    const difference = (npcLevel + 1) - (partyLevel + 1);
-    if (difference < -4) {
-        return 10;
-    } else if (difference > 4) {
-        return 160;
+    return getXPFromMap(partyLevel, npcLevel, xpCreatureDifferences);
+}
+
+/**
+ * @typedef {{level: number, isComplex: boolean}} HazardLevel
+ */
+
+/**
+ * @param partyLevel {number}
+ * @param hazard {HazardLevel}
+ * @returns {number}
+ */
+function getHazardXp(partyLevel, hazard) {
+    if (hazard.isComplex) {
+        return getCreatureXP(partyLevel, hazard.level);
     } else {
-        return xpDifferences.get(difference);
+        return getXPFromMap(partyLevel, hazard.level, xpSimpleHazardDifferences);
     }
 }
 
-const xp = new Map();
-xp.set('trivial', 40);
-xp.set('low', 60);
-xp.set('moderate', 80);
-xp.set('severe', 120);
-xp.set('extreme', 160);
+/**
+ * @typedef {{trivial, low, moderate, severe, extreme: number}} EncounterBudgets
+ */
 
+/**
+ * @param challenge {number}
+ * @param budgets {EncounterBudgets}
+ * @returns {string}
+ */
 function getEncounterRating(challenge, budgets) {
-    const allLowerBudgets = Object.entries(budgets)
-        .sort((a, b) => a.xp - b.xp)
-        .filter(([_, xp]) => xp <= challenge)
-        .map(([description]) => description);
-    if (allLowerBudgets.length === 0) {
+    if (challenge < budgets.low) {
         return 'trivial';
+    } else if (challenge < budgets.moderate) {
+        return 'low';
+    } else if (challenge < budgets.severe) {
+        return 'moderate';
+    } else if (challenge < budgets.extreme) {
+        return 'severe';
     } else {
-        return allLowerBudgets[allLowerBudgets.length - 1];
+        return 'extreme';
     }
 }
 
-function getXP(partyLevel, partySize, npcLevels) {
+/**
+ * @typedef {{encounterBudgets: EncounterBudgets, rating: string, xp: number, challenge: number, partySize: number, partyLevel: number, budget: number}} XP
+ */
+
+/**
+ *
+ * @param partyLevel {number}
+ * @param partySize {number}
+ * @param npcLevels {Array<number>}
+ * @param hazards {Array<HazardLevel>}
+ * @returns {XP}
+ */
+function getXP(partyLevel, partySize, npcLevels, hazards) {
     const budget = partySize * 20;
-    const challenge = npcLevels
-        .map(npcLevel => getCreatureXP(partyLevel, npcLevel))
+    const creatureChallenge = npcLevels
+        .map(level => getCreatureXP(partyLevel, level))
         .reduce((a, b) => a + b, 0);
+    const hazardChallenge = hazards
+        .map(hazard => getHazardXp(partyLevel, hazard))
+        .reduce((a, b) => a + b, 0);
+    const challenge = creatureChallenge + hazardChallenge;
     const encounterBudgets = {
         trivial: budget * .5,
         low: budget * .75,
@@ -64,12 +136,45 @@ function getXP(partyLevel, partySize, npcLevels) {
     };
 }
 
+/**
+ * @typedef {{data: {data: {details: {level: number|string|undefined|null, isComplex: boolean}}, type: string}}} Hazard
+ */
+
+/**
+ * @param actors {Array<Hazard>}
+ * @param type {string}
+ * @returns {Array<HazardLevel>}
+ */
+function getHazardLevels(actors, type) {
+    return actors
+        .filter(a => a.data.type === type)
+        .map(a => {
+            return {
+                level: parseInt(a.data.data.details.level ?? 1, 10),
+                isComplex: a.data.data.details.isComplex ?? false,
+            };
+        });
+}
+
+/**
+ * @typedef {{data: {data: {details: {level: {value: number|string|undefined|null}}}, type: string}}} Actor
+ */
+
+/**
+ * @param actors {Array<Actor>}
+ * @param type {string}
+ * @returns {Array<number>}
+ */
 function getLevels(actors, type) {
     return actors
         .filter(a => a.data.type === type)
-        .map(a => parseInt(a.data.data.details.level.value, 10));
+        .map(a => parseInt(a.data.data.details.level.value ?? 1, 10));
 }
 
+/**
+ * @param xp {XP}
+ * @returns {string}
+ */
 function dialogTemplate(xp) {
     return `
 <h2>XP</h2>
@@ -84,7 +189,7 @@ function dialogTemplate(xp) {
     </tr>
     <tr>
         <th>Total XP</th>
-        <td>PCs: ${Math.floor(xp.budget)} XP, NPCs: ${Math.floor(xp.challenge)} XP</td>
+        <td>PCs: ${Math.floor(xp.budget)} XP, NPCs & Hazards: ${Math.floor(xp.challenge)} XP</td>
     </tr>
 </table>
 <h2>Budgets</h2>
@@ -123,10 +228,16 @@ const askLevelPopupTemplate = `
     <input id="party-level" name="party-level" type="number" value="1">
 </div>
 </form>
-`
+`;
 
-function showXP(partyLevel, partySize, npcLevels) {
-    const xp = getXP(partyLevel, partySize, npcLevels);
+/**
+ * @param partyLevel {number}
+ * @param partySize {number}
+ * @param npcLevels {Array<number>}
+ * @param hazardLevels {Array<HazardLevel>}
+ */
+function showXP(partyLevel, partySize, npcLevels, hazardLevels) {
+    const xp = getXP(partyLevel, partySize, npcLevels, hazardLevels);
     new Dialog({
         title: 'XP',
         content: dialogTemplate(xp),
@@ -134,7 +245,11 @@ function showXP(partyLevel, partySize, npcLevels) {
     }).render(true);
 }
 
-function askPartyLevelAndSize(npcLevels) {
+/**
+ * @param npcLevels {Array<number>}
+ * @param hazardLevels {Array<HazardLevel>}
+ */
+function askPartyLevelAndSize(npcLevels, hazardLevels) {
     new Dialog({
         title: 'Party Information',
         content: askLevelPopupTemplate,
@@ -149,7 +264,7 @@ function askPartyLevelAndSize(npcLevels) {
                 callback: ($html) => {
                     const partySize = parseInt($html[0].querySelector('[name="party-size"]').value, 10) ?? 1;
                     const partyLevel = parseInt($html[0].querySelector('[name="party-level"]').value, 10) ?? 1;
-                    showXP(partyLevel, partySize, npcLevels);
+                    showXP(partyLevel, partySize, npcLevels, hazardLevels);
                 }
             },
         },
@@ -163,16 +278,17 @@ function main() {
 
     const npcLevels = getLevels(actors, 'npc');
     const pcLevels = getLevels(actors, 'character');
+    const hazardLevels = getHazardLevels(actors, 'hazard');
 
-    if (npcLevels.length === 0) {
-        ui.notifications.error(`You must select at least one npc token and optionally all PC tokens`);
+    if (npcLevels.length === 0 && hazardLevels.length === 0) {
+        ui.notifications.error(`You must select at least one npc and/or hazard token and optionally all PC tokens`);
         return;
     }
 
     if (pcLevels.length === 0) {
-        askPartyLevelAndSize(npcLevels);
+        askPartyLevelAndSize(npcLevels, hazardLevels);
     } else {
-        showXP(pcLevels[0], pcLevels.length, npcLevels);
+        showXP(pcLevels[0], pcLevels.length, npcLevels, hazardLevels);
     }
 }
 
