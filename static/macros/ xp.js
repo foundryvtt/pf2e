@@ -3,10 +3,30 @@
  * at least somewhat get type safety and prevent easy typing mistakes
  *
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
+ * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
 
 /* global ui */
 /* global Dialog */
+
+// level without proficiency variant
+/** @type {Map<number, number>} */
+const xpVariantCreatureDifferences = new Map();
+xpVariantCreatureDifferences.set(-7, 9);
+xpVariantCreatureDifferences.set(-6, 12);
+xpVariantCreatureDifferences.set(-5, 14);
+xpVariantCreatureDifferences.set(-4, 18);
+xpVariantCreatureDifferences.set(-3, 21);
+xpVariantCreatureDifferences.set(-2, 26);
+xpVariantCreatureDifferences.set(-1, 32);
+xpVariantCreatureDifferences.set(0, 40);
+xpVariantCreatureDifferences.set(1, 48);
+xpVariantCreatureDifferences.set(2, 60);
+xpVariantCreatureDifferences.set(3, 72);
+xpVariantCreatureDifferences.set(4, 90);
+xpVariantCreatureDifferences.set(5, 108);
+xpVariantCreatureDifferences.set(6, 135);
+xpVariantCreatureDifferences.set(7, 160);
 
 /** @type {Map<number, number>} */
 const xpCreatureDifferences = new Map();
@@ -43,7 +63,8 @@ xpSimpleHazardDifferences.set(4, 32);
 function getXPFromMap(partyLevel, entityLevel, values) {
     // add +1 to all levels to account for -1 levels
     const difference = (entityLevel + 1) - (partyLevel + 1);
-    const boundedDifference = Math.clamped(difference, -4, 4);
+    const range = Math.floor(values.size / 2);
+    const boundedDifference = Math.clamped(difference, 0 - range, range);
     return values.get(boundedDifference);
 }
 
@@ -53,7 +74,11 @@ function getXPFromMap(partyLevel, entityLevel, values) {
  * @returns {number}
  */
 function getCreatureXP(partyLevel, npcLevel) {
-    return getXPFromMap(partyLevel, npcLevel, xpCreatureDifferences);
+    if (game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel') {
+        return getXPFromMap(partyLevel, npcLevel, xpVariantCreatureDifferences);
+    } else {
+        return getXPFromMap(partyLevel, npcLevel, xpCreatureDifferences);
+    }
 }
 
 /**
