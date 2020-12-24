@@ -76,6 +76,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
      * Yellow Musk Creeper from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original  material by Albie Fiore.
  * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
+    *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
+    *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
+    *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
+    *  Pathfinder Adventure: The Dead God's Hand © 2021, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
     *  Pathfinder Adventure Path #146: Cult of Cinders © 2019, Paizo Inc.; Authors: Eleanor Ferron, with Leo Glass, James Jacobs, Jason Keeley, and Owen KC Stephens.
@@ -93,6 +97,22 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #157: Devil at the Dreaming Palace © 2020, Paizo Inc.; Authors: James L. Sutter, with Luis Loza, Andrew Mullen, Samantha Phelan, and Patrick Renie.
 	*  Pathfinder Adventure Path #158: Sixty Feet Under © 2020, Paizo Inc.; Authors: Michael Sayre, Saif Ansari, Leo Glass, Ron Lundeen, Jacob W. Michaels, Patrick Renie, and David N. Ross
 	*  Pathfinder Adventure Path #159: All or Nothing © 2020, Paizo Inc.; Authors: Jason Keeley
+    *  Pathfinder Adventure Path #160: Assault on Hunting Lodge Seven © 2020, Paizo Inc.; Authors: Ron Lundeen
+    *  Pathfinder Adventure Path #161: Belly of the Black Whale © 2020, Paizo Inc.; Authors: Cole Kronewitter
+    *  Pathfinder Adventure Path #162: Ruins of the Radiant Siege © 2020, Paizo Inc.; Authors: Amber Stewart
+    *  Pathfinder Adventure Path #163: Ruins of Gauntlight © 2021, Paizo Inc.; Authors: James Jacobs
+    *  Pathfinder Adventure Path #164: Hands of the Devil © 2021, Paizo Inc.; Authors: Vanessa Hoskins
+    *  Pathfinder Adventure Path #165: Eyes of Empty Death © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
+    *  Pathfinder Adventure Path #166: Despair on Danger Island © 2021, Paizo Inc.; Authors: Luis Loza
+    *  Pathfinder Adventure Path #167: Ready? Fight! © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
+    *  Pathfinder Adventure Path #168: King of the Mountain © 2021, Paizo Inc.; Authors: Vanessa Hoskins
+    *  Pathfinder Adventure Path #169: Kindled Magic © 2021, Paizo Inc.; Authors: Alexandria Bustion, Eleanor Ferron
+    *  Pathfinder Adventure Path #170: Spoken on the Song Wind © 2021, Paizo Inc.; Authors: Quinn Murphy
+    *  Pathfinder Adventure Path #171: Hurricane's Howl © 2021, Paizo Inc.; Authors: Michelle Jones
+    *  Pathfinder Adventure Path #172: Secrets of the Temple-City © 2021, Paizo Inc.; Authors: Luis Loza
+    *  Pathfinder Adventure Path #173: Doorway to the Red Star © 2021, Paizo Inc.; Authors: Michael Sayre
+    *  Pathfinder Adventure Path #174: Shadows of the Ancients © 2021, Paizo Inc.; Authors: Saif Ansari
+    *  Pathfinder Beginner Box © 2020, Paizo Inc.; Authors: Logan Bonner, Jason Bulmahn, Lyz Liddell, Mark Seifter
 	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
     *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
     *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
@@ -123,7 +143,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
 	* Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
 	* Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
-  * Pathfinder Society Bounty #4: Cat's Cradle © 2020, Paizo Inc.; Author: Hilary Moon Murphy
+    * Pathfinder Society Bounty #4: Cat's Cradle © 2020, Paizo Inc.; Author: Hilary Moon Murphy
+    * Pathfinder Society Bounty #5: Witch's Winter Holiday © 2020, Paizo Inc.; Author: Patrick Hurley
 
     * Pathfinder Society Scenario #1-00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
     * Pathfinder Society Scenario #1-01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
@@ -151,17 +172,20 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #1-23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
 	* Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
 	* Pathfinder Society Scenario #1-25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
-	* Pathfinder Society Scenario #2-00: King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
-	* Pathfinder Society Scenario #2-00: King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
-	* Pathfinder Society Scenario #2-00: King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
+	* Pathfinder Society Scenario #2-00: The King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
 	* Pathfinder Society Scenario #2-01: Citadel of Corruption © 2020, Paizo Inc.; Author: Scott D. Young
 	* Pathfinder Society Scenario #2-02: Mountain of Sea and Sky © 2020, Paizo Inc.; Authors: Adrian Ng
 	* Pathfinder Society Scenario #2-03: Catastrophe's Spark © 2020, Paizo Inc.; Authors: Tineke Bolleman
 	* Pathfinder Society Scenario #2-04: Path of Kings © 2020, Paizo Inc.; Authors: Luis Loza
 	* Pathfinder Society Scenario #2-05: Balancing the Scales © 2020, Paizo Inc.; Authors: Jessica Catalan
 	* Pathfinder Society Scenario #2-06: The Crashing Wave © 2020, Paizo Inc.; Authors: Dustin Knight
-  * Pathfinder Society Scenario #2-07: The Blakros Deception © 2020, Paizo Inc.; Authors: Charlie Brooks
-  * Pathfinder Society Scenario #2-08: A Frosty Mug © 2020, Paizo Inc.; Authors: Mikhail Rekun
+    * Pathfinder Society Scenario #2-07: The Blakros Deception © 2020, Paizo Inc.; Authors: Charlie Brooks
+    * Pathfinder Society Scenario #2-08: A Frosty Mug © 2020, Paizo Inc.; Authors: Mikhail Rekun
+    * Pathfinder Society Scenario #2-09: The Seven Secrets of Dacilane Academy © 2020, Paizo Inc.; Authors: Rigby Bendele
+    * Pathfinder Society Scenario #2-10: In Burning Dawn © 2020, Paizo Inc.; Authors: Steven Hammond
+    * Pathfinder Society Scenario #2-11: The Pathfinder Trials © 2021, Paizo Inc.; Authors: Sean McGowan
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
