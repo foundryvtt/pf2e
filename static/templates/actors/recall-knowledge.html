@@ -1,0 +1,35 @@
+<h1>{{localize "PF2E.RecallKnowledge.BreakdownTitle"}}</h1>
+<p>{{localize "PF2E.RecallKnowledge.Help"}}</p>
+<table class="recall-knowledge-table">
+  <tbody>
+  <tr>
+    <th>{{localize "PF2E.RecallKnowledge.Skill"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.FirstAttempt"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.SecondAttempt"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.ThirdAttempt"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.FourthAttempt"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.FifthAttempt"}}</th>
+    <th>{{localize "PF2E.RecallKnowledge.SixthAttempt"}}</th>
+  </tr>
+  {{#each skills}}
+  <tr>
+    <td>{{name}}</td>
+    {{#each attempts}}
+    <td>{{this}}</td>
+    {{/each}}
+  </tr>
+  {{/each}}
+  <tr>
+    <td>{{localize "PF2E.RecallKnowledge.UnspecificLore"}}</td>
+    {{#each unspecificLoreAttempts}}
+    <td>{{this}}</td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td>{{localize "PF2E.RecallKnowledge.SpecificLore"}}</td>
+    {{#each specificLoreAttempts}}
+    <td>{{this}}</td>
+    {{/each}}
+  </tr>
+  </tbody>
+</table>

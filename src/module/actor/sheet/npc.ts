@@ -1,6 +1,8 @@
 /* global ui, CONST */
 import { ActorSheetPF2eCreature } from './creature';
 import { PF2EActor, SKILL_DICTIONARY } from "../actor";
+import {identifyCreature} from '../../recall-knowledge';
+import {RecallKnowledgePopup} from './RecallKnowledgePopup';
 
 /**
  * @category Actor
@@ -39,6 +41,29 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
     const sheetData = super.getData();
 
     sheetData.monsterTraits = CONFIG.PF2E.monsterTraits;
+
+    // recall knowledge DCs
+    const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant')
+        === 'ProficiencyWithoutLevel';  
+    const identifyCreatureData = identifyCreature(sheetData, {proficiencyWithoutLevel});
+
+    sheetData.identifyCreatureData = identifyCreatureData;
+    sheetData.identifySkillDC = identifyCreatureData.skill.dc;
+    sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
+    sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join('/');
+    sheetData.identificationSkills = Array.from(identifyCreatureData.skills)
+      .sort()
+      .map(skillAcronym => CONFIG.PF2E.skills[skillAcronym]);
+    sheetData.identificationSkillList = sheetData.identificationSkills.join(', ')
+
+    sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
+    sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
+    sheetData.specificLoreProgression = identifyCreatureData.specificLoreDC.progression.join('/');
+
+    sheetData.unspecificLoreDC = identifyCreatureData.unspecificLoreDC.dc;
+    sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
+    sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
+
     // Return data for rendering
     return sheetData;
   }
@@ -248,7 +273,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
     super.activateListeners(html);
 
     // NPC Weapon Rolling
-    html.find('button').click((ev) => {
+    html.find('button:not(.recall-knowledge-breakdown)').click((ev) => {
       ev.preventDefault();
       ev.stopPropagation();
 
@@ -304,6 +329,12 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         await this.actor.updateEmbeddedEntity('OwnedItem', options);
       }
+    });
+      
+    html.find('.recall-knowledge-breakdown').on('click', (event) => {
+      event.preventDefault();
+      const {identifyCreatureData} = this.getData();
+      new RecallKnowledgePopup(identifyCreatureData).render(true);
     });
   }
 }
