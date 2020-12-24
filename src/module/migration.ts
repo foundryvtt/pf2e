@@ -18,6 +18,11 @@ function addWeaponPotencyRune(item, itemData) {
     return itemData;
 }
 
+function setItemAsIdentified(item, itemData) {
+    itemData['data.identified.value'] = true;
+    return itemData;
+}
+
 function addItemRarityAndLevel(item, itemData) {
     itemData['data.rarity.value'] = 'common';
     if (['treasure', 'backpack'].includes(item.type)) {
@@ -222,6 +227,11 @@ export function migrateItemData (item, worldSchemaVersion) {
     if (worldSchemaVersion < 0.586) {
         addSplashDamage(item, updateData);
     }
+
+    if (worldSchemaVersion < 0.589) {
+        setItemAsIdentified(item, updateData)
+    }
+
     // Return the migrated update data
     return updateData;
 };
@@ -599,6 +609,10 @@ export function migrateActorData(actor, worldSchemaVersion) {
         
         if (worldSchemaVersion < 0.587) {
             migrateActorPFSData(actor, updateData);
+        }
+
+        if (worldSchemaVersion < 0.589) {
+            migrateActorItems(actor, updateData, setItemAsIdentified)
         }
     }
     return updateData;
