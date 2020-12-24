@@ -20,4 +20,24 @@ ol.difficulty-checks {
             text-transform: capitalize;
         }
     }
+
+    .classdc-rank {
+        border-radius: 2px;
+        border: 1px solid rgba(black, 0.5);
+        padding: 4px;
+        cursor: pointer;
+
+        background-color: #{$rank-untrained};
+        box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+
+        h4 {
+            color: white;
+            font-weight: 400;
+        }
+    }
+
+    .classdc-rank[value='1'] { background: #{$rank-trained}; }
+    .classdc-rank[value='2'] { background: #{$rank-expert}; }
+    .classdc-rank[value='3'] { background: #{$rank-master}; }
+    .classdc-rank[value='4'] { background: #{$rank-legendary}; }
 }

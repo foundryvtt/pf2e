@@ -4,7 +4,7 @@
         <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
     </h2>
 </div>
-<div class="roll-data" data-attribute="perception">
+<div class="roll-data perception-sidebar" data-attribute="perception">
     <a class="roll-icon attribute-name">
         <!-- @mdizo, shouldn't this be a span? -->
         <svg
@@ -20,17 +20,28 @@
             ></path>
         </svg>
     </a>
+    
+    <a class="roll-icon attribute-name" data-secret="true">
+        <i class="fas fa-eye-slash"></i>
+    </a>
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
-    <input
-        type="hidden"
-        name="data.attributes.perception.rank"
-        value="{{data.attributes.perception.rank}}"
-        data-dtype="Number"
-        data-category="proficiency"
-    />
-    <h4 class="plaque click-stat-level">
-        <span>{{data.attributes.perception.rankName}}</span>
-    </h4>
+
+    <div class="perception-rank" value="{{data.attributes.perception.rank}}">
+        <input
+            type="hidden"
+            name="data.attributes.perception.rank"
+            value="{{data.attributes.perception.rank}}"
+            data-dtype="Number"
+            data-category="proficiency"
+        />
+  
+        <h4 class="click-stat-level">
+            <span>
+                {{data.attributes.perception.rankName}}
+            </span>
+        </h4>
+    </div>
+
 </div>
 {{#with data.attributes.perception}}
 {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.PerceptionHeader' }}

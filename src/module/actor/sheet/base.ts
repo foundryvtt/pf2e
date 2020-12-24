@@ -539,8 +539,12 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.attribute-name').click((ev) => {
       ev.preventDefault();
       const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
+      const isSecret = ev.currentTarget.getAttribute('data-secret');
       if (this.actor.data.data.attributes[attribute]?.roll) {
         const opts = this.actor.getRollOptions(['all', attribute]);
+        if (isSecret) {
+          opts.push('secret');
+        }
         this.actor.data.data.attributes[attribute].roll(ev, opts);
       } else {
         this.actor.rollAttribute(ev, attribute);
