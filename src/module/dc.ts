@@ -1,5 +1,6 @@
 /**
- * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
+ * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552 
+ * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
 import {ProficiencyRank, Rarity} from './item/dataDefinitions';
@@ -100,7 +101,7 @@ export function adjustDCByRarity(dc: number, rarity: Rarity = 'common') {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 
-interface DCOptions {
+export interface DCOptions {
     proficiencyWithoutLevel?: boolean;
 }
 
