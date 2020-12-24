@@ -1,4 +1,4 @@
-import { MartialData, WeaponData } from '../item/dataDefinitions';
+import {isPhysicalItem, MartialData, WeaponData} from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { AbilityModifier, DEXTERITY, PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier, ProficiencyModifier, WISDOM } from '../modifiers';
@@ -426,7 +426,9 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                 unarmed.data.damage.die = 'd6';
             }
 
-            (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
+            (actorData.items ?? [])
+                .filter(item => isPhysicalItem(item) && (item.data?.identified?.value ?? true))
+                .filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
                 const modifiers = [];
 
                 // Determine the base ability score for this attack.

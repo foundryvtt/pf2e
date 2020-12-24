@@ -7,8 +7,9 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData } from '../../item/dataDefinitions';
+import {ConditionData, isPhysicalItem} from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
+import {IdentifyItemPopup} from './IdentifyPopup';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -668,6 +669,18 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
       item.sheet.render(true);
+    });
+
+    // Toggle identified
+    html.find('.item-toggle-identified').click((ev) => {
+      const f = $(ev.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      const identified = f.hasClass('identified');
+      if (identified) {
+          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.identified.value': !identified });   
+      } else {
+          new IdentifyItemPopup(this.actor, {itemId}).render(true);
+      }
     });
 
     // Delete Inventory Item
@@ -1370,7 +1383,10 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
     const item = this.actor.getOwnedItem(itemId);
-    item.roll(event);
+    const itemData = item.data;
+    if((isPhysicalItem(itemData) && (itemData.data?.identified?.value ?? true))) {
+        item.roll(event);
+    }
   }
 
   /* -------------------------------------------- */
@@ -1400,7 +1416,10 @@ export abstract class ActorSheetPF2e extends ActorSheet {
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
 
-    this._renderItemSummary(li, item, chatData);
+    const itemData = item.data;
+    if (game.user.isGM || (isPhysicalItem(itemData) && (itemData.data?.identified?.value ?? true))) {
+        this._renderItemSummary(li, item, chatData);
+    }
   }
 
   _renderItemSummary(li, item, chatData) {
