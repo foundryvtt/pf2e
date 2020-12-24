@@ -346,21 +346,23 @@ Hooks.on('updateActor', (actor, dir) => {
   _updateMinionActors(actor);
 });
 
-Hooks.on('createOwnedItem', (parent, child, options, userId) => {
+function createOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onCreateOwnedItem(child, options, userId);
+        parent.onCreateOwnedItem(child, options, userID);
 
         game[game.system.id].effectPanel.refresh();
     }
-});
+}
+Hooks.on('createOwnedItem', createOwnedItem);
 
-Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
+function deleteOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onDeleteOwnedItem(child, options, userId);
+        parent.onDeleteOwnedItem(child, options, userID);
 
         game[game.system.id].effectPanel.refresh();
     }
-});
+}
+Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
@@ -373,7 +375,27 @@ Hooks.on('updateUser', (user, diff, options, id) => {
     game[game.system.id].effectPanel.refresh();
 });
 
-Hooks.on('updateToken', (scene, token, data, diff, id) => {
+Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
+    if (!token.actorLink && data.actorData?.items) {
+        // Preparation for synthetic actors to fake some of the other hooks in the 'updateToken' hook where this data is
+        // not otherwise available
+        options.pf2e = {
+            items: {
+                added: data.actorData.items.filter(i => !token.actorData.items.map(x => x._id).includes(i._id)),
+                removed: token.actorData.items.filter(i => !data.actorData.items.map(x => x._id)?.includes(i._id)),
+            }
+        };
+    }
+});
+
+Hooks.on('updateToken', (scene, token, data, options, userID) => {
+    if (!token.actorLink && options.pf2e?.items) {
+        // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
+        // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
+        const actor = game.actors.get(token.actorId);
+        options.pf2e.items.added.forEach(item => { createOwnedItem(actor, item, options, userID); });
+        options.pf2e.items.removed.forEach(item => { deleteOwnedItem(actor, item, options, userID); });
+    }
     game[game.system.id].effectPanel.refresh();
 });
 
