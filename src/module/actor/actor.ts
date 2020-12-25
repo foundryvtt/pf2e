@@ -211,18 +211,24 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
   }
 
   /* -------------------------------------------- */
+    
+    protected getAllTokens() : any {
+        const tokens = {};
+        for (const scene of game.scenes.values()) {
+            scene.getEmbeddedCollection('Token')
+                .filter(token => token.actorId === this.id)
+                .map(token => duplicate(token))
+                .forEach(token => { tokens[token._id] = token; });
+        }
+        
+        return tokens;
+    }
 
   onCreateOwnedItem(child, options, userId) {
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = {};
-    for (const scene of game.scenes.values()) {
-      scene.getEmbeddedCollection('Token')
-        .filter(token => token.actorId === this.id)
-        .map(token => duplicate(token))
-        .forEach(token => { tokens[token._id] = token; });
-    }
+    const tokens = this.getAllTokens();
     const actorUpdates = {};
     for (const rule of rules) {
       rule.onCreate(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
@@ -234,13 +240,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = {};
-    for (const scene of game.scenes.values()) {
-      scene.getEmbeddedCollection('Token')
-        .filter(token => token.actorId === this.id)
-        .map(token => duplicate(token))
-        .forEach(token => { tokens[token._id] = token; });
-    }
+    const tokens = this.getAllTokens();
     const actorUpdates = {};
     for (const rule of rules) {
       rule.onDelete(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
@@ -258,6 +258,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         .filter(token => token.actorId === this.id)
         .map(token => tokens[token._id])
         .filter(token => !!token);
+      console.log(local);
       promises.push(scene.updateEmbeddedEntity('Token', local));
     }
     return Promise.all(promises);
