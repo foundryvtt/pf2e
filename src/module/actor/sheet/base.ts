@@ -1,5 +1,6 @@
 /* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
 import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
+import {RemoveCoinsPopup} from './RemoveCoinsPopup';
 import {AddCoinsPopup} from './AddCoinsPopup';
 import {addKit} from '../../item/kits';
 import {compendiumBrowser} from '../../packs/compendium-browser';
@@ -619,6 +620,8 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
     html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
+    
+    html.find('.remove-coins-popup button').click(ev => this._onRemoveCoinsPopup(ev));
 
     html.find('.sell-all-treasure button').click(ev => this._onSellAllTreasure(ev));
 
@@ -1669,6 +1672,11 @@ export abstract class ActorSheetPF2e extends ActorSheet {
   _onAddCoinsPopup(event) {
       event.preventDefault();
       new AddCoinsPopup(this.actor, {}).render(true)
+  }
+  
+  _onRemoveCoinsPopup(event) {
+      event.preventDefault();
+      new RemoveCoinsPopup(this.actor, {}).render(true)
   }
 
   _onSellAllTreasure(event) {
