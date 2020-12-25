@@ -250,9 +250,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
             return CONST.TOKEN_DISPOSITIONS.HOSTILE;
         }
         
-        if (data.traits.attitude.value === "hostile" || data.traits.attitude.value === "unfriendly") {
+        if (data.traits.attitude.value === "hostile") {
             return CONST.TOKEN_DISPOSITIONS.HOSTILE;
-        } else if (data.traits.attitude.value === "indifferent") {
+        } else if (data.traits.attitude.value === "unfriendly" || data.traits.attitude.value === "indifferent") {
             return CONST.TOKEN_DISPOSITIONS.NEUTRAL;
         } else {
             return CONST.TOKEN_DISPOSITIONS.FRIENDLY;
