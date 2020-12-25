@@ -837,7 +837,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@Shandyan) Compendium updates
     * Shameless Request Feat Missing from Feat Compendium (issue #599)
     * Non-Uniform formatting in the Take Cover action (issue #600)
-    * Field Discovery: Chirugeon contains text for Field Discovery: Bomber (issue #603)
+    * Field Discovery: Chirurgeon contains text for Field Discovery: Bomber (issue #603)
     * Alchemist's Tools entry not up-to-date (issue #605)
     * Uncanny Bombs feat missing from compendium (issue #607)
     * Aura of Righteousness and Effortless Concentration is missing from compendium (issue #609)
