@@ -2,11 +2,11 @@
  * Implementation of Identify Magic and Identify Alchemy Rules for items
  * https://2e.aonprd.com/Actions.aspx?ID=24
  * https://2e.aonprd.com/Actions.aspx?ID=44
- * 
+ *
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import {isLevelItem, PhysicalItemData} from './dataDefinitions';
+import {isLevelItem, isPhysicalItem, ItemData, PhysicalItemData} from './dataDefinitions';
 import {toNumber} from '../utils';
 import {parseTraits} from '../traits';
 import {adjustDCByRarity, calculateDC, DCOptions} from '../dc';
@@ -132,5 +132,22 @@ export function identifyItem(
         return new IdentifyAlchemyDCs(baseDc);
     } else {
         return new GenericIdentifyDCs(baseDc);
+    }
+}
+
+export function isIdentified(itemData: ItemData): boolean {
+    return isPhysicalItem(itemData) && (itemData.data?.identified?.value ?? true);
+}
+
+export function getItemName(itemData: ItemData, showGMHint: boolean = false): string {
+    if (isIdentified(itemData)) {
+        return itemData.name;
+    } else {
+        const name = game.i18n.localize(`PF2E.identification.UnidentifiedItem`);
+        if (game.user.isGM && showGMHint) {
+            return `${name} (${itemData.name})`;
+        } else {
+            return name;
+        }
     }
 }
