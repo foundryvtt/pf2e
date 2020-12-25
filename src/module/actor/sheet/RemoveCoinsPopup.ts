@@ -1,5 +1,5 @@
 /* global FormApplication ui */
-import { calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
+import { addCoinsSimple, calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
 
 /**
  * @category Other
@@ -28,49 +28,78 @@ export class RemoveCoinsPopup extends FormApplication {
                 sp: formData.sp,
                 cp: formData.cp,
         }
+        const coinsToAdd = {
+            pp:0,
+            gp:0,
+            sp:0,
+            cp:0,
+        }
         const actorCoins = calculateValueOfCurrency (items);
         if  (formData.removeByValue) {
             //  Convert actorCoins and coinsToRemove to copper to facilitate comparison
             const actorCoinsCopper = actorCoins.cp + actorCoins.sp * 10 + actorCoins.gp * 100 + actorCoins.pp * 1000;
-            let copperToRemove = coinsToRemove.cp + coinsToRemove.sp * 10 + coinsToRemove.gp * 100 + coinsToRemove.pp * 1000;
+            let valueToRemoveInCopper = coinsToRemove.cp + coinsToRemove.sp * 10 + coinsToRemove.gp * 100 + coinsToRemove.pp * 1000;
             //  Error if total is not sufficient, will not be possible to construct a valid new coinsToRemove
-            if (copperToRemove > actorCoinsCopper) {
+            if (valueToRemoveInCopper > actorCoinsCopper) {
                 ui.notifications.warn("Insufficient Coins");
                 return;
             }
-            //  Build new coinsToRemove now that we know the total is sufficient
-            if (actorCoins.pp * 1000 > copperToRemove) {
-                const ppToRemove = Math.trunc(copperToRemove / 1000);
-                coinsToRemove.pp = ppToRemove;
-                copperToRemove -= ppToRemove * 1000;
+            let coinsBroken = false;
+            //  Choose quantities of each coin to remove from smallest to largest to ensure we don't end in a situation where we need to break a coin that has already been "removed"
+            if (valueToRemoveInCopper % 10 > actorCoins.cp) {
+                coinsToAdd.cp = 10;
+                coinsToRemove.cp = valueToRemoveInCopper % 10;
+                valueToRemoveInCopper += 10 - coinsToRemove.cp;
+                coinsBroken = true;
             } else {
-                coinsToRemove.pp = actorCoins.pp;
-                copperToRemove -= actorCoins.pp * 1000;
+                coinsToRemove.cp = valueToRemoveInCopper % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.cp;
+                actorCoins.cp -= coinsToRemove.cp;
+                const extraCopper = Math.min(valueToRemoveInCopper / 10, Math.trunc(actorCoins.cp / 10)) * 10;
+                coinsToRemove.cp += extraCopper;
+                valueToRemoveInCopper -= extraCopper;
             }
-            if (actorCoins.gp * 100 > copperToRemove) {
-                const gpToRemove = Math.trunc(copperToRemove / 100);
-                coinsToRemove.gp = gpToRemove;
-                copperToRemove -= gpToRemove * 100;
+
+            if ((valueToRemoveInCopper / 10) % 10 > actorCoins.sp) {
+                coinsToAdd.sp = 10;
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10;
+                valueToRemoveInCopper += 100 - coinsToRemove.sp * 10;
+                coinsBroken = true;
             } else {
-                coinsToRemove.gp = actorCoins.gp;
-                copperToRemove -= actorCoins.gp * 100;
+                coinsToRemove.sp = (valueToRemoveInCopper / 10) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.sp * 10;
+                actorCoins.sp -= coinsToRemove.sp;
+                const extraSilver = Math.min(valueToRemoveInCopper / 100, Math.trunc(actorCoins.sp / 10)) * 10;
+                coinsToRemove.sp += extraSilver;
+                valueToRemoveInCopper -= extraSilver * 10;
             }
-            if (actorCoins.sp * 10 > copperToRemove) {
-                const spToRemove = Math.trunc(copperToRemove / 10);
-                coinsToRemove.sp = spToRemove;
-                copperToRemove -= spToRemove * 10;
+            
+            if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
+                coinsToAdd.gp = 10;
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
+                valueToRemoveInCopper += 1000 - coinsToRemove.gp * 100;
+                coinsBroken = true;
             } else {
-                coinsToRemove.sp = actorCoins.sp;
-                copperToRemove -= actorCoins.sp * 10;
+                coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10; //  remove the units that other coins can't handle first
+                valueToRemoveInCopper -= coinsToRemove.gp * 100;
+                actorCoins.gp -= coinsToRemove.gp;
+                const extraGold = Math.min(valueToRemoveInCopper / 1000, Math.trunc(actorCoins.gp / 10)) * 10;
+                coinsToRemove.gp += extraGold;
+                valueToRemoveInCopper -= extraGold * 100;
             }
-            coinsToRemove.cp = copperToRemove;
-        }
-        if (coinsToRemove.pp <= actorCoins.pp &&
-            coinsToRemove.gp <= actorCoins.gp &&
-            coinsToRemove.sp <= actorCoins.sp &&
-            coinsToRemove.cp <= actorCoins.cp)
+            
+            coinsToRemove.pp = valueToRemoveInCopper / 1000;
+            
+            if (coinsBroken) {
+                await addCoinsSimple(actor,{coins: coinsToAdd});
+            }
+            removeCoinsSimple(actor,{coins: coinsToRemove});
+        } else if (coinsToRemove.pp <= actorCoins.pp &&
+                coinsToRemove.gp <= actorCoins.gp &&
+                coinsToRemove.sp <= actorCoins.sp &&
+                coinsToRemove.cp <= actorCoins.cp)
         {
-            await removeCoinsSimple(actor,{coins: coinsToRemove});
+            removeCoinsSimple(actor,{coins: coinsToRemove});
         } else {
             ui.notifications.warn("Insufficient coins");
         }
