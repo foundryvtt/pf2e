@@ -53,10 +53,8 @@
         {{/unless}}
 
         {{#if item.canBeEquipped}}
-            {{#if item.hasInvestedTrait}}
-              {{#if item.identified}}
+            {{#if (and item.hasInvestedTrait item.identified)}}
                 <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
-              {{/if}}
             {{/if}}
             <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}
