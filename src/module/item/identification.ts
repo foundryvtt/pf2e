@@ -6,8 +6,8 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import {isLevelItem, isPhysicalItem, ItemData, PhysicalItemData} from './dataDefinitions';
-import {toNumber} from '../utils';
+import {isArmorItem, isLevelItem, isPhysicalItem, isWeaponItem, ItemData, PhysicalItemData} from './dataDefinitions';
+import {isBlank, toNumber} from '../utils';
 import {parseTraits} from '../traits';
 import {adjustDCByRarity, calculateDC, DCOptions} from '../dc';
 
@@ -100,9 +100,22 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
     );
 }
 
-function isMagical(itemData: PhysicalItemData): boolean {
+function hasRunes(itemData: PhysicalItemData): boolean {
+    if (isWeaponItem(itemData)) {
+        return !isBlank(itemData.data?.potencyRune?.value) ||
+            !isBlank(itemData.data?.strikingRune?.value)
+    } else if (isArmorItem(itemData)) {
+        return !isBlank(itemData.data?.potencyRune?.value) ||
+            !isBlank(itemData.data?.resiliencyRune?.value)
+    } else {
+        return false;
+    }
+}
+
+export function isMagical(itemData: PhysicalItemData): boolean {
     const traits = getTraits(itemData);
     return traits.has('magical') ||
+        hasRunes(itemData) ||
         Array.from(magicTraditions)
             .some(trait => traits.has(trait));
 }
