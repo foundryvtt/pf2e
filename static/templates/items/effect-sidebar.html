@@ -2,7 +2,46 @@
 
 <div class="inventory-details">
     <div class="form-group">
-        <label for="effect-level">{{localize "PF2E.LevelLabel"}}</label>
-        <input id="effect-level" type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
+        <label for="effect-level">{{localize 'PF2E.LevelLabel'}}</label>
+        <div class="form-fields">
+            <input id="effect-level" type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label for="{{#if (eq data.duration.unit 'unlimited')}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize 'Duration'}}</label>
+        <div class="form-fields">
+            {{#if (eq data.duration.unit 'unlimited')}}
+            <input type="hidden" name="data.duration.value" value="-1" data-dtype="Number"/>
+            {{else}}
+            <input id="effect-duration-value" type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="Number"/>
+            {{/if}}
+            <select id="effect-duration-unit" name="data.duration.unit">
+                {{#select data.duration.unit}}
+                <option value="rounds">rounds</option>
+                <option value="minutes">minutes</option>
+                <option value="hours">hours</option>
+                <option value="days">days</option>
+                <option value="unlimited">unlimited</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="effect-duration-sustained">{{localize 'Sustained'}}</label>
+        <div class="form-fields">
+            <input id="effect-duration-sustained" type="checkbox" name="data.duration.sustained" {{checked data.duration.sustained}}/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="effect-duration-expiry">{{localize 'Expires on'}}</label>
+        <div class="form-fields">
+            <select id="effect-duration-expiry" name="data.duration.expiry">
+                {{#select data.duration.expiry}}
+                <option value="turn-start">{{localize 'start of turn'}}</option>
+                <option value="turn-end">{{localize 'end of turn'}}</option>
+                {{/select}}
+            </select>
+        </div>
     </div>
 </div>
