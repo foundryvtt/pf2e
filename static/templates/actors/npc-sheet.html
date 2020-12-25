@@ -227,6 +227,16 @@
                         </select>
                     </div>
                     <div class="bio-item trait-size pf-container">
+                      <label class="pf-title">{{localize "PF2E.AttitudeLabel"}}</label>
+                      <select class="pf-value pf-small pf-width-100" name="data.traits.attitude.value" data-dtype="String">
+                        {{#select data.traits.attitude.value}}
+                        {{#each attitude as |label key|}}
+                          <option value="{{key}}">{{localize label}}</option>
+                        {{/each}}
+                        {{/select}}
+                      </select>
+                    </div>
+                    <div class="bio-item trait-size pf-container">
                         <label class="pf-title">{{localize "PF2E.ImageLabel"}}</label>
                         <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
                     </div>
