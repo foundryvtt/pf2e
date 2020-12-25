@@ -799,6 +799,14 @@ export function isLevelItem(item: ItemData): item is ItemData & BaseEntityData<I
     return ('data' in item) && ('level' in item.data);
 }
 
+export function isWeaponItem(item: ItemData): item is WeaponData {
+    return item.type === 'weapon';
+}
+
+export function isArmorItem(item: ItemData): item is ArmorData {
+    return item.type === 'armor';
+}
+
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
 export function assertPhysicalItem(item: ItemData, error: string): asserts item is PhysicalItemData {
     if (!isPhysicalItem(item)) {

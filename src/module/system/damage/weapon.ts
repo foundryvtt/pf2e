@@ -9,6 +9,7 @@ import {
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
 import {toNumber} from "../../utils";
+import {getItemName} from '../../item/identification';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
@@ -373,7 +374,7 @@ export class PF2WeaponDamage {
         }
 
         const damage: any = {
-            name: `Damage Roll: ${weapon.name}`,
+            name: `Damage Roll: ${getItemName(weapon)}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,

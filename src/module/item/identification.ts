@@ -2,12 +2,12 @@
  * Implementation of Identify Magic and Identify Alchemy Rules for items
  * https://2e.aonprd.com/Actions.aspx?ID=24
  * https://2e.aonprd.com/Actions.aspx?ID=44
- * 
+ *
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import {isLevelItem, PhysicalItemData} from './dataDefinitions';
-import {toNumber} from '../utils';
+import {isArmorItem, isLevelItem, isPhysicalItem, isWeaponItem, ItemData, PhysicalItemData} from './dataDefinitions';
+import {isBlank, toNumber} from '../utils';
 import {parseTraits} from '../traits';
 import {adjustDCByRarity, calculateDC, DCOptions} from '../dc';
 
@@ -100,9 +100,22 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
     );
 }
 
-function isMagical(itemData: PhysicalItemData): boolean {
+function hasRunes(itemData: PhysicalItemData): boolean {
+    if (isWeaponItem(itemData)) {
+        return !isBlank(itemData.data?.potencyRune?.value) ||
+            !isBlank(itemData.data?.strikingRune?.value)
+    } else if (isArmorItem(itemData)) {
+        return !isBlank(itemData.data?.potencyRune?.value) ||
+            !isBlank(itemData.data?.resiliencyRune?.value)
+    } else {
+        return false;
+    }
+}
+
+export function isMagical(itemData: PhysicalItemData): boolean {
     const traits = getTraits(itemData);
     return traits.has('magical') ||
+        hasRunes(itemData) ||
         Array.from(magicTraditions)
             .some(trait => traits.has(trait));
 }
@@ -132,5 +145,22 @@ export function identifyItem(
         return new IdentifyAlchemyDCs(baseDc);
     } else {
         return new GenericIdentifyDCs(baseDc);
+    }
+}
+
+export function isIdentified(itemData: ItemData): boolean {
+    return isPhysicalItem(itemData) && (itemData.data?.identified?.value ?? true);
+}
+
+export function getItemName(itemData: ItemData, showGMHint: boolean = false): string {
+    if (isIdentified(itemData)) {
+        return itemData.name;
+    } else {
+        const name = game.i18n.localize(`PF2E.identification.UnidentifiedItem`);
+        if (game.user.isGM && showGMHint) {
+            return `${name} (${itemData.name})`;
+        } else {
+            return name;
+        }
     }
 }

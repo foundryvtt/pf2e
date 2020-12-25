@@ -1,4 +1,4 @@
-import {isPhysicalItem, MartialData, WeaponData} from '../item/dataDefinitions';
+import {MartialData, WeaponData} from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { AbilityModifier, DEXTERITY, PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier, ProficiencyModifier, WISDOM } from '../modifiers';
@@ -7,6 +7,7 @@ import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { PF2EActor, SKILL_DICTIONARY } from './actor';
 import { ArmorClassData, CharacterData, CharacterStrike, CharacterStrikeTrait, ClassDCData, HitPointsData, NPCSkillData, PerceptionData, SaveData, SkillData } from './actorDataDefinitions'
+import {getItemName} from '../item/identification';
 
 export class PF2ECharacter extends PF2EActor<CharacterData> {
 
@@ -403,7 +404,6 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
             }
 
             (actorData.items ?? [])
-                .filter(item => isPhysicalItem(item) && (item.data?.identified?.value ?? true))
                 .filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
                 const modifiers = [];
 
@@ -439,7 +439,7 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                     });
                 }
 
-                const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+                const action = new PF2StatisticModifier(getItemName(item), modifiers) as CharacterStrike;
 
                 action.imageUrl = item.img;
                 action.item = item?._id;
