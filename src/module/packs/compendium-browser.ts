@@ -8,6 +8,12 @@ function _sortedObject(obj) {
   return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
+function normaliseString(str: string): string {
+  // Normalise to NFD to separate diacritics, then remove unwanted characters and convert to lowercase
+  // For now, keep only alnums; if we want smarter, we can change it later
+  return str.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 /**
  * @category Other
  */
@@ -833,16 +839,16 @@ class CompendiumBrowser extends Application {
 
   getFilterResult(element) {
     if (this.sorters.text !== '') {
-      const strings = this.sorters.text.split(',');
-      for (const string of strings) {
-        if (string.indexOf(':') === -1) {
-          if ($(element).find('.spell-name a')[0].innerHTML.toLowerCase().indexOf(string.toLowerCase().trim()) === -1) {
+      const searches = this.sorters.text.split(',');
+      for (const search of searches) {
+        if (search.indexOf(':') === -1) {
+          if (!normaliseString($(element).find('.spell-name a')[0].innerHTML).includes(normaliseString(search))) {
             return false;
           }
         } else {
-          const targetValue = string.split(':')[1].trim();
-          const targetStat = string.split(':')[0].trim();
-          if (!element.dataset[targetStat]?.includes(targetValue.toLowerCase())) {
+          const targetValue = search.split(':')[1].trim();
+          const targetStat = search.split(':')[0];
+          if (!normaliseString(element.dataset[targetStat] ?? '').includes(normaliseString(targetValue))) {
             return false;
           }
         }

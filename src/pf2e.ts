@@ -210,6 +210,7 @@ Hooks.once("ready", () => {
 
 // Activate global listeners
 Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
+Hooks.on('renderChatPopout', (log, html) => PF2EItem.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**

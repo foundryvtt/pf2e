@@ -1,15 +1,20 @@
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
+const process = require("process");
 const Datastore = require("nedb-promises");
 const yargs = require("yargs");
 
-const PackError = (message) => `Error: ${message}`;
+// show error message without needless traceback
+const throwPackError = (message) => {
+  console.error(`Error: ${message}`);
+  process.exit(1);
+};
 
 // include commander in git clone of commander repo
 
 const args = yargs(process.argv.slice(2))
       .command(
-        "$0 <packDb> <foundryConfig>",
+        "$0 <packDb> [foundryConfig]",
         "Extract one or all compendium packs to packs/data",
         () => {
           yargs
@@ -17,26 +22,34 @@ const args = yargs(process.argv.slice(2))
               describe: 'A compendium pack filename (*.db) or otherwise "all"',
             })
             .positional("foundryConfig", {
-              describe: "The path to your local Foundry server's config.json file"
+              describe: "The path to your local Foundry server's config.json file",
+              default: "foundryconfig.json",
             })
             .example([
               ["npm run $0 spells.db /path/to/foundryvtt/Config/options.json"],
               ["npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json"],
-              ["npm run $0 all /path/to/foundryvtt/Config/options.json"]
+              ["npm run $0 spells.db # copy of config at ./foundryconfig.json"],
+              ["npm run $0 all       # same"]
             ]);
         })
-      // .strict()
+      .check((argv) => {
+        if (!(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())) {
+          throw Error(`Error: No config file found at "${argv.foundryConfig}"`);
+        }
+        return true;
+      })
       .help(false)
       .version(false)
       .parse();
 
 
 const config = (() => {
+  const content = fs.readFileSync(args.foundryConfig, {encoding: "utf-8"});
   try {
-    const content = fs.readFileSync(args.foundryConfig, {encoding: "utf-8"});
     return JSON.parse(content);
   } catch (_error) {
-    throw PackError(`No Foundry config file found at ${args.foundryConfig}`);
+    throwPackError(`${args.foundryConfig} is not well-formed JSON.`);
+    return undefined; // make eslint happy until eslint-config-airbnb-base is tossed
   }
 })();
 
@@ -92,7 +105,7 @@ function convertLinks(entityData, packName) {
   const worldItemLinks = Array.from(entityJson.matchAll(linkPatterns.world));
   if (worldItemLinks.length > 0) {
     const linkString = worldItemLinks.map((match) => match[0]).join(", ");
-    throw PackError(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
+    throwPackError(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
   }
 
   const compendiumLinks = Array.from(
@@ -101,7 +114,7 @@ function convertLinks(entityData, packName) {
 
   if (linksLackingLabels.length > 0) {
     const linkString = linksLackingLabels.map((match) => match[0]).join(", ");
-    throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
+    throwPackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
   }
 
   // Convert links by ID to links by name
@@ -112,7 +125,7 @@ function convertLinks(entityData, packName) {
 
     const packMap = idsToNames.get(packId);
     if (packMap === undefined) {
-      throw PackError(`Pack ${packId} has no ID-to-name map.`);
+      throwPackError(`Pack ${packId} has no ID-to-name map.`);
     }
 
     const entityName = packMap.get(entityId);
@@ -189,11 +202,11 @@ async function extractPack(filePath, packFilename) {
     const outFilePath = path.resolve(outPath, outFileName);
 
     if (fs.existsSync(outFilePath)) {
-      throw PackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
+      throwPackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
     }
 
     if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
-      throw PackError(`The ID "${entityData._id}" of entity "${entityData.name}" does not match `
+      throwPackError(`The ID "${entityData._id}" of entity "${entityData.name}" does not match `
                       + "the current ID. Entities that are already in the system must keep their "
                       + "current ID.");
     }
@@ -218,7 +231,7 @@ function populateIdNameMap() {
       (pack) => path.basename(pack.path) === packDir
     );
     if (systemPack === undefined) {
-      throw PackError(`Compendium at ${packDir} has no name in the local system.json file.`);
+      throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
     }
 
     const packMap = new Map();
@@ -233,7 +246,8 @@ function populateIdNameMap() {
         try {
           return JSON.parse(jsonString);
         } catch (error) {
-          throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
+          throwPackError(`File at ${filePath} could not be parsed: ${error.message}`);
+          return undefined;
         }
       })();
       packMap.set(entityData._id, entityData.name);
@@ -265,10 +279,10 @@ async function extractPacks() {
     const filename = path.basename(filePath);
 
     if (!filename.endsWith(".db")) {
-      throw PackError(`Pack file is not a DB file: '${filename}'`);
+      throwPackError(`Pack file is not a DB file: '${filename}'`);
     }
     if (!fs.existsSync(filePath)) {
-      throw PackError(`File not found: '${filename}'`);
+      throwPackError(`File not found: '${filename}'`);
     }
 
     const outDirPath = path.resolve(dataPath, filename);
