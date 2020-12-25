@@ -240,12 +240,12 @@ export class PF2ENPC extends PF2EActor<NpcData> {
           }
         }
     
-        this.data.token.disposition = this.mapNPCAttitudeToTokenDisposition(data);
+        this.data.token.disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(data);
 
         return actorData;
     }
     
-    private mapNPCAttitudeToTokenDisposition(data: RawNpcData): number {
+    private static mapNPCAttitudeToTokenDisposition(data: RawNpcData): number {
         if(data.traits.attitude.value === null) {
             return CONST.TOKEN_DISPOSITIONS.HOSTILE;
         }
