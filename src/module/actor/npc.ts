@@ -3,16 +3,8 @@ import {PF2EItem} from '../item/item';
 import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} from '../modifiers';
 import {PF2WeaponDamage} from '../system/damage/weapon';
 import {PF2Check, PF2DamageRoll} from '../system/rolls';
-import {
-    CharacterStrike,
-    CharacterStrikeTrait,
-    NPCArmorClassData,
-    NpcData,
-    NPCPerceptionData,
-    NPCSaveData,
-    NPCSkillData,
-    RawNpcData
-} from './actorDataDefinitions'
+import {CharacterStrike, CharacterStrikeTrait, NPCArmorClassData, NpcData, NPCPerceptionData, NPCSaveData, 
+    NPCSkillData, RawNpcData} from './actorDataDefinitions'
 import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor<NpcData> {
@@ -239,10 +231,26 @@ export class PF2ENPC extends PF2EActor<NpcData> {
             data.actions.push(action);
           }
         }
-    
-        this.data.token.disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(data);
+        
+        this.updateTokens(data);
 
         return actorData;
+    }
+    
+    private updateTokens(data: RawNpcData) {
+        const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(data);
+        const tokens = this.getAllTokens();
+        console.log(tokens);
+        for (const key of Object.keys(tokens)) {
+            const token = tokens[key];
+            token.disposition = disposition;
+        }
+
+        const dispositionActorUpdate = {
+            'token.disposition': disposition,
+        };
+
+        this._updateAllTokens(dispositionActorUpdate, tokens);
     }
     
     private static mapNPCAttitudeToTokenDisposition(data: RawNpcData): number {
