@@ -5,6 +5,13 @@ import {ConditionData, ConditionDetailsData} from "../item/dataDefinitions";
 
 export class EffectPanel extends Application {
 
+    private static readonly UNITS = Object.freeze({
+        rounds: 6,
+        minutes: 60,
+        hours: 3600,
+        days: 86400,
+    });
+
     private timeout: any = null;
 
     static get defaultOptions() {
@@ -38,7 +45,18 @@ export class EffectPanel extends Application {
                 if (item.type === 'condition' && item.flags[game.system.id]?.condition) {
                     data.conditions.push(item);
                 } else if (item.type === 'effect') {
-                    data.effects.push(item);
+                    const effect = duplicate(item);
+                    const duration = EffectPanel.getEffectDuration(effect);
+                    if (duration < 0) {
+                        effect.data.expired = false;
+                        effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
+                    } else {
+                        const start = effect.data.start?.value ?? 0;
+                        const remaining = (start + duration) - game.time.worldTime;
+                        effect.data.expired = (remaining <= 0);
+                        effect.data.remaining = effect.data.expired ? game.i18n.localize('PF2E.EffectPanel.Expired') : EffectPanel.getRemainingDurationLabel(remaining);
+                    }
+                    data.effects.push(effect);
                 }
             }
         }
@@ -86,8 +104,43 @@ export class EffectPanel extends Application {
         let breakdown = '';
         if ((conditions ?? []).length > 0) {
             const list = Array.from(new Set(conditions.map(p => p.name))).sort().join(', ');
-            breakdown = `\n${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}.`;
+            breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
         }
         return breakdown;
+    }
+
+    private static getEffectDuration(effect: any): number {
+        const { duration } = effect.data;
+        if (duration.unit === 'unlimited') {
+            return -1;
+        } else {
+            return duration.value * (this.UNITS[duration.unit] ?? 0);
+        }
+    }
+
+    private static getRemainingDurationLabel(remaining: number): string {
+        if (remaining >= 63_072_000) { // two years
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleYears', { years: Math.floor(remaining / 31_536_000) });
+        } else if (remaining >= 31_536_000) { // one year
+            return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleYear');
+        } else if (remaining >= 1_209_600) { // two weeks
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleWeeks', { weeks: Math.floor(remaining / 604_800) });
+        } else if (remaining > 604_800) { // one week
+            return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleWeek');
+        } else if (remaining >= 172_800) { // two days
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleDays', { days: Math.floor(remaining / 86_400) });
+        } else if (remaining > 7_200) { // two hours
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleHours', { hours: Math.floor(remaining / 3_600) });
+        } else if (remaining > 120) { // two minutes
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleMinutes', { minutes: Math.floor(remaining / 60) });
+        } else if (remaining >= 12) { // two rounds
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleRounds', { rounds: Math.floor(remaining / 6) });
+        } else if (remaining >= 6) { // one round
+            return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleRound');
+        } else if (remaining >= 2) { // two seconds
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleSeconds', { seconds: remaining });
+        } else { // one second
+            return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleSecond');
+        }
     }
 }

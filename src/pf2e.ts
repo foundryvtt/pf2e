@@ -346,6 +346,14 @@ Hooks.on('updateActor', (actor, dir) => {
   _updateMinionActors(actor);
 });
 
+function preCreateOwnedItem(parent, child, options, userID) {
+    if (child.type === 'effect') {
+        child.data.start = child.data.start || {};
+        child.data.start.value = game.time.worldTime;
+    }
+}
+Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
+
 function createOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
         parent.onCreateOwnedItem(child, options, userID);
@@ -385,6 +393,8 @@ Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
                 removed: token.actorData.items.filter(i => !data.actorData.items.map(x => x._id)?.includes(i._id)),
             }
         };
+        const actor = game.actors.get(token.actorId);
+        options.pf2e.items.added.forEach(item => { preCreateOwnedItem(actor, item, options, userID); });
     }
 });
 
@@ -434,4 +444,5 @@ Hooks.on('updateWorldTime', (total, diff) => {
     if (worldclock) {
         worldclock.render(false);
     }
+    game[game.system.id].effectPanel.refresh();
 });

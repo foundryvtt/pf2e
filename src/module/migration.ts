@@ -614,6 +614,10 @@ export function migrateActorData(actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.589) {
             migrateActorItems(actor, updateData, setItemAsIdentified)
         }
+    } else if (actor.type === 'loot') {
+        if (worldSchemaVersion < 0.590) {
+            migrateActorItems(actor, updateData, setItemAsIdentified)
+        }
     }
     return updateData;
 };

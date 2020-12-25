@@ -1,22 +1,22 @@
 <li class="item" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
     <div class="item-name rollable">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-        {{#if item.identified}}
           <h4>
-              {{item.name}}
+              {{#if item.identified}}
+                {{item.name}}
+              {{else}}
+                {{#if item.showGMInfo}}
+                  {{localize 'PF2E.identification.UnidentifiedItem'}} ({{item.name}})
+                {{else}}
+                  {{localize 'PF2E.identification.UnidentifiedItem'}}
+                {{/if}}
+              {{/if}}
               {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
               {{#if item.isTwoHanded}}
               {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
               <i class="far fa-hand-paper"></i>
               {{/if}}
           </h4>
-        {{else}}
-          {{#if item.showGMInfo}}  
-            <h4>{{localize 'PF2E.identification.UnidentifiedItem'}} ({{item.name}})</h4>
-          {{else}}
-            <h4>{{localize 'PF2E.identification.UnidentifiedItem'}}</h4>
-          {{/if}}
-        {{/if}}
         {{#if item.hasCharges}}
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
         {{/if}}
@@ -53,7 +53,7 @@
         {{/unless}}
 
         {{#if item.canBeEquipped}}
-            {{#if item.hasInvestedTrait}}
+            {{#if (and item.hasInvestedTrait item.identified)}}
                 <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
             {{/if}}
             <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
