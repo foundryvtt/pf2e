@@ -33,3 +33,5 @@ global.game = Object.freeze({
     },
   }),
 });
+
+global.mergeObject = require('./stubs');
