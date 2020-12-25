@@ -1,4 +1,4 @@
-import { ItemData } from "../item/dataDefinitions"
+import {ItemData, Rarity} from '../item/dataDefinitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from "../modifiers";
 
 /** A type representing the possible ability strings. */
@@ -517,7 +517,7 @@ export interface RawNpcData {
         /** Traits that define this creature, like 'humanoid' or 'celestial.' */
         traits: { value: string[]; custom: string; }
         /** The rarity of this creature (common, uncommon, etc.) */
-        rarity: { value: string; }
+        rarity: { value: Rarity; }
         /** Languages this creature knows. */
         languages: { value: string[]; selected: string[]; custom: string; }
         /** Damage/condition immunities. */

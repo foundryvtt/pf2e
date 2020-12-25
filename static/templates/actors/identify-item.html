@@ -1,0 +1,46 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+  {{#if isMagic}}
+  <h1>{{localize "PF2E.identification.IdentifyMagicDCs"}}</h1>
+  <table>
+    <tbody>
+    <tr>
+      <th>{{localize "PF2E.SkillArcana"}}</th>
+      <td>{{dcs.arc}}</td>
+    </tr>
+    <tr>
+      <th>{{localize "PF2E.SkillNature"}}</th>
+      <td>{{dcs.nat}}</td>
+    </tr>
+    <tr>
+      <th>{{localize "PF2E.SkillOccultism"}}</th>
+      <td>{{dcs.occ}}</td>
+    </tr>
+    <tr>
+      <th>{{localize "PF2E.SkillReligion"}}</th>
+      <td>{{dcs.rel}}</td>
+    </tr>
+  </table>
+  {{else}}
+    {{#if isAlchemical}}
+    <h1>{{localize "PF2E.identification.IdentifyAlchemyDCs"}}</h1>
+    <table>
+      <tbody>
+      <tr>
+        <th>{{localize "PF2E.SkillCrafting"}}</th>
+        <td>{{dcs.cra}}</td>
+      </tr>
+    </table>
+    {{else}}
+    <h1>{{localize "PF2E.identification.IdentifyGenericDCs"}}</h1>
+    <table>
+      <tbody>
+      <tr>
+        <th>{{localize "PF2E.SkillCrafting"}}</th>
+        <td>{{dcs.dc}}</td>
+      </tr>
+    </table>
+    {{/if}}
+  {{/if}}
+  <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.identification.Identify"}}
+  </button>
+</form>

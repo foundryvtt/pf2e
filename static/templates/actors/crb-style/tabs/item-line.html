@@ -1,14 +1,22 @@
 <li class="item" data-item-id="{{item._id}}" data-item-is-container="{{item.isContainer}}">
     <div class="item-name rollable">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-        <h4>
-            {{item.name}}
-            {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
-            {{#if item.isTwoHanded}}
-            {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
-            <i class="far fa-hand-paper"></i>
-            {{/if}}
-        </h4>
+          <h4>
+              {{#if item.identified}}
+                {{item.name}}
+              {{else}}
+                {{#if item.showGMInfo}}
+                  {{localize 'PF2E.identification.UnidentifiedItem'}} ({{item.name}})
+                {{else}}
+                  {{localize 'PF2E.identification.UnidentifiedItem'}}
+                {{/if}}
+              {{/if}}
+              {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
+              {{#if item.isTwoHanded}}
+              {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
+              <i class="far fa-hand-paper"></i>
+              {{/if}}
+          </h4>
         {{#if item.hasCharges}}
         <span class="item-charges">({{item.data.charges.value}}/{{item.data.charges.max}})</span>
         {{/if}}
@@ -45,19 +53,27 @@
         {{/unless}}
 
         {{#if item.canBeEquipped}}
-            {{#if item.hasInvestedTrait}}
+            {{#if (and item.hasInvestedTrait item.identified)}}
                 <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
             {{/if}}
             <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}
-        
+        {{#if item.showGMInfo}}
+          {{#if item.identified}}
+            <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
+          {{else}}
+            <a class="item-control item-toggle-identified" title="{{localize "PF2E.identification.Identify"}}"><i class="fas fa-question-circle"></i></a>
+          {{/if}}
+        {{/if}}
         {{#if item.isSellableTreasure}}
         <a class="item-control item-sell-treasure" title="{{localize "PF2E.ui.sell"}}"><i class="fas fa-coins"></i></a>
         {{/if}}
         {{#unless item.isSellableTreasure}}
 
         {{/unless}}
-        <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+        {{#if item.showEdit}}
+          <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+        {{/if}}
         <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
     </div>
     {{/if}}

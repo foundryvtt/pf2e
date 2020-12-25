@@ -9,6 +9,7 @@ import {
 import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
 import {DamageCategory} from './damage';
 import {toNumber} from "../../utils";
+import {getItemName} from '../../item/identification';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<string, {
@@ -80,25 +81,35 @@ export class PF2WeaponDamage {
                     digits += part;
                 }
             }
-            if (!die) {
+            if (dice && !die) {
                 die = `d${digits}`;
             } else if (operator === '-') {
                 modifier -= Number(digits);
-            } else if (operator === '+') {
+            } else {
                 modifier += Number(digits);
             }
 
             if (parsedBaseDamage) {
-                // amend damage dice with all the extra damage
-                const dd = damageDice.damage ?? [];
-                dd.push({
-                    selector: 'damage',
-                    name: 'Base',
-                    diceNumber: dice,
-                    dieSize: die,
-                    damageType: dmg.damageType
-                });
-                damageDice.damage = dd;
+                // amend damage dice with any extra dice
+                if (dice && die) {
+                    const dd = damageDice.damage ?? [];
+                    dd.push({
+                        selector: 'damage',
+                        name: 'Base',
+                        diceNumber: dice,
+                        dieSize: die,
+                        damageType: dmg.damageType
+                    });
+                    damageDice.damage = dd;
+                }
+                // amend numeric modifiers with any flat modifier
+                if (modifier) {
+                    const modifiers = statisticsModifiers.damage ?? [];
+                    const dm = new PF2Modifier('Base', modifier, 'untyped');
+                    dm.damageType = dmg.damageType;
+                    modifiers.push(dm);
+                    statisticsModifiers.damage = modifiers;
+                }
             } else {
                 weapon.data.damage.dice = dice;
                 weapon.data.damage.die = die;
@@ -363,7 +374,7 @@ export class PF2WeaponDamage {
         }
 
         const damage: any = {
-            name: `Damage Roll: ${weapon.name}`,
+            name: `Damage Roll: ${getItemName(weapon)}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,

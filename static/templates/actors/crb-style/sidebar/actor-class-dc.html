@@ -5,10 +5,12 @@
 
 <div class="roll-data difficulty-checks">
     <h3>{{numberFormat data.attributes.classDC.value decimals=0 sign=false}}</h3>
-    <input type="hidden" name="data.attributes.classDC.rank" value="{{data.attributes.classDC.rank}}" data-dtype="Number" data-category="proficiency"/>
-    <h4 class="plaque click-stat-level">
-        <span>{{data.attributes.classDC.rankName}}</span>
-    </h4>
+    <div class="classdc-rank" value="{{data.attributes.classDC.rank}}">
+        <input type="hidden" name="data.attributes.classDC.rank" value="{{data.attributes.classDC.rank}}" data-dtype="Number" data-category="proficiency"/>
+        <h4 class="click-stat-level">
+            <span>{{data.attributes.classDC.rankName}}</span>
+        </h4>
+    </div>
 </div>
 
 <!-- <ol class="difficulty-checks">

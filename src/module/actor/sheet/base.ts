@@ -1,5 +1,5 @@
 /* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
-import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
+import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
@@ -7,8 +7,10 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData } from '../../item/dataDefinitions';
+import { ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
+import { IdentifyItemPopup } from './IdentifyPopup';
+import { isIdentified } from '../../item/identification';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -539,8 +541,12 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.attribute-name').click((ev) => {
       ev.preventDefault();
       const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
+      const isSecret = ev.currentTarget.getAttribute('data-secret');
       if (this.actor.data.data.attributes[attribute]?.roll) {
         const opts = this.actor.getRollOptions(['all', attribute]);
+        if (isSecret) {
+          opts.push('secret');
+        }
         this.actor.data.data.attributes[attribute].roll(ev, opts);
       } else {
         this.actor.rollAttribute(ev, attribute);
@@ -664,6 +670,18 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
       const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
       item.sheet.render(true);
+    });
+
+    // Toggle identified
+    html.find('.item-toggle-identified').click((ev) => {
+      const f = $(ev.currentTarget);
+      const itemId = f.parents('.item').attr('data-item-id');
+      const identified = f.hasClass('identified');
+      if (identified) {
+          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.identified.value': !identified });   
+      } else {
+          new IdentifyItemPopup(this.actor, {itemId}).render(true);
+      }
     });
 
     // Delete Inventory Item
@@ -1366,6 +1384,12 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
     const item = this.actor.getOwnedItem(itemId);
+    const itemData = item.data;
+    if (isPhysicalItem(itemData) && !isIdentified(item.data)) {
+      // we don't want to show the item card for items that aren't identified
+      return;
+    }
+    
     item.roll(event);
   }
 
@@ -1395,8 +1419,10 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition')  return;
 
     const chatData = item.getChatData({ secrets: this.actor.owner });
-
-    this._renderItemSummary(li, item, chatData);
+  
+    if (game.user.isGM || isIdentified(item.data)) {
+        this._renderItemSummary(li, item, chatData);
+    }
   }
 
   _renderItemSummary(li, item, chatData) {

@@ -1,8 +1,9 @@
 import * as path from "path";
+import * as process from "process";
 import * as fs from "fs";
 
 interface SerializableData {
-  [key: string]: { } | null;
+  [key: string]: { } | null | undefined;
 }
 
 interface PackEntityData extends SerializableData {
@@ -32,17 +33,25 @@ class Compendium {
     fs.readFileSync("system.json", "utf-8")
   ).packs as { name: string, path: string }[];
   static _worldItemLinkPattern = new RegExp(
-    /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[[^\]]+\]/
+    /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
   );
 
   constructor(packDir: string, parsedData: unknown[]) {
     if (this._isPackData(parsedData)) {
       this.packDir = packDir;
-      this.name = Compendium._systemPackData.find(
+      const compendium = Compendium._systemPackData.find(
         (pack) => path.basename(pack.path) === path.basename(packDir)
-      ).name;
+      );
+      if (compendium === undefined) {
+        throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
+      }
+      this.name = compendium.name;
+
       Compendium._namesToIds.set(this.name, new Map());
       const packMap = Compendium._namesToIds.get(this.name);
+      if (packMap === undefined) {
+        throwPackError(`Compendium ${this.name} (${packDir}) was not found.`);
+      }
 
       parsedData.sort((a, b) => {
         if (a._id === b._id) {
@@ -60,14 +69,14 @@ class Compendium {
         // Check img paths
         if (typeof entityData.img === "string") {
           const imgPaths = [entityData.img ?? ""].concat(
-            entityData.hasOwnProperty("items") ?
+            Array.isArray(entityData.items) ?
               entityData.items.map((itemData) => itemData.img ?? "") : []
           );
           const entityName = entityData.name;
           for (const imgPath of imgPaths) {
             if (imgPath.startsWith("data:image")) {
               throwPackError(`${entityName} (${this.name}) has base64-encoded image data: `
-                             + `${imgPath.slice(0, 64)}...`);
+                              + `${imgPath.slice(0, 64)}...`);
             }
 
             const repoImgPath = path.resolve(
@@ -91,24 +100,25 @@ class Compendium {
     const worldItemLink = Compendium._worldItemLinkPattern.exec(stringified);
     if (worldItemLink !== null) {
       throwPackError(`${entityData.name} (${this.name}) has a link to a world item: `
-                  + `${worldItemLink[0]}`);
+                      + `${worldItemLink[0]}`);
     }
 
     return JSON.stringify(entityData).replace(
       /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
       (match, packName: string, entityName: string) => {
         const namesToIds = Compendium._namesToIds.get(packName);
+        const link = match.replace(/\{$/, "");
         if (namesToIds === undefined) {
-          throwPackError(`${entityData.name} (${this.name}) has bad pack reference: ${match}`);
+          throwPackError(`${entityData.name} (${this.name}) has a bad pack reference: ${link}`);
         }
         if (!match.endsWith("{")) {
-          throwPackError(`${entityData.name} (${this.name}) has a link with no label: ${match}`);
+          throwPackError(`${entityData.name} (${this.name}) has a link with no label: ${link}`);
         }
 
         const entityId: string | undefined = namesToIds.get(entityName);
         if (entityId === undefined ) {
-          console.warn(`Warning: ${entityData.name} (${this.name}) has broken link to `
-                       + `${entityName} (${packName}).`);
+          throwPackError(`${entityData.name} (${this.name}) has broken link to ` +
+                         `${entityName} (${packName}).`);
           return `@Compendium[pf2e.${packName}.${entityName}]{`;
         } else {
           return `@Compendium[pf2e.${packName}.${entityId}]{`;

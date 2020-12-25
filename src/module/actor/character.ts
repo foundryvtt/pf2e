@@ -1,4 +1,4 @@
-import { MartialData, WeaponData } from '../item/dataDefinitions';
+import {MartialData, WeaponData} from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import { AbilityModifier, DEXTERITY, PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier, ProficiencyModifier, WISDOM } from '../modifiers';
@@ -7,6 +7,7 @@ import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { PF2EActor, SKILL_DICTIONARY } from './actor';
 import { ArmorClassData, CharacterData, CharacterStrike, CharacterStrikeTrait, ClassDCData, HitPointsData, NPCSkillData, PerceptionData, SaveData, SkillData } from './actorDataDefinitions'
+import {getItemName} from '../item/identification';
 
 export class PF2ECharacter extends PF2EActor<CharacterData> {
 
@@ -242,10 +243,6 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
         }
 
         // Skill modifiers
-        const feats = new Set(actorData.items
-            .filter(item => item.type === 'feat')
-            .map(item => item.name))
-        const hasUntrainedImprovisation = feats.has('Untrained Improvisation')
 
         const skills = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
 
@@ -254,16 +251,6 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                 AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
             ];
-            if (skill.rank === 0 && hasUntrainedImprovisation) {
-                let bonus = 0;
-                const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-                if (rule === 'ProficiencyWithLevel') {
-                    bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
-                } else if (rule === 'ProficiencyWithoutLevel') {
-                    // No description in Gamemastery Guide on how to handle untrained improvisation.
-                }
-                modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
-            }
             if (skill.item) {
                 modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
             }
@@ -302,16 +289,6 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                 AbilityModifier.fromAbilityScore('int', data.abilities.int.value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank)
             ];
-            if (rank === 0 && hasUntrainedImprovisation) {
-                let bonus = 0;
-                const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-                if (rule === 'ProficiencyWithLevel') {
-                    bonus = data.details.level.value < 7 ? Math.floor(data.details.level.value / 2) : data.details.level.value;
-                } else if (rule === 'ProficiencyWithoutLevel') {
-                    // No description in Gamemastery Guide on how to handle untrained improvisation.
-                }
-                modifiers.push(new PF2Modifier('PF2E.ProficiencyLevelUntrainedImprovisation', bonus, PF2ModifierType.PROFICIENCY));
-            }
             [shortform, `int-based`, 'skill-check', 'all'].forEach((key) => {
                 (statisticsModifiers[(key as any)] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
@@ -426,7 +403,8 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                 unarmed.data.damage.die = 'd6';
             }
 
-            (actorData.items ?? []).filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
+            (actorData.items ?? [])
+                .filter((item): item is WeaponData => item.type === 'weapon').concat([unarmed]).concat(strikes).forEach((item) => {
                 const modifiers = [];
 
                 // Determine the base ability score for this attack.
@@ -461,7 +439,7 @@ export class PF2ECharacter extends PF2EActor<CharacterData> {
                     });
                 }
 
-                const action = new PF2StatisticModifier(item.name, modifiers) as CharacterStrike;
+                const action = new PF2StatisticModifier(getItemName(item), modifiers) as CharacterStrike;
 
                 action.imageUrl = item.img;
                 action.item = item?._id;

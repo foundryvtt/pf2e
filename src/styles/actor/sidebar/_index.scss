@@ -132,6 +132,17 @@ aside {
             align-items: center;
             padding-bottom: 2px;
 
+            i {
+                font-size: 19px;
+                color: white;
+                margin-left: 5px;
+                animation-play-state: paused;
+                &:hover {
+                    animation-play-state: running;
+                    @include pulse-size;
+                }
+            }
+
             svg {
                 animation-play-state: paused;
                 &:hover {

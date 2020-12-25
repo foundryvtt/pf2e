@@ -135,6 +135,20 @@ export function registerSettings() {
     default: 8,
     type: Number
   });
+  game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
+    name: 'Identify Magic Skill Modifier',
+    hint: 'Modifier to add to Identify Magic Skill DCs if the skill does not match the item\'s magic tradition',
+    choices: {
+        0: "0",
+        2: "+2",
+        5: "+5",
+        10: "+10",
+    },
+    type: Number,
+    default: 5,
+    scope: 'world',
+    config: true,  
+  });
   game.settings.register('pf2e', 'critRule', {
     name: 'Critical Damage Rule',
     hint: "Use a different rule for doubling damage on a critical hit",
