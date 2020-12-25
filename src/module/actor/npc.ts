@@ -1,10 +1,19 @@
-import { PF2EActor, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '../item/item';
-import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
-import { PF2WeaponDamage } from '../system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { NpcData, CharacterStrike, CharacterStrikeTrait, NPCSkillData, NPCArmorClassData, NPCSaveData, NPCPerceptionData } from './actorDataDefinitions'
-import { PF2RuleElements } from '../rules/rules';
+import {PF2EActor, SKILL_EXPANDED} from './actor';
+import {PF2EItem} from '../item/item';
+import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} from '../modifiers';
+import {PF2WeaponDamage} from '../system/damage/weapon';
+import {PF2Check, PF2DamageRoll} from '../system/rolls';
+import {
+    CharacterStrike,
+    CharacterStrikeTrait,
+    NPCArmorClassData,
+    NpcData,
+    NPCPerceptionData,
+    NPCSaveData,
+    NPCSkillData,
+    RawNpcData
+} from './actorDataDefinitions'
+import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor<NpcData> {
 
@@ -231,9 +240,22 @@ export class PF2ENPC extends PF2EActor<NpcData> {
           }
         }
     
-
+        this.data.token.disposition = this.mapNPCAttitudeToTokenDisposition(data);
 
         return actorData;
     }
-
+    
+    private mapNPCAttitudeToTokenDisposition(data: RawNpcData): number {
+        if(data.traits.attitude.value === null) {
+            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
+        }
+        
+        if (data.traits.attitude.value === "hostile" || data.traits.attitude.value === "unfriendly") {
+            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
+        } else if (data.traits.attitude.value === "indifferent") {
+            return CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+        } else {
+            return CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        }
+    }
 }
