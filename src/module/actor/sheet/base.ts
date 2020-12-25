@@ -1,16 +1,16 @@
 /* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
-import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
-import {AddCoinsPopup} from './AddCoinsPopup';
-import {addKit} from '../../item/kits';
-import {compendiumBrowser} from '../../packs/compendium-browser';
-import {MoveLootPopup} from './loot/MoveLootPopup';
-import {PF2EActor, SKILL_DICTIONARY} from '../actor';
-import {TraitSelector5e} from '../../system/trait-selector';
-import {PF2EItem} from '../../item/item';
-import {ConditionData} from '../../item/dataDefinitions';
-import {PF2eConditionManager} from '../../conditions';
-import {IdentifyItemPopup} from './IdentifyPopup';
-import {isIdentified} from '../../item/identification';
+import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
+import { AddCoinsPopup } from './AddCoinsPopup';
+import { addKit } from '../../item/kits';
+import { compendiumBrowser } from '../../packs/compendium-browser';
+import { MoveLootPopup } from './loot/MoveLootPopup';
+import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { TraitSelector5e } from '../../system/trait-selector';
+import { PF2EItem } from '../../item/item';
+import { ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import { PF2eConditionManager } from '../../conditions';
+import { IdentifyItemPopup } from './IdentifyPopup';
+import { isIdentified } from '../../item/identification';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1384,9 +1384,13 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
     const item = this.actor.getOwnedItem(itemId);
-      if(isIdentified(item.data)) {
-        item.roll(event);
+    const itemData = item.data;
+    if (isPhysicalItem(itemData) && !isIdentified(item.data)) {
+      // we don't want to show the item card for items that aren't identified
+      return;
     }
+    
+    item.roll(event);
   }
 
   /* -------------------------------------------- */
