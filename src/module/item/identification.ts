@@ -103,10 +103,10 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
 function hasRunes(itemData: PhysicalItemData): boolean {
     if (isWeaponItem(itemData)) {
         return !isBlank(itemData.data?.potencyRune?.value) ||
-            !isBlank(itemData.data?.strikingRune?.value)
+            !isBlank(itemData.data?.strikingRune?.value);
     } else if (isArmorItem(itemData)) {
         return !isBlank(itemData.data?.potencyRune?.value) ||
-            !isBlank(itemData.data?.resiliencyRune?.value)
+            !isBlank(itemData.data?.resiliencyRune?.value);
     } else {
         return false;
     }
@@ -149,7 +149,11 @@ export function identifyItem(
 }
 
 export function isIdentified(itemData: ItemData): boolean {
-    return isPhysicalItem(itemData) && (itemData.data?.identified?.value ?? true);
+    if (isPhysicalItem(itemData)) {
+        return itemData.data?.identified?.value ?? true;
+    } else {
+        return true;
+    }
 }
 
 export function getItemName(itemData: ItemData, showGMHint: boolean = false): string {
