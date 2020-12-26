@@ -9,9 +9,10 @@ export class IdentifyItemPopup extends FormApplication {
         const options = super.defaultOptions;
         options.id = 'identify-item';
         options.classes = [];
-        options.classes = ['identify-popup'];
         options.title = game.i18n.localize('PF2E.identification.Identify');
         options.template = 'systems/pf2e/templates/actors/identify-item.html';
+        options.width = 'auto';
+        options.classes = ['identify-popup'];
         return options;
     }
 
