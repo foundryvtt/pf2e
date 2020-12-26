@@ -518,6 +518,8 @@ export interface RawNpcData {
         traits: { value: string[]; custom: string; }
         /** The rarity of this creature (common, uncommon, etc.) */
         rarity: { value: Rarity; }
+        /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
+        attitude: { value: string; };
         /** Languages this creature knows. */
         languages: { value: string[]; selected: string[]; custom: string; }
         /** Damage/condition immunities. */
