@@ -11,7 +11,8 @@ export class IdentifyItemPopup extends FormApplication {
         options.classes = [];
         options.title = game.i18n.localize('PF2E.identification.Identify');
         options.template = 'systems/pf2e/templates/actors/identify-item.html';
-        options.width = "auto";
+        options.width = 'auto';
+        options.classes = ['identify-popup'];
         return options;
     }
 
