@@ -1339,15 +1339,7 @@ CONFIG.alignment = {
   LE: "PF2E.AlignmentLE",
   NE: "PF2E.AlignmentNE",
   CE: "PF2E.AlignmentCE"
-}; // Attitude 
-
-CONFIG.attitude = {
-    hostile: "PF2E.Attitudes.Hostile",
-    unfriendly: "PF2E.Attitudes.Unfriendly",
-    indifferent: "PF2E.Attitudes.Indifferent",
-    friendly: "PF2E.Attitudes.Friendly",
-    helpful: "PF2E.Attitudes.Helpful"
-} // Skill List
+}; // Skill List
 
 CONFIG.skillList = {
   acrobatics: 'PF2E.SkillAcrobatics',
