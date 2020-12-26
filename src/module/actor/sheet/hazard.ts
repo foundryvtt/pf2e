@@ -51,7 +51,7 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e {
     sheetData.hasStealthDescription = sheetData.data.attributes.stealth?.details || false;
 
     sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
-    sheetData.hasResistences = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
+    sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
     sheetData.hasWeaknesses = sheetData.data.traits.dv.length ? Array.isArray(sheetData.data.traits.dv) : false;
     sheetData.hasDescription = sheetData.data.details.description || false;
     sheetData.hasDisable = sheetData.data.details.disable || false;
