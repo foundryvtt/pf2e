@@ -1,4 +1,5 @@
 import {getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus} from '../../../src/module/item/runes';
+import {ArmorDetailsData, WeaponData, WeaponDetailsData} from '../../../src/module/item/dataDefinitions';
 
 describe('test runes', () => {
     test('should get rune property slots', () => {
@@ -13,7 +14,7 @@ describe('test runes', () => {
                     value: '',
                 },
             },
-        }))
+        } as unknown as WeaponData))
             .toBe(0);
 
         expect(getPropertySlots({
@@ -27,7 +28,7 @@ describe('test runes', () => {
                     value: '2',
                 },
             },
-        }))
+        } as unknown as WeaponData))
             .toBe(2);
 
         expect(getPropertySlots({
@@ -41,7 +42,7 @@ describe('test runes', () => {
                     value: '',
                 },
             },
-        }))
+        } as unknown as WeaponData))
             .toBe(1);
 
         expect(getPropertySlots({
@@ -55,7 +56,7 @@ describe('test runes', () => {
                     value: '3',
                 },
             },
-        }))
+        } as unknown as WeaponData))
             .toBe(4);
     });
 
@@ -65,7 +66,7 @@ describe('test runes', () => {
             _id: 'ignore',
             type: 'ignore',
             data: {},
-        }, 3).length)
+        } as unknown as WeaponData, 3).length)
             .toBe(0);
 
         const item = {
@@ -88,7 +89,7 @@ describe('test runes', () => {
                     value: 'd',
                 },
             },
-        };
+        } as unknown as WeaponData;
 
         expect(getPropertyRunes(item, 0))
             .toEqual([]);
@@ -108,7 +109,7 @@ describe('test runes', () => {
             bonus: {
                 value: 0,
             },
-        };
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData))
             .toBe(3);
@@ -125,7 +126,7 @@ describe('test runes', () => {
             group: {
                 value: 'bomb',
             },
-        };
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData))
             .toBe(2);
@@ -139,7 +140,7 @@ describe('test runes', () => {
             bonus: {
                 value: 0,
             },
-        };
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData))
             .toBe(0);
@@ -153,7 +154,7 @@ describe('test runes', () => {
             armor: {
                 value: 0,
             },
-        };
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData))
             .toBe(0);
@@ -167,7 +168,7 @@ describe('test runes', () => {
             armor: {
                 value: 2,
             },
-        };
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData))
             .toBe(2);
@@ -181,7 +182,7 @@ describe('test runes', () => {
             armor: {
                 value: 0,
             },
-        };
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData))
             .toBe(1);
@@ -195,7 +196,7 @@ describe('test runes', () => {
             armor: {
                 value: 2,
             },
-        };
+        } as ArmorDetailsData;
 
         expect(getArmorBonus(itemData))
             .toBe(3);
