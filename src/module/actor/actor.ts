@@ -216,13 +216,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = {};
-    for (const scene of game.scenes.values()) {
-      scene.getEmbeddedCollection('Token')
-        .filter(token => token.actorId === this.id)
-        .map(token => duplicate(token))
-        .forEach(token => { tokens[token._id] = token; });
-    }
+    const tokens = this._getTokenData();
     const actorUpdates = {};
     for (const rule of rules) {
       rule.onCreate(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
@@ -234,13 +228,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
     if (!this.can(game.user, 'update')) return;
     const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = {};
-    for (const scene of game.scenes.values()) {
-      scene.getEmbeddedCollection('Token')
-        .filter(token => token.actorId === this.id)
-        .map(token => duplicate(token))
-        .forEach(token => { tokens[token._id] = token; });
-    }
+    const tokens = this._getTokenData();
     const actorUpdates = {};
     for (const rule of rules) {
       rule.onDelete(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
@@ -248,15 +236,41 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     this._updateAllTokens(actorUpdates, tokens);
   }
 
-  async _updateAllTokens(actorUpdates: any, tokens: any) {
+  /**
+   * Builds an object with ID to token data mappings, for all tokens associated with this actor. The data has been
+   * duplicated so it can easily be changed and used for updating the token instances.
+   */
+  protected _getTokenData(): Record<string, any> {
+    const tokens = {};
+    if (this.isToken) {
+      tokens[this.token.data._id] = duplicate(canvas.tokens.get(this.token.data._id).data);
+    } else {
+      for (const scene of game.scenes.values()) {
+        scene.getEmbeddedCollection('Token')
+          .filter(token => token.actorLink && token.actorId === this.id)
+          .map(token => duplicate(token))
+          .forEach(token => { tokens[token._id] = token; });
+      }
+    }
+    return tokens;
+  }
+
+  async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>) {
     const promises = [];
     if (actorUpdates && !isObjectEmpty(actorUpdates)) {
       promises.push(this.update(actorUpdates));
     }
     for (const scene of game.scenes.values()) {
       const local = scene.getEmbeddedCollection('Token')
-        .filter(token => token.actorId === this.id)
+        .filter(token => (token.actorLink || !this.token) ? token.actorId === this.id : token._id === this.token.data._id)
         .map(token => tokens[token._id])
+        .map(token => {
+          if (!token.actorLink) {
+            token.actorData = token.actorData ?? {};
+            mergeObject(token.actorData, actorUpdates);
+          }
+          return token;
+        })
         .filter(token => !!token);
       promises.push(scene.updateEmbeddedEntity('Token', local));
     }
