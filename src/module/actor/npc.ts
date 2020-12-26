@@ -232,16 +232,18 @@ export class PF2ENPC extends PF2EActor<NpcData> {
             data.actions.push(action);
           }
         }
-        
-        this.updateTokens(data);
+
+        if(!this.isToken) {
+            this.updateTokens(this.data.data);
+        }
 
         return actorData;
     }
     
     private updateTokens(data: RawNpcData) {
         const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(data);
-        const tokens = this.getAllTokens();
-        console.log(tokens);
+        const tokens = this._getTokenData();
+        
         for (const key of Object.keys(tokens)) {
             const token = tokens[key];
             token.disposition = disposition;
@@ -249,8 +251,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
 
         const dispositionActorUpdate = {
             'token.disposition': disposition,
+            'attitude': data.traits.attitude,
         };
-
+        
         this._updateAllTokens(dispositionActorUpdate, tokens);
     }
     
