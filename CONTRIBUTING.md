@@ -18,6 +18,8 @@ The project uses webpack to package the SASS files needed for a build and can cr
 
 * Run `npm run build:dev` to keep the pf2e system in your Foundry User Data Folder up to date with any coding changes you make in your dev environment.
 
+* To update compendium datafiles, run `npm run extractPack ${compendium db filename}` after editing the item directly in the built world's compendium, rather than editing the json files directly.
+
 ## How to Help
 
 As a project, we are using a modified gitlab flow, with a development branch (master) for development and a release branch (release) that contains one commit per release. If you want to make improvements to the project, you can ask to be added to the project or make a fork of the project in gitlab. Then push your branch to gitlab and open a merge request for your branch to our development branch. After being reviewed it can be merged into the project by one of the project maintainers.
