@@ -58,6 +58,8 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
     sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
     sheetData.actorAlignment = sheetData.data.details.alignment.value;
+    sheetData.actorAttitudes = CONFIG.PF2E.attitude;
+    sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? 'indifferent'];
     // languages
     sheetData.hasLanguages = false;
     if (sheetData.data.traits.languages.value && Array.isArray(sheetData.data.traits.languages.value) && sheetData.actor.data.traits.languages.value.length > 0) {
