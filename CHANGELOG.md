@@ -1,5 +1,20 @@
 # Patch Notes:
 
+## Version 1.10.25
+### Bug Fixes
+* (abrault) Allow Strikes to be popped out
+* (putty) Default to identified for non-physical items
+* (putty) Fix identify item popup changing size
+* (nikolaj-a) Fix unlinked token updates from rule elements and dragged effects
+* (nikolaj-a) Fix familiar-master relationship on startup
+
+### Content Changes
+* (nikolaj-a) Fix duration for bundled spell effects
+
+### Development Improvements
+* (Mothringer) Add information to CONTRIBUTING.md about using extractPacks to update compendium json files
+
+
 ## Version 1.10.24
 ### Bug Fixes
 * (Chup) Fix sell-all-treasure button to not trigger on Enter key press
