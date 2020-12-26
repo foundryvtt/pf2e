@@ -126,7 +126,7 @@ function _updateMinionActors(master: PF2EActor = undefined) {
   game.actors.entities.filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
     .filter(minion => !master || minion.data.data.master.id === master.data._id)
-    .filter(minion => minion.can(game.user, 'owner'))
+    .filter(minion => minion.can(game.user, 'update'))
     .forEach(minion => minion.update({ 'data.master.updated': new Date().toISOString() }));
 }
 
@@ -210,6 +210,7 @@ Hooks.once("ready", () => {
 
 // Activate global listeners
 Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
+Hooks.on('renderChatPopout', (log, html) => PF2EItem.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**
@@ -389,11 +390,11 @@ Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
         // not otherwise available
         options.pf2e = {
             items: {
-                added: data.actorData.items.filter(i => !token.actorData.items.map(x => x._id).includes(i._id)),
-                removed: token.actorData.items.filter(i => !data.actorData.items.map(x => x._id)?.includes(i._id)),
+                added: data.actorData.items?.filter(i => !token.actorData.items?.map(x => x._id)?.includes(i._id)) ?? [],
+                removed: token.actorData.items?.filter(i => !data.actorData.items?.map(x => x._id)?.includes(i._id)) ?? [],
             }
         };
-        const actor = game.actors.get(token.actorId);
+        const actor = canvas.tokens.get(token._id).actor;
         options.pf2e.items.added.forEach(item => { preCreateOwnedItem(actor, item, options, userID); });
     }
 });
@@ -402,7 +403,7 @@ Hooks.on('updateToken', (scene, token, data, options, userID) => {
     if (!token.actorLink && options.pf2e?.items) {
         // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
         // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
-        const actor = game.actors.get(token.actorId);
+        const actor = canvas.tokens.get(token._id).actor;
         options.pf2e.items.added.forEach(item => { createOwnedItem(actor, item, options, userID); });
         options.pf2e.items.removed.forEach(item => { deleteOwnedItem(actor, item, options, userID); });
     }

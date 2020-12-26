@@ -81,6 +81,11 @@ async function rollActionMacro(actorId: string, actionIndex: number, actionName:
                     },
                     content: messageContent,
                     type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    flags: {
+                        core: {
+                            canPopout: true
+                        },
+                    },
                 };
 
                 const rollMode = game.settings.get('core', 'rollMode');
