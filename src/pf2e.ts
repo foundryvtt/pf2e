@@ -126,7 +126,7 @@ function _updateMinionActors(master: PF2EActor = undefined) {
   game.actors.entities.filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
     .filter(minion => !!minion.data.data?.master?.id)
     .filter(minion => !master || minion.data.data.master.id === master.data._id)
-    .filter(minion => minion.can(game.user, 'owner'))
+    .filter(minion => minion.can(game.user, 'update'))
     .forEach(minion => minion.update({ 'data.master.updated': new Date().toISOString() }));
 }
 
