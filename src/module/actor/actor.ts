@@ -262,16 +262,16 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     }
     for (const scene of game.scenes.values()) {
       const local = scene.getEmbeddedCollection('Token')
-        .filter(token => (token.actorLink || !this.token) ? token.actorId === this.id : token._id === this.token.data._id)
+        .filter(token => (this.isToken && token._id === this.token.data._id) || (token.actorLink && token.actorId === this.id))
         .map(token => tokens[token._id])
+        .filter(token => !!token)
         .map(token => {
           if (!token.actorLink) {
             token.actorData = token.actorData ?? {};
             mergeObject(token.actorData, actorUpdates);
           }
           return token;
-        })
-        .filter(token => !!token);
+        });
       promises.push(scene.updateEmbeddedEntity('Token', local));
     }
     return Promise.all(promises);
