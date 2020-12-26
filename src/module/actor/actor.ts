@@ -265,7 +265,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         .filter(token => (token.actorLink || !this.token) ? token.actorId === this.id : token._id === this.token.data._id)
         .map(token => tokens[token._id])
         .map(token => {
-          if (!token.actorLink) {
+          if (token && !token.actorLink) {
             token.actorData = token.actorData ?? {};
             mergeObject(token.actorData, actorUpdates);
           }
