@@ -365,7 +365,7 @@ function createOwnedItem(parent, child, options, userID) {
             parent.onCreateOwnedItem(child, options, userID);
         }
 
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 }
 Hooks.on('createOwnedItem', createOwnedItem);
@@ -376,20 +376,20 @@ function deleteOwnedItem(parent, child, options, userID) {
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 }
 Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 });
 
 // effect panel
 Hooks.on('updateUser', (user, diff, options, id) => {
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
 
 Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
@@ -423,11 +423,11 @@ Hooks.on('updateToken', (scene, token, data, options, userID) => {
         }
     }
     
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
 
 Hooks.on('controlToken', (token, selected) => {
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
 
 // world clock application
@@ -438,9 +438,9 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
         icon: "fas fa-star",
         onClick: toggled => {
             if (toggled) {
-                game[game.system.id].effectPanel.render(true);
+                game[game.system.id].effectPanel?.render(true);
             } else {
-                game[game.system.id].effectPanel.close();
+                game[game.system.id].effectPanel?.close();
             }
             game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
         },
@@ -461,5 +461,5 @@ Hooks.on('updateWorldTime', (total, diff) => {
     if (worldclock) {
         worldclock.render(false);
     }
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
