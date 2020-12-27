@@ -1457,19 +1457,25 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     const data = duplicate(header.dataset);
 
     if (data.type === 'feat') {
-      data.name = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;
+        const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
+      data.name = `${game.i18n.localize("PF2E.NewLabel")} ${featTypeString}`;
       mergeObject(data, { 'data.featType.value': data.featType });
     } else if (data.type === 'action') {
-      data.name = `New ${data.actionType.capitalize()}`;
+        const newLabel = game.i18n.localize("PF2E.NewLabel");
+        const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
+        data.name = `${newLabel} ${actionTypeLabel}`;
       mergeObject(data, { 'data.actionType.value': data.actionType });
     } else if (data.type === 'melee') {
-      data.name = `New ${data.actionType.capitalize()}`;
+        data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
       mergeObject(data, { 'data.weaponType.value': data.actionType });
     } else if (data.type === 'spell') {
       // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
       this.actor._setShowUnpreparedSpells(data.location, data.level);
 
-      data.name = `New  Level ${data.level} ${data.type.capitalize()}`;
+      const newLabel = game.i18n.localize("PF2E.NewLabel");
+      const spellLevel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
+      const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
+      data.name = `${newLabel} ${spellLevel} ${spellLabel}`;
       mergeObject(data, {
         'data.level.value': data.level,
         'data.location.value': data.location,
@@ -1484,11 +1490,11 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {
-        data.name = 'Skill';
+        data.name = game.i18n.localize('PF2E.SkillLabel');
         data.img = '/icons/svg/d20-black.svg';
-      } else data.name = `New ${data.type.capitalize()}`;
+      } else data.name = game.i18n.localize('PF2E.NewPlaceholders.Lore');
     } else {
-      data.name = `New ${data.type.capitalize()}`;
+      data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
     }
     // this.actor.createOwnedItem(data, {renderSheet: true});
     this.actor.createEmbeddedEntity('OwnedItem', data);
@@ -1511,7 +1517,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
 
     // Render modal dialog
     const template = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
-    const title = 'Select Spellcasting Entry Details';
+    const title = game.i18n.localize("PF2E.SpellcastingTypeLabel");
     const dialogOptions = {
       width: 300,
       top: event.clientY - 80,
@@ -1529,7 +1535,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
         content: dlg,
         buttons: {
           create: {
-            label: 'Create',
+            label: game.i18n.localize("PF2E.CreateLabelUniversal"),
             callback: (html: JQuery) => {
               // if ( onClose ) onClose(html, parts, data);
               let name = '';
