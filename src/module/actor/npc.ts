@@ -267,6 +267,16 @@ export class PF2ENPC extends PF2EActor<NpcData> {
         }
     }
     
+    private static mapTokenDispositionToNPCAttitude(disposition: number): string {
+        if(disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) {
+            return 'friendly';
+        } else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) {
+            return 'indifferent';
+        } else {
+            return 'hostile';
+        }
+    }
+    
     protected _onUpdate(data: any, options: object, userId: string, context: object) {
         super._onUpdate(data, options, userId, context);
         
@@ -275,5 +285,10 @@ export class PF2ENPC extends PF2EActor<NpcData> {
         if(attitude) {
             this.updateTokenAttitude(attitude);
         }
+    }
+
+    public updateNPCAttitudeFromDisposition(disposition: number) {
+        const attitude = PF2ENPC.mapTokenDispositionToNPCAttitude(disposition);
+        this.data.data.traits.attitude.value = attitude;
     }
 }
