@@ -79,7 +79,19 @@
             }
         }
     },
-    "flags": {},
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "editHazard": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
+    },
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -97,7 +109,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature enters the hallway or ends its turn in the hallway. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative."
+                    "value": "<b>Trigger</b> A creature enters the hallway or ends its turn in the hallway.<br><b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative."
                 },
                 "rarity": {
                     "value": "common"
@@ -105,6 +117,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -128,9 +141,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Dart Volley",
+            "sort": 100000,
             "type": "action"
         },
         {
@@ -139,15 +154,9 @@
                 "attack": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "flesset poison",
-                        "no multiple attack penalty"
-                    ]
-                },
+                "attackEffects": {},
                 "bonus": {
-                    "value": 21
+                    "value": "21"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -161,16 +170,16 @@
                 "containerId": {
                     "value": ""
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Applies flesset poison; no multiple attack penalty.</span></p>"
                 },
                 "equipped": {
                     "value": false
@@ -241,6 +250,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
@@ -261,9 +271,11 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "poisoned dart",
+            "name": "Poisoned Dart",
+            "sort": 200000,
             "type": "melee"
         },
         {
@@ -281,7 +293,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature within the active gallery finishes an action. <b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature."
+                    "value": "<b>Trigger</b> A creature within the active gallery finishes an action.<br><b>Effect</b> The trap makes a poisoned dart Strike against the triggering creature."
                 },
                 "rarity": {
                     "value": "common"
@@ -289,6 +301,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -310,9 +323,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Continuous Barrage",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -338,6 +353,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -361,9 +377,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.png",
             "name": "Flesset Poison",
+            "sort": 400000,
             "type": "action"
         }
     ],
@@ -372,23 +390,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "lVqVDjXnHboMif7F",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
+        "displayBars": 40,
+        "displayName": 40,
         "disposition": -1,
         "flags": {},
         "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Poisoned Dart Gallery",
         "randomImg": false,
