@@ -28,11 +28,11 @@ function createItem(
             level: {
                 value: level,
             },
-            rarity: {
-                value: rarity,
-            },
             traits: {
                 value: traits,
+                rarity: {
+                    value: rarity,
+                },
             },
             potencyRune: {
                 value: potencyRune,
