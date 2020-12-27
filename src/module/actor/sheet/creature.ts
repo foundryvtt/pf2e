@@ -140,6 +140,7 @@ export abstract class ActorSheetPF2eCreature extends ActorSheetPF2e {
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
         sheetData.alignment = CONFIG.PF2E.alignment;
         sheetData.rarity = CONFIG.PF2E.rarityTraits;
+        sheetData.attitude = CONFIG.PF2E.attitude;
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
 
         return sheetData;
