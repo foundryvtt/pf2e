@@ -1,10 +1,12 @@
-import { PF2EActor, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '../item/item';
-import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
-import { PF2WeaponDamage } from '../system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { NpcData, CharacterStrike, CharacterStrikeTrait, NPCSkillData, NPCArmorClassData, NPCSaveData, NPCPerceptionData } from './actorDataDefinitions'
-import { PF2RuleElements } from '../rules/rules';
+/* global CONST */
+import {PF2EActor, SKILL_EXPANDED} from './actor';
+import {PF2EItem} from '../item/item';
+import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} from '../modifiers';
+import {PF2WeaponDamage} from '../system/damage/weapon';
+import {PF2Check, PF2DamageRoll} from '../system/rolls';
+import {CharacterStrike, CharacterStrikeTrait, NPCArmorClassData, NpcData, NPCPerceptionData, NPCSaveData, 
+    NPCSkillData} from './actorDataDefinitions'
+import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor<NpcData> {
 
@@ -230,10 +232,63 @@ export class PF2ENPC extends PF2EActor<NpcData> {
             data.actions.push(action);
           }
         }
-    
-
 
         return actorData;
     }
+    
+    private updateTokenAttitude(attitude: string) {
+        const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(attitude);
+        const tokens = this._getTokenData();
+        
+        for (const key of Object.keys(tokens)) {
+            const token = tokens[key];
+            token.disposition = disposition;
+        }
 
+        const dispositionActorUpdate = {
+            'token.disposition': disposition,
+            'attitude': attitude,
+        };
+        
+        this._updateAllTokens(dispositionActorUpdate, tokens);
+    }
+    
+    private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
+        if(attitude === null) {
+            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
+        }
+        
+        if (attitude === "hostile") {
+            return CONST.TOKEN_DISPOSITIONS.HOSTILE;
+        } else if (attitude === "unfriendly" || attitude === "indifferent") {
+            return CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+        } else {
+            return CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        }
+    }
+    
+    private static mapTokenDispositionToNPCAttitude(disposition: number): string {
+        if(disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) {
+            return 'friendly';
+        } else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) {
+            return 'indifferent';
+        } else {
+            return 'hostile';
+        }
+    }
+    
+    protected _onUpdate(data: any, options: object, userId: string, context: object) {
+        super._onUpdate(data, options, userId, context);
+        
+        const attitude = data?.data?.traits?.attitude?.value;
+        
+        if(attitude && game.userId === userId) {
+            this.updateTokenAttitude(attitude);
+        }
+    }
+
+    public updateNPCAttitudeFromDisposition(disposition: number) {
+        const attitude = PF2ENPC.mapTokenDispositionToNPCAttitude(disposition);
+        this.data.data.traits.attitude.value = attitude;
+    }
 }
