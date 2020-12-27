@@ -1,12 +1,12 @@
 declare interface BaseEntityData<DataType = any> {
-	_id: string;
-	name: string;
-	type: string;
-	flags: any;
-	folder: string | null;
-	permission: any;
-	data: DataType;
-	img: string;
+  _id: string;
+  name: string;
+  type: number | string;
+  flags: any;
+  folder: string | null;
+  permission: any;
+  data: DataType;
+  img: string;
 }
 
 /**
