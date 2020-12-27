@@ -8,10 +8,10 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import {ConditionData, isPhysicalItem, ItemData} from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import { isIdentified } from '../../item/identification';
+import {getItemName, isIdentified} from '../../item/identification';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -691,7 +691,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.item-delete').click(async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
-      const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+      const item = new Item<ItemData>(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
       if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
         // Condition Item.
@@ -729,7 +729,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
           default: 'Yes',
         }).render(true);
       } else {
-        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: getItemName(item.data, true)});
         new Dialog({
           title: 'Delete Confirmation',
           content,
