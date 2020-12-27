@@ -49,7 +49,7 @@ function getDcRarity(itemData: PhysicalItemData) {
     if (isCursed(itemData)) {
         return 'unique';
     } else {
-        return itemData.data.rarity?.value ?? 'common';
+        return itemData.data.traits.rarity?.value ?? 'common';
     }
 }
 
