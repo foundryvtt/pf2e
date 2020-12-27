@@ -31,7 +31,7 @@ export interface ItemDescriptionData {
     rules?: PF2RuleElementData[];
 }
 
-export interface PhysicalDetailsData {
+export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
     }
@@ -135,13 +135,13 @@ export interface MagicItemPropertyData {
     critDamageType: string
 }
 
-export interface MagicItemData {
+export interface MagicItemData extends PhysicalDetailsData {
     property1: MagicItemPropertyData
     property2: MagicItemPropertyData
     property3: MagicItemPropertyData
 }
 
-export interface BackpackDetailsData {
+export interface BackpackDetailsData extends PhysicalDetailsData {
     capacity: {
         type: string,
         value: number,
@@ -156,7 +156,7 @@ export interface BackpackDetailsData {
     }
 }
 
-export interface TreasureDetailsData {
+export interface TreasureDetailsData extends PhysicalDetailsData {
     denomination: {
         value: 'pp' | 'gp' | 'sp' | 'cp'
     }
@@ -165,7 +165,7 @@ export interface TreasureDetailsData {
     }
 }
 
-export interface WeaponDetailsData {
+export interface WeaponDetailsData extends MagicItemData {
     weaponType: {
         value: string
     },
@@ -219,7 +219,7 @@ export interface WeaponDetailsData {
     }
 }
 
-export interface ArmorDetailsData {
+export interface ArmorDetailsData extends MagicItemData {
     armor: {
         value: number
     },
@@ -261,7 +261,7 @@ export interface ArmorDetailsData {
     }
 }
 
-export interface KitDetailsData {
+export interface KitDetailsData extends ItemDescriptionData {
     items: { [key: number]: KitEntryData };
 }
 
@@ -275,7 +275,7 @@ export interface KitEntryData {
     items?: { [key: number]: KitEntryData };
 }
 
-export interface MeleeDetailsData {
+export interface MeleeDetailsData extends MagicItemData {
     attack: {
         value: string
     }
@@ -288,7 +288,7 @@ export interface MeleeDetailsData {
     }
 }
 
-export interface ConsumableDetailsData {
+export interface ConsumableDetailsData extends MagicItemData {
     consumableType: {
         value: string
     },
@@ -407,7 +407,7 @@ export interface ClassDetailsData {
     abilityBoostLevels: { value: number[] }
 }
 
-export interface FeatDetailsData {
+export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
         value: string
     }
@@ -425,7 +425,7 @@ export interface FeatDetailsData {
     }
 }
 
-export interface LoreDetailsData {
+export interface LoreDetailsData extends ItemDescriptionData {
     featType: string,
     mod: {
         value: 0
@@ -438,7 +438,7 @@ export interface LoreDetailsData {
     }
 }
 
-export interface MartialDetailsData {
+export interface MartialDetailsData extends ItemDescriptionData {
     proficient: {
         value: 0
     },
@@ -447,7 +447,7 @@ export interface MartialDetailsData {
     }
 }
 
-export interface ActionDetailsData {
+export interface ActionDetailsData extends ItemDescriptionData {
     actionType: {
         value: string
     },
@@ -473,7 +473,7 @@ export interface ActionDetailsData {
     }
 }
 
-export interface SpellDetailsData {
+export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string
     },
@@ -538,7 +538,7 @@ export interface SpellDetailsData {
     }
 }
 
-export interface SpellcastingEntryDetailsData {
+export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     ability: {
         value: AbilityString
     },
@@ -632,7 +632,7 @@ export interface SpellcastingEntryDetailsData {
     }
 }
 
-export interface StatusDetailsData {
+export interface StatusDetailsData extends ItemDescriptionData {
     active: boolean,
     removable: boolean,
     references: {
@@ -681,7 +681,7 @@ export interface StatusDetailsData {
     }]
 }
 
-export interface ConditionDetailsData {
+export interface ConditionDetailsData extends StatusDetailsData {
     base: string,
     group: string,
     value: {
@@ -709,79 +709,85 @@ export interface ConditionDetailsData {
     overrides: []
 }
 
-export interface BackpackData extends BaseEntityData<BackpackDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData> {
+export interface BaseItemData<D extends ItemDescriptionData> extends BaseEntityData<D> {
+  data: D;
+  slug?: string;
+  type: string;
+}
+
+export interface BackpackData extends BaseItemData<BackpackDetailsData & ItemLevelData> {
     type: 'backpack'
 }
 
-export interface TreasureData extends BaseEntityData<TreasureDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData> {
+export interface TreasureData extends BaseItemData<TreasureDetailsData & ItemLevelData> {
     type: 'treasure'
 }
 
-export interface WeaponData extends BaseEntityData<WeaponDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData & MagicItemData> {
+export interface WeaponData extends BaseItemData<WeaponDetailsData & ItemLevelData> {
     type: 'weapon'
 }
 
-export interface ArmorData extends BaseEntityData<ArmorDetailsData & ItemDescriptionData & PhysicalDetailsData & ItemLevelData & MagicItemData> {
+export interface ArmorData extends BaseItemData<ArmorDetailsData & ItemLevelData> {
     type: 'armor'
 }
 
-export interface KitData extends BaseEntityData<ItemDescriptionData & KitDetailsData> {
+export interface KitData extends BaseItemData<KitDetailsData> {
     type: 'kit'
 }
 
-export interface MeleeData extends BaseEntityData<MeleeDetailsData & ItemDescriptionData & PhysicalDetailsData & MagicItemData> {
+export interface MeleeData extends BaseItemData<MeleeDetailsData> {
     type: 'melee'
 }
 
-export interface ConsumableData extends BaseEntityData<ConsumableDetailsData & ItemDescriptionData & PhysicalDetailsData & ActivatedEffectData & ItemLevelData> {
+export interface ConsumableData extends BaseItemData<ConsumableDetailsData & ActivatedEffectData & ItemLevelData> {
     type: 'consumable'
 }
 
-export interface EquipmentData extends BaseEntityData<ItemDescriptionData & ActivatedEffectData & MagicItemData> {
+export interface EquipmentData extends BaseItemData<ActivatedEffectData & MagicItemData> {
     type: 'equipment'
 }
 
-export interface AncestryData extends BaseEntityData<ItemDescriptionData & AncestryDetailsData> {
+export interface AncestryData extends BaseItemData<ItemDescriptionData & AncestryDetailsData> {
     type: 'ancestry'
 }
 
-export interface BackgroundData extends BaseEntityData<ItemDescriptionData & BackgroundDetailsData> {
+export interface BackgroundData extends BaseItemData<ItemDescriptionData & BackgroundDetailsData> {
     type: 'background'
 }
 
-export interface ClassData extends BaseEntityData<ItemDescriptionData & ClassDetailsData> {
+export interface ClassData extends BaseItemData<ItemDescriptionData & ClassDetailsData> {
     type: 'class'
 }
 
-export interface FeatData extends BaseEntityData<FeatDetailsData & ItemDescriptionData & ItemLevelData> {
+export interface FeatData extends BaseItemData<FeatDetailsData & ItemLevelData> {
     type: 'feat'
 }
 
-export interface LoreData extends BaseEntityData<LoreDetailsData & ItemDescriptionData> {
+export interface LoreData extends BaseItemData<LoreDetailsData> {
     type: 'lore'
 }
 
-export interface MartialData extends BaseEntityData<MartialDetailsData & ItemDescriptionData> {
+export interface MartialData extends BaseItemData<MartialDetailsData> {
     type: 'martial'
 }
 
-export interface ActionData extends BaseEntityData<ActionDetailsData & ItemDescriptionData> {
+export interface ActionData extends BaseItemData<ActionDetailsData> {
     type: 'action'
 }
 
-export interface SpellData extends BaseEntityData<SpellDetailsData & ItemDescriptionData & ItemLevelData> {
+export interface SpellData extends BaseItemData<SpellDetailsData & ItemLevelData> {
     type: 'spell'
 }
 
-export interface SpellcastingEntryData extends BaseEntityData<SpellcastingEntryDetailsData & ItemDescriptionData> {
+export interface SpellcastingEntryData extends BaseItemData<SpellcastingEntryDetailsData & ItemDescriptionData> {
     type: 'spellcastingEntry'
 }
 
-export interface StatusData extends BaseEntityData<ItemDescriptionData & StatusDetailsData> {
+export interface StatusData extends BaseItemData<StatusDetailsData> {
     type: 'status'
 }
 
-export interface ConditionData extends BaseEntityData<ItemDescriptionData & StatusDetailsData & ConditionDetailsData> {
+export interface ConditionData extends BaseItemData<ConditionDetailsData> {
     type: 'condition'
 }
 
@@ -791,15 +797,15 @@ export type ItemData = BackpackData | TreasureData | WeaponData | ArmorData |
     AncestryData | BackgroundData | ClassData;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-export type PhysicalItemData = ItemData & BaseEntityData<PhysicalDetailsData>;
+export type PhysicalItemData = ItemData & BaseItemData<PhysicalDetailsData>;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
-    return ('data' in item) && ('quantity' in item.data);
+    return 'quantity' in item.data;
 }
 
-export function isLevelItem(item: ItemData): item is ItemData & BaseEntityData<ItemLevelData> {
-    return ('data' in item) && ('level' in item.data);
+export function isLevelItem(item: ItemData): item is ItemData & BaseItemData<ItemDescriptionData & ItemLevelData> {
+    return 'level' in item.data;
 }
 
 export function isWeaponItem(item: ItemData): item is WeaponData {

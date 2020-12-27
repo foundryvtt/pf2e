@@ -573,7 +573,9 @@ export interface RawVehicleData {
 
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
 export interface ActorEntityData<T> extends BaseEntityData<T> {
+    type: string;
     items: ItemData[];
+    slug?: string;
     token?: any;
 }
 
