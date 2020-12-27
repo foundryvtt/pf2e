@@ -5,7 +5,7 @@ import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} fr
 import {PF2WeaponDamage} from '../system/damage/weapon';
 import {PF2Check, PF2DamageRoll} from '../system/rolls';
 import {CharacterStrike, CharacterStrikeTrait, NPCArmorClassData, NpcData, NPCPerceptionData, NPCSaveData, 
-    NPCSkillData, RawNpcData} from './actorDataDefinitions'
+    NPCSkillData} from './actorDataDefinitions'
 import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor<NpcData> {
@@ -233,15 +233,11 @@ export class PF2ENPC extends PF2EActor<NpcData> {
           }
         }
 
-        if(!this.isToken) {
-            this.updateTokens(this.data.data);
-        }
-
         return actorData;
     }
     
-    private updateTokens(data: RawNpcData) {
-        const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(data);
+    private updateTokenAttitude(attitude: string) {
+        const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(attitude);
         const tokens = this._getTokenData();
         
         for (const key of Object.keys(tokens)) {
@@ -251,23 +247,33 @@ export class PF2ENPC extends PF2EActor<NpcData> {
 
         const dispositionActorUpdate = {
             'token.disposition': disposition,
-            'attitude': data.traits.attitude,
+            'attitude': attitude,
         };
         
         this._updateAllTokens(dispositionActorUpdate, tokens);
     }
     
-    private static mapNPCAttitudeToTokenDisposition(data: RawNpcData): number {
-        if(data.traits.attitude.value === null) {
+    private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
+        if(attitude === null) {
             return CONST.TOKEN_DISPOSITIONS.HOSTILE;
         }
         
-        if (data.traits.attitude.value === "hostile") {
+        if (attitude === "hostile") {
             return CONST.TOKEN_DISPOSITIONS.HOSTILE;
-        } else if (data.traits.attitude.value === "unfriendly" || data.traits.attitude.value === "indifferent") {
+        } else if (attitude === "unfriendly" || attitude === "indifferent") {
             return CONST.TOKEN_DISPOSITIONS.NEUTRAL;
         } else {
             return CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+        }
+    }
+    
+    protected _onUpdate(data: any, options: object, userId: string, context: object) {
+        super._onUpdate(data, options, userId, context);
+        
+        const attitude = data?.data?.traits?.attitude?.value;
+        
+        if(attitude) {
+            this.updateTokenAttitude(attitude);
         }
     }
 }
