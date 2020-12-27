@@ -282,7 +282,7 @@ export class PF2ENPC extends PF2EActor<NpcData> {
         
         const attitude = data?.data?.traits?.attitude?.value;
         
-        if(attitude) {
+        if(attitude && game.userId === userId) {
             this.updateTokenAttitude(attitude);
         }
     }
