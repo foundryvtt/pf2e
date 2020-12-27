@@ -407,6 +407,14 @@ Hooks.on('updateToken', (scene, token, data, options, userID) => {
         options.pf2e.items.added.forEach(item => { createOwnedItem(actor, item, options, userID); });
         options.pf2e.items.removed.forEach(item => { deleteOwnedItem(actor, item, options, userID); });
     }
+    
+    if ('disposition' in data && game.userId === userID) {
+        const actor = canvas.tokens.get(token._id).actor;
+        if (actor instanceof PF2ENPC) {
+            (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+        }
+    }
+    
     game[game.system.id].effectPanel.refresh();
 });
 
