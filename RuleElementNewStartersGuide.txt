@@ -1,0 +1,160 @@
+Short guide to using rule elements:
+
+Note:- This document refers to items, items are geats/ class features, spell effects, weapons basically anyhting that can be added to a character
+Note:- This interface is currently being developed and subject to change
+Note:- Take care when adding rule elements, make sure to do any troubleshooting/experimenting on a spare/blank token/actor
+Note:- People love to talk rule elements on the discord!  Ask for help or questions
+Note:- This is document is not exhaustive
+
+What are they?
+
+A series of instructions applied to an item that modifies the character sheet in some way.  It another way to create change without coding!
+
+When would I use them?
+
+For setting up modifiers, conditions that appy to a character for example a barbarians Rage, bless/ inspire courage etc.
+
+How do they work
+
+1. Enable the rules elements in game settings -> configure settings -> system settings -> Advanced Rule Element using
+2. Check that they have been activated:
+ a. Open any item and check that the "rules" tab is revealed
+3. Try some out, head to the compedia and find spell effects, pick one and drag it to your character.
+ a. inspire courage is a good place to start.
+4. Open up the spell effect you chose and look at Rules Tab notice text in the boxes, thats a rule elements
+
+A correctly created rule element will do the work of several lines of macro.  Once you get the hang of them it allows for easy automation.
+
+Lets look at an example, inspire courage:
+
+{"key":"PF2E.RuleElement.FlatModifier","label":"Inspire Courage","selector":"attack","type":"status","value":1}
+
+{"key":"PF2E.RuleElement.FlatModifier","label":"Inspire Courage","selector":"damage","type":"status","value":1}
+
+{"key":"PF2E.RuleElement.FlatModifier","label":"Inspire Courage (vs fear)","predicate":{"all":["fear"]},"selector":"will","type":"status","value":1}
+
+They might be tricky to get the hang of.  These once set up, will save you lines and lines of code.
+
+Lets break these down:
+1. Key: This is the name given to the rule element within the code.
+  a. If this is not correct your rule with do nothing!
+2. Label: Nmae your rule, for flat modifiers text will show up when you look at the modifiers of a given roll
+  a. To see this in action apply trhe rule effect then look at the ac modifiers, you should see "Inspire courage"
+3. Predicate:  If you want your bonus to only apply at certain times, only vs. fear, you use a predicate, which come with three mode:
+    a. ALL : if everything in the list is present for a roll the modifider is applied
+    b. ANY : if at least one in teh list is present the modifer is applied
+    c. NOT : if at least one item in the list is present the modifier is not applied
+    d. an incorrect predicate will make your rule act unexpectedly, these are case sensitive.
+4. Selector: Specifies, or selects, what to apply your modifier to.
+    a. There will be list at the bottom of the document.
+    b. An incorrect selector will make your rule do nothing
+    c. Add the _id/ of an item to the the selector to target a specific item or item type
+5. Type: This is the modifier type,
+    a. With this set appropriately the modifier will taken into account for bonus stacking rules
+6. Value: the value can be minus if you are applying a penalty
+
+Flat modifiers are just the tip of the iceberg.  Here some more examples of slightly more complicated rules:
+{
+  "key": "PF2E.RuleElement.FlatModifier",
+  "selector": "damage",
+  "label": "Rage",
+  "predicate": {
+    "not": ["agile", "rage"]
+  },
+  "value": {
+    "brackets": [
+      { "end": 6, "value": 2 },
+      { "start": 7, "end": 14, "value": 6 },
+      { "start": 15, "value": 12 }
+    ]
+  }
+}
+Its possible to add level scaling with the value of a modifier!
+
+There are several more rule types with examples littered through out the compendium, without being exhaustive:
+
+
+PF2E.RuleElement.DexterityModifierCap
+    example rule:
+    {
+        "key": "PF2E.RuleElement.DexterityModifierCap",
+        "value": 5
+    }
+    example use: bracers of armor
+
+PF2E.RuleElement.TempHP
+    example rule:
+        {
+            "key": "PF2E.RuleElement.TempHP",
+            "value": 15
+        }
+    example use: "Aeon Stone (Pink Rhomboid)"
+
+PF2E.RuleElement.DamageDice
+    Example rule:
+        {
+            "key": "PF2E.RuleElement.DamageDice",
+            "predicate": {
+                "all": [
+                    "melee",
+                    "power-attack"
+                ]
+            },
+            "selector": "damage",
+            "value": {
+                "brackets": [
+                    {
+                        "end": 9,
+                        "value": {
+                            "diceNumber": 1
+                        }
+                    },
+                    {
+                        "end": 17,
+                        "start": 10,
+                        "value": {
+                            "diceNumber": 2
+                        }
+                    },
+                    {
+                        "start": 18,
+                        "value": {
+                            "diceNumber": 3
+                        }
+                    }
+                ]
+            }
+        }
+    example use: Feat power attack
+
+PF2E.RuleElement.ToggleProperty
+    example rule:
+    {
+        "key": "PF2E.RuleElement.ToggleProperty",
+        "property": "flags.pf2e.rollOptions.damage-roll.power-attack"
+    }
+    example use: Power attack feat
+
+
+PF2E.RuleElement.BaseSpeed
+    example rule:
+    {
+        "key": "PF2E.RuleElement.BaseSpeed",
+        "selector": "fly",
+        "value": 30
+    }
+    example use: Effect: Barding of the Zephyr
+
+PF2E.RuleElement.Sense
+  example rule:
+    {
+        "key": "PF2E.RuleElement.Sense",
+        "label": "PF2E.SensesDarkvision",
+        "selector": "darkvision"
+    }
+  example use: spell effect bloodhoud mask
+
+PF2E.RuleElement.MageArmor
+PF2E.RuleElement.TokenImage
+PF2E.RuleElement.TokenSize
+PF2E.RuleElement.FixedProficiency
