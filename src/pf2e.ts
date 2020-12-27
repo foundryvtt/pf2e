@@ -342,22 +342,28 @@ Hooks.on('preCreateActor', (actor, dir) => {
   }
 });
 
-Hooks.on('updateActor', (actor, dir) => {
-  // ensure minion-type actors with the updated actor as master should also be updated
-  _updateMinionActors(actor);
+Hooks.on('updateActor', (actor, data, options, userID) => {
+    if (userID === game.userId) {
+        // ensure minion-type actors with the updated actor as master should also be updated
+        _updateMinionActors(actor);
+    }
 });
 
 function preCreateOwnedItem(parent, child, options, userID) {
-    if (child.type === 'effect') {
-        child.data.start = child.data.start || {};
-        child.data.start.value = game.time.worldTime;
+    if (userID === game.userId) {
+        if (child.type === 'effect') {
+            child.data.start = child.data.start || {};
+            child.data.start.value = game.time.worldTime;
+        }
     }
 }
 Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
 
 function createOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onCreateOwnedItem(child, options, userID);
+        if (userID === game.userId) {
+            parent.onCreateOwnedItem(child, options, userID);
+        }
 
         game[game.system.id].effectPanel.refresh();
     }
@@ -366,7 +372,9 @@ Hooks.on('createOwnedItem', createOwnedItem);
 
 function deleteOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onDeleteOwnedItem(child, options, userID);
+        if (userID === game.userId) {
+            parent.onDeleteOwnedItem(child, options, userID);
+        }
 
         game[game.system.id].effectPanel.refresh();
     }
