@@ -48,7 +48,9 @@ module.exports = {
       'import/prefer-default-export': 'off',
       'no-else-return': 'off',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}]
+      '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}],
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-expressions': 'error',
   },
   settings: {
     'import/resolver': {
