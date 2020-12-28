@@ -203,7 +203,7 @@ Hooks.once("ready", () => {
 
   // effect panel singleton application
   game[game.system.id].effectPanel = new EffectPanel();
-  if (game.user.getFlag(game.system.id, 'showEffectPanel')) {
+  if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
       game[game.system.id].effectPanel.render(true);
   }
 });
@@ -342,46 +342,60 @@ Hooks.on('preCreateActor', (actor, dir) => {
   }
 });
 
-Hooks.on('updateActor', (actor, dir) => {
-  // ensure minion-type actors with the updated actor as master should also be updated
-  _updateMinionActors(actor);
+Hooks.on('updateActor', (actor, data, options, userID) => {
+    if (userID === game.userId) {
+        // ensure minion-type actors with the updated actor as master should also be updated
+        _updateMinionActors(actor);
+    }
 });
 
 function preCreateOwnedItem(parent, child, options, userID) {
-    if (child.type === 'effect') {
-        child.data.start = child.data.start || {};
-        child.data.start.value = game.time.worldTime;
+    if (userID === game.userId) {
+        if (child.type === 'effect') {
+            child.data.start = child.data.start || {};
+            child.data.start.value = game.time.worldTime;
+
+            if (game.combat && game.combat.turns?.length > game.combat.turn) {
+                child.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
+            } else {
+                child.data.start.initiative = null;
+            }
+        }
     }
 }
 Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
 
 function createOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onCreateOwnedItem(child, options, userID);
+        if (userID === game.userId) {
+            parent.onCreateOwnedItem(child, options, userID);
+        }
 
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 }
 Hooks.on('createOwnedItem', createOwnedItem);
 
 function deleteOwnedItem(parent, child, options, userID) {
     if (parent instanceof PF2EActor) {
-        parent.onDeleteOwnedItem(child, options, userID);
+        if (userID === game.userId) {
+            parent.onDeleteOwnedItem(child, options, userID);
+        }
 
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 }
 Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
-        game[game.system.id].effectPanel.refresh();
+        game[game.system.id].effectPanel?.refresh();
     }
 });
 
 // effect panel
 Hooks.on('updateUser', (user, diff, options, id) => {
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
 
 Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
@@ -407,11 +421,19 @@ Hooks.on('updateToken', (scene, token, data, options, userID) => {
         options.pf2e.items.added.forEach(item => { createOwnedItem(actor, item, options, userID); });
         options.pf2e.items.removed.forEach(item => { deleteOwnedItem(actor, item, options, userID); });
     }
-    game[game.system.id].effectPanel.refresh();
+    
+    if ('disposition' in data && game.userId === userID) {
+        const actor = canvas.tokens.get(token._id).actor;
+        if (actor instanceof PF2ENPC) {
+            (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+        }
+    }
+    
+    game[game.system.id].effectPanel?.refresh();
 });
 
 Hooks.on('controlToken', (token, selected) => {
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
 });
 
 // world clock application
@@ -422,13 +444,13 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
         icon: "fas fa-star",
         onClick: toggled => {
             if (toggled) {
-                game[game.system.id].effectPanel.render(true);
+                game[game.system.id].effectPanel?.render(true);
             } else {
-                game[game.system.id].effectPanel.close();
+                game[game.system.id].effectPanel?.close();
             }
             game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
         },
-        active: !!game.user.getFlag(game.system.id, 'showEffectPanel'),
+        active: !!(game.user.getFlag(game.system.id, 'showEffectPanel') ?? true),
         toggle: true
     },{
         name: "worldclock",
@@ -445,5 +467,9 @@ Hooks.on('updateWorldTime', (total, diff) => {
     if (worldclock) {
         worldclock.render(false);
     }
-    game[game.system.id].effectPanel.refresh();
+    game[game.system.id].effectPanel?.refresh();
+});
+
+Hooks.on('updateCombat', (combat, diff, options, userID) => {
+    game[game.system.id].effectPanel?.refresh();
 });

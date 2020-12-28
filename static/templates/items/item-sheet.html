@@ -1,9 +1,14 @@
 <form class="{{cssClass}}" autocomplete="off">
 
     <!-- ITEM SHEET HEADER -->
-    <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" />
-        <h1><input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}"/></h1>
+  <header class="sheet-header">
+    <img src="{{item.img}}" data-edit="img" />
+    <h1>{{#if item.data.identified.value}}
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}"/>
+      {{else}}
+        <input name="data.originalName" type="text" value="{{item.data.originalName}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}"/>
+      {{/if}}
+    </h1>
     </header>
 
     <!-- ITEM SHEET CONTENT -->

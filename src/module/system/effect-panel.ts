@@ -54,7 +54,24 @@ export class EffectPanel extends Application {
                         const start = effect.data.start?.value ?? 0;
                         const remaining = (start + duration) - game.time.worldTime;
                         effect.data.expired = (remaining <= 0);
-                        effect.data.remaining = effect.data.expired ? game.i18n.localize('PF2E.EffectPanel.Expired') : EffectPanel.getRemainingDurationLabel(remaining);
+                        let initiative = 0;
+                        if (remaining === 0 && game.combat?.data?.active && game.combat?.turns?.length > game.combat?.turn) {
+                            initiative = game.combat.turns[game.combat.turn].initiative;
+                            if (initiative === effect.data.start.initiative) {
+                                if (effect.data.duration.expiry === "turn-start") {
+                                    effect.data.expired = true;
+                                } else if (effect.data.duration.expiry === "turn-end") {
+                                    effect.data.expired = false;
+                                } else {
+                                    // unknown value - default to expired
+                                    effect.data.expired = true;
+                                    console.warn(`Unknown value ${effect.data.duration.expiry} for duration expiry field in effect "${effect?.name}".`);
+                                }
+                            } else {
+                                effect.data.expired = (initiative < effect.data.start.initiative);
+                            }
+                        }
+                        effect.data.remaining = effect.data.expired ? game.i18n.localize('PF2E.EffectPanel.Expired') : EffectPanel.getRemainingDurationLabel(remaining, effect.data.start.initiative, effect.data.duration.expiry);
                     }
                     data.effects.push(effect);
                 }
@@ -118,7 +135,7 @@ export class EffectPanel extends Application {
         }
     }
 
-    private static getRemainingDurationLabel(remaining: number): string {
+    private static getRemainingDurationLabel(remaining: number, initiative: number, expiry: 'turn-start' | 'turn-end'): string {
         if (remaining >= 63_072_000) { // two years
             return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleYears', { years: Math.floor(remaining / 31_536_000) });
         } else if (remaining >= 31_536_000) { // one year
@@ -139,8 +156,11 @@ export class EffectPanel extends Application {
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleRound');
         } else if (remaining >= 2) { // two seconds
             return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleSeconds', { seconds: remaining });
-        } else { // one second
+        } else if (remaining === 1) { // one second
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleSecond');
+        } else { // zero rounds
+            const key = (expiry === 'turn-end') ? 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnEnd' : 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnStart';
+            return game.i18n.format(key, { initiative });
         }
     }
 }

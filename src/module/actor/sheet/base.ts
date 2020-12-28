@@ -1,4 +1,5 @@
 /* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
+import { RemoveCoinsPopup } from './RemoveCoinsPopup';
 import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
 import { addKit } from '../../item/kits';
@@ -7,10 +8,10 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import {ConditionData, isPhysicalItem, ItemData} from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import { isIdentified } from '../../item/identification';
+import {isIdentified} from '../../item/identification';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -619,6 +620,8 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.trait-selector').click((ev) => this._onTraitSelector(ev));
 
     html.find('.add-coins-popup button').click(ev => this._onAddCoinsPopup(ev));
+    
+    html.find('.remove-coins-popup button').click(ev => this._onRemoveCoinsPopup(ev));
 
     html.find('.sell-all-treasure button').click(ev => this._onSellAllTreasure(ev));
 
@@ -678,7 +681,13 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = f.parents('.item').attr('data-item-id');
       const identified = f.hasClass('identified');
       if (identified) {
-          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.identified.value': !identified });   
+          const item = this.actor.getOwnedItem(itemId);
+          this.actor.updateEmbeddedEntity('OwnedItem', { 
+              _id: itemId, 
+              'data.identified.value': false,
+              'data.originalName': item.name,
+              name: game.i18n.localize('PF2E.identification.UnidentifiedItem'),
+          });   
       } else {
           new IdentifyItemPopup(this.actor, {itemId}).render(true);
       }
@@ -688,7 +697,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     html.find('.item-delete').click(async (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const itemId = li.attr('data-item-id');
-      const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+      const item = new Item<ItemData>(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
       if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
         // Condition Item.
@@ -1483,19 +1492,25 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     const data = duplicate(header.dataset);
 
     if (data.type === 'feat') {
-      data.name = `New ${data.featType.capitalize()} ${data.type.capitalize()}`;
+        const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
+      data.name = `${game.i18n.localize("PF2E.NewLabel")} ${featTypeString}`;
       mergeObject(data, { 'data.featType.value': data.featType });
     } else if (data.type === 'action') {
-      data.name = `New ${data.actionType.capitalize()}`;
+        const newLabel = game.i18n.localize("PF2E.NewLabel");
+        const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
+        data.name = `${newLabel} ${actionTypeLabel}`;
       mergeObject(data, { 'data.actionType.value': data.actionType });
     } else if (data.type === 'melee') {
-      data.name = `New ${data.actionType.capitalize()}`;
+        data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
       mergeObject(data, { 'data.weaponType.value': data.actionType });
     } else if (data.type === 'spell') {
       // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
       this.actor._setShowUnpreparedSpells(data.location, data.level);
 
-      data.name = `New  Level ${data.level} ${data.type.capitalize()}`;
+      const newLabel = game.i18n.localize("PF2E.NewLabel");
+      const spellLevel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
+      const spellLabel = data.level > 0 ? game.i18n.localize("PF2E.SpellLabel") : "";
+      data.name = `${newLabel} ${spellLevel} ${spellLabel}`;
       mergeObject(data, {
         'data.level.value': data.level,
         'data.location.value': data.location,
@@ -1510,11 +1525,11 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       });
     } else if (data.type === 'lore') {
       if (this.actorType === 'npc') {
-        data.name = 'Skill';
+        data.name = game.i18n.localize('PF2E.SkillLabel');
         data.img = '/icons/svg/d20-black.svg';
-      } else data.name = `New ${data.type.capitalize()}`;
+      } else data.name = game.i18n.localize('PF2E.NewPlaceholders.Lore');
     } else {
-      data.name = `New ${data.type.capitalize()}`;
+      data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
     }
     // this.actor.createOwnedItem(data, {renderSheet: true});
     this.actor.createEmbeddedEntity('OwnedItem', data);
@@ -1537,7 +1552,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
 
     // Render modal dialog
     const template = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
-    const title = 'Select Spellcasting Entry Details';
+    const title = game.i18n.localize("PF2E.SpellcastingTypeLabel");
     const dialogOptions = {
       width: 300,
       top: event.clientY - 80,
@@ -1555,7 +1570,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
         content: dlg,
         buttons: {
           create: {
-            label: 'Create',
+            label: game.i18n.localize("PF2E.CreateLabelUniversal"),
             callback: (html: JQuery) => {
               // if ( onClose ) onClose(html, parts, data);
               let name = '';
@@ -1673,6 +1688,11 @@ export abstract class ActorSheetPF2e extends ActorSheet {
   _onAddCoinsPopup(event) {
       event.preventDefault();
       new AddCoinsPopup(this.actor, {}).render(true)
+  }
+  
+  _onRemoveCoinsPopup(event) {
+      event.preventDefault();
+      new RemoveCoinsPopup(this.actor, {}).render(true)
   }
 
   _onSellAllTreasure(event) {

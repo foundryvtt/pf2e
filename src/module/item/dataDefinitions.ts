@@ -17,6 +17,9 @@ export interface ItemDescriptionData {
         value: string;
     };
     traits: {
+        rarity: {
+            value: Rarity;
+        };
         value: string|string[];
     };
     rarity: {
