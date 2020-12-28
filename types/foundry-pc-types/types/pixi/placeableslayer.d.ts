@@ -12,16 +12,16 @@ declare interface LayerOptions {
  * The base PlaceablesLayer subclass of CanvasLayer
  * @type {CanvasLayer}
  */
-declare class PlaceablesLayer extends CanvasLayer {
+declare abstract class PlaceablesLayer extends CanvasLayer {
 	/**
 	 * Placeable Layer Objects
 	 */
-	objects: PlaceableObject[];
+	objects: PIXI.Container;
 
 	/**
 	 * Preview Object Placement
 	 */
-	preview: PlaceableObject;
+	preview: PIXI.Container;
 
 	/**
 	 * Keep track of history so that CTRL+Z can undo changes
@@ -131,7 +131,7 @@ declare class PlaceablesLayer extends CanvasLayer {
 	 * @param objectId	The ID of the contained object to retrieve
 	 * @return			The object instance, or undefined
 	 */
-	get(objectId: number): PlaceableObject;
+	get(objectId: number | string): PlaceableObject;
 
 	/**
 	 * Release all controlled PlaceableObject instance from this layer.

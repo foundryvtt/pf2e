@@ -147,7 +147,7 @@ declare class Application {
 	/**
 	 * Return the active application element, if it currently exists in the DOM
 	 */
-	get element(): JQuery | HTMLElement;
+	get element(): JQuery<HTMLElement>;
 
 	/**
 	 * The path to the HTML template file which should be used to render the inner content of the app
