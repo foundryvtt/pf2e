@@ -11,7 +11,7 @@ import { PF2EItem } from '../../item/item';
 import {ConditionData, isPhysicalItem, ItemData} from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import {getItemName, isIdentified} from '../../item/identification';
+import {isIdentified} from '../../item/identification';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -681,7 +681,13 @@ export abstract class ActorSheetPF2e extends ActorSheet {
       const itemId = f.parents('.item').attr('data-item-id');
       const identified = f.hasClass('identified');
       if (identified) {
-          this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.identified.value': !identified });   
+          const item = this.actor.getOwnedItem(itemId);
+          this.actor.updateEmbeddedEntity('OwnedItem', { 
+              _id: itemId, 
+              'data.identified.value': false,
+              'data.originalName': item.name,
+              name: game.i18n.localize('PF2E.identification.UnidentifiedItem'),
+          });   
       } else {
           new IdentifyItemPopup(this.actor, {itemId}).render(true);
       }
@@ -729,7 +735,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
           default: 'Yes',
         }).render(true);
       } else {
-        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: getItemName(item.data, true)});
+        const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {name: item.name});
         new Dialog({
           title: 'Delete Confirmation',
           content,

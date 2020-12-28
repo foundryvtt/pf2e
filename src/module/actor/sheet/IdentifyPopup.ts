@@ -18,7 +18,12 @@ export class IdentifyItemPopup extends FormApplication {
 
     async _updateObject(event: Event, formData: any) {
         const {itemId} = this.options;
-        await this.object.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.identified.value': true });
+        const item = this.object.getOwnedItem(itemId);
+        await this.object.updateEmbeddedEntity('OwnedItem', { 
+            _id: itemId, 
+            'data.identified.value': true,
+            name: item.data.data.originalName ?? item.name
+        });
     }
 
     getData() {

@@ -6,6 +6,7 @@
 import { calculateCarriedArmorBulk, fixWeight } from './item/bulk';
 import { compendiumBrowser } from './packs/compendium-browser';
 import { toNumber } from './utils';
+import {isPhysicalItem} from "./item/dataDefinitions";
 
 /* -------------------------------------------- */
 function addWeaponPotencyRune(item, itemData) {
@@ -14,6 +15,14 @@ function addWeaponPotencyRune(item, itemData) {
         if (bonusAttack > 0 && bonusAttack < 5) {
             itemData['data.potencyRune.value'] = `${bonusAttack}`;
         }
+    }
+    return itemData;
+}
+
+function setOriginalItemName(item, itemData) {
+    if (isPhysicalItem(item) && !(item.data?.identified?.value ?? true)) {
+        itemData['data.originalName'] = item.name;
+        itemData.name = 'Unidentified Item';
     }
     return itemData;
 }
@@ -230,6 +239,10 @@ export function migrateItemData (item, worldSchemaVersion) {
 
     if (worldSchemaVersion < 0.589) {
         setItemAsIdentified(item, updateData)
+    }
+
+    if (worldSchemaVersion < 0.591) {
+        setOriginalItemName(item, updateData)
     }
 
     // Return the migrated update data
@@ -614,9 +627,17 @@ export function migrateActorData(actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.589) {
             migrateActorItems(actor, updateData, setItemAsIdentified)
         }
+
+        if (worldSchemaVersion < 0.591) {
+            migrateActorItems(actor, updateData, setOriginalItemName)
+        }
     } else if (actor.type === 'loot') {
         if (worldSchemaVersion < 0.590) {
             migrateActorItems(actor, updateData, setItemAsIdentified)
+        }
+        
+        if (worldSchemaVersion < 0.591) {
+            migrateActorItems(actor, updateData, setOriginalItemName)
         }
     }
     return updateData;
