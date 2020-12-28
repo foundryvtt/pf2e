@@ -1,6 +1,5 @@
 import { CRBStyleCharacterActorSheetPF2E } from './actor/sheet/character';
 import { ActorSheetPF2eNPC } from './actor/sheet/npc';
-import { UpdatedNPCActorPF2ESheet } from './actor/sheet/updatednpcsheet';
 import { ActorSheetPF2eHazard } from './actor/sheet/hazard';
 import { ActorSheetPF2eLoot } from './actor/sheet/loot';
 import { ActorSheetPF2eFamiliar } from "./actor/sheet/familiar";
@@ -17,12 +16,6 @@ export function registerActors() {
 
   // Register NPC Sheet
   Actors.registerSheet('pf2e', ActorSheetPF2eNPC, {
-    types: ['npc'],
-    makeDefault: false,
-  });
-
-  // Register NPC Sheet
-  Actors.registerSheet('pf2e', UpdatedNPCActorPF2ESheet, {
     types: ['npc'],
     makeDefault: true,
   });
