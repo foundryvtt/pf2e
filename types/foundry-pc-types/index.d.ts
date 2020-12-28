@@ -81,9 +81,12 @@ import './types/framework/entities/user';
 // PIXI
 
 import './types/pixi/canvaslayer';
+import './types/pixi/gridlayer';
 import './types/pixi/mouseinteractionmanager';
 import './types/pixi/placeableobject';
 import './types/pixi/placeableslayer';
+import './types/pixi/templatelayer';
+import './types/pixi/tokenlayer';
 
 import './types/pixi/helpers/controlicon';
 import './types/pixi/helpers/ray';
@@ -105,6 +108,7 @@ import './types/ui/tabs';
 //-- --//
 
 import './types/game';
+import './types/canvas';
 import './types/handlebars';
 import './types/pixi';
 import './types/prototypes';
