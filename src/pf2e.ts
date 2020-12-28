@@ -203,7 +203,7 @@ Hooks.once("ready", () => {
 
   // effect panel singleton application
   game[game.system.id].effectPanel = new EffectPanel();
-  if (game.user.getFlag(game.system.id, 'showEffectPanel')) {
+  if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
       game[game.system.id].effectPanel.render(true);
   }
 });
@@ -450,7 +450,7 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
             }
             game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
         },
-        active: !!game.user.getFlag(game.system.id, 'showEffectPanel'),
+        active: !!(game.user.getFlag(game.system.id, 'showEffectPanel') ?? true),
         toggle: true
     },{
         name: "worldclock",
