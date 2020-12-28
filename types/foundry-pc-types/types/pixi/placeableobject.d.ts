@@ -1,11 +1,21 @@
+declare interface PlaceableObjectData {
+    _id: string;
+    flags: { [key: string]: any };
+    x: number;
+    y: number;
+    height: number;
+    width: number;
+    rotation?: number;
+    locked: boolean;
+}
 /**
  * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
  */
-declare class PlaceableObject extends PIXI.Container {
-	/**
-	 * The underlying data object which provides the basis for this placeable object
-	 */
-	data: any;
+declare abstract class PlaceableObject extends PIXI.Container {
+    /**
+     * The underlying data object which provides the basis for this placeable object
+     */
+    data: PlaceableObjectData;
 
 	/**
 	 * Retain a reference to the Scene within which this Placeable Object resides
@@ -52,6 +62,7 @@ declare class PlaceableObject extends PIXI.Container {
 	/* Properties
 	/* -------------------------------------------- */
 
+  get _id(): string;
 	/**
 	 * The central coordinate pair of the placeable object based on it's own width and height
 	 */

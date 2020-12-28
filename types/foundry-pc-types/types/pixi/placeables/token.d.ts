@@ -1,14 +1,91 @@
-// @TODO: Types
+/**
+ * A Token is an implementation of PlaceableObject which represents an Actor within a viewed Scene on the game canvas.
+ * @extends  {PlaceableObject}
+ *
+ * @example
+ * Token.create({
+ *   name: "Token Name",
+ *   x: 1000,
+ *   y: 1000,
+ *   displayName: 3,
+ *   img: "path/to/token-artwork.png",
+ *   width: 2,
+ *   height: 2,
+ *   scale: 1.2,
+ *   elevation: 50,
+ *   lockRotation: false,
+ *   rotation: 30,
+ *   effects: ["icons/stun.png"],
+ *   overlayEffect: "icons/dead.png",
+ *   vision: true,
+ *   dimSight: 60,
+ *   brightSight: 0,
+ *   dimLight: 40,
+ *   brightLight: 20,
+ *   sightAngle: 60,
+ *   hidden: false,
+ *   actorId: "dfgkjt43jkvdfkj34t",
+ *   actorLink: true,
+ *   actorData: {},
+ *   disposition: 1,
+ *   displayBars: 3,
+ *   bar1: {attribute: "attributes.hp"},
+ *   bar2: {attribute: "attributes.sp"}
+ * }
+ */
+
+type LightData = {
+    brightLight: number;
+    dimLight: number;
+    lightAlpha: number;
+    lightAngle: number;
+    lightAnimation: {
+        type: string;
+        speed: number;
+        intensity: number;
+    }
+    lightColor: string;
+}
+
+declare interface BaseTokenData extends PlaceableObjectData {
+    name: string;
+    displayName: number;
+    img: string;
+    scale: number;
+    elevation: number;
+    lockRotation: boolean;
+    effects: string[];
+    overlayEffect: string;
+    vision: boolean;
+    dimSight: number;
+    brightSight: number;
+    sightAngle: number;
+    hidden: boolean;
+    actorId: string;
+    actorLink: boolean;
+    actorData: { [key: string]: any };
+    disposition: number;
+    displayBars: number;
+    bar1: { [key: string]: string };
+    bar2: { [key: string]: string };
+}
+
+type TokenData = BaseTokenData & LightData;
 
 /**
  * An instance of the Token class represents an Actor within a viewed Scene on the game canvas.
  * Each Token is reference using a numeric id which indexes its position within the scene.
  * See the initialization signature of the parent PlaceableObject class for more details.
  *
- * @param data	An object of token data which is used to construct a new Token.
- * @param scene	The parent Scene entity within which the Token resides.
+ * @param data An object of token data which is used to construct a new Token.
+ * @param scene The parent Scene entity within which the Token resides.
  */
 declare class Token extends PlaceableObject {
+    /** @override */
+    data: TokenData;
+
+    effects: PIXI.Container;
+
 	/**
 	 * A Ray which represents the Token's current movement path
 	 */
@@ -42,16 +119,6 @@ declare class Token extends PlaceableObject {
 	 */
 	actor: SystemActorType;
 
-	/**
-	 * The Token's most recently computed line-of-sight polygon
-	 */
-	los: PIXI.Polygon;
-
-	/**
-	 * The Token's most recently computed field-of-vision polygon
-	 */
-	fov: PIXI.Polygon;
-
 	constructor(...args: any[]);
 
 	/**
@@ -77,11 +144,6 @@ declare class Token extends PlaceableObject {
 	 * Is the HUD display active for this token?
 	 */
 	get hasActiveHUD(): boolean;
-
-	/**
-	 * Convenience access to the token's nameplate string
-	 */
-	get name(): string;
 
 	/**
 	 * Provide a singleton reference to the TileConfig sheet for this Tile instance
