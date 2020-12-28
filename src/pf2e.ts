@@ -354,6 +354,12 @@ function preCreateOwnedItem(parent, child, options, userID) {
         if (child.type === 'effect') {
             child.data.start = child.data.start || {};
             child.data.start.value = game.time.worldTime;
+
+            if (game.combat && game.combat.turns?.length > game.combat.turn) {
+                child.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
+            } else {
+                child.data.start.initiative = null;
+            }
         }
     }
 }
@@ -461,5 +467,9 @@ Hooks.on('updateWorldTime', (total, diff) => {
     if (worldclock) {
         worldclock.render(false);
     }
+    game[game.system.id].effectPanel?.refresh();
+});
+
+Hooks.on('updateCombat', (combat, diff, options, userID) => {
     game[game.system.id].effectPanel?.refresh();
 });
