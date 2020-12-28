@@ -47,8 +47,15 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         };
 
+        // workaround for item sheet bug??
+        const updatedData = this?.actor?.items?.get(this?.entity?.id)?.data;
+        if (updatedData) {
+            data.item = updatedData;
+            data.data = updatedData.data;
+        }
+
         if (this.item.data.type === 'ancestry') {
-            const itemData = this.item.data.data;
+            const itemData = (<AncestryData>data.item).data;
 
             data.actorSizes = CONFIG.PF2E.actorSizes;
             data.rarityChoices = CONFIG.PF2E.rarityTraits;

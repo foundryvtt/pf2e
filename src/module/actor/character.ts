@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
+import { AncestryData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
 import {
@@ -36,6 +36,9 @@ export class PF2ECharacter extends PF2EActor {
         super.prepareData();
 
         const actorData = this.data;
+
+        this.prepareAncestry(actorData);
+
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
@@ -784,5 +787,17 @@ export class PF2ECharacter extends PF2EActor {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+    }
+
+    prepareAncestry(actorData: CharacterData) {
+        const ancestry: AncestryData = actorData.items.find((x): x is AncestryData => x.type === 'ancestry');
+
+        if (ancestry) {
+            actorData.data.details.ancestry.value = ancestry.name;
+            actorData.data.attributes.ancestryhp = ancestry.data.hp;
+            actorData.data.attributes.speed.value = `${ancestry.data.speed}`;
+            actorData.data.traits.size.value = ancestry.data.size;
+            // should we update the traits as well?
+        }
     }
 }
