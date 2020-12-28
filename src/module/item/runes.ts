@@ -76,7 +76,7 @@ interface RuneDiceModifier {
 function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: RuneDiceModifier): DiceModifier {
     const traits = [];
     if (damageType !== undefined) {
-        traits.push(damageType, CONFIG.PF2E.weaponPropertyRunes);
+        traits.push(damageType);
     }
     return {
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
