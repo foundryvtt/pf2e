@@ -2,14 +2,12 @@
     <div class="item-name rollable">
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
           <h4>
-              {{#if item.identified}}
-                {{item.name}}
-              {{else}}
-                {{item.name}} 
+              {{item.name}}
+              {{#unless item.identified}}
                 {{#if item.showGMInfo}}
                   ({{item.data.originalName}})
                 {{/if}}
-              {{/if}}
+              {{/unless}}
               {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
               {{#if item.isTwoHanded}}
               {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
