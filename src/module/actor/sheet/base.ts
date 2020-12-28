@@ -262,23 +262,6 @@ export abstract class ActorSheetPF2e extends ActorSheet {
    * @param spell {String}        The item details for the spell
    */
   async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
-    // let spellcastingEntry = this.actor.items.find(i => { return i.id === Number(entryId) });;
-    // let spellcastingEntry = this.actor.getOwnedItem(Number(entryId)).data;
-
-    // If NPC, then update icons to action icons.
-/*     const isNPC = this.actorType === 'npc';
-    if (isNPC) {
-      const spellType = spell.data.time.value;
-      if (spellType === 'reaction') spell.img = this._getActionImg('reaction');
-      else if (spellType === 'free') spell.img = this._getActionImg('free');
-      else if (parseInt(spellType)) spell.img = this._getActionImg(parseInt(spellType));
-    } */
-
-    // spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = spell;
-    /* spellcastingEntry.data.slots["slot" + spellLevel].prepared[spellSlot] = {
-      id: spell.id
-    };
-    await this.actor.updateOwnedItem(spellcastingEntry, true);  */
     if (CONFIG.debug.hooks === true) console.log(`PF2e DEBUG | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`);
     const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
     const options = {
@@ -1096,111 +1079,63 @@ export abstract class ActorSheetPF2e extends ActorSheet {
   /* -------------------------------------------- */
 
   /**
-   * Extend the base _onDrop method to handle dragging spells onto spell slots.
+   * Handle a drop event for an existing Owned Item to sort that item
+   * @param {Event} event
+   * @param {Object} itemData
    * @private
    */
-  async _onDrop(event) {
-    event.preventDefault();
-    if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** PF2e _onDrop (spell) override method called *****');
+  async _onSortItem(event, itemData) {
 
-    // get the item type of the drop target
     const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
     const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
-    const dragEntitiy = JSON.parse(event.dataTransfer.getData('text/plain') || null);
 
-    // if the drop target is of type spellSlot then check if the item dragged onto it is a spell.
-    if (dropSlotType === 'spellSlot') {
+    // if they are dragging onto another spell, it's just sorting the spells
+    // or moving it from one spellcastingEntry to another
+    if (itemData.type === 'spell') {
+      if (dropSlotType === 'spell') {
+        const sourceId = itemData._id;
+        const dropId = $(event.target).parents('.item').attr('data-item-id');
+        if (sourceId !== dropId) {
+          const source: any = this.actor.getOwnedItem(sourceId);
+          const sourceLevel = source.data.data.level.value;
+          const sourceLocation = source.data.data.location.value;
+          const target: any = this.actor.getOwnedItem(dropId);
+          const targetLevel = target.data.data.level.value;
+          const targetLocation = target.data.data.location.value;
 
-      const dragItem = dragEntitiy;
-      // dragItem = this.actor.getOwnedItem(dragJSON.data._id);
-      // if the dragged item is from a compendium pack.
-      if (dragItem.pack) {
-        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from compendium pack dropped on a spellSlot *****');
-        const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-        this.actor.importItemFromCollectionWithLocation(dragItem.pack, dragItem.id, dropID);
-        return false;
-      }
-
-      // if the dragged item is a apell.
-      if (dragItem && dragItem.data && dragItem.data.type === 'spell') {
+          if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
+            const siblings: any[] = (this.actor as any).items.entries.filter((i: PF2EItem) =>
+              i.data.type === 'spell' &&
+              i.data.data.level.value === sourceLevel &&
+              i.data.data.location.value === sourceLocation
+            );
+            const sortBefore = (source.data.sort >= target.data.sort);
+            source.sortRelative({ target, siblings, sortBefore });
+          }
+        }
+      } else if (dropSlotType === 'spellSlot') {
         if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell dropped on a spellSlot *****');
         const dropID = $(event.target).parents('.item').attr('data-item-id');
         const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
         const entryId = $(event.target).parents('.item').attr('data-entry-id');
 
-        this._allocatePreparedSpellSlot(spellLvl, dropID, dragItem.data, entryId);
-      }
-
-      // else if the dragged item is from another actor and is the data is explicitly provided
-      else if (dragItem.data) {
-        if (dragItem.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
-          if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell dragged from another actor dropped on a spellSlot *****');
-          if (dragItem.actorId === this.actor._id) return false; // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
-
-          const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-          dragItem.data.data.location = {
-            value: dropID,
-          };
-          // this.actor.createOwnedItem(dragData.data);
-          this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
-          return false;
-        }
-        else if (dragItem.data.type === 'item') {
-          console.log('An item from another sheet has been dropped here.');
-        }
-      }
-    }
-
-    if (dragEntitiy?.data?.type === 'spell' && dragEntitiy.actorId === this.actor._id) {
-        const sourceId = dragEntitiy.data._id;
-        const dropId = $(event.target).parents('.item').attr('data-item-id');
-
-        if (dropSlotType === 'spell') {
-            if (sourceId !== dropId) {
-              const source: any = this.actor.getOwnedItem(sourceId);
-              const sourceLevel = source.data.data.level.value;
-              const sourceLocation = source.data.data.location.value;
-              const target: any = this.actor.getOwnedItem(dropId);
-              const targetLevel = target.data.data.level.value;
-              const targetLocation = target.data.data.location.value;
-
-              if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
-                const siblings: any[] = (this.actor as any).items.entries.filter((i: PF2EItem) =>
-                i.data.type === 'spell' &&
-                i.data.data.level.value === sourceLevel &&
-                i.data.data.location.value === sourceLocation
-                );
-                const sortBefore = (source.data.sort >= target.data.sort);
-                source.sortRelative({target, siblings, sortBefore});
-              }
-            }
-        }
-
-        return false;
-    }
-
-    if (dropContainerType === 'spellcastingEntry') { // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
-      const dragData = dragEntitiy;
-      // dragItem = this.actor.getOwnedItem(dragData._id);
-
-      // if the dragged item is a spell and is from the same actor
-      if (dragData && dragData.data && dragData.data.type === 'spell' && (dragData.actorId === this.actor.id)) {
+        return this._allocatePreparedSpellSlot(spellLvl, dropID, itemData, entryId);
+      } else if (dropContainerType === 'spellcastingEntry') {
+        // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
+        // if the dragged item is a spell and is from the same actor
         if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell from same actor dropped on a spellcasting entry *****');
+
         const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
         if (dropID) {
-          dragData.data.data.location = { value: dropID };
-
-          // Update Actor
-          // await this.actor.updateOwnedItem(dragItem.data, true);
-          await this.actor.updateEmbeddedEntity('OwnedItem', dragData.data);
-          // await this.actor.updateEmbeddedEntity("OwnedItem", {_id: dragData.id, "data.data.location": {"value": dropID} });
+          itemData.data.location = { value: dropID };
+          return this.actor.updateEmbeddedEntity('OwnedItem', itemData);
         }
       }
-
-      // target and source are spellcastinEntries and need to be sorted
-      if (dragData?.data?.type === 'spellcastingEntry' && dragData.actorId === this.actor.id) {
-        const sourceId = dragData.data._id;
+    } else if (itemData.type === 'spellcastingEntry') {
+      // target and source are spellcastingEntries and need to be sorted
+      if (dropContainerType === 'spellcastingEntry') {
+        const sourceId = itemData._id;
         const dropId = $(event.target).parents('.item-container').attr('data-container-id');
 
         if (sourceId !== dropId) {
@@ -1210,178 +1145,127 @@ export abstract class ActorSheetPF2e extends ActorSheet {
 
           if (source && target) {
             const sortBefore = (source.data.sort >= target.data.sort);
-            source.sortRelative({target, siblings, sortBefore});
+            return source.sortRelative({ target, siblings, sortBefore });
           }
         }
-
-        return false;
-      }
-      // else if the dragged item is from another actor and is the data is explicitly provided
-      if (dragData.data) {
-        if (dragData.data.type === 'spell') { // check if dragged item is a spell, if not, handle with the super _onDrop method.
-          if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** spell from another actor dropped on a spellcasting entry *****');
-          if (dragData.actorId === this.actor.id) return false; // Don't create duplicate items (ideally the previous if statement would have handled items being dropped on the same actor.)
-
-          const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-          dragData.data.data.location = {
-            value: dropID,
-          };
-          // this.actor.createOwnedItem(dragData.data);
-          this.actor.createEmbeddedEntity('OwnedItem', dragData.data);
-          return false;
-        }
-      }
-
-      // else if the dragged item is from a compendium pack.
-      else if (dragData.pack) {
-        if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** item from a compendium pack dropped on a spellcasting entry *****');
-        const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-
-        this.actor.importItemFromCollectionWithLocation(dragData.pack, dragData.id, dropID);
-        return false;
-      }
-
-      // else if the dragged item is from the item sidebar.
-      else if (dragData.id) {
-        const dragItem = game.items.get(dragData.id);
-        if (!dragItem) throw new Error('Dragged item not found');
-        const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-        (dragItem.data.data as any).location = {
-          value: dropID,
-        };
-
-        this.actor.createEmbeddedEntity('OwnedItem', dragItem.data);
-        return false;
       }
     }
-    
-    if (dragEntitiy?.data?.type === 'spellcastingEntry' && dropContainerType !== 'spellcastingEntry') {
-        // spellcastingEntries can only be dropped on other spellcastingEntries
-        return false;
+
+    const container = $(event.target).parents('[data-item-is-container="true"]');
+    let containerId = null;
+    if (container[0] !== undefined) {
+      containerId = container[0].dataset.itemId?.trim();
     }
-
-    if (CONFIG.debug.hooks === true) console.log('PF2e DEBUG | ***** PF2e _onDrop (spell) override method finished passing over to _onDropOverride *****');
-
-    return this._onDropOverride(event);
+    await PF2EActor.stashOrUnstash(this.actor, async () => this.actor.getOwnedItem(itemData._id), containerId);
+    return super._onSortItem(event, itemData);
   }
 
-    /**
-     * override super._onDrop to fix https://gitlab.com/foundrynet/foundryvtt/-/issues/2871
-     * @param event
-     * @return {Promise<boolean|*>}
-     * @private
-     */
-    async _onDropOverride(event) {
-        // Try to extract the data
-        let data;
-        try {
-            data = JSON.parse(event.dataTransfer.getData('text/plain'));
-            if (data.type !== "Item") return false;
-        } catch (err) {
-            return false;
-        }
-        // Case 1 - Import from a Compendium pack
-        const actor = this.actor;
-        let itemData;
-        if (data.pack) {
-            console.log(`Comes from compendium`);
-            const pack = game.packs.get(data.pack);
-            itemData = await pack.getEntry(data.id);
-        }
-        // Case 2 - Data explicitly provided
-        else if (data.data) {
-            this.moveItemBetweenActors(event, data.actorId, data.tokenId, actor._id, actor.token?.id, data.id);
-            return true;
-        }
-        // Case 3 - Import from World entity
-        else {
-            console.log(`From world entry`);
-            const item = game.items.get(data.id);
-            if (!item) return false;
-            itemData = duplicate(item.data);
-        }
+  /**
+   * Extend the base _onDrop method to handle dragging spells onto spell slots.
+   * @private
+   */
+  async _onDropItem(event, data) {
+    event.preventDefault();
 
-        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
-          // ignore these (for now)...
-          return false;
-        }
-    
-        if (itemData.type === 'kit') {
-            await addKit(itemData, async (newItems) => {
-                const items = await actor.createOwnedItem(newItems);
-                if (Array.isArray(items)) {
-                    return items.map(item => item._id);
-                }
-                return [items._id];
-            });
-            return true;
-        } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
-          const condition = itemData as ConditionData;
-          const token = actor.token
-            ? actor.token
-            : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
+    const item = await Item.fromDropData(data);
+    const itemData = duplicate(item.data);
 
-          if (token) {
-            await PF2eConditionManager.addConditionToToken(condition, token);
-            return true;
-          } else {
-            ui.notifications.error("You do not control this actor.");
-            return false;
-          }
-        }
+    const actor = this.actor;
+    const isSameActor = (data.actorId === actor._id) || (actor.isToken && data.tokenId === actor.token.id);
+    if (isSameActor) return this._onSortItem(event, itemData);
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
-        let containerId = null;
-        if (container[0] !== undefined) {
-          containerId = container[0].dataset.itemId?.trim();
-        }
-        return PF2EActor.stashOrUnstash(actor, async () => {
-            const newItemData = await actor.createOwnedItem(itemData);
-            return actor.getOwnedItem(newItemData._id);
-        }, containerId);
+    if (data.actorId && isPhysicalItem(itemData)) {
+      return this.moveItemBetweenActors(event, data.actorId, data.tokenId, actor._id, actor.token?.id, data.id);
     }
 
-    /**
-     * Moves an item between two actors' inventories.
-     * @param {event} event         Event that fired this method.
-     * @param {actor} sourceActorId ID of the actor who originally owns the item.
-     * @param {actor} targetActorId ID of the actor where the item will be stored.
-     * @param {id} itemId           ID of the item to move between the two actors.
-     */
-    async moveItemBetweenActors(event, sourceActorId, sourceTokenId, targetActorId, targetTokenId, itemId) {
-      const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
-      const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
-      const item = sourceActor.getOwnedItem(itemId);
+    // get the item type of the drop target
+    const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
+    const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
 
-      const isSameActor = (sourceActorId === targetActorId) && (sourceTokenId === targetTokenId);
+    // otherwise they are dragging a new spell onto their sheet.
+    // we still need to put it in the correct spellcastingEntry
+    if (itemData.type === 'spell') {
+      if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
+        const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+        itemData.data.location = { value: dropID };
+        this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
+        return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+      }
+    } else if (itemData.type === 'spellcastingEntry') {
+      // spellcastingEntry can only be created. drag & drop between actors not allowed
+      return false;
+    } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+      // ignore these (for now)...
+      return false;
+    } else if (itemData.type === 'kit') {
+      await addKit(itemData, async (newItems) => {
+        const items = await actor.createOwnedItem(newItems);
+        if (Array.isArray(items)) {
+          return items.map(i => i._id);
+        }
+        return [items._id];
+      });
+      return true;
+    } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
+      const condition = itemData as ConditionData;
+      const token = actor.token
+        ? actor.token
+        : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
 
+      if (token) {
+        await PF2eConditionManager.addConditionToToken(condition, token);
+        return true;
+      } else {
+        ui.notifications.error("You do not control this actor.");
+        return false;
+      }
+    }
+
+    if (isPhysicalItem(itemData)) {
       const container = $(event.target).parents('[data-item-is-container="true"]');
       let containerId = null;
       if (container[0] !== undefined) {
         containerId = container[0].dataset.itemId?.trim();
       }
-      if (isSameActor) {
-        await PF2EActor.stashOrUnstash(targetActor, async () => item, containerId);
-        return this._onSortItem(event, item.data);
-      }
-      const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
-
-      // If more than one item can be moved, show a popup to ask how many to move
-      if (sourceItemQuantity > 1)
-      {
-        const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
-          console.log(`Accepted moving ${quantity} items`);
-          PF2EActor.transferItemToActor(sourceActor, targetActor, item, quantity, containerId);
-        });
-
-        popup.render(true);
-      }
-      else
-      {
-        PF2EActor.transferItemToActor(sourceActor, targetActor, item, 1, containerId);
-      }
-      return true;
+      itemData.data.containerId.value = containerId || '';
     }
+    return this._onDropItemCreate(itemData);
+  }
+
+  /**
+   * Moves an item between two actors' inventories.
+   * @param {event} event         Event that fired this method.
+   * @param {actor} sourceActorId ID of the actor who originally owns the item.
+   * @param {actor} targetActorId ID of the actor where the item will be stored.
+   * @param {id} itemId           ID of the item to move between the two actors.
+   */
+  async moveItemBetweenActors(event, sourceActorId, sourceTokenId, targetActorId, targetTokenId, itemId) {
+    const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
+    const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
+    const item = sourceActor.getOwnedItem(itemId);
+
+    const container = $(event.target).parents('[data-item-is-container="true"]');
+    let containerId = null;
+    if (container[0] !== undefined) {
+      containerId = container[0].dataset.itemId?.trim();
+    }
+
+    const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
+
+    // If more than one item can be moved, show a popup to ask how many to move
+    if (sourceItemQuantity > 1) {
+      const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
+        console.log(`Accepted moving ${quantity} items`);
+        PF2EActor.transferItemToActor(sourceActor, targetActor, item, quantity, containerId);
+      });
+
+      popup.render(true);
+    }
+    else {
+      PF2EActor.transferItemToActor(sourceActor, targetActor, item, 1, containerId);
+    }
+    return true;
+  }
 
   /* -------------------------------------------- */
 
