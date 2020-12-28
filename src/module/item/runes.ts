@@ -1,7 +1,6 @@
 import {isBlank, toNumber} from '../utils';
 import {DamageCategory, DamageDieSize} from '../system/damage/damage';
 import {ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData} from './dataDefinitions';
-import {CONFIG} from '../../scripts/config';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -77,7 +76,7 @@ interface RuneDiceModifier {
 function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: RuneDiceModifier): DiceModifier {
     const traits = [];
     if (damageType !== undefined) {
-        traits.push(damageType);
+        traits.push(damageType, CONFIG.PF2E.weaponPropertyRunes);
     }
     return {
         name: CONFIG.PF2E.weaponPropertyRunes[rune],

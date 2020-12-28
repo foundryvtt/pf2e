@@ -155,16 +155,3 @@ export function isIdentified(itemData: ItemData): boolean {
         return true;
     }
 }
-
-export function getItemName(itemData: ItemData, showGMHint: boolean = false): string {
-    if (isIdentified(itemData)) {
-        return itemData.name;
-    } else {
-        const name = game.i18n.localize(`PF2E.identification.UnidentifiedItem`);
-        if (game.user.isGM && showGMHint) {
-            return `${name} (${itemData.name})`;
-        } else {
-            return name;
-        }
-    }
-}

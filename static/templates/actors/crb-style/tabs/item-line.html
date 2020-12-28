@@ -5,10 +5,9 @@
               {{#if item.identified}}
                 {{item.name}}
               {{else}}
+                {{item.name}} 
                 {{#if item.showGMInfo}}
-                  {{localize 'PF2E.identification.UnidentifiedItem'}} ({{item.name}})
-                {{else}}
-                  {{localize 'PF2E.identification.UnidentifiedItem'}}
+                  ({{item.data.originalName}})
                 {{/if}}
               {{/if}}
               {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
