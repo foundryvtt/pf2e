@@ -88,7 +88,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
             // item identification  
             i.identified = i.data?.identified?.value ?? true;
             i.showGMInfo = game.user.isGM;
-            i.showEdit = i.showGMInfo || i.identified
+            i.showEdit = i.showGMInfo || i.identified;
             
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);

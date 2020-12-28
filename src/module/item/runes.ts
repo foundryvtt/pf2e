@@ -1,7 +1,6 @@
 import {isBlank, toNumber} from '../utils';
 import {DamageCategory, DamageDieSize} from '../system/damage/damage';
 import {ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData} from './dataDefinitions';
-import {CONFIG} from '../../scripts/config';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
