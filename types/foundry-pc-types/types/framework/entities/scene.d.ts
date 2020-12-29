@@ -8,6 +8,11 @@ declare class Scenes extends Collection<Scene> {
 /**
  * The Scene entity
  */
+
+declare interface SceneData extends BaseEntityData {
+    tokens: TokenData[];
+}
+
 declare class Scene extends Entity {
-	// @TODO: Declare
+    data: SceneData;
 }

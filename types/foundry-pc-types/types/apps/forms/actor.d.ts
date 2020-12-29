@@ -101,6 +101,15 @@ declare class ActorSheet extends BaseEntitySheet {
 	 */
 	protected _onDrop(event: Event | JQuery.Event): Promise<boolean | any>;
 
+	/**
+	 * Handle the final creation of dropped Item data on the Actor.
+	 * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
+	 * @param {object} itemData     The item data requested for creation
+	 * @return {Promise<Actor>}
+	 * @private
+	 */
+	protected _onDropItemCreate(itemData: object) : Promise<any> ;
+
 	/* -------------------------------------------- */
 	/*  Owned Item Sorting
 	/* -------------------------------------------- */

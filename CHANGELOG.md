@@ -1,5 +1,40 @@
 # Patch Notes:
 
+## Version 1.10.26
+### Bug Fixes
+* (Mothringer) Fix missing weaknesses on hazard sheet
+* (Mothringer) Cleanup hazards compendium
+* (putty) Use a different attribute to look up item rarity traits
+* (putty) Fix property runes, persist the original name in case of mystify
+* (putty) When mystifying an item, edit the original name instead of the unidentified name
+* (nikolaj-a) Prevent refresh attempts of uninitialized effect panel
+
+### New Features
+* (Mothringer) Add a button to remove coins on the PC sheet
+
+### Content Changes
+* (SLATE) Add missing PFS s1 boons
+* (SLATE) Add infiltrators accessory
+* (stwlam) Add rules elements to the _ventriloquist's rings_
+* (stwlam) Replace HTML anchors to compendium items with compendium links
+* (TMun) Correct failure criteria for _Steal the Sky_. Closes #957
+* (TMun) Correct prerequisites for _Cross the Final Horizon_. Closes #958
+* (TMun) Correct prerequisites for _Quick Juggler_ feat. Closes #961
+* (rectulo) Update _Knight Vigilant_ description
+* (Kaiser) Fix typo in _Warbal Bumblebrasher's_ surname
+
+### Core System Improvements
+* (Trollderim) Add attitude dropdown to the NPC sheet
+* (Trollderim) Add missing localization labels
+* (nikolaj-a) Reduce redundant entity updates
+* (nikolaj-a) Include initiative for effect duration
+* (nikolaj-a) Enable effect panel by default
+
+### Development Improvements
+* (putty) Properly type rune code
+* (stwlam) Add missing canvas-related type declarations, fill out some others
+
+
 ## Version 1.10.25
 ### Bug Fixes
 * (abrault) Allow Strikes to be popped out
