@@ -696,41 +696,6 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
   /* Owned Item Management
   /* -------------------------------------------- */
 
-  /**
-   * This method extends the base importItemFromCollection functionality provided in the base actor entity
-   *
-   * Import a new owned Item from a compendium collection
-   * The imported Item is then added to the Actor as an owned item.
-   *
-   * @param collection {String}     The name of the pack from which to import
-   * @param entryId {String}        The ID of the compendium entry to import
-   */
-  async importItemFromCollectionWithLocation(collection: string, entryId: string, location?: string) {
-    // if location parameter missing, then use the super method
-    if (location == null) {
-      console.log(`PF2e System | importItemFromCollectionWithLocation | Location not defined for ${entryId} - using super imprt method instead`);
-      super.importItemFromCollection(collection, entryId);
-      return;
-    }
-
-    const pack = game.packs.find(p => p.collection === collection);
-    if (pack.metadata.entity !== "Item") return;
-    await pack.getEntity(entryId).then(async ent => {
-      console.log(`PF2e System | importItemFromCollectionWithLocation | Importing using createOwnedItem for ${ent.name} from ${collection}`);
-      if (ent.type === 'spell') {
-        // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
-        this._setShowUnpreparedSpells(location, ent?.data?.data?.level?.value);
-
-        ent.data.data.location = {
-          value: location,
-        };
-      }
-
-      delete ent.data._id;
-      return this.createOwnedItem(ent.data);
-    });
-  }
-
   async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
     if (!entryId || !spellLevel) {
       // TODO: Consider throwing an error on null inputs in the future.
@@ -866,31 +831,16 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
       const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
       await sourceActor.updateEmbeddedEntity('OwnedItem', update);
     }
-
-    let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
-
-    if (itemInTargetActor !== null) {
-      if (!isPhysicalItem(itemInTargetActor.data)) {
-        throw Error("Only physical items (with quantities) can be transfered between actors - the target item is not physical");
-      }
-
-      // Increase amount of item in target actor if there is already an item with the same name
-      const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
-      const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
-      await targetActor.updateEmbeddedEntity('OwnedItem', update);
-    } else {
-      // If no item with the same name in the target actor, create new item in the target actor
-      const newItemData = duplicate(item);
-      if (!isPhysicalItem(newItemData)) {
-        console.error(newItemData);
-        throw Error("this should never happen - item should be physical, but is not");
-      }
-      newItemData.data.quantity.value = quantity;
-
-      const result = await targetActor.createOwnedItem(newItemData);
-      itemInTargetActor = targetActor.items.get(result._id);
+    
+    const newItemData = duplicate(item);
+    if (!isPhysicalItem(newItemData)) {
+      throw Error("this should never happen - item should be physical, but is not");
     }
-
+    newItemData.data.quantity.value = quantity;
+   
+    const result = await targetActor.createOwnedItem(newItemData);
+    const itemInTargetActor = targetActor.getOwnedItem(result._id);
+    
     return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
   }
 
