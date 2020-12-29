@@ -30,7 +30,168 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "rage",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "animal-instinct",
+                        "rage"
+                    ],
+                    "not": [
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "animal-instinct",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "animal-instinct",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 2
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "Piercing",
+                        "dice": 1,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Anter",
+                "range": "melee",
+                "traits": [
+                    "animal-instinct",
+                    "grapple",
+                    "unarmed"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
