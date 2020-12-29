@@ -1,5 +1,16 @@
 # Patch Notes:
 
+## Version 1.10.27
+### Bug Fixes
+* (putty) Fix issue where moving items between actors deleted the original name
+
+### Content Changes
+* (rectulo) Update Marshal, add missing text in target of opportunity feat trigger "an opponent within your weapon's first range increment."
+
+### Development Improvements
+* (fryguy) Refactor the actor sheet _onDrop function to use the latest API
+
+
 ## Version 1.10.26
 ### Bug Fixes
 * (Mothringer) Fix missing weaknesses on hazard sheet
