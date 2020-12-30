@@ -1,10 +1,10 @@
 {
-    "_id": "BCyGDKcplkJiSAKJ",
+    "_id": "uFYvW3kFP9iyNfVX",
     "data": {
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Stumbling Stance]{Stumbling Stance}</p>\n<p>You enter a seemingly unfocused stance that mimics the movements of the inebriated&mdash;bobbing, weaving, leaving false openings, and distracting your enemies from your true movements. While in this stance, you gain a +1 circumstance bonus to Deception checks to @Compendium[pf2e.actionspf2e.Feint]{Feint}.</p>\n<p>The only Strikes you can make are stumbling swing unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; and have the agile, backstabber, finesse, nonlethal, and unarmed traits. If an enemy hits you with a melee Strike while in this stance, it becomes flat-footed against the next stumbling swing Strike you make against it before the end of your next turn.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Clinging Shadows Stance]{Clinging Shadows Stance}</p>\n<p>You adopt the stance of clinging shadows. You can make shadow grasp @Compendium[pf2e.actionspf2e.Strike]{Strikes}. These deal 1d4 negative damage; are in the brawling group; and have the agile, grapple, reach, and unarmed traits.<br /><br />While in&nbsp;clinging shadows stance, you gain a +2 circumstance bonus to&nbsp;Athletics&nbsp;checks to @Compendium[pf2e.actionspf2e.Grapple]{Grapple}, and to the DC for creatures to @Compendium[pf2e.actionspf2e.Escape]{Escape} from you.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 8
         },
         "rarity": {
             "value": "common"
@@ -23,33 +23,32 @@
                 "category": "unarmed",
                 "damage": {
                     "base": {
-                        "damageType": "bludgeoning",
+                        "damageType": "negative",
                         "dice": 1,
-                        "die": "d8"
+                        "die": "d4"
                     }
                 },
                 "group": "brawling",
                 "key": "PF2E.RuleElement.Strike",
-                "label": "Stumbling Swing",
+                "label": "Shadow Grasp",
                 "range": "melee",
                 "traits": [
                     "agile",
-                    "backstabber",
-                    "finesse",
-                    "unarmed",
-                    "nonlethal"
+                    "grapple",
+                    "reach",
+                    "unarmed"
                 ]
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "predicate": {
                     "all": [
-                        "feint"
+                        "grapple"
                     ]
                 },
-                "selector": "deception",
+                "selector": "athletics",
                 "type": "circumstance",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "PF2E.RuleElement.TokenEffectIcon"
@@ -71,8 +70,8 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/stumbling-stance.jpg",
-    "name": "Stance: Stumbling Stance",
+    "img": "systems/pf2e/icons/spells/clinging-shadows-stance.jpg",
+    "name": "Stance: Clinging Shadows Stance",
     "permission": {
         "default": 0
     },
