@@ -21,6 +21,10 @@ export function registerHandlebarsHelpers() {
         return args.some((v) => !!v) ? opts : opts.inverse;
     });
 
+    Handlebars.registerHelper('not', (arg) => {
+        return !arg;
+    });
+
     Handlebars.registerHelper('lower', (str) => {
         return String.prototype.toLowerCase.call(str ?? '');
     });

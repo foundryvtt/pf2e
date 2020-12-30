@@ -6,6 +6,8 @@ import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2EActor } from '../actor';
+import { PF2EPhysicalItem } from '../../item/physical';
+import { isPhysicalItem } from '../../item/dataDefinitions';
 
 /**
  * @category Other
@@ -186,7 +188,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
         for (const i of actorData.items) {
             // item identification
-            i.identified = i.data?.identified?.value ?? true;
+            i.identified = !isPhysicalItem(i) || PF2EPhysicalItem.isIdentified(i);
             i.showGMInfo = game.user.isGM;
             i.showEdit = i.showGMInfo || i.identified;
 

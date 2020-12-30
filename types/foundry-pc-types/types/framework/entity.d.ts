@@ -1,3 +1,5 @@
+declare function fromUuid(uuid: string): Promise<Entity | null>;
+
 declare interface EntityDescriptionData {
     [key: string]: any;
 }

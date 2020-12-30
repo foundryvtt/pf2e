@@ -19,6 +19,19 @@ function addWeaponPotencyRune(item, itemData) {
     return itemData;
 }
 
+function copyIdentificationData(item, itemData) {
+    if (isPhysicalItem(item)) {
+        const merged = mergeObject(item, itemData, { inplace: false, overwrite: true });
+        const unidentified = !merged?.data?.identified?.value ?? false;
+        const needsUpdate = !merged?.data?.identification;
+        if (needsUpdate && unidentified && merged?.data?.originalName) {
+            itemData['data.identification.status'] = 'unidentified';
+            itemData['data.identification.identified.name'] = merged.data.originalName;
+        }
+    }
+    return itemData;
+}
+
 function setOriginalItemName(item, itemData) {
     if (isPhysicalItem(item) && !(item.data?.identified?.value ?? true)) {
         itemData['data.originalName'] = item.name;
@@ -243,6 +256,10 @@ export function migrateItemData(item, worldSchemaVersion) {
 
     if (worldSchemaVersion < 0.591) {
         setOriginalItemName(item, updateData);
+    }
+
+    if (worldSchemaVersion < 0.592) {
+        copyIdentificationData(item, updateData);
     }
 
     // Return the migrated update data
@@ -698,6 +715,10 @@ export function migrateActorData(actor, worldSchemaVersion) {
         if (worldSchemaVersion < 0.591) {
             migrateActorItems(actor, updateData, setOriginalItemName);
         }
+
+        if (worldSchemaVersion < 0.592) {
+            migrateActorItems(actor, updateData, copyIdentificationData);
+        }
     } else if (actor.type === 'loot') {
         if (worldSchemaVersion < 0.59) {
             migrateActorItems(actor, updateData, setItemAsIdentified);
@@ -705,6 +726,10 @@ export function migrateActorData(actor, worldSchemaVersion) {
 
         if (worldSchemaVersion < 0.591) {
             migrateActorItems(actor, updateData, setOriginalItemName);
+        }
+
+        if (worldSchemaVersion < 0.592) {
+            migrateActorItems(actor, updateData, copyIdentificationData);
         }
     }
     return updateData;
