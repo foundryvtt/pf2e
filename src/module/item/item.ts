@@ -9,6 +9,12 @@ import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice'
 import { ActionData, AncestryData, ArmorData, BackgroundData, BackpackData, ClassData, ConditionData, ConsumableData, EquipmentData, FeatData, ItemData, KitData, LoreData, MartialData, MeleeData, SpellcastingEntryData, SpellData, StatusData, TreasureData, WeaponData } from './dataDefinitions';
 import { PF2EActor } from '../actor/actor';
+import {parseTraits, TraitChatEntry} from "../traits";
+
+class ItemTraits {
+    value: Array<string>;
+    custom: string;
+}
 
 /**
  * @category PF2
@@ -128,28 +134,12 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
   _weaponChatData() {
     const data : any = duplicate(this.data.data);
     const actorData = this.actor.data;
-    const traits = [];
-    const itemTraits = data.traits.value;
-    let twohandedTrait = false;
+    const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
     const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
+    const twohandedTrait = data.traits.value.find(trait => trait.match(twohandedRegex)) !== undefined;
 
     if (this.data.type !== 'weapon') {
       throw new Error('tried to create a weapon chat data for a non-weapon item');
-    }
-
-    if ((data.traits.value || []).length !== 0) {
-      for (let i = 0; i < data.traits.value.length; i++) {
-        const traitsObject = {
-          label: CONFIG.PF2E.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
-        };
-        traits.push(traitsObject);
-
-        // Check if two-handed trait is present
-        if (itemTraits[i].match(twohandedRegex)) {
-          twohandedTrait = true;
-        }
-      }
     }
 
     // calculate attackRoll modifier (for _onItemSummary)
@@ -209,17 +199,7 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
   _meleeChatData() {
     const data : any = duplicate(this.data.data);
-    const traits = [];
-
-    if ((data.traits.value || []).length !== 0) {
-      for (let i = 0; i < data.traits.value.length; i++) {
-        const traitsObject = {
-          label: CONFIG.PF2E.weaponTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
-        };
-        traits.push(traitsObject);
-      }
-    }
+    const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
     const isAgile = (data.traits.value || []).includes('agile');
     data.map2 = isAgile ? '-4' : '-5';
@@ -267,6 +247,27 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
     }
     return data;
   }
+  
+  /* -------------------------------------------- */
+    
+    private static traitChatData(itemTraits: ItemTraits, traitList: Record<string, string>) : TraitChatEntry[] {
+        let traits = itemTraits.value;
+        const customTraits = parseTraits(itemTraits.custom);
+        
+        if (itemTraits.custom.length > 0) {
+            traits = traits.concat(customTraits);
+        }
+        
+        const traitChatLabels = [];
+        
+        for (const trait of traits) {
+            const traitsObject = new TraitChatEntry(trait, traitList);
+
+            traitChatLabels.push(traitsObject);
+        }
+        
+        return traitChatLabels
+    }
 
   /* -------------------------------------------- */
 
@@ -318,16 +319,7 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
     }
     data.properties = props.filter((p) => p !== null);
 
-    const traits = [];
-    if ((data.traits.value || []).length !== 0) {
-      for (let i = 0; i < data.traits.value.length; i++) {
-        const traitsObject = {
-          label: data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].substr(1),
-          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
-        };
-        traits.push(traitsObject);
-      }
-    }
+    const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
     data.traits = traits.filter((p) => p);
     // Toggling this off for now
     /*     data.area = data.area.value ? {
@@ -364,16 +356,7 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
     data.properties = props.filter((p) => p);
 
-    const traits = [];
-    if ((data.traits.value || []).length !== 0) {
-      for (let i = 0; i < data.traits.value.length; i++) {
-        const traitsObject = {
-          label: CONFIG.PF2E.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
-        };
-        traits.push(traitsObject);
-      }
-    }
+    const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
     data.traits = traits.filter((p) => p);
     return data;
   }
@@ -401,16 +384,7 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
     data.properties = props.filter((p) => p);
 
-    const traits = [];
-    if ((data.traits.value || []).length !== 0) {
-      for (let i = 0; i < data.traits.value.length; i++) {
-        const traitsObject = {
-          label: CONFIG.PF2E.featTraits[data.traits.value[i]] || (data.traits.value[i].charAt(0).toUpperCase() + data.traits.value[i].slice(1)),
-          description: CONFIG.PF2E.traitsDescriptions[data.traits.value[i]] || '',
-        };
-        traits.push(traitsObject);
-      }
-    }
+    const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
     data.traits = traits.filter((p) => p);
 
     return data;
