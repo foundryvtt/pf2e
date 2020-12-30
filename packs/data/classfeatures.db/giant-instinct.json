@@ -38,7 +38,81 @@
         },
         "usage": {
             "value": "held-in-one-hand"
-        }
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "ac",
+                "value": -1,
+                "type": "rage",
+                "label": "rage",
+                "predicate": {
+                    "not": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.rage",
+                "label": "Rage"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.oversized",
+                "label": "Oversized Weapon Equipped"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "damage",
+                "label": "Rage",
+                "predicate": {
+                    "not": [
+                        "agile"
+                    ],
+                    "all": [
+                        "rage",
+                        "oversized"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 6
+                        },
+                        {
+                            "start": 7,
+                            "end": 14,
+                            "value": 10
+                        },
+                        {
+                            "start": 15,
+                            "value": 18
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "damage",
+                "label": "Rage",
+                "predicate": {
+                    "not": [
+                        "agile",
+                        "oversized"
+                    ],
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "value": 2
+            }
+        ]
     },
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/giant-instinct.jpg",
