@@ -44,7 +44,7 @@ declare class Items extends Collection<SystemItemType> {
 	static get registeredSheets(): any[];
 }
 
-declare class Item extends Entity<SystemItemDataType> {
+declare class Item<DataType> extends Entity<DataType> {
 	/**
 	 * Configure the attributes of the ChatMessage Entity
 	 *

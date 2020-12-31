@@ -111,12 +111,6 @@
                 <h4 class="attribute-name rollable">{{localize 'PF2E.StealthLabel'}}</h4>
             </li>
         </ol>
-        <div class="npc-bio-item trait-size pf-container" style="width: calc(100% - 4px); margin-right: 3px;">
-            <span class="pf-value pf-width-100" title="{{localize 'PF2E.SpecialSensesTitle'}}">
-                <textarea name="data.attributes.stealth.details" data-dtype="String" placeholder="Detection Description">{{data.attributes.stealth.details}}</textarea>
-            </span>
-        </div>
-
 
         <h3 class="defense-title pf-heading">{{localize 'PF2E.SavesHeader'}}</h3>
         <ol class="defense-list">
@@ -158,39 +152,43 @@
     <ol class="actions-list inventory-list directory-list">
 
         <li class="item action-header">
+          <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.StealthLabel'}}</h3>
+        </li>
+  
+        <li class="item hazard-editor">
+          {{editor content=data.attributes.stealth.details target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
+        </li>
+      
+        <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardDescriptionLabel'}}</h3>
         </li>
 
-        <li class="item">
-            <textarea name="data.details.description" type="text"
-                data-dtype="String" placeholder="Enter description here">{{data.details.description}}</textarea>
+        <li class="item hazard-editor">
+          {{editor content=data.details.description target="data.details.description" button=true owner=owner editable=editable}}
         </li>
 
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardDisableLabel'}}</h3>
         </li>
 
-        <li class="item">
-            <textarea name="data.details.disable" type="text"
-                data-dtype="String" placeholder="Enter disable information here">{{data.details.disable}}</textarea>
+        <li class="item hazard-editor">
+          {{editor content=data.details.disable target="data.details.disable" button=true owner=owner editable=editable}}
         </li>
 
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardRoutineLabel'}}</h3>
         </li>
 
-        <li class="item">
-            <textarea name="data.details.routine" type="text"
-                data-dtype="String" placeholder="Enter routine information here">{{data.details.routine}}</textarea>
+        <li class="item hazard-editor">
+          {{editor content=data.details.routine target="data.details.routine" button=true owner=owner editable=editable}}
         </li>
 
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardResetLabel'}}</h3>
         </li>
 
-        <li class="item">
-            <textarea name="data.details.reset" type="text"
-                data-dtype="String" placeholder="Enter reset information here">{{data.details.reset}}</textarea>
+        <li class="item hazard-editor">
+          {{editor content=data.details.reset target="data.details.reset" button=true owner=owner editable=editable}}
         </li>
 
         <!-- Action Header -->

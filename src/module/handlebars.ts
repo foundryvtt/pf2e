@@ -2,7 +2,7 @@ import { ItemData } from "./item/dataDefinitions";
 import { BuildItemMetaData } from "./system/characterbuilder";
 
 /* global Handlebars TextEditor */
-export default function registerHandlebarsHelpers() {
+export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
     });

@@ -74,7 +74,7 @@ declare class Actors extends Collection<SystemActorType> {
  * @example <caption>Retrieve an existing Actor</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actor extends Entity<SystemActorDataType> {
+declare class Actor<DataType> extends Entity<DataType> {
 
 	/**
 	 * A reference to a placed Token which creates a synthetic Actor
@@ -237,7 +237,8 @@ declare class Actor extends Entity<SystemActorDataType> {
 	 * @param options.rendeSheet	Render the Item sheet for the newly created item data
 	 * @return						A Promise containing the data of the newly created owned Item instance
 	 */
-	createOwnedItem(itemData: object[], options?: object): Promise<itemData[]|itemData>;
+	createOwnedItem(itemData: object, options?: object): Promise<SystemItemDataType>;
+	createOwnedItem(itemData: object[], options?: object): Promise<SystemItemDataType[]>;
 	createOwnedItem(itemData: Partial<SystemItemDataType>, options?: object): Promise<SystemActorDataType>;
 
 	/**

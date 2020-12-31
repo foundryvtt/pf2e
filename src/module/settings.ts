@@ -4,7 +4,7 @@ import { compendiumBrowser } from './packs/compendium-browser';
 /**
  * @ignore
 */
-export default function () {
+export function registerSettings() {
   game.settings.register('pf2e', 'worldSchemaVersion', {
     name: 'Actor Schema Version',
     hint: "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",
@@ -134,6 +134,20 @@ export default function () {
     config: true,
     default: 8,
     type: Number
+  });
+  game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
+    name: 'Identify Magic Skill Modifier',
+    hint: 'Modifier to add to Identify Magic Skill DCs if the skill does not match the item\'s magic tradition',
+    choices: {
+        0: "0",
+        2: "+2",
+        5: "+5",
+        10: "+10",
+    },
+    type: Number,
+    default: 5,
+    scope: 'world',
+    config: true,  
   });
   game.settings.register('pf2e', 'critRule', {
     name: 'Critical Damage Rule',

@@ -5,7 +5,7 @@
  *
  * @category Other
  */
-export default class Progress {
+export class Progress {
   _steps: number;
   _counter: number;
   _label: string;

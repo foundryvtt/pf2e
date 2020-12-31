@@ -21,6 +21,13 @@ declare class Macros extends Collection<Macro> {
 	static registerSettings(): void;
 }
 
+declare interface MacroData extends BaseEntityData {
+    type: string;
+    actorIds: string[];
+    author: string;
+    command: string;
+    scope: string;
+}
 /**
  * The Macro entity which implements a triggered chat or script expression which can be quickly activated by the user.
  * All users have permission to create and use chat-based Macros, but users must be given special permission to use
@@ -31,6 +38,9 @@ declare class Macros extends Collection<Macro> {
  * @see {@link Hotbar}        The Hotbar interface application
  */
 declare class Macro extends Entity {
+    /** @override */
+    data: MacroData;
+
 	/** @override */
 	static get config(): {
 		baseEntity: Macro;

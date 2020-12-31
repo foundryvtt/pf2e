@@ -1,12 +1,19 @@
 <ol class="currency">
     {{#each totalTreasure as |value denomination|}}
-    <li class="denomination {{denomination}}">
-        <label>{{value.label}}:</label>
-        <span>{{value.value}}<span>
-    </li>
+        <li class="denomination {{denomination}}">
+            <div class="currency-image"></div>
+            {{!-- <label>{{value.label}}:</label> --}}
+            <span>{{value.value}}</span>
+        </li>
     {{/each}}
     <li class="add-coins-popup" title="{{localize 'PF2E.AddCoinsTitle'}}">
         <button type="button">+</button>
+    </li>
+    <li class="remove-coins-popup" title="{{localize 'PF2E.RemoveCoinsTitle'}}">
+        <button type="button">-</button>
+    </li>
+    <li class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
+        <button type="button"><i class="fas fa-coins"></i></button>
     </li>
 </ol>
 

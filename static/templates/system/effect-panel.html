@@ -1,0 +1,51 @@
+<section class="effect-panel">
+  {{#if actor}}
+  {{#each conditions}}
+  <div class="effect-item">
+    <div class="effect-info">
+      <h1>{{this.name}}</h1>
+      {{#if this.breakdown}}
+      <div class="tags">
+        <div class="tag tag_secondary">{{this.breakdown}}</div>
+      </div>
+      {{/if}}
+    </div>
+    <div data-item-id="{{#unless this.locked}}{{this.id}}{{/unless}}" style="background-image: url({{this.img}});">
+      {{#if this.locked}}
+      <div class="badge">
+        <i class="fas fa-lock"></i>
+      </div>
+      {{/if}}
+      {{#if this.value}}
+      <div class="badge">
+        <b>{{this.value}}</b>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+
+  {{#if (and conditions.length effects.length)}}
+  <hr>
+  {{/if}}
+
+  {{#each effects}}
+  <div class="effect-item spell">
+    <div class="effect-info">
+      <h1>{{this.name}}</h1>
+      <div class="tags">
+        {{#if (and this.data.duration.sustained (eq this.data.expired false))}}
+        <div class="tag tag_secondary">{{localize 'PF2E.EffectPanel.Sustained'}}</div>
+        {{/if}}
+        <div class="tag tag_secondary">{{this.data.remaining}}</div>
+      </div>
+    </div>
+    <div data-item-id="{{this._id}}" style="background-image: url({{this.img}})">
+      {{#if this.data.expired}}
+      <span class="expired">expired</span>
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+  {{/if}}
+</section>

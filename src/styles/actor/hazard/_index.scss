@@ -1,0 +1,98 @@
+.pf2e.sheet.hazard {
+    .container {
+        position: relative;
+        display: block;
+        background: linear-gradient(
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0)
+        );
+        z-index: 2;
+        padding: 0.5rem;
+    }
+
+    header.title-bar {
+        display: flex;
+        margin-bottom: 0.1em;
+        width: 100%;
+        justify-content: space-between;
+        border-bottom: 2px solid var(--primary);
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        h1 {
+            border: none;
+        }
+
+        .editHazardButton {
+            display: flex;
+            align-items: center;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .name {
+            justify-content: flex-start;
+        }
+        .level {
+            flex-shrink: 0;
+        }
+    }
+
+    .top-section {
+        display: flex;
+        margin: 0.5rem 0;
+    }
+
+    .traits-bar {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.5em;
+    }
+
+    .stats-line.rich-description {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+
+        .inline-stats {
+            padding-right: 0;
+            padding-top: 0;
+            padding: 0;
+        }
+
+        .stat-title {
+            display: inline-block;
+            width: 80px;
+        }
+
+        p {
+            margin-top: 0;
+            padding-bottom: 0.5em;
+        }
+    }
+
+    ol.actions-list {
+        height: auto;
+        margin: 0.5em 0;
+        border-top: 1px solid var(--sub);
+
+        .item {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            line-height: 24px;
+            padding: 2px 0;
+            border-bottom: 1px solid var(--sub);
+        }
+    }
+}
+
+.pf2e.sheet.hazard {
+    .hazard-editor {
+        min-height: 200px;
+    }
+}

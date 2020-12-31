@@ -1,5 +1,5 @@
-import Spell from '../../../src/module/item/spell';
 import { fetchSpell } from 'tests/setup';
+import { Spell } from '../../../src/module/item/spell';
 
 const characterData = require('tests/fixtures/characterData.json');
 const spellcastingEntry = require('tests/fixtures/items/spellcastingEntry.json');
@@ -13,6 +13,9 @@ const spellcastingEntryItem = {
 const actor = {
   getOwnedItem: jest.fn().mockImplementation(() => spellcastingEntryItem),
   data: characterData,
+  items: [],
+  get level() { return characterData.data.details.level.value },
+  getAbilityMod: (ability: string) => 3,
 };
 
 beforeAll(async () => {

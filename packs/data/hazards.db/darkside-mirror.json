@@ -8,7 +8,7 @@
             "hardness": 1,
             "hasHealth": true,
             "hp": {
-                "details": ", the mirror can't be damaged while any mirror duplicate is alive",
+                "details": "",
                 "max": 4,
                 "temp": 0,
                 "tempmax": 0,
@@ -61,11 +61,9 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "",
+                "custom": "Immune to all damage while any mirror duplicate is alive",
                 "selected": {},
-                "value": [
-                    ""
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -78,7 +76,25 @@
             }
         }
     },
-    "flags": {},
+    "effects": [],
+    "flags": {
+        "exportSource": {
+            "coreVersion": "0.7.9",
+            "system": "pf2e",
+            "systemVersion": "1.10.23",
+            "world": "de079"
+        },
+        "pf2e": {
+            "editHazard": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
+    },
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -96,7 +112,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A non-evil creature is reflected in the mirror. <b>Effect</b>The mirror absorbs the creature into the mirror, replacing it with an evil mirror duplicate (DC 34 Reflex to avoid being absorbed into the mirror), and rolls initiative."
+                    "value": "<b>Trigger</b> A non-evil creature is reflected in the mirror. <br><b>Effect</b> The mirror absorbs the creature into the mirror, replacing it with an evil mirror duplicate (DC 34 Reflex to avoid being absorbed into the mirror), and rolls initiative."
                 },
                 "rarity": {
                     "value": "common"
@@ -104,6 +120,7 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -129,9 +146,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Reflection of Evil",
+            "sort": 100000,
             "type": "action"
         }
     ],
@@ -140,23 +159,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
-        "actorId": "4jJxLlimyQaIVXlt",
+        "actorId": "axRTdZlQW8fRy9nf",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
+        "displayBars": 20,
+        "displayName": 20,
         "disposition": -1,
         "flags": {},
         "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Darkside Mirror",
         "randomImg": false,

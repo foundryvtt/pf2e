@@ -64,7 +64,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
                 if (modifier.type === PF2ModifierType.ITEM && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === PF2ModifierType.PROFICIENCY && modifier.label !== label) {
+                if (force && modifier.type === PF2ModifierType.PROFICIENCY && modifier.name !== label) {
                     modifier.ignored = true;
                 }
             }

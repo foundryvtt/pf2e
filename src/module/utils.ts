@@ -21,6 +21,18 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
 }
 
 /**
+ * Given an array, adds a certain amount of elements to it
+ * until the desired length is being reached
+ */
+export function padArray<T>(array: T[], requiredLength, padWith: T): T[] {
+    const result = [...array];
+    for (let i = array.length; i < requiredLength; i += 1) {
+        result.push(padWith);
+    }
+    return result;
+}
+
+/**
  * Return a new object that combines all the keys and values from
  * both. If both have the same key, assign the value of the merge function.
  * Example:

@@ -2,8 +2,14 @@
  * @format
  */
 
-export default function () {
+export function loadPF2ETemplates() {
     const templatePaths = [
+        // effect panel
+        'systems/pf2e/templates/system/effect-panel.html',
+
+        // world clock
+        'systems/pf2e/templates/system/world-clock.html',
+
         // Actor Sheets Partials (CRB-Style Tooltip)
         'systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html',
 

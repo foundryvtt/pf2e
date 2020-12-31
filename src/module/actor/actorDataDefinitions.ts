@@ -1,4 +1,4 @@
-import { ItemData } from "../item/dataDefinitions"
+import {ItemData, Rarity} from '../item/dataDefinitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from "../modifiers";
 import { Build } from "../system/characterbuilder";
 
@@ -19,9 +19,9 @@ export type RollFunction = (event: any, options: string[], callback?: any) => vo
 /** Generic { value, label, type } type used in various places in data types. */
 export interface LabeledValue {
     label: string;
-    value: string;
+    value: number | string;
     type: string;
-    exceptions: string;
+    exceptions?: string;
 }
 
 /** Data describing the value & modifier for a base ability score. */
@@ -175,6 +175,8 @@ export interface PathfinderSocietyReputation {
 
 /** Data related to character hitpoints. */
 export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
+export type FamiliarHitPointsData = Pick<RawHitPointsData, 'value' | 'max'>;
+
 /** The full data for charatcer initiative. */
 export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
@@ -321,7 +323,7 @@ export interface RawCharacterData {
         heroPoints: { rank: number; max: number; }
 
         /** The number of familiar abilities this character's familiar has access to. */
-        familiarAbilities: number;
+        familiarAbilities: PF2StatisticModifier;
 
         /** Data related to character hitpoints. */
         hp: HitPointsData;
@@ -483,20 +485,7 @@ export interface RawNpcData {
         dexCap?: DexterityModifierCapData[];
 
         /** The hit points for this actor. */
-        hp: {
-            /** The current number of hitpoints. */
-            value: number;
-            /** The minimum number of hitpoints (almost always 0). */
-            min: number;
-            /** The maximum number of hitpoints. */
-            max: number;
-            /** The current number of temporary hitpoints (if any). */
-            temp?: number;
-            /** The maximum number of temporary hitpoints (if any). */
-            tempmax?: number;
-            /** Any special details about this actor health (such as regeneration, etc.). */
-            details?: string;
-        }
+        hp: RawHitPointsData;
 
         /** The movement speeds that this NPC has. */
         speed: {
@@ -509,7 +498,8 @@ export interface RawNpcData {
         }
 
         /** Textual information about any special benefits that apply to all saves. */
-        allSaves: { value: string; }
+        allSaves: { value: string; };
+        familiarAbilities: PF2StatisticModifier;
     }
 
     /** Traits, languages, and other information. */
@@ -521,7 +511,9 @@ export interface RawNpcData {
         /** Traits that define this creature, like 'humanoid' or 'celestial.' */
         traits: { value: string[]; custom: string; }
         /** The rarity of this creature (common, uncommon, etc.) */
-        rarity: { value: string; }
+        rarity: { value: Rarity; }
+        /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
+        attitude: { value: string; };
         /** Languages this creature knows. */
         languages: { value: string[]; selected: string[]; custom: string; }
         /** Damage/condition immunities. */
@@ -562,6 +554,16 @@ export interface RawFamiliarData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+    attributes: {
+        hp: FamiliarHitPointsData;
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        };
+        [key: string]: any;
+    }
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
@@ -574,9 +576,9 @@ export interface RawVehicleData {
 }
 
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
-export interface ActorEntityData<T> extends BaseEntityData<T> {
+export interface ActorEntityData<T> extends ActorData {
+    data: T;
     items: ItemData[];
-    token?: any;
 }
 
 /** Wrapper type for character-specific data. */

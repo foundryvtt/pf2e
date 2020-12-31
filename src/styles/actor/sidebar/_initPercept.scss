@@ -13,3 +13,30 @@
         width: 129px;
     }
 }
+
+
+.perception-sidebar {
+    .perception-rank {
+        border-radius: 2px;
+        border: 1px solid rgba(black, 0.5);
+        padding: 4px;
+        cursor: pointer;
+
+        background-color: #{$rank-untrained};
+        box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+
+        h4 {
+            color: white;
+            font-weight: 400;
+        }
+    }
+
+    .perception-rank[value='1'] { background: #{$rank-trained}; }
+    .perception-rank[value='2'] { background: #{$rank-expert}; }
+    .perception-rank[value='3'] { background: #{$rank-master}; }
+    .perception-rank[value='4'] { background: #{$rank-legendary}; }
+
+    h3 {
+        flex-grow: 1;
+    }
+}

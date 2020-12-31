@@ -1,5 +1,5 @@
 <div class="sidebar_title">
-  <h2>Saves</h2>
+  <h2>{{localize 'PF2E.SavesHeader'}}</h2>
   <!-- <h2>View Modifiers</h2> -->
 </div>
 <ul class="sidebar-saves">
@@ -10,7 +10,7 @@
       {{save.label}}
     </h2>
 
-    <div class="save-rank">
+    <div class="save-rank" value="{{save.rank}}">
       <input
         type="hidden"
         name="data.saves.{{sid}}.rank"

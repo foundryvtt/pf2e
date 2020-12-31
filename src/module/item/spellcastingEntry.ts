@@ -2,7 +2,7 @@
 /**
  * @category Other
  */
-class SpellcastingEntry {
+export class SpellcastingEntry {
   data: any;
 
   constructor(data) {
@@ -14,4 +14,3 @@ class SpellcastingEntry {
   }
 }
 
-export default SpellcastingEntry;

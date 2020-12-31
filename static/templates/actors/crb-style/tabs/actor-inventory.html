@@ -10,8 +10,11 @@
         <li class="add-coins-popup" title="{{localize 'PF2E.AddCoinsTitle'}}">
             <button type="button">+</button>
         </li>
+        <li class="remove-coins-popup" title="{{localize 'PF2E.RemoveCoinsTitle'}}">
+            <button type="button">-</button>
+        </li>
         <li class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
-            <button><i class="fas fa-coins"></i></button>
+            <button type="button"><i class="fas fa-coins"></i></button>
         </li>
     </ol>
 
@@ -67,6 +70,7 @@
             <span>{{localize 'PF2E.BulkLabel'}} {{bulk}} / {{localize 'PF2E.ConditionTypeEncumbered'}}: {{encumberedAt}}</span>
             <span>{{localize 'PF2E.BulkMaxLabel'}}: {{limit}}</span>
         </div>
+        <div class="encumbrance-light-bulk-overflow">+ ({{combinedBulk.light}}/10) {{localize 'PF2E.BulkTypeLight'}}</div>
         <span class="bar-bg"></span>
     </div>
     {{/with}}

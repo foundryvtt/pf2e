@@ -49,6 +49,16 @@ CONFIG.attributes = {
   "initiative": "PF2E.PerceptionLabel"
 }; // Skill labels
 
+CONFIG.dcAdjustments = {
+    'incredibly easy': "PF2E.DCAdjustmentIncrediblyEasy",
+    'very easy': "PF2E.DCAdjustmentVeryEasy",
+    'easy': "PF2E.DCAdjustmentEasy",
+    'normal': "PF2E.DCAdjustmentNormal",
+    'hard': "PF2E.DCAdjustmentHard",
+    'very hard': "PF2E.DCAdjustmentVeryHard",
+    'incredibly hard': "PF2E.DCAdjustmentIncrediblyHard",
+}
+
 CONFIG.skills = {
   "acr": "PF2E.SkillAcr",
   "arc": "PF2E.SkillArc",
@@ -1329,7 +1339,15 @@ CONFIG.alignment = {
   LE: "PF2E.AlignmentLE",
   NE: "PF2E.AlignmentNE",
   CE: "PF2E.AlignmentCE"
-}; // Skill List
+}; // Attitude 
+
+CONFIG.attitude = {
+    hostile: "PF2E.Attitudes.Hostile",
+    unfriendly: "PF2E.Attitudes.Unfriendly",
+    indifferent: "PF2E.Attitudes.Indifferent",
+    friendly: "PF2E.Attitudes.Friendly",
+    helpful: "PF2E.Attitudes.Helpful"
+} // Skill List
 
 CONFIG.skillList = {
   acrobatics: 'PF2E.SkillAcrobatics',

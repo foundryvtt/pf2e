@@ -1,13 +1,13 @@
-/* global CONST */
-import {calculateWealth} from '../../item/treasure';
-import ActorSheetPF2e from './base';
+/* global ChatMessage, CONST, ui */
+import { calculateWealth, addCoinsSimple, calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
+import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 
 /**
  * @category Actor
  */
-class ActorSheetPF2eLoot extends ActorSheetPF2e {
+export class ActorSheetPF2eLoot extends ActorSheetPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -85,6 +85,11 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
 
         for (const i of actorData.items) {
+            // item identification  
+            i.identified = i.data?.identified?.value ?? true;
+            i.showGMInfo = game.user.isGM;
+            i.showEdit = i.showGMInfo || i.identified;
+            
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);
             i.isContainer = i.containerData.isContainer;
@@ -110,6 +115,62 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
         actorData.inventory = inventory;
     }
+    
+    _distributeCoins(event) {
+        const playerCount = game.users.players.length;
+        for (let x=0;x<playerCount;x++)
+            if (!game.users.players[x].character){
+                ui.notifications.warn("Ensure all players have an assigned character before attempting automated coin splitting.");
+                return;
+            }
+        const sheetData = super.getData();
+        if (sheetData.items !== undefined)
+        {
+            const sheetCurrency = calculateValueOfCurrency(sheetData.items);
+            const coinShare = {
+                pp:Math.trunc(sheetCurrency.pp / playerCount),
+                gp:Math.trunc(sheetCurrency.gp / playerCount),
+                sp:Math.trunc(sheetCurrency.sp / playerCount),
+                cp:Math.trunc(sheetCurrency.cp / playerCount),
+            };
+            // return if there is nothing to distribute
+            if (coinShare.pp === 0 && coinShare.gp === 0 && coinShare.sp === 0 && coinShare.cp === 0) {
+                ui.notifications.warn ("Nothing to distribute");
+                return;
+            }
+            removeCoinsSimple(
+                this.actor,
+                {coins: {
+                    pp:coinShare.pp * playerCount,
+                    gp:coinShare.gp * playerCount,
+                    sp:coinShare.sp * playerCount,
+                    cp:coinShare.cp * playerCount,
+                }
+            },);
+            let message = `Distributed `;
+            if (coinShare.pp !== 0) message += `${coinShare.pp} pp `;
+            if (coinShare.gp !== 0) message += `${coinShare.gp} gp `;
+            if (coinShare.sp !== 0) message += `${coinShare.sp} sp `;
+            if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
+            message += `each from ${sheetData.actor.name} to `;
+            for (let x=0;x<playerCount;x++) {
+                const actor = game.users.players[x].character;
+
+                addCoinsSimple(actor, {coins: coinShare,combineStacks:true});
+                if (x === 0)
+                    message += `${actor.name}`;
+                else if (x<playerCount-1)
+                    message += `, ${actor.name}`;
+                else
+                    message += ` and ${actor.name}.`;
+            }
+            ChatMessage.create({
+                user: game.user.id,
+                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                content: message
+            });
+        }
+    }
 
     // Events
 
@@ -119,6 +180,7 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const shouldListenToEvents = this.options.editable;
 
         if (shouldListenToEvents) {
+            html.find('.split-coins').removeAttr('disabled').click(ev => this._distributeCoins(ev));
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });
@@ -126,4 +188,3 @@ class ActorSheetPF2eLoot extends ActorSheetPF2e {
     }
 }
 
-export default ActorSheetPF2eLoot;

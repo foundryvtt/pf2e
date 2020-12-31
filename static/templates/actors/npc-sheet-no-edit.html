@@ -23,6 +23,12 @@
           <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
           <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
         </span>
+        <div class="stats-line">
+          <span class="inline-stats">
+            <label class="stat-title attribute-name">{{localize "PF2E.AttitudeLabel"}}</label>
+            <span class="stat-value attribute-name">{{localize actorAttitude}}</span>
+          </span>
+        </div>
         <label>{{localize "PF2E.NPCNotesLabel"}}:</label>
         <textarea name="flags.pf2e_updatednpcsheet.npcNotes.value" type="text" data-dtype="String" placeholder="{{localize "PF2E.NPCNotesTitle"}}">{{flags.pf2e_updatednpcsheet.npcNotes.value}}</textarea>
       </div>
@@ -42,7 +48,28 @@
           <span class="trait">{{trait}}</span>
           {{/each}}
         </div>
-      
+
+        <div class="stats-line recall-knowledge">
+          <span class="inline-stats">
+            <label class="stat-title attribute-name">{{localize "PF2E.RecallKnowledge.Label"}}</label>
+            {{#if identificationSkillList}}
+            <span class="stat-list" title="{{identifySkillProgression}}">
+              <span class="stat-minortitle">{{identificationSkillList}}</span>
+              <span class="stat-value">{{identifySkillDC}} ({{identifySkillAdjustment}})</span>
+            </span>
+            {{/if}}
+            <span class="stat-list" title="{{unspecificLoreProgression}}">
+              <span class="stat-minortitle">{{localize "PF2E.RecallKnowledge.UnspecificLore"}}</span>
+              <span class="stat-value">{{unspecificLoreDC}} ({{unspecificLoreAdjustment}})</span>
+            </span>
+            <span class="stat-list" title="{{specificLoreProgression}}">
+              <span class="stat-minortitle">{{localize "PF2E.RecallKnowledge.SpecificLore"}}</span>
+              <span class="stat-value">{{specificLoreDC}} ({{specificLoreAdjustment}})</span>
+            </span>
+            <button class="recall-knowledge-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
+          </span>
+        </div>
+        
         <div class="stats-line">
           <span class="inline-stats rollable" data-attribute="perception" title="{{data.attributes.perception.breakdown}}">
             <label class="stat-title attribute-name">{{localize "PF2E.PerceptionLabel"}}</label>

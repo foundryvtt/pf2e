@@ -591,6 +591,17 @@ declare class Entity<DataType = any> {
 	exportToJSON(): any;
 
 	/**
+	 * A helper function to handle obtaining the dropped Entity data from a dropped event. Entity drop data could have:
+	 * 1. A compendium pack and entry id
+	 * 2. A World Entity _id
+	 * 3. A data object explicitly provided
+	 *
+	 * @param {object} data     The data object extracted from a DataTransfer event
+	 * @return {Entity}         The Entity data that should be handled by the drop handler
+	 */
+	static fromDropData(data: object): Promise<Entity>;
+
+	/**
 	 * Import data and update this entity
 	 * @param json	JSON data string
 	 * @return		The updated Entity

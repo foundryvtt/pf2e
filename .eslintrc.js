@@ -42,13 +42,15 @@ module.exports = {
       'prefer-destructuring': 'off',
       'no-plusplus': ['error', { "allowForLoopAfterthoughts": true }],
       'lines-between-class-members': ['error', 'always', {'exceptAfterSingleLine': true}],
-      'import/prefer-default-export': 'warn',
+      'import/no-default-export': 'error',
       'no-continue': 'off',
       'no-constant-condition': ['error', { "checkLoops": false }],
       'import/prefer-default-export': 'off',
       'no-else-return': 'off',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}]
+      '@typescript-eslint/no-unused-vars': ['error', {'args': 'none'}],
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-expressions': 'error',
   },
   settings: {
     'import/resolver': {

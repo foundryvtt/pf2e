@@ -5,15 +5,15 @@
  */
 
 // import { monsterAbilities } from './monsterAbilities';
-import ActorSheetPF2eNPC from './npc';
+import { ActorSheetPF2eNPC } from './npc';
 import { DicePF2e } from '../../../scripts/dice'
 import {PF2Modifier, PF2ModifierType} from "../../modifiers";
-import PF2EActor from "../actor";
+import { PF2EActor } from "../actor";
 
 /**
  * @category Other
  */
-class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
+export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   get template() {
     const path = 'systems/pf2e/templates/actors/';
 
@@ -58,6 +58,8 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
     sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
     sheetData.actorAlignment = sheetData.data.details.alignment.value;
+    sheetData.actorAttitudes = CONFIG.PF2E.attitude;
+    sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? 'indifferent'];
     // languages
     sheetData.hasLanguages = false;
     if (sheetData.data.traits.languages.value && Array.isArray(sheetData.data.traits.languages.value) && sheetData.actor.data.traits.languages.value.length > 0) {
@@ -570,4 +572,3 @@ class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
   }
 }
 
-export default UpdatedNPCActorPF2ESheet;
