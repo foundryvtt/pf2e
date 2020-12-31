@@ -4,7 +4,6 @@ import { ActorSheetPF2eCreature } from "./creature";
 import { TraitSelector5e } from "../../system/trait-selector";
 import { DicePF2e } from "../../../scripts/dice";
 import { PF2EActor, SKILL_DICTIONARY } from "../actor";
-import { data } from "jquery";
 import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 
 const isString = require('is-string');
@@ -55,7 +54,14 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         const isWeak = this._isWeak();
         const isElite = this._isElite();
-        const adjustmentSign = isWeak ? -1 : isElite ? 1 : 0;
+        let adjustmentSign = 0;
+
+        if (isWeak) {
+            adjustmentSign = -1;
+        } else if (isElite) {
+            adjustmentSign = 1;
+        }
+
         const revertToNormal = false;   // TODO
 
         this._applyAdjustments(actorData, adjustmentSign  , revertToNormal);
@@ -348,27 +354,21 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             if (isAction) {
                 // Select appropiate image for the action, based on type of action
                 const actionType = item.data.actionType.value || 'action';    // Default to action if not set
-                let actionImage: number | string = 0;
-                
+
                 switch (actionType) {
                     case 'action': {
-                        actionImage = parseInt((item.data.actions || {}).value, 10) || 1;
                         break;
                     }
                     case 'reaction': {
-                        actionImage = 'reaction';
                         break;
                     }
                     case 'free': {
-                        actionImage = 'free';
                         break;
                     }
                     case 'passive': {
-                        actionImage = 'passive';
                         break;
                     }
                     default: {
-                        actionImage = 1;
                         break;
                     }
                 }
@@ -477,14 +477,21 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
     _adjustNPCAttack(item, adjustmentSign) {
         const modifier = adjustmentSign > 0 ? 2 : -2;
-        const attack = getProperty(item.data, 'bonus.value');
+
+        if (item === undefined) return;
+        if (item.data === undefined) return;
+        if (item.data.bonus === undefined) return;
+
+        const attack = item.data.bonus.value;
 
         if (attack === undefined) return;
 
         item.data.bonus.value = parseInt(attack, 10) + modifier;
         item.data.bonus.total = item.data.bonus.value;
-        
-        const dmg = getProperty(item.data.damageRolls[0], 'damage');
+
+        if (item.data.damageRolls === undefined) return;
+
+        const dmg = item.data.damageRolls[0].damage; // getProperty(item.data.damageRolls[0], 'damage');
 
         if (dmg === undefined) return;
 
@@ -499,12 +506,18 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
     _adjustSpellcastingEntry(item, adjustmentSign) {
         const modifier = adjustmentSign * 2;
-        const spellDc = getProperty(item.data, 'spelldc.dc');
+
+        if (item.data === undefined) return;
+        if (item.data.spelldc === undefined) return;
+        if (item.data.spelldc.dc === undefined) return;
+
+        const spellDc = item.data.spelldc.dc
 
         if (spellDc === undefined) return;
 
         item.data.spelldc.dc = parseInt(spellDc, 10) + modifier;
-        const spellAttack = getProperty(item.data, 'spelldc.value');
+
+        const spellAttack = item.data.spelldc.value;
 
         if (spellAttack === undefined) return;
 
@@ -514,8 +527,13 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     _adjustSpell(item, adjustmentSign) {
         const modifier = adjustmentSign * 2;
         const spellName = item.name.toLowerCase();
-        const spellDamage = getProperty(item.data, 'damage.value'); // string
-        const spellLevel = getProperty(item.data, 'level.value');
+
+        if (item.data === undefined) return;
+        if (item.data.damage === undefined) return;
+        if (item.data.level === undefined) return;
+
+        const spellDamage = item.data.damage.value; // string
+        const spellLevel = item.data.level.value;
         let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
         
         // checking truthy is possible, as it's unlikely that spellDamage = 0 in a damage spell :)
@@ -538,7 +556,10 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
     _adjustAction(item, adjustmentSign) {
         const modifier = adjustmentSign * 2;
-        let actionDescr = getProperty(item.data, 'description.value');
+
+        if (item.data.description === undefined) return;
+
+        let actionDescr = item.data.description.value;
 
         if (actionDescr === undefined) return;
 
