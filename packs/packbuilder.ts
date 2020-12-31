@@ -177,11 +177,32 @@ export function buildPacks(): void {
         const filePaths = filenames.map((filename) => path.resolve(packsDataPath, packDir, filename));
         const jsonData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
-            try {
-                return JSON.parse(jsonString) as unknown;
-            } catch (error) {
-                throwPackError(`File ${filePath} could not be parsed: ${error.message}`);
+            const entityData: PackEntityData = (() => {
+                try {
+                    return JSON.parse(jsonString);
+                } catch (error) {
+                    throwPackError(`File ${filePath} could not be parsed: ${error.message}`);
+                }
+            })();
+
+            const entityName = entityData?.name;
+            if (entityName === undefined) {
+                throwPackError(`Entity contained in ${filePath} has no name.`);
             }
+
+            const filenameForm = entityName
+                .toLowerCase()
+                .replace(/[^a-z0-9]/gi, ' ')
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/-{2,}/g, '-')
+                .concat('.json');
+
+            if (path.basename(filePath) !== filenameForm) {
+                throwPackError(`Filename at ${filePath} does not reflect entity name (should be ${filenameForm}).`);
+            }
+
+            return entityData;
         });
 
         return new Compendium(packDir, jsonData);

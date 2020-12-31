@@ -193,10 +193,10 @@ async function extractPack(filePath, packFilename) {
         // Remove all non-alphanumeric characters from the name
         const entityName = entityData.name
               .toLowerCase()
-              .replace(/[^a-z0-9]/gi, " ")
+              .replace(/[^a-z0-9]/gi, ' ')
               .trim()
-              .replace(/\s/gi, "-")
-              .replace("--", "-");
+              .replace(/\s+/g, '-')
+              .replace(/-{2,}/g, '-');
 
         const outFileName = `${entityName}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
