@@ -49,3 +49,21 @@
         {{/each}}
     </div>
 </div>
+<div id="resistances" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-shield-virus"></i>
+            <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="resistances-controls" data-attribute="resistancesTypes" for="data.traits.dr">
+            <a class="resistances-edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas fa-edit"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="side-bar-section-content">
+        {{#each data.traits.dr as |resistance key|}}
+        <div class="tag resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}</div>
+        {{/each}}
+    </div>
+</div>
