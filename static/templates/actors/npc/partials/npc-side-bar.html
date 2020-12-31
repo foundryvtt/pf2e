@@ -32,18 +32,14 @@
     </div>
 </div>
 <div id="weaknesses" class="side-bar-section">
-    {{#if (isNotEmptyList data.traits.dv) }}
-    <div class="side-bar-section-header">
-    {{else}}
-    <div class="side-bar-section-header disabled">
-    {{/if}}
+    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.dv) }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-heart-broken"></i>
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="weaknesses-controls controls" data-attribute="weaknessTypes" for="data.traits.dv">
-            <a class="weaknesses-edit edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas fa-edit"></i></a>
+            <a class="weaknesses-edit edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if (isNotEmptyList data.traits.dv) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -54,18 +50,14 @@
     </div>
 </div>
 <div id="resistances" class="side-bar-section">
-    {{#if (isNotEmptyList data.traits.dr) }}
-    <div class="side-bar-section-header">
-    {{else}}
-    <div class="side-bar-section-header disabled">
-    {{/if}}
+    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.dr) }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-shield-virus"></i>
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="resistances-controls controls" data-attribute="resistancesTypes" for="data.traits.dr">
-            <a class="resistances-edit edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas fa-edit"></i></a>
+            <a class="resistances-edit edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if (isNotEmptyList data.traits.dr) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -76,18 +68,14 @@
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
-    {{#if (isNotEmptyList data.traits.di.labels) }}
-    <div class="side-bar-section-header">
-    {{else}}
-    <div class="side-bar-section-header disabled">
-    {{/if}}
+    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.di.labels) }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-ankh"></i>
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="immunities-controls controls" data-attribute="immunitiesTypes" for="data.traits.di">
-            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas fa-edit"></i></a>
+            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if (isNotEmptyList data.traits.di.labels) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
