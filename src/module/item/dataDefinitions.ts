@@ -1,5 +1,6 @@
 import {AbilityString, Proficency} from '../actor/actorDataDefinitions';
 import {PF2RuleElementData} from '../rules/rulesDataDefinitions';
+import { BuildCategories } from '../system/characterbuilder';
 
 export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 

@@ -1,9 +1,9 @@
 /* global FormApplication */
 
-import PF2EActor from "../actor/actor";
+import {PF2EActor} from "../actor/actor";
 import { RawCharacterData } from "../actor/actorDataDefinitions";
 import { isPhysicalItem } from "../item/dataDefinitions";
-import PF2EItem from "../item/item";
+import {PF2EItem} from "../item/item";
 
 // TODO: Group multiple of the same Physical Item
  
