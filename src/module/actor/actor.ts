@@ -94,14 +94,14 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
   /**
    * Augment the basic actor data with additional dynamic data.
    */
-  prepareData(): PF2EDataType {
+  prepareData(): void {
     super.prepareData();
 
     // Synchronize the token image with the actor image, if the token does not currently have an image.
     this._prepareTokenImg();
 
     // Prepare character & npc data; primarily attribute and action calculation.
-    const actorData : ActorDataPF2e = this.data;
+    const actorData = this.data;
 
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
@@ -120,9 +120,6 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         }
       }
     }
-
-    // Return the prepared Actor data
-    return actorData as PF2EDataType;
   }
 
   _prepareTokenImg() {
