@@ -96,7 +96,7 @@ $health-color: #A40802;
     }
 
     .side-bar {
-        flex: 140px 0 0;
+        flex: 160px 0 0;
         height: 100%;
         overflow-y: scroll;
 
@@ -124,6 +124,7 @@ $health-color: #A40802;
                 align-items: flex-start;
 
                 h4 {
+                    font-size: 1.1rem;
                     margin-bottom: 0px;
                     padding-left: 6px;
                 }
@@ -205,7 +206,7 @@ $health-color: #A40802;
             flex-direction: row;
             width: 100%;
             flex: 1 0 auto;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .save-container {
@@ -243,6 +244,43 @@ $health-color: #A40802;
         color: white;
         text-transform: uppercase;
     }
+
+    .effects-list {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .separator {
+            flex: 0 0 1px;
+            height: 32px;
+            margin-right: 4px;
+            border-left: 2px solid $faded-color;
+        }
+
+        .effects {
+            display: flex;
+            flex: 0 0 32px;
+            height: 32px;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            border-bottom: none !important;
+
+            .item-image {
+                background-size: cover;
+                border: 2px solid $color;
+                border-bottom: 2px solid $faded-color;
+                border-radius: 3px;
+            }
+
+            .item-image:hover {
+                border: 2px solid white;
+                border-radius: 3px;
+            }
+        }
+    }
+
 
     .labelled-field {
         display: flex;
