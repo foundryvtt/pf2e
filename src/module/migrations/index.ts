@@ -22,6 +22,7 @@ import { Migration588NpcActionCategory } from './588-migrate-npc-action-category
 import { Migration589SetItemAsIdentified } from './589-set-item-as-identified';
 import { Migration591SetOriginalItemName } from './591-set-original-item-name';
 import { Migration592CopyIdentificationData } from './592-copy-identification-data';
+import { Migration593AddAncestryItem } from './593-make-ancestry-item';
 
 export function getAllMigrations() {
     return [
@@ -49,5 +50,6 @@ export function getAllMigrations() {
         new Migration589SetItemAsIdentified(),
         new Migration591SetOriginalItemName(),
         new Migration592CopyIdentificationData(),
+        new Migration593AddAncestryItem(),
     ];
 }

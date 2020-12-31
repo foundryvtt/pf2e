@@ -1,8 +1,8 @@
 import { populateFoundryUtilFunctions } from '../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../src/module/migration-runner-base';
-import { Migration592CopyIdentificationData } from '../src/module/migrations/592-copy-identification-data';
-import { Migration589SetItemAsIdentified } from '../src/module/migrations/589-set-item-as-identified';
-import { Migration591SetOriginalItemName } from '../src/module/migrations/591-set-original-item-name';
+import { Migration593AddAncestryItem } from '../src/module/migrations/593-make-ancestry-item';
+
+const migrations = [new Migration593AddAncestryItem()];
 
 var path = require('path');
 var fs = require('fs-extra');
@@ -69,11 +69,6 @@ async function getAllFiles(): Promise<string[]> {
 async function migrate() {
     const allEntries = await getAllFiles();
 
-    const migrations = [
-        new Migration589SetItemAsIdentified(),
-        new Migration591SetOriginalItemName(),
-        new Migration592CopyIdentificationData(),
-    ];
     const migrationRunner = new MigrationRunnerBase(migrations);
 
     for (const filePath of allEntries) {
