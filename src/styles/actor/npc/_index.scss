@@ -9,6 +9,7 @@ $health-color: #A40802;
     flex-direction: row;
     align-items: flex-start;
     color: $color;
+    font-family: "Signika", sans-serif;
 
     .npc-sheet-header {
         display: flex;
@@ -95,12 +96,17 @@ $health-color: #A40802;
     .side-bar {
         flex: 180px 0 0;
 
-        .side-bar-container {
+        .side-bar-section {
             display: flex;
             flex: auto;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .side-bar-section-header {
+            display: flex;
+            width: 100%;
             font-size: 1.0rem;
             border-bottom: 2px solid $faded-color;
             margin-top: 10px;
@@ -119,7 +125,17 @@ $health-color: #A40802;
             }
         }
 
-        .armor-container {
+        .side-bar-section-content {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 2px;
+        }
+
+        .armor-section {
             .armor-label {
                 color: $armor-color;
             }
@@ -132,7 +148,7 @@ $health-color: #A40802;
             }
         }
 
-        .health-container {
+        .health-section {
             .health-label {
                 color: $health-color;
             }
@@ -174,6 +190,25 @@ $health-color: #A40802;
         border: 2px solid #d8c384;
         color: white;
         text-transform: uppercase;
+    }
+
+    .labelled-field {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+
+        label {
+            flex: auto;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            flex: auto;
+            font-weight: normal;
+            margin-left: 6px !important;
+        }
     }
     
     .alignment-select {
