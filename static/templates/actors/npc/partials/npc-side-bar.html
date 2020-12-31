@@ -1,24 +1,51 @@
 <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="180" width="180" style="margin: 0 auto"/>
 
-<div class="side-bar-container armor-container">
-    <div class="side-bar-label armor-label">
-        <i class="fas fa-shield-alt"></i>
-        <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
+<div class="side-bar-section armor-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label armor-label">
+            <i class="fas fa-shield-alt"></i>
+            <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
+        </div>
+        <input class="armor-value" type="text" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
     </div>
-    <input class="armor-value" type="text" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
+    <div class="side-bar-section-content">
+        <input class="armor-value" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="..."/>
+    </div>
 </div>
-<div class="side-bar-container health-container">
-    <div class="side-bar-label health-label">
-        <i class="fas fa-heart"></i>
-        <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
-        <div class="health-value">
-            <input id="health-current" type="text" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
-            <span class="health-divider">/</span>
-            <input id="health-max" type="text" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+<div class="side-bar-section health-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label health-label">
+            <i class="fas fa-heart"></i>
+            <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+            <div class="health-value">
+                <input id="health-current" type="text" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+                <span class="health-divider">/</span>
+                <input id="health-max" type="text" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+            </div>
         </div>
-        <div id="hp-temp" class="flexrow">
-            <label style="padding-left: 6px;"><i class="fas fa-clock"></i></label>
-            <input id="health-current" type="text" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+    </div>
+    <div class="side-bar-section-content">
+        <div id="hp-temp" class="labelled-field">
+            <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
+            <input id="hp-temp-value" type="text" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
         </div>
+    </div>
+</div>
+<div id="weaknesses" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-heart-broken"></i>
+            <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="weaknesses-controls" data-attribute="weaknessTypes" for="data.traits.dv">
+            <a class="weaknesses-edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas fa-edit"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="side-bar-section-content">
+        {{#each data.traits.dv as |weakness key|}}
+        <div class="tag weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
+        {{/each}}
     </div>
 </div>
