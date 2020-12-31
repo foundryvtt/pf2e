@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</span></p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don't have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).</p>"
+            "value": "<p>Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don't have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -38,7 +38,87 @@
         },
         "usage": {
             "value": "held-in-one-hand"
-        }
+        },
+        "rules": [
+            {
+              "key": "PF2E.RuleElement.FlatModifier",
+              "selector": "ac",
+              "value": -1,
+              "type": "rage",
+              "label": "rage",
+              "predicate": {
+                "all": [
+                  "rage"
+                ]
+              },
+              "roll-options": [
+                "ac",
+                "all"
+              ]
+            },
+            {
+              "key": "PF2E.RuleElement.FlatModifier",
+              "selector": "damage",
+              "label": "Rage",
+              "predicate": {
+                "not": [
+                  "agile",
+                  "ranged"
+                ],
+                "all": [
+                  "rage"
+                ]
+              },
+              "value": {
+                "brackets": [
+                  {
+                    "end": 6,
+                    "value": 2
+                  },
+                  {
+                    "start": 7,
+                    "end": 14,
+                    "value": 6
+                  },
+                  {
+                    "start": 15,
+                    "value": 12
+                  }
+                ]
+              }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "damage",
+                "label": "Rage",
+                "predicate": {
+                  "not": [
+                    "ranged"
+                  ],
+                  "all": [
+                    "rage",
+                    "agile"
+                  ]
+                },
+                "value": {
+                  "brackets": [
+                    {
+                      "end": 6,
+                      "value": 1
+                    },
+                    {
+                      "start": 7,
+                      "end": 14,
+                      "value": 3
+                    },
+                    {
+                      "start": 15,
+                      "value": 6
+                    }
+                  ]
+                }
+              }
+          ]
     },
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/fury-instinct.jpg",
