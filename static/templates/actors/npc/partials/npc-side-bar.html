@@ -94,3 +94,30 @@
     </div>
     {{/each}}
 </div>
+<div id="speed" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-shoe-prints"></i>
+            <h4>{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="speed-controls controls" data-attribute="speed" for="data.attributes.speed.otherSpeeds">
+            <a class="speed-edit edit" data-options="speed" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div id="speed-section" class="side-bar-section-content">
+        <div id="walk-speed">
+            <input type="text" name="data.attributes.speed.value" value="{{ data.attributes.speed.value }}" data-dtype="Number" placeholder="0"/>
+        </div>
+        <div id="other-speeds">
+            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
+            {{#if (isNotZero speed.value) }}
+            <div class="tag speed" data-speed="{{speed.type}}">
+                {{speed.label}} {{speed.value}}
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+</div>
