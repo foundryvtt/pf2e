@@ -1,4 +1,11 @@
 .pf2e.actor.loot {
+    
+    .split-coins {
+        @include button;
+        width: calc(100% - 6px);
+        background-color: var(--tertiary);
+    }
+    
     .currency {
         padding: 2px;
         @include button;
@@ -69,6 +76,7 @@
                 width: 24px;
                 @include gold-border;
                 background-size: cover !important;
+                flex: none;
             }
         }
 
@@ -98,22 +106,20 @@
         }
 
         .add-coins-popup {
+            margin: 0 1px 0px 5px;
             button {
                 font-size: 15px;
                 font-weight: 600;
-                padding-bottom: 4px;
-                margin-left: 2px;
-                padding-top: 3px;
+                padding: 3px 8px 4px;
             }
         }
 
         .remove-coins-popup {
+            margin: 0 1px 0px 5px;
             button {
                 font-size: 15px;
                 font-weight: 600;
-                padding-bottom: 4px;
-                margin-left: 2px;
-                padding-top: 3px;
+                padding: 3px 8px 4px;
             }
         }
 
