@@ -441,9 +441,9 @@ export class PF2DamageDice {
   /** If true, these dice are user-provided/custom. */
   custom: boolean;
   /** A predicate which limits when this damage dice is actually applied. */
-  predicate?: { all?: string[], any?: string[], not?: string[] };
+  predicate?: PF2ModifierPredicate;
 
-  constructor(param) {
+  constructor(param: Partial<PF2DamageDice> & { options?: object }) {
     if (param.selector) { this.selector = param.selector; } else { throw new Error('selector is mandatory'); }
     if (param.name) { this.name = param.name } else { throw new Error('name is mandatory'); }
     this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
