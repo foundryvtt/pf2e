@@ -95,7 +95,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/packs/feat-browser.html',
         'systems/pf2e/templates/packs/hazard-browser.html',
         'systems/pf2e/templates/packs/spell-browser.html',
-        'systems/pf2e/templates/packs/browser-settings.html',
+        'systems/pf2e/templates/packs/browser-settings.html'
     ];
     return loadTemplates(templatePaths);
 }
