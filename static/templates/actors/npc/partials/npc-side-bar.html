@@ -1,0 +1,20 @@
+<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="180" width="180" style="margin: 0 auto"/>
+
+<div class="side-bar-container armor-container">
+    <div class="side-bar-label armor-label">
+        <i class="fas fa-shield-alt"></i>
+        <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
+    </div>
+    <input class="armor-value" type="text" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
+</div>
+<div class="side-bar-container health-container">
+    <div class="side-bar-label health-label">
+        <i class="fas fa-heart"></i>
+        <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+        <div class="health-value">
+            <input id="health-current" type="text" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+            <span class="health-divider">/</span>
+            <input id="health-max" type="text" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+        </div>
+    </div>
+</div>
