@@ -10,9 +10,12 @@ import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor<NpcData> {
 
+    data!: NpcData;
+
     /** Prepare Character type specific data. */
-    prepareData(): NpcData {
-        const actorData : NpcData = super.prepareData();
+    prepareData(): void {
+        super.prepareData();
+        const actorData = this.data
         const rules = actorData.items.reduce((accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)), []);
         
         const { data } = actorData;
@@ -232,8 +235,6 @@ export class PF2ENPC extends PF2EActor<NpcData> {
             data.actions.push(action);
           }
         }
-
-        return actorData;
     }
     
     private updateTokenAttitude(attitude: string) {

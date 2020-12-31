@@ -179,14 +179,18 @@ export interface WeaponDetailsData {
         value: number
     },
     damage: {
-        value: string,
-        dice: number,
-        die: string,
-        damageType: string
+        value: string;
+        dice: number;
+        die: string;
+        damageType: string;
+        modifier: number;
     },
-    bonusDamage: {
+    bonusDamage?: {
         value: string
     },
+    splashDamage?: {
+        value: string;
+    }
     range: {
         value: string
     },
