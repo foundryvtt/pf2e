@@ -94,14 +94,14 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
   /**
    * Augment the basic actor data with additional dynamic data.
    */
-  prepareData(): PF2EDataType {
+  prepareData(): void {
     super.prepareData();
 
     // Synchronize the token image with the actor image, if the token does not currently have an image.
     this._prepareTokenImg();
 
     // Prepare character & npc data; primarily attribute and action calculation.
-    const actorData : ActorDataPF2e = this.data;
+    const actorData = this.data;
 
     if ('traits' in actorData.data) {
       // TODO: Migrate trait storage format
@@ -120,9 +120,6 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         }
       }
     }
-
-    // Return the prepared Actor data
-    return actorData as PF2EDataType;
   }
 
   _prepareTokenImg() {
@@ -831,31 +828,16 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
       const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
       await sourceActor.updateEmbeddedEntity('OwnedItem', update);
     }
-
-    let itemInTargetActor = targetActor.items.find(i => i.name === item.name);
-
-    if (itemInTargetActor !== null) {
-      if (!isPhysicalItem(itemInTargetActor.data)) {
-        throw Error("Only physical items (with quantities) can be transfered between actors - the target item is not physical");
-      }
-
-      // Increase amount of item in target actor if there is already an item with the same name
-      const targetItemNewQuantity = Number(itemInTargetActor.data.data.quantity.value) + quantity;
-      const update = { '_id': itemInTargetActor._id, 'data.quantity.value': targetItemNewQuantity};
-      await targetActor.updateEmbeddedEntity('OwnedItem', update);
-    } else {
-      // If no item with the same name in the target actor, create new item in the target actor
-      const newItemData = duplicate(item);
-      if (!isPhysicalItem(newItemData)) {
-        console.error(newItemData);
-        throw Error("this should never happen - item should be physical, but is not");
-      }
-      newItemData.data.quantity.value = quantity;
-
-      const result = await targetActor.createOwnedItem(newItemData);
-      itemInTargetActor = targetActor.items.get(result._id);
+    
+    const newItemData = duplicate(item);
+    if (!isPhysicalItem(newItemData)) {
+      throw Error("this should never happen - item should be physical, but is not");
     }
-
+    newItemData.data.quantity.value = quantity;
+   
+    const result = await targetActor.createOwnedItem(newItemData);
+    const itemInTargetActor = targetActor.getOwnedItem(result._id);
+    
     return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
   }
 

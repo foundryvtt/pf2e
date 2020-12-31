@@ -18,18 +18,11 @@ declare function saveDataToFile(
 declare function readTextFromFile(file: File): Promise<string>;
 
 /**
- * Duplicate, since it uses serialization, does interesting things with system types
- * like actors and items; we should record this in our type.
- */
-declare type DuplicateResult<T> = T extends SystemActorType ? SystemActorDataType
-	: T extends SystemItemType ? SystemItemDataType
-	: T;
-
-/**
  * A cheap data duplication trick, surprisingly relatively performant
- * @param original	Some sort of data
+ * @param original   Some sort of data
  */
-declare function duplicate<T>(original: T): DuplicateResult<T>;
+declare function duplicate<T extends Entity>(original: T): T["data"];
+declare function duplicate<T>(original: T): T;
 
 /**
  * Learn the named type of a token - extending the functionality of typeof to recognize some core Object types
@@ -55,9 +48,9 @@ declare function getType(token: any): string;
  *
  * @returns				The original source object including updated, inserted, or overwritten records
  */
-declare function mergeObject<T>(
+declare function mergeObject<T, U = T>(
 	original: T,
-	other?: T,
+	other?: U,
 	{
 		insertKeys,
 		insertValues,
@@ -72,7 +65,7 @@ declare function mergeObject<T>(
 		enforceTypes?: boolean;
 	},
 	_d?: number
-): T;
+): T & U;
 
 /**
  * A temporary shim to invert an object, flipping keys and values
