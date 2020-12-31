@@ -110,7 +110,8 @@ $health-color: #A40802;
             display: flex;
             width: 100%;
             font-size: 1.0rem;
-            border-bottom: 2px solid $faded-color;
+            border-bottom: 2px solid;
+            border-color: $faded-color;
             margin-top: 10px;
             margin-bottom: 0px;
 
@@ -207,8 +208,13 @@ $health-color: #A40802;
     }
 
     .disabled {
-        color: $color-disabled;
-        border-color: $color-disabled;
+        color: $color-disabled !important;
+        border-color: $color-disabled !important;
+    }
+
+    .disabled:hover {
+        color: $color !important;
+        border-color: $faded-color !important;
     }
 
     .trait {
