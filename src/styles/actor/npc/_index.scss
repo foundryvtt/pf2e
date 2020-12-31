@@ -1,5 +1,6 @@
 $faded-color: #7a7971;
 $color: #323232;
+$color-disabled: #b6b6b6;
 $value-color: #000000;
 $armor-color: #2A8FBD;
 $health-color: #A40802;
@@ -178,6 +179,21 @@ $health-color: #A40802;
                 }
             }
         }
+
+        #saves {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex: 1 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .save-container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
     }
 
     .sheet-body {
@@ -188,6 +204,11 @@ $health-color: #A40802;
         .edit {
             font-size: 0.8rem;
         }
+    }
+
+    .disabled {
+        color: $color-disabled;
+        border-color: $color-disabled;
     }
 
     .trait {

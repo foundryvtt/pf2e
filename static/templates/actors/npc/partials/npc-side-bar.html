@@ -32,7 +32,11 @@
     </div>
 </div>
 <div id="weaknesses" class="side-bar-section">
+    {{#if (isNotEmptyList data.traits.dv) }}
     <div class="side-bar-section-header">
+    {{else}}
+    <div class="side-bar-section-header disabled">
+    {{/if}}
         <div class="side-bar-label">
             <i class="fas fa-heart-broken"></i>
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
@@ -50,7 +54,11 @@
     </div>
 </div>
 <div id="resistances" class="side-bar-section">
+    {{#if (isNotEmptyList data.traits.dr) }}
     <div class="side-bar-section-header">
+    {{else}}
+    <div class="side-bar-section-header disabled">
+    {{/if}}
         <div class="side-bar-label">
             <i class="fas fa-shield-virus"></i>
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
@@ -68,7 +76,11 @@
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
+    {{#if (isNotEmptyList data.traits.di.labels) }}
     <div class="side-bar-section-header">
+    {{else}}
+    <div class="side-bar-section-header disabled">
+    {{/if}}
         <div class="side-bar-label">
             <i class="fas fa-ankh"></i>
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
@@ -79,9 +91,18 @@
         </div>
         {{/if}}
     </div>
+
     <div class="side-bar-section-content">
         {{#each data.traits.di.labels as |immunity key|}}
         <div class="tag immunity" data-weakness="{{immunity.type}}">{{ immunity }}</div>
         {{/each}}
     </div>
+</div>
+<div id="saves">
+    {{#each data.saves as |save saveId|}}
+    <div class="save-container" data-save="{{saveId}}">
+        <label class="attribute-label rollable"><a>{{ localize save.labelShort }}</a></label>
+        <input type="text" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+    </div>
+    {{/each}}
 </div>
