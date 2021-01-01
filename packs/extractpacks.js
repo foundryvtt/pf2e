@@ -96,10 +96,22 @@ function sanitizeEntity(entity) {
     delete entity.flags._sheetTab;
 
     // Clean up description HTML
-    if (entity.data?.description?.value) {
+    if (typeof entity.data?.description?.value === 'string') {
         const $description = $(entity.data.description.value);
-        $description.find('> span[id]').each((_index, span) => {
-            $(span).contents().unwrap('span[id]').each((_, node) => {
+        // Reject Foundry's attempt to change compendium links into HTML anchors
+        const $anchors = $description.find('a.entity-link');
+        $anchors.each((_i, anchor) => {
+            const $anchor = $(anchor);
+            const label = $anchor.text().trim();
+            const packName = $anchor.attr('data-pack');
+            const entityId = $anchor.attr('data-id');
+            $anchor.text(`@Compendium[${packName}.${entityId}]{${label}}`);
+            $anchor.contents().unwrap();
+        });
+
+        // Be rid of span tags from AoN copypasta
+        $description.find('> span[id]').each((_i, span) => {
+            $(span).contents().unwrap('span[id]').each((_j, node) => {
                 if (node.nodeName === '#text') {
                     node.textContent = node.textContent.trim();
                 }
@@ -123,7 +135,7 @@ function convertLinks(entityData, packName) {
     const worldItemLinks = Array.from(entityJson.matchAll(linkPatterns.world));
     if (worldItemLinks.length > 0) {
         const linkString = worldItemLinks.map((match) => match[0]).join(', ');
-        throwPackError(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
+        console.warn(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
     }
 
     const compendiumLinks = Array.from(
