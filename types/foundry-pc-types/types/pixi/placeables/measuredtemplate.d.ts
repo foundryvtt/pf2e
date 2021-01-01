@@ -165,4 +165,3 @@ declare class MeasuredTemplate extends PlaceableObject {
     /** @override */
     _onDelete(): void
 }
-  
