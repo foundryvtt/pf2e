@@ -16,7 +16,10 @@ export const initiativeFormula = (combatant) => {
     const parts = ['1d20', bonus || 0];
 
     // Only show initiative bonuses if they are there. Else it always shows "+ 0" on the roll.
-    if (((data.attributes.initiative || {}).circumstance || 0) + ((data.attributes.initiative || {}).status || 0) !== 0) {
+    if (
+        ((data.attributes.initiative || {}).circumstance || 0) + ((data.attributes.initiative || {}).status || 0) !==
+        0
+    ) {
         parts.push((data.attributes.initiative?.circumstance || 0) + (data.attributes.initiative?.status || 0));
     }
 

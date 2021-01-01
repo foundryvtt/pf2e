@@ -1,6 +1,6 @@
 /* global Application */
-import {IdentifyCreatureData} from '../../recall-knowledge';
-import {padArray} from '../../utils';
+import { IdentifyCreatureData } from '../../recall-knowledge';
+import { padArray } from '../../utils';
 
 export class RecallKnowledgePopup extends Application {
     static get defaultOptions() {
@@ -20,16 +20,20 @@ export class RecallKnowledgePopup extends Application {
             unspecificLoreAttempts: this.padAttempts(data.unspecificLoreDC.progression),
             skills: Array.from(data.skills)
                 .sort()
-                .map(skill => {
+                .map((skill) => {
                     return {
                         name: CONFIG.PF2E.skills[skill],
-                        attempts: this.padAttempts(data.skill.progression)
-                    }
-                })
-        }
+                        attempts: this.padAttempts(data.skill.progression),
+                    };
+                }),
+        };
     }
 
     private padAttempts(attempts: number[]): string[] {
-        return padArray(attempts.map(attempt => attempt.toString()), 6, '-');
+        return padArray(
+            attempts.map((attempt) => attempt.toString()),
+            6,
+            '-',
+        );
     }
 }

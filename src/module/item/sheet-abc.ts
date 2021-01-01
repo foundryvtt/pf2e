@@ -16,13 +16,15 @@ export class ABCItemSheetPF2e extends ItemSheet {
         options.height = 460;
         options.classes = options.classes.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
-        options.tabs = [{
-            navSelector: ".tabs",
-            contentSelector: ".sheet-body",
-            initial: "description"
-        }];
+        options.tabs = [
+            {
+                navSelector: '.tabs',
+                contentSelector: '.sheet-body',
+                initial: 'description',
+            },
+        ];
         options.scrollY = ['.item-details'];
-        options.dragDrop = [{dropSelector: '.item-details'}]
+        options.dragDrop = [{ dropSelector: '.item-details' }];
         options.resizable = false;
         return options;
     }
@@ -34,13 +36,13 @@ export class ABCItemSheetPF2e extends ItemSheet {
     getData() {
         const type = this.item.type;
 
-        const data : any = {
+        const data: any = {
             ...super.getData(),
             type,
             hasSidebar: this.item.data.type !== 'class',
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: true,
-            detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`
+            detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         };
 
         if (this.item.data.type === 'ancestry') {
@@ -52,8 +54,12 @@ export class ABCItemSheetPF2e extends ItemSheet {
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
 
-            data.selectedBoosts = Object.fromEntries(Object.entries(itemData.boosts).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
-            data.selectedFlaws = Object.fromEntries(Object.entries(itemData.flaws).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
+            data.selectedBoosts = Object.fromEntries(
+                Object.entries(itemData.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
+            );
+            data.selectedFlaws = Object.fromEntries(
+                Object.entries(itemData.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
+            );
 
             data.size = CONFIG.PF2E.actorSizes[itemData.size];
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
@@ -62,11 +68,13 @@ export class ABCItemSheetPF2e extends ItemSheet {
 
             data.rarityChoices = CONFIG.PF2E.rarityTraits;
             data.skills = CONFIG.PF2E.skills;
-      
+
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
             this._prepareTraits(data.data.trainedSkills, CONFIG.PF2E.skills);
 
-            data.selectedBoosts = Object.fromEntries(Object.entries(itemData.boosts).map(([k, b]) => [ k, this.getLocalizedAbilities(b) ]));
+            data.selectedBoosts = Object.fromEntries(
+                Object.entries(itemData.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
+            );
 
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
         } else if (this.item.data.type === 'class') {
@@ -75,7 +83,7 @@ export class ABCItemSheetPF2e extends ItemSheet {
             data.rarityChoices = CONFIG.PF2E.rarityTraits;
             data.skills = CONFIG.PF2E.skills;
             data.proficiencyChoices = CONFIG.PF2E.proficiencyLevels;
-      
+
             data.selectedKeyAbility = this.getLocalizedAbilities(itemData.keyAbility);
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
@@ -93,19 +101,19 @@ export class ABCItemSheetPF2e extends ItemSheet {
         return data;
     }
 
-    private getLocalizedAbilities(traits: { value: AbilityString[] }): { [key:string]: string } {
+    private getLocalizedAbilities(traits: { value: AbilityString[] }): { [key: string]: string } {
         if (traits !== undefined && traits.value) {
-            if (traits.value.length === 6)
-                return { free: game.i18n.localize('PF2E.AbilityFree') };
-            return Object.fromEntries(traits.value
-                .map((x:string) => [ x, CONFIG.PF2E.abilities[x] ]));
+            if (traits.value.length === 6) return { free: game.i18n.localize('PF2E.AbilityFree') };
+            return Object.fromEntries(traits.value.map((x: string) => [x, CONFIG.PF2E.abilities[x]]));
         }
 
         return {};
     }
 
     _prepareTraits(traits: any, choices: any) {
-        if (traits === undefined) { return; }
+        if (traits === undefined) {
+            return;
+        }
         if (traits.value) {
             traits.selected = traits.value.reduce((obj, t) => {
                 obj[t] = choices[t];
@@ -149,10 +157,8 @@ export class ABCItemSheetPF2e extends ItemSheet {
             item = game.items.get(dragItem.id);
         }
 
-        if ([
-            "feat",
-        ].includes(item.data.type)) {
-            const entry : ABCFeatureEntryData = {
+        if (['feat'].includes(item.data.type)) {
+            const entry: ABCFeatureEntryData = {
                 pack: dragItem.pack,
                 id: dragItem.id,
                 img: item.data.img,
@@ -160,8 +166,8 @@ export class ABCItemSheetPF2e extends ItemSheet {
                 level: item.data.data.level.value,
             };
 
-            let items : { [key: number]: ABCFeatureEntryData };
-            let pathPrefix : string;
+            let items: { [key: number]: ABCFeatureEntryData };
+            let pathPrefix: string;
 
             if (this.item.data.type === 'ancestry') {
                 items = (this.item.data as AncestryData).data.items;
@@ -180,9 +186,9 @@ export class ABCItemSheetPF2e extends ItemSheet {
             do {
                 id = randomID(5);
             } while (items[id]);
-            
+
             await this.item.update({
-                [`${pathPrefix}.${id}`]: entry
+                [`${pathPrefix}.${id}`]: entry,
             });
         }
     }
@@ -197,21 +203,19 @@ export class ABCItemSheetPF2e extends ItemSheet {
         }
 
         this.item.update({
-            [`data.items.${path}`]: null
+            [`data.items.${path}`]: null,
         });
     }
 
-    addSkill(event) {
-    }
+    addSkill(event) {}
 
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.on('change', 'input[type="checkbox"]', ev => this._onSubmit(ev));
+        html.on('change', 'input[type="checkbox"]', (ev) => this._onSubmit(ev));
 
-        html.on('click', '.trait-selector', ev => this.onTraitSelector(ev));
+        html.on('click', '.trait-selector', (ev) => this.onTraitSelector(ev));
 
-        html.on('click', '[data-action=remove]', ev => this.removeItem(ev));
-
+        html.on('click', '[data-action=remove]', (ev) => this.removeItem(ev));
     }
 }

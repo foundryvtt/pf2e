@@ -8,8 +8,8 @@ import {
     StackDefinitions,
     weightToBulk,
 } from './bulk';
-import {PhysicalItemData} from './dataDefinitions';
-import {groupBy} from '../utils';
+import { PhysicalItemData } from './dataDefinitions';
+import { groupBy } from '../utils';
 
 /**
  * Datatype that holds container information for *every* item, even non containers
@@ -26,29 +26,27 @@ class ContainerData {
     formattedCapacity: string;
     capacity: Bulk;
 
-    constructor(
-        {
-            item,
-            heldItems,
-            negateBulk,
-            capacity,
-            heldItemBulk,
-            isInContainer,
-            formattedNegateBulk,
-            formattedHeldItemBulk,
-            formattedCapacity,
-        }: {
-            item: PhysicalItemData;
-            heldItems: PhysicalItemData[];
-            negateBulk: Bulk;
-            heldItemBulk: Bulk;
-            isInContainer: boolean;
-            formattedHeldItemBulk: string;
-            formattedNegateBulk: string;
-            formattedCapacity: string;
-            capacity: Bulk;
-        },
-    ) {
+    constructor({
+        item,
+        heldItems,
+        negateBulk,
+        capacity,
+        heldItemBulk,
+        isInContainer,
+        formattedNegateBulk,
+        formattedHeldItemBulk,
+        formattedCapacity,
+    }: {
+        item: PhysicalItemData;
+        heldItems: PhysicalItemData[];
+        negateBulk: Bulk;
+        heldItemBulk: Bulk;
+        isInContainer: boolean;
+        formattedHeldItemBulk: string;
+        formattedNegateBulk: string;
+        formattedCapacity: string;
+        capacity: Bulk;
+    }) {
         this.item = item;
         this.heldItems = heldItems;
         this.negateBulk = negateBulk;
@@ -100,7 +98,7 @@ class ContainerData {
 
     get isOverLoaded(): boolean {
         if (this.capacity.normal > 0) {
-            return this.heldItemBulk.toLightBulk() >= (this.capacity.toLightBulk() + 10);
+            return this.heldItemBulk.toLightBulk() >= this.capacity.toLightBulk() + 10;
         }
         return this.heldItemBulk.toLightBulk() > this.capacity.light;
     }
@@ -147,10 +145,8 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
             return true;
         }
         return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
-
     }
     return false;
-
 }
 /**
  * Detect if a new container id would produce a cycle
@@ -176,7 +172,7 @@ export function isCycle(itemId: string, containerId: string, items: PhysicalItem
  * @param bulkItemsById all items on the actor transformed into bulk items; used to look up how much bulk a container stores
  * @param stackDefinitions used to calculated bulk
  * @param bulkConfig used to calculated bulk
- * @return 
+ * @return
  */
 export function getContainerMap(
     items: PhysicalItemData[] = [],
@@ -184,9 +180,9 @@ export function getContainerMap(
     stackDefinitions: StackDefinitions,
     bulkConfig: BulkConfig = defaultBulkConfig,
 ): Map<string, ContainerData> {
-    const allIds = groupBy(items, item => item._id);
+    const allIds = groupBy(items, (item) => item._id);
 
-    const containerGroups = groupBy(items, item => {
+    const containerGroups = groupBy(items, (item) => {
         const containerId = item?.data?.containerId?.value;
         if (allIds.has(containerId)) {
             return containerId;
@@ -199,14 +195,17 @@ export function getContainerMap(
         const isInContainer = containerGroups.has(item?.data?.containerId?.value);
         const heldItems = containerGroups.get(item._id) || [];
 
-        idIndexedContainerData.set(item._id, toContainer(
-            allIds.get(item._id)[0],
-            heldItems,
-            bulkItemsById.get(item._id)?.holdsItems ?? [],
-            isInContainer,
-            stackDefinitions,
-            bulkConfig,
-        ));
+        idIndexedContainerData.set(
+            item._id,
+            toContainer(
+                allIds.get(item._id)[0],
+                heldItems,
+                bulkItemsById.get(item._id)?.holdsItems ?? [],
+                isInContainer,
+                stackDefinitions,
+                bulkConfig,
+            ),
+        );
     }
 
     return idIndexedContainerData;

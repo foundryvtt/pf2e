@@ -1,13 +1,12 @@
-import {PF2RuleElement} from "../rule-element";
-import {ItemData} from "../../item/dataDefinitions";
-import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
-import {PF2DamageDice, PF2Modifier} from "../../modifiers";
+import { PF2RuleElement } from '../rule-element';
+import { ItemData } from '../../item/dataDefinitions';
+import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { PF2DamageDice, PF2Modifier } from '../../modifiers';
 
 /**
  * @category RuleElement
  */
 export class PF2DamageDiceRuleElement extends PF2RuleElement {
-
     ruleData: any;
     item: ItemData;
 
@@ -20,13 +19,13 @@ export class PF2DamageDiceRuleElement extends PF2RuleElement {
     onBeforePrepareData(
         actorData: CharacterData | NpcData,
         statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>
+        damageDice: Record<string, PF2DamageDice[]>,
     ) {
         const value = duplicate(this.ruleData);
         delete value.key;
         if (this.ruleData.value) {
             const bracketed = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData, {});
-            mergeObject(value, bracketed, { inplace: true, overwrite: true});
+            mergeObject(value, bracketed, { inplace: true, overwrite: true });
             delete value.value;
         }
         const selector = super.resolveInjectedProperties(value.selector, this.ruleData, this.item, actorData);

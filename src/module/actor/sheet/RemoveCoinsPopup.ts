@@ -11,7 +11,7 @@ export class RemoveCoinsPopup extends FormApplication {
         options.classes = [];
         options.title = 'Remove Coins';
         options.template = 'systems/pf2e/templates/actors/remove-coins.html';
-        options.width = "auto";
+        options.width = 'auto';
         return options;
     }
 
@@ -23,25 +23,26 @@ export class RemoveCoinsPopup extends FormApplication {
         const actor = this.object;
         const items = actor.data.items || [];
         const coinsToRemove = {
-                pp: formData.pp,
-                gp: formData.gp,
-                sp: formData.sp,
-                cp: formData.cp,
-        }
+            pp: formData.pp,
+            gp: formData.gp,
+            sp: formData.sp,
+            cp: formData.cp,
+        };
         const coinsToAdd = {
-            pp:0,
-            gp:0,
-            sp:0,
-            cp:0,
-        }
-        const actorCoins = calculateValueOfCurrency (items);
-        if  (formData.removeByValue) {
+            pp: 0,
+            gp: 0,
+            sp: 0,
+            cp: 0,
+        };
+        const actorCoins = calculateValueOfCurrency(items);
+        if (formData.removeByValue) {
             //  Convert actorCoins and coinsToRemove to copper to facilitate comparison
             const actorCoinsCopper = actorCoins.cp + actorCoins.sp * 10 + actorCoins.gp * 100 + actorCoins.pp * 1000;
-            let valueToRemoveInCopper = coinsToRemove.cp + coinsToRemove.sp * 10 + coinsToRemove.gp * 100 + coinsToRemove.pp * 1000;
+            let valueToRemoveInCopper =
+                coinsToRemove.cp + coinsToRemove.sp * 10 + coinsToRemove.gp * 100 + coinsToRemove.pp * 1000;
             //  Error if total is not sufficient, will not be possible to construct a valid new coinsToRemove
             if (valueToRemoveInCopper > actorCoinsCopper) {
-                ui.notifications.warn("Insufficient Coins");
+                ui.notifications.warn('Insufficient Coins');
                 return;
             }
             let coinsBroken = false;
@@ -73,7 +74,7 @@ export class RemoveCoinsPopup extends FormApplication {
                 coinsToRemove.sp += extraSilver;
                 valueToRemoveInCopper -= extraSilver * 10;
             }
-            
+
             if ((valueToRemoveInCopper / 100) % 10 > actorCoins.gp) {
                 coinsToAdd.gp = 10;
                 coinsToRemove.gp = (valueToRemoveInCopper / 100) % 10;
@@ -87,26 +88,26 @@ export class RemoveCoinsPopup extends FormApplication {
                 coinsToRemove.gp += extraGold;
                 valueToRemoveInCopper -= extraGold * 100;
             }
-            
+
             coinsToRemove.pp = valueToRemoveInCopper / 1000;
-            
+
             if (coinsBroken) {
-                await addCoinsSimple(actor,{coins: coinsToAdd});
+                await addCoinsSimple(actor, { coins: coinsToAdd });
             }
-            removeCoinsSimple(actor,{coins: coinsToRemove});
-        } else if (coinsToRemove.pp <= actorCoins.pp &&
-                coinsToRemove.gp <= actorCoins.gp &&
-                coinsToRemove.sp <= actorCoins.sp &&
-                coinsToRemove.cp <= actorCoins.cp)
-        {
-            removeCoinsSimple(actor,{coins: coinsToRemove});
+            removeCoinsSimple(actor, { coins: coinsToRemove });
+        } else if (
+            coinsToRemove.pp <= actorCoins.pp &&
+            coinsToRemove.gp <= actorCoins.gp &&
+            coinsToRemove.sp <= actorCoins.sp &&
+            coinsToRemove.cp <= actorCoins.cp
+        ) {
+            removeCoinsSimple(actor, { coins: coinsToRemove });
         } else {
-            ui.notifications.warn("Insufficient coins");
+            ui.notifications.warn('Insufficient coins');
         }
     }
 
     getData() {
-        return {
-        }
+        return {};
     }
 }

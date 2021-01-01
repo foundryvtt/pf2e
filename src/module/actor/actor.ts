@@ -5,9 +5,9 @@
 import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { PF2Check } from '../system/rolls';
-import {isCycle} from "../item/container";
+import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
-import { DicePF2e } from '../../scripts/dice'
+import { DicePF2e } from '../../scripts/dice';
 import { PF2EItem } from '../item/item';
 import { ConditionData, ArmorData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
 import {
@@ -16,407 +16,436 @@ import {
     InitiativeData,
     DexterityModifierCapData,
     FamiliarData,
-    ActorDataPF2e
+    ActorDataPF2e,
 } from './actorDataDefinitions';
-import {PF2RuleElement, PF2RuleElements} from "../rules/rules";
-import {parseTraits} from '../traits';
+import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
+import { parseTraits } from '../traits';
 
 export const SKILL_DICTIONARY = Object.freeze({
-  acr: 'acrobatics',
-  arc: 'arcana',
-  ath: 'athletics',
-  cra: 'crafting',
-  dec: 'deception',
-  dip: 'diplomacy',
-  itm: 'intimidation',
-  med: 'medicine',
-  nat: 'nature',
-  occ: 'occultism',
-  prf: 'performance',
-  rel: 'religion',
-  soc: 'society',
-  ste: 'stealth',
-  sur: 'survival',
-  thi: 'thievery'
+    acr: 'acrobatics',
+    arc: 'arcana',
+    ath: 'athletics',
+    cra: 'crafting',
+    dec: 'deception',
+    dip: 'diplomacy',
+    itm: 'intimidation',
+    med: 'medicine',
+    nat: 'nature',
+    occ: 'occultism',
+    prf: 'performance',
+    rel: 'religion',
+    soc: 'society',
+    ste: 'stealth',
+    sur: 'survival',
+    thi: 'thievery',
 });
 
 export const SKILL_EXPANDED = Object.freeze({
-  acrobatics: { ability: 'dex', shortform: 'acr' },
-  arcana: { ability: 'int', shortform: 'arc' },
-  athletics: { ability: 'str', shortform: 'ath' },
-  crafting: { ability: 'int', shortform: 'cra' },
-  deception: { ability: 'cha', shortform: 'dec' },
-  diplomacy: { ability: 'cha', shortform: 'dip' },
-  intimidation: { ability: 'cha', shortform: 'itm' },
-  medicine: { ability: 'wis', shortform: 'med' },
-  nature: { ability: 'wis', shortform: 'nat' },
-  occultism: { ability: 'int', shortform: 'occ' },
-  performance: { ability: 'cha', shortform: 'pfr' },
-  religion: { ability: 'wis', shortform: 'rel' },
-  society: { ability: 'int', shortform: 'soc' },
-  stealth: { ability: 'dex', shortform: 'ste' },
-  survival: { ability: 'wis', shortform: 'sur' },
-  thievery: { ability: 'dex', shortform: 'thi' }
+    acrobatics: { ability: 'dex', shortform: 'acr' },
+    arcana: { ability: 'int', shortform: 'arc' },
+    athletics: { ability: 'str', shortform: 'ath' },
+    crafting: { ability: 'int', shortform: 'cra' },
+    deception: { ability: 'cha', shortform: 'dec' },
+    diplomacy: { ability: 'cha', shortform: 'dip' },
+    intimidation: { ability: 'cha', shortform: 'itm' },
+    medicine: { ability: 'wis', shortform: 'med' },
+    nature: { ability: 'wis', shortform: 'nat' },
+    occultism: { ability: 'int', shortform: 'occ' },
+    performance: { ability: 'cha', shortform: 'pfr' },
+    religion: { ability: 'wis', shortform: 'rel' },
+    society: { ability: 'int', shortform: 'soc' },
+    stealth: { ability: 'dex', shortform: 'ste' },
+    survival: { ability: 'wis', shortform: 'sur' },
+    thievery: { ability: 'dex', shortform: 'thi' },
 });
 
 const SUPPORTED_ROLL_OPTIONS = Object.freeze([
-  'all',
-  'attack-roll',
-  'damage-roll',
-  'saving-throw',
-  'fortitude',
-  'reflex',
-  'will',
-  'perception',
-  'initiative',
-  'skill-check',
+    'all',
+    'attack-roll',
+    'damage-roll',
+    'saving-throw',
+    'fortitude',
+    'reflex',
+    'will',
+    'perception',
+    'initiative',
+    'skill-check',
 ]);
 
 /**
  * @category Actor
  */
 export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> extends Actor<PF2EDataType> {
-
-  constructor(data: ActorDataPF2e, options?: any) {
-    if (options?.pf2e?.ready) {
-      super(data, options);
-    } else {
-      try {
-        const ready = { pf2e: { ready: true } };
-        return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
-      } catch (_error) {
-        super(data, options);  // eslint-disable-line constructor-super
-        console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
-      }
-    }
-  }
-
-  /**
-   * Augment the basic actor data with additional dynamic data.
-   */
-  prepareData(): void {
-    super.prepareData();
-
-    // Synchronize the token image with the actor image, if the token does not currently have an image.
-    this._prepareTokenImg();
-
-    // Prepare character & npc data; primarily attribute and action calculation.
-    const actorData = this.data;
-
-    if ('traits' in actorData.data) {
-      // TODO: Migrate trait storage format
-      const map = {
-        dr: CONFIG.PF2E.damageTypes,
-        di: CONFIG.PF2E.damageTypes,
-        dv: CONFIG.PF2E.damageTypes,
-        ci: CONFIG.PF2E.conditionTypes,
-        languages: CONFIG.PF2E.languages,
-      };
-      for (const [t, choices] of Object.entries(map)) {
-        const trait = actorData.data.traits[t];
-        if (trait === undefined) continue;
-        if (!(trait.value instanceof Array)) {
-          trait.value = TraitSelector5e._backCompat(trait.value, choices);
+    constructor(data: ActorDataPF2e, options?: any) {
+        if (options?.pf2e?.ready) {
+            super(data, options);
+        } else {
+            try {
+                const ready = { pf2e: { ready: true } };
+                return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
+            } catch (_error) {
+                super(data, options); // eslint-disable-line constructor-super
+                console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
+            }
         }
-      }
-    }
-  }
-
-  _prepareTokenImg() {
-    if (game.settings.get('pf2e', 'defaultTokenSettings')) {
-      if (this.data.token.img === 'icons/svg/mystery-man.svg' && this.data.token.img !== this.img) {
-        this.data.token.img = this.img;
-      }
     }
 
-  }
+    /**
+     * Augment the basic actor data with additional dynamic data.
+     */
+    prepareData(): void {
+        super.prepareData();
 
-  /* -------------------------------------------- */
+        // Synchronize the token image with the actor image, if the token does not currently have an image.
+        this._prepareTokenImg();
 
-  prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
-    const { data } = actorData;
-    const initSkill = data.attributes?.initiative?.ability || 'perception';
-    const modifiers: PF2Modifier[] = [];
+        // Prepare character & npc data; primarily attribute and action calculation.
+        const actorData = this.data;
 
-    ['initiative'].forEach((key) => {
-      const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
-      (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => {
-        // checks if predicated rule is true with only skill name option
-        if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
-          // toggles these so the predicate rule will be included when totalmodifier is calculated
-          m.enabled = true;
-          m.ignored = false;
+        if ('traits' in actorData.data) {
+            // TODO: Migrate trait storage format
+            const map = {
+                dr: CONFIG.PF2E.damageTypes,
+                di: CONFIG.PF2E.damageTypes,
+                dv: CONFIG.PF2E.damageTypes,
+                ci: CONFIG.PF2E.conditionTypes,
+                languages: CONFIG.PF2E.languages,
+            };
+            for (const [t, choices] of Object.entries(map)) {
+                const trait = actorData.data.traits[t];
+                if (trait === undefined) continue;
+                if (!(trait.value instanceof Array)) {
+                    trait.value = TraitSelector5e._backCompat(trait.value, choices);
+                }
+            }
         }
-        modifiers.push(m)});
-    });
-    const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
-    const skillName = game.i18n.localize(initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill]);
-    
-    const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
-    stat.ability = initSkill;
-    stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-    stat.roll = (event, options = []) => {
-      const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
-      // push skill name to options if not already there
-      if (!options.includes(skillFullName)) {
-        options.push(skillFullName);
-      }
-      PF2Check.roll(new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative), { actor: this, type: 'initiative', options }, event, (roll) => {
-        this._applyInitiativeRollToCombatTracker(roll);
-      });
-    };
-
-    data.attributes.initiative = stat;
-  }
-
-  _applyInitiativeRollToCombatTracker(roll: Roll) {
-    if (roll) {
-      // check that there is a combat active in this scene
-      if (!game.combat) {
-        ui.notifications.error("No active encounters in the Combat Tracker.");
-        return;
-      }
-
-      const combatant = game.combat.turns.find(c => c.actor.id === this._id)
-      if (combatant === undefined) {
-        ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-        return;
-      }
-      game.combat.setInitiative(combatant._id, roll.total);
-    } else {
-      console.log("PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ", roll);
     }
-  }
 
-  /** Obtain the first equipped armor the character has. */
-  getFirstWornArmor(): ArmorData {
-      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-          .filter((armor) => armor.data.armorType.value !== 'shield')
-          .find((armor) => armor.data.equipped.value);
-  }
-
-  /** Obtain the first equipped shield the character has. */
-  getFirstEquippedShield(): ArmorData {
-      return this.data.items.filter((item): item is ArmorData => item.type === 'armor')
-          .filter(armor => armor.data.armorType.value === 'shield')
-          .find(shield => shield.data.equipped.value);
-  }
-
-  /** Convert a comma-delimited list of traits into an array of traits. */
-  static traits(source: string | string[]): string[] {
-    return parseTraits(source);
-  }
-
-  /* -------------------------------------------- */
-
-  onCreateOwnedItem(child, options, userId) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
-    if (!this.can(game.user, 'update')) return;
-    const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = this._getTokenData();
-    const actorUpdates = {};
-    for (const rule of rules) {
-      rule.onCreate(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
+    _prepareTokenImg() {
+        if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+            if (this.data.token.img === 'icons/svg/mystery-man.svg' && this.data.token.img !== this.img) {
+                this.data.token.img = this.img;
+            }
+        }
     }
-    this._updateAllTokens(actorUpdates, tokens);
-  }
 
-  onDeleteOwnedItem(child, options, userId) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
-    if (!this.can(game.user, 'update')) return;
-    const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-    const tokens = this._getTokenData();
-    const actorUpdates = {};
-    for (const rule of rules) {
-      rule.onDelete(<CharacterData|NpcData> this.data, child, actorUpdates, Object.values(tokens));
-    }
-    this._updateAllTokens(actorUpdates, tokens);
-  }
+    /* -------------------------------------------- */
 
-  /**
-   * Builds an object with ID to token data mappings, for all tokens associated with this actor. The data has been
-   * duplicated so it can easily be changed and used for updating the token instances.
-   */
-  protected _getTokenData(): Record<string, any> {
-    const tokens = {};
-    if (this.isToken) {
-      tokens[this.token.data._id] = duplicate(canvas.tokens.get(this.token.data._id).data);
-    } else {
-      for (const scene of game.scenes.values()) {
-        scene.getEmbeddedCollection('Token')
-          .filter(token => token.actorLink && token.actorId === this.id)
-          .map(token => duplicate(token))
-          .forEach(token => { tokens[token._id] = token; });
-      }
-    }
-    return tokens;
-  }
+    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
+        const { data } = actorData;
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
+        const modifiers: PF2Modifier[] = [];
 
-  async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>) {
-    const promises = [];
-    if (actorUpdates && !isObjectEmpty(actorUpdates)) {
-      promises.push(this.update(actorUpdates));
-    }
-    for (const scene of game.scenes.values()) {
-      const local = scene.getEmbeddedCollection('Token')
-        .filter(token => (this.isToken && token._id === this.token.data._id) || (token.actorLink && token.actorId === this.id))
-        .map(token => tokens[token._id])
-        .filter(token => !!token)
-        .map(token => {
-          if (!token.actorLink) {
-            token.actorData = token.actorData ?? {};
-            mergeObject(token.actorData, actorUpdates);
-          }
-          return token;
+        ['initiative'].forEach((key) => {
+            const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
+            (statisticsModifiers[key] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    // checks if predicated rule is true with only skill name option
+                    if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
+                        // toggles these so the predicate rule will be included when totalmodifier is calculated
+                        m.enabled = true;
+                        m.ignored = false;
+                    }
+                    modifiers.push(m);
+                });
         });
-      promises.push(scene.updateEmbeddedEntity('Token', local));
+        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+        const skillName = game.i18n.localize(
+            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill],
+        );
+
+        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+        stat.ability = initSkill;
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.roll = (event, options = []) => {
+            const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
+            // push skill name to options if not already there
+            if (!options.includes(skillFullName)) {
+                options.push(skillFullName);
+            }
+            PF2Check.roll(
+                new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+                { actor: this, type: 'initiative', options },
+                event,
+                (roll) => {
+                    this._applyInitiativeRollToCombatTracker(roll);
+                },
+            );
+        };
+
+        data.attributes.initiative = stat;
     }
-    return Promise.all(promises);
-  }
 
-  async createEmbeddedEntity(embeddedName, data, options?: undefined): Promise<PF2EActor> {
-    if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
-      ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
-      return null;
-    } else if (this.data.type === 'vehicle' && !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(data.type)) {
-      ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
-      return null;
-    } else {
-      return super.createEmbeddedEntity(embeddedName, data, options);
-    }
-  }
+    _applyInitiativeRollToCombatTracker(roll: Roll) {
+        if (roll) {
+            // check that there is a combat active in this scene
+            if (!game.combat) {
+                ui.notifications.error('No active encounters in the Combat Tracker.');
+                return;
+            }
 
-  /** Compute custom stat modifiers provided by users or given by conditions. */
-  protected _prepareCustomModifiers(actorData: CharacterData | NpcData | FamiliarData, rules: PF2RuleElement[]): {
-    statisticsModifiers: Record<string, PF2Modifier[]>,
-    damageDice: Record<string, PF2DamageDice[]>,
-    strikes: any[]
-  } {
-    // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-    const statisticsModifiers: Record<string, PF2Modifier[]> = {};
-    const damageDice: Record<string, PF2DamageDice[]> = {};
-    const strikes: WeaponData[] = [];
-
-    rules.forEach(rule => {
-        try {
-            rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice, strikes);
-        } catch (error) {
-            // ensure that a failing rule element does not block actor initialization
-            console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            const combatant = game.combat.turns.find((c) => c.actor.id === this._id);
+            if (combatant === undefined) {
+                ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
+                return;
+            }
+            game.combat.setInitiative(combatant._id, roll.total);
+        } else {
+            console.log(
+                'PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ',
+                roll,
+            );
         }
-    });
-
-    // Get all of the active conditions (from the item array), and add their modifiers.
-    const conditions = actorData.items.filter((i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active);
-
-    for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
-      statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
     }
 
-    // Character-specific custom modifiers & custom damage dice.
-    if (['character', 'familiar', 'npc'].includes(actorData.type)) {
-      const {data} = actorData;
-
-      // Custom Modifiers (which affect d20 rolls and damage).
-      data.customModifiers = data.customModifiers ?? {};
-    for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-        statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
-      }
-
-      // Damage Dice (which add dice to damage rolls).
-      data.damageDice = data.damageDice ?? {};
-      for (const [attack, dice] of Object.entries(data.damageDice)) {
-        damageDice[attack] = (damageDice[attack] || []).concat(dice);
-      }
+    /** Obtain the first equipped armor the character has. */
+    getFirstWornArmor(): ArmorData {
+        return this.data.items
+            .filter((item): item is ArmorData => item.type === 'armor')
+            .filter((armor) => armor.data.armorType.value !== 'shield')
+            .find((armor) => armor.data.equipped.value);
     }
 
-    return {
-      statisticsModifiers,
-      damageDice,
-      strikes,
-    };
-  }
-
-  getStrikeDescription(item: WeaponData) {
-    const flavor = {
-      description: 'PF2E.Strike.Default.Description',
-      criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
-      success: 'PF2E.Strike.Default.Success',
-    };
-    if (PF2EActor.traits(item?.data?.traits?.value).includes('unarmed')) {
-      flavor.description = 'PF2E.Strike.Unarmed.Description';
-      flavor.success = 'PF2E.Strike.Unarmed.Success';
-    } else if (PF2EActor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
-      flavor.description = 'PF2E.Strike.Combined.Description';
-      flavor.success = 'PF2E.Strike.Combined.Success';
-    } else if (item?.data?.range?.value === 'melee') {
-      flavor.description = 'PF2E.Strike.Melee.Description';
-      flavor.success = 'PF2E.Strike.Melee.Success';
-    } else if ((item?.data?.range?.value ?? 0) > 0) {
-      flavor.description = 'PF2E.Strike.Ranged.Description';
-      flavor.success = 'PF2E.Strike.Ranged.Success';
-    }
-    return flavor;
-  }
-
-  /* -------------------------------------------- */
-  /*  Rolls                                       */
-  /* -------------------------------------------- */
-
-  /**
-   * Roll a Skill Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollSkill(event: JQuery.Event, skillName: string) {
-    const skl = this.data.data.skills[skillName];
-    const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
-    const parts = ['@mod', '@itemBonus'];
-    const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
-
-    // Call the roll helper utility
-    DicePF2e.d20Roll({
-      event,
-      parts,
-      data: {
-        mod: skl.value - skl.item,
-        itemBonus: skl.item
-      },
-      title: flavor,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-    });
-  }
-
-  /**
-   * Roll a Recovery Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollRecovery(event: JQuery.Event) {
-    if (this.data.type !== 'character') {
-      throw Error("Recovery rolls are only applicable to characters");
+    /** Obtain the first equipped shield the character has. */
+    getFirstEquippedShield(): ArmorData {
+        return this.data.items
+            .filter((item): item is ArmorData => item.type === 'armor')
+            .filter((armor) => armor.data.armorType.value === 'shield')
+            .find((shield) => shield.data.equipped.value);
     }
 
-    const dying = this.data.data.attributes.dying.value;
-    // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-    const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
-    const recoveryDc = 10 + recoveryMod;
-    const flatCheck = new Roll("1d20").roll();
-    const dc = recoveryDc + dying;
-    let result = '';
-
-    if (flatCheck.total === 20 || flatCheck.total >= (dc+10)) {
-      result = `${game.i18n.localize("PF2E.CritSuccess")} ${game.i18n.localize("PF2E.Recovery.critSuccess")}`;
-    } else if (flatCheck.total === 1 || flatCheck.total <= (dc-10)) {
-      result = `${game.i18n.localize("PF2E.CritFailure")} ${game.i18n.localize("PF2E.Recovery.critFailure")}`;
-    } else if (flatCheck.result >= dc) {
-      result = `${game.i18n.localize("PF2E.Success")} ${game.i18n.localize("PF2E.Recovery.success")}`;
-    } else {
-      result = `${game.i18n.localize("PF2E.Failure")} ${game.i18n.localize("PF2E.Recovery.failure")}`;
+    /** Convert a comma-delimited list of traits into an array of traits. */
+    static traits(source: string | string[]): string[] {
+        return parseTraits(source);
     }
-    const rollingDescription = game.i18n.format("PF2E.Recovery.rollingDescription", { dc, dying });
 
-    const message = `
+    /* -------------------------------------------- */
+
+    onCreateOwnedItem(child, options, userId) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
+        if (!this.can(game.user, 'update')) return;
+        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const tokens = this._getTokenData();
+        const actorUpdates = {};
+        for (const rule of rules) {
+            rule.onCreate(<CharacterData | NpcData>this.data, child, actorUpdates, Object.values(tokens));
+        }
+        this._updateAllTokens(actorUpdates, tokens);
+    }
+
+    onDeleteOwnedItem(child, options, userId) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
+        if (!this.can(game.user, 'update')) return;
+        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const tokens = this._getTokenData();
+        const actorUpdates = {};
+        for (const rule of rules) {
+            rule.onDelete(<CharacterData | NpcData>this.data, child, actorUpdates, Object.values(tokens));
+        }
+        this._updateAllTokens(actorUpdates, tokens);
+    }
+
+    /**
+     * Builds an object with ID to token data mappings, for all tokens associated with this actor. The data has been
+     * duplicated so it can easily be changed and used for updating the token instances.
+     */
+    protected _getTokenData(): Record<string, any> {
+        const tokens = {};
+        if (this.isToken) {
+            tokens[this.token.data._id] = duplicate(canvas.tokens.get(this.token.data._id).data);
+        } else {
+            for (const scene of game.scenes.values()) {
+                scene
+                    .getEmbeddedCollection('Token')
+                    .filter((token) => token.actorLink && token.actorId === this.id)
+                    .map((token) => duplicate(token))
+                    .forEach((token) => {
+                        tokens[token._id] = token;
+                    });
+            }
+        }
+        return tokens;
+    }
+
+    async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>) {
+        const promises = [];
+        if (actorUpdates && !isObjectEmpty(actorUpdates)) {
+            promises.push(this.update(actorUpdates));
+        }
+        for (const scene of game.scenes.values()) {
+            const local = scene
+                .getEmbeddedCollection('Token')
+                .filter(
+                    (token) =>
+                        (this.isToken && token._id === this.token.data._id) ||
+                        (token.actorLink && token.actorId === this.id),
+                )
+                .map((token) => tokens[token._id])
+                .filter((token) => !!token)
+                .map((token) => {
+                    if (!token.actorLink) {
+                        token.actorData = token.actorData ?? {};
+                        mergeObject(token.actorData, actorUpdates);
+                    }
+                    return token;
+                });
+            promises.push(scene.updateEmbeddedEntity('Token', local));
+        }
+        return Promise.all(promises);
+    }
+
+    async createEmbeddedEntity(embeddedName, data, options?: undefined): Promise<PF2EActor> {
+        if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
+            ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
+            return null;
+        } else if (
+            this.data.type === 'vehicle' &&
+            !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(data.type)
+        ) {
+            ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
+            return null;
+        } else {
+            return super.createEmbeddedEntity(embeddedName, data, options);
+        }
+    }
+
+    /** Compute custom stat modifiers provided by users or given by conditions. */
+    protected _prepareCustomModifiers(
+        actorData: CharacterData | NpcData | FamiliarData,
+        rules: PF2RuleElement[],
+    ): {
+        statisticsModifiers: Record<string, PF2Modifier[]>;
+        damageDice: Record<string, PF2DamageDice[]>;
+        strikes: any[];
+    } {
+        // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
+        const statisticsModifiers: Record<string, PF2Modifier[]> = {};
+        const damageDice: Record<string, PF2DamageDice[]> = {};
+        const strikes: WeaponData[] = [];
+
+        rules.forEach((rule) => {
+            try {
+                rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice, strikes);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            }
+        });
+
+        // Get all of the active conditions (from the item array), and add their modifiers.
+        const conditions = actorData.items.filter(
+            (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
+        );
+
+        for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
+            statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
+        }
+
+        // Character-specific custom modifiers & custom damage dice.
+        if (['character', 'familiar', 'npc'].includes(actorData.type)) {
+            const { data } = actorData;
+
+            // Custom Modifiers (which affect d20 rolls and damage).
+            data.customModifiers = data.customModifiers ?? {};
+            for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+                statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+            }
+
+            // Damage Dice (which add dice to damage rolls).
+            data.damageDice = data.damageDice ?? {};
+            for (const [attack, dice] of Object.entries(data.damageDice)) {
+                damageDice[attack] = (damageDice[attack] || []).concat(dice);
+            }
+        }
+
+        return {
+            statisticsModifiers,
+            damageDice,
+            strikes,
+        };
+    }
+
+    getStrikeDescription(item: WeaponData) {
+        const flavor = {
+            description: 'PF2E.Strike.Default.Description',
+            criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
+            success: 'PF2E.Strike.Default.Success',
+        };
+        if (PF2EActor.traits(item?.data?.traits?.value).includes('unarmed')) {
+            flavor.description = 'PF2E.Strike.Unarmed.Description';
+            flavor.success = 'PF2E.Strike.Unarmed.Success';
+        } else if (PF2EActor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
+            flavor.description = 'PF2E.Strike.Combined.Description';
+            flavor.success = 'PF2E.Strike.Combined.Success';
+        } else if (item?.data?.range?.value === 'melee') {
+            flavor.description = 'PF2E.Strike.Melee.Description';
+            flavor.success = 'PF2E.Strike.Melee.Success';
+        } else if ((item?.data?.range?.value ?? 0) > 0) {
+            flavor.description = 'PF2E.Strike.Ranged.Description';
+            flavor.success = 'PF2E.Strike.Ranged.Success';
+        }
+        return flavor;
+    }
+
+    /* -------------------------------------------- */
+    /*  Rolls                                       */
+    /* -------------------------------------------- */
+
+    /**
+     * Roll a Skill Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollSkill(event: JQuery.Event, skillName: string) {
+        const skl = this.data.data.skills[skillName];
+        const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
+        const parts = ['@mod', '@itemBonus'];
+        const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
+
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: {
+                mod: skl.value - skl.item,
+                itemBonus: skl.item,
+            },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+        });
+    }
+
+    /**
+     * Roll a Recovery Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollRecovery(event: JQuery.Event) {
+        if (this.data.type !== 'character') {
+            throw Error('Recovery rolls are only applicable to characters');
+        }
+
+        const dying = this.data.data.attributes.dying.value;
+        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
+        const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
+        const recoveryDc = 10 + recoveryMod;
+        const flatCheck = new Roll('1d20').roll();
+        const dc = recoveryDc + dying;
+        let result = '';
+
+        if (flatCheck.total === 20 || flatCheck.total >= dc + 10) {
+            result = `${game.i18n.localize('PF2E.CritSuccess')} ${game.i18n.localize('PF2E.Recovery.critSuccess')}`;
+        } else if (flatCheck.total === 1 || flatCheck.total <= dc - 10) {
+            result = `${game.i18n.localize('PF2E.CritFailure')} ${game.i18n.localize('PF2E.Recovery.critFailure')}`;
+        } else if (flatCheck.result >= dc) {
+            result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
+        } else {
+            result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
+        }
+        const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', { dc, dying });
+
+        const message = `
       ${rollingDescription}.
       <div class="dice-roll">
         <div class="dice-formula" style="padding: 0 10px; word-break: normal;">
@@ -427,150 +456,163 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
       </div>
       `;
 
-      flatCheck.toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this }),
-        flavor: message
-      }, {
-        rollMode: game.settings.get('core', 'rollMode'),
-      });
+        flatCheck.toMessage(
+            {
+                speaker: ChatMessage.getSpeaker({ actor: this }),
+                flavor: message,
+            },
+            {
+                rollMode: game.settings.get('core', 'rollMode'),
+            },
+        );
 
-      // No automated update yet, not sure if Community wants that.
-      // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll a Lore (Item) Skill Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
-    const { data } = item;
-    if (data.type !== 'lore') {
-      throw Error("Can only roll lore skills using lore items");
+        // No automated update yet, not sure if Community wants that.
+        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
     }
 
-    const parts = ['@mod', '@itemBonus'];
-    const flavor = `${item.name} Skill Check`;
+    /* -------------------------------------------- */
 
-    let rollMod: number = 0;
-    let itemBonus: number = 0;
-    if (item.actor && item.actor.data && item.actor.data.type === 'character') {
-      const rank = (data.data.proficient?.value || 0);
-      const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
-      const modifier = this.data.data.abilities.int.mod;
+    /**
+     * Roll a Lore (Item) Skill Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
+        const { data } = item;
+        if (data.type !== 'lore') {
+            throw Error('Can only roll lore skills using lore items');
+        }
 
-      itemBonus = Number((data.data.item || {}).value || 0);
-      rollMod = modifier + proficiency;
-    } else if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
-      rollMod = data.data.mod.value;
+        const parts = ['@mod', '@itemBonus'];
+        const flavor = `${item.name} Skill Check`;
+
+        let rollMod: number = 0;
+        let itemBonus: number = 0;
+        if (item.actor && item.actor.data && item.actor.data.type === 'character') {
+            const rank = data.data.proficient?.value || 0;
+            const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
+            const modifier = this.data.data.abilities.int.mod;
+
+            itemBonus = Number((data.data.item || {}).value || 0);
+            rollMod = modifier + proficiency;
+        } else if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
+            rollMod = data.data.mod.value;
+        }
+
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: {
+                mod: rollMod,
+                itemBonus,
+            },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+        });
     }
 
-    // Call the roll helper utility
-    DicePF2e.d20Roll({
-      event,
-      parts,
-      data: {
-        mod: rollMod,
-        itemBonus
-      },
-      title: flavor,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-    });
-  }
+    /* -------------------------------------------- */
+    /**
+     * Roll a Save Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollSave(event: JQuery.Event, saveName: string) {
+        const save = this.data.data.saves[saveName];
+        const parts = ['@mod', '@itemBonus'];
+        const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
 
-  /* -------------------------------------------- */
-  /**
-   * Roll a Save Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollSave(event: JQuery.Event, saveName: string) {
-    const save = this.data.data.saves[saveName];
-    const parts = ['@mod', '@itemBonus'];
-    const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: {
+                mod: save.value - (save.item ?? 0),
+                itemBonus: save.item ?? 0,
+            },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+        });
+    }
 
-    // Call the roll helper utility
-    DicePF2e.d20Roll({
-      event,
-      parts,
-      data: {
-        mod: save.value - (save.item ?? 0),
-        itemBonus: save.item ?? 0 
-      },
-      title: flavor,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-    });
-  }
+    /**
+     * Roll an Ability Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollAbility(event: JQuery.Event, abilityName: string) {
+        const skl = this.data.data.abilities[abilityName];
+        const parts = ['@mod'];
+        const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
 
-  /**
-   * Roll an Ability Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollAbility(event: JQuery.Event, abilityName: string) {
-    const skl = this.data.data.abilities[abilityName];
-    const parts = ['@mod'];
-    const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: { mod: skl.mod },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+        });
+    }
 
-    // Call the roll helper utility
-    DicePF2e.d20Roll({
-      event,
-      parts,
-      data: { mod: skl.mod },
-      title: flavor,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-    });
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Roll a Attribute Check
+     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+     * @param skill {String}    The skill id
+     */
+    rollAttribute(event: JQuery.Event, attributeName: string) {
+        const skl = this.data.data.attributes[attributeName];
+        const parts = ['@mod', '@itemBonus'];
+        const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: {
+                mod: skl.value - (skl.item ?? 0),
+                itemBonus: skl.item,
+            },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+        });
+    }
 
-  /**
-   * Roll a Attribute Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
-   */
-  rollAttribute(event: JQuery.Event, attributeName: string) {
-    const skl = this.data.data.attributes[attributeName];
-    const parts = ['@mod', '@itemBonus'];
-    const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
-    // Call the roll helper utility
-    DicePF2e.d20Roll({
-      event,
-      parts,
-      data: {
-        mod: skl.value - (skl.item??0),
-        itemBonus: skl.item
-      },
-      title: flavor,
-      speaker: ChatMessage.getSpeaker({ actor: this }),
-    });
-  }
+    /* -------------------------------------------- */
 
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply rolled dice damage to the token or tokens which are currently controlled.
-   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-   *
-   * @param {JQuery} roll    The chat entry which contains the roll data
-   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-   * @return {Promise}
-   */
-  static async applyDamage(roll: JQuery, multiplier: number, attribute: string = 'attributes.hp', modifier: number = 0) {
-    if (canvas.tokens.controlled.length > 0) {
-      const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
-      const messageSender = roll.find('.message-sender').text();
-      const flavorText = roll.find('.flavor-text').text();
-      const shieldFlavor = (attribute === 'attributes.shield') ? game.i18n.localize("PF2E.UI.applyDamage.shieldActive") : game.i18n.localize("PF2E.UI.applyDamage.shieldInActive");
-      for (const t of canvas.tokens.controlled) {
-        const appliedResult = (value>0) ? game.i18n.localize("PF2E.UI.applyDamage.damaged") + value : game.i18n.localize("PF2E.UI.applyDamage.healed") + value*-1;
-        const modifiedByGM = modifier!==0 ? `Modified by GM: ${modifier<0 ? '-' : '+'}${modifier}` : '';
-        const by = game.i18n.localize("PF2E.UI.applyDamage.by");
-        const hitpoints = game.i18n.localize("PF2E.HitPointsHeader").toLowerCase();
-        const message = `
+    /**
+     * Apply rolled dice damage to the token or tokens which are currently controlled.
+     * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+     *
+     * @param {JQuery} roll    The chat entry which contains the roll data
+     * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
+     * @return {Promise}
+     */
+    static async applyDamage(
+        roll: JQuery,
+        multiplier: number,
+        attribute: string = 'attributes.hp',
+        modifier: number = 0,
+    ) {
+        if (canvas.tokens.controlled.length > 0) {
+            const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
+            const messageSender = roll.find('.message-sender').text();
+            const flavorText = roll.find('.flavor-text').text();
+            const shieldFlavor =
+                attribute === 'attributes.shield'
+                    ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
+                    : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
+            for (const t of canvas.tokens.controlled) {
+                const appliedResult =
+                    value > 0
+                        ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
+                        : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
+                const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
+                const by = game.i18n.localize('PF2E.UI.applyDamage.by');
+                const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
+                const message = `
           <div class="dice-roll">
           <div class="dice-result">
             <div class="dice-tooltip dmg-tooltip" style="display: none;">
@@ -588,78 +630,78 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
           </div>
           `;
 
-        t.actor.modifyTokenAttribute(attribute, value*-1, true, true).then(() => {
-          ChatMessage.create({
-            user: game.user._id,
-            speaker: { alias: t.name },
-            content: message,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER
-          });
-        });
-      }
-    } else {
-      ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Apply rolled dice damage to the token or tokens which are currently controlled.
-   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-   *
-   * @return {Promise}
-   */
-  static async rollSave(ev, item) {
-    if (canvas.tokens.controlled.length > 0) {
-      for (const t of canvas.tokens.controlled) {
-        const actor = t.actor as PF2EActor;
-        const save = $(ev.currentTarget).attr('data-save');
-        const itemTraits = item?.data?.data?.traits?.value;
-
-        if (actor.data.data.saves[save]?.roll) {
-          let opts = actor.getRollOptions(['all', 'saving-throw', save]);
-          if (itemTraits) {
-            opts = opts.concat(itemTraits);
-          }
-          actor.data.data.saves[save].roll(ev, opts);
+                t.actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
+                    ChatMessage.create({
+                        user: game.user._id,
+                        speaker: { alias: t.name },
+                        content: message,
+                        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    });
+                });
+            }
         } else {
-          actor.rollSave(ev, save);
+            ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
+            return false;
         }
-      }
-    } else {
-      ui.notifications.error(game.i18n.localize("PF2E.UI.errorTargetToken"));
-      return false;
+        return true;
     }
-    return true;
-  }
 
-  /**
-   * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-   * @param {JQuery} roll    The chat entry which contains the roll data
-   */
-  static async setCombatantInitiative(roll: JQuery) {
-    const skillRolled = roll.find('.flavor-text').text();
-    const valueRolled = parseFloat(roll.find('.dice-total').text());
-    const promises = [];
-    for (const t of canvas.tokens.controlled) {
-      if (!game.combat) {
-        ui.notifications.error("No active encounters in the Combat Tracker.");
-        return;
-      }
+    /**
+     * Apply rolled dice damage to the token or tokens which are currently controlled.
+     * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+     *
+     * @return {Promise}
+     */
+    static async rollSave(ev, item) {
+        if (canvas.tokens.controlled.length > 0) {
+            for (const t of canvas.tokens.controlled) {
+                const actor = t.actor as PF2EActor;
+                const save = $(ev.currentTarget).attr('data-save');
+                const itemTraits = item?.data?.data?.traits?.value;
 
-      const combatant = game.combat.getCombatantByToken(t.id);
-      if(combatant === undefined) {
-        ui.notifications.error("You haven't added this token to the Combat Tracker.");
-        return;
-      }
+                if (actor.data.data.saves[save]?.roll) {
+                    let opts = actor.getRollOptions(['all', 'saving-throw', save]);
+                    if (itemTraits) {
+                        opts = opts.concat(itemTraits);
+                    }
+                    actor.data.data.saves[save].roll(ev, opts);
+                } else {
+                    actor.rollSave(ev, save);
+                }
+            }
+        } else {
+            ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
+            return false;
+        }
+        return true;
+    }
 
-      // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
-      let value = valueRolled;
-      if (!combatant.actor.hasPlayerOwner) {
-        value += 0.5;
-      }
-      const message = `
+    /**
+     * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
+     * @param {JQuery} roll    The chat entry which contains the roll data
+     */
+    static async setCombatantInitiative(roll: JQuery) {
+        const skillRolled = roll.find('.flavor-text').text();
+        const valueRolled = parseFloat(roll.find('.dice-total').text());
+        const promises = [];
+        for (const t of canvas.tokens.controlled) {
+            if (!game.combat) {
+                ui.notifications.error('No active encounters in the Combat Tracker.');
+                return;
+            }
+
+            const combatant = game.combat.getCombatantByToken(t.id);
+            if (combatant === undefined) {
+                ui.notifications.error("You haven't added this token to the Combat Tracker.");
+                return;
+            }
+
+            // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
+            let value = valueRolled;
+            if (!combatant.actor.hasPlayerOwner) {
+                value += 0.5;
+            }
+            const message = `
       <div class="dice-roll">
       <div class="dice-result">
         <div class="dice-tooltip" style="display: none;">
@@ -673,441 +715,465 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
       </div>
       </div>
       `;
-      ChatMessage.create({
-        user: game.user._id,
-        speaker: { alias: t.name },
-        content: message,
-        whisper: ChatMessage.getWhisperRecipients("GM"),
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER
-      });
+            ChatMessage.create({
+                user: game.user._id,
+                speaker: { alias: t.name },
+                content: message,
+                whisper: ChatMessage.getWhisperRecipients('GM'),
+                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            });
 
-      promises.push(
-        game.combat.setInitiative(combatant._id, value),
-      );
+            promises.push(game.combat.setInitiative(combatant._id, value));
+        }
+
+        await Promise.all(promises);
     }
 
-    await Promise.all(promises);
-  }
-
-  /* -------------------------------------------- */
-  /* Owned Item Management
+    /* -------------------------------------------- */
+    /* Owned Item Management
   /* -------------------------------------------- */
 
-  async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
-    if (!entryId || !spellLevel) {
-      // TODO: Consider throwing an error on null inputs in the future.
-      return;
-    }
+    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
+        if (!entryId || !spellLevel) {
+            // TODO: Consider throwing an error on null inputs in the future.
+            return;
+        }
 
-    const spellcastingEntry = this.getOwnedItem(entryId);
-    if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') {
-      return;
-    }
+        const spellcastingEntry = this.getOwnedItem(entryId);
+        if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') {
+            return;
+        }
 
-    if (spellcastingEntry.data.data?.prepared?.value === "prepared" && spellcastingEntry.data.data?.showUnpreparedSpells?.value === false) {
-      if (CONFIG.debug.hooks === true) {
-        console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
-      }
+        if (
+            spellcastingEntry.data.data?.prepared?.value === 'prepared' &&
+            spellcastingEntry.data.data?.showUnpreparedSpells?.value === false
+        ) {
+            if (CONFIG.debug.hooks === true) {
+                console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
+            }
 
-      const currentLvlToDisplay = {};
-      currentLvlToDisplay[spellLevel] = true;
-      await this.updateEmbeddedEntity('OwnedItem', {
-        _id: entryId,
-        'data.showUnpreparedSpells.value': true,
-        'data.displayLevels': currentLvlToDisplay
-      });
+            const currentLvlToDisplay = {};
+            currentLvlToDisplay[spellLevel] = true;
+            await this.updateEmbeddedEntity('OwnedItem', {
+                _id: entryId,
+                'data.showUnpreparedSpells.value': true,
+                'data.displayLevels': currentLvlToDisplay,
+            });
+        }
     }
-  }
 
     /* -------------------------------------------- */
 
-  /**
-   * Handle how changes to a Token attribute bar are applied to the Actor.
-   * This allows for game systems to override this behavior and deploy special logic.
-   * @param {string} attribute    The attribute path
-   * @param {number} value        The target attribute value
-   * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
-   * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
-   */
-  async modifyTokenAttribute(attribute: string, value: number, isDelta: boolean = false, isBar: boolean = true): Promise<PF2EActor> {
-    if (value === undefined || value === null || Number.isNaN(value)) {
-      return Promise.reject();
-    }
+    /**
+     * Handle how changes to a Token attribute bar are applied to the Actor.
+     * This allows for game systems to override this behavior and deploy special logic.
+     * @param {string} attribute    The attribute path
+     * @param {number} value        The target attribute value
+     * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
+     * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
+     */
+    async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta: boolean = false,
+        isBar: boolean = true,
+    ): Promise<PF2EActor> {
+        if (value === undefined || value === null || Number.isNaN(value)) {
+            return Promise.reject();
+        }
 
-    if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
-      const updateActorData = {};
-      let updateShieldData;
-      if (attribute === 'attributes.shield') {
-        const shield = this.getFirstEquippedShield();
-        if (shield) {
-          let shieldHitPoints = shield.data.hp.value;
-          if (isDelta && value < 0) {
-            // shield block
-            value = Math.min(shield.data.hardness.value + value, 0); // value is now a negative modifier (or zero), taking into account hardness
-            if (value < 0) {
-              attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
-              shieldHitPoints = Math.clamped(shield.data.hp.value + value, 0, shield.data.maxHp.value);
+        if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
+            const updateActorData = {};
+            let updateShieldData;
+            if (attribute === 'attributes.shield') {
+                const shield = this.getFirstEquippedShield();
+                if (shield) {
+                    let shieldHitPoints = shield.data.hp.value;
+                    if (isDelta && value < 0) {
+                        // shield block
+                        value = Math.min(shield.data.hardness.value + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+                        if (value < 0) {
+                            attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
+                            shieldHitPoints = Math.clamped(shield.data.hp.value + value, 0, shield.data.maxHp.value);
+                        }
+                    } else {
+                        shieldHitPoints = Math.clamped(value, 0, shield.data.maxHp.value);
+                    }
+                    shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
+                    updateActorData['data.attributes.shield.value'] = shieldHitPoints;
+                    // actor update is necessary to properly refresh the token HUD resource bar
+                    updateShieldData = {
+                        _id: shield._id,
+                        data: { hp: { value: shieldHitPoints } }, // unfolding is required when update is forced regardless of diff
+                    };
+                } else if (isDelta) {
+                    attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
+                }
             }
-          } else {
-            shieldHitPoints = Math.clamped(value, 0, shield.data.maxHp.value)
-          }
-          shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
-          updateActorData['data.attributes.shield.value'] = shieldHitPoints;
-          // actor update is necessary to properly refresh the token HUD resource bar
-          updateShieldData = {
-            '_id': shield._id,
-            data: { hp: { value: shieldHitPoints } } // unfolding is required when update is forced regardless of diff
-          };
-        } else if (isDelta) {
-          attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
-        }
-      }
 
-      if (attribute === 'attributes.hp') {
-        const {hp, sp} = this.data.data.attributes;
-        if (isDelta) {
-          if (value < 0) {
-            const { update, delta } = this._calculateHealthDelta({hp, sp, delta: value});
-            value = delta;
-            for (const [k, v] of Object.entries(update)) {
-              updateActorData[k] = v;
+            if (attribute === 'attributes.hp') {
+                const { hp, sp } = this.data.data.attributes;
+                if (isDelta) {
+                    if (value < 0) {
+                        const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
+                        value = delta;
+                        for (const [k, v] of Object.entries(update)) {
+                            updateActorData[k] = v;
+                        }
+                    }
+                    value = Math.clamped(Number(hp.value) + value, 0, hp.max);
+                }
+                value = Math.clamped(value, 0, hp.max);
+                updateActorData['data.attributes.hp.value'] = value;
             }
-          }
-          value = Math.clamped(Number(hp.value) + value, 0, hp.max);
+
+            return this.update(updateActorData).then(() => {
+                if (updateShieldData) {
+                    // this will trigger a second prepareData() call, but is necessary for persisting the shield state
+                    this.updateOwnedItem(updateShieldData, { diff: false });
+                }
+                return this;
+            }) as Promise<PF2EActor>;
         }
-        value = Math.clamped(value, 0, hp.max);
-        updateActorData['data.attributes.hp.value'] = value;
-      }
+        return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
+    }
 
-      return this.update(updateActorData).then(() => {
-        if (updateShieldData) {
-          // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-          this.updateOwnedItem(updateShieldData, { diff: false });
+    /**
+     * Moves an item to another actor's inventory.
+     * @param {sourceActor} Instance of actor sending the item.
+     * @param {targetActor} Instance of actor to receiving the item.
+     * @param {item}        Instance of the item being transferred.
+     * @param {quantity}    Number of items to move.
+     * @param {containerId} Id of the container that will contain the item.
+     */
+    static async transferItemToActor(
+        sourceActor: PF2EActor,
+        targetActor: PF2EActor,
+        item: PF2EItem,
+        quantity: number,
+        containerId: string,
+    ): Promise<PF2EItem> {
+        if (!isPhysicalItem(item.data)) {
+            throw Error('Only physical items (with quantities) can be transfered between actors');
         }
-        return this;
-      }) as Promise<PF2EActor>;
-    }
-    return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
-  }
 
-  /**
-   * Moves an item to another actor's inventory.
-   * @param {sourceActor} Instance of actor sending the item.
-   * @param {targetActor} Instance of actor to receiving the item.
-   * @param {item}        Instance of the item being transferred.
-   * @param {quantity}    Number of items to move.
-   * @param {containerId} Id of the container that will contain the item.
-   */
-  static async transferItemToActor(sourceActor: PF2EActor, targetActor: PF2EActor, item: PF2EItem,
-                                   quantity: number, containerId: string): Promise<PF2EItem> {
-    if (!isPhysicalItem(item.data)) {
-      throw Error("Only physical items (with quantities) can be transfered between actors");
-    }
+        if (!sourceActor.can(game.user, 'update')) {
+            ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
+            return null;
+        }
+        if (!targetActor.can(game.user, 'update')) {
+            ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
+            return null;
+        }
 
-    if (!sourceActor.can(game.user, 'update')) {
-        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
-        return null;
-    }
-    if (!targetActor.can(game.user, 'update')) {
-        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
-        return null;
-    }
+        // Limit the amount of items transfered to how many are actually available.
+        const sourceItemQuantity = Number(item.data.data.quantity.value);
+        quantity = Math.min(quantity, sourceItemQuantity);
 
+        // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.
+        const newItemQuantity = sourceItemQuantity - quantity;
+        const hasToRemoveFromSource = newItemQuantity < 1;
 
-    // Limit the amount of items transfered to how many are actually available.
-    const sourceItemQuantity = Number(item.data.data.quantity.value);
-    quantity = Math.min(quantity, sourceItemQuantity);
+        if (hasToRemoveFromSource) {
+            await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+        } else {
+            const update = { _id: item._id, 'data.quantity.value': newItemQuantity };
+            await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+        }
 
-    // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.
-    const newItemQuantity = sourceItemQuantity - quantity;
-    const hasToRemoveFromSource = newItemQuantity < 1;
+        const newItemData = duplicate(item);
+        if (!isPhysicalItem(newItemData)) {
+            throw Error('this should never happen - item should be physical, but is not');
+        }
+        newItemData.data.quantity.value = quantity;
 
-    if (hasToRemoveFromSource) {
-      await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
-    } else {
-      const update = { '_id': item._id, 'data.quantity.value': newItemQuantity };
-      await sourceActor.updateEmbeddedEntity('OwnedItem', update);
-    }
-    
-    const newItemData = duplicate(item);
-    if (!isPhysicalItem(newItemData)) {
-      throw Error("this should never happen - item should be physical, but is not");
-    }
-    newItemData.data.quantity.value = quantity;
-   
-    const result = await targetActor.createOwnedItem(newItemData);
-    const itemInTargetActor = targetActor.getOwnedItem(result._id);
-    
-    return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
-  }
+        const result = await targetActor.createOwnedItem(newItemData);
+        const itemInTargetActor = targetActor.getOwnedItem(result._id);
 
-  /**
-   * Moves an item into the inventory into or out of a container.
-   * @param {actor}       Actor whose inventory should be edited.
-   * @param {getItem}     Lambda returning the item.
-   * @param {containerId} Id of the container that will contain the item.
-   */
-  static async stashOrUnstash(actor: PF2EActor, getItem: () => Promise<PF2EItem>, containerId: string): Promise<PF2EItem> {
-      const item = await getItem();
-      if (!item) return null;
-
-      if (containerId) {
-          if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
-              return item.update({
-                  'data.containerId.value': containerId,
-                  'data.equipped.value': false,
-              });
-          }
-          return item;
-      }
-
-      return item.update({'data.containerId.value': ''});
-  }
-
-  /**
-   * Handle how changes to a Token attribute bar are applied to the Actor.
-   * This allows for game systems to override this behavior and deploy special logic.
-   */
-  _calculateHealthDelta(args: {
-    hp: { value: number; temp: number; };
-    sp: { value: number; temp: number; };
-    delta: number
-  }) {
-    const update = {};
-    const {hp, sp} = args;
-    let {delta} = args;
-    if ((hp.temp + delta) >= 0) {
-      update['data.attributes.hp.temp'] = hp.temp + delta;
-      delta = 0;
-    } else {
-      update['data.attributes.hp.temp'] = 0;
-      delta = hp.temp + delta;
-    }
-    if (game.settings.get('pf2e', 'staminaVariant') > 0 && delta < 0) {
-      if ((sp.value + delta) >= 0) {
-        update['data.attributes.sp.value'] = sp.value + delta;
-        delta = 0;
-      } else {
-        update['data.attributes.sp.value'] = 0;
-        delta = sp.value + delta;
-      }
-    }
-    return {
-      update,
-      delta
-    };
-  }
-
-  static getActionGraphics(actionType: string, actionCount?: number): {imageUrl: string, actionGlyph: string} {
-    let actionImg: number|string = 0;
-    if (actionType === 'action') actionImg = actionCount ?? 1;
-    else if (actionType === 'reaction') actionImg = 'reaction';
-    else if (actionType === 'free') actionImg = 'free';
-    else if (actionType === 'passive') actionImg = 'passive';
-    const graphics = {
-      1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
-      2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
-      3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
-      free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
-      reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
-      passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
-    };
-    const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
-    return {
-      imageUrl: actionGraphics.imageUrl,
-      actionGlyph: actionGraphics.actionGlyph,
-    };
-  }
-
-  /**
-   * Adds a custom modifier that will be included when determining the final value of a stat. The
-   * name parameter must be unique for the custom modifiers for the specified stat, or it will be
-   * ignored.
-   */
-  async addCustomModifier(stat: string, name: string, value: number, type: string,
-                          predicate?: { all?: string[], any?: string[], not?: string[] }, damageType?: string,
-                          damageCategory?: string
-  ) {
-    // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
-    // similar to how addDamageDice operates.
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
+        return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }
 
-    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
-    if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-      const modifier = new PF2Modifier(name, value, type);
-      if (damageType) {
-        modifier.damageType = damageType;
-      }
-      if (damageCategory) {
-        modifier.damageCategory = damageCategory;
-      }
-      modifier.custom = true;
+    /**
+     * Moves an item into the inventory into or out of a container.
+     * @param {actor}       Actor whose inventory should be edited.
+     * @param {getItem}     Lambda returning the item.
+     * @param {containerId} Id of the container that will contain the item.
+     */
+    static async stashOrUnstash(
+        actor: PF2EActor,
+        getItem: () => Promise<PF2EItem>,
+        containerId: string,
+    ): Promise<PF2EItem> {
+        const item = await getItem();
+        if (!item) return null;
 
-      // modifier predicate
-      modifier.predicate = predicate ?? {};
-      if (!(modifier.predicate instanceof PF2ModifierPredicate)) {
-        modifier.predicate =  new PF2ModifierPredicate(modifier.predicate);
-      }
-      modifier.ignored = !modifier.predicate.test([]);
+        if (containerId) {
+            if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
+                return item.update({
+                    'data.containerId.value': containerId,
+                    'data.equipped.value': false,
+                });
+            }
+            return item;
+        }
 
-      customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-      await this.update({'data.customModifiers': customModifiers});
-    }
-  }
-
-  /** Removes a custom modifier by name. */
-  async removeCustomModifier(stat: string, modifier: number | string) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom modifiers only work for characters, NPCs, and familiars");
+        return item.update({ 'data.containerId.value': '' });
     }
 
-    const customModifiers = duplicate(this.data.data.customModifiers ?? {});
-    if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
-      customModifiers[stat].splice(modifier, 1);
-      await this.update({'data.customModifiers': customModifiers});
-    } else if (typeof modifier === 'string' && customModifiers[stat]) {
-      customModifiers[stat] = customModifiers[stat].filter(m => m.name !== modifier);
-      await this.update({'data.customModifiers': customModifiers});
-    } else {
-      throw Error("Custom modifiers can only be removed by name (string) or index (number)");
-    }
-  }
-
-  /**
-   * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
-   *
-   * @param {DexterityModifierCapData} dexCap
-   */
-  async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
-    }
-    if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
-      throw new Error('numeric value is mandatory');
-    }
-    if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
-      throw new Error('source of cap is mandatory');
-    }
-
-    await this.update({'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap)});
-  }
-
-  /**
-   * Removes a previously added Dexterity modifier cap to AC.
-   */
-  async removeDexterityModifierCap(source: string) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom dexterity caps only work for characters, NPCs, and familiars");
-    }
-    if (!source) {
-      throw new Error('source of cap is mandatory');
+    /**
+     * Handle how changes to a Token attribute bar are applied to the Actor.
+     * This allows for game systems to override this behavior and deploy special logic.
+     */
+    _calculateHealthDelta(args: {
+        hp: { value: number; temp: number };
+        sp: { value: number; temp: number };
+        delta: number;
+    }) {
+        const update = {};
+        const { hp, sp } = args;
+        let { delta } = args;
+        if (hp.temp + delta >= 0) {
+            update['data.attributes.hp.temp'] = hp.temp + delta;
+            delta = 0;
+        } else {
+            update['data.attributes.hp.temp'] = 0;
+            delta = hp.temp + delta;
+        }
+        if (game.settings.get('pf2e', 'staminaVariant') > 0 && delta < 0) {
+            if (sp.value + delta >= 0) {
+                update['data.attributes.sp.value'] = sp.value + delta;
+                delta = 0;
+            } else {
+                update['data.attributes.sp.value'] = 0;
+                delta = sp.value + delta;
+            }
+        }
+        return {
+            update,
+            delta,
+        };
     }
 
-    // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
-    if (this.data.data.attributes.dexCap) {
-      const updated = this.data.data.attributes.dexCap.filter(cap => cap.source !== source);
-      await this.update({'data.attributes.dexCap': updated});
-    }
-  }
-
-  /** Adds custom damage dice. */
-  async addDamageDice(param: PF2DamageDice) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
-    }
-
-    const damageDice = duplicate(this.data.data.damageDice ?? {});
-    if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
-      // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
-      param.selector = param?.selector ?? 'damage';
-      param.custom = true;
-
-      // The damage dice constructor performs some basic validations for us, like checking that the
-      // name and selector are both defined.
-      const dice = new PF2DamageDice(param);
-
-      damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
-      await this.update({'data.damageDice': damageDice});
-    }
-  }
-
-  /** Removes damage dice by name. */
-  async removeDamageDice(selector: string, dice: number | string) {
-    if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
-      throw Error("Custom damage dice only work for characters, NPCs, and familiars");
+    static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
+        let actionImg: number | string = 0;
+        if (actionType === 'action') actionImg = actionCount ?? 1;
+        else if (actionType === 'reaction') actionImg = 'reaction';
+        else if (actionType === 'free') actionImg = 'free';
+        else if (actionType === 'passive') actionImg = 'passive';
+        const graphics = {
+            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
+            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
+            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
+            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
+            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
+            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+        };
+        const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
+        return {
+            imageUrl: actionGraphics.imageUrl,
+            actionGlyph: actionGraphics.actionGlyph,
+        };
     }
 
-    const damageDice = duplicate(this.data.data.damageDice ?? {});
-    if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
-      damageDice[selector].splice(dice, 1);
-      await this.update({'data.damageDice': damageDice});
-    } else if (typeof dice === 'string' && damageDice[selector]) {
-      damageDice[selector] = damageDice[selector].filter(d => d.name !== dice);
-      await this.update({'data.damageDice': damageDice});
-    } else {
-      throw Error("Dice can only be removed by name (string) or index (number)");
+    /**
+     * Adds a custom modifier that will be included when determining the final value of a stat. The
+     * name parameter must be unique for the custom modifiers for the specified stat, or it will be
+     * ignored.
+     */
+    async addCustomModifier(
+        stat: string,
+        name: string,
+        value: number,
+        type: string,
+        predicate?: { all?: string[]; any?: string[]; not?: string[] },
+        damageType?: string,
+        damageCategory?: string,
+    ) {
+        // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
+        // similar to how addDamageDice operates.
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom modifiers only work for characters, NPCs, and familiars');
+        }
+
+        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+        if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
+            const modifier = new PF2Modifier(name, value, type);
+            if (damageType) {
+                modifier.damageType = damageType;
+            }
+            if (damageCategory) {
+                modifier.damageCategory = damageCategory;
+            }
+            modifier.custom = true;
+
+            // modifier predicate
+            modifier.predicate = predicate ?? {};
+            if (!(modifier.predicate instanceof PF2ModifierPredicate)) {
+                modifier.predicate = new PF2ModifierPredicate(modifier.predicate);
+            }
+            modifier.ignored = !modifier.predicate.test([]);
+
+            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
+            await this.update({ 'data.customModifiers': customModifiers });
+        }
     }
-  }
 
-  /** Toggle the given roll option (swapping it from true to false, or vice versa). */
-  async toggleRollOption(rollName: string, optionName: string) {
-    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-      throw new Error(`${rollName} is not a supported roll`);
+    /** Removes a custom modifier by name. */
+    async removeCustomModifier(stat: string, modifier: number | string) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom modifiers only work for characters, NPCs, and familiars');
+        }
+
+        const customModifiers = duplicate(this.data.data.customModifiers ?? {});
+        if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
+            customModifiers[stat].splice(modifier, 1);
+            await this.update({ 'data.customModifiers': customModifiers });
+        } else if (typeof modifier === 'string' && customModifiers[stat]) {
+            customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
+            await this.update({ 'data.customModifiers': customModifiers });
+        } else {
+            throw Error('Custom modifiers can only be removed by name (string) or index (number)');
+        }
     }
-    const flag = `rollOptions.${rollName}.${optionName}`;
-    return this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
-  }
 
-  /** Set the given roll option. */
-  async setRollOption(rollName: string, optionName: string, enabled: boolean) {
-    if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
-      throw new Error(`${rollName} is not a supported roll`);
+    /**
+     * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
+     *
+     * @param {DexterityModifierCapData} dexCap
+     */
+    async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
+        }
+        if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
+            throw new Error('numeric value is mandatory');
+        }
+        if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
+            throw new Error('source of cap is mandatory');
+        }
+
+        await this.update({ 'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap) });
     }
-    const flag = `rollOptions.${rollName}.${optionName}`;
-    return this.setFlag(game.system.id, flag, !!enabled);
-  }
 
-  /** Unset (i.e., delete entirely) the given roll option. */
-  async unsetRollOption(rollName: string, optionName: string) {
-    const flag = `rollOptions.${rollName}.${optionName}`;
-    return this.unsetFlag(game.system.id, flag);
-  }
+    /**
+     * Removes a previously added Dexterity modifier cap to AC.
+     */
+    async removeDexterityModifierCap(source: string) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
+        }
+        if (!source) {
+            throw new Error('source of cap is mandatory');
+        }
 
-  /** Enable the given roll option for thie given roll name. */
-  async enableRollOption(rollName: string, optionName: string) {
-    return this.setRollOption(rollName, optionName, true);
-  }
+        // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
+        if (this.data.data.attributes.dexCap) {
+            const updated = this.data.data.attributes.dexCap.filter((cap) => cap.source !== source);
+            await this.update({ 'data.attributes.dexCap': updated });
+        }
+    }
 
-  /** Disable the given roll option for the given roll name. */
-  async disableRollOption(rollName: string, optionName: string) {
-    return this.setRollOption(rollName, optionName, false);
-  }
+    /** Adds custom damage dice. */
+    async addDamageDice(param: PF2DamageDice) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom damage dice only work for characters, NPCs, and familiars');
+        }
 
-  /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
-  getRollOptions(rollNames: string[]): string[] {
-    return PF2EActor.getRollOptions(this.data.flags, rollNames);
-  }
+        const damageDice = duplicate(this.data.data.damageDice ?? {});
+        if (!(damageDice[param.selector] ?? []).find((d) => d.name === param.name)) {
+            // Default new dice to apply to all damage rolls, and ensure we mark this as a custom damage dice source.
+            param.selector = param?.selector ?? 'damage';
+            param.custom = true;
 
-  static getRollOptions(flags: BaseEntityData["flags"], rollNames: string[]): string[] {
-    const flag: Record<string, Record<string, boolean>> = flags[game.system.id]?.rollOptions ?? {};
-    return rollNames.flatMap(rollName =>
-      // convert flag object to array containing the names of all fields with a truthy value
-      Object.entries(flag[rollName] ?? {}).reduce((opts, [key, value]) => opts.concat(value ? key : []), [] as string[])
-    ).reduce((unique, option) => {
-      // ensure option entries are unique
-      return unique.includes(option) ? unique : unique.concat(option);
-    }, [] as string[]);
-  }
+            // The damage dice constructor performs some basic validations for us, like checking that the
+            // name and selector are both defined.
+            const dice = new PF2DamageDice(param);
 
-  getAbilityMod(ability: string): number {
-    return this.data.data.abilities[ability].mod;
-  }
+            damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
+            await this.update({ 'data.damageDice': damageDice });
+        }
+    }
 
-  get level(): number {
-    return this.data.data.details.level.value;
-  }
+    /** Removes damage dice by name. */
+    async removeDamageDice(selector: string, dice: number | string) {
+        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+            throw Error('Custom damage dice only work for characters, NPCs, and familiars');
+        }
+
+        const damageDice = duplicate(this.data.data.damageDice ?? {});
+        if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
+            damageDice[selector].splice(dice, 1);
+            await this.update({ 'data.damageDice': damageDice });
+        } else if (typeof dice === 'string' && damageDice[selector]) {
+            damageDice[selector] = damageDice[selector].filter((d) => d.name !== dice);
+            await this.update({ 'data.damageDice': damageDice });
+        } else {
+            throw Error('Dice can only be removed by name (string) or index (number)');
+        }
+    }
+
+    /** Toggle the given roll option (swapping it from true to false, or vice versa). */
+    async toggleRollOption(rollName: string, optionName: string) {
+        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
+            throw new Error(`${rollName} is not a supported roll`);
+        }
+        const flag = `rollOptions.${rollName}.${optionName}`;
+        return this.setFlag(game.system.id, flag, !this.getFlag(game.system.id, flag));
+    }
+
+    /** Set the given roll option. */
+    async setRollOption(rollName: string, optionName: string, enabled: boolean) {
+        if (!SUPPORTED_ROLL_OPTIONS.includes(rollName) && !this.data.data.skills[rollName]) {
+            throw new Error(`${rollName} is not a supported roll`);
+        }
+        const flag = `rollOptions.${rollName}.${optionName}`;
+        return this.setFlag(game.system.id, flag, !!enabled);
+    }
+
+    /** Unset (i.e., delete entirely) the given roll option. */
+    async unsetRollOption(rollName: string, optionName: string) {
+        const flag = `rollOptions.${rollName}.${optionName}`;
+        return this.unsetFlag(game.system.id, flag);
+    }
+
+    /** Enable the given roll option for thie given roll name. */
+    async enableRollOption(rollName: string, optionName: string) {
+        return this.setRollOption(rollName, optionName, true);
+    }
+
+    /** Disable the given roll option for the given roll name. */
+    async disableRollOption(rollName: string, optionName: string) {
+        return this.setRollOption(rollName, optionName, false);
+    }
+
+    /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
+    getRollOptions(rollNames: string[]): string[] {
+        return PF2EActor.getRollOptions(this.data.flags, rollNames);
+    }
+
+    static getRollOptions(flags: BaseEntityData['flags'], rollNames: string[]): string[] {
+        const flag: Record<string, Record<string, boolean>> = flags[game.system.id]?.rollOptions ?? {};
+        return rollNames
+            .flatMap((rollName) =>
+                // convert flag object to array containing the names of all fields with a truthy value
+                Object.entries(flag[rollName] ?? {}).reduce(
+                    (opts, [key, value]) => opts.concat(value ? key : []),
+                    [] as string[],
+                ),
+            )
+            .reduce((unique, option) => {
+                // ensure option entries are unique
+                return unique.includes(option) ? unique : unique.concat(option);
+            }, [] as string[]);
+    }
+
+    getAbilityMod(ability: string): number {
+        return this.data.data.abilities[ability].mod;
+    }
+
+    get level(): number {
+        return this.data.data.details.level.value;
+    }
 }
 
 export class PF2EHazard extends PF2EActor {}
