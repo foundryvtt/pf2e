@@ -17,38 +17,34 @@ const throwPackError = (message) => {
 // include commander in git clone of commander repo
 
 const args = yargs(process.argv.slice(2))
-      .command(
-          '$0 <packDb> [foundryConfig]',
-          'Extract one or all compendium packs to packs/data',
-          () => {
-              yargs
-                  .positional('packDb', {
-                      describe: 'A compendium pack filename (*.db) or otherwise "all"',
-                  })
-                  .positional('foundryConfig', {
-                      describe: "The path to your local Foundry server's config.json file",
-                      default: 'foundryconfig.json',
-                  })
-                  .example([
-                      ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
-                      ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
-                      ['npm run $0 spells.db # copy of config at ./foundryconfig.json'],
-                      ['npm run $0 all       # same']
-                  ]);
-          })
-      .check((argv) => {
-          if (!(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())) {
-              throw Error(`Error: No config file found at "${argv.foundryConfig}"`);
-          }
-          return true;
-      })
-      .help(false)
-      .version(false)
-      .parse();
-
+    .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
+        yargs
+            .positional('packDb', {
+                describe: 'A compendium pack filename (*.db) or otherwise "all"',
+            })
+            .positional('foundryConfig', {
+                describe: "The path to your local Foundry server's config.json file",
+                default: 'foundryconfig.json',
+            })
+            .example([
+                ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
+                ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
+                ['npm run $0 spells.db # copy of config at ./foundryconfig.json'],
+                ['npm run $0 all       # same'],
+            ]);
+    })
+    .check((argv) => {
+        if (!(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())) {
+            throw Error(`Error: No config file found at "${argv.foundryConfig}"`);
+        }
+        return true;
+    })
+    .help(false)
+    .version(false)
+    .parse();
 
 const config = (() => {
-    const content = fs.readFileSync(args.foundryConfig, {encoding: 'utf-8'});
+    const content = fs.readFileSync(args.foundryConfig, { encoding: 'utf-8' });
     try {
         return JSON.parse(content);
     } catch (_error) {
@@ -66,7 +62,7 @@ const idsToNames = new Map();
 const linkPatterns = {
     world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
     compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
-    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/
+    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/,
 };
 
 function entityIdChanged(newEntity, packDir, fileName) {
@@ -83,7 +79,7 @@ function entityIdChanged(newEntity, packDir, fileName) {
 function sanitizeEntity(entity) {
     // Remove individual permissions
     entity.permission = {
-        default: 0
+        default: 0,
     };
 
     // Delete folder value
@@ -115,6 +111,21 @@ function sanitizeEntity(entity) {
             return entity;
         }
 
+        // Be rid of span tags from AoN copypasta
+        const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
+        for (const selector of selectors) {
+            $description.find(selector).each((_i, span) => {
+                $(span)
+                    .contents()
+                    .unwrap(selector)
+                    .each((_j, node) => {
+                        if (node.nodeName === '#text') {
+                            node.textContent = node.textContent.trim();
+                        }
+                    });
+            });
+        }
+
         // Reject Foundry's attempt to change compendium links into HTML anchors
         const $anchors = $description.find('a.entity-link');
         $anchors.each((_i, anchor) => {
@@ -126,21 +137,13 @@ function sanitizeEntity(entity) {
             $anchor.contents().unwrap();
         });
 
-        // Be rid of span tags from AoN copypasta
-        $description.find('> span[id]').each((_i, span) => {
-            $(span).contents().unwrap('span[id]').each((_j, node) => {
-                if (node.nodeName === '#text') {
-                    node.textContent = node.textContent.trim();
-                }
-            });
-        });
         entity.data.description.value = $('<div>').append($description).html();
     }
 
     return entity;
 }
 
-const newEntityIdMap = { };
+const newEntityIdMap = {};
 
 function convertLinks(entityData, packName) {
     newEntityIdMap[entityData._id] = entityData.name;
@@ -155,8 +158,7 @@ function convertLinks(entityData, packName) {
         console.warn(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
     }
 
-    const compendiumLinks = Array.from(
-        entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
+    const compendiumLinks = Array.from(entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
     const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith('{'));
 
     if (linksLackingLabels.length > 0) {
@@ -166,7 +168,7 @@ function convertLinks(entityData, packName) {
 
     // Convert links by ID to links by name
 
-    const notFound = [ ];
+    const notFound = [];
     const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
         const [match, packId, entityId] = linkById.match(linkPatterns.components);
 
@@ -192,19 +194,20 @@ function convertLinks(entityData, packName) {
     // In case some new items with links to other new items weren't found
     if (notFound.length > 0) {
         const idsNotFound = notFound.join(', ');
-        console.debug(`Warning: Unable to find names for the following links in ${entityData.name} `
-                      + `(${packName}): ${idsNotFound}`);
+        console.debug(
+            `Warning: Unable to find names for the following links in ${entityData.name} ` +
+                `(${packName}): ${idsNotFound}`,
+        );
     }
 
     return JSON.parse(convertedJson);
 }
 
-
 async function getAllData(filename) {
     const packDB = Datastore.create({ filename, corruptAlertThreshold: 10 });
     await packDB.load();
 
-    return packDB.find({ });
+    return packDB.find({});
 }
 
 async function extractPack(filePath, packFilename) {
@@ -221,7 +224,7 @@ async function extractPack(filePath, packFilename) {
         // Pretty print JSON data
         const outData = (() => {
             const allKeys = new Set();
-            const idKeys = [ ];
+            const idKeys = [];
             JSON.stringify(preparedEntity, (key, value) => {
                 if (idPattern.test(key)) {
                     idKeys.push(key);
@@ -239,11 +242,11 @@ async function extractPack(filePath, packFilename) {
 
         // Remove all non-alphanumeric characters from the name
         const entityName = entityData.name
-              .toLowerCase()
-              .replace(/[^a-z0-9]/gi, ' ')
-              .trim()
-              .replace(/\s+/g, '-')
-              .replace(/-{2,}/g, '-');
+            .toLowerCase()
+            .replace(/[^a-z0-9]/gi, ' ')
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/-{2,}/g, '-');
 
         const outFileName = `${entityName}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
@@ -253,9 +256,11 @@ async function extractPack(filePath, packFilename) {
         }
 
         if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
-            throwPackError(`The ID "${entityData._id}" of entity "${entityData.name}" does not match `
-                           + 'the current ID. Entities that are already in the system must keep their '
-                           + 'current ID.');
+            throwPackError(
+                `The ID "${entityData._id}" of entity "${entityData.name}" does not match ` +
+                    'the current ID. Entities that are already in the system must keep their ' +
+                    'current ID.',
+            );
         }
 
         // Write the JSON file
@@ -268,15 +273,11 @@ async function extractPack(filePath, packFilename) {
 }
 
 function populateIdNameMap() {
-    const systemPackData = JSON.parse(
-        fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8')
-    ).packs;
+    const systemPackData = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8')).packs;
     const packDirs = fs.readdirSync(dataPath);
 
     for (const packDir of packDirs) {
-        const systemPack = systemPackData.find(
-            (pack) => path.basename(pack.path) === packDir
-        );
+        const systemPack = systemPackData.find((pack) => path.basename(pack.path) === packDir);
         if (systemPack === undefined) {
             throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
         }
@@ -317,55 +318,57 @@ async function extractPacks() {
 
     populateIdNameMap();
 
-
     const foundryPacks = (args.packDb === 'all' ? fs.readdirSync(packsPath) : [args.packDb])
-          .filter((filename) => filename.endsWith('.db'))
-          .map((filename) => path.resolve(packsPath, filename));
+        .filter((filename) => filename.endsWith('.db'))
+        .map((filename) => path.resolve(packsPath, filename));
 
-    return (await Promise.all(foundryPacks.map(async (filePath) => {
-        const filename = path.basename(filePath);
+    return (
+        await Promise.all(
+            foundryPacks.map(async (filePath) => {
+                const filename = path.basename(filePath);
 
-        if (!filename.endsWith('.db')) {
-            throwPackError(`Pack file is not a DB file: '${filename}'`);
-        }
-        if (!fs.existsSync(filePath)) {
-            throwPackError(`File not found: '${filename}'`);
-        }
+                if (!filename.endsWith('.db')) {
+                    throwPackError(`Pack file is not a DB file: '${filename}'`);
+                }
+                if (!fs.existsSync(filePath)) {
+                    throwPackError(`File not found: '${filename}'`);
+                }
 
-        const outDirPath = path.resolve(dataPath, filename);
-        const tempOutDirPath = path.resolve(tempDataPath, filename);
+                const outDirPath = path.resolve(dataPath, filename);
+                const tempOutDirPath = path.resolve(tempDataPath, filename);
 
-        await fs.promises.mkdir(tempOutDirPath);
+                await fs.promises.mkdir(tempOutDirPath);
 
-        const entityCount = await extractPack(filePath, filename);
+                const entityCount = await extractPack(filePath, filename);
 
-        if (fs.existsSync(outDirPath)) {
-            // Remove the old ./packs/data/[packname].db/ directory recursively
-            await fs.promises.rmdir(outDirPath, { recursive: true });
-        }
-        // Create a new ./packs/data/[packname].db/ directory
-        await fs.promises.mkdir(outDirPath);
+                if (fs.existsSync(outDirPath)) {
+                    // Remove the old ./packs/data/[packname].db/ directory recursively
+                    await fs.promises.rmdir(outDirPath, { recursive: true });
+                }
+                // Create a new ./packs/data/[packname].db/ directory
+                await fs.promises.mkdir(outDirPath);
 
-        // Move files from ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
-        const tempFiles = await fs.promises.readdir(path.resolve(tempDataPath, filename));
+                // Move files from ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
+                const tempFiles = await fs.promises.readdir(path.resolve(tempDataPath, filename));
 
-        for await (const tempFile of tempFiles) {
-            fs.promises.rename(
-                path.resolve(tempOutDirPath, tempFile), path.resolve(outDirPath, tempFile)
-            );
-        }
+                for await (const tempFile of tempFiles) {
+                    fs.promises.rename(path.resolve(tempOutDirPath, tempFile), path.resolve(outDirPath, tempFile));
+                }
 
-        // Remove ./packs/temp-data/ directory recursively
+                // Remove ./packs/temp-data/ directory recursively
 
-        console.log(`Finished extracting ${entityCount} entities from pack ${filename}`);
-        return entityCount;
-
-    }))).reduce((runningTotal, entityCount) => runningTotal + entityCount, 0);
+                console.log(`Finished extracting ${entityCount} entities from pack ${filename}`);
+                return entityCount;
+            }),
+        )
+    ).reduce((runningTotal, entityCount) => runningTotal + entityCount, 0);
 }
 
-extractPacks().then((grandTotal) => {
-    console.log(`Extraction complete (${grandTotal} total entities).`);
-    fs.rmdirSync(tempDataPath, { recursive: true });
-}).catch((error) => {
-    console.error(throwPackError(error));
-});
+extractPacks()
+    .then((grandTotal) => {
+        console.log(`Extraction complete (${grandTotal} total entities).`);
+        fs.rmdirSync(tempDataPath, { recursive: true });
+    })
+    .catch((error) => {
+        console.error(throwPackError(error));
+    });
