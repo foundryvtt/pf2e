@@ -43,6 +43,9 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/ability-box.html',
         'systems/pf2e/templates/actors/npc/partials/npc-header.html',
         'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/rules-panel.html',

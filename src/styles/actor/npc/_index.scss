@@ -112,7 +112,7 @@ $health-color: #A40802;
             display: flex;
             width: 100%;
             font-size: 1.0rem;
-            border-bottom: 2px solid;
+            border-bottom: 1px solid;
             border-color: $faded-color;
             margin-top: 10px;
             margin-bottom: 0px;
@@ -256,7 +256,7 @@ $health-color: #A40802;
             flex: 0 0 1px;
             height: 32px;
             margin-right: 4px;
-            border-left: 2px solid $faded-color;
+            border-left: 2px solid $color;
         }
 
         .effects {
@@ -269,13 +269,13 @@ $health-color: #A40802;
 
             .item-image {
                 background-size: cover;
-                border: 2px solid $color;
-                border-bottom: 2px solid $faded-color;
+                border: 1px solid $color;
+                border-bottom: 1px solid $color;
                 border-radius: 3px;
             }
 
             .item-image:hover {
-                border: 2px solid white;
+                border: 1px solid white;
                 border-radius: 3px;
             }
         }
@@ -325,227 +325,11 @@ $health-color: #A40802;
         text-transform: uppercase;
     }
 
-    .npc-sheet-body {
-        font-size: 14px;
+    .npc-body {
         display: flex;
         flex: 1 0 auto;
-        min-width: 100%;
-        flex-direction: row;
-        justify-content: stretch;
-        overflow-y: auto;
-        height: calc(100% - 77.5px);
-
-        .npc-sidebar {
-            flex: 0 0 64px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .npc-main-body {
-            flex: 1 0;
-            padding: 8px;
-        }
-    }
-
-    .bottom-separator {
-        border-bottom: 2px solid #000;
-    }
-    
-
-    .attribute {
-        display: flex;
-        flex-direction: row;
-        align-items: baseline;
-        justify-content: flex-start;
-        align-items: baseline;
-        flex-wrap: wrap;
-
-        label {
-            flex: 0 0 auto;
-            font-weight: 600;
-            margin-right: 4px;
-        }
-
-        input {
-            flex: 0 0 32px;
-            width: 32px;
-            height: 32px;
-            text-align: center;
-        }
-
-        .extra-info {
-            flex: 1 0 auto;
-            text-align: left !important;
-        }
-
-        .rollable:hover {
-            color: #5d0000;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    }
-
-    .attribute-label {
-        flex: 0 0 auto;
-        font-weight: 600;
-        margin-right: 4px;
-    }
-
-    .attributes-list {
-        display: flex;
-        flex-direction: row;
-        justify-items: flex-start;
-        align-items: baseline;
-
-        .inline-attribute {
-            display: flex;
-            flex-direction: row;
-            align-items: baseline;
-            justify-items: flex-start;
-            flex: 0 0;
-            margin-right: 12px;
-
-            label {
-                flex: 0 0 auto;
-                margin-right: 4px;
-                font-weight: bold;
-            }
-
-            input {
-                flex: 0 0 32px;
-            }
-        }
-    }
-
-
-    .ability-container {
-        display: flex;
         flex-direction: column;
-        justify-content: stretch;
-        margin-bottom: 4px;
-
-        .ability-title {
-            flex: 0 0 auto;
-            background: #5d0000;
-            color: white;
-            border: 2px solid #5d0000;
-            text-transform: uppercase;
-            text-align: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .ability-value {
-            flex: 1 0 auto;
-            border: 2px solid #5d0000;
-            text-align: center;
-        }
-    }
-
-    .language-entry {
-        margin-right: 6px;
-    }
-
-    .sense-entry {
-        margin-right: 6px;
-    }
-
-    .skill-entry {
-        margin-right: 6px;
-    }
-
-    .speed-entry {
-        margin-right: 6px;
-    }
-
-    .weakness-entry,
-    .resistance-entry,
-    .immunity-entry {
-        margin-right: 6px;
-        flex: 0 0 auto;
-    }
-
-    .actions-list {
-        list-style: none;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        padding: 0px;
-        margin: 0px;
-
-        .actions-header {
-            height: 28px;
-            margin: 2px 0;
-            padding: 0px 6px;
-            margin: 0px;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.05);
-            font-weight: bold;
-            border: 2px groove #eeede0;
-            color: $faded-color;
-        }
-
-        .action-name {
-            color: $color;
-            align-items: center;
-            font-weight: bold;
-
-            h4 {
-                margin: 0px;
-                padding: 0px;
-            }
-        }
-
-        .item-image {
-            flex: 0 0 30px;
-            height: 30px;
-            background-size: 30px;
-            border: none;
-            margin-right: 5px;
-        }
-
-        .action-type {
-            flex: 100px 0 0;
-            text-align: center;
-        }
-
-        .action-cost {
-            flex: 50px 0 0;
-            text-align: center;
-
-            img {
-                height: 24px;
-                widows: auto;
-                border: none;
-            }
-        }
-        
-        .action-traits {
-            flex: 350px 0 0;
-            text-align: center;
-        }
-        
-        .action-controls {
-            flex: 64px 0 0;
-            text-align: center;
-        }
-
-        .action {
-            align-items: center;
-            padding: 0 2px; // to align with the header border
-            border-bottom: 1px solid $faded-color;
-            &:last-child { border-bottom: none; }
-        }
-
-        .item-summary {
-            flex: 0 0 100%;
-            font-size: 12px;
-            line-height: 16px;
-            border-bottom: 1px solid $faded-color;
-
-            .tag {
-                color: $color;
-            }
-        }
+        height: 100%;
+        overflow-y: hidden;
     }
 }
