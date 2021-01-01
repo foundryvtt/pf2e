@@ -1,5 +1,5 @@
 /* global FormApplication */
-import {identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs} from '../../item/identification';
+import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
 
 /**
  * @category Other
@@ -17,20 +17,19 @@ export class IdentifyItemPopup extends FormApplication {
     }
 
     async _updateObject(event: Event, formData: any) {
-        const {itemId} = this.options;
+        const { itemId } = this.options;
         const item = this.object.getOwnedItem(itemId);
-        await this.object.updateEmbeddedEntity('OwnedItem', { 
-            _id: itemId, 
+        await this.object.updateEmbeddedEntity('OwnedItem', {
+            _id: itemId,
             'data.identified.value': true,
-            name: item.data.data.originalName ?? item.name
+            name: item.data.data.originalName ?? item.name,
         });
     }
 
     getData() {
         const item = this.object.getOwnedItem(this.options.itemId);
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
-        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant')
-            === 'ProficiencyWithoutLevel';
+        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
         const dcs = identifyItem(item.data, {
             proficiencyWithoutLevel,
             notMatchingTraditionModifier,
@@ -39,6 +38,6 @@ export class IdentifyItemPopup extends FormApplication {
             isMagic: dcs instanceof IdentifyMagicDCs,
             isAlchemical: dcs instanceof IdentifyAlchemyDCs,
             dcs,
-        }; 
+        };
     }
 }

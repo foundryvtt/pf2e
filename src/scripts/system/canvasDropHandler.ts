@@ -1,6 +1,6 @@
-import { ItemData } from "../../module/item/dataDefinitions";
-import { addKit } from "../../module/item/kits";
-import { PF2eConditionManager } from "../../module/conditions";
+import { ItemData } from '../../module/item/dataDefinitions';
+import { addKit } from '../../module/item/kits';
+import { PF2eConditionManager } from '../../module/conditions';
 
 Hooks.on('dropCanvasData', async (c: any, data: any) => {
     const target: any = c.tokens.placeables.find((token: Token) => {
@@ -16,10 +16,10 @@ Hooks.on('dropCanvasData', async (c: any, data: any) => {
 
     if (target?.actor) {
         if (!['character', 'npc'].includes(target.actor.data.type)) return true;
-        
+
         if (data.type === 'Item') {
             let itemData: ItemData;
-            
+
             if (data.pack) {
                 const pack: Compendium = await game.packs.get(data.pack);
                 if (pack) {
@@ -33,22 +33,24 @@ Hooks.on('dropCanvasData', async (c: any, data: any) => {
             }
 
             if (itemData) {
-                if (['weapon',
-                     'armor',
-                     'equipment',
-                     'consumable',
-                     'treasure',
-                     'lore',
-                     'martial',
-                     'feat',
-                     'action',
-                     'backpack',
-                     'kit',
-                     'condition',
-                     'effect'
+                if (
+                    [
+                        'weapon',
+                        'armor',
+                        'equipment',
+                        'consumable',
+                        'treasure',
+                        'lore',
+                        'martial',
+                        'feat',
+                        'action',
+                        'backpack',
+                        'kit',
+                        'condition',
+                        'effect',
                     ].includes(itemData.type)
                 ) {
-                    switch(itemData.type) {
+                    switch (itemData.type) {
                         case 'condition':
                             await PF2eConditionManager.addConditionToToken(itemData, target);
                             return false;
@@ -56,7 +58,7 @@ Hooks.on('dropCanvasData', async (c: any, data: any) => {
                             await addKit(itemData, async (newItems) => {
                                 const items = await target.actor.createEmbeddedEntity('OwnedItem', newItems);
                                 if (Array.isArray(items)) {
-                                    return items.map(item => item._id);
+                                    return items.map((item) => item._id);
                                 }
                                 return [items._id];
                             });
