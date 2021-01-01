@@ -36,7 +36,7 @@
         <section>
             {{{data.details.description.value}}}
         </section>
-        {{#if isGM }}
+        {{#if (and isGM isLoot)}}
         <section class="loot-distribution">
             <button class= "split-coins" type="split-coins" name="split-coins" value="1"><i class="fa fa-coins"></i> {{localize 'PF2E.loot.SplitCoinsLabel'}}</button>
         </section>
