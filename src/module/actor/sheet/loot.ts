@@ -1,8 +1,9 @@
-/* global ChatMessage, CONST, ui */
-import { calculateWealth, addCoinsSimple, calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
+/* global CONST */
+import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
+import { DistributeCoinsPopup } from './DistributeCoinsPopup';
 
 /**
  * @category Actor
@@ -116,63 +117,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         actorData.inventory = inventory;
     }
     
-    _distributeCoins(event) {
-        const playerCount = game.users.players.length;
-        for (let x=0;x<playerCount;x++)
-            if (!game.users.players[x].character){
-                ui.notifications.warn("Ensure all players have an assigned character before attempting automated coin splitting.");
-                return;
-            }
-        const sheetData = super.getData();
-        if (sheetData.items !== undefined)
-        {
-            const sheetCurrency = calculateValueOfCurrency(sheetData.items);
-            const coinShare = {
-                pp:Math.trunc(sheetCurrency.pp / playerCount),
-                gp:Math.trunc(sheetCurrency.gp / playerCount),
-                sp:Math.trunc(sheetCurrency.sp / playerCount),
-                cp:Math.trunc(sheetCurrency.cp / playerCount),
-            };
-            // return if there is nothing to distribute
-            if (coinShare.pp === 0 && coinShare.gp === 0 && coinShare.sp === 0 && coinShare.cp === 0) {
-                ui.notifications.warn ("Nothing to distribute");
-                return;
-            }
-            removeCoinsSimple(
-                this.actor,
-                {coins: {
-                    pp:coinShare.pp * playerCount,
-                    gp:coinShare.gp * playerCount,
-                    sp:coinShare.sp * playerCount,
-                    cp:coinShare.cp * playerCount,
-                }
-            },);
-            let message = `Distributed `;
-            if (coinShare.pp !== 0) message += `${coinShare.pp} pp `;
-            if (coinShare.gp !== 0) message += `${coinShare.gp} gp `;
-            if (coinShare.sp !== 0) message += `${coinShare.sp} sp `;
-            if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
-            message += `each from ${sheetData.actor.name} to `;
-            for (let x=0;x<playerCount;x++) {
-                const actor = game.users.players[x].character;
-
-                addCoinsSimple(actor, {coins: coinShare,combineStacks:true});
-                if (x === 0)
-                    message += `${actor.name}`;
-                else if (x<playerCount-1)
-                    message += `, ${actor.name}`;
-                else
-                    message += ` and ${actor.name}.`;
-            }
-            ChatMessage.create({
-                user: game.user.id,
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                content: message
-            });
-        }
-    }
-
     // Events
+
+    _distributeCoins(event) {
+        event.preventDefault();
+        new DistributeCoinsPopup(this.actor, {}).render(true)
+    }
 
     activateListeners(html) {
         super.activateListeners(html);
@@ -187,4 +137,3 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         }
     }
 }
-

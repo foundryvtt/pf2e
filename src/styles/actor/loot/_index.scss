@@ -1,11 +1,10 @@
 .pf2e.actor.loot {
-    
     .split-coins {
         @include button;
         width: calc(100% - 6px);
         background-color: var(--tertiary);
     }
-    
+
     .currency {
         padding: 2px;
         @include button;
@@ -130,5 +129,26 @@
                 padding: 5px 6px 6px 10px;
             }
         }
+    }
+}
+
+.split-coins-popup {
+    .split-coins {
+        @include button;
+        width: calc(100% - 6px);
+        background-color: var(--tertiary);
+    }
+
+    .checkboxes label {
+        display: block;
+        padding-right: 10px;
+        padding-left: 22px;
+        text-indent: -22px;
+    }
+    .checkboxes input {
+        vertical-align: middle;
+    }
+    .checkboxes label span {
+        vertical-align: middle;
     }
 }
