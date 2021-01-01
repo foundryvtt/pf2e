@@ -97,7 +97,13 @@ function sanitizeEntity(entity) {
 
     // Clean up description HTML
     if (typeof entity.data?.description?.value === 'string') {
-        const $description = $(entity.data.description.value);
+        const $description = (() => {
+            try {
+                return $(entity.data.description.value);
+            } catch (error) {
+                throwPackError(`Failed to parse description of ${entity.name}`);
+            }
+        })();
         // Reject Foundry's attempt to change compendium links into HTML anchors
         const $anchors = $description.find('a.entity-link');
         $anchors.each((_i, anchor) => {
