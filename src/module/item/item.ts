@@ -22,6 +22,7 @@ class ItemTraits {
 export class PF2EItem extends Item<PF2EActor> {
     /** @override */
     data!: ItemData;
+    _data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {

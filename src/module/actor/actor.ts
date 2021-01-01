@@ -88,6 +88,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
 export class PF2EActor extends Actor<PF2EItem> {
     /** @override */
     data!: ActorDataPF2e;
+    _data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
