@@ -281,7 +281,6 @@ $health-color: #A40802;
         }
     }
 
-
     .labelled-field {
         display: flex;
         flex: auto;
@@ -298,6 +297,36 @@ $health-color: #A40802;
             flex: auto;
             font-weight: normal;
             margin-left: 6px !important;
+        }
+    }
+
+    #ability-scores {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .ability-score {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+
+            .ability-score-label {
+                font-weight: bold;
+            }
+
+            input[type="text"] {
+                flex: auto;
+                font-weight: normal;
+                width: 64px;
+            }
         }
     }
     

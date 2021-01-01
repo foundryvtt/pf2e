@@ -1,3 +1,10 @@
 <div class="tab main" data-group="primary" data-tab="main">
-
+    <div id="ability-scores">
+        {{#each data.abilities as |ability id|}}
+        <div class="ability-score" data-attribute="{{id}}">
+            <label class="ability-score-label rollable"><a>{{ ability.localizedCode }}</a></label>
+            <input class="ability-score-value" type="text" name="data.abilities.{{id}}.mod" value="{{ numberFormat ability.mod decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+        </div>
+        {{/each}}
+    </div>
 </div>
