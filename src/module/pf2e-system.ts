@@ -28,5 +28,4 @@ export class PF2eSystem {
         this.DB = mergeObject(DB, translated); // static content
         this.CONFIG = CONFIG.PF2E; // shorthand
     }
-
 }

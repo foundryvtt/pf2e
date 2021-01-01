@@ -15,7 +15,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
             classes: options.classes.concat(['pf2e', 'actor', 'loot']),
             width: 650,
             height: 680,
-            tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "inventory" }],
+            tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
         });
         return options;
     }
@@ -35,8 +35,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const sheetData = super.getData();
 
         // update currency based on items
-        if (sheetData.actor.items !== undefined)
-        {
+        if (sheetData.actor.items !== undefined) {
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasure = {};
             for (const [denomination, value] of Object.entries(treasure)) {
@@ -48,14 +47,14 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         }
 
         // Process default values
-        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value')
+        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
         if (isEditable === undefined) {
             this.actor.setFlag('pf2e', 'editLoot', { value: false });
         }
 
         // Precalculate some data to adapt sheet more easily
-        sheetData.isLoot = sheetData.data.lootSheetType === "Loot";
-        sheetData.isShop = ! sheetData.isLoot;
+        sheetData.isLoot = sheetData.data.lootSheetType === 'Loot';
+        sheetData.isShop = !sheetData.isLoot;
 
         this._prepareItems(sheetData.actor);
 
@@ -67,12 +66,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
     _prepareItems(actorData) {
         const inventory = {
-            weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
-            armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
-            equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [] },
-            consumable: { label: game.i18n.localize("PF2E.InventoryConsumablesHeader"), items: [] },
-            treasure: { label: game.i18n.localize("PF2E.InventoryTreasureHeader"), items: [] },
-            backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
+            weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
+            armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
+            equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
+            consumable: { label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: [] },
+            treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
+            backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
         };
 
         // Iterate through items, allocating to containers
@@ -86,11 +85,11 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
 
         for (const i of actorData.items) {
-            // item identification  
+            // item identification
             i.identified = i.data?.identified?.value ?? true;
             i.showGMInfo = game.user.isGM;
             i.showEdit = i.showGMInfo || i.identified;
-            
+
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);
             i.isContainer = i.containerData.isContainer;
@@ -98,7 +97,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
             i.canBeEquipped = i.isNotInContainer;
             i.isEquipped = i.data?.equipped?.value ?? false;
             i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-            i.hasInvestedTrait = i.data?.traits?.value?.includes("invested") ?? false;
+            i.hasInvestedTrait = i.data?.traits?.value?.includes('invested') ?? false;
             i.isInvested = i.data?.invested?.value ?? false;
 
             // Inventory
@@ -107,21 +106,22 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 i.data.weight.value = i.data.weight.value || 0;
                 const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
                 i.totalWeight = formatBulk(approximatedBulk);
-                i.hasCharges = (i.type === 'consumable') && i.data.charges.max > 0;
-                i.isTwoHanded = (i.type === 'weapon') && !!((i.data.traits.value || []).find((x) => x.startsWith('two-hand')));
-                i.wieldedTwoHanded = (i.type === 'weapon') && (i.data.hands || {}).value;
+                i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
+                i.isTwoHanded =
+                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x) => x.startsWith('two-hand'));
+                i.wieldedTwoHanded = i.type === 'weapon' && (i.data.hands || {}).value;
                 inventory[i.type].items.push(i);
             }
         }
 
         actorData.inventory = inventory;
     }
-    
+
     // Events
 
     _distributeCoins(event) {
         event.preventDefault();
-        new DistributeCoinsPopup(this.actor, {}).render(true)
+        new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
     activateListeners(html) {
@@ -130,7 +130,9 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         const shouldListenToEvents = this.options.editable;
 
         if (shouldListenToEvents) {
-            html.find('.split-coins').removeAttr('disabled').click(ev => this._distributeCoins(ev));
+            html.find('.split-coins')
+                .removeAttr('disabled')
+                .click((ev) => this._distributeCoins(ev));
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });

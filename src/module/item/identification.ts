@@ -6,17 +6,12 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import {isArmorItem, isLevelItem, isPhysicalItem, isWeaponItem, ItemData, PhysicalItemData} from './dataDefinitions';
-import {isBlank, toNumber} from '../utils';
-import {parseTraits} from '../traits';
-import {adjustDCByRarity, calculateDC, DCOptions} from '../dc';
+import { isArmorItem, isLevelItem, isPhysicalItem, isWeaponItem, ItemData, PhysicalItemData } from './dataDefinitions';
+import { isBlank, toNumber } from '../utils';
+import { parseTraits } from '../traits';
+import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
 
-const magicTraditions = new Set([
-    'arcane',
-    'primal',
-    'divine',
-    'occult',
-]);
+const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
 
 function getTraits(itemData: PhysicalItemData): Set<string> {
     return new Set(parseTraits(itemData?.data?.traits?.value));
@@ -59,22 +54,18 @@ export class IdentifyMagicDCs {
         public arc: number,
         public nat: number,
         public rel: number,
-        public occ: number,
-        // eslint-disable-next-line no-empty-function
-    ) {
-    }
+        public occ: number, // eslint-disable-next-line no-empty-function
+    ) {}
 }
 
 export class IdentifyAlchemyDCs {
     // eslint-disable-next-line no-useless-constructor,no-empty-function
-    constructor(public cra: number) {
-    }
+    constructor(public cra: number) {}
 }
 
 export class GenericIdentifyDCs {
     // eslint-disable-next-line no-useless-constructor,no-empty-function
-    constructor(public dc: number) {
-    }
+    constructor(public dc: number) {}
 }
 
 function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTraditionModifier: number) {
@@ -92,21 +83,14 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
             result[key] = baseDc + notMatchingTraditionModifier;
         }
     }
-    return new IdentifyMagicDCs(
-        result.arcane,
-        result.primal,
-        result.divine,
-        result.occult,
-    );
+    return new IdentifyMagicDCs(result.arcane, result.primal, result.divine, result.occult);
 }
 
 function hasRunes(itemData: PhysicalItemData): boolean {
     if (isWeaponItem(itemData)) {
-        return !isBlank(itemData.data?.potencyRune?.value) ||
-            !isBlank(itemData.data?.strikingRune?.value);
+        return !isBlank(itemData.data?.potencyRune?.value) || !isBlank(itemData.data?.strikingRune?.value);
     } else if (isArmorItem(itemData)) {
-        return !isBlank(itemData.data?.potencyRune?.value) ||
-            !isBlank(itemData.data?.resiliencyRune?.value);
+        return !isBlank(itemData.data?.potencyRune?.value) || !isBlank(itemData.data?.resiliencyRune?.value);
     } else {
         return false;
     }
@@ -114,10 +98,9 @@ function hasRunes(itemData: PhysicalItemData): boolean {
 
 export function isMagical(itemData: PhysicalItemData): boolean {
     const traits = getTraits(itemData);
-    return traits.has('magical') ||
-        hasRunes(itemData) ||
-        Array.from(magicTraditions)
-            .some(trait => traits.has(trait));
+    return (
+        traits.has('magical') || hasRunes(itemData) || Array.from(magicTraditions).some((trait) => traits.has(trait))
+    );
 }
 
 function isAlchemical(itemData: PhysicalItemData): boolean {
@@ -130,13 +113,10 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function identifyItem(
     itemData: PhysicalItemData,
-    {
-        proficiencyWithoutLevel = false,
-        notMatchingTraditionModifier,
-    }: IdentifyItemOptions,
+    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const level = isLevelItem(itemData) ? (toNumber(itemData.data.level?.value) ?? 0) : 0;
-    const dc = calculateDC(level, {proficiencyWithoutLevel});
+    const level = isLevelItem(itemData) ? toNumber(itemData.data.level?.value) ?? 0 : 0;
+    const dc = calculateDC(level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(itemData);
     const baseDc = adjustDCByRarity(dc, rarity);
     if (isMagical(itemData)) {

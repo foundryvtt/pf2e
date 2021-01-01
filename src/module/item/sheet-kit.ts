@@ -15,13 +15,15 @@ export class KitItemSheetPF2e extends ItemSheet {
         options.height = 460;
         options.classes = options.classes.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
-        options.tabs = [{
-            navSelector: ".tabs",
-            contentSelector: ".sheet-body",
-            initial: "description"
-        }];
+        options.tabs = [
+            {
+                navSelector: '.tabs',
+                contentSelector: '.sheet-body',
+                initial: 'description',
+            },
+        ];
         options.scrollY = ['.item-details'];
-        options.dragDrop = [{dropSelector: '.item-details'}]
+        options.dragDrop = [{ dropSelector: '.item-details' }];
         options.resizable = false;
         return options;
     }
@@ -38,7 +40,7 @@ export class KitItemSheetPF2e extends ItemSheet {
             hasSidebar: true,
             sidebarTemplate: () => 'systems/pf2e/templates/items/kit-sidebar.html',
             hasDetails: true,
-            detailsTemplate: () => 'systems/pf2e/templates/items/kit-details.html'
+            detailsTemplate: () => 'systems/pf2e/templates/items/kit-details.html',
         });
 
         data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
@@ -66,7 +68,7 @@ export class KitItemSheetPF2e extends ItemSheet {
         const options = {
             name: a.parents('label').attr('for'),
             title: a.parent().text().trim(),
-            choices: CONFIG.PF2E[a.attr('data-options')]
+            choices: CONFIG.PF2E[a.attr('data-options')],
         };
         new TraitSelector5e(this.item, options).render(true);
     }
@@ -80,7 +82,8 @@ export class KitItemSheetPF2e extends ItemSheet {
         const dropTarget = $(event.target);
         const dragData = event.dataTransfer.getData('text/plain');
         const dragItem = JSON.parse(dragData);
-        const containerId = dropTarget.data('containerId') ?? dropTarget.parents('[data-container-id]').data('containerId');
+        const containerId =
+            dropTarget.data('containerId') ?? dropTarget.parents('[data-container-id]').data('containerId');
 
         if (dragItem.type !== 'Item') return;
 
@@ -92,15 +95,7 @@ export class KitItemSheetPF2e extends ItemSheet {
             item = game.items.get(dragItem.id);
         }
 
-        if ([
-            "weapon",
-            "armor",
-            "equipment",
-            "consumable",
-            "treasure",
-            "backpack",
-            "kit",
-        ].includes(item.data.type)) {
+        if (['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].includes(item.data.type)) {
             const entry = {
                 pack: dragItem.pack,
                 id: dragItem.id,
@@ -108,23 +103,23 @@ export class KitItemSheetPF2e extends ItemSheet {
                 quantity: 1,
                 name: item.name,
                 isContainer: item.data.type === 'backpack' && !containerId,
-                items: {}
+                items: {},
             };
 
             let { items } = (<KitData>this.item.data).data;
             let pathPrefix = 'data.items';
 
             if (containerId !== undefined) {
-                pathPrefix = `${pathPrefix}.${containerId}.items`
+                pathPrefix = `${pathPrefix}.${containerId}.items`;
                 items = items[containerId].items;
             }
             let id;
             do {
                 id = randomID(5);
             } while (items[id]);
-            
+
             await this.item.update({
-                [`${pathPrefix}.${id}`]: entry
+                [`${pathPrefix}.${id}`]: entry,
             });
         }
     }
@@ -139,19 +134,17 @@ export class KitItemSheetPF2e extends ItemSheet {
         }
 
         this.item.update({
-            [`data.items.${path}`]: null
+            [`data.items.${path}`]: null,
         });
-
     }
 
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.on('change', 'input[type="checkbox"]', ev => this._onSubmit(ev));
+        html.on('change', 'input[type="checkbox"]', (ev) => this._onSubmit(ev));
 
-        html.on('click', '.trait-selector', ev => this.onTraitSelector(ev));
+        html.on('click', '.trait-selector', (ev) => this.onTraitSelector(ev));
 
-        html.on('click', '[data-action=remove]', ev => this.removeItem(ev));
-
+        html.on('click', '[data-action=remove]', (ev) => this.removeItem(ev));
     }
 }
