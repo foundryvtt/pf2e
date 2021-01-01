@@ -19,6 +19,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             width: 650,
             height: 680,
             showUnpreparedSpells: true,     // Not sure what it does in an NPC, copied from old code
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main"}]
         });
         
         return options;
