@@ -30,7 +30,88 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "rage",
+                "value": -1
+            },
+            {
+                "damageType": "fire",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 8
+                        },
+                        {
+                            "start": 15,
+                            "value": 16
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "fire",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 4
+                        },
+                        {
+                            "start": 15,
+                            "value": 18
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
