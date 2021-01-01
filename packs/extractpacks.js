@@ -98,12 +98,23 @@ function sanitizeEntity(entity) {
     // Clean up description HTML
     if (typeof entity.data?.description?.value === 'string') {
         const $description = (() => {
+            const description = entity.data.description.value;
             try {
-                return $(entity.data.description.value);
-            } catch (error) {
-                throwPackError(`Failed to parse description of ${entity.name}`);
+                return $(description);
+            } catch (_) {
+                try {
+                    return $(`<p>${description}</p>`);
+                } catch (_error) {
+                    console.warn(`Failed to parse description of ${entity.name}`);
+                    return null;
+                }
             }
         })();
+
+        if ($description === null) {
+            return entity;
+        }
+
         // Reject Foundry's attempt to change compendium links into HTML anchors
         const $anchors = $description.find('a.entity-link');
         $anchors.each((_i, anchor) => {
