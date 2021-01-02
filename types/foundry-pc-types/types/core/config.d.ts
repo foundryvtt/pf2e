@@ -1,6 +1,6 @@
 // @TODO: Assign class types
 
-declare const CONFIG: {
+declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Item<ActorType>> {
     /**
      * Configure debugging flags to display additional information
      */
@@ -13,8 +13,8 @@ declare const CONFIG: {
      * Configuration for the default Actor entity class
      */
     Actor: {
-        entityClass: any;
-        collection: Actors;
+        entityClass: { new (data: ActorData, options?: object): ActorType };
+        collection: Actors<ActorType>;
         sheetClasses: typeof ActorSheet;
     };
 
@@ -22,8 +22,8 @@ declare const CONFIG: {
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: any;
-        collection: Items;
+        entityClass: { new (data: BaseItemData, options?: object): ItemType };
+        collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
     };
 
@@ -128,4 +128,4 @@ declare const CONFIG: {
     maxCanvasZoom: number;
 
     [key: string]: any;
-};
+}

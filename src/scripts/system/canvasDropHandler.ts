@@ -2,10 +2,10 @@ import { ItemData } from '../../module/item/dataDefinitions';
 import { addKit } from '../../module/item/kits';
 import { PF2eConditionManager } from '../../module/conditions';
 
-Hooks.on('dropCanvasData', async (c: any, data: any) => {
-    const target: any = c.tokens.placeables.find((token: Token) => {
-        const maximumX = token.x + (token as any).hitArea.right;
-        const maximumY = token.y + (token as any).hitArea.bottom;
+Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
+    const target = c.tokens.placeables.find((token) => {
+        const maximumX = token.x + token.hitArea.right;
+        const maximumY = token.y + token.hitArea.bottom;
 
         if (data.x >= token.x && data.y >= token.y && data.x <= maximumX && data.y <= maximumY) {
             return token;
@@ -21,7 +21,7 @@ Hooks.on('dropCanvasData', async (c: any, data: any) => {
             let itemData: ItemData;
 
             if (data.pack) {
-                const pack: Compendium = await game.packs.get(data.pack);
+                const pack: Compendium = game.packs.get(data.pack);
                 if (pack) {
                     itemData = await pack.getEntry(data.id);
                 }

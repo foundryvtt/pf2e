@@ -8,7 +8,7 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem, ItemData } from '../../item/dataDefinitions';
+import { ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { isIdentified } from '../../item/identification';
@@ -18,7 +18,7 @@ import { isIdentified } from '../../item/identification';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e extends ActorSheet {
+export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -657,7 +657,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
         html.find('.spell-create').click((ev) => this._onItemCreate(ev));
 
         // Add Spellcasting Entry
-        html.find('.spellcasting-create').click((ev) => this._createSpellcastingEntry(ev));
+        // html.find('.spellcasting-create').click((ev) => this._createSpellcastingEntry(ev));
 
         // Remove Spellcasting Entry
         html.find('.spellcasting-remove').click((ev) => this._removeSpellcastingEntry(ev));
@@ -716,7 +716,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
         html.find('.item-delete').click(async (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const itemId = li.attr('data-item-id');
-            const item = new Item<ItemData>(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+            const item = new PF2EItem(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
             if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                 // Condition Item.
@@ -1257,7 +1257,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     async _onDropItem(event, data) {
         event.preventDefault();
 
-        const item = await Item.fromDropData(data);
+        const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
 
         const actor = this.actor;
@@ -1523,103 +1523,100 @@ export abstract class ActorSheetPF2e extends ActorSheet {
 
     /* -------------------------------------------- */
 
-    /**
-     * Handle creating a new spellcasting entry for the actor
-     * @private
-     */
+    // /**
+    //  * Handle creating a new spellcasting entry for the actor
+    //  * @private
+    //  */
 
-    _createSpellcastingEntry(event) {
-        event.preventDefault();
+    // _createSpellcastingEntry(event: JQuery.ClickEvent) {
+    //   event.preventDefault();
 
-        // let entries = this.actor.data.data.attributes.spellcasting.entry || {};
+    //   // let entries = this.actor.data.data.attributes.spellcasting.entry || {};
 
-        let magicTradition = 'arcane';
-        let spellcastingType = 'innate';
+    //   let magicTradition = 'arcane';
+    //   let spellcastingType = 'innate';
 
-        // Render modal dialog
-        const template = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
-        const title = game.i18n.localize('PF2E.SpellcastingTypeLabel');
-        const dialogOptions = {
-            width: 300,
-            top: event.clientY - 80,
-            left: window.innerWidth - 710,
-        };
-        const dialogData = {
-            magicTradition,
-            magicTraditions: CONFIG.PF2E.magicTraditions,
-            spellcastingType,
-            spellcastingTypes: CONFIG.PF2E.preparationType,
-        };
-        renderTemplate(template, dialogData).then((dlg) => {
-            new Dialog(
-                {
-                    title,
-                    content: dlg,
-                    buttons: {
-                        create: {
-                            label: game.i18n.localize('PF2E.CreateLabelUniversal'),
-                            callback: (html: JQuery) => {
-                                // if ( onClose ) onClose(html, parts, data);
-                                let name = '';
-                                magicTradition = `${html.find('[name="magicTradition"]').val()}`;
-                                if (magicTradition === 'ritual') {
-                                    spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
-                                } else if (magicTradition === 'focus') {
-                                    spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
-                                } else if (magicTradition === 'scroll') {
-                                    spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
-                                } else if (magicTradition === 'wand') {
-                                    spellcastingType = 'prepared';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
-                                } else {
-                                    spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
-                                    name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
-                                }
+    //   // Render modal dialog
+    //   const template = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
+    //   const title = game.i18n.localize("PF2E.SpellcastingTypeLabel");
+    //   const dialogOptions = {
+    //     width: 300,
+    //     top: event.clientY - 80,
+    //     left: window.innerWidth - 710,
+    //   };
+    //   const dialogData = {
+    //     magicTradition,
+    //     magicTraditions: CONFIG.PF2E.magicTraditions,
+    //     spellcastingType,
+    //     spellcastingTypes: CONFIG.PF2E.preparationType,
+    //   };
+    //   renderTemplate(template, dialogData).then((dlg) => {
+    //     new Dialog({
+    //       title,
+    //       content: dlg,
+    //       buttons: {
+    //         create: {
+    //           label: game.i18n.localize("PF2E.CreateLabelUniversal"),
+    //           callback: (html: JQuery) => {
+    //             // if ( onClose ) onClose(html, parts, data);
+    //             let name = '';
+    //             magicTradition = `${html.find('[name="magicTradition"]').val()}`;
+    //             if (magicTradition === 'ritual') {
+    //               spellcastingType = '';
+    //               name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
+    //             } else if (magicTradition === 'focus') {
+    //               spellcastingType = '';
+    //               name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+    //             } else if (magicTradition === 'scroll') {
+    //               spellcastingType = '';
+    //               name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+    //             } else if (magicTradition === 'wand') {
+    //               spellcastingType = 'prepared';
+    //               name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+    //             } else {
+    //               spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+    //               name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+    //             }
 
-                                // Define new spellcasting entry
-                                const spellcastingEntity = {
-                                    ability: {
-                                        type: 'String',
-                                        label: 'Spellcasting Ability',
-                                        value: '',
-                                    },
-                                    spelldc: {
-                                        type: 'String',
-                                        label: 'Class DC',
-                                        item: 0,
-                                    },
-                                    tradition: {
-                                        type: 'String',
-                                        label: 'Magic Tradition',
-                                        value: magicTradition,
-                                    },
-                                    prepared: {
-                                        type: 'String',
-                                        label: 'Spellcasting Type',
-                                        value: spellcastingType,
-                                    },
-                                    showUnpreparedSpells: { value: true },
-                                };
+    //             // Define new spellcasting entry
+    //             const spellcastingEntity = {
+    //               ability: {
+    //                 type: 'String',
+    //                 label: 'Spellcasting Ability',
+    //                 value: '',
+    //               },
+    //               spelldc: {
+    //                 type: 'String',
+    //                 label: 'Class DC',
+    //                 item: 0,
+    //               },
+    //               tradition: {
+    //                 type: 'String',
+    //                 label: 'Magic Tradition',
+    //                 value: magicTradition,
+    //               },
+    //               prepared: {
+    //                 type: 'String',
+    //                 label: 'Spellcasting Type',
+    //                 value: spellcastingType,
+    //               },
+    //               showUnpreparedSpells: { value: true },
+    //             };
 
-                                const data = {
-                                    name,
-                                    type: 'spellcastingEntry',
-                                    data: spellcastingEntity,
-                                };
+    //             const data = {
+    //               name,
+    //               type: 'spellcastingEntry',
+    //               data: spellcastingEntity,
+    //             };
 
-                                this.actor.createEmbeddedEntity('OwnedItem', data);
-                            },
-                        },
-                    },
-                    default: 'create',
-                },
-                dialogOptions,
-            ).render(true);
-        });
-    }
+    //             this.actor.createEmbeddedEntity('OwnedItem', data);
+    //           }
+    //         },
+    //       },
+    //       default: 'create',
+    //     }, dialogOptions).render(true);
+    //   });
+    // }
 
     /* -------------------------------------------- */
 
@@ -1759,10 +1756,10 @@ export abstract class ActorSheetPF2e extends ActorSheet {
             if (canvas.templates.objects.children) {
                 for (const placeable of canvas.templates.objects.children) {
                     console.log(
-                        `PF2e | Placeable Found - id: ${placeable.data.id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
+                        `PF2e | Placeable Found - id: ${placeable.data._id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
                     );
                     if (
-                        placeable.data.id === templateData.id &&
+                        placeable.data._id === templateData.id &&
                         canvas.scene._id === templateScene &&
                         placeable.constructor.name === 'MeasuredTemplate'
                     ) {
@@ -1849,7 +1846,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
                 }
 
                 // Create the template
-                MeasuredTemplate.create(canvas.scene._id, data).then((results) => {
+                MeasuredTemplate.create(canvas.scene, data).then((results) => {
                     templateData = results.data;
 
                     // Save MeasuredTemplate information to actor flags

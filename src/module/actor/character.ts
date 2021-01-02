@@ -24,7 +24,9 @@ import {
     RawCharacterData,
 } from './actorDataDefinitions';
 
-export class PF2ECharacter extends PF2EActor<CharacterData> {
+export class PF2ECharacter extends PF2EActor {
+
+    /** @override */
     data!: CharacterData;
 
     /** Prepare Character type specific data. */

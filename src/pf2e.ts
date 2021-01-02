@@ -63,6 +63,12 @@ require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/actor/sheet/itemBehaviour.ts');
 require('./scripts/system/canvasDropHandler');
 
+declare global {
+    const game: Game<PF2EActor, PF2EItem>;
+    const CONFIG: Config<PF2EActor, PF2EItem>;
+    const canvas: Canvas<PF2EActor>;
+}
+
 Hooks.once('init', () => {
     console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 

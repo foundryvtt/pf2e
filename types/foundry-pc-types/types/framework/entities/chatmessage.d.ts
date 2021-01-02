@@ -10,11 +10,11 @@ declare class Messages extends Collection<ChatMessage> {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
-     * @param response	The created ChatMessage response
+     * @param response  The created ChatMessage response
      */
     protected _sayBubble(response: object): void;
 
@@ -30,16 +30,32 @@ declare class Messages extends Collection<ChatMessage> {
     flush(): Promise<any>;
 }
 
+declare interface ChatMessageData extends BaseEntityData {
+    type: number;
+    blind?: boolean;
+    content: string;
+    flavor?: string;
+    sound?: string;
+    speaker: {
+        actor?: string;
+        token?: string;
+        alias: string;
+    };
+    roll?: Roll | string;
+    user: string;
+    whisper?: string[] | User[];
+}
+
 /**
  * The Chat Message class is a type of :class:`Entity` which represents individual messages in the chat log.
  *
- * @type {Entity}
  */
-declare class ChatMessage extends Entity {
+declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
+    data: ChatMessageData;
     /**
      * Get a reference to the user who sent the chat message
      */
-    user: User;
+    user: User<ActorType>;
 
     /**
      * If the Message contains a dice roll, store it here
@@ -57,7 +73,7 @@ declare class ChatMessage extends Entity {
 
     /* -------------------------------------------- */
     /*  Properties and Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Return the recommended String alias for this message.
@@ -126,7 +142,7 @@ declare class ChatMessage extends Entity {
 
     /**
      * Attempt to determine who is the speaking character (and token) for a certain Chat Message First assume that the currently controlled Token is the speaker
-     * @returns     The identified speaker data
+     * @returns  The identified speaker data
      */
     static getSpeaker({
         scene,
@@ -135,10 +151,15 @@ declare class ChatMessage extends Entity {
         alias,
     }?: {
         scene?: Scene;
-        actor?: SystemActorType;
+        actor?: Actor;
         token?: Token;
         alias?: string;
-    }): any;
+    }): {
+        scene: string | null;
+        actor: string | null;
+        token: string | null;
+        alias: string;
+    };
 
     /**
      * A helper to prepare the speaker object based on a target Token
@@ -149,7 +170,7 @@ declare class ChatMessage extends Entity {
     }?: {
         token?: Token;
         alias?: string;
-    }): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
+    }): { scene: string | null; token: string; actor: string | null; alias: string };
 
     /**
      * A helper to prepare the speaker object based on a target Actor
@@ -162,7 +183,7 @@ declare class ChatMessage extends Entity {
         scene?: Scene;
         actor?: Token;
         alias?: string;
-    }): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
+    }): { scene: string | null; token: null; actor: string; alias: string };
 
     /**
      * A helper to prepare the speaker object based on a target User
@@ -175,7 +196,7 @@ declare class ChatMessage extends Entity {
         scene?: Scene;
         user?: User;
         alias?: string;
-    }): { scene: Scene; token: Token; actor: SystemActorType; alias: string };
+    }): { scene: string | null; token: null; actor: null; alias: string };
 
     /* -------------------------------------------- */
     /*  Roll Data Preparation                       */
@@ -190,5 +211,6 @@ declare class ChatMessage extends Entity {
      * Obtain an Actor instance which represents the speaker of this message (if any)
      * @param speaker	The speaker data object
      */
-    static getSpeakerActor(speaker: object): SystemActorType | null;
+    static getSpeakerActor<S extends Scene, T extends Token>(speaker: { scene: S; token: T }): T['actor'] | null;
+    static getSpeakerActor<A extends Actor>(speaker: { actor: A }): A | null;
 }

@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isArmorItem, isLevelItem, isPhysicalItem, isWeaponItem, ItemData, PhysicalItemData } from './dataDefinitions';
+import { isLevelItem, isPhysicalItem, ItemData, PhysicalItemData } from './dataDefinitions';
 import { isBlank, toNumber } from '../utils';
 import { parseTraits } from '../traits';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
@@ -87,10 +87,10 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
 }
 
 function hasRunes(itemData: PhysicalItemData): boolean {
-    if (isWeaponItem(itemData)) {
-        return !isBlank(itemData.data?.potencyRune?.value) || !isBlank(itemData.data?.strikingRune?.value);
-    } else if (isArmorItem(itemData)) {
-        return !isBlank(itemData.data?.potencyRune?.value) || !isBlank(itemData.data?.resiliencyRune?.value);
+    if (itemData.type === 'weapon') {
+        return !isBlank(itemData.data.potencyRune?.value) || !isBlank(itemData.data.strikingRune?.value);
+    } else if (itemData.type === 'armor') {
+        return !isBlank(itemData.data.potencyRune?.value) || !isBlank(itemData.data.resiliencyRune?.value);
     } else {
         return false;
     }

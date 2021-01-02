@@ -2,13 +2,15 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
+import { PF2EActor } from '../actor/actor';
+import { PF2EItem } from '../item/item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 
 /**
  * @category Other
  */
-export class ItemSheetPF2e extends ItemSheet {
+export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;

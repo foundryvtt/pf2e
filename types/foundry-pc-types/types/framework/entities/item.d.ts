@@ -2,10 +2,10 @@
  * The Collection of Item entities
  * The items collection is accessible within the game as game.items
  */
-declare class Items extends Collection<SystemItemType> {
-    entities: SystemItemType[];
+declare class Items<ItemType extends Item = Item> extends Collection<ItemType> {
+    entities: ItemType[];
 
-    values(): IterableIterator<SystemItemType>;
+    values(): IterableIterator<ItemType>;
 
     /* -------------------------------------------- */
     /*  Collection Properties                       */
@@ -16,15 +16,15 @@ declare class Items extends Collection<SystemItemType> {
     /**
      * Elements of the Items collection are instances of the Item class, or a subclass thereof
      */
-    get object(): SystemItemType;
+    get object(): ItemType;
 
     /* -------------------------------------------- */
     /*  Collection Management Methods               */
     /* -------------------------------------------- */
 
-    insert(entity: SystemItemType): void;
+    insert(entity: ItemType): void;
 
-    get(id: string, { strict }?: { strict?: boolean }): SystemItemType;
+    get<I extends ItemType = ItemType>(id: string, { strict }?: { strict?: boolean }): I | null;
 
     /**
      * Register an Item sheet class as a candidate which can be used to display Items of a given type
@@ -44,7 +44,15 @@ declare class Items extends Collection<SystemItemType> {
     static get registeredSheets(): any[];
 }
 
-declare class Item<DataType> extends Entity<DataType> {
+interface BaseItemData extends BaseEntityData {
+    type: string;
+}
+
+type _Actor = Actor<Item<_Actor>>;
+declare class Item<ActorType extends Actor = _Actor> extends Entity {
+    /** @override */
+    data: BaseItemData;
+
     /**
      * Configure the attributes of the ChatMessage Entity
      *
@@ -53,7 +61,7 @@ declare class Item<DataType> extends Entity<DataType> {
      * @returns embeddedEntities	The names of any Embedded Entities within the Entity data structure.
      */
     static get config(): {
-        baseEntity: SystemItemType;
+        baseEntity: Item;
         collection: Items;
         embeddedEntities: {};
     };
@@ -68,7 +76,7 @@ declare class Item<DataType> extends Entity<DataType> {
     /**
      * A convenience reference to the Actor entity which owns this item, if any
      */
-    get actor(): SystemActorType | null;
+    get actor(): ActorType | null;
 
     /**
      * A convenience reference to the image path (data.img) used to represent this Item
@@ -106,17 +114,11 @@ declare class Item<DataType> extends Entity<DataType> {
     /* -------------------------------------------- */
 
     /**
-     * Extend the base Entity update logic to update owned items as well.
-     * See Entity.update for more complete API documentation
-     *
-     * @param data		The data with which to update the entity
-     * @param options	Additional options which customize the update workflow
-     * @return			A Promise which resolves to the updated Entity
-     */
-    update(data: any, options?: any): Promise<SystemItemType>;
-
-    /**
      * A convenience constructor method to create an Item instance which is owned by an Actor
      */
-    static createOwned(itemData: any, actor: SystemActorType): SystemItemType;
+    static createOwned<TI extends typeof Item>(
+        this: TI,
+        itemData: Partial<InstanceType<TI>['data']>,
+        actor: Actor,
+    ): Promise<InstanceType<TI>>;
 }

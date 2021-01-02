@@ -1,5 +1,5 @@
 /* global Macro, ChatMessage, ui, SquareGrid, BaseGrid, TextEditor, renderTemplate, CONST  */
-import { SKILL_DICTIONARY } from '../module/actor/actor';
+import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
@@ -33,7 +33,7 @@ async function createItemMacro(item, slot) {
  */
 function rollItemMacro(itemId) {
     const speaker = ChatMessage.getSpeaker();
-    let actor;
+    let actor: PF2EActor;
     if (speaker.token) actor = game.actors.tokens[speaker.token];
     if (!actor) actor = game.actors.get(speaker.actor);
     const item = actor ? actor.items.find((i) => i._id === itemId) : null;

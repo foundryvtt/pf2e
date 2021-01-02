@@ -14,7 +14,7 @@ async function getKitItemData(
                 const pack = game.packs.get(item.pack);
                 itemData = await pack.getEntry(item.id);
             } else {
-                itemData = duplicate((await game.items.get(item.id))?.data) as PhysicalItemData;
+                itemData = duplicate(game.items.get(item.id)?.data) as PhysicalItemData;
             }
 
             if (!itemData) {
@@ -47,7 +47,7 @@ export async function addKit(
     const rootItemData = await getKitItemData(kitData.data);
     const potentialContainers = await createItems(rootItemData.map(([itemData]) => itemData));
     const containedItemData = rootItemData
-        .map(([itemData, items], i) => <[PhysicalItemData[], string]>[items, potentialContainers[i]])
+        .map(([_itemData, items], i) => <[PhysicalItemData[], string]>[items, potentialContainers[i]])
         .flatMap(([items, containerId]) =>
             items.map((itemData) => {
                 itemData.data.containerId.value = containerId;

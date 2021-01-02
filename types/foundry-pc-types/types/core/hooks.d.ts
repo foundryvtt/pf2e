@@ -1,3 +1,12 @@
+interface DropCanvasData {
+    type: string;
+    id: string;
+    data?: any;
+    pack?: string;
+    x: number;
+    y: number;
+}
+
 declare class Hooks {
     /**
      * Register a callback handler which should be triggered when a hook is triggered.
@@ -8,6 +17,7 @@ declare class Hooks {
     static on(hook: string, fn: Function): number;
 
     static on(hook: 'init', fn: Function): number;
+    static on(hook: 'dropCanvasData', fn: (canvas: Canvas, data: DropCanvasData) => number): boolean;
 
     /**
      * Register a callback handler for an event which is only triggered once the first time the event occurs.

@@ -40,7 +40,10 @@ class ItemTraits {
 /**
  * @category PF2
  */
-export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
+export class PF2EItem extends Item<PF2EActor> {
+    /** @override */
+    data!: ItemData;
+
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {
             super(data, options);
@@ -57,9 +60,8 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
 
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
-     * @return {Promise}
      */
-    async roll(event) {
+    async roll(event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -257,7 +259,7 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
     _toolChatData() {
         const data: any = duplicate(this.data.data);
         const abl = this.actor.data.data.abilities[data.ability.value].label;
-        const prof = data.proficient.value || 0;
+        const prof = data.proficient?.value || 0;
         const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
         data.properties = properties.filter((p) => p !== null);
         return data;
@@ -1015,22 +1017,60 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
     }
 }
 
-export class PF2EBackpack extends PF2EItem<BackpackData> {}
-export class PF2ETreasure extends PF2EItem<TreasureData> {}
-export class PF2EWeapon extends PF2EItem<WeaponData> {}
-export class PF2EArmor extends PF2EItem<ArmorData> {}
-export class PF2EKit extends PF2EItem<KitData> {}
-export class PF2EMelee extends PF2EItem<MeleeData> {}
-export class PF2EConsumable extends PF2EItem<ConsumableData> {}
-export class PF2EEquipment extends PF2EItem<EquipmentData> {}
-export class PF2EAncestry extends PF2EItem<AncestryData> {}
-export class PF2EBackground extends PF2EItem<BackgroundData> {}
-export class PF2EClass extends PF2EItem<ClassData> {}
-export class PF2EFeat extends PF2EItem<FeatData> {}
-export class PF2ELore extends PF2EItem<LoreData> {}
-export class PF2EMartial extends PF2EItem<MartialData> {}
-export class PF2EAction extends PF2EItem<ActionData> {}
-export class PF2ESpell extends PF2EItem<SpellData> {}
-export class PF2ESpellcastingEntry extends PF2EItem<SpellcastingEntryData> {}
-export class PF2EStatus extends PF2EItem<StatusData> {}
-export class PF2ECondition extends PF2EItem<ConditionData> {}
+export class PF2EBackpack extends PF2EItem {
+    data!: BackpackData;
+}
+export class PF2ETreasure extends PF2EItem {
+    data!: TreasureData;
+}
+export class PF2EWeapon extends PF2EItem {
+    data!: WeaponData;
+}
+export class PF2EArmor extends PF2EItem {
+    data!: ArmorData;
+}
+export class PF2EKit extends PF2EItem {
+    data!: KitData;
+}
+export class PF2EMelee extends PF2EItem {
+    data!: MeleeData;
+}
+export class PF2EConsumable extends PF2EItem {
+    data!: ConsumableData;
+}
+export class PF2EEquipment extends PF2EItem {
+    data!: EquipmentData;
+}
+export class PF2EAncestry extends PF2EItem {
+    data!: AncestryData;
+}
+export class PF2EBackground extends PF2EItem {
+    data!: BackgroundData;
+}
+export class PF2EClass extends PF2EItem {
+    data!: ClassData;
+}
+export class PF2EFeat extends PF2EItem {
+    data!: FeatData;
+}
+export class PF2ELore extends PF2EItem {
+    data!: LoreData;
+}
+export class PF2EMartial extends PF2EItem {
+    data!: MartialData;
+}
+export class PF2EAction extends PF2EItem {
+    data!: ActionData;
+}
+export class PF2ESpell extends PF2EItem {
+    data!: SpellData;
+}
+export class PF2ESpellcastingEntry extends PF2EItem {
+    data!: SpellcastingEntryData;
+}
+export class PF2EStatus extends PF2EItem {
+    data!: StatusData;
+}
+export class PF2ECondition extends PF2EItem {
+    data!: ConditionData;
+}

@@ -1,20 +1,20 @@
 /**
  * The Collection of Combat entities
  */
-declare class CombatEncounters extends Collection<Combat> {
-    entities: Combat[];
+declare class CombatEncounters<ActorType extends Actor> extends Collection<Combat<ActorType>> {
+    entities: Combat<ActorType>[];
 
-    values(): IterableIterator<Combat>;
+    values(): IterableIterator<Combat<ActorType>>;
 
     /**
      * The currently active Combat instance
      */
-    active: Combat;
+    active: Combat<ActorType>;
 
     /**
      * Get an Array of Combat instances which apply to the current canvas scene
      */
-    combats: Combat[];
+    combats: Combat<ActorType>[];
 
     /**
      * A reference to the world combat configuration settings
@@ -24,23 +24,49 @@ declare class CombatEncounters extends Collection<Combat> {
     /**
      * The currently viewed Combat encounter
      */
-    viewed: Combat;
+    viewed: Combat<ActorType>;
+}
+
+declare interface CombatantData<ActorType extends Actor> extends BaseEntityData {
+    _id: string;
+    actor: ActorType;
+    tokenId: string;
+    initiative: number | null;
+    hidden: boolean;
+    token: TokenData;
+    owner: boolean;
+    permission: number;
+    players: User<ActorType>[];
+    resource: number;
+    visible: boolean;
+}
+
+declare interface CombatData<ActorType extends Actor> extends BaseEntityData {
+    _id: string;
+    sort: number;
+    scene: string;
+    combatants: CombatantData<ActorType>[];
+    active: boolean;
+    round: number;
+    turn: number;
 }
 
 /**
  * The Combat Entity defines a particular combat encounter which can occur within the game session
  * Combat instances belong to the CombatEncounters collection
  */
-declare class Combat extends Entity {
+declare class Combat<ActorType extends Actor> extends Entity {
+    /** @override */
+    data: CombatData<ActorType>;
     /**
      * Get the data object for the Combatant who has the current turn
      */
-    combatant: any;
+    combatant: CombatantData<ActorType>;
 
     /**
      * A convenience reference to the Array of combatant data within the Combat entity
      */
-    combatants: any[];
+    combatants: CombatantData<ActorType>[];
 
     /**
      * The numeric round of the Combat encounte
@@ -75,17 +101,17 @@ declare class Combat extends Entity {
     /**
      * Set the current Combat encounter as active within the Scene. Deactivate all other Combat encounters within the viewed Scene and set this one as active
      */
-    activate(): Promise<Combat>;
+    activate(): Promise<Combat<ActorType>>;
 
     /**
      * @extends {Entity.createEmbeddedEntity}
      */
-    createCombatant(): Promise<any>;
+    createCombatant(): Promise<CombatantData<ActorType>>;
 
     /**
      * @extends {Entity.deleteEmbeddedEntity}
      */
-    deleteCombatant(): Promise<string>;
+    deleteCombatant(): Promise<CombatantData<ActorType>>;
 
     /**
      * Display a dialog querying the GM whether they wish to end the combat encounter and empty the tracker
@@ -95,13 +121,13 @@ declare class Combat extends Entity {
     /**
      * @extends {Entity.getEmbeddedEntity}
      */
-    getCombatant(id: string): Promise<any>;
+    getCombatant(id: string): Promise<CombatantData<ActorType>>;
 
     /**
      * Get a Combatant using its Token id
      * @param tokenId The id of the Token for which to acquire the combatant
      */
-    getCombatantByToken(tokenId: string): { name: string; actor: SystemActorType; [key: string]: any };
+    getCombatantByToken(tokenId: string): CombatantData<ActorType>;
 
     /**
      * Advance the combat to the next round
@@ -134,7 +160,7 @@ declare class Combat extends Entity {
      * @param args Additional arguments forwarded to the Combat.rollInitiative method
      * @returns A promise which resolves to the updated Combat entity once updates are complete.
      */
-    rollAll(...args): Promise<Combat>;
+    rollAll(...args: Parameters<this['rollInitiative']>): Promise<Combat<ActorType>>;
 
     /**
      * Roll initiative for one or multiple Combatants within the Combat entity
@@ -143,15 +169,14 @@ declare class Combat extends Entity {
      * @param messageOptions Additional options with which to customize created Chat Messages
      * @returns A promise which resolves to the updated Combat entity once updates are complete.
      */
-    rollInitiative(ids: string[] | string, formula: string | null, messageOptions: object): Promise<Combat>;
+    rollInitiative(ids: string[] | string, formula: string | null, messageOptions: object): Promise<Combat<ActorType>>;
 
     /**
      * Roll initiative for all non-player actors who have not already rolled
      * @param args Additional arguments forwarded to the Combat.rollInitiative method
      * @returns A promise which resolves to the updated Combat entity once updates are complete.
      */
-
-    rollNPC(...args): Promise<Combat>;
+    rollNPC(...args: Parameters<this['rollInitiative']>): Promise<Combat<ActorType>>;
 
     /**
      * Set initiative for a single Combatant within the Combat encounter. Turns will be updated to keep the same combatant as current in the turn order
