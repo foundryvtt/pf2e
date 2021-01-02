@@ -91,9 +91,12 @@ import './types/pixi/helpers/controlicon';
 import './types/pixi/helpers/ray';
 import './types/pixi/helpers/ruler';
 
+import './types/pixi/placeables/measuredtemplate';
 import './types/pixi/placeables/token';
 import './types/pixi/placeables/note';
 import './types/pixi/placeables/tile';
+
+import './types/pixi/grids/basegrid';
 
 // UI
 
