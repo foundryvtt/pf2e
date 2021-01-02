@@ -1,3 +1,4 @@
+/* global game */
 import { DamageDieSize } from './system/damage/damage';
 import { AbilityString } from './actor/actorDataDefinitions';
 

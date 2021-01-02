@@ -1,3 +1,4 @@
+/* global game, CONFIG */
 import { DB } from './system/db';
 import './system/measure';
 

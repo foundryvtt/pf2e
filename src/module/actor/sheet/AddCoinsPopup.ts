@@ -1,4 +1,4 @@
-/* global FormApplication */
+/* global game */
 import { addCoins } from '../../item/treasure';
 
 /**

@@ -1,4 +1,4 @@
-/* global Application */
+/* global game */
 export class WorldClockApplication extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {

@@ -1,4 +1,4 @@
-/* global CONST */
+/* global game, CONFIG */
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';

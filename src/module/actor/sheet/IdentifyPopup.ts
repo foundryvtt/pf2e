@@ -1,4 +1,4 @@
-/* global FormApplication */
+/* global game */
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
 
 /**

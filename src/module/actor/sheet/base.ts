@@ -1,4 +1,4 @@
-/* global Dialog, Item, MeasuredTemplate, getProperty, renderTemplate, ui */
+/* global canvas, game, CONFIG, getProperty, MeasuredTemplate */
 import { RemoveCoinsPopup } from './RemoveCoinsPopup';
 import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
@@ -8,7 +8,7 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem, ItemData } from '../../item/dataDefinitions';
+import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { isIdentified } from '../../item/identification';
@@ -18,7 +18,7 @@ import { isIdentified } from '../../item/identification';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e extends ActorSheet {
+export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -716,7 +716,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
         html.find('.item-delete').click(async (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const itemId = li.attr('data-item-id');
-            const item = new Item<ItemData>(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+            const item = new PF2EItem(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
 
             if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                 // Condition Item.
@@ -1257,7 +1257,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
     async _onDropItem(event, data) {
         event.preventDefault();
 
-        const item = await Item.fromDropData(data);
+        const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
 
         const actor = this.actor;
@@ -1528,7 +1528,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
      * @private
      */
 
-    _createSpellcastingEntry(event) {
+    _createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
 
         // let entries = this.actor.data.data.attributes.spellcasting.entry || {};
@@ -1610,7 +1610,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
                                     data: spellcastingEntity,
                                 };
 
-                                this.actor.createEmbeddedEntity('OwnedItem', data);
+                                this.actor.createEmbeddedEntity('OwnedItem', (data as unknown) as ItemData);
                             },
                         },
                     },
@@ -1759,10 +1759,10 @@ export abstract class ActorSheetPF2e extends ActorSheet {
             if (canvas.templates.objects.children) {
                 for (const placeable of canvas.templates.objects.children) {
                     console.log(
-                        `PF2e | Placeable Found - id: ${placeable.data.id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
+                        `PF2e | Placeable Found - id: ${placeable.data._id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
                     );
                     if (
-                        placeable.data.id === templateData.id &&
+                        placeable.data._id === templateData.id &&
                         canvas.scene._id === templateScene &&
                         placeable.constructor.name === 'MeasuredTemplate'
                     ) {
@@ -1849,7 +1849,7 @@ export abstract class ActorSheetPF2e extends ActorSheet {
                 }
 
                 // Create the template
-                MeasuredTemplate.create(canvas.scene._id, data).then((results) => {
+                MeasuredTemplate.create(canvas.scene, data).then((results) => {
                     templateData = results.data;
 
                     // Save MeasuredTemplate information to actor flags

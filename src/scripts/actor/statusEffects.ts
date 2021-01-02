@@ -1,4 +1,4 @@
-/* global getProperty, ui, CONST, ChatMessage, TokenHUD, BasePlaceableHUD */
+/* global canvas, game, getProperty, CONFIG */
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '../../module/item/dataDefinitions';
 
@@ -248,7 +248,7 @@ export class PF2eStatusEffects {
 
         const affectingConditions = token.actor.data.items.filter(
             (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
-        );
+        ) as ConditionData[];
 
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
@@ -301,10 +301,10 @@ export class PF2eStatusEffects {
             (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
         );
 
-        for (let i of statusIcons) {
-            i = $(i);
-            const status = i.attr('data-effect');
-            const conditionName = i.attr('data-condition');
+        for (const i of statusIcons) {
+            const $i = $(i);
+            const status = $i.attr('data-effect');
+            const conditionName = $i.attr('data-condition');
 
             if (conditionName) {
                 // Icon is a condition
@@ -315,16 +315,16 @@ export class PF2eStatusEffects {
                 if (conditionBase?.data.value.isValued) {
                     // Valued condition
 
-                    const v = $(i).siblings('div.pf2e-effect-value').first();
+                    const v = $i.siblings('div.pf2e-effect-value').first();
 
-                    if ($(i).hasClass('active')) {
+                    if ($i.hasClass('active')) {
                         // icon is active.
                         if (
                             condition === undefined ||
                             (condition !== undefined && !condition.data.active) ||
                             (condition !== undefined && condition.data.value.value < 1)
                         ) {
-                            i.removeClass('active');
+                            $i.removeClass('active');
                             v.attr('style', 'display:none').text('0');
                         } else if (condition !== undefined && condition.data.value.value > 0) {
                             // Update the value
@@ -332,10 +332,10 @@ export class PF2eStatusEffects {
                             v.text(condition.data.value.value);
                         }
                     } else if (condition !== undefined && condition.data.active && condition.data.value.value > 0) {
-                        i.addClass('active');
+                        $i.addClass('active');
                         v.removeAttr('style').text(condition.data.value.value);
                     }
-                } else if (i.hasClass('active')) {
+                } else if ($i.hasClass('active')) {
                     // Toggle condition
 
                     // icon is active.
@@ -343,10 +343,10 @@ export class PF2eStatusEffects {
                         // Remove active if no effect was found
                         // Or effect was found, but not active.
 
-                        i.removeClass('active');
+                        $i.removeClass('active');
                     }
                 } else if (condition !== undefined && condition.data.active) {
-                    i.addClass('active');
+                    $i.addClass('active');
                 }
             }
         }
@@ -367,8 +367,8 @@ export class PF2eStatusEffects {
     /**
      * Adding the Actors statuseffects to the newly created token.
      */
-    static _hookOnCreateToken(scene, tokenData) {
-        const token = canvas.tokens.get(tokenData._id) as Token;
+    static _hookOnCreateToken(_scene: Scene, tokenData: TokenData) {
+        const token = canvas.tokens.get(tokenData._id);
 
         if (token.owner) {
             PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));

@@ -1,4 +1,4 @@
-/* global ChatMessage, Roll, getProperty, isObjectEmpty, ui, CONST */
+/* global game, CONFIG, canvas, isObjectEmpty, getProperty */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -9,7 +9,14 @@ import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EItem } from '../item/item';
-import { ConditionData, ArmorData, WeaponData, isPhysicalItem } from '../item/dataDefinitions';
+import {
+    ItemData,
+    ConditionData,
+    ArmorData,
+    PhysicalItemData,
+    WeaponData,
+    isPhysicalItem,
+} from '../item/dataDefinitions';
 import {
     CharacterData,
     NpcData,
@@ -75,7 +82,10 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
 /**
  * @category Actor
  */
-export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> extends Actor<PF2EDataType> {
+export class PF2EActor extends Actor<PF2EItem> {
+    /** @override */
+    data!: ActorDataPF2e;
+
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
             super(data, options);
@@ -295,19 +305,38 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         return Promise.all(promises);
     }
 
-    async createEmbeddedEntity(embeddedName, data, options?: undefined): Promise<PF2EActor> {
-        if (this.data.type === 'familiar' && !['condition', 'effect'].includes(data.type)) {
-            ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
-            return null;
-        } else if (
-            this.data.type === 'vehicle' &&
-            !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(data.type)
-        ) {
-            ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
-            return null;
-        } else {
-            return super.createEmbeddedEntity(embeddedName, data, options);
+    async createEmbeddedEntity<I extends ItemData>(
+        embeddedName: string,
+        data: I,
+        options?: EntityCreateOptions,
+    ): Promise<I | null>;
+    async createEmbeddedEntity<I extends ItemData>(
+        embeddedName: string,
+        data: I[],
+        options?: EntityCreateOptions,
+    ): Promise<I | I[] | null>;
+    async createEmbeddedEntity<I extends ItemData>(
+        embeddedName: string,
+        data: I | I[],
+        options?: EntityCreateOptions,
+    ): Promise<I | I[] | null> {
+        const createData = Array.isArray(data) ? data : [data];
+        for (const datum of createData) {
+            if (this.data.type === 'familiar' && !['condition', 'effect'].includes(datum.type)) {
+                ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
+                return null;
+            } else if (
+                this.data.type === 'vehicle' &&
+                !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(
+                    datum.type,
+                )
+            ) {
+                ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
+                return null;
+            }
         }
+
+        return super.createEmbeddedEntity(embeddedName, createData, options);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -655,7 +684,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
     static async rollSave(ev, item) {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
-                const actor = t.actor as PF2EActor;
+                const actor = t.actor;
                 const save = $(ev.currentTarget).attr('data-save');
                 const itemTraits = item?.data?.data?.traits?.value;
 
@@ -777,7 +806,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         value: number,
         isDelta: boolean = false,
         isBar: boolean = true,
-    ): Promise<PF2EActor> {
+    ): Promise<this> {
         if (value === undefined || value === null || Number.isNaN(value)) {
             return Promise.reject();
         }
@@ -833,7 +862,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
                     this.updateOwnedItem(updateShieldData, { diff: false });
                 }
                 return this;
-            }) as Promise<PF2EActor>;
+            });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
@@ -881,10 +910,7 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
             await sourceActor.updateEmbeddedEntity('OwnedItem', update);
         }
 
-        const newItemData = duplicate(item);
-        if (!isPhysicalItem(newItemData)) {
-            throw Error('this should never happen - item should be physical, but is not');
-        }
+        const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
 
         const result = await targetActor.createOwnedItem(newItemData);
@@ -908,7 +934,8 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
         if (!item) return null;
 
         if (containerId) {
-            if (item.type !== 'spell' && !isCycle(item._id, containerId, actor.data.items.filter(isPhysicalItem))) {
+            const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
+            if (item.type !== 'spell' && !isCycle(item._id, containerId, physicalItemsData)) {
                 return item.update({
                     'data.containerId.value': containerId,
                     'data.equipped.value': false,
@@ -1179,3 +1206,4 @@ export class PF2EActor<PF2EDataType extends ActorDataPF2e = ActorDataPF2e> exten
 export class PF2EHazard extends PF2EActor {}
 export class PF2ELoot extends PF2EActor {}
 export class PF2EVehicle extends PF2EActor {}
+export type TokenPF2e = Token<PF2EActor>;

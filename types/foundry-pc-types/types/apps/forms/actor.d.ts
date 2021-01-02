@@ -1,7 +1,7 @@
-declare interface ActorSheetData extends BaseEntitySheetData {
-    actor: SystemActorType;
-    data: ActorData;
-    items: SystemItemType[];
+declare interface ActorSheetData<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheetData {
+    actor: ActorType;
+    data: ActorType['data'];
+    items: ItemType[];
 }
 
 /**
@@ -16,11 +16,11 @@ declare interface ActorSheetData extends BaseEntitySheetData {
  * @param options			Additional options which modify the rendering of the Actor's sheet.
  * @param options.editable	Is the Actor editable? Default is true.
  */
-declare class ActorSheet extends BaseEntitySheet {
+declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheet {
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
-    token: Token;
+    token: Token<ActorType>;
 
     constructor(...args: any);
 
@@ -43,13 +43,13 @@ declare class ActorSheet extends BaseEntitySheet {
     /**
      * A convenience reference to the Actor entity
      */
-    get actor(): SystemActorType;
+    get actor(): ActorType;
 
     /**
      * Prepare data for rendering the Actor sheet
      * The prepared data object contains both the actor data as well as additional sheet options
      */
-    getData(): ActorSheetData;
+    getData(): ActorSheetData<ActorType, ItemType>;
 
     /**
      * Extend the Header Button configuration for the ActorSheet to add Token configuration buttons

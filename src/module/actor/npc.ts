@@ -1,21 +1,14 @@
-/* global CONST */
+/* global game, CONFIG */
 import { PF2EActor, SKILL_EXPANDED } from './actor';
 import { PF2EItem } from '../item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import {
-    CharacterStrike,
-    CharacterStrikeTrait,
-    NPCArmorClassData,
-    NpcData,
-    NPCPerceptionData,
-    NPCSaveData,
-    NPCSkillData,
-} from './actorDataDefinitions';
+import { CharacterStrike, CharacterStrikeTrait, NpcData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
 
-export class PF2ENPC extends PF2EActor<NpcData> {
+export class PF2ENPC extends PF2EActor {
+    /** @override */
     data!: NpcData;
 
     /** Prepare Character type specific data. */
@@ -51,11 +44,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(
-                new PF2StatisticModifier('ac', modifiers) as NPCArmorClassData,
-                data.attributes.ac,
-                { overwrite: false },
-            );
+            const stat = mergeObject(new PF2StatisticModifier('ac', modifiers), data.attributes.ac, {
+                overwrite: false,
+            });
             stat.base = base;
             stat.value = 10 + stat.totalModifier;
             stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')]
@@ -84,11 +75,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(
-                new PF2StatisticModifier(saveName, modifiers) as NPCSaveData,
-                data.saves[saveName],
-                { overwrite: false },
-            );
+            const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers), save, {
+                overwrite: false,
+            });
             stat.base = base;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
@@ -121,11 +110,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(
-                new PF2StatisticModifier('perception', modifiers) as NPCPerceptionData,
-                data.attributes.perception,
-                { overwrite: false },
-            );
+            const stat = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception, {
+                overwrite: false,
+            });
             stat.base = base;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
@@ -166,11 +153,9 @@ export class PF2ENPC extends PF2EActor<NpcData> {
                     (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 });
 
-                const stat = mergeObject(
-                    new PF2StatisticModifier(item.name, modifiers) as NPCSkillData,
-                    data.skills[shortform],
-                    { overwrite: false },
-                );
+                const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers), data.skills[shortform], {
+                    overwrite: false,
+                });
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = item.name;
