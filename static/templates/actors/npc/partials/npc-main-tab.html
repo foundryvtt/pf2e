@@ -1,13 +1,20 @@
 <div class="tab main" data-group="primary" data-tab="main">
-    <div id="ability-scores">
-        {{#each data.abilities as |ability id|}}
-        <div class="ability-score" data-attribute="{{id}}">
-            <label class="ability-score-label rollable"><a>{{ ability.localizedCode }}</a></label>
-            <input class="ability-score-value" type="text" name="data.abilities.{{id}}.mod" value="{{ numberFormat ability.mod decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
-        </div>
-        {{/each}}
-    </div>
     <div id="top-sections">
+        <div id="ability-scores" class="section-container">
+            <div class="section-header">
+                <h4>{{ localize 'PF2E.AbilityScoresHeader' }}</h4>
+            </div>
+            <div class="section-body">
+                <div class="ability-scores-list">
+                    {{#each data.abilities as |ability id|}}
+                    <div class="ability-score labelled-field" data-attribute="{{id}}">
+                        <label class="ability-score-label rollable"><a>{{ ability.localizedCode }}</a></label>
+                        <input class="ability-score-value" type="text" name="data.abilities.{{id}}.mod" value="{{ numberFormat ability.mod decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
         <div id="skills" class="section-container">
             <div class="section-header">
                 <h4>{{ localize 'PF2E.SkillsLabel' }}</h4>
