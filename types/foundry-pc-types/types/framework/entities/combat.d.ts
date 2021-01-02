@@ -41,7 +41,7 @@ declare interface CombatantData<ActorType extends Actor> extends BaseEntityData 
     visible: boolean;
 }
 
-declare interface CombatData<ActorType extends Actor> extends BaseEntityData {
+declare interface CombatData<ActorType extends Actor = Actor> extends BaseEntityData {
     _id: string;
     sort: number;
     scene: string;

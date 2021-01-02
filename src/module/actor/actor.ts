@@ -1,4 +1,4 @@
-/* global ChatMessage, Roll, getProperty, isObjectEmpty, ui, CONST */
+/* global game, CONFIG, canvas, isObjectEmpty, getProperty */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
@@ -83,7 +83,6 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  * @category Actor
  */
 export class PF2EActor extends Actor<PF2EItem> {
-
     /** @override */
     data!: ActorDataPF2e;
 

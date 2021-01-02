@@ -1,4 +1,3 @@
-/* global FormApplication ui */
 import { addCoinsSimple, calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
 
 /**

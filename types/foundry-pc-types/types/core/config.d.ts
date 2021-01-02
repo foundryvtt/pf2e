@@ -13,7 +13,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Actor entity class
      */
     Actor: {
-        entityClass: { new (data: ActorData, options?: object): ActorType };
+        entityClass: { new (data: ActorType["data"], options?: object): ActorType };
         collection: Actors<ActorType>;
         sheetClasses: typeof ActorSheet;
     };
@@ -22,7 +22,16 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: { new (data: BaseItemData, options?: object): ItemType };
+        entityClass: { new (data: ItemType["data"], options?: object): ItemType };
+        collection: Items<ItemType>;
+        sheetClasses: typeof ItemSheet;
+    };
+
+    /**
+     * Configuration for the default Combat entity class
+     */
+    Combat: {
+        entityClass: { new (data: CombatData, options?: object): Combat<ActorType> };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
     };
@@ -126,6 +135,10 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Maximum canvas zoom scale
      */
     maxCanvasZoom: number;
+
+    ui: {
+        [key: string]: typeof Application;
+    };
 
     [key: string]: any;
 }

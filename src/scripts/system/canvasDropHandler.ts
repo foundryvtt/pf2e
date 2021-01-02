@@ -1,3 +1,4 @@
+/* global game, canvas  */
 import { ItemData } from '../../module/item/dataDefinitions';
 import { addKit } from '../../module/item/kits';
 import { PF2eConditionManager } from '../../module/conditions';

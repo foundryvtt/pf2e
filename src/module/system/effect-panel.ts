@@ -1,4 +1,4 @@
-/* global Application, CONST */
+/* global canvas, game */
 import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';

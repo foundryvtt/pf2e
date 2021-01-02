@@ -1,9 +1,9 @@
-/* global randomID */
+/* global game, CONFIG, randomID */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from './item';
 import { TraitSelector5e } from '../system/trait-selector';
 import { KitData } from './dataDefinitions';
 

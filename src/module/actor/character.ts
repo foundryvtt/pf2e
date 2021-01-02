@@ -1,3 +1,4 @@
+/* global game, CONFIG */
 import { LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
@@ -25,7 +26,6 @@ import {
 } from './actorDataDefinitions';
 
 export class PF2ECharacter extends PF2EActor {
-
     /** @override */
     data!: CharacterData;
 

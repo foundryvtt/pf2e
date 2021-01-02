@@ -1,3 +1,5 @@
+/* global canvas, game, CONFIG */
+
 import { ItemData, ConditionData } from './item/dataDefinitions';
 import { PF2ECondition } from './item/item';
 import { TokenPF2e } from './actor/actor';

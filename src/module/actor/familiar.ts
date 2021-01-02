@@ -1,3 +1,4 @@
+/* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
@@ -7,7 +8,6 @@ import { FamiliarData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
 
 export class PF2EFamiliar extends PF2EActor {
-
     /** @override */
     data!: FamiliarData;
 

@@ -1,7 +1,6 @@
-/* global getProperty, ui, CONST, ChatMessage, TokenHUD, BasePlaceableHUD */
+/* global canvas, game, getProperty, CONFIG */
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '../../module/item/dataDefinitions';
-import { TokenPF2e } from '../../module/actor/actor';
 
 declare let PF2e: any;
 

@@ -1,9 +1,9 @@
-/* global ui */
+/* global game, CONFIG */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 
@@ -205,7 +205,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
 
-            this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
+            // this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
         } else if (type === 'armor') {
             // Armor data
             const slots = getPropertySlots(data);

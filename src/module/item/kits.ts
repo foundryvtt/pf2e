@@ -1,3 +1,4 @@
+/* global game */
 import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './dataDefinitions';
 
 /**

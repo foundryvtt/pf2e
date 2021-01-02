@@ -1,4 +1,4 @@
-/* global Item, ChatMessage, TextEditor, renderTemplate, CONST, Roll, Token */
+/* global game, canvas, CONFIG */
 /**
  * Override and extend the basic :class:`Item` implementation
  */

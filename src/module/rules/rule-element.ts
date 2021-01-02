@@ -1,4 +1,4 @@
-/* global getProperty, Roll */
+/* global game, getProperty */
 import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
 import { PF2DamageDice, PF2Modifier } from '../modifiers';
 import { ItemData, WeaponData } from '../item/dataDefinitions';

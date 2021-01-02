@@ -1,4 +1,4 @@
-/* global CONST, Dialog */
+/* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { PF2EItem } from '../../item/item';
 

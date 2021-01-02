@@ -1,4 +1,4 @@
-/* global ChatMessage CONST FormApplication ui */
+/* global game */
 import { addCoinsSimple, calculateValueOfCurrency, removeCoinsSimple } from '../../item/treasure';
 
 /**

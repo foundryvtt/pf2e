@@ -1,9 +1,9 @@
-/* global randomID */
+/* global game, CONFIG, randomID */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
 import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from './item';
 import { AbilityString } from '../actor/actorDataDefinitions';
 import { TraitSelector5e } from '../system/trait-selector';
 import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
@@ -48,11 +48,10 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         };
 
         if (this.item.data.type === 'ancestry') {
-            const itemData = (<AncestryData>this.item.data).data;
+            const itemData = this.item.data.data;
 
             data.actorSizes = CONFIG.PF2E.actorSizes;
             data.rarityChoices = CONFIG.PF2E.rarityTraits;
-            data.ancestryVision = CONFIG.PF2E.ancestryVision;
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
 
