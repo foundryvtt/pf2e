@@ -137,7 +137,12 @@ function sanitizeEntity(entity) {
             $anchor.contents().unwrap();
         });
 
-        entity.data.description.value = $('<div>').append($description).html();
+        const cleanDescription = $('<div>')
+            .append($description)
+            .html()
+            .replace(/<([hb]r)>/g, '<$1 />'); // Restore Foundry's self-closing tags
+
+        entity.data.description.value = cleanDescription;
     }
 
     return entity;
