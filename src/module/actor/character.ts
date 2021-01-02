@@ -182,7 +182,7 @@ export class PF2ECharacter extends PF2EActor {
                 .join(', ');
             stat.roll = (event, options = [], callback?) => {
                 const label = game.i18n.format('PF2E.SavingThrowWithName', {
-                    saveName: game.i18n.localize(CONFIG.saves[saveName]),
+                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
@@ -372,7 +372,7 @@ export class PF2ECharacter extends PF2EActor {
             stat.value = stat.totalModifier;
             stat.roll = (event, options = [], callback?) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
-                    skillName: game.i18n.localize(CONFIG.skills[skillName]),
+                    skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
@@ -617,7 +617,7 @@ export class PF2ECharacter extends PF2EActor {
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
                     ].concat(
                         PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
-                            const key = CONFIG.weaponTraits[trait] ?? trait;
+                            const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                             const option: CharacterStrikeTrait = {
                                 name: trait,
                                 label: game.i18n.localize(key),

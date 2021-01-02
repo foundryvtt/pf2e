@@ -91,7 +91,7 @@ export class DamageRollModifiersDialog extends Application {
         const optionStyle =
             'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
         const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(CONFIG.weaponTraits[o])}</span>`)
+            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(CONFIG.PF2E.weaponTraits[o])}</span>`)
             .join('');
 
         const formula = duplicate(damage.formula[context.outcome ?? 'success']);

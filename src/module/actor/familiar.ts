@@ -25,7 +25,7 @@ export class PF2EFamiliar extends PF2EActor {
         data.traits.traits.value = ['minion'];
 
         // traits
-        data.traits.traits.value = [CONFIG.monsterTraits.minion];
+        data.traits.traits.value = [CONFIG.PF2E.monsterTraits.minion];
 
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);
@@ -157,7 +157,7 @@ export class PF2EFamiliar extends PF2EActor {
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
-                const stat = new PF2StatisticModifier(CONFIG.saves[saveName], modifiers);
+                const stat = new PF2StatisticModifier(CONFIG.PF2E.saves[saveName], modifiers);
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
@@ -165,7 +165,7 @@ export class PF2EFamiliar extends PF2EActor {
                     .join(', ');
                 stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
                     const label = game.i18n.format('PF2E.SavingThrowWithName', {
-                        saveName: game.i18n.localize(CONFIG.saves[save.name]),
+                        saveName: game.i18n.localize(CONFIG.PF2E.saves[save.name]),
                     });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
@@ -274,7 +274,7 @@ export class PF2EFamiliar extends PF2EActor {
                     .join(', ');
                 stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', {
-                        skillName: game.i18n.localize(CONFIG.skills[shortform]),
+                        skillName: game.i18n.localize(CONFIG.PF2E.skills[shortform]),
                     });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),

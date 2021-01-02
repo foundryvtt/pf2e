@@ -303,8 +303,8 @@ export class PF2eConditionManager {
                 Array.from<string>(PF2eConditionManager.statusNames)
                     .map(
                         (status) =>
-                            `${CONFIG.PF2eStatusEffects.effectsIconFolder + status}.${
-                                CONFIG.PF2eStatusEffects.effectsIconFileType
+                            `${CONFIG.PF2E.statusEffects.effectsIconFolder + status}.${
+                                CONFIG.PF2E.statusEffects.effectsIconFileType
                             }`,
                     )
                     .indexOf(item) < 0,
@@ -312,7 +312,7 @@ export class PF2eConditionManager {
 
         for (const condition of appliedConditions.values()) {
             const url = condition.data.hud.img.useStatusName
-                ? `${CONFIG.PF2eStatusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`
+                ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
                 : condition.data.hud.img.value;
 
             effectUpdates.effects.push(url);
@@ -579,7 +579,7 @@ export class PF2eConditionManager {
 
         for (const condition of conditions) {
             const url = condition.data.hud.img.useStatusName
-                ? `${CONFIG.PF2eStatusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`
+                ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
                 : condition.data.hud.img.value;
 
             if (!token.data.effects.includes(url)) {

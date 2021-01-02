@@ -38,7 +38,7 @@ export class PF2ENPC extends PF2EActor {
             );
             const modifiers = [
                 new PF2Modifier('PF2E.BaseModifier', base - 10 - dexterity, PF2ModifierType.UNTYPED),
-                new PF2Modifier(CONFIG.abilities.dex, dexterity, PF2ModifierType.ABILITY),
+                new PF2Modifier(CONFIG.PF2E.abilities.dex, dexterity, PF2ModifierType.ABILITY),
             ];
             ['ac', 'dex-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -66,7 +66,7 @@ export class PF2ENPC extends PF2EActor {
             const modifiers = [
                 new PF2Modifier('PF2E.BaseModifier', base - data.abilities[save.ability].mod, PF2ModifierType.UNTYPED),
                 new PF2Modifier(
-                    CONFIG.abilities[save.ability],
+                    CONFIG.PF2E.abilities[save.ability],
                     data.abilities[save.ability].mod,
                     PF2ModifierType.ABILITY,
                 ),
@@ -86,7 +86,7 @@ export class PF2ENPC extends PF2EActor {
                 .join(', ');
             stat.roll = (event, options = [], callback?) => {
                 const label = game.i18n.format('PF2E.SavingThrowWithName', {
-                    saveName: game.i18n.localize(CONFIG.saves[saveName]),
+                    saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
@@ -104,7 +104,7 @@ export class PF2ENPC extends PF2EActor {
             const base: number = data.attributes.perception.base ?? Number(data.attributes.perception.value);
             const modifiers = [
                 new PF2Modifier('PF2E.BaseModifier', base - data.abilities.wis.mod, PF2ModifierType.UNTYPED),
-                new PF2Modifier(CONFIG.abilities.wis, data.abilities.wis.mod, PF2ModifierType.ABILITY),
+                new PF2Modifier(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, PF2ModifierType.ABILITY),
             ];
             ['perception', 'wis-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -147,7 +147,11 @@ export class PF2ENPC extends PF2EActor {
                 const base: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
                 const modifiers = [
                     new PF2Modifier('PF2E.BaseModifier', base - data.abilities[ability].mod, PF2ModifierType.UNTYPED),
-                    new PF2Modifier(CONFIG.abilities[ability], data.abilities[ability].mod, PF2ModifierType.ABILITY),
+                    new PF2Modifier(
+                        CONFIG.PF2E.abilities[ability],
+                        data.abilities[ability].mod,
+                        PF2ModifierType.ABILITY,
+                    ),
                 ];
                 [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
                     (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -199,7 +203,7 @@ export class PF2ENPC extends PF2EActor {
                             PF2ModifierType.UNTYPED,
                         ),
                         new PF2Modifier(
-                            CONFIG.abilities[ability],
+                            CONFIG.PF2E.abilities[ability],
                             data.abilities[ability].mod,
                             PF2ModifierType.ABILITY,
                         ),
@@ -245,7 +249,7 @@ export class PF2ENPC extends PF2EActor {
                     { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
                 ].concat(
                     traits.map((trait) => {
-                        const key = CONFIG.weaponTraits[trait] ?? trait;
+                        const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                         const option: CharacterStrikeTrait = {
                             name: trait,
                             label: key,
