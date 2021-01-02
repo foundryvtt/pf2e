@@ -75,6 +75,37 @@ Hooks.once('init', () => {
     // Assign the PF2e Combat Tracker
     CONFIG.ui.combat = PF2eCombatTracker;
 
+    // Assign localization actor/item type labels
+    CONFIG.Actor.typeLabels = {
+        character: 'ACTOR.TypeCharacter',
+        familiar: 'ACTOR.TypeFamiliar',
+        hazard: 'ACTOR.TypeHazard',
+        loot: 'ACTOR.TypeLoot',
+        npc: 'ACTOR.TypeNpc',
+        vehicle: 'ACTOR.TypeVehicle',
+    };
+    CONFIG.Item.typeLabels = {
+        action: 'ACTOR.TypeAction',
+        ancestry: 'ACTOR.TypeAncestry',
+        armor: 'ACTOR.TypeArmor',
+        backpack: 'ACTOR.TypeBackpack',
+        background: 'ACTOR.TypeBackground',
+        class: 'ACTOR.TypeClass',
+        condition: 'ACTOR.TypeCondition',
+        consumable: 'ACTOR.TypeConsumable',
+        effect: 'ACTOR.TypeEffect',
+        equipment: 'ACTOR.TypeEquipment',
+        feat: 'ACTOR.TypeFeat',
+        kit: 'ACTOR.TypeKit',
+        lore: 'ACTOR.TypeLore',
+        martial: 'ACTOR.TypeMartial',
+        melee: 'ACTOR.TypeMelee',
+        spell: 'ACTOR.TypeSpell',
+        spellcastingEntry: 'ACTOR.TypeSpellcastingentry',
+        treasure: 'ACTOR.TypeTreasure',
+        weapon: 'ACTOR.TypeWeapon',
+    };
+
     PlayerConfigPF2e.hookOnRenderSettings();
 
     registerSettings();
