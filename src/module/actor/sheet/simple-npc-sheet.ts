@@ -206,13 +206,17 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             languages.localizedNames[language] = localizedName;
         }
     }
-    
+
     _prepareSkills(actorData) {
-        // Conversion from NPC skills to character skills is now performed
-        // in prepareNPCData, in the `actor.ts`
-        
-        // If any further skill processing for the sheet is required later on
-        // do it here
+        for (const npc_skill of actorData.data.npc_skills) {
+            const skillId = npc_skill.type;
+            const skill = actorData.data.skills[skillId];
+
+            if (skill === undefined) continue;
+
+            const value = npc_skill.value;
+            skill.value = value;
+        }
     }
     
     _prepareSpeeds(actorData) {

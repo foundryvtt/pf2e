@@ -329,7 +329,62 @@ $health-color: #A40802;
             }
         }
     }
+
+    #top-sections {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        #skills {
+            flex: 3;
+        }
     
+        #senses {
+            flex: 2;
+        }
+    }
+
+    .section-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 6px 0 6px;
+
+        .section-header {
+            display: flex;
+            flex: auto;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid $faded-color;
+            text-align: center;
+    
+            h4 {
+                flex: auto;
+                margin-bottom: 0px;
+                text-transform: uppercase;
+            }
+        }
+        
+        .section-body {
+            display: flex;
+            flex: auto;
+            width: 100%;
+            margin: 6px 6px 0 6px;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: baseline;
+            min-height: 12px;
+        }
+    }
+
+    .skills-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
     .alignment-select {
         flex: auto 0 0;
         padding: 4px !important;
