@@ -609,7 +609,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
     
     _getSizeLocalizedKey(size) {
-        return CONFIG.actorSizes[size];
+        return CONFIG.PF2E.actorSizes[size];
     }
     
     _getAbilityCodeKey(abilityCode) {
@@ -617,7 +617,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
     
     _getAbilityNameKey(abilityCode) {
-        return CONFIG.abilities[abilityCode];
+        return CONFIG.PF2E.abilities[abilityCode];
     }
     
     // ROLLS

@@ -40,7 +40,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
         // NPC partials
-        'systems/pf2e/templates/actors/npc/ability-box.html',
         'systems/pf2e/templates/actors/npc/partials/npc-header.html',
         'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html',
         'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html',
