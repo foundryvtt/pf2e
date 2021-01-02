@@ -76,14 +76,14 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         data.usage = CONFIG.PF2E.usageTraits; // usage data
 
         if (type === 'treasure') {
-            data.currencies = CONFIG.currencies;
-            data.stackGroups = CONFIG.stackGroups;
+            data.currencies = CONFIG.PF2E.currencies;
+            data.stackGroups = CONFIG.PF2E.stackGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
         } else if (type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.stackGroups;
-            data.consumableTraits = CONFIG.consumableTraits;
+            data.stackGroups = CONFIG.PF2E.stackGroups;
+            data.consumableTraits = CONFIG.PF2E.consumableTraits;
         } else if (type === 'spell') {
             // Spell Data
             mergeObject(data, {
@@ -198,7 +198,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         } else if (type === 'equipment') {
             // Equipment data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.stackGroups = CONFIG.stackGroups;
+            data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
         } else if (type === 'backpack') {
             // Backpack data

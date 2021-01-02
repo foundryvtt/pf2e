@@ -162,7 +162,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         });
         const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
         const skillName = game.i18n.localize(
-            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.skills[initSkill],
+            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill],
         );
 
         const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;

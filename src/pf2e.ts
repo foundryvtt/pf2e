@@ -59,12 +59,7 @@ Hooks.once('init', () => {
     console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 
     CONFIG.PF2E = PF2ECONFIG;
-    // Temporarily overload CONFIG until we're refactored out.
-    for (const k in CONFIG.PF2E) {
-        if (Object.prototype.hasOwnProperty.call(CONFIG.PF2E, k)) {
-            CONFIG[k] = CONFIG.PF2E[k];
-        }
-    }
+
     // Assign actor/item classes.
     CONFIG.Item.entityClass = PF2EItem;
     CONFIG.Actor.entityClass = PF2EActor;
