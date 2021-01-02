@@ -13,11 +13,6 @@ declare class JournalEntry extends Entity {
     sceneNote: Note;
 
     /**
-     * A boolean indicator for whether or not the JournalEntry is visible to the current user in the directory sidebar
-     */
-    visible: boolean;
-
-    /**
      *
      */
     _onUpdate(): void;

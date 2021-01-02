@@ -1,4 +1,4 @@
-/* global FormApplication */
+/* global game */
 
 /**
  * @category Other

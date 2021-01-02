@@ -1,4 +1,4 @@
-/* global Application */
+/* global game, CONFIG */
 import { Progress } from '../progress';
 
 /**

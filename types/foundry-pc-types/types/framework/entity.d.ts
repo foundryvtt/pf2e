@@ -1,12 +1,34 @@
-declare interface BaseEntityData<DataType = any> {
+declare interface EntityDescriptionData {
+    [key: string]: any;
+}
+
+declare interface BaseEntityData {
     _id: string;
     name: string;
-    type: string;
+    type: number | string;
+    data: EntityDescriptionData;
     flags: any;
     folder: string | null;
     permission: any;
-    data: DataType;
     img: string;
+}
+
+declare interface EntityCreateOptions {
+    temporary?: boolean;
+    renderSheet?: boolean;
+    noHook?: boolean;
+    [key: string]: any;
+}
+
+declare interface EntityUpdateOptions {
+    diff?: { [key: string]: any };
+    noHook?: boolean;
+    [key: string]: any;
+}
+
+declare interface EntityDeleteOptions {
+    noHook?: boolean;
+    [key: string]: any;
 }
 
 /**
@@ -27,9 +49,9 @@ declare interface BaseEntityData<DataType = any> {
  * let actorData = {name: "John Doe", type: "character", img: "icons/mystery-man.png"};
  * let actor = new Actor(actorData);
  */
-declare class Entity<DataType = any> {
+declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
-    data: DataType;
+    data: BaseEntityData;
 
     /** Additional options which were used to configure the Entity */
     options: any;
@@ -232,97 +254,65 @@ declare class Entity<DataType = any> {
     /* -------------------------------------------- */
 
     /**
-     * Create a new entity using provided input data
-     * The data for entity creation is typically provided from the server through the 'create<Entity>' socket
-     * Alternatively, the creation event may originate locally and the new entity can be pushed back to the server.
+     * Create one or multiple new entities using provided input data.
+     * Data may be provided as a single object to create one Entity, or as an Array of Objects.
+     * Entities may be temporary (unsaved to the database) by passing the temporary option as true.
+     * @static
      *
-     * @param data					The data with which to create the entity
-     * @param options				Additional options which customize the creation workflow
-     * @param options.temporary		Create a temporary entity which is not saved to the world database.
-     *								Default is false.
-     * @param options.renderSheet	Display the sheet for the created entity once it is created. Default is false.
+     * @param data                        A Data object or array of Data
+     * @param options                         Additional options which customize the creation workflow
+     * @param [options.temporary]         Create a temporary entity which is not saved to the world database. Default is false.
+     * @param [options.renderSheet]     Display the sheet for the created entity once it is created. Default is false.
+     * @param [options.noHook]                Block the dispatch of preCreate hooks for this operation.
      *
-     * @return						A Promise which resolves to contain the created Entity
+     * @return  The created Entity or array of Entities
      *
      * @example
-     * const createData = {name: "New Entity", img: "path/to/profile.jpg"};
-     * const created = await Entity.create(createData); // Saved to the database
-     * const temp = await Entity.create(createData, {temporary: true}); // Not saved to the database
+     * const data = {name: "New Entity", type: "character", img: "path/to/profile.jpg"};
+     * const created = await Entity.create(data); // Returns one Entity, saved to the database
+     * const temp = await Entity.create(data, {temporary: true}); // Not saved to the database
+     *
+     * @example
+     * const data = [{name: "Tim", type: "npc"], [{name: "Tom", type: "npc"}];
+     * const created = await Entity.create(data); // Returns an Array of Entities, saved to the database
+     * const created = await Entity.create(data, {temporary: true}); // Not saved to the database
      */
-    static create(data: object, options?: object): Promise<Entity>;
+    static create<TE extends typeof Entity>(
+        this: TE,
+        data: Partial<InstanceType<TE>['data']> | InstanceType<TE>['data'],
+        options?: EntityCreateOptions,
+    ): Promise<InstanceType<TE>>;
 
     /**
-     * Create multiple new Entities using provided input data Array, containing one Object per created Entity.
+     * Update one or multiple existing entities using provided input data.
+     * Data may be provided as a single object to update one Entity, or as an Array of Objects.
+     * @static
      *
-     * @param data					The data with which to create the entity
-     * @param options				Additional options which customize the creation workflow
-     * @param options.temporary		Created entities are temporary and not saved to the database. Default false.
-     * @param options.renderSheet	Display sheets for each created entities. Default false.
+     * @param data              A Data object or array of Data. Each element must contain the _id of an existing Entity.
+     * @param options           Additional options which customize the update workflow
+     * @param [options.diff]    Difference the provided data against the current to eliminate unnecessary changes.
+     * @param [options.noHook]  Block the dispatch of preUpdate hooks for this operation.
      *
-     * @return						A Promise which resolves to contain the created Entities
+     * @return  The updated Entity or array of Entities
      *
      * @example
-     * const dataArray = [{name: "Entry 1"}, {name: "Entry 2"}, {name: "Entry 3"}];
-     * const entries = await Entity.createMany(dataArray); // Saved to the database
-     * const temps = await Entity.createMany(dataArray, {temporary: true}); // Not saved to the database
+     * const data = {_id: "12ekjf43kj2312ds", name: "New Name"}};
+     * const updated = await Entity.update(data); // Updated entity saved to the database
+     *
+     * @example
+     * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
+     * const updated = await Entity.update(data); // Returns an Array of Entities, updated in the database
      */
-    static createMany(data: object[], options?: object): Promise<Entity[]>;
+    update(data: object, options?: EntityUpdateOptions): Promise<this>;
 
     /**
-     * Update the current entity using new data
-     * This new data is typically provided from the server through the 'update<Entity>' socket
-     * Alternatively, the update may originate locally, in which case it can be pushed back to the server
-     *
-     * @param data			The data with which to update the entity
-     * @param options		Additional options which customize the update workflow
-     * @param options.diff	Diff the provided data against existing entity data, only submitting the
-     * 						difference to the server. Default is true.
-     *
-     * @return				A Promise which resolves to the updated Entity
-     *
-     * @example
-     * const updateData = {name: "New Name"};
-     * const updated = await entity.update(updateData);
-     */
-    update(data: object, options?: object): Promise<Entity>;
+     * Delete the current Entity.
+     * @see {Entity.delete}
 
-    /**
-     * Update multiple Entities using an Array of provided update Objects which define incremental data for each Entity.
-     *
-     * @param data		Data with which to update each Entity. Each Object must include the _id
-     * @param options	Additional options which customize the update workflow
-     *
-     * @return			A Promise which resolves to contain the updated Entities
-     *
-     * @example
-     * const updateArray = [{_id: "dgfkjt34kjdgfkjt34", name: "Name 1"}, {_id: "dfskjkj2r3kjdvkj2", name: "Name 2"}];
-     * const updated = await Entity.updateMany(updateArray);
+     * @param  options  Options which customize the deletion workflow
+     * @return  The deleted Entity
      */
-    static updateMany(data: object[], options?: object): Promise<Entity[]>;
-
-    /**
-     * Delete the entity, removing it from its collection and deleting its data record
-     * @param options	Additional options which customize the deletion workflow
-     * @return			A Promise which resolves to the ID of the deleted Entity once handled by the server
-     *
-     * @example
-     * const deleted = await entity.delete();
-     */
-    delete(options?: object): Promise<string>;
-
-    /**
-     * Delete multiple Entities using a provided Array of ids, one per Entity.
-     *
-     * @param ids				The data with which to create the entity
-     * @param options			Additional options which customize the deletion workflow
-     * @param options.deleteAll	An optional flag which specifies that all Entities should be deleted
-     * @return					A Promise which resolves to contain the created Entities
-     *
-     * @example
-     * const deleteIds = ["dskjfk23jf23kdjs", "g90klju9yujl9hj2", "23hjdfewh23rgf3"];
-     * const deleted = await Entity.deleteMany(deleteIds);
-     */
-    static deleteMany(ids: string[], options: object): Promise<string[]>;
+    delete(options?: EntityDeleteOptions): Promise<this>;
 
     /**
      * Entity-specific actions that should occur when the Entity is first created
@@ -352,88 +342,109 @@ declare class Entity<DataType = any> {
     getEmbeddedEntity(collection: string, id: number, { strict }: { strict?: boolean }): any;
 
     /**
-     * Remove an Embedded Entity from the parent Entity data by it's id.
+     * Create one or multiple EmbeddedEntities within this parent Entity.
+     * Data may be provided as a single Object to create one EmbeddedEntity or as an Array of Objects to create many.
+     * Entities may be temporary (unsaved to the database) by passing the temporary option as true.
      *
-     * @param embeddedName	The name of the Embedded Entity type to retrieve
-     * @param id			The numeric ID of the child to retrieve
-     * @return				The embedded entity data that was removed
+     * @param embeddedName           The name of the Embedded Entity class to create
+     * @param data                   A Data object or an Array of Data objects to create
+     * @param options                Additional creation options which modify the request
+     * @param [options.temporary]    Create a temporary entity which is not saved to the world database. Default is false.
+     * @param [options.renderSheet]  Display the sheet for each created Embedded Entities once created.
+     * @param [options.noHook]       Block the dispatch of preUpdate hooks for this operation.
+     *
+     * @return  A Promise which resolves to the created embedded Data once the creation request is successful
+     *
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const data = {name: "Magic Sword", type: "weapon", img: "path/to/icon.png"};
+     * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns one EmbeddedEntity, saved to the Actor
+     * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
+     *
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const data = [{name: "Mace of Crushing", type: "weapon"}, {name: "Shield of Defense", type: "armor"}];
+     * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns an Array of EmbeddedEntities, saved to the Actor
+     * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
      */
-    removeEmbeddedEntity(embeddedName: string, id: number): any;
+    createEmbeddedEntity<E extends BaseEntityData>(
+        embeddedName: string,
+        data: Partial<E>[] | E[],
+        options?: EntityCreateOptions,
+    ): Promise<E | E[] | null>;
+    createEmbeddedEntity<E extends BaseEntityData>(
+        embeddedName: string,
+        data: Partial<E> | E,
+        options?: EntityCreateOptions,
+    ): Promise<E | null>;
 
     /**
-     * Create one EmbeddedEntity within this parent Entity.
-     * Dispatch the creation request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
+     * Update one or multiple existing entities using provided input data.
+     * Data may be provided as a single object to update one Entity, or as an Array of Objects.
+     * @static
      *
-     * @param embeddedName	The name of the Embedded Entity class to create
-     * @param createData	An object of initial data from which to create the Embedded Entity
-     * @param options		Additional creation options which modify the request
-     * @return				A Promise which resolves to this Entity once the creation request is successful
+     * @param embeddedName      The name of the Embedded Entity class to create
+     * @param data              A Data object or array of Data. Each element must contain the _id of an existing Entity.
+     * @param options           Additional options which customize the update workflow
+     * @param [options.diff]    Difference the provided data against the current to eliminate unnecessary changes.
+     * @param [options.noHook]  Block the dispatch of preUpdate hooks for this operation.
+     *
+     * @return  The updated Entity or array of Entities
+     *
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const item = actor.data.items.find(i => i.name === "Magic Sword");
+     * const update = {_id: item._id, name: "Magic Sword +1"};
+     * const updated = await actor.updateEmbeddedEntity("OwnedItem", update); // Updates one EmbeddedEntity
+     *
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const weapons = actor.data.items.filter(i => i.type === "weapon");
+     * const updates = weapons.map(i => {
+     *     return {_id: i._id, name: i.name + "+1"};
+     * }
+     * const updated = await actor.createEmbeddedEntity("OwnedItem", updates); // Updates multiple EmbeddedEntity objects
      */
-    createEmbeddedEntity(embeddedName: string, createData: object | object[], options?: object): Promise<Entity>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: object,
+        options?: EntityUpdateOptions,
+    ): Promise<BaseEntityData>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: object[],
+        options?: EntityUpdateOptions,
+    ): Promise<BaseEntityData | BaseEntityData[]>;
 
     /**
-     * @deprecated
-     * Create multiple Embedded Entities within this parent Entity using an Array of creation data.
-     * Dispatch the update request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
+     * Delete one or multiple existing EmbeddedEntity objects using provided input data.
+     * Data may be provided as a single id to delete one object or as an Array of string ids.
+     * @static
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param createData	An Array of initial data objects from which to create the Embedded Entities.
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the creation request is successful
-     */
-    createManyEmbeddedEntities(embeddedName: string, createData: object[], options?: object): Promise<Entity[]>;
-
-    /**
-     * Update one EmbeddedEntity within this parent Entity using incremental data.
-     * Dispatch the update request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
+     * @param embeddedName      The name of the Embedded Entity class to create
+     * @param data              A Data object or array of Data. Each element must contain the _id of an existing Entity.
+     * @param options           Additional options which customize the update workflow
+     * @param [options.noHook]  Block the dispatch of preUpdate hooks for this operation.
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param updateData	An object of incremental data from which to update the Embedded Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
-     */
-    updateEmbeddedEntity(embeddedName: string, updateData: object | object[], options?: object): Promise<Entity>;
-
-    /**
-     * @deprecated
-     * Update multiple Embedded Entities within this parent Entity using incremental data.
-     * Dispatch the update request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
+     * @return  The deleted Embedded Entities
      *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param updateData	An Array of incremental data, one per Embedded Entity, with which to update the Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
-     */
-    updateManyEmbeddedEntities(embeddedName: string, updateData: object[], options?: object): Promise<Entity[]>;
-
-    /**
-     * Delete one EmbeddedEntity within this parent Entity.
-     * Dispatch the deletion request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const item = actor.data.items.find(i => i.name === "Magic Sword");
+     * const deleted = await actor.deleteEmbeddedEntity("OwnedItem", item._id); // Deletes one EmbeddedEntity
      *
-     * @param embeddedName	The name of the Embedded Entity class to delete
-     * @param childId		The id of the existing Embedded Entity child to delete
-     * @param options		Additional deletion options which modify the request
-     * @return				A Promise which resolves to this Entity once the deletion request is successful
+     * @example
+     * const actor = game.actors.get("dfv934kj23lk6h9k");
+     * const weapons = actor.data.items.filter(i => i.type === "weapon");
+     * const deletions = weapons.map(i => i._id);
+     * const deleted = await actor.deleteEmbeddedEntity("OwnedItem", deletions); // Deletes multiple EmbeddedEntity objects
      */
-    deleteEmbeddedEntity(embeddedName: string, childId: string | string[], options?: object): Promise<Entity>;
-
-    /**
-     * @deprecated
-     * Delete multiple Embedded Entities within this parent Entity by an Array of child ids.
-     * Dispatch the update request to the server for handling.
-     * The result will be acknowledged to this client, and broadcast to other connected clients.
-     *
-     * @param embeddedName	The name of the Embedded Entity class to update
-     * @param deleteIds		An Array of Embedded Entity ids to delete from the parent Entity
-     * @param options		Additional update options which modify the request
-     * @return				A Promise which resolves to this Entity once the update request is successful
-     */
-    deleteManyEmbeddedEntities(embeddedName: string, deleteIds: string[], options?: object): Promise<Entity>;
+    deleteEmbeddedEntity(embeddedName: string, dataId: string, options?: EntityDeleteOptions): Promise<BaseEntityData>;
+    deleteEmbeddedEntity(
+        embeddedName: string,
+        dataId: string[],
+        options?: EntityDeleteOptions,
+    ): Promise<BaseEntityData | BaseEntityData[]>;
 
     /**
      * Handle Embedded Entity creation within this Entity with specific callback steps.
@@ -540,7 +551,7 @@ declare class Entity<DataType = any> {
      * @param options		Additional creation options passed to the Entity.create method
      * @returns				A Promise which resolves to the created clone Entity
      */
-    clone(createData?: object, options?: object): Promise<Entity>;
+    clone(createData?: object, options?: EntityCreateOptions): Promise<this>;
 
     /**
      * Export entity data to a JSON file which can be saved by the client and later imported into a different session
@@ -553,17 +564,17 @@ declare class Entity<DataType = any> {
      * 2. A World Entity _id
      * 3. A data object explicitly provided
      *
-     * @param {object} data     The data object extracted from a DataTransfer event
-     * @return {Entity}         The Entity data that should be handled by the drop handler
+     * @param data  The data object extracted from a DataTransfer event
+     * @return  The Entity data that should be handled by the drop handler
      */
-    static fromDropData(data: object): Promise<Entity>;
+    static fromDropData<TE extends typeof Entity>(this: TE, data: object): Promise<InstanceType<TE>>;
 
     /**
      * Import data and update this entity
      * @param json	JSON data string
      * @return		The updated Entity
      */
-    importFromJSON(json: string): Promise<Entity>;
+    importFromJSON(json: string): Promise<this>;
 
     /**
      * Render an import dialog for updating the data related to this Entity through an exported JSON file
@@ -573,7 +584,7 @@ declare class Entity<DataType = any> {
     /**
      * Serializing an Entity should simply serialize it's inner data, not the entire instance
      */
-    toJSON(): BaseEntityData;
+    toJSON(): this['data'];
 
     static can(user: User, action: string, target: Entity): boolean;
 

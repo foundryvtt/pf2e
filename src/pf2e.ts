@@ -1,35 +1,12 @@
-/* global ui, CONST */
-import { CONFIG as PF2ECONFIG } from './scripts/config';
+import { PF2ECONFIG, ConfigPF2e } from './scripts/config';
+import { rollItemMacro, rollActionMacro } from './scripts/init';
 import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
-import {
-    PF2EAction,
-    PF2EAncestry,
-    PF2EArmor,
-    PF2EBackground,
-    PF2EBackpack,
-    PF2EClass,
-    PF2ECondition,
-    PF2EConsumable,
-    PF2EEquipment,
-    PF2EFeat,
-    PF2EItem,
-    PF2EKit,
-    PF2ELore,
-    PF2EMartial,
-    PF2EMelee,
-    PF2ESpell,
-    PF2ESpellcastingEntry,
-    PF2EStatus,
-    PF2ETreasure,
-    PF2EWeapon,
-} from './module/item/item';
-import { PF2EActor, PF2EHazard, PF2ELoot, PF2EVehicle } from './module/actor/actor';
-import { PF2ECharacter } from './module/actor/character';
+import { PF2EItem } from './module/item/item';
+import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
-import { PF2EFamiliar } from './module/actor/familiar';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
 import { registerActors } from './module/register-actors';
@@ -63,6 +40,21 @@ require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/actor/sheet/itemBehaviour.ts');
 require('./scripts/system/canvasDropHandler');
 
+interface GamePF2e extends Game<PF2EActor, PF2EItem> {
+    pf2e: {
+        worldclock?: WorldClockApplication;
+        effectPanel?: EffectPanel;
+        rollItemMacro?: typeof rollItemMacro;
+        rollActionMacro: typeof rollActionMacro;
+    };
+}
+
+declare global {
+    const game: GamePF2e;
+    const CONFIG: ConfigPF2e;
+    const canvas: Canvas<PF2EActor>;
+}
+
 Hooks.once('init', () => {
     console.log('PF2e | Initializing Pathfinder 2nd Edition System');
 
@@ -82,41 +74,6 @@ Hooks.once('init', () => {
     CONFIG.Combat.initiative.decimals = 1;
     // Assign the PF2e Combat Tracker
     CONFIG.ui.combat = PF2eCombatTracker;
-
-    CONFIG.PF2E.Actor = {
-        entityClasses: {
-            character: PF2ECharacter,
-            npc: PF2ENPC,
-            hazard: PF2EHazard,
-            loot: PF2ELoot,
-            familiar: PF2EFamiliar,
-            vehicle: PF2EVehicle,
-        },
-    };
-
-    CONFIG.PF2E.Item = {
-        entityClasses: {
-            backpack: PF2EBackpack,
-            treasure: PF2ETreasure,
-            weapon: PF2EWeapon,
-            armor: PF2EArmor,
-            kit: PF2EKit,
-            melee: PF2EMelee,
-            consumable: PF2EConsumable,
-            equipment: PF2EEquipment,
-            ancestry: PF2EAncestry,
-            background: PF2EBackground,
-            class: PF2EClass,
-            feat: PF2EFeat,
-            lore: PF2ELore,
-            martial: PF2EMartial,
-            action: PF2EAction,
-            spell: PF2ESpell,
-            spellcastingEntry: PF2ESpellcastingEntry,
-            status: PF2EStatus,
-            condition: PF2ECondition,
-        },
-    };
 
     PlayerConfigPF2e.hookOnRenderSettings();
 
@@ -282,13 +239,13 @@ Hooks.once('ready', () => {
 
     // world clock singleton application
     if (game.user.isGM) {
-        game[game.system.id].worldclock = new WorldClockApplication();
+        game.pf2e.worldclock = new WorldClockApplication();
     }
 
     // effect panel singleton application
     game[game.system.id].effectPanel = new EffectPanel();
     if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
-        game[game.system.id].effectPanel.render(true);
+        game.pf2e.effectPanel.render(true);
     }
 });
 
@@ -519,7 +476,7 @@ Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
     }
 });
 
-Hooks.on('updateToken', (scene, token, data, options, userID) => {
+Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
     if (!token.actorLink && options.pf2e?.items) {
         // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
         // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
@@ -543,7 +500,7 @@ Hooks.on('updateToken', (scene, token, data, options, userID) => {
 });
 
 Hooks.on('controlToken', (token, selected) => {
-    game[game.system.id].effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 // world clock application
@@ -578,13 +535,13 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 });
 
 Hooks.on('updateWorldTime', (total, diff) => {
-    const worldclock = game[game.system.id]?.worldclock;
+    const worldclock = game.pf2e.worldclock;
     if (worldclock) {
         worldclock.render(false);
     }
-    game[game.system.id].effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('updateCombat', (combat, diff, options, userID) => {
-    game[game.system.id].effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });

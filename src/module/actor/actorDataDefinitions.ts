@@ -553,6 +553,9 @@ export interface RawFamiliarData {
     damageDice: Record<string, PF2DamageDice[]>;
     attributes: {
         hp: FamiliarHitPointsData;
+        ac: { value: number; breakdown: string; check?: number };
+        perception: { value: number } & Partial<RawSkillData>;
+        /** The movement speeds that this Familiar has. */
         speed: {
             /** The land speed for this actor. */
             value: string;

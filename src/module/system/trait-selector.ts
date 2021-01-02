@@ -1,4 +1,4 @@
-/* global FormApplication, getProperty */
+/* global getProperty */
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
  * @type {FormApplication}

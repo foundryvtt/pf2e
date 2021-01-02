@@ -6,7 +6,7 @@
  * @param data	An Array of Entity data from which to create instances
  * @param apps	An Array of Application instances which the Collection modifies
  */
-declare class Collection<T extends Entity> extends Map {
+declare class Collection<T> extends Map {
     /**
      * A reference to the original source data provided by the server
      */
@@ -104,7 +104,7 @@ declare class Collection<T extends Entity> extends Map {
      * c.get("d"); // null
      * c.get("d", {strict: true}); // throws Error
      */
-    get(id: string, { strict }?: { strict?: boolean }): T;
+    get(id: string, { strict }?: { strict?: boolean }): T | null;
 
     /**
      * Retrieve the index of an entity within the collection by its ID
@@ -122,18 +122,18 @@ declare class Collection<T extends Entity> extends Map {
      * let c = new Collection([["a", "AA"], ["b", "AB"], ["c", "CC"]]);
      * let hasA = c.filters(entry => entry.slice(0) === "A");
      */
-    filter(condition: (T) => boolean): T[];
+    filter(condition: (args: T) => boolean): T[];
     /**
      * Find an entry in the Map using an functional condition.
      * @param condition 	The functional condition to test
      */
-    find(condition: (T) => boolean): T | null;
+    find(condition: (args: T) => boolean): T | null;
 
     /**
      * Transform each element of the Collection into a new form, returning an Array of transformed values
      * @param {Function} transformer  The transformation function to apply to each entry value
      */
-    map<U>(transformer: (T) => U): U[];
+    map<U>(transformer: (args: T) => U): U[];
 
     /**
      * Reduce the Collection by applying an evaluator function and accumulating entries

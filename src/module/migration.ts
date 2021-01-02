@@ -1,4 +1,4 @@
-/* global ui, isObjectEmpty, expandObject, Token */
+/* global game, isObjectEmpty, expandObject */
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
