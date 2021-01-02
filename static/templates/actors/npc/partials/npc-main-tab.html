@@ -7,4 +7,35 @@
         </div>
         {{/each}}
     </div>
+    <div id="top-sections">
+        <div id="skills" class="section-container">
+            <div class="section-header">
+                <h4>{{ localize 'PF2E.SkillsLabel' }}</h4>
+                {{# if options.editable }}
+                <div class="skills-controls controls" for="data.npc_skills">
+                    <a class="skills-edit edit" data-options="skill" title="{{ localize 'PF2E.NPC.EditSkills' }}"><i class="fas fa-edit"></i></a>
+                </div>
+                {{/if}}
+            </div>
+            <div class="section-body">
+                <div class="skills-list">
+                    {{#each data.skills as |skill id|}}
+                    {{#if (isNotZero skill.value) }}
+                    <div class="skill-entry tag" data-skill="{{id}}">
+                        <a class="rollable">{{skill.label}} {{numberFormat skill.value decimals=0 sign=true}}</a>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div id="senses" class="section-container">
+            <div class="section-header">
+                <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
+            </div>
+            <div class="section-body">
+
+            </div>
+        </div>
+    </div>
 </div>
