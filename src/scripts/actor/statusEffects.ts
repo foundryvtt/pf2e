@@ -45,7 +45,7 @@ export class PF2eStatusEffects {
     static statusEffectChanged: boolean;
 
     static init() {
-        if (CONFIG.PF2E.PF2eStatusEffects.overruledByModule) return;
+        if (CONFIG.PF2E.statusEffects.overruledByModule) return;
 
         console.log('PF2e System | Initializing Status Effects Module');
         this.hookIntoFoundry();
@@ -70,13 +70,13 @@ export class PF2eStatusEffects {
         }
 
         const statusEffectType = game.settings.get('pf2e', 'statusEffectType');
-        CONFIG.PF2eStatusEffects.lastIconType = statusEffectType;
-        CONFIG.PF2eStatusEffects.effectsIconFolder =
+        CONFIG.PF2E.statusEffects.lastIconType = statusEffectType;
+        CONFIG.PF2E.statusEffects.effectsIconFolder =
             PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFolder;
-        CONFIG.PF2eStatusEffects.effectsIconFileType =
+        CONFIG.PF2E.statusEffects.effectsIconFileType =
             PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
-        CONFIG.PF2eStatusEffects.foundryStatusEffects = CONFIG.statusEffects;
-        CONFIG.PF2eStatusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
+        CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
+        CONFIG.PF2E.statusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
         /** Update FoundryVTT's CONFIG.statusEffects */
         this._updateStatusIcons();
     }
@@ -232,13 +232,13 @@ export class PF2eStatusEffects {
             .forEach((c) => {
                 effects.push(
                     c.data.hud.img.useStatusName
-                        ? `${CONFIG.PF2eStatusEffects.effectsIconFolder}${c.data.hud.statusName}.${CONFIG.PF2eStatusEffects.effectsIconFileType}`
+                        ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${c.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
                         : c.data.hud.img.value,
                 );
             });
 
-        CONFIG.statusEffects = CONFIG.PF2eStatusEffects.keepFoundryStatusEffects
-            ? effects.concat(CONFIG.PF2eStatusEffects.foundryStatusEffects)
+        CONFIG.statusEffects = CONFIG.PF2E.statusEffects.keepFoundryStatusEffects
+            ? effects.concat(CONFIG.PF2E.statusEffects.foundryStatusEffects)
             : effects;
     }
 
@@ -260,7 +260,7 @@ export class PF2eStatusEffects {
             i = $(i);
             const src = i.attr('src');
 
-            if (src.includes(CONFIG.PF2eStatusEffects.effectsIconFolder)) {
+            if (src.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
                 const condition = PF2eConditionManager.getConditionByStatusName(statusName);
 
@@ -358,7 +358,7 @@ export class PF2eStatusEffects {
     static _showStatusDescr(event) {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
-        if (f.attr('src').includes(CONFIG.PF2eStatusEffects.effectsIconFolder)) {
+        if (f.attr('src').includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
             const statusName = f.attr('data-effect');
             statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
         }
@@ -539,8 +539,8 @@ export class PF2eStatusEffects {
             (i: ConditionData) => i.flags.pf2e?.condition && i.data.active && i.type === 'condition',
         )) {
             statusEffectList += `
-                <li><img src="${`${CONFIG.PF2eStatusEffects.effectsIconFolder + condition.data.hud.statusName}.${
-                    CONFIG.PF2eStatusEffects.effectsIconFileType
+                <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.hud.statusName}.${
+                    CONFIG.PF2E.statusEffects.effectsIconFileType
                 }`}" title="${PF2e.DB.condition[condition.data.hud.statusName].summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${
@@ -591,7 +591,7 @@ export class PF2eStatusEffects {
      * And migrate all statusEffect URLs of all Tokens
      */
     static async _migrateStatusEffectUrls(chosenSetting) {
-        if (CONFIG.PF2E.PF2eStatusEffects.overruledByModule) {
+        if (CONFIG.PF2E.statusEffects.overruledByModule) {
             console.log('PF2e System | The PF2eStatusEffect icons are overruled by a module');
             ui.notifications.error(
                 'Changing this setting has no effect, as the icon types are overruled by a module.',
@@ -601,7 +601,7 @@ export class PF2eStatusEffects {
         }
         console.log('PF2e System | Changing status effect icon types');
         const iconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
-        const lastIconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2eStatusEffects.lastIconType];
+        const lastIconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
         const promises = [];
         for (const scene of game.scenes.values()) {
@@ -628,9 +628,9 @@ export class PF2eStatusEffects {
         }
         await Promise.all(promises);
 
-        CONFIG.PF2eStatusEffects.effectsIconFolder = iconType.effectsIconFolder;
-        CONFIG.PF2eStatusEffects.effectsIconFileType = iconType.effectsIconFileType;
-        CONFIG.PF2eStatusEffects.lastIconType = chosenSetting;
+        CONFIG.PF2E.statusEffects.effectsIconFolder = iconType.effectsIconFolder;
+        CONFIG.PF2E.statusEffects.effectsIconFileType = iconType.effectsIconFileType;
+        CONFIG.PF2E.statusEffects.lastIconType = chosenSetting;
         PF2eStatusEffects._updateStatusIcons();
     }
 
@@ -661,7 +661,7 @@ export class PF2eStatusEffects {
     static _getStatusFromImg(url) {
         return url.substring(
             url.lastIndexOf('/') + 1,
-            url.length - CONFIG.PF2eStatusEffects.effectsIconFileType.length - 1,
+            url.length - CONFIG.PF2E.statusEffects.effectsIconFileType.length - 1,
         );
     }
 

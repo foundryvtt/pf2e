@@ -281,7 +281,7 @@ export class PF2WeaponDamage {
         if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
             const value = toNumber(weapon.data?.potencyRune?.value) ?? 0;
             const modifier = new PF2Modifier(
-                CONFIG.weaponTraits.backstabber,
+                CONFIG.PF2E.weaponTraits.backstabber,
                 value > 2 ? 2 : 1,
                 PF2ModifierType.UNTYPED,
             );
@@ -294,7 +294,7 @@ export class PF2WeaponDamage {
             .filter((t) => t.name.startsWith('deadly-'))
             .forEach((t) => {
                 diceModifiers.push({
-                    name: CONFIG.weaponTraits[t.name],
+                    name: CONFIG.PF2E.weaponTraits[t.name],
                     diceNumber: strikingDice > 1 ? strikingDice : 1,
                     dieSize: t.name.substring(t.name.indexOf('-') + 1),
                     critical: true,
@@ -308,7 +308,7 @@ export class PF2WeaponDamage {
             .forEach((t) => {
                 const dieSize = t.name.substring(t.name.indexOf('-') + 1);
                 diceModifiers.push({
-                    name: CONFIG.weaponTraits[t.name],
+                    name: CONFIG.PF2E.weaponTraits[t.name],
                     diceNumber: 1,
                     dieSize,
                     critical: true,
@@ -352,7 +352,9 @@ export class PF2WeaponDamage {
             }
 
             if (ability) {
-                numericModifiers.push(new PF2Modifier(CONFIG.abilities[ability], modifier, PF2ModifierType.ABILITY));
+                numericModifiers.push(
+                    new PF2Modifier(CONFIG.PF2E.abilities[ability], modifier, PF2ModifierType.ABILITY),
+                );
             }
 
             // check for weapon specialization
