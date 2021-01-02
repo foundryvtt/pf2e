@@ -1,4 +1,4 @@
-/* global Roll */
+/* global game, CONFIG */
 import {
     PF2DamageDice,
     PF2Modifier,

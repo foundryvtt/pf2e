@@ -1,4 +1,4 @@
-/* global RollTable */
+/* global game */
 
 class PF2eCritFumbleCards {
     static critTable: any;

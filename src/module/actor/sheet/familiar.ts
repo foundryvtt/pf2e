@@ -1,10 +1,11 @@
-/* global CONST, Dialog */
-import { SKILL_DICTIONARY } from '../actor';
+/* global game, CONFIG */
+import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { PF2EItem } from '../../item/item';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eFamiliar extends ActorSheet {
+export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EActor, PF2EItem> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

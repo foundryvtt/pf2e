@@ -1,4 +1,4 @@
-/* global CONST */
+/* global game */
 import { compendiumBrowser } from './packs/compendium-browser';
 
 /**

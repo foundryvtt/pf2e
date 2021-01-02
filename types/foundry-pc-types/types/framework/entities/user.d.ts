@@ -17,20 +17,20 @@ declare interface UserActivityData {
  * The collection of User entities which is accessible through ``game.users``.
  * The array of User entities within this collection is accessible through ``game.users.entities``.
  */
-declare class Users extends Collection<User> {
-    entities: User[];
+declare class Users<ActorType extends Actor = Actor> extends Collection<User<ActorType>> {
+    entities: User<ActorType>[];
 
     /**
      * Elements of the Users collection are instances of the User class
      */
-    get object(): User;
+    get object(): User<ActorType>;
 
     /**
      * Get the users with player roles
      */
-    get players(): User[];
+    get players(): User<ActorType>[];
 
-    values(): IterableIterator<User>;
+    values(): IterableIterator<User<ActorType>>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */
@@ -42,6 +42,11 @@ declare class Users extends Collection<User> {
      * @param activityData	The object of activity data
      */
     static _handleUserActivity(userId: string, activityData?: object): void;
+}
+
+declare interface UserData extends BaseEntityData {
+    type: string;
+    color: string;
 }
 
 /**
@@ -63,7 +68,8 @@ declare class Users extends Collection<User> {
  * @param options			Initialization options which modify the construction of a User entity. See the Entity
  *							class for more detail.
  */
-declare class User extends Entity {
+declare class User<ActorType extends Actor = Actor> extends Entity {
+    data: UserData;
     /**
      * Track whether the user is currently active in the game
      */
@@ -94,7 +100,7 @@ declare class User extends Entity {
     /**
      * Return the Actor instance of the user's impersonated character (or undefined)
      */
-    get character(): SystemActorType;
+    get character(): ActorType;
 
     /**
      * @override
@@ -133,7 +139,7 @@ declare class User extends Entity {
      *
      * @param permission	The action to test
      */
-    can(permission: string): boolean;
+    // can(permission: string): boolean;
 
     /**
      * Test whether the User has a specific permission entitled .This differs from user#can because it does not always

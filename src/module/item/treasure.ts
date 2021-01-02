@@ -1,3 +1,4 @@
+/* global game */
 import { groupBy, isBlank } from '../utils';
 
 // FIXME: point this to the correct type afterwards

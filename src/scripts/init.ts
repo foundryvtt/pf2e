@@ -1,5 +1,5 @@
-/* global Macro, ChatMessage, ui, SquareGrid, BaseGrid, TextEditor, renderTemplate, CONST  */
-import { SKILL_DICTIONARY } from '../module/actor/actor';
+/* global game, canvas, BaseGrid, SquareGrid  */
+import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
@@ -31,9 +31,9 @@ async function createItemMacro(item, slot) {
  * @param {string} itemName
  * @return {Promise}
  */
-function rollItemMacro(itemId) {
+export function rollItemMacro(itemId: string) {
     const speaker = ChatMessage.getSpeaker();
-    let actor;
+    let actor: PF2EActor;
     if (speaker.token) actor = game.actors.tokens[speaker.token];
     if (!actor) actor = game.actors.get(speaker.actor);
     const item = actor ? actor.items.find((i) => i._id === itemId) : null;
@@ -64,7 +64,7 @@ async function createActionMacro(actionIndex: string, actorId: string, slot: num
     game.user.assignHotbarMacro(macro, slot);
 }
 
-async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
+export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
     const actor = game.actors.get(actorId);
     if (actor) {
         const action = (actor as any).data.data.actions[actionIndex];

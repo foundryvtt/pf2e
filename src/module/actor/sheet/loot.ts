@@ -1,4 +1,4 @@
-/* global CONST */
+/* global game, CONFIG */
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';

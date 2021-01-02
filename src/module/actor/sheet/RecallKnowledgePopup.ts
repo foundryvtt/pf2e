@@ -1,4 +1,4 @@
-/* global Application */
+/* global game, CONFIG */
 import { IdentifyCreatureData } from '../../recall-knowledge';
 import { padArray } from '../../utils';
 

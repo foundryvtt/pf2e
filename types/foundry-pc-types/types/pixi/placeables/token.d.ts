@@ -1,6 +1,5 @@
 /**
  * A Token is an implementation of PlaceableObject which represents an Actor within a viewed Scene on the game canvas.
- * @extends  {PlaceableObject}
  *
  * @example
  * Token.create({
@@ -34,7 +33,7 @@
  * }
  */
 
-type LightData = {
+declare type LightData = {
     brightLight: number;
     dimLight: number;
     lightAlpha: number;
@@ -47,7 +46,7 @@ type LightData = {
     lightColor: string;
 };
 
-declare interface BaseTokenData extends PlaceableObjectData {
+interface BaseTokenData extends PlaceableObjectData {
     name: string;
     displayName: number;
     img: string;
@@ -70,7 +69,7 @@ declare interface BaseTokenData extends PlaceableObjectData {
     bar2: { [key: string]: string };
 }
 
-type TokenData = BaseTokenData & LightData;
+declare type TokenData = BaseTokenData & LightData;
 
 /**
  * An instance of the Token class represents an Actor within a viewed Scene on the game canvas.
@@ -80,12 +79,13 @@ type TokenData = BaseTokenData & LightData;
  * @param data An object of token data which is used to construct a new Token.
  * @param scene The parent Scene entity within which the Token resides.
  */
-declare class Token extends PlaceableObject {
+declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /** @override */
     data: TokenData;
 
     effects: PIXI.Container;
 
+    hitArea: PIXI.Rectangle;
     /**
      * A Ray which represents the Token's current movement path
      */
@@ -117,7 +117,7 @@ declare class Token extends PlaceableObject {
      * If actorLink is true, then the entity is the true Actor entity
      * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
      */
-    actor: SystemActorType;
+    actor: ActorType | undefined;
 
     constructor(...args: any[]);
 
@@ -128,7 +128,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Permission Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * A Boolean flag for whether the current game User has permission to control this token
@@ -152,7 +152,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Rendering Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Translate the token's grid width into a pixel width based on the canvas size
@@ -171,7 +171,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  State Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * An indicator for whether or not this token is currently involved in the active combat encounter.
@@ -193,7 +193,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /*  Lighting and Vision Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Test whether the Token has sight (or blindness) at any radius
@@ -212,7 +212,7 @@ declare class Token extends PlaceableObject {
 
     /**
      * Translate the token's sight distance in units into a radius in pixels.
-     * @return	The sight radius in pixels
+     * @return    The sight radius in pixels
      */
     get dimRadius(): number;
 
@@ -223,7 +223,7 @@ declare class Token extends PlaceableObject {
 
     /**
      * Translate the token's bright light distance in units into a radius in pixels.
-     * @return	The bright radius in pixels
+     * @return    The bright radius in pixels
      */
     get brightRadius(): number;
 
@@ -234,7 +234,7 @@ declare class Token extends PlaceableObject {
 
     /* -------------------------------------------- */
     /* Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     draw(): Promise<any>;
 

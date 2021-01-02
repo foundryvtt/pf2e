@@ -1,3 +1,4 @@
+/* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
@@ -6,7 +7,8 @@ import { PF2Check } from '../system/rolls';
 import { FamiliarData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
 
-export class PF2EFamiliar extends PF2EActor<FamiliarData> {
+export class PF2EFamiliar extends PF2EActor {
+    /** @override */
     data!: FamiliarData;
 
     /** Prepare Character type specific data. */
@@ -125,7 +127,9 @@ export class PF2EFamiliar extends PF2EActor<FamiliarData> {
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
-                const stat = new PF2StatisticModifier('ac', modifiers);
+                const stat = mergeObject(new PF2StatisticModifier('ac', modifiers), data.attributes.ac, {
+                    overwrite: false,
+                });
                 stat.value = base + stat.totalModifier;
                 stat.breakdown = [game.i18n.format('PF2E.MasterArmorClass', { base })]
                     .concat(
@@ -217,7 +221,11 @@ export class PF2EFamiliar extends PF2EActor<FamiliarData> {
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
-                const stat = new PF2StatisticModifier('perception', modifiers);
+                const stat = mergeObject(
+                    new PF2StatisticModifier('perception', modifiers),
+                    data.attributes.perception,
+                    { overwrite: false },
+                );
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)

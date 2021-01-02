@@ -1,4 +1,4 @@
-/* global getProperty, ChatMessage */
+/* global getProperty, CONFIG */
 /**
  * @author Farhan Siddiqi
  * @version 0.0.1

@@ -1,4 +1,4 @@
-/* global ui, CONST */
+/* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { identifyCreature } from '../../recall-knowledge';

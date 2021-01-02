@@ -1,9 +1,7 @@
 // @TODO: Add types
 
 declare let socket: any;
-declare let canvas: any;
 declare let keyboard: any;
-declare let game: Game;
 declare let ui: {
     notifications: Notifications;
     tables: RollTableDirectory;
@@ -11,20 +9,15 @@ declare let ui: {
     actors: ActorDirectory;
 };
 
-declare type SystemActorDataType = import('../../../src/module/actor/actorDataDefinitions').ActorDataPF2e;
-declare type SystemItemDataType = import('../../../src/module/item/dataDefinitions').ItemData;
-declare type SystemActorType = import('../../../src/module/actor/actor').PF2EActor;
-declare type SystemItemType = import('../../../src/module/item/item').PF2EItem;
-
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
  * The singleton instance of the Game class is available as the global variable ``game``.
  *
- * @param worldData	An object of all the World data vended by the server when the client first connects
- * @param userId	The ID of the currently active user, retrieved from their session cookie
- * @param socket	The open web-socket which should be used to transact game-state data
+ * @param worldData  An object of all the World data vended by the server when the client first connects
+ * @param userId     The ID of the currently active user, retrieved from their session cookie
+ * @param socket     The open web-socket which should be used to transact game-state data
  */
-declare class Game {
+declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item> {
     /** The object of world data passed from the server */
     data: any;
 
@@ -73,18 +66,18 @@ declare class Game {
     /*  Entities
 	/* -------------------------------------------- */
 
-    users: Users;
+    users: Users<ActorType>;
     messages: Messages;
     scenes: Scenes;
-    actors: Actors;
-    items: Items;
+    actors: Actors<ActorType>;
+    items: Items<ItemType>;
     journal: Journal;
     macros: Macros;
     playlists: Playlists;
-    combats: CombatEncounters;
+    combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<any>;
+    packs: Collection<Compendium>;
 
     constructor(worldData: object, userId: string, socket: SocketIO.Socket);
 
@@ -152,7 +145,7 @@ declare class Game {
     /**
      * The currently connected User
      */
-    get user(): User;
+    get user(): User<ActorType>;
 
     /**
      * Metadata regarding the current game World
@@ -167,7 +160,7 @@ declare class Game {
     /**
      * A convenience accessor for the currently active Combat encounter
      */
-    get combat(): Combat;
+    get combat(): Combat<ActorType>;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused
