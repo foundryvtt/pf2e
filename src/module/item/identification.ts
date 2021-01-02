@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isLevelItem, isPhysicalItem, ItemData, PhysicalItemData } from './dataDefinitions';
+import { isLevelItem, PhysicalItemData } from './dataDefinitions';
 import { isBlank, toNumber } from '../utils';
 import { parseTraits } from '../traits';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
@@ -125,13 +125,5 @@ export function identifyItem(
         return new IdentifyAlchemyDCs(baseDc);
     } else {
         return new GenericIdentifyDCs(baseDc);
-    }
-}
-
-export function isIdentified(itemData: ItemData): boolean {
-    if (isPhysicalItem(itemData)) {
-        return itemData.data?.identified?.value ?? true;
-    } else {
-        return true;
     }
 }

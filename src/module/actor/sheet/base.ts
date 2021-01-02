@@ -11,7 +11,7 @@ import { PF2EItem } from '../../item/item';
 import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import { isIdentified } from '../../item/identification';
+import { PF2EPhysicalItem } from '../../item/physical';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -701,12 +701,10 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const identified = f.hasClass('identified');
             if (identified) {
                 const item = this.actor.getOwnedItem(itemId);
-                this.actor.updateEmbeddedEntity('OwnedItem', {
-                    _id: itemId,
-                    'data.identified.value': false,
-                    'data.originalName': item.name,
-                    name: game.i18n.localize('PF2E.identification.UnidentifiedItem'),
-                });
+                if (!(item instanceof PF2EPhysicalItem)) {
+                    throw Error(`PF2e | ${item.name} is not a physical item.`);
+                }
+                item.setIsIdentified(false);
             } else {
                 new IdentifyItemPopup(this.actor, { itemId }).render(true);
             }
@@ -1362,12 +1360,11 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
      * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
      * @private
      */
-    _onItemRoll(event) {
+    _onItemRoll(event: JQuery.ClickEvent) {
         event.preventDefault();
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
         const item = this.actor.getOwnedItem(itemId);
-        const itemData = item.data;
-        if (isPhysicalItem(itemData) && !isIdentified(item.data)) {
+        if (item instanceof PF2EPhysicalItem && !item.isIdentified) {
             // we don't want to show the item card for items that aren't identified
             return;
         }
@@ -1381,7 +1378,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
      * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
      * @private
      */
-    _onItemSummary(event) {
+    _onItemSummary(event: JQuery.ClickEvent) {
         event.preventDefault();
 
         const li = $(event.currentTarget).parent().parent();
@@ -1402,7 +1399,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
 
-        if (game.user.isGM || isIdentified(item.data)) {
+        if (game.user.isGM || (item instanceof PF2EPhysicalItem && item.isIdentified)) {
             this._renderItemSummary(li, item, chatData);
         }
     }
