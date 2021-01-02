@@ -97,6 +97,7 @@ import './types/pixi/placeables/note';
 import './types/pixi/placeables/tile';
 
 import './types/pixi/grids/basegrid';
+import './types/pixi/grids/squaregrid';
 
 // UI
 

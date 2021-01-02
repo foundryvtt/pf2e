@@ -1,13 +1,14 @@
 /* global game, canvas, BaseGrid, SquareGrid  */
 import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
+import { PF2EItem } from '../module/item/item';
+
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
- * @param {Object} item     The item data
- * @param {number} slot     The hotbar slot to use
- * @returns {Promise}
+ * @param item     The item data
+ * @param slot     The hotbar slot to use
  */
-async function createItemMacro(item, slot) {
+async function createItemMacro(item: PF2EItem, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     let macro = game.macros.entities.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
@@ -28,10 +29,9 @@ async function createItemMacro(item, slot) {
 /**
  * Create a Macro from an Item drop.
  * Get an existing item macro if one exists, otherwise create a new one.
- * @param {string} itemName
- * @return {Promise}
+ * @param itemName
  */
-export function rollItemMacro(itemId: string) {
+export function rollItemMacro(itemId: string): ReturnType<PF2EItem['roll']> | void {
     const speaker = ChatMessage.getSpeaker();
     let actor: PF2EActor;
     if (speaker.token) actor = game.actors.tokens[speaker.token];
@@ -43,14 +43,14 @@ export function rollItemMacro(itemId: string) {
     return item.roll();
 }
 
-async function createActionMacro(actionIndex: string, actorId: string, slot: number) {
+async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
     const actor = game.actors.get(actorId);
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
     const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, '${action.name}')`;
     let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
-        macro = (await Macro.create(
+        macro = await Macro.create(
             {
                 command,
                 name: macroName,
@@ -59,7 +59,7 @@ async function createActionMacro(actionIndex: string, actorId: string, slot: num
                 flags: { 'pf2e.actionMacro': true },
             },
             { displaySheet: false },
-        )) as Macro;
+        );
     }
     game.user.assignHotbarMacro(macro, slot);
 }
@@ -181,8 +181,10 @@ Hooks.on('canvasInit', async () => {
     /**
      * Double every other diagonal movement
      */
-    // @ts-ignore
-    SquareGrid.prototype.measureDistances = function measureDistances(segments, options) {
+    SquareGrid.prototype.measureDistances = function measureDistances(
+        segments: Segment[],
+        options: MeasureDistancesOptions,
+    ) {
         if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
 
         // Track the total number of diagonals

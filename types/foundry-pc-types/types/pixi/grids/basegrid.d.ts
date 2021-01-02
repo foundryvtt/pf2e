@@ -9,6 +9,15 @@ declare interface BaseGridOptions {
     };
 }
 
+declare interface Segment {
+    ray: Ray;
+    label: PIXI.Container;
+}
+
+declare interface MeasureDistancesOptions {
+    gridSpaces?: boolean;
+}
+
 declare class BaseGrid extends PIXI.Container {
     constructor(options: BaseGridOptions);
 
@@ -118,11 +127,11 @@ declare class BaseGrid extends PIXI.Container {
 
     /**
      * Measure the distance traversed over an array of measured segments
-     * @param {object[]} segments     An Array of measured movement segments
-     * @param options       Additional options which modify the measurement
-     * @return {number[]}             An Array of distance measurements for each segment
+     * @param segments  An Array of measured movement segments
+     * @param options   Additional options which modify the measurement
+     * @return  An Array of distance measurements for each segment
      */
-    measureDistances(segments: object[], options: object): number[];
+    measureDistances(segments: Segment[], options: MeasureDistancesOptions): number[];
 
     /* -------------------------------------------- */
 
