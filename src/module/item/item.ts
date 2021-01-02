@@ -279,10 +279,10 @@ export class PF2EItem<T extends ItemData = ItemData> extends Item<T> {
     /* -------------------------------------------- */
 
     private static traitChatData(itemTraits: ItemTraits, traitList: Record<string, string>): TraitChatEntry[] {
-        let traits = itemTraits.value;
+        let traits = parseTraits(itemTraits.value);
         const customTraits = parseTraits(itemTraits.custom);
 
-        if (itemTraits.custom.length > 0) {
+        if (customTraits.length > 0) {
             traits = traits.concat(customTraits);
         }
 
