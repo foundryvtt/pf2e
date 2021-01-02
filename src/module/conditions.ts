@@ -1,7 +1,7 @@
 /* global canvas, game, CONFIG */
 
 import { ItemData, ConditionData } from './item/dataDefinitions';
-import { PF2ECondition } from './item/item';
+import { PF2ECondition } from './item/others';
 import { TokenPF2e } from './actor/actor';
 import { PF2Modifier } from './modifiers';
 import { PF2eStatusEffects } from '../scripts/actor/statusEffects';

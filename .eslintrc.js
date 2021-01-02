@@ -69,7 +69,7 @@ module.exports = {
     settings: {
         'import/resolver': {
             node: {
-                paths: ['src', '', 'dist'],
+                paths: ['src', 'types', '', 'dist'],
                 extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
             },
         },

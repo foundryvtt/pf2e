@@ -2,6 +2,7 @@ import { PF2EActor, PF2EHazard, PF2ELoot, PF2EVehicle } from '../module/actor/ac
 import { PF2ECharacter } from '../module/actor/character';
 import { PF2ENPC } from '../module/actor/npc';
 import { PF2EFamiliar } from '../module/actor/familiar';
+import { PF2EItem } from '../module/item/item';
 import {
     PF2EAction,
     PF2EAncestry,
@@ -13,7 +14,6 @@ import {
     PF2EConsumable,
     PF2EEquipment,
     PF2EFeat,
-    PF2EItem,
     PF2EKit,
     PF2ELore,
     PF2EMartial,
@@ -23,7 +23,7 @@ import {
     PF2EStatus,
     PF2ETreasure,
     PF2EWeapon,
-} from '../module/item/item';
+} from '../module/item/others';
 import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
 
 export const PF2ECONFIG = {
