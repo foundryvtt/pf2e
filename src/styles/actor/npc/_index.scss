@@ -342,13 +342,17 @@ $health-color: #A40802;
     
         #senses {
             flex: 2;
+
+            #perception {
+                width: 100%;
+            }
         }
     }
 
     .section-container {
         display: flex;
         flex-direction: column;
-        margin: 0 6px 0 6px;
+        padding: 0 6px 0 6px;
 
         .section-header {
             display: flex;
@@ -370,8 +374,9 @@ $health-color: #A40802;
         .section-body {
             display: flex;
             flex: auto;
+            flex-wrap: wrap;
             width: 100%;
-            margin: 6px 6px 0 6px;
+            padding: 6px 6px 0 6px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: baseline;
@@ -411,9 +416,10 @@ $health-color: #A40802;
 
     .npc-body {
         display: flex;
-        flex: 1 0 auto;
+        flex: auto;
         flex-direction: column;
         height: 100%;
+        width: 100%;
         overflow-y: hidden;
     }
 }

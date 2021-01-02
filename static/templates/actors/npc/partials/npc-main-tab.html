@@ -32,9 +32,22 @@
         <div id="senses" class="section-container">
             <div class="section-header">
                 <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
+                {{# if options.editable }}
+                <div class="senses-controls controls" for="data.traits.senses">
+                    <a class="senses-edit edit" data-options="senses" title="{{ localize 'PF2E.NPC.EditSenses' }}"><i class="fas fa-edit"></i></a>
+                </div>
+                {{/if}}
             </div>
             <div class="section-body">
-
+                <div id="perception" class="labelled-field" data-attribute="perception">
+                    <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
+                    <input name="data.attributes.perception.base" type="text" value="{{ data.attributes.perception.readableValue }}" data-dtype="Number" placeholder="0"/>
+                </div>
+                <div>
+                    {{#each data.traits.senses as |sense key|}}
+                    <span class="sense-entry tag">{{sense.localizedName}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>
