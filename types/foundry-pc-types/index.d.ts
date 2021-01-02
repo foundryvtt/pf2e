@@ -43,7 +43,6 @@ import './types/apps/sidebar/sidebar';
 import './types/apps/sidebar/sidebartab';
 import './types/apps/sidebar/sidebardirectory';
 
-
 // Core
 
 import './types/core/audio';

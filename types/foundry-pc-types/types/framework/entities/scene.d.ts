@@ -2,7 +2,7 @@
  * The collection of Scene entities
  */
 declare class Scenes extends Collection<Scene> {
-	// @TODO: Declare
+    // @TODO: Declare
 }
 
 /**
