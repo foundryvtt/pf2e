@@ -468,6 +468,43 @@ describe('should calculate wealth based on inventory', () => {
         expect(treasureIds).toEqual(['treasure 1', 'treasure 2']);
     });
 
+    test('calculateTotalWealth correctly combines all item types', () => {
+        const items = [
+            {
+                type: 'weapon',
+                _id: 'weapon',
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3,000 gp' } },
+            },
+            {
+                type: 'armor',
+                _id: 'armor',
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 pp' } },
+            },
+            {
+                type: 'equipment',
+                _id: 'equipment',
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 cp' } },
+            },
+            {
+                type: 'consumable',
+                _id: 'consumable',
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 sp' } },
+            },
+            {
+                type: 'treasure',
+                _id: 'treasure',
+                data: { denomination: { value: 'sp' }, quantity: { value: 2 }, value: { value: 2 } },
+            },
+            {
+                type: 'backpack',
+                _id: 'backpack',
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 gp' } },
+            },
+        ];
+        const wealth = calculateTotalWealth(items);
+        expect(wealth).toEqual({ pp: 30, gp: 3003, sp: 34, cp: 3 });
+    });
+
     test('attemptToRemoveCoinsByValue resolves to false if not enough coins are available and makes no changes', async () => {
         const actor = {
             data: {
