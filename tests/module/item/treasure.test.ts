@@ -1,4 +1,10 @@
-import { calculateTotalWealth, calculateWealth, addCoins, sellAllTreasure } from '../../../src/module/item/treasure';
+import {
+    addCoins,
+    attemptToRemoveCoinsByValue,
+    calculateValueOfCurrency,
+    calculateWealth,
+    sellAllTreasure,
+} from '../../../src/module/item/treasure';
 
 describe('should calculate wealth based on inventory', () => {
     test('empty inventory', () => {
@@ -462,40 +468,176 @@ describe('should calculate wealth based on inventory', () => {
         expect(treasureIds).toEqual(['treasure 1', 'treasure 2']);
     });
 
-    test('calculateTotalWealth correctly combines all item types', () => {
-        const items = [
-            {
-                type: 'weapon',
-                _id: 'weapon',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3,000 gp' } },
+    test('attemptToRemoveCoinsByValue resolves to false if not enough coins are available and makes no changes', async () => {
+        const actor = {
+            data: {
+                items: [
+                    {
+                        type: 'treasure',
+                        _id: '1',
+                        data: {
+                            denomination: {
+                                value: 'gp',
+                            },
+                            quantity: {
+                                value: 7,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                    },
+                    {
+                        type: 'treasure',
+                        _id: '2',
+                        data: {
+                            denomination: {
+                                value: 'gp',
+                            },
+                            quantity: {
+                                value: 9,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                    },
+                ],
             },
-            {
-                type: 'armor',
-                _id: 'armor',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 pp' } },
+        };
+        expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 0, gp: 18, sp: 0, cp: 0 } })).toEqual(
+            false,
+        );
+        expect(calculateValueOfCurrency(actor.data.items)).toEqual({ pp: 0, gp: 16, sp: 0, cp: 0 });
+    });
+
+    test('attemptToRemoveCoinsByValue resolves to true if sufficient coins are available after updating coin counts', async () => {
+        const updateFunction = jest.fn();
+        const actor = {
+            getOwnedItem(id) {
+                return this.data.items.find((item) => item._id === id);
             },
-            {
-                type: 'equipment',
-                _id: 'equipment',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 cp' } },
+            deleteEmbeddedEntity: jest.fn(),
+            data: {
+                items: [
+                    {
+                        type: 'treasure',
+                        _id: '1',
+                        data: {
+                            denomination: {
+                                value: 'gp',
+                            },
+                            quantity: {
+                                value: 7,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                        update: updateFunction,
+                    },
+                    {
+                        type: 'treasure',
+                        _id: '2',
+                        data: {
+                            denomination: {
+                                value: 'gp',
+                            },
+                            quantity: {
+                                value: 9,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                        update: updateFunction,
+                    },
+                    {
+                        type: 'treasure',
+                        _id: '3',
+                        data: {
+                            denomination: {
+                                value: 'pp',
+                            },
+                            quantity: {
+                                value: 9,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                        update: updateFunction,
+                    },
+                ],
             },
-            {
-                type: 'consumable',
-                _id: 'consumable',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 sp' } },
+        };
+        expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 0, gp: 98, sp: 0, cp: 0 } })).toEqual(
+            true,
+        );
+        expect(updateFunction.mock.calls.length).toEqual(1);
+        expect(updateFunction.mock.calls[0][0]).toEqual({ 'data.quantity.value': 8 });
+        expect(actor.deleteEmbeddedEntity.mock.calls.length).toEqual(2);
+        expect(actor.deleteEmbeddedEntity.mock.calls[0][0]).toEqual('OwnedItem');
+        expect(actor.deleteEmbeddedEntity.mock.calls[0][1]).toEqual(['3']);
+        expect(actor.deleteEmbeddedEntity.mock.calls[1][0]).toEqual('OwnedItem');
+        expect(actor.deleteEmbeddedEntity.mock.calls[1][1]).toEqual(['1']);
+    });
+
+    test('attemptToRemoveCoinsByValue breaks coins when needed', async () => {
+        const updateFunction = jest.fn();
+        const actor = {
+            getOwnedItem(id) {
+                return this.data.items.find((item) => item._id === id);
             },
-            {
-                type: 'treasure',
-                _id: 'treasure',
-                data: { denomination: { value: 'sp' }, quantity: { value: 2 }, value: { value: 2 } },
+            deleteEmbeddedEntity: jest.fn(),
+            createOwnedItem: jest.fn(),
+            data: {
+                items: [
+                    {
+                        type: 'treasure',
+                        _id: '3',
+                        data: {
+                            denomination: {
+                                value: 'pp',
+                            },
+                            quantity: {
+                                value: 9,
+                            },
+                            value: {
+                                value: 1,
+                            },
+                            stackGroup: {
+                                value: 'coins',
+                            },
+                        },
+                        update: updateFunction,
+                    },
+                ],
             },
-            {
-                type: 'backpack',
-                _id: 'backpack',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 gp' } },
-            },
-        ];
-        const wealth = calculateTotalWealth(items);
-        expect(wealth).toEqual({ pp: 30, gp: 3003, sp: 34, cp: 3 });
+        };
+        expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } })).toEqual(
+            true,
+        );
+        expect(updateFunction.mock.calls.length).toEqual(1);
+        expect(updateFunction.mock.calls[0][0]).toEqual({ 'data.quantity.value': 7 });
+        expect(actor.createOwnedItem.mock.calls.length).toEqual(3);
+        expect(actor.createOwnedItem.mock.calls[0][0]).toEqual({ data: { quantity: { value: 10 }, type: 'gp' } });
+        expect(actor.createOwnedItem.mock.calls[1][0]).toEqual({ data: { quantity: { value: 10 }, type: 'cp' } });
+        expect(actor.createOwnedItem.mock.calls[2][0]).toEqual({ data: { quantity: { value: 10 }, type: 'sp' } });
     });
 });

@@ -27,7 +27,7 @@ export class RemoveCoinsPopup extends FormApplication {
             cp: formData.cp,
         };
         if (formData.removeByValue) {
-            if (!(await attemptToRemoveCoinsByValue(actor, coinsToRemove))) {
+            if (!(await attemptToRemoveCoinsByValue({ actor, coinsToRemove }))) {
                 ui.notifications.warn('Insufficient coins');
             }
         } else {

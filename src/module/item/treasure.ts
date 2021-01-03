@@ -366,7 +366,13 @@ export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Pro
  * @param coinsToRemove
  * @return {Promise}<boolean> Resolves after the treasure is either removed (true) or determined to be insufficient and no change made (false)
  */
-export async function attemptToRemoveCoinsByValue(actor: ActorPlaceholder, coinsToRemove: Coins): Promise<boolean> {
+export async function attemptToRemoveCoinsByValue({
+    actor,
+    coinsToRemove,
+}: {
+    actor: ActorPlaceholder;
+    coinsToRemove: Coins;
+}): Promise<boolean> {
     const items = actor.data.items || [];
     const actorCoins = calculateValueOfCurrency(items);
     //  Convert actorCoins and coinsToRemove to copper to facilitate comparison
