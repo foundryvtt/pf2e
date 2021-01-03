@@ -208,15 +208,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _prepareSkills(actorData) {
-        for (const npc_skill of actorData.data.npc_skills) {
-            const skillId = npc_skill.type;
-            const skill = actorData.data.skills[skillId];
-
-            if (skill === undefined) continue;
-
-            const value = npc_skill.value;
-            skill.value = value;
-        }
+        // Conversion from NPC skills to regular skills is donde in `_prepareNPCSkills()` in `npc.ts`
     }
     
     _prepareSpeeds(actorData) {
@@ -645,13 +637,31 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         });
     }
     
-    rollSkill(event, skillId) {
+    rollNPCSkill(event, skillId) {
         const fullName = SKILL_DICTIONARY[skillId] ?? skillId;
         const options = this.actor.getRollOptions(['all', 'skill-check', fullName]);
         const skill = this.actor.data.data.skills[skillId];
         
         if (skill) {
-            skill.roll(event, options);
+            const rank = CONFIG.PF2E.proficiencyLevels[skill.rank];
+            const parts = ['@mod', '@itemBonus'];
+            const flavor = `${rank} ${CONFIG.PF2E.skills[skillId]} Skill Check`;
+            const modifier = skill.value;
+
+            console.log(`Rolling skill ${skillId} with ${skill.value}`);
+            console.log(skill);
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: {
+                    mod: modifier,
+                    itemBonus: 0,
+                },
+                title: flavor,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            });
         } else {
             console.log(`Unable to roll skill ${skillId}, not found in the skill list.`);
         }
@@ -703,7 +713,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
                 default: break;
             }
         } else if (skill) {
-            this.rollSkill(eventData, skill);
+            this.rollNPCSkill(eventData, skill);
         } else if (save) {
             this._onSaveClicked(eventData, save);
         }
