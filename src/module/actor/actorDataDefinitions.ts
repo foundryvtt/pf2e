@@ -433,6 +433,15 @@ export type NPCSkillData = PF2StatisticModifier &
         expanded: string;
     };
 
+/**
+ * Data format of the NPC skills from the skills popup.
+ */
+export type RawNPCSkillData = {
+    type: string;
+    label: string;
+    value: number;
+}
+
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
     /** The six primary ability scores. */
@@ -526,6 +535,9 @@ export interface RawNpcData {
 
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
     skills: Record<string, NPCSkillData>;
+
+    /** Values from the skills popup from the sheet */
+    npc_skills: Record<string, RawNPCSkillData>;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, PF2Modifier[]>;
