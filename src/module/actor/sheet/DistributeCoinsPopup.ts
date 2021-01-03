@@ -27,8 +27,7 @@ export class DistributeCoinsPopup extends FormApplication {
     async _updateObject(event: Event, formData: any) {
         const thisActor = this.object;
         const selectedActors = [];
-        const breakCoins = formData.selection[formData.selection.length - 2];
-        for (let i = 0; i < formData.selection.length - 1; i++) {
+        for (let i = 0; i < formData.selection.length; i++) {
             if (formData.selection[i]) {
                 selectedActors.push(game.actors.find((actor) => actor.id === this.form[i].id));
             }
@@ -37,7 +36,7 @@ export class DistributeCoinsPopup extends FormApplication {
         if (thisActor.data.items !== undefined) {
             const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
             const thisActorCurrency = calculateValueOfCurrency(thisActor.data.items);
-            if (breakCoins) {
+            if (formData.breakCoins) {
                 const thisActorCopperValue =
                     thisActorCurrency.cp +
                     thisActorCurrency.sp * 10 +
