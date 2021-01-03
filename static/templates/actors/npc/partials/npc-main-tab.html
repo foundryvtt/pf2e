@@ -61,4 +61,24 @@
             </div>
         </div>
     </div>
+    <!-- ACTIONS -->
+    <div id="actions" class="section-container">
+        <div class="section-header">
+            <h4>{{ localize 'PF2E.ActionActionsLabel'}}</h4>
+            {{# if options.editable }}
+                <div class="actions-controls controls" for="data.traits.senses">
+                    <a class="action-add item-create" title="{{ localize 'PF2E.NPC.AddAction' }}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
+                </div>
+                {{/if}}
+        </div>
+        <div class="section-body">
+            <ol class="actions-list">
+                {{#each actor.actions as |section sectionId|}}
+                    {{#each section.actions as |action actionId|}}
+                        {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
+                    {{/each}}
+                {{/each}}
+            </ol>
+        </div>
+    </div>
 </div>

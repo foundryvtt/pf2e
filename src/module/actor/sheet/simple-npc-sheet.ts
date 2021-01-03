@@ -694,7 +694,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         const attribute = $(eventData.currentTarget).parent().attr('data-attribute');
         const skill = $(eventData.currentTarget).parent().attr('data-skill');
         const save = $(eventData.currentTarget).parent().attr('data-save');
-        const action = $(eventData.currentTarget).parent().attr('data-action');
+        const action = $(eventData.currentTarget).parent().parent().attr('data-action');
         
         if (attribute) {
             console.log(`Clicked rollable attribute ${attribute}`);
@@ -852,7 +852,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _onActionClicked(eventData, actionId) {
-        console.log(`Clicked action ${actionId}`);
+        $(eventData.currentTarget).parent().parent().find(".expandable").toggleClass("expanded");
+//        $(eventData.currentTarget).parents('.action').children('.expandable').toggleClass('expanded');
     }
 
     // Helper functions

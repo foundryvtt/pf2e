@@ -225,8 +225,8 @@ $health-color: #A40802;
     }
 
     .controls {
+        font-size: 0.8rem;
         .edit {
-            font-size: 0.8rem;
         }
     }
 
@@ -283,6 +283,61 @@ $health-color: #A40802;
                 border-radius: 3px;
             }
         }
+    }
+
+    .actions-list {
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+
+        .action {
+            display: flex;
+            flex: auto;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            border-bottom: 1px solid $faded-color;
+
+            .action-header {
+                display: flex;
+                flex: 1 0 auto;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+                width: 100%;
+
+                .action-name {
+                    display: flex;
+                    flex: auto;
+                    font-size: 1.1rem;
+
+                    h4 {
+                        margin: 0px;
+                        margin-bottom: 0px;
+                    }
+
+                    .action-traits {
+                        margin-left: 12px;
+                    }
+                }
+            }
+
+            .action-body {
+                display: flex;
+                flex: auto;
+                width: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+        }
+    }
+
+    .expandable {
+        display: none;
+    }
+
+    .expanded {
+        display: block;
     }
 
     .labelled-field {
