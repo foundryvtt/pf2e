@@ -2,8 +2,6 @@
 import { DB } from './system/db';
 import './system/measure';
 
-declare let PF2e: PF2eSystem;
-
 /**
  * Base PF2e system class
  * @category PF2

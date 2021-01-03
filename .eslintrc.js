@@ -4,7 +4,7 @@ module.exports = {
         es6: true,
         'jest/globals': true,
     },
-    extends: ['airbnb-base', 'prettier'],
+    extends: ['prettier'],
     globals: {
         Application: 'readonly',
         Atomics: 'readonly',
@@ -74,7 +74,7 @@ module.exports = {
             },
         },
     },
-    plugins: ['jest', 'prettier', '@typescript-eslint'],
+    plugins: ['jest', 'prettier', '@typescript-eslint', 'import'],
     overrides: [
         {
             files: 'tests/**/*',
