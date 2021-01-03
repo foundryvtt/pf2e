@@ -34,11 +34,11 @@ interface FormApplicationOptions extends ApplicationOptions {
  *
  * @param options	Additional options which modify the rendering of the sheet.
  */
-declare class FormApplication extends Application {
+declare class FormApplication<ObjectType extends {} = any> extends Application {
     options: FormApplicationOptions;
 
     /** The object target which we are using this form to modify */
-    object: any;
+    object: ObjectType;
 
     /** A convenience reference to the form HTLMElement */
     form: HTMLElement;
