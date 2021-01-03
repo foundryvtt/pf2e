@@ -53,6 +53,7 @@ declare global {
     const game: GamePF2e;
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<PF2EActor>;
+    let PF2e: PF2eSystem;
 }
 
 Hooks.once('init', () => {
