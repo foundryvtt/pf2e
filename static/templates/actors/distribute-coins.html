@@ -8,12 +8,17 @@
         {{#each actorInfo as |info|}}
         <p>
             <label class="selection" for="{{info.id}}">
-                <input type="checkbox"name="selection" id="{{info.id}}" {{#if
-                info.checked}}checked="checked"{{/if}}/>
+                <input type="checkbox"name="selection" id="{{info.id}}" {{#if info.checked}}checked="checked"{{/if}}/>
                 <span>{{info.name}}</span>
             </label>
         </p>
         {{/each}}
+        <hr>
+        <p>
+            <label class="break-coins" for="breakCoins">
+                <input type="checkbox"name="selection" id="breakCoins" />
+                <span>Allow coin type conversion</span>
+            </label></p>
     </div>
     <p>
         <button class="split-coins" type="submit" name="submit" value="1">
