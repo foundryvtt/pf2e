@@ -852,8 +852,16 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _onActionClicked(eventData, actionId) {
-        $(eventData.currentTarget).parent().parent().find(".expandable").toggleClass("expanded");
-//        $(eventData.currentTarget).parents('.action').children('.expandable').toggleClass('expanded');
+        const actionDetails = $(eventData.currentTarget).parent().parent().find(".action-detail");
+
+        const isExpanded = actionDetails.hasClass(".expanded");
+
+        if (isExpanded) {
+            actionDetails.slideUp(200, () => { actionDetails.removeClass(".expanded"); });
+        } else {
+            actionDetails.addClass(".expanded");
+            actionDetails.slideDown(200);
+        }
     }
 
     // Helper functions
