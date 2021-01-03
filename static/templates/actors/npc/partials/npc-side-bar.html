@@ -89,7 +89,7 @@
 <div id="saves">
     {{#each data.saves as |save saveId|}}
     <div class="save-container" data-save="{{saveId}}">
-        <label class="attribute-label rollable"><a>{{ localize save.labelShort }}</a></label>
+        <label class="attribute-label rollable"><a>{{ localize save.label }}</a></label>
         <input type="text" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
     </div>
     {{/each}}
