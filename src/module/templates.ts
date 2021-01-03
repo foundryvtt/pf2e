@@ -45,6 +45,8 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-action.html',
+
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/rules-panel.html',
