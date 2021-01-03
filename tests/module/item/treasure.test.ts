@@ -2,6 +2,7 @@ import {
     addCoins,
     attemptToRemoveCoinsByValue,
     calculateValueOfCurrency,
+    calculateTotalWealth,
     calculateWealth,
     sellAllTreasure,
 } from '../../../src/module/item/treasure';
