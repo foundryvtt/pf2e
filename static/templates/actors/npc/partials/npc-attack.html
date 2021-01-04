@@ -30,10 +30,11 @@
                 {{{ enrichHTML action.data.description.value }}}
             </div>
             <div class="traits-list">
-                {{#if (eq action.type 'melee') }}
+                {{ log action.type }}
+                {{#if (eq action.data.weaponType 'melee') }}
                 <div class="tag">{{ localize 'PF2E.NPCAttackMelee' }}</div>
                 {{/if}}
-                {{#if (eq action.type 'ranged') }}
+                {{#if (eq action.data.weaponType 'ranged') }}
                 <div class="tag">{{ localize 'PF2E.NPCAttackRanged' }}</div>
                 {{/if}}
                 {{#each action.traits as |trait traitIndex|}}
