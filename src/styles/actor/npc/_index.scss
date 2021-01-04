@@ -4,7 +4,8 @@ $color-disabled: #b6b6b6;
 $value-color: #000000;
 $armor-color: #2A8FBD;
 $health-color: #A40802;
-$button-color: #171f69;
+$attack-button-color: #171f69;
+$damage-button-color: #5e0000;
 
 .npc-sheet {
     display: flex;
@@ -302,7 +303,7 @@ $button-color: #171f69;
             flex-direction: column;
             justify-content: flex-start;
             width: 100%;
-            margin-top: 12px;
+            margin-top: 6px;
             
             .action-header {
                 display: flex;
@@ -362,7 +363,7 @@ $button-color: #171f69;
                     font-size: 10px;
                     line-height: 16px;
                     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    background: $button-color;
+                    background: black;
                     color: white;
                     text-align: center;
                     white-space: nowrap;
@@ -379,17 +380,6 @@ $button-color: #171f69;
                     }
                 }
 
-                .attack-button {
-
-                }
-
-                .damage-button {
-                }
-
-                .critical-button {
-
-                }
-
                 .action-detail {
                     .traits-list {
                         display: flex;
@@ -398,6 +388,8 @@ $button-color: #171f69;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: baseline;
+                        border-bottom: 1px solid $faded-color;
+                        padding-bottom: 6px;
                     }
                 }
             }
@@ -409,7 +401,7 @@ $button-color: #171f69;
         flex: auto;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: baseline;
         padding: 0px;
         margin: 0px;
@@ -417,11 +409,9 @@ $button-color: #171f69;
 
         .attack {
             display: flex;
-            flex: 1 0 200px;
+            flex: auto;
             flex-direction: column;
             justify-content: flex-start;
-            width: 100%;
-            margin-top: 12px;
             margin-left: 6px;
             margin-right: 6px;
             
@@ -479,7 +469,7 @@ $button-color: #171f69;
                     font-size: 10px;
                     line-height: 16px;
                     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    background: $button-color;
+                    background: $attack-button-color;
                     color: white;
                     text-align: center;
                     white-space: nowrap;
@@ -497,14 +487,15 @@ $button-color: #171f69;
                 }
 
                 .attack-button {
-
+                    background-color: $attack-button-color;
                 }
-
+                
                 .damage-button {
+                    background-color: $damage-button-color;
                 }
-
+                
                 .critical-button {
-
+                    background-color: $damage-button-color;
                 }
 
                 .attack-detail {
@@ -584,7 +575,7 @@ $button-color: #171f69;
     .section-container {
         display: flex;
         flex-direction: column;
-        padding: 0 6px 0 6px;
+        padding: 4px 6px 0 6px;
 
         .section-header {
             display: flex;
@@ -608,7 +599,7 @@ $button-color: #171f69;
             flex: auto;
             flex-wrap: wrap;
             width: 100%;
-            padding: 12px 4px;
+            padding-top: 4px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: baseline;
