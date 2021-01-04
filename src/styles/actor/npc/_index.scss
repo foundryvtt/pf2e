@@ -6,6 +6,8 @@ $armor-color: #2A8FBD;
 $health-color: #A40802;
 $attack-button-color: #171f69;
 $damage-button-color: #5e0000;
+$primary-accent: #5e0000;
+$secondary-accent: #171f69;
 
 .npc-sheet {
     display: flex;
@@ -293,13 +295,20 @@ $damage-button-color: #5e0000;
     }
 
     .actions-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: baseline;
         padding: 0px;
         margin: 0px;
         width: 100%;
 
         .action {
             display: flex;
-            flex: auto;
+            flex: 1 0 46%;
+            margin-left: 6px;
+            margin-right: 6px;
             flex-direction: column;
             justify-content: flex-start;
             width: 100%;
@@ -583,9 +592,14 @@ $damage-button-color: #5e0000;
             width: 100%;
             flex-direction: row;
             justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid $faded-color;
-            text-align: center;
+            align-items: baseline;
+            border: 1px solid $primary-accent;
+            border-radius: 3px 0px 3px 0px;
+            background: $primary-accent;
+            text-align: left;
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 8px;
     
             h4 {
                 flex: auto;
@@ -603,7 +617,9 @@ $damage-button-color: #5e0000;
             flex-direction: row;
             justify-content: flex-start;
             align-items: baseline;
-            min-height: 12px;
+            padding: 4px;
+            border: 1px solid $primary-accent;
+            border-radius: 0px 0px 3px 3px;
         }
     }
 
