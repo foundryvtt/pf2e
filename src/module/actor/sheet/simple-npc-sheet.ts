@@ -51,6 +51,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         this._prepareWeaknesses(actorData);
         this._prepareResistances(actorData);
         this._prepareImmunities(actorData);
+        this._prepareSaves(actorData);
         this._prepareActions(actorData);
 
         const isWeak = this._isWeak();
@@ -288,6 +289,18 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         }
         
         actorData.data.traits.di.labels = labels;
+    }
+
+    _prepareSaves(actorData) {
+        if (actorData.data.saves === undefined) return;
+
+        const fortitude = actorData.data.saves['fortitude'];
+        const reflex = actorData.data.saves['reflex'];
+        const will = actorData.data.saves['will'];
+
+        fortitude.labelShort = game.i18n.localize('PF2E.SavesFortitudeShort');
+        reflex.labelShort = game.i18n.localize('PF2E.SavesReflexShort');
+        will.labelShort = game.i18n.localize('PF2E.SavesWillShort');
     }
     
     /**
