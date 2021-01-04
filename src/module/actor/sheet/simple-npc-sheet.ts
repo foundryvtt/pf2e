@@ -5,6 +5,7 @@ import { TraitSelector5e } from "../../system/trait-selector";
 import { DicePF2e } from "../../../scripts/dice";
 import { PF2EActor, SKILL_DICTIONARY } from "../actor";
 import { PF2Modifier, PF2ModifierType } from "../../modifiers";
+import { NPCSkillsEditor } from "../../system/npc-skills-editor";
 
 const isString = require('is-string');
 
@@ -878,18 +879,25 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     
     _onSkillsEditClicked(eventData) {
         eventData.preventDefault();
-        const htmlElement = $(eventData.currentTarget);
-        const options = {
-            name: 'data.skills',
-            title: game.i18n.localize('PF2.SkillsLabel'),
-            choices: CONFIG.PF2E.skills,
-            has_values: true,
-            allow_empty_values: false,
-            has_exceptions: true,
-            no_custom: false
-        };
+        // const htmlElement = $(eventData.currentTarget);
+        // const options = {
+        //     name: 'data.skills',
+        //     title: game.i18n.localize('PF2.SkillsLabel'),
+        //     choices: CONFIG.PF2E.skills,
+        //     has_values: true,
+        //     allow_empty_values: false,
+        //     has_exceptions: true,
+        //     no_custom: false
+        // };
         
-        new TraitSelector5e(this.actor, options).render(true);
+        // new TraitSelector5e(this.actor, options).render(true);
+
+        const options = {
+
+        };
+        const skillsEditor = new NPCSkillsEditor(this.actor, options);
+
+        skillsEditor.render(true);
     }
     
     _onSaveClicked(eventData, saveId) {
