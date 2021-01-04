@@ -78,7 +78,11 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         // Subscribe to roll events
         html.find('.rollable').click((ev) => this._onRollableClicked(ev));
         html.find('button').click((ev) => this._onButtonClicked(ev));
-        
+
+        html.find(".attack").hover((ev) => this._onAttackHovered(ev), (ev) => this._onAttackHoverEnds(ev));
+        html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev));
+
+
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
         
@@ -750,6 +754,38 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         } else {
             item.rollNPCAttack(eventData, attackNumber);
         }
+    }
+
+    _onAttackHovered(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.addClass("expanded");
+    }
+
+    _onAttackHoverEnds(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.removeClass("expanded");
+    }
+
+    _onActionHovered(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.addClass("expanded");
+    }
+
+    _onActionHoverEnds(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.removeClass("expanded");
     }
     
     _onPerceptionLabelClicked(eventData) {
