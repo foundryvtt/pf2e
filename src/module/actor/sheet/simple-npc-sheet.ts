@@ -77,6 +77,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         
         // Subscribe to roll events
         html.find('.rollable').click((ev) => this._onRollableClicked(ev));
+        html.find('button').click((ev) => this._onButtonClicked(ev));
         
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -718,6 +719,38 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             this._onActionClicked(eventData, action);
         }
     }
+
+    _onButtonClicked(eventData) {
+        eventData.preventDefault();
+        eventData.stopPropagation();
+
+        console.log(`Button clicked`);
+
+        switch (eventData.target.dataset.action) {
+            case 'npcAttack':
+                this._onNPCAttackClicked(eventData, 1);
+                break;
+            case 'npcAttack2':
+                this._onNPCAttackClicked(eventData, 2);
+                break;
+            case 'npcAttack3':
+                this._onNPCAttackClicked(eventData, 3);
+                break;
+        }
+    }
+
+    _onNPCAttackClicked(eventData, attackNumber) {
+        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id');
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (item === undefined) return;
+
+        if (attackNumber < 2) {
+            item.rollNPCAttack(eventData);
+        } else {
+            item.rollNPCAttack(eventData, attackNumber);
+        }
+    }
     
     _onPerceptionLabelClicked(eventData) {
         this.rollPerception(eventData);
@@ -854,12 +887,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     _onActionClicked(eventData, actionId) {
         const actionDetails = $(eventData.currentTarget).parent().parent().find(".action-detail");
 
-        const isExpanded = actionDetails.hasClass(".expanded");
+        const isExpanded = actionDetails.hasClass("expanded");
 
         if (isExpanded) {
-            actionDetails.slideUp(200, () => { actionDetails.removeClass(".expanded"); });
+            actionDetails.slideUp(200, () => { actionDetails.removeClass("expanded"); });
         } else {
-            actionDetails.addClass(".expanded");
+            actionDetails.addClass("expanded");
             actionDetails.slideDown(200);
         }
     }
