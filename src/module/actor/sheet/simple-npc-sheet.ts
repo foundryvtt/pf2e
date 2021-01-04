@@ -390,8 +390,10 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             } else if (isGenericAttack) {
                 const weaponType = this._getWeaponType(item);
                 const isAgile = this._isAgileWeapon(item);
+                const attackBonus = getProperty(item.data, 'bonus.value');
 
-                item.data.bonus.total = (parseInt(item.data.bonus.value, 10) || 0);
+                item.data.bonus.value = parseInt(attackBonus, 10);
+                item.data.bonus.total = item.data.bonus.value;
                 item.data.isAgile = isAgile;
                 item.data.weaponType = weaponType;
 
@@ -487,7 +489,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _adjustNPCAttack(item, adjustmentSign) {
-        const modifier = adjustmentSign > 0 ? 2 : -2;
+        const modifier = 2 * adjustmentSign;
 
         if (item === undefined) return;
         if (item.data === undefined) return;
