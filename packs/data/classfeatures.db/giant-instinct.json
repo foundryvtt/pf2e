@@ -67,6 +67,7 @@
             "label": "Rage",
             "predicate": {
               "not": [
+                "ranged",
                 "agile"
               ],
               "all": [
@@ -98,8 +99,41 @@
             "label": "Rage",
             "predicate": {
               "not": [
+                "ranged"
+              ],
+              "all": [
+                "rage",
+                "oversized",
+                "agile"
+              ]
+            },
+            "value": {
+              "brackets": [
+                {
+                  "end": 6,
+                  "value": 3
+                },
+                {
+                  "start": 7,
+                  "end": 14,
+                  "value": 5
+                },
+                {
+                  "start": 15,
+                  "value": 9
+                }
+              ]
+            }
+          },
+          {
+            "key": "PF2E.RuleElement.FlatModifier",
+            "selector": "damage",
+            "label": "Rage",
+            "predicate": {
+              "not": [
                 "agile",
-                "oversized"
+                "oversized",
+                "ranged"
               ],
               "all": [
                 "rage"
@@ -119,6 +153,39 @@
                   {
                     "start": 15,
                     "value": 12
+                  }
+                ]
+              }
+          },
+          {
+            "key": "PF2E.RuleElement.FlatModifier",
+            "selector": "damage",
+            "label": "Rage",
+            "predicate": {
+              "not": [
+                "agile",
+                "oversized",
+                "ranged"
+              ],
+              "all": [
+                "rage",
+                "agile"
+              ]
+            },
+            "value": {
+                "brackets": [
+                  {
+                    "end": 6,
+                    "value": 1
+                  },
+                  {
+                    "start": 7,
+                    "end": 14,
+                    "value": 3
+                  },
+                  {
+                    "start": 15,
+                    "value": 6
                   }
                 ]
               }
