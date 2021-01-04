@@ -739,8 +739,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         eventData.preventDefault();
         eventData.stopPropagation();
 
-        console.log(`Button clicked`);
-
         switch (eventData.target.dataset.action) {
             case 'npcAttack':
                 this._onNPCAttackClicked(eventData, 1);
@@ -750,6 +748,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
                 break;
             case 'npcAttack3':
                 this._onNPCAttackClicked(eventData, 3);
+                break;
+            case 'damage':
+                this._onNPCDamageClicked(eventData);
+                break;
+            case 'critical':
+                this._onNPCCriticalClicked(eventData);
                 break;
         }
     }
@@ -765,6 +769,24 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         } else {
             item.rollNPCAttack(eventData, attackNumber);
         }
+    }
+
+    _onNPCDamageClicked(eventData) {
+        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id');
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (item === undefined) return;
+
+        item.rollNPCDamage(eventData);
+    }
+
+    _onNPCCriticalClicked(eventData) {
+        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id');
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (item === undefined) return;
+
+        item.rollNPCDamage(eventData, true);
     }
 
     _onAttackHovered(eventData) {
