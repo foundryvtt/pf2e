@@ -535,9 +535,6 @@ export interface RawNpcData {
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
     skills: Record<string, NPCSkillData>;
 
-    /** Values from the skills popup from the sheet */
-    npc_skills: Record<string, RawNPCSkillData>;
-
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */

@@ -348,60 +348,40 @@ export class PF2ENPC extends PF2EActor {
     }
 
     private _prepareNPCSkills(): void {
-        const shouldReadNPCSkills = this.data.data.npc_skills !== undefined;
-
-        // If skills are not setup using the skills popup, maintain whatver skills it has
-        // This is the case of NPCs from the compendium
-        if (!shouldReadNPCSkills) return;
-
         for (const skillId of Object.keys(this.data.data.skills)) {
             const skill = this.data.data.skills[skillId];
-            const npcSkill = this.findNpcSkill(skillId);
 
             if (skill === undefined) {
                 console.log(`No skill found for NPC skill ${skillId}`);
                 continue;
             }
 
-            if (npcSkill === undefined) {
-                // No NPC skill setup, revert
-                skill.value = 0;
+            const totalValue: number = skill.value;
+            const level = this.data.data.details.level.value;
+            const ability = this.data.data.abilities[skill.ability];
+            const abilityModifier = ability ? ability.mod : 0;
+
+            // Whatever is left, must come from proficiency
+            const proficiencyValue = totalValue - level - abilityModifier;
+
+            let proficiencyRank: number;
+
+            // Select proficiency based on value
+            if (proficiencyValue >= 8) {
+                proficiencyRank = 4;    // Legendary
+            } else if (proficiencyValue >= 6) {
+                proficiencyRank = 3;    // Master
+            } else if (proficiencyValue >= 4) {
+                proficiencyRank = 2;    // Expert
+            } else if (proficiencyValue >= 2) {
+                proficiencyRank = 1;    // Trained
             } else {
-                const totalValue: number = npcSkill.value;
-                const level = this.data.data.details.level.value;
-                const ability = this.data.data.abilities[skill.ability];
-                const abilityModifier = ability ? ability.mod : 0;
-
-                // Whatever is left, must come from proficiency
-                const proficiencyValue = totalValue - level - abilityModifier;
-
-                let proficiencyRank: number;
-
-                // Select proficiency based on value
-                if (proficiencyValue >= 8) {
-                    proficiencyRank = 4;    // Legendary
-                } else if (proficiencyValue >= 6) {
-                    proficiencyRank = 3;    // Master
-                } else if (proficiencyValue >= 4) {
-                    proficiencyRank = 2;    // Expert
-                } else if (proficiencyValue >= 2) {
-                    proficiencyRank = 1;    // Trained
-                } else {
-                    proficiencyRank = 0;    // Untrained
-                }
-
-                skill.value = totalValue;
-                skill.rank = proficiencyRank;
+                proficiencyRank = 0;    // Untrained
             }
-        }
-    }
 
-    private findNpcSkill(skillId): RawNPCSkillData {
-        for (const npcSkill of Object.values(this.data.data.npc_skills)) {
-            if (npcSkill.type === skillId) return npcSkill;
+            skill.value = totalValue;
+            skill.rank = proficiencyRank;
         }
-
-        return undefined;
     }
 
     private updateTokenAttitude(attitude: string) {
