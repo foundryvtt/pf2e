@@ -381,6 +381,7 @@ export class PF2ENPC extends PF2EActor {
 
             skill.value = totalValue;
             skill.rank = proficiencyRank;
+            skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
         }
     }
 
