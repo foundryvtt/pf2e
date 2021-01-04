@@ -296,8 +296,16 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     */
     _prepareActions(actorData) {
         const attacks = {
-            melee: { label: game.i18n.localize('PF2E.NPC.AttackType.Melee'), items: [], type: 'melee' },
-            ranged: { label: game.i18n.localize('PF2E.NPC.AttackType.Ranged'), items: [], type: 'melee' }
+            melee: { 
+                label: game.i18n.localize('PF2E.NPC.AttackType.Melee'),
+                labelShort: game.i18n.localize('PF2E.NPCAttackMelee'),
+                items: [],
+                type: 'melee' },
+            ranged: { 
+                label: game.i18n.localize('PF2E.NPC.AttackType.Ranged'),
+                labelShort: game.i18n.localize('PF2E.NPCAttackRanged'),
+                items: [],
+                type: 'melee' }
           };
         
         const actions = {
@@ -385,6 +393,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
                 item.data.bonus.total = (parseInt(item.data.bonus.value, 10) || 0);
                 item.data.isAgile = isAgile;
+                item.data.weaponType = weaponType;
 
                 // Format traits to display for read-only NPCs
                 const traits = [];
@@ -492,8 +501,10 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         item.data.bonus.total = item.data.bonus.value;
 
         if (item.data.damageRolls === undefined) return;
+        if (item.data.damageRolls.length < 1) return;
+        if (item.data.damageRolls[0] === undefined) return;
 
-        const dmg = item.data.damageRolls[0].damage; // getProperty(item.data.damageRolls[0], 'damage');
+        const dmg = item.data.damageRolls[0].damage;
 
         if (dmg === undefined) return;
 

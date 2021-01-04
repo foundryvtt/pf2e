@@ -66,8 +66,10 @@
         <div class="section-header">
             <h4>{{ localize 'PF2E.NPC.Attacks'}}</h4>
                 {{# if options.editable }}
-                <div class="attacks-controls controls" for="data.traits.senses">
-                    <a class="attack-add item-create" title="{{ localize 'PF2E.NPC.AddAttack' }}" data-type="attack" data-action-type="attack"><i class="fas fa-plus"></i></a>
+                <div class="attacks-controls controls">
+                    {{#each actor.attacks as |category id|}}
+                        <a class="attack-add item-create" data-type="{{category.type}}" data-action-type="{{id}}"><i class="fas fa-plus"></i> {{category.labelShort}}{{#unless @last}}  {{/unless}}</a>
+                    {{/each}}
                 </div>
                 {{/if}}
         </div>
