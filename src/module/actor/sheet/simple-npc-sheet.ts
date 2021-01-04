@@ -864,16 +864,16 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
     
     _onSkillsEditClicked(eventData) {
-        console.log("Clicked edit skills");
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
         const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize("PF2.SkillsLabel"),
+            name: 'data.skills',
+            title: game.i18n.localize('PF2.SkillsLabel'),
             choices: CONFIG.PF2E.skills,
-            has_values: 'true',
+            has_values: true,
             allow_empty_values: false,
-            has_exceptions: false
+            has_exceptions: true,
+            no_custom: false
         };
         
         new TraitSelector5e(this.actor, options).render(true);
