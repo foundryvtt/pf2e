@@ -131,10 +131,9 @@ export class DicePF2e {
             (!userSettingQuickD20Roll && event.shiftKey)
         ) {
             return _roll(parts, 0);
-        } else if (event.altKey) {
-            return _roll(parts, 1);
         } else if (event.ctrlKey || event.metaKey) {
-            return _roll(parts, -1);
+            rollMode = 'blindroll'; // Forcing blind roll on control (or meta) click
+            return _roll(parts, 0);
         } else if (event.shiftKey || !userSettingQuickD20Roll) {
             if (parts.indexOf('@circumstanceBonus') === -1) parts = parts.concat(['@circumstanceBonus']);
             if (parts.indexOf('@itemBonus') === -1) parts = parts.concat(['@itemBonus']);
