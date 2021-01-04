@@ -34,6 +34,11 @@ export class PF2Check {
             }
         }
 
+        // if control (or meta) is held, set roll mode to blind GM roll
+        if (event.ctrlKey || event.metaKey) {
+            context.secret = true;
+        }
+
         const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
         if (userSettingQuickD20Roll !== event.shiftKey) {
             CheckModifiersDialog.roll(check, context, callback);
