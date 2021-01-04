@@ -27,6 +27,7 @@ import {
 } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { parseTraits } from '../traits';
+import { PF2EPhysicalItem } from '../item/physical';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -789,6 +790,14 @@ export class PF2EActor extends Actor<PF2EItem> {
                 'data.displayLevels': currentLvlToDisplay,
             });
         }
+    }
+
+    async updateEmbeddedEntity(embeddedName, data, options = {}) {
+        const item = this.items.get(data._id);
+        if (item?.data) {
+            await PF2EPhysicalItem.updateIdentificationData(item.data, data);
+        }
+        return super.updateEmbeddedEntity(embeddedName, data, options);
     }
 
     /* -------------------------------------------- */

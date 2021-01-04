@@ -4,6 +4,8 @@ import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
+import { PF2EPhysicalItem } from '../../item/physical';
+import { isPhysicalItem } from '../../item/dataDefinitions';
 
 /**
  * @category Actor
@@ -86,7 +88,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
         for (const i of actorData.items) {
             // item identification
-            i.identified = i.data?.identified?.value ?? true;
+            i.identified = !isPhysicalItem(i) || PF2EPhysicalItem.isIdentified(i);
             i.showGMInfo = game.user.isGM;
             i.showEdit = i.showGMInfo || i.identified;
 
