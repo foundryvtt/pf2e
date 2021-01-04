@@ -46,6 +46,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-action.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
 
 
         // Item Sheet Partials

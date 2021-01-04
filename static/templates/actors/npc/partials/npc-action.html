@@ -2,17 +2,6 @@
     <div class="action-header">
         <div class="action-name rollable">
             <h4><a>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></a></h4>
-            <div class="action-traits">
-                {{#if (eq action.type 'melee') }}
-                <div class="tag">{{ localize 'PF2E.NPCAttackMelee' }}</div>
-                {{/if}}
-                {{#if (eq action.type 'ranged') }}
-                <div class="tag">{{ localize 'PF2E.NPCAttackRanged' }}</div>
-                {{/if}}
-                {{#each action.traits as |trait traitIndex|}}
-                <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                {{/each}}
-            </div>
         </div>
         <div class="action-controls controls">
             <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
@@ -23,21 +12,15 @@
         </div>
     </div>
     <div class="action-body">
-        {{#if (or (eq action.type 'melee') (eq action.type 'ranged')) }}
-        <div class="flexrow attacks sub-section">
-            <h4>Attack</h4>
-            <div class="mini-button attack-button">+0</div>
-            <div class="mini-button attack-button">-5</div>
-            <div class="mini-button attack-button">-10</div>
-        </div>
-        <div class="flexrow damage sub-section">
-            <h4>Damage</h4>
-            <div class="mini-button attack-button">1d6</div>
-            <div class="mini-button attack-button">Critical</div>
-        </div>
-        {{/if}}
-        <div class="action-detail expandable">
-            {{{ enrichHTML action.data.description.value }}}
+        <div class="action-detail sub-section expandable expanded">
+            <div class="action-description">
+                {{{ enrichHTML action.data.description.value }}}
+            </div>
+            <div class="traits-list">
+                {{#each action.traits as |trait traitIndex|}}
+                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </li>

@@ -4,6 +4,7 @@ $color-disabled: #b6b6b6;
 $value-color: #000000;
 $armor-color: #2A8FBD;
 $health-color: #A40802;
+$button-color: #171f69;
 
 .npc-sheet {
     display: flex;
@@ -222,6 +223,10 @@ $health-color: #A40802;
 
     .sheet-body {
         flex: auto;
+
+        .tab {
+            overflow-y: scroll !important;
+        }
     }
 
     .controls {
@@ -297,9 +302,8 @@ $health-color: #A40802;
             flex-direction: column;
             justify-content: flex-start;
             width: 100%;
-            border-bottom: 1px solid $faded-color;
-            margin-top: 4px;
-
+            margin-top: 12px;
+            
             .action-header {
                 display: flex;
                 flex: 1 0 auto;
@@ -307,6 +311,7 @@ $health-color: #A40802;
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
+                border-bottom: 1px solid $faded-color;
 
                 .action-name {
                     display: flex;
@@ -330,9 +335,17 @@ $health-color: #A40802;
                 width: 100%;
                 justify-content: flex-start;
                 align-items: flex-start;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                flex-direction: column;
 
                 .sub-section {
+                    display: flex;
+                    width: 100%;
                     flex: auto;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: flex-start;
                     flex-wrap: wrap;
 
                     h4 {
@@ -341,17 +354,166 @@ $health-color: #A40802;
                     }
                 }
 
-                .mini-button {
+                button {
+                    width: auto !important;
+                    cursor: pointer;
                     margin: 0 4px 4px 0;
                     padding: 0 12px;
                     font-size: 10px;
                     line-height: 16px;
-                    border: 1px solid #999;
-                    border-radius: 3px;
-                    background: rgba(0, 0, 0, 0.75);
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                    background: $button-color;
                     color: white;
                     text-align: center;
+                    white-space: nowrap;
+                    border-radius: 3px;
+                    border: none;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+
+                    &:hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px white;
+                    }
+                }
+
+                .attack-button {
+
+                }
+
+                .damage-button {
+                }
+
+                .critical-button {
+
+                }
+
+                .action-detail {
+                    .traits-list {
+                        display: flex;
+                        flex: auto;
+                        width: 100%;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: baseline;
+                    }
+                }
+            }
+        }
+    }
+
+    .attacks-list {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: baseline;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+
+        .attack {
+            display: flex;
+            flex: 1 0 200px;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            margin-top: 12px;
+            
+            .attack-header {
+                display: flex;
+                flex: 1 0 auto;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                border-bottom: 1px solid $faded-color;
+
+                .attack-name {
+                    display: flex;
                     flex: auto;
+                    font-size: 0.9rem;
+
+                    h4 {
+                        margin: 0px;
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+
+            .attack-body {
+                display: flex;
+                flex: auto;
+                width: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                flex-direction: column;
+
+                .sub-section {
+                    display: flex;
+                    width: 100%;
+                    flex: auto;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-wrap: wrap;
+
+                    h4 {
+                        margin-left: 12px;
+                        margin-right: 12px;
+                    }
+                }
+
+                button {
+                    width: auto !important;
+                    cursor: pointer;
+                    margin: 0 4px 4px 0;
+                    padding: 0 12px;
+                    font-size: 10px;
+                    line-height: 16px;
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                    background: $button-color;
+                    color: white;
+                    text-align: center;
+                    white-space: nowrap;
+                    border-radius: 3px;
+                    border: none;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+
+                    &:hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px white;
+                    }
+                }
+
+                .attack-button {
+
+                }
+
+                .damage-button {
+                }
+
+                .critical-button {
+
+                }
+
+                .attack-detail {
+                    .traits-list {
+                        display: flex;
+                        flex: auto;
+                        width: 100%;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: baseline;
+                    }
                 }
             }
         }
@@ -444,7 +606,7 @@ $health-color: #A40802;
             flex: auto;
             flex-wrap: wrap;
             width: 100%;
-            padding: 6px 6px 0 6px;
+            padding: 12px 4px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: baseline;
