@@ -593,6 +593,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     _adjustAction(item, adjustmentSign) {
         const modifier = adjustmentSign * 2;
 
+        if (modifier === 0) return;
+
         if (item.data.description === undefined) return;
 
         let actionDescr = item.data.description.value;
