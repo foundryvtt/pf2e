@@ -431,20 +431,21 @@ export class PF2ENPC extends PF2EActor {
 
             // Select proficiency based on value
             if (proficiencyValue >= 8) {
-                proficiencyRank = 4;    // Legendary
+                proficiencyRank = 4; // Legendary
             } else if (proficiencyValue >= 6) {
-                proficiencyRank = 3;    // Master
+                proficiencyRank = 3; // Master
             } else if (proficiencyValue >= 4) {
-                proficiencyRank = 2;    // Expert
+                proficiencyRank = 2; // Expert
             } else if (proficiencyValue >= 2) {
-                proficiencyRank = 1;    // Trained
+                proficiencyRank = 1; // Trained
             } else {
-                proficiencyRank = 0;    // Untrained
+                proficiencyRank = 0; // Untrained
             }
 
             skill.value = totalValue;
             skill.rank = proficiencyRank;
-            skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
+            skill.type = skillId; // Make sure `type` exists to be read by the trait selector popup
+            skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
         }
     }
 

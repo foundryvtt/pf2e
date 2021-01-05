@@ -1,3 +1,12 @@
 <form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
-
+    <div class="npc-skills-editor">
+        {{#each skills as |skill skillId|}}
+            <div class="skill">
+                <label class="skill-name">{{skill.label}}</label>
+                <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
+                <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
+            </div>
+        {{/each}}
+        <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+    </div>
 </form>
