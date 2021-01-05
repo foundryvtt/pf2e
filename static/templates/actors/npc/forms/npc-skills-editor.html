@@ -1,5 +1,6 @@
 <form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
     <div class="npc-skills-editor">
+        {{ log skills }}
         <ol class="skills-list">
             <div class="skill header">
                 <div>{{ localize 'PF2E.NPC.SkillsEditor.NameLabel' }}</div>
@@ -7,11 +8,25 @@
                 <div>{{ localize 'PF2E.NPC.SkillsEditor.SpecialCaseLabel' }}</div>
             </div>
             {{#each skills as |skill skillId|}}
+            {{#unless skill.isLore }}
             <li class="skill">
                 <label class="skill-name">{{skill.label}}</label>
                 <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
                 <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
             </li>
+            {{/unless}}
+            {{/each}}
+            <div class="sub-section">
+                <h4>Lore Skills</h4>
+            </div>
+            {{#each skills as |skill skillId|}}
+            {{#if skill.isLore}}
+            <li class="skill">
+                <label class="skill-name">{{skill.label}}</label>
+                <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
+                <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
+            </li>
+            {{/if}}
             {{/each}}
         </ol>
         <div class="footer">

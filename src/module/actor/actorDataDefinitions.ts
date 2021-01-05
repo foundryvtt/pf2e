@@ -440,7 +440,7 @@ export type RawNPCSkillData = {
     type: string;
     label: string;
     value: number;
-}
+};
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
