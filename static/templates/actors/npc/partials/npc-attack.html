@@ -24,7 +24,7 @@
                 <button type="button" data-action="damage" class="damage-button">
                     {{#if action.data.damageRolls }}
                         {{#each action.data.damageRolls as |damage index|}}
-                            {{damage.damage}} {{damage.damageType}}{{#unless @last}} {{/unless}}
+                            {{damage.damage}} {{damage.damageType}}{{#unless @last}} + {{/unless}}
                         {{/each}}
                     {{/if}}
                 </button>

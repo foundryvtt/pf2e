@@ -455,7 +455,7 @@ export class PF2ENPC extends PF2EActor {
                 const results = exceptionRegExp.exec(skill.exception);
 
                 // Supports only the first +X found in the exception text
-                if (results !== undefined && results.length > 0) {
+                if (results !== undefined && results !== null && results.length > 0) {
                     skill.exceptionBonus = parseInt(results[0], 10) - skill.value;
                 }
             }
