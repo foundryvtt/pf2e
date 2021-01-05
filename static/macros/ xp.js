@@ -62,7 +62,7 @@ xpSimpleHazardDifferences.set(4, 32);
  */
 function getXPFromMap(partyLevel, entityLevel, values) {
     // add +1 to all levels to account for -1 levels
-    const difference = (entityLevel + 1) - (partyLevel + 1);
+    const difference = entityLevel + 1 - (partyLevel + 1);
     const range = Math.floor(values.size / 2);
     const boundedDifference = Math.clamped(difference, 0 - range, range);
     return values.get(boundedDifference);
@@ -143,8 +143,8 @@ function getXP(partyLevel, partySize, npcLevels, hazards) {
         .reduce((a, b) => a + b, 0);
     const challenge = creatureChallenge + hazardChallenge;
     const encounterBudgets = {
-        trivial: budget * .5,
-        low: budget * .75,
+        trivial: budget * 0.5,
+        low: budget * 0.75,
         moderate: budget,
         severe: budget * 1.5,
         extreme: budget * 2,
@@ -193,7 +193,7 @@ function getHazardLevels(actors, type) {
 function getLevels(actors, type) {
     return actors
         .filter(a => a.data.type === type)
-        .map(a => parseInt(a.data.data.details.level.value ?? 1, 10));
+        .map(a => parseInt(a.data.data.details.level.value ?? '1', 10));
 }
 
 /**
@@ -242,18 +242,22 @@ function dialogTemplate(xp) {
 </table>`;
 }
 
-const askLevelPopupTemplate = `
-<form>
-<div class="form-group">
-    <label>Party Size</label>
-    <input id="party-size" name="party-size" type="number" value="4">
-</div>
-<div class="form-group">
-    <label>Party level</label>
-    <input id="party-level" name="party-level" type="number" value="1">
-</div>
-</form>
-`;
+const askLevelPopupTemplate = () => {
+    const partySize = localStorage.getItem('xpMacroPartySize') ?? 4;
+    const partyLevel = localStorage.getItem('xpMacroPartyLevel') ?? 1;
+    return `
+    <form>
+    <div class="form-group">
+        <label>Party Size</label>
+        <input id="party-size" name="party-size" type="number" value="${partySize}">
+    </div>
+    <div class="form-group">
+        <label>Party level</label>
+        <input id="party-level" name="party-level" type="number" value="${partyLevel}">
+    </div>
+    </form>
+    `;
+};
 
 /**
  * @param partyLevel {number}
@@ -281,7 +285,7 @@ function askPartyLevelAndSize(npcLevels, hazardLevels) {
         buttons: {
             no: {
                 icon: '<i class="fas fa-times"></i>',
-                label: 'Cancel'
+                label: 'Cancel',
             },
             yes: {
                 icon: '<i class="fas fa-calculator"></i>',
@@ -289,6 +293,9 @@ function askPartyLevelAndSize(npcLevels, hazardLevels) {
                 callback: ($html) => {
                     const partySize = parseInt($html[0].querySelector('[name="party-size"]').value, 10) ?? 1;
                     const partyLevel = parseInt($html[0].querySelector('[name="party-level"]').value, 10) ?? 1;
+                    // persist for future uses
+                    localStorage.setItem('xpMacroPartySize', partySize);
+                    localStorage.setItem('xpMacroPartyLevel', partyLevel);
                     showXP(partyLevel, partySize, npcLevels, hazardLevels);
                 }
             },
