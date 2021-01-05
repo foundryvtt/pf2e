@@ -6,6 +6,7 @@ import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { CharacterStrike, CharacterStrikeTrait, NpcData, RawNPCSkillData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
+import { PF2ECONFIG } from 'src/scripts/config';
 
 export class PF2ENPC extends PF2EActor {
     /** @override */
@@ -382,6 +383,7 @@ export class PF2ENPC extends PF2EActor {
             skill.value = totalValue;
             skill.rank = proficiencyRank;
             skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
+            skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
         }
     }
 
