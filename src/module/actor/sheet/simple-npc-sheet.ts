@@ -505,6 +505,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     _adjustNPCAttack(item, adjustmentSign) {
         const modifier = 2 * adjustmentSign;
 
+        if (modifier === 0) return;
+
         if (item === undefined) return;
         if (item.data === undefined) return;
         if (item.data.bonus === undefined) return;
@@ -525,11 +527,16 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         if (dmg === undefined) return;
 
         const lastTwoChars = dmg.slice(-2);
+        const lastValue: number = parseInt(lastTwoChars, 10);
+        const isInverseToAdjustment = lastValue === (modifier * -1);
         
-        if (parseInt(lastTwoChars, 10) === (modifier * -1) ) {
+        if (isInverseToAdjustment) {
+            // Remove previously applied bonus
             item.data.damageRolls[0].damage = dmg.slice(0, -2);
         } else {
-            item.data.damageRolls[0].damage = dmg + (adjustmentSign ? '+' : '') + modifier;
+            // Add new bonus
+            const newBonus = (adjustmentSign ? '+' : '') + modifier;
+            item.data.damageRolls[0].damage = dmg + newBonus;
         }
     }
 
