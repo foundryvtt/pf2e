@@ -349,6 +349,9 @@ export class PF2ENPC extends PF2EActor {
     }
 
     private _prepareNPCSkills(): void {
+        // Used to find the bouns for the exception in the exception text
+        const exceptionRegExp = /\+(\d*)/g;
+
         for (const skillId of Object.keys(this.data.data.skills)) {
             const skill = this.data.data.skills[skillId];
 
@@ -384,6 +387,16 @@ export class PF2ENPC extends PF2EActor {
             skill.rank = proficiencyRank;
             skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
             skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
+
+            // If it has an exception, try to parse the bonus
+            if (skill.exception !== undefined) {
+                const results = exceptionRegExp.exec(skill.exception);
+
+                // Supports only the first +X found in the exception text
+                if (results !== undefined && results.length > 0) {
+                    skill.exceptionBonus = parseInt(results[0], 10) - skill.value;
+                }
+            }
         }
     }
 

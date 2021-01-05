@@ -671,33 +671,39 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     
     rollNPCSkill(event, skillId) {
         const skill = this.actor.data.data.skills[skillId];
-        
-        if (skill) {
-            const rank = CONFIG.PF2E.proficiencyLevels[skill.rank];
-            const parts = ['@mod'];
-            const flavor = game.i18n.format('PF2E.NPC.SkillRollFlavor', {
-                rank: rank,
-                skillName: CONFIG.PF2E.skills[skillId]
-            });
-            const modifier = skill.value;
 
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                parts,
-                data: {
-                    mod: modifier
-                },
-                title: flavor,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            });
+        if (skill === undefined) return;
+
+        const isException = $(event.currentTarget).hasClass("exception");
+        let exceptionBonus: number;
+
+        if (isException) {
+            exceptionBonus = skill.exceptionBonus;
         } else {
-            console.log(`Unable to roll skill ${skillId}, not found in the skill list.`);
+            exceptionBonus = 0;
         }
+
+        const rank = CONFIG.PF2E.proficiencyLevels[skill.rank];
+        const parts = ['@mod'];
+        const flavor = game.i18n.format('PF2E.NPC.SkillRollFlavor', {
+            rank: rank,
+            skillName: CONFIG.PF2E.skills[skillId]
+        });
+        const modifier = skill.value + exceptionBonus;
+
+        // Call the roll helper utility
+        DicePF2e.d20Roll({
+            event,
+            parts,
+            data: {
+                mod: modifier
+            },
+            title: flavor,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        });
     }
     
     rollSave(event, saveId) {
-        console.log(`Rolling save ${saveId}`);
         this.actor.rollSave(event, saveId);
     }
     
