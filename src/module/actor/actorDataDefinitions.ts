@@ -430,6 +430,7 @@ export type NPCSkillData = SkillData & {
     visible?: boolean;
     label: string;
     expanded: string;
+    isLore: boolean;
 };
 
 /**

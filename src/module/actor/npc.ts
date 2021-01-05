@@ -6,7 +6,7 @@ import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { CharacterStrike, CharacterStrikeTrait, NpcData, RawNPCSkillData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
-import { PF2ECONFIG } from 'src/scripts/config';
+import { PF2ECONFIG } from '../../scripts/config';
 
 export class PF2ENPC extends PF2EActor {
     /** @override */
@@ -349,8 +349,9 @@ export class PF2ENPC extends PF2EActor {
     }
 
     private _prepareNPCSkills(): void {
-        // Used to find the bouns for the exception in the exception text
-        const exceptionRegExp = /\+(\d*)/g;
+        const skillsToRemoveIDs = [];
+
+        console.log(this.data.data.skills);
 
         for (const skillId of Object.keys(this.data.data.skills)) {
             const skill = this.data.data.skills[skillId];
@@ -360,44 +361,107 @@ export class PF2ENPC extends PF2EActor {
                 continue;
             }
 
-            const totalValue: number = skill.value;
-            const level = this.data.data.details.level.value;
-            const ability = this.data.data.abilities[skill.ability];
-            const abilityModifier = ability ? ability.mod : 0;
+            this._processNPCSkill(skillId, skill);
 
-            // Whatever is left, must come from proficiency
-            const proficiencyValue = totalValue - level - abilityModifier;
+            if (this._isLoreSkill(skill)) {
+                // Extract lore name from the ID
+                const rawLoreName = skillId.substr(0, skillId.search('-'));
+                const loreName = rawLoreName.replace('_', ' ').titleCase(); // Replace _ with whitespaces and capitalize
+                skill.label = game.i18n.format('PF2E.LoreSkillFormat', {
+                    name: loreName
+                });
 
-            let proficiencyRank: number;
-
-            // Select proficiency based on value
-            if (proficiencyValue >= 8) {
-                proficiencyRank = 4;    // Legendary
-            } else if (proficiencyValue >= 6) {
-                proficiencyRank = 3;    // Master
-            } else if (proficiencyValue >= 4) {
-                proficiencyRank = 2;    // Expert
-            } else if (proficiencyValue >= 2) {
-                proficiencyRank = 1;    // Trained
+            } else if (this._isRegularSkill(skill)) {
+                skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
             } else {
-                proficiencyRank = 0;    // Untrained
-            }
+                const separatorIndex = skillId.search('-');
+                const rawSkillId = skillId.substr(0, separatorIndex);
+                const rawSpecialBonus = skillId.substr(separatorIndex + 1, skillId.length - separatorIndex - 1);
+                
+                let finalSpecialBonus = rawSpecialBonus;
+                finalSpecialBonus = finalSpecialBonus.replace(/\(/g, '');
+                finalSpecialBonus = finalSpecialBonus.replace(/\)/g,'');
+                finalSpecialBonus = finalSpecialBonus.replace(/-/g, ' ');
 
-            skill.value = totalValue;
-            skill.rank = proficiencyRank;
-            skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
-            skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
+                const realSkillId = SKILL_EXPANDED[rawSkillId]?.shortform;
 
-            // If it has an exception, try to parse the bonus
-            if (skill.exception !== undefined) {
-                const results = exceptionRegExp.exec(skill.exception);
+                if (realSkillId !== undefined) {
+                    const realSkill = this.data.data.skills[realSkillId];
 
-                // Supports only the first +X found in the exception text
-                if (results !== undefined && results !== null && results.length > 0) {
-                    skill.exceptionBonus = parseInt(results[0], 10) - skill.value;
+                    if (realSkill !== undefined) {
+                        console.log(finalSpecialBonus);
+                        realSkill.value = skill.value;
+                        realSkill.exception = finalSpecialBonus;
+
+                        this._processNPCSkill(realSkillId, realSkill);
+
+                        skillsToRemoveIDs.push(skillId);
+                    } else {
+                        console.log(`Unable to find real skill with ${realSkillId} ID`);
+                    }
+                } else {
+                    console.log(`Failed to find regular skill ID for skill name ${rawSkillId}`);
                 }
             }
         }
+
+        // Remove incorrect skills so they don't appear in the sheet
+        for (const skillId of skillsToRemoveIDs) {
+            delete this.data.data.skills[skillId];
+        }
+    }
+
+    _processNPCSkill(skillId, skill) {
+        // Used to find the bouns for the exception in the exception text
+        const exceptionRegExp = /\+(\d*)/g;
+
+        const totalValue: number = skill.value;
+        const level = this.data.data.details.level.value;
+        const ability = this.data.data.abilities[skill.ability];
+        const abilityModifier = ability ? ability.mod : 0;
+
+        // Whatever is left, must come from proficiency
+        const proficiencyValue = totalValue - level - abilityModifier;
+
+        let proficiencyRank: number;
+
+        // Select proficiency based on value
+        if (proficiencyValue >= 8) {
+            proficiencyRank = 4;    // Legendary
+        } else if (proficiencyValue >= 6) {
+            proficiencyRank = 3;    // Master
+        } else if (proficiencyValue >= 4) {
+            proficiencyRank = 2;    // Expert
+        } else if (proficiencyValue >= 2) {
+            proficiencyRank = 1;    // Trained
+        } else {
+            proficiencyRank = 0;    // Untrained
+        }
+
+        skill.value = totalValue;
+        skill.rank = proficiencyRank;
+        skill.type = skillId;   // Make sure `type` exists to be read by the trait selector popup
+
+        // If it has an exception, try to parse the bonus
+        if (skill.exception !== undefined) {
+            const results = exceptionRegExp.exec(skill.exception);
+
+            // Supports only the first +X found in the exception text
+            if (results !== undefined && results !== null && results.length > 0) {
+                skill.exceptionBonus = parseInt(results[0], 10) - skill.value;
+            }
+        }
+    }
+
+    _isLoreSkill(skill) {
+        return skill.type.includes('-lore');
+    }
+
+    _isRegularSkill(skill) {
+        for (const skillId in PF2ECONFIG.skills) {
+            if (skillId === skill.type) return true;
+        }
+        return false;
     }
 
     private updateTokenAttitude(attitude: string) {
