@@ -67,7 +67,6 @@ export class NPCSkillsEditor extends FormApplication {
      * @param formData 
      */
     async _updateObject(event: Event, formData: any) {
-        
         for (const [skillId, skillData] of Object.entries(formData as Record<any, any>)) {
             const isLoreSkill = skillId.includes('-lore');
 
@@ -85,14 +84,14 @@ export class NPCSkillsEditor extends FormApplication {
                 exception = skillData[1] || '';
             }
 
-            const skillItem = this._findSkillItem(skillId);
+            const skillItem = this._findSkillItem(skillId, exception);
             const skillItemValue: number = skillItem !== null ? skillItem.data.data.mod.value : 0;
-            const hasToUpdateItem = (skillItem !== null && skillItemValue !== value);
+            const hasToUpdateItem = (skillItem !== null && skillItemValue !== value && value > 0);
             const hasToCreateItem = (skillItem === null && (value !== 0 || exception !== ''));
             const hasToDelete = (skillItem !== null && value === 0 && exception === '');
 
             if (hasToUpdateItem) {
-                console.log(`Updating item ${skillItem.name} for skill ${skillId} with value ${value} and exception ${exception}`);
+                console.log(`Updating item ${skillItem.name} for skill ${skillId} from value ${skillItemValue} to ${value} and exception ${exception}`);
             } else if (hasToCreateItem) {
                 console.log(`Creating item for skill ${skillId} with value ${value} and exception ${exception}`);
             } else if (hasToDelete) {
@@ -109,10 +108,10 @@ export class NPCSkillsEditor extends FormApplication {
         }
     }
 
-    private _findSkillItem(skillId: string): any {
-        const skillName = this.npc.convertSkillIdToSkillName(skillId);
+    private _findSkillItem(skillId: string, exception?: string): any {
+        let skillName = this.npc.convertSkillIdToSkillName(skillId);
 
-        const skillItem = this.npc.items.find((item) => {
+        let skillItem = this.npc.items.find((item) => {
             if (item.type !== 'lore') return false;
 
             const itemSkillName = this.npc.convertItemNameToSkillName(item.name);
@@ -120,6 +119,29 @@ export class NPCSkillsEditor extends FormApplication {
             return skillName === itemSkillName;
         });
 
+        // If the item can't be found, try to search it using
+        // the incorrect format for compendium NPCs with the exception
+        // text in the ID
+        if (skillItem === null && exception !== undefined && exception !== '') {
+            skillName = this._generateSkillWithExceptionName(skillId, exception);
+
+            skillItem = this.npc.items.find((item) => {
+                if (item.type !== 'lore') return false;
+    
+                const itemSkillName = this.npc.convertItemNameToSkillName(item.name);
+    
+                return skillName === itemSkillName;
+            });
+        }
+
         return skillItem;
+    }
+
+    private _generateSkillWithExceptionName(skillId: string, exception: string): string {
+        const skillName = this.npc.convertSkillIdToSkillName(skillId);
+        const name = skillName.replace(/-/g, ' ').titleCase();
+        const itemName = `${name} (${exception})`;
+
+        return this.npc.convertItemNameToSkillName(itemName);
     }
 }
