@@ -431,6 +431,7 @@ export type NPCSkillData = SkillData & {
     label: string;
     expanded: string;
     isLore: boolean;
+    loreName: string;
 };
 
 /**

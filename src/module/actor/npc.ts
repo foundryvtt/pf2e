@@ -351,7 +351,7 @@ export class PF2ENPC extends PF2EActor {
     private _prepareNPCSkills(): void {
         const skillsToRemoveIDs = [];
 
-        console.log(this.data.data.skills);
+        console.log(`Preparing NPC skills...`);
 
         for (const skillId of Object.keys(this.data.data.skills)) {
             const skill = this.data.data.skills[skillId];
@@ -367,9 +367,18 @@ export class PF2ENPC extends PF2EActor {
                 // Extract lore name from the ID
                 const rawLoreName = skillId.substr(0, skillId.search('-'));
                 const loreName = rawLoreName.replace('_', ' ').titleCase(); // Replace _ with whitespaces and capitalize
+
+                // If no lore name set, assign the auto-calculated
+                // Useful for compendium NPCs
+                if (loreName === undefined || loreName === '') {
+                    skill.loreName = loreName;
+                }
+
                 skill.label = game.i18n.format('PF2E.LoreSkillFormat', {
                     name: loreName
                 });
+
+                skill.isLore = true;
 
             } else if (this._isRegularSkill(skill)) {
                 skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase()); // Make sure label is ready to be shown
@@ -389,7 +398,6 @@ export class PF2ENPC extends PF2EActor {
                     const realSkill = this.data.data.skills[realSkillId];
 
                     if (realSkill !== undefined) {
-                        console.log(finalSpecialBonus);
                         realSkill.value = skill.value;
                         realSkill.exception = finalSpecialBonus;
 
@@ -407,8 +415,11 @@ export class PF2ENPC extends PF2EActor {
 
         // Remove incorrect skills so they don't appear in the sheet
         for (const skillId of skillsToRemoveIDs) {
+            console.log(`Removing skill ${skillId}`);
             delete this.data.data.skills[skillId];
         }
+
+        console.log(`Finished.`);
     }
 
     _processNPCSkill(skillId, skill) {
