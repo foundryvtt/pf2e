@@ -414,7 +414,7 @@ export class PF2ENPC extends PF2EActor {
     private _prepareNPCSkills(): void {
         const skillsToRemoveIDs = [];
 
-        console.log(this.data.data.skills);
+        console.log(`Preparing NPC skills...`);
 
         for (const skillId of Object.keys(this.data.data.skills)) {
             const skill = this.data.data.skills[skillId];
@@ -450,8 +450,11 @@ export class PF2ENPC extends PF2EActor {
 
         // Remove incorrect skills so they don't appear in the sheet
         for (const skillId of skillsToRemoveIDs) {
+            console.log(`Removing skill ${skillId}`);
             delete this.data.data.skills[skillId];
         }
+
+        console.log(`Finished.`);
     }
 
     _processNPCSkill(skillId, skill) {

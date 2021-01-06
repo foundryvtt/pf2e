@@ -1,6 +1,5 @@
 <form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
     <div class="npc-skills-editor">
-        {{ log skills }}
         <ol class="skills-list">
             <div class="skill header">
                 <div>{{ localize 'PF2E.NPC.SkillsEditor.NameLabel' }}</div>
@@ -21,10 +20,11 @@
             </div>
             {{#each skills as |skill skillId|}}
             {{#if skill.isLore}}
-            <li class="skill">
-                <label class="skill-name">{{skill.label}}</label>
+            <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
+                <input name="{{skillId}}" data-dtype="Number" value="{{skill.loreName}}" placeholder="0"/>
                 <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
                 <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
+                <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
             </li>
             {{/if}}
             {{/each}}
