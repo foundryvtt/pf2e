@@ -414,9 +414,6 @@ export class PF2ENPC extends PF2EActor {
                 data.actions.push(action);
             }
         }
-
-        console.log(`Finished.`);
-
         this._processSkillsWithSpecialBonuses();
 
         // Process all NPC skills to make sure they have all data setup
@@ -428,21 +425,11 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
-     * Checks if an item is an NPC skill.
-     * @param item Item to check.
-     */
-    private _isNPCSkillItem(item: ItemData): boolean {
-        // NPC Skills, they all are of type 'lore', even non-lore ones
-        return item.type === 'lore';
-    }
-
-    /**
      * Creates and setups a new skill for the character based on an item of skill type.
      * @param item Item to create the skill from.
      * @param statisticsModifiers Collection of modifiers to be used in the skill creation.
      */
-    private _convertItemToNPCSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): NPCSkillData {
-        const skillId = this._convertItemNameToSkillId(item.name);
+    private _createNPCSkill(skillId: string, item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
         let abilityId: string;
         let shortForm: string;
 
@@ -463,6 +450,7 @@ export class PF2ENPC extends PF2EActor {
             // Nothing we can do about it here, we will have to deal with that
             // in a separate method called after all regular and lore skills have been
             // processed. See `_processSkillsWithSpecialBonuses`.
+            console.error(`Skill ${skillId} is incorrectly formated, unable to create NPC skill for now.`);
 
             console.log(
                 `Skill with id ${skillId} is not a regular skill nor a lore skill. Can't be directly converted to NPC skill.`,
@@ -471,39 +459,36 @@ export class PF2ENPC extends PF2EActor {
             return undefined;
         }
 
-        const base: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
+        const baseValue: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
+        const abilityValue = this.data.data.abilities[abilityId].mod;
         const modifiers = [
-            new PF2Modifier(
-                'PF2E.BaseModifier',
-                base - this.data.data.abilities[abilityId].mod,
-                PF2ModifierType.UNTYPED,
-            ),
-            new PF2Modifier(
-                CONFIG.PF2E.abilities[abilityId],
-                this.data.data.abilities[abilityId].mod,
-                PF2ModifierType.ABILITY,
-            ),
+            new PF2Modifier('PF2E.BaseModifier', baseValue - abilityValue, PF2ModifierType.UNTYPED),
+            new PF2Modifier(CONFIG.PF2E.abilities[abilityId], abilityValue, PF2ModifierType.ABILITY),
         ];
 
         [skillId, `${abilityId}-based`, 'skill-check', 'all'].forEach((key) => {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
 
-        const skill = mergeObject(new PF2StatisticModifier(item.name, modifiers), this.data.data.skills[shortForm], {
-            overwrite: false,
-        });
-        skill.base = base;
+        // Create the actual skill
+        const skill = mergeObject(new PF2StatisticModifier(skillId, modifiers), this.data.data.skills[shortForm]);
+
+        skill.base = baseValue + abilityValue;
         skill.expanded = skillId;
         skill.shortform = shortForm;
         skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase());
         skill.value = skill.totalModifier;
         skill.visible = true;
+
+        // Breakdown for the chat
         skill.breakdown = skill.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
             .join(', ');
+
+        // Roll method
         skill.roll = (event, options = [], callback?) => {
-            const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
+            const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.label });
             PF2Check.roll(
                 new PF2CheckModifier(label, skill),
                 { actor: this, type: 'skill-check', options },
@@ -526,7 +511,103 @@ export class PF2ENPC extends PF2EActor {
             });
         }
 
+        skill.visible = false;
+
         return skill;
+    }
+
+    /**
+     * Checks if an item is an NPC skill.
+     * @param item Item to check.
+     */
+    private _isNPCSkillItem(item: ItemData): boolean {
+        // NPC Skills, they all are of type 'lore', even non-lore ones
+        return item.type === 'lore';
+    }
+
+    /**
+     * Creates and setups a new skill for the character based on an item of skill type.
+     * @param item Item to create the skill from.
+     * @param statisticsModifiers Collection of modifiers to be used in the skill creation.
+     */
+    private _createNPCSkillFromItemSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
+        const skillId = this._convertItemNameToSkillId(item.name);
+        let abilityId: string;
+
+        const isRegularSkill = this._isRegularSkillId(skillId);
+        const isLoreSkill = this._isLoreSkillId(skillId);
+
+        if (isRegularSkill) {
+            const skillData = SKILL_EXPANDED[skillId];
+
+            abilityId = skillData.ability;
+        } else if (isLoreSkill) {
+            // It's a lore skill, and thus should use INT as its ability
+            abilityId = 'int';
+        } else {
+            // It's a skill with special bonus with a malformed ID
+            // Nothing we can do about it here, we will have to deal with that
+            // in a separate method called after all regular and lore skills have been
+            // processed. See `_processSkillsWithSpecialBonuses`.
+
+            return null;
+        }
+
+        let skill = this.data.data.skills[skillId];
+
+        // If there is no skill in the list of skills, create and add a new skill
+        if (skill === undefined) {
+            skill = this._createNPCSkill(skillId, item, statisticsModifiers);
+
+            this.data.data.skills[skillId] = skill;
+        }
+
+        const value: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
+
+        this._assignNPCSkillValue(skillId, value);
+    }
+
+    /**
+     * Modifies the value of a NPC skill.
+     * It will automatically calculate modifiers for the ability score and the base value.
+     * @param skillId ID of the skill to modify.
+     * @param value New total value for the skill.
+     */
+    private _assignNPCSkillValue(skillId: string, value: number): void {
+        const skill = this.data.data.skills[skillId];
+
+        if (skill === undefined) {
+            console.warn(`Unable to set value ${value} to skill ${skillId}. No skill with that ID.`);
+            return;
+        }
+
+        const abilityName = PF2ECONFIG.abilities[skill.ability] ?? PF2ECONFIG.abilities['int'];
+        const abilityModifier = skill.findModifierByName(abilityName);
+
+        if (abilityModifier === null) {
+            console.warn(
+                `Unable to find ability modifier with ID ${abilityName} for skill ${skillId}. Unable to set value.`,
+            );
+            return;
+        }
+
+        // Base value will be what's remaining after removing the ability modifier
+        const baseValue = value - abilityModifier.modifier;
+
+        const baseModifier = skill.findModifierByName('PF2E.BaseModifier');
+
+        if (baseModifier === null) {
+            console.warn(`Unable to find base modifier for skill ${skillId}. Unable to ser value.`);
+            return;
+        }
+
+        baseModifier.modifier = baseValue;
+
+        skill.visible = baseValue > 0;
+
+        // Refresh skill value after changing its base modifier
+        skill.applyStackingRules();
+        skill.value = skill.totalModifier;
     }
 
     /**
@@ -534,7 +615,41 @@ export class PF2ENPC extends PF2EActor {
      * @param itemName Name of the item to convert to skill ID.
      */
     private _convertItemNameToSkillId(itemName: string): string {
-        return itemName.toLowerCase().replace(/\s+/g, '-');
+        const skillName = itemName.toLowerCase().replace(/\s+/g, '-');
+
+        return this._convertSkillNameToSkillId(skillName);
+    }
+
+    /**
+     * Converts the name of a skill into a skill ID.
+     * @param skillName Name of the skill.
+     */
+    private _convertSkillNameToSkillId(skillName: string): string {
+        for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
+            if (skillDataId === skillName) {
+                return SKILL_EXPANDED[skillDataId].shortform;
+            }
+        }
+
+        // If not possible to find a short name, use the same
+        return skillName;
+    }
+
+    /**
+     * Converts from the 3-letter ID to the full, lower-letter name.
+     * @param skillId ID of the skill.
+     */
+    private _convertSkillIdToSkillName(skillId: string): string {
+        for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
+            const skillData = SKILL_EXPANDED[skillDataId];
+
+            if (skillData.shortform == skillId) {
+                return skillDataId;
+            }
+        }
+
+        // If not possible to find a short name, use the same
+        return skillId;
     }
 
     /**
@@ -545,8 +660,6 @@ export class PF2ENPC extends PF2EActor {
      * and ignore the regular skill value.
      */
     private async _processSkillsWithSpecialBonuses() {
-        console.log(`Searching skill items for skills with special bonuses...`);
-
         const skillsToRemoveIDs = [];
 
         for (const item of this.data.items) {
@@ -573,7 +686,7 @@ export class PF2ENPC extends PF2EActor {
                 const realSkill = this.data.data.skills[realSkillId];
 
                 if (realSkill !== undefined) {
-                    realSkill.value = (item.data as any).mod.value;
+                    this._assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
                     realSkill.exception = finalSpecialBonus;
 
                     console.log(
@@ -584,10 +697,10 @@ export class PF2ENPC extends PF2EActor {
 
                     skillsToRemoveIDs.push(skillId);
                 } else {
-                    console.log(`Unable to find real skill with ${realSkillId} ID`);
+                    console.warn(`Unable to find real skill with ${realSkillId} ID`);
                 }
             } else {
-                console.log(`Failed to find regular skill ID for skill name ${rawSkillId}`);
+                console.warn(`Failed to find regular skill ID for skill name ${rawSkillId}`);
             }
         }
 
@@ -703,7 +816,7 @@ export class PF2ENPC extends PF2EActor {
      * @param skillId ID of the skill.
      */
     private _isRegularSkillId(skillId: string): boolean {
-        for (const id in PF2ECONFIG.skillList) {
+        for (const id in PF2ECONFIG.skills) {
             if (id === skillId) return true;
         }
 
