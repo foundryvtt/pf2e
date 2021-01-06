@@ -28,6 +28,7 @@
             </div>
             <div class="section-body">
                 <div class="skills-list">
+                    {{ log data.skills }}
                     {{#each data.skills as |skill id|}}
                     {{#if (isNotZero skill.value) }}
                     <div class="skill-entry tag" data-skill="{{id}}">
