@@ -11,7 +11,7 @@
             {{#unless skill.isLore }}
             <li class="skill">
                 <label class="skill-name">{{skill.label}}</label>
-                <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
+                <input name="{{skillId}}" data-dtype="Number" value="{{#if skill.visible}}{{skill.value}}{{else}}0{{/if}}" placeholder="0"/>
                 <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
             </li>
             {{/unless}}

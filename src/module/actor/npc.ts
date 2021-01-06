@@ -639,7 +639,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts from the 3-letter ID to the full, lower-letter name.
      * @param skillId ID of the skill.
      */
-    private _convertSkillIdToSkillName(skillId: string): string {
+    convertSkillIdToSkillName(skillId: string): string {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             const skillData = SKILL_EXPANDED[skillDataId];
 
