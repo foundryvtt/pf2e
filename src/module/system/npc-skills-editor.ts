@@ -1,14 +1,23 @@
 import { PF2ECONFIG } from "../../scripts/config";
+import { PF2ENPC } from "../actor/npc";
+import { PF2EItem } from "../item/item";
 
 /**
  * Specialized form to setup skills for an NPC character.
  */
 export class NPCSkillsEditor extends FormApplication {
 
+    npc: PF2ENPC;
+
     constructor(actor, options) {
         super(actor, options);
 
         // Process actor and options
+        this.npc = actor as PF2ENPC;
+
+        if (this.npc === undefined) {
+            console.error(`Trying to use the NPC Skills Editor form with a non-NPC actor.`);
+        }
     }
 
     static get defaultOptions() {
@@ -58,43 +67,59 @@ export class NPCSkillsEditor extends FormApplication {
      * @param formData 
      */
     async _updateObject(event: Event, formData: any) {
-        const result = {};
-        const loreSkillIds = [];
-
-        console.log("Form:");
-        console.log(formData);
-
+        
         for (const [skillId, skillData] of Object.entries(formData as Record<any, any>)) {
             const isLoreSkill = skillId.includes('-lore');
 
+            let type: string;
+            let value: number;
+            let exception: string;
+
             if (isLoreSkill) {
-                const loreSkillId = skillData[0].toLowerCase().replace(/\s/g,'_') + "-lore";
-                result[loreSkillId] = {
-                    type: loreSkillId,
-                    loreName: skillData[0],
-                    value: parseInt(skillData[1], 10),
-                    exception: skillData[2] || '',
-                };
-
-                loreSkillIds.push(loreSkillId);
-
+                type = skillData[0].toLowerCase().replace(/\s/g,'_') + "-lore";
+                value = parseInt(skillData[1], 10);
+                exception = skillData[2] || '';
             } else {
-                result[skillId] = {
-                    type: skillId,
-                    value: parseInt(skillData[0], 10),
-                    exception: skillData[1] || '',
-                };
+                type = skillId;
+                value = parseInt(skillData[0], 10);
+                exception = skillData[1] || '';
             }
+
+            const skillItem = this._findSkillItem(skillId);
+            const skillItemValue: number = skillItem !== null ? skillItem.data.data.mod.value : 0;
+            const hasToUpdateItem = (skillItem !== null && skillItemValue !== value);
+            const hasToCreateItem = (skillItem === null && (value !== 0 || exception !== ''));
+            const hasToDelete = (skillItem !== null && value === 0 && exception === '');
+
+            if (hasToUpdateItem) {
+                console.log(`Updating item ${skillItem.name} for skill ${skillId} with value ${value} and exception ${exception}`);
+            } else if (hasToCreateItem) {
+                console.log(`Creating item for skill ${skillId} with value ${value} and exception ${exception}`);
+            } else if (hasToDelete) {
+                console.log(`Deleting item ${skillItem.name} for skill ${skillId} with value ${value} and exception ${exception}`);
+            }
+
+            // TODO: If no item skill, add a new one for this skill
+
+            // TODO: If one found, update its value
+
+            // TODO: Remove skill items for skills with value 0 and no exception
+
+            // TODO: Remove skill items for lore skills removed in the popup
         }
+    }
 
-        console.log("Result:");
-        console.log(result);
-        
-        await this.object.update({ [`data.skills`]: result});
+    private _findSkillItem(skillId: string): any {
+        const skillName = this.npc.convertSkillIdToSkillName(skillId);
 
-        console.log("Skills:");
-        console.log(this.object.data.data.skills);
+        const skillItem = this.npc.items.find((item) => {
+            if (item.type !== 'lore') return false;
 
-        // TODO: Remove lore skills no found in the form
+            const itemSkillName = this.npc.convertItemNameToSkillName(item.name);
+
+            return skillName === itemSkillName;
+        });
+
+        return skillItem;
     }
 }

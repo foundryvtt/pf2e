@@ -139,7 +139,7 @@ export class PF2ENPC extends PF2EActor {
 
         // Create NPC skills in its initial state
         for (const skillId of Object.keys(this.data.data.skills)) {
-            const skillName = this._convertSkillIdToSkillName(skillId);
+            const skillName = this.convertSkillIdToSkillName(skillId);
             const npcSkill = this._createNPCSkill(skillName, statisticsModifiers);
 
             if (npcSkill === null) {
@@ -440,7 +440,7 @@ export class PF2ENPC extends PF2EActor {
      * @param statisticsModifiers Collection of modifiers to be used in the skill creation.
      */
     private _createNPCSkillFromItemSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
-        const skillName = this._convertItemNameToSkillName(item.name);
+        const skillName = this.convertItemNameToSkillName(item.name);
         let abilityId: string;
         let skillId: string;
 
@@ -524,7 +524,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts the name of an item into the format of skill IDs.
      * @param itemName Name of the item to convert to skill ID.
      */
-    private _convertItemNameToSkillName(itemName: string) : string {
+    convertItemNameToSkillName(itemName: string) : string {
         return itemName.toLowerCase().replace(/\s+/g, '-');
     }
 
@@ -532,7 +532,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts the name of a skill into a skill ID.
      * @param skillName Name of the skill.
      */
-    private _convertSkillNameToSkillId(skillName: string): string {
+    convertSkillNameToSkillId(skillName: string): string {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             if (skillDataId === skillName) {
                 return SKILL_EXPANDED[skillDataId].shortform;
@@ -547,7 +547,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts from the 3-letter ID to the full, lower-letter name.
      * @param skillId ID of the skill.
      */
-    private _convertSkillIdToSkillName(skillId: string): string {
+    convertSkillIdToSkillName(skillId: string): string {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             const skillData = SKILL_EXPANDED[skillDataId];
 
@@ -573,7 +573,7 @@ export class PF2ENPC extends PF2EActor {
         for (const item of this.data.items) {
             if (!this._isNPCSkillItem(item)) continue;
 
-            const skillName = this._convertItemNameToSkillName(item.name);
+            const skillName = this.convertItemNameToSkillName(item.name);
 
             // If regular or lore with no special bonuses, no need to do anything more
             if (this._isRegularSkillName(skillName)) continue;
