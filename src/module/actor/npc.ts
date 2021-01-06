@@ -418,6 +418,13 @@ export class PF2ENPC extends PF2EActor {
         console.log(`Finished.`);
 
         this._processSkillsWithSpecialBonuses();
+
+        // Process all NPC skills to make sure they have all data setup
+        for (const skillId of Object.keys(this.data.data.skills)) {
+            const skill = this.data.data.skills[skillId];
+
+            this._processNPCSkill(skill);
+        }
     }
 
     /**
@@ -443,13 +450,11 @@ export class PF2ENPC extends PF2EActor {
         const isLoreSkill = this._isLoreSkillId(skillId);
 
         if (isRegularSkill) {
-            console.log(`Skill ${skillId} is a regular skill`);
             const skillData = SKILL_EXPANDED[skillId];
 
             abilityId = skillData.ability;
             shortForm = skillData.shortform;
         } else if (isLoreSkill) {
-            console.log(`Skill ${skillId} is a lore skill`);
             // It's a lore skill, and thus should use INT as its ability
             abilityId = 'int';
             shortForm = skillId;
@@ -484,23 +489,23 @@ export class PF2ENPC extends PF2EActor {
             (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
         });
 
-        const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers), this.data.data.skills[shortForm], {
+        const skill = mergeObject(new PF2StatisticModifier(item.name, modifiers), this.data.data.skills[shortForm], {
             overwrite: false,
         });
-        stat.base = base;
-        stat.expanded = skillId;
-        stat.shortform = skillId;
-        stat.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase());
-        stat.value = stat.totalModifier;
-        stat.visible = true;
-        stat.breakdown = stat.modifiers
+        skill.base = base;
+        skill.expanded = skillId;
+        skill.shortform = shortForm;
+        skill.label = game.i18n.localize('PF2E.Skill' + skillId.titleCase());
+        skill.value = skill.totalModifier;
+        skill.visible = true;
+        skill.breakdown = skill.modifiers
             .filter((m) => m.enabled)
             .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
             .join(', ');
-        stat.roll = (event, options = [], callback?) => {
+        skill.roll = (event, options = [], callback?) => {
             const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
             PF2Check.roll(
-                new PF2CheckModifier(label, stat),
+                new PF2CheckModifier(label, skill),
                 { actor: this, type: 'skill-check', options },
                 event,
                 callback,
@@ -508,20 +513,20 @@ export class PF2ENPC extends PF2EActor {
         };
 
         if (isLoreSkill) {
-            stat.isLore = true;
+            skill.isLore = true;
 
             const rawLoreName = skillId.substr(0, skillId.search('-'));
             const loreName = rawLoreName.replace('_', ' ').titleCase(); // Replace _ with whitespaces and capitalize
 
-            stat.loreName = loreName;
+            skill.loreName = loreName;
 
             // Override the label with a custom format for lore skills
-            stat.label = game.i18n.format('PF2E.LoreSkillFormat', {
+            skill.label = game.i18n.format('PF2E.LoreSkillFormat', {
                 name: loreName,
             });
         }
 
-        return stat;
+        return skill;
     }
 
     /**
@@ -539,7 +544,7 @@ export class PF2ENPC extends PF2EActor {
      * for both, the normal value and the special bonus, so we extract the data from it
      * and ignore the regular skill value.
      */
-    private _processSkillsWithSpecialBonuses(): void {
+    private async _processSkillsWithSpecialBonuses() {
         console.log(`Searching skill items for skills with special bonuses...`);
 
         const skillsToRemoveIDs = [];
@@ -553,8 +558,6 @@ export class PF2ENPC extends PF2EActor {
             if (this._isRegularSkillId(skillId)) continue;
             if (this._isLoreSkillId(skillId)) continue;
 
-            console.log(`Detected skill ${skillId} requiring extra processing for a special bonus`);
-
             const separatorIndex = skillId.search('-');
             const rawSkillId = skillId.substr(0, separatorIndex);
             const rawSpecialBonus = skillId.substr(separatorIndex + 1, skillId.length - separatorIndex - 1);
@@ -567,8 +570,6 @@ export class PF2ENPC extends PF2EActor {
             const realSkillId = SKILL_EXPANDED[rawSkillId]?.shortform;
 
             if (realSkillId !== undefined) {
-                console.log(`Found regular skill ${realSkillId} associated with item skill ${skillId}`);
-
                 const realSkill = this.data.data.skills[realSkillId];
 
                 if (realSkill !== undefined) {
@@ -579,7 +580,7 @@ export class PF2ENPC extends PF2EActor {
                         `Assigned value ${realSkill.value} and exception ${realSkill.exception} to skill ${realSkillId}`,
                     );
 
-                    this._processNPCSkill(realSkillId, realSkill);
+                    this._processNPCSkill(realSkillId);
 
                     skillsToRemoveIDs.push(skillId);
                 } else {
@@ -635,21 +636,15 @@ export class PF2ENPC extends PF2EActor {
             console.log(`Removing skill ${skillId}`);
             delete this.data.data.skills[skillId];
         }
-
-        console.log(`Finished.`);
     }
 
     /**
      * Extra processing for NPC skills.
      * This will handle proficiency calculation, expeptions, etc.
      * The skill must be created first from a skill item before calling this method.
-     * @param skillId ID of the skill to process.
      * @param skill Skill to process.
      */
-    _processNPCSkill(skillId, skill) {
-        // Used to find the bouns for the exception in the exception text
-        const exceptionRegExp = /\+(\d*)/g;
-
+    _processNPCSkill(skill) {
         const totalValue: number = skill.value;
         const level = this.data.data.details.level.value;
         const ability = this.data.data.abilities[skill.ability];
@@ -675,7 +670,9 @@ export class PF2ENPC extends PF2EActor {
 
         skill.value = totalValue;
         skill.rank = proficiencyRank;
-        skill.type = skillId; // Make sure `type` exists to be read by the trait selector popup
+
+        // Used to find the bonus for the exception in the exception text
+        const exceptionRegExp = /\+(\d*)/g;
 
         // If it has an exception, try to parse the bonus
         if (skill.exception !== undefined) {
