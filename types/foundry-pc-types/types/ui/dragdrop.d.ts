@@ -18,5 +18,6 @@
  * dragDrop.bind(html);
  */
 declare class DragDrop {
-    // TODO
+    dragSelector: string;
+    dropSelector: string;
 }

@@ -151,11 +151,6 @@ declare class Roll {
     protected _evalPoolTerms(formula: string): string[];
 
     /**
-     * Expand and reallocate an array of terms, separating them based on arithmetic operators
-     */
-    protected _expandArithmeticTerms(terms): any;
-
-    /**
      * Replace a dice roll term enclosed in {brackets} with a DicePool instance
      * @param term	The string term being replaced
      * @param rgx	The regexp match for the term
@@ -181,12 +176,12 @@ declare class Roll {
      * @param chatOptions	An object configuring the behavior of the resulting chat message.
      * @return				A Promise which resolves to the rendered HTML
      */
-    render(chatOptions?: object): Promise<JQuery | HTMLElement>;
+    render(chatOptions?: object): Promise<JQuery<HTMLElement>>;
 
     /**
      * Render the tooltip HTML for a Roll instance
      */
-    getTooltip(): Promise<JQuery | HTMLElement>;
+    getTooltip(): Promise<JQuery<HTMLElement>>;
 
     /**
      * Transform a Roll instance into a ChatMessage, displaying the roll result.
@@ -225,9 +220,8 @@ declare class Roll {
     /**
      * Clean a dice roll formula, returning the formatted string with proper spacing
      * @param formula
-     * @return {*}
      */
-    static cleanFormula(formula: string);
+    static cleanFormula(formula: string): string;
 
     /**
      * Return the minimum possible Dice roll which can result from the given formula

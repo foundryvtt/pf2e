@@ -1,7 +1,7 @@
 /**
  * The collection of Scene entities
  */
-declare class Scenes extends Collection<Scene> {
+declare class Scenes<ActorDataType extends ActorData> extends Collection<Scene<ActorDataType>> {
     // @TODO: Declare
 }
 
@@ -9,10 +9,10 @@ declare class Scenes extends Collection<Scene> {
  * The Scene entity
  */
 
-declare interface SceneData extends BaseEntityData {
-    tokens: TokenData[];
+declare interface SceneData<ActorDataType extends ActorData = ActorData> extends BaseEntityData {
+    tokens: TokenData<ActorDataType>[];
 }
 
-declare class Scene extends Entity {
-    data: SceneData;
+declare class Scene<ActorDataType extends ActorData = ActorData> extends Entity {
+    data: SceneData<ActorDataType>;
 }

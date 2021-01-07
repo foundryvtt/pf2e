@@ -117,7 +117,7 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      */
-    protected _onSortItem(event: Event | JQuery.Event, itemData: object): Promise<any>;
+    protected _onSortItem(event: JQuery.TriggeredEvent, itemData: object): Promise<any>;
 
     protected _getSortSiblings(source: any): any;
 }

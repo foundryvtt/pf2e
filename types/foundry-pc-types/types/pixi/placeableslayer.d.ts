@@ -131,7 +131,7 @@ declare abstract class PlaceablesLayer extends CanvasLayer {
      * @param objectId	The ID of the contained object to retrieve
      * @return			The object instance, or undefined
      */
-    get(objectId: number | string): PlaceableObject;
+    get(objectId: number | string): PlaceableObject | undefined;
 
     /**
      * Release all controlled PlaceableObject instance from this layer.
@@ -390,7 +390,18 @@ declare abstract class PlaceablesLayer extends CanvasLayer {
     /**
      * Default mouse-down event handling implementation
      */
-    protected _onMouseDown(event: PIXI.interaction.InteractionEvent, { isRuler, isCtrlRuler, isSelect }?): void;
+    protected _onMouseDown(
+        event: PIXI.interaction.InteractionEvent,
+        {
+            isRuler,
+            isCtrlRuler,
+            isSelect,
+        }?: {
+            isRuler?: boolean;
+            isCtrlRuler?: boolean;
+            isSelect?: boolean;
+        },
+    ): void;
 
     /**
      * Default handling of drag start events by left click + dragging

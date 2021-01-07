@@ -1,7 +1,7 @@
 declare interface ActorData extends BaseEntityData {
     type: string;
     img: string;
-    token: TokenData;
+    token: TokenData<this>;
     items: BaseItemData[];
 }
 
@@ -36,18 +36,18 @@ declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorTy
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet(...args: any): void;
+    static registerSheet(...args: unknown[]): void;
 
     /**
      * Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet(...args: any): void;
+    static unregisterSheet(...args: unknown[]): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type
      */
-    static get registeredSheets(): any[];
+    static get registeredSheets(): void;
 }
 
 /**

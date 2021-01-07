@@ -60,6 +60,11 @@ interface ApplicationPosition extends Object {
     scale?: number;
 }
 
+interface ElementDragEvent extends DragEvent {
+    target: HTMLElement;
+    currentTarget: HTMLElement;
+}
+
 declare const MIN_WINDOW_WIDTH: number, MIN_WINDOW_HEIGHT: number;
 
 declare let _appId: number;
@@ -251,7 +256,7 @@ declare class Application {
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
      * the application
      */
-    protected activateListeners(html: JQuery | HTMLElement): void;
+    protected activateListeners(html: JQuery<HTMLElement>): void;
 
     /**
      * Handle changes to the active tab in a configured Tabs controller
@@ -279,19 +284,19 @@ declare class Application {
      * Callback actions which occur at the beginning of a drag start workflow.
      * @param event	The originating DragEvent
      */
-    protected _onDragStart(event: DragEvent): void;
+    protected _onDragStart(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is over a drop target.
-     * @param event	The originating DragEvent
+     * @param event	The originating HTMLDragEvent
      */
-    protected _onDragOver(event: DragEvent): void;
+    protected _onDragOver(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is dropped on a target.
-     * @param event	The originating DragEvent
+     * @param event	The originating HTMLDragEvent
      */
-    protected _onDrop(event: DragEvent): void;
+    protected _onDrop(event: ElementDragEvent): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */

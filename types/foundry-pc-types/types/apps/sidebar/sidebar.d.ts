@@ -5,13 +5,12 @@ declare class Sidebar extends Application {
     /** Sidebar application instance */
     apps: Application[];
 
-    /** Sidebar navigation tabs */
-    tabs: Tabs;
+    protected _collapsed: boolean;
 
-    /** Reference the name of the active tab */
-    activeTab: string;
-
-    constructor(...args: any[]);
+    /**
+     * Return the name of the active Sidebar tab
+     */
+    get activeTab(): string;
 
     /**
      * Return an Array of pop-out sidebar tab Application instances
@@ -20,7 +19,7 @@ declare class Sidebar extends Application {
 
     /**
      * Activate a Sidebar tab by it's name
-     * @param tabName	The tab name corresponding to it's "data-tab" attribute
+     * @param tabName      The tab name corresponding to it's "data-tab" attribute
      */
     activateTab(tabName: string): void;
 
@@ -35,4 +34,17 @@ declare class Sidebar extends Application {
      * Take no action if the sidebar is already collapsed.
      */
     collapse(): void;
+
+    /**
+     * Handle right-click events on tab controls to trigger pop-out containers for each tab
+     * @param event     The originating contextmenu event
+     */
+    protected _onRightClickTab(event: Event): void;
+
+    /**
+     * Handle toggling of the Sidebar container's collapsed or expanded state
+     * @param event
+     * @private
+     */
+    protected _onToggleCollapse(event: Event): void;
 }

@@ -15,6 +15,10 @@ declare interface BaseEntityData {
     img: string;
 }
 
+declare interface EntityUpdateData {
+    [key: string]: unknown;
+}
+
 declare interface EntityCreateOptions {
     temporary?: boolean;
     renderSheet?: boolean;

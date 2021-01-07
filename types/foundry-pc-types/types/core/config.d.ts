@@ -1,6 +1,10 @@
 // @TODO: Assign class types
 
-declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Item<ActorType>> {
+declare interface Config<
+    ActorType extends Actor<ItemType>,
+    ItemType extends Item<ActorType>,
+    CombatType extends Combat
+> {
     /**
      * Configure debugging flags to display additional information
      */
@@ -13,7 +17,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Actor entity class
      */
     Actor: {
-        entityClass: { new (data: ActorType["data"], options?: object): ActorType };
+        entityClass: { new (data: ActorType['data'], options?: object): ActorType };
         collection: Actors<ActorType>;
         sheetClasses: typeof ActorSheet;
     };
@@ -22,7 +26,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: { new (data: ItemType["data"], options?: object): ItemType };
+        entityClass: { new (data: ItemType['data'], options?: object): ItemType };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
     };
@@ -31,9 +35,13 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Combat entity class
      */
     Combat: {
-        entityClass: { new (data: CombatData, options?: object): Combat<ActorType> };
+        entityClass: { new (data: CombatType['data'], options?: object): CombatType };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
+        initiative: {
+            decimals: number;
+            formula: (combatant: CombatantData<ActorType>) => string;
+        };
     };
 
     /**
@@ -54,8 +62,8 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      */
     Scene: {
         entityClass: typeof Scene;
-        collection: Scenes;
-        sheetClass: any;
+        collection: Scenes<ActorType['data']>;
+        sheetClass: typeof SceneSheet;
         notesClass: any;
         sidebarIcon: string;
     };
@@ -64,8 +72,8 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Playlist entity class
      */
     Playlist: {
-        entityClass;
-        sheetClass;
+        entityClass: typeof Playlist;
+        sheetClass: typeof PlaylistConfig;
         sidebarIcon: string;
     };
 
@@ -73,8 +81,8 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for RollTable random draws
      */
     RollTable: {
-        entityClass;
-        sheetClass;
+        entityClass: typeof RollTable;
+        sheetClass: typeof RollTableConfig;
         sidebarIcon: string;
         resultIcon: string;
     };

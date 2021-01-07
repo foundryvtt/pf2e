@@ -17,7 +17,7 @@ declare let ui: {
  * @param userId     The ID of the currently active user, retrieved from their session cookie
  * @param socket     The open web-socket which should be used to transact game-state data
  */
-declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item> {
+declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item, CombatType extends Combat = Combat> {
     /** The object of world data passed from the server */
     data: any;
 
@@ -64,17 +64,17 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
 
     /* -------------------------------------------- */
     /*  Entities
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     users: Users<ActorType>;
     messages: Messages;
-    scenes: Scenes;
+    scenes: Scenes<ActorType['data']>;
     actors: Actors<ActorType>;
     items: Items<ItemType>;
     journal: Journal;
     macros: Macros;
     playlists: Playlists;
-    combats: CombatEncounters<ActorType>;
+    combats: CombatEncounters<CombatType>;
     tables: RollTables;
     folders: Folders;
     packs: Collection<Compendium>;
@@ -160,7 +160,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     /**
      * A convenience accessor for the currently active Combat encounter
      */
-    get combat(): Combat<ActorType>;
+    get combat(): CombatType;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused

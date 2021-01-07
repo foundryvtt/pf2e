@@ -18,7 +18,7 @@
  * });
  */
 declare class MeasuredTemplate extends PlaceableObject {
-    constructor(...args);
+    constructor(...args: any);
 
     /* -------------------------------------------- */
 

@@ -143,7 +143,7 @@ declare function hasProperty(object: object, key: string): boolean;
  *
  * @return         The value of the found property
  */
-declare function getProperty(object: object, key: string): any;
+declare function getProperty<T extends {}>(object: T, key: string): any;
 
 /**
  * A helper function which searches through an object to assign a value using a string key

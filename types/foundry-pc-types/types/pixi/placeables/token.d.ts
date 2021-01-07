@@ -33,7 +33,7 @@
  * }
  */
 
-declare type LightData = {
+declare interface LightData {
     brightLight: number;
     dimLight: number;
     lightAlpha: number;
@@ -44,9 +44,9 @@ declare type LightData = {
         intensity: number;
     };
     lightColor: string;
-};
+}
 
-interface BaseTokenData extends PlaceableObjectData {
+interface TokenData<AD extends ActorData = ActorData> extends PlaceableObjectData, LightData {
     name: string;
     displayName: number;
     img: string;
@@ -62,14 +62,12 @@ interface BaseTokenData extends PlaceableObjectData {
     hidden: boolean;
     actorId: string;
     actorLink: boolean;
-    actorData: { [key: string]: any };
+    actorData: { [key: string]: AD };
     disposition: number;
     displayBars: number;
     bar1: { [key: string]: string };
     bar2: { [key: string]: string };
 }
-
-declare type TokenData = BaseTokenData & LightData;
 
 /**
  * An instance of the Token class represents an Actor within a viewed Scene on the game canvas.
@@ -81,7 +79,7 @@ declare type TokenData = BaseTokenData & LightData;
  */
 declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /** @override */
-    data: TokenData;
+    data: TokenData<ActorType['data']>;
 
     effects: PIXI.Container;
 

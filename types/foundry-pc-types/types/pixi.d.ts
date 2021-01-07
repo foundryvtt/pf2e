@@ -9589,6 +9589,15 @@ declare namespace PIXI {
          * @member {string} name
          */
         name: string;
+
+        /**
+         * The instance name of the object.
+         *
+         * @memberof PIXI.DisplayObject#
+         * @member value
+         */
+        value: number;
+
         /**
          * Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
          *

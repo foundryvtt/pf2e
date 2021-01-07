@@ -22,6 +22,14 @@ interface FormApplicationOptions extends ApplicationOptions {
     submitOnChange?: boolean;
 }
 
+declare class FormDataExtended extends FormData {
+    constructor(form: HTMLFormElement, { dtypes, editor }: { dtypes: { [key: string]: string }; editor?: object[] });
+
+    dtypes: { [key: string]: string };
+
+    editors: object[];
+}
+
 /**
  * An abstract pattern for defining an Application responsible for updating some object using an HTML form
  *
@@ -112,9 +120,17 @@ declare class FormApplication<ObjectType extends {} = any> extends Application {
      * @returns				A promise which resolves to the validated update data
      */
     protected _onSubmit(
-        event: Event | JQuery.Event,
+        event: JQuery.TriggeredEvent,
         { updateData, preventClose }?: { updateData?: any; preventClose?: boolean },
-    ): Promise<any>;
+    ): Promise<ReturnType<this['_getSubmitData']>>;
+
+    /**
+     * Get an object of update data used to update the form's target object
+     * @param updateData  Additional data that should be merged with the form data
+     * @return  The prepared update data
+     * @private
+     */
+    _getSubmitData<T extends {}>(updateData: T): FormDataExtended & T;
 
     /**
      * Handle unfocusing an input on form - maybe trigger an update if ``options.liveUpdate`` has been set to true

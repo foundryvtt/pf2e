@@ -77,6 +77,8 @@ import './types/framework/entities/rolltable';
 import './types/framework/entities/scene';
 import './types/framework/entities/user';
 
+import './types/framework/embeddedentities/base';
+
 // PIXI
 
 import './types/pixi/canvaslayer';

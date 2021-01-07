@@ -63,10 +63,10 @@ declare class Tabs {
     get group(): JQuery;
 
     /**
-     * Activate a tab by it's name. This gets called automatically when a tab in the navigation is clicked,
-     * however you may also call this function directly.
+     * Activate a Sidebar tab by its name
+     * @param tabName  The tab name corresponding to it's "data-tab" attribute
      */
-    activateTab(tab: JQuery);
+    activateTab(tabName: string): void;
 }
 
 /**

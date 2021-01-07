@@ -13,7 +13,7 @@ declare class PlayerList extends Application {
      * Extend the render logic to first check whether a render is necessary based on the context
      * If a specific context was provided, make sure an update to the navigation is necessary before rendering
      */
-    render(force?: boolean, context?: RenderOptions);
+    render(force?: boolean, context?: RenderOptions): this;
 
     /**
      * Prepare the default data which is required to render the PlayerList ui
@@ -23,5 +23,5 @@ declare class PlayerList extends Application {
     /**
      * Add a context menu to the players UI which allows players to control or release Actors that they own
      */
-    activateListeners(html: JQuery);
+    activateListeners(html: JQuery): void;
 }
