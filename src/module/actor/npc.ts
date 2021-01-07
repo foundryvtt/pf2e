@@ -409,15 +409,13 @@ export class PF2ENPC extends PF2EActor {
         if (isLoreSkill) {
             skill.isLore = true;
 
-            const rawLoreName = skillName.substr(0, skillName.search('-'));
-            const loreName = rawLoreName.replace('_', ' ').titleCase(); // Replace _ with whitespaces and capitalize
+            const rawLoreName = skillName.substr(0, skillName.lastIndexOf('-'));
+            const loreName = rawLoreName.replace(/-/g,' ').replace(/_/g, ' ').titleCase(); // Replace _ with whitespaces and capitalize
 
             skill.loreName = loreName;
 
             // Override the label with a custom format for lore skills
-            skill.label = game.i18n.format('PF2E.LoreSkillFormat', {
-                name: loreName
-            });
+            skill.label = loreName;
         }
 
         skill.visible = false;
@@ -488,7 +486,6 @@ export class PF2ENPC extends PF2EActor {
      * @param value New total value for the skill.
      */
     async assignNPCSkillValue(skillId: string, value: number) {
-        console.log(`Assigning value ${value} to skill ${skillId}`);
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
@@ -529,7 +526,6 @@ export class PF2ENPC extends PF2EActor {
      * @param exception Value of the exception to assign.
      */
     async assignNPCSkillException(skillId: string, exception: string) {
-        console.log(`Assigning exception ${exception} to skill ${skillId}`);
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
