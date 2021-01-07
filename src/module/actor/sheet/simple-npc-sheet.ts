@@ -6,6 +6,8 @@ import { DicePF2e } from "../../../scripts/dice";
 import { PF2EActor, SKILL_DICTIONARY } from "../actor";
 import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 import { NPCSkillsEditor } from "../../system/npc-skills-editor";
+import { NPCSkillData } from "../actorDataDefinitions";
+import { stringify } from "querystring";
 
 const isString = require('is-string');
 
@@ -215,7 +217,27 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _prepareSkills(actorData) {
-        // Conversion from NPC skills to regular skills is donde in `_prepareNPCSkills()` in `npc.ts`
+        // Prepare a list of skill IDs sorted by their localized name
+        // This will help in displaying the skills in alphabetical order in the sheet
+        const sortedSkillsIds = duplicate(Object.keys(actorData.data.skills));
+
+        sortedSkillsIds.sort((a: string, b: string) => {
+            const skillA = actorData.data.skills[a];
+            const skillB = actorData.data.skills[b];
+
+            if (skillA.label < skillB.label) return -1;
+            if (skillA.label > skillB.label) return 1;
+
+            return 0;
+        });
+
+        const sortedSkills = {};
+
+        for (const skillId of sortedSkillsIds) {
+            sortedSkills[skillId] = actorData.data.skills[skillId];
+        }
+
+        actorData.data.sortedSkills = sortedSkills;
     }
     
     _prepareSpeeds(actorData) {
