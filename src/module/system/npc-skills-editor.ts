@@ -1,5 +1,6 @@
 import { PF2ECONFIG } from "../../scripts/config";
 import { PF2ENPC } from "../actor/npc";
+import { ItemData } from "../item/dataDefinitions";
 import { PF2EItem } from "../item/item";
 
 /**
@@ -59,6 +60,10 @@ export class NPCSkillsEditor extends FormApplication {
         const skillId = skillContainer.attr('data-skill');
 
         skillContainer.remove();
+
+        const skillItem = this.npc.findSkillItem(skillId);
+
+        this.npc.deleteOwnedItem(skillItem._id);
     }
 
     /**
@@ -97,19 +102,31 @@ export class NPCSkillsEditor extends FormApplication {
                 skillItem.update({
                     [`data.mod.value`]: value,
                     [`data.description.value`]: exception
-                }); 
+                });
             } else if (hasToCreateItem) {
                 console.log(`Creating item for skill ${skillId} with value ${value} and exception ${exception}`);
+
+                const skillName = this.npc.convertSkillIdToSkillName(skillId);
+                const itemName = this.npc.convertSkillNameToItemName(skillName);
+
+                const data: any = {
+                    name: itemName,
+                    type: 'lore',
+                    data: {
+                        mod: {
+                            value: value
+                        },
+                        description: {
+                            value: exception
+                        }
+                    }
+                };
+
+                const createdItem = await this.npc.createOwnedItem(data);
             } else if (hasToDelete) {
                 console.log(`Deleting item ${skillItem.name} for skill ${skillId} with value ${value} and exception ${exception}`);
                 this.npc.deleteOwnedItem(skillItem._id);
             }
-
-            // TODO: If no item skill, add a new one for this skill
-
-            // TODO: If one found, update its value
-
-            // TODO: Remove skill items for skills with value 0 and no exception
 
             // TODO: Remove skill items for lore skills removed in the popup
         }

@@ -574,6 +574,14 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
+     * Converts the name of a skill into the name of an item.
+     * @param skillName Name of the skill, using the lowercase and dash-separated format.
+     */
+    convertSkillNameToItemName(skillName: string) : string {
+        return skillName.replace(/-/g, ' ').titleCase();
+    }
+
+    /**
      * Converts the name of a skill into a skill ID.
      * @param skillName Name of the skill.
      */
