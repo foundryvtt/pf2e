@@ -531,7 +531,7 @@ export class PF2ENPC extends PF2EActor {
      * @param statisticsModifiers Collection of modifiers to be used in the skill creation.
      */
     private _createNPCSkillFromItemSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
-        const skillId = this._convertItemNameToSkillId(item.name);
+        const skillId = this.convertItemNameToSkillId(item.name);
         let abilityId: string;
 
         const isRegularSkill = this._isRegularSkillId(skillId);
@@ -563,8 +563,10 @@ export class PF2ENPC extends PF2EActor {
         }
 
         const value: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
+        const exception: string = item.data.description.value;
 
-        this._assignNPCSkillValue(skillId, value);
+        this.assignNPCSkillValue(skillId, value);
+        this.assignNPCSkillException(skillId, exception);
     }
 
     /**
@@ -573,7 +575,8 @@ export class PF2ENPC extends PF2EActor {
      * @param skillId ID of the skill to modify.
      * @param value New total value for the skill.
      */
-    private _assignNPCSkillValue(skillId: string, value: number): void {
+    async assignNPCSkillValue(skillId: string, value: number) {
+        console.log(`Assigning value ${value} to skill ${skillId}`);
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
@@ -608,23 +611,75 @@ export class PF2ENPC extends PF2EActor {
         // Refresh skill value after changing its base modifier
         skill.applyStackingRules();
         skill.value = skill.totalModifier;
+
+        this._updateSkillVisiblity(skill);
+    }
+
+    /**
+     * Assigns a new exception to the skill.
+     * @param skillId ID of the skill to modify.
+     * @param exception Value of the exception to assign.
+     */
+    async assignNPCSkillException(skillId: string, exception: string) {
+        console.log(`Assigning exception ${exception} to skill ${skillId}`);
+        const skill = this.data.data.skills[skillId];
+
+        if (skill === undefined) {
+            console.error(`Unable to set exception ${exception} to skill ${skillId}. No skill with that ID.`);
+            return;
+        }
+
+        skill.exception = exception;
+
+        this._updateSkillVisiblity(skill);
+    }
+
+    /**
+     * Updates the visibility of a skill based on its values.
+     * A skill with a value or an exception is visible.
+     * @param skill Skill to update.
+     */
+    private _updateSkillVisiblity(skill: NPCSkillData): boolean {
+        let isVisible: boolean = false;
+
+        const baseModifier = skill.findModifierByName('PF2E.BaseModifier');
+
+        if (baseModifier.modifier > 0) {
+            isVisible = true;
+        }
+
+        if (skill.exception !== undefined || skill.exception !== '') {
+            isVisible = true;
+        }
+
+        skill.visible = isVisible;
+
+        return isVisible;
+    }
+
+    /**
+     * Converts an item to a skill name (full name, lower-case format).
+     * @param itemName Name of the item.
+     */
+    convertItemNameToSkillName(itemName: string): string {
+        return itemName.toLowerCase().replace(/\s+/g, '-');
     }
 
     /**
      * Converts the name of an item into the format of skill IDs.
      * @param itemName Name of the item to convert to skill ID.
      */
-    private _convertItemNameToSkillId(itemName: string): string {
-        const skillName = itemName.toLowerCase().replace(/\s+/g, '-');
+    convertItemNameToSkillId(itemName: string): string {
+        const skillName = this.convertItemNameToSkillName(itemName);
 
-        return this._convertSkillNameToSkillId(skillName);
+        return this.convertSkillNameToSkillId(skillName);
     }
 
     /**
      * Converts the name of a skill into a skill ID.
      * @param skillName Name of the skill.
      */
-    private _convertSkillNameToSkillId(skillName: string): string {
+    convertSkillNameToSkillId(skillName: string): string {
         for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
             if (skillDataId === skillName) {
                 return SKILL_EXPANDED[skillDataId].shortform;
@@ -653,6 +708,56 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
+     * Generated a skill name for a skill with an exception.
+     * This matches the name of skills from compendium with incorrect formats.
+     * @param skillId ID of the skill.
+     * @param exception Exception bonus for the skill.
+     */
+    generateSkillWithExceptionName(skillId: string, exception: string): string {
+        const skillName = this.convertSkillIdToSkillName(skillId);
+        const name = skillName.replace(/-/g, ' ').titleCase();
+        const itemName = `${name} (${exception})`;
+
+        return this.convertItemNameToSkillName(itemName);
+    }
+
+    /**
+     * Finds the skill item related to the skill provided.
+     * Each skill in the characters has an item in the items collection
+     * defining the skill. They are of 'lore' type, even for non-lore skills.
+     * @param skillId ID of the skill to search for.
+     * @param exception Exception of the skill. This is required to search items with exceptions and incorrect ID formats.
+     */
+    findSkillItem(skillId: string, exception?: string): PF2EItem {
+        let skillName = this.convertSkillIdToSkillName(skillId);
+
+        let skillItem = this.items.find((item) => {
+            if (item.type !== 'lore') return false;
+
+            const itemSkillName = this.convertItemNameToSkillName(item.name);
+
+            return skillName === itemSkillName;
+        });
+
+        // If the item can't be found, try to search it using
+        // the incorrect format for compendium NPCs with the exception
+        // text in the ID
+        if (skillItem === null && exception !== undefined && exception !== '') {
+            skillName = this.generateSkillWithExceptionName(skillId, exception);
+
+            skillItem = this.items.find((item) => {
+                if (item.type !== 'lore') return false;
+
+                const itemSkillName = this.convertItemNameToSkillName(item.name);
+
+                return skillName === itemSkillName;
+            });
+        }
+
+        return skillItem;
+    }
+
+    /**
      * Process skill items with special bonuses that could not be processed
      * before. We need to do this after the regular skill processing to avoid
      * overwritting values. The skill item with the special bonuses have the info
@@ -665,7 +770,7 @@ export class PF2ENPC extends PF2EActor {
         for (const item of this.data.items) {
             if (!this._isNPCSkillItem(item)) continue;
 
-            const skillId = this._convertItemNameToSkillId(item.name);
+            const skillId = this.convertItemNameToSkillId(item.name);
 
             // If regular or lore with no special bonuses, no need to do anything more
             if (this._isRegularSkillId(skillId)) continue;
@@ -686,7 +791,7 @@ export class PF2ENPC extends PF2EActor {
                 const realSkill = this.data.data.skills[realSkillId];
 
                 if (realSkill !== undefined) {
-                    this._assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
+                    this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
                     realSkill.exception = finalSpecialBonus;
 
                     console.log(
