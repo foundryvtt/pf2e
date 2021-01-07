@@ -93,20 +93,16 @@ export class NPCSkillsEditor extends FormApplication {
 
             if (hasToUpdateItem) {
                 console.log(`Updating item ${skillItem.name} for skill ${skillId} from value ${skillItemValue} to ${value} and exception from ${skillItemException} to ${exception}`);
-                console.log(`Pre-update state:`);
-                console.log(skillItem);
-                
+
                 skillItem.update({
                     [`data.mod.value`]: value,
                     [`data.description.value`]: exception
-                });
-
-                console.log(`Post-update state:`);
-                console.log(skillItem);
+                }); 
             } else if (hasToCreateItem) {
                 console.log(`Creating item for skill ${skillId} with value ${value} and exception ${exception}`);
             } else if (hasToDelete) {
                 console.log(`Deleting item ${skillItem.name} for skill ${skillId} with value ${value} and exception ${exception}`);
+                this.npc.deleteOwnedItem(skillItem._id);
             }
 
             // TODO: If no item skill, add a new one for this skill
