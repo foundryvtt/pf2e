@@ -576,7 +576,6 @@ export class PF2ENPC extends PF2EActor {
      * @param value New total value for the skill.
      */
     async assignNPCSkillValue(skillId: string, value: number) {
-        console.log(`Assigning value ${value} to skill ${skillId}`);
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
@@ -621,7 +620,6 @@ export class PF2ENPC extends PF2EActor {
      * @param exception Value of the exception to assign.
      */
     async assignNPCSkillException(skillId: string, exception: string) {
-        console.log(`Assigning exception ${exception} to skill ${skillId}`);
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
@@ -679,7 +677,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts the name of a skill into the name of an item.
      * @param skillName Name of the skill, using the lowercase and dash-separated format.
      */
-    convertSkillNameToItemName(skillName: string) : string {
+    convertSkillNameToItemName(skillName: string): string {
         return skillName.replace(/-/g, ' ').titleCase();
     }
 

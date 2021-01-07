@@ -16,18 +16,21 @@
             {{/unless}}
             {{/each}}
             <div class="sub-section">
-                <h4>Lore Skills</h4>
+                <h4>{{ localize 'PF2E.Lore' }}</h4>
             </div>
             {{#each skills as |skill skillId|}}
             {{#if skill.isLore}}
             <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
-                <input name="{{skillId}}" data-dtype="Number" value="{{skill.loreName}}" placeholder="0"/>
+                <input name="{{skillId}}" data-dtype="String" value="{{skill.loreName}}" placeholder=""/>
                 <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
                 <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
                 <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
             </li>
             {{/if}}
             {{/each}}
+            <li>
+                <div class="add-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.AddLoreSkill'}}</a></div>
+            </li>
         </ol>
         <div class="footer">
             <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
