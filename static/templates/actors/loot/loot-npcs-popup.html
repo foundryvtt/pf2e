@@ -4,8 +4,8 @@
     onsubmit="event.preventDefault();"
 >
     <div class="checkboxes">
-        <h1>{{localize "PF2E.loot.SplitCoinsPopupHeader"}}</h1>
-        {{#each actorInfo as |info|}}
+        <h1>{{localize "PF2E.loot.LootNPCsPopupHeader"}}</h1>
+        {{#each tokenInfo as |info|}}
         <p>
             <label class="selection" for="{{info.id}}">
                 <input type="checkbox"name="selection" id="{{info.id}}" {{#if info.checked}}checked="checked"{{/if}}/>
@@ -13,17 +13,11 @@
             </label>
         </p>
         {{/each}}
-        <hr>
-        <p>
-            <label class="break-coins" for="breakCoins">
-                <input type="checkbox" name="breakCoins" id="breakCoins" />
-                <span>Allow coin type conversion</span>
-            </label></p>
     </div>
     <p>
         <button class="confirm-button" type="submit" name="submit" value="1">
             <i class="far fa-save"></i>
-            {{localize "PF2E.loot.SplitCoinsLabel"}}
+            {{localize "PF2E.loot.LootNPCsLabel"}}
         </button>
     </p>
 </form>

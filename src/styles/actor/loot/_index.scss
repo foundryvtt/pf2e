@@ -1,5 +1,5 @@
 .pf2e.actor.loot {
-    .split-coins {
+    .loot-distribution {
         @include button;
         width: calc(100% - 6px);
         background-color: var(--tertiary);
@@ -35,8 +35,7 @@
 
             label {
                 color: #ffe8d1;
-                text-shadow: 1px 1px 1px rgba(white, 0.2),
-                    -1px -1px 1px rgba(black, 0.2);
+                text-shadow: 1px 1px 1px rgba(white, 0.2), -1px -1px 1px rgba(black, 0.2);
                 @include micro;
             }
 
@@ -47,26 +46,22 @@
 
             &.pp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/platinum-pieces.jpg')
-                        no-repeat;
+                    background: url('../icons/equipment/treasure/currency/platinum-pieces.jpg') no-repeat;
                 }
             }
             &.gp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/gold-pieces.jpg')
-                        no-repeat;
+                    background: url('../icons/equipment/treasure/currency/gold-pieces.jpg') no-repeat;
                 }
             }
             &.sp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/silver-pieces.jpg')
-                        no-repeat;
+                    background: url('../icons/equipment/treasure/currency/silver-pieces.jpg') no-repeat;
                 }
             }
             &.cp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/copper-pieces.jpg')
-                        no-repeat;
+                    background: url('../icons/equipment/treasure/currency/copper-pieces.jpg') no-repeat;
                 }
             }
 
@@ -93,8 +88,7 @@
                 padding: 3px 8px;
                 margin-top: 1px;
                 border-radius: 1px;
-                box-shadow: 0 0 0 1px rgba(black, 0.25),
-                    inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+                box-shadow: 0 0 0 1px rgba(black, 0.25), inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
 
                 &:hover {
                     background-color: var(--primary);
@@ -133,12 +127,12 @@
 
     /* Added to DOM when "Configure Sheet?" is toggled on */
     div.sheet-content {
-      height: calc(100% - 48px);
+        height: calc(100% - 48px);
     }
 }
 
-.split-coins-popup {
-    .split-coins {
+.loot-actor-popup {
+    .confirm-button {
         @include button;
         width: calc(100% - 6px);
         background-color: var(--tertiary);
