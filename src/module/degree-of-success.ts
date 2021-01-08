@@ -1,3 +1,7 @@
+/**
+ * Degree of Success rules as of https://2e.aonprd.com/Rules.aspx?ID=319
+ */
+
 export interface DieRoll {
     dieValue: number;
     modifier: number;
@@ -37,7 +41,7 @@ export function adjustDegreeByDieValue(dieValue: number, degreeOfSuccess: Degree
     }
 }
 
-export function getDegreeOfSuccess(roll: DieRoll, dc: number): DegreeOfSuccess {
+export function calculateDegreeOfSuccess(roll: DieRoll, dc: number): DegreeOfSuccess {
     const total = roll.dieValue + roll.modifier;
     if (total - dc >= 10) {
         return adjustDegreeByDieValue(roll.dieValue, DegreeOfSuccess.CRITICAL_SUCCESS);

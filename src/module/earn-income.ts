@@ -5,7 +5,7 @@
 import {ProficiencyRank} from './item/dataDefinitions';
 import {Coins} from './item/treasure';
 import {calculateDC, DCOptions} from './dc';
-import {DegreeOfSuccess, DieRoll, getDegreeOfSuccess} from './degree-of-success';
+import {DegreeOfSuccess, DieRoll, calculateDegreeOfSuccess} from './degree-of-success';
 
 // you have to be at least trained to earn income
 type TrainedProficiencies = Exclude<ProficiencyRank, 'untrained'>;
@@ -67,15 +67,7 @@ export interface EarnIncomeOptions {
     // When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure.
     // If you’re an expert in Lore, you gain twice as much income from a failed check to Earn Income,
     // unless it was originally a critical failure.
-    isExperiencedProfessional: boolean;
-
-    // https://2e.aonprd.com/Equipment.aspx?ID=133
-    // You can spend up to a month of downtime applying the quicksilver either
-    // to iron to create silver or to lead to create gold.
-    // Treat this as a 20th-level task to Earn Income using Crafting,
-    // except that you create 500 gp worth of your chosen metal per day on a success
-    // or 750 gp worth per day on a critical success.
-    usesPhilosophersStone: boolean;
+    useLoreAsExperiencedProfessional: boolean;
 }
 
 /**
@@ -89,11 +81,11 @@ export function earnIncome(
     level: number,
     roll: DieRoll,
     proficiency: TrainedProficiencies,
-    earnIncomeOptions: EarnIncomeOptions = {isExperiencedProfessional: false, usesPhilosophersStone: false},
-    dcOptions: DCOptions = {proficiencyWithoutLevel: false},
+    earnIncomeOptions: EarnIncomeOptions,
+    dcOptions: DCOptions,
 ): EarnIncomeResult {
     const dc = calculateDC(level, dcOptions);
-    const degreeOfSuccess = getDegreeOfSuccess(roll, dc);
+    const degreeOfSuccess = calculateDegreeOfSuccess(roll, dc);
     const result = {
         rewards: {},
         degreeOfSuccess,
