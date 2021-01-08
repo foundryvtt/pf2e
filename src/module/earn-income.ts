@@ -70,6 +70,30 @@ export interface EarnIncomeOptions {
     useLoreAsExperiencedProfessional: boolean;
 }
 
+export function multiplyIncome(income: Partial<Coins>, factor: number): Partial<Coins> {
+    const result = {};
+    for (const [key, value] of Object.entries(income)) {
+        result[key] = value * factor;
+    }
+    return result;
+}
+
+function applyIncomeOptions(
+    result: EarnIncomeResult,
+    earnIncomeOptions: EarnIncomeOptions,
+    level: number,
+    proficiency: TrainedProficiencies,
+) {
+    if (earnIncomeOptions.useLoreAsExperiencedProfessional) {
+        if (result.degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
+            result.degreeOfSuccess = DegreeOfSuccess.FAILURE;
+            result.rewards = getIncomeForLevel(level).failure;
+        } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== 'trained') {
+            result.rewards = multiplyIncome(result.rewards, 2);
+        }
+    }
+}
+
 /**
  * @param level number between 0 and 20
  * @param roll the actual die roll
@@ -86,28 +110,21 @@ export function earnIncome(
 ): EarnIncomeResult {
     const dc = calculateDC(level, dcOptions);
     const degreeOfSuccess = calculateDegreeOfSuccess(roll, dc);
+
     const result = {
         rewards: {},
         degreeOfSuccess,
     };
-
-    // TODO: implement earnIncomeOptions
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
         result.rewards = getIncomeForLevel(level + 1).rewards[proficiency];
     } else if (degreeOfSuccess === DegreeOfSuccess.SUCCESS) {
         result.rewards = getIncomeForLevel(level).rewards[proficiency];
     } else if (degreeOfSuccess === DegreeOfSuccess.FAILURE) {
-        result.rewards = getIncomeForLevel(level + 1).failure;
+        result.rewards = getIncomeForLevel(level).failure;
     }
 
-    return result;
-}
+    applyIncomeOptions(result, earnIncomeOptions, level, proficiency);
 
-export function multiplyIncome(income: Partial<Coins>, factor: number): Partial<Coins> {
-    const result = {};
-    for (const [key, value] of Object.entries(income)) {
-        result[key] = value * factor;
-    }
     return result;
 }
