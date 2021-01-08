@@ -3,12 +3,12 @@ import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsBy
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '../../item/treasure';
-import { PF2EActor } from '../actor';
+import { PF2EActor, PF2EVehicle } from '../actor';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eVehicle extends ActorSheetPF2e {
+export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'vehicle'],

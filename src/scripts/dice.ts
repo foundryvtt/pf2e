@@ -364,7 +364,7 @@ export class DicePF2e {
 /**
  * Highlight critical success or failure on d20 rolls
  */
-Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
+Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery<HTMLElement>) => {
     if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
     const dice: any = message.roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
@@ -390,7 +390,7 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
 
             html.find('.dice-total').append(btnContainer);
 
-            setInitiativeButton.click((ev) => {
+            setInitiativeButton.on('click', (ev) => {
                 ev.stopPropagation();
                 PF2EActor.setCombatantInitiative(html);
             });

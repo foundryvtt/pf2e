@@ -2,10 +2,12 @@ import { PF2ECONFIG, ConfigPF2e } from './scripts/config';
 import { rollItemMacro, rollActionMacro } from './scripts/init';
 import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
-import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
 import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
+import { ActorDataPF2e } from './module/actor/actorDataDefinitions';
+import { PF2ECharacter } from './module/actor/character';
+import { PF2ECombat } from './module/combat/combat';
 import { PF2ENPC } from './module/actor/npc';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
@@ -40,7 +42,7 @@ require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/actor/sheet/itemBehaviour.ts');
 require('./scripts/system/canvasDropHandler');
 
-interface GamePF2e extends Game<PF2EActor, PF2EItem> {
+interface GamePF2e extends Game<PF2EActor, PF2EItem, PF2ECombat> {
     pf2e: {
         worldclock?: WorldClockApplication;
         effectPanel?: EffectPanel;
@@ -54,6 +56,11 @@ declare global {
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<PF2EActor>;
     let PF2e: PF2eSystem;
+
+    interface Window {
+        PF2e: PF2eSystem;
+        DicePF2e: typeof DicePF2e;
+    }
 }
 
 Hooks.once('init', () => {
@@ -61,13 +68,17 @@ Hooks.once('init', () => {
 
     CONFIG.PF2E = PF2ECONFIG;
 
-    // Assign actor/item classes.
-    CONFIG.Item.entityClass = PF2EItem;
+    // Assign entity classes.
     CONFIG.Actor.entityClass = PF2EActor;
+    CONFIG.Item.entityClass = PF2EItem;
+    CONFIG.Combat.entityClass = PF2ECombat;
     // Automatically advance world time by 6 seconds each round
     CONFIG.time.roundTime = 6;
     // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-    CONFIG.Combat.initiative.decimals = 1;
+    CONFIG.Combat.initiative = {
+        decimals: 0,
+        formula: null,
+    };
     // Assign the PF2e Combat Tracker
     CONFIG.ui.combat = PF2eCombatTracker;
 
@@ -78,13 +89,11 @@ Hooks.once('init', () => {
     registerActors();
     registerSheets();
     registerHandlebarsHelpers();
-    // @ts-ignore
-    Combat.prototype._getInitiativeFormula = initiativeFormula;
 
     // expose a few things to the global world, so that other modules can use our stuff
     // instead of being locked in our world after we started building with webpack
     // which enforced modules being private
-    (window as any).DicePF2e = DicePF2e;
+    window.DicePF2e = DicePF2e;
     (window as any).PF2eStatusEffects = PF2eStatusEffects;
     (window as any).PF2eConditionManager = PF2eConditionManager;
     (window as any).PF2ModifierType = PF2ModifierType;
@@ -122,7 +131,7 @@ Hooks.once('ready', () => {
  * This function runs after game data has been requested and loaded from the servers, so entities exist
  */
 Hooks.once('setup', () => {
-    (window as any).PF2e = new PF2eSystem();
+    window.PF2e = new PF2eSystem();
 
     // Localize CONFIG objects once up-front
     const toLocalize = [
@@ -298,7 +307,10 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
         if (canReroll && actorId) {
             const actor = game.actors.get(actorId);
             return (
-                actor.owner && actor.data.data.attributes.heroPoints?.rank >= 1 && (message.isAuthor || game.user.isGM)
+                actor.owner &&
+                actor instanceof PF2ECharacter &&
+                actor.data.data.attributes.heroPoints.rank >= 1 &&
+                (message.isAuthor || game.user.isGM)
             );
         }
         return false;
@@ -373,7 +385,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     return options;
 });
 
-Hooks.on('preCreateActor', (actor, dir) => {
+Hooks.on('preCreateActor', (actor: ActorDataPF2e, dir) => {
     if (game.settings.get('pf2e', 'defaultTokenSettings')) {
         // Set wounds, advantage, and display name visibility
         const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');

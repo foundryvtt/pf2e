@@ -1,13 +1,14 @@
 /* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './RecallKnowledgePopup';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
+export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

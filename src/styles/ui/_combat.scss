@@ -1,9 +1,39 @@
+$above-drop: inset 0 -6px 3px -2px lightgrey;
+$below-drop: inset 0 6px 3px -2px lightgrey;
+
 #combat {
     #combat-round {
         .encounters {
             h3 {
                 font-size: 16px;
                 font-weight: 500;
+            }
+        }
+        &.above-drop {
+            box-shadow: $above-drop;
+        }
+    }
+
+    #combat-tracker {
+        // Drag & drop highlights
+        li.combatant.drag-from > * {
+            visibility: hidden;
+        }
+        li.combatant.self-drop {
+            box-shadow: inset 0 6px 3px -2px lightgrey, inset 0 -6px 3px -2px lightgrey;
+        }
+        li.combatant.above-drop {
+            box-shadow: $above-drop;
+        }
+        li.combatant.below-drop {
+            box-shadow: $below-drop;
+        }
+
+        li#combatant-footer {
+            display: flex;
+            min-height: 66px;
+            &.below-drop {
+                box-shadow: inset 0 6px 3px -2px lightgrey;
             }
         }
     }

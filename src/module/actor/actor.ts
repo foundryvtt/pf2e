@@ -2,9 +2,8 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
-import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
+import { PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
-import { PF2Check } from '../system/rolls';
 import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
@@ -17,14 +16,7 @@ import {
     WeaponData,
     isPhysicalItem,
 } from '../item/dataDefinitions';
-import {
-    CharacterData,
-    NpcData,
-    InitiativeData,
-    DexterityModifierCapData,
-    FamiliarData,
-    ActorDataPF2e,
-} from './actorDataDefinitions';
+import { CharacterData, NpcData, DexterityModifierCapData, FamiliarData, ActorDataPF2e } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
@@ -141,74 +133,6 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     /* -------------------------------------------- */
-
-    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
-        const { data } = actorData;
-        const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: PF2Modifier[] = [];
-
-        ['initiative'].forEach((key) => {
-            const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
-            (statisticsModifiers[key] || [])
-                .map((m) => duplicate(m))
-                .forEach((m) => {
-                    // checks if predicated rule is true with only skill name option
-                    if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
-                        // toggles these so the predicate rule will be included when totalmodifier is calculated
-                        m.enabled = true;
-                        m.ignored = false;
-                    }
-                    modifiers.push(m);
-                });
-        });
-        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
-        const skillName = game.i18n.localize(
-            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill],
-        );
-
-        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
-        stat.ability = initSkill;
-        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = (event, options = []) => {
-            const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
-            // push skill name to options if not already there
-            if (!options.includes(skillFullName)) {
-                options.push(skillFullName);
-            }
-            PF2Check.roll(
-                new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: 'initiative', options },
-                event,
-                (roll) => {
-                    this._applyInitiativeRollToCombatTracker(roll);
-                },
-            );
-        };
-
-        data.attributes.initiative = stat;
-    }
-
-    _applyInitiativeRollToCombatTracker(roll: Roll) {
-        if (roll) {
-            // check that there is a combat active in this scene
-            if (!game.combat) {
-                ui.notifications.error('No active encounters in the Combat Tracker.');
-                return;
-            }
-
-            const combatant = game.combat.turns.find((c) => c.actor.id === this._id);
-            if (combatant === undefined) {
-                ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
-                return;
-            }
-            game.combat.setInitiative(combatant._id, roll.total);
-        } else {
-            console.log(
-                'PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ',
-                roll,
-            );
-        }
-    }
 
     /** Obtain the first equipped armor the character has. */
     getFirstWornArmor(): ArmorData {
@@ -679,10 +603,8 @@ export class PF2EActor extends Actor<PF2EItem> {
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     *
-     * @return {Promise}
      */
-    static async rollSave(ev, item) {
+    static async rollSave(ev: JQuery.TriggeredEvent, item: PF2EItem): Promise<boolean> {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
@@ -708,29 +630,26 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /**
      * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param {JQuery} roll    The chat entry which contains the roll data
+     * @param roll    The chat entry which contains the roll data
      */
-    static async setCombatantInitiative(roll: JQuery) {
+    static async setCombatantInitiative(roll: JQuery<HTMLElement>): Promise<void> {
+        if (!game.combat) {
+            ui.notifications.error('No active encounters in the Combat Tracker.');
+            return;
+        }
+
         const skillRolled = roll.find('.flavor-text').text();
         const valueRolled = parseFloat(roll.find('.dice-total').text());
         const promises = [];
         for (const t of canvas.tokens.controlled) {
-            if (!game.combat) {
-                ui.notifications.error('No active encounters in the Combat Tracker.');
-                return;
-            }
-
-            const combatant = game.combat.getCombatantByToken(t.id);
-            if (combatant === undefined) {
-                ui.notifications.error("You haven't added this token to the Combat Tracker.");
-                return;
-            }
+            const combatant =
+                game.combat.getCombatantByToken(t.id) ??
+                (await game.combat.createCombatant({
+                    tokenId: t.id,
+                    hidden: t.data.hidden,
+                }));
 
             // Kept separate from modifier checks above in case of enemies using regular character sheets (or pets using NPC sheets)
-            let value = valueRolled;
-            if (!combatant.actor.hasPlayerOwner) {
-                value += 0.5;
-            }
             const message = `
       <div class="dice-roll">
       <div class="dice-result">
@@ -740,7 +659,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value}!</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${valueRolled}!</span>
         </div>
       </div>
       </div>
@@ -753,7 +672,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,
             });
 
-            promises.push(game.combat.setInitiative(combatant._id, value));
+            promises.push(game.combat.setInitiative(combatant._id, valueRolled));
         }
 
         await Promise.all(promises);
@@ -850,7 +769,8 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
 
             if (attribute === 'attributes.hp') {
-                const { hp, sp } = this.data.data.attributes;
+                const sp = 'sp' in this.data.data.attributes && this.data.data.attributes.sp;
+                const { hp } = this.data.data.attributes;
                 if (isDelta) {
                     if (value < 0) {
                         const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });

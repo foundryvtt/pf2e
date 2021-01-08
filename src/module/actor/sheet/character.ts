@@ -7,12 +7,13 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2EActor } from '../actor';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
+import { isPhysicalItem, ArmorData } from '../../item/dataDefinitions';
+import { PF2ECharacter } from '../character';
 
 /**
  * @category Other
  */
-export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
+export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2ECharacter> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'pc'],
@@ -33,7 +34,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
     async _updateObject(event, formData) {
         // update shield hp
-        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
+        const equippedShieldId = this.getEquippedShield()?._id;
         if (equippedShieldId !== undefined) {
             const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
             await shieldEntity.update({
@@ -464,7 +465,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         actorData.spellcastingEntries = spellcastingEntries;
 
         // shield
-        const equippedShield = this.getEquippedShield(actorData.items);
+        const equippedShield = this.getEquippedShield();
         if (equippedShield === undefined) {
             actorData.data.attributes.shield = {
                 hp: {
@@ -516,10 +517,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         );
     }
 
-    getEquippedShield(items) {
-        return items.find(
+    getEquippedShield(): ArmorData {
+        return this.actor.data.items.find(
             (item) => item.type === 'armor' && item.data.equipped.value && item.data.armorType.value === 'shield',
-        );
+        ) as ArmorData;
     }
 
     /* -------------------------------------------- */

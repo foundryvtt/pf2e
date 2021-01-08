@@ -3,6 +3,7 @@ import { PF2ECharacter } from '../module/actor/character';
 import { PF2ENPC } from '../module/actor/npc';
 import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
+import { PF2ECombat } from '../module/combat/combat';
 import {
     PF2EAction,
     PF2EAncestry,
@@ -2098,13 +2099,8 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<PF2EActor, PF2EItem> {
+export interface ConfigPF2e extends Config<PF2EActor, PF2EItem, PF2ECombat> {
     PF2E: typeof PF2ECONFIG;
-    Combat: Config<PF2EActor, PF2EItem>['Combat'] & {
-        initiative: {
-            decimals: number;
-        };
-    };
     time: {
         roundTime: number;
     };

@@ -484,6 +484,11 @@ export interface RawNpcData {
         /** The hit points for this actor. */
         hp: RawHitPointsData;
 
+        initiative: {
+            value: number;
+            bonus: number;
+        };
+
         /** The movement speeds that this NPC has. */
         speed: {
             /** The land speed for this actor. */
@@ -535,12 +540,22 @@ export interface RawNpcData {
 
 /** The raw information contained within the actor data object for hazards. */
 export interface RawHazardData {
+    attributes: {
+        hp: RawHitPointsData;
+        stealth: {
+            value: number;
+        };
+        [key: string]: any;
+    };
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for loot actors. */
 export interface RawLootData {
+    attributes: {
+        [key: string]: any;
+    };
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
@@ -571,6 +586,17 @@ export interface RawFamiliarData {
 
 /** The raw information contained within the actor data object for vehicle actors. */
 export interface RawVehicleData {
+    attributes: {
+        hp: FamiliarHitPointsData;
+        ac: { value: number; breakdown: string; check?: number };
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        };
+        [key: string]: any;
+    };
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }

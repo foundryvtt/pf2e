@@ -3,6 +3,7 @@ import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
+import { PF2ELoot } from '../actor';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
@@ -11,7 +12,7 @@ import { LootNPCsPopup } from './loot/LootNPCsPopup';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eLoot extends ActorSheetPF2e {
+export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -67,7 +68,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         return sheetData;
     }
 
-    _prepareItems(actorData) {
+    _prepareItems(actorData: any) {
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },

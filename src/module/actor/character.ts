@@ -10,6 +10,7 @@ import {
     PF2ModifierType,
     PF2StatisticModifier,
     ProficiencyModifier,
+    PF2ModifierPredicate,
     WISDOM,
 } from '../modifiers';
 import { PF2RuleElements } from '../rules/rules';
@@ -21,6 +22,7 @@ import {
     CharacterData,
     CharacterStrike,
     CharacterStrikeTrait,
+    InitiativeData,
     SkillData,
     RawCharacterData,
 } from './actorDataDefinitions';
@@ -757,5 +759,67 @@ export class PF2ECharacter extends PF2EActor {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+    }
+
+    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
+        const { data } = actorData;
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
+        const modifiers: PF2Modifier[] = [];
+
+        ['initiative'].forEach((key) => {
+            const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
+            (statisticsModifiers[key] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    // checks if predicated rule is true with only skill name option
+                    if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
+                        // toggles these so the predicate rule will be included when totalmodifier is calculated
+                        m.enabled = true;
+                        m.ignored = false;
+                    }
+                    modifiers.push(m);
+                });
+        });
+        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+        const skillName = game.i18n.localize(
+            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill],
+        );
+
+        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+        stat.ability = initSkill;
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.roll = (event, options = []) => {
+            const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
+            // push skill name to options if not already there
+            if (!options.includes(skillFullName)) {
+                options.push(skillFullName);
+            }
+            if (!game.combat) {
+                ui.notifications.error('No active encounters in the Combat Tracker.');
+                return;
+            }
+
+            PF2Check.roll(
+                new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+                { actor: this, type: 'initiative', options },
+                event,
+                async (roll) => {
+                    if (!(roll instanceof Roll && Number.isInteger(roll.total))) {
+                        throw Error(`PF2e System | Invalid roll object or roll.total missing: ${roll}`);
+                    }
+
+                    const actorToken = canvas.tokens.placeables.find((token) => token.actor.id == actorData._id);
+                    const combatant =
+                        game.combat.getCombatantByToken(actorToken.id) ??
+                        (await game.combat.createCombatant({
+                            tokenId: actorToken.id,
+                            hidden: actorToken.data.hidden,
+                        }));
+                    game.combat.setInitiative(combatant._id, roll.total);
+                },
+            );
+        };
+
+        data.attributes.initiative = stat;
     }
 }

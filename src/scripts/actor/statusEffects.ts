@@ -2,8 +2,6 @@
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '../../module/item/dataDefinitions';
 
-declare let PF2e: any;
-
 /**
  * Class PF2eStatus which defines the data structure of a status effects
  * Gets populated into Actor.data.data.statusEffects[]
@@ -16,7 +14,7 @@ export class PF2eStatus {
     value: number;
     source: string;
 
-    constructor(statusName, source, value = 1, active = true) {
+    constructor(statusName: string, source: string, value = 1, active = true) {
         this.status = statusName;
         this.active = active;
         this.source = source;

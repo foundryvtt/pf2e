@@ -1,11 +1,11 @@
 /* global CONFIG */
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
+import { PF2EActor, PF2EHazard } from '../actor';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eHazard extends ActorSheetPF2e {
+export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

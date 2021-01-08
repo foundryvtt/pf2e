@@ -59,7 +59,8 @@ export class PF2Check {
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
             if (actor) {
-                const heroPointCount = actor.data.data.attributes.heroPoints.rank;
+                const heroPointCount =
+                    actor.data.type === 'character' ? actor.data.data.attributes.heroPoints.rank : undefined;
                 if (heroPointCount) {
                     await actor.update({
                         'data.attributes.heroPoints.rank': Math.clamped(heroPointCount - 1, 0, 3),
