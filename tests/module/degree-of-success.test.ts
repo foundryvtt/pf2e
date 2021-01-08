@@ -22,4 +22,15 @@ describe('test degree of success rules', () => {
         expect(calculateDegreeOfSuccess({dieValue: 20, modifier: 1}, 31))
             .toBe(DegreeOfSuccess.FAILURE);
     });
+
+    test('normal degrees of success', () => {
+        expect(calculateDegreeOfSuccess({dieValue: 10, modifier: 21}, 21))
+            .toBe(DegreeOfSuccess.CRITICAL_SUCCESS);
+        expect(calculateDegreeOfSuccess({dieValue: 10, modifier: 11}, 21))
+            .toBe(DegreeOfSuccess.SUCCESS);
+        expect(calculateDegreeOfSuccess({dieValue: 10, modifier: 10}, 21))
+            .toBe(DegreeOfSuccess.FAILURE);
+        expect(calculateDegreeOfSuccess({dieValue: 10, modifier: 1}, 21))
+            .toBe(DegreeOfSuccess.CRITICAL_FAILURE);
+    });
 });
