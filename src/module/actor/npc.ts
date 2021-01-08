@@ -473,6 +473,10 @@ export class PF2ENPC extends PF2EActor {
         // Create the actual skill
         const skill = mergeObject(new PF2StatisticModifier(skillId, modifiers), this.data.data.skills[shortForm]);
 
+        // Fix for ability modifier name losing its localized name
+        const modifier = skill.findModifierByType(PF2ModifierType.ABILITY);
+        modifier.name = CONFIG.PF2E.abilities[abilityId];
+
         skill.base = baseValue + abilityValue;
         skill.expanded = skillId;
         skill.shortform = shortForm;
@@ -575,7 +579,7 @@ export class PF2ENPC extends PF2EActor {
      * @param skillId ID of the skill to modify.
      * @param value New total value for the skill.
      */
-    async assignNPCSkillValue(skillId: string, value: number) {
+    assignNPCSkillValue(skillId: string, value: number) {
         const skill = this.data.data.skills[skillId];
 
         if (skill === undefined) {
@@ -584,6 +588,7 @@ export class PF2ENPC extends PF2EActor {
         }
 
         const abilityName = PF2ECONFIG.abilities[skill.ability] ?? PF2ECONFIG.abilities['int'];
+
         const abilityModifier = skill.findModifierByName(abilityName);
 
         if (abilityModifier === null) {
