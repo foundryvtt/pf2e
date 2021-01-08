@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { PF2EActor } from '../module/actor/actor';
+import {PF2EActor} from '../module/actor/actor';
 
 /**
  * @category Other
@@ -265,7 +265,7 @@ export class DicePF2e {
                 if (rule === 'doubledamage') {
                     rollParts = [`(${rollParts.join('+')}) * 2`];
                 } else {
-                    const critRoll = new Roll(rollParts.join('+'), data).alter(2, 0, { multiplyNumeric: true });
+                    const critRoll = new Roll(rollParts.join('+'), data).alter(2, 0, {multiplyNumeric: true});
                     rollParts = [critRoll.formula];
                 }
                 rollParts = rollParts.concat(partsCritOnly);

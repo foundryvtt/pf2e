@@ -6,10 +6,10 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isLevelItem, PhysicalItemData } from './dataDefinitions';
-import { isBlank, toNumber } from '../utils';
-import { parseTraits } from '../traits';
-import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
+import {isLevelItem, PhysicalItemData} from './dataDefinitions';
+import {isBlank, toNumber} from '../utils';
+import {parseTraits} from '../traits';
+import {adjustDCByRarity, calculateDC, DCOptions} from '../dc';
 
 const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
 
@@ -113,10 +113,10 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function identifyItem(
     itemData: PhysicalItemData,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
+    {proficiencyWithoutLevel = false, notMatchingTraditionModifier}: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
     const level = isLevelItem(itemData) ? toNumber(itemData.data.level?.value) ?? 0 : 0;
-    const dc = calculateDC(level, { proficiencyWithoutLevel });
+    const dc = calculateDC(level, {proficiencyWithoutLevel});
     const rarity = getDcRarity(itemData);
     const baseDc = adjustDCByRarity(dc, rarity);
     if (isMagical(itemData)) {

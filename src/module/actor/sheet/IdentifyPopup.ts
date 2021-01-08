@@ -1,7 +1,7 @@
 /* global game */
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { PF2EActor } from '../actor';
+import {identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs} from '../../item/identification';
+import {PF2EPhysicalItem} from '../../item/physical';
+import {PF2EActor} from '../actor';
 
 /**
  * @category Other
@@ -19,7 +19,7 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
     }
 
     async _updateObject(_event: JQuery.TriggeredEvent, _formData: any): Promise<void> {
-        const { itemId } = this.options;
+        const {itemId} = this.options;
         const item = this.object.getOwnedItem(itemId);
         if (!(item instanceof PF2EPhysicalItem)) {
             throw Error(`PF2e | ${item.name} is not a physical item.`);

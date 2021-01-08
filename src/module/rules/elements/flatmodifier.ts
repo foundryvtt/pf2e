@@ -1,8 +1,8 @@
-import { PF2RuleElement } from '../rule-element';
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType } from '../../modifiers';
-import { PF2EActor } from '../../actor/actor';
+import {PF2RuleElement} from '../rule-element';
+import {ItemData} from '../../item/dataDefinitions';
+import {CharacterData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType} from '../../modifiers';
+import {PF2EActor} from '../../actor/actor';
 
 /**
  * @category RuleElement

@@ -1,17 +1,17 @@
 /* global canvas, game, CONFIG, getProperty, MeasuredTemplate */
-import { RemoveCoinsPopup } from './RemoveCoinsPopup';
-import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
-import { AddCoinsPopup } from './AddCoinsPopup';
-import { addKit } from '../../item/kits';
-import { compendiumBrowser } from '../../packs/compendium-browser';
-import { MoveLootPopup } from './loot/MoveLootPopup';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { TraitSelector5e } from '../../system/trait-selector';
-import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
-import { PF2eConditionManager } from '../../conditions';
-import { IdentifyItemPopup } from './IdentifyPopup';
-import { PF2EPhysicalItem } from '../../item/physical';
+import {RemoveCoinsPopup} from './RemoveCoinsPopup';
+import {sellAllTreasureSimple, sellTreasure} from '../../item/treasure';
+import {AddCoinsPopup} from './AddCoinsPopup';
+import {addKit} from '../../item/kits';
+import {compendiumBrowser} from '../../packs/compendium-browser';
+import {MoveLootPopup} from './loot/MoveLootPopup';
+import {PF2EActor, SKILL_DICTIONARY} from '../actor';
+import {TraitSelector5e} from '../../system/trait-selector';
+import {PF2EItem} from '../../item/item';
+import {ItemData, ConditionData, isPhysicalItem} from '../../item/dataDefinitions';
+import {PF2eConditionManager} from '../../conditions';
+import {IdentifyItemPopup} from './IdentifyPopup';
+import {PF2EPhysicalItem} from '../../item/physical';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -83,7 +83,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         };
 
         for (const [t, choices] of Object.entries(map)) {
-            const trait = traits[t] || { value: [], selected: [] };
+            const trait = traits[t] || {value: [], selected: []};
 
             if (Array.isArray(trait)) {
                 // todo this is so wrong...
@@ -293,7 +293,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         const options = {
             _id: entryId,
         };
-        options[key] = { id: spell._id };
+        options[key] = {id: spell._id};
         this.actor.updateEmbeddedEntity('OwnedItem', options);
     }
 
@@ -621,7 +621,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const f = $(ev.currentTarget);
             const itemId = f.parents('.item').attr('data-item-id');
             const active = f.hasClass('active');
-            this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': !active });
+            this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, 'data.equipped.value': !active});
         });
 
         // Toggle invest
@@ -629,7 +629,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const f = $(ev.currentTarget);
             const itemId = f.parents('.item').attr('data-item-id');
             const active = f.hasClass('active');
-            this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.invested.value': !active });
+            this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, 'data.invested.value': !active});
         });
 
         // Trait Selector
@@ -690,7 +690,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
             const Item = CONFIG.Item.entityClass;
             // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
-            const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+            const item = new Item(this.actor.getOwnedItem(itemId).data, {actor: this.actor});
             item.sheet.render(true);
         });
 
@@ -706,7 +706,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                 }
                 item.setIsIdentified(false);
             } else {
-                new IdentifyItemPopup(this.actor, { itemId }).render(true);
+                new IdentifyItemPopup(this.actor, {itemId}).render(true);
             }
         });
 
@@ -714,7 +714,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         html.find('.item-delete').click(async (ev) => {
             const li = $(ev.currentTarget).parents('.item');
             const itemId = li.attr('data-item-id');
-            const item = new PF2EItem(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+            const item = new PF2EItem(this.actor.getOwnedItem(itemId).data, {actor: this.actor});
 
             if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                 // Condition Item.
@@ -776,7 +776,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                                     // normalize skill name to lower-case and dash-separated words
                                     const skill = item.name.toLowerCase().replace(/\s+/g, '-');
                                     // remove derived skill data
-                                    await this.actor.update({ [`data.skills.-=${skill}`]: null });
+                                    await this.actor.update({[`data.skills.-=${skill}`]: null});
                                 } else {
                                     // clean up any individually targeted modifiers to attack and damage
                                     await this.actor.update({
@@ -921,7 +921,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         // Update Item Name
         html.find<HTMLInputElement>('.item-name-input').change(async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
-            await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, name: event.target.value });
+            await this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, name: event.target.value});
         });
 
         // Update used slots for Spell Items
@@ -932,7 +932,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level'));
 
             const key = `data.slots.slot${slotLvl}.value`;
-            const options = { _id: itemId };
+            const options = {_id: itemId};
             options[key] = Number(event.target.value);
 
             await this.actor.updateEmbeddedEntity('OwnedItem', options);
@@ -945,7 +945,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
             const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level'));
             const key = `data.slots.slot${slotLvl}.max`;
-            const options = { _id: itemId };
+            const options = {_id: itemId};
             options[key] = Number(event.target.value);
 
             await this.actor.updateEmbeddedEntity('OwnedItem', options);
@@ -1045,7 +1045,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         event.preventDefault();
         const field = $(event.currentTarget).siblings('input[type="hidden"]');
         const max = field.data('max') ?? 4;
-        const { statType, category } = field.data();
+        const {statType, category} = field.data();
         if (this.actor.getFlag('pf2e', 'proficiencyLock') && category === 'proficiency') return;
 
         // Get the current level and the array of levels
@@ -1072,12 +1072,12 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                     const item = this.actor.getOwnedItem(itemId);
                     const focusPoolSize = getProperty(item.data, 'data.focus.pool') || 1;
                     newLevel = Math.clamped(newLevel, 0, focusPoolSize);
-                    this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': newLevel });
+                    this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, 'data.focus.points': newLevel});
                 } else {
-                    this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficiency.value': newLevel });
+                    this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, 'data.proficiency.value': newLevel});
                 }
             } else {
-                this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.proficient.value': newLevel });
+                this.actor.updateEmbeddedEntity('OwnedItem', {_id: itemId, 'data.proficient.value': newLevel});
             }
             return;
         }
@@ -1195,7 +1195,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                                 i.data.data.location.value === sourceLocation,
                         );
                         const sortBefore = source.data.sort >= target.data.sort;
-                        source.sortRelative({ target, siblings, sortBefore });
+                        source.sortRelative({target, siblings, sortBefore});
                     }
                 }
             } else if (dropSlotType === 'spellSlot') {
@@ -1214,7 +1214,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                 const dropID = $(event.target).parents('.item-container').attr('data-container-id');
 
                 if (dropID) {
-                    itemData.data.location = { value: dropID };
+                    itemData.data.location = {value: dropID};
                     return this.actor.updateEmbeddedEntity('OwnedItem', itemData);
                 }
             }
@@ -1233,7 +1233,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
 
                     if (source && target) {
                         const sortBefore = source.data.sort >= target.data.sort;
-                        return source.sortRelative({ target, siblings, sortBefore });
+                        return source.sortRelative({target, siblings, sortBefore});
                     }
                 }
             }
@@ -1275,7 +1275,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         if (itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
                 const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-                itemData.data.location = { value: dropID };
+                itemData.data.location = {value: dropID};
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
                 return this.actor.createEmbeddedEntity('OwnedItem', itemData);
             }
@@ -1397,7 +1397,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
 
         if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition') return;
 
-        const chatData = item.getChatData({ secrets: this.actor.owner });
+        const chatData = item.getChatData({secrets: this.actor.owner});
 
         if (game.user.isGM || (item instanceof PF2EPhysicalItem && item.isIdentified)) {
             this._renderItemSummary(li, item, chatData);
@@ -1462,7 +1462,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         }
 
         const isCollapsed = item?.data?.data?.collapsed?.value ?? false;
-        item.update({ 'data.collapsed.value': !isCollapsed });
+        item.update({'data.collapsed.value': !isCollapsed});
     }
 
     /**
@@ -1477,15 +1477,15 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         if (data.type === 'feat') {
             const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
             data.name = `${game.i18n.localize('PF2E.NewLabel')} ${featTypeString}`;
-            mergeObject(data, { 'data.featType.value': data.featType });
+            mergeObject(data, {'data.featType.value': data.featType});
         } else if (data.type === 'action') {
             const newLabel = game.i18n.localize('PF2E.NewLabel');
             const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
             data.name = `${newLabel} ${actionTypeLabel}`;
-            mergeObject(data, { 'data.actionType.value': data.actionType });
+            mergeObject(data, {'data.actionType.value': data.actionType});
         } else if (data.type === 'melee') {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
-            mergeObject(data, { 'data.weaponType.value': data.actionType });
+            mergeObject(data, {'data.weaponType.value': data.actionType});
         } else if (data.type === 'spell') {
             // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
             this.actor._setShowUnpreparedSpells(data.location, data.level);
@@ -1598,7 +1598,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                                         label: 'Spellcasting Type',
                                         value: spellcastingType,
                                     },
-                                    showUnpreparedSpells: { value: true },
+                                    showUnpreparedSpells: {value: true},
                                 };
 
                                 const data = {
@@ -1786,8 +1786,8 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                 ui.notifications.info('Please select a target token');
             } else {
                 const t = canvas.tokens.controlled[0];
-                let { rotation } = t.data;
-                const { width } = t.data;
+                let {rotation} = t.data;
+                const {width} = t.data;
 
                 x = t.data.x;
                 y = t.data.y;

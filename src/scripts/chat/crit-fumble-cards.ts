@@ -78,7 +78,7 @@ class PF2eCritFumbleCards {
 
     static drawCard(table: any, chatMessage: ChatMessage) {
         // Remove roll sound of original chat message to avoid double sounds. Not needed for Dice so Nice.
-        if (!this.diceSoNice) mergeObject(chatMessage.data, { '-=sound': null });
+        if (!this.diceSoNice) mergeObject(chatMessage.data, {'-=sound': null});
         table.draw();
     }
 }

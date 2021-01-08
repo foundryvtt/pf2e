@@ -1,5 +1,5 @@
 export const initiativeFormula = (combatant) => {
-    const { actor } = combatant;
+    const {actor} = combatant;
     if (!actor) return '1d20';
     const actorType = actor.data.type;
     const data = actor ? actor.data.data : {};

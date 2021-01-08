@@ -1,5 +1,5 @@
-import { add, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { ItemData, isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import {add, combineObjects, groupBy, isBlank, Optional} from '../utils';
+import {ItemData, isPhysicalItem, PhysicalItemData} from './dataDefinitions';
 
 interface StackDefinition {
     size: number;
@@ -53,7 +53,7 @@ export class Bulk {
 
     light: number;
 
-    constructor({ normal = 0, light = 0 }: { normal?: number; light?: number } = {}) {
+    constructor({normal = 0, light = 0}: {normal?: number; light?: number} = {}) {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
     }
@@ -186,12 +186,12 @@ function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | 
 }
 
 export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
-    const { treatsAsNegligible, treatsAsLight } = bulkConversions[targetSize];
+    const {treatsAsNegligible, treatsAsLight} = bulkConversions[targetSize];
     if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
         return new Bulk();
     }
     if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
-        return new Bulk({ light: 1 });
+        return new Bulk({light: 1});
     }
     return normalItemBulk;
 }
@@ -346,10 +346,10 @@ function calculateStackBulk(
             if (!(stackType in stackDefinitions)) {
                 throw new Error(`No stack definition found for stack ${stackType}`);
             }
-            const { size, lightBulk } = stackDefinitions[stackType];
+            const {size, lightBulk} = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
-            const itemBulk = new Bulk({ light: bulkRelevantQuantity * lightBulk });
-            const overflow = { [stackType]: quantity % size };
+            const itemBulk = new Bulk({light: bulkRelevantQuantity * lightBulk});
+            const overflow = {[stackType]: quantity % size};
             const result: BulkAndOverflow = [itemBulk, overflow];
             return result;
         })
@@ -365,7 +365,7 @@ function calculateItemBulk(
     if (isBlank(stackName)) {
         return [calculateNonStackBulk(item).times(item.quantity), {}];
     }
-    return calculateStackBulk({ [stackName]: item.quantity }, stackDefinitions, bulkConfig);
+    return calculateStackBulk({[stackName]: item.quantity}, stackDefinitions, bulkConfig);
 }
 
 /**
@@ -485,11 +485,11 @@ export function weightToBulk(weight: Optional<string>): Bulk | undefined {
     }
     const trimmed = weight.trim();
     if (/^\d+$/.test(trimmed)) {
-        return new Bulk({ normal: parseInt(trimmed, 10) });
+        return new Bulk({normal: parseInt(trimmed, 10)});
     }
     const lightMatch = trimmed.match(lightBulkRegex);
     if (lightMatch) {
-        return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
+        return new Bulk({light: parseInt(lightMatch[1] || '1', 10)});
     }
     const complexMatch = trimmed.match(complexBulkRegex);
     if (complexMatch) {
@@ -598,7 +598,7 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
  */
-export function itemsFromActorData(actorData: { items: ItemData[] }): BulkItem[] {
+export function itemsFromActorData(actorData: {items: ItemData[]}): BulkItem[] {
     return toBulkItems(actorData.items.filter(isPhysicalItem));
 }
 

@@ -10,7 +10,7 @@ export class Progress {
     _counter: number;
     _label: string;
 
-    constructor({ steps = 1 } = {}) {
+    constructor({steps = 1} = {}) {
         this._steps = steps;
         this._counter = -1;
         this._label = '';

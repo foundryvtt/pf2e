@@ -1,7 +1,7 @@
 /* global game, getProperty */
-import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../modifiers';
-import { ItemData, WeaponData } from '../item/dataDefinitions';
+import {CharacterData, FamiliarData, NpcData} from '../actor/actorDataDefinitions';
+import {PF2DamageDice, PF2Modifier} from '../modifiers';
+import {ItemData, WeaponData} from '../item/dataDefinitions';
 
 /**
  * @category RuleElement
@@ -71,7 +71,7 @@ export abstract class PF2RuleElement {
         }
 
         if (typeof value === 'string') {
-            const roll = new Roll(value, { ...actorData.data, item: item.data });
+            const roll = new Roll(value, {...actorData.data, item: item.data});
             roll.roll();
             value = roll.total;
         }

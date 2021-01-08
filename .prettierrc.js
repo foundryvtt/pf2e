@@ -5,6 +5,7 @@ module.exports = {
     tabWidth: 4,
     useTabs: false,
     requirePragma: false,
+    bracketSpacing: false,
     overrides: [
         {
             files: ['*.scss', '*.css'],

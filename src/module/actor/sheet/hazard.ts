@@ -1,6 +1,6 @@
 /* global CONFIG */
-import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
+import {ActorSheetPF2e} from './base';
+import {PF2EActor} from '../actor';
 
 /**
  * @category Actor
@@ -42,7 +42,7 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e {
         }
 
         sheetData.flags = sheetData.actor.flags;
-        if (sheetData.flags.editHazard === undefined) sheetData.flags.editHazard = { value: false };
+        if (sheetData.flags.editHazard === undefined) sheetData.flags.editHazard = {value: false};
 
         sheetData.hazardTraits = CONFIG.PF2E.hazardTraits;
         sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
@@ -74,16 +74,16 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e {
     _prepareItems(actorData) {
         // Actions
         const attacks = {
-            melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },
-            ranged: { label: 'NPC Ranged Attack', items: [], type: 'melee' },
+            melee: {label: 'NPC Melee Attack', items: [], type: 'melee'},
+            ranged: {label: 'NPC Ranged Attack', items: [], type: 'melee'},
         };
 
         // Actions
         const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
+            action: {label: 'Actions', actions: []},
+            reaction: {label: 'Reactions', actions: []},
+            free: {label: 'Free Actions', actions: []},
+            passive: {label: 'Passive Actions', actions: []},
         };
 
         // Iterate through items, allocating to containers
@@ -224,7 +224,7 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e {
         if (!this.options.editable) return;
 
         html.find('.isHazardEditable').change((ev) => {
-            this.actor.setFlag('pf2e', 'editHazard', { value: ev.target.checked });
+            this.actor.setFlag('pf2e', 'editHazard', {value: ev.target.checked});
         });
     }
 }

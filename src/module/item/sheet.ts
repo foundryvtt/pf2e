@@ -2,10 +2,10 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
-import { getPropertySlots } from './runes';
-import { TraitSelector5e } from '../system/trait-selector';
+import {PF2EActor} from '../actor/actor';
+import {PF2EItem} from './item';
+import {getPropertySlots} from './runes';
+import {TraitSelector5e} from '../system/trait-selector';
 
 /**
  * @category Other
@@ -46,7 +46,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
 
-        const { type } = this.item;
+        const {type} = this.item;
         mergeObject(data, {
             type,
             hasSidebar: true,
@@ -112,7 +112,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
 
             data.martialSkills = martialSkills; // Weapon Data
 
-            const weaponPreciousMaterials = { ...CONFIG.PF2E.preciousMaterials };
+            const weaponPreciousMaterials = {...CONFIG.PF2E.preciousMaterials};
             delete weaponPreciousMaterials.dragonhide;
             const slots = getPropertySlots(data);
             this.assignPropertySlots(data, slots);
@@ -341,7 +341,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         html.find('.add-rule-element').on('click', (event) => {
             const rules = (this.item.data.data as any).rules ?? [];
             this.item.update({
-                'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
+                'data.rules': rules.concat([{key: 'PF2E.RuleElement.Unrecognized'}]),
             });
         });
         html.find('.rules').on('click', '.remove-rule-element', (event) => {
@@ -349,7 +349,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             const index = event.currentTarget.dataset.ruleIndex;
             if (rules && rules.length > index) {
                 rules.splice(index, 1);
-                this.item.update({ 'data.rules': rules });
+                this.item.update({'data.rules': rules});
             }
         });
     }

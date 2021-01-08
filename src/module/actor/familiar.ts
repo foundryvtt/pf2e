@@ -1,11 +1,11 @@
 /* global game, CONFIG */
-import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { PF2ECharacter } from './character';
-import { PF2ENPC } from './npc';
-import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
-import { PF2Check } from '../system/rolls';
-import { FamiliarData } from './actorDataDefinitions';
-import { PF2RuleElements } from '../rules/rules';
+import {PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED} from './actor';
+import {PF2ECharacter} from './character';
+import {PF2ENPC} from './npc';
+import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} from '../modifiers';
+import {PF2Check} from '../system/rolls';
+import {FamiliarData} from './actorDataDefinitions';
+import {PF2RuleElements} from '../rules/rules';
 
 export class PF2EFamiliar extends PF2EActor {
     /** @override */
@@ -46,9 +46,9 @@ export class PF2EFamiliar extends PF2EActor {
             data.traits.size.label = CONFIG.PF2E.actorSizes[data.traits.size.value];
 
             // base senses
-            data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision' }];
+            data.traits.senses = [{type: 'lowLightVision', label: 'PF2E.SensesLowLightVision'}];
 
-            const { statisticsModifiers } = this._prepareCustomModifiers(this.data, rules);
+            const {statisticsModifiers} = this._prepareCustomModifiers(this.data, rules);
             const FILTER_MODIFIER = (modifier: PF2Modifier) =>
                 ![PF2ModifierType.ABILITY, PF2ModifierType.PROFICIENCY, PF2ModifierType.ITEM].includes(modifier.type);
 
@@ -70,12 +70,12 @@ export class PF2EFamiliar extends PF2EActor {
                         .forEach((m) => modifiers.push(m));
                 });
                 const stat = mergeObject(
-                    new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers),
+                    new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', {type: speed.label}), modifiers),
                     speed,
-                    { overwrite: false },
+                    {overwrite: false},
                 );
                 stat.total = base + stat.totalModifier;
-                stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.label })} ${base}`]
+                stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', {type: speed.label})} ${base}`]
                     .concat(
                         stat.modifiers
                             .filter((m) => m.enabled)
@@ -131,7 +131,7 @@ export class PF2EFamiliar extends PF2EActor {
                     overwrite: false,
                 });
                 stat.value = base + stat.totalModifier;
-                stat.breakdown = [game.i18n.format('PF2E.MasterArmorClass', { base })]
+                stat.breakdown = [game.i18n.format('PF2E.MasterArmorClass', {base})]
                     .concat(
                         stat.modifiers
                             .filter((m) => m.enabled)
@@ -169,7 +169,7 @@ export class PF2EFamiliar extends PF2EActor {
                     });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'saving-throw', options },
+                        {actor: this, type: 'saving-throw', options},
                         event,
                         callback,
                     );
@@ -197,7 +197,7 @@ export class PF2EFamiliar extends PF2EActor {
                 stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
                     PF2Check.roll(
                         new PF2CheckModifier('Attack Roll', stat),
-                        { actor: this, type: 'attack-roll', options },
+                        {actor: this, type: 'attack-roll', options},
                         event,
                         callback,
                     );
@@ -224,7 +224,7 @@ export class PF2EFamiliar extends PF2EActor {
                 const stat = mergeObject(
                     new PF2StatisticModifier('perception', modifiers),
                     data.attributes.perception,
-                    { overwrite: false },
+                    {overwrite: false},
                 );
                 stat.value = stat.totalModifier;
                 stat.breakdown = stat.modifiers
@@ -235,7 +235,7 @@ export class PF2EFamiliar extends PF2EActor {
                     const label = game.i18n.localize('PF2E.PerceptionCheck');
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'perception-check', options },
+                        {actor: this, type: 'perception-check', options},
                         event,
                         callback,
                     );
@@ -278,7 +278,7 @@ export class PF2EFamiliar extends PF2EActor {
                     });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'skill-check', options },
+                        {actor: this, type: 'skill-check', options},
                         event,
                         callback,
                     );
@@ -302,9 +302,9 @@ export class PF2EFamiliar extends PF2EActor {
                 breakdown: game.i18n.localize('PF2E.ArmorClassBase'),
             };
             data.saves = {
-                fortitude: { value: 0 },
-                reflex: { value: 0 },
-                will: { value: 0 },
+                fortitude: {value: 0},
+                reflex: {value: 0},
+                will: {value: 0},
             };
             data.attributes.perception = {
                 value: 0,

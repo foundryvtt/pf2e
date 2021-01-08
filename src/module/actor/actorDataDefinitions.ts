@@ -1,5 +1,5 @@
-import { ItemData, Rarity } from '../item/dataDefinitions';
-import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
+import {ItemData, Rarity} from '../item/dataDefinitions';
+import {PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice} from '../modifiers';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -123,7 +123,7 @@ export interface RawCharacterStrike {
     critical?: RollFunction;
 
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction }[];
+    variants: {label: string; roll: RollFunction}[];
 }
 
 /** Basic hitpoints data fields */
@@ -193,7 +193,7 @@ export type ClassDCData = PF2StatisticModifier & RawSkillData;
 /** The full skill data for a character; includes statistic modifier. */
 export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
-export type SaveData = SkillData & { saveDetail?: string };
+export type SaveData = SkillData & {saveDetail?: string};
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
@@ -231,34 +231,34 @@ export interface RawCharacterData {
     /** Various details about the character, such as level, experience, etc. */
     details: {
         /** The key ability which class saves (and other class-related things) scale off of. */
-        keyability: { value: AbilityString };
+        keyability: {value: AbilityString};
 
         /** Character alignment (LN, N, NG, etc.) */
-        alignment: { value: string };
+        alignment: {value: string};
         /** Character class ('barbarian', 'fighter', etc.) */
-        class: { value: string };
+        class: {value: string};
         /** Character ancestry (their race, generally). */
-        ancestry: { value: string };
+        ancestry: {value: string};
         /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
-        heritage: { value: string };
+        heritage: {value: string};
         /** The diety that the character worships (and an image of the diety symbol). */
-        deity: { value: string; image: string };
+        deity: {value: string; image: string};
         /** Character background - their occupation, upbringing, etc. */
-        background: { value: string };
+        background: {value: string};
         /** How old the character is (user-provided field). */
-        age: { value: string };
+        age: {value: string};
         /** Character height (user-provided field). */
-        height: { value: string };
+        height: {value: string};
         /** Character weight (user-provided field). */
-        weight: { value: string };
+        weight: {value: string};
         /** Character gender/pronouns (user-provided field). */
-        gender: { value: string };
+        gender: {value: string};
         /** Character ethnicity (user-provided field). */
-        ethnicity: { value: string };
+        ethnicity: {value: string};
         /** Character nationality (i.e, what nation they hail from; user-provided field). */
-        nationality: { value: string };
+        nationality: {value: string};
         /** User-provided biography for their character; value is HTML. */
-        biography: { value: string; public?: string };
+        biography: {value: string; public?: string};
 
         /** The amount of experience this character has. */
         xp: {
@@ -314,13 +314,13 @@ export interface RawCharacterData {
         bonusEncumbranceBulk: number;
 
         /** The current dying level (and maximum) for this character. */
-        dying: { value: number; max: number };
+        dying: {value: number; max: number};
         /** The current wounded level (and maximum) for this character. */
-        wounded: { value: number; max: number };
+        wounded: {value: number; max: number};
         /** The current doomed level (and maximum) for this character. */
-        doomed: { value: number; max: number };
+        doomed: {value: number; max: number};
         /** The current number of hero points (and maximum) for this character. */
-        heroPoints: { rank: number; max: number };
+        heroPoints: {rank: number; max: number};
 
         /** The number of familiar abilities this character's familiar has access to. */
         familiarAbilities: PF2StatisticModifier;
@@ -362,21 +362,21 @@ export interface RawCharacterData {
         };
 
         /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-        resolve: { value: number };
+        resolve: {value: number};
     };
 
     /** Custom character traits, such as damage resistances/immunities. */
     traits: {
         /** The character size (such as 'med'). */
-        size: { value: string };
+        size: {value: string};
         /** A list of special senses this character has. */
         senses: LabeledValue[];
         /** Traits which apply to this actor, like 'air' or 'extradimensional' */
-        traits: { value: string[]; custom: string };
+        traits: {value: string[]; custom: string};
         /** Languages which this actor knows and can speak. */
-        languages: { value: string[]; selected: string[]; custom: string };
+        languages: {value: string[]; selected: string[]; custom: string};
         /** Damage immunities this actor has. */
-        di: { value: string[]; custom: string };
+        di: {value: string[]; custom: string};
         /** Damage resistances that this actor has. */
         dr: LabeledValue[];
         /** Damage vulnerabilities that this actor has. */
@@ -417,11 +417,11 @@ export interface RawCharacterData {
 
 // NPCs have an additional 'base' field used for computing the modifiers.
 /** Normal armor class data, but with an additional 'base' value. */
-export type NPCArmorClassData = ArmorClassData & { base?: number };
+export type NPCArmorClassData = ArmorClassData & {base?: number};
 /** Normal save data, but with an additional 'base' value. */
-export type NPCSaveData = SaveData & { base?: number };
+export type NPCSaveData = SaveData & {base?: number};
 /** Normal skill data, but with an additional 'base' value. */
-export type NPCPerceptionData = PerceptionData & { base?: number };
+export type NPCPerceptionData = PerceptionData & {base?: number};
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
 export type NPCSkillData = SkillData & {
     base?: number;
@@ -452,13 +452,13 @@ export interface RawNpcData {
     /** Details about this actor, such as alignment or ancestry. */
     details: {
         /** The alignment this creature has. */
-        alignment: { value: string };
+        alignment: {value: string};
         /** The race of this creature. */
-        ancestry: { value: string };
+        ancestry: {value: string};
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
-        level: { value: number; min: number };
+        level: {value: number; min: number};
         /** Which sourcebook this creature comes from. */
-        source: { value: string };
+        source: {value: string};
         /** The Archive of Nethys URL for this creature. */
         nethysUrl: string;
         /** Information about what is needed to recall knowledge about this creature. */
@@ -495,26 +495,26 @@ export interface RawNpcData {
         };
 
         /** Textual information about any special benefits that apply to all saves. */
-        allSaves: { value: string };
+        allSaves: {value: string};
         familiarAbilities: PF2StatisticModifier;
     };
 
     /** Traits, languages, and other information. */
     traits: {
         /** The size of this creature. */
-        size: { value: string };
+        size: {value: string};
         /** Special senses this creature possesses. */
-        senses: { value: string };
+        senses: {value: string};
         /** Traits that define this creature, like 'humanoid' or 'celestial.' */
-        traits: { value: string[]; custom: string };
+        traits: {value: string[]; custom: string};
         /** The rarity of this creature (common, uncommon, etc.) */
-        rarity: { value: Rarity };
+        rarity: {value: Rarity};
         /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
-        attitude: { value: string };
+        attitude: {value: string};
         /** Languages this creature knows. */
-        languages: { value: string[]; selected: string[]; custom: string };
+        languages: {value: string[]; selected: string[]; custom: string};
         /** Damage/condition immunities. */
-        di: { value: string[]; custom: string };
+        di: {value: string[]; custom: string};
         /** Damage resistances. */
         dr: LabeledValue[];
         /** Damage vulnerabilities. */
@@ -553,8 +553,8 @@ export interface RawFamiliarData {
     damageDice: Record<string, PF2DamageDice[]>;
     attributes: {
         hp: FamiliarHitPointsData;
-        ac: { value: number; breakdown: string; check?: number };
-        perception: { value: number } & Partial<RawSkillData>;
+        ac: {value: number; breakdown: string; check?: number};
+        perception: {value: number} & Partial<RawSkillData>;
         /** The movement speeds that this Familiar has. */
         speed: {
             /** The land speed for this actor. */
@@ -603,7 +603,7 @@ export interface LootData extends ActorEntityData<RawLootData> {
 
 export interface FamiliarData extends ActorEntityData<RawFamiliarData> {
     type: 'familiar';
-    master: { id?: string; name?: string; level?: number };
+    master: {id?: string; name?: string; level?: number};
 }
 
 /** Wrapper type for vehicle-specific data. */

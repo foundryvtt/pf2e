@@ -3,7 +3,7 @@
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-import { ProficiencyRank, Rarity } from './item/dataDefinitions';
+import {ProficiencyRank, Rarity} from './item/dataDefinitions';
 
 export type NegativeDCAdjustment = 'incredibly easy' | 'very easy' | 'easy' | 'normal';
 
@@ -102,7 +102,7 @@ export interface DCOptions {
  * @param level
  * @param proficiencyWithoutLevel
  */
-export function calculateDC(level: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
+export function calculateDC(level: number, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
     // assume level 0 if garbage comes in
     const dc = dcByLevel.get(level) ?? 14;
     if (proficiencyWithoutLevel) {
@@ -114,7 +114,7 @@ export function calculateDC(level: number, { proficiencyWithoutLevel = false }: 
     }
 }
 
-export function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
+export function calculateSimpleDC(rank: ProficiencyRank, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
     if (proficiencyWithoutLevel) {
         return simpleDCsWithoutLevel.get(rank) ?? 10;
     } else {
@@ -122,8 +122,8 @@ export function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLev
     }
 }
 
-export function calculateSpellDC(spellLevel, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    return calculateDC(spellLevel * 2 - 1, { proficiencyWithoutLevel });
+export function calculateSpellDC(spellLevel, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+    return calculateDC(spellLevel * 2 - 1, {proficiencyWithoutLevel});
 }
 
 /**

@@ -1,5 +1,5 @@
 /* global game */
-import { addCoins } from '../../item/treasure';
+import {addCoins} from '../../item/treasure';
 
 /**
  * @category Other
@@ -31,7 +31,7 @@ export class AddCoinsPopup extends FormApplication {
             updateItemQuantity: async (item, quantity) => {
                 const currentQuantity = item?.data?.quantity?.value || 0;
                 const ownedItem = actor.getOwnedItem(item._id);
-                await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
+                await ownedItem.update({'data.quantity.value': currentQuantity + quantity});
             },
             addFromCompendium: async (compendiumId, quantity) => {
                 const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');

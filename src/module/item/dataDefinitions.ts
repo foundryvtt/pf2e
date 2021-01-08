@@ -1,5 +1,5 @@
-import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
-import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
+import {AbilityString, Proficency} from '../actor/actorDataDefinitions';
+import {PF2RuleElementData} from '../rules/rulesDataDefinitions';
 
 export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -267,7 +267,7 @@ export interface ArmorDetailsData extends MagicItemData {
 }
 
 export interface KitDetailsData extends PhysicalDetailsData {
-    items: { [key: number]: KitEntryData };
+    items: {[key: number]: KitEntryData};
 }
 
 export interface KitEntryData {
@@ -277,7 +277,7 @@ export interface KitEntryData {
     quantity: number;
     name: string;
     isContainer: boolean;
-    items?: { [key: number]: KitEntryData };
+    items?: {[key: number]: KitEntryData};
 }
 
 export interface MeleeDetailsData extends MagicItemData {
@@ -337,10 +337,10 @@ export interface AncestryDetailsData {
         value: string[];
         custom: string;
     };
-    boosts: { [key: string]: { value: AbilityString[] } };
-    flaws: { [key: string]: { value: AbilityString[] } };
+    boosts: {[key: string]: {value: AbilityString[]}};
+    flaws: {[key: string]: {value: AbilityString[]}};
     hp: number;
-    items: { [key: number]: ABCFeatureEntryData };
+    items: {[key: number]: ABCFeatureEntryData};
     languages: {
         value: string[];
         custom: string;
@@ -356,8 +356,8 @@ export interface AncestryDetailsData {
 }
 
 export interface BackgroundDetailsData {
-    boosts: { [key: string]: { value: AbilityString[] } };
-    items: { [key: number]: ABCFeatureEntryData };
+    boosts: {[key: string]: {value: AbilityString[]}};
+    items: {[key: number]: ABCFeatureEntryData};
     traits: {
         rarity: {
             value: string;
@@ -371,8 +371,8 @@ export interface BackgroundDetailsData {
 }
 
 export interface ClassDetailsData {
-    keyAbility: { value: AbilityString[] };
-    items: { [key: number]: ABCFeatureEntryData };
+    keyAbility: {value: AbilityString[]};
+    items: {[key: number]: ABCFeatureEntryData};
     traits: {
         rarity: {
             value: string;
@@ -391,7 +391,7 @@ export interface ClassDetailsData {
         martial: Proficency;
         advanced: Proficency;
         unarmed: Proficency;
-        other: { name: string; rank: Proficency };
+        other: {name: string; rank: Proficency};
     };
     defenses: {
         unarmored: Proficency;
@@ -404,12 +404,12 @@ export interface ClassDetailsData {
         additional: number;
     };
     classDC: Proficency;
-    ancestryFeatLevels: { value: number[] };
-    classFeatLevels: { value: number[] };
-    generalFeatLevels: { value: number[] };
-    skillFeatLevels: { value: number[] };
-    skillIncreaseLevels: { value: number[] };
-    abilityBoostLevels: { value: number[] };
+    ancestryFeatLevels: {value: number[]};
+    classFeatLevels: {value: number[]};
+    generalFeatLevels: {value: number[]};
+    skillFeatLevels: {value: number[]};
+    skillIncreaseLevels: {value: number[]};
+    abilityBoostLevels: {value: number[]};
 }
 
 export interface FeatDetailsData extends ItemDescriptionData {

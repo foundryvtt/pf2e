@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { Progress } from '../progress';
+import {Progress} from '../progress';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -36,7 +36,7 @@ class PackLoader {
         }
 
         // TODO: i18n for progress bar
-        const progress = new Progress({ steps: packs.length });
+        const progress = new Progress({steps: packs.length});
         for (const packId of packs) {
             let data = this.loadedPacks[entityType][packId];
             if (!data) {
@@ -49,13 +49,13 @@ class PackLoader {
                 if (pack.metadata.entity === entityType) {
                     /* eslint-disable-next-line no-await-in-loop */
                     const content = await pack.getContent();
-                    data = { pack, content };
+                    data = {pack, content};
                     this.loadedPacks[entityType][packId] = data;
                 } else {
                     continue;
                 }
             } else {
-                const { pack } = data;
+                const {pack} = data;
                 progress.advance(`Loading ${pack.metadata.label}`);
             }
 
@@ -87,7 +87,7 @@ class CompendiumBrowser extends Application {
     sorters: any;
     filters: Record<any, any>;
     ranges: any;
-    settings: TabData<{ [key: string]: PackInfo }>;
+    settings: TabData<{[key: string]: PackInfo}>;
     navigationTab: any;
     data: TabData<object>;
 
@@ -157,7 +157,7 @@ class CompendiumBrowser extends Application {
 
     async openTab(tab) {
         await this._render(true);
-        this.navigationTab.activate(tab, { triggerCallback: true });
+        this.navigationTab.activate(tab, {triggerCallback: true});
     }
 
     async loadTab(tab) {
@@ -206,7 +206,7 @@ class CompendiumBrowser extends Application {
 
         const actions = {};
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('action'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('action'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (let action of content) {
                 action = action.data;
@@ -236,7 +236,7 @@ class CompendiumBrowser extends Application {
         const bestiaryActors = {};
         const sources: Set<string> = new Set();
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('bestiary'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Actor', this._loadedPacks('bestiary'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
             for (let actor of content) {
                 actor = actor.data;
@@ -274,7 +274,7 @@ class CompendiumBrowser extends Application {
                     actor.filters.rarity = (() => {
                         if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
                         if (actor.data.rarity) return actor.data.rarity.value;
-                        return { value: 'common' };
+                        return {value: 'common'};
                     })();
                 }
             }
@@ -300,7 +300,7 @@ class CompendiumBrowser extends Application {
         const sources: Set<string> = new Set();
         const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
             for (let actor of content) {
                 actor = actor.data;
@@ -365,7 +365,7 @@ class CompendiumBrowser extends Application {
 
         const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
             for (let item of content) {
                 item = item.data;
@@ -374,7 +374,7 @@ class CompendiumBrowser extends Application {
                     item.compendium = pack.collection;
 
                     // add item.type into the correct format for filtering
-                    item.data.itemTypes = { value: item.type };
+                    item.data.itemTypes = {value: item.type};
 
                     // add spell to spells array
                     inventoryItems[item._id] = item;
@@ -383,7 +383,7 @@ class CompendiumBrowser extends Application {
                     item.data.rarity = (() => {
                         if (item.data.traits.rarity) return item.data.traits.rarity; // TODO: only look in one place once data is fixed
                         if (item.data.rarity) return item.data.rarity;
-                        return { value: 'common' };
+                        return {value: 'common'};
                     })();
                 }
             }
@@ -421,7 +421,7 @@ class CompendiumBrowser extends Application {
         const times: Set<string> = new Set();
         const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('feat'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('feat'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
             for (let feat of content) {
                 feat = feat.data;
@@ -437,7 +437,7 @@ class CompendiumBrowser extends Application {
 
                         if (classIntersection.length !== 0) {
                             classes.add(classIntersection.join(','));
-                            feat.data.classes = { value: classIntersection };
+                            feat.data.classes = {value: classIntersection};
                         }
 
                         if (feat.data.featType.value === 'ancestry') {
@@ -445,7 +445,7 @@ class CompendiumBrowser extends Application {
 
                             if (ancestryIntersection.length !== 0) {
                                 ancestries.add(ancestryIntersection.join(','));
-                                feat.data.ancestry = { value: ancestryIntersection };
+                                feat.data.ancestry = {value: ancestryIntersection};
                             }
                         }
                     }
@@ -463,7 +463,7 @@ class CompendiumBrowser extends Application {
 
                         if (skillIntersection.length !== 0) {
                             skills.add(skillIntersection.join(','));
-                            feat.data.skills = { value: skillIntersection };
+                            feat.data.skills = {value: skillIntersection};
                         }
                     }
 
@@ -497,7 +497,7 @@ class CompendiumBrowser extends Application {
                     feat.data.rarity = (() => {
                         if (feat.data.traits.rarity) return feat.data.traits.rarity; // TODO: only look in one place once data is fixed
                         if (feat.data.rarity) return feat.data.rarity;
-                        return { value: 'common' };
+                        return {value: 'common'};
                     })();
                 }
             }
@@ -535,7 +535,7 @@ class CompendiumBrowser extends Application {
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('spell'))) {
+        for await (const {pack, content} of packLoader.loadPacks('Item', this._loadedPacks('spell'))) {
             console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
             for (let spell of content) {
                 spell = spell.data;
@@ -553,7 +553,7 @@ class CompendiumBrowser extends Application {
 
                     if (classIntersection.length !== 0) {
                         classes.add(classIntersection.join(','));
-                        spell.data.classes = { value: classIntersection };
+                        spell.data.classes = {value: classIntersection};
                     }
 
                     // recording casting times
@@ -584,7 +584,7 @@ class CompendiumBrowser extends Application {
                     spell.data.rarity = (() => {
                         if (spell.data.traits.rarity) return spell.data.traits.rarity; // TODO: only look in one place once data is fixed
                         if (spell.data.rarity) return spell.data.rarity;
-                        return { value: 'common' };
+                        return {value: 'common'};
                     })();
                 }
             }
@@ -744,7 +744,7 @@ class CompendiumBrowser extends Application {
 
         html.on('click', 'button.save-settings', (ev) => {
             const formData = new FormData(html.find('.compendium-browser-settings form')[0]);
-            for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
+            for (const [t, packs] of Object.entries(this.settings) as [string, {[key: string]: PackInfo}][]) {
                 for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
                     pack.load = formData.has(`${t}-${key}`);
                 }
@@ -937,7 +937,7 @@ class CompendiumBrowser extends Application {
         };
 
         this.ranges = {
-            level: { lowerBound: -1, upperBound: 30 },
+            level: {lowerBound: -1, upperBound: 30},
         };
 
         html.find('.tab.browser input[name=textFilter]').val('');
@@ -948,10 +948,10 @@ class CompendiumBrowser extends Application {
     sortSpells(list, byName) {
         let mappedList;
         if (byName) {
-            mappedList = list.map((i, li) => ({ value: $(li).find('.spell-name a')[0].innerHTML, li, i }));
+            mappedList = list.map((i, li) => ({value: $(li).find('.spell-name a')[0].innerHTML, li, i}));
         } else {
             // dataset are always strings so all number values will be truthy
-            mappedList = list.map((i, li) => ({ value: parseInt(li.dataset.level || -10, 10), li, i }));
+            mappedList = list.map((i, li) => ({value: parseInt(li.dataset.level || -10, 10), li, i}));
         }
 
         mappedList.sort((a, b) => {
@@ -961,7 +961,7 @@ class CompendiumBrowser extends Application {
             if (aName > bName) return 1;
             return a.i - b.i;
         });
-        return Array.prototype.map.call(mappedList, ({ li }) => li);
+        return Array.prototype.map.call(mappedList, ({li}) => li);
     }
 }
 

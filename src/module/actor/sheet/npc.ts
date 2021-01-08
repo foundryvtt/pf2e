@@ -1,8 +1,8 @@
 /* global game, CONFIG */
-import { ActorSheetPF2eCreature } from './creature';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { identifyCreature } from '../../recall-knowledge';
-import { RecallKnowledgePopup } from './RecallKnowledgePopup';
+import {ActorSheetPF2eCreature} from './creature';
+import {PF2EActor, SKILL_DICTIONARY} from '../actor';
+import {identifyCreature} from '../../recall-knowledge';
+import {RecallKnowledgePopup} from './RecallKnowledgePopup';
 
 /**
  * @category Actor
@@ -44,7 +44,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         // recall knowledge DCs
         const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
-        const identifyCreatureData = identifyCreature(sheetData, { proficiencyWithoutLevel });
+        const identifyCreatureData = identifyCreature(sheetData, {proficiencyWithoutLevel});
 
         sheetData.identifyCreatureData = identifyCreatureData;
         sheetData.identifySkillDC = identifyCreatureData.skill.dc;
@@ -76,16 +76,16 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
     _prepareItems(actorData) {
         // Actions
         const attacks = {
-            melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
-            ranged: { label: 'NPC Ranged Attack', prefix: 'PF2E.NPCAttackRanged', items: [], type: 'melee' },
+            melee: {label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee'},
+            ranged: {label: 'NPC Ranged Attack', prefix: 'PF2E.NPCAttackRanged', items: [], type: 'melee'},
         };
 
         // Actions
         const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
+            action: {label: 'Actions', actions: []},
+            reaction: {label: 'Reactions', actions: []},
+            free: {label: 'Free Actions', actions: []},
+            passive: {label: 'Passive Actions', actions: []},
         };
 
         // Spellbook
@@ -231,7 +231,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
                 spellbooks[location] = spellbooks[location] || {};
 
                 // Update spell to perminantly have the correct ID now
-                embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
+                embeddedEntityUpdate.push({_id: i._id, 'data.location.value': spellcastingEntriesList[0]});
 
                 this._prepareSpell(actorData, spellbooks[location], i);
             } else {
@@ -365,7 +365,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
             if (spelldcType === 'dc' || spelldcType === 'value') {
                 const key = `data.spelldc.${spelldcType}`;
-                const options = { _id: itemId };
+                const options = {_id: itemId};
                 options[key] = Number(event.target.value);
 
                 await this.actor.updateEmbeddedEntity('OwnedItem', options);
@@ -374,7 +374,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
         html.find('.recall-knowledge-breakdown').on('click', (event) => {
             event.preventDefault();
-            const { identifyCreatureData } = this.getData();
+            const {identifyCreatureData} = this.getData();
             new RecallKnowledgePopup(identifyCreatureData).render(true);
         });
     }

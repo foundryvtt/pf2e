@@ -1,7 +1,7 @@
-import { ItemData, WeaponData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
-import { PF2RuleElement } from '../rule-element';
+import {ItemData, WeaponData} from '../../item/dataDefinitions';
+import {CharacterData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2DamageDice, PF2Modifier} from '../../modifiers';
+import {PF2RuleElement} from '../rule-element';
 
 /**
  * @category RuleElement
@@ -29,13 +29,13 @@ export class PF2StrikeRuleElement extends PF2RuleElement {
             type: actorData.type === 'npc' ? 'melee' : 'weapon',
             img: this.ruleData.img ?? this.item.img,
             data: {
-                ability: { value: this.ruleData.ability || 'str' },
-                weaponType: { value: this.ruleData.category || 'unarmed' },
-                group: { value: this.ruleData.group || 'brawling' },
-                damage: this.ruleData.damage?.base ?? { dice: 1, die: 'd4', damageType: 'bludgeoning' },
-                range: { value: this.ruleData.range || 'melee' },
-                traits: { value: this.ruleData.traits ?? [] },
-                equipped: { value: true },
+                ability: {value: this.ruleData.ability || 'str'},
+                weaponType: {value: this.ruleData.category || 'unarmed'},
+                group: {value: this.ruleData.group || 'brawling'},
+                damage: this.ruleData.damage?.base ?? {dice: 1, die: 'd4', damageType: 'bludgeoning'},
+                range: {value: this.ruleData.range || 'melee'},
+                traits: {value: this.ruleData.traits ?? []},
+                equipped: {value: true},
             },
         } as any);
     }

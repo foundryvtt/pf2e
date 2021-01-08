@@ -1,7 +1,7 @@
 /* global game, CONFIG */
-import { Coins, calculateWealth, calculateTotalWealth } from '../../item/treasure';
-import { ProficiencyModifier } from '../../modifiers';
-import { ActorSheetPF2e } from './base';
+import {Coins, calculateWealth, calculateTotalWealth} from '../../item/treasure';
+import {ProficiencyModifier} from '../../modifiers';
+import {ActorSheetPF2e} from './base';
 
 /**
  * Base class for NPC and character sheets

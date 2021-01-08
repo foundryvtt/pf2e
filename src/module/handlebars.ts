@@ -7,7 +7,7 @@ export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('if_all', (...args) => {
         const opts = args.pop();
 
-        let { fn } = opts;
+        let {fn} = opts;
         for (let i = 0; i < args.length; ++i) {
             if (args[i]) continue;
             fn = opts.inverse;

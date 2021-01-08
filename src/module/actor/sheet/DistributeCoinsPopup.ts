@@ -34,7 +34,7 @@ export class DistributeCoinsPopup extends FormApplication {
         }
         const playerCount = selectedActors.length;
         if (thisActor.data.items !== undefined) {
-            const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
+            const coinShare = {pp: 0, gp: 0, sp: 0, cp: 0};
             const thisActorCurrency = calculateValueOfCurrency(thisActor.data.items);
             if (formData.breakCoins) {
                 const thisActorCopperValue =
@@ -50,7 +50,7 @@ export class DistributeCoinsPopup extends FormApplication {
                 }
                 attemptToRemoveCoinsByValue({
                     actor: thisActor,
-                    coinsToRemove: { pp: 0, gp: 0, sp: 0, cp: copperToDistribute * playerCount },
+                    coinsToRemove: {pp: 0, gp: 0, sp: 0, cp: copperToDistribute * playerCount},
                 });
                 coinShare.cp = copperToDistribute % 10;
                 coinShare.sp = Math.trunc(copperToDistribute / 10) % 10;
@@ -84,7 +84,7 @@ export class DistributeCoinsPopup extends FormApplication {
             for (let x = 0; x < playerCount; x++) {
                 const actor = selectedActors[x];
 
-                addCoinsSimple(actor, { coins: coinShare, combineStacks: true });
+                addCoinsSimple(actor, {coins: coinShare, combineStacks: true});
                 if (x === 0) message += `${actor.name}`;
                 else if (x < playerCount - 1) message += `, ${actor.name}`;
                 else message += ` and ${actor.name}.`;

@@ -1,11 +1,11 @@
 /* global game, CONFIG */
-import { PF2EActor, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '../item/item';
-import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
-import { PF2WeaponDamage } from '../system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrike, CharacterStrikeTrait, NpcData } from './actorDataDefinitions';
-import { PF2RuleElements } from '../rules/rules';
+import {PF2EActor, SKILL_EXPANDED} from './actor';
+import {PF2EItem} from '../item/item';
+import {PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier} from '../modifiers';
+import {PF2WeaponDamage} from '../system/damage/weapon';
+import {PF2Check, PF2DamageRoll} from '../system/rolls';
+import {CharacterStrike, CharacterStrikeTrait, NpcData} from './actorDataDefinitions';
+import {PF2RuleElements} from '../rules/rules';
 
 export class PF2ENPC extends PF2EActor {
     /** @override */
@@ -20,8 +20,8 @@ export class PF2ENPC extends PF2EActor {
             [],
         );
 
-        const { data } = actorData;
-        const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
+        const {data} = actorData;
+        const {statisticsModifiers, damageDice, strikes} = this._prepareCustomModifiers(actorData, rules);
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
         for (const abl of Object.values(actorData.data.abilities)) {
@@ -90,7 +90,7 @@ export class PF2ENPC extends PF2EActor {
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'saving-throw', options },
+                    {actor: this, type: 'saving-throw', options},
                     event,
                     callback,
                 );
@@ -123,7 +123,7 @@ export class PF2ENPC extends PF2EActor {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'perception-check', options },
+                    {actor: this, type: 'perception-check', options},
                     event,
                     callback,
                 );
@@ -142,7 +142,7 @@ export class PF2ENPC extends PF2EActor {
                 // normalize skill name to lower-case and dash-separated words
                 const skill = item.name.toLowerCase().replace(/\s+/g, '-');
                 // assume lore, if skill cannot be looked up
-                const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: 'int', shortform: skill };
+                const {ability, shortform} = SKILL_EXPANDED[skill] ?? {ability: 'int', shortform: skill};
 
                 const base: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
                 const modifiers = [
@@ -170,10 +170,10 @@ export class PF2ENPC extends PF2EActor {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
                 stat.roll = (event, options = [], callback?) => {
-                    const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
+                    const label = game.i18n.format('PF2E.SkillCheckWithName', {skillName: item.name});
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'skill-check', options },
+                        {actor: this, type: 'skill-check', options},
                         event,
                         callback,
                     );
@@ -229,7 +229,7 @@ export class PF2ENPC extends PF2EActor {
                 }
 
                 // action image
-                const { imageUrl, actionGlyph } = PF2EActor.getActionGraphics(
+                const {imageUrl, actionGlyph} = PF2EActor.getActionGraphics(
                     (item as any).data?.actionType?.value || 'action',
                     parseInt(((item as any).data?.actions || {}).value, 10) || 1,
                 );
@@ -245,9 +245,7 @@ export class PF2ENPC extends PF2EActor {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
 
-                action.traits = [
-                    { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
-                ].concat(
+                action.traits = [{name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false}].concat(
                     traits.map((trait) => {
                         const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                         const option: CharacterStrikeTrait = {
@@ -264,7 +262,7 @@ export class PF2ENPC extends PF2EActor {
                     options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
                     PF2Check.roll(
                         new PF2CheckModifier(`Strike: ${action.name}`, action),
-                        { actor: this, type: 'attack-roll', options },
+                        {actor: this, type: 'attack-roll', options},
                         event,
                     );
                 };
@@ -278,7 +276,7 @@ export class PF2ENPC extends PF2EActor {
                             options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action),
-                                { actor: this, type: 'attack-roll', options },
+                                {actor: this, type: 'attack-roll', options},
                                 event,
                             );
                         },
@@ -291,7 +289,7 @@ export class PF2ENPC extends PF2EActor {
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options },
+                                {actor: this, type: 'attack-roll', options},
                                 event,
                             );
                         },
@@ -304,7 +302,7 @@ export class PF2ENPC extends PF2EActor {
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options },
+                                {actor: this, type: 'attack-roll', options},
                                 event,
                             );
                         },
@@ -320,7 +318,7 @@ export class PF2ENPC extends PF2EActor {
                         1,
                         options,
                     );
-                    PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
+                    PF2DamageRoll.roll(damage, {type: 'damage-roll', outcome: 'success', options}, event, callback);
                 };
                 action.critical = (event, options = [], callback?) => {
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
@@ -334,7 +332,7 @@ export class PF2ENPC extends PF2EActor {
                     );
                     PF2DamageRoll.roll(
                         damage,
-                        { type: 'damage-roll', outcome: 'criticalSuccess', options },
+                        {type: 'damage-roll', outcome: 'criticalSuccess', options},
                         event,
                         callback,
                     );

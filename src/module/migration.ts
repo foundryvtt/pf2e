@@ -3,10 +3,10 @@
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
-import { calculateCarriedArmorBulk, fixWeight } from './item/bulk';
-import { compendiumBrowser } from './packs/compendium-browser';
-import { toNumber } from './utils';
-import { isPhysicalItem } from './item/dataDefinitions';
+import {calculateCarriedArmorBulk, fixWeight} from './item/bulk';
+import {compendiumBrowser} from './packs/compendium-browser';
+import {toNumber} from './utils';
+import {isPhysicalItem} from './item/dataDefinitions';
 
 /* -------------------------------------------- */
 function addWeaponPotencyRune(item, itemData) {
@@ -21,7 +21,7 @@ function addWeaponPotencyRune(item, itemData) {
 
 function copyIdentificationData(item, itemData) {
     if (isPhysicalItem(item)) {
-        const merged = mergeObject(item, itemData, { inplace: false, overwrite: true });
+        const merged = mergeObject(item, itemData, {inplace: false, overwrite: true});
         const unidentified = !merged?.data?.identified?.value ?? false;
         const needsUpdate = !merged?.data?.identification;
         if (needsUpdate && unidentified && merged?.data?.originalName) {
@@ -309,7 +309,7 @@ function migrateActorBonusBulk(actor, updateData) {
 }
 
 function migrateActorPFSData(actor, updateData) {
-    updateData['data.pfs.reputation'] = { EA: 0, GA: 0, HH: 0, VS: 0, RO: 0, VW: 0 };
+    updateData['data.pfs.reputation'] = {EA: 0, GA: 0, HH: 0, VS: 0, RO: 0, VW: 0};
     updateData['data.pfs.currentFaction'] = 'EA';
     updateData['data.pfs.fame'] = 0;
 }
@@ -397,7 +397,7 @@ function _migrateNPCItemAction(actor, updateData) {
         if (item.type === 'action' && Object.prototype.hasOwnProperty.call(item.flags, 'pf2e_updatednpcsheet')) {
             const oldValue = item.flags.pf2e_updatednpcsheet.npcActionType?.value;
             if (!item.data.actionCategory?.value) {
-                updatedItem.data.actionCategory = { value: oldValue || 'offensive' };
+                updatedItem.data.actionCategory = {value: oldValue || 'offensive'};
             }
 
             delete updatedItem.flags.pf2e_updatednpcsheet;
@@ -806,7 +806,7 @@ export async function migrateWorld() {
 
     ui.notifications.info(
         `Applying PF2E System Migration to version ${systemVersion}. Please be patient and do not close your game or shut down your server.`,
-        { permanent: true },
+        {permanent: true},
     );
 
     // Migrate World Actors
@@ -815,7 +815,7 @@ export async function migrateWorld() {
             const updateData = migrateActorData(a.data, worldSchemaVersion);
             if (!isObjectEmpty(updateData)) {
                 console.log(`Migrating Actor entity ${a.name}`);
-                await a.update(updateData, { enforceTypes: false });
+                await a.update(updateData, {enforceTypes: false});
             }
         } catch (err) {
             console.error(err);
@@ -828,7 +828,7 @@ export async function migrateWorld() {
             const updateData = migrateItemData(i.data, worldSchemaVersion);
             if (!isObjectEmpty(updateData)) {
                 console.log(`Migrating Item entity ${i.name}`);
-                await i.update(updateData, { enforceTypes: false });
+                await i.update(updateData, {enforceTypes: false});
             }
         } catch (err) {
             console.error(err);
@@ -841,7 +841,7 @@ export async function migrateWorld() {
             const updateData = migrateSceneData(s.data, worldSchemaVersion);
             if (!isObjectEmpty(updateData)) {
                 console.log(`Migrating Scene entity ${s.name}`);
-                await s.update(updateData, { enforceTypes: false });
+                await s.update(updateData, {enforceTypes: false});
             }
         } catch (err) {
             console.error(err);
@@ -876,5 +876,5 @@ export async function migrateWorld() {
 
     // Set the migration as complete
     game.settings.set('pf2e', 'worldSchemaVersion', systemSchemaVersion);
-    ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
+    ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, {permanent: true});
 }

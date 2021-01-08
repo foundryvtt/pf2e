@@ -1,9 +1,9 @@
 /* global game, CONFIG */
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { getContainerMap } from '../../item/container';
-import { ActorSheetPF2e } from './base';
-import { calculateWealth } from '../../item/treasure';
-import { PF2EActor } from '../actor';
+import {calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById} from '../../item/bulk';
+import {getContainerMap} from '../../item/container';
+import {ActorSheetPF2e} from './base';
+import {calculateWealth} from '../../item/treasure';
+import {PF2EActor} from '../actor';
 
 /**
  * @category Actor
@@ -14,7 +14,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e {
             classes: ['default', 'sheet', 'actor', 'vehicle'],
             width: 670,
             height: 480,
-            tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'details' }],
+            tabs: [{navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'details'}],
         });
     }
 
@@ -67,25 +67,25 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e {
     _prepareItems(actorData) {
         // Inventory
         const inventory = {
-            weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
-            armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
-            equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
-            consumable: { label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: [] },
-            treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
-            backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
+            weapon: {label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: []},
+            armor: {label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: []},
+            equipment: {label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: []},
+            consumable: {label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: []},
+            treasure: {label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: []},
+            backpack: {label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: []},
         };
 
         // Actions
         const actions = {
-            action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
-            reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
-            free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
+            action: {label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: []},
+            reaction: {label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: []},
+            free: {label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: []},
         };
         // Read-Only Actions
         const readonlyActions = {
-            interaction: { label: 'Interaction Actions', actions: [] },
-            defensive: { label: 'Defensive Actions', actions: [] },
-            offensive: { label: 'Offensive Actions', actions: [] },
+            interaction: {label: 'Interaction Actions', actions: []},
+            defensive: {label: 'Defensive Actions', actions: []},
+            offensive: {label: 'Offensive Actions', actions: []},
         };
 
         // Iterate through items, allocating to containers

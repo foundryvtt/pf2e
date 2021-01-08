@@ -1,7 +1,7 @@
 /* global getProperty */
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2RuleElement } from '../rule-element';
+import {ItemData} from '../../item/dataDefinitions';
+import {CharacterData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2RuleElement} from '../rule-element';
 
 /**
  * @category RuleElement
@@ -32,7 +32,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
             getProperty(actorUpdates, 'flags.pf2e.token.effects') ??
             getProperty(actorData, 'flags.pf2e.token.effects') ??
             {};
-        mergeObject(actorUpdates, { 'flags.pf2e.token.effects': {} }, { inplace: true });
+        mergeObject(actorUpdates, {'flags.pf2e.token.effects': {}}, {inplace: true});
         const sources = effects[safeValue] ?? [];
         if (!sources.includes(item._id)) {
             sources.push(item._id);
@@ -47,7 +47,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
             getProperty(actorUpdates, 'flags.pf2e.token.effects') ??
             getProperty(actorData, 'flags.pf2e.token.effects') ??
             {};
-        mergeObject(actorUpdates, { 'flags.pf2e.token.effects': {} }, { inplace: true });
+        mergeObject(actorUpdates, {'flags.pf2e.token.effects': {}}, {inplace: true});
         const sources = effects[safeValue] ?? [];
         if (sources.includes(item._id)) {
             sources.splice(

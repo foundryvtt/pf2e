@@ -73,7 +73,7 @@ export class TraitSelector5e extends FormApplication {
         if (hasValues) {
             const selected = [];
             for (const trait of Object.values(attr as Record<any, any>)) {
-                selected[trait.type] = { value: trait.value, exceptions: trait.exceptions };
+                selected[trait.type] = {value: trait.value, exceptions: trait.exceptions};
             }
             for (const [k, v] of Object.entries(choices)) {
                 if (k in selected) {
@@ -241,11 +241,11 @@ export class TraitSelector5e extends FormApplication {
                     if ((!Number.isNaN(Number(v[1])) && v[1] !== '') || this.options.allow_empty_values) {
                         const label = this.options.choices[k];
                         const exceptions = v[2] || '';
-                        choices.push({ type: k, label, value: v[1], exceptions });
+                        choices.push({type: k, label, value: v[1], exceptions});
                     }
                 }
             }
-            this.object.update({ [`${this.attribute}`]: choices });
+            this.object.update({[`${this.attribute}`]: choices});
         } else if (this.options.has_placeholders) {
             const choices = [];
             for (const [k, v] of Object.entries(formData as Record<any, any>)) {
@@ -253,7 +253,7 @@ export class TraitSelector5e extends FormApplication {
                     if (k) choices.push(v[1].trim());
                 }
             }
-            this.object.update({ [`${this.attribute}`]: choices });
+            this.object.update({[`${this.attribute}`]: choices});
         } else {
             const choices: string[] = [];
 
@@ -264,7 +264,7 @@ export class TraitSelector5e extends FormApplication {
 
             this.object.update({
                 [`${this.attribute}.value`]: choices,
-                ...(this.options.no_custom ? {} : { [`${this.attribute}.custom`]: formData.custom }),
+                ...(this.options.no_custom ? {} : {[`${this.attribute}.custom`]: formData.custom}),
             });
         }
     }

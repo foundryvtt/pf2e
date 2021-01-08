@@ -2,11 +2,11 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
-import { AbilityString } from '../actor/actorDataDefinitions';
-import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
+import {PF2EActor} from '../actor/actor';
+import {PF2EItem} from './item';
+import {AbilityString} from '../actor/actorDataDefinitions';
+import {TraitSelector5e} from '../system/trait-selector';
+import {ABCFeatureEntryData, AncestryData, BackgroundData, ClassData} from './dataDefinitions';
 
 /**
  * @category Other
@@ -26,7 +26,7 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             },
         ];
         options.scrollY = ['.item-details'];
-        options.dragDrop = [{ dropSelector: '.item-details' }];
+        options.dragDrop = [{dropSelector: '.item-details'}];
         options.resizable = false;
         return options;
     }
@@ -102,9 +102,9 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         return data;
     }
 
-    private getLocalizedAbilities(traits: { value: AbilityString[] }): { [key: string]: string } {
+    private getLocalizedAbilities(traits: {value: AbilityString[]}): {[key: string]: string} {
         if (traits !== undefined && traits.value) {
-            if (traits.value.length === 6) return { free: game.i18n.localize('PF2E.AbilityFree') };
+            if (traits.value.length === 6) return {free: game.i18n.localize('PF2E.AbilityFree')};
             return Object.fromEntries(traits.value.map((x: string) => [x, CONFIG.PF2E.abilities[x]]));
         }
 
@@ -167,7 +167,7 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
                 level: item.data.data.level.value,
             };
 
-            let items: { [key: number]: ABCFeatureEntryData };
+            let items: {[key: number]: ABCFeatureEntryData};
             let pathPrefix: string;
 
             if (this.item.data.type === 'ancestry') {

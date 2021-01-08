@@ -2,13 +2,13 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
-import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
-import { PF2eConditionManager } from '../conditions';
-import { PF2Check } from '../system/rolls';
-import { isCycle } from '../item/container';
-import { TraitSelector5e } from '../system/trait-selector';
-import { DicePF2e } from '../../scripts/dice';
-import { PF2EItem } from '../item/item';
+import {PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier} from '../modifiers';
+import {PF2eConditionManager} from '../conditions';
+import {PF2Check} from '../system/rolls';
+import {isCycle} from '../item/container';
+import {TraitSelector5e} from '../system/trait-selector';
+import {DicePF2e} from '../../scripts/dice';
+import {PF2EItem} from '../item/item';
 import {
     ItemData,
     ConditionData,
@@ -25,9 +25,9 @@ import {
     FamiliarData,
     ActorDataPF2e,
 } from './actorDataDefinitions';
-import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
-import { parseTraits } from '../traits';
-import { PF2EPhysicalItem } from '../item/physical';
+import {PF2RuleElement, PF2RuleElements} from '../rules/rules';
+import {parseTraits} from '../traits';
+import {PF2EPhysicalItem} from '../item/physical';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -49,22 +49,22 @@ export const SKILL_DICTIONARY = Object.freeze({
 });
 
 export const SKILL_EXPANDED = Object.freeze({
-    acrobatics: { ability: 'dex', shortform: 'acr' },
-    arcana: { ability: 'int', shortform: 'arc' },
-    athletics: { ability: 'str', shortform: 'ath' },
-    crafting: { ability: 'int', shortform: 'cra' },
-    deception: { ability: 'cha', shortform: 'dec' },
-    diplomacy: { ability: 'cha', shortform: 'dip' },
-    intimidation: { ability: 'cha', shortform: 'itm' },
-    medicine: { ability: 'wis', shortform: 'med' },
-    nature: { ability: 'wis', shortform: 'nat' },
-    occultism: { ability: 'int', shortform: 'occ' },
-    performance: { ability: 'cha', shortform: 'pfr' },
-    religion: { ability: 'wis', shortform: 'rel' },
-    society: { ability: 'int', shortform: 'soc' },
-    stealth: { ability: 'dex', shortform: 'ste' },
-    survival: { ability: 'wis', shortform: 'sur' },
-    thievery: { ability: 'dex', shortform: 'thi' },
+    acrobatics: {ability: 'dex', shortform: 'acr'},
+    arcana: {ability: 'int', shortform: 'arc'},
+    athletics: {ability: 'str', shortform: 'ath'},
+    crafting: {ability: 'int', shortform: 'cra'},
+    deception: {ability: 'cha', shortform: 'dec'},
+    diplomacy: {ability: 'cha', shortform: 'dip'},
+    intimidation: {ability: 'cha', shortform: 'itm'},
+    medicine: {ability: 'wis', shortform: 'med'},
+    nature: {ability: 'wis', shortform: 'nat'},
+    occultism: {ability: 'int', shortform: 'occ'},
+    performance: {ability: 'cha', shortform: 'pfr'},
+    religion: {ability: 'wis', shortform: 'rel'},
+    society: {ability: 'int', shortform: 'soc'},
+    stealth: {ability: 'dex', shortform: 'ste'},
+    survival: {ability: 'wis', shortform: 'sur'},
+    thievery: {ability: 'dex', shortform: 'thi'},
 });
 
 const SUPPORTED_ROLL_OPTIONS = Object.freeze([
@@ -92,8 +92,8 @@ export class PF2EActor extends Actor<PF2EItem> {
             super(data, options);
         } else {
             try {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
+                const ready = {pf2e: {ready: true}};
+                return new CONFIG.PF2E.Actor.entityClasses[data.type](data, {...ready, ...options});
             } catch (_error) {
                 super(data, options); // eslint-disable-line constructor-super
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
@@ -143,7 +143,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     /* -------------------------------------------- */
 
     prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
-        const { data } = actorData;
+        const {data} = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
 
@@ -168,7 +168,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
         stat.ability = initSkill;
-        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', {skillName});
         stat.roll = (event, options = []) => {
             const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
             // push skill name to options if not already there
@@ -177,7 +177,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
             PF2Check.roll(
                 new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: 'initiative', options },
+                {actor: this, type: 'initiative', options},
                 event,
                 (roll) => {
                     this._applyInitiativeRollToCombatTracker(roll);
@@ -374,7 +374,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         // Character-specific custom modifiers & custom damage dice.
         if (['character', 'familiar', 'npc'].includes(actorData.type)) {
-            const { data } = actorData;
+            const {data} = actorData;
 
             // Custom Modifiers (which affect d20 rolls and damage).
             data.customModifiers = data.customModifiers ?? {};
@@ -442,7 +442,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 itemBonus: skl.item,
             },
             title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
+            speaker: ChatMessage.getSpeaker({actor: this}),
         });
     }
 
@@ -473,7 +473,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         } else {
             result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
         }
-        const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', { dc, dying });
+        const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', {dc, dying});
 
         const message = `
       ${rollingDescription}.
@@ -488,7 +488,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         flatCheck.toMessage(
             {
-                speaker: ChatMessage.getSpeaker({ actor: this }),
+                speaker: ChatMessage.getSpeaker({actor: this}),
                 flavor: message,
             },
             {
@@ -508,7 +508,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param skill {String}    The skill id
      */
     rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
-        const { data } = item;
+        const {data} = item;
         if (data.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
         }
@@ -538,7 +538,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 itemBonus,
             },
             title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
+            speaker: ChatMessage.getSpeaker({actor: this}),
         });
     }
 
@@ -562,7 +562,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 itemBonus: save.item ?? 0,
             },
             title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
+            speaker: ChatMessage.getSpeaker({actor: this}),
         });
     }
 
@@ -580,9 +580,9 @@ export class PF2EActor extends Actor<PF2EItem> {
         DicePF2e.d20Roll({
             event,
             parts,
-            data: { mod: skl.mod },
+            data: {mod: skl.mod},
             title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
+            speaker: ChatMessage.getSpeaker({actor: this}),
         });
     }
 
@@ -606,7 +606,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 itemBonus: skl.item,
             },
             title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
+            speaker: ChatMessage.getSpeaker({actor: this}),
         });
     }
 
@@ -663,7 +663,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 t.actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
                     ChatMessage.create({
                         user: game.user._id,
-                        speaker: { alias: t.name },
+                        speaker: {alias: t.name},
                         content: message,
                         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
                     });
@@ -747,7 +747,7 @@ export class PF2EActor extends Actor<PF2EItem> {
       `;
             ChatMessage.create({
                 user: game.user._id,
-                speaker: { alias: t.name },
+                speaker: {alias: t.name},
                 content: message,
                 whisper: ChatMessage.getWhisperRecipients('GM'),
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,
@@ -842,7 +842,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updateShieldData = {
                         _id: shield._id,
-                        data: { hp: { value: shieldHitPoints } }, // unfolding is required when update is forced regardless of diff
+                        data: {hp: {value: shieldHitPoints}}, // unfolding is required when update is forced regardless of diff
                     };
                 } else if (isDelta) {
                     attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
@@ -850,10 +850,10 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
 
             if (attribute === 'attributes.hp') {
-                const { hp, sp } = this.data.data.attributes;
+                const {hp, sp} = this.data.data.attributes;
                 if (isDelta) {
                     if (value < 0) {
-                        const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
+                        const {update, delta} = this._calculateHealthDelta({hp, sp, delta: value});
                         value = delta;
                         for (const [k, v] of Object.entries(update)) {
                             updateActorData[k] = v;
@@ -868,7 +868,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             return this.update(updateActorData).then(() => {
                 if (updateShieldData) {
                     // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-                    this.updateOwnedItem(updateShieldData, { diff: false });
+                    this.updateOwnedItem(updateShieldData, {diff: false});
                 }
                 return this;
             });
@@ -915,7 +915,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         if (hasToRemoveFromSource) {
             await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
         } else {
-            const update = { _id: item._id, 'data.quantity.value': newItemQuantity };
+            const update = {_id: item._id, 'data.quantity.value': newItemQuantity};
             await sourceActor.updateEmbeddedEntity('OwnedItem', update);
         }
 
@@ -953,21 +953,17 @@ export class PF2EActor extends Actor<PF2EItem> {
             return item;
         }
 
-        return item.update({ 'data.containerId.value': '' });
+        return item.update({'data.containerId.value': ''});
     }
 
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
      */
-    _calculateHealthDelta(args: {
-        hp: { value: number; temp: number };
-        sp: { value: number; temp: number };
-        delta: number;
-    }) {
+    _calculateHealthDelta(args: {hp: {value: number; temp: number}; sp: {value: number; temp: number}; delta: number}) {
         const update = {};
-        const { hp, sp } = args;
-        let { delta } = args;
+        const {hp, sp} = args;
+        let {delta} = args;
         if (hp.temp + delta >= 0) {
             update['data.attributes.hp.temp'] = hp.temp + delta;
             delta = 0;
@@ -990,21 +986,21 @@ export class PF2EActor extends Actor<PF2EItem> {
         };
     }
 
-    static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
+    static getActionGraphics(actionType: string, actionCount?: number): {imageUrl: string; actionGlyph: string} {
         let actionImg: number | string = 0;
         if (actionType === 'action') actionImg = actionCount ?? 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
         const graphics = {
-            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
-            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
-            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
-            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
-            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
-            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+            1: {imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A'},
+            2: {imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D'},
+            3: {imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T'},
+            free: {imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F'},
+            reaction: {imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R'},
+            passive: {imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: ''},
         };
-        const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
+        const actionGraphics = graphics[actionImg] ?? {imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: ''};
         return {
             imageUrl: actionGraphics.imageUrl,
             actionGlyph: actionGraphics.actionGlyph,
@@ -1021,7 +1017,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         name: string,
         value: number,
         type: string,
-        predicate?: { all?: string[]; any?: string[]; not?: string[] },
+        predicate?: {all?: string[]; any?: string[]; not?: string[]},
         damageType?: string,
         damageCategory?: string,
     ) {
@@ -1050,7 +1046,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             modifier.ignored = !modifier.predicate.test([]);
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ 'data.customModifiers': customModifiers });
+            await this.update({'data.customModifiers': customModifiers});
         }
     }
 
@@ -1063,10 +1059,10 @@ export class PF2EActor extends Actor<PF2EItem> {
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (typeof modifier === 'number' && customModifiers[stat] && customModifiers[stat].length > modifier) {
             customModifiers[stat].splice(modifier, 1);
-            await this.update({ 'data.customModifiers': customModifiers });
+            await this.update({'data.customModifiers': customModifiers});
         } else if (typeof modifier === 'string' && customModifiers[stat]) {
             customModifiers[stat] = customModifiers[stat].filter((m) => m.name !== modifier);
-            await this.update({ 'data.customModifiers': customModifiers });
+            await this.update({'data.customModifiers': customModifiers});
         } else {
             throw Error('Custom modifiers can only be removed by name (string) or index (number)');
         }
@@ -1088,7 +1084,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             throw new Error('source of cap is mandatory');
         }
 
-        await this.update({ 'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap) });
+        await this.update({'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap)});
     }
 
     /**
@@ -1105,7 +1101,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
         if (this.data.data.attributes.dexCap) {
             const updated = this.data.data.attributes.dexCap.filter((cap) => cap.source !== source);
-            await this.update({ 'data.attributes.dexCap': updated });
+            await this.update({'data.attributes.dexCap': updated});
         }
     }
 
@@ -1126,7 +1122,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             const dice = new PF2DamageDice(param);
 
             damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
-            await this.update({ 'data.damageDice': damageDice });
+            await this.update({'data.damageDice': damageDice});
         }
     }
 
@@ -1139,10 +1135,10 @@ export class PF2EActor extends Actor<PF2EItem> {
         const damageDice = duplicate(this.data.data.damageDice ?? {});
         if (typeof dice === 'number' && damageDice[selector] && damageDice[selector].length > dice) {
             damageDice[selector].splice(dice, 1);
-            await this.update({ 'data.damageDice': damageDice });
+            await this.update({'data.damageDice': damageDice});
         } else if (typeof dice === 'string' && damageDice[selector]) {
             damageDice[selector] = damageDice[selector].filter((d) => d.name !== dice);
-            await this.update({ 'data.damageDice': damageDice });
+            await this.update({'data.damageDice': damageDice});
         } else {
             throw Error('Dice can only be removed by name (string) or index (number)');
         }

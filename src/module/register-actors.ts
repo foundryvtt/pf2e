@@ -1,10 +1,10 @@
-import { CRBStyleCharacterActorSheetPF2E } from './actor/sheet/character';
-import { ActorSheetPF2eNPC } from './actor/sheet/npc';
-import { UpdatedNPCActorPF2ESheet } from './actor/sheet/updatednpcsheet';
-import { ActorSheetPF2eHazard } from './actor/sheet/hazard';
-import { ActorSheetPF2eLoot } from './actor/sheet/loot';
-import { ActorSheetPF2eFamiliar } from './actor/sheet/familiar';
-import { ActorSheetPF2eVehicle } from './actor/sheet/vehicle';
+import {CRBStyleCharacterActorSheetPF2E} from './actor/sheet/character';
+import {ActorSheetPF2eNPC} from './actor/sheet/npc';
+import {UpdatedNPCActorPF2ESheet} from './actor/sheet/updatednpcsheet';
+import {ActorSheetPF2eHazard} from './actor/sheet/hazard';
+import {ActorSheetPF2eLoot} from './actor/sheet/loot';
+import {ActorSheetPF2eFamiliar} from './actor/sheet/familiar';
+import {ActorSheetPF2eVehicle} from './actor/sheet/vehicle';
 
 export function registerActors() {
     Actors.unregisterSheet('core', ActorSheet);

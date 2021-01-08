@@ -1,7 +1,7 @@
 /* global game, CONFIG */
-import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
-import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
+import {CheckModifiersDialog, CheckModifiersContext} from './check-modifiers-dialog';
+import {DamageRollModifiersDialog} from './damage-roll-modifiers-dialog';
+import {PF2ModifierPredicate, PF2StatisticModifier} from '../modifiers';
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -48,7 +48,7 @@ export class PF2Check {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessage, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(message: ChatMessage, {heroPoint = false, keep = 'new'}: RerollOptions = {}) {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
             return;
@@ -64,9 +64,9 @@ export class PF2Check {
                     await actor.update({
                         'data.attributes.heroPoints.rank': Math.clamped(heroPointCount - 1, 0, 3),
                     });
-                    rerollFlavor = game.i18n.format('PF2E.RerollMenu.MessageHeroPoint', { name: actor.name });
+                    rerollFlavor = game.i18n.format('PF2E.RerollMenu.MessageHeroPoint', {name: actor.name});
                 } else {
-                    ui.notifications.warn(game.i18n.format('PF2E.RerollMenu.WarnNoHeroPoint', { name: actor.name }));
+                    ui.notifications.warn(game.i18n.format('PF2E.RerollMenu.WarnNoHeroPoint', {name: actor.name}));
                     return;
                 }
             } else {

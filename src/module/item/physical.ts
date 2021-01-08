@@ -1,7 +1,7 @@
 /* global getProperty, fromUuid, flattenObject */
 
-import { PF2EItem } from './item';
-import { isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import {PF2EItem} from './item';
+import {isPhysicalItem, PhysicalItemData} from './dataDefinitions';
 
 export class PF2EPhysicalItem extends PF2EItem {
     /** @override */

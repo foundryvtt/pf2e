@@ -1,6 +1,6 @@
 /* global game, canvas, BaseGrid, SquareGrid  */
-import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
-import { PF2EItem } from '../module/item/item';
+import {PF2EActor, SKILL_DICTIONARY} from '../module/actor/actor';
+import {PF2EItem} from '../module/item/item';
 
 /**
  * Create a Macro from an Item drop.
@@ -18,9 +18,9 @@ async function createItemMacro(item: PF2EItem, slot: number): Promise<void> {
                 name: item.name,
                 type: 'script',
                 img: item.img,
-                flags: { 'pf2e.itemMacro': true },
+                flags: {'pf2e.itemMacro': true},
             },
-            { displaySheet: false },
+            {displaySheet: false},
         )) as Macro;
     }
     game.user.assignHotbarMacro(macro, slot);
@@ -56,9 +56,9 @@ async function createActionMacro(actionIndex: string, actorId: string, slot: num
                 name: macroName,
                 type: 'script',
                 img: action.imageUrl,
-                flags: { 'pf2e.actionMacro': true },
+                flags: {'pf2e.actionMacro': true},
             },
-            { displaySheet: false },
+            {displaySheet: false},
         );
     }
     game.user.assignHotbarMacro(macro, slot);
@@ -122,7 +122,7 @@ if (a) {
 } else {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
-    const macroName = game.i18n.format('PF2E.SkillCheckWithName', { skillName });
+    const macroName = game.i18n.format('PF2E.SkillCheckWithName', {skillName});
     let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
@@ -131,9 +131,9 @@ if (a) {
                 name: macroName,
                 type: 'script',
                 img: 'icons/svg/d20-grey.svg',
-                flags: { 'pf2e.skillMacro': true },
+                flags: {'pf2e.skillMacro': true},
             },
-            { displaySheet: false },
+            {displaySheet: false},
         )) as Macro;
     }
     game.user.assignHotbarMacro(macro, slot);
@@ -147,7 +147,7 @@ if (a) {
 } else {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
-    const macroName = game.i18n.format('PF2E.ToggleWithName', { property: label });
+    const macroName = game.i18n.format('PF2E.ToggleWithName', {property: label});
     let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
@@ -156,7 +156,7 @@ if (a) {
                 name: macroName,
                 type: 'script',
                 img: 'icons/svg/d20-grey.svg',
-                flags: { 'pf2e.skillMacro': true },
+                flags: {'pf2e.skillMacro': true},
             },
             {},
         )) as Macro;

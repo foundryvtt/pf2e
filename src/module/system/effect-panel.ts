@@ -1,7 +1,7 @@
 /* global canvas, game */
-import { PF2EActor } from '../actor/actor';
-import { PF2eConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';
+import {PF2EActor} from '../actor/actor';
+import {PF2eConditionManager} from '../conditions';
+import {ConditionData, ConditionDetailsData} from '../item/dataDefinitions';
 
 export class EffectPanel extends Application {
     private static readonly UNITS = Object.freeze({
@@ -134,13 +134,13 @@ export class EffectPanel extends Application {
             const list = Array.from(new Set(conditions.map((p) => p.name)))
                 .sort()
                 .join(', ');
-            breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
+            breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', {'condition-list': list})}`;
         }
         return breakdown;
     }
 
     private static getEffectDuration(effect: any): number {
-        const { duration } = effect.data;
+        const {duration} = effect.data;
         if (duration.unit === 'unlimited') {
             return -1;
         } else {
@@ -194,7 +194,7 @@ export class EffectPanel extends Application {
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleRound');
         } else if (remaining >= 2) {
             // two seconds
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleSeconds', { seconds: remaining });
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleSeconds', {seconds: remaining});
         } else if (remaining === 1) {
             // one second
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleSecond');
@@ -204,7 +204,7 @@ export class EffectPanel extends Application {
                 expiry === 'turn-end'
                     ? 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnEnd'
                     : 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnStart';
-            return game.i18n.format(key, { initiative });
+            return game.i18n.format(key, {initiative});
         }
     }
 }
