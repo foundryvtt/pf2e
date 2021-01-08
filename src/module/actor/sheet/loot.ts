@@ -6,6 +6,7 @@ import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
+import { LootNPCsPopup } from './loot/LootNPCsPopup';
 
 /**
  * @category Actor
@@ -126,6 +127,15 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
+    _lootNPCs(event) {
+        event.preventDefault();
+        if (canvas?.tokens?.controlled?.length > 0) {
+            new LootNPCsPopup(this.actor, {}).render(true);
+        } else {
+            ui.notifications.warn('No tokens selected.');
+        }
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
 
@@ -135,6 +145,9 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
             html.find('.split-coins')
                 .removeAttr('disabled')
                 .click((ev) => this._distributeCoins(ev));
+            html.find('.loot-npcs')
+                .removeAttr('disabled')
+                .click((ev) => this._lootNPCs(ev));
             html.find('.isLootEditable').change((ev) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });
