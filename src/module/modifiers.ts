@@ -396,6 +396,18 @@ export class PF2StatisticModifier {
 
         return null;
     }
+
+    /**
+     * Find the first modifier of the given type.
+     * @param modifierType Type of modifier to find.
+     */
+    findModifierByType(modifierType: string): PF2Modifier {
+        for (const modifier of this._modifiers) {
+            if (modifier.type === modifierType) return modifier;
+        }
+
+        return null;
+    }
 }
 
 /**
