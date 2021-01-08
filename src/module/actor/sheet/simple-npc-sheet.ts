@@ -6,10 +6,8 @@ import { DicePF2e } from "../../../scripts/dice";
 import { PF2EActor, SKILL_DICTIONARY } from "../actor";
 import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 import { NPCSkillsEditor } from "../../system/npc-skills-editor";
-import { NPCSkillData } from "../actorDataDefinitions";
-import { stringify } from "querystring";
-import { interaction } from "pixi.js";
 import { PF2ENPC } from "../npc";
+import { identifyCreature } from "../../../module/recall-knowledge";
 
 const isString = require('is-string');
 
@@ -73,7 +71,37 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         this._applyAdjustments(actorData, adjustmentSign  , revertToNormal);
     }
-    
+
+    getData() {
+        const sheetData = super.getData();
+
+        sheetData.monsterTraits = CONFIG.PF2E.monsterTraits;
+
+        // recall knowledge DCs
+        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
+        const identifyCreatureData = identifyCreature(sheetData, { proficiencyWithoutLevel });
+
+        sheetData.identifyCreatureData = identifyCreatureData;
+        sheetData.identifySkillDC = identifyCreatureData.skill.dc;
+        sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
+        sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join('/');
+        sheetData.identificationSkills = Array.from(identifyCreatureData.skills)
+            .sort()
+            .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym]);
+        sheetData.identificationSkillList = sheetData.identificationSkills.join(', ');
+
+        sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
+        sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
+        sheetData.specificLoreProgression = identifyCreatureData.specificLoreDC.progression.join('/');
+
+        sheetData.unspecificLoreDC = identifyCreatureData.unspecificLoreDC.dc;
+        sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
+        sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
+
+        // Return data for rendering
+        return sheetData;
+    }
+
     /**
     * Subscribe to events from the sheet.
     * @param html HTML content ready to render the sheet.
