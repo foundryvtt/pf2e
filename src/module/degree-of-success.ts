@@ -15,25 +15,25 @@ export enum DegreeAdjustment {
     INCREASE,
 }
 
-export function adjustDegreeOfSuccess(adjustment: DegreeAdjustment, rollResult: DegreeOfSuccess): DegreeOfSuccess {
+export function adjustDegreeOfSuccess(adjustment: DegreeAdjustment, degreeOfSuccess: DegreeOfSuccess): DegreeOfSuccess {
     if (adjustment === DegreeAdjustment.INCREASE) {
-        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(rollResult + 1, 0, 3)]];
+        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(degreeOfSuccess + 1, 0, 3)]];
     } else {
-        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(rollResult - 1, 0, 3)]];
+        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(degreeOfSuccess - 1, 0, 3)]];
     }
 }
 
 /**
  * @param dieValue rolled number on the die
- * @param rollResult current success value
+ * @param degreeOfSuccess current success value
  */
-export function adjustDegreeByDieValue(dieValue: number, rollResult: DegreeOfSuccess): DegreeOfSuccess {
+export function adjustDegreeByDieValue(dieValue: number, degreeOfSuccess: DegreeOfSuccess): DegreeOfSuccess {
     if (dieValue === 20) {
-        return adjustDegreeOfSuccess(DegreeAdjustment.INCREASE, rollResult);
+        return adjustDegreeOfSuccess(DegreeAdjustment.INCREASE, degreeOfSuccess);
     } else if (dieValue === 1) {
-        return adjustDegreeOfSuccess(DegreeAdjustment.LOWER, rollResult);
+        return adjustDegreeOfSuccess(DegreeAdjustment.LOWER, degreeOfSuccess);
     } else {
-        return rollResult;
+        return degreeOfSuccess;
     }
 }
 
