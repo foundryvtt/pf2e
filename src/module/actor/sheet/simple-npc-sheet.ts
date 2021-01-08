@@ -8,6 +8,8 @@ import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 import { NPCSkillsEditor } from "../../system/npc-skills-editor";
 import { NPCSkillData } from "../actorDataDefinitions";
 import { stringify } from "querystring";
+import { interaction } from "pixi.js";
+import { PF2ENPC } from "../npc";
 
 const isString = require('is-string');
 
@@ -714,24 +716,23 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             exceptionBonus = 0;
         }
 
-        const rank = CONFIG.PF2E.proficiencyLevels[skill.rank];
-        const parts = ['@mod'];
-        const flavor = game.i18n.format('PF2E.NPC.SkillRollFlavor', {
-            rank: rank,
-            skillName: CONFIG.PF2E.skills[skillId]
-        });
-        const modifier = skill.value + exceptionBonus;
+        const npc = this.actor as PF2ENPC;
+        const originalSkillValue = skill.value;
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: modifier
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        });
+        if (isException) {
+            npc.assignNPCSkillValue(skillId, originalSkillValue + exceptionBonus);
+        }
+
+        if (skill.roll) {
+            const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skillId] ?? skillId]);
+            skill.roll(event, opts);
+        } else {
+            this.actor.rollSkill(event, skillId);
+        }
+
+        if (isException) {
+            npc.assignNPCSkillValue(skillId, originalSkillValue);
+        }
     }
     
     rollSave(event, saveId) {
