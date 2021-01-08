@@ -1,6 +1,6 @@
 /* global game, CONFIG */
-import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '../actor/actor';
+import {PF2Modifier, PF2StatisticModifier} from '../modifiers';
+import {PF2EActor} from '../actor/actor';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -101,7 +101,7 @@ export class CheckModifiersDialog extends Application {
 
         await roll.toMessage(
             {
-                speaker: ChatMessage.getSpeaker({ actor: speaker }),
+                speaker: ChatMessage.getSpeaker({actor: speaker}),
                 flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>`,
                 flags: {
                     core: {

@@ -1,4 +1,4 @@
-import { SpellcastingEntry } from './spellcastingEntry';
+import {SpellcastingEntry} from './spellcastingEntry';
 
 interface ActorInterface {
     getOwnedItem(spellcastingEntryId: any);
@@ -16,7 +16,7 @@ export class Spell {
     _castLevel: number;
     _spellcastingEntry: any;
 
-    constructor(data, scope: { castingActor?: ActorInterface; castLevel?: number } = {}) {
+    constructor(data, scope: {castingActor?: ActorInterface; castLevel?: number} = {}) {
         this.data = data;
         this.castingActor = scope?.castingActor;
         this._castLevel = scope?.castLevel || this.spellLevel;

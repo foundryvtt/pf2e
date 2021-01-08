@@ -44,7 +44,7 @@ TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event) {
     if (event.data.createState >= 1) {
         // Snap the destination to the grid
         const dest = event.data.destination;
-        const { x, y } = canvas.grid.getSnappedPosition(dest.x, dest.y, 2);
+        const {x, y} = canvas.grid.getSnappedPosition(dest.x, dest.y, 2);
         dest.x = x;
         dest.y = y;
 
@@ -131,7 +131,7 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
         return distanceOnGrid;
     };
 
-    const originOffset = { x: 0, y: 0 };
+    const originOffset = {x: 0, y: 0};
     // Offset measurement for cones
     // Offset is to ensure that cones only start measuring from cell borders, as in https://www.d20pfsrd.com/magic/#Aiming_a_Spell
     if (this.data.t === 'cone') {
@@ -163,11 +163,11 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
             const [cellCenterX, cellCenterY] = [gx + d.size * 0.5, gy + d.size * 0.5];
 
             // Determine point of origin
-            origin = { x: this.data.x, y: this.data.y };
+            origin = {x: this.data.x, y: this.data.y};
             origin.x += originOffset.x * d.size;
             origin.y += originOffset.y * d.size;
 
-            const ray = new Ray(origin, { x: cellCenterX, y: cellCenterY });
+            const ray = new Ray(origin, {x: cellCenterX, y: cellCenterY});
 
             const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
             if (this.data.t === 'cone' && ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
@@ -175,11 +175,11 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
             }
 
             // Determine point we're measuring the distance to - always in the center of a grid square
-            const destination = { x: cellCenterX, y: cellCenterY };
+            const destination = {x: cellCenterX, y: cellCenterY};
 
             const distance = measureDistance(destination, origin);
             if (distance <= this.data.distance) {
-                grid.grid.highlightGridPosition(hl, { x: gx, y: gy, color: fc, border: bc });
+                grid.grid.highlightGridPosition(hl, {x: gx, y: gy, color: fc, border: bc});
             }
         }
     }

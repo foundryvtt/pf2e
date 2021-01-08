@@ -1,6 +1,6 @@
 /* global game, CONFIG */
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { PF2EItem } from '../../item/item';
+import {PF2EActor, SKILL_DICTIONARY} from '../actor';
+import {PF2EItem} from '../../item/item';
 
 /**
  * @category Actor
@@ -12,7 +12,7 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EActor, PF2EItem> {
             classes: options.classes.concat(['actor', 'familiar']),
             width: 650,
             height: 680,
-            tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'attributes' }],
+            tabs: [{navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'attributes'}],
         });
         return options;
     }
@@ -81,7 +81,7 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EActor, PF2EItem> {
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-edit', (event) => {
             const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
             const Item = CONFIG.Item.entityClass;
-            new Item(this.actor.getOwnedItem(itemID).data, { actor: this.actor }).sheet.render(true);
+            new Item(this.actor.getOwnedItem(itemID).data, {actor: this.actor}).sheet.render(true);
             return false;
         });
 

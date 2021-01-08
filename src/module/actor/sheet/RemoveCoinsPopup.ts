@@ -1,4 +1,4 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple } from '../../item/treasure';
+import {calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple} from '../../item/treasure';
 
 /**
  * @category Other
@@ -27,7 +27,7 @@ export class RemoveCoinsPopup extends FormApplication {
             cp: formData.cp,
         };
         if (formData.removeByValue) {
-            if (!(await attemptToRemoveCoinsByValue({ actor, coinsToRemove }))) {
+            if (!(await attemptToRemoveCoinsByValue({actor, coinsToRemove}))) {
                 ui.notifications.warn('Insufficient coins');
             }
         } else {
@@ -38,7 +38,7 @@ export class RemoveCoinsPopup extends FormApplication {
                 coinsToRemove.sp <= actorCoins.sp &&
                 coinsToRemove.cp <= actorCoins.cp
             ) {
-                removeCoinsSimple(actor, { coins: coinsToRemove });
+                removeCoinsSimple(actor, {coins: coinsToRemove});
             } else {
                 ui.notifications.warn('Insufficient coins');
             }

@@ -1,8 +1,8 @@
 /* global getProperty */
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
-import { PF2RuleElement } from '../rule-element';
+import {ItemData} from '../../item/dataDefinitions';
+import {CharacterData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2DamageDice, PF2Modifier} from '../../modifiers';
+import {PF2RuleElement} from '../rule-element';
 
 /**
  * @category RuleElement

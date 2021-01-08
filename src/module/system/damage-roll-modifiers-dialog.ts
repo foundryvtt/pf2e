@@ -104,7 +104,7 @@ export class DamageRollModifiersDialog extends Application {
             diceResults: {},
             baseDamageDice: damage.effectDice,
         };
-        const dsnData: any = { throws: [{ dice: [] }] };
+        const dsnData: any = {throws: [{dice: []}]};
         let content = `
     <div class="dice-roll">
         <div class="dice-result">

@@ -1,7 +1,7 @@
 /* global game, canvas  */
-import { ItemData } from '../../module/item/dataDefinitions';
-import { addKit } from '../../module/item/kits';
-import { PF2eConditionManager } from '../../module/conditions';
+import {ItemData} from '../../module/item/dataDefinitions';
+import {addKit} from '../../module/item/kits';
+import {PF2eConditionManager} from '../../module/conditions';
 
 Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
     const target = c.tokens.placeables.find((token) => {

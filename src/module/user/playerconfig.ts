@@ -35,7 +35,7 @@ export class PlayerConfigPF2e extends FormApplication {
         if (settings === undefined) {
             console.log('PF2e System | New player without saved PF2e Player Settings | Setting defaults');
             settings = PlayerConfigPF2e.DEFAULTS;
-            game.user.update({ flags: { PF2e: { settings } } });
+            game.user.update({flags: {PF2e: {settings}}});
         } else {
             for (const defaultSetting in PlayerConfigPF2e.DEFAULTS) {
                 if (settings[defaultSetting] === undefined) {
@@ -45,7 +45,7 @@ export class PlayerConfigPF2e extends FormApplication {
             }
             if (newDefaults) {
                 console.log('PF2e System | Saving new default settings to the PF2e Player Settings');
-                game.user.update({ flags: { PF2e: { settings } } });
+                game.user.update({flags: {PF2e: {settings}}});
             }
         }
     }
@@ -109,7 +109,7 @@ export class PlayerConfigPF2e extends FormApplication {
         console.log('PF2e System | Player Config updating settings');
         PlayerConfigPF2e.highlightDataUri = formdata.highlightDataUri ?? false;
         this.addRemoveHighlight(PlayerConfigPF2e.highlightDataUri);
-        game.user.update({ flags: { PF2e: { settings: formdata } } });
+        game.user.update({flags: {PF2e: {settings: formdata}}});
         (<HTMLLinkElement>(
             document.getElementById('pf2e-color-scheme')
         )).href = `systems/pf2e/styles/user/color-scheme-${formdata.color}.css`;
@@ -118,7 +118,7 @@ export class PlayerConfigPF2e extends FormApplication {
     addRemoveHighlight(add: boolean) {
         if (add) {
             if (!$('style.pf2e-data-highlight').length) {
-                $('<style></style>', { class: 'pf2e-data-highlight' })
+                $('<style></style>', {class: 'pf2e-data-highlight'})
                     .text('[src^="data:"], [style*="data:"] { border: 3px solid red !important; }')
                     .appendTo('head');
             }

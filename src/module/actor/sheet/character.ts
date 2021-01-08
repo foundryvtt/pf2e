@@ -1,13 +1,13 @@
 /* global game, CONFIG */
-import { ActorSheetPF2eCreature } from './creature';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { calculateEncumbrance } from '../../item/encumbrance';
-import { getContainerMap } from '../../item/container';
-import { ProficiencyModifier } from '../../modifiers';
-import { PF2eConditionManager } from '../../conditions';
-import { PF2EActor } from '../actor';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
+import {ActorSheetPF2eCreature} from './creature';
+import {calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById} from '../../item/bulk';
+import {calculateEncumbrance} from '../../item/encumbrance';
+import {getContainerMap} from '../../item/container';
+import {ProficiencyModifier} from '../../modifiers';
+import {PF2eConditionManager} from '../../conditions';
+import {PF2EActor} from '../actor';
+import {PF2EPhysicalItem} from '../../item/physical';
+import {isPhysicalItem} from '../../item/dataDefinitions';
 
 /**
  * @category Other
@@ -18,7 +18,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
             classes: ['default', 'sheet', 'actor', 'pc'],
             width: 700,
             height: 800,
-            tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'character' }],
+            tabs: [{navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'character'}],
             showUnpreparedSpells: false,
         });
     }
@@ -50,7 +50,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         const sheetData = super.getData();
 
         // Temporary HP
-        const { hp } = sheetData.data.attributes;
+        const {hp} = sheetData.data.attributes;
         if (hp.temp === 0) delete hp.temp;
         if (hp.tempmax === 0) delete hp.tempmax;
 
@@ -117,12 +117,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
     _prepareItems(actorData) {
         // Inventory
         const inventory = {
-            weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
-            armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
-            equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [], investedItemCount: 0 },
-            consumable: { label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: [] },
-            treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
-            backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
+            weapon: {label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: []},
+            armor: {label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: []},
+            equipment: {label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [], investedItemCount: 0},
+            consumable: {label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: []},
+            treasure: {label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: []},
+            backpack: {label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: []},
         };
 
         // Spellbook
@@ -137,37 +137,37 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
 
         // Feats
         const feats = {
-            ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [] },
-            ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [] },
-            archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [] },
-            bonus: { label: 'PF2E.FeatBonusHeader', feats: [] },
-            class: { label: 'PF2E.FeatClassHeader', feats: [] },
-            classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [] },
-            skill: { label: 'PF2E.FeatSkillHeader', feats: [] },
-            general: { label: 'PF2E.FeatGeneralHeader', feats: [] },
-            pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [] },
-            deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [] },
-            curse: { label: 'PF2E.FeatCurseHeader', feats: [] },
+            ancestry: {label: 'PF2E.FeatAncestryHeader', feats: []},
+            ancestryfeature: {label: 'PF2E.FeaturesAncestryHeader', feats: []},
+            archetype: {label: 'PF2E.FeatArchetypeHeader', feats: []},
+            bonus: {label: 'PF2E.FeatBonusHeader', feats: []},
+            class: {label: 'PF2E.FeatClassHeader', feats: []},
+            classfeature: {label: 'PF2E.FeaturesClassHeader', feats: []},
+            skill: {label: 'PF2E.FeatSkillHeader', feats: []},
+            general: {label: 'PF2E.FeatGeneralHeader', feats: []},
+            pfsboon: {label: 'PF2E.FeatPFSBoonHeader', feats: []},
+            deityboon: {label: 'PF2E.FeatDeityBoonHeader', feats: []},
+            curse: {label: 'PF2E.FeatCurseHeader', feats: []},
         };
 
         // Actions
         const actions = {
-            action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
-            reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
-            free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
+            action: {label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: []},
+            reaction: {label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: []},
+            free: {label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: []},
         };
 
         // Read-Only Actions
         const readonlyActions = {
-            interaction: { label: 'Interaction Actions', actions: [] },
-            defensive: { label: 'Defensive Actions', actions: [] },
-            offensive: { label: 'Offensive Actions', actions: [] },
+            interaction: {label: 'Interaction Actions', actions: []},
+            defensive: {label: 'Defensive Actions', actions: []},
+            offensive: {label: 'Offensive Actions', actions: []},
         };
 
         const readonlyEquipment = [];
 
         const attacks = {
-            weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
+            weapon: {label: 'Compendium Weapon', items: [], type: 'weapon'},
         };
 
         // Skills
@@ -280,7 +280,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
                 else i.data.tradition.ritual = false;
                 if ((i.data.tradition || {}).value === 'focus') {
                     i.data.tradition.focus = true;
-                    if (i.data.focus === undefined) i.data.focus = { points: 1, pool: 1 };
+                    if (i.data.focus === undefined) i.data.focus = {points: 1, pool: 1};
                     i.data.focus.icon = this._getFocusIcon(i.data.focus);
                 } else i.data.tradition.focus = false;
 
@@ -412,7 +412,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
                 // Update spell to perminantly have the correct ID now
                 // console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
                 // this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
-                embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
+                embeddedEntityUpdate.push({_id: i._id, 'data.location.value': spellcastingEntriesList[0]});
 
                 this._prepareSpell(actorData, spellbooks[location], i);
             } else {

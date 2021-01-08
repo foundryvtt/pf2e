@@ -8,8 +8,8 @@ import {
     StackDefinitions,
     weightToBulk,
 } from './bulk';
-import { PhysicalItemData } from './dataDefinitions';
-import { groupBy } from '../utils';
+import {PhysicalItemData} from './dataDefinitions';
+import {groupBy} from '../utils';
 
 /**
  * Datatype that holds container information for *every* item, even non containers

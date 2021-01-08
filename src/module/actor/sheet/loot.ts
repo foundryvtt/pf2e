@@ -1,12 +1,12 @@
 /* global game, CONFIG */
-import { calculateWealth } from '../../item/treasure';
-import { ActorSheetPF2e } from './base';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { getContainerMap } from '../../item/container';
-import { DistributeCoinsPopup } from './DistributeCoinsPopup';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
-import { LootNPCsPopup } from './loot/LootNPCsPopup';
+import {calculateWealth} from '../../item/treasure';
+import {ActorSheetPF2e} from './base';
+import {calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById} from '../../item/bulk';
+import {getContainerMap} from '../../item/container';
+import {DistributeCoinsPopup} from './DistributeCoinsPopup';
+import {PF2EPhysicalItem} from '../../item/physical';
+import {isPhysicalItem} from '../../item/dataDefinitions';
+import {LootNPCsPopup} from './loot/LootNPCsPopup';
 
 /**
  * @category Actor
@@ -18,7 +18,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
             classes: options.classes.concat(['pf2e', 'actor', 'loot']),
             width: 650,
             height: 680,
-            tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
+            tabs: [{navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory'}],
         });
         return options;
     }
@@ -52,7 +52,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         // Process default values
         const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
         if (isEditable === undefined) {
-            this.actor.setFlag('pf2e', 'editLoot', { value: false });
+            this.actor.setFlag('pf2e', 'editLoot', {value: false});
         }
 
         // Precalculate some data to adapt sheet more easily
@@ -69,12 +69,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
     _prepareItems(actorData) {
         const inventory = {
-            weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
-            armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
-            equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
-            consumable: { label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: [] },
-            treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
-            backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
+            weapon: {label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: []},
+            armor: {label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: []},
+            equipment: {label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: []},
+            consumable: {label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: []},
+            treasure: {label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: []},
+            backpack: {label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: []},
         };
 
         // Iterate through items, allocating to containers
@@ -149,7 +149,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
                 .removeAttr('disabled')
                 .click((ev) => this._lootNPCs(ev));
             html.find('.isLootEditable').change((ev) => {
-                this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
+                this.actor.setFlag('pf2e', 'editLoot', {value: ev.target.checked});
             });
         }
     }

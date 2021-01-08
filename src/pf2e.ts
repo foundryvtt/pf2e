@@ -1,23 +1,23 @@
-import { PF2ECONFIG, ConfigPF2e } from './scripts/config';
-import { rollItemMacro, rollActionMacro } from './scripts/init';
-import { registerSettings } from './module/settings';
-import { loadPF2ETemplates } from './module/templates';
-import { initiativeFormula } from './module/combat';
-import { registerHandlebarsHelpers } from './module/handlebars';
-import { PF2EItem } from './module/item/item';
-import { PF2EActor } from './module/actor/actor';
-import { PF2ENPC } from './module/actor/npc';
-import { PlayerConfigPF2e } from './module/user/playerconfig';
-import { PF2eSystem } from './module/pf2e-system';
-import { registerActors } from './module/register-actors';
-import { registerSheets } from './module/register-sheets';
-import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
-import { PF2Check } from './module/system/rolls';
+import {PF2ECONFIG, ConfigPF2e} from './scripts/config';
+import {rollItemMacro, rollActionMacro} from './scripts/init';
+import {registerSettings} from './module/settings';
+import {loadPF2ETemplates} from './module/templates';
+import {initiativeFormula} from './module/combat';
+import {registerHandlebarsHelpers} from './module/handlebars';
+import {PF2EItem} from './module/item/item';
+import {PF2EActor} from './module/actor/actor';
+import {PF2ENPC} from './module/actor/npc';
+import {PlayerConfigPF2e} from './module/user/playerconfig';
+import {PF2eSystem} from './module/pf2e-system';
+import {registerActors} from './module/register-actors';
+import {registerSheets} from './module/register-sheets';
+import {PF2eCombatTracker} from './module/system/PF2eCombatTracker';
+import {PF2Check} from './module/system/rolls';
 import * as migrations from './module/migration';
-import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from './scripts/actor/statusEffects';
-import { PF2eConditionManager } from './module/conditions';
-import { FamiliarData } from './module/actor/actorDataDefinitions';
+import {DicePF2e} from './scripts/dice';
+import {PF2eStatusEffects} from './scripts/actor/statusEffects';
+import {PF2eConditionManager} from './module/conditions';
+import {FamiliarData} from './module/actor/actorDataDefinitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -26,8 +26,8 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
-import { WorldClockApplication } from './module/system/world-clock-application';
-import { EffectPanel } from './module/system/effect-panel';
+import {WorldClockApplication} from './module/system/world-clock-application';
+import {EffectPanel} from './module/system/effect-panel';
 
 require('./styles/pf2e.scss');
 
@@ -99,11 +99,11 @@ Hooks.once('init', () => {
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
 function _updateMinionActors(master: PF2EActor = undefined) {
     game.actors.entities
-        .filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
+        .filter((actor): actor is PF2EActor & {data: FamiliarData} => ['familiar'].includes(actor.data.type))
         .filter((minion) => !!minion.data.data?.master?.id)
         .filter((minion) => !master || minion.data.data.master.id === master.data._id)
         .filter((minion) => minion.can(game.user, 'update'))
-        .forEach((minion) => minion.update({ 'data.master.updated': new Date().toISOString() }));
+        .forEach((minion) => minion.update({'data.master.updated': new Date().toISOString()}));
 }
 
 Hooks.once('ready', () => {
@@ -227,7 +227,7 @@ Hooks.once('ready', () => {
         if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
             ui.notifications.error(
                 `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                { permanent: true },
+                {permanent: true},
             );
         }
         migrations.migrateWorld();
@@ -255,7 +255,7 @@ Hooks.on('renderChatPopout', (log, html) => PF2EItem.chatListeners(html));
  */
 Hooks.on('getChatLogEntryContext', (html, options) => {
     const canApplyDamage = (li) => {
-        const { messageId } = li.data();
+        const {messageId} = li.data();
         const message = game.messages.get(messageId);
 
         return (
@@ -267,7 +267,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
         );
     };
     const canApplyHealing = (li) => {
-        const { messageId } = li.data();
+        const {messageId} = li.data();
         const message = game.messages.get(messageId);
 
         return (
@@ -279,7 +279,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
         );
     };
     const canApplyInitiative = (li) => {
-        const { messageId } = li.data();
+        const {messageId} = li.data();
         const message = game.messages.get(messageId);
 
         // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
@@ -349,7 +349,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
             name: 'PF2E.RerollMenu.HeroPoint',
             icon: '<i class="fas fa-hospital-symbol"></i>',
             condition: canHeroPointReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
+            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {heroPoint: true}),
         },
         {
             name: 'PF2E.RerollMenu.KeepNew',
@@ -361,13 +361,13 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
             name: 'PF2E.RerollMenu.KeepWorst',
             icon: '<i class="fas fa-dice-one"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
+            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'worst'}),
         },
         {
             name: 'PF2E.RerollMenu.KeepBest',
             icon: '<i class="fas fa-dice-six"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
+            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'best'}),
         },
     );
     return options;
@@ -379,7 +379,7 @@ Hooks.on('preCreateActor', (actor, dir) => {
         const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
         const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
         mergeObject(actor, {
-            'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
+            'token.bar1': {attribute: 'attributes.hp'}, // Default Bar 1 to Wounds
             'token.displayName': nameMode, // Default display name to be on owner hover
             'token.displayBars': barMode, // Default display bars to be on owner hover
             'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile

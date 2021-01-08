@@ -1,6 +1,6 @@
 /* global game */
-import { DamageDieSize } from './system/damage/damage';
-import { AbilityString } from './actor/actorDataDefinitions';
+import {DamageDieSize} from './system/damage/damage';
+import {AbilityString} from './actor/actorDataDefinitions';
 
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
@@ -414,8 +414,8 @@ export class PF2ModifierPredicate {
     not: string[];
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: { all?: string[]; any?: string[]; not?: string[] }, options: string[]): boolean {
-        const { all, any, not } = predicate ?? {};
+    static test(predicate: {all?: string[]; any?: string[]; not?: string[]}, options: string[]): boolean {
+        const {all, any, not} = predicate ?? {};
 
         let active = true;
         if (all && all.length > 0) {
@@ -430,7 +430,7 @@ export class PF2ModifierPredicate {
         return active;
     }
 
-    constructor(param?: { all?: string[]; any?: string[]; not?: string[] }) {
+    constructor(param?: {all?: string[]; any?: string[]; not?: string[]}) {
         this.all = param?.all ?? [];
         this.any = param?.any ?? [];
         this.not = param?.not ?? [];
@@ -474,7 +474,7 @@ export class PF2DamageDice {
     /** A predicate which limits when this damage dice is actually applied. */
     predicate?: PF2ModifierPredicate;
 
-    constructor(param: Partial<PF2DamageDice> & { options?: object }) {
+    constructor(param: Partial<PF2DamageDice> & {options?: object}) {
         if (param.selector) {
             this.selector = param.selector;
         } else {

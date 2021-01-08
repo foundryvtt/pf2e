@@ -5,10 +5,10 @@
  */
 
 // import { monsterAbilities } from './monsterAbilities';
-import { ActorSheetPF2eNPC } from './npc';
-import { DicePF2e } from '../../../scripts/dice';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
-import { PF2EActor } from '../actor';
+import {ActorSheetPF2eNPC} from './npc';
+import {DicePF2e} from '../../../scripts/dice';
+import {PF2Modifier, PF2ModifierType} from '../../modifiers';
+import {PF2EActor} from '../actor';
 
 /**
  * @category Other
@@ -42,9 +42,9 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         sheetData.flags = sheetData.actor.flags;
         if (sheetData.flags.pf2e_updatednpcsheet === undefined) sheetData.flags.pf2e_updatednpcsheet = {};
         if (sheetData.flags.pf2e_updatednpcsheet.editNPC === undefined)
-            sheetData.flags.pf2e_updatednpcsheet.editNPC = { value: false };
+            sheetData.flags.pf2e_updatednpcsheet.editNPC = {value: false};
         if (sheetData.flags.pf2e_updatednpcsheet.allSaveDetail === undefined)
-            sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = { value: '' };
+            sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = {value: ''};
 
         // Elite or Weak adjustment
         sheetData.npcEliteActive = this.npcIsElite() ? ' active' : '';
@@ -115,28 +115,28 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             interaction: {
                 label: 'Interaction Actions',
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: {label: 'Actions', actions: []},
+                    reaction: {label: 'Reactions', actions: []},
+                    free: {label: 'Free Actions', actions: []},
+                    passive: {label: 'Passive Actions', actions: []},
                 },
             },
             defensive: {
                 label: 'Defensive Actions',
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: {label: 'Actions', actions: []},
+                    reaction: {label: 'Reactions', actions: []},
+                    free: {label: 'Free Actions', actions: []},
+                    passive: {label: 'Passive Actions', actions: []},
                 },
             },
             offensive: {
                 label: 'Offensive Actions',
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: {label: 'Actions', actions: []},
+                    reaction: {label: 'Reactions', actions: []},
+                    free: {label: 'Free Actions', actions: []},
+                    passive: {label: 'Passive Actions', actions: []},
                 },
             },
         };
@@ -445,7 +445,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             actor: item.actor,
             data: rollData,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: item.actor }),
+            speaker: ChatMessage.getSpeaker({actor: item.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -477,12 +477,12 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                     name: attackEffectName,
                     type: 'action',
                     data: {
-                        actionType: { value: newAbilityInfo.actionType },
-                        actionCategory: { value: 'offensive' },
-                        source: { value: '' },
-                        description: { value: newAbilityInfo.description },
-                        traits: { value: [] },
-                        actions: { value: newAbilityInfo.actionCost },
+                        actionType: {value: newAbilityInfo.actionType},
+                        actionCategory: {value: 'offensive'},
+                        source: {value: ''},
+                        description: {value: newAbilityInfo.description},
+                        traits: {value: []},
+                        actions: {value: newAbilityInfo.actionCost},
                     },
                 };
 
@@ -496,7 +496,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                     }
                 }
 
-                triggerItem.actor.createOwnedItem(newAction, { displaySheet: false });
+                triggerItem.actor.createOwnedItem(newAction, {displaySheet: false});
             }
         }
     }
@@ -524,7 +524,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         });
 
         html.find('.isNPCEditable').change((ev) => {
-            this.actor.setFlag('pf2e', 'editNPC', { value: ev.target.checked });
+            this.actor.setFlag('pf2e', 'editNPC', {value: ev.target.checked});
         });
 
         // NPC Weapon Rolling

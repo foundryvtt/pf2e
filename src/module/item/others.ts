@@ -1,5 +1,5 @@
-import { PF2EPhysicalItem } from './physical';
-import { PF2EItem } from './item';
+import {PF2EPhysicalItem} from './physical';
+import {PF2EItem} from './item';
 import {
     ActionData,
     AncestryData,

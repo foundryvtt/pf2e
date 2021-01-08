@@ -1,7 +1,7 @@
 /* global getProperty */
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2RuleElement } from '../rule-element';
+import {ItemData} from '../../item/dataDefinitions';
+import {CharacterData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2RuleElement} from '../rule-element';
 
 interface TempHPRuleData {
     value?: number;
@@ -22,7 +22,7 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
     }
 
     onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
-        const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
         if (!value) {
@@ -38,7 +38,7 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
     }
 
     onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
-        const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
         if (getProperty(updatedActorData, 'data.attributes.hp.tempsource') === item._id) {
             mergeObject(actorUpdates, {
                 'data.attributes.hp.temp': 0,

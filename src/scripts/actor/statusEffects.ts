@@ -1,6 +1,6 @@
 /* global canvas, game, getProperty, CONFIG */
-import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
+import {PF2eConditionManager} from '../../module/conditions';
+import {ConditionData} from '../../module/item/dataDefinitions';
 
 declare let PF2e: any;
 
@@ -60,12 +60,12 @@ export class PF2eStatusEffects {
                 cause unexpected side effects with the PF2e system at the moment, but this is expected to improve in future releases. If
                 you are experiencing problems with status effects, we recommend you disable CUB's Enhanced Conditions on the Module
                 settings.</div>`,
-                    { permanent: true },
+                    {permanent: true},
                 );
         } catch {
             ui.notifications.error(
                 'The Combat Utility Belt installation check failed. This may cause unexptected side effects with the PF2e system conditions.',
-                { permanent: true },
+                {permanent: true},
             );
         }
 
@@ -571,7 +571,7 @@ export class PF2eStatusEffects {
 
         const chatData: any = {
             user: game.user._id,
-            speaker: { alias: game.i18n.format('PF2E.StatusEffects', { name: token.name }) },
+            speaker: {alias: game.i18n.format('PF2E.StatusEffects', {name: token.name})},
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
@@ -595,7 +595,7 @@ export class PF2eStatusEffects {
             console.log('PF2e System | The PF2eStatusEffect icons are overruled by a module');
             ui.notifications.error(
                 'Changing this setting has no effect, as the icon types are overruled by a module.',
-                { permanent: true },
+                {permanent: true},
             );
             return;
         }

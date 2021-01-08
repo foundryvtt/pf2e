@@ -1,22 +1,22 @@
-import { ItemData } from '../item/dataDefinitions';
-import { PF2RuleElementData } from './rulesDataDefinitions';
-import { PF2RuleElement } from './rule-element';
-import { PF2FlatModifierRuleElement } from './elements/flatmodifier';
-import { PF2MageArmorRuleElement } from './spells/mage-armor';
-import { PF2FixedProficiencyRuleElement } from './elements/fixed-proficiency';
-import { PF2TempHPRuleElement } from './elements/temphp';
-import { PF2DexterityModifierCapRuleElement } from './elements/dexterity-modifier-cap';
-import { PF2DamageDiceRuleElement } from './elements/damage-dice';
-import { PF2TogglePropertyRuleElement } from './elements/toggle-property';
-import { PF2TokenImageRuleElement } from './elements/token-image';
-import { PF2TokenSizeRuleElement } from './elements/token-size';
-import { PF2BaseSpeedRuleElement } from './elements/base-speed';
-import { PF2SenseRuleElement } from './elements/sense';
-import { PF2TokenEffectIconRuleElement } from './elements/token-effect-icon';
-import { PF2StrikeRuleElement } from './elements/strike';
-import { PF2SetPropertyRuleElement } from './elements/set-property';
+import {ItemData} from '../item/dataDefinitions';
+import {PF2RuleElementData} from './rulesDataDefinitions';
+import {PF2RuleElement} from './rule-element';
+import {PF2FlatModifierRuleElement} from './elements/flatmodifier';
+import {PF2MageArmorRuleElement} from './spells/mage-armor';
+import {PF2FixedProficiencyRuleElement} from './elements/fixed-proficiency';
+import {PF2TempHPRuleElement} from './elements/temphp';
+import {PF2DexterityModifierCapRuleElement} from './elements/dexterity-modifier-cap';
+import {PF2DamageDiceRuleElement} from './elements/damage-dice';
+import {PF2TogglePropertyRuleElement} from './elements/toggle-property';
+import {PF2TokenImageRuleElement} from './elements/token-image';
+import {PF2TokenSizeRuleElement} from './elements/token-size';
+import {PF2BaseSpeedRuleElement} from './elements/base-speed';
+import {PF2SenseRuleElement} from './elements/sense';
+import {PF2TokenEffectIconRuleElement} from './elements/token-effect-icon';
+import {PF2StrikeRuleElement} from './elements/strike';
+import {PF2SetPropertyRuleElement} from './elements/set-property';
 
-export { PF2RuleElement };
+export {PF2RuleElement};
 
 /**
  * @category RuleElement

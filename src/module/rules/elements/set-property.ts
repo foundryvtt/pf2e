@@ -1,7 +1,7 @@
 /* global game, getProperty */
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2RuleElement } from '../rule-element';
+import {ItemData} from '../../item/dataDefinitions';
+import {CharacterData, FamiliarData, NpcData} from '../../actor/actorDataDefinitions';
+import {PF2RuleElement} from '../rule-element';
 
 /**
  * @category RuleElement

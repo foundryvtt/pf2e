@@ -2,14 +2,14 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-import { Spell } from './spell';
-import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
-import { addSign } from '../utils';
-import { ProficiencyModifier } from '../modifiers';
-import { DicePF2e } from '../../scripts/dice';
-import { PF2EActor } from '../actor/actor';
-import { ItemData } from './dataDefinitions';
-import { parseTraits, TraitChatEntry } from '../traits';
+import {Spell} from './spell';
+import {getAttackBonus, getArmorBonus, getStrikingDice} from './runes';
+import {addSign} from '../utils';
+import {ProficiencyModifier} from '../modifiers';
+import {DicePF2e} from '../../scripts/dice';
+import {PF2EActor} from '../actor/actor';
+import {ItemData} from './dataDefinitions';
+import {parseTraits, TraitChatEntry} from '../traits';
 
 class ItemTraits {
     value: Array<string>;
@@ -28,8 +28,8 @@ export class PF2EItem extends Item<PF2EActor> {
             super(data, options);
         } else {
             try {
-                const ready = { pf2e: { ready: true } };
-                return new CONFIG.PF2E.Item.entityClasses[data.type](data, { ...ready, ...options });
+                const ready = {pf2e: {ready: true}};
+                return new CONFIG.PF2E.Item.entityClasses[data.type](data, {...ready, ...options});
             } catch (_error) {
                 super(data, options); // eslint-disable-line constructor-super
                 console.warn(`Unrecognized Item type (${data.type}): falling back to PF2EItem`);
@@ -43,7 +43,7 @@ export class PF2EItem extends Item<PF2EActor> {
     async roll(event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
-        const { token } = this.actor;
+        const {token} = this.actor;
         const nearestItem = event ? event.currentTarget.closest('.item') : {};
         const contextualData = nearestItem.dataset || {};
         const templateData = {
@@ -79,7 +79,7 @@ export class PF2EItem extends Item<PF2EActor> {
         chatData.content = await renderTemplate(template, templateData);
 
         // Create the chat message
-        return ChatMessage.create(chatData, { displaySheet: false });
+        return ChatMessage.create(chatData, {displaySheet: false});
     }
 
     /* -------------------------------------------- */
@@ -466,7 +466,7 @@ export class PF2EItem extends Item<PF2EActor> {
             data: rollData,
             rollType: 'attack-roll',
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event ? event.clientY - 80 : 400,
@@ -601,7 +601,7 @@ export class PF2EItem extends Item<PF2EActor> {
             actor: this.actor,
             data: rollData,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -641,7 +641,7 @@ export class PF2EItem extends Item<PF2EActor> {
             data: rollData,
             rollType: 'attack-roll',
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event ? event.clientY - 80 : 400,
@@ -700,7 +700,7 @@ export class PF2EItem extends Item<PF2EActor> {
             actor: this.actor,
             data: rollData,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -730,7 +730,7 @@ export class PF2EItem extends Item<PF2EActor> {
             parts,
             data: rollData,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -769,7 +769,7 @@ export class PF2EItem extends Item<PF2EActor> {
             data: rollData,
             rollType: 'attack-roll',
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -801,7 +801,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
         const spellLvl = parseInt(cardData.spellLvl, 10);
-        const spell = new Spell(this.data, { castingActor: this.actor, castLevel: spellLvl });
+        const spell = new Spell(this.data, {castingActor: this.actor, castLevel: spellLvl});
         const parts = spell.damageParts;
 
         // Append damage type to title
@@ -820,7 +820,7 @@ export class PF2EItem extends Item<PF2EActor> {
             data: rollData,
             actor: this.actor,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,
@@ -844,13 +844,13 @@ export class PF2EItem extends Item<PF2EActor> {
         const content = `Uses ${this.name}`;
         if (cv) {
             new Roll(cv).toMessage({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                speaker: ChatMessage.getSpeaker({actor: this.actor}),
                 flavor: content,
             });
         } else {
             ChatMessage.create({
                 user: game.user._id,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                speaker: ChatMessage.getSpeaker({actor: this.actor}),
                 content,
             });
         }
@@ -885,33 +885,33 @@ export class PF2EItem extends Item<PF2EActor> {
         }
     }
 
-    calculateMap(): { map2: number; map3: number } {
+    calculateMap(): {map2: number; map3: number} {
         return PF2EItem.calculateMap(this.data);
     }
 
-    static calculateMap(item: ItemData): { map2: number; map3: number } {
+    static calculateMap(item: ItemData): {map2: number; map3: number} {
         if (['melee', 'weapon'].includes(item.type)) {
             // calculate multiple attack penalty tiers
             const agile = (item.data.traits.value || []).includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;
             switch (alternateMAP) {
                 case '1':
-                    return { map2: -1, map3: -2 };
+                    return {map2: -1, map3: -2};
                 case '2':
-                    return { map2: -2, map3: -4 };
+                    return {map2: -2, map3: -4};
                 case '3':
-                    return { map2: -3, map3: -6 };
+                    return {map2: -3, map3: -6};
                 case '4':
-                    return { map2: -4, map3: -8 };
+                    return {map2: -4, map3: -8};
                 case '5':
-                    return { map2: -5, map3: -10 };
+                    return {map2: -5, map3: -10};
                 default: {
-                    if (agile) return { map2: -4, map3: -8 };
-                    else return { map2: -5, map3: -10 };
+                    if (agile) return {map2: -4, map3: -8};
+                    else return {map2: -5, map3: -10};
                 }
             }
         }
-        return { map2: -5, map3: -10 };
+        return {map2: -5, map3: -10};
     }
 
     /* -------------------------------------------- */
@@ -955,7 +955,7 @@ export class PF2EItem extends Item<PF2EActor> {
             const itemId = card.attr('data-item-id');
             const itemData = (actor.getOwnedItem(itemId) || {}).data;
             if (itemData) {
-                const item = new PF2EItem(itemData, { actor });
+                const item = new PF2EItem(itemData, {actor});
                 // Weapon attack
                 if (action === 'weaponAttack') item.rollWeaponAttack(ev);
                 else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);

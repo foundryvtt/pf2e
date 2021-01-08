@@ -1,10 +1,10 @@
 /* global canvas, game, CONFIG */
 
-import { ItemData, ConditionData } from './item/dataDefinitions';
-import { PF2ECondition } from './item/others';
-import { TokenPF2e } from './actor/actor';
-import { PF2Modifier } from './modifiers';
-import { PF2eStatusEffects } from '../scripts/actor/statusEffects';
+import {ItemData, ConditionData} from './item/dataDefinitions';
+import {PF2ECondition} from './item/others';
+import {TokenPF2e} from './actor/actor';
+import {PF2Modifier} from './modifiers';
+import {PF2eStatusEffects} from '../scripts/actor/statusEffects';
 
 /**
  * A helper class to manage PF2e Conditions.
@@ -278,7 +278,7 @@ export class PF2eConditionManager {
             // Condition doesn't have overrider as part of overridenBy list.
 
             const update = updates.has(overridden._id) ? updates.get(overridden._id) : duplicate(overridden);
-            update.data.references.overriddenBy.push({ id: overrider._id, type: 'condition' });
+            update.data.references.overriddenBy.push({id: overrider._id, type: 'condition'});
 
             updates.set(update._id, update);
         }
@@ -287,7 +287,7 @@ export class PF2eConditionManager {
             // Overrider does not have overriden condition in overrides list.
 
             const update = updates.has(overrider._id) ? updates.get(overrider._id) : duplicate(overrider);
-            update.data.references.overrides.push({ id: overridden._id, type: 'condition' });
+            update.data.references.overrides.push({id: overridden._id, type: 'condition'});
 
             updates.set(update._id, update);
         }
@@ -487,12 +487,12 @@ export class PF2eConditionManager {
                 c.data.value.value = linkedConditionName.value;
             }
 
-            c.data.references.parent = { id: item._id, type: 'condition' };
+            c.data.references.parent = {id: item._id, type: 'condition'};
             c.data.sources.hud = condition.data.sources.hud;
 
             const linkedItem = await PF2eConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
 
-            itemUpdate.data.references.children.push({ id: linkedItem._id, type: 'condition' });
+            itemUpdate.data.references.children.push({id: linkedItem._id, type: 'condition'});
             needsItemUpdate = true;
         }
 

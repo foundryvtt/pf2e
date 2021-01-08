@@ -1,5 +1,5 @@
 /* global game */
-import { compendiumBrowser } from './packs/compendium-browser';
+import {compendiumBrowser} from './packs/compendium-browser';
 
 /**
  * @ignore

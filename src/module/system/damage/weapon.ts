@@ -1,16 +1,10 @@
 /* global game, CONFIG */
-import {
-    PF2DamageDice,
-    PF2Modifier,
-    PF2ModifierType,
-    PF2ModifierPredicate,
-    PF2StatisticModifier,
-} from '../../modifiers';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '../../item/runes';
-import { DamageCategory } from './damage';
-import { toNumber } from '../../utils';
-import { WeaponData } from '../../item/dataDefinitions';
-import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
+import {PF2DamageDice, PF2Modifier, PF2ModifierType, PF2ModifierPredicate, PF2StatisticModifier} from '../../modifiers';
+import {getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune} from '../../item/runes';
+import {DamageCategory} from './damage';
+import {toNumber} from '../../utils';
+import {WeaponData} from '../../item/dataDefinitions';
+import {AbilityString, ActorDataPF2e} from '../../actor/actorDataDefinitions';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
@@ -313,7 +307,7 @@ export class PF2WeaponDamage {
                     dieSize,
                     critical: true,
                     enabled: true,
-                    override: { dieSize },
+                    override: {dieSize},
                 });
             });
 
@@ -526,7 +520,7 @@ export class PF2WeaponDamage {
             base: true,
             categories: {
                 [base.category ?? DamageCategory.fromDamageType(base.damageType)]: {
-                    dice: { [base.dieSize]: base.diceNumber },
+                    dice: {[base.dieSize]: base.diceNumber},
                     modifier: base.modifier ?? 0,
                 },
             },
@@ -617,7 +611,7 @@ export class PF2WeaponDamage {
                     const damageType = nm.damageType ?? base.damageType;
                     let pool = dicePool[damageType];
                     if (!pool) {
-                        pool = { categories: {} };
+                        pool = {categories: {}};
                         dicePool[damageType] = pool;
                     }
                     let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
@@ -635,7 +629,7 @@ export class PF2WeaponDamage {
         }
 
         // build formula
-        const partials: { [damageType: string]: { [damageCategory: string]: string } } = {};
+        const partials: {[damageType: string]: {[damageCategory: string]: string}} = {};
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
@@ -668,7 +662,7 @@ export class PF2WeaponDamage {
         count: number,
     ): DamagePool {
         // Ensure that the damage pool for this given damage type exists...
-        pool[damageType] = pool[damageType] || { categories: {} };
+        pool[damageType] = pool[damageType] || {categories: {}};
         const damagePool = pool[damageType];
 
         // Ensure that the damage category sub-pool for this given damage category exists...
@@ -685,7 +679,7 @@ export class PF2WeaponDamage {
     /** Converts a damage pool to a final string formula. */
     public static buildFormula(
         pool: DamagePool,
-        partials: { [damageType: string]: { [damageCategory: string]: string } } = {},
+        partials: {[damageType: string]: {[damageCategory: string]: string}} = {},
     ): string {
         // First collect all of the individual components of the pool into one flattened list...
         const parts: string[] = [];
@@ -760,7 +754,7 @@ export class PF2WeaponDamage {
         if (rule === 'doubledamage') {
             return `2 * (${formula})`;
         } else {
-            const critRoll = new Roll(formula, {}).alter(2, 0, { multiplyNumeric: true });
+            const critRoll = new Roll(formula, {}).alter(2, 0, {multiplyNumeric: true});
             return critRoll.formula;
         }
     }
