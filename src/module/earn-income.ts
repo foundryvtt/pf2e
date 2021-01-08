@@ -103,3 +103,11 @@ export function earnIncome(
 
     return result;
 }
+
+export function multiplyIncome(income: Partial<Coins>, factor: number): Partial<Coins> {
+    const result = {};
+    for (const [key, value] of Object.entries(income)) {
+        result[key] = value * factor;
+    }
+    return result;
+}
