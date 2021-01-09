@@ -1,7 +1,8 @@
 import { PF2RuleElement } from '../rule-element';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
+import { PF2DamageDice } from '../../modifiers';
 
 /**
  * @category RuleElement
@@ -16,11 +17,7 @@ export class PF2DamageDiceRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData, { damageDice }: PF2RuleElementSynthetics) {
         const value = duplicate(this.ruleData);
         delete value.key;
         if (this.ruleData.value) {

@@ -26,6 +26,7 @@ import {
     ActorDataPF2e,
 } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
+import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
 
@@ -344,19 +345,20 @@ export class PF2EActor extends Actor<PF2EItem> {
     protected _prepareCustomModifiers(
         actorData: CharacterData | NpcData | FamiliarData,
         rules: PF2RuleElement[],
-    ): {
-        statisticsModifiers: Record<string, PF2Modifier[]>;
-        damageDice: Record<string, PF2DamageDice[]>;
-        strikes: any[];
-    } {
+    ): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const statisticsModifiers: Record<string, PF2Modifier[]> = {};
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
+        const synthetics: PF2RuleElementSynthetics = {
+            damageDice,
+            statisticsModifiers,
+            strikes,
+        };
 
         rules.forEach((rule) => {
             try {
-                rule.onBeforePrepareData(actorData, statisticsModifiers, damageDice, strikes);
+                rule.onBeforePrepareData(actorData, synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);

@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
 
 /**
  * @category RuleElement
@@ -16,11 +16,7 @@ export class PF2SenseRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData | FamiliarData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const range = super.resolveValue(this.ruleData.range, this.ruleData, this.item, actorData);
         if (this.ruleData.selector && label) {
