@@ -126,7 +126,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev))
         html.find('.item').hover((ev) => this._onItemHovered(ev), (ev) => this._onItemHoverEnds(ev));
 
-
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
         
@@ -139,8 +138,13 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         html.find('.resistances-edit').click((ev) => this._onResistancesEditClicked(ev));
         html.find('.immunities-edit').click((ev) => this._onImmunitiesEditClicked(ev));
         html.find('.action-add').click((ev) => this._onAddActionClicked(ev));
+        html.find('.add-weapon').click((ev) => this._onAddWeaponClicked(ev));
+        html.find('.add-armor').click((ev) => this._onAddArmorClicked(ev));
+        html.find('.add-equipment').click((ev) => this._onAddEquipmentClicked(ev));
+        html.find('.add-consumable').click((ev) => this._onAddConsumableClicked(ev));
+        html.find('.add-treasure').click((ev) => this._onAddTreasureClicked(ev));
     }
-    
+
     // TRAITS MANAGEMENT
     
     _prepareAbilities(abilities) {
@@ -1101,8 +1105,63 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         new TraitSelector5e(this.actor, options).render(true);
     }
     
-    _onAddActionClicked(eventData) {
-        console.log("Clicked add action");
+    private _onAddActionClicked(eventData: Event) {
+
+    }
+
+    private _onAddTreasureClicked(eventData: Event) {
+        const itemType = 'treasure';
+
+        const data: any = {
+            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
+            type: itemType
+        };
+
+        this.actor.createOwnedItem(data);
+    }
+
+    private _onAddConsumableClicked(eventData: Event) {
+        const itemType = 'consumable';
+
+        const data: any = {
+            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
+            type: itemType
+        };
+
+        this.actor.createOwnedItem(data);
+    }
+
+    private _onAddEquipmentClicked(eventData: Event) {
+        const itemType = 'equipment';
+
+        const data: any = {
+            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
+            type: itemType
+        };
+
+        this.actor.createOwnedItem(data);
+    }
+
+    private _onAddArmorClicked(eventData: Event) {
+        const itemType = 'armor';
+
+        const data: any = {
+            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
+            type: itemType
+        };
+
+        this.actor.createOwnedItem(data);
+    }
+
+    private _onAddWeaponClicked(eventData: Event) {
+        const itemType = 'weapon';
+
+        const data: any = {
+            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
+            type: itemType
+        };
+
+        this.actor.createOwnedItem(data);
     }
 
     _onActionClicked(eventData, actionId) {
