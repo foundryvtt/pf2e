@@ -16,7 +16,7 @@ Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
     });
 
     if (target?.actor) {
-        if (!['character', 'npc'].includes(target.actor.data.type)) return true;
+        if (!['character', 'npc', 'loot'].includes(target.actor.data.type)) return true;
 
         if (data.type === 'Item') {
             let itemData: ItemData;
@@ -27,7 +27,8 @@ Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
                     itemData = await pack.getEntry(data.id);
                 }
             } else if (data.data) {
-                return false;
+                itemData = data.data;
+                game.actors.find((actor) => actor._id === data.actorId).deleteEmbeddedEntity('OwnedItem', itemData._id);
             } else {
                 const item = game.items.get(data.id);
                 itemData = item.data;
