@@ -836,7 +836,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         const skill = $(eventData.currentTarget).parent().attr('data-skill');
         const save = $(eventData.currentTarget).parent().attr('data-save');
         const action = $(eventData.currentTarget).parent().parent().attr('data-action');
-        
+        const item = $(eventData.currentTarget).parent().parent().attr('data-item');
+
         if (attribute) {
             console.log(`Clicked rollable attribute ${attribute}`);
             
@@ -857,6 +858,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         }
         else if (action) {
             this._onActionClicked(eventData, action);
+        } else if (item) {
+            this._onItemClicked(eventData, item);
         }
     }
 
@@ -1095,6 +1098,20 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         } else {
             actionDetails.addClass("expanded");
             actionDetails.slideDown(200);
+        }
+    }
+
+    _onItemClicked(eventData, itemId) {
+        console.log(`Clicked item`);
+        const itemDetails = $(eventData.currentTarget).parent().parent().find('.item-detail');
+
+        const isExpanded = itemDetails.hasClass("expanded");
+
+        if (isExpanded) {
+            itemDetails.slideUp(200, () => { itemDetails.removeClass('expanded'); });
+        } else {
+            itemDetails.addClass('expanded');
+            itemDetails.slideDown(200);
         }
     }
 
