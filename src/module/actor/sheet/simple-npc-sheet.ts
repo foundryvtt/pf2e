@@ -506,8 +506,34 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
      * Prepares the equipment list of the actor.
      * @param sheetData Data of the sheet.
      */
-    _getEquipment(sheetData): PF2EItem[] {
-        const equipment: PF2EItem[] = [];
+    _getEquipment(sheetData): any {
+        const equipment = {
+            weapon: {
+                label: game.i18n.localize('PF2E.InventoryWeaponsHeader'),
+                type: 'weapon',
+                items: []
+            },
+            armor: {
+                label: game.i18n.localize('PF2E.InventoryArmorHeader'),
+                type: 'armor',
+                items: []
+            },
+            equipment: {
+                label: game.i18n.localize('PF2E.InventoryEquipmentHeader'),
+                type: 'equipment',
+                items: []
+            },
+            consumable: {
+                label: game.i18n.localize('PF2E.InventoryConsumablesHeader'),
+                type: 'consumable',
+                items: []
+            },
+            treasure: {
+                label: game.i18n.localize('PF2E.InventoryTreasureHeader'),
+                type: 'treasure',
+                items: []
+            }
+        };
 
         for (const i of sheetData.actor.items) {
             const item = i as PF2EItem;
@@ -516,7 +542,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
             if (!this._isEquipment(item)) continue;
 
-            equipment.push(item);
+            console.log(`Adding item ${item.name} to category ${item.type}`);
+            equipment[item.type].items.push(item);
         }
 
         return equipment;

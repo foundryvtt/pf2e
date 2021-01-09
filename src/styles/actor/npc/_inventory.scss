@@ -18,7 +18,7 @@ $unique: #54166e;
 
     .header {
         display: grid;
-        grid-template-columns: 32px 3fr 1fr 1fr;
+        grid-template-columns: 26px 3fr 1fr 1fr;
         column-gap: 6px;
         align-items: center;
         color: $light-text;
@@ -36,7 +36,7 @@ $unique: #54166e;
     }
     
     .body {
-        padding: 6px;
+        padding: 0px;
         border-left: 1px solid $primary-accent;
         border-right: 1px solid $primary-accent;
     
@@ -45,20 +45,38 @@ $unique: #54166e;
             margin: 0px;
             padding: 0px;
             display: grid;
-            row-gap: 4px;
+
+            .category-header {
+                background-color: $secondary-accent;
+                display: flex;
+                flex: 1;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+                padding: 4px 12px;
+                text-align: center;
+                color: white;
+                justify-content: space-between;
+                align-items: baseline;
+
+                h4 {
+                    margin: 0px;
+                }
+            }
     
             .list-item {
+                padding: 0px 6px;
                 .item-header {
                     display: grid;
-                    padding: 0px 6px;
-                    grid-template-columns: 32px 3fr 1fr 1fr;
+                    padding: 0px;
+                    grid-template-columns: 26px 3fr 1fr 1fr;
                     column-gap: 6px;
                     align-items: center;
                 }
             }
-    
+
             .item {
-                padding-bottom: 4px;
+                padding: 2px 6px;
                 border-bottom: 1px solid $faded-color;
     
                 .item-icon {
