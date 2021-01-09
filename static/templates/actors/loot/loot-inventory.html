@@ -6,6 +6,7 @@
             <span>{{value.value}}</span>
         </li>
     {{/each}}
+    {{#if owner}}
     <li class="add-coins-popup" title="{{localize 'PF2E.AddCoinsTitle'}}">
         <button type="button">+</button>
     </li>
@@ -16,7 +17,7 @@
     <li class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
         <button type="button"><i class="fas fa-coins"></i></button>
     </li>
-    {{/if}}
+    {{/if}}{{/if}}
 </ol>
 
 <ol class="inventory-list directory-list inventory-pane">
