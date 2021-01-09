@@ -1244,7 +1244,11 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         if (container[0] !== undefined) {
             containerId = container[0].dataset.itemId?.trim();
         }
-        await PF2EActor.stashOrUnstash(this.actor, async () => this.actor.getOwnedItem(itemData._id), containerId);
+        await PF2EActor.stashOrUnstash(
+            this.actor,
+            async () => this.actor.getOwnedItem(itemData._id) as PF2EPhysicalItem,
+            containerId,
+        );
         return super._onSortItem(event, itemData);
     }
 
@@ -1252,7 +1256,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
      * @private
      */
-    async _onDropItem(event, data) {
+    protected async _onDropItem(event, data) {
         event.preventDefault();
 
         const item = await PF2EItem.fromDropData(data);
@@ -1344,14 +1348,13 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
                 console.log(`Accepted moving ${quantity} items`);
-                PF2EActor.transferItemToActor(sourceActor, targetActor, item, quantity, containerId);
+                sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
             });
 
             popup.render(true);
         } else {
-            PF2EActor.transferItemToActor(sourceActor, targetActor, item, 1, containerId);
+            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
         }
-        return true;
     }
 
     /* -------------------------------------------- */

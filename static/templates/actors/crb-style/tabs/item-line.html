@@ -28,10 +28,10 @@
         {{/if}}
     {{/if}}
     <span class="item-quantity">
-                    <a class="item-decrease-quantity">&ndash;</a>
-                    <span>{{item.data.quantity.value}}</span>
-                    <a class="item-increase-quantity">+</a>
-                </span>
+      <a class="item-decrease-quantity{{#unless owner}} hidden{{/unless}}">&ndash;</a>
+      <span>{{item.data.quantity.value}}</span>
+      <a class="item-increase-quantity{{#unless owner}} hidden{{/unless}}">+</a>
+    </span>
     <span class="item-weight">{{item.totalWeight}}</span>
 
     {{#if owner}}
