@@ -878,24 +878,38 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /**
      * Moves an item to another actor's inventory.
-     * @param {sourceActor} Instance of actor sending the item.
-     * @param {targetActor} Instance of actor to receiving the item.
-     * @param {item}        Instance of the item being transferred.
-     * @param {quantity}    Number of items to move.
-     * @param {containerId} Id of the container that will contain the item.
+     * @param targetActor Instance of actor to be receiving the item.
+     * @param item        Instance of the item being transferred.
+     * @param quantity    Number of items to move.
+     * @param containerId Id of the container that will contain the item.
      */
-    static async transferItemToActor(
-        sourceActor: PF2EActor,
+    async transferItemToActor(
         targetActor: PF2EActor,
         item: PF2EItem,
         quantity: number,
         containerId: string,
     ): Promise<PF2EItem> {
-        if (!isPhysicalItem(item.data)) {
+        if (!(item instanceof PF2EPhysicalItem)) {
             throw Error('Only physical items (with quantities) can be transfered between actors');
         }
 
-        if (!sourceActor.can(game.user, 'update')) {
+        // Loot transfers can be performed by non-owners when a GM is online */
+        const isPlayerLootTransfer = (source: PF2EActor, target: PF2EActor): boolean => {
+            const bothAreOwned = source.hasPerm(game.user, 'owner') && target.hasPerm(game.user, 'owner');
+            const sourceIsOwnedOrLoot = source.hasPerm(game.user, 'owner') || source.data.type === 'loot';
+            const targetIsOwnedOrLoot = target.hasPerm(game.user, 'owner') || target.data.type === 'loot';
+            return !bothAreOwned && sourceIsOwnedOrLoot && targetIsOwnedOrLoot;
+        };
+        if (isPlayerLootTransfer(this, targetActor)) {
+            const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
+            const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
+            const LootTransfer = require('./loot').LootTransfer;
+            const lootTransfer = new LootTransfer(source, target, quantity, containerId);
+            lootTransfer.request();
+            return null;
+        }
+
+        if (!this.can(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
             return null;
         }
@@ -913,38 +927,38 @@ export class PF2EActor extends Actor<PF2EItem> {
         const hasToRemoveFromSource = newItemQuantity < 1;
 
         if (hasToRemoveFromSource) {
-            await sourceActor.deleteEmbeddedEntity('OwnedItem', item._id);
+            await this.deleteEmbeddedEntity('OwnedItem', item._id);
         } else {
             const update = { _id: item._id, 'data.quantity.value': newItemQuantity };
-            await sourceActor.updateEmbeddedEntity('OwnedItem', update);
+            await this.updateEmbeddedEntity('OwnedItem', update);
         }
 
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
 
         const result = await targetActor.createOwnedItem(newItemData);
-        const itemInTargetActor = targetActor.getOwnedItem(result._id);
+        const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
 
         return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }
 
     /**
      * Moves an item into the inventory into or out of a container.
-     * @param {actor}       Actor whose inventory should be edited.
-     * @param {getItem}     Lambda returning the item.
-     * @param {containerId} Id of the container that will contain the item.
+     * @param actor       Actor whose inventory should be edited.
+     * @param getItem     Lambda returning the item.
+     * @param containerId Id of the container that will contain the item.
      */
-    static async stashOrUnstash(
+    static async stashOrUnstash<ItemType extends PF2EPhysicalItem = PF2EPhysicalItem>(
         actor: PF2EActor,
-        getItem: () => Promise<PF2EItem>,
+        getItem: () => Promise<ItemType>,
         containerId: string,
-    ): Promise<PF2EItem> {
+    ): Promise<ItemType> {
         const item = await getItem();
         if (!item) return null;
 
         if (containerId) {
             const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
-            if (item.type !== 'spell' && !isCycle(item._id, containerId, physicalItemsData)) {
+            if (!isCycle(item.id, containerId, physicalItemsData)) {
                 return item.update({
                     'data.containerId.value': containerId,
                     'data.equipped.value': false,
@@ -1213,6 +1227,5 @@ export class PF2EActor extends Actor<PF2EItem> {
 }
 
 export class PF2EHazard extends PF2EActor {}
-export class PF2ELoot extends PF2EActor {}
 export class PF2EVehicle extends PF2EActor {}
 export type TokenPF2e = Token<PF2EActor>;

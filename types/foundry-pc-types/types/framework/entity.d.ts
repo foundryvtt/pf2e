@@ -75,9 +75,9 @@ declare class Entity {
 
     /**
      * Configure the attributes of this Entity class
-     * @property {Entity} baseEntity       The parent class which directly inherits from the Entity interface.
-     * @property {Collection} collection   The Collection instance to which Entities of this type belong.
-     * @property {Array} embeddedEntities  The names of any Embedded Entities within the Entity data structure.
+     * @property baseEntity       The parent class which directly inherits from the Entity interface.
+     * @property collection   The Collection instance to which Entities of this type belong.
+     * @property embeddedEntities  The names of any Embedded Entities within the Entity data structure.
      */
     static get config(): {
         baseEntity: Entity;
@@ -191,6 +191,15 @@ declare class Entity {
      * console.log(actor.folder); // folder;
      */
     get folder(): Folder | null;
+
+    /**
+     * Return an array of User entities who have a certain permission level or greater to the Entity.
+     * @param permission  The permission level or level name to test
+     * @param exact       Tests for an exact permission level match, by default this method tests for
+     *                                      an equal or greater permission level
+     * @returns  An array of User entities who match the permission level
+     */
+    getUsers(permission: string, exact?: boolean): User[];
 
     /**
      * Return the permission level that the current game User has over this Entity.
@@ -588,7 +597,17 @@ declare class Entity {
      */
     toJSON(): this['data'];
 
+    /**
+     * Test whether a given User has permission to perform some action on this Entity
+     * @alias Entity.can
+     */
     static can(user: User, action: string, target: Entity): boolean;
+
+    /**
+     * Activate the Socket event listeners used to receive responses from events which modify database documents
+     * @param socket   The active game socket
+     */
+    static activateSocketListeners(socket: any): unknown;
 
     can(user: User, action: string): boolean;
 }

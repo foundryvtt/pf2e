@@ -40,7 +40,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     settings: ClientSettings;
 
     /** A reference to the open Socket.io connection */
-    socket: WebSocket;
+    socket: SocketIO.Socket;
 
     /** The id of the active game user */
     userId: string;
