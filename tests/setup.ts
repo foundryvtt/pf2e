@@ -209,3 +209,6 @@ function mergeObject(
 
 // @ts-ignore
 global.mergeObject = mergeObject;
+
+// @ts-ignore
+Math.clamped = (value, min, max) => Math.min(Math.max(value, min), max);
