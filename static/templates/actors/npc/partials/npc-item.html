@@ -1,11 +1,11 @@
 <li class="list-item item rollable" data-item="{{item._id}}" data-item-id="{{item._id}}">
     <div class="item-header">
-        <img src="{{ item.img }}" class="item-icon"/>
+        <img src="{{ item.img }}" class="item-icon {{item.data.traits.rarity.value}} "/>
         <div class="item-name rollable">
-            <h4><a>{{ item.name }}</a></h4>
+            <h4 class="{{item.data.traits.rarity.value}}"><a>{{ item.name }}</a></h4>
         </div>
         <div class="item-quantity">{{ item.data.quantity.value }}</div>
-        <div class="items-controls controls expandable">
+        <div class="item-controls controls expandable">
             <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
             {{#if isEditable }}
             <a class="item-edit edit" title="{{ localize 'PF2E.NPC.Edit'}}"><i class="fas fa-edit"></i></a>
