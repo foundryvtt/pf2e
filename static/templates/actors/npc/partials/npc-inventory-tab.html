@@ -1,0 +1,25 @@
+<div class="tab inventory" data-group="primary" data-tab="inventory">
+    <div id="items" class="inventory-section">
+        <div class="header">
+            <div></div>
+            <div class="item-name">{{ localize 'PF2E.NPC.Inventory.Header.NameLabel'}}</div>
+            <div class="item-quantity">{{ localize 'PF2E.NPC.Inventory.Header.QuantityLabel'}}</div>
+            <div>
+            </div>
+        </div>
+        <div class="body">
+            <ul class="items-list">
+            {{#each actor.equipment as |item itemId|}}
+                {{> 'systems/pf2e/templates/actors/npc/partials/npc-item.html' item=item isEditable=../../options.editable }}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="footer">
+            {{# if options.editable }}
+            <div class="items-controls controls" for="data.traits.senses">
+                <a class="item-add add" title="{{ localize 'PF2E.NPC.AddItem' }}" data-type="item" data-action-type="item"><i class="fas fa-plus"></i> {{ localize 'PF2E.NPC.AddItem' }}</a>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

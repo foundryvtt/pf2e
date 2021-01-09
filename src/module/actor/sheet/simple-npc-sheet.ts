@@ -8,6 +8,7 @@ import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 import { NPCSkillsEditor } from "../../system/npc-skills-editor";
 import { PF2ENPC } from "../npc";
 import { identifyCreature } from "../../../module/recall-knowledge";
+import { PF2EItem } from "src/module/item/item";
 
 const isString = require('is-string');
 
@@ -97,6 +98,14 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         sheetData.unspecificLoreDC = identifyCreatureData.unspecificLoreDC.dc;
         sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
         sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
+
+        const equipment = this._getEquipment(sheetData);
+
+        sheetData.actor.equipment = equipment;
+
+        if (equipment.length > 0) {
+            sheetData.hasEquipment = true;
+        }
 
         // Return data for rendering
         return sheetData;
@@ -486,6 +495,40 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         actorData.actions = actions;
         actorData.attacks = attacks;
+    }
+
+    /**
+     * Prepares the equipment list of the actor.
+     * @param sheetData Data of the sheet.
+     */
+    _getEquipment(sheetData): PF2EItem[] {
+        const equipment: PF2EItem[] = [];
+
+        for (const i of sheetData.actor.items) {
+            const item = i as PF2EItem;
+
+            if (item === undefined || item === null) continue;
+
+            if (!this._isEquipment(item)) continue;
+
+            equipment.push(item);
+        }
+
+        return equipment;
+    } 
+
+    /**
+     * Checks if an item is an equipment or not.
+     * @param item Item to check.
+     */
+    private _isEquipment(item: PF2EItem) : boolean {
+        if (item.type === 'weapon') return true;
+        if (item.type === 'armor') return true;
+        if (item.type === 'equipment') return true;
+        if (item.type === 'consumable') return true;
+        if (item.type === 'treasure') return true;
+
+        return false;
     }
 
     /**
