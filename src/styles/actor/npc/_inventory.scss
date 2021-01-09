@@ -1,4 +1,12 @@
 
+.expandable {
+    display: none;
+}
+
+.expanded {
+    display: block;
+}
+
 .inventory-section {
     flex: 1 0 auto;
     padding: 0px;
@@ -36,11 +44,17 @@
             row-gap: 4px;
     
             .list-item {
-                display: grid;
-                padding: 0px 6px;
-                grid-template-columns: 32px 3fr 1fr 1fr;
-                column-gap: 6px;
-                align-items: center;
+                .item-header {
+                    display: grid;
+                    padding: 0px 6px;
+                    grid-template-columns: 32px 3fr 1fr 1fr;
+                    column-gap: 6px;
+                    align-items: center;
+                }
+
+                .item-summary {
+
+                }
             }
     
             .item {
