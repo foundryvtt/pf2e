@@ -1,6 +1,10 @@
 <li class="list-item item rollable" data-item="{{item._id}}" data-item-id="{{item._id}}">
     <div class="item-header">
+        {{#if item.img }}
         <img src="{{ item.img }}" class="item-icon {{item.data.traits.rarity.value}} "/>
+        {{else}}
+        <div></div>
+        {{/if}}
         <div class="item-name rollable">
             <h4 class="{{item.data.traits.rarity.value}}"><a>{{ item.name }}</a></h4>
         </div>
