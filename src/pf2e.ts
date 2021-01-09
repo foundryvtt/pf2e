@@ -28,7 +28,7 @@ import {
 } from './module/modifiers';
 import { WorldClockApplication } from './module/system/world-clock-application';
 import { EffectPanel } from './module/system/effect-panel';
-
+import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 require('./styles/pf2e.scss');
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
@@ -46,6 +46,10 @@ interface GamePF2e extends Game<PF2EActor, PF2EItem> {
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
         rollActionMacro: typeof rollActionMacro;
+    };
+    socket: SocketIO.Socket & {
+        emit(message: Pick<SocketEventCallback, 0>): void;
+        on(event: string, ...message: SocketEventCallback): void;
     };
 }
 
@@ -112,6 +116,7 @@ Hooks.once('ready', () => {
 
     // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
     _updateMinionActors();
+    activateSocketListener();
 });
 
 /* -------------------------------------------- */
@@ -495,8 +500,10 @@ Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
     game[game.system.id].effectPanel?.refresh();
 });
 
-Hooks.on('controlToken', (token, selected) => {
-    game.pf2e.effectPanel.refresh();
+Hooks.on('controlToken', (_token: Token, _selected: boolean) => {
+    if (game.pf2e.effectPanel instanceof EffectPanel) {
+        game.pf2e.effectPanel.refresh();
+    }
 });
 
 // world clock application

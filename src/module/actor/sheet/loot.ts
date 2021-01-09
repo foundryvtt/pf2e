@@ -1,9 +1,11 @@
 /* global game, CONFIG */
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
+import { PF2ELoot } from '../loot';
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
+import { PF2EItem } from '../../item/item';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
 import { LootNPCsPopup } from './loot/LootNPCsPopup';
@@ -12,17 +14,24 @@ import { LootNPCsPopup } from './loot/LootNPCsPopup';
  * @category Actor
  */
 export class ActorSheetPF2eLoot extends ActorSheetPF2e {
+    /** @override */
+    constructor(actor: PF2ELoot, options: { editable: boolean }) {
+        options.editable = true;
+        super(actor, options);
+    }
+
+    /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
-        mergeObject(options, {
+        return mergeObject(options, {
             classes: options.classes.concat(['pf2e', 'actor', 'loot']),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
         });
-        return options;
     }
 
+    /** @override */
     get template() {
         const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
         const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
@@ -34,6 +43,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         return nonEditableSheetPath;
     }
 
+    /** @override */
     getData() {
         const sheetData = super.getData();
 
@@ -122,12 +132,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
     // Events
 
-    _distributeCoins(event) {
+    private _distributeCoins(event) {
         event.preventDefault();
         new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
-    _lootNPCs(event) {
+    private _lootNPCs(event) {
         event.preventDefault();
         if (canvas?.tokens?.controlled?.length > 0) {
             new LootNPCsPopup(this.actor, {}).render(true);
@@ -136,7 +146,29 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         }
     }
 
-    activateListeners(html) {
+    /** @override
+     * Anyone can loot from a loot sheet
+     */
+    protected _canDragStart(_selector: string): boolean {
+        return true;
+    }
+
+    /** @override */
+    protected _canDragDrop(_selector: string): boolean {
+        return true;
+    }
+
+    /** @override */
+    protected async _onDropItem(event: DragEvent, data: { actorId: string }): Promise<PF2EItem> {
+        // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
+        // loot sheet to the same sheet
+        if (this.actor.id === data.actorId && !this.actor.hasPerm(game.user, 'OWNER')) {
+            return null;
+        }
+        return super._onDropItem(event, data);
+    }
+
+    activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
         const shouldListenToEvents = this.options.editable;
@@ -144,11 +176,11 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         if (shouldListenToEvents) {
             html.find('.split-coins')
                 .removeAttr('disabled')
-                .click((ev) => this._distributeCoins(ev));
+                .on('click', (ev) => this._distributeCoins(ev));
             html.find('.loot-npcs')
                 .removeAttr('disabled')
-                .click((ev) => this._lootNPCs(ev));
-            html.find('.isLootEditable').change((ev) => {
+                .on('click', (ev) => this._lootNPCs(ev));
+            html.find('.isLootEditable').on('change', (ev: JQuery.ChangeEvent<HTMLInputElement>) => {
                 this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
             });
         }

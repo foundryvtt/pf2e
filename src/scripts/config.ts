@@ -1,5 +1,6 @@
-import { PF2EActor, PF2EHazard, PF2ELoot, PF2EVehicle } from '../module/actor/actor';
+import { PF2EActor, PF2EHazard, PF2EVehicle } from '../module/actor/actor';
 import { PF2ECharacter } from '../module/actor/character';
+import { PF2ELoot } from '../module/actor/loot';
 import { PF2ENPC } from '../module/actor/npc';
 import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
