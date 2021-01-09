@@ -5,6 +5,7 @@ interface DropCanvasData {
     pack?: string;
     x: number;
     y: number;
+    actorId?: string;
 }
 
 declare class Hooks {
