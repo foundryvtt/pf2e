@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { ItemData } from '../../item/dataDefinitions';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
 
 /**
  * @category RuleElement
@@ -16,11 +16,7 @@ export class PF2BaseSpeedRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData | FamiliarData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (this.ruleData.selector && label && value) {

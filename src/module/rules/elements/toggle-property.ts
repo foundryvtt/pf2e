@@ -1,8 +1,8 @@
 /* global getProperty */
 import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 
 /**
  * @category RuleElement
@@ -17,11 +17,7 @@ export class PF2TogglePropertyRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData, synthetics: PF2RuleElementSynthetics) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (label && this.ruleData.property) {
             (actorData.data as any).toggles.actions.push({

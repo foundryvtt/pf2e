@@ -1,7 +1,7 @@
 /* global game, getProperty */
 import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier } from '../modifiers';
-import { ItemData, WeaponData } from '../item/dataDefinitions';
+import { ItemData } from '../item/dataDefinitions';
+import { PF2RuleElementSynthetics } from './rulesDataDefinitions';
 
 /**
  * @category RuleElement
@@ -11,18 +11,9 @@ export abstract class PF2RuleElement {
 
     onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {}
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData | FamiliarData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-        strikes: WeaponData[],
-    ) {}
+    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
 
-    onAfterPrepareData(
-        actorData: CharacterData | NpcData | FamiliarData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {}
+    onAfterPrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
 
     // helper methods
     getDefaultLabel(ruleData, item): string {

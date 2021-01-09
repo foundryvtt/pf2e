@@ -1,8 +1,9 @@
 import { ItemData } from '../../item/dataDefinitions';
 import { SKILL_EXPANDED } from '../../actor/actor';
 import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier, PF2ModifierType } from '../../modifiers';
+import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 
 const KNOWN_TARGETS = {
     ac: { ability: 'dex', shortform: 'ac' },
@@ -21,11 +22,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const { selector } = this.ruleData;
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector === 'ac') {
@@ -50,11 +47,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         }
     }
 
-    onAfterPrepareData(
-        actorData: CharacterData | NpcData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onAfterPrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const { selector } = this.ruleData;
         const { data } = actorData;
         const skill = SKILL_EXPANDED[selector]?.shortform ?? selector;

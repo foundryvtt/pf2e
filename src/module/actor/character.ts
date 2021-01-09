@@ -56,7 +56,9 @@ export class PF2ECharacter extends PF2EActor {
             ],
         };
 
-        const { statisticsModifiers, damageDice, strikes } = this._prepareCustomModifiers(actorData, rules);
+        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        // Extract as separate variables for easier use in this method.
+        const { damageDice, statisticsModifiers, strikes } = synthetics;
 
         // Update experience percentage from raw experience amounts.
         data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
@@ -751,7 +753,7 @@ export class PF2ECharacter extends PF2EActor {
 
         rules.forEach((rule) => {
             try {
-                rule.onAfterPrepareData(actorData, statisticsModifiers, damageDice);
+                rule.onAfterPrepareData(actorData, synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
