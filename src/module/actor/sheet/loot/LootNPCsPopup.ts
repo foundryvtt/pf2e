@@ -24,7 +24,7 @@ export class LootNPCsPopup extends FormApplication {
     }
 
     async _updateObject(event: Event, formData: any) {
-        const itemData: PhysicalItemData[] = [];
+        const itemData = [];
         const selectionData = typeof formData.selection === 'boolean' ? [formData.selection] : formData.selection;
         for (let i = 0; i < selectionData.length; i++) {
             if (selectionData[i]) {
@@ -43,7 +43,7 @@ export class LootNPCsPopup extends FormApplication {
         }
         if (formData.autoMystify) {
             itemData.map((item) => {
-                if (isMagical(item) || isAlchemical(item)) {
+                if ((isMagical(item) || isAlchemical(item)) && !(item.data.identification?.status === 'unidentified')) {
                     const diff = {
                         'data.identification.status': 'unidentified',
                         'data.identification.identified.name': item.name,
