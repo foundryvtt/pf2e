@@ -123,7 +123,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         html.find('button').click((ev) => this._onButtonClicked(ev));
 
         html.find(".attack").hover((ev) => this._onAttackHovered(ev), (ev) => this._onAttackHoverEnds(ev));
-        html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev));
+        html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev))
+        html.find('.item').hover((ev) => this._onItemHovered(ev), (ev) => this._onItemHoverEnds(ev));
 
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
@@ -942,6 +943,22 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _onActionHoverEnds(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.removeClass("expanded");
+    }
+
+    _onItemHovered(eventData) {
+        const controls = $(eventData.currentTarget).find(".controls");
+
+        if (controls === undefined) return;
+
+        controls.addClass("expanded");
+    }
+
+    _onItemHoverEnds(eventData) {
         const controls = $(eventData.currentTarget).find(".controls");
 
         if (controls === undefined) return;

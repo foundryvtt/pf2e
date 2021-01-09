@@ -1,3 +1,7 @@
+$common: #323232;
+$uncommon: #98513d;
+$rare: #002664;
+$unique: #54166e;
 
 .expandable {
     display: none;
@@ -51,22 +55,38 @@
                     column-gap: 6px;
                     align-items: center;
                 }
-
-                .item-summary {
-
-                }
             }
     
             .item {
+                padding-bottom: 4px;
                 border-bottom: 1px solid $faded-color;
     
                 .item-icon {
-                    width: 32px;
-                    height: 32px;
-                    border: 1px solid $faded-color;
+                    object-fit: cover;
+                    border: 2px solid $faded-color;
                     border-radius: 3px;
                 }
-    
+
+                .common {
+                    border-color: $common;
+                    color: $common;
+                }
+                
+                .uncommon {
+                    border-color: $uncommon;
+                    color: $uncommon;
+                }
+                
+                .rare {
+                    border-color: $rare;
+                    color: $rare;
+                }
+                
+                .unique {
+                    border-color: $unique;
+                    color: $unique;
+                }
+
                 .item-name {
                     h4 {
                         margin: 0px;
@@ -93,5 +113,19 @@
         background-color: $primary-accent;
         color: $light-text;
         border-radius: 0px 0px 3px 3px;
+    }
+}
+
+.items-controls {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding: 4px 12px;
+
+    a {
+        margin: 0px 6px;
     }
 }
