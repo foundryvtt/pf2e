@@ -1,7 +1,8 @@
 import { PF2RuleElement } from '../rule-element';
+import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
-import { PF2DamageDice, PF2Modifier, PF2ModifierPredicate, PF2ModifierType } from '../../modifiers';
+import { PF2Modifier, PF2ModifierPredicate, PF2ModifierType } from '../../modifiers';
 import { PF2EActor } from '../../actor/actor';
 
 /**
@@ -17,11 +18,7 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
         this.item = item;
     }
 
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
-    ) {
+    onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
