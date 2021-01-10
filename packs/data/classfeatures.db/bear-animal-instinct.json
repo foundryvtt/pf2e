@@ -32,24 +32,58 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Rage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ]
-                },
-                "roll-options": [
-                    "ac",
-                    "all"
-                ],
-                "selector": "ac",
-                "type": "rage",
-                "value": -1
+              "key": "PF2E.RuleElement.FlatModifier",
+              "selector": "ac",
+              "value": -1,
+              "type": "rage",
+              "label": "rage",
+              "predicate": {
+                "all": [
+                  "rage"
+                ]
+              },
+              "roll-options": [
+                "ac",
+                "all"
+              ]
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Animal-Instinct-Rage-Agile",
+                "name": "Animal-Instinct-Rage",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "animal-instinct",
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "Animal-Instinct-Rage-Agile",
+                "label": "Rage",
                 "predicate": {
                     "all": [
                         "rage",
@@ -81,6 +115,7 @@
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
+                "name": "Rage",
                 "label": "Rage",
                 "predicate": {
                     "all": [
@@ -113,69 +148,7 @@
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Rage-Agile",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "animal-instinct",
-                        "ranged"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 2
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Rage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "animal-instinct",
-                        "agile"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 6
-                        },
-                        {
-                            "start": 15,
-                            "value": 12
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "Rage-Agile",
                 "label": "Rage",
                 "predicate": {
                     "all": [
@@ -207,43 +180,47 @@
                 }
             },
             {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d10"
-                    }
-                },
-                "group": "brawling",
-                "key": "PF2E.RuleElement.Strike",
-                "label": "Jaws",
-                "range": "melee",
-                "traits": [
-                    "animal-instinct",
-                    "unarmed"
-                ]
+              "category": "unarmed",
+              "damage": {
+                  "base": {
+                      "damageType": "piercing",
+                      "dice": 1,
+                      "die": "d10"
+                  }
+              },
+              "group": "brawling",
+              "key": "PF2E.RuleElement.Strike",
+              "label": "Jaws",
+              "range": "melee",
+              "options": [
+                  "animal-instinct"
+              ],
+              "traits": [
+                  "unarmed"
+              ]
+          },
+          {
+            "category": "unarmed",
+            "damage": {
+                "base": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                }
             },
-            {
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "slashing",
-                        "dice": 1,
-                        "die": "d6"
-                    }
-                },
-                "group": "brawling",
-                "key": "PF2E.RuleElement.Strike",
-                "label": "Claw",
-                "range": "melee",
-                "traits": [
-                    "animal-instinct",
-                    "agile",
-                    "unarmed"
-                ]
-            }
-        ],
+            "group": "brawling",
+            "key": "PF2E.RuleElement.Strike",
+            "label": "Claw",
+            "range": "melee",
+            "options": [
+                "animal-instinct"
+            ],
+            "traits": [
+                "agile",
+                "unarmed"
+            ]
+          }
+          ],
         "source": {
             "value": ""
         },
