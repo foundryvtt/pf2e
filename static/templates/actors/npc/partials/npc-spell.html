@@ -1,4 +1,4 @@
-<li class="item spell" data-item-id="{{spell._id}}">
+<li class="item spell" data-spell="{{spell._id}}" data-item-id="{{spell._id}}">
     <div class="spell-header">
         <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
         <div class="spell-name rollable">
@@ -21,6 +21,15 @@
         </div>
     </div>
     <div class="spell-body">
-
+        <div class="spell-detail expandable">
+            <div class="spell-description">
+                {{{ enrichHTML spell.data.description.value }}}
+            </div>
+            <div class="traits-list">
+                {{#each spell.traits as |trait traitIndex|}}
+                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
+                {{/each}}
+            </div>
+        </div>
     </div>
 </li>
