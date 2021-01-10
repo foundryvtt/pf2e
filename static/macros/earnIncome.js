@@ -55,10 +55,11 @@ function chatTemplate(skillName, earnIncomeResult) {
     <div class="pf2e chat-card">
         <header class="card-header flexrow">
             <img src="systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg" title="Income" width="36" height="36">
-            <h3>Earn Income (${skillName}) LV ${level}</h3>
+            <h3>Earn Income Level ${level}</h3>
         </header>
         <div class="card-content">
             <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess} (DC: ${earnIncomeResult.dc}, Roll: ${earnIncomeResult.roll})</span></p>
+            <p><strong>Skill</strong>: ${skillName}</p>
             <p><strong>Salary per day:</strong> ${payPerDay}</p>
             ${forDays}
         </div>
@@ -176,7 +177,7 @@ function showEarnIncomePopup(actor) {
     } else {
         const skills = getSkills(actor);
         new Dialog({
-            title: 'Eearn Income',
+            title: 'Earn Income',
             content: askSkillPopupTemplate(skills),
             buttons: {
                 no: {
