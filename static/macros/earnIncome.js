@@ -55,7 +55,7 @@ function chatTemplate(skillName, earnIncomeResult) {
     <div class="pf2e chat-card">
         <header class="card-header flexrow">
             <img src="systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg" title="Income" width="36" height="36">
-            <h3>Earn Income (${skillName}) Level ${level}</h3>
+            <h3>Earn Income (${skillName}) LV ${level}</h3>
         </header>
         <div class="card-content">
             <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess} (DC: ${earnIncomeResult.dc}, Roll: ${earnIncomeResult.roll})</span></p>
