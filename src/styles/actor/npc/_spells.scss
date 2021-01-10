@@ -1,0 +1,75 @@
+
+.entries-list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    .spellcasting-entry {
+        display: block;
+        width: 100%;
+        margin: 0px;
+    
+        .header {
+            background-color: $primary-accent;
+            color: $light-text;
+            display: flex;
+            flex: 1 0 auto;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 4px 12px;
+            border-radius: 3px 3px 0px 0px;
+    
+            .values {
+                display: flex;
+                flex: 0;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: baseline;
+    
+                .inline-field {
+                    flex: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-items: baseline;
+    
+                    label {
+                        flex: 1;
+                    }
+        
+                    input {
+                        flex: 1 0 32px;
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 32px;
+                    }
+                }
+            }
+    
+            .name {
+                flex: 1;
+                text-align: center;
+                h4 {
+                    padding: 0px;
+                    margin: 0px;
+                }
+            }
+    
+            .controls {
+                flex: 0;
+            }
+        }
+    
+        .body {
+            border: 1px solid $primary-accent;
+            border-radius: 0px 0px 3px 3px;
+        }
+    }
+}

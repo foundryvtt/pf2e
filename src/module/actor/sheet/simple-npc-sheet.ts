@@ -57,6 +57,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         this._prepareImmunities(actorData);
         this._prepareSaves(actorData);
         this._prepareActions(actorData);
+        this._prepareSpellcasting(actorData);
 
         const isWeak = this._isWeak();
         const isElite = this._isElite();
@@ -500,6 +501,99 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         actorData.actions = actions;
         actorData.attacks = attacks;
+    }
+
+    /**
+     * Prepare spells and spell entries
+     * @param actorData Data of the actor to show in the sheet.
+     */
+    private _prepareSpellcasting(actorData: any) {
+        const tempSpellbook = [];
+        const spellcastingEntriesList = [];
+        const spellbooks: any = [];
+        const spellcastingEntries = [];
+
+        spellbooks.unassigned = {};
+
+        for (const item of actorData.items) {
+            if (item.type === 'spell') {
+                tempSpellbook.push(item);
+            } else if (item.type === 'spellcastingEntry') {
+                spellcastingEntriesList.push(item._id);
+
+                const isPrepared = (item.data.prepared || {}).value === 'prepared';
+                const isRitual = (item.data.tradition || {}).value === 'ritual';
+
+                item.data.prepared = isPrepared;
+                item.data.tradition.ritual = isRitual;
+
+                spellcastingEntries.push(item);
+            }
+        }
+
+        const embeddedEntityUpdate = [];
+
+        // Assign spells as necessary
+        for (const item of tempSpellbook) {
+            const spellType = item.data.time.value;
+
+            // Assign icon based on spell type
+            if (spellType === 'reaction') {
+                item.img = PF2EActor.getActionGraphics(spellType).imageUrl;
+            } else if (spellType === 'free') {
+                item.img = PF2EActor.getActionGraphics(spellType).imageUrl;
+            } else {
+                const actionsCost = parseInt(spellType, 10);
+                item.img = PF2EActor.getActionGraphics('action', actionsCost).imageUrl;
+            }
+
+            // Try to assign spellcasting entry
+            const location = item.data.location.value;
+
+            if (spellcastingEntriesList.includes(location)) {
+                spellbooks[location] = spellbooks[location] || {};
+
+                this._prepareSpell(actorData, spellbooks[location], item);
+            } else if (spellcastingEntriesList.length === 1) {
+                // If only one entry, use that
+
+                spellbooks[location] = spellbooks[location] || {};
+
+                // Update spell to perminantly have the correct ID now
+                embeddedEntityUpdate.push({ _id: item._id, 'data.location.value': spellcastingEntriesList[0] });
+
+                this._prepareSpell(actorData, spellbooks[location], item);
+            } else {
+                // Just prepare it in the orphaned list
+                this._prepareSpell(actorData, spellbooks.unassigned, i);
+            }
+
+            // Update all embedded entities that have an incorrect location.
+            if (embeddedEntityUpdate.length) {
+                console.log(
+                    'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
+                    embeddedEntityUpdate,
+                );
+                this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
+                ui.notifications.info(
+                    'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
+                );
+            }
+
+            if (Object.keys(spellbooks.unassigned).length) {
+                actorData.orphanedSpells = true;
+                actorData.orphanedSpellbook = spellbooks.unassigned;
+            }
+
+            for (const entry of spellcastingEntries) {
+                if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+                    this._preparedSpellSlots(entry, spellbooks[entry._id]);
+                }
+                entry.spellbook = spellbooks[entry._id];
+            }
+
+            actorData.spellcastingEntries = spellcastingEntries;
+        }
     }
 
     /**
