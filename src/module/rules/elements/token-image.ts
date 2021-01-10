@@ -1,13 +1,12 @@
 /* global getProperty */
-import {ItemData} from "../../item/dataDefinitions";
-import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
-import {PF2RuleElement} from "../rule-element";
+import { ItemData } from '../../item/dataDefinitions';
+import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { PF2RuleElement } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2TokenImageRuleElement extends PF2RuleElement {
-
     ruleData: any;
     item: ItemData;
 
@@ -16,15 +15,17 @@ export class PF2TokenImageRuleElement extends PF2RuleElement {
         this.ruleData = ruleData;
         this.item = item;
     }
-    
-    onCreate(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+
+    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value;
 
         if (!value) {
             console.warn('PF2E | Token Image requires a non-empty value field');
         }
 
-        tokens.forEach(token => { token.img = value; });
+        tokens.forEach((token) => {
+            token.img = value;
+        });
         mergeObject(actorUpdates, {
             'token.img': value,
             'flags.pf2e.token.imgsource': item._id,
@@ -35,10 +36,12 @@ export class PF2TokenImageRuleElement extends PF2RuleElement {
             });
         }
     }
-    
-    onDelete(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+
+    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.imgsource') === item._id) {
-            tokens.forEach(token => { token.img = getProperty(actorData, 'flags.pf2e.token.img'); });
+            tokens.forEach((token) => {
+                token.img = getProperty(actorData, 'flags.pf2e.token.img');
+            });
             mergeObject(actorUpdates, {
                 'token.img': getProperty(actorData, 'flags.pf2e.token.img'),
                 'flags.pf2e.token': {},
@@ -48,5 +51,4 @@ export class PF2TokenImageRuleElement extends PF2RuleElement {
             token['-=imgsource'] = null;
         }
     }
-
 }

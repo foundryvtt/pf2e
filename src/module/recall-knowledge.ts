@@ -2,12 +2,12 @@
  * Implementation of Creature Identification
  * https://2e.aonprd.com/Rules.aspx?ID=566
  * https://2e.aonprd.com/Skills.aspx?ID=5&General=true
- * 
- * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations 
+ *
+ * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-import {NpcData} from './actor/actorDataDefinitions';
-import {toNumber} from './utils';
+import { NpcData } from './actor/actorDataDefinitions';
+import { toNumber } from './utils';
 import {
     adjustDC,
     calculateDC,
@@ -18,7 +18,7 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from './dc';
-import {Rarity} from './item/dataDefinitions';
+import { Rarity } from './item/dataDefinitions';
 
 const identifySkills = new Map<string, string[]>();
 identifySkills.set('aberration', ['occ']);
@@ -43,7 +43,7 @@ identifySkills.set('undead', ['rel']);
 export interface RecallKnowledgeDC {
     dc: number;
     progression: number[];
-    start: DCAdjustment
+    start: DCAdjustment;
 }
 
 export interface IdentifyCreatureData {
@@ -64,15 +64,18 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
     };
 }
 
-export function identifyCreature(creature: NpcData, {proficiencyWithoutLevel = false}: DCOptions = {}): IdentifyCreatureData {
+export function identifyCreature(
+    creature: NpcData,
+    { proficiencyWithoutLevel = false }: DCOptions = {},
+): IdentifyCreatureData {
     const rarity = creature.data.traits?.rarity?.value ?? 'common';
     const level = toNumber(creature.data.details.level?.value) ?? 0;
-    const dc = calculateDC(level, {proficiencyWithoutLevel});
+    const dc = calculateDC(level, { proficiencyWithoutLevel });
 
     const traits = creature.data.traits?.traits?.value;
-    const skills = new Set(traits
-        .filter(trait => identifySkills.has(trait))
-        .flatMap(trait => identifySkills.get(trait)));
+    const skills = new Set(
+        traits.filter((trait) => identifySkills.has(trait)).flatMap((trait) => identifySkills.get(trait)),
+    );
 
     return {
         specificLoreDC: toKnowledgeDC(dc, rarity, 'very easy'),

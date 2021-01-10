@@ -1,4 +1,4 @@
-/* global FormApplication */
+/* global game */
 import { addCoins } from '../../item/treasure';
 
 /**
@@ -11,7 +11,7 @@ export class AddCoinsPopup extends FormApplication {
         options.classes = [];
         options.title = 'Add Coins';
         options.template = 'systems/pf2e/templates/actors/add-coins.html';
-        options.width = "auto";
+        options.width = 'auto';
         return options;
     }
 
@@ -28,24 +28,23 @@ export class AddCoinsPopup extends FormApplication {
                 sp: formData.sp,
                 cp: formData.cp,
             },
-            updateItemQuantity: async (item, quantity)  => {
+            updateItemQuantity: async (item, quantity) => {
                 const currentQuantity = item?.data?.quantity?.value || 0;
                 const ownedItem = actor.getOwnedItem(item._id);
-                await ownedItem.update({'data.quantity.value': currentQuantity + quantity});
+                await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
             },
             addFromCompendium: async (compendiumId, quantity) => {
-                const pack = game.packs.find(p => p.collection === 'pf2e.equipment-srd');
+                const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
                 const item = await pack.getEntity(compendiumId);
                 item.data.data.quantity.value = quantity;
                 await actor.createOwnedItem(item.data);
             },
             combineStacks: formData.combineStacks,
-            items: actor.data.items || []
+            items: actor.data.items || [],
         });
     }
 
     getData() {
-        return {
-        }
+        return {};
     }
 }

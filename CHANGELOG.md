@@ -1,5 +1,92 @@
 # Patch Notes:
 
+## Version 1.10.28
+### Bug Fixes
+* (Trollderim) Fix chat labels for traits
+* (stwlam) Fix scrolling in loot sheet when Configure Sheet is toggled on
+* (Mothringer) Fix column misalignment issue for inventory
+* (Mothringer) Remove nonfunctional treasure buttons from non-owned loot actors for player
+* (Mothringer) Fix item duplication when dragging items from sheets to tokens
+* (nikolaj-a) Fix spell chat cards for spells without custom traits
+
+### Content Changes
+* (Evil Slime) Add barbarian rage compendium entries and rule elements:
+    * Rage effect
+    * Animal instincts
+    * Dragon instincts
+    * Fury instinct
+    * Giant instinct
+    * Spirit instincts
+* (nikolaj-a) Add rage action from class feature, including a link to the rage effect
+* (rectulo) Update Dread Marshal Stance description formatting
+* (rectulo) Update Clear the Way feat description formatting
+* (rectulo) Update Druid Dedication description
+* (rectulo) Fix typo in Unbalancing Finisher name
+* (rectulo) Update Mysterious Breath feat description
+* (rectulo) Update Hideous Ululation prerequisites
+* (rectulo) Update Unbalancing Finisher typo on Jirelle level 5
+* (SLATE) Added boons for season 2 00, 03, 08, Age of Ashes, and Menace Under Otari.
+* (SLATE) Added Deckhand background from Menace Under Otari
+* (profounddark) Added monk stance compendium entries, including rule elements and icons:
+    * Cobra stance
+    * Crane stance
+    * Dragon stance
+    * Gorilla stance
+    * Ironblood stance
+    * Mountain stance
+    * Rain of Embers stance
+    * Stumbling stance
+    * Tangled Forest stance
+    * Tiger stance
+    * Wolf stance
+* (TMun) Correct Shroud of Darkness to use saving throw instead of spell attack. Closes #970
+* (TMun) Update Ritualist archetype description with retraining penalty. Closes #975
+* (TMun) Adds ancestries as new ancestry items. The drag and Drop has not yet been implemented, so this is informational for now
+* (TMun) Set alchemist goggle rule elements to item modifier type
+* (TMun) Correct Snarecrafter Archetype Description. Closes #978
+* (TMun) Add Knight reclaimant dedication to shall not falter feat. Closes #983
+* (stwlam) Fix Rest for the Night macro for when Stamina setting has never been toggled
+* (stwlam) Rest Macro: Boost HP recovery if the actor has the Fast Recovery and/or Dream May feats
+* (putty) Add macros to roll stealth/perception for selected tokens
+* (putty) Add earn income macro
+* (Shandyan) Added rules effects for items starting with R and S
+
+### New Features
+* (Mothringer) Update loot actor treasure bar appearance
+* (Mothringer) Add choice of recipients when distributing coins from a loot actor
+* (Mothringer) Add coin changing functionality to distribute coins button
+* (Mothringer) Add loot NPCs button to loot actor
+* (stwlam) Drag/drop item transfers between player-observable loot and player-owned actor sheets
+
+### Core System Improvements
+* (Aramande) Changing modifiers on rolls for disabling fortune and misfortune plus adding secret
+* (putty) Remember previous values from XP popup
+* (putty) Make line breaks in hazard text editors work properly
+* (putty) Implement earn income logic
+* (abrault) Refactor rule element synthetics to simplify signature
+* (Drental) Removed legacy warning about CUB
+* (nikolaj-a) Refine identification data
+* (nikolaj-a) Strike rule element always-on options
+* (nikolaj-a) Support label field on modifiers
+
+### Development Improvements
+* (stwlam) Improve accuracy of duplicate and mergeObject type declarations
+* (stwlam) Catch entity names not matching their corresponding file names when extracting
+* (stwlam) Update compendium entry extract script to strip out AoN span tags and normalize entity links
+* (stwlam) Run all pack JSON files through the extract script to clean them up
+* (stwlam) Prettier pass on type declarations
+* (stwlam) Improve type definitions for better inferencing and constraints
+* (stwlam) Keep PF2E CONFIG data in its own namespace
+* (stwlam) Fill out more pixi subclasses, remove @ts-ignore in src/scripts/init.ts
+* (stwlam) Restore Foundry's self-closing tags after running pack HTML through JQuery's parser
+* (stwlam) Add PF2EPhysicalItem class with convenience methods
+* (stwlam) Update typescript, eslint, and eslint plugins to latest
+* (stwlam) Remove unused Axios dev dependency
+* (fryguy) Enable prettier on all files, and format the entire code-base
+* (Chup) Normalize line endings for .ts and .js files to LF
+* (Mothringer) Add test coverage to calculateTotalWealth in treasure.ts
+
+
 ## Version 1.10.27
 ### Bug Fixes
 * (putty) Fix issue where moving items between actors deleted the original name

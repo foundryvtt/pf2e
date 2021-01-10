@@ -18,7 +18,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. A superb repair kit gives you a +1 item bonus to the check.</span></p>"
+            "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. A superb repair kit gives you a +1 item bonus to the check.</p>"
         },
         "equipped": {
             "label": "Equipped",
@@ -51,6 +51,7 @@
         "negateBulk": {
             "value": "0"
         },
+        "originalName": "",
         "preciousMaterial": {
             "value": ""
         },
@@ -70,6 +71,20 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Repair Kit, Superb (Repair)",
+                "predicate": {
+                    "all": [
+                        "repair"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -96,6 +111,7 @@
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.jpg",
     "name": "Repair Kit (Superb)",

@@ -43,7 +43,6 @@ import './types/apps/sidebar/sidebar';
 import './types/apps/sidebar/sidebartab';
 import './types/apps/sidebar/sidebardirectory';
 
-
 // Core
 
 import './types/core/audio';
@@ -92,9 +91,13 @@ import './types/pixi/helpers/controlicon';
 import './types/pixi/helpers/ray';
 import './types/pixi/helpers/ruler';
 
+import './types/pixi/placeables/measuredtemplate';
 import './types/pixi/placeables/token';
 import './types/pixi/placeables/note';
 import './types/pixi/placeables/tile';
+
+import './types/pixi/grids/basegrid';
+import './types/pixi/grids/squaregrid';
 
 // UI
 

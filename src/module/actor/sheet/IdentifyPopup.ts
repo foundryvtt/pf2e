@@ -1,11 +1,13 @@
-/* global FormApplication */
-import {identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs} from '../../item/identification';
+/* global game */
+import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
+import { PF2EPhysicalItem } from '../../item/physical';
+import { PF2EActor } from '../actor';
 
 /**
  * @category Other
  */
-export class IdentifyItemPopup extends FormApplication {
-    static get defaultOptions() {
+export class IdentifyItemPopup extends FormApplication<PF2EActor> {
+    static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = 'identify-item';
         options.classes = [];
@@ -16,21 +18,24 @@ export class IdentifyItemPopup extends FormApplication {
         return options;
     }
 
-    async _updateObject(event: Event, formData: any) {
-        const {itemId} = this.options;
+    async _updateObject(_event: JQuery.TriggeredEvent, _formData: any): Promise<void> {
+        const { itemId } = this.options;
         const item = this.object.getOwnedItem(itemId);
-        await this.object.updateEmbeddedEntity('OwnedItem', { 
-            _id: itemId, 
-            'data.identified.value': true,
-            name: item.data.data.originalName ?? item.name
-        });
+        if (!(item instanceof PF2EPhysicalItem)) {
+            throw Error(`PF2e | ${item.name} is not a physical item.`);
+        }
+
+        item.setIsIdentified(true);
     }
 
     getData() {
         const item = this.object.getOwnedItem(this.options.itemId);
+        if (!(item instanceof PF2EPhysicalItem)) {
+            throw Error(`PF2e | ${item.name} is not a physical item.`);
+        }
+
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
-        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant')
-            === 'ProficiencyWithoutLevel';
+        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
         const dcs = identifyItem(item.data, {
             proficiencyWithoutLevel,
             notMatchingTraditionModifier,
@@ -39,6 +44,6 @@ export class IdentifyItemPopup extends FormApplication {
             isMagic: dcs instanceof IdentifyMagicDCs,
             isAlchemical: dcs instanceof IdentifyAlchemyDCs,
             dcs,
-        }; 
+        };
     }
 }
