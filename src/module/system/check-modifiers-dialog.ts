@@ -82,12 +82,10 @@ export class CheckModifiersDialog extends Application {
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
-            .map(
-                (m) =>
-                    `<span class="tag tag_secondary">${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${
-                        m.modifier
-                    }</span>`,
-            )
+            .map((m) => {
+                const label = game.i18n.localize(m.label ?? m.name);
+                return `<span class="tag tag_secondary">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
+            })
             .join('');
 
         const optionStyle =

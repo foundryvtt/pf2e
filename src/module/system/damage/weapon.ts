@@ -414,6 +414,7 @@ export class PF2WeaponDamage {
                     .map((m) => duplicate(m))
                     .forEach((m) => {
                         const modifier = new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type);
+                        modifier.label = m.label;
                         if (m.damageType) {
                             modifier.damageType = m.damageType;
                         }
