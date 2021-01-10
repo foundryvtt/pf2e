@@ -969,6 +969,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         const save = $(eventData.currentTarget).parent().attr('data-save');
         const action = $(eventData.currentTarget).parent().parent().attr('data-action');
         const item = $(eventData.currentTarget).parent().parent().attr('data-item');
+        const spell = $(eventData.currentTarget).parent().parent().attr('data-spell');
 
         if (attribute) {
             console.log(`Clicked rollable attribute ${attribute}`);
@@ -992,6 +993,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
             this._onActionClicked(eventData, action);
         } else if (item) {
             this._onItemClicked(eventData, item);
+        } else if (spell) {
+            this._onSpellClicked(eventData, spell);
         }
     }
 
@@ -1305,7 +1308,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _onItemClicked(eventData, itemId) {
-        console.log(`Clicked item`);
         const itemDetails = $(eventData.currentTarget).parent().parent().find('.item-detail');
 
         const isExpanded = itemDetails.hasClass("expanded");
@@ -1315,6 +1317,19 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         } else {
             itemDetails.addClass('expanded');
             itemDetails.slideDown(200);
+        }
+    }
+
+    private _onSpellClicked(eventData: any, spell: string) {
+        const spellDetails = $(eventData.currentTarget).parent().parent().find('.spell-detail');
+
+        const isExpanded = spellDetails.hasClass("expanded");
+
+        if (isExpanded) {
+            spellDetails.slideUp(200, () => { spellDetails.removeClass('expanded'); });
+        } else {
+            spellDetails.addClass('expanded');
+            spellDetails.slideDown(200);
         }
     }
 
