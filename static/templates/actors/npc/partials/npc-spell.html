@@ -1,15 +1,16 @@
 <li class="item spell" data-item-id="{{spell._id}}">
-    {{ log spell }}
     <div class="spell-header">
         <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
         <div class="spell-name rollable">
             <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
         </div>
         <div class="spell-range">
-    
+            {{ spell.data.range.value }}
         </div>
         <div class="spell-components">
-    
+            {{#if spell.data.components.somatic }}<div class="tag">{{ localize 'PF2E.SpellComponentShortS' }}</div>{{/if}}
+            {{#if spell.data.components.verbal }}<div class="tag">{{ localize 'PF2E.SpellComponentShortV' }}</div>{{/if}}
+            {{#if spell.data.components.material }}<div class="tag">{{ localize 'PF2E.SpellComponentShortM' }}</div>{{/if}}
         </div>
         <div class="item-controls spell-controls controls expandable">
             <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
