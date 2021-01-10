@@ -77,9 +77,13 @@ function postToChat(skillName, earnIncomeResult) {
     ChatMessage.create(chatData, {});
 }
 
+function isProficiencyWithoutLevel() {
+    return game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
+}
+
 function calculateIncome(actor, skill, roll, level, days) {
     const dcOptions = {
-        proficiencyWithoutLevel: game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel',
+        proficiencyWithoutLevel: isProficiencyWithoutLevel(),
     };
     const earnIncomeOptions = {
         useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && skill.isLore,
@@ -90,8 +94,9 @@ function calculateIncome(actor, skill, roll, level, days) {
 
 function runEarnIncome(actor, skill, assurance, level, days) {
     if (assurance) {
-        const creatureLevel = actor.data.data.details?.level?.value ?? 1;
-        const proficiencyBonus = creatureLevel + skill.rank * 2;
+        const actorLevel = actor.data.data.details?.level?.value ?? 1;
+        const proficiencyLevel = isProficiencyWithoutLevel() ? 0 : actorLevel;
+        const proficiencyBonus = proficiencyLevel + skill.rank * 2;
         calculateIncome(actor, skill, { dieValue: 10, modifier: proficiencyBonus }, level, days);
     } else {
         const options = actor.getRollOptions(['all', 'skill-check', skill.name]);
