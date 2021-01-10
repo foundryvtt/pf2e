@@ -23,7 +23,12 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector && label && value) {
-            const modifier = new PF2Modifier(label, value, this.ruleData.type ?? PF2ModifierType.UNTYPED);
+            const modifier = new PF2Modifier(
+                this.ruleData.name ?? label,
+                value,
+                this.ruleData.type ?? PF2ModifierType.UNTYPED,
+            );
+            modifier.label = label;
             if (this.ruleData.damageType) {
                 modifier.damageType = this.ruleData.damageType;
             }
