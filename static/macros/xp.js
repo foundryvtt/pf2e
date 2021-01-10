@@ -40,7 +40,7 @@ xpCreatureDifferences.set(2, 80);
 xpCreatureDifferences.set(3, 120);
 xpCreatureDifferences.set(4, 160);
 
-// for some reason Paizo thought it was a good idea to give 
+// for some reason Paizo thought it was a good idea to give
 // simple hazards entirely different and incredibly small xp values
 /** @type {Map<number, number>} */
 const xpSimpleHazardDifferences = new Map();
@@ -135,12 +135,8 @@ function getEncounterRating(challenge, budgets) {
  */
 function getXP(partyLevel, partySize, npcLevels, hazards) {
     const budget = partySize * 20;
-    const creatureChallenge = npcLevels
-        .map(level => getCreatureXP(partyLevel, level))
-        .reduce((a, b) => a + b, 0);
-    const hazardChallenge = hazards
-        .map(hazard => getHazardXp(partyLevel, hazard))
-        .reduce((a, b) => a + b, 0);
+    const creatureChallenge = npcLevels.map((level) => getCreatureXP(partyLevel, level)).reduce((a, b) => a + b, 0);
+    const hazardChallenge = hazards.map((hazard) => getHazardXp(partyLevel, hazard)).reduce((a, b) => a + b, 0);
     const challenge = creatureChallenge + hazardChallenge;
     const encounterBudgets = {
         trivial: budget * 0.5,
@@ -172,8 +168,8 @@ function getXP(partyLevel, partySize, npcLevels, hazards) {
  */
 function getHazardLevels(actors, type) {
     return actors
-        .filter(a => a.data.type === type)
-        .map(a => {
+        .filter((a) => a.data.type === type)
+        .map((a) => {
             return {
                 level: parseInt(a.data.data.details.level ?? 1, 10),
                 isComplex: a.data.data.details.isComplex ?? false,
@@ -191,9 +187,7 @@ function getHazardLevels(actors, type) {
  * @returns {Array<number>}
  */
 function getLevels(actors, type) {
-    return actors
-        .filter(a => a.data.type === type)
-        .map(a => parseInt(a.data.data.details.level.value ?? '1', 10));
+    return actors.filter((a) => a.data.type === type).map((a) => parseInt(a.data.data.details.level.value ?? '1', 10));
 }
 
 /**
@@ -243,8 +237,8 @@ function dialogTemplate(xp) {
 }
 
 const askLevelPopupTemplate = () => {
-    const partySize = localStorage.getItem('xpMacroPartySize') ?? 4;
-    const partyLevel = localStorage.getItem('xpMacroPartyLevel') ?? 1;
+    const partySize = parseInt(localStorage.getItem('xpMacroPartySize') ?? 4, 10);
+    const partyLevel = parseInt(localStorage.getItem('xpMacroPartyLevel') ?? 1, 10);
     return `
     <form>
     <div class="form-group">
@@ -297,16 +291,15 @@ function askPartyLevelAndSize(npcLevels, hazardLevels) {
                     localStorage.setItem('xpMacroPartySize', partySize);
                     localStorage.setItem('xpMacroPartyLevel', partyLevel);
                     showXP(partyLevel, partySize, npcLevels, hazardLevels);
-                }
+                },
             },
         },
-        default: 'yes'
+        default: 'yes',
     }).render(true);
 }
 
 function main() {
-    const actors = canvas.tokens.controlled
-        .map(a => a.actor);
+    const actors = canvas.tokens.controlled.map((a) => a.actor);
 
     const npcLevels = getLevels(actors, 'npc');
     const pcLevels = getLevels(actors, 'character');
