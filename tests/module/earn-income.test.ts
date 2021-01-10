@@ -16,6 +16,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_FAILURE,
             daysSpentWorking: 1,
             level: 1,
+            roll: 14,
+            dc: 15,
         });
     });
 
@@ -44,6 +46,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
             daysSpentWorking: 1,
             level: 1,
+            roll: 14,
+            dc: 15,
         });
     });
 
@@ -72,6 +76,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
             daysSpentWorking: 1,
             level: 1,
+            roll: 14,
+            dc: 15,
         });
     });
 
@@ -88,6 +94,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
             daysSpentWorking: 1,
             level: 1,
+            roll: 14,
+            dc: 15,
         });
     });
 
@@ -104,6 +112,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.SUCCESS,
             daysSpentWorking: 1,
             level: 1,
+            roll: 15,
+            dc: 15,
         });
     });
 
@@ -120,6 +130,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.SUCCESS,
             daysSpentWorking: 5,
             level: 1,
+            roll: 15,
+            dc: 15,
         });
     });
 
@@ -136,6 +148,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_SUCCESS,
             daysSpentWorking: 1,
             level: 20,
+            roll: 40,
+            dc: 40,
         });
     });
 
@@ -164,6 +178,8 @@ describe('earn income', () => {
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_SUCCESS,
             daysSpentWorking: 1,
             level: 20,
+            roll: 20,
+            dc: 20,
         });
     });
 });

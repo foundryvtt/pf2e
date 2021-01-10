@@ -65,6 +65,8 @@ export interface EarnIncomeResult {
     degreeOfSuccess: DegreeOfSuccess;
     daysSpentWorking: number;
     level: number;
+    dc: number;
+    roll: number;
 }
 
 export interface PerDayEarnIncomeResult {
@@ -146,5 +148,7 @@ export function earnIncome(
         degreeOfSuccess: result.degreeOfSuccess,
         daysSpentWorking: days,
         level,
+        dc,
+        roll: roll.modifier + roll.dieValue,
     };
 }

@@ -58,7 +58,7 @@ function chatTemplate(skillName, earnIncomeResult) {
             <h3>Earn Income (${skillName}) Level ${level}</h3>
         </header>
         <div class="card-content">
-            <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess}</span></p>
+            <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess} (DC: ${earnIncomeResult.dc}, Roll: ${earnIncomeResult.roll})</span></p>
             <p><strong>Salary per day:</strong> ${payPerDay}</p>
             ${forDays}
         </div>
@@ -76,40 +76,40 @@ function postToChat(skillName, earnIncomeResult) {
     ChatMessage.create(chatData, {});
 }
 
-function runEarnIncome(actor, skill, level, days) {
-    const options = actor.getRollOptions(['all', 'skill-check', skill.name]);
-    options.push('earn-income');
-    PF2Check.roll(
-        new PF2CheckModifier(
-            '<span style="font-family: Pathfinder2eActions">A</span> Earn Income',
-            actor.data.data.skills[skill.acronym],
-            [],
-        ),
-        { actor, type: 'skill-check', options },
-        event,
-        (roll) => {
-            const dcOptions = {
-                proficiencyWithoutLevel: game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel',
-            };
-            const earnIncomeOptions = {
-                useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && skill.isLore,
-            };
-            const dieValue = roll.results[0];
-            const modifier = roll._total - dieValue;
-            const income = game.pf2e.actions.earnIncome(
-                level,
-                days,
-                {
-                    dieValue,
-                    modifier,
-                },
-                skill.proficiency,
-                earnIncomeOptions,
-                dcOptions,
-            );
-            postToChat(skill.name, income);
-        },
-    );
+function calculateIncome(actor, skill, roll, level, days) {
+    const dcOptions = {
+        proficiencyWithoutLevel: game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel',
+    };
+    const earnIncomeOptions = {
+        useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && skill.isLore,
+    };
+    const income = game.pf2e.actions.earnIncome(level, days, roll, skill.proficiency, earnIncomeOptions, dcOptions);
+    postToChat(skill.name, income);
+}
+
+function runEarnIncome(actor, skill, assurance, level, days) {
+    if (assurance) {
+        const creatureLevel = actor.data.data.details?.level?.value ?? 1;
+        const proficiencyBonus = creatureLevel + skill.rank * 2;
+        calculateIncome(actor, skill, { dieValue: 10, modifier: proficiencyBonus }, level, days);
+    } else {
+        const options = actor.getRollOptions(['all', 'skill-check', skill.name]);
+        options.push('earn-income');
+        PF2Check.roll(
+            new PF2CheckModifier(
+                '<span style="font-family: Pathfinder2eActions">A</span> Earn Income',
+                actor.data.data.skills[skill.acronym],
+                [],
+            ),
+            { actor, type: 'skill-check', options },
+            event,
+            (roll) => {
+                const dieValue = roll.results[0];
+                const modifier = roll._total - dieValue;
+                calculateIncome(actor, skill, { dieValue, modifier }, level, days);
+            },
+        );
+    }
 }
 
 function getSkills(actor) {
@@ -121,6 +121,7 @@ function getSkills(actor) {
                     name: capitalize(value.name),
                     isLore: value.lore === true,
                     proficiency: rankToProficiency(value.rank),
+                    rank: value.rank,
                 };
             })
             // earn income is a trained action
@@ -132,6 +133,7 @@ function askSkillPopupTemplate(skills) {
     const level = parseInt(localStorage.getItem('earnIncomeLevel') ?? 0, 10);
     const days = parseInt(localStorage.getItem('earnIncomeDays') ?? 1, 10);
     const skillAcronym = localStorage.getItem('earnIncomeSkillAcronym');
+    const assurance = localStorage.getItem('earnIncomeAssurance') === 'true';
     return `
     <form>
     <div class="form-group">
@@ -146,6 +148,10 @@ function askSkillPopupTemplate(skills) {
                 )
                 .join('')}
         </select>
+    </div>
+    <div class="form-group">
+        <label>Assurance</label>
+        <input name="assurance" type="checkbox" ${assurance ? 'checked' : ''}>
     </div>
     <div class="form-group">
         <label>Level</label>
@@ -184,11 +190,13 @@ function showEarnIncomePopup(actor) {
                         const level = parseInt($html[0].querySelector('[name="level"]').value, 10) ?? 1;
                         const days = parseInt($html[0].querySelector('[name="days"]').value, 10) ?? 1;
                         const skillAcronym = $html[0].querySelector('[name="skillAcronym"]').value;
+                        const assurance = $html[0].querySelector('[name="assurance"]').checked;
                         const skill = skills.find((skill) => skill.acronym === skillAcronym);
                         localStorage.setItem('earnIncomeLevel', level);
                         localStorage.setItem('earnIncomeDays', days);
                         localStorage.setItem('earnIncomeSkillAcronym', skillAcronym);
-                        runEarnIncome(actor, skill, level, days);
+                        localStorage.setItem('earnIncomeAssurance', assurance);
+                        runEarnIncome(actor, skill, assurance, level, days);
                     },
                 },
             },
