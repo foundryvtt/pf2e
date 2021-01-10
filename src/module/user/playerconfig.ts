@@ -1,4 +1,4 @@
-/* global FormApplication, getProperty */
+/* global game, getProperty */
 /**
  * Extend the base PlayerConfig class to implement additional logic specialized for PF2e.
  */
@@ -22,7 +22,7 @@ export class PlayerConfigPF2e extends FormApplication {
     static get DEFAULTS() {
         return {
             color: 'blue',
-            quickD20roll: true
+            quickD20roll: true,
         };
     }
 
@@ -34,8 +34,8 @@ export class PlayerConfigPF2e extends FormApplication {
         // Always set DEFAULT SETTINGS to the flags if they don't exist. This will prevent the need to always validate if these settings have been set.
         if (settings === undefined) {
             console.log('PF2e System | New player without saved PF2e Player Settings | Setting defaults');
-            settings = PlayerConfigPF2e.DEFAULTS
-            game.user.update({flags: { PF2e:{ settings } } })
+            settings = PlayerConfigPF2e.DEFAULTS;
+            game.user.update({ flags: { PF2e: { settings } } });
         } else {
             for (const defaultSetting in PlayerConfigPF2e.DEFAULTS) {
                 if (settings[defaultSetting] === undefined) {
@@ -45,10 +45,9 @@ export class PlayerConfigPF2e extends FormApplication {
             }
             if (newDefaults) {
                 console.log('PF2e System | Saving new default settings to the PF2e Player Settings');
-                game.user.update({flags: { PF2e:{ settings } } })
+                game.user.update({ flags: { PF2e: { settings } } });
             }
         }
-
     }
 
     static activateColorScheme() {
@@ -61,7 +60,7 @@ export class PlayerConfigPF2e extends FormApplication {
     }
 
     static hookOnRenderSettings() {
-        Hooks.on("renderSettings", (app, html) => {
+        Hooks.on('renderSettings', (app, html) => {
             console.log('PF2e System | Player Config hooked on settings tab');
             PlayerConfigPF2e._createSidebarButton(html);
         });
@@ -76,48 +75,50 @@ export class PlayerConfigPF2e extends FormApplication {
         const configButton = $(
             `<button id="pf2e-player-config" data-action="pf2e-player-config">
                 <i class="fas fa-cogs"></i> ${PlayerConfigPF2e.defaultOptions.title}
-            </button>`
+            </button>`,
         );
 
         // 0.6.6 Refactored the sidebar. Try to find the button for either location
         const setupButton = html.find('.game-system, #settings-game').first();
         setupButton.prepend(configButton);
 
-        configButton.click(ev => {
+        configButton.click((ev) => {
             new PlayerConfigPF2e().render(true);
         });
     }
-    
+
     static get defaultOptions() {
         console.log('PF2e System | Player Config retrieving default options');
         return mergeObject(super.defaultOptions, {
-            id: "pf2e-player-config-panel",
-            title: "PF2e Player Settings",
-            template: "systems/pf2e/templates/user/player-config.html",
-            classes: ["sheet"],
+            id: 'pf2e-player-config-panel',
+            title: 'PF2e Player Settings',
+            template: 'systems/pf2e/templates/user/player-config.html',
+            classes: ['sheet'],
             width: 500,
-            height: "auto",
-            resizable: true
+            height: 'auto',
+            resizable: true,
         });
     }
 
     /**
      * Take the new settings and write it back to game.user, overwriting existing
-     * @param {Object} event 
-     * @param {Object} formdata 
+     * @param {Object} event
+     * @param {Object} formdata
      */
     async _updateObject(event, formdata) {
         console.log('PF2e System | Player Config updating settings');
         PlayerConfigPF2e.highlightDataUri = formdata.highlightDataUri ?? false;
         this.addRemoveHighlight(PlayerConfigPF2e.highlightDataUri);
-        game.user.update({flags: { PF2e:{ settings:formdata } } });
-        (<HTMLLinkElement>document.getElementById('pf2e-color-scheme')).href = `systems/pf2e/styles/user/color-scheme-${formdata.color}.css`;
+        game.user.update({ flags: { PF2e: { settings: formdata } } });
+        (<HTMLLinkElement>(
+            document.getElementById('pf2e-color-scheme')
+        )).href = `systems/pf2e/styles/user/color-scheme-${formdata.color}.css`;
     }
 
     addRemoveHighlight(add: boolean) {
         if (add) {
             if (!$('style.pf2e-data-highlight').length) {
-                $('<style></style>', {'class': 'pf2e-data-highlight'})
+                $('<style></style>', { class: 'pf2e-data-highlight' })
                     .text('[src^="data:"], [style*="data:"] { border: 3px solid red !important; }')
                     .appendTo('head');
             }
@@ -129,7 +130,7 @@ export class PlayerConfigPF2e extends FormApplication {
     activateListeners(html) {
         console.log('PF2e System | Player Config activating listeners');
         super.activateListeners(html);
-        
+
         // not currently needed
     }
 
@@ -140,5 +141,4 @@ export class PlayerConfigPF2e extends FormApplication {
             highlightDataUri: PlayerConfigPF2e.highlightDataUri,
         });
     }
-
 }

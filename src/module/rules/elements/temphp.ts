@@ -1,7 +1,7 @@
 /* global getProperty */
-import {ItemData} from "../../item/dataDefinitions";
-import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
-import {PF2RuleElement} from "../rule-element";
+import { ItemData } from '../../item/dataDefinitions';
+import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { PF2RuleElement } from '../rule-element';
 
 interface TempHPRuleData {
     value?: number;
@@ -12,7 +12,6 @@ interface TempHPRuleData {
  * @category RuleElement
  */
 export class PF2TempHPRuleElement extends PF2RuleElement {
-
     ruleData: TempHPRuleData;
     item: ItemData;
 
@@ -21,9 +20,9 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
         this.ruleData = <TempHPRuleData>ruleData;
         this.item = item;
     }
-    
-    onCreate(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any) {
-        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
+
+    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
+        const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
         if (!value) {
@@ -37,9 +36,9 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
             });
         }
     }
-    
-    onDelete(actorData: CharacterData|NpcData, item: ItemData, actorUpdates: any) {
-        const updatedActorData = mergeObject(actorData, actorUpdates, {inplace: false});
+
+    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
+        const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         if (getProperty(updatedActorData, 'data.attributes.hp.tempsource') === item._id) {
             mergeObject(actorUpdates, {
                 'data.attributes.hp.temp': 0,
@@ -47,5 +46,4 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
             getProperty(actorUpdates, 'data.attributes.hp')['-=tempsource'] = null;
         }
     }
-
 }

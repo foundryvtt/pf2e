@@ -10,40 +10,40 @@
  * ui.notifications.info("This is a 4th message which will not be shown until the first info message is done");
  */
 declare class Notifications extends Application {
-	/** Submitted notifications which are queued for display */
-	queue: any[];
+    /** Submitted notifications which are queued for display */
+    queue: any[];
 
-	/** Notifications which are currently displayed */
-	active: any[];
+    /** Notifications which are currently displayed */
+    active: any[];
 
-	constructor(options: ApplicationOptions);
+    constructor(options: ApplicationOptions);
 
-	/**
-	 * Push a new notification into the queue
-	 * @param message	The content of the notification message
-	 * @param type		The type of notification, currently "info", "warning", and "error" are supported
- 	 * @param {Object} options    Notification options passed to the notify function
-	 */
-	notify(message: string, type: 'info' | 'warning' | 'error', options?: object): void;
-
-	/**
-	 * Display a notification with the "info" type
-	 * @param message	The content of the notification message
+    /**
+     * Push a new notification into the queue
+     * @param message	The content of the notification message
+     * @param type		The type of notification, currently "info", "warning", and "error" are supported
      * @param {Object} options    Notification options passed to the notify function
-	 */
-	info(message: string, options?: object): void;
+     */
+    notify(message: string, type: 'info' | 'warning' | 'error', options?: object): void;
 
-	/**
-	 * Display a notification with the "warning" type
-	 * @param message	The content of the notification message
+    /**
+     * Display a notification with the "info" type
+     * @param message	The content of the notification message
      * @param {Object} options    Notification options passed to the notify function
-	 */
-	warn(message: string, options?: object): void;
+     */
+    info(message: string, options?: object): void;
 
-	/**
-	 * Display a notification with the "error" type
-	 * @param message	The content of the notification message
+    /**
+     * Display a notification with the "warning" type
+     * @param message	The content of the notification message
      * @param {Object} options    Notification options passed to the notify function
-	 */
-	error(message: string, options?: object): void;
+     */
+    warn(message: string, options?: object): void;
+
+    /**
+     * Display a notification with the "error" type
+     * @param message	The content of the notification message
+     * @param {Object} options    Notification options passed to the notify function
+     */
+    error(message: string, options?: object): void;
 }

@@ -1,0 +1,153 @@
+.pf2e.actor.loot {
+    .loot-distribution {
+        @include button;
+        width: calc(100% - 6px);
+        background-color: var(--tertiary);
+    }
+
+    .currency {
+        padding: 2px;
+        @include button;
+        background-color: var(--sub);
+        margin: 0 0 8px;
+        height: 30px;
+
+        .denomination {
+            width: 100%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            background-color: transparent;
+            border-right: 1px solid rgba(white, 0.1);
+            border-left: 1px solid rgba(black, 0.2);
+            text-shadow: 0 0 3px rgba(black, 0.75);
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+                margin-right: 8px;
+            }
+
+            label {
+                color: #ffe8d1;
+                text-shadow: 1px 1px 1px rgba(white, 0.2), -1px -1px 1px rgba(black, 0.2);
+                @include micro;
+            }
+
+            span {
+                padding-left: 8px;
+                padding-right: 12px;
+            }
+
+            &.pp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/platinum-pieces.jpg') no-repeat;
+                }
+            }
+            &.gp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/gold-pieces.jpg') no-repeat;
+                }
+            }
+            &.sp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/silver-pieces.jpg') no-repeat;
+                }
+            }
+            &.cp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/copper-pieces.jpg') no-repeat;
+                }
+            }
+
+            .currency-image {
+                height: 24px;
+                width: 24px;
+                @include gold-border;
+                background-size: cover !important;
+                flex: none;
+            }
+        }
+
+        .add-coins-popup,
+        .remove-coins-popup,
+        .sell-all-treasure {
+            height: 100%;
+            button {
+                @include flex-center;
+                @include p-reset;
+                line-height: 1;
+                color: rgba(black, 0.75);
+                background-color: var(--tertiary);
+                border: none;
+                padding: 3px 8px;
+                margin-top: 1px;
+                border-radius: 1px;
+                box-shadow: 0 0 0 1px rgba(black, 0.25), inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+
+                &:hover {
+                    background-color: var(--primary);
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .add-coins-popup {
+            margin: 0 1px 0px 5px;
+            button {
+                font-size: 15px;
+                font-weight: 600;
+                padding: 3px 8px 4px;
+            }
+        }
+
+        .remove-coins-popup {
+            margin: 0 1px 0px 5px;
+            button {
+                font-size: 15px;
+                font-weight: 600;
+                padding: 3px 8px 4px;
+            }
+        }
+
+        .sell-all-treasure {
+            margin: 0 1px 0px 5px;
+            button {
+                font-size: 11px;
+                padding: 5px 6px 6px 10px;
+            }
+        }
+    }
+
+    /* Added to DOM when "Configure Sheet?" is toggled on */
+    div.sheet-content {
+        height: calc(100% - 48px);
+    }
+}
+
+.loot-actor-popup {
+    .confirm-button {
+        @include button;
+        width: calc(100% - 6px);
+        background-color: var(--tertiary);
+    }
+
+    .checkboxes label {
+        display: block;
+        padding-right: 10px;
+        padding-left: 22px;
+        text-indent: -22px;
+    }
+    .checkboxes input {
+        vertical-align: middle;
+    }
+    .checkboxes label span {
+        vertical-align: middle;
+    }
+}

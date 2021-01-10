@@ -4,11 +4,7 @@
  * @param type		The type of
  * @param filename	The filename of the resulting download
  */
-declare function saveDataToFile(
-	data: string,
-	type: string,
-	filename: string
-): void;
+declare function saveDataToFile(data: string, type: string, filename: string): void;
 
 /**
  * Read text data from a user provided File object
@@ -18,18 +14,11 @@ declare function saveDataToFile(
 declare function readTextFromFile(file: File): Promise<string>;
 
 /**
- * Duplicate, since it uses serialization, does interesting things with system types
- * like actors and items; we should record this in our type.
- */
-declare type DuplicateResult<T> = T extends SystemActorType ? SystemActorDataType
-	: T extends SystemItemType ? SystemItemDataType
-	: T;
-
-/**
  * A cheap data duplication trick, surprisingly relatively performant
- * @param original	Some sort of data
+ * @param original   Some sort of data
  */
-declare function duplicate<T>(original: T): DuplicateResult<T>;
+declare function duplicate<T extends Entity>(original: T): T['data'];
+declare function duplicate<T>(original: T): T;
 
 /**
  * Learn the named type of a token - extending the functionality of typeof to recognize some core Object types
@@ -55,24 +44,24 @@ declare function getType(token: any): string;
  *
  * @returns				The original source object including updated, inserted, or overwritten records
  */
-declare function mergeObject<T>(
-	original: T,
-	other?: T,
-	{
-		insertKeys,
-		insertValues,
-		overwrite,
-		inplace,
-		enforceTypes,
-	}?: {
-		insertKeys?: boolean;
-		insertValues?: boolean;
-		overwrite?: boolean;
-		inplace?: boolean;
-		enforceTypes?: boolean;
-	},
-	_d?: number
-): T;
+declare function mergeObject<T, U = T>(
+    original: T,
+    other?: U,
+    {
+        insertKeys,
+        insertValues,
+        overwrite,
+        inplace,
+        enforceTypes,
+    }?: {
+        insertKeys?: boolean;
+        insertValues?: boolean;
+        overwrite?: boolean;
+        inplace?: boolean;
+        enforceTypes?: boolean;
+    },
+    _d?: number,
+): T & U;
 
 /**
  * A temporary shim to invert an object, flipping keys and values
@@ -97,10 +86,10 @@ declare function invertObject(obj: object): object;
  * filterObject(source, template, {templateValues: true}); // {foo: {number: 0, name: "Mit"}};
  */
 declare function filterObject(
-	source: object,
-	template: object,
-	keepSpecial?: boolean,
-	templateValues?: boolean
+    source: object,
+    template: object,
+    keepSpecial?: boolean,
+    templateValues?: boolean,
 ): object;
 
 /**
@@ -251,10 +240,7 @@ declare function colorStringToHex(color: string): number;
  * @param v1
  * @return
  */
-declare function isNewerVersion(
-	v1: number | string,
-	v0: number | string
-): boolean;
+declare function isNewerVersion(v1: number | string, v0: number | string): boolean;
 
 /**
  * Generate a random ID
@@ -272,4 +258,4 @@ declare function randomID(length?: number): string;
  * @param src 		The requested texture source
  * @param fallback 	A fallback texture to use if the requested source is unavailable or invalid
  */
-declare function loadTexture(src:string, fallback?: string): Promise<PIXI.Texture>;
+declare function loadTexture(src: string, fallback?: string): Promise<PIXI.Texture>;

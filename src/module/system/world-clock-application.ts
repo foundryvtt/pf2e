@@ -1,4 +1,4 @@
-/* global Application */
+/* global game */
 export class WorldClockApplication extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -26,13 +26,13 @@ export class WorldClockApplication extends Application {
         super.activateListeners(html);
 
         // advance time by static value
-        $(html).on('click', 'button[data-advance-time]', event => {
+        $(html).on('click', 'button[data-advance-time]', (event) => {
             const time = Number(event.currentTarget.dataset.advanceTime ?? 0);
             game.time.advance(time);
         });
 
         // advanced time by input value
-        $(html).on('click', 'button[id=advance]', event => {
+        $(html).on('click', 'button[id=advance]', (event) => {
             const value = $(html).find('input[type=number][id=diff-value]').val();
             const unit = $(html).find('select[id=diff-unit]').val();
             game.time.advance(Number(value) * Number(unit));
