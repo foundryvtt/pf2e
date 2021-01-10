@@ -70,6 +70,74 @@
         .body {
             border: 1px solid $primary-accent;
             border-radius: 0px 0px 3px 3px;
+
+            .sub-header {
+                flex: 1 0 auto;
+                background-color: $secondary-accent;
+                color: $light-text;
+                display: grid;
+                grid-template-columns: 26px auto 64px 80px 64px;
+                column-gap: 6px;
+                padding: 4px 8px;
+                text-align: center;
+            }
+
+            .section {
+
+                .section-header {
+                    flex: 1 0 auto;
+                    background-color: $secondary-accent;
+                    color: $light-text;
+                    padding: 4px 8px;
+                    text-align: center;
+                    justify-content: center;
+
+                    h4 {
+                        margin: 0px;
+                    }
+                }
+
+                .spells-list {
+                    list-style: none;
+                    margin: 0px;
+                    padding: 0px;
+                    display: grid;
+
+                    .spell {
+                        padding: 2px 6px;
+                        
+                        &:not(:last-child) {
+                            border-bottom: 1px solid $faded-color;
+                        }
+                        
+                        .spell-header {
+                            display: grid;
+                            grid-template-columns: 26px auto 64px 80px 64px;
+                            column-gap: 6px;
+                            .spell-icon {
+                                border: 2px solid $faded-color;
+                                border-radius: 3px;
+                                width: 26px;
+                                height: 26px;
+                                background-size: 26px 26px;
+                            }
+    
+                            .spell-name {
+                                padding-left: 8px;
+
+                                h4 {
+                                    margin: 0px;
+                                }
+    
+                                .activity-icon {
+                                    font-size: 1.4rem;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 }

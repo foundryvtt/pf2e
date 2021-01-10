@@ -125,7 +125,8 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         html.find(".attack").hover((ev) => this._onAttackHovered(ev), (ev) => this._onAttackHoverEnds(ev));
         html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev))
-        html.find('.item').hover((ev) => this._onItemHovered(ev), (ev) => this._onItemHoverEnds(ev));
+        html.find('.npc-item').hover((ev) => this._onItemHovered(ev), (ev) => this._onItemHoverEnds(ev));
+        html.find('.spell').hover((ev) => this._onSpellHovered(ev), (ev) => this._onSpellHoverEnds(ev));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -539,12 +540,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
             // Assign icon based on spell type
             if (spellType === 'reaction') {
-                item.img = PF2EActor.getActionGraphics(spellType).imageUrl;
+                item.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
-                item.img = PF2EActor.getActionGraphics(spellType).imageUrl;
+                item.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
             } else {
                 const actionsCost = parseInt(spellType, 10);
-                item.img = PF2EActor.getActionGraphics('action', actionsCost).imageUrl;
+                item.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
             }
 
             // Try to assign spellcasting entry
@@ -565,7 +566,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
                 this._prepareSpell(actorData, spellbooks[location], item);
             } else {
                 // Just prepare it in the orphaned list
-                this._prepareSpell(actorData, spellbooks.unassigned, i);
+                this._prepareSpell(actorData, spellbooks.unassigned, item);
             }
 
             // Update all embedded entities that have an incorrect location.
@@ -1044,30 +1045,38 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     }
 
     _onAttackHovered(eventData) {
-        const controls = $(eventData.currentTarget).find(".controls");
-
-        if (controls === undefined) return;
-
-        controls.addClass("expanded");
+        this._showControls(eventData);
     }
 
     _onAttackHoverEnds(eventData) {
-        const controls = $(eventData.currentTarget).find(".controls");
-
-        if (controls === undefined) return;
-
-        controls.removeClass("expanded");
+        this._hideControls(eventData);
     }
 
     _onActionHovered(eventData) {
-        const controls = $(eventData.currentTarget).find(".controls");
-
-        if (controls === undefined) return;
-
-        controls.addClass("expanded");
+        this._showControls(eventData);
     }
 
     _onActionHoverEnds(eventData) {
+        this._hideControls(eventData);
+    }
+
+    _onItemHovered(eventData) {
+        this._showControls(eventData);
+    }
+
+    _onItemHoverEnds(eventData) {
+        this._hideControls(eventData);
+    }
+
+    private _onSpellHoverEnds(eventData: any) {
+        this._hideControls(eventData);
+    }
+
+    private _onSpellHovered(eventData: any) {
+        this._showControls(eventData);
+    }
+
+    private _hideControls(eventData: any) {
         const controls = $(eventData.currentTarget).find(".controls");
 
         if (controls === undefined) return;
@@ -1075,20 +1084,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         controls.removeClass("expanded");
     }
 
-    _onItemHovered(eventData) {
+    private _showControls(eventData: any) {
         const controls = $(eventData.currentTarget).find(".controls");
 
         if (controls === undefined) return;
 
         controls.addClass("expanded");
-    }
-
-    _onItemHoverEnds(eventData) {
-        const controls = $(eventData.currentTarget).find(".controls");
-
-        if (controls === undefined) return;
-
-        controls.removeClass("expanded");
     }
     
     _onPerceptionLabelClicked(eventData) {
