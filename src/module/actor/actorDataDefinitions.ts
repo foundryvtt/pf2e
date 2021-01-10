@@ -112,6 +112,8 @@ export interface RawCharacterStrike {
     success: string;
     /** Any traits this strike has. */
     traits: CharacterStrikeTrait[];
+    /** Any options always applied to this strike. */
+    options: string[];
 
     /** Alias for `attack`. */
     roll?: RollFunction;
