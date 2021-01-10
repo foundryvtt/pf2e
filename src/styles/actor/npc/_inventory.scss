@@ -77,12 +77,17 @@ $unique: #54166e;
 
             .item {
                 padding: 2px 6px;
-                border-bottom: 1px solid $faded-color;
+                
+                &:not(:last-child) {
+                    border-bottom: 1px solid $faded-color;
+                }
     
                 .item-icon {
-                    object-fit: cover;
                     border: 2px solid $faded-color;
                     border-radius: 3px;
+                    width: 26px;
+                    height: 26px;
+                    background-size: 26px 26px;
                 }
 
                 .common {

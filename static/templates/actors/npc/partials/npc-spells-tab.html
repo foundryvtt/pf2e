@@ -1,5 +1,4 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
-    {{ log actor }}
     <ol class="entries-list">
         {{#each actor.spellcastingEntries as |entry entryId|}}
         <li class="spellcasting-entry item" data-item-id="{{entry._id}}">
@@ -24,7 +23,25 @@
                 </div>
             </div>
             <div class="body">
-                
+                <div class="sub-header">
+                    <div class="prepared">{{ localize 'PF2E.NPC.Spells.PreparedShortLabel' }}</div>
+                    <div class="name"></div>
+                    <div class="range">{{ localize 'PF2E.SpellRangeLabel' }}</div>
+                    <div class="components">{{ localize 'PF2E.SpellComponentsLabel' }}</div>
+                    <div class="controls"></div>
+                </div>
+                {{#each entry.spellbook as |section sectionId|}}
+                <div class="section">
+                    <div class="section-header">
+                        <h4>{{ section.label }}</h4>
+                    </div>
+                    <ul class="spells-list">
+                        {{#each section.spells as |spell spellId|}}
+                            {{> 'systems/pf2e/templates/actors/npc/partials/npc-spell.html' spell=spell isEditable=../../../options.editable }}
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/each}}
             </div>
         </li>
         {{/each}}
