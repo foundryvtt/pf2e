@@ -614,6 +614,7 @@ export class PF2ECharacter extends PF2EActor {
                     action.description = flavor.description;
                     action.criticalSuccess = flavor.criticalSuccess;
                     action.success = flavor.success;
+                    action.options = item?.data?.options?.value ?? [];
 
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
@@ -655,6 +656,7 @@ export class PF2ECharacter extends PF2EActor {
                     const strike = action as Required<typeof action>;
                     action.attack = (event, options = []) => {
                         options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                        options = options.concat(strike.options);
                         PF2Check.roll(
                             new PF2CheckModifier(`Strike: ${action.name}`, strike),
                             { actor: this, type: 'attack-roll', options },
@@ -669,6 +671,7 @@ export class PF2ECharacter extends PF2EActor {
                             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                             roll: (event, options = []) => {
                                 options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                                options = options.concat(strike.options);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike),
                                     { actor: this, type: 'attack-roll', options },
@@ -680,6 +683,7 @@ export class PF2ECharacter extends PF2EActor {
                             label: `MAP ${map.map2}`,
                             roll: (event, options = []) => {
                                 options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                                options = options.concat(strike.options);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
@@ -697,6 +701,7 @@ export class PF2ECharacter extends PF2EActor {
                             label: `MAP ${map.map3}`,
                             roll: (event, options = []) => {
                                 options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                                options = options.concat(strike.options);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
@@ -712,6 +717,7 @@ export class PF2ECharacter extends PF2EActor {
                         },
                     ];
                     action.damage = (event, options = [], callback?) => {
+                        options = options.concat(strike.options);
                         const damage = PF2WeaponDamage.calculate(
                             item,
                             actorData,
@@ -729,6 +735,7 @@ export class PF2ECharacter extends PF2EActor {
                         );
                     };
                     action.critical = (event, options = [], callback?) => {
+                        options = options.concat(strike.options);
                         const damage = PF2WeaponDamage.calculate(
                             item,
                             actorData,
