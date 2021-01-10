@@ -150,7 +150,7 @@ function askSkillPopupTemplate(skills) {
         </select>
     </div>
     <div class="form-group">
-        <label>Assurance</label>
+        <label>Use Assurance</label>
         <input name="assurance" type="checkbox" ${assurance ? 'checked' : ''}>
     </div>
     <div class="form-group">
