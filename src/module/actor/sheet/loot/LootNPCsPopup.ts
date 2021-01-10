@@ -9,9 +9,9 @@ import { PF2EActor } from '../../actor';
 export class LootNPCsPopup extends FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'distribute-coins';
+        options.id = 'loot-NPCs';
         options.classes = [];
-        options.title = 'Distribute Coins';
+        options.title = 'Loot NPCs';
         options.template = 'systems/pf2e/templates/actors/loot/loot-npcs-popup.html';
         options.width = 'auto';
         return options;
