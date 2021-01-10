@@ -1,6 +1,7 @@
-import {isBlank, toNumber} from '../utils';
-import {DamageCategory, DamageDieSize} from '../system/damage/damage';
-import {ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData} from './dataDefinitions';
+/* global CONFIG */
+import { isBlank, toNumber } from '../utils';
+import { DamageCategory, DamageDieSize } from '../system/damage/damage';
+import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './dataDefinitions';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -66,14 +67,13 @@ interface DiceModifier {
     traits: string[];
 }
 
-
 interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
     damageType?: string;
 }
 
-function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 1}: RuneDiceModifier): DiceModifier {
+function toModifier(rune, { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier): DiceModifier {
     const traits = [];
     if (damageType !== undefined) {
         traits.push(damageType);
@@ -90,23 +90,23 @@ function toModifier(rune, {damageType = undefined, dieSize = 'd6', diceNumber = 
 }
 
 const runeDamageModifiers = new Map<string, RuneDiceModifier>();
-runeDamageModifiers.set('disrupting', {damageType: 'positive'});
-runeDamageModifiers.set('corrosive', {damageType: 'acid'});
-runeDamageModifiers.set('flaming', {damageType: 'fire'});
-runeDamageModifiers.set('frost', {damageType: 'cold'});
-runeDamageModifiers.set('shock', {damageType: 'electricity'});
-runeDamageModifiers.set('thundering', {damageType: 'sonic'});
-runeDamageModifiers.set('serrating', {dieSize: 'd4'});
-runeDamageModifiers.set('anarchic', {damageType: 'chaotic'});
-runeDamageModifiers.set('axiomatic', {damageType: 'lawful'});
-runeDamageModifiers.set('holy', {damageType: 'good'});
-runeDamageModifiers.set('unholy', {damageType: 'evil'});
-runeDamageModifiers.set('greaterDisrupting', {damageType: 'positive', diceNumber: 2});
-runeDamageModifiers.set('greaterCorrosive', {damageType: 'acid'});
-runeDamageModifiers.set('greaterFlaming', {damageType: 'fire'});
-runeDamageModifiers.set('greaterFrost', {damageType: 'cold'});
-runeDamageModifiers.set('greaterShock', {damageType: 'electricity'});
-runeDamageModifiers.set('greaterThundering', {damageType: 'sonic'});
+runeDamageModifiers.set('disrupting', { damageType: 'positive' });
+runeDamageModifiers.set('corrosive', { damageType: 'acid' });
+runeDamageModifiers.set('flaming', { damageType: 'fire' });
+runeDamageModifiers.set('frost', { damageType: 'cold' });
+runeDamageModifiers.set('shock', { damageType: 'electricity' });
+runeDamageModifiers.set('thundering', { damageType: 'sonic' });
+runeDamageModifiers.set('serrating', { dieSize: 'd4' });
+runeDamageModifiers.set('anarchic', { damageType: 'chaotic' });
+runeDamageModifiers.set('axiomatic', { damageType: 'lawful' });
+runeDamageModifiers.set('holy', { damageType: 'good' });
+runeDamageModifiers.set('unholy', { damageType: 'evil' });
+runeDamageModifiers.set('greaterDisrupting', { damageType: 'positive', diceNumber: 2 });
+runeDamageModifiers.set('greaterCorrosive', { damageType: 'acid' });
+runeDamageModifiers.set('greaterFlaming', { damageType: 'fire' });
+runeDamageModifiers.set('greaterFrost', { damageType: 'cold' });
+runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
+runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifier[] {
     const diceModifiers = [];

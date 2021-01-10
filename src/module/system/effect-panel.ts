@@ -1,10 +1,9 @@
-/* global Application, CONST */
-import {PF2EActor} from "../actor/actor";
-import {PF2eConditionManager} from "../conditions";
-import {ConditionData, ConditionDetailsData} from "../item/dataDefinitions";
+/* global canvas, game */
+import { PF2EActor } from '../actor/actor';
+import { PF2eConditionManager } from '../conditions';
+import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';
 
 export class EffectPanel extends Application {
-
     private static readonly UNITS = Object.freeze({
         rounds: 6,
         minutes: 60,
@@ -30,7 +29,7 @@ export class EffectPanel extends Application {
             clearTimeout(this.timeout);
         }
         this.timeout = setTimeout(() => {
-            this.render(false)
+            this.render(false);
         }, 100);
     }
 
@@ -52,32 +51,44 @@ export class EffectPanel extends Application {
                         effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
                     } else {
                         const start = effect.data.start?.value ?? 0;
-                        const remaining = (start + duration) - game.time.worldTime;
-                        effect.data.expired = (remaining <= 0);
+                        const remaining = start + duration - game.time.worldTime;
+                        effect.data.expired = remaining <= 0;
                         let initiative = 0;
-                        if (remaining === 0 && game.combat?.data?.active && game.combat?.turns?.length > game.combat?.turn) {
+                        if (
+                            remaining === 0 &&
+                            game.combat?.data?.active &&
+                            game.combat?.turns?.length > game.combat?.turn
+                        ) {
                             initiative = game.combat.turns[game.combat.turn].initiative;
                             if (initiative === effect.data.start.initiative) {
-                                if (effect.data.duration.expiry === "turn-start") {
+                                if (effect.data.duration.expiry === 'turn-start') {
                                     effect.data.expired = true;
-                                } else if (effect.data.duration.expiry === "turn-end") {
+                                } else if (effect.data.duration.expiry === 'turn-end') {
                                     effect.data.expired = false;
                                 } else {
                                     // unknown value - default to expired
                                     effect.data.expired = true;
-                                    console.warn(`Unknown value ${effect.data.duration.expiry} for duration expiry field in effect "${effect?.name}".`);
+                                    console.warn(
+                                        `Unknown value ${effect.data.duration.expiry} for duration expiry field in effect "${effect?.name}".`,
+                                    );
                                 }
                             } else {
-                                effect.data.expired = (initiative < effect.data.start.initiative);
+                                effect.data.expired = initiative < effect.data.start.initiative;
                             }
                         }
-                        effect.data.remaining = effect.data.expired ? game.i18n.localize('PF2E.EffectPanel.Expired') : EffectPanel.getRemainingDurationLabel(remaining, effect.data.start.initiative, effect.data.duration.expiry);
+                        effect.data.remaining = effect.data.expired
+                            ? game.i18n.localize('PF2E.EffectPanel.Expired')
+                            : EffectPanel.getRemainingDurationLabel(
+                                  remaining,
+                                  effect.data.start.initiative,
+                                  effect.data.duration.expiry,
+                              );
                     }
                     data.effects.push(effect);
                 }
             }
         }
-        data.conditions = PF2eConditionManager.getFlattenedConditions(data.conditions).map(c => {
+        data.conditions = PF2eConditionManager.getFlattenedConditions(data.conditions).map((c) => {
             c.locked = c.parents.length > 0;
             c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
             return c;
@@ -90,14 +101,14 @@ export class EffectPanel extends Application {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons
-        $(html).on('contextmenu','[data-item-id]:not([data-item-id=""])', async event => {
+        $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
             if (actor.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
                 const item = actor.items.get(event.currentTarget.dataset.itemId);
                 if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                     const data = item.data.data as ConditionDetailsData;
                     const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : undefined;
-                    actor.getActiveTokens().forEach(token => {
+                    actor.getActiveTokens().forEach((token) => {
                         if (data.value.isValued) {
                             PF2eConditionManager.updateConditionValue(item._id, token, value);
                         } else {
@@ -120,7 +131,9 @@ export class EffectPanel extends Application {
     private static getParentConditionsBreakdown(conditions: ConditionData[]): string {
         let breakdown = '';
         if ((conditions ?? []).length > 0) {
-            const list = Array.from(new Set(conditions.map(p => p.name))).sort().join(', ');
+            const list = Array.from(new Set(conditions.map((p) => p.name)))
+                .sort()
+                .join(', ');
             breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
         }
         return breakdown;
@@ -135,31 +148,62 @@ export class EffectPanel extends Application {
         }
     }
 
-    private static getRemainingDurationLabel(remaining: number, initiative: number, expiry: 'turn-start' | 'turn-end'): string {
-        if (remaining >= 63_072_000) { // two years
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleYears', { years: Math.floor(remaining / 31_536_000) });
-        } else if (remaining >= 31_536_000) { // one year
+    private static getRemainingDurationLabel(
+        remaining: number,
+        initiative: number,
+        expiry: 'turn-start' | 'turn-end',
+    ): string {
+        if (remaining >= 63_072_000) {
+            // two years
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleYears', {
+                years: Math.floor(remaining / 31_536_000),
+            });
+        } else if (remaining >= 31_536_000) {
+            // one year
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleYear');
-        } else if (remaining >= 1_209_600) { // two weeks
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleWeeks', { weeks: Math.floor(remaining / 604_800) });
-        } else if (remaining > 604_800) { // one week
+        } else if (remaining >= 1_209_600) {
+            // two weeks
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleWeeks', {
+                weeks: Math.floor(remaining / 604_800),
+            });
+        } else if (remaining > 604_800) {
+            // one week
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleWeek');
-        } else if (remaining >= 172_800) { // two days
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleDays', { days: Math.floor(remaining / 86_400) });
-        } else if (remaining > 7_200) { // two hours
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleHours', { hours: Math.floor(remaining / 3_600) });
-        } else if (remaining > 120) { // two minutes
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleMinutes', { minutes: Math.floor(remaining / 60) });
-        } else if (remaining >= 12) { // two rounds
-            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleRounds', { rounds: Math.floor(remaining / 6) });
-        } else if (remaining >= 6) { // one round
+        } else if (remaining >= 172_800) {
+            // two days
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleDays', {
+                days: Math.floor(remaining / 86_400),
+            });
+        } else if (remaining > 7_200) {
+            // two hours
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleHours', {
+                hours: Math.floor(remaining / 3_600),
+            });
+        } else if (remaining > 120) {
+            // two minutes
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleMinutes', {
+                minutes: Math.floor(remaining / 60),
+            });
+        } else if (remaining >= 12) {
+            // two rounds
+            return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleRounds', {
+                rounds: Math.floor(remaining / 6),
+            });
+        } else if (remaining >= 6) {
+            // one round
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleRound');
-        } else if (remaining >= 2) { // two seconds
+        } else if (remaining >= 2) {
+            // two seconds
             return game.i18n.format('PF2E.EffectPanel.RemainingDuration.MultipleSeconds', { seconds: remaining });
-        } else if (remaining === 1) { // one second
+        } else if (remaining === 1) {
+            // one second
             return game.i18n.localize('PF2E.EffectPanel.RemainingDuration.SingleSecond');
-        } else { // zero rounds
-            const key = (expiry === 'turn-end') ? 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnEnd' : 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnStart';
+        } else {
+            // zero rounds
+            const key =
+                expiry === 'turn-end'
+                    ? 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnEnd'
+                    : 'PF2E.EffectPanel.RemainingDuration.ZeroRoundsExpireTurnStart';
             return game.i18n.format(key, { initiative });
         }
     }

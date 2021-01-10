@@ -1,4 +1,4 @@
-/* global RollTable */
+/* global game */
 
 class PF2eCritFumbleCards {
     static critTable: any;
@@ -12,9 +12,9 @@ class PF2eCritFumbleCards {
 
         if (game.settings.get('pf2e', 'drawCritFumble')) {
             // Support diceSoNice module
-            this.diceSoNice = (game.modules.get('dice-so-nice') && game.modules.get('dice-so-nice').active);
+            this.diceSoNice = game.modules.get('dice-so-nice') && game.modules.get('dice-so-nice').active;
             const hooksOn = this.diceSoNice ? 'diceSoNiceRollComplete' : 'createChatMessage';
-            
+
             Hooks.on(hooksOn, this.handleRoll.bind(this));
         }
 
@@ -23,9 +23,19 @@ class PF2eCritFumbleCards {
                 if (message.isAuthor && message.isRoll && (message as any).isContentVisible) {
                     const context = message.getFlag('pf2e', 'context');
                     if (message.roll.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
-                        const critButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize('PF2E.CriticalHitCardButtonTitle')}"></i></button>`);
-                        const fumbleButton = $(`<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize('PF2E.CriticalFumbleCardButtonTitle')}"></i></button>`);
-                        const btnContainer1 = $(`<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`);
+                        const critButton = $(
+                            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
+                                'PF2E.CriticalHitCardButtonTitle',
+                            )}"></i></button>`,
+                        );
+                        const fumbleButton = $(
+                            `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize(
+                                'PF2E.CriticalFumbleCardButtonTitle',
+                            )}"></i></button>`,
+                        );
+                        const btnContainer1 = $(
+                            `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
+                        );
                         btnContainer1.append(critButton);
                         btnContainer1.append(fumbleButton);
 
@@ -33,13 +43,13 @@ class PF2eCritFumbleCards {
                             event.stopPropagation();
                             this.critTable.draw();
                             event.currentTarget.blur();
-                        })
+                        });
 
                         fumbleButton.on('click', (event) => {
                             event.stopPropagation();
                             this.fumbleTable.draw();
                             event.currentTarget.blur();
-                        })
+                        });
 
                         html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
                     }
@@ -59,7 +69,7 @@ class PF2eCritFumbleCards {
                     if (die.total === 20) {
                         this.drawCard(this.critTable, chatMessage);
                     } else if (die.total === 1) {
-                        this.drawCard(this.fumbleTable, chatMessage);	
+                        this.drawCard(this.fumbleTable, chatMessage);
                     }
                 }
             }
@@ -73,29 +83,29 @@ class PF2eCritFumbleCards {
     }
 }
 
-Hooks.once("renderChatLog", async () => {
+Hooks.once('renderChatLog', async () => {
     game.settings.register('pf2e', 'critFumbleButtons', {
-        name: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.name"),
-        hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCardButtons.hint"),
+        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
         onChange: () => {
             window.location.reload();
-        }
+        },
     });
 
     game.settings.register('pf2e', 'drawCritFumble', {
-        name: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.name"),
-        hint: game.i18n.localize("PF2E.SETTINGS.critFumbleCards.hint"),
+        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.hint'),
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
         onChange: () => {
             window.location.reload();
-        }
+        },
     });
 
     if (game.settings.get('pf2e', 'drawCritFumble') || game.settings.get('pf2e', 'critFumbleButtons')) {

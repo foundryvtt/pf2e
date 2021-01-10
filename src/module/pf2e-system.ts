@@ -1,7 +1,6 @@
+/* global game, CONFIG */
 import { DB } from './system/db';
 import './system/measure';
-
-declare let PF2e: PF2eSystem;
 
 /**
  * Base PF2e system class
@@ -28,5 +27,4 @@ export class PF2eSystem {
         this.DB = mergeObject(DB, translated); // static content
         this.CONFIG = CONFIG.PF2E; // shorthand
     }
-
 }

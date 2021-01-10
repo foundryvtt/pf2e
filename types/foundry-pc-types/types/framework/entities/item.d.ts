@@ -2,121 +2,123 @@
  * The Collection of Item entities
  * The items collection is accessible within the game as game.items
  */
-declare class Items extends Collection<SystemItemType> {
-	entities: SystemItemType[];
+declare class Items<ItemType extends Item = Item> extends Collection<ItemType> {
+    entities: ItemType[];
 
-	values(): IterableIterator<SystemItemType>;
+    values(): IterableIterator<ItemType>;
 
-	/* -------------------------------------------- */
-	/*  Collection Properties                       */
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Collection Properties                       */
+    /* -------------------------------------------- */
 
-	static get instance(): Items;
+    static get instance(): Items;
 
-	/**
-	 * Elements of the Items collection are instances of the Item class, or a subclass thereof
-	 */
-	get object(): SystemItemType;
+    /**
+     * Elements of the Items collection are instances of the Item class, or a subclass thereof
+     */
+    get object(): ItemType;
 
-	/* -------------------------------------------- */
-	/*  Collection Management Methods               */
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Collection Management Methods               */
+    /* -------------------------------------------- */
 
-	insert(entity: SystemItemType): void;
+    insert(entity: ItemType): void;
 
-	get(id: string, { strict }?: { strict?: boolean }): SystemItemType;
+    get<I extends ItemType = ItemType>(id: string, { strict }?: { strict?: boolean }): I | null;
 
-	/**
-	 * Register an Item sheet class as a candidate which can be used to display Items of a given type
-	 * See EntitySheetConfig.registerSheet for details
-	 */
-	static registerSheet(...args: any): void;
+    /**
+     * Register an Item sheet class as a candidate which can be used to display Items of a given type
+     * See EntitySheetConfig.registerSheet for details
+     */
+    static registerSheet(...args: any): void;
 
-	/**
-	 * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
-	 * See EntitySheetConfig.unregisterSheet for details
-	 */
-	static unregisterSheet(...args: any): void;
+    /**
+     * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
+     * See EntitySheetConfig.unregisterSheet for details
+     */
+    static unregisterSheet(...args: any): void;
 
-	/**
-	 * Return an Array of currently registered sheet classes for this Entity type
-	 */
-	static get registeredSheets(): any[];
+    /**
+     * Return an Array of currently registered sheet classes for this Entity type
+     */
+    static get registeredSheets(): any[];
 }
 
-declare class Item<DataType> extends Entity<DataType> {
-	/**
-	 * Configure the attributes of the ChatMessage Entity
-	 *
-	 * @returns baseEntity			The parent class which directly inherits from the Entity interface.
-	 * @returns collection			The Collection class to which Entities of this type belong.
-	 * @returns embeddedEntities	The names of any Embedded Entities within the Entity data structure.
-	 */
-	static get config(): {
-		baseEntity: SystemItemType;
-		collection: Items;
-		embeddedEntities: {};
-	};
+interface BaseItemData extends BaseEntityData {
+    type: string;
+}
 
-	/** @override */
-	prepareData(): void;
+type _Actor = Actor<Item<_Actor>>;
+declare class Item<ActorType extends Actor = _Actor> extends Entity {
+    /** @override */
+    data: BaseItemData;
 
-	/* -------------------------------------------- */
-	/*  Properties                                  */
-	/* -------------------------------------------- */
+    /**
+     * Configure the attributes of the ChatMessage Entity
+     *
+     * @returns baseEntity			The parent class which directly inherits from the Entity interface.
+     * @returns collection			The Collection class to which Entities of this type belong.
+     * @returns embeddedEntities	The names of any Embedded Entities within the Entity data structure.
+     */
+    static get config(): {
+        baseEntity: Item;
+        collection: Items;
+        embeddedEntities: {};
+    };
 
-	/**
-	 * A convenience reference to the Actor entity which owns this item, if any
-	 */
-	get actor(): SystemActorType | null;
+    /** @override */
+    prepareData(): void;
 
-	/**
-	 * A convenience reference to the image path (data.img) used to represent this Item
-	 */
-	get img(): string;
+    /* -------------------------------------------- */
+    /*  Properties                                  */
+    /* -------------------------------------------- */
 
-	/**
-	 * A convenience reference to the item type (data.type) of this Item
-	 */
-	get type(): string;
+    /**
+     * A convenience reference to the Actor entity which owns this item, if any
+     */
+    get actor(): ActorType | null;
 
-	/**
-	 * A boolean indicator for whether the current game user has ONLY limited visibility for this Entity.
-	 */
-	get limited(): boolean;
+    /**
+     * A convenience reference to the image path (data.img) used to represent this Item
+     */
+    get img(): string;
 
-	/**
-	 * A flag for whether the item is owned by an Actor entity
-	 */
-	get isOwned(): boolean;
+    /**
+     * A convenience reference to the item type (data.type) of this Item
+     */
+    get type(): string;
 
-	/* -------------------------------------------- */
-	/*  Methods                                     */
-	/* -------------------------------------------- */
+    /**
+     * A boolean indicator for whether the current game user has ONLY limited visibility for this Entity.
+     */
+    get limited(): boolean;
 
-	/**
-	 * Override the standard permission test for Item entities as we need to apply a special check for owned items
-	 * OwnedItems have permission that the player has for the parent Actor.
-	 * @return	Whether or not the user has the permission for this item
-	 */
-	hasPerm(...args: any[]): boolean;
+    /**
+     * A flag for whether the item is owned by an Actor entity
+     */
+    get isOwned(): boolean;
 
-	/* -------------------------------------------- */
-	/*  Socket Listeners and Handlers               */
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
 
-	/**
-	 * Extend the base Entity update logic to update owned items as well.
-	 * See Entity.update for more complete API documentation
-	 *
-	 * @param data		The data with which to update the entity
-	 * @param options	Additional options which customize the update workflow
-	 * @return			A Promise which resolves to the updated Entity
-	 */
-	update(data: any, options?: any): Promise<SystemItemType>;
+    /**
+     * Override the standard permission test for Item entities as we need to apply a special check for owned items
+     * OwnedItems have permission that the player has for the parent Actor.
+     * @return	Whether or not the user has the permission for this item
+     */
+    hasPerm(...args: any[]): boolean;
 
-	/**
-	 * A convenience constructor method to create an Item instance which is owned by an Actor
-	 */
-	static createOwned(itemData: any, actor: SystemActorType): SystemItemType;
+    /* -------------------------------------------- */
+    /*  Socket Listeners and Handlers               */
+    /* -------------------------------------------- */
+
+    /**
+     * A convenience constructor method to create an Item instance which is owned by an Actor
+     */
+    static createOwned<TI extends typeof Item>(
+        this: TI,
+        itemData: Partial<InstanceType<TI>['data']>,
+        actor: Actor,
+    ): Promise<InstanceType<TI>>;
 }

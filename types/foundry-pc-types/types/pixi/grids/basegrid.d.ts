@@ -9,6 +9,15 @@ declare interface BaseGridOptions {
     };
 }
 
+declare interface Segment {
+    ray: Ray;
+    label: PIXI.Container;
+}
+
+declare interface MeasureDistancesOptions {
+    gridSpaces?: boolean;
+}
+
 declare class BaseGrid extends PIXI.Container {
     constructor(options: BaseGridOptions);
 
@@ -44,7 +53,10 @@ declare class BaseGrid extends PIXI.Container {
      * @param border       The hex border color of the highlight
      * @param alpha        The opacity of the highlight
      */
-    highlightGridPosition(layer: object, data: {x?: number, y?: number, color?: number, border?: number, alpha?: number}): this;
+    highlightGridPosition(
+        layer: object,
+        data: { x?: number; y?: number; color?: number; border?: number; alpha?: number },
+    ): this;
 
     /* -------------------------------------------- */
     /*  Grid Measurement Methods
@@ -76,10 +88,9 @@ declare class BaseGrid extends PIXI.Container {
      *
      * @return  An object containing the coordinates of the snapped location
      */
-    getSnappedPosition(x: number, y: number, interval: number): { x: number, y: number };
+    getSnappedPosition(x: number, y: number, interval: number): { x: number; y: number };
 
     /* -------------------------------------------- */
-
 
     /**
      * Given a pair of pixel coordinates, return the grid position as an Array.
@@ -116,11 +127,11 @@ declare class BaseGrid extends PIXI.Container {
 
     /**
      * Measure the distance traversed over an array of measured segments
-     * @param {object[]} segments     An Array of measured movement segments
-     * @param options       Additional options which modify the measurement
-     * @return {number[]}             An Array of distance measurements for each segment
+     * @param segments  An Array of measured movement segments
+     * @param options   Additional options which modify the measurement
+     * @return  An Array of distance measurements for each segment
      */
-    measureDistances(segments: object[], options: object): number[]
+    measureDistances(segments: Segment[], options: MeasureDistancesOptions): number[];
 
     /* -------------------------------------------- */
 
@@ -130,5 +141,5 @@ declare class BaseGrid extends PIXI.Container {
      * @param col  The grid column coordinate against which to test for neighbors
      * @return      An array of grid positions which are neighbors of the row and column
      */
-    getNeighbors(row: number, col: number): number[]
+    getNeighbors(row: number, col: number): number[];
 }

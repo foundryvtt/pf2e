@@ -8,8 +8,11 @@ import {
     weightToBulk,
     convertBulkToSize,
 } from '../../../src/module/item/bulk';
-import { PhysicalItemData } from 'src/module/item/dataDefinitions';
+import { PhysicalItemData,
+         ItemDescriptionData,
+         BaseItemDataPF2e } from 'src/module/item/dataDefinitions';
 
+type WithTraits = BaseItemDataPF2e<ItemDescriptionData & { traits: { value: string[] }}>
 function createItem({
                         id = 'ignore',
                         weight = undefined,
@@ -23,7 +26,7 @@ function createItem({
                         traits = [],
                         quantity = 1,
                         stackGroup = undefined
-                    }): PhysicalItemData & BaseEntityData<{ traits: { value: string[] }}> {
+                    }): PhysicalItemData & WithTraits {
     return {
         _id: id,
         type: type,
@@ -59,7 +62,7 @@ function createItem({
                 value: stackGroup
             }
         },
-    } as PhysicalItemData & BaseEntityData<{ traits: { value: string[] }}>;
+    } as PhysicalItemData & WithTraits;
 }
 
 describe('should calculate bulk', () => {

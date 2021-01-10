@@ -1,4 +1,4 @@
-/* global Handlebars TextEditor */
+/* global Handlebars */
 export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
@@ -18,7 +18,11 @@ export function registerHandlebarsHelpers() {
 
     Handlebars.registerHelper('any', (...args) => {
         const opts = args.pop();
-        return args.some(v => !!v) ? opts : opts.inverse;
+        return args.some((v) => !!v) ? opts : opts.inverse;
+    });
+
+    Handlebars.registerHelper('not', (arg) => {
+        return !arg;
     });
 
     Handlebars.registerHelper('lower', (str) => {
@@ -34,7 +38,8 @@ export function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper('strip_tags', (value, options) => {
-        function strip_tags(input, allowed?) { // eslint-disable-line camelcase
+        // eslint-disable-next-line camelcase
+        function strip_tags(input, allowed?) {
             const _phpCastString = (phpValue) => {
                 const type = typeof phpValue;
                 switch (type) {
@@ -65,26 +70,28 @@ export function registerHandlebarsHelpers() {
 
                         return '';
                     case 'function':
-                        // fall through
+                    // fall through
                     default:
                         throw new Error('Unsupported value type');
                 }
             };
 
             // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-            allowed = ((`${allowed || ''}`).toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+            allowed = (`${allowed || ''}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
 
             const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
             const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
 
             let after = _phpCastString(input);
             // removes tha '<' char at the end of the string to replicate PHP's behaviour
-            after = (after.substring(after.length - 1) === '<') ? after.substring(0, after.length - 1) : after;
+            after = after.substring(after.length - 1) === '<' ? after.substring(0, after.length - 1) : after;
 
             // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
             while (true) {
                 const before = after;
-                after = before.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
+                after = before
+                    .replace(commentsAndPhpTags, '')
+                    .replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
 
                 // return once no more tags are removed
                 if (before === after) {
@@ -96,12 +103,11 @@ export function registerHandlebarsHelpers() {
         return strip_tags(String(value));
     });
 
-  Handlebars.registerHelper('enrichHTML', (html) => {
-    return TextEditor.enrichHTML(html);
-  });
+    Handlebars.registerHelper('enrichHTML', (html) => {
+        return TextEditor.enrichHTML(html);
+    });
 
-  Handlebars.registerHelper('json', (html) => {
-    return JSON.stringify(html);
-  });
-
+    Handlebars.registerHelper('json', (html) => {
+        return JSON.stringify(html);
+    });
 }

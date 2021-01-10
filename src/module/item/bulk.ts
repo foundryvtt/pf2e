@@ -1,4 +1,4 @@
-import {add, combineObjects, groupBy, isBlank, Optional} from '../utils';
+import { add, combineObjects, groupBy, isBlank, Optional } from '../utils';
 import { ItemData, isPhysicalItem, PhysicalItemData } from './dataDefinitions';
 
 interface StackDefinition {
@@ -53,7 +53,7 @@ export class Bulk {
 
     light: number;
 
-    constructor({normal = 0, light = 0}: { normal?: number, light?: number } = {}) {
+    constructor({ normal = 0, light = 0 }: { normal?: number; light?: number } = {}) {
         this.normal = normal + Math.floor(light / 10);
         this.light = light % 10;
     }
@@ -61,7 +61,7 @@ export class Bulk {
     get isNegligible(): boolean {
         return this.normal === 0 && this.light === 0;
     }
-    
+
     get isLight(): boolean {
         return this.toLightBulk() < 10 && !this.isNegligible;
     }
@@ -93,10 +93,7 @@ export class Bulk {
     }
 
     _toSingleNumber(bulk: Bulk): [number, number] {
-        return [
-            this.normal * 10 + this.light,
-            bulk.normal * 10 + bulk.light,
-        ];
+        return [this.normal * 10 + this.light, bulk.normal * 10 + bulk.light];
     }
 
     times(factor: number): Bulk {
@@ -133,9 +130,9 @@ export class Bulk {
 export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
 export interface BulkConversion {
-    bulkLimitFactor: number,
-    treatsAsLight: string | null,
-    treatsAsNegligible: string | null,
+    bulkLimitFactor: number;
+    treatsAsLight: string | null;
+    treatsAsNegligible: string | null;
 }
 
 export type BulkConversions = Record<Sizes, BulkConversion>;
@@ -173,7 +170,7 @@ export const bulkConversions: BulkConversions = {
 };
 
 /**
- * Whether a given bulk should considered to be downgraded. 
+ * Whether a given bulk should considered to be downgraded.
  * @param normalItemBulk
  * @param treatsAsDowngrade if given, a string that ranges from '-', 'L', '1', '2', ...
  * and is equal to the selected cell at https://2e.aonprd.com/Rules.aspx?ID=257
@@ -181,18 +178,20 @@ export const bulkConversions: BulkConversions = {
  * All bulk sizes lower than or equal to this value are considered to be downgraded.
  */
 function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | null): boolean {
-    return (treatsAsDowngrade === '-' && normalItemBulk.isNegligible)
-        || (treatsAsDowngrade === 'L' && normalItemBulk.isLight)
-        || (treatsAsDowngrade !== null && normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10)); 
+    return (
+        (treatsAsDowngrade === '-' && normalItemBulk.isNegligible) ||
+        (treatsAsDowngrade === 'L' && normalItemBulk.isLight) ||
+        (treatsAsDowngrade !== null && normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10))
+    );
 }
 
 export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
-    const {treatsAsNegligible, treatsAsLight} = bulkConversions[targetSize];
+    const { treatsAsNegligible, treatsAsLight } = bulkConversions[targetSize];
     if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
         return new Bulk();
     }
     if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
-        return new Bulk({light: 1});
+        return new Bulk({ light: 1 });
     }
     return normalItemBulk;
 }
@@ -243,35 +242,34 @@ export class BulkItem {
 
     extraDimensionalContainer: boolean;
 
-    constructor(
-        {
-            id = '',
-            bulk = new Bulk(),
-            quantity = 1,
-            stackGroup = undefined,
-            isEquipped = false,
-            // value to overrides bulk field when unequipped
-            unequippedBulk = undefined,
-            // value to overrides bulk field when equipped
-            equippedBulk = undefined,
-            holdsItems = [],
-            // some containers like a backpack or back of holding reduce total bulk if 
-            // items are put into it
-            negateBulk = new Bulk(),
-            // extra dimensional containers cease to work when nested inside each other
-            extraDimensionalContainer = false,
-        }: {
-            id?: string,
-            bulk?: Bulk,
-            quantity?: number,
-            stackGroup?: string,
-            isEquipped?: boolean,
-            unequippedBulk?: Bulk,
-            equippedBulk?: Bulk,
-            holdsItems?: BulkItem[],
-            negateBulk?: Bulk,
-            extraDimensionalContainer?: boolean
-        } = {}) {
+    constructor({
+        id = '',
+        bulk = new Bulk(),
+        quantity = 1,
+        stackGroup = undefined,
+        isEquipped = false,
+        // value to overrides bulk field when unequipped
+        unequippedBulk = undefined,
+        // value to overrides bulk field when equipped
+        equippedBulk = undefined,
+        holdsItems = [],
+        // some containers like a backpack or back of holding reduce total bulk if
+        // items are put into it
+        negateBulk = new Bulk(),
+        // extra dimensional containers cease to work when nested inside each other
+        extraDimensionalContainer = false,
+    }: {
+        id?: string;
+        bulk?: Bulk;
+        quantity?: number;
+        stackGroup?: string;
+        isEquipped?: boolean;
+        unequippedBulk?: Bulk;
+        equippedBulk?: Bulk;
+        holdsItems?: BulkItem[];
+        negateBulk?: Bulk;
+        extraDimensionalContainer?: boolean;
+    } = {}) {
         this.id = id;
         this.bulk = bulk;
         this.quantity = quantity;
@@ -316,10 +314,7 @@ type BulkAndOverflow = [Bulk, StackGroupOverflow];
 function combineBulkAndOverflow(first: BulkAndOverflow, second: BulkAndOverflow): BulkAndOverflow {
     const [firstBulk, firstOverflow] = first;
     const [secondBulk, secondOverflow] = second;
-    return [
-        firstBulk.plus(secondBulk),
-        combineObjects(firstOverflow, secondOverflow, add),
-    ];
+    return [firstBulk.plus(secondBulk), combineObjects(firstOverflow, secondOverflow, add)];
 }
 
 export interface BulkConfig {
@@ -351,22 +346,26 @@ function calculateStackBulk(
             if (!(stackType in stackDefinitions)) {
                 throw new Error(`No stack definition found for stack ${stackType}`);
             }
-            const {size, lightBulk} = stackDefinitions[stackType];
+            const { size, lightBulk } = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
-            const itemBulk = new Bulk({light: bulkRelevantQuantity * lightBulk});
-            const overflow = {[stackType]: quantity % size};
+            const itemBulk = new Bulk({ light: bulkRelevantQuantity * lightBulk });
+            const overflow = { [stackType]: quantity % size };
             const result: BulkAndOverflow = [itemBulk, overflow];
             return result;
         })
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 }
 
-function calculateItemBulk(item: BulkItem, stackDefinitions: StackDefinitions, bulkConfig: BulkConfig): BulkAndOverflow {
+function calculateItemBulk(
+    item: BulkItem,
+    stackDefinitions: StackDefinitions,
+    bulkConfig: BulkConfig,
+): BulkAndOverflow {
     const stackName = item.stackGroup;
     if (isBlank(stackName)) {
         return [calculateNonStackBulk(item).times(item.quantity), {}];
     }
-    return calculateStackBulk({[stackName]: item.quantity}, stackDefinitions, bulkConfig);
+    return calculateStackBulk({ [stackName]: item.quantity }, stackDefinitions, bulkConfig);
 }
 
 /**
@@ -377,8 +376,9 @@ function calculateItemBulk(item: BulkItem, stackDefinitions: StackDefinitions, b
  * @return
  */
 function isExtraDimensionalOrWorn(item: BulkItem, nestedExtraDimensionalContainer: boolean): boolean {
-    return (item.extraDimensionalContainer && !nestedExtraDimensionalContainer)
-        || (item.reducesBulk && item.isEquipped);
+    return (
+        (item.extraDimensionalContainer && !nestedExtraDimensionalContainer) || (item.reducesBulk && item.isEquipped)
+    );
 }
 
 /**
@@ -404,7 +404,11 @@ function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensional
  * @param ignoreContainerOverflow
  * @return {{}|*}
  */
-function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem, ignoreContainerOverflow: boolean): StackGroupOverflow {
+function calculateChildOverflow(
+    overflow: StackGroupOverflow,
+    item: BulkItem,
+    ignoreContainerOverflow: boolean,
+): StackGroupOverflow {
     if (item.extraDimensionalContainer || ignoreContainerOverflow) {
         return {};
     }
@@ -427,7 +431,7 @@ function calculateCombinedBulk(
 ): BulkAndOverflow {
     const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
     const [childBulk, childOverflow] = item.holdsItems
-        .map(child => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
+        .map((child) => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 
     // combine item overflow and child overflow
@@ -438,9 +442,7 @@ function calculateCombinedBulk(
     );
     const [overflowBulk, remainingOverflow] = calculateStackBulk(combinedOverflow, stackDefinitions, bulkConfig);
     return [
-        mainBulk
-            .plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer))
-            .plus(overflowBulk),
+        mainBulk.plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer)).plus(overflowBulk),
         remainingOverflow,
     ];
 }
@@ -468,7 +470,6 @@ export function calculateBulk(
     return calculateCombinedBulk(inventory, stackDefinitions, nestedExtraDimensionalContainer, bulkConfig);
 }
 
-
 const lightBulkRegex = /^(\d*)l$/i;
 const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
 
@@ -484,11 +485,11 @@ export function weightToBulk(weight: Optional<string>): Bulk | undefined {
     }
     const trimmed = weight.trim();
     if (/^\d+$/.test(trimmed)) {
-        return new Bulk({normal: parseInt(trimmed, 10)});
+        return new Bulk({ normal: parseInt(trimmed, 10) });
     }
     const lightMatch = trimmed.match(lightBulkRegex);
     if (lightMatch) {
-        return new Bulk({light: parseInt(lightMatch[1] || '1', 10)});
+        return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
     }
     const complexMatch = trimmed.match(complexBulkRegex);
     if (complexMatch) {
@@ -513,8 +514,7 @@ export function normalizeWeight(weight: BrokenBulk): string | undefined {
     }
     // turn numbers into strings
     const stringWeight = `${weight}`;
-    return stringWeight.toLowerCase()
-        .trim();
+    return stringWeight.toLowerCase().trim();
 }
 
 /**
@@ -556,16 +556,14 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
  * @return
  */
 function buildContainerTree(items: PhysicalItemData[], groupedItems: Map<string, PhysicalItemData[]>): BulkItem[] {
-    return items
-        .map((item) => {
-            const itemId = item._id;
-            if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
-                const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
-                return toBulkItem(item, itemsInContainer);
-            }
-            return toBulkItem(item);
-
-        });
+    return items.map((item) => {
+        const itemId = item._id;
+        if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
+            const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
+            return toBulkItem(item, itemsInContainer);
+        }
+        return toBulkItem(item);
+    });
 }
 
 /**
@@ -578,8 +576,8 @@ function buildContainerTree(items: PhysicalItemData[], groupedItems: Map<string,
  * @return
  */
 export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
-    const allIds = new Set(items.map(item => item._id));
-    const itemsInContainers = groupBy(items, item => {
+    const allIds = new Set(items.map((item) => item._id));
+    const itemsInContainers = groupBy(items, (item) => {
         // we want all items in the top level group that are in no container
         // or are never referenced because we don't want the items to
         // disappear if the container is being deleted or doesn't have a reference
@@ -623,7 +621,7 @@ export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
 /**
  * Fix previous borked weight
  * @param brokenWeight
- * @return 
+ * @return
  */
 export function fixWeight(brokenWeight: BrokenBulk): string | null {
     const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
@@ -643,7 +641,7 @@ export function fixWeight(brokenWeight: BrokenBulk): string | null {
  */
 function fillBulkIndex(bulkItem: BulkItem, resultMap: Map<string, BulkItem>): void {
     resultMap.set(bulkItem.id, bulkItem);
-    bulkItem.holdsItems.forEach(heldBulkItem => fillBulkIndex(heldBulkItem, resultMap));
+    bulkItem.holdsItems.forEach((heldBulkItem) => fillBulkIndex(heldBulkItem, resultMap));
 }
 
 /**
@@ -652,6 +650,6 @@ function fillBulkIndex(bulkItem: BulkItem, resultMap: Map<string, BulkItem>): vo
  */
 export function indexBulkItemsById(bulkItems: BulkItem[] = []): Map<string, BulkItem> {
     const result = new Map();
-    bulkItems.forEach(bulkItem => fillBulkIndex(bulkItem, result));
+    bulkItems.forEach((bulkItem) => fillBulkIndex(bulkItem, result));
     return result;
 }
