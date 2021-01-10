@@ -30,6 +30,7 @@ export class PF2StrikeRuleElement extends PF2RuleElement {
                 damage: this.ruleData.damage?.base ?? { dice: 1, die: 'd4', damageType: 'bludgeoning' },
                 range: { value: this.ruleData.range || 'melee' },
                 traits: { value: this.ruleData.traits ?? [] },
+                options: { value: this.ruleData.options ?? [] },
                 equipped: { value: true },
             },
         } as any);
