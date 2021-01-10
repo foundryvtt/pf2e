@@ -1,13 +1,13 @@
 /* global game, CONFIG */
 import { PF2EActor, SKILL_EXPANDED } from './actor';
-import { PF2ECondition, PF2EItem } from '../item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrike, CharacterStrikeTrait, NpcData, NPCSkillData, RawNPCSkillData } from './actorDataDefinitions';
+import { CharacterStrike, CharacterStrikeTrait, NpcData, NPCSkillData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
 import { PF2ECONFIG } from '../../scripts/config';
 import { ItemData } from '../item/dataDefinitions';
+import { PF2EItem } from '../item/item';
 
 export class PF2ENPC extends PF2EActor {
     /** @override */
@@ -443,7 +443,6 @@ export class PF2ENPC extends PF2EActor {
      */
     private _createNPCSkillFromItemSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
         const skillName = this.convertItemNameToSkillName(item.name);
-        let abilityId: string;
         let skillId: string;
 
         const isRegularSkill = this._isRegularSkillName(skillName);
@@ -452,11 +451,9 @@ export class PF2ENPC extends PF2EActor {
         if (isRegularSkill) {
             const skillData = SKILL_EXPANDED[skillName];
             
-            abilityId = skillData.ability;
             skillId = skillData.shortform;
         } else if (isLoreSkill) {
             // It's a lore skill, and thus should use INT as its ability
-            abilityId = 'int';
             skillId = skillName;
         } else {
             // It's a skill with special bonus with a malformed ID

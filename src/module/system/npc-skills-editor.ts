@@ -82,7 +82,7 @@ export class NPCSkillsEditor extends FormApplication {
             }
         };
 
-        const createdSkill = await this.npc.createOwnedItem(data);
+        await this.npc.createOwnedItem(data);
         
         this.render(true);
     }
@@ -100,7 +100,6 @@ export class NPCSkillsEditor extends FormApplication {
             let type: string;
             let value: number;
             let exception: string;
-            let loreName: string;
 
             if (isLoreSkill) {
                 // Get skill id from the lore name, in case it has changed
@@ -113,13 +112,11 @@ export class NPCSkillsEditor extends FormApplication {
                 type = key;
                 value = parseInt(skillData[1], 10);
                 exception = skillData[2] || '';
-                loreName = skillData[0];
             } else {
                 skillId = key;
                 type = key;
                 value = parseInt(skillData[0], 10);
                 exception = skillData[1] || '';
-                loreName = '';
             }
 
             const skillItem = this.npc.findSkillItem(skillId, exception);
@@ -152,7 +149,7 @@ export class NPCSkillsEditor extends FormApplication {
                     }
                 };
 
-                const createdItem = await this.npc.createOwnedItem(data);
+                await this.npc.createOwnedItem(data);
             } else if (hasToDelete) {
                 this.npc.deleteOwnedItem(skillItem._id);
             }
