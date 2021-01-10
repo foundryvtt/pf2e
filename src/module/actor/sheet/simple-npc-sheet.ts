@@ -548,6 +548,11 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
                 item.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
             }
 
+            // Assign components
+            item.data.components.somatic = item.data.components.value.includes('somatic');
+            item.data.components.verbal = item.data.components.value.includes('verbal');
+            item.data.components.material = item.data.components.value.includes('material');
+
             // Try to assign spellcasting entry
             const location = item.data.location.value;
 
