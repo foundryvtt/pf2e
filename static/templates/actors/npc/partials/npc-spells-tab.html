@@ -1,3 +1,32 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
-
+    {{ log actor }}
+    <ol class="entries-list">
+        {{#each actor.spellcastingEntries as |entry entryId|}}
+        <li class="spellcasting-entry item" data-item-id="{{entry._id}}">
+            <div class="header">
+                <div class="values">
+                    <div class="spellDC inline-field">
+                        <label>{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
+                        <input type="text" name="actor.spellcastingEntries[{{entryId}}].data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                    <div class="spellAttack inline-field">
+                        <label class="rollable"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
+                        <input type="text" name="actor.spellcastingEntries[{{entryId}}].data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                </div>
+                <div class="name">
+                    <h4>{{ entry.name }}</h4>
+                </div>
+                <div class="controls">
+                    {{#if ../options.editable }}
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="body">
+                
+            </div>
+        </li>
+        {{/each}}
+    </ol>
 </div>
