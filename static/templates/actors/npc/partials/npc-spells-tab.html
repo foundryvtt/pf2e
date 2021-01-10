@@ -28,7 +28,11 @@
                     <div class="name"></div>
                     <div class="range">{{ localize 'PF2E.SpellRangeLabel' }}</div>
                     <div class="components">{{ localize 'PF2E.SpellComponentsLabel' }}</div>
-                    <div class="controls"></div>
+                    <div class="entry-controls controls">
+                        {{#if ../options.editable }}
+                        <a class="item-add add spell-create" data-type="spell" title="{{ localize 'PF2E.NPC.Add' }}"><i class="fas fa-plus"></i></a>
+                        {{/if}}
+                    </div>
                 </div>
                 {{#each entry.spellbook as |section sectionId|}}
                 <div class="section">
@@ -47,6 +51,6 @@
         {{/each}}
     </ol>
     <div class="footer">
-        <button type="button" class="entry-button"><i class="fas fa-plus"></i> {{ localize 'PF2E.SpellcastingTypeLabel' }}</button>
+        <button type="button" class="spellcasting-create"><i class="fas fa-plus"></i> {{ localize 'PF2E.SpellcastingTypeLabel' }}</button>
     </div>
 </div>
