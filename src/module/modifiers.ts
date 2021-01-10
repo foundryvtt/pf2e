@@ -68,6 +68,8 @@ export const PF2ModifierType = Object.freeze({
 export class PF2Modifier {
     /** The name of this modifier; should generally be a localization key (see en.json). */
     name: string;
+    /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
+    label?: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
@@ -451,6 +453,8 @@ export class PF2DamageDice {
     selector: string;
     /** The name of this damage dice; used as an identifier. */
     name: string;
+    /** The display name of this damage dice, overriding the name field if specified. */
+    label?: string;
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
@@ -485,6 +489,7 @@ export class PF2DamageDice {
         } else {
             throw new Error('name is mandatory');
         }
+        this.label = param?.label;
         this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = param?.dieSize;
         this.critical = param?.critical ?? false;
