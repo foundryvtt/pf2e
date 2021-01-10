@@ -1,7 +1,9 @@
 /* global canvas */
 
-import { isPhysicalItem } from '../../../item/dataDefinitions';
+import { isAlchemical, isMagical } from '../../../item/identification';
+import { isPhysicalItem, PhysicalItemData } from '../../../item/dataDefinitions';
 import { PF2EActor } from '../../actor';
+import { PF2EPhysicalItem } from '../../../item/physical';
 
 /**
  * @category Other
@@ -9,9 +11,9 @@ import { PF2EActor } from '../../actor';
 export class LootNPCsPopup extends FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'distribute-coins';
+        options.id = 'Loot NPCs';
         options.classes = [];
-        options.title = 'Distribute Coins';
+        options.title = 'Loot NPCs';
         options.template = 'systems/pf2e/templates/actors/loot/loot-npcs-popup.html';
         options.width = 'auto';
         return options;
@@ -29,13 +31,28 @@ export class LootNPCsPopup extends FormApplication {
                 const currentSource = Actor.fromToken(
                     canvas.tokens.placeables.find((token) => token.id === this.form[i].id),
                 ) as PF2EActor;
-                const currentSourceItemData = currentSource.data.items.filter((item) => isPhysicalItem(item));
-                itemData.push(...duplicate(currentSourceItemData));
+                const currentSourceItemData = currentSource.data.items.filter((item) =>
+                    isPhysicalItem(item),
+                ) as PhysicalItemData[];
+                itemData.push(...currentSourceItemData);
                 const idsToDelete = currentSourceItemData.map((item) => {
                     return item._id;
                 });
                 currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);
             }
+        }
+        if (formData.autoMystify) {
+            itemData.map((item) => {
+                if ((isMagical(item) || isAlchemical(item)) && !(item.data.identification?.status === 'unidentified')) {
+                    const diff = {
+                        'data.identification.status': 'unidentified',
+                        'data.identification.identified.name': item.name,
+                    };
+                    PF2EPhysicalItem.updateIdentificationData(item, diff);
+                    console.log(diff);
+                    item = mergeObject(item, diff);
+                }
+            });
         }
         if (itemData.length > 0) {
             this.object.createOwnedItem(itemData);

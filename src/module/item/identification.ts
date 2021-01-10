@@ -103,7 +103,7 @@ export function isMagical(itemData: PhysicalItemData): boolean {
     );
 }
 
-function isAlchemical(itemData: PhysicalItemData): boolean {
+export function isAlchemical(itemData: PhysicalItemData): boolean {
     return getTraits(itemData).has('alchemical');
 }
 
