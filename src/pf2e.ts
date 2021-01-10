@@ -1,5 +1,5 @@
-import { PF2ECONFIG, ConfigPF2e } from './scripts/config';
-import { rollItemMacro, rollActionMacro } from './scripts/init';
+import { ConfigPF2e, PF2ECONFIG } from './scripts/config';
+import { rollActionMacro, rollItemMacro } from './scripts/init';
 import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
@@ -29,6 +29,8 @@ import {
 import { WorldClockApplication } from './module/system/world-clock-application';
 import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
+import { earnIncome } from './module/earn-income';
+
 require('./styles/pf2e.scss');
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
@@ -98,6 +100,11 @@ Hooks.once('init', () => {
     (window as any).PF2StatisticModifier = PF2StatisticModifier;
     (window as any).PF2CheckModifier = PF2CheckModifier;
     (window as any).PF2Check = PF2Check;
+
+    // expose actions until we know how to include them on the sheet
+    (game.pf2e as any).actions = {
+        earnIncome,
+    };
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
@@ -421,6 +428,7 @@ function preCreateOwnedItem(parent, child, options, userID) {
         }
     }
 }
+
 Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
 
 function createOwnedItem(parent, child, options, userID) {
@@ -432,6 +440,7 @@ function createOwnedItem(parent, child, options, userID) {
         game[game.system.id].effectPanel?.refresh();
     }
 }
+
 Hooks.on('createOwnedItem', createOwnedItem);
 
 function deleteOwnedItem(parent, child, options, userID) {
@@ -443,6 +452,7 @@ function deleteOwnedItem(parent, child, options, userID) {
         game[game.system.id].effectPanel?.refresh();
     }
 }
+
 Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
