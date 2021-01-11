@@ -509,96 +509,146 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
      * @param actorData Data of the actor to show in the sheet.
      */
     private _prepareSpellcasting(actorData: any) {
-        const tempSpellbook = [];
-        const spellcastingEntriesList = [];
+        const spellsList = [];
+        const spellEntriesList = [];
         const spellbooks: any = [];
-        const spellcastingEntries = [];
 
         spellbooks.unassigned = {};
 
-        for (const item of actorData.items) {
+        for (let i = 0; i < actorData.items.length; i++) {
+            const item = actorData.items[i];
             if (item.type === 'spell') {
-                tempSpellbook.push(item);
+                spellsList.push(item);
             } else if (item.type === 'spellcastingEntry') {
-                spellcastingEntriesList.push(item._id);
+                spellEntriesList.push(item._id);
 
                 const isPrepared = (item.data.prepared || {}).value === 'prepared';
                 const isRitual = (item.data.tradition || {}).value === 'ritual';
 
                 item.data.prepared = isPrepared;
                 item.data.tradition.ritual = isRitual;
-
-                spellcastingEntries.push(item);
+                item.index = i;
             }
         }
 
-        const embeddedEntityUpdate = [];
+        // Contains all updates to perform over items after processing
+        const updateData = [];
 
-        // Assign spells as necessary
-        for (const item of tempSpellbook) {
-            const spellType = item.data.time.value;
+        // Assign spells to spell entries
+        for (const spell of spellsList) {
+            const spellType = spell.data.time.value;
 
             // Assign icon based on spell type
             if (spellType === 'reaction') {
-                item.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
-                item.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
             } else {
                 const actionsCost = parseInt(spellType, 10);
-                item.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
+                spell.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
             }
 
             // Assign components
-            item.data.components.somatic = item.data.components.value.includes('somatic');
-            item.data.components.verbal = item.data.components.value.includes('verbal');
-            item.data.components.material = item.data.components.value.includes('material');
+            spell.data.components.somatic = spell.data.components.value.includes('somatic');
+            spell.data.components.verbal = spell.data.components.value.includes('verbal');
+            spell.data.components.material = spell.data.components.value.includes('material');
 
-            // Try to assign spellcasting entry
-            const location = item.data.location.value;
+            let location = spell.data.location.value;
+            let spellbook;
+            const hasVaidSpellcastingEntry = spellEntriesList.includes(location);
 
-            if (spellcastingEntriesList.includes(location)) {
+            if (hasVaidSpellcastingEntry) {
                 spellbooks[location] = spellbooks[location] || {};
-
-                this._prepareSpell(actorData, spellbooks[location], item);
-            } else if (spellcastingEntriesList.length === 1) {
-                // If only one entry, use that
-
+                spellbook = spellbooks[location];
+            } else if (spellEntriesList.length === 1) {
+                location = spellEntriesList[0];
                 spellbooks[location] = spellbooks[location] || {};
+                spellbook = spellbooks[location];
 
-                // Update spell to perminantly have the correct ID now
-                embeddedEntityUpdate.push({ _id: item._id, 'data.location.value': spellcastingEntriesList[0] });
-
-                this._prepareSpell(actorData, spellbooks[location], item);
+                // Assign the correct spellbook to the original item
+                updateData.push({ _id: spell._id, 'data.location.value': location });
             } else {
-                // Just prepare it in the orphaned list
-                this._prepareSpell(actorData, spellbooks.unassigned, item);
+                location = "unassigned";
+                spellbook = spellbooks.unassigned;
             }
 
-            // Update all embedded entities that have an incorrect location.
-            if (embeddedEntityUpdate.length) {
-                console.log(
-                    'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
-                    embeddedEntityUpdate,
-                );
-                this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
-                ui.notifications.info(
-                    'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
-                );
+            this._prepareSpell(actorData, spellbook, spell);
+        }
+
+        // Update all embedded entities that have an incorrect location.
+        if (updateData.length) {
+            console.log(
+                'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
+                updateData,
+            );
+            this.actor.updateEmbeddedEntity('OwnedItem', updateData);
+            ui.notifications.info(
+                'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
+            );
+        }
+
+        const hasOrphanedSpells = Object.keys(spellbooks.unassigned).length > 0;
+
+        if (hasOrphanedSpells) {
+            actorData.orphanedSpells = true;
+            actorData.orphanedSpellbook = spellbooks.unassigned;
+        } else {
+            actorData.orphanedSpells = false;
+        }
+
+        const spellcastingEntries = [];
+
+        for (const entryId of spellEntriesList) {
+            const entry = actorData.items.find(i => i._id === entryId);
+
+            if (entry === null || entry === undefined) {
+                console.error(`Failed to find spell casting entry with ID ${entryId}`);
+                continue;
+            }
+            
+            const spellbook = spellbooks[entry._id];
+            const mustBePrepared = entry.data.prepared.preparedSpells && spellbook;
+
+            if (mustBePrepared) {
+                this._preparedSpellSlots(entry, spellbook);
+            } else {
+
             }
 
-            if (Object.keys(spellbooks.unassigned).length) {
-                actorData.orphanedSpells = true;
-                actorData.orphanedSpellbook = spellbooks.unassigned;
-            }
+            entry.spellbook = spellbook;
 
-            for (const entry of spellcastingEntries) {
-                if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
-                    this._preparedSpellSlots(entry, spellbooks[entry._id]);
+            spellcastingEntries.push(entry);
+        }
+
+        actorData.spellcastingEntries = spellcastingEntries;
+
+        const entriesUpdate = [];
+
+        // Update values of the entry with values from the sheet
+        // This is done here because we can't modify the entity from the sheet
+        // so we store the values in data.items and update the original
+        // item here.
+        for (const entryId of Object.keys(actorData.data.items)) {
+            const originalEntry = actorData.items.find(i => i._id === entryId);
+            const newEntry = actorData.data.items[entryId];
+
+            if (originalEntry === null) continue;
+            if (originalEntry === undefined) continue;
+            if (originalEntry.type !== 'spellcastingEntry') continue;
+
+            if (originalEntry.data.spelldc.dc !== newEntry.data.spelldc.dc ||
+                originalEntry.data.spelldc.value !== newEntry.data.spelldc.value)
+                {
+                    entriesUpdate.push( {
+                        _id: entryId,
+                        'data.spelldc.dc': newEntry.data.spelldc.dc,
+                        'data.spelldc.value': newEntry.data.spelldc.value
+                    });
                 }
-                entry.spellbook = spellbooks[entry._id];
-            }
+        }
 
-            actorData.spellcastingEntries = spellcastingEntries;
+        if (entriesUpdate.length > 0) {
+            this.actor.updateEmbeddedEntity('OwnedItem', entriesUpdate);
         }
     }
 
@@ -642,7 +692,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
             if (!this._isEquipment(item)) continue;
 
-            console.log(`Adding item ${item.name} to category ${item.type}`);
             equipment[item.type].items.push(item);
         }
 
