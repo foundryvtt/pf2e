@@ -622,34 +622,37 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         actorData.spellcastingEntries = spellcastingEntries;
 
-        const entriesUpdate = [];
-
-        // Update values of the entry with values from the sheet
-        // This is done here because we can't modify the entity from the sheet
-        // so we store the values in data.items and update the original
-        // item here.
-        for (const entryId of Object.keys(actorData.data.items)) {
-            const originalEntry = actorData.items.find(i => i._id === entryId);
-            const newEntry = actorData.data.items[entryId];
-
-            if (originalEntry === null) continue;
-            if (originalEntry === undefined) continue;
-            if (originalEntry.type !== 'spellcastingEntry') continue;
-
-            if (originalEntry.data.spelldc.dc !== newEntry.data.spelldc.dc ||
-                originalEntry.data.spelldc.value !== newEntry.data.spelldc.value)
-                {
-                    entriesUpdate.push( {
-                        _id: entryId,
-                        'data.spelldc.dc': newEntry.data.spelldc.dc,
-                        'data.spelldc.value': newEntry.data.spelldc.value
-                    });
-                }
+        if (actorData.data.items) {
+            const entriesUpdate = [];
+    
+            // Update values of the entry with values from the sheet
+            // This is done here because we can't modify the entity from the sheet
+            // so we store the values in data.items and update the original
+            // item here.
+            for (const entryId of Object.keys(actorData.data.items)) {
+                const originalEntry = actorData.items.find(i => i._id === entryId);
+                const newEntry = actorData.data.items[entryId];
+    
+                if (originalEntry === null) continue;
+                if (originalEntry === undefined) continue;
+                if (originalEntry.type !== 'spellcastingEntry') continue;
+    
+                if (originalEntry.data.spelldc.dc !== newEntry.data.spelldc.dc ||
+                    originalEntry.data.spelldc.value !== newEntry.data.spelldc.value)
+                    {
+                        entriesUpdate.push( {
+                            _id: entryId,
+                            'data.spelldc.dc': newEntry.data.spelldc.dc,
+                            'data.spelldc.value': newEntry.data.spelldc.value
+                        });
+                    }
+            }
+    
+            if (entriesUpdate.length > 0) {
+                this.actor.updateEmbeddedEntity('OwnedItem', entriesUpdate);
+            }
         }
 
-        if (entriesUpdate.length > 0) {
-            this.actor.updateEmbeddedEntity('OwnedItem', entriesUpdate);
-        }
     }
 
     /**
