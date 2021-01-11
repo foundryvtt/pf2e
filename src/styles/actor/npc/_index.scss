@@ -9,6 +9,10 @@ $damage-button-color: #5e0000;
 $primary-accent: #5e0000;
 $secondary-accent: #171f69;
 $light-text: #f5efe0;
+$common: #323232;
+$uncommon: #98513d;
+$rare: #002664;
+$unique: #54166e;
 
 @import 'forms';
 
@@ -636,28 +640,44 @@ $light-text: #f5efe0;
         flex-wrap: wrap;
     }
 
-    .alignment-select {
+    select {
         flex: auto 0 0;
         padding: 4px !important;
+        height: auto !important;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+    }
+
+    .alignment-select {
         background: #566193 !important;
         border: 2px solid #d8c384 !important;
         color: white !important;
-        height: auto !important;
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
     }
     
     .size-select {
-        flex: auto 0 0;
-        padding: 4px !important;
         background: #3a7a58 !important;
         border: 2px solid #d8c384 !important;
         color: white !important;
-        height: auto !important;
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
+    }
+
+    .rarity-select {
+        border: 2px solid #d8c384 !important;
+        color: white !important;
+        
+        &.common {
+            background: $common !important;
+        }
+        &.uncommon {
+            background: $uncommon !important;
+        }
+        &.rare {
+            background: $rare !important;
+        }
+        &.unique {
+            background: $unique !important;
+        }
     }
 
     .npc-body {
