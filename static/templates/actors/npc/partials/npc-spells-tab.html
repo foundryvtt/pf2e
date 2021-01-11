@@ -1,16 +1,16 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
     <ol class="entries-list">
         {{#each actor.spellcastingEntries as |entry entryId|}}
-        <li class="spellcasting-entry item" data-item-id="{{entry._id}}">
+        <li class="spellcasting-entry item" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
             <div class="header">
                 <div class="values">
                     <div class="spellDC inline-field">
                         <label>{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
-                        <input type="text" name="actor.spellcastingEntries[{{entryId}}].data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
+                        <input type="text" name="data.items.{{entry._id}}.data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
                     </div>
                     <div class="spellAttack inline-field">
                         <label class="rollable"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
-                        <input type="text" name="actor.spellcastingEntries[{{entryId}}].data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+                        <input type="text" name="data.items.{{entry._id}}.data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
                     </div>
                 </div>
                 <div class="name">
