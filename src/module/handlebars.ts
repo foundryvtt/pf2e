@@ -1,5 +1,5 @@
-import { ItemData } from "./item/dataDefinitions";
-import { BuildItemMetaData } from "./system/characterbuilder";
+import { ItemData } from './item/dataDefinitions';
+import { BuildItemMetaData } from './system/characterbuilder';
 
 /* global Handlebars TextEditor */
 export function registerHandlebarsHelpers() {
@@ -106,23 +106,20 @@ export function registerHandlebarsHelpers() {
         return strip_tags(String(value));
     });
 
-<<<<<<< HEAD
-  Handlebars.registerHelper('enrichHTML', (html) => {
-    return TextEditor.enrichHTML(html);
-  });
-
-  Handlebars.registerHelper('json', (html) => {
-    return JSON.stringify(html);
-  });
-  
-  Handlebars.registerHelper('getItem', (items: ItemData[], itemId: BuildItemMetaData) => {
-    return items.find(x => x._id === itemId.itemId);
-  });
-=======
     Handlebars.registerHelper('enrichHTML', (html) => {
         return TextEditor.enrichHTML(html);
     });
->>>>>>> 94e0126d3791eb59db27d070e5ccb6d850631ce2
+
+    Handlebars.registerHelper('json', (html) => {
+        return JSON.stringify(html);
+    });
+
+    Handlebars.registerHelper('getItem', (items: ItemData[], itemId: BuildItemMetaData) => {
+        return items.find((x) => x._id === itemId.itemId);
+    });
+    Handlebars.registerHelper('enrichHTML', (html) => {
+        return TextEditor.enrichHTML(html);
+    });
 
     Handlebars.registerHelper('json', (html) => {
         return JSON.stringify(html);
