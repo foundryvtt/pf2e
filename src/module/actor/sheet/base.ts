@@ -1864,6 +1864,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
             }
         }
     }
+
     _onCharacterBuilder(event) {
         event.preventDefault();
         if (this.actor.data.type === 'character') {

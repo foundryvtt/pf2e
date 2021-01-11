@@ -438,10 +438,10 @@ export interface FeatDetailsData extends ItemDescriptionData {
 export interface BuildChoiceData {
     selectedAt: {
         value: keyof BuildCategories;
-    },
+    };
     isValid: {
         value: boolean;
-    } 
+    };
 }
 
 export interface LoreDetailsData extends ItemDescriptionData {
