@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import {sum} from './utils';
+import { sum } from './utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
