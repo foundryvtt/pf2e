@@ -1,3 +1,10 @@
+function escapeHtml(html) {
+    const text = document.createTextNode(html);
+    const p = document.createElement('p');
+    p.appendChild(text);
+    return p.innerHTML;
+}
+
 function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
@@ -44,13 +51,15 @@ function coinsToString(coins, degreeOfSuccess) {
 
 function chatTemplate(skillName, earnIncomeResult) {
     const degreeOfSuccess = degreeOfSuccessLabel(earnIncomeResult.degreeOfSuccess);
-    const payPerDay = coinsToString(earnIncomeResult.rewards.perDay, degreeOfSuccess);
-    const combinedPay = coinsToString(earnIncomeResult.rewards.combined, degreeOfSuccess);
+    const payPerDay = escapeHtml(coinsToString(earnIncomeResult.rewards.perDay, degreeOfSuccess));
+    const combinedPay = escapeHtml(coinsToString(earnIncomeResult.rewards.combined, degreeOfSuccess));
     const level = earnIncomeResult.level;
     const daysSpentWorking = earnIncomeResult.daysSpentWorking;
     const forDays =
         daysSpentWorking > 1 ? `<p><strong>Salary for ${daysSpentWorking} days</strong>: ${combinedPay}</p>` : '';
     const successColor = earnIncomeResult.degreeOfSuccess > 1 ? 'darkgreen' : 'darkred';
+    const dc = earnIncomeResult.dc;
+    const roll = earnIncomeResult.roll;
     return `
     <div class="pf2e chat-card">
         <header class="card-header flexrow">
@@ -58,8 +67,8 @@ function chatTemplate(skillName, earnIncomeResult) {
             <h3>Earn Income Level ${level}</h3>
         </header>
         <div class="card-content">
-            <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess} (DC: ${earnIncomeResult.dc}, Roll: ${earnIncomeResult.roll})</span></p>
-            <p><strong>Skill</strong>: ${skillName}</p>
+            <p><strong>Result</strong>: <span style="color: ${successColor}">${degreeOfSuccess} (DC: ${dc}, Roll: ${roll})</span></p>
+            <p><strong>Skill</strong>: ${escapeHtml(skillName)}</p>
             <p><strong>Salary per day:</strong> ${payPerDay}</p>
             ${forDays}
         </div>
@@ -148,9 +157,9 @@ function askSkillPopupTemplate(skills) {
             ${skills
                 .map(
                     (skill) =>
-                        `<option value="${skill.acronym}" ${skillAcronym === skill.acronym ? 'selected' : ''}>${
-                            skill.name
-                        }</option>`,
+                        `<option value="${skill.acronym}" ${
+                            skillAcronym === skill.acronym ? 'selected' : ''
+                        }>${escapeHtml(skill.name)}</option>`,
                 )
                 .join('')}
         </select>
