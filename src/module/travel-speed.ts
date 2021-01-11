@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import { sum } from './utils';
+import {sum} from './utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -113,7 +113,7 @@ export function calculateCharacterSpeed(
     }
 }
 
-enum Length {
+export enum Length {
     MILES,
     FEET,
 }
@@ -140,7 +140,7 @@ function toFeet(distance: Distance): number {
     }
 }
 
-enum TimeFrame {
+export enum TimeFrame {
     MINUTE,
     HOUR,
 }
@@ -148,6 +148,16 @@ enum TimeFrame {
 export interface Velocity {
     distance: Distance;
     timeFrame: TimeFrame;
+}
+
+export function speedToVelocity(speedInFeet: number): Velocity {
+    return {
+        distance: {
+            unit: Length.FEET,
+            value: speedInFeet * 10,
+        },
+        timeFrame: TimeFrame.MINUTE,
+    };
 }
 
 function toFeetPerMinute(velocity: Velocity): number {
