@@ -1402,7 +1402,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
 
-        if (game.user.isGM || (item instanceof PF2EPhysicalItem && item.isIdentified)) {
+        if (game.user.isGM || !(item instanceof PF2EPhysicalItem) || (item instanceof PF2EPhysicalItem && item.isIdentified)) {
             this._renderItemSummary(li, item, chatData);
         }
     }
