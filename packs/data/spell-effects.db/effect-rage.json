@@ -1,0 +1,57 @@
+{
+    "_id": "z3uyCMBddrPK5umr",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p><strong>Requirements</strong> You aren't @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} or raging</p>\n<hr />\n<p>You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, whichever comes first. You can't voluntarily stop raging. While you are raging:</p>\n<ul>\n<li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li>\n<li>You take a –1 penalty to AC.</li>\n<li>You can't use actions with the concentrate trait unless they also have the rage trait. You can @Compendium[pf2e.actionspf2e.Seek]{Seek} while raging.</li>\n</ul>\n<p> After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.</p><p>Implemented Effects:</p>\n<ul>\n<li>Temporary hitpoint based on level and con mod</li>\n<li>Enables rage property for rage damage</li>\n<li>Sets token effect</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.TempHP",
+                "value": "@abilities.con.mod + @details.level.value"
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.rage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/classes/rage.jpg",
+    "name": "Effect: Rage",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

@@ -1,0 +1,76 @@
+{
+    "_id": "uFYvW3kFP9iyNfVX",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Clinging Shadows Stance]{Clinging Shadows Stance}</p>\n<p>You adopt the stance of clinging shadows. You can make shadow grasp @Compendium[pf2e.actionspf2e.Strike]{Strikes}. These deal 1d4 negative damage; are in the brawling group; and have the agile, grapple, reach, and unarmed traits.</p>\n<p>While in the clinging shadows stance, you gain a +2 circumstance bonus to Athletics checks to @Compendium[pf2e.actionspf2e.Grapple]{Grapple}, and to the DC for creatures to @Compendium[pf2e.actionspf2e.Escape]{Escape} from you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "negative",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Shadow Grasp",
+                "range": "melee",
+                "traits": [
+                    "agile",
+                    "grapple",
+                    "reach",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "grapple"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/clinging-shadows-stance.jpg",
+    "name": "Stance: Clinging Shadows Stance",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

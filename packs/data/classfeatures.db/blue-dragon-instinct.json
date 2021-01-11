@@ -1,0 +1,141 @@
+{
+    "_id": "RiOww9KMu06D7wtW",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon’s blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3–4: Dragon Instincts to be your instinct’s dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table style=\"height: 187px;\" border=\"1\">\n<tbody>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\"><strong>Dragon</strong></td>\n<td style=\"height: 17px; width: 119px;\"><strong>Type</strong></td>\n<td style=\"height: 17px; width: 120px;\"><strong>Breath Weapon</strong></td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Black</td>\n<td style=\"height: 17px; width: 119px;\">Chromatic</td>\n<td style=\"height: 17px; width: 120px;\">Line of Acid</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Blue</td>\n<td style=\"height: 17px; width: 119px;\">Chromatic</td>\n<td style=\"height: 17px; width: 120px;\">Line of Electricity</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Green</td>\n<td style=\"height: 17px; width: 119px;\">Chromatic</td>\n<td style=\"height: 17px; width: 120px;\">Cone of Poison</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Red</td>\n<td style=\"height: 17px; width: 119px;\">Chromatic</td>\n<td style=\"height: 17px; width: 120px;\">Cone of Fire</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">White</td>\n<td style=\"height: 17px; width: 119px;\">Chromatic</td>\n<td style=\"height: 17px; width: 120px;\">Cone of Cold</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Brass</td>\n<td style=\"height: 17px; width: 119px;\">Metallic</td>\n<td style=\"height: 17px; width: 120px;\">Line of Fire</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Bronze</td>\n<td style=\"height: 17px; width: 119px;\">Metallic</td>\n<td style=\"height: 17px; width: 120px;\">Line of Electricity</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Copper</td>\n<td style=\"height: 17px; width: 119px;\">Metallic</td>\n<td style=\"height: 17px; width: 120px;\">Line of Acid</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Gold</td>\n<td style=\"height: 17px; width: 119px;\">Metallic</td>\n<td style=\"height: 17px; width: 120px;\">Cone of Fire</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 119px;\">Silver</td>\n<td style=\"height: 17px; width: 119px;\">Metallic</td>\n<td style=\"height: 17px; width: 120px;\">Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon’s breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist piercing damage and the damage type of your dragon’s breath weapon.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "identified": {
+            "value": true
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": ""
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "rage",
+                "value": -1
+            },
+            {
+                "damageType": "electricity",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 8
+                        },
+                        {
+                            "start": 15,
+                            "value": 16
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "electricity",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-agile",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 4
+                        },
+                        {
+                            "start": 15,
+                            "value": 8
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {
+        "pdfoundry-pf2e": {
+            "source": ""
+        }
+    },
+    "img": "systems/pf2e/icons/features/classes/dragon-instinct.jpg",
+    "name": "Blue Dragon Instinct",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

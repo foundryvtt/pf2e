@@ -1,8 +1,10 @@
 module.exports = {
-    trailingComma: 'es5',
+    trailingComma: 'all',
     singleQuote: true,
+    printWidth: 120,
     tabWidth: 4,
-    requirePragma: true,
+    useTabs: false,
+    requirePragma: false,
     overrides: [
         {
             files: ['*.scss', '*.css'],

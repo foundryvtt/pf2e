@@ -1,0 +1,23 @@
+<form
+    class="loot-actor-popup"
+    autocomplete="off"
+    onsubmit="event.preventDefault();"
+>
+    <div class="checkboxes">
+        <h1>{{localize "PF2E.loot.LootNPCsPopupHeader"}}</h1>
+        {{#each tokenInfo as |info|}}
+        <p>
+            <label class="selection" for="{{info.id}}">
+                <input type="checkbox"name="selection" id="{{info.id}}" {{#if info.checked}}checked="checked"{{/if}}/>
+                <span>{{info.name}}</span>
+            </label>
+        </p>
+        {{/each}}
+    </div>
+    <p>
+        <button class="confirm-button" type="submit" name="submit" value="1">
+            <i class="far fa-save"></i>
+            {{localize "PF2E.loot.LootNPCsLabel"}}
+        </button>
+    </p>
+</form>

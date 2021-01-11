@@ -1,4 +1,4 @@
-import {Bulk, bulkConversions, Sizes} from './bulk';
+import { Bulk, bulkConversions, Sizes } from './bulk';
 
 /**
  * @category Other

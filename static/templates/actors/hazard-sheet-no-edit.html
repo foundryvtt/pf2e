@@ -37,7 +37,7 @@
             <label class="stat-title attribute-name">{{localize "PF2E.StealthLabel"}} <span class="stat-value attribute-name">+{{data.attributes.stealth.value}}</span></label>
           </span>
           {{#if hasStealthDescription}}
-            <p>{{{enrichHTML data.attributes.stealth.details}}}</p>
+            <div>{{{enrichHTML data.attributes.stealth.details}}}</div>
           {{/if}}
         </div>
         {{else}}
@@ -57,7 +57,7 @@
           <span class="inline-stats">
               <label class="stat-title">{{localize "PF2E.HazardDescriptionLabel"}}</label>
           </span>
-          <p>{{{enrichHTML data.details.description}}}</p>
+          <div>{{{enrichHTML data.details.description}}}</div>
         </div>
         {{/if}}
 
@@ -71,7 +71,7 @@
       <span class="inline-stats">
           <label class="stat-title">{{localize "PF2E.HazardDisableLabel"}}</label>
       </span>
-      <p>{{{enrichHTML data.details.disable}}}</p>
+      <div>{{{enrichHTML data.details.disable}}}</div>
     </div>
     {{/if}}
 
@@ -267,7 +267,7 @@
       <span class="inline-stats" title="{{localize 'PF2E.HazardRoutineTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardRoutineLabel"}}</label>
       </span>
-      <p>{{{enrichHTML data.details.routine}}}</p>
+      <div>{{{enrichHTML data.details.routine}}}</div>
     </div>
 
     <hr>
@@ -278,7 +278,7 @@
       <span class="inline-stats" title="{{localize 'PF2E.HazardResetTitle'}}">
           <label class="stat-title">{{localize "PF2E.HazardResetLabel"}}</label>
       </span>
-      <p>{{{enrichHTML data.details.reset}}}</p>
+      <div>{{{enrichHTML data.details.reset}}}</div>
     </div>
     {{/if}}
 

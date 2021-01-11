@@ -1,21 +1,13 @@
 /**
- * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552 
+ * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-import {ProficiencyRank, Rarity} from './item/dataDefinitions';
+import { ProficiencyRank, Rarity } from './item/dataDefinitions';
 
-export type NegativeDCAdjustment =
-    'incredibly easy' |
-    'very easy' |
-    'easy' |
-    'normal';
+export type NegativeDCAdjustment = 'incredibly easy' | 'very easy' | 'easy' | 'normal';
 
-export type PositiveDCAdjustment =
-    'normal' |
-    'hard' |
-    'very hard' |
-    'incredibly hard';
+export type PositiveDCAdjustment = 'normal' | 'hard' | 'very hard' | 'incredibly hard';
 
 export type DCAdjustment = NegativeDCAdjustment | PositiveDCAdjustment;
 
@@ -110,11 +102,11 @@ export interface DCOptions {
  * @param level
  * @param proficiencyWithoutLevel
  */
-export function calculateDC(level: number, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+export function calculateDC(level: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
     // assume level 0 if garbage comes in
     const dc = dcByLevel.get(level) ?? 14;
     if (proficiencyWithoutLevel) {
-        // -1 shouldn't be subtracted since it's just 
+        // -1 shouldn't be subtracted since it's just
         // a creature level and not related to PC levels
         return dc - Math.max(level, 0);
     } else {
@@ -122,7 +114,7 @@ export function calculateDC(level: number, {proficiencyWithoutLevel = false}: DC
     }
 }
 
-export function calculateSimpleDC(rank: ProficiencyRank, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
+export function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
     if (proficiencyWithoutLevel) {
         return simpleDCsWithoutLevel.get(rank) ?? 10;
     } else {
@@ -130,8 +122,8 @@ export function calculateSimpleDC(rank: ProficiencyRank, {proficiencyWithoutLeve
     }
 }
 
-export function calculateSpellDC(spellLevel, {proficiencyWithoutLevel = false}: DCOptions = {}): number {
-    return calculateDC((spellLevel * 2) - 1, {proficiencyWithoutLevel});
+export function calculateSpellDC(spellLevel, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
+    return calculateDC(spellLevel * 2 - 1, { proficiencyWithoutLevel });
 }
 
 /**
@@ -156,12 +148,7 @@ export function combineDCAdjustments(first: DCAdjustment, second: DCAdjustment):
  * growing difficulties starting from the adjusted position in
  * the table at https://2e.aonprd.com/Rules.aspx?ID=555
  */
-export function createDifficultyScale(
-    dc: number,
-    startAt: DCAdjustment,
-): number[] {
+export function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
     const beginAtIndex = adjustmentScale.indexOf(startAt);
-    return adjustmentScale
-        .filter((value, index) => index >= beginAtIndex)
-        .map(value => adjustDC(dc, value));
+    return adjustmentScale.filter((value, index) => index >= beginAtIndex).map((value) => adjustDC(dc, value));
 }

@@ -1,6 +1,5 @@
 /**
  * A Token is an implementation of PlaceableObject which represents an Actor within a viewed Scene on the game canvas.
- * @extends  {PlaceableObject}
  *
  * @example
  * Token.create({
@@ -34,7 +33,7 @@
  * }
  */
 
-type LightData = {
+declare type LightData = {
     brightLight: number;
     dimLight: number;
     lightAlpha: number;
@@ -43,11 +42,11 @@ type LightData = {
         type: string;
         speed: number;
         intensity: number;
-    }
+    };
     lightColor: string;
-}
+};
 
-declare interface BaseTokenData extends PlaceableObjectData {
+interface BaseTokenData extends PlaceableObjectData {
     name: string;
     displayName: number;
     img: string;
@@ -70,7 +69,7 @@ declare interface BaseTokenData extends PlaceableObjectData {
     bar2: { [key: string]: string };
 }
 
-type TokenData = BaseTokenData & LightData;
+declare type TokenData = BaseTokenData & LightData;
 
 /**
  * An instance of the Token class represents an Actor within a viewed Scene on the game canvas.
@@ -80,193 +79,194 @@ type TokenData = BaseTokenData & LightData;
  * @param data An object of token data which is used to construct a new Token.
  * @param scene The parent Scene entity within which the Token resides.
  */
-declare class Token extends PlaceableObject {
+declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /** @override */
     data: TokenData;
 
     effects: PIXI.Container;
 
-	/**
-	 * A Ray which represents the Token's current movement path
-	 */
-	protected _movement: any;
+    hitArea: PIXI.Rectangle;
+    /**
+     * A Ray which represents the Token's current movement path
+     */
+    protected _movement: any;
 
-	/**
-	 * An Object which records the Token's prior velocity dx and dy
-	 * This can be used to determine which direction a Token was previously moving
-	 */
-	protected _velocity: any;
+    /**
+     * An Object which records the Token's prior velocity dx and dy
+     * This can be used to determine which direction a Token was previously moving
+     */
+    protected _velocity: any;
 
-	/**
-	 * The Token's most recent valid position
-	 */
-	protected _validPosition: { x: number; y: number };
+    /**
+     * The Token's most recent valid position
+     */
+    protected _validPosition: { x: number; y: number };
 
-	/**
-	 * Provide a temporary flag through which this Token can be overridden to bypass any movement animation
-	 */
-	protected _noAnimate: boolean;
+    /**
+     * Provide a temporary flag through which this Token can be overridden to bypass any movement animation
+     */
+    protected _noAnimate: boolean;
 
-	/**
-	 * Track the set of User entities which are currently targeting this Token
-	 */
-	targeted: Set<User>;
+    /**
+     * Track the set of User entities which are currently targeting this Token
+     */
+    targeted: Set<User>;
 
-	/**
-	 * An Actor entity constructed using this Token's data
-	 * If actorLink is true, then the entity is the true Actor entity
-	 * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
-	 */
-	actor: SystemActorType;
+    /**
+     * An Actor entity constructed using this Token's data
+     * If actorLink is true, then the entity is the true Actor entity
+     * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
+     */
+    actor: ActorType | undefined;
 
-	constructor(...args: any[]);
+    constructor(...args: any[]);
 
-	/**
-	 * Provide a reference to the canvas layer which contains placeable objects of this type
-	 */
-	static get layer(): PlaceablesLayer;
+    /**
+     * Provide a reference to the canvas layer which contains placeable objects of this type
+     */
+    static get layer(): PlaceablesLayer;
 
-	/* -------------------------------------------- */
-	/*  Permission Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Permission Attributes
+    /* -------------------------------------------- */
 
-	/**
-	 * A Boolean flag for whether the current game User has permission to control this token
-	 */
-	get owner(): boolean;
+    /**
+     * A Boolean flag for whether the current game User has permission to control this token
+     */
+    get owner(): boolean;
 
-	/**
-	 * Does the current user have at least LIMITED permission to the Token
-	 */
-	get canViewSheet(): boolean;
+    /**
+     * Does the current user have at least LIMITED permission to the Token
+     */
+    get canViewSheet(): boolean;
 
-	/**
-	 * Is the HUD display active for this token?
-	 */
-	get hasActiveHUD(): boolean;
+    /**
+     * Is the HUD display active for this token?
+     */
+    get hasActiveHUD(): boolean;
 
-	/**
-	 * Provide a singleton reference to the TileConfig sheet for this Tile instance
-	 */
-	get sheet(): any;
+    /**
+     * Provide a singleton reference to the TileConfig sheet for this Tile instance
+     */
+    get sheet(): any;
 
-	/* -------------------------------------------- */
-	/*  Rendering Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Rendering Attributes
+    /* -------------------------------------------- */
 
-	/**
-	 * Translate the token's grid width into a pixel width based on the canvas size
-	 */
-	get w(): number;
+    /**
+     * Translate the token's grid width into a pixel width based on the canvas size
+     */
+    get w(): number;
 
-	/**
-	 * Translate the token's grid height into a pixel height based on the canvas size
-	 */
-	get h(): number;
+    /**
+     * Translate the token's grid height into a pixel height based on the canvas size
+     */
+    get h(): number;
 
-	/**
-	 * The Token's current central position
-	 */
-	get center(): any;
+    /**
+     * The Token's current central position
+     */
+    get center(): any;
 
-	/* -------------------------------------------- */
-	/*  State Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  State Attributes
+    /* -------------------------------------------- */
 
-	/**
-	 * An indicator for whether or not this token is currently involved in the active combat encounter.
-	 */
-	get inCombat(): boolean;
+    /**
+     * An indicator for whether or not this token is currently involved in the active combat encounter.
+     */
+    get inCombat(): boolean;
 
-	/**
-	 * An indicator for whether the Token is currently targeted by the active game User
-	 */
-	get isTargeted(): boolean;
+    /**
+     * An indicator for whether the Token is currently targeted by the active game User
+     */
+    get isTargeted(): boolean;
 
-	/**
-	 * Determine whether the Token is visible to the calling user's perspective.
-	 * If the user is a GM, all tokens are visible
-	 * If the user is a player, owned tokens which are not hidden are visible
-	 * Otherwise only tokens whose corner or center are within the vision polygon are visible.
-	 */
-	get isVisible(): boolean;
+    /**
+     * Determine whether the Token is visible to the calling user's perspective.
+     * If the user is a GM, all tokens are visible
+     * If the user is a player, owned tokens which are not hidden are visible
+     * Otherwise only tokens whose corner or center are within the vision polygon are visible.
+     */
+    get isVisible(): boolean;
 
-	/* -------------------------------------------- */
-	/*  Lighting and Vision Attributes
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Lighting and Vision Attributes
+    /* -------------------------------------------- */
 
-	/**
-	 * Test whether the Token has sight (or blindness) at any radius
-	 */
-	get hasSight(): boolean;
+    /**
+     * Test whether the Token has sight (or blindness) at any radius
+     */
+    get hasSight(): boolean;
 
-	/**
-	 * Test whether the Token emits light (or darkness) at any radius
-	 */
-	get emitsLight(): boolean;
+    /**
+     * Test whether the Token emits light (or darkness) at any radius
+     */
+    get emitsLight(): boolean;
 
-	/**
-	 * Test whether the Token has a limited angle of vision or light emission which would require sight to update on Token rotation
-	 */
-	get hasLimitedVisionAngle(): boolean;
+    /**
+     * Test whether the Token has a limited angle of vision or light emission which would require sight to update on Token rotation
+     */
+    get hasLimitedVisionAngle(): boolean;
 
-	/**
-	 * Translate the token's sight distance in units into a radius in pixels.
-	 * @return	The sight radius in pixels
-	 */
-	get dimRadius(): number;
+    /**
+     * Translate the token's sight distance in units into a radius in pixels.
+     * @return    The sight radius in pixels
+     */
+    get dimRadius(): number;
 
-	/**
-	 * The radius of dim light that the Token emits
-	 */
-	get dimLightRadius(): number;
+    /**
+     * The radius of dim light that the Token emits
+     */
+    get dimLightRadius(): number;
 
-	/**
-	 * Translate the token's bright light distance in units into a radius in pixels.
-	 * @return	The bright radius in pixels
-	 */
-	get brightRadius(): number;
+    /**
+     * Translate the token's bright light distance in units into a radius in pixels.
+     * @return    The bright radius in pixels
+     */
+    get brightRadius(): number;
 
-	/**
-	 * The radius of bright light that the Token emits
-	 */
-	get brightLightRadius(): number;
+    /**
+     * The radius of bright light that the Token emits
+     */
+    get brightLightRadius(): number;
 
-	/* -------------------------------------------- */
-	/* Rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /* Rendering
+    /* -------------------------------------------- */
 
-	draw(): Promise<any>;
+    draw(): Promise<any>;
 
-	refresh(): PlaceableObject;
+    refresh(): PlaceableObject;
 
-	protected _refreshBorder(): void;
+    protected _refreshBorder(): void;
 
-	protected _getBorderColor(): any;
+    protected _getBorderColor(): any;
 
-	protected _refreshTarget(): void;
+    protected _refreshTarget(): void;
 
-	protected _drawIcon(): Promise<any>;
+    protected _drawIcon(): Promise<any>;
 
-	getBarAttribute(barName: any): any;
+    getBarAttribute(barName: any): any;
 
-	protected _drawBars(): PIXI.Container;
+    protected _drawBars(): PIXI.Container;
 
-	protected drawBars(): void;
+    protected drawBars(): void;
 
-	protected _drawBar(number: number, bar: PIXI.Graphics, data: any): void;
+    protected _drawBar(number: number, bar: PIXI.Graphics, data: any): void;
 
-	protected _drawNameplate(): PIXI.Text;
+    protected _drawNameplate(): PIXI.Text;
 
-	drawTooltip(): void;
+    drawTooltip(): void;
 
-	protected _getTooltipText(): string;
+    protected _getTooltipText(): string;
 
-	drawEffects(): void;
+    drawEffects(): void;
 
-	/**
-	 * Toggle an active effect by it's texture path. Copy the existing Array in order to ensure the update method detects the data as changed.
-	 * @param texture The texture file-path of the effect icon to toggle on the Token.
-	 */
-	toggleEffect(texture: string): Promise<void>;
+    /**
+     * Toggle an active effect by it's texture path. Copy the existing Array in order to ensure the update method detects the data as changed.
+     * @param texture The texture file-path of the effect icon to toggle on the Token.
+     */
+    toggleEffect(texture: string): Promise<void>;
 }
