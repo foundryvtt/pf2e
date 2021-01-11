@@ -34,7 +34,6 @@ class TravelSpeedSheet extends FormApplication {
             'Track',
         ];
         sheetData.actors = this.options.actors.map((actor: Actor) => {
-            console.log(actor.data.data);
             return {
                 speed: actor.data.data.attributes.speed.total,
                 name: actor.name,
