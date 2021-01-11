@@ -1445,7 +1445,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                         props.append(
                             `<span class="tag tag_alt" title="${localize(p.description)}">${localize(p.label)}</span>`,
                         );
-                    else props.append(`<span class="tag">${localize(p.label)}</span>`);
+                    else if (p.label !== '') props.append(`<span class="tag">${localize(p.label)}</span>`);
                 });
             }
 
