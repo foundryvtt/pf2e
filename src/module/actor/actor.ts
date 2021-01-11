@@ -937,6 +937,10 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
+        newItemData.data.equipped.value = false;
+        if ('invested' in newItemData.data && typeof newItemData.data.invested.value === 'boolean') {
+            newItemData.data.invested.value = false;
+        }
 
         const result = await targetActor.createOwnedItem(newItemData);
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
