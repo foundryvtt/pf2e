@@ -30,6 +30,7 @@ import { WorldClockApplication } from './module/system/world-clock-application';
 import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
+import { calculateXP } from './module/xp';
 
 require('./styles/pf2e.scss');
 
@@ -104,6 +105,10 @@ Hooks.once('init', () => {
     // expose actions until we know how to include them on the sheet
     (game.pf2e as any).actions = {
         earnIncome,
+    };
+
+    (game.pf2e as any).gm = {
+        calculateXP,
     };
 });
 
