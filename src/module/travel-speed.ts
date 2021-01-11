@@ -170,7 +170,7 @@ export interface TravelSpeed {
     feetPerDay: number;
 }
 
-export function toTravelSpeed(velocity: Velocity): TravelSpeed {
+function toTravelSpeed(velocity: Velocity): TravelSpeed {
     const feetPerMinute = toFeetPerMinute(velocity);
     return {
         feetPerMinute: feetPerMinute,
