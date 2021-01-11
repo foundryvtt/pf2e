@@ -29,6 +29,13 @@
                 {{/each}}
                 {{/select}}
             </select>
+            <select class="adjustment-select traits-list-item adjustment" name="data.details.adjustment.value" data.dtype="String">
+                {{#select data.details.adjustment.value}}
+                <option value="normal">{{ localize 'PF2E.NPC.Adjustment.NormalLabel' }}</option>
+                <option value="weak">{{ localize 'PF2E.NPC.Adjustment.WeakLabel' }}</option>
+                <option value="elite">{{ localize 'PF2E.NPC.Adjustment.EliteLabel' }}</option>
+                {{/select}}
+            </select>
             {{#each data.traits.traits.localizationMap}}
             <div class="traits-list-item trait {{@key}}">{{ this }}</div>
             {{/each}}
