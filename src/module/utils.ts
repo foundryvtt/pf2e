@@ -6,6 +6,7 @@
  * @param criterion
  * @return
  */
+
 export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     const result = new Map<R, T[]>();
     for (const elem of array) {
@@ -107,4 +108,11 @@ export function addSign(number: number): string {
         return `+${number}`;
     }
     return '0';
+}
+
+/**
+ * No idea why this isn't built in
+ */
+export function sum(values: number[]): number {
+    return values.reduce((a, b) => a + b, 0);
 }
