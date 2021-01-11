@@ -1,0 +1,75 @@
+<form>
+  <h2>{{localize 'PF2E.TravelSpeed.PartySpeed'}}</h2>
+  <table>
+    <tbody>
+    <tr>
+      <th>{{localize 'PF2E.TravelSpeed.Name'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.TravelSpeed'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.SpeedUnit'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.ExplorationActivity'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.DetectionMode'}}</th>
+    </tr>
+    {{#each actors}}
+    <tr>
+      <td>{{name}}</td>
+      <td><input name="speed" type="number" value="25"></td>
+      <td>
+        <select name="speed-unit">
+          <option value="feet" selected>{{localize 'PF2E.TravelSpeed.Feet'}}</option>
+          <option value="miles">{{localize 'PF2E.TravelSpeed.Miles'}}</option>
+        </select>
+      </td>
+      <td>
+        <select name="explorationActivity">
+          {{#each ../explorationActivities}}
+          <option value="{{@index}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </td>
+      <td>
+        <select name="detection-mode">
+          <option value="none">{{localize 'PF2E.TravelSpeed.None'}}</option>
+          <option value="everything">{{localize 'PF2E.TravelSpeed.DetectEverything'}}</option>
+          <option value="before">{{localize 'PF2E.TravelSpeed.DetectBeforeRunningIntoIt'}}</option>
+        </select>
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  <h2>{{localize 'PF2E.TravelSpeed.Journey'}}</h2>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.Distance'}}</label>
+    <input name="distance" value="1" type="text">
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.DistanceUnit'}}</label>
+    <select name="distance-unit">
+      <option value="feet">{{localize 'PF2E.TravelSpeed.Feet'}}</option>
+      <option value="miles" selected>{{localize 'PF2E.TravelSpeed.Miles'}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.Terrain'}}</label>
+    <select name="terrain">
+      <option value="normal">{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</option>
+      <option value="difficult">{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</option>
+      <option value="greater-difficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</label>
+    <input name="normal-terrain-penalty" value="1" type="text">
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</label>
+    <input name="difficult-terrain-penalty" value="1/2" type="text">
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</label>
+    <input name="greater-difficult-terrain-penalty" value="1/3" type="text">
+  </div>
+</form>
+<h2>Estimated Travel Time</h2>
+<p>5 days, 04:24 hours</p>

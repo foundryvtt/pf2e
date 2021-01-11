@@ -2,14 +2,14 @@ import {
     calculateCharacterSpeed,
     calculateTravelDuration,
     DetectionOptions,
+    ExplorationActivities,
     ExplorationOptions,
     Length,
     speedToVelocity,
     Terrain,
     TerrainCost,
-    TravelActivities,
     Trip,
-} from '../../src/module/travel-speed';
+} from '../../../../src/module/gm/travel/travel-speed';
 
 const terrainModifiers: TerrainCost = {
     normal: 1,
@@ -28,18 +28,23 @@ const defaultExplorationOptions: ExplorationOptions = {
 describe('test travel speed', () => {
     test('character speed', () => {
         expect(
-            calculateCharacterSpeed(40, TravelActivities.FULL_SPEED, DetectionOptions.NONE, defaultExplorationOptions),
+            calculateCharacterSpeed(
+                40,
+                ExplorationActivities.FULL_SPEED,
+                DetectionOptions.NONE,
+                defaultExplorationOptions,
+            ),
         ).toEqual(40);
     });
 
     test('character speed when defending', () => {
         expect(
-            calculateCharacterSpeed(40, TravelActivities.DEFEND, DetectionOptions.NONE, defaultExplorationOptions),
+            calculateCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionOptions.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.DEFEND,
+                ExplorationActivities.DEFEND,
                 DetectionOptions.NONE,
                 Object.assign({}, defaultExplorationOptions, { practicedDefender: true }),
             ),
@@ -50,7 +55,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.AVOID_NOTICE,
+                ExplorationActivities.AVOID_NOTICE,
                 DetectionOptions.NONE,
                 defaultExplorationOptions,
             ),
@@ -58,7 +63,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.AVOID_NOTICE,
+                ExplorationActivities.AVOID_NOTICE,
                 DetectionOptions.NONE,
                 Object.assign({}, defaultExplorationOptions, { legendarySneak: true }),
             ),
@@ -66,7 +71,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.AVOID_NOTICE,
+                ExplorationActivities.AVOID_NOTICE,
                 DetectionOptions.NONE,
                 Object.assign({}, defaultExplorationOptions, { swiftSneak: true }),
             ),
@@ -75,12 +80,12 @@ describe('test travel speed', () => {
 
     test('character speed when searching', () => {
         expect(
-            calculateCharacterSpeed(40, TravelActivities.SEARCH, DetectionOptions.NONE, defaultExplorationOptions),
+            calculateCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionOptions.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.SEARCH,
+                ExplorationActivities.SEARCH,
                 DetectionOptions.DETECT_EVERYTHING,
                 defaultExplorationOptions,
             ),
@@ -88,7 +93,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 70,
-                TravelActivities.SEARCH,
+                ExplorationActivities.SEARCH,
                 DetectionOptions.DETECT_EVERYTHING,
                 defaultExplorationOptions,
             ),
@@ -96,7 +101,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 120,
-                TravelActivities.SEARCH,
+                ExplorationActivities.SEARCH,
                 DetectionOptions.DETECT_EVERYTHING,
                 Object.assign({}, defaultExplorationOptions, { expeditiousSearch: true }),
             ),
@@ -104,7 +109,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 140,
-                TravelActivities.SEARCH,
+                ExplorationActivities.SEARCH,
                 DetectionOptions.DETECT_EVERYTHING,
                 Object.assign({}, defaultExplorationOptions, { expeditiousSearchLegendary: true }),
             ),
@@ -112,7 +117,7 @@ describe('test travel speed', () => {
         expect(
             calculateCharacterSpeed(
                 40,
-                TravelActivities.SEARCH,
+                ExplorationActivities.SEARCH,
                 DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT,
                 defaultExplorationOptions,
             ),

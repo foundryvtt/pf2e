@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import { sum } from './utils';
+import { sum } from '../../utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -30,13 +30,14 @@ export interface ExplorationOptions {
  * * Swift Sneak https://2e.aonprd.com/Feats.aspx?ID=850
  * * Legendary Sneak https://2e.aonprd.com/Feats.aspx?ID=807
  * * Expeditious Search https://2e.aonprd.com/Feats.aspx?ID=777
+ * * Practiced Defender https://2e.aonprd.com/Feats.aspx?ID=2257
  *
  * Note: Hustle https://2e.aonprd.com/Actions.aspx?ID=515 does not
  * give you any information in what time frame this works and
  * hexploration specifically excludes hustling from overland
  * travel https://2e.aonprd.com/Rules.aspx?ID=1275
  */
-export enum TravelActivities {
+export enum ExplorationActivities {
     FULL_SPEED,
     HALF_SPEED,
     ANTICIPATE_AMBUSH,
@@ -57,27 +58,27 @@ export enum DetectionOptions {
     DETECT_BEFORE_WALKING_INTO_IT,
 }
 
-function sneaksAtFullSpeed(activity: TravelActivities, explorationOptions: ExplorationOptions) {
+function sneaksAtFullSpeed(activity: ExplorationActivities, explorationOptions: ExplorationOptions) {
     return (
-        activity === TravelActivities.AVOID_NOTICE &&
+        activity === ExplorationActivities.AVOID_NOTICE &&
         (explorationOptions.legendarySneak || explorationOptions.swiftSneak)
     );
 }
 
-function defendsAtFullSpeed(activity: TravelActivities, explorationOptions: ExplorationOptions) {
-    return activity === TravelActivities.DEFEND && explorationOptions.practicedDefender;
+function defendsAtFullSpeed(activity: ExplorationActivities, explorationOptions: ExplorationOptions) {
+    return activity === ExplorationActivities.DEFEND && explorationOptions.practicedDefender;
 }
 
 export function calculateCharacterSpeed(
     defaultSpeedInFeet: number,
-    activity: TravelActivities,
+    activity: ExplorationActivities,
     detectionOptions: DetectionOptions,
     explorationOptions: ExplorationOptions,
 ): number {
     const halvedSpeed = defaultSpeedInFeet / 2;
     if (sneaksAtFullSpeed(activity, explorationOptions) || defendsAtFullSpeed(activity, explorationOptions)) {
         return defaultSpeedInFeet;
-    } else if (activity === TravelActivities.SEARCH) {
+    } else if (activity === ExplorationActivities.SEARCH) {
         /**
          * When Searching, you take half as long as usual to Search a given area.
          * This means that while exploring, you double the Speed you can move while
@@ -97,7 +98,7 @@ export function calculateCharacterSpeed(
         } else {
             return halvedSpeed;
         }
-    } else if (activity === TravelActivities.DETECT_MAGIC) {
+    } else if (activity === ExplorationActivities.DETECT_MAGIC) {
         if (detectionOptions === DetectionOptions.DETECT_EVERYTHING) {
             return Math.min(halvedSpeed, 30);
         } else if (detectionOptions === DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT) {
@@ -105,7 +106,7 @@ export function calculateCharacterSpeed(
         } else {
             return halvedSpeed;
         }
-    } else if (activity === TravelActivities.FULL_SPEED) {
+    } else if (activity === ExplorationActivities.FULL_SPEED) {
         return defaultSpeedInFeet;
     } else {
         // pretty much any travel activity in the CRB halves your speed
