@@ -59,7 +59,7 @@ export class CharacterBuilder extends FormApplication {
         let item: PF2EItem;
         if (dragItem.pack) {
             // From Compendium
-            item = await game.packs.get(dragItem.pack).getEntity(dragItem.id);
+            item = (await game.packs.get(dragItem.pack).getEntity(dragItem.id)) as PF2EItem;
         } else if (dragItem.data) {
             // From Existing Item on Actor
             item = this.actor.getOwnedItem(dragItem.id);
