@@ -27,6 +27,160 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "rage",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Oversized Weapon Equipped",
+                "property": "flags.pf2e.rollOptions.all.oversized"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oversized-Rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "oversized"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 6
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 10
+                        },
+                        {
+                            "start": 15,
+                            "value": 18
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "oversized-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "oversized",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 15,
+                            "value": 9
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "oversized",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "agile",
+                        "oversized",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,161 +192,7 @@
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "rules": [
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "selector": "ac",
-            "value": -1,
-            "type": "rage",
-            "label": "rage",
-            "predicate": {
-              "all": [
-                "rage"
-              ]
-            },
-            "roll-options": [
-              "ac",
-              "all"
-            ]
-          },
-          {
-            "key": "PF2E.RuleElement.ToggleProperty",
-            "property": "flags.pf2e.rollOptions.all.oversized",
-            "label": "Oversized Weapon Equipped"
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "selector": "damage",
-            "label": "Oversized-Rage",
-            "predicate": {
-              "not": [
-                "ranged",
-                "agile"
-              ],
-              "all": [
-                "rage",
-                "oversized"
-              ]
-            },
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 6
-                },
-                {
-                  "start": 7,
-                  "end": 14,
-                  "value": 10
-                },
-                {
-                  "start": 15,
-                  "value": 18
-                }
-              ]
-            }
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "selector": "damage",
-            "name": "oversized-rage-agile",
-            "label": "Rage",
-            "predicate": {
-              "not": [
-                "ranged"
-              ],
-              "all": [
-                "rage",
-                "oversized",
-                "agile"
-              ]
-            },
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 3
-                },
-                {
-                  "start": 7,
-                  "end": 14,
-                  "value": 5
-                },
-                {
-                  "start": 15,
-                  "value": 9
-                }
-              ]
-            }
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "selector": "damage",
-            "label": "Rage",
-            "predicate": {
-              "not": [
-                "agile",
-                "oversized",
-                "ranged"
-              ],
-              "all": [
-                "rage"
-              ]
-            },
-            "value": {
-                "brackets": [
-                  {
-                    "end": 6,
-                    "value": 2
-                  },
-                  {
-                    "start": 7,
-                    "end": 14,
-                    "value": 6
-                  },
-                  {
-                    "start": 15,
-                    "value": 12
-                  }
-                ]
-              }
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "selector": "damage",
-            "name": "rage-agile",
-            "label": "Rage",
-            "predicate": {
-              "not": [
-                "agile",
-                "oversized",
-                "ranged"
-              ],
-              "all": [
-                "rage",
-                "agile"
-              ]
-            },
-            "value": {
-                "brackets": [
-                  {
-                    "end": 6,
-                    "value": 1
-                  },
-                  {
-                    "start": 7,
-                    "end": 14,
-                    "value": 3
-                  },
-                  {
-                    "start": 15,
-                    "value": 6
-                  }
-                ]
-              }
-          }
-        ]
+        }
     },
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/giant-instinct.jpg",
