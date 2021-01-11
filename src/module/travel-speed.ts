@@ -185,6 +185,7 @@ function toTravelSpeed(velocity: Velocity): TravelSpeed {
     return {
         feetPerMinute: feetPerMinute,
         feetPerHour: feetPerMinute * 60,
+        // only 8 hours per day are available for travelling
         feetPerDay: feetPerMinute * 60 * 8,
     };
 }
@@ -230,7 +231,6 @@ export interface TravelDuration {
 
 function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDuration {
     const days = Math.floor(distanceInFeet / speed.feetPerDay);
-    // only 1/3rd of all hours per day are available for actually travelling
     const hours = Math.floor((distanceInFeet - days * speed.feetPerDay) / speed.feetPerHour);
     const minutes = Math.floor(
         (distanceInFeet - days * speed.feetPerDay - hours * speed.feetPerHour) / (speed.feetPerHour / 60),
