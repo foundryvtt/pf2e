@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
-import { ItemData } from '../../item/dataDefinitions';
+import { ItemData } from '../../entities';
 import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
-import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
+import { CharacterData, FamiliarData, NpcData } from '../../entities';
 
 /**
  * @category RuleElement

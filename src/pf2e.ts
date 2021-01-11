@@ -4,9 +4,7 @@ import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
-import { PF2EItem } from './module/item/item';
-import { PF2EActor } from './module/actor/actor';
-import { PF2ENPC } from './module/actor/npc';
+import { PF2EActor, PF2ENPC, PF2EItem, FamiliarData } from './module/entities';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
 import { registerActors } from './module/register-actors';
@@ -17,7 +15,6 @@ import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
-import { FamiliarData } from './module/actor/actorDataDefinitions';
 import {
     AbilityModifier,
     PF2CheckModifier,

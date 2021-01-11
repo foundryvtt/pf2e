@@ -1,6 +1,6 @@
 /* global getProperty */
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { ItemData } from '../../entities';
+import { CharacterData, NpcData } from '../../entities';
 import { PF2RuleElement } from '../rule-element';
 
 /**

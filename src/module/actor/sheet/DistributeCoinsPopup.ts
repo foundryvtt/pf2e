@@ -1,10 +1,11 @@
 /* global game */
+
 import {
     addCoinsSimple,
     attemptToRemoveCoinsByValue,
     calculateValueOfCurrency,
     removeCoinsSimple,
-} from '../../item/treasure';
+} from '../../entities';
 
 /**
  * @category Other

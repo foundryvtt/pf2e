@@ -1,7 +1,5 @@
 /* global game */
-import { PF2EActor } from './actor';
-import { LootData } from './actorDataDefinitions';
-import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EActor, LootData, PF2EPhysicalItem } from '../entities';
 
 export class PF2ELoot extends PF2EActor {
     /** @override */

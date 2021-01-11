@@ -1,13 +1,19 @@
 /* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { calculateEncumbrance } from '../../item/encumbrance';
-import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
-import { PF2EActor } from '../actor';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
+import {
+    PF2EActor,
+    PF2EPhysicalItem,
+    isPhysicalItem,
+    calculateEncumbrance,
+    calculateBulk,
+    getContainerMap,
+    itemsFromActorData,
+    stacks,
+    formatBulk,
+    indexBulkItemsById,
+} from '../../entities';
 
 /**
  * @category Other

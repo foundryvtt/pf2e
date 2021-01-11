@@ -3,7 +3,7 @@
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-import { ProficiencyRank, Rarity } from './item/dataDefinitions';
+import { ProficiencyRank, Rarity } from './entities';
 
 export type NegativeDCAdjustment = 'incredibly easy' | 'very easy' | 'easy' | 'normal';
 

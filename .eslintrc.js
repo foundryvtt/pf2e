@@ -56,7 +56,7 @@ module.exports = {
         'import/no-default-export': 'error',
         'no-continue': 'off',
         'no-constant-condition': ['error', { checkLoops: false }],
-        'import/prefer-default-export': 'off',
+        'import/no-unused-modules': 'error',
         'no-else-return': 'off',
         'no-unused-vars': 'off',
         'lines-between-class-members': 'off',

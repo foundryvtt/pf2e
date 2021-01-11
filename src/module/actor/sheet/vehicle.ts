@@ -1,9 +1,16 @@
 /* global game, CONFIG */
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { getContainerMap } from '../../item/container';
+
+import {
+    PF2EActor,
+    getContainerMap,
+    calculateWealth,
+    calculateBulk,
+    itemsFromActorData,
+    stacks,
+    formatBulk,
+    indexBulkItemsById,
+} from '../../entities';
 import { ActorSheetPF2e } from './base';
-import { calculateWealth } from '../../item/treasure';
-import { PF2EActor } from '../actor';
 
 /**
  * @category Actor

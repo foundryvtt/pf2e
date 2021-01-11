@@ -2,8 +2,7 @@
  * Implementation of Earn Income rules on https://2e.aonprd.com/Skills.aspx?ID=2&General=true
  */
 
-import { ProficiencyRank } from './item/dataDefinitions';
-import { Coins } from './item/treasure';
+import { ProficiencyRank, Coins } from './entities';
 import { calculateDC, DCOptions } from './dc';
 import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from './degree-of-success';
 

@@ -1,7 +1,6 @@
 /* global canvas, game */
-import { PF2EActor } from '../actor/actor';
+import { PF2EActor, ConditionData, ConditionDetailsData } from '../entities';
 import { PF2eConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';
 
 export class EffectPanel extends Application {
     private static readonly UNITS = Object.freeze({

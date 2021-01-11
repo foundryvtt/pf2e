@@ -2,10 +2,8 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
+import { PF2EActor, PF2EItem, KitData } from '../entities';
 import { TraitSelector5e } from '../system/trait-selector';
-import { KitData } from './dataDefinitions';
 
 /**
  * @category Other

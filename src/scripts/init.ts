@@ -1,6 +1,6 @@
 /* global game, canvas, BaseGrid, SquareGrid  */
-import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
-import { PF2EItem } from '../module/item/item';
+import { PF2EActor, SKILL_DICTIONARY } from '../module/entities';
+import { PF2EItem } from '../module/entities';
 
 /**
  * Create a Macro from an Item drop.

@@ -5,30 +5,28 @@
 import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { PF2Check } from '../system/rolls';
-import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EItem } from '../item/item';
 import {
+    PF2EItem,
+    PF2EPhysicalItem,
     ItemData,
     ConditionData,
     ArmorData,
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
-} from '../item/dataDefinitions';
-import {
     CharacterData,
     NpcData,
     InitiativeData,
     DexterityModifierCapData,
+    isCycle,
     FamiliarData,
     ActorDataPF2e,
-} from './actorDataDefinitions';
+} from '../entities';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
-import { PF2EPhysicalItem } from '../item/physical';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',

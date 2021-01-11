@@ -1,5 +1,5 @@
 import { PF2DamageDice, PF2Modifier } from '../modifiers';
-import { WeaponData } from '../item/dataDefinitions';
+import { WeaponData } from '../entities';
 
 export interface PF2RuleElementData {
     key: string;

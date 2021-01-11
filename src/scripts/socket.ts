@@ -1,6 +1,6 @@
 /* global game */
 
-import { LootTransfer, LootTransferData } from '../module/actor/loot';
+import { LootTransfer, LootTransferData } from '../module/entities';
 
 export type SocketEventCallback = [
     message: {

@@ -1,5 +1,5 @@
 /* global game */
-import { addCoins } from '../../item/treasure';
+import { addCoins } from '../../entities';
 
 /**
  * @category Other

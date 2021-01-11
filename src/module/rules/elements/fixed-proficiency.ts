@@ -1,6 +1,6 @@
-import { ItemData } from '../../item/dataDefinitions';
-import { SKILL_EXPANDED } from '../../actor/actor';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { ItemData } from '../../entities';
+import { SKILL_EXPANDED } from '../../entities';
+import { CharacterData, NpcData } from '../../entities';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';

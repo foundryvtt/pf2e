@@ -1,8 +1,6 @@
 /* global canvas, game, getProperty, CONFIG */
 import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
-
-declare let PF2e: any;
+import { ConditionData } from '../../module/entities';
 
 /**
  * Class PF2eStatus which defines the data structure of a status effects
@@ -16,7 +14,7 @@ export class PF2eStatus {
     value: number;
     source: string;
 
-    constructor(statusName, source, value = 1, active = true) {
+    constructor(statusName: string, source: string, value = 1, active = true) {
         this.status = statusName;
         this.active = active;
         this.source = source;
@@ -140,7 +138,7 @@ export class PF2eStatusEffects {
             });
         }
         /** Create hooks onto FoundryVTT */
-        Hooks.on('renderTokenHUD', (app, html, data) => {
+        Hooks.on('renderTokenHUD', (app: TokenHUD, html: JQuery<HTMLElement>, data: TokenData) => {
             console.log('PF2e System | Rendering PF2e customized status effects');
             PF2eStatusEffects._hookOnRenderTokenHUD(app, html, data);
         });

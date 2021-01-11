@@ -2,8 +2,7 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
+import { PF2EActor, PF2EItem } from '../entities';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 

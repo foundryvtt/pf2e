@@ -1,12 +1,11 @@
 /* global game, isObjectEmpty, expandObject */
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
- * @return {Promise}      A Promise which resolves once the migration is completed
+ * @return  A Promise which resolves once the migration is completed
  */
-import { calculateCarriedArmorBulk, fixWeight } from './item/bulk';
+import { isPhysicalItem, calculateCarriedArmorBulk, fixWeight } from './entities';
 import { compendiumBrowser } from './packs/compendium-browser';
 import { toNumber } from './utils';
-import { isPhysicalItem } from './item/dataDefinitions';
 
 /* -------------------------------------------- */
 function addWeaponPotencyRune(item, itemData) {

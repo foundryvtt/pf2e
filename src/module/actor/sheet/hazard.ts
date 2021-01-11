@@ -1,6 +1,6 @@
 /* global CONFIG */
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
+import { PF2EActor } from '../../entities';
 
 /**
  * @category Actor

@@ -1,6 +1,6 @@
 /* global game, CONFIG */
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '../actor/actor';
+import { PF2EActor } from '../entities';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */

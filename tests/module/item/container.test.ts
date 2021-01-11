@@ -1,7 +1,14 @@
-import {getContainerMap, isCycle} from '../../../src/module/item/container';
-import {stacks, indexBulkItemsById, toBulkItems} from '../../../src/module/item/bulk';
-import {PhysicalItemData} from '../../../src/module/item/dataDefinitions';
+import {
+    PhysicalItemData,
+    getContainerMap,
+    isCycle,
+    stacks,
+    indexBulkItemsById,
+    toBulkItems,
+} from '../../../src/module/entities';
 
+declare const foo: TokenHUD;
+foo.clear();
 function createItem({
                         id,
                         weight = undefined,

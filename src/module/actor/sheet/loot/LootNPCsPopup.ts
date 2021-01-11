@@ -1,7 +1,6 @@
 /* global canvas */
 
-import { isPhysicalItem } from '../../../item/dataDefinitions';
-import { PF2EActor } from '../../actor';
+import { PF2EActor, isPhysicalItem } from '../../../entities';
 
 /**
  * @category Other

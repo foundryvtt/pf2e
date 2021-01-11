@@ -6,11 +6,16 @@ import {
     PF2ModifierPredicate,
     PF2StatisticModifier,
 } from '../../modifiers';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '../../item/runes';
 import { DamageCategory } from './damage';
 import { toNumber } from '../../utils';
-import { WeaponData } from '../../item/dataDefinitions';
-import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
+import {
+    WeaponData,
+    getPropertyRuneModifiers,
+    getStrikingDice,
+    hasGhostTouchRune,
+    AbilityString,
+    ActorDataPF2e,
+} from '../../entities';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<

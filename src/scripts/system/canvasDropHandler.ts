@@ -1,6 +1,5 @@
 /* global game, canvas  */
-import { ItemData } from '../../module/item/dataDefinitions';
-import { addKit } from '../../module/item/kits';
+import { ItemData, addKit } from '../../module/entities';
 import { PF2eConditionManager } from '../../module/conditions';
 
 Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {

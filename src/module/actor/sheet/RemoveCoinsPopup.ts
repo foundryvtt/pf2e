@@ -1,4 +1,4 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple } from '../../item/treasure';
+import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple } from '../../entities';
 
 /**
  * @category Other

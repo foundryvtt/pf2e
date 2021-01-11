@@ -1,7 +1,21 @@
 /* global game, CONFIG */
-import { LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
+import {
+    PF2EActor,
+    SKILL_DICTIONARY,
+    AbilityString,
+    CharacterData,
+    CharacterStrike,
+    CharacterStrikeTrait,
+    SkillData,
+    RawCharacterData,
+    PF2EItem,
+    LoreData,
+    MartialData,
+    WeaponData,
+    getArmorBonus,
+    getAttackBonus,
+    getResiliencyBonus,
+} from '../entities';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -15,15 +29,6 @@ import {
 import { PF2RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { PF2EActor, SKILL_DICTIONARY } from './actor';
-import {
-    AbilityString,
-    CharacterData,
-    CharacterStrike,
-    CharacterStrikeTrait,
-    SkillData,
-    RawCharacterData,
-} from './actorDataDefinitions';
 
 export class PF2ECharacter extends PF2EActor {
     /** @override */

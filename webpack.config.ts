@@ -33,13 +33,22 @@ const optimization: Optimization = isProductionBuild
               '...',
               new CssMinimizerPlugin(),
           ],
+          splitChunks: {
+              chunks: 'all',
+          },
       }
     : undefined;
 
 const config: Configuration = {
     context: __dirname,
     entry: {
-        main: path.resolve(__dirname, './src/pf2e.ts'),
+        main: {
+            import: path.resolve(__dirname, './src/pf2e.ts'),
+            dependOn: 'entities',
+        },
+        entities: {
+            import: path.resolve(__dirname, './src/module/entities.ts'),
+        }
     },
     mode: isProductionBuild ? 'production' : 'development',
     module: {

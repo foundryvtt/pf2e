@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-import { NpcData } from './actor/actorDataDefinitions';
+import { NpcData, Rarity } from './entities';
 import { toNumber } from './utils';
 import {
     adjustDC,
@@ -18,7 +18,6 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from './dc';
-import { Rarity } from './item/dataDefinitions';
 
 const identifySkills = new Map<string, string[]>();
 identifySkills.set('aberration', ['occ']);

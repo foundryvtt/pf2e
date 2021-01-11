@@ -1,4 +1,4 @@
-// @TODO:
+/** global TokenHUD */
 
 /**
  * Render the HUD container

@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { Coins, calculateWealth, calculateTotalWealth } from '../../item/treasure';
+import { Coins, calculateWealth, calculateTotalWealth } from '../../entities';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
 

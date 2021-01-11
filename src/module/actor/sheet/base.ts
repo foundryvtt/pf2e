@@ -1,17 +1,23 @@
 /* global canvas, game, CONFIG, getProperty, MeasuredTemplate */
 import { RemoveCoinsPopup } from './RemoveCoinsPopup';
-import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
-import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
-import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import {
+    PF2EActor,
+    SKILL_DICTIONARY,
+    PF2EItem,
+    PF2EPhysicalItem,
+    ItemData,
+    ConditionData,
+    isPhysicalItem,
+    addKit,
+    sellAllTreasureSimple,
+    sellTreasure,
+} from '../../entities';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import { PF2EPhysicalItem } from '../../item/physical';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

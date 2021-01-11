@@ -2,11 +2,16 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
-import { AbilityString } from '../actor/actorDataDefinitions';
+import {
+    PF2EActor,
+    PF2EItem,
+    ABCFeatureEntryData,
+    AncestryData,
+    BackgroundData,
+    ClassData,
+    AbilityString,
+} from '../entities';
 import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
 
 /**
  * @category Other

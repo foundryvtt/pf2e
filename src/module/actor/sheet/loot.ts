@@ -1,13 +1,20 @@
 /* global game, CONFIG */
-import { calculateWealth } from '../../item/treasure';
+
 import { ActorSheetPF2e } from './base';
-import { PF2ELoot } from '../loot';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { getContainerMap } from '../../item/container';
+import {
+    PF2EItem,
+    PF2EPhysicalItem,
+    isPhysicalItem,
+    PF2ELoot,
+    getContainerMap,
+    calculateBulk,
+    itemsFromActorData,
+    stacks,
+    formatBulk,
+    indexBulkItemsById,
+    calculateWealth,
+} from '../../entities';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
-import { PF2EItem } from '../../item/item';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
 import { LootNPCsPopup } from './loot/LootNPCsPopup';
 
 /**

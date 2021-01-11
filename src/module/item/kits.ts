@@ -1,5 +1,5 @@
 /* global game */
-import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './dataDefinitions';
+import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from '../entities';
 
 /**
  * Inflate a KitData.

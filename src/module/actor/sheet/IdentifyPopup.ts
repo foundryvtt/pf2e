@@ -1,7 +1,6 @@
 /* global game */
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { PF2EActor } from '../actor';
+
+import { PF2EPhysicalItem, PF2EActor, identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../entities';
 
 /**
  * @category Other

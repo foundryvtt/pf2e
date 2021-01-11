@@ -1,6 +1,6 @@
-import { PF2EPhysicalItem } from './physical';
-import { PF2EItem } from './item';
 import {
+    PF2EItem,
+    PF2EPhysicalItem,
     ActionData,
     AncestryData,
     ArmorData,
@@ -20,7 +20,7 @@ import {
     StatusData,
     TreasureData,
     WeaponData,
-} from './dataDefinitions';
+} from '../entities';
 
 export class PF2EBackpack extends PF2EPhysicalItem {
     data!: BackpackData;

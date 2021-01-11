@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { PF2EActor } from '../module/actor/actor';
+import { PF2EActor } from '../module/entities';
 
 /**
  * @category Other

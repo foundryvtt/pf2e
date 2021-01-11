@@ -1,6 +1,6 @@
 /* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { PF2EItem } from '../../item/item';
+import { PF2EItem } from '../../entities';
 
 /**
  * @category Actor

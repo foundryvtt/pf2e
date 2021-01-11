@@ -1,10 +1,12 @@
-import { PF2EActor, PF2EHazard, PF2EVehicle } from '../module/actor/actor';
-import { PF2ECharacter } from '../module/actor/character';
-import { PF2ELoot } from '../module/actor/loot';
-import { PF2ENPC } from '../module/actor/npc';
-import { PF2EFamiliar } from '../module/actor/familiar';
-import { PF2EItem } from '../module/item/item';
 import {
+    PF2EActor,
+    PF2ECharacter,
+    PF2ENPC,
+    PF2EHazard,
+    PF2ELoot,
+    PF2EVehicle,
+    PF2EFamiliar,
+    PF2EItem,
     PF2EAction,
     PF2EAncestry,
     PF2EArmor,
@@ -24,7 +26,7 @@ import {
     PF2EStatus,
     PF2ETreasure,
     PF2EWeapon,
-} from '../module/item/others';
+} from '../module/entities';
 import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
 
 export const PF2ECONFIG = {

@@ -7,8 +7,8 @@ import {
     formatBulk,
     StackDefinitions,
     weightToBulk,
-} from './bulk';
-import { PhysicalItemData } from './dataDefinitions';
+    PhysicalItemData,
+} from '../entities';
 import { groupBy } from '../utils';
 
 /**
