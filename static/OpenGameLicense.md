@@ -76,6 +76,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
      * Yellow Musk Creeper from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original  material by Albie Fiore.
  * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
+    *  Pathfinder Adventure: Little Trouble in Big Absalom © 2020, Paizo Inc.; Eleanor Ferron
     *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
