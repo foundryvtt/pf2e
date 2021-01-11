@@ -18,7 +18,7 @@ export class TraitChatEntry {
 export function parseTraits(source: string | string[]): string[] {
     if (Array.isArray(source)) {
         return source;
-    } else if ((typeof source === 'string') && (source.length>0)) {
+    } else if (typeof source === 'string' && source.length > 0) {
         // Used to escape pipe for regex
         // eslint-disable-next-line
         const separators = [',', ';', '\\|'];
