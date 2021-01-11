@@ -541,119 +541,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
             }
         }
 
-<<<<<<< HEAD
-    html.find('.sheet-navigation').on('mouseover', '.item', event => {
-      const title = event.currentTarget.dataset.tabTitle;
-      if (title) {
-        $(event.currentTarget).parents('.sheet-navigation').find('.navigation-title').text(title);
-      }
-    });
-
-    html.find('.sheet-navigation').on('mouseout', '.item', event => {
-      const parent = $(event.currentTarget).parents('.sheet-navigation');
-      const title = parent.find('.item.active').data('tabTitle');
-      if (title) {
-        parent.find('.navigation-title').text(title);
-      }
-    });
-
-    // filter strikes
-    html.find('.toggle-unready-strikes').on('click', event => {
-      this.actor.setFlag(game.system.id, 'showUnreadyStrikes', !this.actor.getFlag(game.system.id, 'showUnreadyStrikes'));
-    });
-
-    // handle sub-tab navigation on the actions tab
-    html.find('.actions-nav').on('click', '.tab:not(.tab-active)', event => {
-        const target = $(event.currentTarget);
-        const nav = target.parents('.actions-nav');
-        // deselect current tab and panel
-        nav.children('.tab-active').removeClass('tab-active');
-        nav.siblings('.actions-panels').children('.actions-panel.active').removeClass('active')
-        // select new tab and panel
-        target.addClass('tab-active');
-        nav.siblings('.actions-panels').children(`#${target.data('panel')}`).addClass('active');
-    });
-
-    html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
-
-    html.find('.character-builder-button').click((ev) => this._onCharacterBuilder(ev));
-
-    html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
-      $(event.currentTarget).parents('.expandable').toggleClass('expanded');
-    });
-
-    // the click listener registered on all buttons breaks the event delegation here...
-    // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
-    html.find('.strikes-list .damage-strike').click((event) => {
-      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
-
-      event.preventDefault();
-      event.stopPropagation();
-      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
-    });
-
-    // the click listener registered on all buttons breaks the event delegation here...
-    // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
-    html.find('.strikes-list .critical-strike').click((event) => {
-      if (this.actor.data.type !== 'character') throw Error("This sheet only works for characters");
-
-      event.preventDefault();
-      event.stopPropagation();
-      const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-      const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-      this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
-    });
-
-    html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
-        this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
-    });
-
-    html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
-    html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
-    html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
-    html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
-
-    html.find('.hover').tooltipster({
-        animation: 'fade',
-        delay: 200,
-        trigger: 'click',
-        arrow: false,
-        contentAsHTML: true,
-        debug: true,
-        interactive: true,
-        side: ['right', 'bottom'],
-        theme: 'crb-hover',
-        minWidth: 120,
-    });
-  }
-
-  /**
-   * Get the font-awesome icon used to display a certain level of focus points
-   * expection focus = { points: 1, pool: 1}
-   * @private
-   */
-  _getFocusIcon(focus) {
-    const icons = {};
-    const usedPoint = '<i class="fas fa-dot-circle"></i>';
-    const unUsedPoint = '<i class="far fa-circle"></i>';
-
-    for (let i=0; i<=focus.pool; i++) { // creates focus.pool amount of icon options to be selected in the icons object
-      let iconHtml = '';
-      for (let iconColumn=1; iconColumn<=focus.pool; iconColumn++) { // creating focus.pool amount of icons
-        iconHtml += (iconColumn<=i) ? usedPoint : unUsedPoint;
-      }
-      icons[i] = iconHtml;
-    }
-=======
         html.find('.sheet-navigation').on('mouseover', '.item', (event) => {
             const title = event.currentTarget.dataset.tabTitle;
             if (title) {
                 $(event.currentTarget).parents('.sheet-navigation').find('.navigation-title').text(title);
             }
         });
->>>>>>> 94e0126d3791eb59db27d070e5ccb6d850631ce2
 
         html.find('.sheet-navigation').on('mouseout', '.item', (event) => {
             const parent = $(event.currentTarget).parents('.sheet-navigation');
@@ -687,6 +580,36 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
         });
 
         html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+
+        html.find('.character-builder-button').click((ev) => this._onCharacterBuilder(ev));
+
+        html.find('.strikes-list [data-action-index]').on('click', '.action-name', (event) => {
+            $(event.currentTarget).parents('.expandable').toggleClass('expanded');
+        });
+
+        // the click listener registered on all buttons breaks the event delegation here...
+        // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
+        html.find('.strikes-list .damage-strike').click((event) => {
+            if (this.actor.data.type !== 'character') throw Error('This sheet only works for characters');
+
+            event.preventDefault();
+            event.stopPropagation();
+            const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+            const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
+        });
+
+        // the click listener registered on all buttons breaks the event delegation here...
+        // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
+        html.find('.strikes-list .critical-strike').click((event) => {
+            if (this.actor.data.type !== 'character') throw Error('This sheet only works for characters');
+
+            event.preventDefault();
+            event.stopPropagation();
+            const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+            const opts = this.actor.getRollOptions(['all', 'damage-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
+        });
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
