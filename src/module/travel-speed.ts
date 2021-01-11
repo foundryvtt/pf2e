@@ -232,7 +232,7 @@ export interface TravelDuration {
 function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDuration {
     const days = Math.floor(distanceInFeet / speed.feetPerDay);
     const hours = Math.floor((distanceInFeet - days * speed.feetPerDay) / speed.feetPerHour);
-    const minutes = Math.floor(
+    const minutes = Math.round(
         (distanceInFeet - days * speed.feetPerDay - hours * speed.feetPerHour) / (speed.feetPerHour / 60),
     );
     return {
