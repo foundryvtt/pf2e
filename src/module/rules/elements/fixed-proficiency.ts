@@ -23,7 +23,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
     }
 
     onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
-        const { selector } = this.ruleData;
+        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector === 'ac') {
             // Special case for AC so the rule elements match what's written in the book
@@ -49,7 +49,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
     }
 
     onAfterPrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
-        const { selector } = this.ruleData;
+        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const target = data.skills[skill] ?? data.attributes[skill];
