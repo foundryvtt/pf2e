@@ -18,7 +18,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks  to Pick Locks and Disable Devices. If your thieves' tools are broken, you can repair them by replacing the lock picks with replacement picks appropriate to your tools; this doesn't require using the Repair action.</p>"
+            "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>&nbsp;+1 item bonus to checks to Pick Locks and Disable Devices</li>\n</ul>"
         },
         "equipped": {
             "label": "Equipped",
@@ -51,6 +51,7 @@
         "negateBulk": {
             "value": ""
         },
+        "originalName": "",
         "preciousMaterial": {
             "value": ""
         },
@@ -62,6 +63,36 @@
             "type": "String",
             "value": "50 gp"
         },
+        "property1": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "value": ""
+        },
+        "property2": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "value": ""
+        },
+        "property3": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "value": ""
+        },
         "quantity": {
             "label": "Quantity",
             "type": "Number",
@@ -70,6 +101,21 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Thieves' Tools (Pick Lock & Disable Devices)",
+                "predicate": {
+                    "any": [
+                        "disable-device",
+                        "pick-a-lock"
+                    ]
+                },
+                "selector": "thievery",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -96,6 +142,7 @@
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.jpg",
     "name": "Thieves' Tools (Infiltrator)",
