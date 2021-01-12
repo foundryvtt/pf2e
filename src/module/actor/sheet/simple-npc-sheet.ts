@@ -11,8 +11,6 @@ import { identifyCreature } from '../../../module/recall-knowledge';
 import { PF2EItem } from '../../../module/item/item';
 import { PF2EPhysicalItem } from '../../../module/item/physical';
 
-const isString = require('is-string');
-
 export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -244,7 +242,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
     _prepareSenses(actorData) {
         // Try to convert old legacy senses to new, array-like senses
-        if (isString(actorData.data.traits.senses.value)) {
+        if (typeof actorData.data.traits.senses.value === 'string') {
             const reformattedSenses = this._createSensesFromString(actorData.data.traits.senses.value);
 
             actorData.data.traits.senses = reformattedSenses;
@@ -345,7 +343,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
 
         // Make sure regular speed has no `feet` at the end, we will add it localized later on
         // This is usally the case for NPCs from the compendium
-        if (isString(actorData.data.attributes.speed.value)) {
+        if (typeof actorData.data.attributes.speed.value === 'string') {
             actorData.data.attributes.speed.value = actorData.data.attributes.speed.value.replace('feet', '').trim();
         }
     }
