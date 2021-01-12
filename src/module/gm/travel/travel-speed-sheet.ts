@@ -1,4 +1,4 @@
-import { calculateTravelDuration, Length, speedToVelocity, Terrain, Trip } from './travel-speed';
+import {calculateTravelDuration, DetectionOptions, Length, speedToVelocity, Terrain, Trip} from './travel-speed';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -38,7 +38,9 @@ class TravelSpeedSheet extends FormApplication {
     }
 
     getData() {
+        // TODO: assign previous state as well
         const sheetData = super.getData();
+        // TODO: find better solution for these values, translation
         sheetData.explorationActivities = [
             'Full Speed',
             'Half Speed',
@@ -59,7 +61,6 @@ class TravelSpeedSheet extends FormApplication {
                 name: actor.name,
             };
         });
-        console.log('hi')
         if (this.travelPlan !== undefined) {
             const journey: Trip[] = [
                 {
@@ -68,16 +69,16 @@ class TravelSpeedSheet extends FormApplication {
                         greaterDifficult: parseTerrainCost(this.travelPlan.greaterDifficultTerrainPenalty),
                         normal: parseTerrainCost(this.travelPlan.normalTerrainPenalty),
                     },
-                    terrain: Terrain.NORMAL,
+                    terrain: parseTerrainData(this.travelPlan.terrain),
                     distance: {
                         value: this.travelPlan.distance,
                         unit: parseDistanceUnit(this.travelPlan.distanceUnit),
                     },
                 },
             ];
+            // FIXME: get lowest actor speed here
             const velocity = speedToVelocity(30);
             sheetData.travelDuration = calculateTravelDuration(journey, velocity);
-            console.log(sheetData.travelDuration);
         }
         return sheetData;
     }
@@ -91,11 +92,32 @@ function parseDistanceUnit(unit: SpeedUnitData): Length {
     }
 }
 
+function parseTerrainData(terrain: TerrainData): Terrain {
+    if (terrain === 'normal') {
+        return Terrain.NORMAL;
+    } else if (terrain === 'difficult') {
+        return Terrain.DIFFICULT;
+    } else {
+        return Terrain.GREATER_DIFFICULT;
+    }
+}
+
+// FIXME: keep fractions instead of numbers
 function parseTerrainCost(value: string) {
     if (/^[\d\/]+$/.test(value)) {
         return 1 / eval(value);
     } else {
         return 1;
+    }
+}
+
+function parseDetectionModeData(detectionMode: DetectionModeData): DetectionOptions {
+    if (detectionMode === 'none') {
+        return DetectionOptions.NONE;
+    } else if (detectionMode === 'before') {
+        return DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT;
+    } else {
+        return DetectionOptions.DETECT_EVERYTHING;
     }
 }
 
