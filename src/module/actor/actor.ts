@@ -60,7 +60,7 @@ export const SKILL_EXPANDED = Object.freeze({
     medicine: { ability: 'wis', shortform: 'med' },
     nature: { ability: 'wis', shortform: 'nat' },
     occultism: { ability: 'int', shortform: 'occ' },
-    performance: { ability: 'cha', shortform: 'pfr' },
+    performance: { ability: 'cha', shortform: 'prf' },
     religion: { ability: 'wis', shortform: 'rel' },
     society: { ability: 'int', shortform: 'soc' },
     stealth: { ability: 'dex', shortform: 'ste' },
@@ -937,6 +937,10 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
+        newItemData.data.equipped.value = false;
+        if ('invested' in newItemData.data && typeof newItemData.data.invested.value === 'boolean') {
+            newItemData.data.invested.value = false;
+        }
 
         const result = await targetActor.createOwnedItem(newItemData);
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;

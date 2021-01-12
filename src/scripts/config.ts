@@ -1188,6 +1188,7 @@ export const PF2ECONFIG = {
         ranger: 'PF2E.TraitDescriptionRanger',
         rogue: 'PF2E.TraitDescriptionRogue',
         sorcerer: 'PF2E.TraitDescriptionSorcerer',
+        swashbuckler: 'PF2E.TraitDescriptionSwashbuckler',
         witch: 'PF2E.TraitDescriptionWitch',
         wizard: 'PF2E.TraitDescriptionWizard',
         bulwark: 'PF2E.TraitDescriptionBulwark',

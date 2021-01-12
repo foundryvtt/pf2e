@@ -62,9 +62,6 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     price: {
         value: number;
     };
-    invested: {
-        value: boolean;
-    };
     equipped: {
         value: boolean;
     };
@@ -140,6 +137,9 @@ export interface MagicItemPropertyData {
 }
 
 export interface MagicItemData extends PhysicalDetailsData {
+    invested?: {
+        value: boolean;
+    };
     property1: MagicItemPropertyData;
     property2: MagicItemPropertyData;
     property3: MagicItemPropertyData;
