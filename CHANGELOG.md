@@ -1,5 +1,33 @@
 # Patch Notes:
 
+## Version 1.10.29
+### Bug Fixes
+* (stwlam) Set items to unequipped and uninvested on transfer between actors
+* (profounddark) Fix feat visibility
+* (profounddark) Fix missing translation key for swashbuckler traits
+* (profounddark & nikolaj-a) Filter out empty trait names
+* (nikolaj-a) Resolve selector in fixed proficiency rule element. Closes #979
+* (nikolaj-a) Fix shortform name for performance skill to ensure rule elements are properly applied
+* (nikolaj-a) Fix item identification for unlinked tokens
+
+### Content Changes
+* (stwlam) Fix field order for barbarian instincts
+* (stwlam) Remove usage property from non-equipment
+* (Shandyan) Item effects, completing items starting with S
+* (Shandyan) Preparation of effects for items starting with T through Z
+* (Shandyan) Items effects, for items starting with T through W (excluding wands)
+* (TMun) Split up Specialty crafting into separate feats for each type
+* (nikolaj-a) Fix typo in eldritch archer archetype name
+* (nikolaj-a) Fix formatting of hammer quake feat description
+
+### Core System Improvements
+* (putty) Escape earn income skill and move xp calculation into core
+
+### Development Improvements
+* (stwlam) Adjust template.json to reflect data definitions for invested items
+* (TMun) Fix line endings after updating .gitattributes
+
+
 ## Version 1.10.28
 ### Bug Fixes
 * (Trollderim) Fix chat labels for traits
