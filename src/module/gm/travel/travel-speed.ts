@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import {sum} from '../../utils';
+import { sum } from '../../utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -231,13 +231,12 @@ export interface TravelDuration {
 }
 
 function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDuration {
-    const days = Math.floor(distanceInFeet / speed.feetPerDay);
-    const hours = Math.floor((distanceInFeet - days * speed.feetPerDay) / speed.feetPerHour);
-    const minutes = Math.round(
-        (distanceInFeet - days * speed.feetPerDay - hours * speed.feetPerHour) / (speed.feetPerHour / 60),
-    );
-    // TODO: ensure that when rounding up to 60 minutes we use 0 minutes and increase hours by 1
-    // TODO: to combat rounding errors from terrain.
+    const totalMinutes = Math.round(distanceInFeet / speed.feetPerMinute);
+    const minutesPerHour = 60;
+    const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
+    const days = Math.floor(totalMinutes / minutesPerDay); 
+    const hours = Math.floor((totalMinutes - days * minutesPerDay) / minutesPerHour);
+    const minutes = Math.floor(totalMinutes - days * minutesPerDay - hours * minutesPerHour);
     return {
         days,
         hours,
