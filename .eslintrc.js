@@ -56,7 +56,12 @@ module.exports = {
         'import/no-default-export': 'error',
         'no-continue': 'off',
         'no-constant-condition': ['error', { checkLoops: false }],
-        'import/no-unused-modules': 'error',
+        'import/prefer-default-export': 'off',
+        'import/no-unused-modules': [1, {
+            missingExports: true,
+            unusedExports: true,
+            ignoreExports: ['src/pf2e.ts'],
+        }],
         'no-else-return': 'off',
         'no-unused-vars': 'off',
         'lines-between-class-members': 'off',

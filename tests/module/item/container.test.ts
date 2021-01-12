@@ -1,23 +1,16 @@
-import {
-    PhysicalItemData,
-    getContainerMap,
-    isCycle,
-    stacks,
-    indexBulkItemsById,
-    toBulkItems,
-} from '../../../src/module/entities';
+import {getContainerMap, isCycle} from '../../../src/module/item/container';
+import {stacks, indexBulkItemsById, toBulkItems} from '../../../src/module/item/bulk';
+import {PhysicalItemData} from '../../../src/module/item/dataDefinitions';
 
-declare const foo: TokenHUD;
-foo.clear();
 function createItem({
-                        id,
-                        weight = undefined,
-                        equippedBulk = undefined,
-                        negateBulk = '',
-                        bulkCapacity = '',
-                        containerId = '',
-                        equipped = false,
-                    }): PhysicalItemData {
+    id,
+    weight = undefined,
+    equippedBulk = undefined,
+    negateBulk = '',
+    bulkCapacity = '',
+    containerId = '',
+    equipped = false,
+}): PhysicalItemData {
     return {
         _id: id,
         type: 'equipment',

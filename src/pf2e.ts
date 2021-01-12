@@ -126,6 +126,48 @@ Hooks.once('ready', () => {
     // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
     _updateMinionActors();
     activateSocketListener();
+
+    // Requires ConditionManager to be fully loaded.
+    PF2eConditionManager.init().then(() => {
+        PF2eStatusEffects.init();
+    });
+});
+
+/**
+ * Highlight critical success or failure on d20 rolls
+ */
+Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
+    if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
+    const dice: any = message.roll.dice[0] ?? {};
+    if (dice.faces !== 20) return;
+
+    if (message.roll.dice.length && (message as any).isContentVisible) {
+        if (dice.total === 20) html.find('.dice-total').addClass('success');
+        else if (dice.total === 1) html.find('.dice-total').addClass('failure');
+
+        const context = message.getFlag('pf2e', 'context');
+        if (
+            (message.isAuthor || game.user.isGM) &&
+            (context?.type === 'skill-check' || context?.type === 'perception-check')
+        ) {
+            const btnStyling = 'width: 22px; height:22px; font-size:10px;line-height:1px';
+            const initiativeButtonTitle = game.i18n.localize('PF2E.ClickToSetInitiative');
+            const setInitiativeButton = $(
+                `<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`,
+            );
+            const btnContainer = $(
+                '<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>',
+            );
+            btnContainer.append(setInitiativeButton);
+
+            html.find('.dice-total').append(btnContainer);
+
+            setInitiativeButton.click((ev) => {
+                ev.stopPropagation();
+                PF2EActor.setCombatantInitiative(html);
+            });
+        }
+    }
 });
 
 /* -------------------------------------------- */
@@ -222,6 +264,15 @@ Hooks.once('setup', () => {
             return obj;
         }, {});
     }
+
+    /**
+     * Setting a hook on TokenHUD.clear(), which clears the HUD by fading out it's active HTML and recording the new display state.
+     * The hook call passes the TokenHUD and Token objects.
+     */
+    TokenHUD.prototype.clear = function clear() {
+        BasePlaceableHUD.prototype.clear.call(this);
+        Hooks.call('onTokenHUDClear', this, this.object);
+    };
 });
 
 /* -------------------------------------------- */

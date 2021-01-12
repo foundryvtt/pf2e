@@ -1,12 +1,12 @@
-const path = require('path');
-const fs = require('fs');
+import * as path from 'path';
+import * as fs from 'fs';
 
-export const fetchSpell = async (name) => {
+export const fetchSpell = async (name: string) => {
     const spellsDb = './packs/data/spells.db/';
     const spellFiles = fs.readdirSync(spellsDb);
 
     for (const file of spellFiles) {
-        const content = fs.readFileSync(path.resolve(spellsDb, file));
+        const content = fs.readFileSync(path.resolve(spellsDb, file), 'utf-8');
         const json = JSON.parse(content);
         if (json.name === name) return json;
     }
@@ -16,7 +16,7 @@ export const fetchSpell = async (name) => {
 //@ts-ignore
 global.game = Object.freeze({
     settings: Object.freeze({
-        get: (module, settingKey) => {
+        get: (_module: string, settingKey: string) => {
             switch (settingKey) {
                 /* Proficiency Modifiers */
                 case 'proficiencyUntrainedModifier':
@@ -39,9 +39,9 @@ global.game = Object.freeze({
         },
     }),
     packs: Object.freeze({
-        find: (compendiumID, quantity) => {
+        find: (_compendiumID: string, _quantity: number) => {
             return Object.freeze({
-                getEntity: (id) => {
+                getEntity: (id: string) => {
                     switch (id) {
                         case 'JuNPeK5Qm1w6wpb4':
                             return { data: { data: { quantity: { value: 1 }, type: 'pp' } } };
@@ -58,7 +58,43 @@ global.game = Object.freeze({
     }),
 });
 
-function getType(token) {
+
+//@ts-ignore
+global.Entity = class {};
+//@ts-ignore
+global.Actor = class extends Entity{};
+//@ts-ignore
+global.Item = class extends Entity{};
+
+// //@ts-ignore
+// global.BasePlaceableHUD = class {
+//     clear(): void {}
+// };
+
+// //@ts-ignore
+// global.TokenHUD = class extends BasePlaceableHUD {};
+
+
+// //@ts-ignore
+// global.Hooks = class {
+//     static on(_event: string, callback: (data: any) => boolean | undefined): boolean | undefined {
+//         return callback({});
+//     }
+//     static once(_event: string, callback: (data: any) => boolean | undefined): boolean | undefined {
+//         return callback({});
+//     }
+// };
+
+//@ts-ignore
+global.Application = class {};
+
+//@ts-ignore
+global.FormApplication = class extends Application {};
+
+//@ts-ignore
+global.Roll = class {};
+
+function getType(token: any) {
     const tof = typeof token;
     if (tof === 'object') {
         if (token === null) return 'null';
@@ -70,8 +106,8 @@ function getType(token) {
     return tof;
 }
 
-function setProperty(object, key, value) {
-    let target = object;
+function setProperty(obj: any, key: string, value: any) {
+    let target = obj;
     let changed = false;
     // Convert the key to an object reference if it contains dot notation
     if (key.indexOf('.') !== -1) {
@@ -80,7 +116,7 @@ function setProperty(object, key, value) {
         target = parts.reduce((o, i) => {
             if (!o.hasOwnProperty(i)) o[i] = {};
             return o[i];
-        }, object);
+        }, obj);
     }
     // Update the target
     if (target[key] !== value) {
@@ -91,7 +127,7 @@ function setProperty(object, key, value) {
     return changed;
 }
 
-function duplicate(original) {
+function duplicate(original: any) {
     return JSON.parse(JSON.stringify(original));
 }
 

@@ -717,19 +717,3 @@ export class PF2eStatusEffects {
         this._createChatMessage(token);
     }
 }
-
-/**
- * Setting a hook on TokenHUD.clear(), which clears the HUD by fading out it's active HTML and recording the new display state.
- * The hook call passes the TokenHUD and Token objects.
- */
-TokenHUD.prototype.clear = function clear() {
-    BasePlaceableHUD.prototype.clear.call(this);
-    Hooks.call('onTokenHUDClear', this, this.object);
-};
-
-Hooks.once('ready', async () => {
-    // or init?
-    // Requires ConditionManager to be fully loaded.
-    await PF2eConditionManager.init();
-    PF2eStatusEffects.init();
-});
