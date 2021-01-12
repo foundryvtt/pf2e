@@ -219,7 +219,7 @@ function toTravelDuration(distanceInFeet: number, feetPerMinute: number): Travel
     const weeks = Math.floor(totalMinutes / minutesPerWeek);
     const days = Math.floor((totalMinutes - weeks * minutesPerWeek) / minutesPerDay);
     const hours = Math.floor((totalMinutes - weeks * minutesPerWeek - days * minutesPerDay) / minutesPerHour);
-    const minutes = Math.floor(totalMinutes - weeks * minutesPerWeek - days * minutesPerDay - hours * minutesPerHour);
+    const minutes = totalMinutes - weeks * minutesPerWeek - days * minutesPerDay - hours * minutesPerHour;
     return {
         weeks,
         days,
