@@ -540,13 +540,14 @@ export class PF2ENPC extends PF2EActor {
      */
     private _createNPCSkillFromItemSkill(item: any, statisticsModifiers: Record<string, PF2Modifier[]>): any {
         const skillId = this.convertItemNameToSkillId(item.name);
+        const skillName = this.convertSkillIdToSkillName(skillId);
         let abilityId: string;
 
         const isRegularSkill = this._isRegularSkillId(skillId);
         const isLoreSkill = this._isLoreSkillId(skillId);
 
         if (isRegularSkill) {
-            const skillData = SKILL_EXPANDED[skillId];
+            const skillData = SKILL_EXPANDED[skillName];
 
             abilityId = skillData.ability;
         } else if (isLoreSkill) {

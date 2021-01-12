@@ -51,7 +51,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-item.html',
         'systems/pf2e/templates/actors/npc/partials/npc-spell.html',
 
-
         // Item Sheet Partials
         'systems/pf2e/templates/items/rules-panel.html',
         'systems/pf2e/templates/items/action-details.html',
