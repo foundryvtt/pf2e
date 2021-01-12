@@ -239,7 +239,10 @@ $unique: #54166e;
         flex: auto;
 
         .tab {
-            overflow-y: scroll !important;
+
+            &:not(.notes) {
+                overflow-y: scroll !important;
+            }
         }
     }
 
@@ -704,4 +707,16 @@ $unique: #54166e;
         width: 100%;
         overflow-y: hidden;
     }
+
+    .notes-text {
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
+
+        .editor {
+            padding: 0 8px;
+            height: 100%;
+        }
+    }
+
 }
