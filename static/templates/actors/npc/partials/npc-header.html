@@ -29,6 +29,7 @@
             {{/each}}
             {{/select}}
         </select>
+        {{#if options.editable}}
         <div class="adjustment-select flexrow">
             <div class="adjustment elite trait {{eliteState}}">
                 <a class="npc-elite-adjustment">{{ localize 'PF2E.NPC.Adjustment.EliteLabel' }}</a>
@@ -37,6 +38,7 @@
                 <a class="npc-weak-adjustment">{{ localize 'PF2E.NPC.Adjustment.WeakLabel' }}</a>
             </div>
         </div>
+        {{/if}}
     </div>
     <div class="flexrow">
         {{#each data.traits.traits.localizationMap}}

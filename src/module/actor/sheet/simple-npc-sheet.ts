@@ -87,6 +87,20 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
         sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
 
+        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== 'common';
+        sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
+        sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
+        sheetData.actorAttitudes = CONFIG.PF2E.attitude;
+        sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? 'indifferent'];
+
+        // Languages
+        if (sheetData.data.traits.languages.value && Array.isArray(sheetData.data.traits.languages.value) &&
+        sheetData.actor.data.traits.languages.value.length > 0) {
+            sheetData.hasLanguages = true;
+        } else {
+            sheetData.hasLanguages = false;
+        }
+
         const equipment = this._getEquipment(sheetData);
 
         sheetData.actor.equipment = equipment;
