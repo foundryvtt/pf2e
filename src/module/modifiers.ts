@@ -384,6 +384,30 @@ export class PF2StatisticModifier {
     applyStackingRules() {
         this.totalModifier = applyStackingRules(this._modifiers);
     }
+
+    /**
+     * Find a modifier by name.
+     * @param modifierName Name of the modifier to search for.
+     */
+    findModifierByName(modifierName: string): PF2Modifier {
+        for (const modifier of this._modifiers) {
+            if (modifier.name === modifierName) return modifier;
+        }
+
+        return null;
+    }
+
+    /**
+     * Find the first modifier of the given type.
+     * @param modifierType Type of modifier to find.
+     */
+    findModifierByType(modifierType: string): PF2Modifier {
+        for (const modifier of this._modifiers) {
+            if (modifier.type === modifierType) return modifier;
+        }
+
+        return null;
+    }
 }
 
 /**

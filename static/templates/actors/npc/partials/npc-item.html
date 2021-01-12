@@ -1,0 +1,33 @@
+<li class="list-item item npc-item rollable" data-item="{{item._id}}" data-item-id="{{item._id}}">
+    <div class="item-header">
+        {{#if item.img }}
+        <div class="item-icon" style="background-image: url({{item.img}})"></div>
+        <!-- <img src="{{ item.img }}" class="item-icon {{item.data.traits.rarity.value}} "/> -->
+        {{else}}
+        <div></div>
+        {{/if}}
+        <div class="item-name rollable">
+            <h4 class="{{item.data.traits.rarity.value}}"><a>{{ item.name }}</a></h4>
+        </div>
+        <div class="item-quantity">{{ item.data.quantity.value }}</div>
+        <div class="item-controls controls expandable">
+            <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
+            {{#if isEditable }}
+            <a class="item-edit edit" title="{{ localize 'PF2E.NPC.Edit'}}"><i class="fas fa-edit"></i></a>
+            <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+        </div>
+    </div>
+    <div class="item-body">
+        <div class="item-detail sub-section expandable">
+            <div class="item-description">
+                {{{ enrichHTML item.data.description.value }}}
+            </div>
+            <div class="traits-list">
+                {{#each item.traits as |trait traitIndex|}}
+                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</li>

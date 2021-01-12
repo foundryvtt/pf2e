@@ -1,0 +1,61 @@
+$primary-accent: #5e0000;
+$secondary-accent: #171f69;
+$table-even: #ede3c8;
+$table-odd: #f5efe0;
+
+.npc-skills-editor {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 0.8rem;
+
+    .header {
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 4px;
+        background-color: $primary-accent !important;
+        color: white;
+
+    }
+
+    .skills-list {
+        list-style: none;
+        padding: 0px;
+
+        .skill {
+            display: grid;
+            flex: auto;
+            width: 100%;
+            grid-template-columns: 100px 32px 200px 24px;
+            grid-template-rows: 18px;
+            column-gap: 18px;
+            padding: 4px;
+            
+            &:nth-child(even) {
+                background-color:$table-even;
+            }
+    
+            &:nth-child(odd) {
+                background-color:$table-odd;
+            }
+        }
+
+        .sub-section {
+            background-color:$secondary-accent;
+            color: white;
+            grid-template-columns: auto;
+            text-transform: uppercase;
+            padding: 4px;
+        }
+    }
+
+
+
+    .footer {
+        margin: 0 auto;
+    }
+}
