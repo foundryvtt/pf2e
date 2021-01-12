@@ -4,7 +4,7 @@ import {
     DetectionOptions,
     ExplorationActivities,
     ExplorationOptions,
-    Length,
+    LengthUnit,
     speedToVelocity,
     Terrain,
     TerrainCost,
@@ -129,7 +129,7 @@ describe('test travel speed', () => {
             {
                 distance: {
                     value: 51,
-                    unit: Length.MILES,
+                    unit: LengthUnit.MILES,
                 },
                 terrain: Terrain.NORMAL,
                 terrainCost: terrainModifiers,

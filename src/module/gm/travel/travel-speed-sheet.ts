@@ -1,4 +1,4 @@
-import {calculateTravelDuration, DetectionOptions, Length, speedToVelocity, Terrain, Trip} from './travel-speed';
+import {calculateTravelDuration, DetectionOptions, LengthUnit, speedToVelocity, Terrain, Trip} from './travel-speed';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -84,11 +84,11 @@ class TravelSpeedSheet extends FormApplication {
     }
 }
 
-function parseDistanceUnit(unit: SpeedUnitData): Length {
+function parseDistanceUnit(unit: SpeedUnitData): LengthUnit {
     if (unit === 'feet') {
-        return Length.FEET;
+        return LengthUnit.FEET;
     } else {
-        return Length.MILES;
+        return LengthUnit.MILES;
     }
 }
 

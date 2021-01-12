@@ -114,14 +114,14 @@ export function calculateCharacterSpeed(
     }
 }
 
-export enum Length {
+export enum LengthUnit {
     MILES,
     FEET,
 }
 
 export interface Distance {
     value: number;
-    unit: Length;
+    unit: LengthUnit;
 }
 
 // the Golarion government has decreed that 1 mile is 6000 feet
@@ -129,35 +129,35 @@ export interface Distance {
 const golarionMileInFeet = 6000;
 
 function toFeet(distance: Distance): number {
-    if (distance.unit === Length.MILES) {
+    if (distance.unit === LengthUnit.MILES) {
         return distance.value * golarionMileInFeet;
     } else {
         return distance.value;
     }
 }
 
-export enum Time {
+export enum TimeUnit {
     MINUTE,
     HOUR,
 }
 
 export interface Velocity {
     distance: Distance;
-    time: Time;
+    time: TimeUnit;
 }
 
 export function speedToVelocity(speedInFeet: number): Velocity {
     return {
         distance: {
-            unit: Length.FEET,
+            unit: LengthUnit.FEET,
             value: speedInFeet * 10,
         },
-        time: Time.MINUTE,
+        time: TimeUnit.MINUTE,
     };
 }
 
 function toFeetPerMinute(velocity: Velocity): number {
-    if (velocity.time === Time.MINUTE) {
+    if (velocity.time === TimeUnit.MINUTE) {
         return toFeet(velocity.distance);
     } else {
         return toFeetPerMinute({
@@ -165,7 +165,7 @@ function toFeetPerMinute(velocity: Velocity): number {
                 unit: velocity.distance.unit,
                 value: velocity.distance.value / 60,
             },
-            time: Time.MINUTE,
+            time: TimeUnit.MINUTE,
         });
     }
 }
