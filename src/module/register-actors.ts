@@ -28,7 +28,7 @@ export function registerActors() {
     makeDefault: true,
   });
 
-  // Regiser NEW NPC Sheet (still in development, keep commented for production builds)
+  // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
   Actors.registerSheet('pf2e', ActorSheetPF2eSimpleNPC, {
     types: ['npc'],
     makeDefault: false
