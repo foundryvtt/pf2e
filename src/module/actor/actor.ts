@@ -60,7 +60,7 @@ export const SKILL_EXPANDED = Object.freeze({
     medicine: { ability: 'wis', shortform: 'med' },
     nature: { ability: 'wis', shortform: 'nat' },
     occultism: { ability: 'int', shortform: 'occ' },
-    performance: { ability: 'cha', shortform: 'pfr' },
+    performance: { ability: 'cha', shortform: 'prf' },
     religion: { ability: 'wis', shortform: 'rel' },
     society: { ability: 'int', shortform: 'soc' },
     stealth: { ability: 'dex', shortform: 'ste' },
