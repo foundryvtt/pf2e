@@ -93,7 +93,7 @@ export class PF2EPhysicalItem extends PF2EItem {
     }
 
     async update(diff, options = {}) {
-        await PF2EPhysicalItem.updateIdentificationData(this, diff);
+        await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
     }
 }
