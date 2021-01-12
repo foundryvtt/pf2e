@@ -175,22 +175,6 @@ function toFeetPerMinute(velocity: Velocity): number {
     }
 }
 
-export interface TravelSpeed {
-    feetPerMinute: number;
-    feetPerHour: number;
-    feetPerDay: number;
-}
-
-function toTravelSpeed(velocity: Velocity): TravelSpeed {
-    const feetPerMinute = toFeetPerMinute(velocity);
-    return {
-        feetPerMinute: feetPerMinute,
-        feetPerHour: feetPerMinute * 60,
-        // only 8 hours per day are available for travelling
-        feetPerDay: feetPerMinute * 60 * 8,
-    };
-}
-
 export enum Terrain {
     NORMAL,
     DIFFICULT,
@@ -230,8 +214,8 @@ export interface TravelDuration {
     minutes: number;
 }
 
-function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDuration {
-    const totalMinutes = Math.round(distanceInFeet / speed.feetPerMinute);
+function toTravelDuration(distanceInFeet: number, feetPerMinute: number): TravelDuration {
+    const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
     const minutesPerHour = 60;
     const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
     const days = Math.floor(totalMinutes / minutesPerDay);
@@ -246,6 +230,6 @@ function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDur
 
 export function calculateTravelDuration(journey: Trip[], velocity: Velocity): TravelDuration {
     const feetNormalizedDistance = sum(journey.map(normalizeDistance));
-    const speed = toTravelSpeed(velocity);
-    return toTravelDuration(feetNormalizedDistance, speed);
+    const feetPerMinute = toFeetPerMinute(velocity);
+    return toTravelDuration(feetNormalizedDistance, feetPerMinute);
 }
