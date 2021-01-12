@@ -422,6 +422,10 @@ export class PF2ENPC extends PF2EActor {
 
             this._processNPCSkill(skill);
         }
+
+        if (this.data.data.details.rarity === undefined) {
+            this.data.data.details.rarity = 'common';
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import { NPCSkillsEditor } from "../../system/npc-skills-editor";
 import { PF2ENPC } from "../npc";
 import { identifyCreature } from "../../../module/recall-knowledge";
 import { PF2EItem } from "src/module/item/item";
+import { NpcData } from "../actorDataDefinitions";
 
 const isString = require('is-string');
 
@@ -47,6 +48,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         this._prepareMonsterTraits(monsterTraits);
         this._prepareSize(actorData);
         this._prepareAlignment(actorData);
+        this._prepareRarity(actorData);
         this._preparePerception(actorData);
         this._prepareSenses(actorData);
         this._prepareLanguages(actorData.data.traits.languages);
@@ -185,6 +187,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
         
         actorData.data.details.alignment.localizedName = localizedName;
+    }
+
+    _prepareRarity(actorData) {
+        if (actorData.data.details.rarity === undefined) {
+            actorData.data.details.rarity = 'normal';
+        }
     }
     
     _preparePerception(actorData) {
