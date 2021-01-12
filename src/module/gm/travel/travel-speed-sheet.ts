@@ -6,11 +6,9 @@ class TravelSpeedSheet extends FormApplication {
         options.title = game.i18n.localize('PF2E.TravelSpeed.Title');
         options.template = 'systems/pf2e/templates/gm/travel/travel-speed-sheet.html';
         options.width = 'auto';
+        options.submitOnChange = true;
+        options.closeOnSubmit = false;
         return options;
-    }
-
-    activateListeners(html) {
-        super.activateListeners(html);
     }
 
     async _updateObject(event: Event, formData: any) {

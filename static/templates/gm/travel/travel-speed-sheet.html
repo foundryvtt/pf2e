@@ -12,9 +12,9 @@
     {{#each actors}}
     <tr>
       <td>{{name}}</td>
-      <td><input name="speed" type="number" value="{{speed}}"></td>
+      <td><input name="speed" type="number" value="{{speed}}" data-dtype="Number"></td>
       <td>
-        <select name="speed-unit">
+        <select name="speedUnit">
           <option value="feet" selected>{{localize 'PF2E.TravelSpeed.Feet'}}</option>
           <option value="miles">{{localize 'PF2E.TravelSpeed.Miles'}}</option>
         </select>
@@ -27,7 +27,7 @@
         </select>
       </td>
       <td>
-        <select name="detection-mode">
+        <select name="detectionMode">
           <option value="none">{{localize 'PF2E.TravelSpeed.None'}}</option>
           <option value="everything">{{localize 'PF2E.TravelSpeed.DetectEverything'}}</option>
           <option value="before">{{localize 'PF2E.TravelSpeed.DetectBeforeRunningIntoIt'}}</option>
@@ -41,11 +41,11 @@
   <h2>{{localize 'PF2E.TravelSpeed.Journey'}}</h2>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.Distance'}}</label>
-    <input name="distance" value="1" type="text">
+    <input name="distance" value="1" type="number" data-dtype="Number">
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.DistanceUnit'}}</label>
-    <select name="distance-unit">
+    <select name="distanceUnit">
       <option value="feet">{{localize 'PF2E.TravelSpeed.Feet'}}</option>
       <option value="miles" selected>{{localize 'PF2E.TravelSpeed.Miles'}}</option>
     </select>
@@ -55,20 +55,20 @@
     <select name="terrain">
       <option value="normal">{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</option>
       <option value="difficult">{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</option>
-      <option value="greater-difficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
+      <option value="greaterDifficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
     </select>
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</label>
-    <input name="normal-terrain-penalty" value="1" type="text">
+    <input name="normalTerrainPenalty" value="1" type="text">
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</label>
-    <input name="difficult-terrain-penalty" value="1/2" type="text">
+    <input name="difficultTerrainPenalty" value="1/2" type="text">
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</label>
-    <input name="greater-difficult-terrain-penalty" value="1/3" type="text">
+    <input name="greaterDifficultTerrainPenalty" value="1/3" type="text">
   </div>
 </form>
 <h2>Estimated Travel Time</h2>
