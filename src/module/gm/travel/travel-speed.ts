@@ -234,7 +234,7 @@ function toTravelDuration(distanceInFeet: number, speed: TravelSpeed): TravelDur
     const totalMinutes = Math.round(distanceInFeet / speed.feetPerMinute);
     const minutesPerHour = 60;
     const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
-    const days = Math.floor(totalMinutes / minutesPerDay); 
+    const days = Math.floor(totalMinutes / minutesPerDay);
     const hours = Math.floor((totalMinutes - days * minutesPerDay) / minutesPerHour);
     const minutes = Math.floor(totalMinutes - days * minutesPerDay - hours * minutesPerHour);
     return {
