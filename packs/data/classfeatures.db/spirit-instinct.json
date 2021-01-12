@@ -28,240 +28,240 @@
             "value": "common"
         },
         "rules": [
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "label": "Rage",
-            "predicate": {
-              "all": [
-                "rage"
-              ]
-            },
-            "roll-options": [
-              "ac",
-              "all"
-            ],
-            "selector": "ac",
-            "type": "rage",
-            "value": -1
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spirit",
-            "label":"Rage",
-            "predicate": {
-              "all": [
-                "rage"
-              ],
-              "not": [
-                "ranged",
-                "agile",
-                "negative-spirit",
-                "positive-spirit"
-              ]
-            },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 3
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
                 },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 7
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "rage",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "negative-spirit",
+                        "positive-spirit"
+                    ]
                 },
-                {
-                  "start": 15,
-                  "value": 13
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 7
+                        },
+                        {
+                            "start": 15,
+                            "value": 13
+                        }
+                    ]
                 }
-              ]
-            }
-          },
-          {
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spirit-agile",
-            "label": "Rage",
-            "predicate": {
-              "all": [
-                "rage",
-                "agile"
-              ],
-              "not": [
-                "ranged",
-                "negative-spirit",
-                "positive-spirit"
-              ]
             },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 1
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged",
+                        "negative-spirit",
+                        "positive-spirit"
+                    ]
                 },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 3
-                },
-                {
-                  "start": 15,
-                  "value": 6
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
                 }
-              ]
-            }
-          },
-          {
-            "key": "PF2E.RuleElement.ToggleProperty",
-            "label": "Positive spirit damage",
-            "property": "flags.pf2e.rollOptions.all.positive-spirit"
-          },
-          {
-            "damageType": "positive",
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spirit-positive",
-            "label":"Rage",
-            "predicate": {
-              "all": [
-                "rage",
-                "positive-spirit"
-              ],
-              "not": [
-                "ranged",
-                "agile",
-                "negative-spirit"
-              ]
             },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 3
-                },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 7
-                },
-                {
-                  "start": 15,
-                  "value": 13
-                }
-              ]
-            }
-          },
-          {
-            "damageType": "positive",
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spitit-agile",
-            "label":"Rage",
-            "predicate": {
-              "all": [
-                "agile",
-                "rage",
-                "positive-spirit"
-              ],
-              "not": [
-                "ranged",
-                "negative-spirit"
-              ]
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Positive spirit damage",
+                "property": "flags.pf2e.rollOptions.all.positive-spirit"
             },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 1
+            {
+                "damageType": "positive",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-positive",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "positive-spirit"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "negative-spirit"
+                    ]
                 },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 3
-                },
-                {
-                  "start": 15,
-                  "value": 6
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 7
+                        },
+                        {
+                            "start": 15,
+                            "value": 13
+                        }
+                    ]
                 }
-              ]
-            }
-          },
-          {
-            "key": "PF2E.RuleElement.ToggleProperty",
-            "label": "Negative spirit damage",
-            "property": "flags.pf2e.rollOptions.all.negative-spirit"
-          },
-          {
-            "damageType": "negative",
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spirit-negative",
-            "label":"Rage",
-            "predicate": {
-              "all": [
-                "rage",
-                "negative-spirit"
-              ],
-              "not": [
-                "ranged",
-                "agile",
-                "positive-spirit"
-              ]
             },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 3
+            {
+                "damageType": "positive",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spitit-agile",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage",
+                        "positive-spirit"
+                    ],
+                    "not": [
+                        "ranged",
+                        "negative-spirit"
+                    ]
                 },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 7
-                },
-                {
-                  "start": 15,
-                  "value": 13
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
                 }
-              ]
-            }
-          },
-          {
-            "damageType": "negative",
-            "key": "PF2E.RuleElement.FlatModifier",
-            "name": "rage-spirit-negative-agile",
-            "label":"Rage",
-            "predicate": {
-              "all": [
-                "agile",
-                "rage",
-                "negative-spirit"
-              ],
-              "not": [
-                "ranged",
-                "positive-spirit"
-              ]
             },
-            "selector": "damage",
-            "value": {
-              "brackets": [
-                {
-                  "end": 6,
-                  "value": 1
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Negative spirit damage",
+                "property": "flags.pf2e.rollOptions.all.negative-spirit"
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-negative",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "negative-spirit"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "positive-spirit"
+                    ]
                 },
-                {
-                  "end": 14,
-                  "start": 7,
-                  "value": 3
-                },
-                {
-                  "start": 15,
-                  "value": 6
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 7
+                        },
+                        {
+                            "start": 15,
+                            "value": 13
+                        }
+                    ]
                 }
-              ]
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-negative-agile",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage",
+                        "negative-spirit"
+                    ],
+                    "not": [
+                        "ranged",
+                        "positive-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
             }
-          }
         ],
         "source": {
             "value": ""
@@ -271,9 +271,6 @@
             "value": [
                 "barbarian"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
     "flags": {},
