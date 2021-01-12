@@ -8,7 +8,8 @@ import { PF2Modifier, PF2ModifierType } from "../../modifiers";
 import { NPCSkillsEditor } from "../../system/npc-skills-editor";
 import { PF2ENPC } from "../npc";
 import { identifyCreature } from "../../../module/recall-knowledge";
-import { PF2EItem } from "src/module/item/item";
+import { PF2EItem } from "../../../module/item/item";
+import { PF2EPhysicalItem } from "../../../module/item/physical";
 
 const isString = require('is-string');
 
@@ -146,6 +147,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         html.find(".action").hover((ev) => this._onActionHovered(ev), (ev) => this._onActionHoverEnds(ev))
         html.find('.npc-item').hover((ev) => this._onItemHovered(ev), (ev) => this._onItemHoverEnds(ev));
         html.find('.spell').hover((ev) => this._onSpellHovered(ev), (ev) => this._onSpellHoverEnds(ev));
+        html.find('a.chat').click((ev) => this._onSendToChatClicked(ev));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -1421,10 +1423,26 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         }
     }
 
-    private _onWeakAdjustmentClicked(eventData: Event) {
+    private _onSendToChatClicked(eventData: JQuery.ClickEvent) {
         eventData.preventDefault();
 
-        console.log(`Clicked WEAK adjustment`);
+        const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (item !== undefined) {
+
+            if (item instanceof PF2EPhysicalItem && !item.isIdentified) {
+                return;
+            }
+
+            item.roll(eventData);
+        } else {
+            console.error(`Clicked item with ID ${itemId}, but unable to find item with that ID.`);
+        }
+    }
+
+    private _onWeakAdjustmentClicked(eventData: Event) {
+        eventData.preventDefault();
 
         const container = $(eventData.currentTarget).parents('.adjustment-select');
 
@@ -1439,7 +1457,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         }
 
         if (isAlreadyWeak) {
-            console.log(`Currently weak, reverting to normal`);
             // Revert to normal
             weakButton.removeClass('active');
 
@@ -1455,8 +1472,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
     private _onEliteAdjustmentClicked(eventData: Event) {
         eventData.preventDefault();
 
-        console.log(`Clicked ELITE adjustment`);
-
         const container = $(eventData.currentTarget).parents('.adjustment-select');
 
         const eliteButton = container.find('.elite');
@@ -1465,15 +1480,11 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature {
         const isCurrentlyWeak = weakButton.hasClass('active');
         const isAlreadyElite = eliteButton.hasClass('active');
 
-        console.log(`Check elite button: `, eliteButton);
-        console.log(`Is active? ${isAlreadyElite}`);
-
         if (isCurrentlyWeak) {
             weakButton.removeClass('active');
         }
 
         if (isAlreadyElite) {
-            console.log(`Currently elite, reverting to normal`);
             // Revert to normal
             eliteButton.removeClass('active');
 
