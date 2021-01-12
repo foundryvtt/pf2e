@@ -7,6 +7,7 @@ import copyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 // import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'; Will hopefully be fixed in the next few days
 import WebpackBar from 'webpackbar';
@@ -69,7 +70,7 @@ const config: Configuration = {
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
@@ -81,6 +82,7 @@ const config: Configuration = {
                         loader: 'sass-loader',
                         options: {
                             sourceMap: true,
+                            additionalData: `@import "${path.resolve(__dirname, 'src/styles/_globals.scss')}";`,
                         },
                     },
                 ],
@@ -104,6 +106,10 @@ const config: Configuration = {
             patterns: [{ from: 'static' }, { from: 'system.json' }],
         }),
         new ForkTsCheckerWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles/[name].css',
+            insert: 'head',
+        }),
         new WebpackBar({}),
         {
             apply: (compiler: Compiler) => {
