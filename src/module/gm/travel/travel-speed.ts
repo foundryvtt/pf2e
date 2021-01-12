@@ -128,11 +128,6 @@ export interface Distance {
 // see https://2e.aonprd.com/Rules.aspx?ID=470
 const golarionMileInFeet = 6000;
 
-/**
- * Fucking imperial units
- *
- * @param distance
- */
 function toFeet(distance: Distance): number {
     if (distance.unit === Length.MILES) {
         return distance.value * golarionMileInFeet;
@@ -141,14 +136,14 @@ function toFeet(distance: Distance): number {
     }
 }
 
-export enum TimeFrame {
+export enum Time {
     MINUTE,
     HOUR,
 }
 
 export interface Velocity {
     distance: Distance;
-    timeFrame: TimeFrame;
+    time: Time;
 }
 
 export function speedToVelocity(speedInFeet: number): Velocity {
@@ -157,12 +152,12 @@ export function speedToVelocity(speedInFeet: number): Velocity {
             unit: Length.FEET,
             value: speedInFeet * 10,
         },
-        timeFrame: TimeFrame.MINUTE,
+        time: Time.MINUTE,
     };
 }
 
 function toFeetPerMinute(velocity: Velocity): number {
-    if (velocity.timeFrame === TimeFrame.MINUTE) {
+    if (velocity.time === Time.MINUTE) {
         return toFeet(velocity.distance);
     } else {
         return toFeetPerMinute({
@@ -170,7 +165,7 @@ function toFeetPerMinute(velocity: Velocity): number {
                 unit: velocity.distance.unit,
                 value: velocity.distance.value / 60,
             },
-            timeFrame: TimeFrame.MINUTE,
+            time: Time.MINUTE,
         });
     }
 }
@@ -195,9 +190,10 @@ export interface Trip {
 
 /**
  * Instead of making a creature slower, we just increase the
- * distance by applying the travel cost to it
+ * distance by applying the travel cost to it to hope for less
+ * rounding errors
  */
-function normalizeDistance(trip: Trip): number {
+function increaseDistanceByTerrain(trip: Trip): number {
     const feet = toFeet(trip.distance);
     if (trip.terrain === Terrain.DIFFICULT) {
         return feet * trip.terrainCost.difficult;
@@ -209,6 +205,7 @@ function normalizeDistance(trip: Trip): number {
 }
 
 export interface TravelDuration {
+    weeks: number;
     days: number;
     hours: number;
     minutes: number;
@@ -218,10 +215,13 @@ function toTravelDuration(distanceInFeet: number, feetPerMinute: number): Travel
     const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
     const minutesPerHour = 60;
     const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
-    const days = Math.floor(totalMinutes / minutesPerDay);
-    const hours = Math.floor((totalMinutes - days * minutesPerDay) / minutesPerHour);
-    const minutes = Math.floor(totalMinutes - days * minutesPerDay - hours * minutesPerHour);
+    const minutesPerWeek = minutesPerDay * 7;
+    const weeks = Math.floor(totalMinutes / minutesPerWeek);
+    const days = Math.floor((totalMinutes - weeks * minutesPerWeek) / minutesPerDay);
+    const hours = Math.floor((totalMinutes - weeks * minutesPerWeek - days * minutesPerDay) / minutesPerHour);
+    const minutes = Math.floor(totalMinutes - weeks * minutesPerWeek - days * minutesPerDay - hours * minutesPerHour);
     return {
+        weeks,
         days,
         hours,
         minutes,
@@ -229,7 +229,7 @@ function toTravelDuration(distanceInFeet: number, feetPerMinute: number): Travel
 }
 
 export function calculateTravelDuration(journey: Trip[], velocity: Velocity): TravelDuration {
-    const feetNormalizedDistance = sum(journey.map(normalizeDistance));
+    const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
     const feetPerMinute = toFeetPerMinute(velocity);
-    return toTravelDuration(feetNormalizedDistance, feetPerMinute);
+    return toTravelDuration(distanceInFeet, feetPerMinute);
 }

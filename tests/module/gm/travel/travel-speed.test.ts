@@ -137,6 +137,7 @@ describe('test travel speed', () => {
         ];
         const velocity = speedToVelocity(25);
         expect(calculateTravelDuration(journey, velocity)).toEqual({
+            weeks: 0,
             days: 2,
             hours: 4,
             minutes: 24,
