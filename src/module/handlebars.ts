@@ -111,11 +111,11 @@ export function registerHandlebarsHelpers() {
         return JSON.stringify(html);
     });
 
-    Handlebars.registerHelper('isNotZero', value => {
+    Handlebars.registerHelper('isNotZero', (value) => {
         return value !== 0 && value !== undefined;
     });
 
-    Handlebars.registerHelper('isNotEmptyList', value => {
+    Handlebars.registerHelper('isNotEmptyList', (value) => {
         return value.length > 0;
     });
 }

@@ -345,7 +345,7 @@ export class PF2ENPC extends PF2EActor {
 
         if (isRegularSkill) {
             const skillData = SKILL_EXPANDED[skillName];
-            
+
             abilityId = skillData.ability;
             shortForm = skillData.shortform;
         } else if (isLoreSkill) {
@@ -366,17 +366,15 @@ export class PF2ENPC extends PF2EActor {
         const abilityValue = this.data.data.abilities[abilityId].mod;
 
         // Create initial modifiers
-        const baseModifier = new PF2Modifier(
-            'PF2E.BaseModifier',
-            baseValue,
-            PF2ModifierType.UNTYPED);
-        
+        const baseModifier = new PF2Modifier('PF2E.BaseModifier', baseValue, PF2ModifierType.UNTYPED);
+
         const abilityModifier = new PF2Modifier(
             CONFIG.PF2E.abilities[abilityId],
             abilityValue,
-            PF2ModifierType.ABILITY);
+            PF2ModifierType.ABILITY,
+        );
 
-        const modifiers = [ baseModifier, abilityModifier ];
+        const modifiers = [baseModifier, abilityModifier];
 
         // Apply statistics modifiers
         [skillName, `${abilityId}-based`, 'skill-check', 'all'].forEach((key) => {
@@ -418,7 +416,7 @@ export class PF2ENPC extends PF2EActor {
             skill.isLore = true;
 
             const rawLoreName = skillName.substr(0, skillName.lastIndexOf('-'));
-            const loreName = rawLoreName.replace(/-/g,' ').replace(/_/g, ' ').titleCase(); // Replace _ with whitespaces and capitalize
+            const loreName = rawLoreName.replace(/-/g, ' ').replace(/_/g, ' ').titleCase(); // Replace _ with whitespaces and capitalize
 
             skill.loreName = loreName;
 
@@ -435,7 +433,7 @@ export class PF2ENPC extends PF2EActor {
      * Checks if an item is an NPC skill.
      * @param item Item to check.
      */
-    private _isNPCSkillItem(item: ItemData) : boolean {
+    private _isNPCSkillItem(item: ItemData): boolean {
         // NPC Skills, they all are of type 'lore', even non-lore ones
         return item.type === 'lore';
     }
@@ -454,7 +452,7 @@ export class PF2ENPC extends PF2EActor {
 
         if (isRegularSkill) {
             const skillData = SKILL_EXPANDED[skillName];
-            
+
             skillId = skillData.shortform;
         } else if (isLoreSkill) {
             // It's a lore skill, and thus should use INT as its ability
@@ -472,13 +470,13 @@ export class PF2ENPC extends PF2EActor {
 
         // If there is no skill in the list of skills, create and add a new skill
         if (skill === undefined) {
-           skill = this._createNPCSkill(skillName, statisticsModifiers);
+            skill = this._createNPCSkill(skillName, statisticsModifiers);
 
-           this.data.data.skills[skillId] = skill;
+            this.data.data.skills[skillId] = skill;
         }
 
         const value: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
-        const exception: string = (item.data.description.value);
+        const exception: string = item.data.description.value;
 
         this.assignNPCSkillValue(skillId, value);
         this.assignNPCSkillException(skillId, exception);
@@ -497,21 +495,23 @@ export class PF2ENPC extends PF2EActor {
             console.warn(`Unable to set value ${value} to skill ${skillId}. No skill with that ID.`);
             return;
         }
-        
+
         const abilityName = PF2ECONFIG.abilities[skill.ability] ?? PF2ECONFIG.abilities['int'];
 
         const abilityModifier = skill.findModifierByName(abilityName);
-        
+
         if (abilityModifier === null) {
-            console.warn(`Unable to find ability modifier with ID ${abilityName} for skill ${skillId}. Unable to set value.`);
+            console.warn(
+                `Unable to find ability modifier with ID ${abilityName} for skill ${skillId}. Unable to set value.`,
+            );
             return;
         }
-        
+
         // Base value will be what's remaining after removing the ability modifier
         const baseValue = value - abilityModifier.modifier;
-        
+
         const baseModifier = skill.findModifierByName('PF2E.BaseModifier');
-        
+
         if (baseModifier === null) {
             console.warn(`Unable to find base modifier for skill ${skillId}. Unable to ser value.`);
             return;
@@ -519,7 +519,7 @@ export class PF2ENPC extends PF2EActor {
 
         baseModifier.modifier = baseValue;
 
-        // Refresh skill value after changing its base modifier 
+        // Refresh skill value after changing its base modifier
         skill.applyStackingRules();
         skill.value = skill.totalModifier;
 
@@ -571,7 +571,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts the name of an item into the format of skill IDs.
      * @param itemName Name of the item to convert to skill ID.
      */
-    convertItemNameToSkillName(itemName: string) : string {
+    convertItemNameToSkillName(itemName: string): string {
         return itemName.toLowerCase().replace(/\s+/g, '-');
     }
 
@@ -579,7 +579,7 @@ export class PF2ENPC extends PF2EActor {
      * Converts the name of a skill into the name of an item.
      * @param skillName Name of the skill, using the lowercase and dash-separated format.
      */
-    convertSkillNameToItemName(skillName: string) : string {
+    convertSkillNameToItemName(skillName: string): string {
         return skillName.replace(/-/g, ' ').titleCase();
     }
 
@@ -655,9 +655,9 @@ export class PF2ENPC extends PF2EActor {
 
             skillItem = this.items.find((item) => {
                 if (item.type !== 'lore') return false;
-    
+
                 const itemSkillName = this.convertItemNameToSkillName(item.name);
-    
+
                 return skillName === itemSkillName;
             });
         }
@@ -687,10 +687,10 @@ export class PF2ENPC extends PF2EActor {
             const separatorIndex = skillName.search('-');
             const rawSkillId = skillName.substr(0, separatorIndex);
             const rawSpecialBonus = skillName.substr(separatorIndex + 1, skillName.length - separatorIndex - 1);
-            
+
             let finalSpecialBonus = rawSpecialBonus;
             finalSpecialBonus = finalSpecialBonus.replace(/\(/g, '');
-            finalSpecialBonus = finalSpecialBonus.replace(/\)/g,'');
+            finalSpecialBonus = finalSpecialBonus.replace(/\)/g, '');
             finalSpecialBonus = finalSpecialBonus.replace(/-/g, ' ');
 
             const realSkillId = SKILL_EXPANDED[rawSkillId]?.shortform;
@@ -720,7 +720,6 @@ export class PF2ENPC extends PF2EActor {
      * @param skill Skill to process.
      */
     _processNPCSkill(skill) {
-
         const totalValue: number = skill.value;
         const level = this.data.data.details.level.value;
         const ability = this.data.data.abilities[skill.ability];
@@ -733,15 +732,15 @@ export class PF2ENPC extends PF2EActor {
 
         // Select proficiency based on value
         if (proficiencyValue >= 8) {
-            proficiencyRank = 4;    // Legendary
+            proficiencyRank = 4; // Legendary
         } else if (proficiencyValue >= 6) {
-            proficiencyRank = 3;    // Master
+            proficiencyRank = 3; // Master
         } else if (proficiencyValue >= 4) {
-            proficiencyRank = 2;    // Expert
+            proficiencyRank = 2; // Expert
         } else if (proficiencyValue >= 2) {
-            proficiencyRank = 1;    // Trained
+            proficiencyRank = 1; // Trained
         } else {
-            proficiencyRank = 0;    // Untrained
+            proficiencyRank = 0; // Untrained
         }
 
         skill.value = totalValue;
@@ -778,7 +777,7 @@ export class PF2ENPC extends PF2EActor {
      * and this method will return false.
      * @param skillId ID of the skill.
      */
-    private _isRegularSkillName(skillId: string) : boolean {
+    private _isRegularSkillName(skillId: string): boolean {
         for (const id in PF2ECONFIG.skillList) {
             if (id === skillId) return true;
         }
@@ -790,7 +789,7 @@ export class PF2ENPC extends PF2EActor {
      * Checks if a skill is a lore skill.
      * @param skillId ID of the skill.
      */
-    private _isLoreSkillName(skillId: string) : boolean {
+    private _isLoreSkillName(skillId: string): boolean {
         return skillId.includes('-lore');
     }
 

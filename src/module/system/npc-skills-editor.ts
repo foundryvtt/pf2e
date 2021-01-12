@@ -1,10 +1,9 @@
-import { PF2ENPC } from "../actor/npc";
+import { PF2ENPC } from '../actor/npc';
 
 /**
  * Specialized form to setup skills for an NPC character.
  */
 export class NPCSkillsEditor extends FormApplication {
-
     npc: PF2ENPC;
 
     constructor(actor, options) {
@@ -21,7 +20,7 @@ export class NPCSkillsEditor extends FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
 
-        options.id = "npc-skills-selector";
+        options.id = 'npc-skills-selector';
         options.classes = ['pf2e'];
         options.title = game.i18n.localize('PF2E.NPC.SkillsEditor.TitleLabel');
         options.template = 'systems/pf2e/templates/actors/npc/forms/npc-skills-editor.html';
@@ -37,13 +36,13 @@ export class NPCSkillsEditor extends FormApplication {
      */
     getData() {
         return {
-            skills: this.object.data.data.skills
+            skills: this.object.data.data.skills,
         };
     }
 
     /**
      * Subscribe to events from HTML.
-     * @param html 
+     * @param html
      */
     activateListeners(html) {
         super.activateListeners(html);
@@ -74,23 +73,23 @@ export class NPCSkillsEditor extends FormApplication {
             type: 'lore',
             data: {
                 mod: {
-                    value: 0
+                    value: 0,
                 },
                 description: {
-                    value: ""
-                }
-            }
+                    value: '',
+                },
+            },
         };
 
         await this.npc.createOwnedItem(data);
-        
+
         this.render(true);
     }
 
     /**
      * Apply changes to the actor based on the data in the form.
-     * @param event 
-     * @param formData 
+     * @param event
+     * @param formData
      */
     async _updateObject(event: Event, formData: any) {
         for (const [key, skillData] of Object.entries(formData as Record<any, any>)) {
@@ -104,11 +103,11 @@ export class NPCSkillsEditor extends FormApplication {
             if (isLoreSkill) {
                 // Get skill id from the lore name, in case it has changed
                 skillId = this.npc.convertSkillNameToSkillId(this.npc.convertItemNameToSkillName(skillData[0]));
-                
+
                 if (!skillId.includes('-lore')) {
                     skillId += '-lore';
                 }
-                
+
                 type = key;
                 value = parseInt(skillData[1], 10);
                 exception = skillData[2] || '';
@@ -122,15 +121,16 @@ export class NPCSkillsEditor extends FormApplication {
             const skillItem = this.npc.findSkillItem(skillId, exception);
             const skillItemValue: number = skillItem !== null ? (skillItem.data.data as any).mod.value : 0;
             const skillItemException: string = skillItem !== null ? skillItem.data.data.description.value : '';
-            const hasToUpdateItem = (skillItem !== null && (skillItemValue !== value && value > 0 || skillItemException !== exception));
-            const hasToCreateItem = (skillItem === null && (value !== 0 || exception !== ''));
-            const hasToDelete = (skillItem !== null && value === 0 && exception === '');
-            const hasRenamedLoreSkill = isLoreSkill && (type !== skillId);
+            const hasToUpdateItem =
+                skillItem !== null && ((skillItemValue !== value && value > 0) || skillItemException !== exception);
+            const hasToCreateItem = skillItem === null && (value !== 0 || exception !== '');
+            const hasToDelete = skillItem !== null && value === 0 && exception === '';
+            const hasRenamedLoreSkill = isLoreSkill && type !== skillId;
 
             if (hasToUpdateItem) {
                 skillItem.update({
                     [`data.mod.value`]: value,
-                    [`data.description.value`]: exception
+                    [`data.description.value`]: exception,
                 });
             } else if (hasToCreateItem) {
                 const skillName = this.npc.convertSkillIdToSkillName(skillId);
@@ -141,12 +141,12 @@ export class NPCSkillsEditor extends FormApplication {
                     type: 'lore',
                     data: {
                         mod: {
-                            value: value
+                            value: value,
                         },
                         description: {
-                            value: exception
-                        }
-                    }
+                            value: exception,
+                        },
+                    },
                 };
 
                 await this.npc.createOwnedItem(data);
