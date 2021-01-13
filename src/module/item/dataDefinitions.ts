@@ -125,24 +125,10 @@ export interface ActivatedEffectData {
     };
 }
 
-export interface MagicItemPropertyData {
-    value: string;
-    dice: number;
-    die: string;
-    damageType: string;
-    critDice: number;
-    critDie: string;
-    critDamage: string;
-    critDamageType: string;
-}
-
 export interface MagicItemData extends PhysicalDetailsData {
     invested?: {
         value: boolean;
     };
-    property1: MagicItemPropertyData;
-    property2: MagicItemPropertyData;
-    property3: MagicItemPropertyData;
 }
 
 export interface BackpackDetailsData extends PhysicalDetailsData {
@@ -224,6 +210,17 @@ export interface WeaponDetailsData extends MagicItemData {
     };
     propertyRune4: {
         value: string;
+    };
+    property1: {
+        // Refers to custom damage, *not* property runes
+        value: string;
+        dice: number;
+        die: string;
+        damageType: string;
+        critDice: number;
+        critDie: string;
+        critDamage: string;
+        critDamageType: string;
     };
 }
 
