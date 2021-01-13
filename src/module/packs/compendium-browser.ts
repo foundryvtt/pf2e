@@ -453,9 +453,17 @@ class CompendiumBrowser extends Application {
                     // determine skill feats
                     if (feat.data.featType.value === 'skill') {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        let prerequisitesArr = Array.isArray(feat.data.prerequisites.value)
-                            ? feat.data.prerequisites.value
-                            : feat.data.prerequisites.value.split(' ');
+                        const prereqs = feat.data.prerequisites;
+                        let prerequisitesArr = [];
+                        if (Array.isArray(prereqs.value)) {
+                            prerequisitesArr = prereqs.value;
+                        } else if (typeof prereqs.value === 'string') {
+                            prerequisitesArr = prereqs.value.split(' ');
+                        } else if (Array.isArray(prereqs)) {
+                            prerequisitesArr = prereqs;
+                        } else if (typeof prereqs === 'string') {
+                            prerequisitesArr = prereqs.split(' ');
+                        }
 
                         prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
 

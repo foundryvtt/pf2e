@@ -139,7 +139,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
 
     private _lootNPCs(event) {
         event.preventDefault();
-        if (canvas?.tokens?.controlled?.length > 0) {
+        if (canvas?.tokens?.controlled?.filter((token) => token.actor._id !== this.actor._id).length > 0) {
             new LootNPCsPopup(this.actor, {}).render(true);
         } else {
             ui.notifications.warn('No tokens selected.');
