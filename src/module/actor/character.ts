@@ -7,6 +7,7 @@ import {
     DEXTERITY,
     PF2CheckModifier,
     PF2Modifier,
+    PF2ModifierPredicate,
     PF2ModifierType,
     PF2StatisticModifier,
     ProficiencyModifier,
@@ -580,6 +581,9 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
                     }
 
+                    const defaultOptions = PF2EActor.traits(item?.data?.traits?.value); // always add all weapon traits as options
+                    defaultOptions.push(`${ability}-attack`);
+
                     // Conditions and Custom modifiers to attack rolls
                     {
                         const stats = [];
@@ -599,7 +603,10 @@ export class PF2ECharacter extends PF2EActor {
                             .forEach((key) => {
                                 (statisticsModifiers[key] || [])
                                     .map((m) => duplicate(m))
-                                    .forEach((m) => modifiers.push(m));
+                                    .forEach((m) => {
+                                        m.ignored = !PF2ModifierPredicate.test(m.predicate, defaultOptions);
+                                        modifiers.push(m);
+                                    });
                             });
                     }
 
@@ -655,8 +662,7 @@ export class PF2ECharacter extends PF2EActor {
                     // Add the base attack roll (used for determining on-hit)
                     const strike = action as Required<typeof action>;
                     action.attack = (event, options = []) => {
-                        options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-                        options = options.concat(strike.options);
+                        options = options.concat(defaultOptions);
                         PF2Check.roll(
                             new PF2CheckModifier(`Strike: ${action.name}`, strike),
                             { actor: this, type: 'attack-roll', options },
@@ -670,8 +676,7 @@ export class PF2ECharacter extends PF2EActor {
                         {
                             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                             roll: (event, options = []) => {
-                                options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-                                options = options.concat(strike.options);
+                                options = options.concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike),
                                     { actor: this, type: 'attack-roll', options },
@@ -682,8 +687,7 @@ export class PF2ECharacter extends PF2EActor {
                         {
                             label: `MAP ${map.map2}`,
                             roll: (event, options = []) => {
-                                options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-                                options = options.concat(strike.options);
+                                options = options.concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
@@ -700,8 +704,7 @@ export class PF2ECharacter extends PF2EActor {
                         {
                             label: `MAP ${map.map3}`,
                             roll: (event, options = []) => {
-                                options = options.concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
-                                options = options.concat(strike.options);
+                                options = options.concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
