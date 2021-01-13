@@ -1,10 +1,7 @@
-const tokens = canvas.tokens.controlled;
+const tokens = canvas.tokens.controlled.filter((t) => ['character', 'npc', 'familiar'].includes(t.actor.data.type));
 
-if (tokens.filter((token) => token.actor.data.type === 'npc' || token.actor.data.type === 'character').length === 0) {
+if (tokens.length === 0) {
     ui.notifications.error(`You must select at least one npc/pc token`);
 } else {
-    tokens
-        .filter((token) => token.actor.data.type === 'npc' || token.actor.data.type === 'character')
-        .map((p) => p.actor)
-        .forEach((actor) => actor.data.data.skills.ste.roll(event, ['secret']));
+    tokens.map((p) => p.actor).forEach((actor) => actor.data.data.skills.ste.roll(event, ['secret']));
 }
