@@ -1,5 +1,16 @@
 # Patch Notes:
 
+## Version 1.10.30
+### Bug Fixes
+* (abrault) Fix the Feats tab of the Browser with prerequisites
+* (Shandyan) Fix selector for guidance spell effect, so it properly applies to perception
+* (Mothringer) Prevent loot actors from attempting to loot a token derived from themselves
+* (Mothringer) Fix group perception and stealth macros to not break when hazards and loot actors are also selected
+
+### Content Changes
+* (putty) Fix ash web DC
+
+
 ## Version 1.10.29
 ### Bug Fixes
 * (stwlam) Set items to unequipped and uninvested on transfer between actors
