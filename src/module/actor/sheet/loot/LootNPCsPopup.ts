@@ -45,7 +45,7 @@ export class LootNPCsPopup extends FormApplication {
     getData() {
         const sheetData = super.getData();
         sheetData.tokenInfo = [];
-        const selectedTokens = canvas.tokens.controlled;
+        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor._id !== this.object._id);
         for (let i = 0; i < selectedTokens.length; i++) {
             sheetData.tokenInfo.push({
                 id: selectedTokens[i].id,
