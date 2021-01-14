@@ -1,10 +1,13 @@
 /* global game, CONFIG */
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
 import { PF2EActor } from '../actor/actor';
+import { PF2RollNote } from '../notes';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
     options?: string[];
+    /** Any notes which should be shown for the roll. */
+    notes?: PF2RollNote[];
     /** If true, this is a secret roll which should only be seen by the GM. */
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
@@ -94,13 +97,15 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
+        const notes = (context.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
 
         await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker({ actor: speaker }),
-                flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>`,
+                flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`,
                 flags: {
                     core: {
                         canPopout: true,

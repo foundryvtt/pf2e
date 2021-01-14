@@ -15,6 +15,7 @@ import { PF2SenseRuleElement } from './elements/sense';
 import { PF2TokenEffectIconRuleElement } from './elements/token-effect-icon';
 import { PF2StrikeRuleElement } from './elements/strike';
 import { PF2SetPropertyRuleElement } from './elements/set-property';
+import { PF2RollNoteRuleElement } from './elements/roll-note';
 
 export { PF2RuleElement };
 
@@ -41,6 +42,7 @@ export class PF2RuleElements {
         'PF2E.RuleElement.Sense': (ruleData, item) => new PF2SenseRuleElement(ruleData, item),
         'PF2E.RuleElement.SetProperty': (ruleData, item) => new PF2SetPropertyRuleElement(ruleData, item),
         'PF2E.RuleElement.Strike': (ruleData, item) => new PF2StrikeRuleElement(ruleData, item),
+        'PF2E.RuleElement.Note': (ruleData, item) => new PF2RollNoteRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {};
