@@ -4,6 +4,45 @@ type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
 type TerrainData = 'normal' | 'difficult' | 'greaterDifficult';
 
+// relevant feats
+/*
+https://2e.aonprd.com/Feats.aspx?ID=1439
+https://2e.aonprd.com/Feats.aspx?ID=1987
+https://2e.aonprd.com/Feats.aspx?ID=2138
+https://2e.aonprd.com/Feats.aspx?ID=2126
+https://2e.aonprd.com/Feats.aspx?ID=928
+https://2e.aonprd.com/Feats.aspx?ID=2051
+https://2e.aonprd.com/Feats.aspx?ID=547
+
+effects
+https://2e.aonprd.com/Spells.aspx?ID=588
+https://2e.aonprd.com/Spells.aspx?ID=275
+https://2e.aonprd.com/Spells.aspx?ID=105
+https://2e.aonprd.com/Spells.aspx?ID=350
+https://2e.aonprd.com/Spells.aspx?ID=368
+ */
+
+/*
+const baseSpeed = 
+const overlandSpeed = new PF2CheckModifier(baseSpeed);
+overlandSpeed.modifiers().forEach((m) => {
+    m.ignored = PF2ModifierPredicate.test(m.predicate, ['overland']);
+});
+overlandSpeed.applyStackRules();
+console.log(overlandSpeed.totalModifier);
+
+{
+  "key": "PF2E.RuleElement.FlatModifier",
+  "selector": "speed",
+  "label": "Travel Speed Feat",
+  "value": "10",
+  "type": "circumstance",
+  "predicate": {
+    "all": ["travel"]
+  } 
+}
+ */
+
 interface FormData {
     detectionMode: DetectionModeData[];
     speed: string[];
