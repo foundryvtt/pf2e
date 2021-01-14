@@ -2,6 +2,8 @@
 import { PF2EActor } from './actor';
 import { LootData } from './actorDataDefinitions';
 import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EItem } from '../item/item';
+import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treasure';
 
 export class PF2ELoot extends PF2EActor {
     /** @override */
@@ -15,6 +17,39 @@ export class PF2ELoot extends PF2EActor {
             return target.hasPerm(user, 'OBSERVER');
         }
         return super.can(user, action, target);
+    }
+
+    async transferItemToActor(
+        targetActor: PF2EActor,
+        item: PF2EItem,
+        quantity: number,
+        containerId: string,
+        gmSocket?: boolean,
+    ): Promise<PF2EItem> {
+        if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
+            let itemValue = extractPriceFromItem(item.data);
+            if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
+                if (!gmSocket) {
+                    let chatData =
+                        `${item.name}` + game.i18n.localize('PF2E.loot.PurchasedItem') + `${targetActor.data.name}`;
+                    ChatMessage.create({
+                        user: game.user.id,
+                        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                        content: chatData,
+                    });
+                }
+                return super.transferItemToActor(targetActor, item, quantity, containerId);
+            } else {
+                let chatData = game.i18n.localize('PF2E.loot.InsufficientQuantityError') + `${targetActor.data.name}`;
+                ChatMessage.create({
+                    user: game.user.id,
+                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    content: chatData,
+                });
+                return null;
+            }
+        }
+        return super.transferItemToActor(targetActor, item, quantity, containerId);
     }
 }
 
@@ -77,7 +112,11 @@ export class LootTransfer implements LootTransferData {
             (sourceActor.hasPerm(requester, 'owner') || sourceActor instanceof PF2ELoot) &&
             (targetActor.hasPerm(requester, 'owner') || targetActor instanceof PF2ELoot)
         ) {
-            sourceActor.transferItemToActor(targetActor, sourceItem, this.quantity, this.containerId);
+            if (sourceActor instanceof PF2ELoot) {
+                sourceActor.transferItemToActor(targetActor, sourceItem, this.quantity, this.containerId, true);
+            } else {
+                sourceActor.transferItemToActor(targetActor, sourceItem, this.quantity, this.containerId);
+            }
         } else {
             console.error('PF2e System | Failed sanity check!');
         }
