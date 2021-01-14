@@ -26,7 +26,7 @@ export abstract class PF2RuleElement {
             item: itemData,
             rule: ruleData,
         };
-        return (source ?? '').replace(/{(actor|item|rule)\|(.*)}/g, (match, obj, prop) => {
+        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (match, obj, prop) => {
             return getProperty(objects[obj] ?? itemData, prop);
         });
     }
