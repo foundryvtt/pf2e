@@ -95,6 +95,8 @@ export class DamageRollModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(CONFIG.PF2E.weaponTraits[o])}</span>`)
             .join('');
 
+        const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+
         const formula = duplicate(damage.formula[context.outcome ?? 'success']);
         const rollData: any = {
             outcome: context.outcome ?? 'success',
@@ -168,6 +170,7 @@ export class DamageRollModifiersDialog extends Application {
                     flavor: `
                 <b>${damage.name}</b> (${outcome})
                 <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
+                ${notes}
             `,
                     content: content.trim(),
                     roll: new Roll('0').roll(), // dummy roll to ensure Dice So Nice does not break

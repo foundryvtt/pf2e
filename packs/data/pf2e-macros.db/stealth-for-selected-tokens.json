@@ -2,7 +2,7 @@
     "_id": "yBuEphSaJJ7V9Yw3",
     "actorIds": [],
     "author": "ru9MkwAaWXaeSZph",
-    "command": "const tokens = canvas.tokens.controlled;\n\nif (tokens.length === 0) {\n    ui.notifications.error(`You must select at least one npc/pc token`);\n} else {\n    tokens.map((p) => p.actor).forEach((actor) => actor.data.data.skills.ste.roll(event, ['secret']));\n}",
+    "command": "const tokens = canvas.tokens.controlled.filter((t) => ['character', 'npc', 'familiar'].includes(t.actor.data.type));\n\nif (tokens.length === 0) {\n    ui.notifications.error(`You must select at least one npc/pc token`);\n} else {\n    tokens.map((p) => p.actor).forEach((actor) => actor.data.data.skills.ste.roll(event, ['secret']));\n}",
     "flags": {
         "core": {
             "sourceId": "Macro.asJ6xzXYbj0BIFWj"
