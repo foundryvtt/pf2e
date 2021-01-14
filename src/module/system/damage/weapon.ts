@@ -11,6 +11,7 @@ import { DamageCategory } from './damage';
 import { toNumber } from '../../utils';
 import { WeaponData } from '../../item/dataDefinitions';
 import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
+import { PF2RollNote } from '../../notes';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
@@ -52,6 +53,7 @@ export class PF2WeaponDamage {
         damageDice,
         proficiencyRank = 0,
         options: string[] = [],
+        rollNotes: Record<string, PF2RollNote[]>,
     ) {
         damageDice = duplicate(damageDice);
 
@@ -147,6 +149,7 @@ export class PF2WeaponDamage {
             damageDice,
             proficiencyRank,
             options,
+            rollNotes,
         );
     }
 
@@ -158,6 +161,7 @@ export class PF2WeaponDamage {
         damageDice: Record<string, PF2DamageDice[]>,
         proficiencyRank = 0,
         options: string[] = [],
+        rollNotes: Record<string, PF2RollNote[]>,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
@@ -396,8 +400,10 @@ export class PF2WeaponDamage {
             }
         }
 
-        // conditions and custom modifiers
+        // conditions, custom modifiers, and roll notes
+        const notes = [];
         {
+            const notesOptions = traits.map((trait) => trait.name).concat(options);
             const stats = [];
             if (weapon.data?.group?.value) {
                 stats.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
@@ -426,6 +432,10 @@ export class PF2WeaponDamage {
                         );
                         numericModifiers.push(modifier);
                     });
+                (rollNotes[key] ?? [])
+                    .map((note) => duplicate(note))
+                    .filter((note) => PF2ModifierPredicate.test(note.predicate, notesOptions))
+                    .forEach((note) => notes.push(note));
             });
         }
 
@@ -495,6 +505,8 @@ export class PF2WeaponDamage {
 
         damage.formula.success = this.getFormula(damage, false);
         damage.formula.criticalSuccess = this.getFormula(damage, true);
+
+        damage.notes = notes;
 
         return damage;
     }

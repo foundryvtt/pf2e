@@ -742,6 +742,7 @@ export class PF2ECharacter extends PF2EActor {
                             damageDice,
                             proficiencies[item.data.weaponType.value]?.rank ?? 0,
                             options,
+                            rollNotes,
                         );
                         PF2DamageRoll.roll(
                             damage,
@@ -760,6 +761,7 @@ export class PF2ECharacter extends PF2EActor {
                             damageDice,
                             proficiencies[item.data.weaponType.value]?.rank ?? 0,
                             options,
+                            rollNotes,
                         );
                         PF2DamageRoll.roll(
                             damage,
