@@ -319,6 +319,7 @@ export class PF2ENPC extends PF2EActor {
                         damageDice,
                         1,
                         options,
+                        {},
                     );
                     PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
                 };
@@ -331,6 +332,7 @@ export class PF2ENPC extends PF2EActor {
                         damageDice,
                         1,
                         options,
+                        {},
                     );
                     PF2DamageRoll.roll(
                         damage,
