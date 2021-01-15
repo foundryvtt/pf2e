@@ -34,6 +34,11 @@ export class PF2Check {
             }
         }
 
+        if (context) {
+            const visible = (note) => PF2ModifierPredicate.test(note.predicate, context.options ?? []);
+            context.notes = (context?.notes ?? []).filter(visible);
+        }
+
         // if control (or meta) is held, set roll mode to blind GM roll
         if (event.ctrlKey || event.metaKey) {
             context.secret = true;

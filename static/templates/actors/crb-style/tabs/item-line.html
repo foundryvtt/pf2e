@@ -18,9 +18,9 @@
     </div>
     {{#if lootsheet}}
         {{#if (eq item.type 'treasure')}}
-            <span class="item-sell-value">{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}</span>
+            <span class="item-sell-value">{{#if (or item.identified item.showGMInfo)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
         {{else}}
-            <span class="item-sell-value">{{item.data.price.value}}</span>
+            <span class="item-sell-value">{{#if (or item.identified item.showGMInfo)}}{{item.data.price.value}}{{/if}}</span>
         {{/if}}
     {{else}}
         {{#if (eq item.type 'treasure')}}

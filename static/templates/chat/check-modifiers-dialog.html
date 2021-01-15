@@ -9,7 +9,11 @@
     {{#each check.modifiers as |modifier idx|}}
     <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
       <span class="type tag">{{modifier.type}}</span>
+      {{#if modifier.label}}
+      <span class="mod">{{localize modifier.label}}</span>
+      {{else}}
       <span class="mod">{{localize modifier.name}}</span>
+      {{/if}}
       <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
       <label class="exclude toggle">
         <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{#if modifier.ignored}}checked{{/if}}>

@@ -2,6 +2,8 @@
 import { PF2EActor } from './actor';
 import { LootData } from './actorDataDefinitions';
 import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EItem } from '../item/item';
+import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treasure';
 
 export class PF2ELoot extends PF2EActor {
     /** @override */
@@ -15,6 +17,40 @@ export class PF2ELoot extends PF2EActor {
             return target.hasPerm(user, 'OBSERVER');
         }
         return super.can(user, action, target);
+    }
+
+    async transferItemToActor(
+        targetActor: PF2EActor,
+        item: PF2EItem,
+        quantity: number,
+        containerId: string,
+    ): Promise<PF2EItem> {
+        // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
+        if (!(this.hasPerm(game.user, 'owner') && targetActor.hasPerm(game.user, 'owner'))) {
+            return super.transferItemToActor(targetActor, item, quantity, containerId);
+        }
+        if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
+            let itemValue = extractPriceFromItem(item.data);
+            if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
+                let chatData =
+                    `${item.name}` + game.i18n.localize('PF2E.loot.PurchasedItem') + `${targetActor.data.name}`;
+                ChatMessage.create({
+                    user: game.user.id,
+                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    content: chatData,
+                });
+                return super.transferItemToActor(targetActor, item, quantity, containerId);
+            } else {
+                let chatData = game.i18n.localize('PF2E.loot.InsufficientCurrencyError') + `${targetActor.data.name}`;
+                ChatMessage.create({
+                    user: game.user.id,
+                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                    content: chatData,
+                });
+                return null;
+            }
+        }
+        return super.transferItemToActor(targetActor, item, quantity, containerId);
     }
 }
 
