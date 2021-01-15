@@ -30,7 +30,7 @@ export class PF2ELoot extends PF2EActor {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
-            let itemValue = extractPriceFromItem(item.data);
+            let itemValue = extractPriceFromItem(item.data, quantity);
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
                 let chatData =
                     `${item.name}` + game.i18n.localize('PF2E.loot.PurchasedItem') + `${targetActor.data.name}`;
