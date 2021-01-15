@@ -1,0 +1,73 @@
+<form class="flexcol" autocomplete="off">
+  <h2>Stamina Variant Rule</h2>
+  <div class="form-group">
+    <label>{{staminaVariant.setting.name}}</label>
+    <div class="form-fields">
+          <select name="staminaVariant">
+          {{#select staminaVariant.value}}
+          {{#each staminaVariant.setting.choices as |label value|}}
+          <option value="{{value}}">{{label}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+    </div>
+    <p class="notes">{{staminaVariant.setting.hint}}</p>
+  </div>
+  <h2>Proficiency Variant Rule</h2>
+  <div class="form-group">
+      <label>{{proficiencyVariant.setting.name}}</label>
+      <div class="form-fields">
+            <select name="proficiencyVariant">
+            {{#select proficiencyVariant.value}}
+            {{#each proficiencyVariant.setting.choices as |label value|}}
+            <option value="{{value}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+      </div>
+      <p class="notes">{{proficiencyVariant.setting.hint}}</p>
+  </div>
+  <div class="form-group">
+      <label>{{proficiencyUntrainedModifier.setting.name}}</label>
+      <div class="form-fields">
+          <input type="text" name="proficiencyUntrainedModifier" value="{{proficiencyUntrainedModifier.value}}" data-dtype="Number">
+      </div>
+      <p class="notes">{{proficiencyUntrainedModifier.setting.hint}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{proficiencyTrainedModifier.setting.name}}</label>
+    <div class="form-fields">
+        <input type="text" name="proficiencyTrainedModifier" value="{{proficiencyTrainedModifier.value}}" data-dtype="Number">
+    </div>
+    <p class="notes">{{proficiencyTrainedModifier.setting.hint}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{proficiencyExpertModifier.setting.name}}</label>
+    <div class="form-fields">
+        <input type="text" name="proficiencyExpertModifier" value="{{proficiencyExpertModifier.value}}" data-dtype="Number">
+    </div>
+    <p class="notes">{{proficiencyExpertModifier.setting.hint}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{proficiencyMasterModifier.setting.name}}</label>
+    <div class="form-fields">
+        <input type="text" name="proficiencyMasterModifier" value="{{proficiencyMasterModifier.value}}" data-dtype="Number">
+    </div>
+    <p class="notes">{{proficiencyMasterModifier.setting.hint}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{proficiencyLegendaryModifier.setting.name}}</label>
+    <div class="form-fields">
+        <input type="text" name="proficiencyLegendaryModifier" value="{{proficiencyLegendaryModifier.value}}" data-dtype="Number">
+    </div>
+    <p class="notes">{{proficiencyLegendaryModifier.setting.hint}}</p>
+  </div>
+  <footer class="sheet-footer flexrow">
+    <button type="submit" name="submit">
+        <i class="far fa-save"></i> {{localize "Save Changes"}}
+    </button>
+    <button type="button" name="reset">
+        <i class="fas fa-undo"></i> {{localize "Reset Defaults"}}
+    </button>
+  </footer>
+</form>
