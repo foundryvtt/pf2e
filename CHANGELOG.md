@@ -1,5 +1,36 @@
 # Patch Notes:
 
+## Version 1.10.31
+### Bug Fixes
+* (nikolaj-a) Use lazy mode when doing property injection in rule elements
+
+### New Features
+* (Mothringer) Drag and drop merchant purchasing
+* (nikolaj-a) Roll note rule element for checks and damage
+
+### Content Changes
+* (TMun) Errata for archetypes Maagambayan Attendant, Lastwall Sentry, Weapon Improviser, and the feat Widen the Gap. Closes #986, #989, #990 and #992
+* (TMun) Correct gloves of carelessness item slot
+* (TMun) Correct attitude condition items to errata 2.0. Correct overrides for attitude conditions
+* (Shandyan) Update alchemical item effects
+* (Shandyan) Set spell effect durations
+* (Shandyan) Update item descriptions for wands
+* (Shandyan) Brushed up a few items descriptions, and removed a couple of deprecated potion effects
+* (nikolaj-a) Notes on saving throw rolls for the saving throw enhanced by class features
+
+### Core System Improvements
+* (stwlam) Move "property1" field, representing custom weapon damage, from all magic items to just weapons
+* (stwlam) Remove "property1" from non-weapons, "property2" and "property3" from all physical items
+* (Mothringer) Prevent spells from being added without a spellcasting entry when dropped on the rest of the sheet
+* (Mothringer) Hide the value of unidentified items on a loot actor from non-GM users
+* (In3luki) Add Variant Rules submenu to the system settings
+* (nikolaj-a) Better support default attack roll options
+* (nikolaj-a) Add a CSS class for the official Pathfinder 2E action icons
+
+### Development Improvements
+* (stwlam) Remove unused modules, update rest except webpack and plugins
+
+
 ## Version 1.10.30
 ### Bug Fixes
 * (abrault) Fix the Feats tab of the Browser with prerequisites
