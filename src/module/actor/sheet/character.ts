@@ -530,7 +530,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html) {
+    activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
         {
@@ -579,7 +579,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
                 .addClass('active');
         });
 
-        html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+        html.find('.crb-trait-selector').on('click', (ev) => this._onCrbTraitSelector(ev));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);

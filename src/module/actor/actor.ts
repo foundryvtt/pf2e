@@ -29,6 +29,7 @@ import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
+import { PF2RollNote } from '../notes';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -143,7 +144,11 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /* -------------------------------------------- */
 
-    prepareInitiative(actorData: CharacterData, statisticsModifiers: Record<string, PF2Modifier[]>) {
+    prepareInitiative(
+        actorData: CharacterData,
+        statisticsModifiers: Record<string, PF2Modifier[]>,
+        rollNotes: Record<string, PF2RollNote[]>,
+    ) {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
@@ -350,10 +355,12 @@ export class PF2EActor extends Actor<PF2EItem> {
         const statisticsModifiers: Record<string, PF2Modifier[]> = {};
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
+        const rollNotes: Record<string, PF2RollNote[]> = {};
         const synthetics: PF2RuleElementSynthetics = {
             damageDice,
             statisticsModifiers,
             strikes,
+            rollNotes,
         };
 
         rules.forEach((rule) => {
@@ -395,6 +402,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             statisticsModifiers,
             damageDice,
             strikes,
+            rollNotes,
         };
     }
 

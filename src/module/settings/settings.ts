@@ -1,10 +1,21 @@
 /* global game */
-import { compendiumBrowser } from './packs/compendium-browser';
+import { compendiumBrowser } from './../packs/compendium-browser';
+import { variantRulesSettings } from './submenus/variantRulesSettings';
 
 /**
  * @ignore
  */
 export function registerSettings() {
+    (game.settings as any).registerMenu('pf2e', 'variantRulesSettings', {
+        name: 'Variant Rules',
+        label: 'Variant Rules Settings', // The text label used in the button
+        hint: 'Enable and configure variant rules like Proficiency Without Level or the Stamina system.',
+        icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
+        type: variantRulesSettings, // A FormApplication subclass which should be created
+        restricted: true, // Restrict this submenu to gamemaster only?
+    });
+    variantRulesSettings.registerSettings();
+
     game.settings.register('pf2e', 'worldSchemaVersion', {
         name: 'Actor Schema Version',
         hint:
@@ -72,75 +83,6 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
-    });
-    game.settings.register('pf2e', 'staminaVariant', {
-        name: 'Stamina Variant Rules',
-        hint: 'Play with the stamina variant from Gamemastery Guide pg 200',
-        scope: 'world',
-        config: true,
-        default: 0,
-        type: Number,
-        choices: {
-            0: 'Do not use Stamina',
-            1: 'Use Stamina', // I plan to expand this, hence the dropdown.
-        },
-    });
-    game.settings.register('pf2e', 'proficiencyVariant', {
-        name: 'Proficiency without Level Variant Rules',
-        hint: 'Play with the proficiency without level variant from Gamemastery Guide pg 198.',
-        scope: 'world',
-        config: true,
-        default: 'ProficiencyWithLevel',
-        type: String,
-        choices: {
-            ProficiencyWithLevel: 'Use Default rules',
-            ProficiencyWithoutLevel: 'Use Variant rules',
-        },
-    });
-    game.settings.register('pf2e', 'proficiencyUntrainedModifier', {
-        name: 'Untrained proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules, recommended with variant rules is -2. Requires recalculation by reload or modifying a value per actor.',
-        scope: 'world',
-        config: true,
-        default: 0,
-        type: Number,
-    });
-    game.settings.register('pf2e', 'proficiencyTrainedModifier', {
-        name: 'Trained proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
-        scope: 'world',
-        config: true,
-        default: 2,
-        type: Number,
-    });
-    game.settings.register('pf2e', 'proficiencyExpertModifier', {
-        name: 'Expert proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
-        scope: 'world',
-        config: true,
-        default: 4,
-        type: Number,
-    });
-    game.settings.register('pf2e', 'proficiencyMasterModifier', {
-        name: 'Master proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
-        scope: 'world',
-        config: true,
-        default: 6,
-        type: Number,
-    });
-    game.settings.register('pf2e', 'proficiencyLegendaryModifier', {
-        name: 'Legendary proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
-        scope: 'world',
-        config: true,
-        default: 8,
-        type: Number,
     });
     game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
         name: 'Identify Magic Skill Modifier',
