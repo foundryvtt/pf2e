@@ -5,14 +5,14 @@ import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
-import { PF2EActor } from '../actor';
+import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
 
 /**
  * @category Other
  */
-export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
+export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2ECharacter> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'pc'],
@@ -295,7 +295,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
                 feats[featType].feats.push(i);
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
-                    i.img = PF2EActor.getActionGraphics(
+                    i.img = PF2ECharacter.getActionGraphics(
                         actionType,
                         parseInt((i.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
@@ -360,7 +360,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature {
             // Actions
             if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EActor.getActionGraphics(
+                i.img = PF2ECharacter.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
