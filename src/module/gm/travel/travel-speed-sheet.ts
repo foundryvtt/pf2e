@@ -1,20 +1,18 @@
 import {
-    calculateCharacterSpeed,
-    calculateTravelDuration,
+    calculateCharacterSpeed, calculateTravelDuration,
     DetectionMode,
     ExplorationActivities,
     ExplorationOptions,
-    LengthUnit,
-    speedToVelocity,
+    LengthUnit, speedToVelocity,
     Terrain,
-    Trip,
+    TravelDuration, Trip,
 } from './travel-speed';
 import { Fraction } from '../../utils';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
 type TerrainData = 'normal' | 'difficult' | 'greaterDifficult';
-type ExplorationActitiviesData =
+type ExplorationActivitiesData =
     | 'AvoidNotice'
     | 'CoverTracks'
     | 'Defend'
@@ -66,10 +64,14 @@ console.log(overlandSpeed.totalModifier);
 }
  */
 
+interface FormActorData {
+    detectionMode: DetectionModeData;
+    explorationActivity: ExplorationActivitiesData;
+    speed: number;
+}
+
 interface FormData {
-    detectionMode: DetectionModeData[];
-    speed: string[];
-    explorationActivity: string[];
+    actors: FormActorData[];
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
@@ -78,8 +80,18 @@ interface FormData {
     greaterDifficultTerrainPenalty: Fraction;
 }
 
+interface SheetActorData extends FormActorData {
+    explorationSpeed: number;
+    name: string;
+}
+
+interface SheetData extends FormData {
+    actors: SheetActorData[];
+    travelDuration: TravelDuration;
+}
+
 class TravelSpeedSheet extends FormApplication {
-    private travelPlan: FormData = undefined;
+    private formData?: FormData = undefined;
 
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -93,46 +105,132 @@ class TravelSpeedSheet extends FormApplication {
         return options;
     }
 
-    async _updateObject(event: Event, formData: FormData) {
-        this.travelPlan = formData;
+    async _updateObject(event: Event, formData: any) {
+        const data: any = expandObject(formData);
+        data.actors = toArray(data.actors);
+        this.formData = data;
         this.render(true);
     }
 
-    getData() {
-        // TODO: assign previous state as well
-        const sheetData = super.getData();
-        sheetData.actors = this.options.actors.map((actor: Actor) => {
+    private actorFormToSheetData(actor: Actor, data: FormActorData): SheetActorData {
+        return {
+            detectionMode: data.detectionMode,
+            explorationActivity: data.explorationActivity,
+            explorationSpeed: calculateCharacterSpeed(
+                data.speed,
+                parseExplorationActivity(data.explorationActivity),
+                parseDetectionModeData(data.detectionMode),
+                parseExplorationOptions(actor),
+            ),
+            speed: data.speed,
+            name: actor.name,
+        };
+    }
+
+    private getInitialActorData(actor: Actor): SheetActorData {
+        return this.actorFormToSheetData(actor, {
+            detectionMode: 'before',
+            explorationActivity: 'Search',
+            speed: actor.data.data.attributes.speed.total,
+        });
+    }
+
+    private formToSheetData(actors: Actor[], data: FormData): SheetData {
+        const journey: Trip[] = [
+            {
+                terrainSlowdown: {
+                    difficult: data.difficultTerrainPenalty,
+                    greaterDifficult: data.greaterDifficultTerrainPenalty,
+                    normal: data.normalTerrainPenalty,
+                },
+                terrain: parseTerrainData(data.terrain),
+                distance: {
+                    value: data.distance,
+                    unit: parseDistanceUnit(data.distanceUnit),
+                },
+            },
+        ];
+        // FIXME: get lowest actor speed here
+        const velocity = speedToVelocity(30);
+        return {
+            travelDuration: calculateTravelDuration(journey, velocity),
+            distance: data.distance,
+            actors: data.actors,
+            normalTerrainPenalty: data.normalTerrainPenalty,
+            difficultTerrainPenalty: data.difficultTerrainPenalty,
+            greaterDifficultTerrainPenalty: data.greaterDifficultTerrainPenalty,
+            distanceUnit: data.distanceUnit,
+            terrain: data.terrain,
+        };
+    }
+
+    private getInitialData(actors: Actor[]): SheetData {
+        const actorsData = actors.map((actor: Actor) => {
             const speed = actor.data.data.attributes.speed.total;
-            return {
+            const actorData: SheetActorData = {
                 speed,
                 name: actor.name,
                 explorationSpeed: calculateCharacterSpeed(
                     speed,
-                    parseExplorationActivity(),
-                    parseDetectionModeData(),
+                    parseExplorationActivity('Search'),
+                    parseDetectionModeData('before'),
                     parseExplorationOptions(actor),
                 ),
+                explorationActivity: 'Search',
+                detectionMode: 'before',
             };
+            return actorData;
         });
-        if (this.travelPlan !== undefined) {
-            const journey: Trip[] = [
-                {
-                    terrainSlowdown: {
-                        difficult: this.travelPlan.difficultTerrainPenalty,
-                        greaterDifficult: this.travelPlan.greaterDifficultTerrainPenalty,
-                        normal: this.travelPlan.normalTerrainPenalty,
-                    },
-                    terrain: parseTerrainData(this.travelPlan.terrain),
-                    distance: {
-                        value: this.travelPlan.distance,
-                        unit: parseDistanceUnit(this.travelPlan.distanceUnit),
-                    },
-                },
-            ];
-            // FIXME: get lowest actor speed here
-            const velocity = speedToVelocity(30);
-            sheetData.travelDuration = calculateTravelDuration(journey, velocity);
+        return {
+            terrain: 'normal',
+            distanceUnit: 'miles',
+            normalTerrainPenalty: { denominator: 1, numerator: 1 },
+            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
+            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
+            distance: 1,
+            actors: actorsData,
+            travelDuration: {} as TravelDuration,
+        };
+    }
+
+    private parseFormData(formData: FormData): SheetData {
+        
+        return {
+            actors: [],
+            terrain: 'normal',
+            distanceUnit: 'miles',
+            normalTerrainPenalty: { denominator: 1, numerator: 1 },
+            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
+            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
+            distance: 1,
+        };
+    }
+
+    getData() {
+        let data: SheetData;
+        if (this.formData === undefined) {
+            data = this.getInitialData(this.options.actors);
+        } else {
+            data = this.parseFormData(this.formData);
         }
+        // TODO: assign previous state as well
+        const sheetData = super.getData();
+        Object.assign(sheetData, data);
+        //
+        // sheetData.actors = this.options.actors.map((actor: Actor) => {
+        //     const speed = actor.data.data.attributes.speed.total;
+        //     return {
+        //         speed,
+        //         name: actor.name,
+        //         explorationSpeed: calculateCharacterSpeed(
+        //             speed,
+        //             parseExplorationActivity('None'),
+        //             parseDetectionModeData('before'),
+        //             parseExplorationOptions(actor),
+        //         ),
+        //     };
+        // });
+        
         return sheetData;
     }
 }
@@ -165,7 +263,7 @@ function parseDetectionModeData(detectionMode: DetectionModeData): DetectionMode
     }
 }
 
-function parseExplorationActivity(activity: ExplorationActitiviesData): ExplorationActivities {
+function parseExplorationActivity(activity: ExplorationActivitiesData): ExplorationActivities {
     if (activity === 'AvoidNotice') {
         return ExplorationActivities.AVOID_NOTICE;
     } else if (activity === 'Defend') {
@@ -197,6 +295,16 @@ function parseExplorationOptions(actor: Actor): ExplorationOptions {
         expeditiousSearchLegendary:
             hasFeat(actor, 'Expeditious Search') && actor.data.data.attributes?.perception?.rank === 4,
     };
+}
+
+/**
+ * Turns {0: {...}, {1: {...}}} into [{...}, {...}]
+ * @param data
+ */
+function toArray<T>(data: Record<number, T>): T[] {
+    return Object.entries(data)
+        .sort(([a], [b]) => parseInt(a) - parseInt(b))
+        .map(([_, a]) => a);
 }
 
 export function launchTravelSheet(actors: Actor[]): void {
