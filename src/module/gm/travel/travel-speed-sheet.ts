@@ -90,6 +90,7 @@ interface FormData {
 interface SheetActorData extends FormActorData {
     explorationSpeed: number;
     name: string;
+    requiresDetectionMode: boolean;
 }
 
 interface SheetData extends FormData {
@@ -121,6 +122,7 @@ class TravelSpeedSheet extends FormApplication {
 
     private actorFormToSheetData(actor: Actor, data: FormActorData): SheetActorData {
         return {
+            requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
             detectionMode: data.detectionMode,
             explorationActivity: data.explorationActivity,
             explorationSpeed: parseFloat(

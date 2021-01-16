@@ -31,7 +31,7 @@
         </select>
       </td>
       <td>
-        <select name="actors.{{@index}}.detectionMode">
+        <select name="actors.{{@index}}.detectionMode" {{#unless requiresDetectionMode}}hidden{{/unless}}>
           {{#select detectionMode}}
           <option value="none">{{localize 'PF2E.TravelSpeed.None'}}</option>
           <option value="everything">{{localize 'PF2E.TravelSpeed.DetectEverything'}}</option>
