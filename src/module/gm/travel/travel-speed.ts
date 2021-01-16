@@ -38,21 +38,16 @@ export interface ExplorationOptions {
  * travel https://2e.aonprd.com/Rules.aspx?ID=1275
  */
 export enum ExplorationActivities {
-    FULL_SPEED,
+    NONE,
     HALF_SPEED,
-    ANTICIPATE_AMBUSH,
     AVOID_NOTICE,
-    COVER_TRACKS,
     DEFEND,
     DETECT_MAGIC,
-    INVESTIGATE,
-    REPEAT_A_SPELL,
     SCOUT,
     SEARCH,
-    TRACK,
 }
 
-export enum DetectionOptions {
+export enum DetectionMode {
     NONE,
     DETECT_EVERYTHING,
     DETECT_BEFORE_WALKING_INTO_IT,
@@ -72,7 +67,7 @@ function defendsAtFullSpeed(activity: ExplorationActivities, explorationOptions:
 export function calculateCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
-    detectionOptions: DetectionOptions,
+    detectionMode: DetectionMode,
     explorationOptions: ExplorationOptions,
 ): number {
     const halvedSpeed = defaultSpeedInFeet / 2;
@@ -91,25 +86,24 @@ export function calculateCharacterSpeed(
         } else if (explorationOptions.expeditiousSearch) {
             searchSpeedFactor = 2;
         }
-        if (detectionOptions === DetectionOptions.DETECT_EVERYTHING) {
+        if (detectionMode === DetectionMode.DETECT_EVERYTHING) {
             return Math.min(halvedSpeed, searchSpeedFactor * 30);
-        } else if (detectionOptions === DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT) {
+        } else if (detectionMode === DetectionMode.DETECT_BEFORE_WALKING_INTO_IT) {
             return Math.min(halvedSpeed, searchSpeedFactor * 15);
         } else {
             return halvedSpeed;
         }
     } else if (activity === ExplorationActivities.DETECT_MAGIC) {
-        if (detectionOptions === DetectionOptions.DETECT_EVERYTHING) {
+        if (detectionMode === DetectionMode.DETECT_EVERYTHING) {
             return Math.min(halvedSpeed, 30);
-        } else if (detectionOptions === DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT) {
+        } else if (detectionMode === DetectionMode.DETECT_BEFORE_WALKING_INTO_IT) {
             return Math.min(halvedSpeed, 15);
         } else {
             return halvedSpeed;
         }
-    } else if (activity === ExplorationActivities.FULL_SPEED) {
+    } else if (activity === ExplorationActivities.NONE) {
         return defaultSpeedInFeet;
     } else {
-        // pretty much any travel activity in the CRB halves your speed
         return halvedSpeed;
     }
 }

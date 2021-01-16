@@ -1,9 +1,31 @@
-import { calculateTravelDuration, LengthUnit, speedToVelocity, Terrain, Trip } from './travel-speed';
+import {
+    calculateCharacterSpeed,
+    calculateTravelDuration,
+    DetectionMode,
+    ExplorationActivities,
+    ExplorationOptions,
+    LengthUnit,
+    speedToVelocity,
+    Terrain,
+    Trip,
+} from './travel-speed';
 import { Fraction } from '../../utils';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
 type TerrainData = 'normal' | 'difficult' | 'greaterDifficult';
+type ExplorationActitiviesData =
+    | 'AvoidNotice'
+    | 'CoverTracks'
+    | 'Defend'
+    | 'DetectMagic'
+    | 'Investigate'
+    | 'RepeatASpell'
+    | 'Scout'
+    | 'Search'
+    | 'Track'
+    | 'None'
+    | 'HalfSpeed';
 
 // relevant feats
 /*
@@ -47,7 +69,6 @@ console.log(overlandSpeed.totalModifier);
 interface FormData {
     detectionMode: DetectionModeData[];
     speed: string[];
-    speedUnit: SpeedUnitData[];
     explorationActivity: string[];
     distance: number;
     distanceUnit: SpeedUnitData;
@@ -80,25 +101,17 @@ class TravelSpeedSheet extends FormApplication {
     getData() {
         // TODO: assign previous state as well
         const sheetData = super.getData();
-        // TODO: find better solution for these values, translation
-        sheetData.explorationActivities = [
-            'Full Speed',
-            'Half Speed',
-            'Anticipate Ambush',
-            'Avoid Notice',
-            'Cover Tracks',
-            'Defend',
-            'Detect Magic',
-            'Investigate',
-            'Repeat a Spell',
-            'Scout',
-            'Search',
-            'Track',
-        ];
         sheetData.actors = this.options.actors.map((actor: Actor) => {
+            const speed = actor.data.data.attributes.speed.total;
             return {
-                speed: actor.data.data.attributes.speed.total,
+                speed,
                 name: actor.name,
+                explorationSpeed: calculateCharacterSpeed(
+                    speed,
+                    parseExplorationActivity(),
+                    parseDetectionModeData(),
+                    parseExplorationOptions(actor),
+                ),
             };
         });
         if (this.travelPlan !== undefined) {
@@ -142,16 +155,49 @@ function parseTerrainData(terrain: TerrainData): Terrain {
     }
 }
 
-//
-// function parseDetectionModeData(detectionMode: DetectionModeData): DetectionOptions {
-//     if (detectionMode === 'none') {
-//         return DetectionOptions.NONE;
-//     } else if (detectionMode === 'before') {
-//         return DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT;
-//     } else {
-//         return DetectionOptions.DETECT_EVERYTHING;
-//     }
-// }
+function parseDetectionModeData(detectionMode: DetectionModeData): DetectionMode {
+    if (detectionMode === 'none') {
+        return DetectionMode.NONE;
+    } else if (detectionMode === 'before') {
+        return DetectionMode.DETECT_BEFORE_WALKING_INTO_IT;
+    } else {
+        return DetectionMode.DETECT_EVERYTHING;
+    }
+}
+
+function parseExplorationActivity(activity: ExplorationActitiviesData): ExplorationActivities {
+    if (activity === 'AvoidNotice') {
+        return ExplorationActivities.AVOID_NOTICE;
+    } else if (activity === 'Defend') {
+        return ExplorationActivities.DEFEND;
+    } else if (activity === 'DetectMagic') {
+        return ExplorationActivities.DETECT_MAGIC;
+    } else if (activity === 'Scout') {
+        return ExplorationActivities.SCOUT;
+    } else if (activity === 'Search') {
+        return ExplorationActivities.SEARCH;
+    } else if (activity === 'None') {
+        return ExplorationActivities.NONE;
+    } else {
+        return ExplorationActivities.HALF_SPEED;
+    }
+}
+
+function hasFeat(actor: Actor, name: string): boolean {
+    return actor.data.items.some((item) => item.type === 'feat' && item.name?.trim() === name);
+}
+
+function parseExplorationOptions(actor: Actor): ExplorationOptions {
+    // FIXME: instead of matching the name these should probably be rule toggles at some point
+    return {
+        practicedDefender: hasFeat(actor, 'Practiced Defender'),
+        swiftSneak: hasFeat(actor, 'Swift Sneak'),
+        legendarySneak: hasFeat(actor, 'Legendary Sneak'),
+        expeditiousSearch: hasFeat(actor, 'Expeditious Search'),
+        expeditiousSearchLegendary:
+            hasFeat(actor, 'Expeditious Search') && actor.data.data.attributes?.perception?.rank === 4,
+    };
+}
 
 export function launchTravelSheet(actors: Actor[]): void {
     new TravelSpeedSheet(null, { actors }).render(true);

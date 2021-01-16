@@ -1,7 +1,7 @@
 import {
     calculateCharacterSpeed,
     calculateTravelDuration,
-    DetectionOptions,
+    DetectionMode,
     ExplorationActivities,
     ExplorationOptions,
     LengthUnit,
@@ -28,24 +28,19 @@ const defaultExplorationOptions: ExplorationOptions = {
 describe('test travel speed', () => {
     test('character speed', () => {
         expect(
-            calculateCharacterSpeed(
-                40,
-                ExplorationActivities.FULL_SPEED,
-                DetectionOptions.NONE,
-                defaultExplorationOptions,
-            ),
+            calculateCharacterSpeed(40, ExplorationActivities.NONE, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(40);
     });
 
     test('character speed when defending', () => {
         expect(
-            calculateCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionOptions.NONE, defaultExplorationOptions),
+            calculateCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.DEFEND,
-                DetectionOptions.NONE,
+                DetectionMode.NONE,
                 Object.assign({}, defaultExplorationOptions, { practicedDefender: true }),
             ),
         ).toEqual(40);
@@ -56,7 +51,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
-                DetectionOptions.NONE,
+                DetectionMode.NONE,
                 defaultExplorationOptions,
             ),
         ).toEqual(20);
@@ -64,7 +59,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
-                DetectionOptions.NONE,
+                DetectionMode.NONE,
                 Object.assign({}, defaultExplorationOptions, { legendarySneak: true }),
             ),
         ).toEqual(40);
@@ -72,7 +67,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
-                DetectionOptions.NONE,
+                DetectionMode.NONE,
                 Object.assign({}, defaultExplorationOptions, { swiftSneak: true }),
             ),
         ).toEqual(40);
@@ -80,13 +75,13 @@ describe('test travel speed', () => {
 
     test('character speed when searching', () => {
         expect(
-            calculateCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionOptions.NONE, defaultExplorationOptions),
+            calculateCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
-                DetectionOptions.DETECT_EVERYTHING,
+                DetectionMode.DETECT_EVERYTHING,
                 defaultExplorationOptions,
             ),
         ).toEqual(20);
@@ -94,7 +89,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 70,
                 ExplorationActivities.SEARCH,
-                DetectionOptions.DETECT_EVERYTHING,
+                DetectionMode.DETECT_EVERYTHING,
                 defaultExplorationOptions,
             ),
         ).toEqual(30);
@@ -102,7 +97,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 120,
                 ExplorationActivities.SEARCH,
-                DetectionOptions.DETECT_EVERYTHING,
+                DetectionMode.DETECT_EVERYTHING,
                 Object.assign({}, defaultExplorationOptions, { expeditiousSearch: true }),
             ),
         ).toEqual(60);
@@ -110,7 +105,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 140,
                 ExplorationActivities.SEARCH,
-                DetectionOptions.DETECT_EVERYTHING,
+                DetectionMode.DETECT_EVERYTHING,
                 Object.assign({}, defaultExplorationOptions, { expeditiousSearchLegendary: true }),
             ),
         ).toEqual(70);
@@ -118,7 +113,7 @@ describe('test travel speed', () => {
             calculateCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
-                DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT,
+                DetectionMode.DETECT_BEFORE_WALKING_INTO_IT,
                 defaultExplorationOptions,
             ),
         ).toEqual(15);
