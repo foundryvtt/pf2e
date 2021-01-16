@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 1.10.32
+### Bug Fixes
+* (Mothringer) Fix charging incorrect price when part of a stack is purchased
+
+
 ## Version 1.10.31
 ### Bug Fixes
 * (nikolaj-a) Use lazy mode when doing property injection in rule elements
