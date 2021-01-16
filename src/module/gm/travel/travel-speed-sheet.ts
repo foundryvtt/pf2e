@@ -153,14 +153,15 @@ class TravelSpeedSheet extends FormApplication {
                 },
             },
         ];
-        // FIXME: get lowest actor speed here
-        const velocity = speedToVelocity(30);
+        const actorFormData = zip(actors, data.actors, (actor, actorData) =>
+            this.actorFormToSheetData(actor, actorData),
+        );
+        const minSpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
+        const velocity = speedToVelocity(minSpeedInFeet);
         return {
             travelDuration: calculateTravelDuration(journey, velocity),
             distance: data.distance,
-            actors: zip(actors, data.actors, (actor, actorData) => {
-                return { actor, actorData };
-            }).map(({ actor, actorData }) => this.actorFormToSheetData(actor, actorData)),
+            actors: actorFormData,
             normalTerrainPenalty: data.normalTerrainPenalty,
             difficultTerrainPenalty: data.difficultTerrainPenalty,
             greaterDifficultTerrainPenalty: data.greaterDifficultTerrainPenalty,
