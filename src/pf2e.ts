@@ -31,7 +31,7 @@ import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
-import {launchTravelSheet} from "./module/gm/travel/travel-speed-sheet";
+import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 
 require('./styles/pf2e.scss');
 
