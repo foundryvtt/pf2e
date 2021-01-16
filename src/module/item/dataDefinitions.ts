@@ -321,6 +321,10 @@ export interface ConsumableDetailsData extends MagicItemData {
         value: boolean;
         _deprecated: boolean;
     };
+    spell: {
+        data: SpellData;
+        heightenedLevel: number;
+    };
 }
 
 export interface ABCFeatureEntryData {
