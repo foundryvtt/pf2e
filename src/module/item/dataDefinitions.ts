@@ -123,6 +123,10 @@ export interface ActivatedEffectData {
         max: number;
         per: any;
     };
+    spell: {
+        data: SpellData;
+        heightenedLevel: number;
+    };
 }
 
 export interface MagicItemData extends PhysicalDetailsData {

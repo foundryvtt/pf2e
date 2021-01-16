@@ -13,7 +13,7 @@ import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
-import { scrollFromSpell } from '../../item/spellConsumables';
+import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1289,10 +1289,14 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                     if (itemType === 'scroll') {
                         const item = await scrollFromSpell(itemData, heightenedLevel);
                         return this._onDropItemCreate(item);
+                    } else if (itemType === 'wand') {
+                        const item = await wandFromSpell(itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
                     }
                 });
                 popup.spellData = itemData;
                 popup.render(true);
+                return true;
             } else {
                 return false;
             }
