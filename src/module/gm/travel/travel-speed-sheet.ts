@@ -1,4 +1,5 @@
-import {calculateTravelDuration, DetectionOptions, LengthUnit, speedToVelocity, Terrain, Trip} from './travel-speed';
+import { calculateTravelDuration, LengthUnit, speedToVelocity, Terrain, Trip } from './travel-speed';
+import { Fraction } from '../../utils';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -51,9 +52,9 @@ interface FormData {
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
-    normalTerrainPenalty;
-    difficultTerrainPenalty: string;
-    greaterDifficultTerrainPenalty: string;
+    normalTerrainPenalty: Fraction;
+    difficultTerrainPenalty: Fraction;
+    greaterDifficultTerrainPenalty: Fraction;
 }
 
 class TravelSpeedSheet extends FormApplication {
@@ -103,10 +104,10 @@ class TravelSpeedSheet extends FormApplication {
         if (this.travelPlan !== undefined) {
             const journey: Trip[] = [
                 {
-                    terrainCost: {
-                        difficult: parseTerrainCost(this.travelPlan.difficultTerrainPenalty),
-                        greaterDifficult: parseTerrainCost(this.travelPlan.greaterDifficultTerrainPenalty),
-                        normal: parseTerrainCost(this.travelPlan.normalTerrainPenalty),
+                    terrainSlowdown: {
+                        difficult: this.travelPlan.difficultTerrainPenalty,
+                        greaterDifficult: this.travelPlan.greaterDifficultTerrainPenalty,
+                        normal: this.travelPlan.normalTerrainPenalty,
                     },
                     terrain: parseTerrainData(this.travelPlan.terrain),
                     distance: {
@@ -141,24 +142,16 @@ function parseTerrainData(terrain: TerrainData): Terrain {
     }
 }
 
-// FIXME: keep fractions instead of numbers
-function parseTerrainCost(value: string) {
-    if (/^[\d\/]+$/.test(value)) {
-        return 1 / eval(value);
-    } else {
-        return 1;
-    }
-}
-
-function parseDetectionModeData(detectionMode: DetectionModeData): DetectionOptions {
-    if (detectionMode === 'none') {
-        return DetectionOptions.NONE;
-    } else if (detectionMode === 'before') {
-        return DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT;
-    } else {
-        return DetectionOptions.DETECT_EVERYTHING;
-    }
-}
+//
+// function parseDetectionModeData(detectionMode: DetectionModeData): DetectionOptions {
+//     if (detectionMode === 'none') {
+//         return DetectionOptions.NONE;
+//     } else if (detectionMode === 'before') {
+//         return DetectionOptions.DETECT_BEFORE_WALKING_INTO_IT;
+//     } else {
+//         return DetectionOptions.DETECT_EVERYTHING;
+//     }
+// }
 
 export function launchTravelSheet(actors: Actor[]): void {
     new TravelSpeedSheet(null, { actors }).render(true);

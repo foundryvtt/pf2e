@@ -6,7 +6,6 @@
  * @param criterion
  * @return
  */
-
 export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     const result = new Map<R, T[]>();
     for (const elem of array) {
@@ -115,4 +114,9 @@ export function addSign(number: number): string {
  */
 export function sum(values: number[]): number {
     return values.reduce((a, b) => a + b, 0);
+}
+
+export interface Fraction {
+    numerator: number;
+    denominator: number;
 }

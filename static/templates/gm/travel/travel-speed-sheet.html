@@ -60,15 +60,20 @@
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</label>
-    <input name="normalTerrainPenalty" value="1" type="text">
+    <span>
+    <input name="normalTerrainPenalty.denominator" value="1" type="number" data-dtype="Number"> / 
+    <input name="normalTerrainPenalty.numerator" value="1" type="number" data-dtype="Number">
+    </span>
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</label>
-    <input name="difficultTerrainPenalty" value="1/2" type="text">
+    <input name="difficultTerrainPenalty.denominator" value="1" type="number" data-dtype="Number"> / 
+    <input name="difficultTerrainPenalty.numerator" value="2" type="number" data-dtype="Number">
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</label>
-    <input name="greaterDifficultTerrainPenalty" value="1/3" type="text">
+    <input name="greaterDifficultTerrainPenalty.denominator" value="1" type="number" data-dtype="Number"> / 
+    <input name="greaterDifficultTerrainPenalty.numerator" value="3" type="number" data-dtype="Number">
   </div>
 </form>
 <h2>Estimated Travel Time</h2>

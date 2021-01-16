@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import { sum } from '../../utils';
+import {Fraction, sum} from '../../utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -176,16 +176,16 @@ export enum Terrain {
     GREATER_DIFFICULT,
 }
 
-export interface TerrainCost {
-    normal: number;
-    difficult: number;
-    greaterDifficult: number;
+export interface TerrainSlowdown {
+    normal: Fraction;
+    difficult: Fraction;
+    greaterDifficult: Fraction;
 }
 
 export interface Trip {
     terrain: Terrain;
     distance: Distance;
-    terrainCost: TerrainCost;
+    terrainSlowdown: TerrainSlowdown;
 }
 
 /**
@@ -196,11 +196,13 @@ export interface Trip {
 function increaseDistanceByTerrain(trip: Trip): number {
     const feet = toFeet(trip.distance);
     if (trip.terrain === Terrain.DIFFICULT) {
-        return feet * trip.terrainCost.difficult;
+        return (feet * trip.terrainSlowdown.difficult.numerator) / trip.terrainSlowdown.difficult.denominator;
     } else if (trip.terrain === Terrain.GREATER_DIFFICULT) {
-        return feet * trip.terrainCost.greaterDifficult;
+        return (
+            (feet * trip.terrainSlowdown.greaterDifficult.numerator) / trip.terrainSlowdown.greaterDifficult.denominator
+        );
     } else {
-        return feet * trip.terrainCost.normal;
+        return (feet * trip.terrainSlowdown.normal.numerator) / trip.terrainSlowdown.normal.denominator;
     }
 }
 

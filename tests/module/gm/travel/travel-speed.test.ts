@@ -7,14 +7,14 @@ import {
     LengthUnit,
     speedToVelocity,
     Terrain,
-    TerrainCost,
+    TerrainSlowdown,
     Trip,
 } from '../../../../src/module/gm/travel/travel-speed';
 
-const terrainModifiers: TerrainCost = {
-    normal: 1,
-    difficult: 2,
-    greaterDifficult: 3,
+const terrainModifiers: TerrainSlowdown = {
+    normal: { numerator: 1, denominator: 1 },
+    difficult: { numerator: 1, denominator: 2 },
+    greaterDifficult: { numerator: 1, denominator: 3 },
 };
 
 const defaultExplorationOptions: ExplorationOptions = {
@@ -132,7 +132,7 @@ describe('test travel speed', () => {
                     unit: LengthUnit.MILES,
                 },
                 terrain: Terrain.NORMAL,
-                terrainCost: terrainModifiers,
+                terrainSlowdown: terrainModifiers,
             },
         ];
         const velocity = speedToVelocity(25);
