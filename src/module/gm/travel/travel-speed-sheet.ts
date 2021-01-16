@@ -1,13 +1,16 @@
 import {
-    calculateCharacterSpeed, calculateTravelDuration,
+    calculateCharacterSpeed,
+    calculateTravelDuration,
     DetectionMode,
     ExplorationActivities,
     ExplorationOptions,
-    LengthUnit, speedToVelocity,
+    LengthUnit,
+    speedToVelocity,
     Terrain,
-    TravelDuration, Trip,
+    TravelDuration,
+    Trip,
 } from './travel-speed';
-import { Fraction } from '../../utils';
+import { Fraction, zip } from '../../utils';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -155,7 +158,9 @@ class TravelSpeedSheet extends FormApplication {
         return {
             travelDuration: calculateTravelDuration(journey, velocity),
             distance: data.distance,
-            actors: data.actors,
+            actors: zip(actors, data.actors, (actor, actorData) => {
+                return { actor, actorData };
+            }).map(({ actor, actorData }) => this.actorFormToSheetData(actor, actorData)),
             normalTerrainPenalty: data.normalTerrainPenalty,
             difficultTerrainPenalty: data.difficultTerrainPenalty,
             greaterDifficultTerrainPenalty: data.greaterDifficultTerrainPenalty,
@@ -164,73 +169,27 @@ class TravelSpeedSheet extends FormApplication {
         };
     }
 
-    private getInitialData(actors: Actor[]): SheetData {
-        const actorsData = actors.map((actor: Actor) => {
-            const speed = actor.data.data.attributes.speed.total;
-            const actorData: SheetActorData = {
-                speed,
-                name: actor.name,
-                explorationSpeed: calculateCharacterSpeed(
-                    speed,
-                    parseExplorationActivity('Search'),
-                    parseDetectionModeData('before'),
-                    parseExplorationOptions(actor),
-                ),
-                explorationActivity: 'Search',
-                detectionMode: 'before',
-            };
-            return actorData;
+    private getInitialFormData(actors: Actor[]): SheetData {
+        return this.formToSheetData(actors, {
+            actors: actors.map((actor) => this.getInitialActorData(actor)),
+            terrain: 'normal',
+            distanceUnit: 'miles',
+            normalTerrainPenalty: { denominator: 1, numerator: 1 },
+            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
+            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
+            distance: 1,
         });
-        return {
-            terrain: 'normal',
-            distanceUnit: 'miles',
-            normalTerrainPenalty: { denominator: 1, numerator: 1 },
-            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
-            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
-            distance: 1,
-            actors: actorsData,
-            travelDuration: {} as TravelDuration,
-        };
-    }
-
-    private parseFormData(formData: FormData): SheetData {
-        
-        return {
-            actors: [],
-            terrain: 'normal',
-            distanceUnit: 'miles',
-            normalTerrainPenalty: { denominator: 1, numerator: 1 },
-            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
-            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
-            distance: 1,
-        };
     }
 
     getData() {
+        const sheetData = super.getData();
         let data: SheetData;
         if (this.formData === undefined) {
-            data = this.getInitialData(this.options.actors);
+            data = this.getInitialFormData(this.options.actors);
         } else {
-            data = this.parseFormData(this.formData);
+            data = this.formToSheetData(this.options.actors, this.formData);
         }
-        // TODO: assign previous state as well
-        const sheetData = super.getData();
         Object.assign(sheetData, data);
-        //
-        // sheetData.actors = this.options.actors.map((actor: Actor) => {
-        //     const speed = actor.data.data.attributes.speed.total;
-        //     return {
-        //         speed,
-        //         name: actor.name,
-        //         explorationSpeed: calculateCharacterSpeed(
-        //             speed,
-        //             parseExplorationActivity('None'),
-        //             parseDetectionModeData('before'),
-        //             parseExplorationOptions(actor),
-        //         ),
-        //     };
-        // });
-        
         return sheetData;
     }
 }
