@@ -1,14 +1,15 @@
 /* global game, CONFIG */
+
 import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '../../item/treasure';
-import { PF2EActor } from '../actor';
+import { PF2EVehicle } from '../actor';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eVehicle extends ActorSheetPF2e {
+export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'vehicle'],
@@ -125,7 +126,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e {
             // Actions
             if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EActor.getActionGraphics(
+                i.img = PF2EVehicle.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
