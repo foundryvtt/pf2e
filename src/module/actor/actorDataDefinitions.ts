@@ -425,12 +425,13 @@ export type NPCSaveData = SaveData & { base?: number };
 /** Normal skill data, but with an additional 'base' value. */
 export type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
-export type NPCSkillData = SkillData & {
-    base?: number;
-    visible?: boolean;
-    label: string;
-    expanded: string;
-};
+export type NPCSkillData = PF2StatisticModifier &
+    Rollable & {
+        base?: number;
+        visible?: boolean;
+        label: string;
+        expanded: string;
+    };
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {

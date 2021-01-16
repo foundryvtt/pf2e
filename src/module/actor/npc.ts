@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { PF2EActor, SKILL_EXPANDED } from './actor';
+import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2EItem } from '../item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
@@ -132,15 +132,52 @@ export class PF2ENPC extends PF2EActor {
             data.attributes.perception = stat;
         }
 
+        // default all skills to untrained
+        for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
+            const modifiers = [
+                new PF2Modifier('PF2E.BaseModifier', 0, PF2ModifierType.UNTYPED),
+                new PF2Modifier(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, PF2ModifierType.ABILITY),
+            ];
+            [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
+                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            });
+
+            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortform].capitalize()}`);
+            const stat = mergeObject(
+                new PF2StatisticModifier(name, modifiers),
+                {
+                    ability,
+                    expanded: skill,
+                    label: name,
+                    visible: false,
+                },
+                { overwrite: false },
+            );
+            stat.value = stat.totalModifier;
+            stat.breakdown = stat.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                .join(', ');
+            stat.roll = (event, options = [], callback?) => {
+                const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
+                PF2Check.roll(
+                    new PF2CheckModifier(label, stat),
+                    { actor: this, type: 'skill-check', options },
+                    event,
+                    callback,
+                );
+            };
+            data.skills[shortform] = stat;
+        }
+
         // Automatic Actions
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
         for (const item of actorData.items.concat(strikes)) {
             if (item.type === 'lore') {
-                // skill
-                // normalize skill name to lower-case and dash-separated words
-                const skill = item.name.toLowerCase().replace(/\s+/g, '-');
+                // override untrained skills if defined in the NPC data
+                const skill = item.name.slugify(); // normalize skill name to lower-case and dash-separated words
                 // assume lore, if skill cannot be looked up
                 const { ability, shortform } = SKILL_EXPANDED[skill] ?? { ability: 'int', shortform: skill };
 
