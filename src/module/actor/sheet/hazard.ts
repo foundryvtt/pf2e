@@ -1,11 +1,11 @@
 /* global CONFIG */
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
+import { PF2EHazard } from '../actor';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eHazard extends ActorSheetPF2e {
+export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -118,7 +118,7 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e {
             // Actions
             else if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EActor.getActionGraphics(
+                i.img = PF2EHazard.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
