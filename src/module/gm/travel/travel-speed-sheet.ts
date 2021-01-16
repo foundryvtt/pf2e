@@ -96,6 +96,7 @@ interface SheetActorData extends FormActorData {
 interface SheetData extends FormData {
     actors: SheetActorData[];
     travelDuration: TravelDuration;
+    partySpeedInFeet: number;
 }
 
 class TravelSpeedSheet extends FormApplication {
@@ -103,8 +104,8 @@ class TravelSpeedSheet extends FormApplication {
 
     static get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'travel-speed';
-        options.classes = [];
+        options.id = 'travel-duration';
+        options.classes = ['travel-duration'];
         options.title = game.i18n.localize('PF2E.TravelSpeed.Title');
         options.template = 'systems/pf2e/templates/gm/travel/travel-speed-sheet.html';
         options.width = 'auto';
@@ -147,15 +148,12 @@ class TravelSpeedSheet extends FormApplication {
     }
 
     private formToSheetData(actors: Actor[], data: FormData): SheetData {
-        const normalTerrainSlowdown = normalizeFraction(data.normalTerrainSlowdown);
-        const difficultTerrainSlowdown = normalizeFraction(data.difficultTerrainSlowdown);
-        const greaterDifficultTerrainSlowdown = normalizeFraction(data.greaterDifficultTerrainSlowdown);
         const journey: Trip[] = [
             {
                 terrainSlowdown: {
-                    difficult: difficultTerrainSlowdown,
-                    greaterDifficult: greaterDifficultTerrainSlowdown,
-                    normal: normalTerrainSlowdown,
+                    difficult: data.difficultTerrainSlowdown,
+                    greaterDifficult: data.greaterDifficultTerrainSlowdown,
+                    normal: data.normalTerrainSlowdown,
                 },
                 terrain: parseTerrainData(data.terrain),
                 distance: {
@@ -167,17 +165,18 @@ class TravelSpeedSheet extends FormApplication {
         const actorFormData = zip(actors, data.actors, (actor, actorData) =>
             this.actorFormToSheetData(actor, actorData),
         );
-        const minSpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
-        const velocity = speedToVelocity(minSpeedInFeet);
+        const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
+        const velocity = speedToVelocity(partySpeedInFeet);
         return {
             travelDuration: calculateTravelDuration(journey, velocity),
             distance: data.distance,
             actors: actorFormData,
-            normalTerrainSlowdown,
-            difficultTerrainSlowdown,
-            greaterDifficultTerrainSlowdown,
+            normalTerrainSlowdown: data.normalTerrainSlowdown,
+            difficultTerrainSlowdown: data.difficultTerrainSlowdown,
+            greaterDifficultTerrainSlowdown: data.greaterDifficultTerrainSlowdown,
             distanceUnit: data.distanceUnit,
             terrain: data.terrain,
+            partySpeedInFeet,
         };
     }
 
@@ -203,23 +202,6 @@ class TravelSpeedSheet extends FormApplication {
         }
         Object.assign(sheetData, data);
         return sheetData;
-    }
-}
-
-function normalizeFraction(fraction: Fraction): Fraction {
-    // no negative fractions allowed so normalize to 1
-    if (fraction.denominator <= 0) {
-        return normalizeFraction({
-            ...fraction,
-            denominator: 1,
-        });
-    } else if (fraction.numerator <= 0) {
-        return normalizeFraction({
-            ...fraction,
-            numerator: 1,
-        });
-    } else {
-        return fraction;
     }
 }
 

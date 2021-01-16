@@ -4,7 +4,7 @@
     <tbody>
     <tr>
       <th>{{localize 'PF2E.TravelSpeed.Name'}}</th>
-      <th>{{localize 'PF2E.TravelSpeed.TravelSpeed'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.Speed'}}</th>
       <th>{{localize 'PF2E.TravelSpeed.ExplorationActivity'}}</th>
       <th>{{localize 'PF2E.TravelSpeed.DetectionMode'}}</th>
       <th>{{localize 'PF2E.TravelSpeed.ExplorationSpeed'}}</th>
@@ -12,8 +12,8 @@
     {{#each actors}}
     <tr>
       <td>{{name}}</td>
-      <td><input name="actors.{{@index}}.speed" type="number" value="{{speed}}" data-dtype="Number"></td>
-      <td>
+      <td class="centered"><input class="speed-input" name="actors.{{@index}}.speed" type="number" value="{{speed}}" data-dtype="Number"> {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</td>
+      <td class="centered">
         <select name="actors.{{@index}}.explorationActivity">
           {{#select explorationActivity}}
           <option value="AvoidNotice">{{localize 'PF2E.TravelSpeed.ExplorationActivities.AvoidNotice'}}</option>
@@ -30,7 +30,7 @@
           {{/select}}
         </select>
       </td>
-      <td>
+      <td class="centered">
         <select name="actors.{{@index}}.detectionMode" {{#unless requiresDetectionMode}}hidden{{/unless}}>
           {{#select detectionMode}}
           <option value="none">{{localize 'PF2E.TravelSpeed.None'}}</option>
@@ -39,7 +39,7 @@
           {{/select}}
         </select>
       </td>
-      <td>{{explorationSpeed}} feet</td>
+      <td>{{explorationSpeed}} {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</td>
     </tr>
     {{/each}}
     </tbody>
@@ -48,49 +48,103 @@
   <h2>{{localize 'PF2E.TravelSpeed.Journey'}}</h2>
   <div class="form-group">
     <label>{{localize 'PF2E.TravelSpeed.Distance'}}</label>
-    <input name="distance" value="{{distance}}" type="number" data-dtype="Number">
-  </div>
-  <div class="form-group">
-    <label>{{localize 'PF2E.TravelSpeed.DistanceUnit'}}</label>
-    <select name="distanceUnit">
-      {{#select distanceUnit}}
-      <option value="feet">{{localize 'PF2E.TravelSpeed.Feet'}}</option>
-      <option value="miles" selected>{{localize 'PF2E.TravelSpeed.Miles'}}</option>
-      {{/select}}
-    </select>
-  </div>
-  <div class="form-group">
-    <label>{{localize 'PF2E.TravelSpeed.Terrain'}}</label>
-    <select name="terrain">
-      {{#select terrain}}
-      <option value="normal">{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</option>
-      <option value="difficult">{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</option>
-      <option value="greaterDifficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
-      {{/select}}
-    </select>
-  </div>
-  <p>{{localize 'PF2E.TravelSpeed.TerrainSlowdownDescription'}}</p>
-  <div class="form-group">
-    <label>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</label>
-    <div class="fraction-input">
-      <input name="normalTerrainSlowdown.denominator" value="{{normalTerrainSlowdown.denominator}}" type="number" data-dtype="Number"><span class="fraction-separator">/</span> 
-      <input name="normalTerrainSlowdown.numerator" value="{{normalTerrainSlowdown.numerator}}" type="number" data-dtype="Number">
+    <div class="journey-input">
+      <input name="distance" value="{{distance}}" type="number" data-dtype="Number">
+      <select name="distanceUnit">
+        {{#select distanceUnit}}
+        <option value="feet">{{localize 'PF2E.TravelSpeed.Feet'}}</option>
+        <option value="miles" selected>{{localize 'PF2E.TravelSpeed.Miles'}}</option>
+        {{/select}}
+      </select>
+      <select name="terrain">
+        {{#select terrain}}
+        <option value="normal">{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</option>
+        <option value="difficult">{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</option>
+        <option value="greaterDifficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
+        {{/select}}
+      </select>
     </div>
   </div>
-  <div class="form-group">
-    <label>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</label>
-    <div class="fraction-input">
-      <input name="difficultTerrainSlowdown.denominator" value="{{difficultTerrainSlowdown.denominator}}" type="number" data-dtype="Number"><span class="fraction-separator">/</span> 
-      <input name="difficultTerrainSlowdown.numerator" value="{{difficultTerrainSlowdown.numerator}}" type="number" data-dtype="Number">
-    </div>
-  </div>
-  <div class="form-group">
-    <label>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</label>
-    <div class="fraction-input">
-      <input name="greaterDifficultTerrainSlowdown.denominator" value="{{greaterDifficultTerrainSlowdown.denominator}}" type="number" data-dtype="Number"><span class="fraction-separator">/</span>
-      <input name="greaterDifficultTerrainSlowdown.numerator" value="{{greaterDifficultTerrainSlowdown.numerator}}" type="number" data-dtype="Number">
-    </div>
-  </div>
+  <div>
+  <table>
+    <tbody>
+    <tr>
+      <th>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</th>
+    </tr>
+    <tr>
+      <td class="fraction-input">
+        <select name="normalTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select normalTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="normalTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select normalTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+      <td class="fraction-input">
+        <select name="difficultTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select difficultTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="difficultTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select difficultTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+      <td class="fraction-input">
+        <select name="greaterDifficultTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select greaterDifficultTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="greaterDifficultTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select greaterDifficultTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </form>
-<h2>Estimated Travel Time</h2>
-<p>{{travelDuration.days}} days, {{travelDuration.hours}}:{{travelDuration.minutes}} hours</p>
+<h2>{{localize 'PF2E.TravelSpeed.Speed'}}</h2>
+<table>
+  <tbody>
+  <tr>
+    <th>{{localize 'PF2E.TravelSpeed.PartySpeed'}}</th>
+    <th>{{localize 'PF2E.TravelSpeed.TravelDuration'}}</th>
+  </tr>
+  <tr>
+    <td class="centered">{{partySpeedInFeet}} {{localize 'PF2E.TravelSpeed.Feet'}}</td>
+    <td class="centered">{{#if travelDuration.weeks}}{{travelDuration.weeks}} {{localize 'PF2E.TravelSpeed.Weeks'}}, {{/if}}{{#if travelDuration.days}}{{travelDuration.days}} {{localize 'PF2E.TravelSpeed.Days'}}, {{/if}}{{pad travelDuration.hours 2 '0'}}:{{pad travelDuration.minutes 2 '0'}} {{localize 'PF2E.TravelSpeed.Hours'}}</td>
+  </tr>
+  </tbody>
+</table>
