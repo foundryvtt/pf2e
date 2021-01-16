@@ -1,6 +1,6 @@
 import { ConfigPF2e, PF2ECONFIG } from './scripts/config';
 import { rollActionMacro, rollItemMacro } from './scripts/init';
-import { registerSettings } from './module/settings';
+import { registerSettings } from './module/settings/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';

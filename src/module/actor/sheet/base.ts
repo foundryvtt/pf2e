@@ -18,7 +18,7 @@ import { PF2EPhysicalItem } from '../../item/physical';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
+export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType, PF2EItem> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -1271,7 +1271,7 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         }
 
         // get the item type of the drop target
-        const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
+        const dropSlotType = $(event.target).parents('.item').addBack().attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
 
         // otherwise they are dragging a new spell onto their sheet.
@@ -1282,6 +1282,8 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
                 return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            } else {
+                return false;
             }
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
