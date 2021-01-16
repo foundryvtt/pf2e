@@ -28,8 +28,10 @@ type ExplorationActivitiesData =
     | 'None'
     | 'HalfSpeed';
 
-// relevant feats
 /*
+Needs to be implemented
+
+// feats
 https://2e.aonprd.com/Feats.aspx?ID=1439
 https://2e.aonprd.com/Feats.aspx?ID=1987
 https://2e.aonprd.com/Feats.aspx?ID=2138
@@ -47,6 +49,8 @@ https://2e.aonprd.com/Spells.aspx?ID=368
  */
 
 /*
+Possible example of how we could implement modifiers
+
 const baseSpeed = 
 const overlandSpeed = new PF2CheckModifier(baseSpeed);
 overlandSpeed.modifiers().forEach((m) => {
@@ -119,11 +123,13 @@ class TravelSpeedSheet extends FormApplication {
         return {
             detectionMode: data.detectionMode,
             explorationActivity: data.explorationActivity,
-            explorationSpeed: calculateCharacterSpeed(
-                data.speed,
-                parseExplorationActivity(data.explorationActivity),
-                parseDetectionModeData(data.detectionMode),
-                parseExplorationOptions(actor),
+            explorationSpeed: parseFloat(
+                calculateCharacterSpeed(
+                    data.speed,
+                    parseExplorationActivity(data.explorationActivity),
+                    parseDetectionModeData(data.detectionMode),
+                    parseExplorationOptions(actor),
+                ).toFixed(2),
             ),
             speed: data.speed,
             name: actor.name,
