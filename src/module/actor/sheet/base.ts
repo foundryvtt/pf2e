@@ -12,6 +12,8 @@ import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefiniti
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
+import { ScrollWandPopup } from './scroll-wand-popup';
+import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1282,6 +1284,19 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
                 return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
+                const popup = new ScrollWandPopup(this.actor, {}, async (heightenedLevel, itemType, spellData) => {
+                    if (itemType === 'scroll') {
+                        const item = await scrollFromSpell(itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
+                    } else if (itemType === 'wand') {
+                        const item = await wandFromSpell(itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
+                    }
+                });
+                popup.spellData = itemData;
+                popup.render(true);
+                return true;
             } else {
                 return false;
             }
