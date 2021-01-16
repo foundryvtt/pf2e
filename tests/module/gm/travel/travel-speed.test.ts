@@ -1,5 +1,5 @@
 import {
-    calculateCharacterSpeed,
+    calculateNormalizedCharacterSpeed,
     calculateTravelDuration,
     DetectionMode,
     ExplorationActivities,
@@ -28,16 +28,16 @@ const defaultExplorationOptions: ExplorationOptions = {
 describe('test travel speed', () => {
     test('character speed', () => {
         expect(
-            calculateCharacterSpeed(40, ExplorationActivities.NONE, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(40, ExplorationActivities.NONE, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(40);
     });
 
     test('character speed when defending', () => {
         expect(
-            calculateCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.DEFEND,
                 DetectionMode.NONE,
@@ -48,7 +48,7 @@ describe('test travel speed', () => {
 
     test('character speed when avoiding notice', () => {
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
@@ -56,7 +56,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(20);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
@@ -64,7 +64,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(40);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
@@ -75,10 +75,10 @@ describe('test travel speed', () => {
 
     test('character speed when searching', () => {
         expect(
-            calculateCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionMode.NONE, defaultExplorationOptions),
         ).toEqual(20);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
@@ -86,7 +86,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(20);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 70,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
@@ -94,7 +94,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(30);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 120,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
@@ -102,7 +102,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(60);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 140,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
@@ -110,7 +110,7 @@ describe('test travel speed', () => {
             ),
         ).toEqual(70);
         expect(
-            calculateCharacterSpeed(
+            calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_BEFORE_WALKING_INTO_IT,

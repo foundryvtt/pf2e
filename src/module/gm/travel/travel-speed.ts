@@ -64,7 +64,17 @@ function defendsAtFullSpeed(activity: ExplorationActivities, explorationOptions:
     return activity === ExplorationActivities.DEFEND && explorationOptions.practicedDefender;
 }
 
-export function calculateCharacterSpeed(
+export function calculateNormalizedCharacterSpeed(
+    defaultSpeedInFeet: number,
+    activity: ExplorationActivities,
+    detectionMode: DetectionMode,
+    explorationOptions: ExplorationOptions,
+): number {
+    // you can be reduced below 5 ft, also gets rid of division by 0
+    return Math.max(5, calculateCharacterSpeed(defaultSpeedInFeet, activity, detectionMode, explorationOptions));
+}
+
+function calculateCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
     detectionMode: DetectionMode,

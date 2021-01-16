@@ -1,5 +1,5 @@
 import {
-    calculateCharacterSpeed,
+    calculateNormalizedCharacterSpeed,
     calculateTravelDuration,
     DetectionMode,
     ExplorationActivities,
@@ -82,9 +82,9 @@ interface FormData {
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
-    normalTerrainPenalty: Fraction;
-    difficultTerrainPenalty: Fraction;
-    greaterDifficultTerrainPenalty: Fraction;
+    normalTerrainSlowdown: Fraction;
+    difficultTerrainSlowdown: Fraction;
+    greaterDifficultTerrainSlowdown: Fraction;
 }
 
 interface SheetActorData extends FormActorData {
@@ -126,7 +126,7 @@ class TravelSpeedSheet extends FormApplication {
             detectionMode: data.detectionMode,
             explorationActivity: data.explorationActivity,
             explorationSpeed: parseFloat(
-                calculateCharacterSpeed(
+                calculateNormalizedCharacterSpeed(
                     data.speed,
                     parseExplorationActivity(data.explorationActivity),
                     parseDetectionModeData(data.detectionMode),
@@ -147,12 +147,15 @@ class TravelSpeedSheet extends FormApplication {
     }
 
     private formToSheetData(actors: Actor[], data: FormData): SheetData {
+        const normalTerrainSlowdown = normalizeFraction(data.normalTerrainSlowdown);
+        const difficultTerrainSlowdown = normalizeFraction(data.difficultTerrainSlowdown);
+        const greaterDifficultTerrainSlowdown = normalizeFraction(data.greaterDifficultTerrainSlowdown);
         const journey: Trip[] = [
             {
                 terrainSlowdown: {
-                    difficult: data.difficultTerrainPenalty,
-                    greaterDifficult: data.greaterDifficultTerrainPenalty,
-                    normal: data.normalTerrainPenalty,
+                    difficult: difficultTerrainSlowdown,
+                    greaterDifficult: greaterDifficultTerrainSlowdown,
+                    normal: normalTerrainSlowdown,
                 },
                 terrain: parseTerrainData(data.terrain),
                 distance: {
@@ -170,9 +173,9 @@ class TravelSpeedSheet extends FormApplication {
             travelDuration: calculateTravelDuration(journey, velocity),
             distance: data.distance,
             actors: actorFormData,
-            normalTerrainPenalty: data.normalTerrainPenalty,
-            difficultTerrainPenalty: data.difficultTerrainPenalty,
-            greaterDifficultTerrainPenalty: data.greaterDifficultTerrainPenalty,
+            normalTerrainSlowdown,
+            difficultTerrainSlowdown,
+            greaterDifficultTerrainSlowdown,
             distanceUnit: data.distanceUnit,
             terrain: data.terrain,
         };
@@ -183,9 +186,9 @@ class TravelSpeedSheet extends FormApplication {
             actors: actors.map((actor) => this.getInitialActorData(actor)),
             terrain: 'normal',
             distanceUnit: 'miles',
-            normalTerrainPenalty: { denominator: 1, numerator: 1 },
-            difficultTerrainPenalty: { denominator: 1, numerator: 2 },
-            greaterDifficultTerrainPenalty: { denominator: 1, numerator: 3 },
+            normalTerrainSlowdown: { denominator: 1, numerator: 1 },
+            difficultTerrainSlowdown: { denominator: 1, numerator: 2 },
+            greaterDifficultTerrainSlowdown: { denominator: 1, numerator: 3 },
             distance: 1,
         });
     }
@@ -200,6 +203,23 @@ class TravelSpeedSheet extends FormApplication {
         }
         Object.assign(sheetData, data);
         return sheetData;
+    }
+}
+
+function normalizeFraction(fraction: Fraction): Fraction {
+    // no negative fractions allowed so normalize to 1
+    if (fraction.denominator <= 0) {
+        return normalizeFraction({
+            ...fraction,
+            denominator: 1,
+        });
+    } else if (fraction.numerator <= 0) {
+        return normalizeFraction({
+            ...fraction,
+            numerator: 1,
+        });
+    } else {
+        return fraction;
     }
 }
 
