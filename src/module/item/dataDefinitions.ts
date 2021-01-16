@@ -123,7 +123,7 @@ export interface ActivatedEffectData {
         max: number;
         per: any;
     };
-    spell: {
+    spell?: {
         data: SpellData;
         heightenedLevel: number;
     };
@@ -325,7 +325,7 @@ export interface ConsumableDetailsData extends MagicItemData {
         value: boolean;
         _deprecated: boolean;
     };
-    spell: {
+    spell?: {
         data: SpellData;
         heightenedLevel: number;
     };
