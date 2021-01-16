@@ -426,10 +426,22 @@ export type NPCSaveData = SaveData & { base?: number };
 export type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
 export type NPCSkillData = SkillData & {
+    shortform: string;
     base?: number;
     visible?: boolean;
     label: string;
     expanded: string;
+    isLore: boolean;
+    loreName: string;
+};
+
+/**
+ * Data format of the NPC skills from the skills popup.
+ */
+export type RawNPCSkillData = {
+    type: string;
+    label: string;
+    value: number;
 };
 
 /** The raw information contained within the actor data object for NPCs. */
@@ -471,6 +483,9 @@ export interface RawNpcData {
         creatureType: string;
         /** Flavor / descriptive background text for this creature. */
         flavorText: string;
+
+        /** Rarity */
+        rarity: string;
     };
 
     /** Any special attributes for this NPC, such as AC or health. */
