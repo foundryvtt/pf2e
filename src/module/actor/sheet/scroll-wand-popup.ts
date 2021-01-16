@@ -18,7 +18,6 @@ export class ScrollWandPopup extends FormApplication {
     static get defaultOptions() {
         const options = super.defaultOptions;
 
-        options.id = 'ScrollWandPopup';
         options.classes = [];
         options.title = game.i18n.localize('PF2E.ScrollWandPopup.title');
         options.template = 'systems/pf2e/templates/popups/scroll-wand-popup.html';
