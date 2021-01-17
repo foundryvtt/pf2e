@@ -7,7 +7,7 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData } from '../../item/dataDefinitions';
 
 /**
  * @category Other
@@ -33,7 +33,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
     async _updateObject(event, formData) {
         // update shield hp
-        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
+        const equippedShieldId: string = this.getEquippedShield(this.actor.data.items)?._id;
         if (equippedShieldId !== undefined) {
             const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
             await shieldEntity.update({
@@ -114,7 +114,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
      * Organize and classify Items for Character sheets
      * @private
      */
-    _prepareItems(actorData) {
+    _prepareItems(actorData: ActorData) {
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
@@ -127,8 +127,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         // Spellbook
         // const spellbook = {};
-        const tempSpellbook = [];
-        const spellcastingEntriesList = [];
+        const tempSpellbook: SpellData[] = [];
+        const spellcastingEntriesList: string[] = [];
         const spellbooks: any = [];
         spellbooks.unassigned = {};
 
