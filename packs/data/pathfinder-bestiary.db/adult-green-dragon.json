@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -2409,6 +2409,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "all": [
+                                "hide",
+                                "camouflage"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "text": "<p class='compact-text'><strong>Camouflage</strong> The dragon can Hide in natural environments even if it doesn’t have cover.</p>"
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -2417,6 +2430,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "camouflage",
+                        "options": "hide, camouflage"
+                    }
                 }
             },
             "flags": {},
