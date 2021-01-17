@@ -6,6 +6,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
+import { LoreDetailsData } from './dataDefinitions';
 
 /**
  * @category Other
@@ -62,6 +63,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
                 'melee',
                 'backpack',
                 'condition',
+                'lore',
             ].includes(type),
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
@@ -351,6 +353,18 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
                 rules.splice(index, 1);
                 this.item.update({ 'data.rules': rules });
             }
+        });
+
+        html.find('.add-skill-variant').on('click', (event) => {
+            const variants = (this.actor?.items?.get(this?.entity?.id)?.data.data as LoreDetailsData)?.variants ?? {};
+            const index = Object.keys(variants).length;
+            this.item.update({
+                [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
+            });
+        });
+        html.find('.skill-variants').on('click', '.remove-skill-variant', (event) => {
+            const index = event.currentTarget.dataset.skillVariantIndex;
+            this.item.update({ [`data.variants.-=${index}`]: null });
         });
     }
     /**

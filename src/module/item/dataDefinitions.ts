@@ -449,6 +449,7 @@ export interface LoreDetailsData extends ItemDescriptionData {
     item: {
         value: 0;
     };
+    variants?: Record<string, { label: string; options: string }>;
 }
 
 export interface MartialDetailsData extends ItemDescriptionData {
