@@ -495,7 +495,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
         value: string;
     };
     traditions: {
-        value: [];
+        value: string[];
     };
     school: {
         value: string;

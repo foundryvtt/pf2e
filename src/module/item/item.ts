@@ -801,7 +801,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
         const spellLvl = parseInt(cardData.spellLvl, 10);
-        const spell = new Spell(this.data, { castingActor: this.actor, castLevel: spellLvl });
+        const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
         // Append damage type to title
