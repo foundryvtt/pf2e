@@ -22,6 +22,13 @@ declare interface EntityCreateOptions {
     [key: string]: any;
 }
 
+declare type EntityUpdateData =
+    | {
+          _id: string;
+          [key: string]: unknown;
+      }
+    | BaseEntityData;
+
 declare interface EntityUpdateOptions {
     diff?: { [key: string]: any };
     noHook?: boolean;
@@ -418,12 +425,12 @@ declare class Entity {
      */
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: object,
+        updateData: EntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData>;
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: object[],
+        updateData: EntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData | BaseEntityData[]>;
 
