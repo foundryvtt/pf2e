@@ -1112,6 +1112,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Disarm a Metal Weapon",
+                        "predicate": {
+                            "all": [
+                                "disarm",
+                                "metal-weapon"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 6
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1120,11 +1134,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Disarm a metal item",
+                        "options": "disarm, metal-weapon"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 900000,
             "type": "lore"
         }

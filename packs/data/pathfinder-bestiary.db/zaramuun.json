@@ -2120,6 +2120,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Disarm Stone or Metal Objects",
+                        "predicate": {
+                            "all": [
+                                "disarm"
+                            ],
+                            "any": [
+                                "stone",
+                                "metal"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -2128,11 +2145,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+35 to Disarm stone or metal objects",
+                        "options": "disarm, stone, metal"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 1700000,
             "type": "lore"
         },

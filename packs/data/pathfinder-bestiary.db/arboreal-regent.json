@@ -1536,6 +1536,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 10
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1544,11 +1557,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+21 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 1400000,
             "type": "lore"
         }
