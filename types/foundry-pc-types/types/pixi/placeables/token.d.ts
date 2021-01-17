@@ -242,7 +242,12 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
 
     protected _refreshBorder(): void;
 
-    protected _getBorderColor(): any;
+    /**
+     * Get the hex color that should be used to render the Token border
+     * @return The hex color used to depict the border color
+     * @private
+     */
+    _getBorderColor(): number | null;
 
     protected _refreshTarget(): void;
 

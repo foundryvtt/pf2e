@@ -209,6 +209,21 @@ Hooks.on('canvasInit', async () => {
             return spaces * canvas.dimensions.distance;
         });
     };
+
+    // Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition
+    Token.prototype._getBorderColor = function (this: Token) {
+        const colors = CONFIG.Canvas.dispositionColors;
+        if (this._controlled) return colors.CONTROLLED;
+        else if (this._hover) {
+            const disposition =
+                typeof this.data.disposition === 'string' ? parseInt(this.data.disposition, 10) : this.data.disposition;
+            if (!game.user.isGM && this.owner) return colors.CONTROLLED;
+            else if (this.actor?.hasPlayerOwner) return colors.PARTY;
+            else if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) return colors.FRIENDLY;
+            else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) return colors.NEUTRAL;
+            else return colors.HOSTILE;
+        } else return null;
+    };
 });
 
 /* -------------------------------------------- */
