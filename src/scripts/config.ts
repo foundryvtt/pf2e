@@ -441,6 +441,7 @@ export const PF2ECONFIG = {
         primal: 'PF2E.TraitPrimal',
         focus: 'PF2E.TraitFocus',
         ritual: 'PF2E.TraitRitual',
+        halcyon: 'PF2E.TraitHalcyon',
     }, // Magic Traditon
 
     spellOtherTraits: {
