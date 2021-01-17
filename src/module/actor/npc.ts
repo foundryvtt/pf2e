@@ -216,6 +216,14 @@ export class PF2ENPC extends PF2EActor {
                     );
                 };
 
+                const variants = (item.data as any).variants;
+                if (variants && Object.keys(variants).length) {
+                    stat.variants = [];
+                    for (const [, variant] of Object.entries(variants)) {
+                        stat.variants.push(variant);
+                    }
+                }
+
                 data.skills[shortform] = stat;
             } else if (item.type === 'melee') {
                 const modifiers = [];

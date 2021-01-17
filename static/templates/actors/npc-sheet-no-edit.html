@@ -97,9 +97,20 @@
             <label class="stat-title">{{localize "PF2E.SkillsLabel"}}</label>
             {{#each actor.data.skills as |skill shortform|}}
             {{#if skill.visible}}
-            <span class="stat-list item rollable" data-skill="{{shortform}}" title="{{skill.breakdown}}">
-              <span class="stat-minortitle npc-skill-name rollable">{{skill.name}}</span>
-              <span class="stat-value npc-skill-name rollable">{{numberFormat skill.value decimals=0 sign=true}}</span>
+            <span class="stat-list">
+              <span class="item rollable" data-skill="{{shortform}}" title="{{skill.breakdown}}">
+                <span class="stat-minortitle npc-skill-name rollable">{{skill.name}}</span>
+                <span class="stat-value npc-skill-name rollable">{{numberFormat skill.value decimals=0 sign=true}}</span>
+              </span>
+              {{#if skill.variants}}
+              <span class="skill-variants">(
+              {{#each skill.variants}}
+                <span class="item rollable" data-skill="{{shortform}}" data-options="{{this.options}}">
+                  <span class="npc-skill-name rollable">{{this.label}}</span>
+                </span>
+              {{/each}}
+              )</span>
+              {{/if}}
             </span>
             {{/if}}
             {{/each}}
