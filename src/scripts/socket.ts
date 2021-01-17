@@ -11,7 +11,7 @@ export type SocketEventCallback = [
 ];
 
 export function activateSocketListener() {
-    game.socket.on('system.pf2e', (...[message, userId]: SocketEventCallback) => {
+    game.socket.on('system.pf2e', async (...[message, userId]: SocketEventCallback) => {
         const sender = game.users.find((user) => user.id === userId);
         switch (message.request) {
             case 'lootTransfer':
