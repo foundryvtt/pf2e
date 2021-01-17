@@ -6,7 +6,7 @@ import { SpellcastingEntryData } from './dataDefinitions';
 export class SpellcastingEntry {
     data: SpellcastingEntryData;
 
-    constructor(data) {
+    constructor(data: SpellcastingEntryData) {
         this.data = data;
     }
 

@@ -1,22 +1,17 @@
+import { PF2EActor } from '../actor/actor';
+import { SpellcastingEntryData, SpellData } from './dataDefinitions';
 import { SpellcastingEntry } from './spellcastingEntry';
-
-interface ActorInterface {
-    getOwnedItem(spellcastingEntryId: any);
-    getAbilityMod(ability: any): any;
-    items: any;
-    level: number;
-}
 
 /**
  * @category Other
  */
 export class Spell {
-    data: any;
-    castingActor: ActorInterface;
+    data: SpellData;
+    castingActor: PF2EActor;
     _castLevel: number;
-    _spellcastingEntry: any;
+    _spellcastingEntry: SpellcastingEntry;
 
-    constructor(data, scope: { castingActor?: ActorInterface; castLevel?: number } = {}) {
+    constructor(data: SpellData, scope: { castingActor?: PF2EActor; castLevel?: number } = {}) {
         this.data = data;
         this.castingActor = scope?.castingActor;
         this._castLevel = scope?.castLevel || this.spellLevel;
@@ -29,7 +24,7 @@ export class Spell {
     get spellcastingEntry() {
         if (!this._spellcastingEntry) {
             this._spellcastingEntry = new SpellcastingEntry(
-                this.castingActor?.getOwnedItem(this.spellcastingEntryId).data,
+                this.castingActor?.getOwnedItem(this.spellcastingEntryId).data as SpellcastingEntryData,
             );
         }
         return this._spellcastingEntry;
@@ -51,7 +46,7 @@ export class Spell {
     }
 
     get damageParts() {
-        const parts = [];
+        const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
         if (this.damage.applyMod) {
             parts.push(this.castingActor.getAbilityMod(this.spellcastingEntry.ability));
@@ -67,7 +62,7 @@ export class Spell {
     }
 
     get scaling() {
-        return this.data.data?.scaling || {};
+        return this.data.data?.scaling || { formula: '', mode: '' };
     }
 
     // Automatically scale cantrips/focus spells to the character's max spell
@@ -101,9 +96,9 @@ export class Spell {
     }
 
     get heightenedParts() {
-        let parts = [];
+        let parts: string[] = [];
         if (this.scaling.formula !== '') {
-            const heighteningDivisor = this.heighteningModes[this.scaling.mode];
+            const heighteningDivisor: number = this.heighteningModes[this.scaling.mode];
             if (heighteningDivisor) {
                 let effectiveSpellLevel = 1;
                 if (this.spellLevel > 0 && this.spellLevel < 11) {
