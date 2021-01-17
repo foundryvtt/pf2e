@@ -11,6 +11,10 @@ export class PF2EPhysicalItem extends PF2EItem {
         return itemData.data?.identification?.status !== 'unidentified';
     }
 
+    get quantity(): number {
+        return this.data.data.quantity.value ?? 1;
+    }
+
     get isIdentified(): boolean {
         return PF2EPhysicalItem.isIdentified(this.data);
     }
@@ -25,7 +29,7 @@ export class PF2EPhysicalItem extends PF2EItem {
         });
     }
 
-    static async updateIdentificationData(itemData, diff) {
+    static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
         if (!isPhysicalItem(itemData)) return;
         const update = mergeObject({}, diff); // expands the "flattened" fields in the diff object
         const status = getProperty(update, 'data.identification.status');
@@ -92,7 +96,7 @@ export class PF2EPhysicalItem extends PF2EItem {
         }
     }
 
-    async update(diff, options = {}) {
+    async update(diff: { [key: string]: unknown }, options = {}) {
         await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
     }

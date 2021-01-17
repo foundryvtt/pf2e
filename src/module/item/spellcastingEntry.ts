@@ -1,10 +1,12 @@
+import { SpellcastingEntryData } from './dataDefinitions';
+
 /**
  * @category Other
  */
 export class SpellcastingEntry {
-    data: any;
+    data: SpellcastingEntryData;
 
-    constructor(data) {
+    constructor(data: SpellcastingEntryData) {
         this.data = data;
     }
 

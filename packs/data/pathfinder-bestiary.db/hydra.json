@@ -940,6 +940,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Water",
+                        "predicate": {
+                            "all": [
+                                "terrain:water"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -948,11 +961,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 in water",
+                        "options": "terrain:water"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 900000,
             "type": "lore"
         }

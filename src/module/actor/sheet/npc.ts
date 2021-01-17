@@ -343,6 +343,14 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             event.preventDefault();
             const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
+            const extraOptions = $(event.currentTarget).parents('.item').attr('data-options');
+            if (extraOptions) {
+                const split = extraOptions
+                    .split(',')
+                    .map((o) => o.trim())
+                    .filter((o) => !!o);
+                opts.push(...split);
+            }
             this.actor.data.data.skills[shortform]?.roll(event, opts); // eslint-disable-line no-unused-expressions
         });
 

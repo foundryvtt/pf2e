@@ -441,6 +441,7 @@ export const PF2ECONFIG = {
         primal: 'PF2E.TraitPrimal',
         focus: 'PF2E.TraitFocus',
         ritual: 'PF2E.TraitRitual',
+        halcyon: 'PF2E.TraitHalcyon',
     }, // Magic Traditon
 
     spellOtherTraits: {
@@ -1427,6 +1428,7 @@ export const PF2ECONFIG = {
 
     actionTypes: {
         action: 'PF2E.ActionTypeAction',
+        single: 'PF2E.ActionTypeSingle',
         reaction: 'PF2E.ActionTypeReaction',
         free: 'PF2E.ActionTypeFree',
         passive: 'PF2E.ActionTypePassive',
@@ -1489,6 +1491,7 @@ export const PF2ECONFIG = {
         lowLightVision: 'PF2E.SensesLowLightVision',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        lifesense: 'PF2E.SensesLifesense',
     }, // Creature Sizes
 
     bulkTypes: {
@@ -1780,6 +1783,23 @@ export const PF2ECONFIG = {
         Push: 'PF2E.AttackEffectPush',
         'Improved Push': 'PF2E.AttackEffectImprovedPush',
         Trip: 'PF2E.AttackEffectTrip',
+    },
+
+    loot: {
+        subtitles: {
+            take: 'PF2E.loot.TakeSubtitle',
+            stow: 'PF2E.loot.StowSubtitle',
+            transfer: 'PF2E.loot.TransferSubtitle',
+            sell: 'PF2E.loot.SellSubtitle',
+            give: 'PF2E.loot.GiveSubtitle',
+        },
+        messages: {
+            take: 'PF2E.loot.TakeMessage',
+            stow: 'PF2E.loot.StowMessage',
+            transfer: 'PF2E.loot.TransferMessage',
+            sell: 'PF2E.loot.SellMessage',
+            give: 'PF2E.loot.GiveMessage',
+        },
     },
 
     monsterAbilities: () => {

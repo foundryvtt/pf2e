@@ -65,6 +65,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/feat-sidebar.html',
         'systems/pf2e/templates/items/kit-details.html',
         'systems/pf2e/templates/items/kit-sidebar.html',
+        'systems/pf2e/templates/items/lore-details.html',
         'systems/pf2e/templates/items/lore-sidebar.html',
         'systems/pf2e/templates/items/spell-details.html',
         'systems/pf2e/templates/items/spell-sidebar.html',

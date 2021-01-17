@@ -13,7 +13,6 @@ import { registerActors } from './module/register-actors';
 import { registerSheets } from './module/register-sheets';
 import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
 import { PF2Check } from './module/system/rolls';
-import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
@@ -32,6 +31,8 @@ import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
+import { MigrationRunner } from './module/migration-runner';
+import { getAllMigrations } from './module/migrations';
 
 require('./styles/pf2e.scss');
 
@@ -237,19 +238,20 @@ Hooks.once('setup', () => {
 Hooks.once('ready', () => {
     // Determine whether a system migration is required and feasible
     const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
-    const NEEDS_MIGRATION_VERSION = Number(game.system.data.schema);
     const COMPATIBLE_MIGRATION_VERSION = 0.411;
-    const needMigration = currentVersion < NEEDS_MIGRATION_VERSION || currentVersion === null;
 
-    // Perform the migration
-    if (needMigration && game.user.isGM) {
-        if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
-            ui.notifications.error(
-                `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                { permanent: true },
-            );
+    if (game.user.isGM) {
+        // Perform the migration
+        const migrationRunner = new MigrationRunner(getAllMigrations());
+        if (migrationRunner.needsMigration()) {
+            if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
+                ui.notifications.error(
+                    `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
+                    { permanent: true },
+                );
+            }
+            migrationRunner.runMigration();
         }
-        migrations.migrateWorld();
     }
 
     // world clock singleton application

@@ -8,7 +8,7 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
@@ -286,7 +286,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
      * @param spellSlot {String}    The number of the spell slot
      * @param spell {String}        The item details for the spell
      */
-    async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
+    async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell: SpellData, entryId) {
+        if (spell.data.level.value > spellLevel) {
+            console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
+            return;
+        }
         if (CONFIG.debug.hooks === true)
             console.log(
                 `PF2e DEBUG | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,

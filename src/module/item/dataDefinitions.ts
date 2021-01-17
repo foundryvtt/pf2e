@@ -449,6 +449,7 @@ export interface LoreDetailsData extends ItemDescriptionData {
     item: {
         value: 0;
     };
+    variants?: Record<string, { label: string; options: string }>;
 }
 
 export interface MartialDetailsData extends ItemDescriptionData {
@@ -494,7 +495,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
         value: string;
     };
     traditions: {
-        value: [];
+        value: string[];
     };
     school: {
         value: string;
@@ -583,62 +584,62 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     displayLevels: Record<number, boolean>;
     slots?: {
         slot0: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot1: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot2: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot3: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot4: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot5: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot6: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot7: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot8: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot9: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot10: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot11: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
