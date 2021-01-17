@@ -114,7 +114,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
      * Organize and classify Items for Character sheets
      * @private
      */
-    _prepareItems(actorData: ActorData) {
+    _prepareItems(actorData) {
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
