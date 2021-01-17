@@ -147,6 +147,18 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
         token: Token<InstanceType<TA>>,
     ): InstanceType<TA>;
 
+    /** @override */
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<this['data']>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<this['data'] | this['data'][]>;
+
     /**
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
      * If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.
