@@ -487,10 +487,12 @@ Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
                     [],
             },
         };
-        const actor = canvas.tokens.get(token._id).actor;
-        options.pf2e.items.added.forEach((item) => {
-            preCreateOwnedItem(actor, item, options, userID);
-        });
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            options.pf2e.items.added.forEach((item) => {
+                preCreateOwnedItem(canvasToken.actor, item, options, userID);
+            });
+        }
     }
 });
 
@@ -498,19 +500,25 @@ Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
     if (!token.actorLink && options.pf2e?.items) {
         // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
         // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
-        const actor = canvas.tokens.get(token._id).actor;
-        options.pf2e.items.added.forEach((item) => {
-            createOwnedItem(actor, item, options, userID);
-        });
-        options.pf2e.items.removed.forEach((item) => {
-            deleteOwnedItem(actor, item, options, userID);
-        });
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            const actor = canvasToken.actor;
+            options.pf2e.items.added.forEach((item) => {
+                createOwnedItem(actor, item, options, userID);
+            });
+            options.pf2e.items.removed.forEach((item) => {
+                deleteOwnedItem(actor, item, options, userID);
+            });
+        }
     }
 
     if ('disposition' in data && game.userId === userID) {
-        const actor = canvas.tokens.get(token._id).actor;
-        if (actor instanceof PF2ENPC) {
-            (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            const actor = canvasToken.actor;
+            if (actor instanceof PF2ENPC) {
+                (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+            }
         }
     }
 
