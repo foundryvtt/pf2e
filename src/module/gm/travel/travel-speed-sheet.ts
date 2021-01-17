@@ -29,7 +29,7 @@ type ExplorationActivitiesData =
     | 'HalfSpeed';
 
 /*
-Needs to be implemented
+TODO:
 
 // feats
 https://2e.aonprd.com/Feats.aspx?ID=1439
