@@ -1,18 +1,3 @@
-<div class="pc pc_ancestry-hp">
-    <label for="ancestry-hp">
-        {{localize 'PF2E.AncestryHP'}}
-    </label>
-    <span>
-        <input
-            id="ancestry-hp"
-            type="text"
-            name="data.attributes.ancestryhp"
-            data-dtype="Number"
-            value="{{data.attributes.ancestryhp}}"
-            placeholder="0"
-        />
-    </span>
-</div>
 <div class="pc pc_class-hp">
     <label for="class-hp">
         {{localize 'PF2E.ClassHP'}}
@@ -62,16 +47,8 @@
     <label for="land-speed">
         {{localize 'PF2E.Speed'}}
     </label>
-    <span class="speed">
-        <input
-            id="land-speed"
-            type="text"
-            name="data.attributes.speed.value"
-            data-dtype="{{data.attributes.speed.type}}"
-            value="{{data.attributes.speed.value}}"
-            placeholder="0"
-        />
-        <span title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</span>
+    <span>
+        <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</h3>
     </span>
 </div>
 <div class="pc pc_ethnicity">
@@ -171,16 +148,9 @@
     <label class="pf-title">
         {{localize 'PF2E.Size'}}
     </label>
-    <select
-        name="data.traits.size.value"
-        data-dtype="{{data.traits.size.type}}"
-    >
-        {{#select data.traits.size.value}} {{#each actorSizes as |label size|}}
-        <option value="{{size}}">
-            {{label}}
-        </option>
-        {{/each}} {{/select}}
-    </select>
+    <span>
+        <h3>{{lookup actorSizes data.traits.size.value}}</h3>
+    </span>
 </div>
 <div class="pc pc_key-ability dropdown">
     <label for="key-ability">

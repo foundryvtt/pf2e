@@ -1258,6 +1258,15 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         return super._onSortItem(event, itemData);
     }
 
+    async _onDropItemCreate(itemData: ItemData) {
+        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+            // ignore these. they should get handled in the derived class
+            ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
+            return false;
+        }
+        return super._onDropItemCreate(itemData);
+    }
+
     /**
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
      * @private
@@ -1306,9 +1315,6 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             }
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
-            return false;
-        } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
-            // ignore these (for now)...
             return false;
         } else if (itemData.type === 'kit') {
             await addKit(itemData, async (newItems) => {

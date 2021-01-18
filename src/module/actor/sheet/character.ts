@@ -7,7 +7,8 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, SpellData } from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData, ItemData } from '../../item/dataDefinitions';
+import { PF2EAncestry } from '../../item/ancestry';
 
 /**
  * @category Other
@@ -53,6 +54,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const { hp } = sheetData.data.attributes;
         if (hp.temp === 0) delete hp.temp;
         if (hp.tempmax === 0) delete hp.tempmax;
+
+        const ancestryItem = this.actor.items.find((x) => x.type === 'ancestry');
+        sheetData.ancestryItemId = ancestryItem ? ancestryItem.id : '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -678,6 +682,14 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         } else {
             this.actor.removeCustomModifier(stat, name);
         }
+    }
+
+    async _onDropItemCreate(itemData: ItemData): Promise<any> {
+        if (itemData.type === 'ancestry') {
+            return PF2EAncestry.addToActor(this.actor, itemData);
+        }
+
+        return super._onDropItemCreate(itemData);
     }
 
     _onSubmit(event: any): Promise<any> {
