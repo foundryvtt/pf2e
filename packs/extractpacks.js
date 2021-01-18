@@ -81,7 +81,7 @@ function pruneTree(entityData, topLevel = {}) {
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
-        } else if (key === '_modifiers') {
+        } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key];
         // } else if (key === 'sort' && Number.isInteger(topLevel[key]) && entityData === topLevel) {
         //     delete entityData[key];
@@ -240,61 +240,57 @@ async function extractPack(filePath, packFilename) {
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
 
-    const done = await Promise.all(
-        packEntities.map(async (entityData) => {
-            // Remove or replace unwanted values from the entity
-            const preparedEntity = convertLinks(entityData, packFilename);
+    for await (const entityData of packEntities) {
+        // Remove or replace unwanted values from the entity
+        const preparedEntity = convertLinks(entityData, packFilename);
 
-            // Pretty print JSON data
-            const outData = (() => {
-                const allKeys = new Set();
-                const idKeys = [];
-                JSON.stringify(preparedEntity, (key, value) => {
-                    if (idPattern.test(key)) {
-                        idKeys.push(key);
-                    } else {
-                        allKeys.add(key);
-                    }
+        // Pretty print JSON data
+        const outData = (() => {
+            const allKeys = new Set();
+            const idKeys = [];
+            JSON.stringify(preparedEntity, (key, value) => {
+                if (idPattern.test(key)) {
+                    idKeys.push(key);
+                } else {
+                    allKeys.add(key);
+                }
 
-                    return value;
-                });
-                const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
+                return value;
+            });
+            const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
 
-                const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);
-                return `${newJson}\n`;
-            })();
+            const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);
+            return `${newJson}\n`;
+        })();
 
-            // Remove all non-alphanumeric characters from the name
-            const entityName = entityData.name
-                .toLowerCase()
-                .replace(/[^a-z0-9]/gi, ' ')
-                .trim()
-                .replace(/\s+/g, '-')
-                .replace(/-{2,}/g, '-');
+        // Remove all non-alphanumeric characters from the name
+        const entityName = entityData.name
+              .toLowerCase()
+              .replace(/[^a-z0-9]/gi, ' ')
+              .trim()
+              .replace(/\s+/g, '-')
+              .replace(/-{2,}/g, '-');
 
-            const outFileName = `${entityName}.json`;
-            const outFilePath = path.resolve(outPath, outFileName);
+        const outFileName = `${entityName}.json`;
+        const outFilePath = path.resolve(outPath, outFileName);
 
-            if (fs.existsSync(outFilePath)) {
-                throwPackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
-            }
+        if (fs.existsSync(outFilePath)) {
+            throwPackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
+        }
 
-            if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
-                throwPackError(
-                    `The ID "${entityData._id}" of entity "${entityData.name}" does not match ` +
-                        'the current ID. Entities that are already in the system must keep their ' +
-                        'current ID.',
-                );
-            }
+        if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
+            throwPackError(
+                `The ID "${entityData._id}" of entity "${entityData.name}" does not match ` +
+                    'the current ID. Entities that are already in the system must keep their ' +
+                    'current ID.',
+            );
+        }
 
-            // Write the JSON file
-            await fs.promises.writeFile(outFilePath, outData, 'utf-8');
+        // Write the JSON file
+        await fs.promises.writeFile(outFilePath, outData, 'utf-8');
+    }
 
-            return 1;
-        }),
-    );
-
-    return done.length;
+    return packEntities.length;
 }
 
 function populateIdNameMap() {
