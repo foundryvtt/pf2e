@@ -38,6 +38,27 @@
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
     }
+
+    .pc {
+        h3 {
+            grid-area: mod;
+            border: none;
+            @include p-reset;
+            background-color: rgba($body-color, 0.1);
+            height: 26px;
+            padding: 6px;
+            color: var(--body);
+            font-family: $body-serif;
+            font-size: 14px;
+            font-weight: 700;
+            width: calc(100% - 8px);
+
+            i {
+                float: right;
+            }
+        }
+    }
+
     .character-details {
         display: grid;
         grid:
@@ -143,7 +164,7 @@
         .detail-sheet {
             grid-area: details;
             display: grid;
-            grid-template-columns: 2fr 3fr;
+            grid-template-columns: 2fr 2fr;
             grid-template-rows: repeat(3, 42px);
             grid-row-gap: 8px;
             padding-left: 12px;
@@ -240,7 +261,8 @@
 
             .tags,
             select,
-            input {
+            input,
+            h3 {
                 margin-top: 4px;
             }
         }
@@ -304,8 +326,10 @@
             .ability-mod {
                 grid-area: mod;
                 border: none;
-                @include p-reset;
                 background-color: rgba($body-color, 0.1);
+                font-family: $serif;
+                font-weight: 700;
+                @include p-reset;
             }
 
             .ability-mod,

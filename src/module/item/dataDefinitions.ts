@@ -432,6 +432,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
     prerequisites: {
         value: string;
     };
+    location: string;
 }
 
 export interface LoreDetailsData extends ItemDescriptionData {
