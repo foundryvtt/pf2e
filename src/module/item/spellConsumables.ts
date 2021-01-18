@@ -1,4 +1,4 @@
-import { ConsumableData, EquipmentData, SpellData } from './dataDefinitions';
+import { ConsumableData, SpellData } from './dataDefinitions';
 
 export const scrollCompendiumIds = {
     1: 'RjuupS9xyXDLgyIr',
@@ -37,10 +37,10 @@ export const wandCompendiumIds = {
     9: 'Fgv722039TVM5JTc',
 };
 
-export async function wandFromSpell(spellData: SpellData, heightenedLevel?: number): Promise<EquipmentData> {
+export async function wandFromSpell(spellData: SpellData, heightenedLevel?: number): Promise<ConsumableData> {
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-    const wand = (await pack.getEntry(wandCompendiumIds[heightenedLevel])) as EquipmentData;
+    const wand = (await pack.getEntry(wandCompendiumIds[heightenedLevel])) as ConsumableData;
     wand.name = game.i18n.format('PF2E.WandFromSpell', { name: spellData.name, level: heightenedLevel });
     wand.data.spell = {
         data: duplicate(spellData),
