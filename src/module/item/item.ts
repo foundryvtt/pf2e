@@ -483,7 +483,7 @@ export class PF2EItem extends Item<PF2EActor> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollWeaponDamage(event, critical = false) {
-        const localize = game.i18n.localize.bind(game.i18n);
+        const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item: ItemData = this.data;
         // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
@@ -494,10 +494,10 @@ export class PF2EItem extends Item<PF2EActor> {
         const rollData = duplicate(this.actor.data.data) as any;
         let rollDie = itemData.damage.die;
         const abl = 'str';
-        let abilityMod = rollData.abilities[abl].mod;
-        let parts = [];
-        const partsCritOnly = [];
-        const dtype = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
+        let abilityMod: number = rollData.abilities[abl].mod;
+        let parts: (string | number)[] = [];
+        const partsCritOnly: string[] = [];
+        const dtype: string = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
         // Get detailed trait information from item
         const traits = itemData.traits.value || [];
@@ -789,7 +789,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const item: ItemData = this.data;
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
-        const localize = game.i18n.localize.bind(game.i18n);
+        const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const button = event.currentTarget;
         const card = button.closest('*[data-spell-lvl]');
@@ -806,7 +806,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const parts = spell.damageParts;
 
         // Append damage type to title
-        const damageLabel = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+        const damageLabel: string = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (dtype && !isHeal) title += ` (${dtype})`;
 

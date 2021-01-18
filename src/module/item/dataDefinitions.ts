@@ -487,11 +487,15 @@ export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string;
     };
+    areasize: {
+        value: string;
+    };
     spellCategory: {
         value: string;
     };
     traditions: {
         value: string[];
+        custom: string;
     };
     school: {
         value: string;
@@ -509,7 +513,8 @@ export interface SpellDetailsData extends ItemDescriptionData {
         value: string;
     };
     area: {
-        value: string;
+        value: number;
+        areaType: string;
     };
     time: {
         value: string;
@@ -530,6 +535,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     };
     save: {
         basic: string;
+        value: string;
     };
     sustained: {
         value: false;
