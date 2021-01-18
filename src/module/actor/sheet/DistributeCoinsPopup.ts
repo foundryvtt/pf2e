@@ -55,7 +55,7 @@ export class DistributeCoinsPopup extends FormApplication {
                 coinShare.cp = copperToDistribute % 10;
                 coinShare.sp = Math.trunc(copperToDistribute / 10) % 10;
                 coinShare.gp = Math.trunc(copperToDistribute / 100) % 10;
-                coinShare.pp = Math.trunc(copperToDistribute / 1000) % 10;
+                coinShare.pp = Math.trunc(copperToDistribute / 1000);
             } else {
                 coinShare.pp = Math.trunc(thisActorCurrency.pp / playerCount);
                 coinShare.cp = Math.trunc(thisActorCurrency.cp / playerCount);
