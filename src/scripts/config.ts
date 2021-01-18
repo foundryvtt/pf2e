@@ -814,6 +814,7 @@ export const PF2ECONFIG = {
         splash: 'PF2E.TraitSplash',
         talisman: 'PF2E.TraitTalisman',
         trap: 'PF2E.TraitTrap',
+        wand: 'PF2E.TraitWand',
         virulent: 'PF2E.TraitVirulent',
         visual: 'PF2E.TraitVisual',
     },
@@ -1296,6 +1297,7 @@ export const PF2ECONFIG = {
         other: 'PF2E.ConsumableTypeOther',
         poison: 'PF2E.ConsumableTypePoison',
         tool: 'PF2E.ConsumableTypeTool',
+        wand: 'PF2E.ConsumableTypeWand',
     }, // Preparation Type
 
     preparationType: {
