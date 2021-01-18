@@ -112,7 +112,6 @@ import './types/ui/tabs';
 
 import './types/game';
 import './types/canvas';
-import './types/handlebars';
 import './types/pixi';
 import './types/prototypes';
 import './types/utils';
