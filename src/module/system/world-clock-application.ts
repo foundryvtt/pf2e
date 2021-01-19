@@ -1,4 +1,9 @@
 /* global game */
+
+interface WorldClockData {
+    datetime?: string;
+}
+
 export class WorldClockApplication extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -7,8 +12,8 @@ export class WorldClockApplication extends Application {
         });
     }
 
-    getData(options?: any): any {
-        const data = super.getData(options);
+    getData(options?: ApplicationOptions): WorldClockData {
+        const data: WorldClockData = super.getData(options);
 
         data.datetime = new Intl.DateTimeFormat([game.i18n.lang, 'default'], {
             year: 'numeric',
@@ -22,7 +27,7 @@ export class WorldClockApplication extends Application {
         return data;
     }
 
-    protected activateListeners(html: JQuery | HTMLElement) {
+    protected activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // advance time by static value
@@ -32,7 +37,7 @@ export class WorldClockApplication extends Application {
         });
 
         // advanced time by input value
-        $(html).on('click', 'button[id=advance]', (event) => {
+        html.on('click', 'button[id=advance]', (event) => {
             const value = $(html).find('input[type=number][id=diff-value]').val();
             const unit = $(html).find('select[id=diff-unit]').val();
             game.time.advance(Number(value) * Number(unit));

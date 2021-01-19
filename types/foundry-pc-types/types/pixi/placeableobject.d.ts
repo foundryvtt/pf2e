@@ -8,10 +8,13 @@ declare interface PlaceableObjectData {
     rotation?: number;
     locked: boolean;
 }
+type ExtendedAbstractClass<T> = (new (...args: unknown[]) => Record<string, unknown>) & T;
+type AbstractContructorParameters<T> = ConstructorParameters<ExtendedAbstractClass<T>>;
+
 /**
  * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
  */
-declare abstract class PlaceableObject extends PIXI.Container {
+declare abstract class PlaceableObject<LayerType extends PlaceablesLayer = PlaceablesLayer> extends PIXI.Container {
     /**
      * The underlying data object which provides the basis for this placeable object
      */
@@ -56,11 +59,11 @@ declare abstract class PlaceableObject extends PIXI.Container {
      */
     protected _sheet: FormApplication | null;
 
-    constructor(data: any, scene: Scene);
+    constructor(data: PlaceableObjectData, scene: Scene);
 
     /* -------------------------------------------- */
     /* Properties
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     get _id(): string;
     /**
@@ -91,7 +94,7 @@ declare abstract class PlaceableObject extends PIXI.Container {
     /**
      * Return a reference to the singleton layer instance which contains placeables of this type
      */
-    get layer(): PlaceablesLayer;
+    get layer(): LayerType;
 
     /**
      * The line-of-sight polygon for the object, if it has been computed
@@ -172,23 +175,23 @@ declare abstract class PlaceableObject extends PIXI.Container {
 
     /**
      * Clear the display of the existing object
-     * @return	The cleared object
+     * @return The cleared object
      */
-    clear(): PlaceableObject;
+    clear(): this;
 
     /**
      * Clone the placeable object, returning a new object with identical attributes
      * The returned object is non-interactive, and has no assigned ID
      * If you plan to use it permanently you should call the create method
      *
-     * @return	A new object with identical data
+     * @return A new object with identical data
      */
-    clone(): PlaceableObject;
+    clone(): this;
 
     /**
      * Draw the placeable object into its parent container
      */
-    draw(): Promise<PlaceableObject>;
+    draw(): Promise<this>;
 
     /**
      * Draw the primary Sprite for the PlaceableObject
@@ -197,18 +200,22 @@ declare abstract class PlaceableObject extends PIXI.Container {
 
     /**
      * Refresh the current display state of the Placeable Object
-     * @return	The refreshed object
+     * @return The refreshed object
      */
-    refresh(): PlaceableObject;
+    refresh(): this;
 
     /** @extends {Entity.createEmbeddedEntity} */
-    static create(data: object, options?: object): Promise<PlaceableObject>;
+    static create<P extends PlaceableObject<PlaceablesLayer>>(
+        this: new(...args: AbstractContructorParameters<P>) => P,
+        data: Partial<P['data']> | P['data'],
+        options?: EntityCreateOptions
+    ): Promise<P>;
 
     /** @extends {Entity.updateEmbeddedEntity} */
-    update(updateData: object, options?: object): Promise<PlaceableObject>;
+    update(updateData: {}, options?: EntityUpdateOptions): Promise<this>;
 
     /** @extends {Entity.deleteEmbeddedEntity} */
-    delete(createData: object, options?: object): Promise<PlaceableObject>;
+    delete(createData: Partial<this['data']>, options?: EntityDeleteOptions): Promise<this>;
 
     /**
      * Get the value of a "flag" for this PlaceableObject
@@ -218,7 +225,7 @@ declare abstract class PlaceableObject extends PIXI.Container {
      * @param key	The flag key
      * @return		The flag value
      */
-    getFlag(scope: string, key: string): any;
+    getFlag(scope: string, key: string): Record<string, unknown>;
 
     /**
      * Assign a "flag" to this Entity.
@@ -239,7 +246,7 @@ declare abstract class PlaceableObject extends PIXI.Container {
      *
      * @return		A Promise resolving to the updated PlaceableObject
      */
-    setFlag(scope: string, key: string, value: any): Promise<PlaceableObject>;
+    setFlag(scope: string, key: string, value: unknown): Promise<this>;
 
     /**
      * Remove a flag assigned to the Entity
@@ -300,7 +307,7 @@ declare abstract class PlaceableObject extends PIXI.Container {
      * @param snap	Snap the angle of rotation to a certain target degree increment
      * @return		A Promise which resolves once the rotation has completed
      */
-    rotate(angle: number, snap: number): Promise<PlaceableObject>;
+    rotate(angle: number, snap: number): Promise<this>;
 
     /**
      * Determine a new angle of rotation for a PlaceableObject either from an explicit angle or from a delta offset.

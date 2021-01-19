@@ -1,5 +1,6 @@
 /* global game */
-const SETTINGS: any = {
+
+const SETTINGS = {
     staminaVariant: {
         name: 'Stamina Variant Rules',
         hint: 'Play with the stamina variant from Gamemastery Guide pg 200',
@@ -86,7 +87,7 @@ export class variantRulesSettings extends FormApplication {
     /* -------------------------------------------- */
 
     /** @override */
-    async getData(options: any) {
+    getData() {
         const data: any = {};
         for (const [k, v] of Object.entries(SETTINGS)) {
             data[k] = {
@@ -133,7 +134,7 @@ export class variantRulesSettings extends FormApplication {
     /* -------------------------------------------- */
 
     /** @override */
-    async _onSubmit(event: Event, options: any) {
+    async _onSubmit(event: Event, options: OnSubmitFormOptions) {
         event.preventDefault();
         super._onSubmit(event, options);
     }
@@ -141,7 +142,7 @@ export class variantRulesSettings extends FormApplication {
     /* -------------------------------------------- */
 
     /** @override */
-    async _updateObject(event: Event, formData: any) {
+    async _updateObject(_event: Event, formData: FormData) {
         const updates = [];
         for (const k of Object.keys(SETTINGS)) {
             updates.push(game.settings.set('pf2e', k, formData[k]));

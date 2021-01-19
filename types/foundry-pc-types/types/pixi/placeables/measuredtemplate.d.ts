@@ -1,7 +1,17 @@
+interface MeasuredTemplateData extends PlaceableObjectData {
+    t: string;
+    user: string;
+    direction: number;
+    angle: number;
+    distance: number;
+    borderColor: string;
+    fillColor: string;
+    texture: string;
+}
+
 /**
  * A MeasuredTemplate is an implementation of PlaceableObject which represents an area of the canvas grid which is
  * covered by some effect.
- * @extends {PlaceableObject}
  *
  * @example
  * MeasuredTemplate.create({
@@ -17,21 +27,16 @@
  *   texture: "tiles/fire.jpg"
  * });
  */
-declare class MeasuredTemplate extends PlaceableObject {
-    constructor(...args);
-
-    /* -------------------------------------------- */
-
-    /** @override */
-    static get embeddedName(): string;
-
+declare class MeasuredTemplate extends PlaceableObject<TemplateLayer> {
     /* -------------------------------------------- */
     /*  Properties                                  */
     /* -------------------------------------------- */
 
+    /** @override */
+    data: MeasuredTemplateData;
+
     /**
      * A convenience accessor for the border color as a numeric hex code
-     * @return {number}
      */
     get borderColor(): number;
 
@@ -39,84 +44,58 @@ declare class MeasuredTemplate extends PlaceableObject {
 
     /**
      * A convenience accessor for the fill color as a numeric hex code
-     * @return {number}
      */
     get fillColor(): number;
 
     /* -------------------------------------------- */
-
-    /** @override */
-    get owner(): boolean;
-
-    /* -------------------------------------------- */
     /*  Rendering
     /* -------------------------------------------- */
-
-    /** @override */
-    draw(): Promise<PlaceableObject>;
-
-    /* -------------------------------------------- */
-
     /**
      * Draw the ControlIcon for the MeasuredTemplate
-     * @return {ControlIcon}
-     * @private
      */
-    _drawControlIcon(): ControlIcon;
+    protected _drawControlIcon(): ControlIcon;
 
     /* -------------------------------------------- */
 
     /**
      * Draw the Text label used for the MeasuredTemplate
-     * @return {PIXI.Text}
-     * @private
      */
-    _drawRulerText(): PIXI.Text;
-
-    /* -------------------------------------------- */
-
-    /** @override */
-    refresh(): PlaceableObject;
+    protected _drawRulerText(): PIXI.Text;
 
     /* -------------------------------------------- */
 
     /**
      * Get a Circular area of effect given a radius of effect
-     * @private
      */
-    _getCircleShape(distance: number): PIXI.Circle;
+    protected _getCircleShape(distance: number): PIXI.Circle;
 
     /* -------------------------------------------- */
 
     /**
      * Get a Conical area of effect given a direction, angle, and distance
-     * @private
      */
-    _getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
+    protected _getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
 
     /* -------------------------------------------- */
 
     /**
      * Get a Rectangular area of effect given a width and height
-     * @private
      */
-    _getRectShape(direction: number, distance: number): PIXI.Rectangle;
+    protected _getRectShape(direction: number, distance: number): PIXI.Rectangle;
 
     /* -------------------------------------------- */
 
     /**
      * Get a rotated Rectangular area of effect given a width, height, and direction
-     * @private
      */
-    _getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
+    protected _getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
 
     /* -------------------------------------------- */
 
     /**
      * Draw the rotation control handle and assign event listeners
-     * @private
      */
-    _drawRotationHandle(radius: number): void;
+    protected _drawRotationHandle(radius: number): void;
 
     /* -------------------------------------------- */
 
@@ -136,9 +115,6 @@ declare class MeasuredTemplate extends PlaceableObject {
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
-
-    /** @override */
-    rotate(angle: number, snap: number): Promise<PlaceableObject>;
 
     /* -------------------------------------------- */
     /*  Interactivity                               */
