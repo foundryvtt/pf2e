@@ -1,5 +1,5 @@
-declare interface ItemSheetData extends BaseEntitySheetData {
-    item?: Item;
+declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
+    item?: I;
     data?: any;
 }
 
@@ -15,16 +15,11 @@ declare interface ItemSheetData extends BaseEntitySheetData {
  * @param options			Additional options which modify the rendering of the item.
  * @param options.editable	Is the item editable? Default is true.
  */
-declare class ItemSheet<ItemType extends Item, ActorType extends Actor> extends BaseEntitySheet {
+declare class ItemSheet<ItemType extends Item, ActorType extends Actor> extends BaseEntitySheet<ItemType> {
     /**
      * Assign the default options which are supported by this Application
      */
     static get defaultOptions(): FormApplicationOptions;
-
-    /**
-     * Provide a unique CSS ID for owned Item sheets
-     */
-    get id(): string;
 
     /**
      * A convenience reference to the Item entity
@@ -39,11 +34,11 @@ declare class ItemSheet<ItemType extends Item, ActorType extends Actor> extends 
     /**
      * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
      */
-    getData(): ItemSheetData;
+    getData(): ItemSheetData<this['item']>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events
-     * @param html	The HTML object returned by template rendering
+     * @param html The HTML object returned by template rendering
      */
     protected activateListeners(html: JQuery): void;
 }

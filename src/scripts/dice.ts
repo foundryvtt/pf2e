@@ -7,13 +7,7 @@ import { PF2EActor } from '../module/actor/actor';
 export class FormulaPreservingRoll extends Roll {
     toJSON() {
         const jsonData = super.toJSON();
-
-        if (this._replaceData) {
-            // Foundry version must be pre 0.7.0 as Roll._replaceData was replaced by Roll._replaceFormulaData
-            jsonData.formula = Roll.cleanFormula(this._replaceData(this._formula));
-        }
         jsonData.class = 'Roll'; // Pretend to be a roll to be rehydratable
-
         return jsonData;
     }
 }

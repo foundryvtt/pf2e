@@ -1,248 +1,159 @@
 /**
- * The base Die class.
- *
- * Each Die instance represents a distinct term in a roll equation which transacts rolls of an die with some number
- * of faces. The Die instance provides controls for rerolling, exploding, counting, or modifying the set of results
- * from the Die.
- *
- * @param {Number} faces    The number of faces for this Die
+ * Define a fair n-sided die term that can be used as part of a Roll formula
  *
  * @example
- * // Define a 6-sided die
- * let die = new Die(6);
- *
- * // Roll the die 4 times
- * die.roll(4);
- *
- * // Roll another 2 times, adding the new results to the existing set
- * die.roll(2);
- *
- * // For all 6 of the initial rolls, reroll if any result was a 1
- * die.reroll([1]);
- *
- * // For set of remaining results, roll a bonus die if any result was a 6
- * die.explode([6]);
- *
- * // Count the total number of rolls which was greater than 3
- * die.countSuccess(3, ">");
- *
- * // Display the total number of successes
- * console.log(die.total);
+ * // Roll 4 six-sided dice
+ * let die = new Die({faces: 6, number: 4}).evaluate();
  */
-declare class Die {
-    /**
-     * The number of faces for this Die
-     *
-     * @example
-     * let die = new Die(6);    // A 6-sided die has six faces
-     * console.log(die.faces)   // 6
-     */
-    faces: number;
+declare class Die extends DiceTerm {
 
-    /**
-     * An Array representing the faces of the die
-     *
-     * @example
-     * let die = new Die(6);    // One side for each of the possible faces
-     * console.log(die.sides)   // [1,2,3,4,5,6]
-     */
-    sides: number[];
+    /** @override */
+    DENOMINATION: 'd';
 
-    /**
-     * Track all dice which have ever been rolled
-     *
-     * @example
-     * let die = new Die(4);
-     * die.roll(4);             // Roll 4d4
-     * console.log(die.rolls);  // [{...}, {...}, {...}, {...}]
-     */
-    rolls: any[];
-
-    /**
-     * Any additional options which may be required by the Die
-     */
-    options: any;
-
-    /**
-     * Define regular expression option matches for the Die class
-     */
-    static rgx: {
-        die: RegExp;
-        reroll: RegExp;
-        explode: RegExp;
-        keep: RegExp;
-        success: RegExp;
+    /** @override */
+    MODIFIERS: {
+        r: 'reroll';
+        x: 'explode';
+        xo: 'explodeOnce';
+        k: 'keep';
+        kh: 'keep';
+        kl: 'keep';
+        d: 'drop';
+        dh: 'drop';
+        dl: 'drop';
+        cs: 'countSuccess';
+        cf: 'countFailures';
+        df: 'deductFailures';
+        sf: 'subtractFailures';
+        ms: 'marginSuccess';
     };
 
-    constructor(faces: number, options?: object);
-
     /**
-     * Track the set of kept results out of all rolls
+     * Re-roll the Die, rolling additional results for any values which fall within a target set.
+     * If no target number is specified, re-roll the lowest possible result.
      *
-     * @example
-     * let die = new Die(6);
-     * die.roll(6);               // Roll 6d6
-     * console.log(die.results);  // [6,4,1,2,3,4]
-     * die.keepHighest(2);        // Keep the 2 best results
-     * console.log(die.results);  // [6,4]
-     */
-    get results(): number[];
-
-    /**
-     * The sum of all kept results
+     * 20d20r         reroll all 1s
+     * 20d20r1        reroll all 1s
+     * 20d20r=1       reroll all 1s
+     * 20d20r1=1      reroll a single 1
      *
-     * @example
-     * let die = new Die(20);
-     * die.roll(2);               // Roll 2d20
-     * console.log(die.results)   // [6,17]
-     * console.log(die.total)     // 23
+     * @param modifier     The matched modifier query
      */
-    get total(): number;
-
-    _getFaces(f: number): number;
+    reroll(modifier: string): void;
 
     /**
-     * Roll this Die once
-     */
-    protected _roll(): number;
-
-    /**
-     * Roll the initial set of results for the Die
-     * @param nd	The number of times to roll the die
-     * @return		The updated die containing new rolls
+     * Explode the Die, rolling additional results for any values which match the target set.
+     * If no target number is specified, explode the highest possible result.
+     * Explosion can be a "small explode" using a lower-case x or a "big explode" using an upper-case "X"
      *
-     * @example
-     * let die = new Die(6);
-     * die.roll(6);               // Roll 6d6
-     * console.log(die.results);  // [5,2,4,4,1,6]
-     * console.log(die.total);    // 22
+     * @param modifier The matched modifier query
+     * @param recursive Explode recursively, such that new rolls can also explode?
      */
-    roll(nd: number): Die;
+    explode(modifier: string, { recursive }?: { recursive?: boolean }): void
 
     /**
-     * Re-roll any results with results in the provided target set
-     * Dice which have already been re-rolled will not be re-rolled again
-     * @param targets	Target results which would trigger a reroll
-     * @return			The updated die containing new rolls
+     * @see {@link Die#explode}
+     */
+    explodeOnce(modifier: string): void;
+
+    /**
+     * Keep a certain number of highest or lowest dice rolls from the result set.
      *
-     * @example
-     * let die = new Die(4);
-     * die.roll(3);               // Roll 3d4
-     * console.log(die.results);  // [1,3,4]
-     * die.reroll([1,2]);         // Re-roll 1s or 2s
-     * console.log(die.results);  // [3,4,2]
-     */
-    reroll(targets: number[]): Die;
-
-    /**
-     * Explode the rolls in this set by rolling additional dice for each roll which achieved a certain result
-     * Dice which have been re-rolled or have already exploded cannot explode
-     * @param range	The range of target results which would trigger an explode
-     * @return		The updated die containing new rolls
+     * 20d20k       Keep the 1 highest die
+     * 20d20kh      Keep the 1 highest die
+     * 20d20kh10    Keep the 10 highest die
+     * 20d20kl      Keep the 1 lowest die
+     * 20d20kl10    Keep the 10 lowest die
      *
-     * @example
-     * let die = new Die(8);
-     * die.roll(6);               // Roll 6d8
-     * console.log(die.results);  // [8,3,6,4,2,7]
-     * die.explode([7,8]);        // Explode on 7s and 8s, rolling additional dice
-     * console.log(die.results);  // [8,3,6,4,2,7,7,2,3]
+     * @param  modifier     The matched modifier query
      */
-    explode(range: number[]): Die;
+    keep(modifier: string): void;
 
     /**
-     * Filter the result set, keeping the highest n results in order
-     * @param n	The number of results to keep
-     * @return	The updated die containing new rolls
+     * Drop a certain number of highest or lowest dice rolls from the result set.
      *
-     * @example
-     * let die = new Die(6);
-     * die.roll(4);               // Roll 4d6
-     * console.log(die.results);  // [6,2,1,5]
-     * die.keepHighest(2);        // Keep the best 2 results
-     * console.log(die.results);  // [6,5]
-     */
-    keepHighest(n: number): Die;
-
-    /**
-     * Filter the result set, keeping the lowest n results in order
-     * @param n	The number of results to keep
-     * @return	The filtered results
+     * 20d20d       Drop the 1 lowest die
+     * 20d20dh      Drop the 1 highest die
+     * 20d20dl      Drop the 1 lowest die
+     * 20d20dh10    Drop the 10 highest die
+     * 20d20dl10    Drop the 10 lowest die
      *
-     * @example
-     * let die = new Die(6);
-     * die.roll(4);               // Roll 4d6
-     * console.log(die.results);  // [6,2,1,5]
-     * die.keepLowest(3);         // Kepe the lowest 3 results
-     * console.log(die.results);  // [2,1,5]
+     * @param modifier The matched modifier query
      */
-    keepLowest(n: number): Die;
+    drop(modifier: string): void;
 
     /**
-     * Map results to 0 or 1 depending on whether they match a success condition
-     * @param target	The target result to test against
-     * @param operator	The comparison operator against which to test. Default is '>='
+     * Count the number of successful results which occurred in a given result set.
+     * Successes are counted relative to some target, or relative to the maximum possible value if no target is given.
+     * Applying a count-success modifier to the results re-casts all results to 1 (success) or 0 (failure)
      *
-     * @example
-     * let die = new Die(3);
-     * die.roll(6);               // Roll 6d3
-     * console.log(die.results);  // [1,3,1,2,2,3]
-     * die.countSuccess(3);       // Count the results where a 3 was rolled
-     * console.log(die.results);  // [0,1,0,0,0,1]
-     * console.log(die.total);    // 2
+     * 20d20cs      Count the number of dice which rolled a 20
+     * 20d20cs>10   Count the number of dice which rolled higher than 10
+     * 20d20cs<10   Count the number of dice which rolled less than 10
+     *
+     * @param modifier The matched modifier query
      */
-    countSuccess(target: number, operator: string): void;
+    countSuccess(modifier: string): void;
 
     /**
-     * Special Die types may optionally define a tooltip used in lieu of the numeric result
-     * @param result	The rolled die result
+     * Count the number of failed results which occurred in a given result set.
+     * Failures are counted relative to some target, or relative to the lowest possible value if no target is given.
+     * Applying a count-failures modifier to the results re-casts all results to 1 (failure) or 0 (non-failure)
+     *
+     * 6d6cf      Count the number of dice which rolled a 1 as failures
+     * 6d6cf<=3   Count the number of dice which rolled less than 3 as failures
+     * 6d6cf>4    Count the number of dice which rolled greater than 4 as failures
+     *
+     * @param modifier The matched modifier query
      */
-    protected _getTooltip(result: number): number;
+    countFailures(modifier: string): void;
 
-    /* -------------------------------------------- */
-    /*  Factory Method                              */
+    /**
+     * Deduct the number of failures from the dice result, counting each failure as -1
+     * Failures are identified relative to some target, or relative to the lowest possible value if no target is given.
+     * Applying a deduct-failures modifier to the results counts all failed results as -1.
+     *
+     * 6d6df      Subtract the number of dice which rolled a 1 from the non-failed total.
+     * 6d6cs>3df  Subtract the number of dice which rolled a 3 or less from the non-failed count.
+     * 6d6cf<3df  Subtract the number of dice which rolled less than 3 from the non-failed count.
+     *
+     * @param modifier The matched modifier query
+     */
+    deductFailures(modifier: string): void;
+
+    /**
+     * Subtract the value of failed dice from the non-failed total, where each failure counts as its negative value.
+     * Failures are identified relative to some target, or relative to the lowest possible value if no target is given.
+     * Applying a deduct-failures modifier to the results counts all failed results as -1.
+     *
+     * 6d6df<3    Subtract the value of results which rolled less than 3 from the non-failed total.
+     *
+     * @param modifier The matched modifier query
+     */
+    subtractFailures(modifier: string): void;
+
     /* -------------------------------------------- */
 
     /**
-     * Given a string formula, create and return a rolled Die object
-     * @param formula	The string formula to parse
-     * @return			The rolled Die object if the formula was valid, null otherwise
+     * Subtract the total value of the DiceTerm from a target value, treating the difference as the final total.
+     * Example: 6d6ms>12    Roll 6d6 and subtract 12 from the resulting total.
+     * @param  modifier The matched modifier query
      */
-    static fromFormula(formula: string): Die | null;
-
-    /* -------------------------------------------- */
-    /*  Roll Modifiers                              */
-    /* -------------------------------------------- */
+    marginSuccess(modifier: string): void;
 
     /**
-     * Apply suffix options and modifiers to the result of this Die roll
+     * @deprecated since 0.7.0
+     * TODO: Remove in 0.8.x
+     * @see {@link Die#results}
      */
-    applyModifiers(query: string): Die;
-
-    /**
-     * Reroll a single die by parsing the option string
-     */
-    protected _applyReroll(option: string): void;
-
-    /**
-     * Explode a single die by parsing the option string
-     */
-    protected _applyExplode(option: string): void;
-
-    /**
-     * Keep or drop die by parsing the option string
-     */
-    protected _applyKeepDrop(option: string): void;
-
-    /**
-     * Count successes or margin of success
-     */
-    protected _applySuccess(option: string): void;
+    get rolls(): Record<string, unknown>;
 }
 
 /**
  * A special die used by Fate/Fudge systems
  * Mathematically behaves like 1d3-2
  */
-declare class FateDie extends Die {
-    constructor();
+declare class FateDie extends DiceTerm {
+    /** @override */
+    DENOMINATION: 'f';
 }

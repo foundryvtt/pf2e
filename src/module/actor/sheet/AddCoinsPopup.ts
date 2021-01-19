@@ -1,10 +1,17 @@
 /* global game */
-import { addCoins } from '../../item/treasure';
+
+import { PF2EPhysicalItem } from 'src/module/item/physical';
+import { addCoins, Coins } from '../../item/treasure';
+import { PF2EActor } from '../actor';
+
+interface AddCoinsFormData extends FormData, Coins {
+    combineStacks: boolean;
+}
 
 /**
  * @category Other
  */
-export class AddCoinsPopup extends FormApplication {
+export class AddCoinsPopup extends FormApplication<PF2EActor> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'add-coins';
@@ -15,11 +22,7 @@ export class AddCoinsPopup extends FormApplication {
         return options;
     }
 
-    activateListeners(html) {
-        super.activateListeners(html);
-    }
-
-    async _updateObject(event: Event, formData: any) {
+    async _updateObject(event: Event, formData: AddCoinsFormData) {
         const actor = this.object;
         addCoins({
             coins: {
@@ -35,16 +38,12 @@ export class AddCoinsPopup extends FormApplication {
             },
             addFromCompendium: async (compendiumId, quantity) => {
                 const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-                const item = await pack.getEntity(compendiumId);
+                const item = (await pack.getEntity(compendiumId)) as PF2EPhysicalItem;
                 item.data.data.quantity.value = quantity;
                 await actor.createOwnedItem(item.data);
             },
             combineStacks: formData.combineStacks,
             items: actor.data.items || [],
         });
-    }
-
-    getData() {
-        return {};
     }
 }

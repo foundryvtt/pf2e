@@ -1,4 +1,4 @@
-interface ApplicationOptions extends Object {
+interface ApplicationOptions {
     /** A named "base application" which generates an additional hook */
     baseApplication?: string;
     /** The default pixel width for the rendered HTML */
@@ -20,7 +20,7 @@ interface ApplicationOptions extends Object {
     /** An array of CSS string classes to apply to the rendered HTML */
     classes?: string[];
     /** Track Tab navigation handlers which are active for this Application */
-    tabs?: TabV2Options[];
+    tabs?: TabsOptions[];
     /** A default window title string (popOut only) */
     title?: string;
     /** The default HTML template path to render for this Application */
@@ -33,7 +33,7 @@ interface ApplicationOptions extends Object {
     [key: string]: any;
 }
 
-interface RenderOptions extends Object {
+interface RenderOptions {
     /** The left positioning attribute */
     left?: number;
     /** The top positioning attribute */
@@ -52,7 +52,7 @@ interface RenderOptions extends Object {
     renderData?: any;
 }
 
-interface ApplicationPosition extends Object {
+interface ApplicationPosition {
     width?: number;
     height?: number;
     left?: number;
@@ -98,7 +98,7 @@ declare class Application {
     /**
      * Tab navigation handlers which are active for this Application
      */
-    protected _tabs: TabsV2[];
+    protected _tabs: Tabs[];
 
     /**
      * Track whether the Application is currently minimized
@@ -122,15 +122,15 @@ declare class Application {
 
     /**
      * Create drag-and-drop workflow handlers for this Application
-     * @return	An array of DragDrop handlers
+     * @return An array of DragDrop handlers
      */
     protected _createDragDropHandlers(): DragDrop[];
 
     /**
      * Create tabbed navigation handlers for this Application
-     * @return	An array of TabsV2 handlers
+     * @return An array of Tabs handlers
      */
-    protected _createTabHandlers(): TabsV2[];
+    protected _createTabHandlers(): Tabs[];
 
     /**
      * Assign the default options which are supported by all Application classes.
@@ -147,7 +147,7 @@ declare class Application {
     /**
      * Return the active application element, if it currently exists in the DOM
      */
-    get element(): JQuery<HTMLElement>;
+    get element(): JQuery;
 
     /**
      * The path to the HTML template file which should be used to render the inner content of the app
@@ -172,14 +172,14 @@ declare class Application {
 
     /* -------------------------------------------- */
     /* Application rendering
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * An application should define the data object used to render its template.
      * This function may either return an Object directly, or a Promise which resolves to an Object
      * If undefined, the default implementation will return an empty object allowing only for rendering of static HTML
      */
-    getData(options?: any): any | Promise<any>;
+    getData(options?: {}): {};
 
     /**
      * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
@@ -190,13 +190,13 @@ declare class Application {
      * @param options	Additional rendering options which are applied to customize the way that the Application
      *					is rendered in the DOM.
      */
-    render(force?: boolean, options?: RenderOptions): Application;
+    render(force?: boolean, options?: RenderOptions): this;
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
      * @param options	Provided rendering options, see the render function for details
      */
-    protected _render(force?: boolean, options?: any): void;
+    protected _render(force?: boolean, options?: RenderOptions): void;
 
     /**
      * Persist the scroll positions of containers within the app before re-rendering the content
@@ -212,26 +212,26 @@ declare class Application {
      * Render the outer application wrapper
      * @return	A promise resolving to the constructed jQuery object
      */
-    protected _renderOuter(options: any): Promise<JQuery | HTMLElement>;
+    protected _renderOuter(options: RenderOptions): Promise<JQuery>;
 
     /**
      * Render the inner application content
      * @param data	The data used to render the inner template
      * @return		A promise resolving to the constructed jQuery object
      */
-    protected _renderInner(data: any, options: any): Promise<JQuery | HTMLElement>;
+    protected _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery>;
 
     /**
      * Customize how inner HTML is replaced when the application is refreshed
      * @param element	The original HTML element
      * @param html		New updated HTML
      */
-    protected _replaceHTML(element: JQuery | HTMLElement, html: JQuery | HTMLElement, options: any): void;
+    protected _replaceHTML(element: JQuery, html: JQuery | HTMLElement, options: Record<string, unknown>): void;
 
     /**
      * Customize how a new HTML Application is added and first appears in the DOC
      */
-    protected _injectHTML(html: JQuery | HTMLElement, options: any): void;
+    protected _injectHTML(html: JQuery, options: Record<string, unknown>): void;
 
     /**
      * Specify the set of config buttons which should appear in the Application header
@@ -251,7 +251,7 @@ declare class Application {
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
      * the application
      */
-    protected activateListeners(html: JQuery | HTMLElement): void;
+    protected activateListeners(html: JQuery): void;
 
     /**
      * Handle changes to the active tab in a configured Tabs controller
@@ -259,7 +259,7 @@ declare class Application {
      * @param tabs		The TabsV2 controller
      * @param active	The new active tab name
      */
-    protected _onChangeTab(event: MouseEvent, tabs: TabsV2, active: string): void;
+    protected _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void;
 
     /**
      * Define whether a user is able to begin a dragstart workflow for a given drag selector
