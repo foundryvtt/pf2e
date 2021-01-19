@@ -216,11 +216,19 @@ export class PF2WeaponDamage {
         }
 
         // striking rune
-        const strikingDice = getStrikingDice(weapon.data);
+        let strikingDice = getStrikingDice(weapon.data);
+        let strikingRuneValue = weapon?.data?.strikingRune?.value;
+        if (strikingDice === 0 && traits.find((trait) => trait.name === 'unarmed')) {
+            let handwraps = actor.items.find((item): item is WeaponData => item.name === 'Handwraps of Mighty Blows');
+            if (handwraps && handwraps?.data?.equipped?.value && handwraps?.data?.invested?.value) {
+                strikingDice = getStrikingDice(handwraps.data);
+                strikingRuneValue = handwraps?.data?.strikingRune?.value;
+            }
+        }
         if (strikingDice > 0) {
             effectDice += strikingDice;
             diceModifiers.push({
-                name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
+                name: CONFIG.PF2E.weaponStrikingRunes[strikingRuneValue],
                 diceNumber: strikingDice,
                 enabled: true,
                 traits: ['magical'],

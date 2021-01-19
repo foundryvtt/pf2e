@@ -595,6 +595,17 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
                     }
 
+                    // Handwraps of Mighty Blows applies to all unarmed attacks
+                    if (PF2EActor.traits(item?.data?.traits?.value).includes('unarmed')) {
+                        let handwraps = actorData.items.find((item): item is WeaponData => item.name === 'Handwraps of Mighty Blows');
+                        if (handwraps && handwraps?.data?.equipped?.value && handwraps?.data?.invested?.value) {
+                            const attackBonus = getAttackBonus(handwraps.data);
+                            if (attackBonus !== 0) {
+                                modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+                            }
+                        }
+                    }
+
                     const defaultOptions = PF2EActor.traits(item?.data?.traits?.value); // always add all weapon traits as options
                     defaultOptions.push(`${ability}-attack`);
                     const notes = [] as PF2RollNote[];
