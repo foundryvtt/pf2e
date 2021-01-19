@@ -742,6 +742,24 @@ export interface ConditionDetailsData extends StatusDetailsData {
     overrides: [];
 }
 
+export interface EffectDetailsData extends ItemDescriptionData {
+    level: {
+        value: number;
+    };
+    expired: boolean;
+    remaining: string;
+    duration: {
+        value: 0;
+        unit: string;
+        sustained: boolean;
+        expiry: 'turn-start' | 'turn-end';
+    };
+    start?: {
+        value: number;
+        initiative: number;
+    };
+}
+
 export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends BaseItemData {
     data: D;
 }
@@ -828,6 +846,10 @@ export interface ConditionData extends BaseItemDataPF2e<ConditionDetailsData> {
     type: 'condition';
 }
 
+export interface EffectData extends BaseItemDataPF2e<EffectDetailsData> {
+    type: 'effect';
+}
+
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData =
     | BackpackData
@@ -851,7 +873,8 @@ export type ItemData =
     | ConditionData
     | AncestryData
     | BackgroundData
-    | ClassData;
+    | ClassData
+    | EffectData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
