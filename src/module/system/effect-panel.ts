@@ -34,7 +34,7 @@ export class EffectPanel extends Application {
      */
     refresh() {
         if (this.timeout) {
-            clearTimeout(this.timeout);
+            window.clearTimeout(this.timeout);
         }
         this.timeout = window.setTimeout(() => {
             this.render(false);
