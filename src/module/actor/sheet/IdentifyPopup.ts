@@ -18,7 +18,7 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
         return options;
     }
 
-    async _updateObject(_event: JQuery.TriggeredEvent, _formData: any): Promise<void> {
+    protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
         const { itemId } = this.options;
         const item = this.object.getOwnedItem(itemId);
         if (!(item instanceof PF2EPhysicalItem)) {
@@ -41,6 +41,7 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
             notMatchingTraditionModifier,
         });
         return {
+            ...super.getData(),
             isMagic: dcs instanceof IdentifyMagicDCs,
             isAlchemical: dcs instanceof IdentifyAlchemyDCs,
             dcs,

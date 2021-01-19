@@ -3,7 +3,15 @@ import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';
 
+interface EffectPanelData {
+    conditions?: ConditionData[];
+    effects?: any[];
+    actor?: any;
+}
+
 export class EffectPanel extends Application {
+    actor?: any;
+
     private static readonly UNITS = Object.freeze({
         rounds: 6,
         minutes: 60,
@@ -11,7 +19,7 @@ export class EffectPanel extends Application {
         days: 86400,
     });
 
-    private timeout: any = null;
+    private timeout: number | undefined = undefined;
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -28,13 +36,13 @@ export class EffectPanel extends Application {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-        this.timeout = setTimeout(() => {
+        this.timeout = window.setTimeout(() => {
             this.render(false);
         }, 100);
     }
 
-    getData(options?: any): any {
-        const data = super.getData(options);
+    getData(options?: any): EffectPanelData {
+        const data: EffectPanelData = super.getData(options);
 
         data.conditions = [];
         data.effects = [];
@@ -97,7 +105,7 @@ export class EffectPanel extends Application {
         return data;
     }
 
-    protected activateListeners(html: JQuery | HTMLElement) {
+    protected activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons
