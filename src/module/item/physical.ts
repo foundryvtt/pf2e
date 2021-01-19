@@ -23,16 +23,16 @@ export class PF2EPhysicalItem extends PF2EItem {
         if (value === this.isIdentified) {
             return this;
         }
-        if (!value) {
+        if (value) {
             return this.update({
                 _id: this.id,
                 'data.identification.status': value ? 'identified' : 'unidentified',
-                'data.identification.identified.name': this.data.name,
             });
         } else {
             return this.update({
                 _id: this.id,
                 'data.identification.status': value ? 'identified' : 'unidentified',
+                'data.identification.identified.name': this.data.name,
             });
         }
     }
