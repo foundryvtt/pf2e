@@ -21,7 +21,7 @@ import {
     AbilityString,
     CharacterData,
     CharacterStrike,
-    CharacterStrikeTrait,
+    StrikeTrait,
     SkillData,
     RawCharacterData,
 } from './actorDataDefinitions';
@@ -644,7 +644,7 @@ export class PF2ECharacter extends PF2EActor {
                     ].concat(
                         PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
                             const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
-                            const option: CharacterStrikeTrait = {
+                            const option: StrikeTrait = {
                                 name: trait,
                                 label: game.i18n.localize(key),
                                 toggle: false,
