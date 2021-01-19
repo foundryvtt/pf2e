@@ -4,7 +4,7 @@ import { PF2EItem } from '../item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrike, StrikeTrait, NpcData } from './actorDataDefinitions';
+import { CharacterStrike, CharacterStrikeTrait, NpcData } from './actorDataDefinitions';
 import { PF2RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 
@@ -306,7 +306,7 @@ export class PF2ENPC extends PF2EActor {
                 ].concat(
                     traits.map((trait) => {
                         const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
-                        const option: StrikeTrait = {
+                        const option: CharacterStrikeTrait = {
                             name: trait,
                             label: key,
                             toggle: false,

@@ -81,7 +81,7 @@ export interface Rollable {
     roll?: RollFunction;
 }
 
-export interface StrikeTrait {
+export interface CharacterStrikeTrait {
     /** The name of this action. */
     name: string;
     /** The label for this action which will be rendered on the UI. */
@@ -111,7 +111,7 @@ export interface RawCharacterStrike {
     /** A description of what happens on a success. */
     success: string;
     /** Any traits this strike has. */
-    traits: StrikeTrait[];
+    traits: CharacterStrikeTrait[];
     /** Any options always applied to this strike. */
     options: string[];
 
