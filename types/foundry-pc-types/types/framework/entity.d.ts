@@ -19,6 +19,10 @@ declare interface EntityCreateOptions {
     temporary?: boolean;
     renderSheet?: boolean;
     noHook?: boolean;
+    [key: string]: unknown;
+}
+
+declare interface EntityConstructorOptions {
     [key: string]: any;
 }
 
@@ -62,8 +66,14 @@ declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
     data: BaseEntityData;
 
+    /**
+     * The original source data for the Entity provided upon initialization.
+     * This reflects the database state of the Entity before any transformations are applied.
+     */
+    _data: BaseEntityData;
+
     /** Additional options which were used to configure the Entity */
-    options: any;
+    options: EntityConstructorOptions;
 
     /**
      * A collection of Application instances which should be re-rendered whenever this Entity experiences an update to
@@ -180,7 +190,7 @@ declare class Entity {
      * let actor = game.entities.actors[0];
      * actor.sheet; // ActorSheet
      */
-    get sheet(): BaseEntitySheet;
+    get sheet(): BaseEntitySheet<Entity>;
 
     /**
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
@@ -295,11 +305,16 @@ declare class Entity {
      * const created = await Entity.create(data); // Returns an Array of Entities, saved to the database
      * const created = await Entity.create(data, {temporary: true}); // Not saved to the database
      */
-    static create<TE extends typeof Entity>(
-        this: TE,
-        data: Partial<InstanceType<TE>['data']> | InstanceType<TE>['data'],
+    static create<E extends Entity>(
+        this: new (data: E['data'], options?: EntityConstructorOptions) => E,
+        data: Partial<E['data']> | E['data'],
         options?: EntityCreateOptions,
-    ): Promise<InstanceType<TE>>;
+    ): Promise<E>;
+    static create<E extends Entity>(
+        this: new (data: E['data'], options?: EntityConstructorOptions) => E,
+        data: Partial<E['data']>[] | E['data'][],
+        options?: EntityCreateOptions,
+    ): Promise<E[] | E>;
 
     /**
      * Update one or multiple existing entities using provided input data.

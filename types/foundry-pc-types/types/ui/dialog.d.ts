@@ -10,7 +10,7 @@ interface DialogButton {
     icon?: string;
     label?: string;
     condition?: boolean;
-    callback?: (html: HTMLElement | JQuery) => void;
+    callback?: (html: JQuery) => void;
 }
 
 interface ConfirmDialog {
