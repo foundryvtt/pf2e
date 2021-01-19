@@ -1258,11 +1258,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         return super._onSortItem(event, itemData);
     }
 
-    async _onDropItemCreate(itemData: ItemData) {
+    async _onDropItemCreate(itemData: ItemData): Promise<ItemData> {
         if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
             // ignore these. they should get handled in the derived class
             ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
-            return false;
+            return null;
         }
         return super._onDropItemCreate(itemData);
     }

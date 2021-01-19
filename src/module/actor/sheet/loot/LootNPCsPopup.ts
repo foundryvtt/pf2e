@@ -3,10 +3,18 @@
 import { isPhysicalItem } from '../../../item/dataDefinitions';
 import { PF2EActor } from '../../actor';
 
+interface PopupData extends FormApplicationData<PF2EActor> {
+    tokenInfo?: {
+        id: string;
+        name: string;
+        checked: boolean;
+    }[];
+}
+
 /**
  * @category Other
  */
-export class LootNPCsPopup extends FormApplication {
+export class LootNPCsPopup extends FormApplication<PF2EActor> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'loot-NPCs';
@@ -43,7 +51,7 @@ export class LootNPCsPopup extends FormApplication {
     }
 
     getData() {
-        const sheetData = super.getData();
+        const sheetData: PopupData = super.getData();
         sheetData.tokenInfo = [];
         const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor._id !== this.object._id);
         for (let i = 0; i < selectedTokens.length; i++) {

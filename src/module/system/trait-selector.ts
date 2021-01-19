@@ -1,14 +1,17 @@
 /* global getProperty */
+
+import { PF2EActor } from '../actor/actor';
+import { PF2EItem } from '../item/item';
+
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
- * @type {FormApplication}
  * @category Other
  */
-export class TraitSelector5e extends FormApplication {
+export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
     searchString: any;
     _filterTimeout: any;
 
-    constructor(object, options) {
+    constructor(object: PF2EActor | PF2EItem, options?: FormApplicationOptions) {
         super(object, options);
 
         // Internal flags
@@ -47,7 +50,6 @@ export class TraitSelector5e extends FormApplication {
 
     /**
      * Provide data to the HTML template for rendering
-     * @type {Object}
      */
     getData() {
         // Get current values
@@ -119,6 +121,7 @@ export class TraitSelector5e extends FormApplication {
 
         // Return data
         return {
+            ...super.getData(),
             ordered_choices: orderedChoices,
             has_values: hasValues,
             has_placeholders: hasPlaceholders,
@@ -231,9 +234,8 @@ export class TraitSelector5e extends FormApplication {
 
     /**
      * Update the Actor object with new trait data processed from the form
-     * @private
      */
-    async _updateObject(event: Event, formData: any) {
+    protected async _updateObject(_event: Event, formData: FormData & { custom: string }) {
         if (this.options.has_values) {
             const choices = [];
             for (const [k, v] of Object.entries(formData as Record<any, any>)) {

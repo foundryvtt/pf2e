@@ -79,6 +79,9 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     /** @override */
     data: ActorData;
 
+    /** @override */
+    _data: ActorData;
+
     /**
      * A reference to a placed Token which creates a synthetic Actor
      */
