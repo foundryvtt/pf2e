@@ -23,10 +23,18 @@ export class PF2EPhysicalItem extends PF2EItem {
         if (value === this.isIdentified) {
             return this;
         }
-        return this.update({
-            _id: this.id,
-            'data.identification.status': value ? 'identified' : 'unidentified',
-        });
+        if (!value) {
+            return this.update({
+                _id: this.id,
+                'data.identification.status': value ? 'identified' : 'unidentified',
+                'data.identification.identified.name': this.data.name,
+            });
+        } else {
+            return this.update({
+                _id: this.id,
+                'data.identification.status': value ? 'identified' : 'unidentified',
+            });
+        }
     }
 
     static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
