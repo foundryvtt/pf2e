@@ -25,6 +25,8 @@ import {
     PF2ETreasure,
     PF2EWeapon,
 } from '../module/item/others';
+import { PF2EEffect } from '../module/item/effect';
+
 import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
 
 export const PF2ECONFIG = {
@@ -2076,6 +2078,7 @@ export const PF2ECONFIG = {
             melee: PF2EMelee,
             consumable: PF2EConsumable,
             equipment: PF2EEquipment,
+            effect: PF2EEffect,
             ancestry: PF2EAncestry,
             background: PF2EBackground,
             class: PF2EClass,
