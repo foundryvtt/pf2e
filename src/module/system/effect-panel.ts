@@ -1,12 +1,12 @@
 /* global canvas, game */
 import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData } from '../item/dataDefinitions';
+import { ConditionData, ConditionDetailsData, EffectData } from '../item/dataDefinitions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
-    effects?: any[];
-    actor?: any;
+    effects?: EffectData[];
+    actor?: PF2EActor;
 }
 
 export class EffectPanel extends Application {
