@@ -50,7 +50,6 @@ interface BaseItemData extends BaseEntityData {
 
 type _Actor = Actor<Item<_Actor>>;
 declare class Item<ActorType extends Actor = _Actor> extends Entity {
-    /** @override */
     data: BaseItemData;
 
     /**

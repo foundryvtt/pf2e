@@ -28,8 +28,12 @@ import {
 import { PF2RollNote } from '../notes';
 
 export class PF2ECharacter extends PF2EActor {
-    /** @override */
     data!: CharacterData;
+
+    /** @override */
+    static get defaultImg() {
+        return CONST.DEFAULT_TOKEN;
+    }
 
     /** Prepare Character type specific data. */
     prepareData(): void {
