@@ -77,11 +77,30 @@
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Ring of Maniacal Devices (Craft and Repair snares and traps)",
+                "label": "Ring of Maniacal Devices (Craft snares and traps)",
                 "predicate": {
+                    "all": [
+                        "action:craft"
+                    ],
                     "any": [
-                        "action:craft",
+                        "snare",
+                        "trap"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ring of Maniacal Devices (Repair snares and traps)",
+                "predicate": {
+                    "all": [
                         "action:repair"
+                    ],
+                    "any": [
+                        "snare",
+                        "trap"
                     ]
                 },
                 "selector": "crafting",
