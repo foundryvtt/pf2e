@@ -3,7 +3,7 @@ import { PF2ENPC } from '../actor/npc';
 /**
  * Specialized form to setup skills for an NPC character.
  */
-export class NPCSkillsEditor extends FormApplication {
+export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     npc: PF2ENPC;
 
     constructor(actor, options) {
@@ -36,6 +36,7 @@ export class NPCSkillsEditor extends FormApplication {
      */
     getData() {
         return {
+            ...super.getData(),
             skills: this.object.data.data.skills,
         };
     }
