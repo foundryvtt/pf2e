@@ -729,17 +729,6 @@ export class PF2ENPC extends PF2EActor {
         }
     }
 
-    isLoreSkill(skill) {
-        return skill.expanded.includes('-lore');
-    }
-
-    isRegularSkill(skill) {
-        for (const skillId in PF2ECONFIG.skillList) {
-            if (skillId === skill.expanded) return true;
-        }
-        return false;
-    }
-
     /**
      * Checks if a skill is a regular skill (non-lore skill).
      * If the skill has a special bonus, the ID could be malformed

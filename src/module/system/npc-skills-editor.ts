@@ -1,3 +1,4 @@
+import { PF2ECONFIG } from '../../scripts/config';
 import { NPCSkillData } from '../actor/actorDataDefinitions';
 import { PF2ENPC } from '../actor/npc';
 
@@ -42,8 +43,8 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
 
         for (const skillId of Object.keys(this.object.data.data.skills)) {
             const skill = this.object.data.data.skills[skillId];
-            
-            if (this.npc.isLoreSkill(skill)) {
+
+            if (this.isLoreSkill(skill)) {
                 // Additional processing for lore skills
                 // Flags as lore to show it in the lore section
                 skill.isLore = true;
@@ -55,7 +56,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
                 skill.loreName = result?.length >= 2 ? result[1] : '???';
 
                 skills[skillId] = skill;
-            } else if (this.npc.isRegularSkill(skill)) {
+            } else if (this.isRegularSkill(skill)) {
                 skills[skillId] = skill;
             }
         }
@@ -192,5 +193,16 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
                 }
             }
         }
+    }
+
+    isLoreSkill(skill) {
+        return skill.expanded.includes('-lore');
+    }
+
+    isRegularSkill(skill) {
+        for (const skillId in PF2ECONFIG.skillList) {
+            if (skillId === skill.expanded) return true;
+        }
+        return false;
     }
 }
