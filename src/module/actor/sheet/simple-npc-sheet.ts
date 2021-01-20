@@ -1057,8 +1057,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     _onTraitEditClicked(eventData) {
         eventData.preventDefault();
 
-        console.log('Edit trait clicked.');
-
         const a = $(eventData.currentTarget);
         const options = {
             name: a.parents('div').attr('for'),
@@ -1080,8 +1078,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         const spell = $(eventData.currentTarget).parent().parent().attr('data-spell');
 
         if (attribute) {
-            console.log(`Clicked rollable attribute ${attribute}`);
-
             switch (attribute) {
                 case 'perception':
                     this._onPerceptionLabelClicked(eventData);
@@ -1288,8 +1284,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _onSpeedEditClicked(eventData) {
-        console.log('Clicked edit speed');
-
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
         const options = {
@@ -1305,8 +1299,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _onWeaknessesEditClicked(eventData) {
-        console.log('Clicked edit weaknesses');
-
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
         const options = {
@@ -1322,8 +1314,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _onResistancesEditClicked(eventData) {
-        console.log('Clicked edit resistances');
-
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
         const options = {
@@ -1339,8 +1329,6 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _onImmunitiesEditClicked(eventData) {
-        console.log('Clicked edit immunities');
-
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
         const options = {

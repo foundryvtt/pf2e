@@ -184,12 +184,6 @@ export class PF2ENPC extends PF2EActor {
         // Automatic Actions
         data.actions = [];
 
-        console.log(`Converting skill items to actual skills...`);
-        console.log(`Skills initial state:`);
-        console.log(data.skills);
-        console.log(`Items initial state:`);
-        console.log(this.data.items);
-
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
         for (const item of actorData.items.concat(strikes)) {
             if (item.type === 'lore') {
@@ -669,11 +663,7 @@ export class PF2ENPC extends PF2EActor {
                     this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
                     realSkill.exception = finalSpecialBonus;
 
-                    console.log(
-                        `Assigned value ${realSkill.value} and exception ${realSkill.exception} to skill ${realSkillId}`,
-                    );
-
-                    this._processNPCSkill(realSkillId);
+                    this._processNPCSkill(realSkill);
 
                     skillsToRemoveIDs.push(skillId);
                 } else {
@@ -684,7 +674,6 @@ export class PF2ENPC extends PF2EActor {
             }
         }
 
-        console.log(`Finished.`);
     }
 
     /**
