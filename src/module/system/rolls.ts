@@ -96,6 +96,9 @@ export class PF2Check {
             keepRoll = oldRoll;
         }
 
+        oldRollClass += ` ${PF2Check.getAdditionalRollClasses(oldRoll)}`;
+        newRollClass += ` ${PF2Check.getAdditionalRollClasses(newRoll)}`;
+
         const newMessage = await ChatMessage.create(
             {
                 roll: keepRoll,
@@ -107,6 +110,20 @@ export class PF2Check {
             {},
         );
         await newMessage.setFlag('pf2e', 'canReroll', false);
+    }
+
+    private static getAdditionalRollClasses(roll: Roll): string {
+        if (roll.results.length) {
+            const d20Roll = roll.results[0];
+
+            if (d20Roll == 20) {
+                return 'success';
+            } else if (d20Roll == 1) {
+                return 'failure';
+            }
+        }
+
+        return '';
     }
 }
 /**
