@@ -116,7 +116,7 @@ export class PF2Check {
         if (roll.results.length) {
             const d20Roll = roll.results[0];
 
-            if (d20Roll == 20) {
+            if (d20Roll === 20) {
                 return 'success';
             } else if (d20Roll == 1) {
                 return 'failure';
