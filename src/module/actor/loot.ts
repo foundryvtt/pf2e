@@ -261,7 +261,6 @@ export class LootTransfer implements LootTransferData {
             imgPath: item.img,
             message: game.i18n.format(...formatArgs).replace(/\b1&times; /, ''),
         });
-        console.log(item.img);
 
         ChatMessage.create({
             user: requester.id,

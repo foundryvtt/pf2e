@@ -20,9 +20,7 @@ class ItemTraits {
  * @category PF2
  */
 export class PF2EItem extends Item<PF2EActor> {
-    /** @override */
     data!: ItemData;
-    _data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {
@@ -36,6 +34,12 @@ export class PF2EItem extends Item<PF2EActor> {
                 console.warn(`Unrecognized Item type (${data.type}): falling back to PF2EItem`);
             }
         }
+    }
+
+    /** The default sheet, token, etc. image of a newly created world item */
+    static get defaultImg() {
+        const [typeName] = Object.entries(CONFIG.PF2E.Item.entityClasses).find(([_key, cls]) => cls.name === this.name);
+        return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 
     /**

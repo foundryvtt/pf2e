@@ -24,6 +24,8 @@ import {
     DexterityModifierCapData,
     FamiliarData,
     ActorDataPF2e,
+    VehicleData,
+    HazardData,
 } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
@@ -86,9 +88,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  * @category Actor
  */
 export class PF2EActor extends Actor<PF2EItem> {
-    /** @override */
     data!: ActorDataPF2e;
-    _data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
@@ -102,6 +102,14 @@ export class PF2EActor extends Actor<PF2EItem> {
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
             }
         }
+    }
+
+    /** The default sheet, token, etc. image of a newly created world actor */
+    static get defaultImg() {
+        const [typeName] = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(
+            ([_key, cls]) => cls.name === this.name,
+        );
+        return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 
     /**
@@ -1266,7 +1274,12 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export class PF2EHazard extends PF2EActor {}
-export class PF2EVehicle extends PF2EActor {}
+export class PF2EHazard extends PF2EActor {
+    data!: HazardData;
+}
+export class PF2EVehicle extends PF2EActor {
+    data!: VehicleData;
+}
+
 export type TokenPF2e = Token<PF2EActor>;
 export type UserPF2e = User<PF2EActor>;
