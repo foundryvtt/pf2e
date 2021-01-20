@@ -16,7 +16,7 @@ import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
-import { FamiliarData } from './module/actor/actorDataDefinitions';
+import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -32,6 +32,7 @@ import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { MigrationRunner } from './module/migration-runner';
 import { getAllMigrations } from './module/migrations';
+import { ItemData } from './module/item/dataDefinitions';
 
 require('./styles/pf2e.scss');
 
@@ -392,26 +393,42 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     return options;
 });
 
-Hooks.on('preCreateActor', (actor, dir) => {
+Hooks.on('preCreateActor', (actorData: Partial<ActorDataPF2e>, _dir: ActorDirectory) => {
+    actorData.img = (() => {
+        if (actorData.img !== undefined) {
+            return actorData.img;
+        }
+        return CONFIG.PF2E.Actor.entityClasses[actorData.type].defaultImg;
+    })();
+
     if (game.settings.get('pf2e', 'defaultTokenSettings')) {
         // Set wounds, advantage, and display name visibility
         const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
         const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
-        mergeObject(actor, {
+        mergeObject(actorData, {
             'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
             'token.displayName': nameMode, // Default display name to be on owner hover
             'token.displayBars': barMode, // Default display bars to be on owner hover
             'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
-            'token.name': actor.name, // Set token name to actor name
+            'token.name': actorData.name, // Set token name to actor name
         });
 
         // Default characters to HasVision = true and Link Data = true
-        if (actor.type === 'character') {
-            actor.token.vision = true;
-            actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-            actor.token.actorLink = true;
+        if (actorData.type === 'character') {
+            actorData.token.vision = true;
+            actorData.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+            actorData.token.actorLink = true;
         }
     }
+});
+
+Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
+    itemData.img = (() => {
+        if (itemData.img !== undefined) {
+            return itemData.img;
+        }
+        return CONFIG.PF2E.Item.entityClasses[itemData.type].defaultImg;
+    })();
 });
 
 Hooks.on('updateActor', (actor, data, options, userID) => {

@@ -65,6 +65,7 @@ declare interface EntityDeleteOptions {
 declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
     data: BaseEntityData;
+    _data: this['data'];
 
     /**
      * The original source data for the Entity provided upon initialization.
