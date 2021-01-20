@@ -672,8 +672,13 @@ export class PF2ENPC extends PF2EActor {
             } else {
                 console.warn(`Failed to find regular skill ID for skill name ${rawSkillId}`);
             }
-        }
 
+            // Make all skills to remove not visible so they don't show up in the sheet
+            for (const skillId of skillsToRemoveIDs) {
+                console.log(`Hidding skill ${skillId}`);
+                this.data.data.skills[skillId].visible = false;
+            }
+        }
     }
 
     /**
