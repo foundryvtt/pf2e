@@ -1,3 +1,4 @@
+import { NPCSkillData } from '../actor/actorDataDefinitions';
 import { PF2ENPC } from '../actor/npc';
 
 /**
@@ -35,9 +36,33 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      * Prepare data to be sent to HTML.
      */
     getData() {
+        const skills: Record<string, NPCSkillData> = {};
+
+        console.log(this.object.data.data.skills);
+
+        for (const skillId of Object.keys(this.object.data.data.skills)) {
+            const skill = this.object.data.data.skills[skillId];
+            
+            if (this.npc.isLoreSkill(skill)) {
+                // Additional processing for lore skills
+                // Flags as lore to show it in the lore section
+                skill.isLore = true;
+
+                // Extract the lore name to show only the name in the name field
+                const regExpFormat = game.i18n.format('PF2E.LoreSkillFormat', { name: '(.*)' });
+                const result = skill.label.match(regExpFormat);
+
+                skill.loreName = result?.length >= 2 ? result[1] : '???';
+
+                skills[skillId] = skill;
+            } else if (this.npc.isRegularSkill(skill)) {
+                skills[skillId] = skill;
+            }
+        }
+
         return {
             ...super.getData(),
-            skills: this.object.data.data.skills,
+            skills: skills,
         };
     }
 
@@ -72,6 +97,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const data: any = {
             name: `${localizedName}-lore`,
             type: 'lore',
+            label: game.i18n.format('PF2E.LoreSkillFormat', { name: localizedName }),
             data: {
                 mod: {
                     value: 0,

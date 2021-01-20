@@ -218,6 +218,7 @@ export class PF2ENPC extends PF2EActor {
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
+                stat.exception = item.data.description.value;
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -661,7 +662,7 @@ export class PF2ENPC extends PF2EActor {
 
                 if (realSkill !== undefined) {
                     this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
-                    realSkill.exception = finalSpecialBonus;
+                    this.assignNPCSkillException(realSkillId, finalSpecialBonus);
 
                     this._processNPCSkill(realSkill);
 
@@ -728,13 +729,13 @@ export class PF2ENPC extends PF2EActor {
         }
     }
 
-    _isLoreSkill(skill) {
-        return skill.type.includes('-lore');
+    isLoreSkill(skill) {
+        return skill.expanded.includes('-lore');
     }
 
-    _isRegularSkill(skill) {
-        for (const skillId in PF2ECONFIG.skills) {
-            if (skillId === skill.type) return true;
+    isRegularSkill(skill) {
+        for (const skillId in PF2ECONFIG.skillList) {
+            if (skillId === skill.expanded) return true;
         }
         return false;
     }
