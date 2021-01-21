@@ -18,6 +18,7 @@ import { PF2SetPropertyRuleElement } from './elements/set-property';
 import { PF2RollNoteRuleElement } from './elements/roll-note';
 import { PF2WeaponPotencyRuleElement } from './elements/weapon-potency';
 import { PF2StrikingRuleElement } from './elements/striking';
+import { PF2MultipleAttackPenaltyRuleElement } from './elements/multiple-attack-penalty';
 
 export { PF2RuleElement };
 
@@ -46,6 +47,8 @@ export class PF2RuleElements {
         'PF2E.RuleElement.Strike': (ruleData, item) => new PF2StrikeRuleElement(ruleData, item),
         'PF2E.RuleElement.Striking': (ruleData, item) => new PF2StrikingRuleElement(ruleData, item),
         'PF2E.RuleElement.Note': (ruleData, item) => new PF2RollNoteRuleElement(ruleData, item),
+        'PF2E.RuleElement.MultipleAttackPenalty': (ruleData, item) =>
+            new PF2MultipleAttackPenaltyRuleElement(ruleData, item),
         'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
     });
 
