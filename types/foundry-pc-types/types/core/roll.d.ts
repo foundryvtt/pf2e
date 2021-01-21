@@ -146,6 +146,11 @@ declare class Roll {
     get dice(): DiceTerm[];
 
     /**
+     * A factory method which constructs a Roll instance using the default configured Roll class.
+     */
+    public static create(args: any | any[]): Roll;
+
+    /**
      * The regular expression used to identify a Die component of a Roll
      */
     protected static get diceRgx(): string;
