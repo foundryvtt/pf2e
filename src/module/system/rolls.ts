@@ -118,7 +118,7 @@ export class PF2Check {
 
             if (d20Roll === 20) {
                 return 'success';
-            } else if (d20Roll == 1) {
+            } else if (d20Roll === 1) {
                 return 'failure';
             }
         }
