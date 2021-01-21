@@ -19,6 +19,12 @@ export interface PF2Striking {
     predicate?: PF2ModifierPredicate;
 }
 
+export interface PF2MultipleAttackPenalty {
+    label: string;
+    penalty: number;
+    predicate?: PF2ModifierPredicate;
+}
+
 export interface PF2RuleElementSynthetics {
     damageDice: Record<string, PF2DamageDice[]>;
     statisticsModifiers: Record<string, PF2Modifier[]>;
@@ -26,4 +32,5 @@ export interface PF2RuleElementSynthetics {
     rollNotes: Record<string, PF2RollNote[]>;
     weaponPotency: Record<string, PF2WeaponPotency[]>;
     striking: Record<string, PF2Striking[]>;
+    multipleAttackPenalties: Record<string, PF2MultipleAttackPenalty[]>;
 }
