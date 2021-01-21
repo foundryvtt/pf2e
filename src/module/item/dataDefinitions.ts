@@ -7,6 +7,12 @@ export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
+export interface ItemTraits {
+    rarity: { value: Rarity };
+    value: string | Array<string>;
+    custom: string;
+}
+
 export interface ItemDescriptionData {
     description: {
         value: string;
@@ -16,12 +22,7 @@ export interface ItemDescriptionData {
     source: {
         value: string;
     };
-    traits: {
-        rarity: {
-            value: Rarity;
-        };
-        value: string | string[];
-    };
+    traits: ItemTraits;
     options?: {
         value: string[];
     };
@@ -537,6 +538,8 @@ export interface SpellDetailsData extends ItemDescriptionData {
     save: {
         basic: string;
         value: string;
+        dc?: number;
+        str?: string;
     };
     sustained: {
         value: false;
@@ -553,6 +556,11 @@ export interface SpellDetailsData extends ItemDescriptionData {
     location: {
         value: string;
     };
+    isSave?: boolean;
+    damageLabel?: string;
+    isAttack?: boolean;
+    spellLvl?: string;
+    properties?: (number | string)[];
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {

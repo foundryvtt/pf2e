@@ -8,13 +8,8 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
-import { ItemData } from './dataDefinitions';
+import { ItemData, ItemTraits } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-
-class ItemTraits {
-    value: Array<string>;
-    custom: string;
-}
 
 /**
  * @category PF2
@@ -294,8 +289,10 @@ export class PF2EItem extends Item<PF2EActor> {
     /* -------------------------------------------- */
 
     _spellChatData(rollOptions?: any) {
-        const localize = game.i18n.localize.bind(game.i18n);
-        const data: any = duplicate(this.data.data);
+        const localize: Function = game.i18n.localize.bind(game.i18n);
+        if (this.data.type != 'spell')
+            throw new Error("Tried to create spell chat data from an item that wasn't a spell");
+        const data = duplicate(this.data.data);
 
         const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
 
@@ -318,7 +315,7 @@ export class PF2EItem extends Item<PF2EActor> {
         data.isAttack = data.spellType.value === 'attack';
 
         // Combine properties
-        const props = [
+        const props: (number | string)[] = [
             CONFIG.PF2E.spellLevels[data.level.value],
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
@@ -339,7 +336,8 @@ export class PF2EItem extends Item<PF2EActor> {
         data.properties = props.filter((p) => p !== null);
 
         const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
-        data.traits = traits.filter((p) => p);
+        // TODO: This line needs to be fixed as these types are not even vaguely compatible
+        data.traits = traits.filter((p) => p) as any;
         // Toggling this off for now
         /*     data.area = data.area.value ? {
       "label": `Area: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}`,
@@ -805,7 +803,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const isHeal = itemData.spellType.value === 'heal';
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
-        const spellLvl = parseInt(cardData.spellLvl, 10);
+        const spellLvl = parseInt(cardData._chatData.spellLvl, 10);
         const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
