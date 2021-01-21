@@ -39,8 +39,6 @@ function isNonPhysicalDamage(damageType?: string): boolean {
     );
 }
 
-type DamageModifiers = Record<string, (PF2Modifier | PF2StatisticModifier)[]>;
-
 /**
  * @category PF2
  */
@@ -49,7 +47,7 @@ export class PF2WeaponDamage {
         weapon,
         actor: ActorDataPF2e,
         traits = [],
-        statisticsModifiers: DamageModifiers,
+        statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice,
         proficiencyRank = 0,
         options: string[] = [],
@@ -157,7 +155,7 @@ export class PF2WeaponDamage {
         weapon: WeaponData,
         actor: ActorDataPF2e,
         traits = [],
-        statisticsModifiers: DamageModifiers,
+        statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>,
         proficiencyRank = 0,
         options: string[] = [],
@@ -169,6 +167,48 @@ export class PF2WeaponDamage {
         const tags = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
+
+        // determine ability modifier
+        let ability: AbilityString;
+        {
+            let modifier: number;
+            const melee =
+                ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
+                traits.some((t) => t.name.startsWith('thrown'));
+            if (melee) {
+                ability = 'str';
+                modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                options.push('melee');
+            } else {
+                options.push('ranged');
+            }
+
+            if (traits.some((t) => t.name === 'propulsive')) {
+                ability = 'str';
+                const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
+                modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
+                tags.push('propulsive');
+            }
+
+            // check for Rogue's Racket: Thief
+            if (
+                actor.items.some((i) => i.type === 'feat' && i.name === 'Thief Racket') && // character has Thief Racket class feature
+                !traits.some((t) => t.name === 'unarmed') && // NOT unarmed attack
+                traits.some((t) => t.name === 'finesse') &&
+                melee && // finesse melee weapon
+                Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
+            ) {
+                ability = 'dex';
+                modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
+            }
+
+            if (ability) {
+                numericModifiers.push(
+                    new PF2Modifier(CONFIG.PF2E.abilities[ability], modifier, PF2ModifierType.ABILITY),
+                );
+            }
+        }
+        const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
 
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
@@ -215,6 +255,9 @@ export class PF2WeaponDamage {
             });
         }
 
+        // potency
+        const potency = toNumber(weapon.data?.potencyRune?.value) ?? 0;
+
         // striking rune
         const strikingDice = getStrikingDice(weapon.data);
         if (strikingDice > 0) {
@@ -229,49 +272,6 @@ export class PF2WeaponDamage {
 
         getPropertyRuneModifiers(weapon).forEach((modifier) => diceModifiers.push(modifier));
 
-        // mystic strikes
-        if (
-            actor.items.some((i) => i.type === 'feat' && i.name === 'Mystic Strikes') &&
-            traits.some((t) => t.name.startsWith('unarmed'))
-        ) {
-            diceModifiers.push({
-                name: 'PF2E.MysticStrikes',
-                enabled: true,
-                traits: ['magical'],
-                predicate: {
-                    not: ['suppress-mystic-strike'],
-                },
-            });
-        }
-
-        if (
-            actor.items.some((i) => i.type === 'feat' && i.name === 'Metal Strikes') &&
-            traits.some((t) => t.name.startsWith('unarmed'))
-        ) {
-            diceModifiers.push({
-                name: 'PF2E.MetalStrikes',
-                enabled: true,
-                traits: ['silver', 'coldiron'],
-                predicate: {
-                    not: ['suppress-metal-strike'],
-                },
-            });
-        }
-
-        if (
-            actor.items.some((i) => i.type === 'feat' && i.name === 'Adamantine Strikes') &&
-            traits.some((t) => t.name.startsWith('unarmed'))
-        ) {
-            diceModifiers.push({
-                name: 'PF2E.AdamantineStrikes',
-                enabled: true,
-                traits: ['adamantine'],
-                predicate: {
-                    not: ['suppress-adamantine-strike'],
-                },
-            });
-        }
-
         // ghost touch
         if (hasGhostTouchRune(weapon)) {
             diceModifiers.push({
@@ -283,10 +283,9 @@ export class PF2WeaponDamage {
 
         // backstabber trait
         if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
-            const value = toNumber(weapon.data?.potencyRune?.value) ?? 0;
             const modifier = new PF2Modifier(
                 CONFIG.PF2E.weaponTraits.backstabber,
-                value > 2 ? 2 : 1,
+                potency > 2 ? 2 : 1,
                 PF2ModifierType.UNTYPED,
             );
             modifier.damageCategory = 'precision';
@@ -321,100 +320,43 @@ export class PF2WeaponDamage {
                 });
             });
 
-        // determine ability modifier
-        let ability: AbilityString;
-        {
-            let modifier: number;
-            const melee =
-                ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
-                traits.some((t) => t.name.startsWith('thrown'));
-            if (melee) {
-                ability = 'str';
-                modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
-                options.push('melee');
-            } else {
-                options.push('ranged');
-            }
-
-            if (traits.some((t) => t.name === 'propulsive')) {
-                ability = 'str';
-                const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
-                modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
-                tags.push('propulsive');
-            }
-
-            // check for Rogue's Racket: Thief
-            if (
-                actor.items.some((i) => i.type === 'feat' && i.name === 'Thief Racket') && // character has Thief Racket class feature
-                !traits.some((t) => t.name === 'unarmed') && // NOT unarmed attack
-                traits.some((t) => t.name === 'finesse') &&
-                melee && // finesse melee weapon
-                Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
-            ) {
-                ability = 'dex';
-                modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
-            }
-
-            if (ability) {
+        // check for weapon specialization
+        const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
+        if (weaponSpecializationDamage > 0) {
+            if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
                 numericModifiers.push(
-                    new PF2Modifier(CONFIG.PF2E.abilities[ability], modifier, PF2ModifierType.ABILITY),
+                    new PF2Modifier(
+                        'PF2E.GreaterWeaponSpecialization',
+                        weaponSpecializationDamage * 2,
+                        PF2ModifierType.UNTYPED,
+                    ),
+                );
+            } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
+                numericModifiers.push(
+                    new PF2Modifier('PF2E.WeaponSpecialization', weaponSpecializationDamage, PF2ModifierType.UNTYPED),
                 );
             }
+        }
 
-            // check for weapon specialization
-            const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
-            if (weaponSpecializationDamage > 0) {
-                if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
-                    numericModifiers.push(
-                        new PF2Modifier(
-                            'PF2E.GreaterWeaponSpecialization',
-                            weaponSpecializationDamage * 2,
-                            PF2ModifierType.UNTYPED,
-                        ),
-                    );
-                } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
-                    numericModifiers.push(
-                        new PF2Modifier(
-                            'PF2E.WeaponSpecialization',
-                            weaponSpecializationDamage,
-                            PF2ModifierType.UNTYPED,
-                        ),
-                    );
-                }
-            }
+        // add splash damage
+        const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
+        if (splashDamage > 0) {
+            numericModifiers.push(
+                new PF2Modifier('PF2E.WeaponSplashDamageLabel', splashDamage, PF2ModifierType.UNTYPED),
+            );
+        }
 
-            // add splash damage
-            const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
-            if (splashDamage > 0) {
-                numericModifiers.push(
-                    new PF2Modifier('PF2E.WeaponSplashDamageLabel', splashDamage, PF2ModifierType.UNTYPED),
-                );
-            }
-
-            // add bonus damage
-            const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
-            if (bonusDamage > 0) {
-                numericModifiers.push(
-                    new PF2Modifier('PF2E.WeaponBonusDamageLabel', bonusDamage, PF2ModifierType.UNTYPED),
-                );
-            }
+        // add bonus damage
+        const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
+        if (bonusDamage > 0) {
+            numericModifiers.push(new PF2Modifier('PF2E.WeaponBonusDamageLabel', bonusDamage, PF2ModifierType.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
         const notes = [];
         {
             const notesOptions = traits.map((trait) => trait.name).concat(options);
-            const stats = [];
-            if (weapon.data?.group?.value) {
-                stats.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
-            }
-            if (ability) {
-                stats.push(`${ability}-damage`);
-            }
-            const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
-            stats.push(`${proficiencies[proficiencyRank]}-damage`);
-            stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
-            stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
+            selectors.forEach((key) => {
                 const modifiers = statisticsModifiers[key] || [];
                 modifiers
                     .map((m) => duplicate(m))
@@ -777,5 +719,19 @@ export class PF2WeaponDamage {
             const critRoll = new Roll(formula, {}).alter(2, 0, { multiplyNumeric: true });
             return critRoll.formula;
         }
+    }
+
+    private static getSelectors(weapon: WeaponData, ability: AbilityString, proficiencyRank: number): string[] {
+        const selectors = [];
+        if (weapon.data?.group?.value) {
+            selectors.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
+        }
+        if (ability) {
+            selectors.push(`${ability}-damage`);
+        }
+        const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
+        selectors.push(`${proficiencies[proficiencyRank]}-damage`);
+        selectors.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
+        return selectors.concat([`${weapon._id}-damage`, 'damage']);
     }
 }
