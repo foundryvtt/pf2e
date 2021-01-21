@@ -1,4 +1,8 @@
 export function registerHandlebarsHelpers() {
+    Handlebars.registerHelper('pad', (value, length, character) => {
+        return `${value}`.padStart(length, character);
+    });
+
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
     });
