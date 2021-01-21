@@ -107,6 +107,7 @@ export class DamageRollModifiersDialog extends Application {
             diceResults: {},
             baseDamageDice: damage.effectDice,
         };
+        const rolls: Roll[] = [];
         const dsnData: any = { throws: [{ dice: [] }] };
         let content = `
     <div class="dice-roll">
@@ -121,6 +122,7 @@ export class DamageRollModifiersDialog extends Application {
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
                 const roll: any = new Roll(partial as string, formula.data).roll();
+                rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
                 rollData.types[damageType] = damageValue;
@@ -157,41 +159,47 @@ export class DamageRollModifiersDialog extends Application {
             content += '</div>';
         }
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
-        let dice3d = Promise.resolve();
-        if (game?.dice3d?.show) {
-            dice3d = game.dice3d.show(dsnData);
-        }
-        dice3d.then((_) => {
-            const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
-            ChatMessage.create(
-                {
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                    speaker: ChatMessage.getSpeaker(),
-                    flavor: `
-                <b>${damage.name}</b> (${outcome})
-                <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
-                ${notes}
-            `,
-                    content: content.trim(),
-                    roll: new Roll('0').roll(), // dummy roll to ensure Dice So Nice does not break
-                    flags: {
-                        core: {
-                            canPopout: true,
-                        },
-                        [game.system.id]: {
-                            damageRoll: rollData,
-                        },
+
+        // fake dice pool roll to ensure Dice So Nice properly trigger the dice animation
+        const roll = (() => {
+            const pool = new DicePool({ rolls }).evaluate();
+            const roll = Roll.create(pool.formula).evaluate();
+            roll.terms = [pool];
+            roll.results = [pool.total];
+            roll._total = pool.total;
+            roll._rolled = true;
+            return roll;
+        })();
+
+        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
+        ChatMessage.create(
+            {
+                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker(),
+                flavor: `
+                    <b>${damage.name}</b> (${outcome})
+                    <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
+                    ${notes}
+                `,
+                content: content.trim(),
+                roll,
+                flags: {
+                    core: {
+                        canPopout: true,
+                    },
+                    [game.system.id]: {
+                        damageRoll: rollData,
                     },
                 },
-                {
-                    rollMode: ctx.rollMode ?? 'roll',
-                },
-            );
-            Hooks.call(`${game.system.id}.damageRoll`, rollData);
-            if (callback) {
-                callback(rollData);
-            }
-        });
+            },
+            {
+                rollMode: ctx.rollMode ?? 'roll',
+            },
+        );
+        Hooks.call(`${game.system.id}.damageRoll`, rollData);
+        if (callback) {
+            callback(rollData);
+        }
     }
 
     getData() {
