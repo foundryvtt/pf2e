@@ -289,7 +289,7 @@ export class PF2EItem extends Item<PF2EActor> {
     /* -------------------------------------------- */
 
     _spellChatData(rollOptions?: any) {
-        const localize: Function = game.i18n.localize.bind(game.i18n);
+        const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         if (this.data.type != 'spell')
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
         const data = duplicate(this.data.data);
