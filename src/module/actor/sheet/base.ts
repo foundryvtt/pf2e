@@ -1267,6 +1267,10 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         return super._onDropItemCreate(itemData);
     }
 
+    async onDropItem(data) {
+        return await this._onDropItem({ preventDefault() {} }, data);
+    }
+
     /**
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
      * @private
