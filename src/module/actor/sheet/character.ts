@@ -623,6 +623,40 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             theme: 'crb-hover',
             minWidth: 120,
         });
+
+        // Spontaneous Spell slot increment handler:
+        html.find(".spell-slots-increment-down").on('click', (event) => {
+            let target = $(event.currentTarget);
+            let parent = $($($(target.parent()[0]).parent()[0])[0]);
+            let itemId = target.data().itemId;
+            let itemLevel = target.data().level;
+            let actor = this.actor;
+            let item = actor.getOwnedItem(itemId);
+            let data = duplicate(item.data);
+    
+            data.data.slots["slot"+itemLevel].value-=1;
+            if(data.data.slots["slot"+itemLevel].value<0) {
+                data.data.slots["slot"+itemLevel].value = 0;
+            }
+            
+            item.update(data);
+        });
+    
+        // Spontaneous Spell slot reset handler:
+        html.find(".spell-slots-increment-reset").on('click', (event) => {
+            let target = $(event.currentTarget);
+            let parent = $($($(target.parent()[0]).parent()[0])[0]);
+            let itemId = target.data().itemId;
+            let itemLevel = target.data().level;
+            let actor = this.actor;
+            let item = actor.getOwnedItem(itemId);
+            let data = duplicate(item.data);
+    
+            data.data.slots["slot"+itemLevel].value=data.data.slots["slot"+itemLevel].max;
+            
+            item.update(data);
+        });
+  
     }
 
     /**
