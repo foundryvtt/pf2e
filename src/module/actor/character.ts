@@ -774,6 +774,7 @@ export class PF2ECharacter extends PF2EActor {
                             options,
                             rollNotes,
                             weaponPotency,
+                            synthetics.striking,
                         );
                         PF2DamageRoll.roll(
                             damage,
@@ -794,6 +795,7 @@ export class PF2ECharacter extends PF2EActor {
                             options,
                             rollNotes,
                             weaponPotency,
+                            synthetics.striking,
                         );
                         PF2DamageRoll.roll(
                             damage,

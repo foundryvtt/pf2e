@@ -11,7 +11,7 @@ import { DamageCategory } from './damage';
 import { WeaponData } from '../../item/dataDefinitions';
 import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
 import { PF2RollNote } from '../../notes';
-import { PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
+import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
@@ -149,6 +149,7 @@ export class PF2WeaponDamage {
             options,
             rollNotes,
             null,
+            {},
         );
     }
 
@@ -162,6 +163,7 @@ export class PF2WeaponDamage {
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
         weaponPotency: PF2WeaponPotency,
+        striking: Record<string, PF2Striking[]>,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
@@ -261,15 +263,34 @@ export class PF2WeaponDamage {
         const potency = weaponPotency?.bonus ?? 0;
 
         // striking rune
-        const strikingDice = getStrikingDice(weapon.data);
-        if (strikingDice > 0) {
-            effectDice += strikingDice;
-            diceModifiers.push({
-                name: CONFIG.PF2E.weaponStrikingRunes[weapon.data.strikingRune.value],
-                diceNumber: strikingDice,
-                enabled: true,
-                traits: ['magical'],
+        let strikingDice = 0;
+        {
+            const strikingList: PF2Striking[] = [];
+            selectors.forEach((key) => {
+                (striking[key] ?? [])
+                    .filter((wp) => PF2ModifierPredicate.test(wp.predicate, options))
+                    .forEach((wp) => strikingList.push(wp));
             });
+
+            // find best striking source
+            const strikingRune = getStrikingDice(weapon.data);
+            if (strikingRune) {
+                strikingList.push({ label: 'PF2E.StrikingRuneLabel', bonus: strikingRune });
+            }
+            if (strikingList.length > 0) {
+                const s = strikingList.reduce(
+                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
+                    strikingList[0],
+                );
+                effectDice += s.bonus;
+                strikingDice = s.bonus;
+                diceModifiers.push({
+                    name: s.label,
+                    diceNumber: s.bonus,
+                    enabled: true,
+                    traits: ['magical'],
+                });
+            }
         }
 
         getPropertyRuneModifiers(weapon).forEach((modifier) => diceModifiers.push(modifier));
