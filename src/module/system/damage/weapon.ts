@@ -8,10 +8,10 @@ import {
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '../../item/runes';
 import { DamageCategory } from './damage';
-import { toNumber } from '../../utils';
 import { WeaponData } from '../../item/dataDefinitions';
 import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
 import { PF2RollNote } from '../../notes';
+import { PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
@@ -148,6 +148,7 @@ export class PF2WeaponDamage {
             proficiencyRank,
             options,
             rollNotes,
+            null,
         );
     }
 
@@ -160,6 +161,7 @@ export class PF2WeaponDamage {
         proficiencyRank = 0,
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
+        weaponPotency: PF2WeaponPotency,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
@@ -256,7 +258,7 @@ export class PF2WeaponDamage {
         }
 
         // potency
-        const potency = toNumber(weapon.data?.potencyRune?.value) ?? 0;
+        const potency = weaponPotency?.bonus ?? 0;
 
         // striking rune
         const strikingDice = getStrikingDice(weapon.data);
