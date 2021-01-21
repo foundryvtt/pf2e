@@ -4,17 +4,28 @@
             <div class="skill header">
                 <div>{{ localize 'PF2E.NPC.SkillsEditor.NameLabel' }}</div>
                 <div>{{ localize 'PF2E.NPC.SkillsEditor.BonusLabel' }}</div>
-                <div>{{ localize 'PF2E.NPC.SkillsEditor.SpecialCaseLabel' }}</div>
+                <div></div>
             </div>
             {{#each skills as |skill skillId|}}
             {{#unless skill.isLore }}
-            <li class="skill">
+            <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
                 <label class="skill-name">{{skill.label}}</label>
                 <input name="{{skillId}}" data-dtype="Number" value="{{#if skill.visible}}{{skill.value}}{{else}}0{{/if}}" placeholder="0"/>
-                <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                </div>
             </li>
             {{/unless}}
             {{/each}}
+            <li id="skill-selector" class="flexrow" style="align-items: baseline;">
+                <select data-dtype="String">
+                    {{#each missingSkills as |skill skillId|}}
+                    <option value="{{skillId}}">{{skill.label}}</option>
+                    {{/each}}
+                </select>
+                <div class="btn add-skill-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.NPC.AddSkill' }}</a></div>
+            </li>
             <div class="sub-section">
                 <h4>{{ localize 'PF2E.Lore' }}</h4>
             </div>
@@ -23,13 +34,15 @@
             <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
                 <input name="{{skillId}}" data-dtype="String" value="{{skill.loreName}}" placeholder=""/>
                 <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
-                <input name="{{skillId}}" data-dtype="String" value="{{skill.exception}}" placeholder=""/>
-                <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                </div>
             </li>
             {{/if}}
             {{/each}}
             <li>
-                <div class="add-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.AddLoreSkill'}}</a></div>
+                <div class="btn add-lore-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.AddLoreSkill'}}</a></div>
             </li>
         </ol>
         <div class="footer">

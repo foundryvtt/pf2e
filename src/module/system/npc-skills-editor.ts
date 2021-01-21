@@ -1,12 +1,14 @@
 import { PF2ECONFIG } from '../../scripts/config';
 import { NPCSkillData } from '../actor/actorDataDefinitions';
 import { PF2ENPC } from '../actor/npc';
+import { PF2EItem } from '../item/item';
 
 /**
  * Specialized form to setup skills for an NPC character.
  */
 export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     npc: PF2ENPC;
+    newItems: PF2EItem[];
 
     constructor(actor, options) {
         super(actor, options);
@@ -38,11 +40,20 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      */
     getData() {
         const skills: Record<string, NPCSkillData> = {};
+        const missingSkills: Record<string, NPCSkillData> = {};
 
         console.log(this.object.data.data.skills);
 
         for (const skillId of Object.keys(this.object.data.data.skills)) {
             const skill = this.object.data.data.skills[skillId];
+
+            if (skill.visible === false) {
+                if (this.isRegularSkill(skill)) {
+                    missingSkills[skillId] = skill;
+                }
+
+                continue;
+            }
 
             if (this.isLoreSkill(skill)) {
                 // Additional processing for lore skills
@@ -64,6 +75,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         return {
             ...super.getData(),
             skills: skills,
+            missingSkills: missingSkills,
         };
     }
 
@@ -75,22 +87,46 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         super.activateListeners(html);
 
         html.find('.delete').click((ev) => this._onRemoveSkillClicked(ev));
-        html.find('.add-button').click((ev) => this._onAddSkillClicked(ev));
+        html.find('.add-lore-button').click((ev) => this._onAddLoreSkillClicked(ev));
+        html.find('.item-edit').click((ev) => this._onEditSkillClicked(ev));
+        html.find('.add-skill-button').click((ev) => this._onAddSkillClicked(ev));
     }
 
-    _onRemoveSkillClicked(eventData) {
+    async _onAddSkillClicked(eventData: Event) {
         eventData.preventDefault();
-        const skillContainer = $(eventData.currentTarget).parent();
+
+        const skillSelector = $(eventData.currentTarget).parents('#skill-selector').find('select');
+        const skillId: string = skillSelector.val() as string;
+        const skillName = this.npc.convertSkillIdToSkillName(skillId);
+        const itemName = this.npc.convertSkillNameToItemName(skillName);
+
+        const skillItem = await this.npc.createOwnedItem({
+            name: itemName,
+            type: 'lore',
+        });
+
+        this.render(true);
+    }
+
+    async _onRemoveSkillClicked(eventData) {
+        eventData.preventDefault();
+        const skillContainer = $(eventData.currentTarget).parents('.skill');
         const skillId = skillContainer.attr('data-skill');
 
-        skillContainer.remove();
-
         const skillItem = this.npc.findSkillItem(skillId);
+        
+        if (skillItem !== null) {
+            skillContainer.remove();
+            await this.npc.deleteOwnedItem(skillItem._id);
 
-        this.npc.deleteOwnedItem(skillItem._id);
+            this.render(true);
+        } else {
+            console.error(`Unable to delete skill, couldn't find skill item.`);
+        }
+
     }
 
-    async _onAddSkillClicked(eventData) {
+    async _onAddLoreSkillClicked(eventData) {
         eventData.preventDefault();
 
         const localizedName = game.i18n.localize('PF2E.NewLoreSkill');
@@ -114,6 +150,16 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         this.render(true);
     }
 
+    _onEditSkillClicked(eventData) {
+        const skillId = $(eventData.currentTarget).parents('.skill').attr('data-skill');
+
+        let item = this.npc.findSkillItem(skillId);
+
+        if (item === null) return;
+
+        item.sheet.render(true);
+    }
+
     /**
      * Apply changes to the actor based on the data in the form.
      * @param event
@@ -126,7 +172,6 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
             let skillId: string;
             let type: string;
             let value: number;
-            let exception: string;
 
             if (isLoreSkill) {
                 // Get skill id from the lore name, in case it has changed
@@ -138,27 +183,22 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
 
                 type = key;
                 value = parseInt(skillData[1], 10);
-                exception = skillData[2] || '';
             } else {
                 skillId = key;
                 type = key;
-                value = parseInt(skillData[0], 10);
-                exception = skillData[1] || '';
+                value = parseInt(skillData, 10);
             }
 
-            const skillItem = this.npc.findSkillItem(skillId, exception);
+            const skillItem = this.npc.findSkillItem(skillId);
             const skillItemValue: number = skillItem !== null ? (skillItem.data.data as any).mod.value : 0;
-            const skillItemException: string = skillItem !== null ? skillItem.data.data.description.value : '';
-            const hasToUpdateItem =
-                skillItem !== null && ((skillItemValue !== value && value > 0) || skillItemException !== exception);
-            const hasToCreateItem = skillItem === null && (value !== 0 || exception !== '');
-            const hasToDelete = skillItem !== null && value === 0 && exception === '';
+            const hasToUpdateItem = skillItem !== null && skillItemValue !== value && value > 0;
+            const hasToCreateItem = skillItem === null && value !== 0;
+            const hasToDelete = skillItem !== null && value === 0;
             const hasRenamedLoreSkill = isLoreSkill && type !== skillId;
 
             if (hasToUpdateItem) {
-                skillItem.update({
+                await skillItem.update({
                     [`data.mod.value`]: value,
-                    [`data.description.value`]: exception,
                 });
             } else if (hasToCreateItem) {
                 const skillName = this.npc.convertSkillIdToSkillName(skillId);
@@ -170,9 +210,6 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
                     data: {
                         mod: {
                             value: value,
-                        },
-                        description: {
-                            value: exception,
                         },
                     },
                 };
