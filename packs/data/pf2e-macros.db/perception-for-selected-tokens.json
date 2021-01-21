@@ -3,11 +3,7 @@
     "actorIds": [],
     "author": "ru9MkwAaWXaeSZph",
     "command": "const tokens = canvas.tokens.controlled.filter((t) => ['character', 'npc', 'familiar'].includes(t.actor.data.type));\n\nif (tokens.length === 0) {\n    ui.notifications.error(`You must select at least one npc/pc token`);\n} else {\n    tokens.map((p) => p.actor).forEach((actor) => actor.data.data.attributes.perception.roll(event, ['secret']));\n}",
-    "flags": {
-        "core": {
-            "sourceId": "Macro.exoVjYFgHN0FkUin"
-        }
-    },
+    "flags": {},
     "img": "systems/pf2e/icons/spells/vision-of-weakness.jpg",
     "name": "Perception For Selected Tokens",
     "permission": {
