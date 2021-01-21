@@ -40,12 +40,22 @@ declare class DicePool {
      */
     total: number;
 
-    constructor(rolls: Roll[], modifiers: string);
+    constructor(options?: {rolls: Roll[], modifiers?: any[], options?: any});
 
     /**
      * For now, for testing purposes, choose the maximum result always
      */
     roll(): DicePool;
+
+    /**
+     * Evaluate the DicePool, populating the results Array.
+     */
+    evaluate(): DicePool;
+
+    /**
+     * Return a standardized representation for the displayed formula associated with this DicePool.
+     */
+    get formula(): string;
 
     /**
      * Parse a modifier query string into an ordered Array of modifiers to apply.
