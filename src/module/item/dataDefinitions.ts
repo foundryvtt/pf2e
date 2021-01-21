@@ -32,6 +32,7 @@ export interface ItemDescriptionData {
         value: string;
     };
     rules?: PF2RuleElementData[];
+    slug?: string | null;
 }
 
 export interface PhysicalDetailsData extends ItemDescriptionData {
