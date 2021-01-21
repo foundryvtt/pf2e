@@ -28,7 +28,7 @@ import {
     HazardData,
 } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
-import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
+import { PF2RuleElementSynthetics, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
 import { PF2RollNote } from '../notes';
@@ -365,11 +365,13 @@ export class PF2EActor extends Actor<PF2EItem> {
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
         const rollNotes: Record<string, PF2RollNote[]> = {};
+        const weaponPotency: Record<string, PF2WeaponPotency[]> = {};
         const synthetics: PF2RuleElementSynthetics = {
             damageDice,
             statisticsModifiers,
             strikes,
             rollNotes,
+            weaponPotency,
         };
 
         rules.forEach((rule) => {
@@ -412,6 +414,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             damageDice,
             strikes,
             rollNotes,
+            weaponPotency,
         };
     }
 

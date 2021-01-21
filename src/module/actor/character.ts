@@ -1,7 +1,7 @@
 /* global game, CONFIG */
 import { AncestryData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
-import { getArmorBonus, getAttackBonus, getResiliencyBonus } from '../item/runes';
+import { getArmorBonus, getResiliencyBonus } from '../item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -26,6 +26,8 @@ import {
     RawCharacterData,
 } from './actorDataDefinitions';
 import { PF2RollNote } from '../notes';
+import { PF2WeaponPotency } from '../rules/rulesDataDefinitions';
+import { toNumber } from '../utils';
 
 export class PF2ECharacter extends PF2EActor {
     data!: CharacterData;
@@ -594,40 +596,61 @@ export class PF2ECharacter extends PF2EActor {
                         ),
                     );
 
-                    const attackBonus = getAttackBonus(item.data);
-                    if (attackBonus !== 0) {
-                        modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+                    const selectors = [
+                        'attack',
+                        `${ability}-attack`,
+                        `${ability}-based`,
+                        `${item._id}-attack`,
+                        `${item.name.slugify('-', true)}-attack`,
+                        'attack-roll',
+                        'all',
+                    ];
+                    if (item.data?.group?.value) {
+                        selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
                     const defaultOptions = PF2EActor.traits(item?.data?.traits?.value); // always add all weapon traits as options
                     defaultOptions.push(`${ability}-attack`);
                     const notes = [] as PF2RollNote[];
 
-                    // Conditions and Custom modifiers to attack rolls
-                    {
-                        const stats = [];
-                        if (item.data?.group?.value) {
-                            stats.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
+                    if (item.data.group?.value === 'bomb') {
+                        const attackBonus = toNumber(item.data?.bonus?.value) ?? 0;
+                        if (attackBonus !== 0) {
+                            modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
                         }
-                        stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
-                        stats
-                            .concat([
-                                'attack',
-                                `${ability}-attack`,
-                                `${ability}-based`,
-                                `${item._id}-attack`,
-                                'attack-roll',
-                                'all',
-                            ])
-                            .forEach((key) => {
-                                (statisticsModifiers[key] || [])
-                                    .map((m) => duplicate(m))
-                                    .forEach((m) => {
-                                        m.ignored = !PF2ModifierPredicate.test(m.predicate, defaultOptions);
-                                        modifiers.push(m);
-                                    });
-                                (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-                            });
+                    }
+
+                    // Conditions and Custom modifiers to attack rolls
+                    let weaponPotency;
+                    {
+                        const potency: PF2WeaponPotency[] = [];
+                        selectors.forEach((key) => {
+                            (statisticsModifiers[key] ?? [])
+                                .map((m) => duplicate(m))
+                                .forEach((m) => {
+                                    m.ignored = !PF2ModifierPredicate.test(m.predicate, defaultOptions);
+                                    modifiers.push(m);
+                                });
+                            (synthetics.weaponPotency[key] ?? [])
+                                .filter((wp) => PF2ModifierPredicate.test(wp.predicate, defaultOptions))
+                                .forEach((wp) => potency.push(wp));
+                            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+                        });
+
+                        // find best weapon potency
+                        const potencyRune = toNumber(item.data?.potencyRune?.value) ?? 0;
+                        if (potencyRune) {
+                            potency.push({ label: 'PF2E.PotencyRuneLabel', bonus: potencyRune });
+                        }
+                        if (potency.length > 0) {
+                            weaponPotency = potency.reduce(
+                                (highest, current) => (highest.bonus > current.bonus ? highest : current),
+                                potency[0],
+                            );
+                            modifiers.push(
+                                new PF2Modifier(weaponPotency.label, weaponPotency.bonus, PF2ModifierType.ITEM),
+                            );
+                        }
                     }
 
                     const action: Partial<CharacterStrike> = new PF2StatisticModifier(item.name, modifiers);
@@ -750,6 +773,7 @@ export class PF2ECharacter extends PF2EActor {
                             proficiencies[item.data.weaponType.value]?.rank ?? 0,
                             options,
                             rollNotes,
+                            weaponPotency,
                         );
                         PF2DamageRoll.roll(
                             damage,
@@ -769,6 +793,7 @@ export class PF2ECharacter extends PF2EActor {
                             proficiencies[item.data.weaponType.value]?.rank ?? 0,
                             options,
                             rollNotes,
+                            weaponPotency,
                         );
                         PF2DamageRoll.roll(
                             damage,
