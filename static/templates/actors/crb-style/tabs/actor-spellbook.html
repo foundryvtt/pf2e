@@ -101,6 +101,8 @@
                                         {{/unless}}
                                     {{/unless}}
                                 {{/unless}}
+                                &nbsp;
+                                <a class="spell-slots-increment-reset"><i class="fas fa-redo"></i></a>                            
                             </div>
 
                             <div class="spell-school-header">{{localize "PF2E.SpellsSchoolHeader"}}</div>
@@ -135,6 +137,10 @@
                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                             </div>
                             {{/if}}
+
+                            <div class="spell-cast">
+                                <button class="spell-slots-increment-down" data-item-id="{{entry._id}}"  data-level="{{lvl}}">Cast</button>
+                            </div>   
                         </li>
                         {{/each}}
 
