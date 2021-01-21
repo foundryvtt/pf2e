@@ -26,7 +26,7 @@ import {
     RawCharacterData,
 } from './actorDataDefinitions';
 import { PF2RollNote } from '../notes';
-import { PF2WeaponPotency } from '../rules/rulesDataDefinitions';
+import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
 import { toNumber } from '../utils';
 
 export class PF2ECharacter extends PF2EActor {
@@ -622,8 +622,10 @@ export class PF2ECharacter extends PF2EActor {
 
                     // Conditions and Custom modifiers to attack rolls
                     let weaponPotency;
+                    const multipleAttackPenalty = PF2EItem.calculateMap(item);
                     {
                         const potency: PF2WeaponPotency[] = [];
+                        const multipleAttackPenalties: PF2MultipleAttackPenalty[] = [];
                         selectors.forEach((key) => {
                             (statisticsModifiers[key] ?? [])
                                 .map((m) => duplicate(m))
@@ -634,6 +636,9 @@ export class PF2ECharacter extends PF2EActor {
                             (synthetics.weaponPotency[key] ?? [])
                                 .filter((wp) => PF2ModifierPredicate.test(wp.predicate, defaultOptions))
                                 .forEach((wp) => potency.push(wp));
+                            (synthetics.multipleAttackPenalties[key] ?? [])
+                                .filter((map) => PF2ModifierPredicate.test(map.predicate, defaultOptions))
+                                .forEach((map) => multipleAttackPenalties.push(map));
                             (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                         });
 
@@ -651,6 +656,19 @@ export class PF2ECharacter extends PF2EActor {
                                 new PF2Modifier(weaponPotency.label, weaponPotency.bonus, PF2ModifierType.ITEM),
                             );
                         }
+
+                        // find lowest multiple attack penalty
+                        multipleAttackPenalties.push({
+                            label: 'PF2E.MultipleAttackPenalty',
+                            penalty: multipleAttackPenalty.map2,
+                        });
+                        const { label, penalty } = multipleAttackPenalties.reduce(
+                            (lowest, current) => (lowest.penalty > current.penalty ? lowest : current),
+                            multipleAttackPenalties[0],
+                        );
+                        multipleAttackPenalty.label = label;
+                        multipleAttackPenalty.map2 = penalty;
+                        multipleAttackPenalty.map3 = penalty * 2;
                     }
 
                     const action: Partial<CharacterStrike> = new PF2StatisticModifier(item.name, modifiers);
@@ -714,7 +732,6 @@ export class PF2ECharacter extends PF2EActor {
                     };
                     action.roll = action.attack;
 
-                    const map = PF2EItem.calculateMap(item);
                     action.variants = [
                         {
                             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
@@ -728,14 +745,14 @@ export class PF2ECharacter extends PF2EActor {
                             },
                         },
                         {
-                            label: `MAP ${map.map2}`,
+                            label: `MAP ${multipleAttackPenalty.map2}`,
                             roll: (event, options = []) => {
                                 options = options.concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
-                                            'PF2E.MultipleAttackPenalty',
-                                            map.map2,
+                                            multipleAttackPenalty.label,
+                                            multipleAttackPenalty.map2,
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),
@@ -745,14 +762,14 @@ export class PF2ECharacter extends PF2EActor {
                             },
                         },
                         {
-                            label: `MAP ${map.map3}`,
+                            label: `MAP ${multipleAttackPenalty.map3}`,
                             roll: (event, options = []) => {
                                 options = options.concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike, [
                                         new PF2Modifier(
-                                            'PF2E.MultipleAttackPenalty',
-                                            map.map3,
+                                            multipleAttackPenalty.label,
+                                            multipleAttackPenalty.map3,
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),

@@ -899,29 +899,29 @@ export class PF2EItem extends Item<PF2EActor> {
         return PF2EItem.calculateMap(this.data);
     }
 
-    static calculateMap(item: ItemData): { map2: number; map3: number } {
+    static calculateMap(item: ItemData): { label: string; map2: number; map3: number } {
         if (['melee', 'weapon'].includes(item.type)) {
             // calculate multiple attack penalty tiers
             const agile = (item.data.traits.value || []).includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;
             switch (alternateMAP) {
                 case '1':
-                    return { map2: -1, map3: -2 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -1, map3: -2 };
                 case '2':
-                    return { map2: -2, map3: -4 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -2, map3: -4 };
                 case '3':
-                    return { map2: -3, map3: -6 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -3, map3: -6 };
                 case '4':
-                    return { map2: -4, map3: -8 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
                 case '5':
-                    return { map2: -5, map3: -10 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
                 default: {
-                    if (agile) return { map2: -4, map3: -8 };
-                    else return { map2: -5, map3: -10 };
+                    if (agile) return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
+                    else return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
                 }
             }
         }
-        return { map2: -5, map3: -10 };
+        return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
     }
 
     /* -------------------------------------------- */
