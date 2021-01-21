@@ -14,8 +14,6 @@ const throwPackError = (message) => {
     process.exit(1);
 };
 
-// include commander in git clone of commander repo
-
 const args = yargs(process.argv.slice(2))
     .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
         yargs
@@ -78,55 +76,68 @@ function entityIdChanged(newEntity, packDir, fileName) {
 
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData, topLevel = {}) {
+    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key];
-        // } else if (key === 'sort' && Number.isInteger(topLevel[key]) && entityData === topLevel) {
-        //     delete entityData[key];
-        // } else if (key.startsWith('_') && key !== '_id') {
-        //     // A key with a leading underscore other than _id is verboten
-        //     delete entityData[key];
-        // } else if (
-        //     key === 'containerId' &&
-        //     !['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'treasure'].includes(topLevel.type)
-        // ) {
-        //     delete entityData[key];
+        } else if (key === 'containerId' && !physicalItemTypes.includes(topLevel.type)) {
+            delete entityData[key];
         } else if (entityData[key] instanceof Object) {
             pruneTree(entityData[key], topLevel);
         }
     }
 }
 
-function sanitizeEntity(entity) {
+function sluggify(entityName) {
+    return entityName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/gi, ' ')
+        .trim()
+        .replace(/\s+|-{2,}/g, '-');
+}
+
+function sanitizeEntity(entityData) {
     // Remove individual permissions
-    entity.permission = {
+    entityData.permission = {
         default: 0,
     };
 
-    delete entity.sort;
+    delete entityData.sort;
+    delete entityData.flags.core;
 
-    pruneTree(entity);
+    const slug = entityData.data?.slug;
+    if (typeof slug === 'string') {
+        if (slug !== sluggify(entityData.name)) {
+            console.warn(
+                `Warning: Name change detected on ${entityData.name}. ` +
+                    'Please remember to create a slug migration before next release.',
+            );
+        }
+        delete entityData.data.slug;
+    }
+
+    pruneTree(entityData);
 
     // Clean up description HTML
-    if (typeof entity.data?.description?.value === 'string') {
+    if (typeof entityData.data?.description?.value === 'string') {
         const $description = (() => {
-            const description = entity.data.description.value;
+            const description = entityData.data.description.value;
             try {
                 return $(description);
             } catch (_) {
                 try {
                     return $(`<p>${description}</p>`);
                 } catch (_error) {
-                    console.warn(`Failed to parse description of ${entity.name}`);
+                    console.warn(`Failed to parse description of ${entityData.name}`);
                     return null;
                 }
             }
         })();
 
         if ($description === null) {
-            return entity;
+            return entityData;
         }
 
         // Be rid of span tags from AoN copypasta
@@ -160,10 +171,10 @@ function sanitizeEntity(entity) {
             .html()
             .replace(/<([hb]r)>/g, '<$1 />'); // Restore Foundry's self-closing tags
 
-        entity.data.description.value = cleanDescription;
+        entityData.data.description.value = cleanDescription;
     }
 
-    return entity;
+    return entityData;
 }
 
 const newEntityIdMap = {};
@@ -264,14 +275,9 @@ async function extractPack(filePath, packFilename) {
         })();
 
         // Remove all non-alphanumeric characters from the name
-        const entityName = entityData.name
-              .toLowerCase()
-              .replace(/[^a-z0-9]/gi, ' ')
-              .trim()
-              .replace(/\s+/g, '-')
-              .replace(/-{2,}/g, '-');
+        const slug = sluggify(entityData.name);
 
-        const outFileName = `${entityName}.json`;
+        const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
 
         if (fs.existsSync(outFilePath)) {

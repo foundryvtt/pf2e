@@ -42,6 +42,11 @@ export class PF2EItem extends Item<PF2EActor> {
         return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 
+    /** The sluggified name of the item **/
+    get slug(): string {
+        return this.data.data.slug;
+    }
+
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
