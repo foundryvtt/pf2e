@@ -3,6 +3,7 @@ import * as process from "process";
 import * as fs from "fs";
 
 interface PackMetadata {
+    system: string;
     name: string;
     path: string;
     entity: string;
@@ -28,14 +29,13 @@ const throwPackError = (message: string) => {
 class Compendium {
     name: string;
     packDir: string;
-    entityClass: string
+    entityClass: string;
+    systemId: string;
     data: PackEntityData[];
 
     static outDir = path.resolve(process.cwd(), "static/packs");
     static _namesToIds = new Map<string, Map<string, string>>();
-    static _systemPackData = JSON.parse(
-        fs.readFileSync("system.json", "utf-8")
-    ).packs as PackMetadata[];
+    static _systemPackData = JSON.parse(fs.readFileSync("system.json", "utf-8")).packs as PackMetadata[];
     static _worldItemLinkPattern = new RegExp(
         /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
     );
@@ -49,6 +49,7 @@ class Compendium {
             if (compendium === undefined) {
                 throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
             }
+            this.systemId = compendium.system;
             this.name = compendium.name;
             this.entityClass = compendium.entity;
 
@@ -138,7 +139,7 @@ class Compendium {
     }
 
     private sourceIdOf(entityId: string) {
-        return `Compendium.${this.name}.${entityId}`;
+        return `Compendium.${this.systemId}.${this.name}.${entityId}`;
     }
 
     private sluggify(entityName: string) {
