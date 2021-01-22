@@ -32,14 +32,14 @@
     </div>
 </div>
 <div id="weaknesses" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.dv) }} disabled {{/unless}}">
+    <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-heart-broken"></i>
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="weaknesses-controls controls" data-attribute="weaknessTypes" for="data.traits.dv">
-            <a class="weaknesses-edit edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if (isNotEmptyList data.traits.dv) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+            <a class="weaknesses-edit edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -50,14 +50,14 @@
     </div>
 </div>
 <div id="resistances" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.dr) }} disabled {{/unless}}">
+    <div class="side-bar-section-header {{#unless data.traits.dr }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-shield-virus"></i>
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="resistances-controls controls" data-attribute="resistancesTypes" for="data.traits.dr">
-            <a class="resistances-edit edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if (isNotEmptyList data.traits.dr) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+            <a class="resistances-edit edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if data.traits.dr }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -68,14 +68,14 @@
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless (isNotEmptyList data.traits.di.labels) }} disabled {{/unless}}">
+    <div class="side-bar-section-header {{#unless data.traits.di.labels }} disabled {{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-ankh"></i>
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
         </div>
         {{#if options.editable }}
         <div class="immunities-controls controls" data-attribute="immunitiesTypes" for="data.traits.di">
-            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if (isNotEmptyList data.traits.di.labels) }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if data.traits.di.labels }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -112,7 +112,7 @@
         </div>
         <div id="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
-            {{#if (isNotZero speed.value) }}
+            {{#if speed.value }}
             <div class="tag speed" data-speed="{{speed.type}}">
                 {{speed.label}} {{speed.value}}
             </div>

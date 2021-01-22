@@ -113,12 +113,4 @@ export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('json', (html) => {
         return JSON.stringify(html);
     });
-
-    Handlebars.registerHelper('isNotZero', (value) => {
-        return value !== 0 && value !== undefined;
-    });
-
-    Handlebars.registerHelper('isNotEmptyList', (value) => {
-        return value.length > 0;
-    });
 }
