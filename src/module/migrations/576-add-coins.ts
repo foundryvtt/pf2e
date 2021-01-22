@@ -1,13 +1,15 @@
 import { MigrationBase } from './base';
+import { PF2EPhysicalItem } from '../item/physical';
+import { ActorDataPF2e } from '../actor/actorDataDefinitions';
 
 export class Migration576AddCoins extends MigrationBase {
     version = 0.576;
     requiresFlush = true;
 
-    async addCoin(actor, treasureId, denomination, quantity) {
+    async addCoin(actor: ActorDataPF2e, treasureId: string, denomination: string, quantity: number) {
         if (quantity !== null && `${quantity}`.trim() !== '0') {
             console.log(`Adding ${quantity} of ${denomination} to actors ${actor.name}'s inventory`);
-            const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
+            const pack = game.packs.find<PF2EPhysicalItem>((p) => p.collection === 'pf2e.equipment-srd');
             const item = await pack.getEntity(treasureId);
             item.data.data.quantity.value = quantity;
             actor.items.push(item.data);

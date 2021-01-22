@@ -1,15 +1,16 @@
 import { PF2ECharacter } from '../actor/character';
 import { ABCFeatureEntryData, AncestryData, FeatData } from './dataDefinitions';
 import { PF2EItem } from './item';
+import { PF2EFeat } from './others';
 
 export class PF2EAncestry extends PF2EItem {
     data!: AncestryData;
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
-            const pack = game.packs.get(entry.pack);
+            const pack = game.packs.get<PF2EFeat>(entry.pack);
             return pack.getEntry(entry.id);
         } else {
-            const feat = await game.items.get(entry.id);
+            const feat = game.items.get(entry.id);
             if (feat?.data.type !== 'feat') {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }

@@ -23,25 +23,20 @@ declare interface EntityCreateOptions {
 }
 
 declare interface EntityConstructorOptions {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
-declare type EntityUpdateData =
-    | {
-          _id: string;
-          [key: string]: unknown;
-      }
-    | BaseEntityData;
+declare type EntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
 
 declare interface EntityUpdateOptions {
-    diff?: { [key: string]: any };
+    diff?: boolean;
     noHook?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 declare interface EntityDeleteOptions {
     noHook?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -71,7 +66,6 @@ declare class Entity {
      * The original source data for the Entity provided upon initialization.
      * This reflects the database state of the Entity before any transformations are applied.
      */
-    _data: BaseEntityData;
 
     /** Additional options which were used to configure the Entity */
     options: EntityConstructorOptions;
