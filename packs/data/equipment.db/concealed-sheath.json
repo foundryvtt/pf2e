@@ -10,6 +10,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -45,6 +48,7 @@
         "negateBulk": {
             "value": "0"
         },
+        "originalName": "",
         "preciousMaterial": {
             "value": ""
         },
@@ -65,9 +69,9 @@
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Concealed Sheath (hide or conceal contents)",
                 "predicate": {
-                    "any": [
-                        "hide",
-                        "conceal"
+                    "all": [
+                        "action:conceal-an-object",
+                        "target:contents"
                     ]
                 },
                 "selector": "stealth",
@@ -97,6 +101,7 @@
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/concealed-sheath.jpg",
     "name": "Concealed Sheath",

@@ -555,6 +555,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -689,6 +692,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1062,6 +1068,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Lair",
+                        "predicate": {
+                            "all": [
+                                "terrain:lair"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1070,11 +1089,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+11 in lair",
+                        "options": "lair"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 1000000,
             "type": "lore"
         }

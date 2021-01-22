@@ -1,0 +1,150 @@
+<form>
+  <h2>{{localize 'PF2E.TravelSpeed.PartySpeed'}}</h2>
+  <table>
+    <tbody>
+    <tr>
+      <th>{{localize 'PF2E.TravelSpeed.Name'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.Speed'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.ExplorationActivity'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.DetectionMode'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.ExplorationSpeed'}}</th>
+    </tr>
+    {{#each actors}}
+    <tr>
+      <td>{{name}}</td>
+      <td class="centered"><input class="speed-input" name="actors.{{@index}}.speed" type="number" value="{{speed}}" data-dtype="Number"> {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</td>
+      <td class="centered">
+        <select name="actors.{{@index}}.explorationActivity">
+          {{#select explorationActivity}}
+          <option value="AvoidNotice">{{localize 'PF2E.TravelSpeed.ExplorationActivities.AvoidNotice'}}</option>
+          <option value="CoverTracks">{{localize 'PF2E.TravelSpeed.ExplorationActivities.CoverTracks'}}</option>
+          <option value="Defend">{{localize 'PF2E.TravelSpeed.ExplorationActivities.Defend'}}</option>
+          <option value="DetectMagic">{{localize 'PF2E.TravelSpeed.ExplorationActivities.DetectMagic'}}</option>
+          <option value="Investigate">{{localize 'PF2E.TravelSpeed.ExplorationActivities.Investigate'}}</option>
+          <option value="RepeatASpell">{{localize 'PF2E.TravelSpeed.ExplorationActivities.RepeatASpell'}}</option>
+          <option value="Scout">{{localize 'PF2E.TravelSpeed.ExplorationActivities.Scout'}}</option>
+          <option value="Search">{{localize 'PF2E.TravelSpeed.ExplorationActivities.Search'}}</option>
+          <option value="Track">{{localize 'PF2E.TravelSpeed.ExplorationActivities.Track'}}</option>
+          <option value="None">{{localize 'PF2E.TravelSpeed.ExplorationActivities.None'}}</option>
+          <option value="HalfSpeed">{{localize 'PF2E.TravelSpeed.ExplorationActivities.HalfSpeed'}}</option>
+          {{/select}}
+        </select>
+      </td>
+      <td class="centered">
+        <select name="actors.{{@index}}.detectionMode" {{#unless requiresDetectionMode}}hidden{{/unless}}>
+          {{#select detectionMode}}
+          <option value="none">{{localize 'PF2E.TravelSpeed.None'}}</option>
+          <option value="everything">{{localize 'PF2E.TravelSpeed.DetectEverything'}}</option>
+          <option value="before">{{localize 'PF2E.TravelSpeed.DetectBeforeRunningIntoIt'}}</option>
+          {{/select}}
+        </select>
+      </td>
+      <td>{{explorationSpeed}} {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  <h2>{{localize 'PF2E.TravelSpeed.Journey'}}</h2>
+  <div class="form-group">
+    <label>{{localize 'PF2E.TravelSpeed.Distance'}}</label>
+    <div class="journey-input">
+      <input name="distance" value="{{distance}}" type="number" data-dtype="Number">
+      <select name="distanceUnit">
+        {{#select distanceUnit}}
+        <option value="feet">{{localize 'PF2E.TravelSpeed.Feet'}}</option>
+        <option value="miles" selected>{{localize 'PF2E.TravelSpeed.Miles'}}</option>
+        {{/select}}
+      </select>
+      <select name="terrain">
+        {{#select terrain}}
+        <option value="normal">{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</option>
+        <option value="difficult">{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</option>
+        <option value="greaterDifficult">{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+  <div>
+  <table>
+    <tbody>
+    <tr>
+      <th>{{localize 'PF2E.TravelSpeed.NormalTerrain'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.DifficultTerrain'}}</th>
+      <th>{{localize 'PF2E.TravelSpeed.GreaterDifficultTerrain'}}</th>
+    </tr>
+    <tr>
+      <td class="fraction-input">
+        <select name="normalTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select normalTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="normalTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select normalTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+      <td class="fraction-input">
+        <select name="difficultTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select difficultTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="difficultTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select difficultTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+      <td class="fraction-input">
+        <select name="greaterDifficultTerrainSlowdown.denominator" data-dtype="Number">
+          {{#select greaterDifficultTerrainSlowdown.denominator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+        <span class="fraction-separator">/</span>
+        <select name="greaterDifficultTerrainSlowdown.numerator" data-dtype="Number">
+          {{#select greaterDifficultTerrainSlowdown.numerator}}
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          {{/select}}
+        </select>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+<h2>{{localize 'PF2E.TravelSpeed.Speed'}}</h2>
+<table>
+  <tbody>
+  <tr>
+    <th>{{localize 'PF2E.TravelSpeed.PartySpeed'}}</th>
+    <th>{{localize 'PF2E.TravelSpeed.TravelDuration'}}</th>
+  </tr>
+  <tr>
+    <td class="centered">{{partySpeedInFeet}} {{localize 'PF2E.TravelSpeed.Feet'}}</td>
+    <td class="centered">{{#if travelDuration.weeks}}{{travelDuration.weeks}} {{localize 'PF2E.TravelSpeed.Weeks'}}, {{/if}}{{#if travelDuration.days}}{{travelDuration.days}} {{localize 'PF2E.TravelSpeed.Days'}}, {{/if}}{{pad travelDuration.hours 2 '0'}}:{{pad travelDuration.minutes 2 '0'}} {{localize 'PF2E.TravelSpeed.Hours'}}</td>
+  </tr>
+  </tbody>
+</table>

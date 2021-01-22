@@ -4,7 +4,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Granted by @Compendium[pf2e.classfeatures.Panache]{Panache}</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+5-foot status bonus to your Speeds</li>\n<li>+1 circumstance bonus to checks to Tumble Through</li>\n<li>+2 damage from Precise Strikes</li>\n</ul>\n<p>Not yet implemented:</p>\n<ul>\n<li>Bonuses to actions that give you Panache</li>\n<li>Level scaling for Precise Strikes</li>\n</ul>"
+            "value": "<p>You care as much about the way you accomplish something as whether you actually accomplish it in the first place. When you perform an action with particular bravado, you can leverage this moment of verve to perform spectacular, deadly maneuvers. This state of flair is called panache, and you are either in a state of panache or you are not.</p>\n<p>Granted by @Compendium[pf2e.classfeatures.Panache]{Panache}</p>\n<p>Implemented Effects:</p>\n<ul>\n<li>Enables panache property for panache effects</li>\n<li>Sets token effect</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,32 +20,15 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Panache",
-                "selector": "damage",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
                 "key": "PF2E.RuleElement.TokenEffectIcon"
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Panache (Tumble Through)",
-                "predicate": {
-                    "all": [
-                        "tumble"
-                    ]
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
                 },
-                "selector": "acrobatics",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "selector": "speed",
-                "type": "status",
-                "value": 5
+                "property": "flags.pf2e.rollOptions.all.panache"
             }
         ],
         "source": {

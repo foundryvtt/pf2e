@@ -26,6 +26,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -83,6 +86,7 @@
         "negateBulk": {
             "value": "0"
         },
+        "originalName": "",
         "potencyRune": {
             "value": ""
         },
@@ -148,8 +152,12 @@
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Animal Staff (identify animals)",
                 "predicate": {
+                    "all": [
+                        "action:recall-knowledge",
+                        "identify"
+                    ],
                     "any": [
-                        "identify animals"
+                        "target:animal"
                     ]
                 },
                 "selector": "nature",
@@ -199,6 +207,7 @@
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/staves/animal-staff.jpg",
     "name": "Animal Staff (Major)",

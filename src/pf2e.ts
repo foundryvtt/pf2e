@@ -13,11 +13,10 @@ import { registerActors } from './module/register-actors';
 import { registerSheets } from './module/register-sheets';
 import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
 import { PF2Check } from './module/system/rolls';
-import * as migrations from './module/migration';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
-import { FamiliarData } from './module/actor/actorDataDefinitions';
+import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -31,6 +30,10 @@ import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
+import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
+import { MigrationRunner } from './module/migration-runner';
+import { getAllMigrations } from './module/migrations';
+import { ItemData } from './module/item/dataDefinitions';
 
 require('./styles/pf2e.scss');
 
@@ -109,6 +112,7 @@ Hooks.once('init', () => {
 
     (game.pf2e as any).gm = {
         calculateXP,
+        launchTravelSheet,
     };
 });
 
@@ -235,19 +239,20 @@ Hooks.once('setup', () => {
 Hooks.once('ready', () => {
     // Determine whether a system migration is required and feasible
     const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
-    const NEEDS_MIGRATION_VERSION = Number(game.system.data.schema);
     const COMPATIBLE_MIGRATION_VERSION = 0.411;
-    const needMigration = currentVersion < NEEDS_MIGRATION_VERSION || currentVersion === null;
 
-    // Perform the migration
-    if (needMigration && game.user.isGM) {
-        if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
-            ui.notifications.error(
-                `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                { permanent: true },
-            );
+    if (game.user.isGM) {
+        // Perform the migration
+        const migrationRunner = new MigrationRunner(getAllMigrations());
+        if (migrationRunner.needsMigration()) {
+            if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
+                ui.notifications.error(
+                    `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
+                    { permanent: true },
+                );
+            }
+            migrationRunner.runMigration();
         }
-        migrations.migrateWorld();
     }
 
     // world clock singleton application
@@ -390,26 +395,42 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     return options;
 });
 
-Hooks.on('preCreateActor', (actor, dir) => {
+Hooks.on('preCreateActor', (actorData: Partial<ActorDataPF2e>, _dir: ActorDirectory) => {
+    actorData.img = (() => {
+        if (actorData.img !== undefined) {
+            return actorData.img;
+        }
+        return CONFIG.PF2E.Actor.entityClasses[actorData.type].defaultImg;
+    })();
+
     if (game.settings.get('pf2e', 'defaultTokenSettings')) {
         // Set wounds, advantage, and display name visibility
         const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
         const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
-        mergeObject(actor, {
+        mergeObject(actorData, {
             'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
             'token.displayName': nameMode, // Default display name to be on owner hover
             'token.displayBars': barMode, // Default display bars to be on owner hover
             'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
-            'token.name': actor.name, // Set token name to actor name
+            'token.name': actorData.name, // Set token name to actor name
         });
 
         // Default characters to HasVision = true and Link Data = true
-        if (actor.type === 'character') {
-            actor.token.vision = true;
-            actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-            actor.token.actorLink = true;
+        if (actorData.type === 'character') {
+            actorData.token.vision = true;
+            actorData.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+            actorData.token.actorLink = true;
         }
     }
+});
+
+Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
+    itemData.img = (() => {
+        if (itemData.img !== undefined) {
+            return itemData.img;
+        }
+        return CONFIG.PF2E.Item.entityClasses[itemData.type].defaultImg;
+    })();
 });
 
 Hooks.on('updateActor', (actor, data, options, userID) => {
@@ -485,10 +506,12 @@ Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
                     [],
             },
         };
-        const actor = canvas.tokens.get(token._id).actor;
-        options.pf2e.items.added.forEach((item) => {
-            preCreateOwnedItem(actor, item, options, userID);
-        });
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            options.pf2e.items.added.forEach((item) => {
+                preCreateOwnedItem(canvasToken.actor, item, options, userID);
+            });
+        }
     }
 });
 
@@ -496,19 +519,25 @@ Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
     if (!token.actorLink && options.pf2e?.items) {
         // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
         // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
-        const actor = canvas.tokens.get(token._id).actor;
-        options.pf2e.items.added.forEach((item) => {
-            createOwnedItem(actor, item, options, userID);
-        });
-        options.pf2e.items.removed.forEach((item) => {
-            deleteOwnedItem(actor, item, options, userID);
-        });
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            const actor = canvasToken.actor;
+            options.pf2e.items.added.forEach((item) => {
+                createOwnedItem(actor, item, options, userID);
+            });
+            options.pf2e.items.removed.forEach((item) => {
+                deleteOwnedItem(actor, item, options, userID);
+            });
+        }
     }
 
     if ('disposition' in data && game.userId === userID) {
-        const actor = canvas.tokens.get(token._id).actor;
-        if (actor instanceof PF2ENPC) {
-            (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+        const canvasToken = canvas.tokens.get(token._id);
+        if (canvasToken) {
+            const actor = canvasToken.actor;
+            if (actor instanceof PF2ENPC) {
+                (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+            }
         }
     }
 

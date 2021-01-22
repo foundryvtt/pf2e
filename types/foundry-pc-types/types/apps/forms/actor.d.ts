@@ -1,7 +1,7 @@
-declare interface ActorSheetData<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheetData {
-    actor: ActorType;
-    data: ActorType['data'];
-    items: ItemType[];
+declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEntitySheetData<A> {
+    actor: A;
+    data: A['data'];
+    items: I[];
 }
 
 /**
@@ -16,29 +16,11 @@ declare interface ActorSheetData<ActorType extends Actor, ItemType extends Item>
  * @param options			Additional options which modify the rendering of the Actor's sheet.
  * @param options.editable	Is the Actor editable? Default is true.
  */
-declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheet {
+declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheet<ActorType> {
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
     token: Token<ActorType>;
-
-    constructor(...args: any);
-
-    /**
-     * Default rendering and configuration options used for the ActorSheet and its subclasses.
-     * See `Application.defaultOptions` and `FormApplication.defaultOptions` for more details.
-     */
-    static get defaultOptions(): FormApplicationOptions;
-
-    /**
-     * Define a unique and dynamic element ID for the rendered ActorSheet application
-     */
-    get id(): string;
-
-    /**
-     * The displayed window title for the sheet - the entity name by default
-     */
-    get title(): string;
 
     /**
      * A convenience reference to the Actor entity
@@ -52,63 +34,42 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
     getData(): ActorSheetData<ActorType, ItemType>;
 
     /**
-     * Extend the Header Button configuration for the ActorSheet to add Token configuration buttons
-     * See Application._getHeaderButtons for documentation of the return Array structure.
-     */
-    protected _getHeaderButtons(): any[];
-
-    /**
-     * Remove references to an active Token when the sheet is closed
-     * See Application.close for more detail
-     */
-    close(): Promise<void>;
-
-    /**
-     * Activate the default set of listeners for the Actor Sheet
-     * These listeners handle basic stuff like form submission or updating images
-     *
-     * @param html	The rendered template ready to have listeners attached
-     */
-    protected activateListeners(html: JQuery | HTMLElement): void;
-
-    /**
      * Handle requests to configure the prototype Token for the Actor
      */
-    protected _onConfigureToken(event: Event | JQuery.Event): void;
+    protected _onConfigureToken(event: Event): void;
 
     /**
      * Handle requests to configure the default sheet used by this Actor
      */
-    protected _onConfigureSheet(event: Event | JQuery.Event): void;
+    protected _onConfigureSheet(event: Event): void;
 
     /**
      * Handle changing the actor profile image by opening a FilePicker
      */
-    protected _onEditImage(event: Event | JQuery.Event): void;
+    protected _onEditImage(event: Event): void;
 
     /**
      * Default handler for beginning a drag-drop workflow of an Owned Item on an Actor Sheet
      */
-    protected _onDragItemStart(event: Event | JQuery.Event): boolean;
+    protected _onDragItemStart(event: DragEvent): boolean;
 
     /**
      * Allow the Actor sheet to be a displayed as a valid drop-zone
      */
-    protected _onDragOver(event: Event | JQuery.Event): boolean;
+    protected _onDragOver(event: DragEvent): boolean;
 
     /**
      * Handle dropped data on the Actor sheet
      */
-    protected _onDrop(event: Event | JQuery.Event): Promise<boolean | any>;
+    protected _onDrop(event: DragEvent): Promise<boolean | any>;
 
     /**
      * Handle the final creation of dropped Item data on the Actor.
      * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
-     * @param {object} itemData     The item data requested for creation
-     * @return {Promise<Actor>}
+     * @param itemData     The item data requested for creation
      * @private
      */
-    protected _onDropItemCreate(itemData: object): Promise<any>;
+    protected _onDropItemCreate(itemData: ItemType['data']): Promise<ItemType['data']>;
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
@@ -117,7 +78,7 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      */
-    protected _onSortItem(event: Event | JQuery.Event, itemData: object): Promise<any>;
+    protected _onSortItem(event: Event, itemData: ItemType['data']): Promise<ItemType>;
 
     protected _getSortSiblings(source: any): any;
 }

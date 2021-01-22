@@ -1,0 +1,159 @@
+<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
+
+<div class="side-bar-section armor-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label armor-label">
+            <i class="fas fa-shield-alt"></i>
+            <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
+        </div>
+        <input class="armor-value" type="text" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
+    </div>
+    <div class="side-bar-section-content">
+        <input class="armor-details" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"/>
+    </div>
+</div>
+<div class="side-bar-section health-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label health-label">
+            <i class="fas fa-heart"></i>
+            <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+            <div class="health-value">
+                <input id="health-current" type="text" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+                <span class="health-divider">/</span>
+                <input id="health-max" type="text" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+            </div>
+        </div>
+    </div>
+    <div class="side-bar-section-content">
+        <div id="hp-temp" class="labelled-field">
+            <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
+            <input id="hp-temp-value" type="text" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+        </div>
+    </div>
+</div>
+<div id="weaknesses" class="side-bar-section">
+    <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
+        <div class="side-bar-label">
+            <i class="fas fa-heart-broken"></i>
+            <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="weaknesses-controls controls" data-attribute="weaknessTypes" for="data.traits.dv">
+            <a class="weaknesses-edit edit" data-options="weaknessTypes" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="side-bar-section-content">
+        {{#each data.traits.dv as |weakness key|}}
+        <div class="tag weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
+        {{/each}}
+    </div>
+</div>
+<div id="resistances" class="side-bar-section">
+    <div class="side-bar-section-header {{#unless data.traits.dr }} disabled {{/unless}}">
+        <div class="side-bar-label">
+            <i class="fas fa-shield-virus"></i>
+            <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="resistances-controls controls" data-attribute="resistancesTypes" for="data.traits.dr">
+            <a class="resistances-edit edit" data-options="resistancesTypes" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if data.traits.dr }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="side-bar-section-content">
+        {{#each data.traits.dr as |resistance key|}}
+        <div class="tag resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}</div>
+        {{/each}}
+    </div>
+</div>
+<div id="immunities" class="side-bar-section">
+    <div class="side-bar-section-header {{#unless data.traits.di.labels }} disabled {{/unless}}">
+        <div class="side-bar-label">
+            <i class="fas fa-ankh"></i>
+            <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="immunities-controls controls" data-attribute="immunitiesTypes" for="data.traits.di">
+            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if data.traits.di.labels }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="side-bar-section-content">
+        {{#each data.traits.di.labels as |immunity key|}}
+        <div class="tag immunity" data-weakness="{{immunity.type}}">{{ immunity }}</div>
+        {{/each}}
+    </div>
+</div>
+<div id="saves">
+    {{#each data.saves as |save saveId|}}
+    <div class="save-container" data-save="{{saveId}}">
+        <label class="attribute-label rollable"><a>{{ localize save.labelShort }}</a></label>
+        <input type="text" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+    </div>
+    {{/each}}
+</div>
+<div id="speed" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-shoe-prints"></i>
+            <h4>{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
+        </div>
+        {{#if options.editable }}
+        <div class="speed-controls controls" data-attribute="speed" for="data.attributes.speed.otherSpeeds">
+            <a class="speed-edit edit" data-options="speed" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
+        </div>
+        {{/if}}
+    </div>
+    <div id="speed-section" class="side-bar-section-content">
+        <div id="walk-speed">
+            <input type="text" name="data.attributes.speed.value" value="{{ data.attributes.speed.value }}" data-dtype="Number" placeholder="0"/>
+        </div>
+        <div id="other-speeds">
+            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
+            {{#if speed.value }}
+            <div class="tag speed" data-speed="{{speed.type}}">
+                {{speed.label}} {{speed.value}}
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div id="effects" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <i class="fas fa-adjust"></i>
+            <h4>{{ localize 'PF2E.EffectsLabel' }}</h4>
+        </div>
+    </div>
+    <div class="side-bar-section-content">
+        <div class="effects-list inventory-list">
+            {{#each items as |item id|}}
+            {{#if (eq item.type 'condition')}}
+            <div class="item item-name effects expandable" title="{{item.name}}" data-item-id="{{effect.id}}" data-action-index="{{id}}">
+                <div class="item-image" style="background-image: url({{item.img}})">
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+            <div class="separator"></div>
+            {{#each items as |item ii|}}
+            {{#if (eq item.type 'effect') }}
+            <div class="item effects expandable" title="{{item.name}}" data-item-id="{{item._id}}">
+                <div class="item-image" style="background-image: url({{item.img}})">
+                </div>
+                {{#if options.editable}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i class="fas fa-trash"></i></a>
+                </div>
+                <div class="item-summary"></div>
+                {{/if}}
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+</div>

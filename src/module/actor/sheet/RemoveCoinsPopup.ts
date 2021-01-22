@@ -1,9 +1,14 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple } from '../../item/treasure';
+import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple, Coins } from '../../item/treasure';
+import { PF2EActor } from '../actor';
+
+interface PopupFormData extends FormData, Coins {
+    removeByValue: boolean;
+}
 
 /**
  * @category Other
  */
-export class RemoveCoinsPopup extends FormApplication {
+export class RemoveCoinsPopup extends FormApplication<PF2EActor> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'remove-coins';
@@ -14,11 +19,7 @@ export class RemoveCoinsPopup extends FormApplication {
         return options;
     }
 
-    activateListeners(html) {
-        super.activateListeners(html);
-    }
-
-    async _updateObject(event: Event, formData: any) {
+    async _updateObject(_event: Event, formData: PopupFormData) {
         const actor = this.object;
         const coinsToRemove = {
             pp: formData.pp,
@@ -43,9 +44,5 @@ export class RemoveCoinsPopup extends FormApplication {
                 ui.notifications.warn('Insufficient coins');
             }
         }
-    }
-
-    getData() {
-        return {};
     }
 }

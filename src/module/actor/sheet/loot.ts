@@ -13,7 +13,7 @@ import { LootNPCsPopup } from './loot/LootNPCsPopup';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eLoot extends ActorSheetPF2e {
+export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
     /** @override */
     constructor(actor: PF2ELoot, options: { editable: boolean }) {
         options.editable = true;
@@ -66,7 +66,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e {
         }
 
         // Precalculate some data to adapt sheet more easily
-        sheetData.isLoot = sheetData.data.lootSheetType === 'Loot';
+        sheetData.isLoot = this.actor.data.data.lootSheetType === 'Loot';
         sheetData.isShop = !sheetData.isLoot;
 
         this._prepareItems(sheetData.actor);

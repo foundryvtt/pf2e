@@ -516,6 +516,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -602,6 +605,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -687,6 +693,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -818,6 +827,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -955,6 +967,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1094,6 +1109,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -1228,6 +1246,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1628,6 +1649,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Climb or Swim",
+                        "predicate": {
+                            "any": [
+                                "action:climb",
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1636,11 +1671,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to Climb or Swim",
+                        "options": "action:climb, action:swim"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 1500000,
             "type": "lore"
         },

@@ -569,6 +569,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -861,6 +864,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Shove",
+                        "predicate": {
+                            "all": [
+                                "action:shove"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -869,6 +885,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Shove",
+                        "options": "action:shove"
+                    }
                 }
             },
             "flags": {},

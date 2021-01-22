@@ -556,6 +556,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -690,6 +693,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -935,6 +941,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Squeeze",
+                        "predicate": {
+                            "all": [
+                                "action:squeeze"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -943,11 +962,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+23 to Squeeze",
+                        "options": "action:squeeze"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics ",
+            "name": "Acrobatics",
             "sort": 700000,
             "type": "lore"
         },

@@ -1,4 +1,23 @@
-interface FormApplicationOptions extends ApplicationOptions {
+declare class FormDataExtended extends FormData {
+    constructor(form: HTMLElement, options?: { editors?: any[], dtypes?: any[] });
+
+    toObject(): any;
+}
+
+declare interface FormApplicationData<O extends {} = {}> {
+    object: O;
+    options?: FormApplicationOptions;
+    title: string;
+}
+
+declare interface OnSubmitFormOptions {
+    updateData?: Record<string, unknown>;
+    preventClose?: boolean
+    preventRender?: boolean;
+}
+
+
+declare interface FormApplicationOptions extends ApplicationOptions {
     /**
      * Whether the application form is editable - if true, it's fields will
      * be unlocked and the form can be submitted. If false, all form fields
@@ -34,10 +53,12 @@ interface FormApplicationOptions extends ApplicationOptions {
  *
  * @param options	Additional options which modify the rendering of the sheet.
  */
-declare class FormApplication<ObjectType extends {} = any> extends Application {
+declare abstract class FormApplication<ObjectType extends {} = {}> extends Application {
     options: FormApplicationOptions;
 
-    /** The object target which we are using this form to modify */
+    /**
+     * The object target which we are using this form to modify
+     */
     object: ObjectType;
 
     /** A convenience reference to the form HTLMElement */
@@ -53,9 +74,9 @@ declare class FormApplication<ObjectType extends {} = any> extends Application {
      * Keep track of any mce editors which may be active as part of this form
      * The values of this Array are inner-objects with references to the MCE editor and other metadata
      */
-    editors: any;
+    editors: Record<string, unknown>[];
 
-    constructor(object: any, options?: FormApplicationOptions);
+    constructor(object: ObjectType, options?: FormApplicationOptions);
 
     /**
      * Assign the default options which are supported by the entity edit sheet
@@ -67,18 +88,8 @@ declare class FormApplication<ObjectType extends {} = any> extends Application {
      */
     get isEditable(): boolean;
 
-    /**
-     * Render the FormApplication inner sheet content.
-     * See `Application._renderInner` for more detail.
-     */
-    protected _renderInner(...args: any[]): Promise<JQuery | HTMLElement>;
-
-    /**
-     * A helper function to transform an HTML form into a FormData object which is ready for dispatch
-     * @param form	The form-type HTMLElement
-     * @return		The prepared FormData object
-     */
-    protected _getFormData(form: JQuery | HTMLElement): FormData;
+    /** @override */
+    getData(options?: FormApplicationOptions): FormApplicationData<ObjectType>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
@@ -90,30 +101,27 @@ declare class FormApplication<ObjectType extends {} = any> extends Application {
      *
      * @param html	The rendered template ready to have listeners attached
      */
-    protected activateListeners(html: JQuery | HTMLElement): void;
+    protected activateListeners(html: JQuery): void;
 
     /**
      * If the form is not editable, disable its input fields
      */
-    protected _disableFields(form: JQuery | HTMLElement): void;
-
-    /**
-     * Handle the change of a color picker input which enters it's chosen value into a related input field
-     */
-    protected _onColorPickerChange(event: Event | JQuery.Event): void;
+    protected _disableFields(form: HTMLElement): void;
 
     /**
      * Handle standard form submission steps
-     * @param event			The submit event which triggered this handler
-     * @param updateData	Additional specific data keys/values which override or extend the contents of
-     *						the parsed form. This can be used to update other flags or data fields at the
-     *						same time as processing a form submission to avoid multiple database operations.
-     * @param preventClose	Override the standard behavior of whether to close the form on submit
-     * @returns				A promise which resolves to the validated update data
+     * @param {Event} event               The submit event which triggered this handler
+     * @param {Object|null} [updateData]  Additional specific data keys/values which override or extend the contents of
+     *                                    the parsed form. This can be used to update other flags or data fields at the
+     *                                    same time as processing a form submission to avoid multiple database operations.
+     * @param {boolean} [preventClose]    Override the standard behavior of whether to close the form on submit
+     * @param {boolean} [preventRender]   Prevent the application from re-rendering as a result of form submission
+     * @returns {Promise}                 A promise which resolves to the validated update data
+     * @private
      */
     protected _onSubmit(
         event: Event | JQuery.Event,
-        { updateData, preventClose }?: { updateData?: any; preventClose?: boolean },
+        { updateData, preventClose, preventRender }?: OnSubmitFormOptions
     ): Promise<any>;
 
     /**
@@ -128,11 +136,11 @@ declare class FormApplication<ObjectType extends {} = any> extends Application {
      * @param formData	The object of validated form data with which to update the object
      * @returns			A Promise which resolves once the update operation has completed
      */
-    protected _updateObject(event: Event | JQuery.Event, formData: any): Promise<any>;
+    protected _updateObject(event: Event, formData: FormData): Promise<void>;
 
     /* -------------------------------------------- */
     /*  TinyMCE Editor
-	/* -------------------------------------------- */
+	    /* -------------------------------------------- */
 
     /**
      * Activate a TinyMCE editor instance present within the form

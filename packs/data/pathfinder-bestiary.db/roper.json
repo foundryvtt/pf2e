@@ -569,6 +569,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -695,6 +698,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1025,6 +1031,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "About Caves",
+                        "predicate": {
+                            "all": [
+                                "terrain:cave"
+                            ]
+                        },
+                        "selector": "nature",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1033,11 +1052,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+21 about caves",
+                        "options": "terrain:cave"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Nature ",
+            "name": "Nature",
             "sort": 900000,
             "type": "lore"
         },
@@ -1099,6 +1124,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Stony or Icy Terrain",
+                        "predicate": {
+                            "any": [
+                                "terrain:stony",
+                                "terrain:icy"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 8
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1107,11 +1146,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+25 in stony or icy areas",
+                        "options": "terrain:stony, terrain:icy"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 1100000,
             "type": "lore"
         }

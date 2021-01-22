@@ -76,7 +76,6 @@ declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorTy
  * let actor = game.actors.get(actorId);
  */
 declare class Actor<ItemType extends Item = Item> extends Entity {
-    /** @override */
     data: ActorData;
 
     /**
@@ -146,6 +145,18 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
         baseActor: InstanceType<TA>,
         token: Token<InstanceType<TA>>,
     ): InstanceType<TA>;
+
+    /** @override */
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<this['data']>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<this['data'] | this['data'][]>;
 
     /**
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.

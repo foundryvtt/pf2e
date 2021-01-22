@@ -170,7 +170,7 @@
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.languages.selected as |v k|}}
-                            <span class="tag {{k}}">{{v}}</span>
+                            <span class="trait {{k}}">{{v}}</span>
                         {{/each}}
                         </ul>
                     </div>
@@ -280,7 +280,7 @@
                 {{/each}}
 
                 <!-- Equipment Header -->
-                <li class="item action-header">
+                <li class="item action-header item-container" data-container-type="actorInventory">
                     <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Items</h3>
                     {{#if owner}}
                     <div class="item-controls">
@@ -291,7 +291,7 @@
                 <!-- List Equipment -->
                 {{#each actor.equipment as |item iid|}}
                     
-                    <li class="item" data-item-id="{{item._id}}">
+                    <li class="item item-container" data-container-type="actorInventory" data-item-id="{{item._id}}">
                         <div class="item-name rollable">
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
                             <h4>
@@ -649,8 +649,8 @@
                                                 
                         {{#if ../owner}}
                         <div class="item-controls" style="padding-left: 22px">
-                        <!-- <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a> -->
-                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                         </div>
                         {{/if}}
                     </li>

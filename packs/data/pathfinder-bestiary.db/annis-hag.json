@@ -563,6 +563,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -907,6 +910,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Grapple",
+                        "predicate": {
+                            "all": [
+                                "action:grapple"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -915,11 +931,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 to Grapple",
+                        "options": "action:grapple"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 800000,
             "type": "lore"
         },

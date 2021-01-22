@@ -14,8 +14,6 @@ const throwPackError = (message) => {
     process.exit(1);
 };
 
-// include commander in git clone of commander repo
-
 const args = yargs(process.argv.slice(2))
     .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
         yargs
@@ -76,39 +74,70 @@ function entityIdChanged(newEntity, packDir, fileName) {
     }
 }
 
-function sanitizeEntity(entity) {
+/** Walk object tree and make appropriate deletions */
+function pruneTree(entityData, topLevel = {}) {
+    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
+    for (const key in entityData) {
+        if (key === '_id') {
+            topLevel = entityData;
+        } else if (['_modifiers', '_sheetTab'].includes(key)) {
+            delete entityData[key];
+        } else if (key === 'containerId' && !physicalItemTypes.includes(topLevel.type)) {
+            delete entityData[key];
+        } else if (entityData[key] instanceof Object) {
+            pruneTree(entityData[key], topLevel);
+        }
+    }
+}
+
+function sluggify(entityName) {
+    return entityName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/gi, ' ')
+        .trim()
+        .replace(/\s+|-{2,}/g, '-');
+}
+
+function sanitizeEntity(entityData) {
     // Remove individual permissions
-    entity.permission = {
+    entityData.permission = {
         default: 0,
     };
 
-    // Delete folder value
-    delete entity.folder;
+    delete entityData.sort;
+    delete entityData.flags.core;
 
-    // Delete sort value
-    delete entity.sort;
+    const slug = entityData.data?.slug;
+    if (typeof slug === 'string') {
+        if (slug !== sluggify(entityData.name)) {
+            console.warn(
+                `Warning: Name change detected on ${entityData.name}. ` +
+                    'Please remember to create a slug migration before next release.',
+            );
+        }
+        delete entityData.data.slug;
+    }
 
-    // Delete unneeded flags
-    delete entity.flags._sheetTab;
+    pruneTree(entityData);
 
     // Clean up description HTML
-    if (typeof entity.data?.description?.value === 'string') {
+    if (typeof entityData.data?.description?.value === 'string') {
         const $description = (() => {
-            const description = entity.data.description.value;
+            const description = entityData.data.description.value;
             try {
                 return $(description);
             } catch (_) {
                 try {
                     return $(`<p>${description}</p>`);
                 } catch (_error) {
-                    console.warn(`Failed to parse description of ${entity.name}`);
+                    console.warn(`Failed to parse description of ${entityData.name}`);
                     return null;
                 }
             }
         })();
 
         if ($description === null) {
-            return entity;
+            return entityData;
         }
 
         // Be rid of span tags from AoN copypasta
@@ -142,10 +171,10 @@ function sanitizeEntity(entity) {
             .html()
             .replace(/<([hb]r)>/g, '<$1 />'); // Restore Foundry's self-closing tags
 
-        entity.data.description.value = cleanDescription;
+        entityData.data.description.value = cleanDescription;
     }
 
-    return entity;
+    return entityData;
 }
 
 const newEntityIdMap = {};
@@ -222,7 +251,7 @@ async function extractPack(filePath, packFilename) {
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
 
-    const count = await packEntities.reduce(async (runningCount, entityData) => {
+    for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         const preparedEntity = convertLinks(entityData, packFilename);
 
@@ -246,14 +275,9 @@ async function extractPack(filePath, packFilename) {
         })();
 
         // Remove all non-alphanumeric characters from the name
-        const entityName = entityData.name
-            .toLowerCase()
-            .replace(/[^a-z0-9]/gi, ' ')
-            .trim()
-            .replace(/\s+/g, '-')
-            .replace(/-{2,}/g, '-');
+        const slug = sluggify(entityData.name);
 
-        const outFileName = `${entityName}.json`;
+        const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
 
         if (fs.existsSync(outFilePath)) {
@@ -270,11 +294,9 @@ async function extractPack(filePath, packFilename) {
 
         // Write the JSON file
         await fs.promises.writeFile(outFilePath, outData, 'utf-8');
+    }
 
-        return (await runningCount) + 1;
-    }, 0);
-
-    return count;
+    return packEntities.length;
 }
 
 function populateIdNameMap() {
@@ -324,45 +346,33 @@ async function extractPacks() {
     populateIdNameMap();
 
     const foundryPacks = (args.packDb === 'all' ? fs.readdirSync(packsPath) : [args.packDb])
-        .filter((filename) => filename.endsWith('.db'))
+        .filter((filename) => filename !== 'Spells (SRD) - LICENSE')
         .map((filename) => path.resolve(packsPath, filename));
 
     return (
         await Promise.all(
             foundryPacks.map(async (filePath) => {
-                const filename = path.basename(filePath);
+                const dbFilename = path.basename(filePath);
 
-                if (!filename.endsWith('.db')) {
-                    throwPackError(`Pack file is not a DB file: '${filename}'`);
+                if (!dbFilename.endsWith('.db')) {
+                    throwPackError(`Pack file is not a DB file: '${dbFilename}'`);
                 }
                 if (!fs.existsSync(filePath)) {
-                    throwPackError(`File not found: '${filename}'`);
+                    throwPackError(`File not found: '${dbFilename}'`);
                 }
 
-                const outDirPath = path.resolve(dataPath, filename);
-                const tempOutDirPath = path.resolve(tempDataPath, filename);
+                const outDirPath = path.resolve(dataPath, dbFilename);
+                const tempOutDirPath = path.resolve(tempDataPath, dbFilename);
 
                 await fs.promises.mkdir(tempOutDirPath);
 
-                const entityCount = await extractPack(filePath, filename);
+                const entityCount = await extractPack(filePath, dbFilename);
 
-                if (fs.existsSync(outDirPath)) {
-                    // Remove the old ./packs/data/[packname].db/ directory recursively
-                    await fs.promises.rmdir(outDirPath, { recursive: true });
-                }
-                // Create a new ./packs/data/[packname].db/ directory
-                await fs.promises.mkdir(outDirPath);
+                // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
+                fs.rmdirSync(outDirPath, { recursive: true });
+                await fs.promises.rename(tempOutDirPath, outDirPath);
 
-                // Move files from ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
-                const tempFiles = await fs.promises.readdir(path.resolve(tempDataPath, filename));
-
-                for await (const tempFile of tempFiles) {
-                    fs.promises.rename(path.resolve(tempOutDirPath, tempFile), path.resolve(outDirPath, tempFile));
-                }
-
-                // Remove ./packs/temp-data/ directory recursively
-
-                console.log(`Finished extracting ${entityCount} entities from pack ${filename}`);
+                console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
                 return entityCount;
             }),
         )
@@ -372,7 +382,6 @@ async function extractPacks() {
 extractPacks()
     .then((grandTotal) => {
         console.log(`Extraction complete (${grandTotal} total entities).`);
-        fs.rmdirSync(tempDataPath, { recursive: true });
     })
     .catch((error) => {
         console.error(throwPackError(error));

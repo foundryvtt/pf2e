@@ -26,6 +26,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -150,7 +153,10 @@
                 "label": "Verdant Staff (identify plants)",
                 "predicate": {
                     "all": [
-                        "identify",
+                        "action:recall-knowledge",
+                        "identify"
+                    ],
+                    "any": [
                         "target:plant"
                     ]
                 },

@@ -556,6 +556,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -690,6 +693,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1012,6 +1018,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Undergrowth",
+                        "predicate": {
+                            "all": [
+                                "terrain:undergrowth"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1020,11 +1039,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+11 in undergrowth",
+                        "options": "terrain:undergrowth"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 900000,
             "type": "lore"
         }

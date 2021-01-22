@@ -1,7 +1,9 @@
-/* global game, canvas  */
-import { ItemData } from '../../module/item/dataDefinitions';
-import { addKit } from '../../module/item/kits';
-import { PF2eConditionManager } from '../../module/conditions';
+/* global canvas  */
+
+import { PF2ECharacter } from 'src/module/actor/character';
+import { PF2ELoot } from 'src/module/actor/loot';
+import { PF2ENPC } from 'src/module/actor/npc';
+import { ActorSheetPF2e } from 'src/module/actor/sheet/base';
 
 Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
     const target = c.tokens.placeables.find((token) => {
@@ -16,61 +18,11 @@ Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
     });
 
     if (target?.actor) {
-        if (!['character', 'npc', 'loot'].includes(target.actor.data.type)) return true;
-
+        if (!['character', 'npc', 'loot'].includes(target.actor.data.type)) {
+            return true;
+        }
         if (data.type === 'Item') {
-            let itemData: ItemData;
-
-            if (data.pack) {
-                const pack: Compendium = game.packs.get(data.pack);
-                if (pack) {
-                    itemData = await pack.getEntry(data.id);
-                }
-            } else if (data.data) {
-                itemData = data.data;
-                game.actors.find((actor) => actor._id === data.actorId).deleteEmbeddedEntity('OwnedItem', itemData._id);
-            } else {
-                const item = game.items.get(data.id);
-                itemData = item.data;
-            }
-
-            if (itemData) {
-                if (
-                    [
-                        'weapon',
-                        'armor',
-                        'equipment',
-                        'consumable',
-                        'treasure',
-                        'lore',
-                        'martial',
-                        'feat',
-                        'action',
-                        'backpack',
-                        'kit',
-                        'condition',
-                        'effect',
-                    ].includes(itemData.type)
-                ) {
-                    switch (itemData.type) {
-                        case 'condition':
-                            await PF2eConditionManager.addConditionToToken(itemData, target);
-                            return false;
-                        case 'kit':
-                            await addKit(itemData, async (newItems) => {
-                                const items = await target.actor.createEmbeddedEntity('OwnedItem', newItems);
-                                if (Array.isArray(items)) {
-                                    return items.map((item) => item._id);
-                                }
-                                return [items._id];
-                            });
-                            return false;
-                        default:
-                            await target.actor.createEmbeddedEntity('OwnedItem', itemData);
-                            return false;
-                    }
-                }
-            }
+            return (target.actor.sheet as ActorSheetPF2e<PF2ECharacter | PF2ENPC | PF2ELoot>).onDropItem(data);
         }
     }
     return true;

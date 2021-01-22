@@ -20,4 +20,4 @@ declare function loadTemplates(paths: string[]): Promise<void>;
  *
  * @return		Returns the rendered HTML
  */
-declare function renderTemplate(path: string, data?: object): Promise<HTMLElement>;
+declare function renderTemplate(path: string, data?: object): Promise<string>;

@@ -1,13 +1,14 @@
 /* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { SKILL_DICTIONARY } from '../actor';
+import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './RecallKnowledgePopup';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
+export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -157,10 +158,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
             // Actions
             else if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EActor.getActionGraphics(
-                    actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1,
-                ).imageUrl;
+                i.img = PF2ENPC.getActionGraphics(actionType, parseInt((i.data.actions || {}).value, 10) || 1).imageUrl;
 
                 // get formated traits for read-only npc sheet
                 const traits = [];
@@ -194,7 +192,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
 
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
-                    i.img = PF2EActor.getActionGraphics(
+                    i.img = PF2ENPC.getActionGraphics(
                         actionType,
                         parseInt((i.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
@@ -215,10 +213,10 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
             const spellType = i.data.time.value;
 
             // format spell level for display
-            if (spellType === 'reaction') i.img = PF2EActor.getActionGraphics('reaction').imageUrl;
-            else if (spellType === 'free') i.img = PF2EActor.getActionGraphics('free').imageUrl;
+            if (spellType === 'reaction') i.img = PF2ENPC.getActionGraphics('reaction').imageUrl;
+            else if (spellType === 'free') i.img = PF2ENPC.getActionGraphics('free').imageUrl;
             else if (parseInt(spellType, 10))
-                i.img = PF2EActor.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
+                i.img = PF2ENPC.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
 
             // check if the spell has a valid spellcasting entry assigned to the location value.
             if (spellcastingEntriesList.includes(i.data.location.value)) {
@@ -345,6 +343,14 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature {
             event.preventDefault();
             const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
+            const extraOptions = $(event.currentTarget).parents('.item').attr('data-options');
+            if (extraOptions) {
+                const split = extraOptions
+                    .split(',')
+                    .map((o) => o.trim())
+                    .filter((o) => !!o);
+                opts.push(...split);
+            }
             this.actor.data.data.skills[shortform]?.roll(event, opts); // eslint-disable-line no-unused-expressions
         });
 

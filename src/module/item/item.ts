@@ -8,19 +8,13 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
-import { ItemData } from './dataDefinitions';
+import { ItemData, ItemTraits } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-
-class ItemTraits {
-    value: Array<string>;
-    custom: string;
-}
 
 /**
  * @category PF2
  */
 export class PF2EItem extends Item<PF2EActor> {
-    /** @override */
     data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
@@ -35,6 +29,17 @@ export class PF2EItem extends Item<PF2EActor> {
                 console.warn(`Unrecognized Item type (${data.type}): falling back to PF2EItem`);
             }
         }
+    }
+
+    /** The default sheet, token, etc. image of a newly created world item */
+    static get defaultImg() {
+        const [typeName] = Object.entries(CONFIG.PF2E.Item.entityClasses).find(([_key, cls]) => cls.name === this.name);
+        return `systems/pf2e/icons/default-icons/${typeName}.svg`;
+    }
+
+    /** The sluggified name of the item **/
+    get slug(): string {
+        return this.data.data.slug;
     }
 
     /**
@@ -289,8 +294,10 @@ export class PF2EItem extends Item<PF2EActor> {
     /* -------------------------------------------- */
 
     _spellChatData(rollOptions?: any) {
-        const localize = game.i18n.localize.bind(game.i18n);
-        const data: any = duplicate(this.data.data);
+        const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
+        if (this.data.type != 'spell')
+            throw new Error("Tried to create spell chat data from an item that wasn't a spell");
+        const data = duplicate(this.data.data);
 
         const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
 
@@ -313,7 +320,7 @@ export class PF2EItem extends Item<PF2EActor> {
         data.isAttack = data.spellType.value === 'attack';
 
         // Combine properties
-        const props = [
+        const props: (number | string)[] = [
             CONFIG.PF2E.spellLevels[data.level.value],
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
@@ -334,7 +341,8 @@ export class PF2EItem extends Item<PF2EActor> {
         data.properties = props.filter((p) => p !== null);
 
         const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
-        data.traits = traits.filter((p) => p);
+        // TODO: This line needs to be fixed as these types are not even vaguely compatible
+        data.traits = traits.filter((p) => p) as any;
         // Toggling this off for now
         /*     data.area = data.area.value ? {
       "label": `Area: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}`,
@@ -482,7 +490,7 @@ export class PF2EItem extends Item<PF2EActor> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollWeaponDamage(event, critical = false) {
-        const localize = game.i18n.localize.bind(game.i18n);
+        const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item: ItemData = this.data;
         // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
@@ -493,10 +501,10 @@ export class PF2EItem extends Item<PF2EActor> {
         const rollData = duplicate(this.actor.data.data) as any;
         let rollDie = itemData.damage.die;
         const abl = 'str';
-        let abilityMod = rollData.abilities[abl].mod;
-        let parts = [];
-        const partsCritOnly = [];
-        const dtype = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
+        let abilityMod: number = rollData.abilities[abl].mod;
+        let parts: (string | number)[] = [];
+        const partsCritOnly: string[] = [];
+        const dtype: string = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
         // Get detailed trait information from item
         const traits = itemData.traits.value || [];
@@ -788,7 +796,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const item: ItemData = this.data;
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
-        const localize = game.i18n.localize.bind(game.i18n);
+        const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const button = event.currentTarget;
         const card = button.closest('*[data-spell-lvl]');
@@ -801,11 +809,11 @@ export class PF2EItem extends Item<PF2EActor> {
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
         const spellLvl = parseInt(cardData.spellLvl, 10);
-        const spell = new Spell(this.data, { castingActor: this.actor, castLevel: spellLvl });
+        const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
         // Append damage type to title
-        const damageLabel = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+        const damageLabel: string = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (dtype && !isHeal) title += ` (${dtype})`;
 
@@ -889,29 +897,29 @@ export class PF2EItem extends Item<PF2EActor> {
         return PF2EItem.calculateMap(this.data);
     }
 
-    static calculateMap(item: ItemData): { map2: number; map3: number } {
+    static calculateMap(item: ItemData): { label: string; map2: number; map3: number } {
         if (['melee', 'weapon'].includes(item.type)) {
             // calculate multiple attack penalty tiers
             const agile = (item.data.traits.value || []).includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;
             switch (alternateMAP) {
                 case '1':
-                    return { map2: -1, map3: -2 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -1, map3: -2 };
                 case '2':
-                    return { map2: -2, map3: -4 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -2, map3: -4 };
                 case '3':
-                    return { map2: -3, map3: -6 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -3, map3: -6 };
                 case '4':
-                    return { map2: -4, map3: -8 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
                 case '5':
-                    return { map2: -5, map3: -10 };
+                    return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
                 default: {
-                    if (agile) return { map2: -4, map3: -8 };
-                    else return { map2: -5, map3: -10 };
+                    if (agile) return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
+                    else return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
                 }
             }
         }
-        return { map2: -5, map3: -10 };
+        return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
     }
 
     /* -------------------------------------------- */

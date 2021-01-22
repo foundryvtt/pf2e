@@ -561,6 +561,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -698,6 +701,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1069,7 +1075,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 24
+                    "value": 21
                 },
                 "proficient": {
                     "value": 0
@@ -1077,6 +1083,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forests or Swamps",
+                        "predicate": {
+                            "any": [
+                                "terrain:forest",
+                                "terrain:swamp"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1085,11 +1105,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in forests or swamps",
+                        "options": "terrain:forest, terrain:swamp"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 1000000,
             "type": "lore"
         }

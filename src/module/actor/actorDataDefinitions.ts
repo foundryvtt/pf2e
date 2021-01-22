@@ -425,12 +425,13 @@ export type NPCSaveData = SaveData & { base?: number };
 /** Normal skill data, but with an additional 'base' value. */
 export type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
-export type NPCSkillData = SkillData & {
-    base?: number;
-    visible?: boolean;
-    label: string;
-    expanded: string;
-};
+export type NPCSkillData = PF2StatisticModifier &
+    Rollable & {
+        base?: number;
+        visible?: boolean;
+        label: string;
+        expanded: string;
+    };
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
@@ -543,6 +544,7 @@ export interface RawHazardData {
 
 /** The raw information contained within the actor data object for loot actors. */
 export interface RawLootData {
+    lootSheetType: 'Merchant' | 'Loot';
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
@@ -556,7 +558,7 @@ export interface RawFamiliarData {
     attributes: {
         hp: FamiliarHitPointsData;
         ac: { value: number; breakdown: string; check?: number };
-        perception: { value: number } & Partial<RawSkillData>;
+        perception: { value: number } & Partial<RawSkillData> & Rollable;
         /** The movement speeds that this Familiar has. */
         speed: {
             /** The land speed for this actor. */

@@ -1718,9 +1718,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/illusory-object.jpg",
             "name": "Illusory Object",
             "sort": 900000,
@@ -1862,9 +1860,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/detect-alignment.jpg",
             "name": "Detect Alignment ",
             "sort": 1000000,
@@ -2011,9 +2007,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/detect-magic.jpg",
             "name": "Detect Magic ",
             "sort": 1100000,
@@ -2082,6 +2076,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2213,6 +2210,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2349,6 +2349,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2487,6 +2490,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2747,6 +2753,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -2755,11 +2774,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 to swim",
+                        "options": "action:swim"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 2000000,
             "type": "lore"
         },

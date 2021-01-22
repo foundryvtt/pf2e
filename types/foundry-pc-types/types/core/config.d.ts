@@ -64,8 +64,8 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Playlist entity class
      */
     Playlist: {
-        entityClass;
-        sheetClass;
+        entityClass: typeof Playlist;
+        sheetClass: typeof PlaylistConfig;
         sidebarIcon: string;
     };
 
@@ -73,8 +73,8 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for RollTable random draws
      */
     RollTable: {
-        entityClass;
-        sheetClass;
+        entityClass: typeof RollTable;
+        sheetClass: typeof RollTableConfig;
         sidebarIcon: string;
         resultIcon: string;
     };

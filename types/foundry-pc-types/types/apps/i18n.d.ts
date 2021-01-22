@@ -48,7 +48,7 @@ declare class Localization {
      * @param lang	A language string in CONFIG.supportedLanguages
      * @return 		A Promise which resolves once the translations for the requested language are ready
      */
-    setLanguage(lang: string): Promise<any>;
+    setLanguage(lang: string): Promise<void>;
 
     /**
      * Localize a string by drawing a translation from the available translations dictionary, if available
@@ -63,13 +63,13 @@ declare class Localization {
      * Provide a string ID which defines the localized template.
      * Variables can be included in the template enclosed in braces and will be substituted using those named keys.
      *
-     * @param {string} stringId     The string ID to translate
-     * @param {Object} data         Provided input data
-     * @return {string}             The translated and formatted string
+     * @param stringId The string ID to translate
+     * @param data     Provided input data
+     * @return The translated and formatted string
      *
      * @example
      * const stringId = "MY_TEST_STRING"; // "Your name is {name}"
      * game.i18n.format("MY_TEST_STRING", {name: "Andrew"}); // Produces "Your name is Andrew"
      */
-    format(stringId: string, data?: object): string;
+    format(stringId: string, data?: { [key: string]: string | number | null }): string;
 }

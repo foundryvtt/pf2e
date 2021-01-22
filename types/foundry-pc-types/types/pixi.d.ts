@@ -1141,7 +1141,7 @@ declare namespace PIXI {
          */
         ticker: PIXI.Ticker;
     }
-    module Application {
+    namespace Application {
         /**
          * @memberof PIXI.Application
          * @typedef {object} Plugin
@@ -1924,6 +1924,7 @@ declare namespace PIXI {
             interaction: PIXI.interaction.InteractionManager;
             prepare: PIXI.prepare.Prepare;
         };
+
         /**
          * Adds a plugin to the renderer.
          *
@@ -4207,6 +4208,7 @@ declare namespace PIXI {
                 vertexArrayObject: OES_vertex_array_object;
                 anisotropicFiltering: EXT_texture_filter_anisotropic;
             };
+
             /**
              * `true` if the context is lost
              * @member {boolean}
@@ -4568,6 +4570,7 @@ declare namespace PIXI {
             readonly boundBuffers: {
                 [key: number]: PIXI.Buffer;
             };
+
             /**
              * Cache for all geometries by id, used in case renderer gets destroyed or for profiling
              * @member {object} PIXI.systems.GeometrySystem#managedGeometries
@@ -11734,6 +11737,7 @@ declare namespace PIXI {
             cursorStyles: {
                 [key: string]: any;
             };
+
             /**
              * The mode of the cursor that is being used.
              * The value of this is a key from the cursorStyles dictionary.
@@ -11869,7 +11873,7 @@ declare namespace PIXI {
         pre?: PIXI.Loader.loaderMiddleware;
         use?: PIXI.Loader.loaderMiddleware;
     };
-    module Loader {
+    namespace Loader {
         /**
          * @memberof PIXI.Loader
          * @callback loaderMiddleware
@@ -19778,7 +19782,7 @@ declare namespace PIXI {
          */
         getGlobalPosition(point?: PIXI.Point, skipUpdate?: boolean): PIXI.Point;
     }
-    module AnimatedSprite {
+    namespace AnimatedSprite {
         /**
          * @memberof PIXI.AnimatedSprite
          * @typedef {object} FrameObject
@@ -24426,21 +24430,21 @@ declare class BatchPart {
  *
  * @member {Object}
  */
-declare var FILL_COMMANDS: any;
+declare let FILL_COMMANDS: any;
 
 /**
  * Batch pool, stores unused batches for preventing allocations.
  *
  * @type {Array<BatchPart>}
  */
-declare var BATCH_POOL: BatchPart[];
+declare let BATCH_POOL: BatchPart[];
 
 /**
  * Draw call pool, stores unused draw calls for preventing allocations.
  *
  * @type {Array<PIXI.BatchDrawCall>}
  */
-declare var DRAW_CALL_POOL: PIXI.BatchDrawCall[];
+declare let DRAW_CALL_POOL: PIXI.BatchDrawCall[];
 
 declare namespace PIXI {
     namespace utils {

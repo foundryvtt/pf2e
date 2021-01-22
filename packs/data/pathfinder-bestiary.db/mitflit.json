@@ -702,9 +702,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/speak-with-animals.jpg",
             "name": "Speak with Animals ",
             "sort": 200000,
@@ -846,9 +844,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/bane.jpg",
             "name": "Bane",
             "sort": 300000,
@@ -994,9 +990,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/prestidigitation.jpg",
             "name": "Prestidigitation - Cantrips ",
             "sort": 400000,
@@ -1065,6 +1059,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1151,6 +1148,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1282,6 +1282,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1419,6 +1422,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1662,6 +1668,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Vs Arthropods",
+                        "predicate": {
+                            "all": [
+                                "target:arthropod"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "value": 6
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1670,11 +1689,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 vs. arthropods",
+                        "options": "target:arthropod"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Diplomacy ",
+            "name": "Diplomacy",
             "sort": 1300000,
             "type": "lore"
         },

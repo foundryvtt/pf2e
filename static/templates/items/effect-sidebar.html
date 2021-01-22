@@ -44,4 +44,20 @@
             </select>
         </div>
     </div>
+    <hr>
+    {{#if targets}}
+    <div class="form-group">
+        <label for="effect-target">{{localize 'Target'}}</label>
+        <div class="form-fields">
+            <select id="effect-target" name="data.target" data-dtype="String">
+                {{#select data.target}}
+                <option value=""></option>
+                {{#each targets}}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    {{/if}}
 </div>
