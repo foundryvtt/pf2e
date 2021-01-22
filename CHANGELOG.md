@@ -1,5 +1,84 @@
 # Patch Notes:
 
+## Version 1.11.0
+### Bug Fixes
+* (stwlam) Monkey-patch Token class to fix Foundry bug causing incorrect border colors
+* (stwlam) Prevent Distribute Coins popup from rendering if Enter is pressed on a loot sheet
+* (In3luki) Fix DistributeCoinsPopup assigning wrong platinum values
+* (In3luki) Fix drag and drop to token for all item types
+* (Mothringer) Update item identified name if it has changed even if the item has been previously identified
+* (Mothringer) Fix wand and scroll drag and drop on the new NPC sheet
+* (Trollderim) Ensure proper coloring of 1s and 20s for rerolls. Closes #980
+* (fryguy) Fix minor issues with ABC item cards
+* (nikolaj-a) Default NPC skills to untrained. Closes #938
+* (nikolaj-a) Fix chat card tag for custom damage dice
+* (nikolaj-a) Better Dice So Nice integration for damage rolls
+
+### New Features
+* (Ladis) New NPC sheet that combines editable and non-editable mode and splits up the information into tabs
+* (Mothringer) Automatic scrolls and wands from spells dragged to the inventory
+* (Mothringer) Make spellcasting wands into non-destroying consumables
+* (stwlam) Send chat message upon loot actor transaction
+* (fryguy) Support for drag & drop ancestries
+* (fryguy) Support for drag & drop backgrounds
+* (putty) Travel speed macro
+* (nikolaj-a) Add weapon potency rule element
+* (nikolaj-a) Add striking rule element
+* (nikolaj-a) Add multiple attack penalty rule element
+* (nikolaj-a) Add effect target rule element
+
+### Content Changes
+* (TMun) Add descriptive text to Perpetual Infusions for all alchemist fields
+* (TMun) Convert Final Sacrifice to saving throw instead of spell attack. Closes #999
+* (TMun) Correct basilisk Will save from 1 to 11. Closes #1000
+* (TMun) Correct meladaemon action and damage type (technically not per book, but likely error in book for bite attack). Closes #984
+* (TMun) Correct Cavnakash spell attack modifier to +17 per book (vice standard 14 for spell DC). Closes #977
+* (TMun) Correct failure condition for Crushing Despair
+* (TMun) Correct success condition for Maze. Closes #1004
+* (TMun) Add spell effect to shield spell
+* (TMun) Convert background compendium from journal entries to items, in preparation for drag and drop support
+* (Drental) Fix Fauchard bulk value
+* (Drental) Update treat wounds macro to use the built-in roll check
+* (stwlam) Add spell effect for Protective Ward + new image for spell/effect
+* (stwlam) Clean up derived data from compendia (`_modifiers`, `_sheetTabs`, `sourceId`, `containerId`)
+* (profounddark) Add SetProperty rule element to Panache effect
+* (Shandyan) Correct Bracers of Armor I. Closes #998
+* (Shandyan) Change naming scheme for action predicate triggers:
+    * Correct predicates for actions on items
+    * Fix up item predicates for identify, as that can come from several different skills
+* (Shandyan) Sorcerer blood magic rule elements
+* (Shandyan & nikolaj-a) Add situational monster skill modifiers for Bestiary #1
+* (nikolaj-a) Fix situational skill modifier for demonologist
+* (nikolaj-a) Add rule elements for traits on monk class features Mystic Strikes, Metal Strikes, and Adamantine Strikes
+* (nikolaj-a) Add magic weapon spell effect
+
+### Core System Improvements
+* (SLATE) Add lifesense to list of available PC senses
+* (TMun) Adds a specific spell tradition for Halcyon spells to support Magaambya archetype. Closes #963
+* (Mothringer) Hide the invest item toggle on loot actor sheet
+* (Mothringer) Remove ability to add prepared spells to slots lower level than the spell
+* (fryguy) Refactor the migration runner code to be much easier to maintain
+* (fryguy) Add error checking for code that looks into canvas for tokens to call updates
+* (stwlam) Change badge for chained conditions in the effects panel from a padlock to a link
+* (stwlam) Add variety to default actor and item images
+* (putty) Add size to the physical items
+* (nikolaj-a) Item sheet for NPC skills so rule elements can be added to those
+* (nikolaj-a) List situational NPC skill modifiers
+* (nikolaj-a) Enable roll note rule element for NPCs
+* (nikolaj-a) Refactor weapon damage calculation in preparation for rune rule elements
+
+### Development Improvements
+* (stwlam) Ensure proper Actor class is inferred from ActorSheet subclasses
+* (stwlam) Use the actual handlebars npm package for type definitions
+* (stwlam) Update application-, dice-, canvas-related type declarations, address remaining errors/warning
+* (stwlam) Add class and data type for effects
+* (stwlam) Pack builder: Inject slugs into item compendium data
+* (stwlam) Allow type hints to be provided to game.packs methods
+* (Mothringer) Improve typing in SpellcastingEntry class and character.ts
+* (Mothringer) Add proper types to spell.ts
+* (Mothringer) Improve typing in item.ts and update SpellData's type definition to more closely match reality
+
+
 ## Version 1.10.32
 ### Bug Fixes
 * (Mothringer) Fix charging incorrect price when part of a stack is purchased
