@@ -112,7 +112,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const skillId = skillContainer.attr('data-skill');
 
         const skillItem = this.npc.findSkillItem(skillId);
-        
+
         if (skillItem !== null) {
             skillContainer.remove();
             await this.npc.deleteOwnedItem(skillItem._id);
@@ -121,7 +121,6 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         } else {
             console.error(`Unable to delete skill, couldn't find skill item.`);
         }
-
     }
 
     async _onAddLoreSkillClicked(eventData) {
@@ -153,8 +152,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
 
         let item = this.npc.findSkillItem(skillId);
 
-        if (item === null)
-        {
+        if (item === null) {
             console.error(`Unable to find item for skill ${skillId}. Can't edit the skill.`);
             return;
         }
