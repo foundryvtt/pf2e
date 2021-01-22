@@ -481,9 +481,6 @@ export interface RawNpcData {
         creatureType: string;
         /** Flavor / descriptive background text for this creature. */
         flavorText: string;
-
-        /** Rarity */
-        rarity: string;
     };
 
     /** Any special attributes for this NPC, such as AC or health. */

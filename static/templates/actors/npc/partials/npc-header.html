@@ -8,8 +8,8 @@
     </div>
     <div class="flexrow">
         {{!-- TRAITS HERE --}}
-        <select class="rarity-select traits-list-item rarity {{data.details.rarity}}" name="data.details.rarity" data-dtype="String">
-            {{#select data.details.rarity}}
+        <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
+            {{#select data.traits.rarity.value}}
             {{#each rarity as |label key|}}
             <option value="{{key}}">{{label}}</option>
             {{/each}}

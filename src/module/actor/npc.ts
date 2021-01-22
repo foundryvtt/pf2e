@@ -418,10 +418,6 @@ export class PF2ENPC extends PF2EActor {
 
             this._processNPCSkill(skill);
         }
-
-        if (this.data.data.details.rarity === undefined) {
-            this.data.data.details.rarity = 'common';
-        }
     }
 
     /**
@@ -656,7 +652,7 @@ export class PF2ENPC extends PF2EActor {
 
                 if (realSkill !== undefined) {
                     this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
-                    this.assignNPCSkillException(realSkillId, finalSpecialBonus);
+                    // this.assignNPCSkillException(realSkillId, finalSpecialBonus); // Don't use exceptions, use variants
 
                     this._processNPCSkill(realSkill);
 
@@ -665,7 +661,7 @@ export class PF2ENPC extends PF2EActor {
                     console.warn(`Unable to find real skill with ${realSkillId} ID`);
                 }
             } else {
-                console.warn(`Failed to find regular skill ID for skill name ${rawSkillId}`);
+                console.warn(`Failed to find regular skill ID for skill name ${rawSkillId} from item ${item.name}`);
             }
 
             // Make all skills to remove not visible so they don't show up in the sheet
@@ -674,7 +670,6 @@ export class PF2ENPC extends PF2EActor {
 
                 if (skill === undefined) continue;
 
-                console.log(`Hidding skill ${skillId}`);
                 this.data.data.skills[skillId].visible = false;
             }
         }
