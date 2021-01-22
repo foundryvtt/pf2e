@@ -42,31 +42,16 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const skills: Record<string, NPCSkillData> = {};
         const missingSkills: Record<string, NPCSkillData> = {};
 
-        for (const skillId of Object.keys(this.object.data.data.skills)) {
+        for (const skillId of Object.keys(this.npc.data.data.skills)) {
             const skill = this.object.data.data.skills[skillId];
 
-            if (skill.visible === false) {
-                if (this.isRegularSkill(skill)) {
-                    missingSkills[skillId] = skill;
-                }
-
-                continue;
-            }
-
-            if (this.isLoreSkill(skill)) {
-                // Additional processing for lore skills
-                // Flags as lore to show it in the lore section
+            if (this.isLoreSkill(skillId)) {
                 skill.isLore = true;
-
-                // Extract the lore name to show only the name in the name field
-                const regExpFormat = game.i18n.format('PF2E.LoreSkillFormat', { name: '(.*)' });
-                const result = skill.label.match(regExpFormat);
-
-                skill.loreName = result?.length >= 2 ? result[1] : '???';
-
                 skills[skillId] = skill;
-            } else if (this.isRegularSkill(skill)) {
+            } else if (skill.visible) {
                 skills[skillId] = skill;
+            } else {
+                missingSkills[skillId] = skill;
             }
         }
 
@@ -126,18 +111,16 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     async _onAddLoreSkillClicked(eventData) {
         eventData.preventDefault();
 
-        const localizedName = game.i18n.localize('PF2E.NewLoreSkill');
+        const loreNameField = $(eventData.currentTarget).parents('#lore-skill-creator').find('input');
+        const loreName = loreNameField.val() as string;
 
         const data: any = {
-            name: `${localizedName}-lore`,
+            name: loreName,
             type: 'lore',
-            label: game.i18n.format('PF2E.LoreSkillFormat', { name: localizedName }),
+            label: loreName,
             data: {
                 mod: {
                     value: 0,
-                },
-                description: {
-                    value: '',
                 },
             },
         };
@@ -167,79 +150,36 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      */
     async _updateObject(event: Event, formData: any) {
         for (const [key, skillData] of Object.entries(formData as Record<any, any>)) {
-            const isLoreSkill = key.includes('-lore');
-
             let skillId: string;
-            let type: string;
             let value: number;
 
-            if (isLoreSkill) {
-                // Get skill id from the lore name, in case it has changed
-                skillId = this.npc.convertSkillNameToSkillId(this.npc.convertItemNameToSkillName(skillData[0]));
-
-                if (!skillId.includes('-lore')) {
-                    skillId += '-lore';
-                }
-
-                type = key;
-                value = parseInt(skillData[1], 10);
-            } else {
-                skillId = key;
-                type = key;
-                value = parseInt(skillData, 10);
-            }
+            skillId = key;
+            value = parseInt(skillData, 10);
 
             const skillItem = this.npc.findSkillItem(skillId);
             const skillItemValue: number = skillItem !== null ? (skillItem.data.data as any).mod.value : 0;
             const hasToUpdateItem = skillItem !== null && skillItemValue !== value && value > 0;
-            const hasToCreateItem = skillItem === null && value !== 0;
-            const hasToDelete = skillItem !== null && value === 0;
-            const hasRenamedLoreSkill = isLoreSkill && type !== skillId;
 
             if (hasToUpdateItem) {
                 await skillItem.update({
                     [`data.mod.value`]: value,
                 });
-            } else if (hasToCreateItem) {
-                const skillName = this.npc.convertSkillIdToSkillName(skillId);
-                const itemName = this.npc.convertSkillNameToItemName(skillName);
-
-                const data: any = {
-                    name: itemName,
-                    type: 'lore',
-                    data: {
-                        mod: {
-                            value: value,
-                        },
-                    },
-                };
-
-                await this.npc.createOwnedItem(data);
-            } else if (hasToDelete) {
-                this.npc.deleteOwnedItem(skillItem._id);
-            }
-
-            // Delete old item from rename
-            if (hasRenamedLoreSkill) {
-                const itemToRemove = this.npc.findSkillItem(key);
-
-                if (itemToRemove !== null) {
-                    this.npc.deleteOwnedItem(itemToRemove._id);
-                } else {
-                    console.error(`Unable to remove old item skill for skill ${key}`);
-                }
             }
         }
     }
 
-    isLoreSkill(skill) {
-        return !this.isRegularSkill(skill);
+    isLoreSkill(skillId) {
+        return !this.isRegularSkill(skillId);
     }
 
-    isRegularSkill(skill) {
-        for (const skillName of Object.keys(SKILL_EXPANDED)) {
-            if (skillName === skill.name) return true;
-            if (skillName === skill.expanded) return true;   
+    /**
+     * Checks if a skill is a regular skill or not.
+     * @param skillId ID of the skill to check.
+     */
+    isRegularSkill(skillId) {
+        for (const key of Object.keys(SKILL_EXPANDED)) {
+            if (key === skillId) return true;
+            if (SKILL_EXPANDED[key].shortform === skillId) return true;
         }
 
         return false;

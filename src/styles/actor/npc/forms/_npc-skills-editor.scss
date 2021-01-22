@@ -19,7 +19,6 @@ $table-odd: #f5efe0;
         padding: 4px;
         background-color: $primary-accent !important;
         color: white;
-
     }
 
     .skills-list {
@@ -30,22 +29,26 @@ $table-odd: #f5efe0;
             display: grid;
             flex: auto;
             width: 100%;
-            grid-template-columns: 100px 32px 48px;
-            grid-template-rows: 18px;
+            grid-template-columns: auto 32px 48px;
+            grid-template-rows: auto;
             column-gap: 18px;
             padding: 4px;
-            
+
             &:nth-child(even) {
-                background-color:$table-even;
+                background-color: $table-even;
             }
-    
+
             &:nth-child(odd) {
-                background-color:$table-odd;
+                background-color: $table-odd;
+            }
+
+            .item-controls {
+                text-align: right;
             }
         }
 
         .sub-section {
-            background-color:$secondary-accent;
+            background-color: $secondary-accent;
             color: white;
             grid-template-columns: auto;
             text-transform: uppercase;

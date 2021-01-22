@@ -32,7 +32,7 @@
             {{#each skills as |skill skillId|}}
             {{#if skill.isLore}}
             <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
-                <input name="{{skillId}}" data-dtype="String" value="{{skill.loreName}}" placeholder=""/>
+                <label class="skill-name">{{skill.name}}</label>
                 <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
                 <div class="item-controls">
                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
@@ -41,7 +41,8 @@
             </li>
             {{/if}}
             {{/each}}
-            <li>
+            <li id="lore-skill-creator" class="flexrow" style="align-items: baseline;">
+                <input data-dtype="String"/>
                 <div class="btn add-lore-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.AddLoreSkill'}}</a></div>
             </li>
         </ol>
