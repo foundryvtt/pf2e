@@ -676,6 +676,10 @@ export class PF2ENPC extends PF2EActor {
 
             // Make all skills to remove not visible so they don't show up in the sheet
             for (const skillId of skillsToRemoveIDs) {
+                const skill = this.data.data.skills[skillId];
+
+                if (skill === undefined) continue;
+                
                 console.log(`Hidding skill ${skillId}`);
                 this.data.data.skills[skillId].visible = false;
             }
