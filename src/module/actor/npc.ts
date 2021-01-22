@@ -160,6 +160,8 @@ export class PF2ENPC extends PF2EActor {
                 },
                 { overwrite: false },
             );
+            stat.lore = false;
+            stat.rank = 0; // default to untrained
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -206,9 +208,12 @@ export class PF2ENPC extends PF2EActor {
                 const stat = mergeObject(new PF2StatisticModifier(item.name, modifiers), data.skills[shortform], {
                     overwrite: false,
                 });
+                stat.itemID = item._id;
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = item.name;
+                stat.lore = !SKILL_EXPANDED[skill];
+                stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
                 stat.breakdown = stat.modifiers
