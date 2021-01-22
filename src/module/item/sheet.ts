@@ -225,6 +225,24 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         } else if (type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+        } else if (type === 'effect') {
+            // Effect-specific data
+            if (this?.actor?.items) {
+                const scopes = new Set<string>();
+
+                data.item.data.rules
+                    .filter((rule) => rule.key === 'PF2E.RuleElement.EffectTarget')
+                    .forEach((rule) => {
+                        scopes.add((rule as any).scope);
+                    });
+                if (scopes) {
+                    data.targets = this.actor.items
+                        .filter((item) => scopes.has(item.type))
+                        .map((item) => {
+                            return { id: item.id, name: item.name };
+                        });
+                }
+            }
         }
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
