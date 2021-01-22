@@ -219,7 +219,7 @@ export class PF2ENPC extends PF2EActor {
                 stat.value = stat.totalModifier;
                 stat.visible = true;
                 stat.exception = item.data.description.value;
-                stat.sourceItemId = item._id; // Required to find the item related to this skill later
+                stat.loreItemId = item._id; // Required to find the item related to this skill later
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -602,8 +602,8 @@ export class PF2ENPC extends PF2EActor {
     findSkillItem(skillId: string): PF2EItem {
         const skill = this.data.data.skills[skillId];
 
-        if (skill !== undefined && skill.sourceItemId !== undefined) {
-            return this.getOwnedItem(skill.sourceItemId);
+        if (skill !== undefined && skill.loreItemId !== undefined) {
+            return this.getOwnedItem(skill.loreItemId);
         }
 
         // If not found, try to find it based on the skill name
