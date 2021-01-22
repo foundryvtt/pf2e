@@ -99,7 +99,9 @@ export class PF2Check {
         const newMessage = await ChatMessage.create(
             {
                 roll: keepRoll,
-                content: `<div class="${oldRollClass}">${await oldRoll.render()}</div><div class='pf2e-reroll-second ${newRollClass}'>${await newRoll.render()}</div>`,
+                content: `<div class="${oldRollClass}">${await PF2Check.renderReroll(
+                    oldRoll,
+                )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await PF2Check.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
@@ -107,6 +109,45 @@ export class PF2Check {
             {},
         );
         await newMessage.setFlag('pf2e', 'canReroll', false);
+    }
+
+    /**
+     * Renders the reroll.
+     * This function is rather complicated, as we can unfortunately not pass any values to the renderChatMessage hook.
+     * This results in the need to parse the failure and success classes used by foundry directly into the template.
+     * Another point of concern is the reason, the render function of rolls does only return a string.
+     * This means we cannot use any of the fancy js functions like getElementsByClass etc.
+     * @param roll - The reroll that is to be rerendered
+     */
+    static async renderReroll(roll: Roll): Promise<string> {
+        let rollHtml = await roll.render();
+
+        if (roll.dice.length === 0) {
+            return rollHtml;
+        }
+
+        const die = roll.dice[0];
+
+        if (die.total == 20) {
+            rollHtml = PF2Check.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'success');
+        } else if (die.total == 1) {
+            rollHtml = PF2Check.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'failure');
+        }
+
+        return rollHtml;
+    }
+
+    /**
+     * Takes a rendered roll and inserts the specified class for failure or success into it.
+     * @param rollHtml - The prerendered roll template.
+     * @param classToInsert - The specifier whether we want to have a success or failure.
+     */
+    static insertNatOneAndNatTwentyIntoRollTemplate(rollHtml: string, classToInsert: string): string {
+        const classIdentifierDice = 'dice-total';
+        const locationOfDiceRoll = rollHtml.search(classIdentifierDice);
+        const partBeforeClass = rollHtml.substr(0, locationOfDiceRoll);
+        const partAfterClass = rollHtml.substr(locationOfDiceRoll, rollHtml.length);
+        return partBeforeClass.concat(classToInsert, ' ', partAfterClass);
     }
 }
 /**
