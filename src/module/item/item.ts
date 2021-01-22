@@ -808,7 +808,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const isHeal = itemData.spellType.value === 'heal';
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
-        const spellLvl = parseInt(cardData._chatData.spellLvl, 10);
+        const spellLvl = parseInt(cardData.spellLvl, 10);
         const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
