@@ -1,7 +1,4 @@
 /* global game, CONFIG */
-/**
- * Override and extend the basic :class:`ItemSheet` implementation
- */
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
@@ -9,6 +6,7 @@ import { TraitSelector5e } from '../system/trait-selector';
 import { LoreDetailsData } from './dataDefinitions';
 
 /**
+ * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
 export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
@@ -324,7 +322,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
     /**
      * Activate listeners for interactive item sheet events
      */
-
     activateListeners(html) {
         super.activateListeners(html); // Checkbox changes
 
@@ -340,18 +337,22 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             this._deleteDamageRoll(ev);
         });
 
-        html.find('.add-rule-element').on('click', (event) => {
+        html.find('.add-rule-element').on('click', async (event) => {
+            event.preventDefault();
+            await this._onSubmit(event); // submit any unsaved changes
             const rules = (this.item.data.data as any).rules ?? [];
-            this.item.update({
+            return this.item.update({
                 'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
             });
         });
-        html.find('.rules').on('click', '.remove-rule-element', (event) => {
-            const rules = duplicate((this.item.data.data as any).rules ?? []);
+        html.find('.rules').on('click', '.remove-rule-element', async (event) => {
+            event.preventDefault();
+            await this._onSubmit(event); // submit any unsaved changes
+            const rules = duplicate((this.item.data.data as any).rules ?? []) as any[];
             const index = event.currentTarget.dataset.ruleIndex;
-            if (rules && rules.length > index) {
+            if (rules && rules.length > Number(index)) {
                 rules.splice(index, 1);
-                this.item.update({ 'data.rules': rules });
+                return this.item.update({ 'data.rules': rules });
             }
         });
 
@@ -367,33 +368,36 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
     }
+
     /**
      * Always submit on a form field change. Added because tabbing between fields
      * wasn't working.
      */
-
     _onChangeInput(event) {
-        // Unclear where the event conflic is between _onChangeInput and another.
+        // Unclear where the event conflict is between _onChangeInput and another.
         // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc)
         // of NPCs can be edited without problems.
         // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
         return this._onSubmit(event);
     }
 
-    _updateObject(event, formData) {
+    _getSubmitData(updateData: any = {}) {
+        // create the expanded update data object
+        const fd = new FormDataExtended(this.form, { editors: this.editors });
+        const data = updateData ? mergeObject(fd.toObject(), updateData) : expandObject(fd.toObject());
+
         // ensure all rules objects are parsed and saved as objects
-        const rules = [];
-        Object.entries(formData)
-            .filter(([key, _]) => key.startsWith('data.rules.'))
-            .forEach(([_, value]) => {
+        if (data?.data?.rules) {
+            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
                 try {
-                    rules.push(JSON.parse(value as string));
+                    return JSON.parse(value as string);
                 } catch (error) {
                     ui.notifications.warn('Syntax error in rule element definition.');
                     throw error;
                 }
             });
-        formData['data.rules'] = rules;
-        return super._updateObject(event, formData);
+        }
+
+        return flattenObject(data); // return the flattened submission data
     }
 }
