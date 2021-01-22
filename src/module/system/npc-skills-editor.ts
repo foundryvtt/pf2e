@@ -211,9 +211,16 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     findSkillItem(skillId: string): PF2EItem {
         const skill = this.npc.data.data.skills[skillId];
 
-        if (skill === undefined) return null;
-        if (skill.loreItemId === undefined) return null;
+        if (skill === undefined) {
+            console.error(`No skill found with skill id ${skillId}`);
+            return null;
+        }
 
-        return this.npc.getOwnedItem(skill.loreItemId);
+        if (skill.itemID === undefined) {
+            console.error(`Skill has no itemID defined.`);
+            return null;
+        }
+
+        return this.npc.getOwnedItem(skill.itemID);
     }
 }
