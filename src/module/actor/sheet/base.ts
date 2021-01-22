@@ -1566,8 +1566,6 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
     _createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
 
-        console.log(`Create spellcasting entry CLICKED.`);
-
         // let entries = this.actor.data.data.attributes.spellcasting.entry || {};
 
         let magicTradition = 'arcane';
