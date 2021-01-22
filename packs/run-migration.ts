@@ -1,8 +1,8 @@
 import { populateFoundryUtilFunctions } from '../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../src/module/migration-runner-base';
-import { Migration593AddAncestryItem } from '../src/module/migrations/593-make-ancestry-item';
+import { Migration595AddItemSize } from '../src/module/migrations/595-item-sizes';
 
-const migrations = [new Migration593AddAncestryItem()];
+const migrations = [new Migration595AddItemSize()];
 
 var path = require('path');
 var fs = require('fs-extra');
