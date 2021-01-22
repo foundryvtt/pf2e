@@ -1,3 +1,28 @@
+declare interface CompendiumMetadata {
+    absPath: string;
+    entity: string;
+    label: string;
+    module: string;
+    name: string;
+    package: string;
+    path: string;
+    system: string;
+}
+
+declare type CompendiumIndex = {
+    _id: string;
+    name: string;
+    image: string;
+}[];
+
+declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | RollTable;
+
+declare interface CompendiumCollection extends Collection<Compendium> {
+    get<E extends CompendiumEntity>(id: string, { strict }?: { strict?: boolean }): Compendium<E> | null;
+    filter<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E>[];
+    find<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E> | null;
+}
+
 /**
  * The Compendium class provides an interface for interacting with compendium packs which are
  * collections of similar Entities which are stored outside of the world database but able to
@@ -51,26 +76,25 @@
  *
  * @category Other
  */
-declare class Compendium extends Application {
+declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity> extends Application {
     /**
      * The compendium metadata which defines the compendium content and location
      */
-    metadata: any;
+    metadata: CompendiumMetadata;
 
     /**
-     * Track whether the compendium pack is publicly visible
+     * Track whether the compendium pack is private
      */
-    public: boolean;
+    private: boolean;
 
     /**
      * The most recently retrieved index of the Compendium content
      * This index is not guaranteed to be current - call getIndex() to reload the index
      */
-    index: string[];
+    index: CompendiumIndex;
 
     /**
      * Track whether the compendium pack is locked for editing
-     * @type {boolean}
      */
     locked: boolean;
 
@@ -82,7 +106,7 @@ declare class Compendium extends Application {
 
     /**
      * The canonical Compendium name - comprised of the originating package and the pack name
-     * @return	The canonical collection name
+     * @return The canonical collection name
      */
     get collection(): string;
 
@@ -93,11 +117,11 @@ declare class Compendium extends Application {
 
     /* ----------------------------------------- */
     /*  Methods
-	/* ----------------------------------------- */
+    /* ----------------------------------------- */
 
     /**
      * Create a new Compendium pack using provided
-     * @param metadata	The compendium metadata used to create the new pack
+     * @param metadata The compendium metadata used to create the new pack
      */
     static create(metadata: object): Promise<Compendium>;
 
@@ -111,49 +135,49 @@ declare class Compendium extends Application {
      * Get the Compendium index
      * Contains names, images and IDs of all data in the compendium
      *
-     * @return	A Promise containing an index of all compendium entries
+     * @return A Promise containing an index of all compendium entries
      */
-    getIndex(): Promise<any[]>;
+    getIndex(): Promise<CompendiumIndex>;
 
     /**
      * Get the complete set of content for this compendium, loading all entries in full
      * Returns a Promise that resolves to an Array of entries
      */
-    getContent(): Promise<Entity[]>;
+    getContent<EntityType>(): Promise<EntityType[]>;
 
     /**
      * Get a single Compendium entry as an Object
-     * @param entryId	The compendium entry ID to retrieve
+     * @param entryId The compendium entry ID to retrieve
      *
-     * @return			A Promise containing the return entry data, or null
+     * @return A Promise containing the return entry data, or null
      */
-    getEntry(entryId: string): Promise<any>;
+    getEntry(entryId: string): Promise<EntityType['data']>;
 
     /**
      * Get a single Compendium entry as an Entity instance
-     * @param entryId	The compendium entry ID to load and instantiate
-     * @return			A Promise containing the returned Entity, if it exists, otherwise null
+     * @param entryId The compendium entry ID to load and instantiate
+     * @return A Promise containing the returned Entity, if it exists, otherwise null
      */
-    getEntity(entryId: string): Promise<Entity>;
+    getEntity(entryId: string): Promise<EntityType>;
 
     /**
      * Cast entry data to an Entity class
      */
-    protected _toEntity(entryData?: object): Entity;
+    protected _toEntity(entryData?: object): EntityType;
 
     /**
      * Import a new Entity into a Compendium pack
      * @param entity	The Entity instance you wish to import
      * @return			A Promise which resolves to the created Entity once the operation is complete
      */
-    importEntity(entity: Entity): Promise<Entity>;
+    importEntity(entity: EntityType): Promise<EntityType>;
 
     /**
      * Create a new Entity within this Compendium Pack using provided data
      * @param data	Data with which to create the entry
      * @return		A Promise which resolves to the created Entity once the operation is complete
      */
-    createEntity(data: any): Promise<Entity>;
+    createEntity(data: any): Promise<EntityType>;
 
     /**
      * Update a single Compendium entry programmatically by providing new data with which to update

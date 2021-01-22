@@ -1,5 +1,7 @@
 /* global game */
+import { PF2EActor } from '../actor/actor';
 import { groupBy, isBlank } from '../utils';
+import { PF2EPhysicalItem } from './physical';
 
 // FIXME: point this to the correct type afterwards
 type ItemPlaceholder = any;
@@ -225,7 +227,7 @@ export async function addCoins({
 }
 
 export function addCoinsSimple(
-    actor: ActorPlaceholder,
+    actor: PF2EActor,
     {
         coins = {
             pp: 0,
@@ -246,7 +248,7 @@ export function addCoinsSimple(
             await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
         },
         async addFromCompendium(compendiumId, quantity) {
-            const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
+            const pack = game.packs.find<PF2EPhysicalItem>((p) => p.collection === 'pf2e.equipment-srd');
             const item = await pack.getEntity(compendiumId);
             item.data.data.quantity.value = quantity;
             await actor.createOwnedItem(item.data);
