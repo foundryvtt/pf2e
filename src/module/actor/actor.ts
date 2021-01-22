@@ -2,7 +2,6 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
-
 import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { PF2Check } from '../system/rolls';
