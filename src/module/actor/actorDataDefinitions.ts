@@ -433,15 +433,6 @@ export type NPCSkillData = PF2StatisticModifier &
         expanded: string;
     };
 
-/**
- * Data format of the NPC skills from the skills popup.
- */
-export type RawNPCSkillData = {
-    type: string;
-    label: string;
-    value: number;
-};
-
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData {
     /** The six primary ability scores. */
