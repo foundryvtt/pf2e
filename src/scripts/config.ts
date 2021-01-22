@@ -4,11 +4,11 @@ import { PF2ELoot } from '../module/actor/loot';
 import { PF2ENPC } from '../module/actor/npc';
 import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
+import { PF2EAncestry } from '../module/item/ancestry';
+import { PF2EBackground } from '../module/item/background';
 import {
     PF2EAction,
-    PF2EAncestry,
     PF2EArmor,
-    PF2EBackground,
     PF2EBackpack,
     PF2EClass,
     PF2ECondition,
@@ -26,7 +26,6 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-
 import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
 
 export const PF2ECONFIG = {

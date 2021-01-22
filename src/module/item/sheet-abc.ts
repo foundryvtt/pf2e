@@ -61,6 +61,8 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.rarityChoices = CONFIG.PF2E.rarityTraits;
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+            this._prepareTraits(data.data.languages, CONFIG.PF2E.languages);
+            this._prepareTraits(data.data.additionalLanguages, CONFIG.PF2E.languages);
 
             data.selectedBoosts = Object.fromEntries(
                 Object.entries(itemData.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
