@@ -162,7 +162,6 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
                 save.icon = this._getProficiencyIcon(save.rank);
                 save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
                 save.label = CONFIG.PF2E.saves[s];
-                //save.labelShort = CONFIG.PF2E.savesShort[s];
             }
         }
 
