@@ -80,8 +80,8 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
 
         const skillSelector = $(eventData.currentTarget).parents('#skill-selector').find('select');
         const skillId: string = skillSelector.val() as string;
-        const skillName = this.npc.convertSkillIdToSkillName(skillId);
-        const itemName = this.npc.convertSkillNameToItemName(skillName);
+        const skillName = this.findSkillName(skillId);
+        const itemName = skillName.replace(/-/g, ' ').titleCase();
 
         await this.npc.createOwnedItem({
             name: itemName,
@@ -96,7 +96,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const skillContainer = $(eventData.currentTarget).parents('.skill');
         const skillId = skillContainer.attr('data-skill');
 
-        const skillItem = this.npc.findSkillItem(skillId);
+        const skillItem = this.findSkillItem(skillId);
 
         if (skillItem !== null) {
             skillContainer.remove();
@@ -133,7 +133,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     _onEditSkillClicked(eventData) {
         const skillId = $(eventData.currentTarget).parents('.skill').attr('data-skill');
 
-        let item = this.npc.findSkillItem(skillId);
+        let item = this.findSkillItem(skillId);
 
         if (item === null) {
             console.error(`Unable to find item for skill ${skillId}. Can't edit the skill.`);
@@ -156,7 +156,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
             skillId = key;
             value = parseInt(skillData, 10);
 
-            const skillItem = this.npc.findSkillItem(skillId);
+            const skillItem = this.findSkillItem(skillId);
             const skillItemValue: number = skillItem !== null ? (skillItem.data.data as any).mod.value : 0;
             const hasToUpdateItem = skillItem !== null && skillItemValue !== value && value > 0;
 
@@ -183,5 +183,37 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         }
 
         return false;
+    }
+
+    /**
+     * Converts from the 3-letter ID to the full, lower-letter name.
+     * @param skillId ID of the skill.
+     */
+    findSkillName(skillId: string): string {
+        for (const skillDataId of Object.keys(SKILL_EXPANDED)) {
+            const skillData = SKILL_EXPANDED[skillDataId];
+
+            if (skillData.shortform == skillId) {
+                return skillDataId;
+            }
+        }
+
+        // If not possible to find a short name, use the same
+        return skillId;
+    }
+
+    /**
+     * Finds the skill item related to the skill provided.
+     * Each skill in the characters has an item in the items collection
+     * defining the skill. They are of 'lore' type, even for non-lore skills.
+     * @param skillId ID of the skill to search for.
+     */
+    findSkillItem(skillId: string): PF2EItem {
+        const skill = this.npc.data.data.skills[skillId];
+
+        if (skill === undefined) return null;
+        if (skill.loreItemId === undefined) return null;
+
+        return this.npc.getOwnedItem(skill.loreItemId);
     }
 }
