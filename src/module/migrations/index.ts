@@ -23,6 +23,7 @@ import { Migration589SetItemAsIdentified } from './589-set-item-as-identified';
 import { Migration591SetOriginalItemName } from './591-set-original-item-name';
 import { Migration592CopyIdentificationData } from './592-copy-identification-data';
 import { Migration593AddAncestryItem } from './593-make-ancestry-item';
+import { Migration594AddItemSize } from './594-item-sizes';
 
 export function getAllMigrations() {
     return [
@@ -51,5 +52,6 @@ export function getAllMigrations() {
         new Migration591SetOriginalItemName(),
         new Migration592CopyIdentificationData(),
         new Migration593AddAncestryItem(),
+        new Migration594AddItemSize(),
     ];
 }
