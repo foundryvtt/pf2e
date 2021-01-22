@@ -1,4 +1,4 @@
-import { PF2ECONFIG } from '../../scripts/config';
+import { SKILL_EXPANDED } from '../actor/actor';
 import { NPCSkillData } from '../actor/actorDataDefinitions';
 import { PF2ENPC } from '../actor/npc';
 import { PF2EItem } from '../item/item';
@@ -233,13 +233,15 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     }
 
     isLoreSkill(skill) {
-        return skill.expanded.includes('-lore');
+        return !this.isRegularSkill(skill);
     }
 
     isRegularSkill(skill) {
-        for (const skillId in PF2ECONFIG.skillList) {
-            if (skillId === skill.expanded) return true;
+        for (const skillName of Object.keys(SKILL_EXPANDED)) {
+            if (skillName === skill.name) return true;
+            if (skillName === skill.expanded) return true;   
         }
+
         return false;
     }
 }
