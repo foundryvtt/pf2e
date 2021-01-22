@@ -1034,6 +1034,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "With Demons",
+                        "predicate": {
+                            "all": [
+                                "target:demon"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1042,11 +1055,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 with demons",
+                        "options": "target:demon"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Diplomacy (+13 with demons)",
+            "name": "Diplomacy",
             "sort": 1200000,
             "type": "lore"
         },
