@@ -1,3 +1,9 @@
+declare class FormDataExtended extends FormData {
+    constructor(form: HTMLElement, options?: { editors?: any[], dtypes?: any[] });
+
+    toObject(): any;
+}
+
 declare interface FormApplicationData<O extends {} = {}> {
     object: O;
     options?: FormApplicationOptions;
