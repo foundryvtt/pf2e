@@ -5,6 +5,7 @@ import { ActorSheetPF2eHazard } from './actor/sheet/hazard';
 import { ActorSheetPF2eLoot } from './actor/sheet/loot';
 import { ActorSheetPF2eFamiliar } from './actor/sheet/familiar';
 import { ActorSheetPF2eVehicle } from './actor/sheet/vehicle';
+import { ActorSheetPF2eSimpleNPC } from './actor/sheet/simple-npc-sheet';
 
 export function registerActors() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -27,6 +28,12 @@ export function registerActors() {
         makeDefault: true,
     });
 
+    // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
+    Actors.registerSheet('pf2e', ActorSheetPF2eSimpleNPC, {
+        types: ['npc'],
+        makeDefault: false,
+    });
+
     // Register Hazard Sheet
     Actors.registerSheet('pf2e', ActorSheetPF2eHazard, {
         types: ['hazard'],
@@ -39,7 +46,7 @@ export function registerActors() {
         makeDefault: true,
     });
 
-    // Register Loot Sheet
+    // Register Familiar Sheet
     Actors.registerSheet('pf2e', ActorSheetPF2eFamiliar, {
         types: ['familiar'],
         makeDefault: true,
