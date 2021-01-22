@@ -99,7 +99,9 @@ export class PF2Check {
         const newMessage = await ChatMessage.create(
             {
                 roll: keepRoll,
-                content: `<div class="${oldRollClass}">${await PF2Check.renderReroll(oldRoll)}</div><div class='pf2e-reroll-second ${newRollClass}'>${await PF2Check.renderReroll(newRoll)}</div>`,
+                content: `<div class="${oldRollClass}">${await PF2Check.renderReroll(
+                    oldRoll,
+                )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await PF2Check.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
@@ -120,7 +122,7 @@ export class PF2Check {
     static async renderReroll(roll: Roll): Promise<string> {
         let rollHtml = await roll.render();
 
-        if(roll.dice.length === 0) {
+        if (roll.dice.length === 0) {
             return rollHtml;
         }
 
