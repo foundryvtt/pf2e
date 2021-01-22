@@ -615,7 +615,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if (item.data.type!=="spellcastingEntry") {
+            if (item.data.type !== 'spellcastingEntry') {
                 return;
             }
             let data: SpellcastingEntryData = duplicate(item.data);
@@ -636,7 +636,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if (item.data.type!=="spellcastingEntry") {
+            if (item.data.type !== 'spellcastingEntry') {
                 return;
             }
 
