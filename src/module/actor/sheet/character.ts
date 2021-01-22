@@ -609,12 +609,16 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         // Spontaneous Spell slot increment handler:
         html.find('.spell-slots-increment-down').on('click', (event) => {
-            let target = $(event.currentTarget);
-            let itemId = target.data().itemId;
-            let itemLevel = target.data().level;
-            let actor = this.actor;
-            let item = actor.getOwnedItem(itemId);
-            let data: SpellcastingEntryData = duplicate(item.data) as SpellcastingEntryData;
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.getOwnedItem(itemId);
+
+            if (item.data.type!=="spellcastingEntry") {
+                return;
+            }
+            let data: SpellcastingEntryData = duplicate(item.data);
 
             data.data.slots['slot' + itemLevel].value -= 1;
             if (data.data.slots['slot' + itemLevel].value < 0) {
@@ -626,12 +630,17 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         // Spontaneous Spell slot reset handler:
         html.find('.spell-slots-increment-reset').on('click', (event) => {
-            let target = $(event.currentTarget);
-            let itemId = target.data().itemId;
-            let itemLevel = target.data().level;
-            let actor = this.actor;
-            let item = actor.getOwnedItem(itemId);
-            let data: SpellcastingEntryData = duplicate(item.data) as SpellcastingEntryData;
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.getOwnedItem(itemId);
+
+            if (item.data.type!=="spellcastingEntry") {
+                return;
+            }
+
+            let data: SpellcastingEntryData = duplicate(item.data);
 
             data.data.slots['slot' + itemLevel].value = data.data.slots['slot' + itemLevel].max;
 
