@@ -153,7 +153,11 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
 
         let item = this.npc.findSkillItem(skillId);
 
-        if (item === null) return;
+        if (item === null)
+        {
+            console.error(`Unable to find item for skill ${skillId}. Can't edit the skill.`);
+            return;
+        }
 
         item.sheet.render(true);
     }

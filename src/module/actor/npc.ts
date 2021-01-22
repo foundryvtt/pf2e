@@ -219,6 +219,7 @@ export class PF2ENPC extends PF2EActor {
                 stat.value = stat.totalModifier;
                 stat.visible = true;
                 stat.exception = item.data.description.value;
+                stat.sourceItemId = item._id; // Required to find the item related to this skill later
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
@@ -598,7 +599,15 @@ export class PF2ENPC extends PF2EActor {
      * @param skillId ID of the skill to search for.
      * @param exception Exception of the skill. This is required to search items with exceptions and incorrect ID formats.
      */
-    findSkillItem(skillId: string, exception?: string): PF2EItem {
+    findSkillItem(skillId: string): PF2EItem {
+        const skill = this.data.data.skills[skillId];
+
+        if (skill !== undefined && skill.sourceItemId !== undefined) {
+            return this.getOwnedItem(skill.sourceItemId);
+        }
+
+        // If not found, try to find it based on the skill name
+
         let skillName = this.convertSkillIdToSkillName(skillId);
 
         let skillItem = this.items.find((item) => {
@@ -608,21 +617,6 @@ export class PF2ENPC extends PF2EActor {
 
             return skillName === itemSkillName;
         });
-
-        // If the item can't be found, try to search it using
-        // the incorrect format for compendium NPCs with the exception
-        // text in the ID
-        if (skillItem === null && exception !== undefined && exception !== '') {
-            skillName = this.generateSkillWithExceptionName(skillId, exception);
-
-            skillItem = this.items.find((item) => {
-                if (item.type !== 'lore') return false;
-
-                const itemSkillName = this.convertItemNameToSkillName(item.name);
-
-                return skillName === itemSkillName;
-            });
-        }
 
         return skillItem;
     }
@@ -679,7 +673,7 @@ export class PF2ENPC extends PF2EActor {
                 const skill = this.data.data.skills[skillId];
 
                 if (skill === undefined) continue;
-                
+
                 console.log(`Hidding skill ${skillId}`);
                 this.data.data.skills[skillId].visible = false;
             }
