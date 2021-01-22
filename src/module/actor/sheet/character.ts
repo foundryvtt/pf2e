@@ -9,6 +9,7 @@ import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem, SpellData, ItemData } from '../../item/dataDefinitions';
 import { PF2EAncestry } from '../../item/ancestry';
+import { PF2EBackground } from '../../item/background';
 
 /**
  * @category Other
@@ -57,6 +58,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         const ancestryItem = this.actor.items.find((x) => x.type === 'ancestry');
         sheetData.ancestryItemId = ancestryItem ? ancestryItem.id : '';
+
+        const backgroundItem = this.actor.items.find((x) => x.type === 'background');
+        sheetData.backgroundItemId = backgroundItem ? backgroundItem.id : '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -687,6 +691,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     async _onDropItemCreate(itemData: ItemData): Promise<any> {
         if (itemData.type === 'ancestry') {
             return PF2EAncestry.addToActor(this.actor, itemData);
+        }
+
+        if (itemData.type === 'background') {
+            return PF2EBackground.addToActor(this.actor, itemData);
         }
 
         return super._onDropItemCreate(itemData);

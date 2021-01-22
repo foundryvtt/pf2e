@@ -3,6 +3,7 @@ import { ABCFeatureEntryData, AncestryData, FeatData } from './dataDefinitions';
 import { PF2EItem } from './item';
 
 export class PF2EAncestry extends PF2EItem {
+    data!: AncestryData;
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
             const pack = game.packs.get(entry.pack);

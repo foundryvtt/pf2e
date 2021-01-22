@@ -2,9 +2,7 @@ import { PF2EPhysicalItem } from './physical';
 import { PF2EItem } from './item';
 import {
     ActionData,
-    AncestryData,
     ArmorData,
-    BackgroundData,
     BackpackData,
     ClassData,
     ConditionData,
@@ -50,12 +48,6 @@ export class PF2EConsumable extends PF2EPhysicalItem {
 }
 export class PF2EEquipment extends PF2EPhysicalItem {
     data!: EquipmentData;
-}
-export class PF2EAncestry extends PF2EItem {
-    data!: AncestryData;
-}
-export class PF2EBackground extends PF2EItem {
-    data!: BackgroundData;
 }
 export class PF2EClass extends PF2EItem {
     data!: ClassData;
