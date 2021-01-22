@@ -42,8 +42,6 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const skills: Record<string, NPCSkillData> = {};
         const missingSkills: Record<string, NPCSkillData> = {};
 
-        console.log(this.object.data.data.skills);
-
         for (const skillId of Object.keys(this.object.data.data.skills)) {
             const skill = this.object.data.data.skills[skillId];
 
@@ -100,7 +98,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         const skillName = this.npc.convertSkillIdToSkillName(skillId);
         const itemName = this.npc.convertSkillNameToItemName(skillName);
 
-        const skillItem = await this.npc.createOwnedItem({
+        await this.npc.createOwnedItem({
             name: itemName,
             type: 'lore',
         });

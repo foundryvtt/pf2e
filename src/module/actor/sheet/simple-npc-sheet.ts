@@ -1018,31 +1018,21 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
         if (skill === undefined) return;
 
-        const isException = $(event.currentTarget).hasClass('exception');
-        let exceptionBonus: number;
-
-        if (isException) {
-            exceptionBonus = skill.exceptionBonus;
-        } else {
-            exceptionBonus = 0;
-        }
-
-        const npc = this.actor as PF2ENPC;
-        const originalSkillValue = skill.value;
-
-        if (isException) {
-            npc.assignNPCSkillValue(skillId, originalSkillValue + exceptionBonus);
-        }
-
         if (skill.roll) {
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skillId] ?? skillId]);
+            const extraOptions = $(event.currentTarget).attr('data-options');
+
+            if (extraOptions) {
+                const split = extraOptions
+                    .split(',')
+                    .map((o) => o.trim())
+                    .filter((o) => !!o);
+                opts.push(...split);
+            }
+
             skill.roll(event, opts);
         } else {
             this.actor.rollSkill(event, skillId);
-        }
-
-        if (isException) {
-            npc.assignNPCSkillValue(skillId, originalSkillValue);
         }
     }
 
@@ -1069,7 +1059,9 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         new TraitSelector5e(this.actor, options).render(true);
     }
 
-    _onRollableClicked(eventData) {
+    _onRollableClicked(eventData: Event) {
+        eventData.preventDefault();
+
         const attribute = $(eventData.currentTarget).parent().attr('data-attribute');
         const skill = $(eventData.currentTarget).parent().attr('data-skill');
         const save = $(eventData.currentTarget).parent().attr('data-save');
