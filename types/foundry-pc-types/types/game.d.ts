@@ -77,7 +77,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium>;
+    packs: CompendiumCollection;
 
     constructor(worldData: object, userId: string, socket: SocketIO.Socket);
 
