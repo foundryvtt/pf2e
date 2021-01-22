@@ -562,6 +562,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -834,6 +837,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Track",
+                        "predicate": {
+                            "all": [
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -842,11 +858,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+19 to Track",
+                        "options": "action:track"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Survival ",
+            "name": "Survival",
             "sort": 700000,
             "type": "lore"
         }

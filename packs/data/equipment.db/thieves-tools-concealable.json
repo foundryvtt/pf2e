@@ -10,6 +10,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -67,8 +70,8 @@
                 "label": "Thieves' Tools (Pick Lock & Disable Devices)",
                 "predicate": {
                     "any": [
-                        "disable-device",
-                        "pick-a-lock"
+                        "action:disable-device",
+                        "action:pick-a-lock"
                     ]
                 },
                 "selector": "thievery",
@@ -80,8 +83,8 @@
                 "label": "Thieves' Tools (Conceal tools)",
                 "predicate": {
                     "all": [
-                        "conceal-an-object",
-                        "concealable-tools"
+                        "action:conceal-an-object",
+                        "target:concealable-tools"
                     ]
                 },
                 "selector": "stealth",
@@ -112,11 +115,7 @@
         }
     },
     "effects": [],
-    "flags": {
-        "core": {
-            "sourceId": "Item.flXBPwd8SLuQM4VH"
-        }
-    },
+    "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.jpg",
     "name": "Thieves' Tools (Concealable)",
     "permission": {

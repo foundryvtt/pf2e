@@ -557,6 +557,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -694,6 +697,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -828,6 +834,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1111,6 +1120,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Water",
+                        "predicate": {
+                            "all": [
+                                "terrain:water"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1119,11 +1141,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+20 in water",
+                        "options": "terrain:water"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "name": "Stealth",
             "sort": 900000,
             "type": "lore"
         },
@@ -1148,6 +1176,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Track a Bleeding Creature",
+                        "predicate": {
+                            "all": [
+                                "action:track",
+                                "target:bleeding"
+                            ]
+                        },
+                        "selector": "survival",
+                        "value": 3
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1156,11 +1198,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+20 to Track a bleeding creature",
+                        "options": "action:track, target:bleeding"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Survival ",
+            "name": "Survival",
             "sort": 1000000,
             "type": "lore"
         }

@@ -1,0 +1,53 @@
+<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
+    <div class="npc-skills-editor">
+        <ol class="skills-list">
+            <div class="skill header">
+                <div>{{ localize 'PF2E.NPC.SkillsEditor.NameLabel' }}</div>
+                <div>{{ localize 'PF2E.NPC.SkillsEditor.BonusLabel' }}</div>
+                <div></div>
+            </div>
+            {{#each skills as |skill skillId|}}
+            {{#unless skill.isLore }}
+            <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
+                <label class="skill-name">{{skill.label}}</label>
+                <input name="{{skillId}}" data-dtype="Number" value="{{#if skill.visible}}{{skill.value}}{{else}}0{{/if}}" placeholder="0"/>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {{/unless}}
+            {{/each}}
+            <li id="skill-selector" class="flexrow" style="align-items: baseline;">
+                <select data-dtype="String">
+                    {{#each missingSkills as |skill skillId|}}
+                    <option value="{{skillId}}">{{skill.label}}</option>
+                    {{/each}}
+                </select>
+                <div class="btn add-skill-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.NPC.AddSkill' }}</a></div>
+            </li>
+            <div class="sub-section">
+                <h4>{{ localize 'PF2E.Lore' }}</h4>
+            </div>
+            {{#each skills as |skill skillId|}}
+            {{#if skill.isLore}}
+            <li data-skill="{{skillId}}" id="{{skillId}}" class="skill">
+                <label class="skill-name">{{skill.name}}</label>
+                <input name="{{skillId}}" data-dtype="Number" value="{{skill.value}}" placeholder="0"/>
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+            <li id="lore-skill-creator" class="flexrow" style="align-items: baseline;">
+                <input data-dtype="String"/>
+                <div class="btn add-lore-button"><a><i class="fas fa-plus"></i> {{ localize 'PF2E.AddLoreSkill'}}</a></div>
+            </li>
+        </ol>
+        <div class="footer">
+            <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+        </div>
+    </div>
+</form>

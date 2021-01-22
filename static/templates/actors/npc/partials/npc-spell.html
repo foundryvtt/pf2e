@@ -1,0 +1,35 @@
+<li class="item spell" data-spell="{{spell._id}}" data-item-id="{{spell._id}}">
+    <div class="spell-header">
+        <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
+        <div class="spell-name rollable">
+            <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
+        </div>
+        <div class="spell-range">
+            {{ spell.data.range.value }}
+        </div>
+        <div class="spell-components">
+            {{#if spell.data.components.somatic }}<div class="tag">{{ localize 'PF2E.SpellComponentShortS' }}</div>{{/if}}
+            {{#if spell.data.components.verbal }}<div class="tag">{{ localize 'PF2E.SpellComponentShortV' }}</div>{{/if}}
+            {{#if spell.data.components.material }}<div class="tag">{{ localize 'PF2E.SpellComponentShortM' }}</div>{{/if}}
+        </div>
+        <div class="item-controls spell-controls controls expandable">
+            <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
+            {{#if isEditable }}
+            <a class="item-edit edit" title="{{ localize 'PF2E.NPC.Edit'}}"><i class="fas fa-edit"></i></a>
+            <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+        </div>
+    </div>
+    <div class="spell-body">
+        <div class="spell-detail expandable">
+            <div class="spell-description">
+                {{{ enrichHTML spell.data.description.value }}}
+            </div>
+            <div class="traits-list">
+                {{#each spell.traits as |trait traitIndex|}}
+                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</li>

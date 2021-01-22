@@ -108,3 +108,29 @@ export function addSign(number: number): string {
     }
     return '0';
 }
+
+/**
+ * No idea why this isn't built in
+ */
+export function sum(values: number[]): number {
+    return values.reduce((a, b) => a + b, 0);
+}
+
+/**
+ * Zip to arrays together based on a given zip function
+ * @param a
+ * @param b
+ * @param zipFunction
+ */
+export function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[] {
+    if (a.length > b.length) {
+        return b.map((elem, index) => zipFunction(a[index], elem));
+    } else {
+        return a.map((elem, index) => zipFunction(elem, b[index]));
+    }
+}
+
+export interface Fraction {
+    numerator: number;
+    denominator: number;
+}

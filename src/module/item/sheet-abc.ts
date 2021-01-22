@@ -47,13 +47,22 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         };
 
+        // workaround for item sheet bug??
+        const updatedData = this?.actor?.items?.get(this?.entity?.id)?.data;
+        if (updatedData) {
+            data.item = updatedData;
+            data.data = updatedData.data;
+        }
+
         if (this.item.data.type === 'ancestry') {
-            const itemData = this.item.data.data;
+            const itemData = (<AncestryData>data.item).data;
 
             data.actorSizes = CONFIG.PF2E.actorSizes;
             data.rarityChoices = CONFIG.PF2E.rarityTraits;
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.ancestryItemTraits);
+            this._prepareTraits(data.data.languages, CONFIG.PF2E.languages);
+            this._prepareTraits(data.data.additionalLanguages, CONFIG.PF2E.languages);
 
             data.selectedBoosts = Object.fromEntries(
                 Object.entries(itemData.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),

@@ -2,34 +2,14 @@
 
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.ItemBonusLabel"}}</label>
-        <input type="number" name="data.item.value" value="{{data.item.value}}" data-dtype="{{data.item.type}}"/>
+        <label>{{localize 'PF2E.ProficiencyLabel'}}</label>
+        <select name="data.proficient.value" data-dtype="Number">
+            {{#select data.proficient.value}}
+            {{#each proficiencies as |label p|}}
+            <option value="{{p}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
     </div>
-
-<!--     <div class="form-group">
-        <label>Weight</label>
-        <input type="text" name="data.weight.value" value="{{data.weight.value}}" data-dtype="{{data.weight.type}}"/>
-    </div>
-
-    <div class="form-group">
-        <label>Price</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
-    </div> -->
-</div>
-
-<!-- <ol class="item-tags">
-    <li class="tag">{{lookup proficiencies data.proficient.value}}</li>
-</ol> -->
-
-<div class="tool-details">
-    <div class="form-group-stacked">
-        <label>{{data.proficient.label}}</label>
-         <select name="data.proficient.value" data-dtype="Number">
-             {{#select data.proficient.value}}
-             {{#each proficiencies as |label p|}}
-             <option value="{{p}}">{{label}}</option>
-             {{/each}}
-             {{/select}}
-         </select>
-    </div>
+    <div class="form-group">{{localize 'PF2E.LoreProficiencyDisclaimer'}}</div>
 </div>

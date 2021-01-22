@@ -64,7 +64,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
 
     /* -------------------------------------------- */
     /*  Entities
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     users: Users<ActorType>;
     messages: Messages;
@@ -77,13 +77,13 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium>;
+    packs: CompendiumCollection;
 
     constructor(worldData: object, userId: string, socket: SocketIO.Socket);
 
     /**
      * Fetch World data and return a Game instance
-     * @return {Promise}  A Promise which resolves to the created Game instance
+     * @return A Promise which resolves to the created Game instance
      */
     static create(): Promise<Game>;
 

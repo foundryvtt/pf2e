@@ -548,6 +548,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -682,6 +685,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -819,6 +825,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1112,6 +1121,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Disarm a Metal Weapon",
+                        "predicate": {
+                            "all": [
+                                "action:disarm",
+                                "target:metal-weapon"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 6
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1120,11 +1143,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Disarm a metal item",
+                        "options": "action:disarm, target:metal-weapon"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 900000,
             "type": "lore"
         }

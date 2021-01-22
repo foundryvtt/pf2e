@@ -2725,11 +2725,12 @@ li.item.hover-container {
     width: auto;
 }
 
-.pf2e.sheet form.updatedNPCSheet .stat-list {
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list * {
+.pf2e.sheet form.updatedNPCSheet .stat-list,
+.pf2e.sheet form.updatedNPCSheet .skill-variants {
   display: inline-flex;
-  flex-wrap: wrap;
+}
+.pf2e.sheet form.updatedNPCSheet .skill-variants *:not(:last-of-type):after {
+    content: ",";
 }
 .pf2e.sheet form.updatedNPCSheet .stat-list *:not(:last-of-type){
   padding-right:0.25em;
@@ -2895,7 +2896,7 @@ li.item.hover-container {
 input[type="number"] {
   width: calc(100% - 2px);
   min-width: 20px;
-  height: 24px;
+  height: 26px;
   background: rgba(0, 0, 0, 0.05);
   padding: 1px 3px;
   margin: 0;

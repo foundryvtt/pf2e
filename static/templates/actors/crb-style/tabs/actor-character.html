@@ -47,18 +47,15 @@
             />
         </div>
         <div class="detail-sheet">
-            <div class="pc pc_ancestry">
+            <div class="pc pc_ancestry item" data-item-id="{{ancestryItemId}}">
                 <label for="pc_ancestry">
                     {{localize 'PF2E.Ancestry'}}
                 </label>
                 <span title="{{localize 'PF2E.AncestryTitle'}}">
-                    <input
-                        id="pc pc_ancestry"
-                        name="data.details.ancestry.value"
-                        type="text"
-                        value="{{data.details.ancestry.value}}"
-                        data-dtype="String"
-                    />
+                    <h3>
+                        {{data.details.ancestry.value}}
+                        {{#if ancestryItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                    </h3>
                 </span>
             </div>
             <div class="pc pc_heritage">
@@ -89,18 +86,15 @@
                     />
                 </span>
             </div>
-            <div class="pc pc_background">
+            <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
                 <label for="pc_background">
                     {{localize 'PF2E.Background'}}
                 </label>
                 <span title="{{localize 'PF2E.BackgroundTitle'}}">
-                    <input
-                        id="pc pc_background"
-                        name="data.details.background.value"
-                        type="text"
-                        value="{{data.details.background.value}}"
-                        data-dtype="String"
-                    />
+                    <h3>
+                        {{data.details.background.value}}
+                        {{#if backgroundItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                    </h3>
                 </span>
             </div>
             <div class="pc pc_gender">

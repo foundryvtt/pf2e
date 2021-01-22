@@ -10,6 +10,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -45,6 +48,7 @@
         "negateBulk": {
             "value": "0"
         },
+        "originalName": "",
         "preciousMaterial": {
             "value": ""
         },
@@ -66,7 +70,11 @@
                 "label": "Mariner's Astrolabe (identify celestial bodies)",
                 "predicate": {
                     "all": [
-                        "astrology"
+                        "action:recall-knowledge",
+                        "identify"
+                    ],
+                    "any": [
+                        "celestial-body"
                     ]
                 },
                 "selector": "skill-check",
@@ -97,11 +105,7 @@
         }
     },
     "effects": [],
-    "flags": {
-        "core": {
-            "sourceId": "Item.Lp3p7YHISpIJoyLB"
-        }
-    },
+    "flags": {},
     "img": "systems/pf2e/icons/equipment/adventuring-gear/astrolabe.jpg",
     "name": "Mariner's Astrolabe",
     "permission": {

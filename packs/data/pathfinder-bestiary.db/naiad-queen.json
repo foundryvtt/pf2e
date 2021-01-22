@@ -1036,9 +1036,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/summon-animal.jpg",
             "name": "Summon Animal",
             "sort": 400000,
@@ -1179,9 +1177,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/earthbind.jpg",
             "name": "Earthbind",
             "sort": 500000,
@@ -1338,9 +1334,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/haste.jpg",
             "name": "Haste",
             "sort": 600000,
@@ -1626,9 +1620,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/animal-messenger.jpg",
             "name": "Animal Messenger",
             "sort": 800000,
@@ -1771,9 +1763,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/faerie-fire.jpg",
             "name": "Faerie Fire",
             "sort": 900000,
@@ -1915,9 +1905,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/tree-shape.jpg",
             "name": "Tree Shape",
             "sort": 1000000,
@@ -2488,9 +2476,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/detect-magic.jpg",
             "name": "Detect Magic - Cantrips ",
             "sort": 1400000,
@@ -2635,9 +2621,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/guidance.jpg",
             "name": "Guidance - Cantrips ",
             "sort": 1500000,
@@ -2784,9 +2768,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/light.jpg",
             "name": "Light - Cantrips ",
             "sort": 1600000,
@@ -2932,9 +2914,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/ray-of-frost.jpg",
             "name": "Ray of Frost - Cantrips ",
             "sort": 1700000,
@@ -3077,7 +3057,6 @@
                 }
             },
             "flags": {
-                "_sheetTab": "description",
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
@@ -3650,6 +3629,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -4110,6 +4092,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -4118,11 +4113,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Swim",
+                        "options": "action:swim"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 3100000,
             "type": "lore"
         },

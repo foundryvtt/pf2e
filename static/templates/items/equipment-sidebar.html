@@ -67,7 +67,18 @@
             {{/select}}
         </select>
     </div>
-    
+
+    <div class="form-group">
+      <label>{{localize "PF2E.Size"}}</label>
+      <select name="data.size.value" data-dtype="String">
+        {{#select data.size.value}}
+        {{#each sizes as |name value|}}
+        <option value="{{value}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+  
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>

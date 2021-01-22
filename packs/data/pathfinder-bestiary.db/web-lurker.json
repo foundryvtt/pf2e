@@ -559,6 +559,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -694,6 +697,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -822,6 +828,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1140,6 +1149,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Crafting Traps or Snares",
+                        "predicate": {
+                            "any": [
+                                "trap",
+                                "snare"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1148,11 +1171,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 to craft traps and snares",
+                        "options": "trap, snare"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Crafting ",
+            "name": "Crafting",
             "sort": 1000000,
             "type": "lore"
         },

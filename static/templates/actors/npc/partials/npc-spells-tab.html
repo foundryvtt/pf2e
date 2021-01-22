@@ -1,0 +1,59 @@
+<div class="tab spells" data-group="primary" data-tab="spells">
+    <ol class="entries-list">
+        {{#each actor.spellcastingEntries as |entry entryId|}}
+        <li class="spellcasting-entry item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
+            <div class="header">
+                <div class="values">
+                    <div class="spellDC inline-field">
+                        <label>{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
+                        <input type="text" name="data.items.{{entry._id}}.data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                    <div class="spellAttack inline-field">
+                        <label class="rollable"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
+                        <input type="text" name="data.items.{{entry._id}}.data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+                    </div>
+                </div>
+                <div class="name">
+                    <h4>{{ entry.name }}</h4>
+                </div>
+                <div class="controls">
+                    {{#if ../options.editable }}
+                    <a class="item-delete delete" title="{{ localize 'PF2E.NPC.Remove' }}"><i class="fas fa-trash"></i></a>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="body">
+                <div class="sub-header">
+                    <div class="prepared"></div>
+                    <div class="name"></div>
+                    <div class="range">{{ localize 'PF2E.SpellRangeLabel' }}</div>
+                    <div class="components">{{ localize 'PF2E.SpellComponentsLabel' }}</div>
+                    <div class="entry-controls controls">
+                        {{#if ../options.editable }}
+                        <a class="item-add add spell-create" title="{{ localize 'PF2E.NPC.Add' }}" data-type="spell" data-level="{{entryId}}" data-location="{{entry._id}}"><i class="fas fa-plus"></i></a>
+                        <a class="item-control spell-browse" title="{{localize 'PF2E.OpenSpellBrowserTitle'}}" data-type="spell" data-level="{{entryId}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
+                        {{/if}}
+                    </div>
+                </div>
+                {{#each entry.spellbook as |section sectionId|}}
+                {{#if section.spells}}
+                    <div class="section" data-item-id="{{entry._id}}" data-level="{{entryId}}" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                        <div class="section-header">
+                            <h4>{{ section.label }}</h4>
+                        </div>
+                        <ul class="spells-list">
+                            {{#each section.spells as |spell spellId|}}
+                                {{> 'systems/pf2e/templates/actors/npc/partials/npc-spell.html' spell=spell isEditable=../../../options.editable }}
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{/if}}
+                {{/each}}
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+    <div class="footer">
+        <button type="button" class="btn spellcasting-create"><i class="fas fa-plus"></i> {{ localize 'PF2E.SpellcastingTypeLabel' }}</button>
+    </div>
+</div>

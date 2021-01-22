@@ -557,6 +557,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -689,6 +692,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -892,6 +898,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Impersonate a cloak, sheet, or ray",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate"
+                            ],
+                            "any": [
+                                "cloak",
+                                "sheet",
+                                "ray"
+                            ]
+                        },
+                        "selector": "deception",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -900,11 +924,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 to Impersonate a cloak, sheet, or ray",
+                        "options": "action:impersonate, cloak, sheet, ray"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Deception ",
+            "name": "Deception",
             "sort": 600000,
             "type": "lore"
         },

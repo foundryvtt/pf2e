@@ -1639,6 +1639,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -1771,6 +1774,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2120,6 +2126,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Disarm Stone or Metal Objects",
+                        "predicate": {
+                            "all": [
+                                "action:disarm"
+                            ],
+                            "any": [
+                                "target:stone-object",
+                                "target:metal-object"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -2128,11 +2151,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+35 to Disarm stone or metal objects",
+                        "options": "action:disarm, target:stone, target:metal"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
+            "name": "Athletics",
             "sort": 1700000,
             "type": "lore"
         },

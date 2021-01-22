@@ -708,9 +708,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/prestidigitation.jpg",
             "name": "Prestidigitation - Cantrips ",
             "sort": 200000,
@@ -779,6 +777,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -910,6 +911,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1103,6 +1107,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Traps",
+                        "predicate": {
+                            "all": [
+                                "trap"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 2
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -1111,11 +1128,17 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 traps",
+                        "options": "trap"
+                    }
                 }
             },
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Crafting ",
+            "name": "Crafting",
             "sort": 800000,
             "type": "lore"
         },

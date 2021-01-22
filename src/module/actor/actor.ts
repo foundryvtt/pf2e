@@ -24,9 +24,16 @@ import {
     DexterityModifierCapData,
     FamiliarData,
     ActorDataPF2e,
+    VehicleData,
+    HazardData,
 } from './actorDataDefinitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
-import { PF2RuleElementSynthetics } from '../rules/rulesDataDefinitions';
+import {
+    PF2MultipleAttackPenalty,
+    PF2RuleElementSynthetics,
+    PF2Striking,
+    PF2WeaponPotency,
+} from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
 import { PF2RollNote } from '../notes';
@@ -86,7 +93,6 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  * @category Actor
  */
 export class PF2EActor extends Actor<PF2EItem> {
-    /** @override */
     data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
@@ -101,6 +107,14 @@ export class PF2EActor extends Actor<PF2EItem> {
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
             }
         }
+    }
+
+    /** The default sheet, token, etc. image of a newly created world actor */
+    static get defaultImg() {
+        const [typeName] = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(
+            ([_key, cls]) => cls.name === this.name,
+        );
+        return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 
     /**
@@ -356,11 +370,17 @@ export class PF2EActor extends Actor<PF2EItem> {
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
         const rollNotes: Record<string, PF2RollNote[]> = {};
+        const weaponPotency: Record<string, PF2WeaponPotency[]> = {};
+        const striking: Record<string, PF2Striking[]> = {};
+        const multipleAttackPenalties: Record<string, PF2MultipleAttackPenalty[]> = {};
         const synthetics: PF2RuleElementSynthetics = {
             damageDice,
             statisticsModifiers,
             strikes,
             rollNotes,
+            weaponPotency,
+            striking,
+            multipleAttackPenalties,
         };
 
         rules.forEach((rule) => {
@@ -403,6 +423,9 @@ export class PF2EActor extends Actor<PF2EItem> {
             damageDice,
             strikes,
             rollNotes,
+            weaponPotency,
+            striking,
+            multipleAttackPenalties,
         };
     }
 
@@ -802,12 +825,31 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
     }
 
-    async updateEmbeddedEntity(embeddedName, data, options = {}) {
-        const item = this.items.get(data._id);
-        if (item?.data) {
-            await PF2EPhysicalItem.updateIdentificationData(item.data, data);
+    /** @override */
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<this['data']>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<this['data'] | this['data'][]>;
+    async updateEmbeddedEntity(
+        embeddedName: string,
+        data: EntityUpdateData | EntityUpdateData[],
+        options = {},
+    ): Promise<this['data'] | this['data'][]> {
+        const updateData = Array.isArray(data) ? data : [data];
+        for (const datum of updateData) {
+            const item = this.items.get(datum._id);
+            if (item instanceof PF2EPhysicalItem) {
+                await PF2EPhysicalItem.updateIdentificationData(item.data, datum);
+            }
         }
-        return super.updateEmbeddedEntity(embeddedName, data, options);
+
+        return super.updateEmbeddedEntity(embeddedName, updateData, options);
     }
 
     /* -------------------------------------------- */
@@ -898,7 +940,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         item: PF2EItem,
         quantity: number,
         containerId: string,
-    ): Promise<PF2EItem> {
+    ): Promise<PF2EPhysicalItem> {
         if (!(item instanceof PF2EPhysicalItem)) {
             throw Error('Only physical items (with quantities) can be transfered between actors');
         }
@@ -913,9 +955,14 @@ export class PF2EActor extends Actor<PF2EItem> {
         if (isPlayerLootTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            const LootTransfer = require('./loot').LootTransfer;
+            const LootTransfer: {
+                new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId: string): {
+                    request(): Promise<void>;
+                };
+            } = require('./loot').LootTransfer;
             const lootTransfer = new LootTransfer(source, target, quantity, containerId);
-            lootTransfer.request();
+            await lootTransfer.request();
+
             return null;
         }
 
@@ -980,8 +1027,9 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
             return item;
         }
+        await item.update({ 'data.containerId.value': '' });
 
-        return item.update({ 'data.containerId.value': '' });
+        return item;
     }
 
     /**
@@ -1240,6 +1288,12 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export class PF2EHazard extends PF2EActor {}
-export class PF2EVehicle extends PF2EActor {}
+export class PF2EHazard extends PF2EActor {
+    data!: HazardData;
+}
+export class PF2EVehicle extends PF2EActor {
+    data!: VehicleData;
+}
+
 export type TokenPF2e = Token<PF2EActor>;
+export type UserPF2e = User<PF2EActor>;

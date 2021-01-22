@@ -7,6 +7,12 @@ export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
+export interface ItemTraits {
+    rarity: { value: Rarity };
+    value: string | Array<string>;
+    custom: string;
+}
+
 export interface ItemDescriptionData {
     description: {
         value: string;
@@ -16,12 +22,7 @@ export interface ItemDescriptionData {
     source: {
         value: string;
     };
-    traits: {
-        rarity: {
-            value: Rarity;
-        };
-        value: string | string[];
-    };
+    traits: ItemTraits;
     options?: {
         value: string[];
     };
@@ -32,6 +33,7 @@ export interface ItemDescriptionData {
         value: string;
     };
     rules?: PF2RuleElementData[];
+    slug?: string | null;
 }
 
 export interface PhysicalDetailsData extends ItemDescriptionData {
@@ -89,6 +91,9 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     };
     collapsed: {
         value: boolean;
+    };
+    size: {
+        value: Sizes;
     };
 }
 
@@ -321,6 +326,10 @@ export interface ConsumableDetailsData extends MagicItemData {
         value: boolean;
         _deprecated: boolean;
     };
+    spell?: {
+        data: SpellData;
+        heightenedLevel: number;
+    };
 }
 
 export interface ABCFeatureEntryData {
@@ -428,6 +437,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
     prerequisites: {
         value: string;
     };
+    location: string;
 }
 
 export interface LoreDetailsData extends ItemDescriptionData {
@@ -441,6 +451,7 @@ export interface LoreDetailsData extends ItemDescriptionData {
     item: {
         value: 0;
     };
+    variants?: Record<string, { label: string; options: string }>;
 }
 
 export interface MartialDetailsData extends ItemDescriptionData {
@@ -482,11 +493,15 @@ export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string;
     };
+    areasize: {
+        value: string;
+    };
     spellCategory: {
         value: string;
     };
     traditions: {
-        value: [];
+        value: string[];
+        custom: string;
     };
     school: {
         value: string;
@@ -504,7 +519,8 @@ export interface SpellDetailsData extends ItemDescriptionData {
         value: string;
     };
     area: {
-        value: string;
+        value: number;
+        areaType: string;
     };
     time: {
         value: string;
@@ -525,6 +541,9 @@ export interface SpellDetailsData extends ItemDescriptionData {
     };
     save: {
         basic: string;
+        value: string;
+        dc?: number;
+        str?: string;
     };
     sustained: {
         value: false;
@@ -541,6 +560,11 @@ export interface SpellDetailsData extends ItemDescriptionData {
     location: {
         value: string;
     };
+    isSave?: boolean;
+    damageLabel?: string;
+    isAttack?: boolean;
+    spellLvl?: string;
+    properties?: (number | string)[];
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
@@ -575,62 +599,62 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     displayLevels: Record<number, boolean>;
     slots?: {
         slot0: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot1: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot2: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot3: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot4: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot5: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot6: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot7: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot8: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot9: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot10: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
         slot11: {
-            prepared: [];
+            prepared: { id: string }[];
             value: 0;
             max: 0;
         };
@@ -730,6 +754,24 @@ export interface ConditionDetailsData extends StatusDetailsData {
     overrides: [];
 }
 
+export interface EffectDetailsData extends ItemDescriptionData {
+    level: {
+        value: number;
+    };
+    expired: boolean;
+    remaining: string;
+    duration: {
+        value: 0;
+        unit: string;
+        sustained: boolean;
+        expiry: 'turn-start' | 'turn-end';
+    };
+    start?: {
+        value: number;
+        initiative: number;
+    };
+}
+
 export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends BaseItemData {
     data: D;
 }
@@ -816,6 +858,10 @@ export interface ConditionData extends BaseItemDataPF2e<ConditionDetailsData> {
     type: 'condition';
 }
 
+export interface EffectData extends BaseItemDataPF2e<EffectDetailsData> {
+    type: 'effect';
+}
+
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData =
     | BackpackData
@@ -839,7 +885,8 @@ export type ItemData =
     | ConditionData
     | AncestryData
     | BackgroundData
-    | ClassData;
+    | ClassData
+    | EffectData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(item: ItemData): item is PhysicalItemData {

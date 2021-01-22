@@ -2,17 +2,21 @@ import * as path from "path";
 import * as process from "process";
 import * as fs from "fs";
 
-interface SerializableData {
-    [key: string]: { } | null | undefined;
+interface PackMetadata {
+    system: string;
+    name: string;
+    path: string;
+    entity: string;
 }
 
-interface PackEntityData extends SerializableData {
+interface PackEntityData {
     _id: string;
     name: string;
     type?: string;
     img?: string;
-    data: SerializableData;
-    flags: { [key: string]: SerializableData };
+    slug?: string;
+    data: Record<string, unknown>;
+    flags: Record<string, unknown>;
     permission: { default: 0 };
     items?: { img: string }[];
 }
@@ -25,19 +29,19 @@ const throwPackError = (message: string) => {
 class Compendium {
     name: string;
     packDir: string;
+    entityClass: string;
+    systemId: string;
     data: PackEntityData[];
 
     static outDir = path.resolve(process.cwd(), "static/packs");
     static _namesToIds = new Map<string, Map<string, string>>();
-    static _systemPackData = JSON.parse(
-        fs.readFileSync("system.json", "utf-8")
-    ).packs as { name: string, path: string }[];
+    static _systemPackData = JSON.parse(fs.readFileSync("system.json", "utf-8")).packs as PackMetadata[];
     static _worldItemLinkPattern = new RegExp(
         /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
     );
 
     constructor(packDir: string, parsedData: unknown[]) {
-        if (this._isPackData(parsedData)) {
+        if (this.isPackData(parsedData)) {
             this.packDir = packDir;
             const compendium = Compendium._systemPackData.find(
                 (pack) => path.basename(pack.path) === path.basename(packDir)
@@ -45,7 +49,9 @@ class Compendium {
             if (compendium === undefined) {
                 throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
             }
+            this.systemId = compendium.system;
             this.name = compendium.name;
+            this.entityClass = compendium.entity;
 
             Compendium._namesToIds.set(this.name, new Map());
             const packMap = Compendium._namesToIds.get(this.name);
@@ -94,13 +100,18 @@ class Compendium {
         }
     }
 
-    _finalize(entityData: PackEntityData) {
+    private finalize(entityData: PackEntityData) {
         // Replace all compendium entities linked by name to links by ID
         const stringified = JSON.stringify(entityData);
         const worldItemLink = Compendium._worldItemLinkPattern.exec(stringified);
         if (worldItemLink !== null) {
             throwPackError(`${entityData.name} (${this.name}) has a link to a world item: `
                 + `${worldItemLink[0]}`);
+        }
+
+        entityData.flags.core = { sourceId: this.sourceIdOf(entityData._id) };
+        if (this.entityClass === 'Item') {
+            entityData.data.slug = this.sluggify(entityData.name);
         }
 
         return JSON.stringify(entityData).replace(
@@ -127,17 +138,29 @@ class Compendium {
         );
     }
 
+    private sourceIdOf(entityId: string) {
+        return `Compendium.${this.systemId}.${this.name}.${entityId}`;
+    }
+
+    private sluggify(entityName: string) {
+        return entityName
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/gi, ' ')
+            .trim()
+            .replace(/\s+|-{2,}/g, '-');
+    }
+
     save(): number {
         fs.writeFileSync(
             path.resolve(Compendium.outDir, this.packDir),
-            this.data.map((datum) => this._finalize(datum)).join("\n") + "\n"
+            this.data.map((datum) => this.finalize(datum)).join("\n") + "\n"
         );
         console.log(`Pack "${this.name}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;
     }
 
-    _isEntityData(entityData: any): entityData is PackEntityData {
+    private isEntityData(entityData: {}): entityData is PackEntityData {
         const checks = Object.entries({
             name: (data: any) => typeof data.name === "string",
             // type: (data: any) => typeof data.type === "string",
@@ -152,15 +175,15 @@ class Compendium {
 
         if (failedChecks.length > 0) {
             throwPackError(
-                `${entityData.name} (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
+                `entityData in (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
             );
         }
 
         return true;
     }
 
-    _isPackData(packData: any): packData is PackEntityData[] {
-        return packData.every((entityData: any) => this._isEntityData(entityData));
+    private isPackData(packData: unknown[]): packData is PackEntityData[] {
+        return packData.every((entityData: any) => this.isEntityData(entityData));
     }
 
 }

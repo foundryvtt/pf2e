@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -857,9 +857,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/entangle.jpg",
             "name": "Entangle",
             "sort": 300000,
@@ -1000,9 +998,7 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/spells/entangle.jpg",
             "name": "Entangle",
             "sort": 400000,
@@ -1266,6 +1262,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -1402,6 +1401,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -1540,6 +1542,9 @@
                 "rarity": {
                     "value": "common"
                 },
+                "size": {
+                    "value": "med"
+                },
                 "source": {
                     "value": ""
                 },
@@ -1675,6 +1680,9 @@
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "size": {
+                    "value": "med"
                 },
                 "source": {
                     "value": ""
@@ -2409,6 +2417,19 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "all": [
+                                "action:hide",
+                                "camouflage"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "text": "<p class='compact-text'><strong>Camouflage</strong> The dragon can Hide in natural environments even if it doesn’t have cover.</p>"
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
@@ -2417,6 +2438,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "camouflage",
+                        "options": "action:hide, camouflage"
+                    }
                 }
             },
             "flags": {},

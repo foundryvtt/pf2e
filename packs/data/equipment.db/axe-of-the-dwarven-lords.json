@@ -22,6 +22,9 @@
         "collapsed": {
             "value": false
         },
+        "size": {
+            "value": "med"
+        },
         "containerId": {
             "value": ""
         },
@@ -69,6 +72,7 @@
         "negateBulk": {
             "value": "0"
         },
+        "originalName": "",
         "potencyRune": {
             "value": "4"
         },
@@ -124,7 +128,16 @@
                 "key": "PF2E.RuleElement.FlatModifier",
                 "predicate": {
                     "all": [
-                        "dwarven crafting"
+                        "action:craft"
+                    ],
+                    "any": [
+                        "armor",
+                        "jewelry",
+                        "metalworking",
+                        "stonemasonry",
+                        "snare",
+                        "trap",
+                        "weapon"
                     ]
                 },
                 "selector": "crafting",
@@ -137,7 +150,7 @@
                 "key": "PF2E.RuleElement.DamageDice",
                 "predicate": {
                     "all": [
-                        "orc"
+                        "target:orc"
                     ]
                 },
                 "selector": "damage"

@@ -8,17 +8,19 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem } from '../../item/dataDefinitions';
+import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
+import { ScrollWandPopup } from './scroll-wand-popup';
+import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
+export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType, PF2EItem> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -284,7 +286,11 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
      * @param spellSlot {String}    The number of the spell slot
      * @param spell {String}        The item details for the spell
      */
-    async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell, entryId) {
+    async _allocatePreparedSpellSlot(spellLevel, spellSlot, spell: SpellData, entryId) {
+        if (spell.data.level.value > spellLevel) {
+            console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
+            return;
+        }
         if (CONFIG.debug.hooks === true)
             console.log(
                 `PF2e DEBUG | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
@@ -1252,6 +1258,19 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
         return super._onSortItem(event, itemData);
     }
 
+    async _onDropItemCreate(itemData: ItemData): Promise<ItemData> {
+        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+            // ignore these. they should get handled in the derived class
+            ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
+            return null;
+        }
+        return super._onDropItemCreate(itemData);
+    }
+
+    async onDropItem(data) {
+        return await this._onDropItem({ preventDefault() {} }, data);
+    }
+
     /**
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
      * @private
@@ -1282,14 +1301,24 @@ export abstract class ActorSheetPF2e extends ActorSheet<PF2EActor, PF2EItem> {
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
                 return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
+                const popup = new ScrollWandPopup(this.actor, {}, async (heightenedLevel, itemType, spellData) => {
+                    if (itemType === 'scroll') {
+                        const item = await scrollFromSpell(itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
+                    } else if (itemType === 'wand') {
+                        const item = await wandFromSpell(itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
+                    }
+                });
+                popup.spellData = itemData;
+                popup.render(true);
+                return true;
             } else {
                 return false;
             }
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
-            return false;
-        } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
-            // ignore these (for now)...
             return false;
         } else if (itemData.type === 'kit') {
             await addKit(itemData, async (newItems) => {

@@ -1,15 +1,31 @@
 /* global game */
+
 import {
     addCoinsSimple,
     attemptToRemoveCoinsByValue,
     calculateValueOfCurrency,
     removeCoinsSimple,
 } from '../../item/treasure';
+import { PF2EActor } from '../actor';
+
+interface PopupData extends FormApplicationData<PF2EActor> {
+    selection?: string[];
+    actorInfo?: {
+        id: string;
+        name: string;
+        checked: boolean;
+    }[];
+}
+
+interface PopupFormData extends FormData {
+    selection: string[];
+    breakCoins: boolean;
+}
 
 /**
  * @category Other
  */
-export class DistributeCoinsPopup extends FormApplication {
+export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'distribute-coins';
@@ -20,11 +36,7 @@ export class DistributeCoinsPopup extends FormApplication {
         return options;
     }
 
-    activateListeners(html) {
-        super.activateListeners(html);
-    }
-
-    async _updateObject(event: Event, formData: any) {
+    async _updateObject(_event: Event, formData: PopupFormData) {
         const thisActor = this.object;
         const selectedActors = [];
         for (let i = 0; i < formData.selection.length; i++) {
@@ -55,7 +67,7 @@ export class DistributeCoinsPopup extends FormApplication {
                 coinShare.cp = copperToDistribute % 10;
                 coinShare.sp = Math.trunc(copperToDistribute / 10) % 10;
                 coinShare.gp = Math.trunc(copperToDistribute / 100) % 10;
-                coinShare.pp = Math.trunc(copperToDistribute / 1000) % 10;
+                coinShare.pp = Math.trunc(copperToDistribute / 1000);
             } else {
                 coinShare.pp = Math.trunc(thisActorCurrency.pp / playerCount);
                 coinShare.cp = Math.trunc(thisActorCurrency.cp / playerCount);
@@ -97,8 +109,8 @@ export class DistributeCoinsPopup extends FormApplication {
         }
     }
 
-    getData() {
-        const sheetData = super.getData();
+    getData(): PopupData {
+        const sheetData: PopupData = super.getData();
         sheetData.actorInfo = [];
         const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.data.type === 'character');
         const idsOfPlayerCharacters = game.users.players.map((x) => x.character.id);
@@ -109,6 +121,7 @@ export class DistributeCoinsPopup extends FormApplication {
                 checked: idsOfPlayerCharacters.some((id) => id === playerActors[i].id),
             });
         }
+
         return sheetData;
     }
 }

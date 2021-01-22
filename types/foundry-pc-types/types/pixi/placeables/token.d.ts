@@ -33,7 +33,7 @@
  * }
  */
 
-declare type LightData = {
+interface LightData {
     brightLight: number;
     dimLight: number;
     lightAlpha: number;
@@ -44,9 +44,9 @@ declare type LightData = {
         intensity: number;
     };
     lightColor: string;
-};
+}
 
-interface BaseTokenData extends PlaceableObjectData {
+interface TokenData<D extends ActorData = ActorData> extends PlaceableObjectData, LightData {
     name: string;
     displayName: number;
     img: string;
@@ -62,14 +62,12 @@ interface BaseTokenData extends PlaceableObjectData {
     hidden: boolean;
     actorId: string;
     actorLink: boolean;
-    actorData: { [key: string]: any };
+    actorData?: D | {};
     disposition: number;
     displayBars: number;
-    bar1: { [key: string]: string };
-    bar2: { [key: string]: string };
+    bar1: Record<string, string>;
+    bar2: Record<string, string>;
 }
-
-declare type TokenData = BaseTokenData & LightData;
 
 /**
  * An instance of the Token class represents an Actor within a viewed Scene on the game canvas.
@@ -79,9 +77,9 @@ declare type TokenData = BaseTokenData & LightData;
  * @param data An object of token data which is used to construct a new Token.
  * @param scene The parent Scene entity within which the Token resides.
  */
-declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
+declare class Token<ActorType extends Actor = Actor> extends PlaceableObject<TokenLayer<ActorType>> {
     /** @override */
-    data: TokenData;
+    data: TokenData<ActorType['data']>;
 
     effects: PIXI.Container;
 
@@ -89,13 +87,18 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /**
      * A Ray which represents the Token's current movement path
      */
-    protected _movement: any;
+    protected _movement: Ray | null;
 
     /**
      * An Object which records the Token's prior velocity dx and dy
      * This can be used to determine which direction a Token was previously moving
      */
-    protected _velocity: any;
+    protected _velocity: {
+        dx: number | null;
+        dy: number | null;
+        sx: number | null;
+        sy: number | null;
+    };
 
     /**
      * The Token's most recent valid position
@@ -124,7 +127,7 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /**
      * Provide a reference to the canvas layer which contains placeable objects of this type
      */
-    static get layer(): PlaceablesLayer;
+    static get layer(): TokenLayer<Actor>;
 
     /* -------------------------------------------- */
     /*  Permission Attributes
@@ -236,13 +239,14 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /* Rendering
     /* -------------------------------------------- */
 
-    draw(): Promise<any>;
-
-    refresh(): PlaceableObject;
-
     protected _refreshBorder(): void;
 
-    protected _getBorderColor(): any;
+    /**
+     * Get the hex color that should be used to render the Token border
+     * @return The hex color used to depict the border color
+     * @private
+     */
+    _getBorderColor(): number | null;
 
     protected _refreshTarget(): void;
 

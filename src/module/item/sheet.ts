@@ -1,13 +1,12 @@
 /* global game, CONFIG */
-/**
- * Override and extend the basic :class:`ItemSheet` implementation
- */
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
+import { LoreDetailsData } from './dataDefinitions';
 
 /**
+ * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
 export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
@@ -62,6 +61,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
                 'melee',
                 'backpack',
                 'condition',
+                'lore',
             ].includes(type),
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
@@ -79,11 +79,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.currencies = CONFIG.PF2E.currencies;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'spell') {
             // Spell Data
             mergeObject(data, {
@@ -134,6 +136,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.weaponReload = CONFIG.PF2E.weaponReload;
             data.weaponMAP = CONFIG.PF2E.weaponMAP;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
+            data.sizes = CONFIG.PF2E.actorSizes;
             data.isBomb = type === 'weapon' && data.data?.group?.value === 'bomb';
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
@@ -200,11 +203,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'backpack') {
             // Backpack data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-
+            data.sizes = CONFIG.PF2E.actorSizes;
             // this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
         } else if (type === 'armor') {
             // Armor data
@@ -219,12 +223,32 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.armorTraits = CONFIG.PF2E.armorTraits;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'tool') {
             // Tool-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+        } else if (type === 'effect') {
+            // Effect-specific data
+            if (this?.actor?.items) {
+                const scopes = new Set<string>();
+
+                data.item.data.rules
+                    .filter((rule) => rule.key === 'PF2E.RuleElement.EffectTarget')
+                    .forEach((rule) => {
+                        scopes.add((rule as any).scope);
+                    });
+                if (scopes) {
+                    data.targets = this.actor.items
+                        .filter((item) => scopes.has(item.type))
+                        .map((item) => {
+                            return { id: item.id, name: item.name };
+                        });
+                }
+            }
         }
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
@@ -322,7 +346,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
     /**
      * Activate listeners for interactive item sheet events
      */
-
     activateListeners(html) {
         super.activateListeners(html); // Checkbox changes
 
@@ -338,48 +361,67 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             this._deleteDamageRoll(ev);
         });
 
-        html.find('.add-rule-element').on('click', (event) => {
+        html.find('.add-rule-element').on('click', async (event) => {
+            event.preventDefault();
+            await this._onSubmit(event); // submit any unsaved changes
             const rules = (this.item.data.data as any).rules ?? [];
-            this.item.update({
+            return this.item.update({
                 'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
             });
         });
-        html.find('.rules').on('click', '.remove-rule-element', (event) => {
-            const rules = duplicate((this.item.data.data as any).rules ?? []);
+        html.find('.rules').on('click', '.remove-rule-element', async (event) => {
+            event.preventDefault();
+            await this._onSubmit(event); // submit any unsaved changes
+            const rules = duplicate((this.item.data.data as any).rules ?? []) as any[];
             const index = event.currentTarget.dataset.ruleIndex;
-            if (rules && rules.length > index) {
+            if (rules && rules.length > Number(index)) {
                 rules.splice(index, 1);
-                this.item.update({ 'data.rules': rules });
+                return this.item.update({ 'data.rules': rules });
             }
         });
+
+        html.find('.add-skill-variant').on('click', (event) => {
+            const variants = (this.actor?.items?.get(this?.entity?.id)?.data.data as LoreDetailsData)?.variants ?? {};
+            const index = Object.keys(variants).length;
+            this.item.update({
+                [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
+            });
+        });
+        html.find('.skill-variants').on('click', '.remove-skill-variant', (event) => {
+            const index = event.currentTarget.dataset.skillVariantIndex;
+            this.item.update({ [`data.variants.-=${index}`]: null });
+        });
     }
+
     /**
      * Always submit on a form field change. Added because tabbing between fields
      * wasn't working.
      */
-
     _onChangeInput(event) {
-        // Unclear where the event conflic is between _onChangeInput and another.
+        // Unclear where the event conflict is between _onChangeInput and another.
         // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc)
         // of NPCs can be edited without problems.
         // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
         return this._onSubmit(event);
     }
 
-    _updateObject(event, formData) {
+    _getSubmitData(updateData: any = {}) {
+        // create the expanded update data object
+        const fd = new FormDataExtended(this.form, { editors: this.editors });
+        const data = updateData ? mergeObject(fd.toObject(), updateData) : expandObject(fd.toObject());
+
         // ensure all rules objects are parsed and saved as objects
-        const rules = [];
-        Object.entries(formData)
-            .filter(([key, _]) => key.startsWith('data.rules.'))
-            .forEach(([_, value]) => {
+        if (data?.data?.rules) {
+            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
                 try {
-                    rules.push(JSON.parse(value as string));
+                    return JSON.parse(value as string);
                 } catch (error) {
                     ui.notifications.warn('Syntax error in rule element definition.');
                     throw error;
                 }
             });
-        formData['data.rules'] = rules;
-        return super._updateObject(event, formData);
+        }
+
+        return flattenObject(data); // return the flattened submission data
     }
 }
