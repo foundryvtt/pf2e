@@ -79,11 +79,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.currencies = CONFIG.PF2E.currencies;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'spell') {
             // Spell Data
             mergeObject(data, {
@@ -134,6 +136,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.weaponReload = CONFIG.PF2E.weaponReload;
             data.weaponMAP = CONFIG.PF2E.weaponMAP;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
+            data.sizes = CONFIG.PF2E.actorSizes;
             data.isBomb = type === 'weapon' && data.data?.group?.value === 'bomb';
 
             this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
@@ -200,11 +203,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'backpack') {
             // Backpack data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
-
+            data.sizes = CONFIG.PF2E.actorSizes;
             // this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
         } else if (type === 'armor') {
             // Armor data
@@ -219,9 +223,11 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.armorTraits = CONFIG.PF2E.armorTraits;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'tool') {
             // Tool-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
+            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;

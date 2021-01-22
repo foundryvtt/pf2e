@@ -92,6 +92,9 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     collapsed: {
         value: boolean;
     };
+    size: {
+        value: Sizes;
+    };
 }
 
 export interface ItemLevelData {
