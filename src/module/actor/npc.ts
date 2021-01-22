@@ -218,7 +218,6 @@ export class PF2ENPC extends PF2EActor {
                 stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
-                stat.exception = item.data.description.value;
                 stat.loreItemId = item._id; // Required to find the item related to this skill later
                 stat.breakdown = stat.modifiers
                     .filter((m) => m.enabled)
@@ -476,26 +475,7 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
-     * Assigns a new exception to the skill.
-     * @param skillId ID of the skill to modify.
-     * @param exception Value of the exception to assign.
-     */
-    async assignNPCSkillException(skillId: string, exception: string) {
-        const skill = this.data.data.skills[skillId];
-
-        if (skill === undefined) {
-            console.error(`Unable to set exception ${exception} to skill ${skillId}. No skill with that ID.`);
-            return;
-        }
-
-        skill.exception = exception;
-
-        this._updateSkillVisiblity(skill);
-    }
-
-    /**
      * Updates the visibility of a skill based on its values.
-     * A skill with a value or an exception is visible.
      * @param skill Skill to update.
      */
     private _updateSkillVisiblity(skill: NPCSkillData): boolean {
@@ -504,10 +484,6 @@ export class PF2ENPC extends PF2EActor {
         const baseModifier = skill.findModifierByName('PF2E.BaseModifier');
 
         if (baseModifier.modifier > 0) {
-            isVisible = true;
-        }
-
-        if (skill.exception !== undefined || skill.exception !== '') {
             isVisible = true;
         }
 
@@ -575,25 +551,10 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
-     * Generated a skill name for a skill with an exception.
-     * This matches the name of skills from compendium with incorrect formats.
-     * @param skillId ID of the skill.
-     * @param exception Exception bonus for the skill.
-     */
-    generateSkillWithExceptionName(skillId: string, exception: string): string {
-        const skillName = this.convertSkillIdToSkillName(skillId);
-        const name = skillName.replace(/-/g, ' ').titleCase();
-        const itemName = `${name} (${exception})`;
-
-        return this.convertItemNameToSkillName(itemName);
-    }
-
-    /**
      * Finds the skill item related to the skill provided.
      * Each skill in the characters has an item in the items collection
      * defining the skill. They are of 'lore' type, even for non-lore skills.
      * @param skillId ID of the skill to search for.
-     * @param exception Exception of the skill. This is required to search items with exceptions and incorrect ID formats.
      */
     findSkillItem(skillId: string): PF2EItem {
         const skill = this.data.data.skills[skillId];
@@ -652,7 +613,6 @@ export class PF2ENPC extends PF2EActor {
 
                 if (realSkill !== undefined) {
                     this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
-                    // this.assignNPCSkillException(realSkillId, finalSpecialBonus); // Don't use exceptions, use variants
 
                     this._processNPCSkill(realSkill);
 
@@ -707,19 +667,6 @@ export class PF2ENPC extends PF2EActor {
 
         skill.value = totalValue;
         skill.rank = proficiencyRank;
-
-        // Used to find the bonus for the exception in the exception text
-        const exceptionRegExp = /\+(\d*)/g;
-
-        // If it has an exception, try to parse the bonus
-        if (skill.exception !== undefined) {
-            const results = exceptionRegExp.exec(skill.exception);
-
-            // Supports only the first +X found in the exception text
-            if (results !== undefined && results !== null && results.length > 0) {
-                skill.exceptionBonus = parseInt(results[0], 10) - skill.value;
-            }
-        }
     }
 
     /**
