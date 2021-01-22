@@ -94,12 +94,14 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #154: Siege of the Dinosaurs © 2020, Paizo Inc.; Authors: Kate Baker, with Luis Loza, Andrew Mullen, Jason Nelson, Jennifer Povey, David Schwartz, and Amber Stewart.
 	*  Pathfinder Adventure Path #155: Lord of the Black Sands © 2020, Paizo Inc.; Authors: Mikko Kallio, with Andrew Mullen, Nathan Reinecke, David Schwartz, and Scott Young.
 	*  Pathfinder Adventure Path #156: The Apocalypse Project © 2020, Paizo Inc.; Authors: Lyz Liddell, with Mikhail Rekun, Steven Hammond, Kevin Bruan, Andrew Mullen, Patrick Renie, and David N. Ross.
+	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
 	*  Pathfinder Adventure Path #157: Devil at the Dreaming Palace © 2020, Paizo Inc.; Authors: James L. Sutter, with Luis Loza, Andrew Mullen, Samantha Phelan, and Patrick Renie.
 	*  Pathfinder Adventure Path #158: Sixty Feet Under © 2020, Paizo Inc.; Authors: Michael Sayre, Saif Ansari, Leo Glass, Ron Lundeen, Jacob W. Michaels, Patrick Renie, and David N. Ross
 	*  Pathfinder Adventure Path #159: All or Nothing © 2020, Paizo Inc.; Authors: Jason Keeley
     *  Pathfinder Adventure Path #160: Assault on Hunting Lodge Seven © 2020, Paizo Inc.; Authors: Ron Lundeen
     *  Pathfinder Adventure Path #161: Belly of the Black Whale © 2020, Paizo Inc.; Authors: Cole Kronewitter
     *  Pathfinder Adventure Path #162: Ruins of the Radiant Siege © 2020, Paizo Inc.; Authors: Amber Stewart
+	*  Abomination Vaults Player's Guide © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure Path #163: Ruins of Gauntlight © 2021, Paizo Inc.; Authors: James Jacobs
     *  Pathfinder Adventure Path #164: Hands of the Devil © 2021, Paizo Inc.; Authors: Vanessa Hoskins
     *  Pathfinder Adventure Path #165: Eyes of Empty Death © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
