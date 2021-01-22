@@ -8,7 +8,6 @@ import { CharacterStrike, CharacterStrikeTrait, NpcData, NPCSkillData } from './
 import { PF2RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { PF2ECONFIG } from '../../scripts/config';
-import { ItemData } from '../item/dataDefinitions';
 
 export class PF2ENPC extends PF2EActor {
     /** @override */
@@ -409,7 +408,6 @@ export class PF2ENPC extends PF2EActor {
                 data.actions.push(action);
             }
         }
-        this._processSkillsWithSpecialBonuses();
 
         // Process all NPC skills to make sure they have all data setup
         for (const skillId of Object.keys(this.data.data.skills)) {
@@ -417,15 +415,6 @@ export class PF2ENPC extends PF2EActor {
 
             this._processNPCSkill(skill);
         }
-    }
-
-    /**
-     * Checks if an item is an NPC skill.
-     * @param item Item to check.
-     */
-    private _isNPCSkillItem(item: ItemData): boolean {
-        // NPC Skills, they all are of type 'lore', even non-lore ones
-        return item.type === 'lore';
     }
 
     /**
@@ -579,63 +568,6 @@ export class PF2ENPC extends PF2EActor {
     }
 
     /**
-     * Process skill items with special bonuses that could not be processed
-     * before. We need to do this after the regular skill processing to avoid
-     * overwritting values. The skill item with the special bonuses have the info
-     * for both, the normal value and the special bonus, so we extract the data from it
-     * and ignore the regular skill value.
-     */
-    private async _processSkillsWithSpecialBonuses() {
-        const skillsToRemoveIDs = [];
-
-        for (const item of this.data.items) {
-            if (!this._isNPCSkillItem(item)) continue;
-
-            const skillId = this.convertItemNameToSkillId(item.name);
-
-            // If regular or lore with no special bonuses, no need to do anything more
-            if (this._isRegularSkillId(skillId)) continue;
-            if (this._isLoreSkillId(skillId)) continue;
-
-            const separatorIndex = skillId.search('-');
-            const rawSkillId = skillId.substr(0, separatorIndex);
-            const rawSpecialBonus = skillId.substr(separatorIndex + 1, skillId.length - separatorIndex - 1);
-
-            let finalSpecialBonus = rawSpecialBonus;
-            finalSpecialBonus = finalSpecialBonus.replace(/\(/g, '');
-            finalSpecialBonus = finalSpecialBonus.replace(/\)/g, '');
-            finalSpecialBonus = finalSpecialBonus.replace(/-/g, ' ');
-
-            const realSkillId = SKILL_EXPANDED[rawSkillId]?.shortform;
-
-            if (realSkillId !== undefined) {
-                const realSkill = this.data.data.skills[realSkillId];
-
-                if (realSkill !== undefined) {
-                    this.assignNPCSkillValue(realSkillId, (item.data as any).mod.value);
-
-                    this._processNPCSkill(realSkill);
-
-                    skillsToRemoveIDs.push(skillId);
-                } else {
-                    console.warn(`Unable to find real skill with ${realSkillId} ID`);
-                }
-            } else {
-                console.warn(`Failed to find regular skill ID for skill name ${rawSkillId} from item ${item.name}`);
-            }
-
-            // Make all skills to remove not visible so they don't show up in the sheet
-            for (const skillId of skillsToRemoveIDs) {
-                const skill = this.data.data.skills[skillId];
-
-                if (skill === undefined) continue;
-
-                this.data.data.skills[skillId].visible = false;
-            }
-        }
-    }
-
-    /**
      * Extra processing for NPC skills.
      * This will handle proficiency calculation, expeptions, etc.
      * The skill must be created first from a skill item before calling this method.
@@ -667,28 +599,6 @@ export class PF2ENPC extends PF2EActor {
 
         skill.value = totalValue;
         skill.rank = proficiencyRank;
-    }
-
-    /**
-     * Checks if a skill is a regular skill (non-lore skill).
-     * If the skill has a special bonus, the ID could be malformed
-     * and this method will return false.
-     * @param skillId ID of the skill.
-     */
-    private _isRegularSkillId(skillId: string): boolean {
-        for (const id in PF2ECONFIG.skills) {
-            if (id === skillId) return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if a skill is a lore skill.
-     * @param skillId ID of the skill.
-     */
-    private _isLoreSkillId(skillId: string): boolean {
-        return skillId.includes('-lore');
     }
 
     private updateTokenAttitude(attitude: string) {
