@@ -58,16 +58,16 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    protected async migrateSceneToken(scene: Scene, token: TokenData, migrations: MigrationBase[]) {
+    protected async migrateSceneToken(scene: Scene, tokenData: TokenData, migrations: MigrationBase[]) {
         try {
-            if (token.actorLink) {
-                // if it's a linked token, we don't need to do anything
+            if (tokenData.actorLink || !game.actors.has(tokenData.actorId)) {
+                // if the token is linked or has no actor, we don't need to do anything
                 return;
             }
 
             // build up the actor data
-            const baseActor = game.actors.get(token.actorId);
-            const actorData = mergeObject(baseActor._data, token.actorData, { inplace: false });
+            const baseActor = game.actors.get(tokenData.actorId);
+            const actorData = mergeObject(baseActor._data, tokenData.actorData, { inplace: false });
 
             const updatedActor = await this.getUpdatedActor(actorData, migrations);
             const changes = diffObject(actorData, updatedActor);
@@ -77,7 +77,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 );
                 await scene.updateEmbeddedEntity(
                     'Token',
-                    { _id: token._id, ...actorDataChanges },
+                    { _id: tokenData._id, ...actorDataChanges },
                     { enforceTypes: false },
                 );
             }
