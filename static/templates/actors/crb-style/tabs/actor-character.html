@@ -72,18 +72,15 @@
                     />
                 </span>
             </div>
-            <div class="pc pc_class">
+            <div class="pc pc_class item" data-item-id="{{classItemId}}">
                 <label for="pc_class">
                     {{localize 'PF2E.Class'}}
                 </label>
                 <span title="{{localize 'PF2E.ClassTitle'}}">
-                    <input
-                        id="pc pc_class"
-                        name="data.details.class.value"
-                        type="text"
-                        value="{{data.details.class.value}}"
-                        data-dtype="String"
-                    />
+                    <h3>
+                        {{data.details.class.value}}
+                        {{#if classItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                    </h3>
                 </span>
             </div>
             <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
