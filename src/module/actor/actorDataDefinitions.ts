@@ -1,4 +1,4 @@
-import {ItemData, Rarity, Sizes} from '../item/dataDefinitions';
+import { ItemData, Rarity, Sizes } from '../item/dataDefinitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 
 /** A type representing the possible ability strings. */

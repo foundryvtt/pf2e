@@ -1,6 +1,6 @@
 /* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
+import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
@@ -189,8 +189,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         };
 
         const bulkItems = itemsFromActorData(actorData);
-        const indexedBulkItems = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+        const bulkItemsById = indexBulkItemsById(bulkItems);
+        const containers = getContainerMap({
+            items: actorData.items,
+            bulkItemsById,
+            bulkConfig,
+        });
 
         let investedCount = 0; // Tracking invested items
 
@@ -225,7 +229,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
                 const [approximatedBulk] = calculateBulk({
-                    items: [indexedBulkItems.get(i._id)],
+                    items: [bulkItemsById.get(i._id)],
                     bulkConfig: bulkConfig,
                     actorSize: this.actor.data.data.traits.size.value,
                 });

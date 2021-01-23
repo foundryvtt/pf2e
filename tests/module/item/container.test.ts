@@ -1,5 +1,5 @@
 import { getContainerMap, isCycle } from '../../../src/module/item/container';
-import { stacks, indexBulkItemsById, toBulkItems } from '../../../src/module/item/bulk';
+import { indexBulkItemsById, toBulkItems } from '../../../src/module/item/bulk';
 import { PhysicalItemData } from '../../../src/module/item/dataDefinitions';
 
 function createItem({
@@ -76,8 +76,8 @@ describe('should create container data', () => {
                 weight: 'L',
             }),
         ];
-        const bulkItems = indexBulkItemsById(toBulkItems(items));
-        const containerData = getContainerMap(items, bulkItems, stacks);
+        const bulkItemsById = indexBulkItemsById(toBulkItems(items));
+        const containerData = getContainerMap({ items, bulkItemsById });
 
         expect(containerData.size).toBe(5);
         const backPack = containerData.get('1');
@@ -181,8 +181,8 @@ describe('should create container data', () => {
                 containerId: '7',
             }),
         ];
-        const bulkItems = indexBulkItemsById(toBulkItems(items));
-        const containerData = getContainerMap(items, bulkItems, stacks);
+        const bulkItemsById = indexBulkItemsById(toBulkItems(items));
+        const containerData = getContainerMap({ items, bulkItemsById });
 
         expect(containerData.size).toBe(8);
 
