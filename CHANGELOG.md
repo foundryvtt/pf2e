@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 1.11.1
+### Bug Fixes
+* (stwlam) Move slug property from Actor to Item in template.json
+* (stwlam) Fix warning notification call in Rest for the Night macro
+* (stwlam) Fix error for actorless tokens in migrations by skipping them
+* (Ladis) Fix some localization errors in the NPC sheet
+* (profounddark) Add description for Shoony and Leshy traits, made sure Investigator, Leshy, and Shoony traits correctly connect with their description. Correct trait spelling in the Low-Light Vision ancestry feature
+* (nikolaj & profounddark) Ensure weapon traits are included in the damage predicate tests
+
+
 ## Version 1.11.0
 ### Bug Fixes
 * (stwlam) Monkey-patch Token class to fix Foundry bug causing incorrect border colors
