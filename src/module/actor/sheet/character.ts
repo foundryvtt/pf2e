@@ -226,8 +226,6 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 i.data.weight.value = i.data.weight.value || 0;
                 const [approximatedBulk] = calculateBulk({
                     items: [indexedBulkItems.get(i._id)],
-                    stackDefinitions: stacks,
-                    nestedExtraDimensionalContainer: false,
                     bulkConfig: bulkConfig,
                     actorSize: this.actor.data.data.traits.size.value,
                 });
@@ -522,8 +520,6 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
         const [bulk] = calculateBulk({
             items: bulkItems,
-            stackDefinitions: stacks,
-            nestedExtraDimensionalContainer: false,
             bulkConfig: bulkConfig,
             actorSize: this.actor.data.data.traits.size.value,
         });

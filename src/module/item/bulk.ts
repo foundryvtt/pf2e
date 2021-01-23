@@ -477,18 +477,18 @@ function calculateCombinedBulk({
  * @return
  */
 export function calculateBulk({
-    items,
-    stackDefinitions,
+    items = [],
+    stackDefinitions = stacks,
     nestedExtraDimensionalContainer = false,
     actorSize = 'med',
     bulkConfig = defaultBulkConfig,
 }: {
-    items: BulkItem[];
-    stackDefinitions: StackDefinitions;
-    nestedExtraDimensionalContainer: boolean;
-    actorSize: Sizes;
-    bulkConfig: BulkConfig;
-}): BulkAndOverflow {
+    items?: BulkItem[];
+    stackDefinitions?: StackDefinitions;
+    nestedExtraDimensionalContainer?: boolean;
+    actorSize?: Sizes;
+    bulkConfig?: BulkConfig;
+} = {}): BulkAndOverflow {
     const inventory = new BulkItem({
         holdsItems: items,
     });
