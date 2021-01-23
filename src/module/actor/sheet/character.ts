@@ -228,8 +228,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
+                const bulkItem = bulkItemsById.get(i._id);
                 const [approximatedBulk] = calculateBulk({
-                    items: [bulkItemsById.get(i._id)],
+                    items: bulkItem === undefined ? [] : [bulkItem],
                     bulkConfig: bulkConfig,
                     actorSize: this.actor.data.data.traits.size.value,
                 });

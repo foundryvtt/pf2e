@@ -121,8 +121,9 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
+                const bulkItem = bulkItemsById.get(i._id);
                 const [approximatedBulk] = calculateBulk({
-                    items: [bulkItemsById.get(i._id)],
+                    items: bulkItem === undefined ? [] : [bulkItem],
                     bulkConfig,
                 });
                 i.totalWeight = formatBulk(approximatedBulk);
