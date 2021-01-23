@@ -10,13 +10,16 @@
     "extractPacks": "node ./packs/extractpacks.js",
     "pretest": "eslint ./src --ext .ts",
     "test": "jest",
+    "posttest":"betterer",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --ext .ts --fix",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "betterer": "betterer"
   },
   "author": "",
   "license": "",
   "devDependencies": {
+    "@betterer/cli": "^3.1.2",
     "@types/jest": "^26.0.3",
     "@types/jquery": "^3.5.0",
     "@types/node": "^14.0.13",
@@ -56,6 +59,7 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
+    "@betterer/typescript": "^3.1.2",
     "jquery": "^3.5.1",
     "jsdom": "^16.2.2",
     "ky": "^0.26.0",

@@ -16,7 +16,8 @@ export function registerHandlebarsHelpers() {
             fn = opts.inverse;
             break;
         }
-        return fn(this);
+
+        return fn();
     });
 
     Handlebars.registerHelper('any', (...args) => {
