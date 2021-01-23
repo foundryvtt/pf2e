@@ -184,6 +184,9 @@ describe('test migration runner', () => {
             get(id: string) {
                 return this.entities.find((x: FakeActor) => x._data._id === id);
             },
+            has(id: string) {
+                return this.entities.some((x: FakeActor) => x._data._id === id);
+            }
         },
         items: {
             entities: [],
