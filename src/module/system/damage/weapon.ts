@@ -217,7 +217,7 @@ export class PF2WeaponDamage {
 
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
-        if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
+        if (twoHandTrait && weapon.data.hands.value == true) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
             tags.push(twoHandTrait.name);
         }
