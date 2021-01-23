@@ -1,10 +1,11 @@
 import { add, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { ItemData, isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import { isPhysicalItem, ItemData, PhysicalItemData } from './dataDefinitions';
 
 interface StackDefinition {
     size: number;
     lightBulk: number;
 }
+
 export type StackDefinitions = Record<string, StackDefinition>;
 
 /**
@@ -226,6 +227,8 @@ export class BulkItem {
 
     bulk: Bulk;
 
+    size: Sizes;
+
     quantity: number;
 
     stackGroup: string;
@@ -258,6 +261,7 @@ export class BulkItem {
         negateBulk = new Bulk(),
         // extra dimensional containers cease to work when nested inside each other
         extraDimensionalContainer = false,
+        size = 'med',
     }: {
         id?: string;
         bulk?: Bulk;
@@ -269,6 +273,7 @@ export class BulkItem {
         holdsItems?: BulkItem[];
         negateBulk?: Bulk;
         extraDimensionalContainer?: boolean;
+        size?: Sizes;
     } = {}) {
         this.id = id;
         this.bulk = bulk;
@@ -280,6 +285,7 @@ export class BulkItem {
         this.equippedBulk = equippedBulk;
         this.isEquipped = isEquipped;
         this.extraDimensionalContainer = extraDimensionalContainer;
+        this.size = size;
     }
 
     get reducesBulk(): boolean {
@@ -417,21 +423,32 @@ function calculateChildOverflow(
 
 /**
  * Calculate the bulk for an item and it's held items.
- * @param item
- * @param stackDefinitions
- * @param nestedExtraDimensionalContainer true if the item is inside an extra dimensional container
- * @param bulkConfig
  * @return
  */
-function calculateCombinedBulk(
-    item: BulkItem,
-    stackDefinitions: StackDefinitions,
-    nestedExtraDimensionalContainer: boolean = false,
-    bulkConfig: BulkConfig = defaultBulkConfig,
-): BulkAndOverflow {
+function calculateCombinedBulk({
+    item,
+    stackDefinitions,
+    nestedExtraDimensionalContainer = false,
+    bulkConfig = defaultBulkConfig,
+    actorSize,
+}: {
+    item: BulkItem;
+    stackDefinitions: StackDefinitions;
+    nestedExtraDimensionalContainer: boolean;
+    bulkConfig: BulkConfig;
+    actorSize: Sizes;
+}): BulkAndOverflow {
     const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
     const [childBulk, childOverflow] = item.holdsItems
-        .map((child) => calculateCombinedBulk(child, stackDefinitions, item.extraDimensionalContainer, bulkConfig))
+        .map((child) =>
+            calculateCombinedBulk({
+                item: child,
+                stackDefinitions,
+                nestedExtraDimensionalContainer: item.extraDimensionalContainer,
+                bulkConfig,
+                actorSize,
+            }),
+        )
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 
     // combine item overflow and child overflow
@@ -456,18 +473,32 @@ function calculateCombinedBulk(
  * @param nestedExtraDimensionalContainer true if you have a bag of holding inside a bag of holding
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @param bulkConfig
+ * @param actorSize
  * @return
  */
-export function calculateBulk(
-    items: BulkItem[],
-    stackDefinitions: StackDefinitions,
-    nestedExtraDimensionalContainer: boolean = false,
-    bulkConfig: BulkConfig = defaultBulkConfig,
-): BulkAndOverflow {
+export function calculateBulk({
+    items,
+    stackDefinitions,
+    nestedExtraDimensionalContainer = false,
+    actorSize = 'med',
+    bulkConfig = defaultBulkConfig,
+}: {
+    items: BulkItem[];
+    stackDefinitions: StackDefinitions;
+    nestedExtraDimensionalContainer: boolean;
+    actorSize: Sizes;
+    bulkConfig: BulkConfig;
+}): BulkAndOverflow {
     const inventory = new BulkItem({
         holdsItems: items,
     });
-    return calculateCombinedBulk(inventory, stackDefinitions, nestedExtraDimensionalContainer, bulkConfig);
+    return calculateCombinedBulk({
+        item: inventory,
+        stackDefinitions,
+        nestedExtraDimensionalContainer,
+        bulkConfig,
+        actorSize,
+    });
 }
 
 const lightBulkRegex = /^(\d*)l$/i;
@@ -532,6 +563,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data?.negateBulk?.value;
     const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
+    const size = item.data?.size?.value ?? 'med';
 
     return new BulkItem({
         id,
@@ -545,6 +577,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
         isEquipped,
         quantity,
         extraDimensionalContainer,
+        size,
     });
 }
 

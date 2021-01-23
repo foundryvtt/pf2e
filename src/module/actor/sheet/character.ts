@@ -224,7 +224,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
-                const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
+                const [approximatedBulk] = calculateBulk({
+                    items: [indexedBulkItems.get(i._id)],
+                    stackDefinitions: stacks,
+                    nestedExtraDimensionalContainer: false,
+                    bulkConfig: bulkConfig,
+                    actorSize: this.actor.data.data.traits.size.value,
+                });
                 i.totalWeight = formatBulk(approximatedBulk);
                 i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
                 i.isTwoHanded =
@@ -514,7 +520,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
         }
-        const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
+        const [bulk] = calculateBulk({
+            items: bulkItems,
+            stackDefinitions: stacks,
+            nestedExtraDimensionalContainer: false,
+            bulkConfig: bulkConfig,
+            actorSize: this.actor.data.data.traits.size.value,
+        });
         actorData.data.attributes.encumbrance = calculateEncumbrance(
             actorData.data.abilities.str.mod,
             bonusEncumbranceBulk,

@@ -1,4 +1,4 @@
-import { ItemData, Rarity } from '../item/dataDefinitions';
+import {ItemData, Rarity, Sizes} from '../item/dataDefinitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 
 /** A type representing the possible ability strings. */
@@ -370,7 +370,7 @@ export interface RawCharacterData {
     /** Custom character traits, such as damage resistances/immunities. */
     traits: {
         /** The character size (such as 'med'). */
-        size: { value: string };
+        size: { value: Sizes };
         /** A list of special senses this character has. */
         senses: LabeledValue[];
         /** Traits which apply to this actor, like 'air' or 'extradimensional' */
