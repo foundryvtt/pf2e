@@ -67,6 +67,12 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     equipped: {
         value: boolean;
     };
+    identification: {
+        status: string;
+        identified?: {
+            name: string;
+        };
+    };
     identified: {
         value: boolean;
     };
