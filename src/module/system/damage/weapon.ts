@@ -268,7 +268,7 @@ export class PF2WeaponDamage {
             const strikingList: PF2Striking[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
-                    .filter((wp) => PF2ModifierPredicate.test(wp.predicate, options))
+                    .filter((wp) => PF2ModifierPredicate.test(wp.predicate, traits.map((t) => t.name).concat(options)))
                     .forEach((wp) => strikingList.push(wp));
             });
 
