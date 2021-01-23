@@ -171,6 +171,7 @@ export class PF2WeaponDamage {
         const tags = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
+        options = traits.map((t) => t.name).concat(options); // always add all weapon traits to the options
 
         // determine ability modifier
         let ability: AbilityString;
@@ -378,7 +379,6 @@ export class PF2WeaponDamage {
         // conditions, custom modifiers, and roll notes
         const notes = [];
         {
-            const notesOptions = traits.map((trait) => trait.name).concat(options);
             selectors.forEach((key) => {
                 const modifiers = statisticsModifiers[key] || [];
                 modifiers
@@ -392,14 +392,12 @@ export class PF2WeaponDamage {
                         if (m.damageCategory) {
                             modifier.damageCategory = m.damageCategory;
                         }
-                        modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(
-                            traits.map((t) => t.name).concat(options),
-                        );
+                        modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(options);
                         numericModifiers.push(modifier);
                     });
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
-                    .filter((note) => PF2ModifierPredicate.test(note.predicate, notesOptions))
+                    .filter((note) => PF2ModifierPredicate.test(note.predicate, options))
                     .forEach((note) => notes.push(note));
             });
         }
@@ -436,12 +434,12 @@ export class PF2WeaponDamage {
         // custom dice
         {
             const stats = [];
-            stats.push(`${weapon.name.replace(/\s+/g, '-').toLowerCase()}-damage`); // convert white spaces to dash and lower-case all letters
+            stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
                 (damageDice[key] || [])
                     .map((d) => new PF2DamageDice(d))
                     .forEach((d) => {
-                        d.enabled = d.predicate.test(traits.map((t) => t.name).concat(options));
+                        d.enabled = d.predicate.test(options);
                         diceModifiers.push(d);
                     });
             });
@@ -465,7 +463,7 @@ export class PF2WeaponDamage {
                 d.name += ` ${d.category}`;
             }
             d.label = d.name;
-            d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(traits.map((t) => t.name).concat(options));
+            d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
 
