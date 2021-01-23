@@ -684,7 +684,7 @@ export class PF2ECharacter extends PF2EActor {
                     action.criticalSuccess = flavor.criticalSuccess;
                     action.success = flavor.success;
                     action.options = item?.data?.options?.value ?? [];
-                    action.hands = item?.data?.hands?.value ?? "false";
+                    action.hands = item?.data?.hands?.value ?? 'false';
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
                     ].concat(
@@ -705,12 +705,13 @@ export class PF2ECharacter extends PF2EActor {
                                     : 'toggled-off no-cursor';
                                 if (action.hands) {
                                     this.setRollOption(option.rollName, option.rollOption, true);
-                                    option.cssClass='toggled-on no-cursor'
+                                    option.cssClass = 'toggled-on no-cursor';
                                 } else {
                                     this.setRollOption(option.rollName, option.rollOption, false);
-                                    option.cssClass='toggled-off no-cursor'
-                                }                                    
-                            } else if (trait.startsWith('versatile-')) { // trait can be toggled on/off
+                                    option.cssClass = 'toggled-off no-cursor';
+                                }
+                            } else if (trait.startsWith('versatile-')) {
+                                // trait can be toggled on/off
                                 option.rollName = 'damage-roll';
                                 option.rollOption = trait;
                                 option.toggle = true;
