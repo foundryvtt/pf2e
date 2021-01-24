@@ -1,6 +1,6 @@
-declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
-    item?: I;
-    data?: any;
+declare interface ItemSheetData<D extends BaseItemData> extends BaseEntitySheetData<D> {
+    data?: D;
+    item?: D['data'];
 }
 
 /**
@@ -34,7 +34,7 @@ declare class ItemSheet<ItemType extends Item, ActorType extends Actor> extends 
     /**
      * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
      */
-    getData(): ItemSheetData<this['item']>;
+    getData(): ItemSheetData<this['item']['data']>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events

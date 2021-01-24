@@ -1,7 +1,17 @@
 /* global game, CONFIG */
+
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2EItem } from '../../item/item';
 import { PF2EFamiliar } from '../familiar';
+import { PF2ECharacter } from '../character';
+import { PF2ENPC } from '../npc';
+import { ConfigPF2e } from 'src/scripts/config';
+import { FamiliarData } from '../actorDataDefinitions';
+
+type FamiliarSheetData = ActorSheetData<FamiliarData> & {
+    masters: (PF2ECharacter | PF2ENPC)[];
+    abilities: ConfigPF2e['PF2E']['abilities'];
+};
 
 /**
  * @category Actor
@@ -22,26 +32,29 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
         return 'systems/pf2e/templates/actors/familiar-sheet.html';
     }
 
-    getData() {
-        const sheet = super.getData();
+    getData(): FamiliarSheetData {
+        // Find all owners, which are the list of all potential masters
+        const owners = game.users.filter((user) => this.actor.hasPerm(user, CONST.ENTITY_PERMISSIONS.OWNER));
+        const actors = Array.from(game.actors.values());
+        const masters: (PF2ECharacter | PF2ENPC)[] = actors.flatMap((actor) =>
+            (actor instanceof PF2ECharacter || actor instanceof PF2ENPC) &&
+            owners.some((owner) => !owner.isGM && actor.hasPerm(owner, CONST.ENTITY_PERMISSIONS.OWNER))
+                ? actor
+                : [],
+        );
 
-        // find all owners, which are the list of all potential masters
-        const owners = Object.entries(this.actor.data.permission)
-            .filter(([id, permission], idx) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
-            .map(([userID, _], idx) => game.users.get(userID));
-        (sheet as any).masters = game.actors.entities
-            .filter((actor) => ['character', 'npc'].includes(actor.data.type))
-            .filter((actor) => actor.hasPerm(game.user, 'OWNER'))
-            .filter((actor) => owners.some((owner) => actor.hasPerm(owner, 'OWNER')));
+        // List of abilities that can be selected as spellcasting ability
+        const abilities = CONFIG.PF2E.abilities;
 
-        // list of abilities that can be selected as spellcasting ability
-        (sheet as any).abilities = CONFIG.PF2E.abilities;
-
-        return sheet;
+        return {
+            ...super.getData(),
+            masters: masters,
+            abilities: abilities,
+        };
     }
 
     // Events
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // rollable stats

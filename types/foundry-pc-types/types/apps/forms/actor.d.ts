@@ -1,7 +1,7 @@
-declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEntitySheetData<A> {
-    actor: A;
-    data: A['data'];
-    items: I[];
+declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetData<D> {
+    actor: D;
+    data: D['data'];
+    items: D['items'];
 }
 
 /**
@@ -31,7 +31,7 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
      * Prepare data for rendering the Actor sheet
      * The prepared data object contains both the actor data as well as additional sheet options
      */
-    getData(): ActorSheetData<ActorType, ItemType>;
+    getData(): ActorSheetData<ActorType['data']>;
 
     /**
      * Handle requests to configure the prototype Token for the Actor
