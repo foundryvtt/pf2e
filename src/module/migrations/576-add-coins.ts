@@ -3,7 +3,7 @@ import { PF2EPhysicalItem } from '../item/physical';
 import { ActorDataPF2e } from '../actor/actorDataDefinitions';
 
 export class Migration576AddCoins extends MigrationBase {
-    version = 0.576;
+    static version = 0.576;
     requiresFlush = true;
 
     async addCoin(actor: ActorDataPF2e, treasureId: string, denomination: string, quantity: number) {

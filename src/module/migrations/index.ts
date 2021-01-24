@@ -1,3 +1,4 @@
+import { MigrationBase } from './base';
 import { Migration412MigrateDyingCondition } from './412-migrate-dying-condition';
 import { Migration544MigrateStamina } from './544-migrate-stamina';
 import { Migration559MigrateNpcItemDamageRolls } from './559-migrate-npc-item-damage-rolls';
@@ -26,34 +27,42 @@ import { Migration593AddAncestryItem } from './593-make-ancestry-item';
 import { Migration594AddBackgroundItem } from './594-make-background-item';
 import { Migration595AddItemSize } from './595-item-sizes';
 
-export function getAllMigrations() {
-    return [
-        new Migration412MigrateDyingCondition(),
-        new Migration544MigrateStamina(),
-        new Migration559MigrateNpcItemDamageRolls(),
-        new Migration561MigrateHitpointData(),
-        new Migration566MigrateNpcItemAttackEffects(),
-        new Migration567MigrateClassDC(),
-        new Migration571AddDefaultRarity(),
-        new Migration573ActorLanguages(),
-        new Migration574MigrateBulk(),
-        new Migration576AddCoins(),
-        new Migration578MigrateItemImagePaths(),
-        new Migration579AddContainerAttributes(),
-        new Migration580AddItemRarityAndLevel(),
-        new Migration580MigrateOtherSpeeds(),
-        new Migration582AddPotencyRune(),
-        new Migration583AddHpThresholdHardness(),
-        new Migration583MigrateActorBonusBulk(),
-        new Migration584AddEthnicityNationality(),
-        new Migration585MigrateCompendiumSettings(),
-        new Migration586AddSplashDamage(),
-        new Migration588NpcActionCategory(),
-        new Migration589SetItemAsIdentified(),
-        new Migration591SetOriginalItemName(),
-        new Migration592CopyIdentificationData(),
-        new Migration593AddAncestryItem(),
-        new Migration594AddBackgroundItem(),
-        new Migration595AddItemSize(),
+export class Migrations {
+    private static list = [
+        Migration412MigrateDyingCondition,
+        Migration544MigrateStamina,
+        Migration559MigrateNpcItemDamageRolls,
+        Migration561MigrateHitpointData,
+        Migration566MigrateNpcItemAttackEffects,
+        Migration567MigrateClassDC,
+        Migration571AddDefaultRarity,
+        Migration573ActorLanguages,
+        Migration574MigrateBulk,
+        Migration576AddCoins,
+        Migration578MigrateItemImagePaths,
+        Migration579AddContainerAttributes,
+        Migration580AddItemRarityAndLevel,
+        Migration580MigrateOtherSpeeds,
+        Migration582AddPotencyRune,
+        Migration583AddHpThresholdHardness,
+        Migration583MigrateActorBonusBulk,
+        Migration584AddEthnicityNationality,
+        Migration585MigrateCompendiumSettings,
+        Migration586AddSplashDamage,
+        Migration588NpcActionCategory,
+        Migration589SetItemAsIdentified,
+        Migration591SetOriginalItemName,
+        Migration592CopyIdentificationData,
+        Migration593AddAncestryItem,
+        Migration594AddBackgroundItem,
+        Migration595AddItemSize,
     ];
+
+    static get latestVersion(): number {
+        return Math.max(...this.list.map((Migration) => Migration.version));
+    }
+
+    static constructAll(): MigrationBase[] {
+        return this.list.map((Migration) => new Migration());
+    }
 }

@@ -16,7 +16,9 @@ export class MigrationBase {
     /**
      * This is the schema version. Make sure it matches the new version in system.json
      */
-    version: number;
+    static readonly version: number;
+
+    readonly version = this.constructor['version'];
 
     /**
      * Setting requiresFlush to true will indicate that the migration runner should not call any more
