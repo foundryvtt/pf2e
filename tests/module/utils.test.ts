@@ -1,4 +1,4 @@
-import { add, addSign, combineObjects, padArray, toNumber, zip } from '../../src/module/utils';
+import { add, addSign, combineObjects, padArray, repeat, toNumber, zip } from '../../src/module/utils';
 
 describe('should combine objects', () => {
     test('combine two empty objects', () => {
@@ -100,5 +100,19 @@ describe('zip arrays', () => {
             [1, 2],
             [3, 4],
         ]);
+    });
+});
+
+describe('repeated assignment', () => {
+    test('0 times is start element', () => {
+        expect(repeat((x) => x + 1, 0, 2)).toEqual(2);
+    });
+
+    test('1 times', () => {
+        expect(repeat((x) => x + 1, 1, 2)).toEqual(3);
+    });
+
+    test('2 times', () => {
+        expect(repeat((x) => x + 1, 2, 2)).toEqual(4);
     });
 });

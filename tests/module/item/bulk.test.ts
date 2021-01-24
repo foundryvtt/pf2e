@@ -821,55 +821,44 @@ describe('should calculate bulk', () => {
 });
 
 describe('Bulk conversions', () => {
-    test('tiny bulk conversions', () => {
-        // negligible is light bulk
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 0 }), 'tiny')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 0,
-            }),
-        );
-        // everything else stays the same
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 1 }), 'tiny')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 1,
-            }),
-        );
-    });
-
-    test('normal and small bulk conversions', () => {
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 1 }), 'sm')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 1,
-            }),
-        );
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 1 }), 'med')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 1,
-            }),
-        );
-    });
-
-    test('large bulk conversions', () => {
-        // light bulk is negligible
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 0 }), 'lg')).toEqual(
+    test('negligible tiny bulk is always negligible bulk', () => {
+        expect(convertBulkToSize(new Bulk(), 'tiny', 'tiny')).toEqual(
             new Bulk({
                 light: 0,
                 normal: 0,
             }),
         );
-        // normal bulk is light
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 1 }), 'lg')).toEqual(
+        expect(convertBulkToSize(new Bulk(), 'tiny', 'sm')).toEqual(
+            new Bulk({
+                light: 0,
+                normal: 0,
+            }),
+        );
+        expect(convertBulkToSize(new Bulk(), 'tiny', 'med')).toEqual(
+            new Bulk({
+                light: 0,
+                normal: 0,
+            }),
+        );
+        expect(convertBulkToSize(new Bulk(), 'tiny', 'lg')).toEqual(
+            new Bulk({
+                light: 0,
+                normal: 0,
+            }),
+        );
+    });
+
+    test('negligible items become L bulk after one increase', () => {
+        expect(convertBulkToSize(new Bulk(), 'lg', 'med')).toEqual(
             new Bulk({
                 light: 1,
                 normal: 0,
             }),
         );
-        // everything else stays the same
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 2 }), 'lg')).toEqual(
+    });
+
+    test('negligible items become L bulk after one increase unless they are tiny', () => {
+        expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
             new Bulk({
                 light: 0,
                 normal: 2,
@@ -877,37 +866,26 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test('huge bulk conversions', () => {
-        // 1 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 0 }), 'huge')).toEqual(
+    test('L items become 1 bulk after one increase', () => {
+        expect(convertBulkToSize(new Bulk({ light: 1 }), 'lg', 'med')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 1,
             }),
         );
-        // 1 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 0 }), 'huge')).toEqual(
+    });
+
+    test('6L items become 6 bulk after one increase', () => {
+        expect(convertBulkToSize(new Bulk({ light: 6 }), 'lg', 'med')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 6,
             }),
         );
-        // 1 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 1 }), 'huge')).toEqual(
-            new Bulk({
-                light: 0,
-                normal: 0,
-            }),
-        );
-        // 2 or lower is light bulk
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 2 }), 'huge')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 0,
-            }),
-        );
-        // everything else stays the same
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 3 }), 'huge')).toEqual(
+    });
+
+    test('6 bulk items become 3 bulk after one decrease', () => {
+        expect(convertBulkToSize(new Bulk({ normal: 6 }), 'med', 'lg')).toEqual(
             new Bulk({
                 light: 0,
                 normal: 3,
@@ -915,54 +893,47 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test('gargantuan bulk conversions', () => {
-        // 2 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 0 }), 'grg')).toEqual(
+    test('1 bulk items become 2 bulk after one increase', () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'lg', 'med')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 2,
             }),
         );
-        // 2 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 1, normal: 0 }), 'grg')).toEqual(
+    });
+
+    test('1 bulk items become 4 bulk after two increases', () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'huge', 'med')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 4,
             }),
         );
-        // 2 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 1 }), 'grg')).toEqual(
+    });
+
+    test('items that have the same size as the actor do not change in bulk', () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'huge', 'huge')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 1,
             }),
         );
-        // 2 or lower is negligible
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 2 }), 'grg')).toEqual(
+    });
+
+    test('maximum halving', () => {
+        expect(convertBulkToSize(new Bulk({ normal: 16 }), 'tiny', 'grg')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 0,
+                normal: 1,
             }),
         );
-        // 4 or lower is light bulk
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 3 }), 'grg')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 0,
-            }),
-        );
-        // 4 or lower is light bulk
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 4 }), 'grg')).toEqual(
-            new Bulk({
-                light: 1,
-                normal: 0,
-            }),
-        );
-        // everything else stays the same
-        expect(convertBulkToSize(new Bulk({ light: 0, normal: 5 }), 'grg')).toEqual(
+    });
+
+    test('maximum doubling', () => {
+        expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 5,
+                normal: 2,
             }),
         );
     });

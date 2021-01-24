@@ -1,4 +1,5 @@
-import { Bulk, bulkConversions, Sizes } from './bulk';
+import { Bulk } from './bulk';
+import { Sizes } from './dataDefinitions';
 
 /**
  * @category Other
@@ -48,6 +49,14 @@ export class InventoryWeight {
     }
 }
 
+const bulkFactors = new Map<Sizes, number>();
+bulkFactors.set('tiny', 0.5);
+bulkFactors.set('sm', 1);
+bulkFactors.set('med', 1);
+bulkFactors.set('lg', 2);
+bulkFactors.set('huge', 4);
+bulkFactors.set('grg', 8);
+
 /**
  * @param strengthModifier
  * @param bonusBulkLimit increased maximum bulk
@@ -62,7 +71,7 @@ export function calculateEncumbrance(
     combinedBulk: Bulk,
     actorSize: Sizes = 'med',
 ): InventoryWeight {
-    const bulkFactor = bulkConversions[actorSize].bulkLimitFactor;
+    const bulkFactor = bulkFactors.get(actorSize) ?? 1;
     const encumberedAt = Math.floor((strengthModifier + bonusBulkEncumbrance + 5) * bulkFactor);
     const limit = Math.floor((strengthModifier + bonusBulkLimit + 10) * bulkFactor);
     return new InventoryWeight(combinedBulk, encumberedAt, limit);

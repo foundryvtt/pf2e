@@ -5,12 +5,11 @@ import {
     calculateBulk,
     defaultBulkConfig,
     formatBulk,
-    Sizes,
     StackDefinitions,
     stacks,
     weightToBulk,
 } from './bulk';
-import { PhysicalItemData } from './dataDefinitions';
+import { PhysicalItemData, Sizes } from './dataDefinitions';
 import { groupBy } from '../utils';
 
 /**

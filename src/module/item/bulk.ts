@@ -1,5 +1,5 @@
-import { add, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemData, PhysicalItemData } from './dataDefinitions';
+import { add, combineObjects, groupBy, isBlank, Optional, repeat } from '../utils';
+import { isPhysicalItem, ItemData, PhysicalItemData, Sizes } from './dataDefinitions';
 
 interface StackDefinition {
     size: number;
@@ -98,9 +98,13 @@ export class Bulk {
     }
 
     times(factor: number): Bulk {
+        // An item that would have its Bulk reduced below 1 has light Bulk.
+        const normal = this.normal * factor;
+        const lightCarryOver = normal < 1 && normal > 0 ? 1 : 0;
+        const light = Math.floor(this.light * factor) + lightCarryOver;
         return new Bulk({
-            normal: this.normal * factor,
-            light: this.light * factor,
+            normal: Math.floor(normal),
+            light,
         });
     }
 
@@ -125,76 +129,72 @@ export class Bulk {
     toString(): string {
         return `normal: ${this.normal}; light: ${this.light}`;
     }
+
+    double(): Bulk {
+        if (this.isNegligible) {
+            return new Bulk({ light: 1 });
+        } else if (this.isLight) {
+            return this.times(10);
+        } else {
+            return this.times(2);
+        }
+    }
+
+    halve(): Bulk {
+        if (this.isNegligible) {
+            return new Bulk();
+        } else if (this.isLight) {
+            return new Bulk();
+        } else if (this.normal === 1) {
+            return new Bulk({ light: 1 });
+        } else {
+            return this.times(0.5);
+        }
+    }
 }
-
-// see https://2e.aonprd.com/Rules.aspx?ID=257
-export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
-
-export interface BulkConversion {
-    bulkLimitFactor: number;
-    treatsAsLight: string | null;
-    treatsAsNegligible: string | null;
-}
-
-export type BulkConversions = Record<Sizes, BulkConversion>;
-export const bulkConversions: BulkConversions = {
-    tiny: {
-        bulkLimitFactor: 0.5,
-        treatsAsLight: '-',
-        treatsAsNegligible: null,
-    },
-    sm: {
-        bulkLimitFactor: 1,
-        treatsAsLight: 'L',
-        treatsAsNegligible: '-',
-    },
-    med: {
-        bulkLimitFactor: 1,
-        treatsAsLight: 'L',
-        treatsAsNegligible: '-',
-    },
-    lg: {
-        bulkLimitFactor: 2,
-        treatsAsLight: '1',
-        treatsAsNegligible: 'L',
-    },
-    huge: {
-        bulkLimitFactor: 4,
-        treatsAsLight: '2',
-        treatsAsNegligible: '1',
-    },
-    grg: {
-        bulkLimitFactor: 8,
-        treatsAsLight: '4',
-        treatsAsNegligible: '2',
-    },
-};
 
 /**
- * Whether a given bulk should considered to be downgraded.
- * @param normalItemBulk
- * @param treatsAsDowngrade if given, a string that ranges from '-', 'L', '1', '2', ...
- * and is equal to the selected cell at https://2e.aonprd.com/Rules.aspx?ID=257
- * For instance treatAsDowngrade with regards to negligible items for large creates would be '1'
- * All bulk sizes lower than or equal to this value are considered to be downgraded.
+ * See https://2e.aonprd.com/Rules.aspx?ID=258 and https://2e.aonprd.com/Rules.aspx?ID=257 are fundamentally
+ * at odds with each other and there is no way to implement this RAW
+ *
+ * RAI:
+ * "Because the way that a creature treats Bulk and the Bulk of gear sized for it scale the same way,
+ * Tiny or Large (or larger) creatures can usually wear and carry about the same amount of appropriately
+ * sized gear as a Medium creature."
+ *
+ * Looking at table 6-20 the following rules can be deduced:
+ * if item size < creature size:
+ * for each step until you reach the target size halve bulk
+ * 1 bulk halved becomes L bulk
+ * L bulk halved becomes negligible bulk
+ *
+ * if item size > creature size:
+ * for each step until you reach the target size double bulk
+ * L bulk doubled becomes 1 bulk
+ * negligible bulk doubled becomes L bulk unless it's a tiny item, then it stays at negligible bulk
+ *
+ * ignore everything else
+ *
+ * @param bulk
+ * @param itemSize
+ * @param actorSize
  */
-function bulkDowngradeApplies(normalItemBulk: Bulk, treatsAsDowngrade: string | null): boolean {
-    return (
-        (treatsAsDowngrade === '-' && normalItemBulk.isNegligible) ||
-        (treatsAsDowngrade === 'L' && normalItemBulk.isLight) ||
-        (treatsAsDowngrade !== null && normalItemBulk.normal <= parseInt(treatsAsDowngrade, 10))
-    );
-}
+export function convertBulkToSize(bulk: Bulk, itemSize: Sizes, actorSize: Sizes): Bulk {
+    const sizes: Sizes[] = ['tiny', 'med', 'lg', 'huge', 'grg'];
+    const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
+    const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
 
-export function convertBulkToSize(normalItemBulk: Bulk, targetSize: Sizes): Bulk {
-    const { treatsAsNegligible, treatsAsLight } = bulkConversions[targetSize];
-    if (bulkDowngradeApplies(normalItemBulk, treatsAsNegligible)) {
-        return new Bulk();
+    if (itemSizeIndex === actorSizeIndex) {
+        return bulk;
+    } else if (itemSizeIndex > actorSizeIndex) {
+        const difference = itemSizeIndex - actorSizeIndex;
+        // tiny items that are negligible are also negligible when produced as normal items
+        // e.g. candles have negligible bulk for normal and tiny creatures
+        const steps = actorSize === 'tiny' && bulk.isNegligible ? difference - 1 : difference;
+        return repeat((bulk) => bulk.double(), steps, bulk);
+    } else {
+        return repeat((bulk) => bulk.halve(), actorSizeIndex - itemSizeIndex, bulk);
     }
-    if (bulkDowngradeApplies(normalItemBulk, treatsAsLight)) {
-        return new Bulk({ light: 1 });
-    }
-    return normalItemBulk;
 }
 
 /**
@@ -341,11 +341,19 @@ export const defaultBulkConfig: BulkConfig = {
  * @param bulkConfig
  * @return
  */
-function calculateStackBulk(
-    itemStacks: Record<string, number>,
-    stackDefinitions: StackDefinitions,
-    bulkConfig: BulkConfig = defaultBulkConfig,
-): BulkAndOverflow {
+function calculateStackBulk({
+    itemStacks,
+    stackDefinitions,
+    bulkConfig = defaultBulkConfig,
+    actorSize,
+    itemSize,
+}: {
+    itemStacks: Record<string, number>;
+    stackDefinitions: StackDefinitions;
+    bulkConfig: BulkConfig;
+    actorSize: Sizes;
+    itemSize: Sizes;
+}): BulkAndOverflow {
     return Object.entries(itemStacks)
         .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
         .map(([stackType, quantity]) => {
@@ -354,7 +362,11 @@ function calculateStackBulk(
             }
             const { size, lightBulk } = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
-            const itemBulk = new Bulk({ light: bulkRelevantQuantity * lightBulk });
+            // if needed because negligible bulk can indeed become bulk if it's size increases
+            const itemBulk =
+                bulkRelevantQuantity > 0
+                    ? convertBulkToSize(new Bulk({ light: bulkRelevantQuantity * lightBulk }), itemSize, actorSize)
+                    : new Bulk();
             const overflow = { [stackType]: quantity % size };
             const result: BulkAndOverflow = [itemBulk, overflow];
             return result;
@@ -362,16 +374,29 @@ function calculateStackBulk(
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 }
 
-function calculateItemBulk(
-    item: BulkItem,
-    stackDefinitions: StackDefinitions,
-    bulkConfig: BulkConfig,
-): BulkAndOverflow {
+function calculateItemBulk({
+    item,
+    stackDefinitions,
+    bulkConfig,
+    actorSize,
+}: {
+    item: BulkItem;
+    stackDefinitions: StackDefinitions;
+    bulkConfig: BulkConfig;
+    actorSize: Sizes;
+}): BulkAndOverflow {
     const stackName = item.stackGroup;
     if (isBlank(stackName)) {
-        return [calculateNonStackBulk(item).times(item.quantity), {}];
+        const bulk = calculateNonStackBulk(item);
+        return [convertBulkToSize(bulk, item.size, actorSize).times(item.quantity), {}];
     }
-    return calculateStackBulk({ [stackName]: item.quantity }, stackDefinitions, bulkConfig);
+    return calculateStackBulk({
+        itemStacks: { [stackName]: item.quantity },
+        stackDefinitions,
+        bulkConfig,
+        itemSize: item.size,
+        actorSize,
+    });
 }
 
 /**
@@ -438,7 +463,12 @@ function calculateCombinedBulk({
     bulkConfig: BulkConfig;
     actorSize: Sizes;
 }): BulkAndOverflow {
-    const [mainBulk, mainOverflow] = calculateItemBulk(item, stackDefinitions, bulkConfig);
+    const [mainBulk, mainOverflow] = calculateItemBulk({
+        item,
+        stackDefinitions,
+        bulkConfig,
+        actorSize,
+    });
     const [childBulk, childOverflow] = item.holdsItems
         .map((child) =>
             calculateCombinedBulk({
@@ -457,7 +487,13 @@ function calculateCombinedBulk({
         calculateChildOverflow(childOverflow, item, bulkConfig.ignoreContainerOverflow),
         add,
     );
-    const [overflowBulk, remainingOverflow] = calculateStackBulk(combinedOverflow, stackDefinitions, bulkConfig);
+    const [overflowBulk, remainingOverflow] = calculateStackBulk({
+        itemStacks: combinedOverflow,
+        stackDefinitions,
+        bulkConfig,
+        actorSize,
+        itemSize: item.size,
+    });
     return [
         mainBulk.plus(reduceNestedItemBulk(childBulk, item, nestedExtraDimensionalContainer)).plus(overflowBulk),
         remainingOverflow,
