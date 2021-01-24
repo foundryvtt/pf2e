@@ -10,6 +10,7 @@ import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
+import { canCastConsumable } from './spellConsumables';
 
 /**
  * @category PF2
@@ -857,7 +858,8 @@ export class PF2EItem extends Item<PF2EActor> {
         if (
             ['scroll', 'wand'].includes(item.data.consumableType.value) &&
             item.data.spell &&
-            this.actor instanceof PF2EActor
+            this.actor instanceof PF2EActor &&
+            canCastConsumable(this.actor, item)
         ) {
             this._castEmbeddedSpell();
         } else {
@@ -911,7 +913,7 @@ export class PF2EItem extends Item<PF2EActor> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!this.data.data.spell) return;
         const actor = this.actor;
-        const spellData = this.data.data.spell.data.data;
+        const spellData: any = this.data.data.spell.data.data;
         let spellcastingEntries = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
@@ -933,6 +935,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 _id: this.data._id,
                 'data.spell.data.data.location.value': spellcastingEntries[bestEntry]._id,
             });
+            this.data.data.spell.data.data.location.value = spellcastingEntries[bestEntry]._id;
             spellData.isSave = spellData.spellType.value === 'save';
             if (spellData.isSave) {
                 spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.dc;
@@ -964,6 +967,8 @@ export class PF2EItem extends Item<PF2EActor> {
 
             const traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits);
             spellData.traits = traits.filter((p) => p) as any;
+            spellData.spell = JSON.stringify(this.data);
+            console.log(JSON.parse(spellData.spell));
 
             const template = `systems/pf2e/templates/chat/spell-card.html`;
             const { token } = actor;
@@ -1072,7 +1077,10 @@ export class PF2EItem extends Item<PF2EActor> {
             // Get the Item
             if (!actor) return;
             const itemId = card.attr('data-item-id');
-            const itemData = (actor.getOwnedItem(itemId) || {}).data;
+            let itemData = (actor.getOwnedItem(itemId) || {}).data;
+            if (!itemData) {
+                itemData = JSON.parse($(ev.target).parents('.item-card').attr('data-embedded-item') ?? '');
+            }
             if (itemData) {
                 const item = new PF2EItem(itemData, { actor });
                 // Weapon attack

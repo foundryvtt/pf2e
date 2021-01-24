@@ -1,5 +1,6 @@
 /* global game */
-import { ConsumableData, SpellData } from './dataDefinitions';
+import { PF2EActor } from '../actor/actor';
+import { ConsumableData, SpellcastingEntryData, SpellData } from './dataDefinitions';
 
 export const scrollCompendiumIds = {
     1: 'RjuupS9xyXDLgyIr',
@@ -48,4 +49,16 @@ export async function wandFromSpell(spellData: SpellData, heightenedLevel?: numb
         heightenedLevel: heightenedLevel,
     };
     return wand;
+}
+
+export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boolean {
+    const spellData = item.data.spell?.data.data ?? null;
+    const spellcastingEntries = actor.data.items.filter(
+        (i) => i.type === 'spellcastingEntry',
+    ) as SpellcastingEntryData[];
+    return (
+        spellcastingEntries
+            .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
+            .filter((i) => spellData?.traditions?.value.includes(i.data.tradition.value)).length > 0
+    );
 }
