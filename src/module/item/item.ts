@@ -10,6 +10,7 @@ import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
 import { ItemData, ItemTraits } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
+import { castSpellFromConsumable } from './spellConsumables';
 
 /**
  * @category PF2
@@ -264,7 +265,7 @@ export class PF2EItem extends Item<PF2EActor> {
 
     /* -------------------------------------------- */
 
-    private static traitChatData(itemTraits: ItemTraits, traitList: Record<string, string>): TraitChatEntry[] {
+    static traitChatData(itemTraits: ItemTraits, traitList: Record<string, string>): TraitChatEntry[] {
         let traits = parseTraits(itemTraits.value);
         const customTraits = parseTraits(itemTraits.custom);
 
@@ -890,6 +891,13 @@ export class PF2EItem extends Item<PF2EActor> {
                     'data.charges.value': Math.max(chg.value - 1, 0),
                 });
             }
+        }
+        if (
+            ['scroll', 'wand'].includes(item.data.consumableType.value) &&
+            item.data.spell &&
+            this.actor instanceof PF2EActor
+        ) {
+            castSpellFromConsumable(item, this.actor);
         }
     }
 
