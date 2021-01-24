@@ -967,8 +967,7 @@ export class PF2EItem extends Item<PF2EActor> {
 
             const traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits);
             spellData.traits = traits.filter((p) => p) as any;
-            spellData.spell = JSON.stringify(this.data);
-            console.log(JSON.parse(spellData.spell));
+            spellData.item = JSON.stringify(this.data);
 
             const template = `systems/pf2e/templates/chat/spell-card.html`;
             const { token } = actor;
