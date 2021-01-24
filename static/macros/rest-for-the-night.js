@@ -56,6 +56,17 @@ const recover = () => {
             }
         }
 
+        // Restore wand charges
+
+        const wands = items.filter((i) => i.data.data.consumableType?.value === 'wand');
+        let wandRecharged = false;
+        const updateData = wands.map((w) => {
+            return { _id: w.id, 'data.charges.value': parseInt(w.data.data.charges.max) };
+        });
+        if (updateData.length > 0) {
+            wandRecharged = true;
+        }
+
         // Spellcasting entries
         const restoredList = [];
         const entries = items.filter((item) => item.type === 'spellcastingEntry');
@@ -100,6 +111,8 @@ const recover = () => {
             return [];
         });
 
+        updateData.push(...entriesUpdateData);
+
         // Stamina points
         const staminaSetting = game.settings.storage.get('world').get('pf2e.staminaVariant');
         const staminaEnabled = staminaSetting ? Boolean(parseInt(staminaSetting.replace(/"/g, ''), 10)) : false;
@@ -123,8 +136,8 @@ const recover = () => {
         if (hpRestored > 0 || restoredList.length > 0) {
             actor.update({ 'data.attributes': attributes });
         }
-        if (entriesUpdateData.length > 0) {
-            actor.updateOwnedItem(entriesUpdateData);
+        if (updateData.length > 0) {
+            actor.updateOwnedItem(updateData);
         }
 
         // Construct messages
@@ -133,6 +146,11 @@ const recover = () => {
         // Hit-point restoration
         if (hpRestored > 0) {
             messages.push(`${hpRestored} hit points restored.`);
+        }
+
+        // Wand recharge
+        if (wandRecharged) {
+            messages.push('Spellcasting wands recharged.');
         }
 
         // Attribute restoration
