@@ -138,6 +138,7 @@ export class PF2ENPC extends PF2EActor {
         }
 
         // default all skills to untrained
+        data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
             const modifiers = [
                 new PF2Modifier('PF2E.BaseModifier', 0, PF2ModifierType.UNTYPED),
