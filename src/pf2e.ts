@@ -34,6 +34,7 @@ import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
+import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 
 require('./styles/pf2e.scss');
 
@@ -80,6 +81,8 @@ Hooks.once('init', () => {
     CONFIG.Combat.initiative.decimals = 1;
     // Assign the PF2e Combat Tracker
     CONFIG.ui.combat = PF2eCombatTracker;
+    // Assign the PF2e CompendiumDirectory
+    CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
     PlayerConfigPF2e.hookOnRenderSettings();
 

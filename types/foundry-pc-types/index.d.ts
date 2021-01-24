@@ -42,6 +42,7 @@ import './types/apps/sidebar/apps/combattracker';
 import './types/apps/sidebar/sidebar';
 import './types/apps/sidebar/sidebartab';
 import './types/apps/sidebar/sidebardirectory';
+import './types/apps/sidebar/compendiumdirectory';
 
 // Core
 
