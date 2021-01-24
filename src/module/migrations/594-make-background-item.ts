@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration594AddBackgroundItem extends MigrationBase {
-    version = 0.594;
+    static version = 0.594;
     requiresFlush = true;
 
     async updateActor(actor: any) {

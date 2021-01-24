@@ -206,35 +206,36 @@ describe('test migration runner', () => {
     };
 
     class Version10 extends MigrationBase {
-        version = 10;
+        static version = 10;
     }
+
     class Version11 extends MigrationBase {
-        version = 11;
+        static version = 11;
     }
 
     class ChangeNameMigration extends MigrationBase {
-        version = 12;
+        static version = 12;
         async updateActor(actor: ActorDataPF2e) {
             actor.name = 'updated';
         }
     }
 
     class ChangeSizeMigration extends MigrationBase {
-        version = 12;
+        static version = 12;
         async updateActor(actor: ActorDataPF2e) {
             actor.data.traits.size.value = 'sm';
         }
     }
 
     class UpdateItemName extends MigrationBase {
-        version = 13;
+        static version = 13;
         async updateItem(item: any, actor?: any) {
             item.name = 'updated';
         }
     }
 
     class RemoveItemProperty extends MigrationBase {
-        version = 14;
+        static version = 14;
         async updateItem(item: any, actor?: any) {
             delete item.data.someFakeProperty;
         }
@@ -333,14 +334,14 @@ describe('test migration runner', () => {
 
     test('migrations run in sequence', async () => {
         class ChangeItemProp extends MigrationBase {
-            version = 13;
+            static version = 13;
             async updateItem(item: any, actor?: any) {
                 item.data.prop = 456;
             }
         }
 
         class UpdateItemNameWithProp extends MigrationBase {
-            version = 14;
+            static version = 14;
             async updateItem(item: any, actor?: any) {
                 item.name = `${item.data.prop}`;
             }
@@ -357,7 +358,7 @@ describe('test migration runner', () => {
 
     test('migrations can remove items from actors', async () => {
         class RemoveItemsFromActor extends MigrationBase {
-            version = 13;
+            static version = 13;
             async updateActor(actor: any) {
                 actor.items = [];
             }
@@ -371,7 +372,7 @@ describe('test migration runner', () => {
     });
 
     class AddItemToActor extends MigrationBase {
-        version = 13;
+        static version = 13;
         requiresFlush = true;
         async updateActor(actor: any) {
             actor.items.push({
@@ -393,7 +394,7 @@ describe('test migration runner', () => {
     });
 
     class SetActorPropertyToAddedItem extends MigrationBase {
-        version = 14;
+        static version = 14;
         async updateActor(actor: any) {
             actor.data.sampleItemId = actor.items.find((x: any) => x.name === 'sample item')._id;
         }
@@ -430,7 +431,7 @@ describe('test migration runner', () => {
     test('expect free migration function gets called', async () => {
         let called = false;
         class FreeFn extends MigrationBase {
-            version = 14;
+            static version = 14;
             async migrate() {
                 called = true;
             }

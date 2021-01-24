@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration578MigrateItemImagePaths extends MigrationBase {
-    version = 0.578;
+    static version = 0.578;
     async updateItem(item: any, actor?: any) {
         const itemImage = item.img;
 
