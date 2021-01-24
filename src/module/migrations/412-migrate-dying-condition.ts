@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration412MigrateDyingCondition extends MigrationBase {
-    version = 0.412;
+    static version = 0.412;
     async updateActor(actor: any) {
         if (actor == 'character') {
             actor.data.attributes.dying = {

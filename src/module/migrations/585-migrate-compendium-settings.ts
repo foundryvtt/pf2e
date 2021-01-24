@@ -2,7 +2,7 @@ import { MigrationBase } from './base';
 import { compendiumBrowser } from '../packs/compendium-browser';
 
 export class Migration585MigrateCompendiumSettings extends MigrationBase {
-    version = 0.585;
+    static version = 0.585;
 
     async migrate() {
         for (const scope of ['FeatBrowser', 'SpellBrowser', 'InventoryBrowser', 'BestiaryBrowser', 'ActionBrowser']) {
