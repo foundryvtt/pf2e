@@ -8,9 +8,8 @@ import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
-import { ItemData, ItemTraits } from './dataDefinitions';
+import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-import { castSpellFromConsumable } from './spellConsumables';
 
 /**
  * @category PF2
@@ -753,7 +752,10 @@ export class PF2EItem extends Item<PF2EActor> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(event, multiAttackPenalty?) {
-        const item: ItemData = this.data;
+        let item: ItemData = this.data;
+        if (item.type === 'consumable' && item.data.spell) {
+            item = item.data.spell.data;
+        }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
         // Prepare roll data
@@ -794,7 +796,10 @@ export class PF2EItem extends Item<PF2EActor> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollSpellDamage(event) {
-        const item: ItemData = this.data;
+        let item: ItemData = this.data;
+        if (item.type === 'consumable' && item.data.spell) {
+            item = item.data.spell.data;
+        }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
         const localize: Function = game.i18n.localize.bind(game.i18n);
@@ -849,19 +854,27 @@ export class PF2EItem extends Item<PF2EActor> {
 
         const itemData = item.data;
         // Submit the roll to chat
-        const cv = itemData.consume.value;
-        const content = `Uses ${this.name}`;
-        if (cv) {
-            new Roll(cv).toMessage({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: content,
-            });
+        if (
+            ['scroll', 'wand'].includes(item.data.consumableType.value) &&
+            item.data.spell &&
+            this.actor instanceof PF2EActor
+        ) {
+            this._castEmbeddedSpell();
         } else {
-            ChatMessage.create({
-                user: game.user._id,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                content,
-            });
+            const cv = itemData.consume.value;
+            const content = `Uses ${this.name}`;
+            if (cv) {
+                new Roll(cv).toMessage({
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    flavor: content,
+                });
+            } else {
+                ChatMessage.create({
+                    user: game.user._id,
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    content,
+                });
+            }
         }
 
         // Deduct consumed charges from the item
@@ -892,12 +905,102 @@ export class PF2EItem extends Item<PF2EActor> {
                 });
             }
         }
-        if (
-            ['scroll', 'wand'].includes(item.data.consumableType.value) &&
-            item.data.spell &&
-            this.actor instanceof PF2EActor
-        ) {
-            castSpellFromConsumable(item, this.actor);
+    }
+
+    protected async _castEmbeddedSpell() {
+        if (this.data.type !== 'consumable' || !this.actor) return;
+        if (!this.data.data.spell) return;
+        const actor = this.actor;
+        const spellData = this.data.data.spell.data.data;
+        let spellcastingEntries = actor.data.items.filter(
+            (i) => i.type === 'spellcastingEntry',
+        ) as SpellcastingEntryData[];
+        // Filter to only spellcasting entries that are eligible to cast this consumable
+        spellcastingEntries = spellcastingEntries
+            .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
+            .filter((i) => spellData.traditions.value.includes(i.data.tradition.value));
+        if (spellcastingEntries.length > 0) {
+            const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
+            let maxBonus = 0;
+            let bestEntry = 0;
+            for (let i = 0; i < spellcastingEntries.length; i++) {
+                if (spellcastingEntries[i].data.spelldc.value > maxBonus) {
+                    maxBonus = spellcastingEntries[i].data.spelldc.value;
+                    bestEntry = i;
+                }
+            }
+            this.actor.updateOwnedItem({
+                _id: this.data._id,
+                'data.spell.data.data.location.value': spellcastingEntries[bestEntry]._id,
+            });
+            spellData.isSave = spellData.spellType.value === 'save';
+            if (spellData.isSave) {
+                spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.dc;
+            } else spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.value;
+            spellData.save.str = spellData.save.value ? CONFIG.PF2E.saves[spellData.save.value.toLowerCase()] : '';
+            spellData.damageLabel =
+                spellData.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+            spellData.isAttack = spellData.spellType.value === 'attack';
+
+            const props: (number | string)[] = [
+                CONFIG.PF2E.spellLevels[spellData.level.value],
+                `${localize('PF2E.SpellComponentsLabel')}: ${spellData.components.value}`,
+                spellData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${spellData.range.value}` : null,
+                spellData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${spellData.target.value}` : null,
+                spellData.area.value
+                    ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[spellData.area.value]} ${
+                          CONFIG.PF2E.areaTypes[spellData.area.areaType]
+                      }`
+                    : null,
+                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
+                spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
+                spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
+            ];
+            spellData.spellLvl = this.data.data.spell.heightenedLevel.toString();
+            if (spellData.level.value < parseInt(spellData.spellLvl, 10)) {
+                props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
+            }
+            spellData.properties = props.filter((p) => p !== null);
+
+            const traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits);
+            spellData.traits = traits.filter((p) => p) as any;
+
+            const template = `systems/pf2e/templates/chat/spell-card.html`;
+            const { token } = actor;
+            const templateData = {
+                actor: actor,
+                tokenId: token ? `${token.scene._id}.${token.id}` : null,
+                item: this,
+                data: spellData,
+            };
+
+            // Basic chat message data
+            const chatData: any = {
+                user: game.user._id,
+                speaker: {
+                    actor: actor._id,
+                    token: actor.token,
+                    alias: actor.name,
+                },
+                flags: {
+                    core: {
+                        canPopout: true,
+                    },
+                },
+                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            };
+
+            // Toggle default roll mode
+            const rollMode = game.settings.get('core', 'rollMode');
+            if (['gmroll', 'blindroll'].includes(rollMode))
+                chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u._id);
+            if (rollMode === 'blindroll') chatData.blind = true;
+
+            // Render the template
+            chatData.content = await renderTemplate(template, templateData);
+
+            // Create the chat message
+            return ChatMessage.create(chatData, { displaySheet: false });
         }
     }
 

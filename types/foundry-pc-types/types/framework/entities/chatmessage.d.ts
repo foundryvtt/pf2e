@@ -37,9 +37,10 @@ declare interface ChatMessageData extends BaseEntityData {
     flavor?: string;
     sound?: string;
     speaker: {
-        actor?: string;
-        token?: string;
+        actor?: string | null;
+        token?: string | null;
         alias?: string;
+        scene?: string | null;
     };
     roll?: Roll | string;
     user: string;
