@@ -101,6 +101,11 @@ declare class Application {
     protected _tabs: Tabs[];
 
     /**
+     * SearchFilter handlers which are active for this Application
+     */
+    protected _searchFilters: SearchFilter[];
+
+    /**
      * Track whether the Application is currently minimized
      */
     protected _minimized: boolean;
