@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration561MigrateHitpointData extends MigrationBase {
-    version = 0.561;
+    static version = 0.561;
     async updateActor(actor: any) {
         if (actor == 'character') {
             actor.data.attributes.flatbonushp = parseInt((actor.data.attributes.flatbonushp || {}).value, 10) || 0;

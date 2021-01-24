@@ -32,7 +32,7 @@ import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
-import { getAllMigrations } from './module/migrations';
+import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
 
 require('./styles/pf2e.scss');
@@ -243,7 +243,7 @@ Hooks.once('ready', () => {
 
     if (game.user.isGM) {
         // Perform the migration
-        const migrationRunner = new MigrationRunner(getAllMigrations());
+        const migrationRunner = new MigrationRunner(Migrations.constructAll());
         if (migrationRunner.needsMigration()) {
             if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
                 ui.notifications.error(

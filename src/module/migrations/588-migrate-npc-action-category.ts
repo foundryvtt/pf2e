@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration588NpcActionCategory extends MigrationBase {
-    version = 0.588;
+    static version = 0.588;
     async updateItem(item: any, actor?: any) {
         if (!actor || actor.type !== 'npc') {
             return;
