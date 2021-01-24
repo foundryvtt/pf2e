@@ -1,4 +1,4 @@
-import { add, combineObjects, groupBy, isBlank, Optional, repeat } from '../utils';
+import { add, combineObjects, groupBy, isBlank, Optional, applyNTimes } from '../utils';
 import { isPhysicalItem, ItemData, PhysicalItemData, Sizes } from './dataDefinitions';
 
 interface StackDefinition {
@@ -191,9 +191,9 @@ export function convertBulkToSize(bulk: Bulk, itemSize: Sizes, actorSize: Sizes)
         // tiny items that are negligible are also negligible when produced as normal items
         // e.g. candles have negligible bulk for normal and tiny creatures
         const steps = actorSize === 'tiny' && bulk.isNegligible ? difference - 1 : difference;
-        return repeat((bulk) => bulk.double(), steps, bulk);
+        return applyNTimes((bulk) => bulk.double(), steps, bulk);
     } else {
-        return repeat((bulk) => bulk.halve(), actorSizeIndex - itemSizeIndex, bulk);
+        return applyNTimes((bulk) => bulk.halve(), actorSizeIndex - itemSizeIndex, bulk);
     }
 }
 
