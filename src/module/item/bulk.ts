@@ -339,6 +339,8 @@ export const defaultBulkConfig: BulkConfig = {
  * @param itemStacks and object containing the stack name as key and quantity as value
  * @param stackDefinitions
  * @param bulkConfig
+ * @param actorSize
+ * @param itemSize
  * @return
  */
 function calculateStackBulk({
@@ -362,7 +364,7 @@ function calculateStackBulk({
             }
             const { size, lightBulk } = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
-            // if needed because negligible bulk can indeed become bulk if it's size increases
+            // if is needed because negligible bulk can indeed become bulk if its size increases
             const itemBulk =
                 bulkRelevantQuantity > 0
                     ? convertBulkToSize(new Bulk({ light: bulkRelevantQuantity * lightBulk }), itemSize, actorSize)
