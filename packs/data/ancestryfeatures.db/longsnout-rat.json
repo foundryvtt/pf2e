@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,37 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesScent",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Longsnout Rat (Seek within scent range)",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "target:within-30-feet"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
