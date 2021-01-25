@@ -12,6 +12,7 @@ import {
 } from './travel-speed';
 import { Fraction, zip } from '../../utils';
 import { PF2EActor } from 'src/module/actor/actor';
+import { PF2CheckModifier, PF2Modifier, PF2ModifierPredicate } from '../../modifiers';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -51,23 +52,14 @@ https://2e.aonprd.com/Spells.aspx?ID=368
 
 /*
 Possible example of how we could implement modifiers
-
-const baseSpeed = 
-const overlandSpeed = new PF2CheckModifier(baseSpeed);
-overlandSpeed.modifiers().forEach((m) => {
-    m.ignored = PF2ModifierPredicate.test(m.predicate, ['overland']);
-});
-overlandSpeed.applyStackRules();
-console.log(overlandSpeed.totalModifier);
-
 {
   "key": "PF2E.RuleElement.FlatModifier",
   "selector": "speed",
-  "label": "Travel Speed Feat",
+  "label": "Legendary Guide",
   "value": "10",
   "type": "circumstance",
   "predicate": {
-    "all": ["travel"]
+    "all": ["group-travel"]
   } 
 }
  */
@@ -122,7 +114,26 @@ class TravelSpeedSheet extends FormApplication {
         this.render(true);
     }
 
-    private actorFormToSheetData(actor: PF2EActor, data: FormActorData): SheetActorData {
+    private getActorSpeed(actor: PF2EActor, groupTravelModifiers: PF2Modifier[]): number {
+        const travelSpeed = new PF2CheckModifier(
+            'Land Travel Speed',
+            actor.data.data.attributes.speed,
+            groupTravelModifiers,
+        );
+        const options = actor.getRollOptions(['speed', 'land-speed', 'travel']).concat('travel');
+        travelSpeed.modifiers.forEach((modifier) => {
+            modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, options);
+        });
+        console.log('a', groupTravelModifiers);
+        console.log('b', travelSpeed);
+        return Number(actor.data.data.attributes.speed.value) + travelSpeed.totalModifier;
+    }
+
+    private actorFormToSheetData(
+        actor: PF2EActor,
+        groupTravelModifiers: PF2Modifier[],
+        data: FormActorData,
+    ): SheetActorData {
         return {
             requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
             detectionMode: data.detectionMode,
@@ -135,20 +146,20 @@ class TravelSpeedSheet extends FormApplication {
                     parseExplorationOptions(actor),
                 ).toFixed(2),
             ),
-            speed: data.speed,
+            speed: this.getActorSpeed(actor, groupTravelModifiers),
             name: actor.name,
         };
     }
 
-    private getInitialActorData(actor: PF2EActor): SheetActorData {
-        return this.actorFormToSheetData(actor, {
+    private getInitialActorData(actor: PF2EActor, groupTravelModifiers: PF2Modifier[]): SheetActorData {
+        return this.actorFormToSheetData(actor, groupTravelModifiers, {
             detectionMode: 'before',
             explorationActivity: 'Search',
             speed: actor.data.data.attributes.speed.total,
         });
     }
 
-    private formToSheetData(actors: PF2EActor[], data: TravelFormData): SheetData {
+    private formToSheetData(actors: PF2EActor[], groupTravelModifiers: PF2Modifier[], data: TravelFormData): SheetData {
         const journey: Trip[] = [
             {
                 terrainSlowdown: {
@@ -164,7 +175,7 @@ class TravelSpeedSheet extends FormApplication {
             },
         ];
         const actorFormData = zip(actors, data.actors, (actor, actorData) =>
-            this.actorFormToSheetData(actor, actorData),
+            this.actorFormToSheetData(actor, groupTravelModifiers, actorData),
         );
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
@@ -181,9 +192,9 @@ class TravelSpeedSheet extends FormApplication {
         };
     }
 
-    private getInitialFormData(actors: PF2EActor[]): SheetData {
-        return this.formToSheetData(actors, {
-            actors: actors.map((actor) => this.getInitialActorData(actor)),
+    private getInitialFormData(actors: PF2EActor[], groupTravelModifiers: PF2Modifier[]): SheetData {
+        return this.formToSheetData(actors, groupTravelModifiers, {
+            actors: actors.map((actor) => this.getInitialActorData(actor, groupTravelModifiers)),
             terrain: 'normal',
             distanceUnit: 'miles',
             normalTerrainSlowdown: { denominator: 1, numerator: 1 },
@@ -194,12 +205,19 @@ class TravelSpeedSheet extends FormApplication {
     }
 
     getData() {
+        const actors: PF2EActor[] = this.options.actors;
+        const groupTravelModifiers = actors.flatMap((actor) => {
+            const modifier = new PF2CheckModifier('Land Travel Speed', actor.data.data.attributes.speed);
+            return modifier.modifiers.filter((modifier) =>
+                PF2ModifierPredicate.test(modifier.predicate, ['group-travel']),
+            );
+        });
         const sheetData = super.getData();
         let data: SheetData;
         if (this.formData === undefined) {
-            data = this.getInitialFormData(this.options.actors);
+            data = this.getInitialFormData(actors, groupTravelModifiers);
         } else {
-            data = this.formToSheetData(this.options.actors, this.formData);
+            data = this.formToSheetData(actors, groupTravelModifiers, this.formData);
         }
         Object.assign(sheetData, data);
         return sheetData;
