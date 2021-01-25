@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,42 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Treedweller Goblin (Subsist)",
+                "predicate": {
+                    "any": [
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Treedweller Goblin (Hide or Sneak)",
+                "predicate": {
+                    "any": [
+                        "action:hide",
+                        "action:sneak"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
