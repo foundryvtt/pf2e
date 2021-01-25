@@ -2,7 +2,7 @@
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
 import { PF2ELoot } from '../loot';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './DistributeCoinsPopup';
 import { PF2EItem } from '../../item/item';
@@ -94,8 +94,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
         };
 
         const bulkItems = itemsFromActorData(actorData);
-        const indexedBulkItems = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+        const bulkItemsById = indexBulkItemsById(bulkItems);
+        const containers = getContainerMap({
+            items: actorData.items,
+            bulkItemsById,
+            bulkConfig,
+        });
 
         for (const i of actorData.items) {
             // item identification
@@ -117,7 +121,11 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
-                const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
+                const bulkItem = bulkItemsById.get(i._id);
+                const [approximatedBulk] = calculateBulk({
+                    items: bulkItem === undefined ? [] : [bulkItem],
+                    bulkConfig,
+                });
                 i.totalWeight = formatBulk(approximatedBulk);
                 i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
                 i.isTwoHanded =

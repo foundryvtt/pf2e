@@ -1,6 +1,6 @@
 /* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
-import { calculateBulk, itemsFromActorData, stacks, formatBulk, indexBulkItemsById } from '../../item/bulk';
+import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
 import { getContainerMap } from '../../item/container';
 import { ProficiencyModifier } from '../../modifiers';
@@ -189,8 +189,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         };
 
         const bulkItems = itemsFromActorData(actorData);
-        const indexedBulkItems = indexBulkItemsById(bulkItems);
-        const containers = getContainerMap(actorData.items, indexedBulkItems, stacks, bulkConfig);
+        const bulkItemsById = indexBulkItemsById(bulkItems);
+        const containers = getContainerMap({
+            items: actorData.items,
+            bulkItemsById,
+            bulkConfig,
+        });
 
         let investedCount = 0; // Tracking invested items
 
@@ -224,7 +228,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (Object.keys(inventory).includes(i.type)) {
                 i.data.quantity.value = i.data.quantity.value || 0;
                 i.data.weight.value = i.data.weight.value || 0;
-                const [approximatedBulk] = calculateBulk([indexedBulkItems.get(i._id)], stacks, false, bulkConfig);
+                const bulkItem = bulkItemsById.get(i._id);
+                const [approximatedBulk] = calculateBulk({
+                    items: bulkItem === undefined ? [] : [bulkItem],
+                    bulkConfig: bulkConfig,
+                    actorSize: this.actor.data.data.traits.size.value,
+                });
                 i.totalWeight = formatBulk(approximatedBulk);
                 i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
                 i.isTwoHanded =
@@ -514,7 +523,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
         }
-        const [bulk] = calculateBulk(bulkItems, stacks, false, bulkConfig);
+        const [bulk] = calculateBulk({
+            items: bulkItems,
+            bulkConfig: bulkConfig,
+            actorSize: this.actor.data.data.traits.size.value,
+        });
         actorData.data.attributes.encumbrance = calculateEncumbrance(
             actorData.data.abilities.str.mod,
             bonusEncumbranceBulk,
