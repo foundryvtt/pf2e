@@ -67,7 +67,6 @@ Possible example of how we could implement modifiers
 interface FormActorData {
     detectionMode: DetectionModeData;
     explorationActivity: ExplorationActivitiesData;
-    speed: number;
 }
 
 interface TravelFormData {
@@ -84,6 +83,7 @@ interface SheetActorData extends FormActorData {
     explorationSpeed: number;
     name: string;
     requiresDetectionMode: boolean;
+    speed: number;
 }
 
 interface SheetData extends TravelFormData {
@@ -135,19 +135,20 @@ class TravelSpeedSheet extends FormApplication {
         groupTravelModifiers: PF2Modifier[],
         data: FormActorData,
     ): SheetActorData {
+        const travelSpeed = this.getActorSpeed(actor, groupTravelModifiers);
         return {
             requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
             detectionMode: data.detectionMode,
             explorationActivity: data.explorationActivity,
             explorationSpeed: parseFloat(
                 calculateNormalizedCharacterSpeed(
-                    data.speed,
+                    travelSpeed,
                     parseExplorationActivity(data.explorationActivity),
                     parseDetectionModeData(data.detectionMode),
                     parseExplorationOptions(actor),
                 ).toFixed(2),
             ),
-            speed: this.getActorSpeed(actor, groupTravelModifiers),
+            speed: travelSpeed,
             name: actor.name,
         };
     }
@@ -156,7 +157,6 @@ class TravelSpeedSheet extends FormApplication {
         return this.actorFormToSheetData(actor, groupTravelModifiers, {
             detectionMode: 'before',
             explorationActivity: 'Search',
-            speed: actor.data.data.attributes.speed.total,
         });
     }
 
