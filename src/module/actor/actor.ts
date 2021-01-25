@@ -120,8 +120,8 @@ export class PF2EActor extends Actor<PF2EItem> {
     /**
      * Augment the basic actor data with additional dynamic data.
      */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
 
         // Synchronize the token image with the actor image, if the token does not currently have an image.
         this._prepareTokenImg();
@@ -834,6 +834,11 @@ export class PF2EActor extends Actor<PF2EItem> {
     updateEmbeddedEntity(
         embeddedName: string,
         updateData: EntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<this['data'] | this['data'][]>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData | EntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<this['data'] | this['data'][]>;
     async updateEmbeddedEntity(

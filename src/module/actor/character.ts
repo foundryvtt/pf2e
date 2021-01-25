@@ -38,8 +38,8 @@ export class PF2ECharacter extends PF2EActor {
     }
 
     /** Prepare Character type specific data. */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
 
         const actorData = this.data;
 

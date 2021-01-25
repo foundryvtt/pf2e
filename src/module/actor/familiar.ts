@@ -12,8 +12,8 @@ export class PF2EFamiliar extends PF2EActor {
     data!: FamiliarData;
 
     /** Prepare Character type specific data. */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
 
         const data = this.data.data;
         const rules = this.data.items.reduce(
