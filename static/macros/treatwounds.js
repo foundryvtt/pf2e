@@ -52,13 +52,15 @@ const rollTreatWounds = async ({DC, bonus, med, name}) => {
 
 const applyChanges = ($html) => {
   for (const token of canvas.tokens.controlled) {
-    const {med} = token.actor.data.data.skills;
+    const skillname = $html.find('[name="skill-choice"]')[0].value || "med";
+    const med = token.actor.data.data.skills[skillname];
     const {name} = token;
+    
     const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
     const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
     const usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
     const roll = [
-      () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
+      () => ui.notifications.warn(`${name} is not trained in `+med.name+` and doesn't know how to treat wounds.`),
       () => rollTreatWounds({DC: 15 + mod, bonus: 0, med, name}),
       () => rollTreatWounds({DC: 20 + mod, bonus: 10, med, name}),
       () => rollTreatWounds({DC: 30 + mod, bonus: 30, med, name}),
@@ -75,23 +77,27 @@ if (token === undefined) {
   const dialog = new Dialog({
     title: "Treat Wounds",
     content: `
-<div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
-<hr/>
-<form>
-<div class="form-group">
-<label>Medicine DC:</label>
-<select id="dc-type" name="dc-type">
-<option value="1">Trained DC 15</option>
-<option value="2">Expert DC 20, +10 Healing</option>
-<option value="3">Master DC 30, +30 Healing</option>
-<option value="4">Legendary DC 40, +50 Healing</option>
-</select>
-</div>
-<div class="form-group">
-<label>DC Modifier:</label>
-<input id="modifier" name="modifier" type="number"/>
-</div>
-</form>
+    <div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
+    <hr/>
+    <form>
+        <div class="form-group-stacked">
+            <label for="dc-type">Medicine DC:</label>
+            <select id="dc-type" name="dc-type">
+                <option value="1">Trained DC 15</option>
+                <option value="2">Expert DC 20, +10 Healing</option>
+                <option value="3">Master DC 30, +30 Healing</option>
+                <option value="4">Legendary DC 40, +50 Healing</option>
+            </select>
+            <label for="modifier">DC Modifier:</label>
+            <input id="modifier" name="modifier" type="number"/>
+            <label for="skill-choice">Choose Skill:</label>
+            <select id="skill-choice" name="skill-choice">
+                <option value="med">Medicine</option>
+                <option value="nat">Nature (Natural Medicine)</option>
+                <option value="cra">Craft (Chirurgeon)</option>
+            </select>
+        </div>
+    </form>
 `,
     buttons: {
       yes: {

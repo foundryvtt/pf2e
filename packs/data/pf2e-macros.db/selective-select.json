@@ -1,0 +1,18 @@
+{
+    "_id": "Qvuvvr1ySquXplUX",
+    "actorIds": [],
+    "author": "M6L6STuBiXTluEz7",
+    "command": "async function selectOnly(selectChoice)\n{\n    let release=false;\n    for (const token of canvas.tokens.controlled) {\n        switch(selectChoice){\n            case \"playersOnly\":\n                if(!token.actor.hasPlayerOwner)\n                    release=true;\n                break;\n            case \"nonHostiles\":\n                if(token.data.disposition<0)\n                    release=true;\n                break;\n            case \"hostiles\":\n                if(token.data.disposition>=0)\n                    release=true;\n                break;\n            case \"NPCs\":\n                if(token.actor.hasPlayerOwner)\n                    release=true;\n        }\n        if(release)\n            token.release();\n        release=false;\n    }\n}\nlet applyChanges=false;\nnew Dialog({\n  title: `Selective Select`,\n  content: `\n    <form>\n      <div class=\"form-group\">\n        <select id=\"select-type\" name=\"select-type\">\n            <option value=\"playersOnly\">Player Controlled Only</option>\n            <option value=\"nonHostiles\">Non Hostiles</option>\n            <option value=\"hostiles\">Hostiles</option>\n            <option value=\"NPCs\">NPCs Only</option>\n        </select>\n      </div>\n    </form>\n    `,\n  buttons: {\n    yes: {\n      icon: \"<i class='fas fa-check'></i>\",\n      label: `Apply Changes`,\n      callback: () => applyChanges = true\n    },\n    no: {\n      icon: \"<i class='fas fa-times'></i>\",\n      label: `Cancel Changes`\n    },\n  },\n  default: \"yes\",\n  close: html => {\n      if (applyChanges) {\n            let applyType = html.find('[name=\"select-type\"]')[0].value || null;\n            if(applyType) \n                selectOnly(applyType);\n        }\n    }\n}).render(true);",
+    "flags": {
+        "furnace": {
+            "runAsGM": false
+        }
+    },
+    "img": "icons/svg/circle.svg",
+    "name": "Selective Select",
+    "permission": {
+        "default": 0
+    },
+    "scope": "global",
+    "type": "script"
+}
