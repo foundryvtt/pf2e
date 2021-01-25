@@ -38,11 +38,11 @@ import './types/apps/sidebar/apps/clientsettings';
 import './types/apps/sidebar/apps/rolltabledirectory';
 import './types/apps/sidebar/apps/actordirectory';
 import './types/apps/sidebar/apps/combattracker';
+import './types/apps/sidebar/apps/compendiumdirectory';
 
 import './types/apps/sidebar/sidebar';
 import './types/apps/sidebar/sidebartab';
 import './types/apps/sidebar/sidebardirectory';
-import './types/apps/sidebar/compendiumdirectory';
 
 // Core
 

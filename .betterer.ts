@@ -4,5 +4,5 @@ export default {
     'stricter compilation': typescript('./tsconfig.json', {
         strict: true,
         noEmit: true,
-    }),
+    }).include('./src/**/*.ts', 'packs/packbuilder.ts', './tests/**/*.ts', './static/macros/*.js'),
 };
