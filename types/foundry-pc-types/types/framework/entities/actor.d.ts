@@ -100,11 +100,30 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
         embeddedEntities: { OwnedItem: string };
     };
 
+    /* -------------------------------------------- */
+    /*  Data Preparation                            */
+    /* -------------------------------------------- */
+
     /** @override */
     prepareData(): void;
 
     /** @override */
     prepareEmbeddedEntities(): void;
+
+    /**
+     * First prepare any derived data which is actor-specific and does not depend on Items or Active Effects
+     */
+    prepareBaseData(): void;
+
+    /**
+     * Apply any transformations to the Actor data which are caused by ActiveEffects.
+     */
+    applyActiveEffects(): void;
+
+    /**
+     * Apply final transformations to the Actor data after all effects have been applied
+     */
+    prepareDerivedData(): void;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -155,6 +174,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     updateEmbeddedEntity(
         embeddedName: string,
         updateData: EntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<this['data'] | this['data'][]>;
+    updateEmbeddedEntity(
+        embeddedName: string,
+        updateData: EntityUpdateData | EntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<this['data'] | this['data'][]>;
 
