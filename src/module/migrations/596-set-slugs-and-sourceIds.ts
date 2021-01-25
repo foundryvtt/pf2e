@@ -4,11 +4,12 @@ import { PF2EItem } from '../item/item';
 import { PF2EPhysicalItem } from '../item/physical';
 
 type ItemMap = Map<string, PF2EItem>;
-type PackContent = Map<string, ItemMap>;
+type PackContent = Map<string, Promise<ItemMap>>;
 
 export class Migration596SetSlugSourceIds extends MigrationBase {
     static version = 0.596;
 
+    /** Only PF2e system compendia will be checked against */
     private sourceIdPattern = /^Compendium\.(pf2e\.[-\w]+)\.(\w+)$/;
 
     private readonly itemPacks: Map<string, Compendium<PF2EItem>>;
@@ -23,22 +24,30 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         );
     }
 
-    private async getPackContent(collection: string): Promise<ItemMap> {
+    private getPackContent(collection: string): Promise<ItemMap> {
         const cache = Migration596SetSlugSourceIds.packContent;
 
-        const cacheAndReturn = async (): Promise<ItemMap> => {
+        console.debug(`Loading pack ${collection}`);
+
+        const cacheAndRelease = (): Promise<ItemMap> => {
             // Cache on first retrieval
             const pack = this.itemPacks.get(collection);
             if (pack === undefined) {
                 throw Error('PF2e System | Expected error retrieving compendium');
             }
-            const newContent = (await pack.getContent()) as PF2EItem[];
-            const itemMap = new Map(newContent.map((item) => [item.id, item]));
-            cache.set(collection, itemMap);
-            return itemMap;
+
+            // Make all item updates wait for this content retrieval to resolve
+            const promisedItems = (async () => {
+                const newContent = await pack.getContent();
+                const itemMap = new Map(newContent.map((item) => [item.id, item]));
+                return itemMap;
+            })();
+            cache.set(collection, promisedItems);
+
+            return promisedItems;
         };
 
-        return cache.get(collection) ?? cacheAndReturn();
+        return cache.get(collection) ?? cacheAndRelease();
     }
 
     /** Look through each pack and attempt to find the originating item */
@@ -50,7 +59,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
 
         const packs = typeof collection === 'string' ? [this.itemPacks.get(collection)] : this.itemPacks.values();
 
-        for (const pack of packs) {
+        for await (const pack of packs) {
             if (pack === undefined) continue;
             const content = await this.getPackContent(pack.collection);
             const packItem = Array.from(content.values()).find(

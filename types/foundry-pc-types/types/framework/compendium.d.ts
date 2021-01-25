@@ -143,7 +143,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * Get the complete set of content for this compendium, loading all entries in full
      * Returns a Promise that resolves to an Array of entries
      */
-    getContent<EntityType>(): Promise<EntityType[]>;
+    getContent<E extends EntityType = EntityType>(): Promise<E[]>;
 
     /**
      * Get a single Compendium entry as an Object
