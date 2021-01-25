@@ -1,3 +1,5 @@
+/* global CompendiumDirectory */
+
 /** Extend CompendiumDirectory to support a search bar */
 export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** @override */

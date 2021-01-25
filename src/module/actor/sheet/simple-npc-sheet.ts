@@ -8,8 +8,8 @@ import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { NPCSkillsEditor } from '../../system/npc-skills-editor';
 import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../../module/recall-knowledge';
-import { PF2EItem } from '../../../module/item/item';
-import { PF2EPhysicalItem } from '../../../module/item/physical';
+import { PF2EItem } from '@item/item';
+import { PF2EPhysicalItem } from '@item/physical';
 
 export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
