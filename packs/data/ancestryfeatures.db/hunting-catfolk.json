@@ -8,26 +8,48 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You come from a long line of skilled hunters and trackers and have a particularly keen sense of smell. You gain imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine a creature's location, as explained on page 456 of the Core Rulebook. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to @Compendium[pf2e.actionspf2e.Track]{Track} a creature or object if you've smelled it before.</p>"
+            "value": "<p>You come from a long line of skilled hunters and trackers and have a particularly keen sense of smell.</p>\n<p>You gain imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine a creature's location, as explained on page 456 of the Core Rulebook. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to @Compendium[pf2e.actionspf2e.Track]{Track} a creature or object if you've smelled it before.</p>"
         },
         "featType": {
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Hunting Catfolk (Track smelled creatures)",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "target:previously-smelled"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "acuity": "imprecise",
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesScent",
+                "range": 30,
+                "selector": "scent"
+            }
+        ],
         "source": {
             "value": ""
         },
