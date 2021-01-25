@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,34 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "0"
+            "value": 0
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Keen Eyes (Seek hidden or undetected within 30 feet)",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "target:within-30-feet"
+                    ],
+                    "any": [
+                        "target:hidden",
+                        "target:undetected"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
