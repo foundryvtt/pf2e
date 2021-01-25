@@ -124,6 +124,7 @@ class TravelSpeedSheet extends FormApplication {
         travelSpeed.modifiers.forEach((modifier) => {
             modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, options);
         });
+        travelSpeed.applyStackingRules();
         console.log('a', groupTravelModifiers);
         console.log('b', travelSpeed);
         return Number(actor.data.data.attributes.speed.value) + travelSpeed.totalModifier;
