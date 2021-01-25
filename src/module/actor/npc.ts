@@ -13,9 +13,10 @@ export class PF2ENPC extends PF2EActor {
     data!: NpcData;
 
     /** Prepare Character type specific data. */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
         const actorData = this.data;
+
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
