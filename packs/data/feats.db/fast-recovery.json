@@ -19,8 +19,9 @@
             "value": "general"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "Constitution 14"
@@ -29,6 +30,22 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "ongoing"
+                    ],
+                    "any": [
+                        "disease",
+                        "poison"
+                    ]
+                },
+                "selector": "Fortitude",
+                "text": "<p class='compact-text'><strong>{item|name}</strong>If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,6 +59,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Fast Recovery",
