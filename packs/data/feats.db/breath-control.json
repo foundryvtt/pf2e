@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,6 +42,30 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breath control (vs. inhaled)",
+                "predicate": {
+                    "all": [
+                        "inhaled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "inhaled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong>If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -58,6 +83,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Breath Control",
