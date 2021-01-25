@@ -6,9 +6,10 @@ import {
     defaultBulkConfig,
     formatBulk,
     StackDefinitions,
+    stacks,
     weightToBulk,
 } from './bulk';
-import { PhysicalItemData } from './dataDefinitions';
+import { PhysicalItemData, Sizes } from './dataDefinitions';
 import { groupBy } from '../utils';
 
 /**
@@ -114,16 +115,30 @@ class ContainerData {
  * @param bulkConfig
  * @return
  */
-function toContainer(
-    item: PhysicalItemData,
-    heldItems: PhysicalItemData[] = [],
-    heldBulkItems: BulkItem[] = [],
-    isInContainer: boolean,
-    stackDefinitions: StackDefinitions,
-    bulkConfig: BulkConfig,
-): ContainerData {
+function toContainer({
+    item,
+    heldItems = [],
+    heldBulkItems = [],
+    isInContainer,
+    stackDefinitions,
+    bulkConfig,
+    actorSize,
+}: {
+    item: PhysicalItemData;
+    heldItems: PhysicalItemData[];
+    heldBulkItems: BulkItem[];
+    isInContainer: boolean;
+    stackDefinitions: StackDefinitions;
+    bulkConfig: BulkConfig;
+    actorSize: Sizes;
+}): ContainerData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
-    const [heldItemBulk] = calculateBulk(heldBulkItems, stackDefinitions, false, bulkConfig);
+    const [heldItemBulk] = calculateBulk({
+        items: heldBulkItems,
+        stackDefinitions,
+        bulkConfig,
+        actorSize,
+    });
     const capacity = weightToBulk(item.data?.bulkCapacity?.value) ?? new Bulk();
     return new ContainerData({
         item,
@@ -148,6 +163,7 @@ function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<st
     }
     return false;
 }
+
 /**
  * Detect if a new container id would produce a cycle
  * @param itemId
@@ -172,14 +188,22 @@ export function isCycle(itemId: string, containerId: string, items: PhysicalItem
  * @param bulkItemsById all items on the actor transformed into bulk items; used to look up how much bulk a container stores
  * @param stackDefinitions used to calculated bulk
  * @param bulkConfig used to calculated bulk
+ * @param actorSize
  * @return
  */
-export function getContainerMap(
-    items: PhysicalItemData[] = [],
-    bulkItemsById: Map<string, BulkItem> = new Map(),
-    stackDefinitions: StackDefinitions,
-    bulkConfig: BulkConfig = defaultBulkConfig,
-): Map<string, ContainerData> {
+export function getContainerMap({
+    items = [],
+    bulkItemsById = new Map(),
+    stackDefinitions = stacks,
+    bulkConfig = defaultBulkConfig,
+    actorSize = 'med',
+}: {
+    items?: PhysicalItemData[];
+    bulkItemsById?: Map<string, BulkItem>;
+    stackDefinitions?: StackDefinitions;
+    bulkConfig?: BulkConfig;
+    actorSize?: Sizes;
+} = {}): Map<string, ContainerData> {
     const allIds = groupBy(items, (item) => item._id);
 
     const containerGroups = groupBy(items, (item) => {
@@ -197,14 +221,15 @@ export function getContainerMap(
 
         idIndexedContainerData.set(
             item._id,
-            toContainer(
-                allIds.get(item._id)[0],
+            toContainer({
+                item: allIds.get(item._id)[0],
                 heldItems,
-                bulkItemsById.get(item._id)?.holdsItems ?? [],
+                heldBulkItems: bulkItemsById.get(item._id)?.holdsItems ?? [],
                 isInContainer,
                 stackDefinitions,
                 bulkConfig,
-            ),
+                actorSize,
+            }),
         );
     }
 
