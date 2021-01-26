@@ -7,7 +7,7 @@ declare interface EntityDescriptionData {
 declare interface BaseEntityData {
     _id: string;
     name: string;
-    type: number | string;
+    type?: number | string;
     data: EntityDescriptionData;
     flags: any;
     folder: string | null;

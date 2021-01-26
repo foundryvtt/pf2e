@@ -4,7 +4,16 @@ declare class RollTables extends Collection<RollTable> {
     values(): IterableIterator<RollTable>;
 }
 
+declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
+    displayRoll: boolean;
+    formula: boolean;
+    replacement: true;
+    results: any[]
+}
+
 declare class RollTable extends Entity {
+    data: RollTableData;
+
     /** @override */
     static get config(): {
         baseEntity: RollTable;
@@ -19,7 +28,7 @@ declare class RollTable extends Entity {
 
     /* -------------------------------------------- */
     /*  Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Draw a result from the RollTable based on the table formula or a provided Roll instance
