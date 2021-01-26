@@ -22,7 +22,8 @@ declare class Macros extends Collection<Macro> {
 }
 
 declare interface MacroData extends BaseEntityData {
-    type: string;
+    _id: string;
+    type: 'chat' | 'script';
     actorIds: string[];
     author: string;
     command: string;

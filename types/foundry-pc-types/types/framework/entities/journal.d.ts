@@ -3,10 +3,16 @@ declare class Journal extends Collection<JournalEntry> {
     [key: string]: any;
 }
 
+declare interface JournalEntryData extends Omit<BaseEntityData, 'type'> {
+    content: string;
+}
+
 /**
  * The JournalEntry class
  */
 declare class JournalEntry extends Entity {
+    data: JournalEntryData;
+
     /**
      * Return a reference to the Note instance for this JournalEntry in the current Scene, if any
      */
