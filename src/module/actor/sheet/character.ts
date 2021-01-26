@@ -632,7 +632,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if(item==null) {
+            if (item == null) {
                 return;
             }
             if (item.data.type !== 'spellcastingEntry') {
@@ -640,7 +640,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             }
             let data: SpellcastingEntryData = duplicate(item.data);
 
-            if(data.data.slots==null) {
+            if (data.data.slots == null) {
                 return;
             }
             data.data.slots['slot' + itemLevel].value -= 1;
@@ -659,7 +659,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if(item==null) {
+            if (item == null) {
                 return;
             }
             if (item.data.type !== 'spellcastingEntry') {
@@ -668,7 +668,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             let data: SpellcastingEntryData = duplicate(item.data);
 
-            if(data.data.slots==null) {
+            if (data.data.slots == null) {
                 return;
             }
             data.data.slots['slot' + itemLevel].value = data.data.slots['slot' + itemLevel].max;
