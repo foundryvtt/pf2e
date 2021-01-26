@@ -94,6 +94,8 @@
                                         <span class="spell-max-input">
                                             <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-type="Number"/>
                                         </span>
+                                        &nbsp;
+                                        <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>   
                                         {{else}}
                                         <span class="spell-slots">&infin;</span>
                                         <span class="flex0"> / </span>
@@ -135,6 +137,10 @@
                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                             </div>
                             {{/if}}
+                            
+                            <div class="spell-cast">
+                                <button class="spell-slots-increment-down" data-item-id="{{entry._id}}"  data-level="{{lvl}}">Cast</button>
+                            </div>   
                         </li>
                         {{/each}}
 

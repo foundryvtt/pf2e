@@ -7,7 +7,7 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, SpellData, ItemData } from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData, ItemData, SpellcastingEntryData } from '../../item/dataDefinitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
 
@@ -622,6 +622,46 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             side: ['right', 'bottom'],
             theme: 'crb-hover',
             minWidth: 120,
+        });
+
+        // Spontaneous Spell slot increment handler:
+        html.find('.spell-slots-increment-down').on('click', (event) => {
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.getOwnedItem(itemId);
+
+            if (item.data.type !== 'spellcastingEntry') {
+                return;
+            }
+            let data: SpellcastingEntryData = duplicate(item.data);
+
+            data.data.slots['slot' + itemLevel].value -= 1;
+            if (data.data.slots['slot' + itemLevel].value < 0) {
+                data.data.slots['slot' + itemLevel].value = 0;
+            }
+
+            item.update(data);
+        });
+
+        // Spontaneous Spell slot reset handler:
+        html.find('.spell-slots-increment-reset').on('click', (event) => {
+            const target = $(event.currentTarget);
+            const itemId = target.data().itemId;
+            const itemLevel = target.data().level;
+            const actor = this.actor;
+            const item = actor.getOwnedItem(itemId);
+
+            if (item.data.type !== 'spellcastingEntry') {
+                return;
+            }
+
+            let data: SpellcastingEntryData = duplicate(item.data);
+
+            data.data.slots['slot' + itemLevel].value = data.data.slots['slot' + itemLevel].max;
+
+            item.update(data);
         });
     }
 
