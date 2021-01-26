@@ -69,10 +69,7 @@ const config: Configuration = {
                     },
                     {
                         loader: 'sass-loader',
-                        options: {
-                            sourceMap: true,
-                            additionalData: `@import "${path.resolve(__dirname, 'src/styles/_globals.scss')}";`,
-                        },
+                        options: { sourceMap: true },
                     },
                 ],
             },
@@ -81,7 +78,7 @@ const config: Configuration = {
                 options: {
                     workers: os.cpus().length + 1,
                     poolRespawn: false,
-                    poolTimeout: (isProductionBuild ? 500 : Infinity),
+                    poolTimeout: isProductionBuild ? 500 : Infinity,
                 },
             },
         ],
