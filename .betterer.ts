@@ -3,12 +3,10 @@ import { typescript } from '@betterer/typescript';
 export default {
     'stricter compilation': typescript('./tsconfig.json', {
         strict: true,
-        noEmit: true,
-    }).include(
-        './packs/packbuilder.ts',
-        './src/**/*.ts',
-        './static/macros/*.js',
-        './tests/**/*.ts',
-        './webpack.config.ts'
-    ),
+        noFallthroughCasesInSwitch: true,
+        noImplicitReturns: true,
+        noPropertyAccessFromIndexSignature: true,
+        noUnusedParameters: true,
+        noUncheckedIndexedAccess: true,
+    }).include('./packs/*.ts', './src/**/*.ts', './tests/**/*.ts', './webpack.config.ts'),
 };
