@@ -27,6 +27,7 @@ import { Migration593AddAncestryItem } from './593-make-ancestry-item';
 import { Migration594AddBackgroundItem } from './594-make-background-item';
 import { Migration595AddItemSize } from './595-item-sizes';
 import { Migration596SetSlugSourceIds } from './596-set-slugs-and-sourceIds';
+import { Migration597MakeTraitTraitsArrays } from './597-make-trait-traits-string-arrays';
 
 export class Migrations {
     private static list = [
@@ -58,6 +59,7 @@ export class Migrations {
         Migration594AddBackgroundItem,
         Migration595AddItemSize,
         Migration596SetSlugSourceIds,
+        Migration597MakeTraitTraitsArrays,
     ];
 
     static get latestVersion(): number {

@@ -1,7 +1,7 @@
 import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
 import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
 
-export type Sizes = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 
@@ -9,7 +9,7 @@ export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'l
 
 export interface ItemTraits {
     rarity: { value: Rarity };
-    value: string | Array<string>;
+    value: string[];
     custom: string;
 }
 
@@ -99,7 +99,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         value: boolean;
     };
     size: {
-        value: Sizes;
+        value: Size;
     };
 }
 
@@ -346,7 +346,7 @@ export interface ABCFeatureEntryData {
     level: number;
 }
 
-export interface AncestryDetailsData {
+export interface AncestryDetailsData extends ItemDescriptionData {
     additionalLanguages: {
         count: number; // plus int
         value: string[];
@@ -361,39 +361,21 @@ export interface AncestryDetailsData {
         custom: string;
     };
     speed: number;
-    size: Sizes;
-    traits: {
-        rarity: {
-            value: string;
-        };
-        value: string[];
-    };
+    size: Size;
 }
 
-export interface BackgroundDetailsData {
+export interface BackgroundDetailsData extends ItemDescriptionData {
     boosts: { [key: string]: { value: AbilityString[] } };
     items: { [key: number]: ABCFeatureEntryData };
-    traits: {
-        rarity: {
-            value: string;
-        };
-        value: string[];
-    };
     trainedLore: string;
     trainedSkills: {
         value: string[];
     };
 }
 
-export interface ClassDetailsData {
+export interface ClassDetailsData extends ItemDescriptionData {
     keyAbility: { value: AbilityString[] };
     items: { [key: number]: ABCFeatureEntryData };
-    traits: {
-        rarity: {
-            value: string;
-        };
-        value: string[];
-    };
     hp: number;
     perception: Proficency;
     savingThrows: {
@@ -820,15 +802,15 @@ export interface EquipmentData extends BasePhysicalItemData<ActivatedEffectData 
     type: 'equipment';
 }
 
-export interface AncestryData extends BaseItemDataPF2e<ItemDescriptionData & AncestryDetailsData> {
+export interface AncestryData extends BaseItemDataPF2e<AncestryDetailsData> {
     type: 'ancestry';
 }
 
-export interface BackgroundData extends BaseItemDataPF2e<ItemDescriptionData & BackgroundDetailsData> {
+export interface BackgroundData extends BaseItemDataPF2e<BackgroundDetailsData> {
     type: 'background';
 }
 
-export interface ClassData extends BaseItemDataPF2e<ItemDescriptionData & ClassDetailsData> {
+export interface ClassData extends BaseItemDataPF2e<ClassDetailsData> {
     type: 'class';
 }
 
