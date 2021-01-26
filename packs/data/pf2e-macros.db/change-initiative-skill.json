@@ -3,11 +3,7 @@
     "actorIds": [],
     "author": "M6L6STuBiXTluEz7",
     "command": "async function setInitSkill(skillname)\n{\n    canvas.tokens.controlled.forEach(async function(changetoken){\n        if(changetoken.actor.data.type!=\"character\"){\n            let skillval=changetoken.actor.data.data.skills[skillname].totalModifier;\n            await changetoken.actor.update({\n            'data.attributes.initiative.ability':skillname,\n            'data.attributes.initiative.totalModifier':skillval\n            });    \n        }else{\n            await changetoken.actor.update({\n            'data.attributes.initiative.ability':skillname\n            });\n        }\n    });\n}\n\nlet applyChanges=false;\nnew Dialog({\n  title: `Set Initiative Skill`,\n  content: `\n    <form>\n      <div class=\"form-group\">\n        <select id=\"init-skill\" name=\"init-skill\">\n            <option value=\"perception\" selected=\"\">Perception</option>\n            <option value=\"acr\">Acrobatics</option>\n            <option value=\"arc\">Arcana</option>\n            <option value=\"ath\">Athletics</option>\n            <option value=\"cra\">Crafting</option>\n            <option value=\"dec\">Deception</option>\n            <option value=\"dip\">Diplomacy</option>\n            <option value=\"itm\">Intimidation</option>\n            <option value=\"med\">Medicine</option>\n            <option value=\"nat\">Nature</option>\n            <option value=\"occ\">Occultism</option>\n            <option value=\"prf\">Performance</option>\n            <option value=\"rel\">Religion</option>\n            <option value=\"soc\">Society</option>\n            <option value=\"ste\">Stealth</option>\n            <option value=\"sur\">Survival</option>\n            <option value=\"thi\">Thievery</option>\n        </select>\n      </div>\n    </form>\n    `,\n  buttons: {\n    yes: {\n      icon: \"<i class='fas fa-check'></i>\",\n      label: `Apply Changes`,\n      callback: () => applyChanges = true\n    },\n    no: {\n      icon: \"<i class='fas fa-times'></i>\",\n      label: `Cancel Changes`\n    },\n  },\n  default: \"yes\",\n  close: html => {\n      if (applyChanges) {\n        let skillchoice = html.find('[name=\"init-skill\"]')[0].value || \"perception\";\n        setInitSkill(skillchoice);\n        }\n    }\n}).render(true);",
-    "flags": {
-        "furnace": {
-            "runAsGM": false
-        }
-    },
+    "flags": {},
     "img": "icons/svg/dice-target.svg",
     "name": "Change Initiative Skill",
     "permission": {

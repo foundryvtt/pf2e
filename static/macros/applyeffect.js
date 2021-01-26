@@ -30,7 +30,8 @@ async function applyEffect(effectItem)
         if (existing) {
             await token.actor.deleteOwnedItem(existing._id);
         } else {
-        await token.actor.createOwnedItem(item);
+            let owneditemdata = await token.actor.createOwnedItem(item);
+            owneditemdata.data.start.value=game.time.worldTime;
         }
     }
 }
