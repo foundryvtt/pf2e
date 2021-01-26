@@ -195,7 +195,7 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.transfer,
                         {
-                            transferrer: requester.character.name ?? requester.name,
+                            transferrer: requester.character?.name ?? requester.name,
                             fromContainer: nameOf(sourceActor),
                             toContainer: nameOf(targetActor),
                         },
@@ -209,7 +209,7 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.give,
                         {
-                            seller: requester.character.name ?? requester.name,
+                            seller: requester.character?.name ?? requester.name,
                             buyer: nameOf(targetActor),
                         },
                     ],
@@ -224,13 +224,13 @@ export class LootTransfer implements LootTransferData {
             } else if (source.isMerchant && target.isLoot) {
                 // Merchant sells item to character, who stows it directly in loot container
                 return [
-                    requester.character.name ?? requester.name,
+                    requester.character?.name ?? requester.name,
                     CONFIG.PF2E.loot.messages.sell,
                     [
                         CONFIG.PF2E.loot.messages.sell,
                         {
                             seller: nameOf(sourceActor),
-                            buyer: requester.character.name ?? requester.name,
+                            buyer: requester.character?.name ?? requester.name,
                         },
                     ],
                 ];
