@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import { Compiler, Configuration, Stats } from 'webpack';
+import { Configuration } from 'webpack';
 import copyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
@@ -80,7 +80,8 @@ const config: Configuration = {
                 loader: 'thread-loader',
                 options: {
                     workers: os.cpus().length + 1,
-                    poolTimeout: Infinity,
+                    poolRespawn: false,
+                    poolTimeout: (isProductionBuild ? 500 : Infinity),
                 },
             },
         ],
@@ -100,17 +101,6 @@ const config: Configuration = {
             insert: 'head',
         }),
         new WebpackBar({}),
-        {
-            apply: (compiler: Compiler) => {
-                compiler.hooks.done.tap('DonePlugin', (_stats: Stats) => {
-                    if (isProductionBuild) {
-                        setTimeout(() => {
-                            process.exit(0);
-                        });
-                    }
-                });
-            },
-        },
     ],
     resolve: {
         alias: {
