@@ -79,7 +79,7 @@ const config: Configuration = {
             {
                 loader: 'thread-loader',
                 options: {
-                    workers: os.cpus.length - 1,
+                    workers: os.cpus().length + 1,
                     poolTimeout: Infinity,
                 },
             },
