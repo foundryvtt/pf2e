@@ -860,7 +860,7 @@ export class PF2ECharacter extends PF2EActor {
     }
 
     prepareClass(actorData: CharacterData) {
-        const classData: ClassData = actorData.items.find((x): x is ClassData => x.type === 'class');
+        const classData = actorData.items.find((x): x is ClassData => x.type === 'class');
 
         if (classData) {
             actorData.data.details.class.value = classData.name;

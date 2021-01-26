@@ -9,6 +9,9 @@ export class PF2EClass extends PF2EItem {
     static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
             const pack = game.packs.get<PF2EFeat>(entry.pack);
+            if (pack === null) {
+                throw Error('could not load pack');
+            }
             return await pack.getEntry(entry.id);
         } else {
             const feat = game.items.get(entry.id);
@@ -32,14 +35,15 @@ export class PF2EClass extends PF2EItem {
         await this.ensureClassFeaturesForLevel(actor, 0);
     }
 
-    static async ensureClassFeaturesForLevel(actor: PF2ECharacter, minLevel?: number): Promise<any> {
+    static async ensureClassFeaturesForLevel(actor: PF2ECharacter, minLevelInput?: number): Promise<any> {
         const item = actor.items.find((x): x is PF2EClass => x.data.type === 'class');
-        if (item === undefined || item.data.type !== 'class') {
+        if (!item || item.data.type !== 'class') {
             throw Error('Cannot find class data to update features');
         }
         const itemData = item.data;
 
-        minLevel = minLevel ?? (await item.getFlag(game.system.id, 'insertedClassFeaturesLevel')) ?? 0;
+        const minLevel: number =
+            minLevelInput ?? (await item.getFlag(game.system.id, 'insertedClassFeaturesLevel')) ?? 0;
         if (minLevel >= actor.level) {
             // no need to do anything, since we've seen it all
             return;
