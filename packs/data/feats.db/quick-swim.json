@@ -29,19 +29,41 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "7"
+            "value": 7
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "master in Athletics"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "master in Athletics"
+        ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "swim",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": "@attributes.speed.value"
+                        }
+                    ],
+                    "field": "actor|data.skills.ath.rank"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:swim"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You swim 5 more feet on a success, and 10 more feet on a critical success.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +82,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Quick Swim",
