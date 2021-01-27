@@ -227,7 +227,7 @@ function toTravelDuration(
     // calculate remaining day the following way
     // calculate how many minutes it would take while moving at twice the speed
     // if it's less than your hustle duration we are done
-    // Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) + Math.min(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2
+    // Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) + Math.max(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2
     const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
     const minutesPerHour = 60;
     const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
