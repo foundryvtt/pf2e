@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "7"
+            "value": 7
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -42,6 +43,19 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:craft",
+                        "speciality"
+                    ]
+                },
+                "selector": "crafting",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you roll a success at a Crafting check to make an item of the type you chose with Specialty Crafting, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +74,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Impeccable Crafting",
