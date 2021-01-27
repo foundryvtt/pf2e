@@ -1,6 +1,6 @@
 /* global game, CONFIG */
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '../actor/actor';
+import { PF2EActor } from '@actor/actor';
 import { PF2RollNote } from '../notes';
 
 export interface CheckModifiersContext {
@@ -18,6 +18,8 @@ export interface CheckModifiersContext {
     actor?: PF2EActor;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: string;
+    /** Any traits for the check. */
+    traits?: string[];
 }
 
 /**
@@ -53,7 +55,7 @@ export class CheckModifiersDialog extends Application {
 
     /** Roll the given check, rendering the roll to the chat menu. */
     static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
-        const options = [];
+        const options: string[] = [];
         const ctx = (context as any) ?? {};
 
         let dice = '1d20';
@@ -65,9 +67,9 @@ export class CheckModifiersDialog extends Application {
             options.push('PF2E.TraitFortune');
         }
 
-        let speaker: PF2EActor;
+        const speaker: { actor?: PF2EActor } = {};
         if (ctx.actor) {
-            speaker = ctx.actor;
+            speaker.actor = ctx.actor;
             ctx.actor = ctx.actor._id;
         }
         if (ctx.token) {
@@ -97,15 +99,22 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
-        const notes = (context.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+        const notes = (ctx.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
 
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
 
+        let flavor = `<b>${check.name}</b>`;
+        if (ctx.traits) {
+            const traits = ctx.traits.map((trait) => `<span class="tag tag_alt">${trait}</span>`).join('');
+            flavor += `<div class="tags">${traits}</div><hr>`;
+        }
+        flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
+
         await roll.toMessage(
             {
-                speaker: ChatMessage.getSpeaker({ actor: speaker }),
-                flavor: `<b>${check.name}</b><div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`,
+                speaker: ChatMessage.getSpeaker(speaker),
+                flavor,
                 flags: {
                     core: {
                         canPopout: true,
@@ -164,7 +173,7 @@ export class CheckModifiersDialog extends Application {
         const value = Number(parent.find('.add-modifier-value').val());
         const type = `${parent.find('.add-modifier-type').val()}`;
         let name = `${parent.find('.add-modifier-name').val()}`;
-        const errors = [];
+        const errors: string[] = [];
         if (Number.isNaN(value)) {
             errors.push('Modifier value must be a number.');
         } else if (value === 0) {
