@@ -209,7 +209,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     _applyInitiativeRollToCombatTracker(roll: Roll) {
-        if (roll) {
+        if (roll?.total) {
             // check that there is a combat active in this scene
             if (!game.combat) {
                 ui.notifications.error('No active encounters in the Combat Tracker.');
@@ -746,7 +746,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     static async setCombatantInitiative(roll: JQuery) {
         const skillRolled = roll.find('.flavor-text').text();
         const valueRolled = parseFloat(roll.find('.dice-total').text());
-        const promises = [];
+        const promises: Promise<void>[] = [];
         for (const t of canvas.tokens.controlled) {
             if (!game.combat) {
                 ui.notifications.error('No active encounters in the Combat Tracker.');
@@ -945,7 +945,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         item: PF2EItem,
         quantity: number,
         containerId: string,
-    ): Promise<PF2EPhysicalItem> {
+    ): Promise<PF2EPhysicalItem | null> {
         if (!(item instanceof PF2EPhysicalItem)) {
             throw Error('Only physical items (with quantities) can be transfered between actors');
         }
@@ -998,7 +998,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if ('invested' in newItemData.data && typeof newItemData.data.invested.value === 'boolean') {
+        if ('invested' in newItemData.data && typeof newItemData.data.invested?.value === 'boolean') {
             newItemData.data.invested.value = false;
         }
 
@@ -1018,7 +1018,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         actor: PF2EActor,
         getItem: () => Promise<ItemType>,
         containerId: string,
-    ): Promise<ItemType> {
+    ): Promise<ItemType | null> {
         const item = await getItem();
         if (!item) return null;
 
