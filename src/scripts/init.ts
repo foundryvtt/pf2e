@@ -169,6 +169,7 @@ if (a) {
  */
 Hooks.once('init', () => {
     game.pf2e = {
+        actions: {},
         rollItemMacro,
         rollActionMacro,
     };
