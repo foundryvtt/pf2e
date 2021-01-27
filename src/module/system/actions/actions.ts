@@ -8,6 +8,7 @@ import { grapple } from './athletics/grapple';
 import { highJump } from './athletics/high-jump';
 import { longJump } from './athletics/long-jump';
 import { shove } from './athletics/shove';
+import { swim } from './athletics/swim';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
@@ -24,6 +25,7 @@ export class PF2Actions {
         actions.highJump = highJump;
         actions.longJump = longJump;
         actions.shove = shove;
+        actions.swim = swim;
     }
 
     static simpleRollActionCheck(
