@@ -1,12 +1,13 @@
 import { PF2EActor } from '@actor/actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
+import { seek } from './basic/seek';
 import { climb } from './athletics/climb';
 import { forceOpen } from './athletics/force-open';
 import { grapple } from './athletics/grapple';
 import { highJump } from './athletics/high-jump';
 import { longJump } from './athletics/long-jump';
-import { seek } from './basic/seek';
+import { shove } from './athletics/shove';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
@@ -22,6 +23,7 @@ export class PF2Actions {
         actions.grapple = grapple;
         actions.highJump = highJump;
         actions.longJump = longJump;
+        actions.shove = shove;
     }
 
     static simpleRollActionCheck(
