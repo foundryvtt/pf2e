@@ -1,5 +1,5 @@
 import { Bulk } from './bulk';
-import { Sizes } from './dataDefinitions';
+import { Size } from './dataDefinitions';
 
 /**
  * @category Other
@@ -61,7 +61,7 @@ export function calculateEncumbrance(
     bonusBulkEncumbrance: number,
     bonusBulkLimit: number,
     combinedBulk: Bulk,
-    actorSize: Sizes = 'med',
+    actorSize: Size = 'med',
 ): InventoryWeight {
     const encumberedAt = Math.floor(strengthModifier + bonusBulkEncumbrance + 5);
     const limit = Math.floor(strengthModifier + bonusBulkLimit + 10);

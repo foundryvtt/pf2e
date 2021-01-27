@@ -111,7 +111,7 @@ export class EffectPanel extends Application {
         // handle right-click on condition and effect icons
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
-            if (actor.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
+            if (actor?.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
                 const item = actor.items.get(event.currentTarget.dataset.itemId);
                 if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                     const data = item.data.data as ConditionDetailsData;
@@ -132,8 +132,8 @@ export class EffectPanel extends Application {
         });
     }
 
-    private static get actor(): PF2EActor {
-        return canvas.tokens.controlled[0]?.actor ?? game.user.character;
+    private static get actor(): PF2EActor | undefined {
+        return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
     }
 
     private static getParentConditionsBreakdown(conditions: ConditionData[]): string {

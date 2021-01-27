@@ -1,5 +1,5 @@
 import { add, combineObjects, groupBy, isBlank, Optional, applyNTimes } from '../utils';
-import { isPhysicalItem, ItemData, PhysicalItemData, Sizes } from './dataDefinitions';
+import { isPhysicalItem, ItemData, PhysicalItemData, Size } from './dataDefinitions';
 
 interface StackDefinition {
     size: number;
@@ -179,8 +179,8 @@ export class Bulk {
  * @param itemSize
  * @param actorSize
  */
-export function convertBulkToSize(bulk: Bulk, itemSize: Sizes, actorSize: Sizes): Bulk {
-    const sizes: Sizes[] = ['tiny', 'med', 'lg', 'huge', 'grg'];
+export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
+    const sizes: Size[] = ['tiny', 'med', 'lg', 'huge', 'grg'];
     const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
     const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
 
@@ -227,7 +227,7 @@ export class BulkItem {
 
     bulk: Bulk;
 
-    size: Sizes;
+    size: Size;
 
     quantity: number;
 
@@ -273,7 +273,7 @@ export class BulkItem {
         holdsItems?: BulkItem[];
         negateBulk?: Bulk;
         extraDimensionalContainer?: boolean;
-        size?: Sizes;
+        size?: Size;
     } = {}) {
         this.id = id;
         this.bulk = bulk;
@@ -353,8 +353,8 @@ function calculateStackBulk({
     itemStacks: Record<string, number>;
     stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
-    actorSize: Sizes;
-    itemSize: Sizes;
+    actorSize: Size;
+    itemSize: Size;
 }): BulkAndOverflow {
     return Object.entries(itemStacks)
         .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
@@ -385,7 +385,7 @@ function calculateItemBulk({
     item: BulkItem;
     stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
-    actorSize: Sizes;
+    actorSize: Size;
 }): BulkAndOverflow {
     const stackName = item.stackGroup;
     if (isBlank(stackName)) {
@@ -463,7 +463,7 @@ function calculateCombinedBulk({
     stackDefinitions: StackDefinitions;
     nestedExtraDimensionalContainer: boolean;
     bulkConfig: BulkConfig;
-    actorSize: Sizes;
+    actorSize: Size;
 }): BulkAndOverflow {
     const [mainBulk, mainOverflow] = calculateItemBulk({
         item,
@@ -524,7 +524,7 @@ export function calculateBulk({
     items?: BulkItem[];
     stackDefinitions?: StackDefinitions;
     nestedExtraDimensionalContainer?: boolean;
-    actorSize?: Sizes;
+    actorSize?: Size;
     bulkConfig?: BulkConfig;
 } = {}): BulkAndOverflow {
     const inventory = new BulkItem({

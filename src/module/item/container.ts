@@ -9,7 +9,7 @@ import {
     stacks,
     weightToBulk,
 } from './bulk';
-import { PhysicalItemData, Sizes } from './dataDefinitions';
+import { PhysicalItemData, Size } from './dataDefinitions';
 import { groupBy } from '../utils';
 
 /**
@@ -130,7 +130,7 @@ function toContainer({
     isInContainer: boolean;
     stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
-    actorSize: Sizes;
+    actorSize: Size;
 }): ContainerData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk({
@@ -202,7 +202,7 @@ export function getContainerMap({
     bulkItemsById?: Map<string, BulkItem>;
     stackDefinitions?: StackDefinitions;
     bulkConfig?: BulkConfig;
-    actorSize?: Sizes;
+    actorSize?: Size;
 } = {}): Map<string, ContainerData> {
     const allIds = groupBy(items, (item) => item._id);
 

@@ -13,7 +13,7 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
-import { PF2RuleElements } from '../rules/rules';
+import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
 import { PF2EActor, SKILL_DICTIONARY } from './actor';
@@ -46,8 +46,8 @@ export class PF2ECharacter extends PF2EActor {
         this.prepareAncestry(actorData);
         this.prepareBackground(actorData);
 
-        const rules = actorData.items.reduce(
-            (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
+        const rules: PF2RuleElement[] = actorData.items.reduce(
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
         );
         const { data } = actorData;
@@ -297,7 +297,7 @@ export class PF2ECharacter extends PF2EActor {
 
         // Armor Class
         {
-            const modifiers = [];
+            const modifiers: PF2Modifier[] = [];
             const dexCap = duplicate(data.attributes.dexCap ?? []);
             let armorCheckPenalty = 0;
             let proficiency = 'unarmored';
@@ -458,7 +458,7 @@ export class PF2ECharacter extends PF2EActor {
         {
             const label = game.i18n.localize('PF2E.SpeedTypesLand');
             const base = Number(data.attributes.speed.value ?? 0);
-            const modifiers = [];
+            const modifiers: PF2Modifier[] = [];
             ['land-speed', 'speed'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
@@ -481,7 +481,7 @@ export class PF2ECharacter extends PF2EActor {
         for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
             const speed = data.attributes.speed.otherSpeeds[idx];
             const base = Number(speed.value ?? 0);
-            const modifiers = [];
+            const modifiers: PF2Modifier[] = [];
             [`${speed.type}-speed`, 'speed'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
@@ -503,7 +503,7 @@ export class PF2ECharacter extends PF2EActor {
 
         // Familiar Abilities
         {
-            const modifiers = [];
+            const modifiers: PF2Modifier[] = [];
             (statisticsModifiers['familiar-abilities'] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => modifiers.push(m));
@@ -572,7 +572,7 @@ export class PF2ECharacter extends PF2EActor {
                 .concat([unarmed])
                 .concat(strikes)
                 .forEach((item) => {
-                    const modifiers = [];
+                    const modifiers: PF2Modifier[] = [];
 
                     // Determine the base ability score for this attack.
                     let ability: AbilityString;

@@ -34,7 +34,7 @@ export class PF2ELoot extends PF2EActor {
         item: PF2EItem,
         quantity: number,
         containerId: string,
-    ): Promise<PF2EPhysicalItem> {
+    ): Promise<PF2EPhysicalItem | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.hasPerm(game.user, 'owner') && targetActor.hasPerm(game.user, 'owner'))) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
@@ -86,7 +86,7 @@ export class LootTransfer implements LootTransferData {
         const gamemaster = Array.from(game.users.values()).find((user) => user.isGM && user.active);
         if (gamemaster === undefined) {
             ui.notifications.error(game.i18n.localize('PF2E.loot.permissionError'));
-            return null;
+            return;
         }
         console.debug(`PF2e System | Requesting loot transfer from GM ${gamemaster.name}`);
 
@@ -94,7 +94,7 @@ export class LootTransfer implements LootTransferData {
     }
 
     // Only a GM can call this method, or else Foundry will block it
-    async enact(requester: UserPF2e): Promise<void> {
+    async enact(requester: UserPF2e): Promise<PF2EActor | null | undefined> {
         if (!game.user.isGM) {
             return null;
         }
@@ -195,7 +195,7 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.transfer,
                         {
-                            transferrer: requester.character.name ?? requester.name,
+                            transferrer: requester.character?.name ?? requester.name,
                             fromContainer: nameOf(sourceActor),
                             toContainer: nameOf(targetActor),
                         },
@@ -209,7 +209,7 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.give,
                         {
-                            seller: requester.character.name ?? requester.name,
+                            seller: requester.character?.name ?? requester.name,
                             buyer: nameOf(targetActor),
                         },
                     ],
@@ -224,13 +224,13 @@ export class LootTransfer implements LootTransferData {
             } else if (source.isMerchant && target.isLoot) {
                 // Merchant sells item to character, who stows it directly in loot container
                 return [
-                    requester.character.name ?? requester.name,
+                    requester.character?.name ?? requester.name,
                     CONFIG.PF2E.loot.messages.sell,
                     [
                         CONFIG.PF2E.loot.messages.sell,
                         {
                             seller: nameOf(sourceActor),
-                            buyer: requester.character.name ?? requester.name,
+                            buyer: requester.character?.name ?? requester.name,
                         },
                     ],
                 ];

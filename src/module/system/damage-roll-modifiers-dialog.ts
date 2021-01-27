@@ -55,7 +55,6 @@ export class DamageRollModifiersDialog extends Application {
      * @param {function} callback
      */
     static roll(damage, context, callback) {
-        const options = damage.tags ?? [];
         const ctx = context ?? {};
 
         ctx.rollMode =
@@ -66,6 +65,17 @@ export class DamageRollModifiersDialog extends Application {
             damageBaseModifier =
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
         }
+
+        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${ctx.outcome ?? 'success'}`);
+        let flavor = `<b>${damage.name}</b> (${outcome})`;
+        if (damage.traits) {
+            const traits = damage.traits
+                .map((trait) => CONFIG.PF2E.weaponTraits[trait] ?? trait)
+                .map((trait) => `<span class="tag">${trait}</span>`)
+                .join('');
+            flavor += `<div class="tags">${traits}</div><hr>`;
+        }
+
         const baseStyle =
             'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
         const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${
@@ -77,7 +87,7 @@ export class DamageRollModifiersDialog extends Application {
             .concat(damage.diceModifiers)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
-            .filter((m) => !m.critical || context.outcome === 'criticalSuccess')
+            .filter((m) => !m.critical || ctx.outcome === 'criticalSuccess')
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 const modifier =
@@ -88,18 +98,14 @@ export class DamageRollModifiersDialog extends Application {
                 return `<span style="${modifierStyle}">${label}${modifier}${damageType}</span>`;
             })
             .join('');
-
-        const optionStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
-        const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(CONFIG.PF2E.weaponTraits[o])}</span>`)
-            .join('');
+        flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
 
         const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+        flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[context.outcome ?? 'success']);
+        const formula = duplicate(damage.formula[ctx.outcome ?? 'success']);
         const rollData: any = {
-            outcome: context.outcome ?? 'success',
+            outcome: ctx.outcome ?? 'success',
             rollMode: ctx.rollMode ?? 'roll',
             traits: damage.traits ?? [],
             types: {},
@@ -171,16 +177,11 @@ export class DamageRollModifiersDialog extends Application {
             return roll;
         })();
 
-        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
         ChatMessage.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 speaker: ChatMessage.getSpeaker(),
-                flavor: `
-                    <b>${damage.name}</b> (${outcome})
-                    <div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}${optionBreakdown}</div>
-                    ${notes}
-                `,
+                flavor,
                 content: content.trim(),
                 roll,
                 flags: {
