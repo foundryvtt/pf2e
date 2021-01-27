@@ -19,8 +19,8 @@ export class PF2ELoot extends PF2EActor {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** @override
-     * Anyone with Observer permission can update a loot actor
+    /** Anyone with Observer permission can update a loot actor
+     * @override
      */
     static can(user: User, action: string, target: PF2ELoot): boolean {
         if (action === 'update') {
@@ -33,14 +33,15 @@ export class PF2ELoot extends PF2EActor {
         return PF2ELoot.can(user, 'update', this);
     }
 
+    /** @override */
     async transferItemToActor(
         targetActor: PF2EActor,
         item: PF2EItem,
         quantity: number,
-        containerId: string,
-    ): Promise<PF2EPhysicalItem | null> {
+        containerId?: string,
+    ): Promise<PF2EPhysicalItem | void> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
-        if (!(this.hasPerm(game.user, 'owner') && targetActor.hasPerm(game.user, 'owner'))) {
+        if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
@@ -106,10 +107,10 @@ export class LootTransfer implements LootTransferData {
         game.socket.emit('system.pf2e', { request: 'lootTransfer', data: this });
     }
 
-    // Only a GM can call this method, or else Foundry will block it
-    async enact(requester: UserPF2e): Promise<PF2EActor | null | undefined> {
+    // Only a GM can call this method, or else Foundry will block it (or would if we didn't first)
+    async enact(requester: UserPF2e): Promise<void> {
         if (!game.user.isGM) {
-            return null;
+            return Promise.reject(new Error('Unauthorized loot transfer'));
         }
 
         console.debug('PF2e System | Enacting loot transfer');
@@ -127,8 +128,7 @@ export class LootTransfer implements LootTransferData {
                 (targetActor.hasPerm(requester, 'owner') || targetActor instanceof PF2ELoot)
             )
         ) {
-            console.error('PF2e System | Failed sanity check!');
-            return null;
+            return Promise.reject(new Error('PF2e System | Failed sanity check during loot transfer'));
         }
 
         const targetItem = await sourceActor.transferItemToActor(
@@ -137,8 +137,8 @@ export class LootTransfer implements LootTransferData {
             this.quantity,
             this.containerId,
         );
-        if (targetItem === null) {
-            return null;
+        if (!(targetItem instanceof PF2EPhysicalItem)) {
+            return Promise.reject();
         }
 
         this.sendMessage(requester, sourceActor, targetActor, targetItem);
