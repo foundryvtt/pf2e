@@ -4,12 +4,16 @@ import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { forceOpen } from './athletics/force-open';
 import { grapple } from './athletics/grapple';
+import { seek } from './basic/seek';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
-type CheckType = 'skill-check' | 'saving-throw' | 'attack-roll';
+type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
 export class PF2Actions {
     static exposeActions(actions: { [key: string]: Function }) {
+        // basic
+        actions.seek = seek;
+
         // athletics
         actions.climb = climb;
         actions.forceOpen = forceOpen;
@@ -32,7 +36,7 @@ export class PF2Actions {
             <b>${game.i18n.localize(title)}</b>
             <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
         const check = new PF2CheckModifier(flavor, stat);
-        const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions);
+        const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
         PF2Check.roll(
             check,
             {
