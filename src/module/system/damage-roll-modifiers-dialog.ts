@@ -71,7 +71,7 @@ export class DamageRollModifiersDialog extends Application {
         if (damage.traits) {
             const traits = damage.traits
                 .map((trait) => CONFIG.PF2E.weaponTraits[trait] ?? trait)
-                .map((trait) => `<span class="tag tag_alt">${trait}</span>`)
+                .map((trait) => `<span class="tag">${trait}</span>`)
                 .join('');
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
