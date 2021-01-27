@@ -1,18 +1,37 @@
 /* global game */
 
+import { PF2EActor } from '@actor/actor';
+
+interface MoveLootOptions extends FormApplicationOptions {
+    maxQuantity: number;
+}
+interface MoveLootFormData extends FormData {
+    quantity: number;
+}
+type MoveLootCallback = (quantity: number) => void;
+
 /**
  * @category Other
  */
 export class MoveLootPopup extends FormApplication {
-    onSubmitCallback: (a: any) => void;
+    onSubmitCallback: MoveLootCallback;
 
-    constructor(object, options, callback) {
+    constructor(object: PF2EActor, options: MoveLootOptions, callback: MoveLootCallback) {
         super(object, options);
 
         this.onSubmitCallback = callback;
     }
 
-    static get defaultOptions() {
+    /** @override */
+    getData() {
+        return {
+            ...super.getData(),
+            maxQuantity: this.options.maxQuantity,
+        };
+    }
+
+    /** @override */
+    static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.id = 'MoveLootPopup';
@@ -24,13 +43,13 @@ export class MoveLootPopup extends FormApplication {
         return options;
     }
 
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // Subscribe to events
     }
 
-    async _updateObject(event, formData) {
+    async _updateObject(_event: DragEvent, formData: MoveLootFormData) {
         if (this.onSubmitCallback) {
             this.onSubmitCallback(formData.quantity);
         }

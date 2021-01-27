@@ -1357,12 +1357,19 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
     /**
      * Moves an item between two actors' inventories.
-     * @param {event} event         Event that fired this method.
-     * @param {actor} sourceActorId ID of the actor who originally owns the item.
-     * @param {actor} targetActorId ID of the actor where the item will be stored.
-     * @param {id} itemId           ID of the item to move between the two actors.
+     * @param event         Event that fired this method.
+     * @param sourceActorId ID of the actor who originally owns the item.
+     * @param targetActorId ID of the actor where the item will be stored.
+     * @param itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(event, sourceActorId, sourceTokenId, targetActorId, targetTokenId, itemId) {
+    async moveItemBetweenActors(
+        event: JQuery.DropEvent,
+        sourceActorId: string,
+        sourceTokenId: string,
+        targetActorId: string,
+        targetTokenId: string,
+        itemId: string,
+    ) {
         const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
         const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
         const item = sourceActor.getOwnedItem(itemId);
@@ -1374,11 +1381,9 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         }
 
         const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
-
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
-            const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
-                console.log(`Accepted moving ${quantity} items`);
+            const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity) => {
                 sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
             });
 
