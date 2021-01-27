@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import { Fraction, sum } from '../../utils';
+import {Fraction, sum} from '../../utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -217,7 +217,17 @@ export interface TravelDuration {
     minutes: number;
 }
 
-function toTravelDuration(distanceInFeet: number, feetPerMinute: number): TravelDuration {
+function toTravelDuration(
+    distanceInFeet: number,
+    feetPerMinute: number,
+    hustleDurationInMinutes: number,
+): TravelDuration {
+    // hustling doubles hour speed for the first x minutes per day
+    // basic idea: calculate days and weeks using increased average speed
+    // calculate remaining day the following way
+    // calculate how many minutes it would take while moving at twice the speed
+    // if it's less than your hustle duration we are done
+    // Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) + Math.min(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2
     const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
     const minutesPerHour = 60;
     const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
@@ -234,8 +244,12 @@ function toTravelDuration(distanceInFeet: number, feetPerMinute: number): Travel
     };
 }
 
-export function calculateTravelDuration(journey: Trip[], velocity: Velocity): TravelDuration {
+export function calculateTravelDuration(
+    journey: Trip[],
+    velocity: Velocity,
+    hustleDurationInMinutes: number = 0,
+): TravelDuration {
     const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
     const feetPerMinute = toFeetPerMinute(velocity);
-    return toTravelDuration(distanceInFeet, feetPerMinute);
+    return toTravelDuration(distanceInFeet, feetPerMinute, hustleDurationInMinutes);
 }
