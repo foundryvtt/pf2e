@@ -35,6 +35,7 @@ import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
+import { PF2Actions } from './module/system/actions/actions';
 
 require('./styles/pf2e.scss');
 
@@ -49,6 +50,7 @@ require('./scripts/system/canvasDropHandler');
 
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
+        actions: { [key: string]: Function };
         worldclock?: WorldClockApplication;
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
@@ -109,9 +111,10 @@ Hooks.once('init', () => {
     (window as any).PF2Check = PF2Check;
 
     // expose actions until we know how to include them on the sheet
-    (game.pf2e as any).actions = {
+    game.pf2e.actions = {
         earnIncome,
     };
+    PF2Actions.exposeActions(game.pf2e.actions);
 
     (game.pf2e as any).gm = {
         calculateXP,
