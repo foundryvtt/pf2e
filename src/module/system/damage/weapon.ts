@@ -419,12 +419,6 @@ export class PF2WeaponDamage {
             formula: {},
         };
 
-        // non-lethal trait
-        if (traits.some((t) => t.name === 'nonlethal')) {
-            damage.tags.push('nonlethal');
-            damage.traits.push('nonlethal');
-        }
-
         // custom dice
         {
             const stats = [];
