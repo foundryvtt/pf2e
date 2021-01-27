@@ -3,6 +3,7 @@ import { PF2EActor } from '@actor/actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { forceOpen } from './athletics/force-open';
+import { grapple } from './athletics/grapple';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'saving-throw' | 'attack-roll';
@@ -12,6 +13,7 @@ export class PF2Actions {
         // athletics
         actions.climb = climb;
         actions.forceOpen = forceOpen;
+        actions.grapple = grapple;
     }
 
     static simpleRollActionCheck(
