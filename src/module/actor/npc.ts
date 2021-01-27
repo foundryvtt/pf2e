@@ -387,6 +387,7 @@ export class PF2ENPC extends PF2EActor {
                     PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
                 };
                 action.critical = (event, options = [], callback?) => {
+                    options = options.concat(['critical']);
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,

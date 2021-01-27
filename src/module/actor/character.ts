@@ -802,7 +802,7 @@ export class PF2ECharacter extends PF2EActor {
                         );
                     };
                     action.critical = (event, options = [], callback?) => {
-                        options = options.concat(strike.options);
+                        options = options.concat(strike.options).concat(['critical']);
                         const damage = PF2WeaponDamage.calculate(
                             item,
                             actorData,
