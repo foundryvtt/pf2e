@@ -89,7 +89,7 @@ export class CheckModifiersDialog extends Application {
             .filter((m) => m.enabled)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_secondary">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
+                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
             })
             .join('');
 
@@ -106,7 +106,7 @@ export class CheckModifiersDialog extends Application {
 
         let flavor = `<b>${check.name}</b>`;
         if (ctx.traits) {
-            const traits = ctx.traits.map((trait) => `<span class="tag tag_alt">${trait}</span>`).join('');
+            const traits = ctx.traits.map((trait) => `<span class="tag">${trait}</span>`).join('');
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
