@@ -6,10 +6,10 @@ import {
     PF2ModifierPredicate,
     PF2StatisticModifier,
 } from '../../modifiers';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '../../item/runes';
+import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory } from './damage';
-import { WeaponData } from '../../item/dataDefinitions';
-import { AbilityString, ActorDataPF2e } from '../../actor/actorDataDefinitions';
+import { WeaponData } from '@item/dataDefinitions';
+import { AbilityString, ActorDataPF2e } from '@actor/actorDataDefinitions';
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 
@@ -33,9 +33,9 @@ export type DamagePool = Record<
 /** Return true if the given damage type is non-null and not physical; false otherwise. */
 function isNonPhysicalDamage(damageType?: string): boolean {
     return (
-        DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL &&
         damageType !== undefined &&
-        damageType !== ''
+        damageType !== '' &&
+        DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
     );
 }
 
@@ -77,7 +77,6 @@ export class PF2WeaponDamage {
             let digits = '';
             let operator = null;
             for (const part of parts) {
-                const digit = Number(part);
                 if (part === 'd') {
                     dice = Number(digits);
                     digits = '';
@@ -94,7 +93,7 @@ export class PF2WeaponDamage {
                     }
                     digits = '';
                     operator = part;
-                } else if (!Number.isNaN(digit)) {
+                } else if (!Number.isNaN(Number(part))) {
                     digits += part;
                 }
             }
@@ -168,7 +167,6 @@ export class PF2WeaponDamage {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers = [];
         const numericModifiers: PF2Modifier[] = [];
-        const tags = [];
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         options = traits.map((t) => t.name).concat(options); // always add all weapon traits to the options
@@ -192,7 +190,6 @@ export class PF2WeaponDamage {
                 ability = 'str';
                 const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
-                tags.push('propulsive');
             }
 
             // check for Rogue's Racket: Thief
@@ -219,7 +216,6 @@ export class PF2WeaponDamage {
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
-            tags.push(twoHandTrait.name);
         }
 
         // versatile trait
@@ -231,7 +227,6 @@ export class PF2WeaponDamage {
                 s: 'slashing',
             };
             baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
-            tags.push(versatileTrait.name);
         }
 
         // custom damage
@@ -420,7 +415,6 @@ export class PF2WeaponDamage {
             diceModifiers,
             numericModifiers,
             // the below fields are calculated
-            tags,
             traits: (traits ?? []).map((t) => t.name),
             formula: {},
         };
@@ -526,9 +520,6 @@ export class PF2WeaponDamage {
                         );
                     }
                     (dm.traits ?? []).forEach((t) => {
-                        if (!damage.tags.includes(t)) {
-                            damage.tags.push(t);
-                        }
                         if (!damage.traits.includes(t)) {
                             damage.traits.push(t);
                         }
@@ -545,9 +536,6 @@ export class PF2WeaponDamage {
                         );
                     }
                     (dm.traits ?? []).forEach((t) => {
-                        if (!damage.tags.includes(t)) {
-                            damage.tags.push(t);
-                        }
                         if (!damage.traits.includes(t)) {
                             damage.traits.push(t);
                         }
