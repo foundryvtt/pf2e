@@ -5,6 +5,7 @@ import { climb } from './athletics/climb';
 import { forceOpen } from './athletics/force-open';
 import { grapple } from './athletics/grapple';
 import { highJump } from './athletics/high-jump';
+import { longJump } from './athletics/long-jump';
 import { seek } from './basic/seek';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
@@ -20,6 +21,7 @@ export class PF2Actions {
         actions.forceOpen = forceOpen;
         actions.grapple = grapple;
         actions.highJump = highJump;
+        actions.longJump = longJump;
     }
 
     static simpleRollActionCheck(
