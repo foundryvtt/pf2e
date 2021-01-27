@@ -2,6 +2,7 @@ import { climb } from './athletics/climb';
 import { PF2EActor } from '@actor/actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
+import { forceOpen } from './athletics/force-open';
 
 type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'saving-throw' | 'attack-roll';
@@ -10,6 +11,7 @@ export class PF2Actions {
     static exposeActions(actions: { [key: string]: Function }) {
         // athletics
         actions.climb = climb;
+        actions.forceOpen = forceOpen;
     }
 
     static simpleRollActionCheck(
