@@ -611,8 +611,9 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
-                    const defaultOptions = PF2EActor.traits(item?.data?.traits?.value); // always add all weapon traits as options
-                    defaultOptions.push(`${ability}-attack`);
+                    const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
+                        .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
+                        .concat(`${ability}-attack`);
                     const notes = [] as PF2RollNote[];
 
                     if (item.data.group?.value === 'bomb') {
