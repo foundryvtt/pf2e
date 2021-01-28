@@ -587,6 +587,16 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             }
         });
 
+        // open ancestry, background, or class compendium
+        html.find('.open-compendium').on('click', (event) => {
+            if (event.currentTarget.dataset.compendium) {
+                const compendium = game.packs.get(event.currentTarget.dataset.compendium);
+                if (compendium) {
+                    compendium.render(true);
+                }
+            }
+        });
+
         // filter strikes
         html.find('.toggle-unready-strikes').on('click', (event) => {
             this.actor.setFlag(
