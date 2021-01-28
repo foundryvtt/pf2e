@@ -6,11 +6,11 @@ import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
 import { PF2EAncestry } from '../module/item/ancestry';
 import { PF2EBackground } from '../module/item/background';
+import { PF2EClass } from '../module/item/class';
 import {
     PF2EAction,
     PF2EArmor,
     PF2EBackpack,
-    PF2EClass,
     PF2ECondition,
     PF2EConsumable,
     PF2EEquipment,
