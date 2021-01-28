@@ -913,7 +913,7 @@ export class PF2EItem extends Item<PF2EActor> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!this.data.data.spell) return;
         const actor = this.actor;
-        const spellData: any = this.data.data.spell.data.data;
+        const spellData = this.data.data.spell.data.data;
         let spellcastingEntries = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
