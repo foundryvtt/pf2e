@@ -1794,17 +1794,21 @@ export const PF2ECONFIG = {
     loot: {
         subtitles: {
             take: 'PF2E.loot.TakeSubtitle',
-            stow: 'PF2E.loot.StowSubtitle',
+            deposit: 'PF2E.loot.DepositSubtitle',
             transfer: 'PF2E.loot.TransferSubtitle',
             sell: 'PF2E.loot.SellSubtitle',
             give: 'PF2E.loot.GiveSubtitle',
         },
         messages: {
             take: 'PF2E.loot.TakeMessage',
-            stow: 'PF2E.loot.StowMessage',
+            deposit: 'PF2E.loot.DepositMessage',
             transfer: 'PF2E.loot.TransferMessage',
             sell: 'PF2E.loot.SellMessage',
             give: 'PF2E.loot.GiveMessage',
+        },
+        errors: {
+            insufficient: 'PF2E.loot.InsufficientCurrencyError',
+            supervision: 'PF2E.loot.GMSupervisionError',
         },
     },
 
