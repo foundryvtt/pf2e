@@ -109,8 +109,8 @@ export class PF2Modifier {
         modifier: number,
         type: string,
         enabled: boolean = true,
-        source: string = undefined,
-        notes: string = undefined,
+        source: string | undefined = undefined,
+        notes: string | undefined = undefined,
     ) {
         this.name = name;
         this.modifier = modifier;

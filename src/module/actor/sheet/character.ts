@@ -482,6 +482,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
+            // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
             if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
                 this._preparedSpellSlots(entry, spellbooks[entry._id]);
             }
@@ -736,7 +737,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
-        const errors = [];
+        const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
         }
@@ -759,7 +760,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     onRemoveCustomModifier(event) {
         const stat = $(event.currentTarget).attr('data-stat');
         const name = $(event.currentTarget).attr('data-name');
-        const errors = [];
+        const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
         }

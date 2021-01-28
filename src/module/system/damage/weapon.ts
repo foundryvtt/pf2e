@@ -9,7 +9,7 @@ import {
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory } from './damage';
 import { WeaponData } from '@item/dataDefinitions';
-import { AbilityString, ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actorDataDefinitions';
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 
@@ -46,7 +46,7 @@ export class PF2WeaponDamage {
     static calculateStrikeNPC(
         weapon,
         actor: ActorDataPF2e,
-        traits = [],
+        traits: CharacterStrikeTrait[] = [],
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice,
         proficiencyRank = 0,
@@ -70,8 +70,8 @@ export class PF2WeaponDamage {
             : Object.values(weapon.data.damageRolls);
         let parsedBaseDamage = false;
         for (const dmg of damageRolls) {
-            let dice = null;
-            let die = null;
+            let dice: number | null = null;
+            let die: string | null = null;
             let modifier = 0;
             const parts = dmg.damage.split('');
             let digits = '';
@@ -155,13 +155,13 @@ export class PF2WeaponDamage {
     static calculate(
         weapon: WeaponData,
         actor: ActorDataPF2e,
-        traits = [],
+        traits: CharacterStrikeTrait[] = [],
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>,
         proficiencyRank = 0,
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
-        weaponPotency: PF2WeaponPotency,
+        weaponPotency: PF2WeaponPotency | null,
         striking: Record<string, PF2Striking[]>,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
@@ -174,7 +174,7 @@ export class PF2WeaponDamage {
         // determine ability modifier
         let ability: AbilityString;
         {
-            let modifier: number;
+            let modifier: number = 0;
             const melee =
                 ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
                 traits.some((t) => t.name.startsWith('thrown'));
