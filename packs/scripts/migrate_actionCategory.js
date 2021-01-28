@@ -6,10 +6,12 @@ var fs = require('fs-extra');
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
-function JSONstringifyOrder(obj, space)
-{
+function JSONstringifyOrder(obj, space) {
     const allKeys = [];
-    JSON.stringify(obj, (key, value) => { allKeys.push(key); return value; });
+    JSON.stringify(obj, (key, value) => {
+        allKeys.push(key);
+        return value;
+    });
     allKeys.sort();
     return JSON.stringify(obj, allKeys, space);
 }
@@ -33,7 +35,6 @@ function migrateNpc(npc) {
     }
 }
 
-
 async function migrate() {
     const allEntries = [];
 
@@ -53,7 +54,6 @@ async function migrate() {
         for (const fileName of packFiles) {
             allEntries.push(path.resolve(packsDataPath, pack, fileName));
         }
-
     }
 
     for (const entry of allEntries) {
