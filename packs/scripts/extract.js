@@ -52,8 +52,9 @@ const config = (() => {
 })();
 
 const packsPath = path.resolve(config.dataPath, 'Data/systems/pf2e/packs');
-const tempDataPath = path.resolve(__dirname, '../temp-data');
-const dataPath = path.resolve(__dirname, '../data');
+const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
+const dataPath = path.resolve(process.cwd(), 'packs/data');
+const packsMetadata = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8')).packs;
 
 const idsToNames = new Map();
 
@@ -98,11 +99,9 @@ function sluggify(entityName) {
         .replace(/\s+|-{2,}/g, '-');
 }
 
-function sanitizeEntity(entityData) {
+function sanitizeEntity(entityData, packName) {
     // Remove individual permissions
-    entityData.permission = {
-        default: 0,
-    };
+    entityData.permission = { default: entityData.permission.default ?? 0 };
 
     delete entityData.sort;
     delete entityData.flags.core;
@@ -182,7 +181,7 @@ const newEntityIdMap = {};
 function convertLinks(entityData, packName) {
     newEntityIdMap[entityData._id] = entityData.name;
 
-    const entityJson = JSON.stringify(sanitizeEntity(entityData));
+    const entityJson = JSON.stringify(sanitizeEntity(entityData, packName));
 
     // Link checks
 
@@ -300,17 +299,16 @@ async function extractPack(filePath, packFilename) {
 }
 
 function populateIdNameMap() {
-    const systemPackData = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8')).packs;
     const packDirs = fs.readdirSync(dataPath);
 
     for (const packDir of packDirs) {
-        const systemPack = systemPackData.find((pack) => path.basename(pack.path) === packDir);
-        if (systemPack === undefined) {
-            throwPackError(`Compendium at ${packDir} has no name in the local system.json file.`);
+        const metadata = packsMetadata.find((pack) => path.basename(pack.path) === packDir);
+        if (metadata === undefined) {
+            throwPackError(`Compendium at ${packDir} has metadata in the local system.json file.`);
         }
 
         const packMap = new Map();
-        idsToNames.set(systemPack.name, packMap);
+        idsToNames.set(metadata.name, packMap);
 
         const filenames = fs.readdirSync(path.resolve(dataPath, packDir));
         const filePaths = filenames.map((filename) => path.resolve(dataPath, packDir, filename));
@@ -370,6 +368,7 @@ async function extractPacks() {
 
                 // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
                 fs.rmdirSync(outDirPath, { recursive: true });
+                console.log(`${tempOutDirPath}, ${outDirPath}`);
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
                 console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
@@ -381,6 +380,7 @@ async function extractPacks() {
 
 extractPacks()
     .then((grandTotal) => {
+        fs.rmdirSync(tempDataPath, { recursive: true });
         console.log(`Extraction complete (${grandTotal} total entities).`);
     })
     .catch((error) => {

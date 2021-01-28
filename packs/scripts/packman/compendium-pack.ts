@@ -34,68 +34,71 @@ export class CompendiumPack {
     data: PackEntityData[];
 
     static outDir = path.resolve(process.cwd(), 'static/packs');
-    static _namesToIds = new Map<string, Map<string, string>>();
-    static _systemPackData = JSON.parse(fs.readFileSync('system.json', 'utf-8')).packs as PackMetadata[];
-    static _worldItemLinkPattern = new RegExp(/@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/);
+    private static namesToIds = new Map<string, Map<string, string>>();
+    private static packsMetadata = JSON.parse(fs.readFileSync('system.json', 'utf-8')).packs as PackMetadata[];
+    private static worldItemLinkPattern = new RegExp(
+        /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/,
+    );
 
     constructor(packDir: string, parsedData: unknown[]) {
-        if (this.isPackData(parsedData)) {
-            this.packDir = packDir;
-            const compendium = CompendiumPack._systemPackData.find(
-                (pack) => path.basename(pack.path) === path.basename(packDir),
-            );
-            if (compendium === undefined) {
-                throw PackError(`Compendium at ${packDir} has no name in the local system.json file.`);
+        const metadata = CompendiumPack.packsMetadata.find(
+            (pack) => path.basename(pack.path) === path.basename(packDir),
+        );
+        if (metadata === undefined) {
+            throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
+        }
+        this.systemId = metadata.system;
+        this.name = metadata.name;
+        this.entityClass = metadata.entity;
+
+        if (!this.isPackData(parsedData)) {
+            throw PackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
+        }
+
+        this.packDir = packDir;
+
+        CompendiumPack.namesToIds.set(this.name, new Map());
+        const packMap = CompendiumPack.namesToIds.get(this.name);
+        if (packMap === undefined) {
+            throw PackError(`Compendium ${this.name} (${packDir}) was not found.`);
+        }
+
+        parsedData.sort((a, b) => {
+            if (a._id === b._id) {
+                throw PackError(`_id collision in ${this.name}: ${a._id}`);
             }
-            this.systemId = compendium.system;
-            this.name = compendium.name;
-            this.entityClass = compendium.entity;
+            return a._id > b._id ? 1 : -1;
+        });
 
-            CompendiumPack._namesToIds.set(this.name, new Map());
-            const packMap = CompendiumPack._namesToIds.get(this.name);
-            if (packMap === undefined) {
-                throw PackError(`Compendium ${this.name} (${packDir}) was not found.`);
-            }
+        this.data = parsedData;
 
-            parsedData.sort((a, b) => {
-                if (a._id === b._id) {
-                    throw PackError(`_id collision in ${this.name}: ${a._id}`);
-                }
-                return a._id > b._id ? 1 : -1;
-            });
+        for (const entityData of this.data) {
+            // Populate CompendiumPack.namesToIds for later conversion of compendium links
+            packMap.set(entityData.name, entityData._id);
 
-            this.data = parsedData;
+            // Check img paths
+            if (typeof entityData.img === 'string') {
+                const imgPaths = [entityData.img ?? ''].concat(
+                    Array.isArray(entityData.items) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
+                );
+                const entityName = entityData.name;
+                for (const imgPath of imgPaths) {
+                    if (imgPath.startsWith('data:image')) {
+                        const imgData = imgPath.slice(0, 64);
+                        const msg = `${entityName} (${this.name}) has base64-encoded image data: ${imgData}...`;
+                        throw PackError(msg);
+                    }
 
-            for (const entityData of this.data) {
-                // Populate CompendiumPack._namesToIds for later conversion of compendium links
-                packMap.set(entityData.name, entityData._id);
-
-                // Check img paths
-                if (typeof entityData.img === 'string') {
-                    const imgPaths = [entityData.img ?? ''].concat(
-                        Array.isArray(entityData.items) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
+                    const repoImgPath = path.resolve(
+                        process.cwd(),
+                        'static',
+                        decodeURIComponent(imgPath).replace('systems/pf2e/', ''),
                     );
-                    const entityName = entityData.name;
-                    for (const imgPath of imgPaths) {
-                        if (imgPath.startsWith('data:image')) {
-                            const imgData = imgPath.slice(0, 64);
-                            const msg = `${entityName} (${this.name}) has base64-encoded image data: ${imgData}...`;
-                            throw PackError(msg);
-                        }
-
-                        const repoImgPath = path.resolve(
-                            process.cwd(),
-                            'static',
-                            decodeURIComponent(imgPath).replace('systems/pf2e/', ''),
-                        );
-                        if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
-                            throw PackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
-                        }
+                    if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
+                        throw PackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
                     }
                 }
             }
-        } else {
-            throw PackError(`Data supplied for ${this.name} does not resemble Foundry entity data.`);
         }
     }
 
@@ -144,7 +147,7 @@ export class CompendiumPack {
     private finalize(entityData: PackEntityData) {
         // Replace all compendium entities linked by name to links by ID
         const stringified = JSON.stringify(entityData);
-        const worldItemLink = CompendiumPack._worldItemLinkPattern.exec(stringified);
+        const worldItemLink = CompendiumPack.worldItemLinkPattern.exec(stringified);
         if (worldItemLink !== null) {
             throw PackError(`${entityData.name} (${this.name}) has a link to a world item: ${worldItemLink[0]}`);
         }
@@ -157,7 +160,7 @@ export class CompendiumPack {
         return JSON.stringify(entityData).replace(
             /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
             (match, packName: string, entityName: string) => {
-                const namesToIds = CompendiumPack._namesToIds.get(packName);
+                const namesToIds = CompendiumPack.namesToIds.get(packName);
                 const link = match.replace(/\{$/, '');
                 if (namesToIds === undefined) {
                     throw PackError(`${entityData.name} (${this.name}) has a bad pack reference: ${link}`);
@@ -209,7 +212,10 @@ export class CompendiumPack {
             // type: (data: any) => typeof data.type === "string",
             flags: (data: any) => typeof data.flags === 'object',
             permission: (data: any) =>
-                data.permission !== undefined && JSON.stringify(data.permission) === '{"default":0}',
+                typeof data.permission === 'object' &&
+                data.permission !== null &&
+                Object.keys(data.permission).length === 1 &&
+                Number.isInteger(data.permission.default),
         });
 
         const failedChecks = checks
