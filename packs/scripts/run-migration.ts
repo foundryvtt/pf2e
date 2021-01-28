@@ -1,8 +1,8 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { populateFoundryUtilFunctions } from '../tests/fixtures/foundryshim';
-import { MigrationRunnerBase } from '../src/module/migration-runner-base';
-import { Migration595AddItemSize } from '../src/module/migrations/595-item-sizes';
+import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
+import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
+import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
 import { ItemData } from '@item/dataDefinitions';
 import { PF2EActor } from '@actor/actor';
 import { PF2EItem } from '@item/item';
@@ -45,7 +45,7 @@ const isItemData = (entityData: { type: string }): entityData is ItemData => {
 };
 
 function JSONstringifyOrder(obj: object, space: number): string {
-    const allKeys = [];
+    const allKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
         allKeys.push(key);
         return value;
@@ -94,7 +94,7 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        if(!('type' in entity)) continue;
+        if (!('type' in entity) || ['chat', 'script'].includes(entity.type)) continue;
 
         let updatedEntity: ActorData | ItemData;
         if (isActorData(entity)) {
