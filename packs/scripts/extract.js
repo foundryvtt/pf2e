@@ -52,8 +52,8 @@ const config = (() => {
 })();
 
 const packsPath = path.resolve(config.dataPath, 'Data/systems/pf2e/packs');
-const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
-const dataPath = path.resolve(process.cwd(), 'packs/data');
+const tempDataPath = path.resolve(__dirname, '../temp-data');
+const dataPath = path.resolve(__dirname, '../data');
 
 const idsToNames = new Map();
 
