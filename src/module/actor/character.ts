@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { AncestryData, BackgroundData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
+import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getResiliencyBonus } from '../item/runes';
 import {
@@ -45,6 +45,7 @@ export class PF2ECharacter extends PF2EActor {
 
         this.prepareAncestry(actorData);
         this.prepareBackground(actorData);
+        this.prepareClass(actorData);
 
         const rules: PF2RuleElement[] = actorData.items.reduce(
             (accumulated: PF2RuleElement[], current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
@@ -855,6 +856,15 @@ export class PF2ECharacter extends PF2EActor {
 
         if (background) {
             actorData.data.details.background.value = background.name;
+        }
+    }
+
+    prepareClass(actorData: CharacterData) {
+        const classData = actorData.items.find((x): x is ClassData => x.type === 'class');
+
+        if (classData) {
+            actorData.data.details.class.value = classData.name;
+            actorData.data.attributes.classhp = classData.data.hp;
         }
     }
 }

@@ -10,6 +10,7 @@ import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem, SpellData, ItemData, SpellcastingEntryData } from '../../item/dataDefinitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
+import { PF2EClass } from '../../item/class';
 
 /**
  * @category Other
@@ -42,7 +43,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 'data.hp.value': formData['data.attributes.shield.hp.value'],
             });
         }
+        const previousLevel = this.actor.data.data.details.level.value;
         await super._updateObject(event, formData);
+
+        const updatedLevel = this.actor.data.data.details.level.value;
+        if (updatedLevel != previousLevel) {
+            await PF2EClass.ensureClassFeaturesForLevel(this.actor);
+        }
     }
 
     /**
@@ -61,6 +68,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         const backgroundItem = this.actor.items.find((x) => x.type === 'background');
         sheetData.backgroundItemId = backgroundItem ? backgroundItem.id : '';
+
+        const classItem = this.actor.items.find((x) => x.type === 'class');
+        sheetData.classItemId = classItem ? classItem.id : '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -760,6 +770,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         if (itemData.type === 'background') {
             return PF2EBackground.addToActor(this.actor, itemData);
+        }
+
+        if (itemData.type === 'class') {
+            return PF2EClass.addToActor(this.actor, itemData);
         }
 
         return super._onDropItemCreate(itemData);
