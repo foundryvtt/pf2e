@@ -944,10 +944,10 @@ export class PF2EActor extends Actor<PF2EItem> {
         targetActor: PF2EActor,
         item: PF2EItem,
         quantity: number,
-        containerId: string,
-    ): Promise<PF2EPhysicalItem | null> {
+        containerId?: string,
+    ): Promise<PF2EPhysicalItem | void> {
         if (!(item instanceof PF2EPhysicalItem)) {
-            throw Error('Only physical items (with quantities) can be transfered between actors');
+            return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
 
         // Loot transfers can be performed by non-owners when a GM is online */
@@ -961,23 +961,23 @@ export class PF2EActor extends Actor<PF2EItem> {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
             const LootTransfer: {
-                new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId: string): {
+                new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId?: string): {
                     request(): Promise<void>;
                 };
             } = require('./loot').LootTransfer;
             const lootTransfer = new LootTransfer(source, target, quantity, containerId);
             await lootTransfer.request();
 
-            return null;
+            return;
         }
 
         if (!this.can(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
-            return null;
+            return;
         }
         if (!targetActor.can(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
-            return null;
+            return;
         }
 
         // Limit the amount of items transfered to how many are actually available.
@@ -1017,10 +1017,10 @@ export class PF2EActor extends Actor<PF2EItem> {
     static async stashOrUnstash<ItemType extends PF2EPhysicalItem = PF2EPhysicalItem>(
         actor: PF2EActor,
         getItem: () => Promise<ItemType>,
-        containerId: string,
-    ): Promise<ItemType | null> {
+        containerId?: string,
+    ): Promise<ItemType> {
         const item = await getItem();
-        if (!item) return null;
+        if (!item) return Promise.reject();
 
         if (containerId) {
             const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
