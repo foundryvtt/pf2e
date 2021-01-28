@@ -33,8 +33,8 @@ export class PF2Actions {
     }
 
     static simpleRollActionCheck(
-        actor: PF2EActor,
-        stat: PF2StatisticModifier,
+        actors: PF2EActor | PF2EActor[],
+        stat: string,
         actionGlyph: ActionGlyph,
         title: string,
         subtitle: string,
@@ -44,20 +44,40 @@ export class PF2Actions {
         checkType: CheckType,
         event: JQuery.Event,
     ) {
-        const flavor = `<span class="pf2-icon">${actionGlyph}</span>
-            <b>${game.i18n.localize(title)}</b>
-            <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-        const check = new PF2CheckModifier(flavor, stat);
-        const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
-        PF2Check.roll(
-            check,
-            {
-                actor,
-                type: checkType,
-                options: finalOptions,
-                traits,
-            },
-            event,
-        );
+        // figure out actors to roll for
+        const rollers: PF2EActor[] = [];
+        if (actors && Array.isArray(actors) && actors.length) {
+            rollers.push(...actors);
+        } else if (actors instanceof PF2EActor) {
+            rollers.push(actors);
+        } else if (canvas.tokens.controlled.length) {
+            rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as PF2EActor[]));
+        } else if (game.user.character) {
+            rollers.push(game.user.character);
+        }
+
+        if (rollers.length) {
+            rollers.forEach((actor) => {
+                const flavor = `
+                    <span class="pf2-icon">${actionGlyph}</span>
+                    <b>${game.i18n.localize(title)}</b>
+                    <p class="compact-text">(${game.i18n.localize(subtitle)})</p>
+                `.trim();
+                const check = new PF2CheckModifier(flavor, getProperty(actor, stat) as PF2StatisticModifier);
+                const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                PF2Check.roll(
+                    check,
+                    {
+                        actor,
+                        type: checkType,
+                        options: finalOptions,
+                        traits,
+                    },
+                    event,
+                );
+            });
+        } else {
+            ui.notifications.warn(game.i18n.localize('PF2E.ActionsCheck.WarningNoActor'));
+        }
     }
 }
