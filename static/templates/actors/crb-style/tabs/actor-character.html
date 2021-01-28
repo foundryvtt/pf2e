@@ -54,7 +54,11 @@
                 <span title="{{localize 'PF2E.AncestryTitle'}}">
                     <h3>
                         {{data.details.ancestry.value}}
-                        {{#if ancestryItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                        {{#if ancestryItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
                     </h3>
                 </span>
             </div>
@@ -79,7 +83,12 @@
                 <span title="{{localize 'PF2E.ClassTitle'}}">
                     <h3>
                         {{data.details.class.value}}
-                        {{#if classItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                        {{#if classItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+
                     </h3>
                 </span>
             </div>
@@ -90,7 +99,11 @@
                 <span title="{{localize 'PF2E.BackgroundTitle'}}">
                     <h3>
                         {{data.details.background.value}}
-                        {{#if backgroundItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                        {{#if backgroundItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
                     </h3>
                 </span>
             </div>
