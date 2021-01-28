@@ -242,7 +242,7 @@ export class PF2ENPC extends PF2EActor {
 
                 data.skills[shortform] = stat;
             } else if (item.type === 'melee') {
-                const modifiers = [];
+                const modifiers: PF2Modifier[] = [];
                 const notes = [] as PF2RollNote[];
 
                 // traits
@@ -274,7 +274,7 @@ export class PF2ENPC extends PF2EActor {
 
                 // Conditions and Custom modifiers to attack rolls
                 {
-                    const stats = [];
+                    const stats: string[] = [];
                     stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
                     stats
                         .concat([

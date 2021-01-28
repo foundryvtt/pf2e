@@ -553,6 +553,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     isAttack?: boolean;
     spellLvl?: string;
     properties?: (number | string)[];
+    item?: string;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
