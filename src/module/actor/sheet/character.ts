@@ -482,6 +482,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
+            // TODO: this codepath does not appear to ever be used. Consider removing after verifying more thoroughly
+            if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+                this._preparedSpellSlots(entry, spellbooks[entry._id]);
+            }
             entry.spellbook = spellbooks[entry._id];
         }
 
