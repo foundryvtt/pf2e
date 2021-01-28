@@ -115,6 +115,8 @@ function sanitizeEntity(entityData, packName) {
                     'Please remember to create a slug migration before next release.',
             );
         }
+    }
+    if (slug !== undefined) {
         delete entityData.data.slug;
     }
 
