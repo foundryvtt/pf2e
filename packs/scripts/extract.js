@@ -101,8 +101,7 @@ function sluggify(entityName) {
 
 function sanitizeEntity(entityData, packName) {
     // Remove individual permissions
-    const metadata = packsMetadata.find((pack) => path.basename(pack.name) === packName);
-    entityData.permission = { default: entityData.permission.default };
+    entityData.permission = { default: entityData.permission.default ?? 0 };
 
     delete entityData.sort;
     delete entityData.flags.core;
