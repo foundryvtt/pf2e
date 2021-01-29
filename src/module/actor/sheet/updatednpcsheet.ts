@@ -201,7 +201,6 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         const tokenData = this.token !== null ? duplicate(this.token.data) : duplicate(this.actor.data.token);
         const traits = getProperty(actorData.data, 'traits.traits.value') || [];
         let traitsAdjusted = false;
-        let tokenScale = 1;
         let adjustBackToNormal = false;
 
         if (increase) {
@@ -222,7 +221,6 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                 traits.push('elite');
                 actorData.name = `Elite ${actorData.name}`;
                 tokenData.name = `Elite ${tokenData.name}`;
-                tokenScale = 1.2;
             } else {
                 if (actorData.name.startsWith('Weak ')) actorData.name = actorData.name.slice(5);
                 if (tokenData.name.startsWith('Weak ')) tokenData.name = tokenData.name.slice(5);
@@ -246,7 +244,6 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
                 traits.push('weak');
                 actorData.name = `Weak ${actorData.name}`;
                 tokenData.name = `Weak ${tokenData.name}`;
-                tokenScale = 0.8;
             } else {
                 if (actorData.name.startsWith('Elite ')) actorData.name = actorData.name.slice(6);
                 if (tokenData.name.startsWith('Elite ')) tokenData.name = tokenData.name.slice(6);
@@ -259,15 +256,9 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
 
         if (this.token === null) {
             // Then we need to apply this to the token prototype
-            this.actor.update({
-                'token.name': tokenData.name,
-                'token.scale': tokenScale,
-            });
+            this.actor.update({ 'token.name': tokenData.name });
         } else {
-            this.token.update({
-                name: tokenData.name,
-                scale: tokenScale,
-            });
+            this.token.update({ name: tokenData.name });
         }
 
         // modify actordata, including items
