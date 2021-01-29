@@ -19,17 +19,28 @@
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
-        "prerequisites": {
-            "value": [
-                "Godless Healing",
-                "you follow the Laws of Mortality"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "Godless Healing",
+            "You follow the Laws of Mortality"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:treat-wounds"
+                    ]
+                },
+                "selector": "medicine",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds} for a creature that hasn't regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points. </p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -44,6 +55,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Mortal Healing",
