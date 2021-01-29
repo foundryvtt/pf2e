@@ -59,7 +59,7 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
 
         html.find('[data-perception-check]').on('click', '*', (event) => {
             const options = this.actor.getRollOptions(['all', 'perception']);
-            this.actor.data.data.attributes.perception.roll(event, options);
+            this.actor.data.data.attributes.perception.roll({ event, options });
         });
 
         html.find('[data-attack-roll]').on('click', '*', (event) => {

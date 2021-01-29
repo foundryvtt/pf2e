@@ -993,7 +993,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
     rollPerception(event) {
         const options = this.actor.getRollOptions(['all', 'perception-check']);
-        this.actor.data.data.attributes.perception.roll(event, options);
+        this.actor.data.data.attributes.perception.roll({ event, options });
     }
 
     rollAbility(event, abilityId) {
@@ -1031,7 +1031,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
                 opts.push(...split);
             }
 
-            skill.roll(event, opts);
+            skill.roll({ event, options: opts });
         } else {
             this.actor.rollSkill(event, skillId);
         }
