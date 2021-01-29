@@ -1,18 +1,34 @@
-<div class="pc pc_class-hp">
-    <label for="class-hp">
-        {{localize 'PF2E.ClassHP'}}
+<div class="pc pc_land-speed">
+    <label for="land-speed">
+        {{localize 'PF2E.Speed'}}
     </label>
     <span>
-        <input
-            id="class-hp"
-            type="number"
-            name="data.attributes.classhp"
-            data-dtype="Number"
-            value="{{data.attributes.classhp}}"
-            placeholder="0"
-        />
+        <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</h3>
     </span>
 </div>
+<div class="pc pc_size">
+    <label class="pf-title">
+        {{localize 'PF2E.Size'}}
+    </label>
+    <span>
+        <h3>{{lookup actorSizes data.traits.size.value}}</h3>
+    </span>
+</div>
+<div class="pc pc_key-ability dropdown">
+    <label for="key-ability">
+        {{localize 'PF2E.KeyAbilityLabel'}}
+    </label>
+    <select id="key-ability" name="data.details.keyability.value">
+        {{#select data.details.keyability.value}}
+            {{#each abilities as |label ability|}}
+                <option value="{{ability}}">{{label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="break-column"></div>
+
 <div class="pc pc_flat-bonus-hp">
     <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">
         {{localize 'PF2E.BonusHPLabel'}}
@@ -43,67 +59,31 @@
         />
     </span>
 </div>
-<div class="pc pc_land-speed">
-    <label for="land-speed">
-        {{localize 'PF2E.Speed'}}
-    </label>
-    <span>
-        <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</h3>
-    </span>
-</div>
-<div class="pc pc_ethnicity">
-    <label for="ethnicity">
-        {{localize 'PF2E.Ethnicity'}}
-    </label>
-    <span>
-        <input
-            id="ethnicity"
-            type="text"
-            name="data.details.ethnicity.value"
-            data-dtype="String"
-            value="{{data.details.ethnicity.value}}"
-        />
-    </span>
-</div>
-<div class="pc pc_nationality">
-  <label for="nationality">
-    {{localize 'PF2E.Nationality'}}
-  </label>
-  <span>
-        <input
-          id="nationality"
-          type="text"
-          name="data.details.nationality.value"
-          data-dtype="String"
-          value="{{data.details.nationality.value}}"
-        />
-    </span>
-</div>
 <div class="pc pc_bonus-bulk encumbrance">
-  <label for="bonus-encumbrance-bulk">
+<label for="bonus-encumbrance-bulk">
     {{localize 'PF2E.BonusEncumbranceBulkLabel'}}
-  </label>
-  <input
+</label>
+<input
     id="bonus-encumbrance-bulk"
     type="text"
     name="data.attributes.bonusEncumbranceBulk"
     data-dtype="Number"
     value="{{data.attributes.bonusEncumbranceBulk}}"
     placeholder="0"
-  />
+/>
 </div>
 <div class="pc pc_bonus-bulk">
-  <label for="bonus-limit-bulk">
+<label for="bonus-limit-bulk">
     {{localize 'PF2E.BonusLimitBulkLabel'}}
-  </label>
-  <input
+</label>
+<input
     id="bonus-limit-bulk"
     type="text"
     name="data.attributes.bonusLimitBulk"
     data-dtype="Number"
     value="{{data.attributes.bonusLimitBulk}}"
     placeholder="0"
-  />
+/>
 </div>
 {{#if hasStamina}}
 <div class="pc pc_stamina-flat-bonus-sp">
@@ -144,26 +124,7 @@
     </span>
 </div>
 {{/if}}
-<div class="pc pc_size dropdown">
-    <label class="pf-title">
-        {{localize 'PF2E.Size'}}
-    </label>
-    <span>
-        <h3>{{lookup actorSizes data.traits.size.value}}</h3>
-    </span>
-</div>
-<div class="pc pc_key-ability dropdown">
-    <label for="key-ability">
-        {{localize 'PF2E.KeyAbilityLabel'}}
-    </label>
-    <select id="key-ability" name="data.details.keyability.value">
-        {{#select data.details.keyability.value}}
-            {{#each abilities as |label ability|}}
-                <option value="{{ability}}">{{label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
+
 <div class="tags">
     <div class="pc pc_speed-types">
         <h4>

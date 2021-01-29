@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration567MigrateClassDC extends MigrationBase {
-    version = 0.567;
+    static version = 0.567;
     async updateActor(actor: any) {
         if (actor == 'character') {
             actor.data.attributes.classDC = {

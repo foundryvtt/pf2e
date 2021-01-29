@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,47 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Irongut Goblin (vs. afflictions & sickened)",
+                "predicate": {
+                    "all": [
+                        "ingested"
+                    ],
+                    "any": [
+                        "affliction",
+                        "sickened"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "ingested"
+                    ],
+                    "any": [
+                        "affliction",
+                        "sickened"
+                    ]
+                },
+                "selector": "fortitude",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success</p>"
+            }
+        ],
         "source": {
             "value": ""
         },

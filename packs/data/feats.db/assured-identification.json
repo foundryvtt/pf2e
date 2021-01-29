@@ -19,8 +19,9 @@
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "expert in Arcana, Nature, Occultism, or Religion"
@@ -29,6 +30,18 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:identify-magic"
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When Identifying Magic, if you roll a critical failure, you get a failure instead. If you would misidentify a cursed item becuase you roll a success, you simply can't identify it.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,6 +55,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Assured Identification",

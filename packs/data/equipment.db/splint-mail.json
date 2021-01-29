@@ -25,9 +25,6 @@
         "collapsed": {
             "value": false
         },
-        "size": {
-            "value": "med"
-        },
         "containerId": {
             "value": ""
         },
@@ -61,6 +58,9 @@
         },
         "hp": {
             "value": null
+        },
+        "identification": {
+            "status": "identified"
         },
         "identified": {
             "value": true
@@ -124,6 +124,37 @@
             "label": "Resilient",
             "type": "String"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": -10
+                        },
+                        {
+                            "start": 16,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
             "label": "Source",
             "type": "String",
@@ -148,7 +179,7 @@
                 "value": "common"
             },
             "type": "String",
-            "value": ""
+            "value": []
         },
         "usage": {
             "value": "wornarmor"
@@ -159,6 +190,7 @@
             "value": "4"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/equipment/armor/splint-mail.jpg",
     "name": "Splint Mail",

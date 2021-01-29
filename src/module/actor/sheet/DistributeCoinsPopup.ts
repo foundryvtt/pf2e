@@ -38,10 +38,11 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
 
     async _updateObject(_event: Event, formData: PopupFormData) {
         const thisActor = this.object;
-        const selectedActors = [];
+        const selectedActors: PF2EActor[] = [];
         for (let i = 0; i < formData.selection.length; i++) {
             if (formData.selection[i]) {
-                selectedActors.push(game.actors.find((actor) => actor.id === this.form[i].id));
+                const actor = game.actors.find((actor) => actor.id === this.form[i].id);
+                if (actor) selectedActors.push(actor);
             }
         }
         const playerCount = selectedActors.length;
@@ -113,7 +114,7 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
         const sheetData: PopupData = super.getData();
         sheetData.actorInfo = [];
         const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.data.type === 'character');
-        const idsOfPlayerCharacters = game.users.players.map((x) => x.character.id);
+        const idsOfPlayerCharacters = game.users.players.map((x) => x.character?.id);
         for (let i = 0; i < playerActors.length; i++) {
             sheetData.actorInfo.push({
                 id: playerActors[i].id,

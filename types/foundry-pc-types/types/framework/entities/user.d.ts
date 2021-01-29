@@ -100,7 +100,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     /**
      * Return the Actor instance of the user's impersonated character (or undefined)
      */
-    get character(): ActorType;
+    get character(): ActorType | undefined;
 
     /**
      * @override

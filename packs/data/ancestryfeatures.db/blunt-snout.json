@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,28 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "inhaled",
+                        "olfactory"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },

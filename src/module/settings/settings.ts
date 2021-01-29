@@ -1,6 +1,7 @@
 /* global game */
 import { compendiumBrowser } from './../packs/compendium-browser';
 import { variantRulesSettings } from './submenus/variantRulesSettings';
+import { Migrations } from '../migrations';
 
 /**
  * @ignore
@@ -22,7 +23,7 @@ export function registerSettings() {
             "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",
         scope: 'world',
         config: true,
-        default: 0,
+        default: Migrations.latestVersion,
         type: Number,
     });
     game.settings.register('pf2e', 'defaultTokenSettings', {

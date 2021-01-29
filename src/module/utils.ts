@@ -134,3 +134,18 @@ export interface Fraction {
     numerator: number;
     denominator: number;
 }
+
+/**
+ * Continually apply a function on the result of itself until times is reached
+ *
+ * @param func
+ * @param times
+ * @param start start element, also result if times is 0
+ */
+export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T {
+    let result = start;
+    for (let i = 0; i < times; i += 1) {
+        result = func(result);
+    }
+    return result;
+}

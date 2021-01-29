@@ -12,8 +12,8 @@ export class PF2EFamiliar extends PF2EActor {
     data!: FamiliarData;
 
     /** Prepare Character type specific data. */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
 
         const data = this.data.data;
         const rules = this.data.items.reduce(
@@ -43,10 +43,9 @@ export class PF2EFamiliar extends PF2EActor {
 
             // base size
             data.traits.size.value = 'tiny';
-            data.traits.size.label = CONFIG.PF2E.actorSizes[data.traits.size.value];
 
             // base senses
-            data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision' }];
+            data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
 
             const { statisticsModifiers } = this._prepareCustomModifiers(this.data, rules);
             const FILTER_MODIFIER = (modifier: PF2Modifier) =>

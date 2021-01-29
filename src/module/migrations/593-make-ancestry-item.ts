@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration593AddAncestryItem extends MigrationBase {
-    version = 0.593;
+    static version = 0.593;
     requiresFlush = true;
 
     async updateActor(actor: any) {

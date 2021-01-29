@@ -19,8 +19,9 @@
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "expert in Intimidation"
@@ -29,7 +30,21 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Terrifying Resistance (vs. spells from demoralized",
+                "predicate": {
+                    "all": [
+                        "demoralized-by-you",
+                        "spell"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +58,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Terrifying Resistance",

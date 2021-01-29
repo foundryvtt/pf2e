@@ -29,19 +29,27 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "trained in Acrobatics"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "trained in Acrobatics"
+        ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:balance"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success using the Balance action, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +68,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Steady Balance",

@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,28 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:coerce",
+                        "target:goblin"
+                    ]
+                },
+                "selector": "intimidation",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on an Intimidation check to Coerce a goblin, you get a critical success instead; if you roll a critical failure, you get a failure instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },

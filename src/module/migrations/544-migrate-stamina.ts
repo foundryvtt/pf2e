@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 export class Migration544MigrateStamina extends MigrationBase {
-    version = 0.544;
+    static version = 0.544;
     async updateActor(actor: any) {
         actor.data.attributes.sp = {
             min: 0,
