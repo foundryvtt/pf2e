@@ -13,9 +13,10 @@ export class PF2ENPC extends PF2EActor {
     data!: NpcData;
 
     /** Prepare Character type specific data. */
-    prepareData(): void {
-        super.prepareData();
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
         const actorData = this.data;
+
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
@@ -138,6 +139,7 @@ export class PF2ENPC extends PF2EActor {
         }
 
         // default all skills to untrained
+        data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
             const modifiers = [
                 new PF2Modifier('PF2E.BaseModifier', 0, PF2ModifierType.UNTYPED),
@@ -240,7 +242,7 @@ export class PF2ENPC extends PF2EActor {
 
                 data.skills[shortform] = stat;
             } else if (item.type === 'melee') {
-                const modifiers = [];
+                const modifiers: PF2Modifier[] = [];
                 const notes = [] as PF2RollNote[];
 
                 // traits
@@ -272,7 +274,7 @@ export class PF2ENPC extends PF2EActor {
 
                 // Conditions and Custom modifiers to attack rolls
                 {
-                    const stats = [];
+                    const stats: string[] = [];
                     stats.push(`${item.name.replace(/\s+/g, '-').toLowerCase()}-attack`); // convert white spaces to dash and lower-case all letters
                     stats
                         .concat([

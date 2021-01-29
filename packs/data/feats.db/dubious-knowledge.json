@@ -29,18 +29,27 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "trained in a skill with the Recall Knowledge action"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "trained in a skill with the Recall Knowledge action"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you fail (but don't critically fail) a Recall Knowledge check using any skill, you learn a bit of true knowledge and a bit of erroneous knowledge.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +68,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Dubious Knowledge",

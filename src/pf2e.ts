@@ -32,8 +32,10 @@ import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
-import { getAllMigrations } from './module/migrations';
+import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
+import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
+import { PF2Actions } from './module/system/actions/actions';
 
 require('./styles/pf2e.scss');
 
@@ -48,6 +50,7 @@ require('./scripts/system/canvasDropHandler');
 
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
+        actions: { [key: string]: Function };
         worldclock?: WorldClockApplication;
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
@@ -80,6 +83,8 @@ Hooks.once('init', () => {
     CONFIG.Combat.initiative.decimals = 1;
     // Assign the PF2e Combat Tracker
     CONFIG.ui.combat = PF2eCombatTracker;
+    // Assign the PF2e CompendiumDirectory
+    CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
     PlayerConfigPF2e.hookOnRenderSettings();
 
@@ -106,9 +111,10 @@ Hooks.once('init', () => {
     (window as any).PF2Check = PF2Check;
 
     // expose actions until we know how to include them on the sheet
-    (game.pf2e as any).actions = {
+    game.pf2e.actions = {
         earnIncome,
     };
+    PF2Actions.exposeActions(game.pf2e.actions);
 
     (game.pf2e as any).gm = {
         calculateXP,
@@ -243,7 +249,7 @@ Hooks.once('ready', () => {
 
     if (game.user.isGM) {
         // Perform the migration
-        const migrationRunner = new MigrationRunner(getAllMigrations());
+        const migrationRunner = new MigrationRunner(Migrations.constructAll());
         if (migrationRunner.needsMigration()) {
             if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
                 ui.notifications.error(

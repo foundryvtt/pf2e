@@ -2,8 +2,8 @@
   "name": "pf2e",
   "title": "Pathfinder 2nd Edition",
   "description": "A community contributed game system for Pathfinder Second Edition.",
-  "version": "1.11.1",
-  "schema": 0.595,
+  "version": "1.11.2",
+  "schema": 0.598,
   "minimumCoreVersion": "0.7.5",
   "compatibleCoreVersion": "0.7.9",
   "author": "hooking, Trey",
@@ -15,7 +15,7 @@
   "packs": [
     {
       "name": "spells-srd",
-      "label": "Spells (SRD)",
+      "label": "Spells",
       "system": "pf2e",
       "module": "pf2e",
       "path": "./packs/spells.db",
@@ -31,7 +31,7 @@
     },
     {
       "name": "feats-srd",
-      "label": "Feats (SRD)",
+      "label": "Feats",
       "system": "pf2e",
       "module": "pf2e",
       "path": "./packs/feats.db",
@@ -39,7 +39,7 @@
     },
     {
       "name": "equipment-srd",
-      "label": "Equipment (SRD)",
+      "label": "Equipment",
       "system": "pf2e",
       "module": "pf2e",
       "path": "./packs/equipment.db",
@@ -47,7 +47,7 @@
     },
     {
       "name": "conditionitems",
-      "label": "Conditions (PF2e)",
+      "label": "Conditions",
       "system": "pf2e",
       "module": "pf2e",
       "path": "packs/conditionitems.db",
@@ -55,11 +55,19 @@
     },
     {
       "name": "actionspf2e",
-      "label": "Actions (SRD)",
+      "label": "Actions",
       "system": "pf2e",
       "module": "pf2e",
       "path": "packs/actions.db",
       "entity": "Item"
+    },
+    {
+      "name": "action-macros",
+      "label": "Action Macros",
+      "system": "pf2e",
+      "module": "pf2e",
+      "path": "packs/action-macros.db",
+      "entity": "Macro"
     },
     {
       "name": "archetypes",
@@ -151,7 +159,7 @@
     },
     {
       "name": "ancestryfeatures",
-      "label": "Ancestry Features (SRD)",
+      "label": "Ancestry Features",
       "path": "packs/ancestryfeatures.db",
       "entity": "Item",
       "module": "pf2e",
@@ -159,7 +167,7 @@
     },
     {
       "name": "classfeatures",
-      "label": "Class Features (SRD)",
+      "label": "Class Features",
       "path": "packs/classfeatures.db",
       "entity": "Item",
       "module": "pf2e",
@@ -191,18 +199,10 @@
     },
     {
       "name": "gmg-srd",
-      "label": "Game Mastery Guide (SRD)",
+      "label": "Game Mastery Guide",
       "system": "pf2e",
       "module": "pf2e",
       "path": "packs/gmg-srd.db",
-      "entity": "JournalEntry"
-    },
-    {
-      "name": "classes",
-      "label": "Classes (SRD)",
-      "system": "pf2e",
-      "module": "pf2e",
-      "path": "packs/classes.db",
       "entity": "JournalEntry"
     },
     {
@@ -292,6 +292,22 @@
       "module": "pf2e",
       "path": "packs/ancestries.db",
       "entity": "Item"
+    },
+    {
+      "name": "classes",
+      "label": "Classes",
+      "system": "pf2e",
+      "module": "pf2e",
+      "path": "packs/classes.db",
+      "entity": "Item"
+    },
+    {
+      "label": "Abomination Vaults Bestiary",
+      "entity": "Actor",
+      "name": "abomination-vaults-bestiary",
+      "path": "packs/abomination-vaults-bestiary.db",
+      "system": "pf2e",
+      "module": "pf2e"
     }
   ],
   "languages": [

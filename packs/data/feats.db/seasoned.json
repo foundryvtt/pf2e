@@ -19,8 +19,9 @@
             "value": "skill"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "trained in Alcohol Lore, Cooking Lore, or Crafting"
@@ -29,7 +30,39 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Seasoned (craft food, drink & potions)",
+                "predicate": {
+                    "all": [
+                        "action:craft"
+                    ],
+                    "any": [
+                        "food",
+                        "drink",
+                        "potion"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +76,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Seasoned",

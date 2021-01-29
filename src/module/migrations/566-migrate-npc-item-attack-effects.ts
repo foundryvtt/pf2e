@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 
 export class Migration566MigrateNpcItemAttackEffects extends MigrationBase {
-    version = 0.566;
+    static version = 0.566;
     async updateItem(item: any, actor?: any) {
         if (!actor || actor.type !== 'npc') {
             return;

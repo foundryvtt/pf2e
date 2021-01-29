@@ -31,13 +31,41 @@
             "type": "String",
             "value": 1
         },
+        "location": "",
         "prerequisites": [
             "trained in Crafting"
         ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:craft",
+                        "tailoring"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",

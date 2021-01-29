@@ -54,7 +54,11 @@
                 <span title="{{localize 'PF2E.AncestryTitle'}}">
                     <h3>
                         {{data.details.ancestry.value}}
-                        {{#if ancestryItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                        {{#if ancestryItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
                     </h3>
                 </span>
             </div>
@@ -72,18 +76,20 @@
                     />
                 </span>
             </div>
-            <div class="pc pc_class">
+            <div class="pc pc_class item" data-item-id="{{classItemId}}">
                 <label for="pc_class">
                     {{localize 'PF2E.Class'}}
                 </label>
                 <span title="{{localize 'PF2E.ClassTitle'}}">
-                    <input
-                        id="pc pc_class"
-                        name="data.details.class.value"
-                        type="text"
-                        value="{{data.details.class.value}}"
-                        data-dtype="String"
-                    />
+                    <h3>
+                        {{data.details.class.value}}
+                        {{#if classItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+
+                    </h3>
                 </span>
             </div>
             <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
@@ -93,72 +99,23 @@
                 <span title="{{localize 'PF2E.BackgroundTitle'}}">
                     <h3>
                         {{data.details.background.value}}
-                        {{#if backgroundItemId}}<a class="item-edit"><i class="fas fa-edit"></i></a>{{/if}}
+                        {{#if backgroundItemId}}
+                        <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                        <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
                     </h3>
                 </span>
-            </div>
-            <div class="pc pc_gender">
-                <label for="pc_gender">
-                    {{localize 'PF2E.GenderPronoun'}}
-                </label>
-                <span title="{{localize 'PF2E.GenderPronounTitle'}}">
-                    <input
-                        id="pc pc_gender"
-                        name="data.details.gender.value"
-                        type="text"
-                        value="{{data.details.gender.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="detail-small">
-                <div class="pc pc_age">
-                    <label for="pc_age">
-                        {{localize 'PF2E.Age'}}
-                    </label>
-                    <span title="{{localize 'PF2E.AgeTitle'}}">
-                        <input
-                            id="pc pc_age"
-                            name="data.details.age.value"
-                            type="text"
-                            value="{{data.details.age.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
-                <div class="pc pc_height">
-                    <label for="pc_height">
-                        {{localize 'PF2E.Height'}}
-                    </label>
-                    <span title="{{localize 'PF2E.HeightTitle'}}">
-                        <input
-                            id="pc pc_height"
-                            name="data.details.height.value"
-                            type="text"
-                            value="{{data.details.height.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
-                <div class="pc pc_weight">
-                    <label for="pc_weight">
-                        {{localize 'PF2E.Weight'}}
-                    </label>
-                    <span title="{{localize 'PF2E.WeightTitle'}}">
-                        <input
-                            id="pc pc_weight"
-                            name="data.details.weight.value"
-                            type="text"
-                            value="{{data.details.weight.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
             </div>
         </div>
     </section>
 
     <hr style="margin-top: 1rem;">
+    <section class="character-background">
+        {{> systems/pf2e/templates/actors/crb-style/character-background.html}}
+    </section>
+
+    <hr>
     <section class="character-traits">
         {{> systems/pf2e/templates/actors/crb-style/character-traits.html}}
     </section>

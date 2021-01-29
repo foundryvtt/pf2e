@@ -29,19 +29,27 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "7"
+            "value": 7
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "master in Intimidation"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "master in Intimdiation"
+        ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is fleeing for 1 round.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +68,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Terrified Retreat",

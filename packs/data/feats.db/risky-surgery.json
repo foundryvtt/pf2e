@@ -19,8 +19,9 @@
             "value": "skill"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "trained in Medicine"
@@ -29,7 +30,37 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Risky Surgery to Treat Wounds?",
+                "property": "flags.pf2e.rollOptions.medicine.risky-surgery"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "risky-surgery"
+                    ]
+                },
+                "roll-options": [
+                    "medicine"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "risky-surgery"
+                    ]
+                },
+                "selector": "medicine",
+                "text": "<p><strong>{item|name}</strong> When you @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds}, you can deal [[/r 1d8 #slashing]] slashing damage to your patient just before applying the effects of Treat Wounds. If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +74,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Risky Surgery",

@@ -19,24 +19,29 @@ export class PF2ELoot extends PF2EActor {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** @override
-     * Anyone can update a loot actor
+    /** Anyone with Observer permission can update a loot actor
+     * @override
      */
-    static can(user: User, action: string, target: PF2EActor): boolean {
+    static can(user: User, action: string, target: PF2ELoot): boolean {
         if (action === 'update') {
             return target.hasPerm(user, 'OBSERVER');
         }
         return super.can(user, action, target);
     }
 
+    isLootableBy(user: User) {
+        return PF2ELoot.can(user, 'update', this);
+    }
+
+    /** @override */
     async transferItemToActor(
         targetActor: PF2EActor,
         item: PF2EItem,
         quantity: number,
-        containerId: string,
-    ): Promise<PF2EPhysicalItem> {
+        containerId?: string,
+    ): Promise<PF2EPhysicalItem | void> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
-        if (!(this.hasPerm(game.user, 'owner') && targetActor.hasPerm(game.user, 'owner'))) {
+        if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
@@ -44,10 +49,10 @@ export class PF2ELoot extends PF2EActor {
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
                 return super.transferItemToActor(targetActor, item, quantity, containerId);
             } else {
-                ui.notifications.warn(game.i18n.format('PF2E.loot.InsufficientCurrencyError'), {
-                    buyer: `${targetActor.data.name}`,
+                ui.notifications.warn(game.i18n.format(CONFIG.PF2E.loot.errors.insufficient), {
+                    buyer: targetActor.name,
                 });
-                return null;
+                return Promise.reject();
             }
         }
 
@@ -83,33 +88,35 @@ export class LootTransfer implements LootTransferData {
     ) {}
 
     async request(): Promise<void> {
-        const gamemaster = Array.from(game.users.values()).find((user) => user.isGM && user.active);
-        if (gamemaster === undefined) {
-            ui.notifications.error(game.i18n.localize('PF2E.loot.permissionError'));
-            return null;
+        const gamemaster = game.users.find((user) => user.isGM && user.active);
+        if (gamemaster === null) {
+            const source = this.getSource();
+            const target = this.getTarget();
+            const loot = [source, target].find(
+                (actor) => actor instanceof PF2ELoot && actor.isLootableBy(game.user) && !actor.owner,
+            );
+
+            if (!(loot instanceof PF2ELoot)) return Promise.reject(new Error('PF2e System | Unexpected missing actor'));
+            ui.notifications.error(
+                game.i18n.format(CONFIG.PF2E.loot.errors.supervision, { loot: LootTransfer.tokenName(loot) }),
+            );
+            return Promise.reject();
         }
         console.debug(`PF2e System | Requesting loot transfer from GM ${gamemaster.name}`);
 
         game.socket.emit('system.pf2e', { request: 'lootTransfer', data: this });
     }
 
-    // Only a GM can call this method, or else Foundry will block it
+    // Only a GM can call this method, or else Foundry will block it (or would if we didn't first)
     async enact(requester: UserPF2e): Promise<void> {
         if (!game.user.isGM) {
-            return null;
+            return Promise.reject(new Error('Unauthorized loot transfer'));
         }
 
         console.debug('PF2e System | Enacting loot transfer');
-        const getActor = (tokenId: string | undefined, actorId: string): PF2EActor | undefined => {
-            if (typeof tokenId === 'string') {
-                const thisToken = canvas.tokens.placeables.find((token) => token.id === tokenId);
-                return thisToken.actor;
-            }
-            return game.actors.find((actor) => actor.id === actorId);
-        };
-        const sourceActor = getActor(this.source.tokenId, this.source.actorId);
-        const sourceItem = sourceActor.items.find((item) => item.id === this.source.itemId);
-        const targetActor = getActor(this.target.tokenId, this.target.actorId);
+        const sourceActor = this.getSource();
+        const sourceItem = sourceActor?.items?.find((item) => item.id === this.source.itemId);
+        const targetActor = this.getTarget();
 
         // Sanity checks
         if (
@@ -121,8 +128,7 @@ export class LootTransfer implements LootTransferData {
                 (targetActor.hasPerm(requester, 'owner') || targetActor instanceof PF2ELoot)
             )
         ) {
-            console.error('PF2e System | Failed sanity check!');
-            return null;
+            return Promise.reject(new Error('PF2e System | Failed sanity check during loot transfer'));
         }
 
         const targetItem = await sourceActor.transferItemToActor(
@@ -131,11 +137,48 @@ export class LootTransfer implements LootTransferData {
             this.quantity,
             this.containerId,
         );
-        if (targetItem === null) {
-            return null;
+        if (!(targetItem instanceof PF2EPhysicalItem)) {
+            return Promise.reject();
         }
 
         this.sendMessage(requester, sourceActor, targetActor, targetItem);
+    }
+
+    /** Retrieve the full actor from the source or target ID */
+    private getActor(tokenId: string | undefined, actorId: string): PF2EActor | null {
+        if (typeof tokenId === 'string') {
+            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
+            return token?.actor ?? null;
+        }
+        return game.actors.find((actor) => actor.id === actorId);
+    }
+
+    private getSource(): PF2EActor | null {
+        return this.getActor(this.source.tokenId, this.source.actorId);
+    }
+
+    private getTarget(): PF2EActor | null {
+        return this.getActor(this.target.tokenId, this.target.actorId);
+    }
+
+    // Prefer token names over actor names
+    private static tokenName(entity: PF2EActor | User): string {
+        if (entity instanceof PF2EActor) {
+            // Synthetic actor: use its token name or, failing that, actor name
+            if (entity.isToken && entity.token instanceof Token) {
+                return entity.token.name;
+            }
+            // Linked actor: use its token prototype name
+            return entity.data.token?.name ?? entity.name;
+        }
+        // User with an assigned character
+        if (entity.character instanceof PF2ECharacter) {
+            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.actor?.id === entity.id);
+            return token?.name ?? entity.character?.name;
+        }
+
+        // User with no assigned character (should never happen)
+        return entity.name;
     }
 
     /** Send a chat message that varies on the types of transaction and parties involved
@@ -150,10 +193,6 @@ export class LootTransfer implements LootTransferData {
         targetActor: PF2EActor,
         item: PF2EPhysicalItem,
     ): Promise<void> {
-        // Prefer token names over actor names
-        const nameOf = (entity: PF2EActor | User): string =>
-            'token' in entity ? entity.token?.name ?? entity.data.token.name : entity.name;
-
         // Exhaustive pattern match to determine speaker and item-transfer parties
         type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game['i18n']['format']>];
 
@@ -167,25 +206,37 @@ export class LootTransfer implements LootTransferData {
             const target = isWhat(targetActor);
 
             if (source.isCharacter && target.isLoot) {
-                // Character stows item in loot container
+                // Character deposits item in loot container
                 return [
-                    nameOf(sourceActor),
-                    CONFIG.PF2E.loot.subtitles.stow,
-                    [CONFIG.PF2E.loot.messages.stow, { stower: nameOf(sourceActor), container: nameOf(targetActor) }],
+                    LootTransfer.tokenName(sourceActor),
+                    CONFIG.PF2E.loot.subtitles.deposit,
+                    [
+                        CONFIG.PF2E.loot.messages.deposit,
+                        {
+                            depositor: LootTransfer.tokenName(sourceActor),
+                            container: LootTransfer.tokenName(targetActor),
+                        },
+                    ],
                 ];
             } else if (source.isCharacter && target.isMerchant) {
                 // Character gives item to merchant
                 return [
-                    nameOf(sourceActor),
+                    LootTransfer.tokenName(sourceActor),
                     CONFIG.PF2E.loot.subtitles.give,
-                    [CONFIG.PF2E.loot.messages.give, { giver: nameOf(sourceActor), recipient: nameOf(targetActor) }],
+                    [
+                        CONFIG.PF2E.loot.messages.give,
+                        { giver: LootTransfer.tokenName(sourceActor), recipient: LootTransfer.tokenName(targetActor) },
+                    ],
                 ];
             } else if (source.isLoot && target.isCharacter) {
                 // Character takes item from loot container
                 return [
-                    nameOf(targetActor),
+                    LootTransfer.tokenName(targetActor),
                     CONFIG.PF2E.loot.subtitles.take,
-                    [CONFIG.PF2E.loot.messages.take, { taker: nameOf(targetActor), container: nameOf(sourceActor) }],
+                    [
+                        CONFIG.PF2E.loot.messages.take,
+                        { taker: LootTransfer.tokenName(targetActor), container: LootTransfer.tokenName(sourceActor) },
+                    ],
                 ];
             } else if (source.isLoot && target.isLoot) {
                 return [
@@ -195,9 +246,9 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.transfer,
                         {
-                            transferrer: requester.character.name ?? requester.name,
-                            fromContainer: nameOf(sourceActor),
-                            toContainer: nameOf(targetActor),
+                            transferrer: requester.character?.name ?? requester.name,
+                            fromContainer: LootTransfer.tokenName(sourceActor),
+                            toContainer: LootTransfer.tokenName(targetActor),
                         },
                     ],
                 ];
@@ -209,28 +260,31 @@ export class LootTransfer implements LootTransferData {
                     [
                         CONFIG.PF2E.loot.messages.give,
                         {
-                            seller: requester.character.name ?? requester.name,
-                            buyer: nameOf(targetActor),
+                            seller: requester.character?.name ?? requester.name,
+                            buyer: LootTransfer.tokenName(targetActor),
                         },
                     ],
                 ];
             } else if (source.isMerchant && target.isCharacter) {
                 // Merchant sells item to character
                 return [
-                    nameOf(sourceActor),
+                    LootTransfer.tokenName(sourceActor),
                     CONFIG.PF2E.loot.subtitles.sell,
-                    [CONFIG.PF2E.loot.messages.sell, { seller: nameOf(sourceActor), buyer: nameOf(targetActor) }],
+                    [
+                        CONFIG.PF2E.loot.messages.sell,
+                        { seller: LootTransfer.tokenName(sourceActor), buyer: LootTransfer.tokenName(targetActor) },
+                    ],
                 ];
             } else if (source.isMerchant && target.isLoot) {
                 // Merchant sells item to character, who stows it directly in loot container
                 return [
-                    requester.character.name ?? requester.name,
+                    requester.character?.name ?? requester.name,
                     CONFIG.PF2E.loot.messages.sell,
                     [
                         CONFIG.PF2E.loot.messages.sell,
                         {
-                            seller: nameOf(sourceActor),
-                            buyer: requester.character.name ?? requester.name,
+                            seller: LootTransfer.tokenName(sourceActor),
+                            buyer: requester.character?.name ?? requester.name,
                         },
                     ],
                 ];
@@ -259,7 +313,7 @@ export class LootTransfer implements LootTransferData {
         // Don't bother showing quantity if it's only 1:
         const content = await renderTemplate(this.templatePaths.content, {
             imgPath: item.img,
-            message: game.i18n.format(...formatArgs).replace(/\b1&times; /, ''),
+            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ''),
         });
 
         ChatMessage.create({

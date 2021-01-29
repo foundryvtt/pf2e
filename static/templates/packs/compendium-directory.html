@@ -1,0 +1,41 @@
+<section class="sidebar-tab sidebar-directory tab flexcol" id="compendium" data-tab="compendium">
+  <header class="directory-header">
+    <div class="header-actions action-buttons flexrow">
+      {{#if user.isGM}}
+      <button class="create-compendium" type="submit"><i class="fas fa-atlas"></i> {{localize "COMPENDIUM.Create"}}</button>
+      {{/if}}
+    </div>
+    <div class="header-search flexrow">
+      <i class="fas fa-search"></i>
+      <input type="text" name="search" value="" placeholder="{{localize 'COMPENDIUM.Search'}}" autocomplete="off"/>
+      <a class="header-control collapse-all" title="{{localize 'FOLDER.Collapse'}}"><i class="fas fa-sort-amount-up fa-fw"></i></a>
+    </div>
+  </header>
+
+  <ol class="directory-list">
+    {{#each packs as |pack label|}}
+    <li class="compendium-entity">
+      <h3>{{label}}</h3>
+      <ol class="compendium-list">
+        {{#each pack.packs}}
+        <li class="compendium-pack" data-pack="{{this.collection}}" data-open="0">
+          <h4 class="pack-title">
+            <a><i class="folder fas fa-folder"></i> {{this.metadata.label}}</a>
+            <div class="status-icons">
+              {{#if this.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+              {{#if this.locked}}<i class="fas fa-lock"></i>{{/if}}
+            </div>
+          </h4>
+          <footer class="compendium-footer">
+            <span class="entity-type">{{this.metadata.entity}}</span>
+            <span> ({{this.metadata.package}})</span>
+          </footer>
+        </li>
+        {{/each}}
+      </ol>
+    </li>
+    {{/each}}
+  </ol>
+
+  <footer class="directory-footer"></footer>
+</section>

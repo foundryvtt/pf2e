@@ -8,7 +8,7 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
@@ -19,15 +19,28 @@
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "disease",
+                        "poison"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Your succesful saving throws against a disease or poison reduce its stage by 2 (or 1 for a virulent disease or poison). Each critical success reduces its stage by 3 (or 2 for a virulent disease or poison).</p>"
+            }
+        ],
         "source": {
             "value": ""
         },

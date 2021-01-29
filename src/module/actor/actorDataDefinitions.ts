@@ -1,4 +1,4 @@
-import { ItemData, Rarity } from '../item/dataDefinitions';
+import { ItemData, Rarity, Size } from '../item/dataDefinitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 
 /** A type representing the possible ability strings. */
@@ -199,8 +199,39 @@ export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
+export interface BaseTraitsData {
+    /** The character size (such as 'med'). */
+    size: { value: Size };
+    /** Actual Pathfinder traits */
+    traits: {
+        value: string[];
+        custom: string;
+    };
+    /** Damage immunities this actor has. */
+    di: { value: string[]; custom: string };
+    /** Damage resistances that this actor has. */
+    dr: LabeledValue[];
+    /** Damage vulnerabilities that this actor has. */
+    dv: LabeledValue[];
+}
+
+export interface CreatureTraitsData extends BaseTraitsData {
+    /** A list of special senses this character has. */
+    senses: LabeledValue[];
+    /** Languages which this actor knows and can speak. */
+    languages: { value: string[]; selected: string[]; custom: string };
+    /** The rarity of this creature (common, uncommon, etc.) */
+    rarity: { value: Rarity };
+    /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
+    attitude: { value: string };
+}
+
+export interface ActorSystemData {
+    traits: BaseTraitsData;
+}
+
 /** The raw information contained within the actor data object for characters. */
-export interface RawCharacterData {
+export interface RawCharacterData extends ActorSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -368,22 +399,7 @@ export interface RawCharacterData {
     };
 
     /** Custom character traits, such as damage resistances/immunities. */
-    traits: {
-        /** The character size (such as 'med'). */
-        size: { value: string };
-        /** A list of special senses this character has. */
-        senses: LabeledValue[];
-        /** Traits which apply to this actor, like 'air' or 'extradimensional' */
-        traits: { value: string[]; custom: string };
-        /** Languages which this actor knows and can speak. */
-        languages: { value: string[]; selected: string[]; custom: string };
-        /** Damage immunities this actor has. */
-        di: { value: string[]; custom: string };
-        /** Damage resistances that this actor has. */
-        dr: LabeledValue[];
-        /** Damage vulnerabilities that this actor has. */
-        dv: LabeledValue[];
-    };
+    traits: CreatureTraitsData;
 
     /** Player skills, used for various skill checks. */
     skills: {
@@ -434,7 +450,7 @@ export type NPCSkillData = PF2StatisticModifier &
     };
 
 /** The raw information contained within the actor data object for NPCs. */
-export interface RawNpcData {
+export interface RawNpcData extends ActorSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -503,26 +519,7 @@ export interface RawNpcData {
     };
 
     /** Traits, languages, and other information. */
-    traits: {
-        /** The size of this creature. */
-        size: { value: string };
-        /** Special senses this creature possesses. */
-        senses: { value: string };
-        /** Traits that define this creature, like 'humanoid' or 'celestial.' */
-        traits: { value: string[]; custom: string };
-        /** The rarity of this creature (common, uncommon, etc.) */
-        rarity: { value: Rarity };
-        /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
-        attitude: { value: string };
-        /** Languages this creature knows. */
-        languages: { value: string[]; selected: string[]; custom: string };
-        /** Damage/condition immunities. */
-        di: { value: string[]; custom: string };
-        /** Damage resistances. */
-        dr: LabeledValue[];
-        /** Damage vulnerabilities. */
-        dv: LabeledValue[];
-    };
+    traits: CreatureTraitsData;
 
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
     skills: Record<string, NPCSkillData>;
@@ -538,19 +535,21 @@ export interface RawNpcData {
 
 /** The raw information contained within the actor data object for hazards. */
 export interface RawHazardData {
+    /** Traits, languages, and other information. */
+    traits: BaseTraitsData & Pick<CreatureTraitsData, 'rarity'>;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for loot actors. */
-export interface RawLootData {
+export interface RawLootData extends ActorSystemData {
     lootSheetType: 'Merchant' | 'Loot';
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-export interface RawFamiliarData {
+export interface RawFamiliarData extends ActorSystemData {
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
@@ -569,18 +568,21 @@ export interface RawFamiliarData {
         [key: string]: any;
     };
 
+    /** Traits, languages, and other information. */
+    traits: CreatureTraitsData;
+
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for vehicle actors. */
-export interface RawVehicleData {
+export interface RawVehicleData extends ActorSystemData {
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
-export interface ActorEntityData<T> extends ActorData {
+export interface ActorEntityData<T extends ActorSystemData> extends ActorData {
     data: T;
     items: ItemData[];
 }
@@ -607,7 +609,6 @@ export interface LootData extends ActorEntityData<RawLootData> {
 
 export interface FamiliarData extends ActorEntityData<RawFamiliarData> {
     type: 'familiar';
-    master: { id?: string; name?: string; level?: number };
 }
 
 /** Wrapper type for vehicle-specific data. */

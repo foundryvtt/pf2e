@@ -8,26 +8,48 @@
             "value": "passive"
         },
         "actions": {
-            "value": null
+            "value": ""
         },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your ancestors were famous trackers, and you carry in your blood that same gift of the hunt. You gain a special sense: imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine the location of a creature, but it remains @Compendium[pf2e.conditionitems.Hidden]{Hidden}. In addition, you gain a +2 circumstance bonus to Survival checks to @Compendium[pf2e.actionspf2e.Track]{Track} creatures that you have previously sensed with your scent.</p>"
+            "value": "<p>Your ancestors were famous trackers, and you carry in your blood that same gift of the hunt.</p>\n<p>You gain a special sense: imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine the location of a creature, but it remains @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>\n<p>In addition, you gain a +2 circumstance bonus to Survival checks to @Compendium[pf2e.actionspf2e.Track]{Track} creatures that you have previously sensed with your scent.</p>"
         },
         "featType": {
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": null
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Bloodhound Shoony (Track smelled creatures)",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "target:previously-smelled"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "acuity": "imprecise",
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesScent",
+                "range": 30,
+                "selector": "scent"
+            }
+        ],
         "source": {
             "value": ""
         },

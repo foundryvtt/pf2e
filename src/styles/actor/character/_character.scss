@@ -63,7 +63,7 @@
         display: grid;
         grid:
             'img alignment deity' 30px
-            'img details details' 150px
+            'img details details' 100px
             / 120px 120px 1fr;
         margin-top: 4px;
 
@@ -148,7 +148,6 @@
 
                 input {
                     text-align: right;
-                    background-color: transparent;
                 }
             }
             img {
@@ -165,7 +164,7 @@
             grid-area: details;
             display: grid;
             grid-template-columns: 2fr 2fr;
-            grid-template-rows: repeat(3, 42px);
+            grid-template-rows: repeat(2, 42px);
             grid-row-gap: 8px;
             padding-left: 12px;
             margin-top: 8px;
@@ -179,6 +178,35 @@
             }
             .detail-small {
                 display: flex;
+            }
+        }
+    }
+
+    .character-background {
+        display: flex;
+        flex-wrap: wrap;
+
+        .pc {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex: 20%;
+            margin-bottom: 8px;
+
+            span {
+                width: 100%;
+            }
+
+            &_ethnicity,
+            &_nationality {
+                flex: 50%;
+            }
+
+            label,
+            h4 {
+                margin: 0;
+                white-space: nowrap;
             }
         }
     }
@@ -209,6 +237,12 @@
                 }
             }
 
+            &_land-speed,
+            &_size,
+            &_key-ability {
+                flex: 30%;
+            }
+
             &_speed-types {
                 flex: 50%;
             }
@@ -231,9 +265,6 @@
               &.encumbrance {
                   margin-right: 8px;
               }
-            }
-            &_ethnicity {
-                flex: 1 40%;
             }
 
             label,

@@ -2,7 +2,7 @@ import { isPhysicalItem } from '../item/dataDefinitions';
 import { MigrationBase } from './base';
 
 export class Migration592CopyIdentificationData extends MigrationBase {
-    version = 0.592;
+    static version = 0.592;
     async updateItem(item: any) {
         if (isPhysicalItem(item)) {
             item = item as any;
