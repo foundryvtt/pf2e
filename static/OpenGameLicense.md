@@ -115,7 +115,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #173: Doorway to the Red Star © 2021, Paizo Inc.; Authors: Michael Sayre
     *  Pathfinder Adventure Path #174: Shadows of the Ancients © 2021, Paizo Inc.; Authors: Saif Ansari
     *  Pathfinder Beginner Box © 2020, Paizo Inc.; Authors: Logan Bonner, Jason Bulmahn, Lyz Liddell, Mark Seifter
-	*  Agents of Edgewatch Player's Guide © 2020, Paizo Inc.; Author: Patrick Renie.
     *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
     *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
     *  The Avatar's Handbook © 2003, Green Ronin Publishing; Authors: Jesse Decker and Chris Thomasson.
