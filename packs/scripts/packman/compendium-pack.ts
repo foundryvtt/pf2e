@@ -37,7 +37,7 @@ export class CompendiumPack {
     private static namesToIds = new Map<string, Map<string, string>>();
     private static packsMetadata = JSON.parse(fs.readFileSync('system.json', 'utf-8')).packs as PackMetadata[];
     private static worldItemLinkPattern = new RegExp(
-        /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
+        /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/,
     );
 
     constructor(packDir: string, parsedData: unknown[]) {
@@ -183,7 +183,7 @@ export class CompendiumPack {
     }
 
     private sourceIdOf(entityId: string) {
-        return `CompendiumPack.${this.systemId}.${this.name}.${entityId}`;
+        return `Compendium.${this.systemId}.${this.name}.${entityId}`;
     }
 
     private sluggify(entityName: string) {
@@ -211,9 +211,12 @@ export class CompendiumPack {
         const checks = Object.entries({
             name: (data: any) => typeof data.name === 'string',
             // type: (data: any) => typeof data.type === "string",
-            flags: (data: any) => typeof data.flags === 'object',
+            flags: (data: unknown) => typeof data === 'object' && 'flags' in data,
             permission: (data: any) =>
-                typeof data.permission === 'object' && data.permission !== null && Object.keys(data.permission).length === 1 && Number.isInteger(data.permission.default)
+                typeof data.permission === 'object' &&
+                data.permission !== null &&
+                Object.keys(data.permission).length === 1 &&
+                Number.isInteger(data.permission.default),
         });
 
         const failedChecks = checks
