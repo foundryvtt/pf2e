@@ -1,5 +1,5 @@
 {
-    "_id": "dc8X2Mbtwq6kGp7F",
+    "_id": "sYYmBpRlRtWf5Tbh",
     "data": {
         "actionCategory": {
             "value": ""
@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is fleeing for 1 round.</p>"
+            "value": "<p>You have exceptional talent with one type of performance. You gain a +1 circumstance bonus when playing a string instrument. If you are a master in Performance, this bonus increases to +2.</p>\n<hr />\n<p><strong>Example performances</strong> Fiddle, harp, lute, viol</p>\n<p>If it's unclear whether the specialty applies, the GM decides.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,25 +29,40 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": 7
+            "value": 1
         },
         "location": "",
         "prerequisites": [
-            "master in Intimdiation"
+            "trained in Performance"
         ],
         "rarity": {
             "value": "common"
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.Note",
+                "key": "PF2E.RuleElement.FlatModifier",
                 "predicate": {
                     "all": [
-                        "action:demoralize"
+                        "strings"
                     ]
                 },
-                "selector": "intimidation",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> When you critically succeed at the Demoralize action, if the target's level is lower than yours, the target is fleeing for 1 round.</p>"
+                "selector": "performance",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.prf.rank"
+                }
             }
         ],
         "source": {
@@ -71,7 +86,7 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
-    "name": "Terrified Retreat",
+    "name": "Virtuosic Performer (Strings)",
     "permission": {
         "default": 0
     },
