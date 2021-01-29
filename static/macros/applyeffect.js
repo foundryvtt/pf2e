@@ -3,19 +3,19 @@ const compendiumName="pf2e.spell-effects";
 const effectCompendium = game.packs.get(compendiumName);
 let effectList=[];
 
-function getEffectList(){
+async function getEffectList(){
     if(effectList.length<=0){
-        for(let count=0;count<effectCompendium.index.length;count++){
-            if(effectCompendium.index[count].name.indexOf('Spell Effect:')!=-1)
-                effectList.push({"UUID": "Compendium."+compendiumName+"."+effectCompendium.index[count]._id,"Name": effectCompendium.index[count].name});
+        let effects = await effectCompendium.getContent();
+        for(let count=0;count<effects.length;count++){
+            if(effects[count].name.indexOf('Spell Effect:')!=-1)
+                effectList.push({"UUID": "Compendium."+compendiumName+"."+effects[count]._id,"Name": effects[count].name});
         }
     }
     return effectList;
 }
-
-function optionList() {
+async function optionList() {
     let optionlist='';
-    const list=getEffectList();
+    const list=await getEffectList();
     for(let count=0;count<list.length;count++){
         optionlist+='<option value="' + count + '">'+ list[count].Name + '</option>';
     }
@@ -42,7 +42,7 @@ new Dialog({
     <form>
       <div class="form-group">
         <label>Effect:</label>
-        <select id="effectChoice" name="effectChoice">` + optionList() + `
+        <select id="effectChoice" name="effectChoice">` + (await optionList()) + `
         </select>
       </div>
     </form>
