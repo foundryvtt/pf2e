@@ -3,21 +3,25 @@ const compendiumName="pf2e.conditionitems";
 const conditionCompendium = game.packs.get(compendiumName);
 let conditionList=[];
 
-function getConditionList(){
+async function getConditionList(){
     if(conditionList.length<=0){
-        for(let count=0;count<conditionCompendium.index.length;count++){
-            conditionList.push({"UUID": "Compendium."+compendiumName+"."+conditionCompendium.index[count]._id,"Name": conditionCompendium.index[count].name});
+        let compendiumEntries = await conditionCompendium.getContent();
+        console.log(compendiumEntries);
+            for(let count=0;count<compendiumEntries.length;count++){
+                conditionList.push({"UUID": "Compendium."+compendiumName+"."+compendiumEntries[count]._id,"Name": compendiumEntries[count].name});
+            }
         }
-    }
     return conditionList;
 }
 
-function optionList() {
+async function optionList() {
     let optionlist='';
-    const list=getConditionList();
+    const list=await getConditionList();
+    console.log(list);
     for(let count=0;count<list.length;count++){
         optionlist+='<option value="' + count + '">'+ list[count].Name + '</option>';
     }
+    console.log(optionlist);
     return optionlist;
 }
 
@@ -55,7 +59,7 @@ new Dialog({
     <form>
       <div class="form-group-stacked">
         <label>Condition:</label>
-        <select id="conditionChoice" name="conditionChoice">` + optionList() + `
+        <select id="conditionChoice" name="conditionChoice">` + (await optionList()) + `
         </select><div class="form-group">
         <input type="radio" id="additive" name="applyType" value="additive" checked="true"/>
         <label for="additive">Add/Increment</label><BR/>
