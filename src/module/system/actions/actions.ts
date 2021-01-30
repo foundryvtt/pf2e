@@ -11,6 +11,7 @@ import { longJump } from './athletics/long-jump';
 import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
+import { coerce } from './intimidation/coerce';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -37,12 +38,15 @@ export class PF2Actions {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+
+        // intimidation
+        actions.coerce = coerce;
     }
 
     static simpleRollActionCheck(
         actors: PF2EActor | PF2EActor[] | undefined,
         stat: string,
-        actionGlyph: ActionGlyph,
+        actionGlyph: ActionGlyph | undefined,
         title: string,
         subtitle: string,
         rollOptions: string[],
@@ -65,11 +69,12 @@ export class PF2Actions {
 
         if (rollers.length) {
             rollers.forEach((actor) => {
-                const flavor = `
-                    <span class="pf2-icon">${actionGlyph}</span>
-                    <b>${game.i18n.localize(title)}</b>
-                    <p class="compact-text">(${game.i18n.localize(subtitle)})</p>
-                `.trim();
+                let flavor = '';
+                if (actionGlyph) {
+                    flavor += `<span class="pf2-icon">${actionGlyph}</span> `;
+                }
+                flavor += `<b>${game.i18n.localize(title)}</b>`;
+                flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
                 const check = new PF2CheckModifier(flavor, getProperty(actor, stat) as PF2StatisticModifier);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 PF2Check.roll(
