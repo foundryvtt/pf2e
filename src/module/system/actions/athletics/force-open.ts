@@ -1,11 +1,10 @@
-import { PF2EActor } from '@actor/actor';
-import { PF2Actions } from '../actions';
+import { ActionDefaultOptions, PF2Actions } from '../actions';
 
-export function forceOpen(options: { event: JQuery.Event; actors: PF2EActor | PF2EActor[] }) {
+export function forceOpen(options: ActionDefaultOptions) {
     PF2Actions.simpleRollActionCheck(
         options.actors,
         'data.data.skills.ath',
-        'A',
+        options.glyph ?? 'A',
         'PF2E.Actions.ForceOpen',
         'PF2E.ActionsCheck.Athletics',
         ['all', 'skill-check', 'athletics', 'action:force-open'],
