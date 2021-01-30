@@ -166,6 +166,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
+        const notes = [] as PF2RollNote[];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
@@ -180,6 +181,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                     }
                     modifiers.push(m);
                 });
+            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
         });
         const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
         const skillName = game.i18n.localize(
@@ -198,7 +200,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
             PF2Check.roll(
                 new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: 'initiative', options, dc: args.dc },
+                { actor: this, type: 'initiative', options, notes, dc: args.dc },
                 args.event,
                 (roll) => {
                     this._applyInitiativeRollToCombatTracker(roll);
