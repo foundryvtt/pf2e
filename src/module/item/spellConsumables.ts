@@ -19,6 +19,7 @@ export async function scrollFromSpell(spellData: SpellData, heightenedLevel?: nu
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
     const scroll = (await pack.getEntry(scrollCompendiumIds[heightenedLevel])) as ConsumableData;
+    scroll.data.traits.value.push(...duplicate(spellData.data.traditions.value));
     scroll.name = game.i18n.format('PF2E.ScrollFromSpell', { name: spellData.name, level: heightenedLevel });
     scroll.data.spell = {
         data: duplicate(spellData),
@@ -43,6 +44,7 @@ export async function wandFromSpell(spellData: SpellData, heightenedLevel?: numb
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
     const wand = (await pack.getEntry(wandCompendiumIds[heightenedLevel])) as ConsumableData;
+    wand.data.traits.value.push(...duplicate(spellData.data.traditions.value));
     wand.name = game.i18n.format('PF2E.WandFromSpell', { name: spellData.name, level: heightenedLevel });
     wand.data.spell = {
         data: duplicate(spellData),
