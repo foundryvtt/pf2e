@@ -222,20 +222,37 @@ function toTravelDuration(
     feetPerMinute: number,
     hustleDurationInMinutes: number,
 ): TravelDuration {
-    // hustling doubles hour speed for the first x minutes per day
-    // basic idea: calculate days and weeks using increased average speed
-    // calculate remaining day the following way
-    // calculate how many minutes it would take while moving at twice the speed
-    // if it's less than your hustle duration we are done
-    // Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) + Math.max(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2
-    const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
+    // general constants
     const minutesPerHour = 60;
-    const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
-    const minutesPerWeek = minutesPerDay * 7;
+    const hoursPerDay = 8;
+    const daysPerWeek = 7;
+    const minutesPerDay = hoursPerDay * minutesPerHour;
+    const minutesPerWeek = minutesPerDay * daysPerWeek;
+
+    // calculate average speed increased by hustling
+    const hustleDuration = Math.min(hustleDurationInMinutes, minutesPerDay);
+    const normalTravelDuration = minutesPerDay - hustleDuration;
+    const averageSpeed = (feetPerMinute * 2 * hustleDuration + feetPerMinute * normalTravelDuration) / minutesPerDay;
+
+    // calculate weeks and days using the increased average speed
+    const totalMinutes = Math.round(distanceInFeet / averageSpeed);
     const weeks = Math.floor(totalMinutes / minutesPerWeek);
     const days = Math.floor((totalMinutes - weeks * minutesPerWeek) / minutesPerDay);
-    const hours = Math.floor((totalMinutes - weeks * minutesPerWeek - days * minutesPerDay) / minutesPerHour);
-    const minutes = totalMinutes - weeks * minutesPerWeek - days * minutesPerDay - hours * minutesPerHour;
+
+    // For the remaining distance we need to calculate them differently: a player usually wants
+    // to hustle at the start of a day so the first x minutes are spent hustling, while
+    // the remaining use the normal speed.
+    const remainingDistanceInFeet =
+        distanceInFeet - weeks * minutesPerWeek * averageSpeed - days * minutesPerDay * averageSpeed;
+    // calculate how long it would take while hustling all day, then subtract minutes spent hustling
+    // remaining minutes are spent moving at normal speed so duration increases two times
+    const remainingMinutesMovingAtDoubleSpeed = remainingDistanceInFeet / (feetPerMinute * 2);
+    const remainingMinutesSpentHustling =
+        Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) +
+        Math.max(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2;
+
+    const hours = Math.floor(remainingMinutesSpentHustling / minutesPerHour);
+    const minutes = remainingMinutesSpentHustling - hours * minutesPerHour;
     return {
         weeks,
         days,
