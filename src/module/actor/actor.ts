@@ -4,7 +4,7 @@
  */
 import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
-import { PF2Check } from '../system/rolls';
+import { adaptRoll, PF2Check } from '../system/rolls';
 import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
@@ -189,8 +189,9 @@ export class PF2EActor extends Actor<PF2EItem> {
         const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = (event, options = []) => {
+        stat.roll = adaptRoll((args) => {
             const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
+            const options = args.options ?? [];
             // push skill name to options if not already there
             if (!options.includes(skillFullName)) {
                 options.push(skillFullName);
@@ -198,12 +199,12 @@ export class PF2EActor extends Actor<PF2EItem> {
             PF2Check.roll(
                 new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
                 { actor: this, type: 'initiative', options },
-                event,
+                args.event,
                 (roll) => {
                     this._applyInitiativeRollToCombatTracker(roll);
                 },
             );
-        };
+        });
 
         data.attributes.initiative = stat;
     }

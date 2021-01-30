@@ -1111,12 +1111,12 @@ export class PF2EItem extends Item<PF2EActor> {
             const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
             if (strikeAction && strikeAction.name === strikeName) {
-                const opts = actor.getRollOptions(['all', 'attack-roll']);
-                if (action === 'strikeAttack') strikeAction.variants[0].roll(ev, opts);
-                else if (action === 'strikeAttack2') strikeAction.variants[1].roll(ev, opts);
-                else if (action === 'strikeAttack3') strikeAction.variants[2].roll(ev, opts);
-                else if (action === 'strikeDamage') strikeAction.damage(ev, opts);
-                else if (action === 'strikeCritical') strikeAction.critical(ev, opts);
+                const options = actor.getRollOptions(['all', 'attack-roll']);
+                if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
+                else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
+                else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });
+                else if (action === 'strikeDamage') strikeAction.damage({ event: ev, options });
+                else if (action === 'strikeCritical') strikeAction.critical({ event: ev, options });
             }
         });
     }
