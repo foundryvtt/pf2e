@@ -12,6 +12,7 @@ import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
 import { coerce } from './intimidation/coerce';
+import { demoralize } from './intimidation/demoralize';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -41,6 +42,7 @@ export class PF2Actions {
 
         // intimidation
         actions.coerce = coerce;
+        actions.demoralize = demoralize;
     }
 
     static simpleRollActionCheck(
