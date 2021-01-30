@@ -7,19 +7,21 @@ export class PF2EClass extends PF2EItem {
     data!: ClassData;
 
     static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
-        if (entry.pack) {
-            const pack = game.packs.get<PF2EFeat>(entry.pack);
-            if (pack === null) {
-                throw Error('could not load pack');
+        const feat = await (async (): Promise<PF2EItem | null> => {
+            if (entry.pack) {
+                const pack = game.packs.get<PF2EFeat>(entry.pack);
+                if (pack === null) {
+                    return Promise.reject(new Error('could not load pack'));
+                }
+                return pack.getEntity(entry.id);
             }
-            return await pack.getEntry(entry.id);
-        } else {
-            const feat = game.items.get(entry.id);
-            if (feat?.data.type !== 'feat') {
-                throw Error('Invalid item type referenced in ABCFeatureEntryData');
-            }
-            return duplicate(feat?.data);
+            return game.items.get(entry.id);
+        })();
+
+        if (!(feat instanceof PF2EFeat)) {
+            return Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         }
+        return duplicate(feat);
     }
 
     static async addToActor(actor: PF2ECharacter, itemData: ClassData): Promise<void> {
@@ -56,12 +58,10 @@ export class PF2EClass extends PF2EItem {
         // ideally this would be a Promise.all on a map with a filter, but
         // we're working around a bug in foundry where you're not allowed to
         // call packs.get() multiple times concurrently, which this avoids.
-        const classFeaturesToCreate = [];
+        const classFeaturesToCreate: FeatData[] = [];
         for (const feature of featuresToAdd) {
             const featureData = await PF2EClass.getClassItemData(feature);
-            if (featureData !== undefined) {
-                classFeaturesToCreate.push(featureData);
-            }
+            classFeaturesToCreate.push(featureData);
         }
 
         for (const feature of classFeaturesToCreate) {
