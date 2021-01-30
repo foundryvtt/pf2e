@@ -52,7 +52,17 @@ export class PF2EClass extends PF2EItem {
         const featuresToAdd = Object.values(itemData.data.items).filter(
             (x) => actor.level >= x.level && x.level > minLevel,
         );
-        const classFeaturesToCreate = await Promise.all(featuresToAdd.map(PF2EClass.getClassItemData));
+
+        // ideally this would be a Promise.all on a map with a filter, but
+        // we're working around a bug in foundry where you're not allowed to
+        // call packs.get() multiple times concurrently, which this avoids.
+        const classFeaturesToCreate = [];
+        for (const feature of featuresToAdd) {
+            const featureData = await PF2EClass.getClassItemData(feature);
+            if (featureData !== undefined) {
+                classFeaturesToCreate.push(featureData);
+            }
+        }
 
         for (const feature of classFeaturesToCreate) {
             feature.data.location = itemData._id;
