@@ -12,8 +12,15 @@ import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
 
-type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
+
+export type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
+
+export interface ActionDefaultOptions {
+    event: JQuery.Event;
+    actors?: PF2EActor | PF2EActor[];
+    glyph?: ActionGlyph;
+}
 
 export class PF2Actions {
     static exposeActions(actions: { [key: string]: Function }) {
@@ -33,7 +40,7 @@ export class PF2Actions {
     }
 
     static simpleRollActionCheck(
-        actors: PF2EActor | PF2EActor[],
+        actors: PF2EActor | PF2EActor[] | undefined,
         stat: string,
         actionGlyph: ActionGlyph,
         title: string,

@@ -1,11 +1,10 @@
-import { PF2EActor } from '@actor/actor';
-import { PF2Actions } from '../actions';
+import { ActionDefaultOptions, PF2Actions } from '../actions';
 
-export function climb(options: { event: JQuery.Event; actors: PF2EActor | PF2EActor[] }) {
+export function climb(options: ActionDefaultOptions) {
     PF2Actions.simpleRollActionCheck(
         options.actors,
         'data.data.skills.ath',
-        'A',
+        options.glyph ?? 'A',
         'PF2E.Actions.Climb',
         'PF2E.ActionsCheck.Athletics',
         ['all', 'skill-check', 'athletics', 'action:climb'],
