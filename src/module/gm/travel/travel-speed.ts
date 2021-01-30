@@ -1,7 +1,7 @@
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
  */
-import {Fraction, sum} from '../../utils';
+import { Fraction, sum } from '../../utils';
 
 export interface ExplorationOptions {
     practicedDefender: boolean;
@@ -221,9 +221,9 @@ export interface TravelDuration {
  * Calculates how long it would take to traverse a certain distance when moving at a certain
  * speed and hustling x hours per day. Hustling rules don't specify a set time frame, just
  * a maximum duration during which you are able to move at double speed. Looking at the feats
- * and spells that increase your hustling duration, we deduced that the maximum hustling 
+ * and spells that increase your hustling duration, we deduced that the maximum hustling
  * duration is per day.
- * 
+ *
  * @param distanceInFeet
  * @param feetPerMinute
  * @param hustleDurationInMinutes
