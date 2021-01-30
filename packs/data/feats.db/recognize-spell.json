@@ -7,7 +7,7 @@
         "actionType": {
             "label": "Action Type",
             "type": "String",
-            "value": "passive"
+            "value": "reaction"
         },
         "actions": {
             "label": "Number of Actions",
@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest level of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary. The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<p><strong>Critical Success:</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success:</strong> You correctly recognize the spell.</p>\n<p><strong>Failure:</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure:</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
+            "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest level of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary.</p>\n<p>The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<p><strong>Critical Success</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success</strong> You correctly recognize the spell.</p>\n<p><strong>Failure</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,19 +29,43 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "trained in Arcana, Nature, Occultism, or Religion"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "trained in Arcana, Nature, Occultism or Religion"
+        ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Critical success on Recognize Spell",
+                "predicate": {
+                    "all": [
+                        "action:recognize-spell",
+                        "critical-success"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Critical success on Recognize Spell",
+                "predicate": {
+                    "all": [
+                        "action:recognize-spell",
+                        "critical-success"
+                    ]
+                },
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -61,6 +85,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Recognize Spell",

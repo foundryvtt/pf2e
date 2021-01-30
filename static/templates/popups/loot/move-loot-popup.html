@@ -2,7 +2,7 @@
     <label>{{ localize "PF2E.loot.MoveLootMessage" }}</label>
     <div class="form-group">
         <label>{{ localize "PF2E.loot.Quantity" }}:</label>
-        <input type="text" name="quantity" value="1" data-dtype="Number"/>
+        <input type="number" name="quantity" value="1" min="1" max="{{maxQuantity}}" data-dtype="Number"/>
     </div>
     <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{ localize "PF2E.loot.MoveLoot" }}</button>
 </form>

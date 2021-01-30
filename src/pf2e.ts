@@ -35,6 +35,7 @@ import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
+import { PF2Actions } from './module/system/actions/actions';
 
 require('./styles/pf2e.scss');
 
@@ -46,9 +47,11 @@ require('./scripts/chat/chatdamagebuttonsPF2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/actor/sheet/itemBehaviour.ts');
 require('./scripts/system/canvasDropHandler');
+require('./module/custom-elements/custom-elements');
 
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
+        actions: { [key: string]: Function };
         worldclock?: WorldClockApplication;
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
@@ -84,6 +87,25 @@ Hooks.once('init', () => {
     // Assign the PF2e CompendiumDirectory
     CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
+    // configure the bundled TinyMCE editor with PF2-specific options
+    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
+    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
+        title: 'Icons A D T F R',
+        inline: 'span',
+        classes: ['pf2-icon'],
+        wrapper: true,
+    });
+
+    // configure the bundled TinyMCE editor with PF2-specific options
+    CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
+    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
+    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
+        title: 'Icons A D T F R',
+        inline: 'span',
+        classes: ['pf2-icon'],
+        wrapper: true,
+    });
+
     PlayerConfigPF2e.hookOnRenderSettings();
 
     registerSettings();
@@ -109,9 +131,10 @@ Hooks.once('init', () => {
     (window as any).PF2Check = PF2Check;
 
     // expose actions until we know how to include them on the sheet
-    (game.pf2e as any).actions = {
+    game.pf2e.actions = {
         earnIncome,
     };
+    PF2Actions.exposeActions(game.pf2e.actions);
 
     (game.pf2e as any).gm = {
         calculateXP,

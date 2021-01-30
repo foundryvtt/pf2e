@@ -19,8 +19,9 @@
             "value": "general"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "expert in Perception"
@@ -29,7 +30,21 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Thorough Search (Seek thoroughly)",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "thorough-search"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,6 +57,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Thorough Search",

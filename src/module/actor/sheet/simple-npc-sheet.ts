@@ -8,8 +8,9 @@ import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { NPCSkillsEditor } from '../../system/npc-skills-editor';
 import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../../module/recall-knowledge';
-import { PF2EItem } from '../../../module/item/item';
-import { PF2EPhysicalItem } from '../../../module/item/physical';
+import { PF2EItem } from '@item/item';
+import { PF2EPhysicalItem } from '@item/physical';
+import { NpcData } from '@actor/actorDataDefinitions';
 
 export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
@@ -38,7 +39,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
      */
-    _prepareItems(actorData) {
+    _prepareItems(actorData: NpcData) {
         const monsterTraits = actorData.data.traits.traits;
 
         this._prepareAbilities(actorData.data.abilities);
@@ -992,7 +993,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
     rollPerception(event) {
         const options = this.actor.getRollOptions(['all', 'perception-check']);
-        this.actor.data.data.attributes.perception.roll(event, options);
+        this.actor.data.data.attributes.perception.roll({ event, options });
     }
 
     rollAbility(event, abilityId) {
@@ -1030,7 +1031,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
                 opts.push(...split);
             }
 
-            skill.roll(event, opts);
+            skill.roll({ event, options: opts });
         } else {
             this.actor.rollSkill(event, skillId);
         }
@@ -1513,12 +1514,10 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     /**
      * Increases the NPC via the Elite/Weak adjustment rules
      */
-    npcAdjustment(increase) {
+    npcAdjustment(increase: boolean) {
         let actorData = duplicate(this.actor.data);
-        const tokenData = this.token !== null ? duplicate(this.token.data) : duplicate(this.actor.data.token);
         const traits = getProperty(actorData.data, 'traits.traits.value') || [];
         let traitsAdjusted = false;
-        let tokenScale = 1;
         let adjustBackToNormal = false;
 
         if (increase) {
@@ -1537,12 +1536,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             }
             if (!traitsAdjusted) {
                 traits.push('elite');
-                actorData.name = `Elite ${actorData.name}`;
-                tokenData.name = `Elite ${tokenData.name}`;
-                tokenScale = 1.2;
             } else {
-                if (actorData.name.startsWith('Weak ')) actorData.name = actorData.name.slice(5);
-                if (tokenData.name.startsWith('Weak ')) tokenData.name = tokenData.name.slice(5);
                 adjustBackToNormal = true;
             }
         } else {
@@ -1561,31 +1555,13 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             }
             if (!traitsAdjusted) {
                 traits.push('weak');
-                actorData.name = `Weak ${actorData.name}`;
-                tokenData.name = `Weak ${tokenData.name}`;
-                tokenScale = 0.8;
             } else {
-                if (actorData.name.startsWith('Elite ')) actorData.name = actorData.name.slice(6);
-                if (tokenData.name.startsWith('Elite ')) tokenData.name = tokenData.name.slice(6);
                 adjustBackToNormal = true;
             }
         }
 
         actorData.data.traits.traits.value = traits;
         actorData = this._applyAdjustmentToData(actorData, increase, adjustBackToNormal);
-
-        if (this.token === null) {
-            // Then we need to apply this to the token prototype
-            this.actor.update({
-                'token.name': tokenData.name,
-                'token.scale': tokenScale,
-            });
-        } else {
-            this.token.update({
-                name: tokenData.name,
-                scale: tokenScale,
-            });
-        }
 
         // modify actordata, including items
         this.actor.update(actorData);
@@ -1605,7 +1581,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      *  If the creature has limits on how many times or how often it can use an ability
      *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
      */
-    _applyAdjustmentToData(actorData, increase, adjustBackToNormal) {
+    _applyAdjustmentToData(actorData: any, increase: boolean, adjustBackToNormal: boolean) {
         const positive = increase ? 1 : -1;
         const mod = 2 * positive;
 

@@ -3,6 +3,16 @@ import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-d
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
 
+/** Possible parameters of a RollFunction */
+export interface RollParameters {
+    /** The triggering event */
+    event?: JQuery.Event;
+    /** Any options which should be used in the roll. */
+    options?: string[];
+    /** Callback called when the roll occurs. */
+    callback?: (roll: Roll) => void;
+}
+
 interface RerollOptions {
     heroPoint?: boolean;
     keep?: 'new' | 'best' | 'worst';
@@ -18,7 +28,7 @@ export class PF2Check {
     static roll(
         check: PF2StatisticModifier,
         context: CheckModifiersContext = {},
-        event: JQuery.Event,
+        event: JQuery.Event | undefined,
         callback?: (roll: Roll) => void,
     ) {
         if (context?.options?.length > 0) {
@@ -40,12 +50,12 @@ export class PF2Check {
         }
 
         // if control (or meta) is held, set roll mode to blind GM roll
-        if (event.ctrlKey || event.metaKey) {
+        if (event?.ctrlKey || event?.metaKey) {
             context.secret = true;
         }
 
         const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
-        if (userSettingQuickD20Roll !== event.shiftKey) {
+        if (userSettingQuickD20Roll !== event?.shiftKey) {
             CheckModifiersDialog.roll(check, context, callback);
         } else {
             new CheckModifiersDialog(check, context, callback).render(true);
@@ -169,4 +179,15 @@ export class PF2DamageRoll {
         }
         DamageRollModifiersDialog.roll(damage, context, callback);
     }
+}
+
+export function adaptRoll(actualRoll: (param: RollParameters) => void) {
+    return (event: JQuery.Event | RollParameters, options?: string[], callback?: (roll: Roll) => void) => {
+        let param: RollParameters | JQuery.Event = event;
+        if (isObjectEmpty(event ?? {}) || 'shiftKey' in event) {
+            console.warn('You are using the old roll parameters. Use roll({event, options?, callback?}) instead.');
+            param = { event: event as JQuery.Event, options: options ?? [], callback };
+        }
+        actualRoll(param as RollParameters);
+    };
 }

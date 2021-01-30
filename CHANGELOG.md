@@ -1,5 +1,92 @@
 # Patch Notes:
 
+## Version 1.11.2
+### Bug Fixes
+* (Ladis) Fix NPC name not changing when changing its value from the new NPC sheet
+* (Mothringer) Fix potential undefined actor when distributing coins
+* (stwlam) Prevent journal entry font outside edit mode from being overridden by body style
+* (stwlam) Wrap token-border monkey patch in Foundry version check
+* (Drental) Fix typo in item transfer chat message
+* (fryguy) Fix copy/paste error for additional skills on class item
+* (profounddark) Fixed bug with nonlethal trait crashing the damage rolls, and displayed twice
+* (nikolaj-) Include roll options by default for attack modifier calculation
+
+### New Features
+* (stwlam) Add search bar to compendium directory
+* (Mothringer) Enable casting spells from scrolls and wands by actors with a spellcasting entry that matches the spell's traditions
+* (fryguy) Drag and drop support for classes
+
+### Content Changes
+* (stwlam) Add Shoony ancestry default icon
+* (stwlam) Set slugs and source IDs of world and actor-owned items with a data migration
+* (stwlam) Migrate trait format to arrays in all cases
+* (stwlam) Migrate item trait arrays
+* (stwlam) Change compendium hazard mystery-man icon to new default hazard icon
+* (Shandyan) Rule elements for general feats
+* (Shandyan) Rule elements for ancestry features
+* (Shandyan) Armor speed penalty rule elements
+* (Shandyan) Rule elements for skill feats (Acrobatics through Deception)
+* (Shandyan) Rule elements for skill feats, I to P
+* (putty) Automate modifier from nimble elf
+* (putty) Fix speed for incredible movement
+* (TMun) Correct multishot stance from skill to class feat. Fixes prerequisite formatting. Closes #1016
+* (TMun) Correct or add Extinction Curse content. Correct typo on Sodden Sentinel. Add Juvenile Boar. Add hazards & creatures from book 5, chapters 1 and 2
+* (TMun) Convert classes to include the data necessary for drag and drop
+* (TMun) OGL duplicate of AoE Player's Guide removal
+* (TMun) Abomination Vaults Book 1 Data Entry
+* (rectulo) Heaven's Thunder missing prerequisite value: Jalmeri Heavenseeker Dedication
+* (rectulo) Flamboyant Athlete, correct prerequisite to expert in Athletics
+* (Kane) Remove trailing spaces from entity names
+* (nikolaj-a) Added land speed increase to the Fleet general feat
+* (nikolaj-a) Enhanced compendium actions with a clickable action macro for rolling a check with the proper options set:
+    * Athletics skill check for the Climb action
+    * Athletics skill check for the Disarm action
+    * Athletics skill check for the Force Open action
+    * Athletics skill check for the Grapple action
+    * Athletics skill check for the High Jump activity
+    * Athletics skill check for the Long Jump activity
+    * Athletics skill check for the Shove action
+    * Athletics skill check for the Swim action
+    * Athletics skill check for the Trip action
+    * Perception check for the Seek action
+
+### Core System Improvements
+* (stwlam) Refrain from running migrations on newly-created worlds
+* (putty) Automate speed modifier for Incredible Movement
+* (putty) Implement bulk conversions for actor and item sizes
+* (Mothringer) Make rest for the night macro recharge spellcasting wands
+* (Mothringer) Hide the use item button from the expanded view of unidentified consumables
+* (mirkoRainer) Make deity input opaque to make it clearer that it's editable
+* (Darth_Apples) Add spell slot reset button for each spell level and cast buttons for each spell
+* (fryguy) Change translation text to indicate that the ancestry, background, and class items are now usable
+* (nikolaj-a) Add buttons for opening ABC compendia from player character sheet
+* (nikolaj-a) Include traits in check chat card, if available
+* (nikolaj-a) Replace option tags with strike traits in damage chat card
+* (nikolaj-a) Make modifier tags less prominent in roll chat cards
+
+### Development Improvements
+* (Mothringer) Make addition of new strict mode violations fatal via betterer
+* (Mothringer) Fix the type signature of game.user to correctly reflect that the character
+* (Mothringer) Fix several strict mode violations in actor.ts and loot.ts
+* (Mothringer) Fix several strict mode violations in character.ts by improving typing
+* (stwlam) Fix lone implicit this, turn on noImplicitThis
+* (stwlam) Add item identification properties to physical item data & template.json
+* (stwlam) Update JS file of Rest macro, copy back to compendium macro after prettier pass
+* (stwlam) Make migration versions accessible without construction
+* (stwlam) Update travel speed sheet to not collide with core FormData class and to use PF2Actor rather than Actor
+* (stwlam) Move actor skills from common to character template in template.json
+* (stwlam) Add Actor#prepareData constituent methods to type declaration
+* (stwlam) Rename `prepareData` to `prepareDerivedData` in PF2EActors, allowing Foundry Actor class to call prepareData
+* (stwlam) Update webpack to version 5
+* (stwlam) Update compendium entity type declarations and make stricter type checks in run-migration.ts
+* (stwlam) Remove deprecated (and unused?) gitlab package
+* (stwlam) Modularize CompendiumPack class from packbuilder, move pack scripts into dedicated directory
+* (stwlam) Allow non-zero permission defaults for pack build/extract
+* (stwlam) Fix setting of sourceId on pack build
+* (nikolaj-a) Remove breakdown fields from template.json
+* (nikolaj-a) Add infrastructure for action macros
+
+
 ## Version 1.11.1
 ### Bug Fixes
 * (stwlam) Move slug property from Actor to Item in template.json
