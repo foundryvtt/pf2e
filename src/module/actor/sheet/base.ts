@@ -14,6 +14,7 @@ import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
 import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
+import { ActorDataPF2e } from '@actor/actorDataDefinitions';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -64,7 +65,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         return sheetData;
     }
 
-    abstract _prepareItems(actor: PF2EActor): void;
+    abstract _prepareItems(actorData: ActorDataPF2e): void;
 
     _findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
@@ -1899,7 +1900,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 }
 
                 // Create the template
-                MeasuredTemplate.create(canvas.scene, data).then((results) => {
+                MeasuredTemplate.create(data).then((results) => {
                     templateData = results.data;
 
                     // Save MeasuredTemplate information to actor flags

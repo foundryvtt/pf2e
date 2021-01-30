@@ -1,10 +1,5 @@
 /* global getProperty, CONFIG */
-/**
- * @author Farhan Siddiqi
- * @version 0.0.1
- */
 
-// import { monsterAbilities } from './monsterAbilities';
 import { ActorSheetPF2eNPC } from './npc';
 import { DicePF2e } from '../../../scripts/dice';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
@@ -196,12 +191,10 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
     /**
      * Increases the NPC via the Elite/Weak adjustment rules
      */
-    npcAdjustment(increase) {
+    npcAdjustment(increase: boolean) {
         let actorData = duplicate(this.actor.data);
-        const tokenData = this.token !== null ? duplicate(this.token.data) : duplicate(this.actor.data.token);
         const traits = getProperty(actorData.data, 'traits.traits.value') || [];
         let traitsAdjusted = false;
-        let tokenScale = 1;
         let adjustBackToNormal = false;
 
         if (increase) {
@@ -220,12 +213,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             }
             if (!traitsAdjusted) {
                 traits.push('elite');
-                actorData.name = `Elite ${actorData.name}`;
-                tokenData.name = `Elite ${tokenData.name}`;
-                tokenScale = 1.2;
             } else {
-                if (actorData.name.startsWith('Weak ')) actorData.name = actorData.name.slice(5);
-                if (tokenData.name.startsWith('Weak ')) tokenData.name = tokenData.name.slice(5);
                 adjustBackToNormal = true;
             }
         } else {
@@ -244,31 +232,13 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             }
             if (!traitsAdjusted) {
                 traits.push('weak');
-                actorData.name = `Weak ${actorData.name}`;
-                tokenData.name = `Weak ${tokenData.name}`;
-                tokenScale = 0.8;
             } else {
-                if (actorData.name.startsWith('Elite ')) actorData.name = actorData.name.slice(6);
-                if (tokenData.name.startsWith('Elite ')) tokenData.name = tokenData.name.slice(6);
                 adjustBackToNormal = true;
             }
         }
 
         actorData.data.traits.traits.value = traits;
         actorData = this._applyAdjustmentToData(actorData, increase, adjustBackToNormal);
-
-        if (this.token === null) {
-            // Then we need to apply this to the token prototype
-            this.actor.update({
-                'token.name': tokenData.name,
-                'token.scale': tokenScale,
-            });
-        } else {
-            this.token.update({
-                name: tokenData.name,
-                scale: tokenScale,
-            });
-        }
 
         // modify actordata, including items
         this.actor.update(actorData);
