@@ -74,6 +74,9 @@ Hooks.once('init', () => {
 
     CONFIG.PF2E = PF2ECONFIG;
 
+    //Add action icon style format to Editor
+    CONFIG.TinyMCE.style_formats[0].items.push({ title: 'Action', block: 'span', classes: 'pf2-icon', wrapper: true });
+
     // Assign actor/item classes.
     CONFIG.Item.entityClass = PF2EItem;
     CONFIG.Actor.entityClass = PF2EActor;
