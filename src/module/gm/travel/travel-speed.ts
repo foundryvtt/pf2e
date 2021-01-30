@@ -217,6 +217,13 @@ export interface TravelDuration {
     minutes: number;
 }
 
+// general constants
+const minutesPerHour = 60;
+const hoursPerDay = 8;
+const daysPerWeek = 7;
+const minutesPerDay = hoursPerDay * minutesPerHour;
+const minutesPerWeek = minutesPerDay * daysPerWeek;
+
 /**
  * Calculates how long it would take to traverse a certain distance when moving at a certain
  * speed and hustling x hours per day. Hustling rules don't specify a set time frame, just
@@ -233,13 +240,6 @@ function toTravelDuration(
     feetPerMinute: number,
     hustleDurationInMinutes: number,
 ): TravelDuration {
-    // general constants
-    const minutesPerHour = 60;
-    const hoursPerDay = 8;
-    const daysPerWeek = 7;
-    const minutesPerDay = hoursPerDay * minutesPerHour;
-    const minutesPerWeek = minutesPerDay * daysPerWeek;
-
     // calculate average speed increased by hustling
     const hustleDuration = Math.min(hustleDurationInMinutes, minutesPerDay);
     const normalTravelDuration = minutesPerDay - hustleDuration;
