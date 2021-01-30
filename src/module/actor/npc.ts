@@ -227,7 +227,7 @@ export class PF2ENPC extends PF2EActor {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'skill-check', options: args.options ?? [], notes },
+                        { actor: this, type: 'skill-check', options: args.options ?? [], dc: args.dc, notes },
                         args.event,
                         args.callback,
                     );

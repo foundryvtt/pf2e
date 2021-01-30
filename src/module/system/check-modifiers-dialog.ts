@@ -2,6 +2,7 @@
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
 import { PF2EActor } from '@actor/actor';
 import { PF2RollNote } from '../notes';
+import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -20,6 +21,8 @@ export interface CheckModifiersContext {
     type?: string;
     /** Any traits for the check. */
     traits?: string[];
+    /** Optional DC data for the check */
+    dc?: PF2CheckDC;
 }
 
 /**
@@ -57,7 +60,6 @@ export class CheckModifiersDialog extends Application {
     static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         const options: string[] = [];
         const ctx = (context as any) ?? {};
-
         let dice = '1d20';
         if (ctx.fate === 'misfortune') {
             dice = '2d20kl';
@@ -105,6 +107,31 @@ export class CheckModifiersDialog extends Application {
         const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
 
         let flavor = `<b>${check.name}</b>`;
+
+        // Add the degree of success if a DC was supplied
+        if (ctx.dc !== undefined) {
+            const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
+
+            // Add degree of success to roll for the callback function
+            roll.data.degreeOfSuccess = degreeOfSuccess.value;
+
+            const dcLabel = game.i18n.localize('PF2E.DCLabel');
+            flavor += `<div><b>${dcLabel}: ${ctx.dc.value}</b></div>`;
+
+            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
+            let adjustmentLabel = '';
+            if (degreeOfSuccess.degreeAdjustment !== undefined) {
+                adjustmentLabel = degreeOfSuccess.degreeAdjustment
+                    ? game.i18n.localize('PF2E.OneDegreeBetter')
+                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                adjustmentLabel = ` (${adjustmentLabel})`;
+            }
+
+            const resultLabel = game.i18n.localize('PF2E.ResultLabel');
+            const degreeLabel = game.i18n.localize(`PF2E.CheckOutcome.${degreeOfSuccessText}`);
+            flavor += `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+        }
+
         if (ctx.traits) {
             const traits = ctx.traits.map((trait) => `<span class="tag">${trait}</span>`).join('');
             flavor += `<div class="tags">${traits}</div><hr>`;

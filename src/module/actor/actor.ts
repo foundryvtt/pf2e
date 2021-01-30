@@ -198,7 +198,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
             PF2Check.roll(
                 new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: 'initiative', options },
+                { actor: this, type: 'initiative', options, dc: args.dc },
                 args.event,
                 (roll) => {
                     this._applyInitiativeRollToCombatTracker(roll);
