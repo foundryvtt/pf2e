@@ -149,6 +149,7 @@ export class CheckModifiersDialog extends Application {
                     pf2e: {
                         canReroll: !ctx.fate,
                         context: ctx,
+                        unsafe: flavor,
                     },
                 },
             },
