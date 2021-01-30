@@ -6,20 +6,22 @@ import { PF2EFeat } from './others';
 export class PF2EClass extends PF2EItem {
     data!: ClassData;
 
-    static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
-        const feat = await (async (): Promise<PF2EItem | null> => {
+    static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData | undefined> {
+        const feat = await (async (): Promise<CompendiumEntity | undefined> => {
             if (entry.pack) {
-                const pack = game.packs.get<PF2EFeat>(entry.pack);
+                const pack = game.packs.get(entry.pack);
                 if (pack === null) {
-                    return Promise.reject(new Error('could not load pack'));
+                    console.error(`Failed to load pack ${entry.pack}`);
+                    return undefined;
                 }
                 return pack.getEntity(entry.id);
             }
-            return game.items.get(entry.id);
+            return game.items.get(entry.id) ?? undefined;
         })();
 
         if (!(feat instanceof PF2EFeat)) {
-            return Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
+            console.error('Invalid item type referenced in ABCFeatureEntryData');
+            return undefined;
         }
         return duplicate(feat);
     }
@@ -61,6 +63,9 @@ export class PF2EClass extends PF2EItem {
         const classFeaturesToCreate: FeatData[] = [];
         for (const feature of featuresToAdd) {
             const featureData = await PF2EClass.getClassItemData(feature);
+            if (featureData === undefined) {
+                continue;
+            }
             classFeaturesToCreate.push(featureData);
         }
 
