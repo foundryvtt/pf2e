@@ -1,21 +1,11 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
-import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
 
 /**
  * @category RuleElement
  */
 export class PF2SenseRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const range = super.resolveValue(this.ruleData.range, this.ruleData, this.item, actorData);

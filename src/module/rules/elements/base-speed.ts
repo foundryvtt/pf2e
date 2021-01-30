@@ -1,5 +1,4 @@
 import { PF2RuleElement } from '../rule-element';
-import { ItemData } from '../../item/dataDefinitions';
 import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefinitions';
 
@@ -7,15 +6,6 @@ import { CharacterData, FamiliarData, NpcData } from '../../actor/actorDataDefin
  * @category RuleElement
  */
 export class PF2BaseSpeedRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
