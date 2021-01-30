@@ -2,6 +2,7 @@ import { PF2EActor } from '@actor/actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
+import { balance } from './acrobatics/balance';
 import { climb } from './athletics/climb';
 import { disarm } from './athletics/disarm';
 import { forceOpen } from './athletics/force-open';
@@ -28,6 +29,9 @@ export class PF2Actions {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
+
+        // acrobatics
+        actions.balance = balance;
 
         // athletics
         actions.climb = climb;
