@@ -1,6 +1,6 @@
 /* global game, CONFIG */
-import { IdentifyCreatureData } from '../../recall-knowledge';
-import { padArray } from '../../utils';
+import { IdentifyCreatureData } from '../../../recall-knowledge';
+import { padArray } from '../../../utils';
 
 export class RecallKnowledgePopup extends Application {
     static get defaultOptions() {
