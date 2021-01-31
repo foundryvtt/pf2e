@@ -4,6 +4,7 @@ import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
+import { squeeze } from './acrobatics/squeeze';
 import { tumbleThrough } from './acrobatics/tumble-through';
 import { climb } from './athletics/climb';
 import { disarm } from './athletics/disarm';
@@ -35,6 +36,7 @@ export class PF2Actions {
         // acrobatics
         actions.balance = balance;
         actions.maneuverInFlight = maneuverInFlight;
+        actions.squeeze = squeeze;
         actions.tumbleThrough = tumbleThrough;
 
         // athletics
