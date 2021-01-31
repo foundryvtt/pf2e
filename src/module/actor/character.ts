@@ -730,7 +730,7 @@ export class PF2ECharacter extends PF2EActor {
                         const options = (args.options ?? []).concat(defaultOptions);
                         PF2Check.roll(
                             new PF2CheckModifier(`Strike: ${action.name}`, strike),
-                            { actor: this, type: 'attack-roll', options, notes },
+                            { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                             args.event,
                             args.callback,
                         );
@@ -744,7 +744,7 @@ export class PF2ECharacter extends PF2EActor {
                                 const options = (args.options ?? []).concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
                                     args.callback,
                                 );
@@ -762,7 +762,7 @@ export class PF2ECharacter extends PF2EActor {
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
                                     args.callback,
                                 );
@@ -780,7 +780,7 @@ export class PF2ECharacter extends PF2EActor {
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
                                     args.callback,
                                 );
