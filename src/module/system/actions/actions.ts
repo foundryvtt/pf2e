@@ -3,6 +3,7 @@ import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
+import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
 import { tumbleThrough } from './acrobatics/tumble-through';
 import { climb } from './athletics/climb';
 import { disarm } from './athletics/disarm';
@@ -33,6 +34,7 @@ export class PF2Actions {
 
         // acrobatics
         actions.balance = balance;
+        actions.maneuverInFlight = maneuverInFlight;
         actions.tumbleThrough = tumbleThrough;
 
         // athletics
