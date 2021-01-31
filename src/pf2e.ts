@@ -14,7 +14,7 @@ import { registerSheets } from './module/register-sheets';
 import { PF2eCombatTracker } from './module/system/pf2e-combar-tracker';
 import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from './scripts/actor/statusEffects';
+import { PF2eStatusEffects } from './scripts/actor/status-effects';
 import { PF2eConditionManager } from './module/conditions';
 import { ActorDataPF2e, FamiliarData } from '@actor/actor-data-definitions';
 import {
@@ -41,12 +41,12 @@ require('./styles/pf2e.scss');
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
-require('./scripts/actor/statusEffects.ts');
+require('./scripts/actor/status-effects.ts');
 require('./scripts/dice.ts');
-require('./scripts/chat/chatdamagebuttonsPF2e.ts');
+require('./scripts/chat/chat-damage-buttons-pf2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
-require('./scripts/actor/sheet/itemBehaviour.ts');
-require('./scripts/system/canvasDropHandler');
+require('./scripts/actor/sheet/item-behaviour.ts');
+require('./scripts/system/canvas-drop-handler');
 
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
