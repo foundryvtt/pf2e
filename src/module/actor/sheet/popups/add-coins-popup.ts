@@ -34,13 +34,20 @@ export class AddCoinsPopup extends FormApplication<PF2EActor> {
             updateItemQuantity: async (item, quantity) => {
                 const currentQuantity = item?.data?.quantity?.value || 0;
                 const ownedItem = actor.getOwnedItem(item._id);
-                await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
+                await ownedItem?.update({ 'data.quantity.value': currentQuantity + quantity });
             },
             addFromCompendium: async (compendiumId, quantity) => {
-                const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-                const item = (await pack.getEntity(compendiumId)) as PF2EPhysicalItem;
-                item.data.data.quantity.value = quantity;
-                await actor.createOwnedItem(item.data);
+                const equipmentPackName = 'pf2e.equipment-srd';
+
+                const pack = game.packs.find((p) => p.collection === equipmentPackName);
+
+                if (pack) {
+                    const item = (await pack.getEntity(compendiumId)) as PF2EPhysicalItem;
+                    item.data.data.quantity.value = quantity;
+                    await actor.createOwnedItem(item.data);
+                } else {
+                    throw Error(`PF2e | Could not load pack ${equipmentPackName}`);
+                }
             },
             combineStacks: formData.combineStacks,
             items: actor.data.items || [],
