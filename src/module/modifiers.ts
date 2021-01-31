@@ -1,6 +1,6 @@
 /* global game */
 import { DamageDieSize } from './system/damage/damage';
-import { AbilityString } from './actor/actorDataDefinitions';
+import { AbilityString } from '@actor/actor-data-definitions';
 
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,

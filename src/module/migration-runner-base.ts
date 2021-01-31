@@ -1,4 +1,4 @@
-import { ActorDataPF2e } from './actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ItemData } from './item/dataDefinitions';
 import { MigrationBase } from './migrations/base';
 

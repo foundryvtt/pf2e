@@ -4,7 +4,7 @@
  */
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
-import { AbilityString } from '../actor/actorDataDefinitions';
+import { AbilityString } from '@actor/actor-data-definitions';
 import { TraitSelector5e } from '../system/trait-selector';
 import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
 

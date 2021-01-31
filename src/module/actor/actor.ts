@@ -26,7 +26,7 @@ import {
     ActorDataPF2e,
     VehicleData,
     HazardData,
-} from './actorDataDefinitions';
+} from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,

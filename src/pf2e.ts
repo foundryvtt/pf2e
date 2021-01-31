@@ -16,7 +16,7 @@ import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
-import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
+import { ActorDataPF2e, FamiliarData } from '@actor/actor-data-definitions';
 import {
     AbilityModifier,
     PF2CheckModifier,

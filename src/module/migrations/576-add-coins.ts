@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { PF2EPhysicalItem } from '../item/physical';
-import { ActorDataPF2e } from '../actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 
 export class Migration576AddCoins extends MigrationBase {
     static version = 0.576;

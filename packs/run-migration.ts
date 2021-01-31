@@ -6,7 +6,7 @@ import { Migration595AddItemSize } from '../src/module/migrations/595-item-sizes
 import { ItemData } from '@item/dataDefinitions';
 import { PF2EActor } from '@actor/actor';
 import { PF2EItem } from '@item/item';
-import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 
 const migrations = [new Migration595AddItemSize()];
 

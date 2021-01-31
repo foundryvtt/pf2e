@@ -9,7 +9,7 @@ import {
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory } from './damage';
 import { WeaponData } from '@item/dataDefinitions';
-import { AbilityString, ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { AbilityString, ActorDataPF2e } from '@actor/actor-data-definitions';
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 

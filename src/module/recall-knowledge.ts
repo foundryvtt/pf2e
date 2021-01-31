@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-import { NpcData } from './actor/actorDataDefinitions';
+import { NpcData } from '@actor/actor-data-definitions';
 import { toNumber } from './utils';
 import {
     adjustDC,

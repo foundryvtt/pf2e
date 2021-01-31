@@ -1,5 +1,5 @@
 import { SKILL_EXPANDED } from '../actor/actor';
-import { NPCSkillData } from '../actor/actorDataDefinitions';
+import { NPCSkillData } from '@actor/actor-data-definitions';
 import { PF2ENPC } from '../actor/npc';
 import { PF2EItem } from '../item/item';
 

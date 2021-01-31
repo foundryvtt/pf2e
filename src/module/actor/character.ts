@@ -24,7 +24,7 @@ import {
     CharacterStrikeTrait,
     SkillData,
     RawCharacterData,
-} from './actorDataDefinitions';
+} from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
 import { toNumber } from '../utils';
