@@ -3,7 +3,7 @@ import { ActorSheetPF2eCreature } from './creature';
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
-import { RecallKnowledgePopup } from './RecallKnowledgePopup';
+import { RecallKnowledgePopup } from './recall-knowledge-popup';
 
 /**
  * @category Actor

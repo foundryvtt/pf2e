@@ -1,7 +1,7 @@
 /* global canvas, game, CONFIG, getProperty, MeasuredTemplate */
-import { RemoveCoinsPopup } from './RemoveCoinsPopup';
+import { RemoveCoinsPopup } from './remove-coins-popup';
 import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
-import { AddCoinsPopup } from './AddCoinsPopup';
+import { AddCoinsPopup } from './add-coins-popup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
@@ -10,7 +10,7 @@ import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
 import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
-import { IdentifyItemPopup } from './IdentifyPopup';
+import { IdentifyItemPopup } from './identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
 import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';

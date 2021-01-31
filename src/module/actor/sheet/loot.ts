@@ -4,7 +4,7 @@ import { ActorSheetPF2e } from './base';
 import { PF2ELoot } from '../loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
-import { DistributeCoinsPopup } from './DistributeCoinsPopup';
+import { DistributeCoinsPopup } from './distribute-coins-popup';
 import { PF2EItem } from '../../item/item';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
