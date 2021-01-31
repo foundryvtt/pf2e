@@ -732,6 +732,7 @@ export class PF2ECharacter extends PF2EActor {
                             new PF2CheckModifier(`Strike: ${action.name}`, strike),
                             { actor: this, type: 'attack-roll', options, notes },
                             args.event,
+                            args.callback,
                         );
                     });
                     action.roll = action.attack;
@@ -745,6 +746,7 @@ export class PF2ECharacter extends PF2EActor {
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike),
                                     { actor: this, type: 'attack-roll', options, notes },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },
@@ -762,6 +764,7 @@ export class PF2ECharacter extends PF2EActor {
                                     ]),
                                     { actor: this, type: 'attack-roll', options, notes },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },
@@ -779,6 +782,7 @@ export class PF2ECharacter extends PF2EActor {
                                     ]),
                                     { actor: this, type: 'attack-roll', options, notes },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },
