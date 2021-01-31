@@ -53,12 +53,12 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
     getData() {
         const sheetData: PopupData = super.getData();
         sheetData.tokenInfo = [];
-        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor._id !== this.object._id);
+        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor?._id !== this.object._id);
         for (let i = 0; i < selectedTokens.length; i++) {
             sheetData.tokenInfo.push({
                 id: selectedTokens[i].id,
                 name: selectedTokens[i].name,
-                checked: !selectedTokens[i].actor.hasPlayerOwner,
+                checked: !selectedTokens[i].actor?.hasPlayerOwner,
             });
         }
         return sheetData;

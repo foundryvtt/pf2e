@@ -10,9 +10,14 @@ export class ScrollWandPopup extends FormApplication<PF2EActor> {
     onSubmitCallback: (a: number, b: string, spellData: SpellData) => void;
     spellData: SpellData;
 
-    constructor(object: PF2EActor, options: unknown, callback: (a: number, b: string, c: SpellData) => void) {
+    constructor(
+        object: PF2EActor,
+        options: FormApplicationOptions,
+        spellData: SpellData,
+        callback: (a: number, b: string, c: SpellData) => void,
+    ) {
         super(object, options);
-
+        this.spellData = spellData;
         this.onSubmitCallback = callback;
     }
 
