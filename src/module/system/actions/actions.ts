@@ -2,6 +2,7 @@ import { PF2EActor } from '@actor/actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
+import { balance } from './acrobatics/balance';
 import { climb } from './athletics/climb';
 import { disarm } from './athletics/disarm';
 import { forceOpen } from './athletics/force-open';
@@ -11,14 +12,26 @@ import { longJump } from './athletics/long-jump';
 import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
+import { coerce } from './intimidation/coerce';
+import { demoralize } from './intimidation/demoralize';
 
-type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
+
+export type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
+
+export interface ActionDefaultOptions {
+    event: JQuery.Event;
+    actors?: PF2EActor | PF2EActor[];
+    glyph?: ActionGlyph;
+}
 
 export class PF2Actions {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
+
+        // acrobatics
+        actions.balance = balance;
 
         // athletics
         actions.climb = climb;
@@ -30,12 +43,16 @@ export class PF2Actions {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+
+        // intimidation
+        actions.coerce = coerce;
+        actions.demoralize = demoralize;
     }
 
     static simpleRollActionCheck(
-        actors: PF2EActor | PF2EActor[],
+        actors: PF2EActor | PF2EActor[] | undefined,
         stat: string,
-        actionGlyph: ActionGlyph,
+        actionGlyph: ActionGlyph | undefined,
         title: string,
         subtitle: string,
         rollOptions: string[],
@@ -58,11 +75,12 @@ export class PF2Actions {
 
         if (rollers.length) {
             rollers.forEach((actor) => {
-                const flavor = `
-                    <span class="pf2-icon">${actionGlyph}</span>
-                    <b>${game.i18n.localize(title)}</b>
-                    <p class="compact-text">(${game.i18n.localize(subtitle)})</p>
-                `.trim();
+                let flavor = '';
+                if (actionGlyph) {
+                    flavor += `<span class="pf2-icon">${actionGlyph}</span> `;
+                }
+                flavor += `<b>${game.i18n.localize(title)}</b>`;
+                flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
                 const check = new PF2CheckModifier(flavor, getProperty(actor, stat) as PF2StatisticModifier);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 PF2Check.roll(
