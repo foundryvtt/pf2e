@@ -4,7 +4,7 @@ import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
-import { MoveLootPopup } from './loot/MoveLootPopup';
+import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';

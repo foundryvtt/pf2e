@@ -8,7 +8,7 @@ import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EItem } from '../../item/item';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem } from '../../item/dataDefinitions';
-import { LootNPCsPopup } from './loot/LootNPCsPopup';
+import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**
  * @category Actor
