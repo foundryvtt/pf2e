@@ -1,4 +1,3 @@
-import { ItemData } from '../../item/dataDefinitions';
 import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
@@ -8,15 +7,6 @@ import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
  * @category RuleElement
  */
 export class PF2MageArmorRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const label = this.ruleData.label ?? this.item.name;
         const level = (this.item.data as any)?.level?.value ?? this.ruleData.level ?? 1;

@@ -28,13 +28,23 @@ const defaultExplorationOptions: ExplorationOptions = {
 describe('test travel speed', () => {
     test('character speed', () => {
         expect(
-            calculateNormalizedCharacterSpeed(40, ExplorationActivities.NONE, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(
+                40,
+                ExplorationActivities.NONE,
+                DetectionMode.NONE,
+                defaultExplorationOptions,
+            ),
         ).toEqual(40);
     });
 
     test('character speed when defending', () => {
         expect(
-            calculateNormalizedCharacterSpeed(40, ExplorationActivities.DEFEND, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(
+                40,
+                ExplorationActivities.DEFEND,
+                DetectionMode.NONE,
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
@@ -75,7 +85,12 @@ describe('test travel speed', () => {
 
     test('character speed when searching', () => {
         expect(
-            calculateNormalizedCharacterSpeed(40, ExplorationActivities.SEARCH, DetectionMode.NONE, defaultExplorationOptions),
+            calculateNormalizedCharacterSpeed(
+                40,
+                ExplorationActivities.SEARCH,
+                DetectionMode.NONE,
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
@@ -135,6 +150,28 @@ describe('test travel speed', () => {
             weeks: 0,
             days: 2,
             hours: 4,
+            minutes: 24,
+        });
+    });
+
+    test('travel time hustling', () => {
+        const journey: Trip[] = [
+            {
+                distance: {
+                    value: 51,
+                    unit: LengthUnit.MILES,
+                },
+                terrain: Terrain.NORMAL,
+                terrainSlowdown: terrainModifiers,
+            },
+        ];
+        const velocity = speedToVelocity(25);
+        // 22.5 miles per day since one hour we move at double speed effectively giving us 1 hour more of movement
+        // 45 miles in 2 days
+        expect(calculateTravelDuration(journey, velocity, 60)).toEqual({
+            weeks: 0,
+            days: 2,
+            hours: 1,
             minutes: 24,
         });
     });
