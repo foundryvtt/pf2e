@@ -10,6 +10,7 @@ import { PF2EPhysicalItem } from '../../item/physical';
 import { isPhysicalItem, SpellData, ItemData, SpellcastingEntryData } from '@item/data-definitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
+import { PF2EClass } from '../../item/class';
 
 /**
  * @category Other
@@ -42,7 +43,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 'data.hp.value': formData['data.attributes.shield.hp.value'],
             });
         }
+        const previousLevel = this.actor.data.data.details.level.value;
         await super._updateObject(event, formData);
+
+        const updatedLevel = this.actor.data.data.details.level.value;
+        if (updatedLevel != previousLevel) {
+            await PF2EClass.ensureClassFeaturesForLevel(this.actor);
+        }
     }
 
     /**
@@ -61,6 +68,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         const backgroundItem = this.actor.items.find((x) => x.type === 'background');
         sheetData.backgroundItemId = backgroundItem ? backgroundItem.id : '';
+
+        const classItem = this.actor.items.find((x) => x.type === 'class');
+        sheetData.classItemId = classItem ? classItem.id : '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -472,6 +482,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
+            // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
             if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
                 this._preparedSpellSlots(entry, spellbooks[entry._id]);
             }
@@ -574,6 +585,16 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             const title = parent.find('.item.active').data('tabTitle');
             if (title) {
                 parent.find('.navigation-title').text(title);
+            }
+        });
+
+        // open ancestry, background, or class compendium
+        html.find('.open-compendium').on('click', (event) => {
+            if (event.currentTarget.dataset.compendium) {
+                const compendium = game.packs.get(event.currentTarget.dataset.compendium);
+                if (compendium) {
+                    compendium.render(true);
+                }
             }
         });
 
@@ -716,7 +737,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
-        const errors = [];
+        const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
         }
@@ -739,7 +760,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     onRemoveCustomModifier(event) {
         const stat = $(event.currentTarget).attr('data-stat');
         const name = $(event.currentTarget).attr('data-name');
-        const errors = [];
+        const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
         }
@@ -760,6 +781,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         if (itemData.type === 'background') {
             return PF2EBackground.addToActor(this.actor, itemData);
+        }
+
+        if (itemData.type === 'class') {
+            return PF2EClass.addToActor(this.actor, itemData);
         }
 
         return super._onDropItemCreate(itemData);

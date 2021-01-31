@@ -333,8 +333,8 @@ export interface ConsumableDetailsData extends MagicItemData {
         _deprecated: boolean;
     };
     spell?: {
-        data: SpellData;
-        heightenedLevel: number;
+        data?: SpellData;
+        heightenedLevel?: number;
     };
 }
 
@@ -553,6 +553,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     isAttack?: boolean;
     spellLvl?: string;
     properties?: (number | string)[];
+    item?: string;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {

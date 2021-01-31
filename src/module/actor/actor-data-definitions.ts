@@ -1,5 +1,6 @@
 import { ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
+import { RollParameters } from '../system/rolls';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -13,7 +14,11 @@ export type PFSFactionString = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
 export type PFSSchoolString = 'none' | 'scrolls' | 'spells' | 'swords';
 
 /** A roll function which can be called to roll a given skill. */
-export type RollFunction = (event: any, options: string[], callback?: any) => void;
+export type RollFunction = (
+    event: JQuery.Event | RollParameters,
+    options?: string[],
+    callback?: (roll: Roll) => void,
+) => void;
 
 /** Generic { value, label, type } type used in various places in data types. */
 export interface LabeledValue {

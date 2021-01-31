@@ -10,7 +10,7 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['actor', 'familiar']),
+            classes: options.classes?.concat(['actor', 'familiar']),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'attributes' }],
@@ -46,20 +46,20 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
 
         // rollable stats
         html.find('[data-saving-throw]:not([data-saving-throw=""])').on('click', '*', (event) => {
-            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw');
+            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw') as string;
             const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
             this.actor.data.data.saves[save].roll(event, options);
         });
 
         html.find('[data-skill-check]:not([data-skill-check=""])').on('click', '*', (event) => {
-            const skill = $(event.currentTarget).closest('[data-skill-check]').attr('data-skill-check');
+            const skill = $(event.currentTarget).closest('[data-skill-check]').attr('data-skill-check') as string;
             const options = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skill] ?? skill]);
             this.actor.data.data.skills[skill].roll(event, options);
         });
 
         html.find('[data-perception-check]').on('click', '*', (event) => {
             const options = this.actor.getRollOptions(['all', 'perception']);
-            this.actor.data.data.attributes.perception.roll(event, options);
+            this.actor.data.data.attributes.perception.roll({ event, options });
         });
 
         html.find('[data-attack-roll]').on('click', '*', (event) => {

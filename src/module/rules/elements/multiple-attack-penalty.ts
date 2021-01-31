@@ -1,6 +1,5 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics } from '../rules-data-definitions';
-import { ItemData } from '@item/data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2ModifierPredicate } from '../../modifiers';
 
@@ -8,15 +7,6 @@ import { PF2ModifierPredicate } from '../../modifiers';
  * @category RuleElement
  */
 export class PF2MultipleAttackPenaltyRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onBeforePrepareData(actorData: CharacterData | NpcData, { multipleAttackPenalties }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.resolveInjectedProperties(

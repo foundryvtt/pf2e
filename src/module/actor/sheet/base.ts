@@ -12,6 +12,7 @@ import { ItemData, ConditionData, isPhysicalItem, SpellData } from '@item/data-d
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { scrollFromSpell, wandFromSpell } from '@item/spell-consumables';
 
@@ -64,7 +65,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         return sheetData;
     }
 
-    abstract _prepareItems(actor: PF2EActor): void;
+    abstract _prepareItems(actorData: ActorDataPF2e): void;
 
     _findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
@@ -507,8 +508,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].damage(event, opts);
+            const options = this.actor.getRollOptions(['all', 'damage-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].damage({ event, options });
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
@@ -520,8 +521,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const opts = this.actor.getRollOptions(['all', 'damage-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].critical(event, opts);
+            const options = this.actor.getRollOptions(['all', 'damage-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].critical({ event, options });
         });
 
         // for spellcasting checks
@@ -545,7 +546,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             const save = $(ev.currentTarget).parents('[data-save]')[0].getAttribute('data-save');
             if (this.actor.data.data.saves[save]?.roll) {
                 const opts = this.actor.getRollOptions(['all', 'saving-throw', save]);
-                this.actor.data.data.saves[save].roll(ev, opts);
+                this.actor.data.data.saves[save].roll({ event: ev, options: opts });
             } else {
                 this.actor.rollSave(ev, save);
             }
@@ -558,7 +559,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             const opts = this.actor.getRollOptions(
                 ['all', 'initiative'].concat(SKILL_DICTIONARY[checkType] ?? checkType),
             );
-            this.actor.data.data.attributes.initiative.roll(ev, opts);
+            this.actor.data.data.attributes.initiative.roll({ event: ev, options: opts });
         });
 
         html.find('.attribute-name').click((ev) => {
@@ -570,7 +571,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 if (isSecret) {
                     opts.push('secret');
                 }
-                this.actor.data.data.attributes[attribute].roll(ev, opts);
+                this.actor.data.data.attributes[attribute].roll({ event: ev, options: opts });
             } else {
                 this.actor.rollAttribute(ev, attribute);
             }
@@ -588,7 +589,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
             if (this.actor.data.data.skills[skl]?.roll) {
                 const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skl] ?? skl]);
-                this.actor.data.data.skills[skl].roll(ev, opts);
+                this.actor.data.data.skills[skl].roll({ event: ev, options: opts });
             } else {
                 this.actor.rollSkill(ev, skl);
             }
@@ -879,7 +880,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const opts = this.actor.getRollOptions(['all', 'attack-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].roll(event, opts);
+            this.actor.data.data.actions[Number(actionIndex)].roll({ event, options: opts });
         });
 
         html.find('[data-variant-index].variant-strike').click((event) => {
@@ -887,8 +888,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const variantIndex = $(event.currentTarget).attr('data-variant-index');
-            const opts = this.actor.getRollOptions(['all', 'attack-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].variants[Number(variantIndex)].roll(event, opts);
+            const options = this.actor.getRollOptions(['all', 'attack-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].variants[Number(variantIndex)].roll({ event, options });
         });
 
         // Item Rolling
@@ -1286,7 +1287,14 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         if (isSameActor) return this._onSortItem(event, itemData);
 
         if (data.actorId && isPhysicalItem(itemData)) {
-            return this.moveItemBetweenActors(event, data.actorId, data.tokenId, actor._id, actor.token?.id, data.id);
+            return this.moveItemBetweenActors(
+                event,
+                data.actorId,
+                data.tokenId,
+                actor._id,
+                actor.token?.id ?? '',
+                data.id,
+            );
         }
 
         // get the item type of the drop target
@@ -1357,28 +1365,36 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
     /**
      * Moves an item between two actors' inventories.
-     * @param {event} event         Event that fired this method.
-     * @param {actor} sourceActorId ID of the actor who originally owns the item.
-     * @param {actor} targetActorId ID of the actor where the item will be stored.
-     * @param {id} itemId           ID of the item to move between the two actors.
+     * @param event         Event that fired this method.
+     * @param sourceActorId ID of the actor who originally owns the item.
+     * @param targetActorId ID of the actor where the item will be stored.
+     * @param itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(event, sourceActorId, sourceTokenId, targetActorId, targetTokenId, itemId) {
+    async moveItemBetweenActors(
+        event: JQuery.DropEvent,
+        sourceActorId: string,
+        sourceTokenId: string,
+        targetActorId: string,
+        targetTokenId: string,
+        itemId: string,
+    ): Promise<void> {
         const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
         const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
         const item = sourceActor.getOwnedItem(itemId);
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
-        let containerId = null;
-        if (container[0] !== undefined) {
-            containerId = container[0].dataset.itemId?.trim();
+        if (sourceActor === null || targetActor === null) {
+            return Promise.reject(new Error('PF2e System | Unexpected missing actor(s)'));
+        }
+        if (item === null) {
+            return Promise.reject(new Error('PF2e System | Unexpected missing item'));
         }
 
+        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
-
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
-            const popup = new MoveLootPopup(sourceActor, {}, (quantity) => {
-                console.log(`Accepted moving ${quantity} items`);
+            const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity) => {
                 sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
             });
 
@@ -1884,7 +1900,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 }
 
                 // Create the template
-                MeasuredTemplate.create(canvas.scene, data).then((results) => {
+                MeasuredTemplate.create(data).then((results) => {
                     templateData = results.data;
 
                     // Save MeasuredTemplate information to actor flags

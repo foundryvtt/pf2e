@@ -165,6 +165,52 @@ p.compact-text {
 }
 
 /* ----------------------------------------- */
+/* PF2E Action Custom Element
+/* ----------------------------------------- */
+pf2-action[action] {
+    background: #DDD;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+pf2-action[glyph]::before {
+    font-family: 'Pathfinder2eActions';
+    font-size: 1.5em;
+    margin-right: 2px;
+    color: #7a7971;
+}
+
+pf2-action[glyph="A"]::before,
+pf2-action[glyph="a"]::before,
+pf2-action[glyph="1"]::before {
+    content: 'A';
+}
+pf2-action[glyph="D"]::before,
+pf2-action[glyph="d"]::before,
+pf2-action[glyph="2"]::before {
+    content: 'D';
+}
+pf2-action[glyph="T"]::before,
+pf2-action[glyph="t"]::before,
+pf2-action[glyph="3"]::before {
+    content: 'T';
+}
+pf2-action[glyph="F"]::before,
+pf2-action[glyph="f"]::before {
+    content: 'F';
+}
+pf2-action[glyph="R"]::before,
+pf2-action[glyph="r"]::before {
+    content: 'R';
+}
+
+/* ----------------------------------------- */
 /* Forms
 /* ----------------------------------------- */
 @import 'forms';

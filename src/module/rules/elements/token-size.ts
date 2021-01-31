@@ -16,15 +16,6 @@ const SIZES = {
  * @category RuleElement
  */
 export class PF2TokenSizeRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value =
             SIZES[this.ruleData.value] ?? this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

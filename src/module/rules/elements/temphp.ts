@@ -3,24 +3,10 @@ import { ItemData } from '@item/data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
-interface TempHPRuleData {
-    value?: number;
-    formula?: string;
-}
-
 /**
  * @category RuleElement
  */
 export class PF2TempHPRuleElement extends PF2RuleElement {
-    ruleData: TempHPRuleData;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = <TempHPRuleData>ruleData;
-        this.item = item;
-    }
-
     onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);

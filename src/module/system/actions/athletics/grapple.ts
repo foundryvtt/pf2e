@@ -1,11 +1,10 @@
-import { PF2EActor } from '@actor/actor';
-import { PF2Actions } from '../actions';
+import { ActionDefaultOptions, PF2Actions } from '../actions';
 
-export function grapple(options: { event: JQuery.Event; actor: PF2EActor }) {
+export function grapple(options: ActionDefaultOptions) {
     PF2Actions.simpleRollActionCheck(
-        options.actor,
-        options.actor.data.data.skills.ath,
-        'A',
+        options.actors,
+        'data.data.skills.ath',
+        options.glyph ?? 'A',
         'PF2E.Actions.Grapple',
         'PF2E.ActionsCheck.Athletics',
         ['all', 'skill-check', 'athletics', 'action:grapple'],

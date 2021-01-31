@@ -151,7 +151,10 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * If the Token data is not linked, create a synthetic Actor using the Token's actorData override
      * @param token
      */
-    static fromToken<TA extends typeof Actor>(this: TA, token: Token<InstanceType<TA>>): InstanceType<TA>;
+    static fromToken<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        token: Token<A>
+    ): A | null;
 
     /**
      * Create a synthetic Token Actor instance which is used in place of an actual Actor.
@@ -159,11 +162,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * @param baseActor
      * @param token
      */
-    static createTokenActor<TA extends typeof Actor>(
-        this: TA,
-        baseActor: InstanceType<TA>,
-        token: Token<InstanceType<TA>>,
-    ): InstanceType<TA>;
+    static createTokenActor<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        baseActor: A,
+        token: Token<A>,
+    ): A;
 
     /** @override */
     updateEmbeddedEntity(

@@ -31,7 +31,6 @@ const optimization: Optimization = isProductionBuild
                       mangle: false,
                   },
               }),
-              '...',
               new CssMinimizerPlugin(),
           ],
       }

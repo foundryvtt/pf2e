@@ -1,4 +1,5 @@
 /* global canvas, game, getProperty, CONFIG */
+import { TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '@item/data-definitions';
 
@@ -16,7 +17,7 @@ export class PF2eStatus {
     value: number;
     source: string;
 
-    constructor(statusName, source, value = 1, active = true) {
+    constructor(statusName: string, source: string, value = 1, active = true) {
         this.status = statusName;
         this.active = active;
         this.source = source;
@@ -173,13 +174,13 @@ export class PF2eStatusEffects {
             });
         }
 
-        Hooks.on('createToken', (scene, token, options, someId) => {
+        Hooks.on('createToken', (scene: Scene, tokenData: TokenData, _options: {}, _someId: string) => {
             console.log('PF2e System | Updating the new token with the actors status effects');
-            PF2eStatusEffects._hookOnCreateToken(scene, token);
+            PF2eStatusEffects._hookOnCreateToken(scene, tokenData);
         });
-        Hooks.on('canvasReady', (canvas) => {
+        Hooks.on('canvasReady', (_canvas: Canvas) => {
             console.log('PF2e System | Updating the scenes token with the actors status effects');
-            PF2eStatusEffects._hookOnCanvasReady(canvas);
+            PF2eStatusEffects._hookOnCanvasReady();
         });
     }
 
@@ -348,8 +349,10 @@ export class PF2eStatusEffects {
     /**
      * Adding the Actors statuseffects to the newly created token.
      */
-    static _hookOnCreateToken(_scene: Scene, tokenData: TokenData) {
-        const token = canvas.tokens.get(tokenData._id);
+    static _hookOnCreateToken(scene: Scene, tokenData: TokenData): void {
+        if (!scene.visible) return;
+
+        const token: TokenPF2e = new Token(tokenData);
 
         if (token.owner) {
             PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));
@@ -359,14 +362,15 @@ export class PF2eStatusEffects {
     /**
      * Updating all tokens on the canvas with the actors status effects.
      */
-    static _hookOnCanvasReady(canvas) {
+    static _hookOnCanvasReady() {
         const scene = canvas.scene;
 
         for (const tokenData of scene.data.tokens) {
             const token = canvas.tokens.get(tokenData._id);
+            if (token === undefined) continue;
 
             if (token.owner) {
-                PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));
+                PF2eConditionManager.renderEffects(token);
             }
         }
     }

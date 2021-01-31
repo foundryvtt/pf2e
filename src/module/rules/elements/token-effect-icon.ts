@@ -7,15 +7,6 @@ import { PF2RuleElement } from '../rule-element';
  * @category RuleElement
  */
 export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value ?? item.img ?? 'icons/svg/mystery-man.svg';
         const safeValue = value.replace(/[.]/g, '-');

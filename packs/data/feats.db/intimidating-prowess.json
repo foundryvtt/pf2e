@@ -29,19 +29,48 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "2"
+            "value": 2
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "Strength 16",
-                "expert in Intimidation"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "Strength 16",
+            "expert in Intimidation"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Intimidating Prowess (physically menace with Coerce or Demoralize)",
+                "predicate": {
+                    "all": [
+                        "target:physically-menaced"
+                    ],
+                    "any": [
+                        "action:coerce",
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": "round(@abilities.str.mod / 3)"
+                        },
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.itm.rank"
+                }
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +89,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Intimidating Prowess",

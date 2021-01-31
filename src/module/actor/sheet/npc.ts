@@ -351,7 +351,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
                     .filter((o) => !!o);
                 opts.push(...split);
             }
-            this.actor.data.data.skills[shortform]?.roll(event, opts); // eslint-disable-line no-unused-expressions
+            this.actor.data.data.skills[shortform]?.roll({ event, options: opts }); // eslint-disable-line no-unused-expressions
         });
 
         html.find('.skill-input').change(async (event) => {

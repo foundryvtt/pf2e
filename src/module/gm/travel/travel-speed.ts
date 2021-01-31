@@ -217,15 +217,53 @@ export interface TravelDuration {
     minutes: number;
 }
 
-function toTravelDuration(distanceInFeet: number, feetPerMinute: number): TravelDuration {
-    const totalMinutes = Math.round(distanceInFeet / feetPerMinute);
-    const minutesPerHour = 60;
-    const minutesPerDay = 8 * minutesPerHour; // 8 hour work day
-    const minutesPerWeek = minutesPerDay * 7;
+// general constants
+const minutesPerHour = 60;
+const hoursPerDay = 8;
+const daysPerWeek = 7;
+const minutesPerDay = hoursPerDay * minutesPerHour;
+const minutesPerWeek = minutesPerDay * daysPerWeek;
+
+/**
+ * Calculates how long it would take to traverse a certain distance when moving at a certain
+ * speed and hustling x hours per day. Hustling rules don't specify a set time frame, just
+ * a maximum duration during which you are able to move at double speed. Looking at the feats
+ * and spells that increase your hustling duration, we deduced that the maximum hustling
+ * duration is per day.
+ *
+ * @param distanceInFeet
+ * @param feetPerMinute
+ * @param hustleDurationInMinutes
+ */
+function toTravelDuration(
+    distanceInFeet: number,
+    feetPerMinute: number,
+    hustleDurationInMinutes: number,
+): TravelDuration {
+    // calculate average speed increased by hustling
+    const hustleDuration = Math.min(hustleDurationInMinutes, minutesPerDay);
+    const normalTravelDuration = minutesPerDay - hustleDuration;
+    const averageSpeed = (feetPerMinute * 2 * hustleDuration + feetPerMinute * normalTravelDuration) / minutesPerDay;
+
+    // calculate weeks and days using the increased average speed
+    const totalMinutes = Math.round(distanceInFeet / averageSpeed);
     const weeks = Math.floor(totalMinutes / minutesPerWeek);
     const days = Math.floor((totalMinutes - weeks * minutesPerWeek) / minutesPerDay);
-    const hours = Math.floor((totalMinutes - weeks * minutesPerWeek - days * minutesPerDay) / minutesPerHour);
-    const minutes = totalMinutes - weeks * minutesPerWeek - days * minutesPerDay - hours * minutesPerHour;
+
+    // For the remaining distance we need to calculate them differently: a player usually wants
+    // to hustle at the start of a day so the first x minutes are spent hustling, while
+    // the remaining use the normal speed.
+    const remainingDistanceInFeet =
+        distanceInFeet - weeks * minutesPerWeek * averageSpeed - days * minutesPerDay * averageSpeed;
+    // calculate how long it would take while hustling all day, then subtract minutes spent hustling
+    // remaining minutes are spent moving at normal speed so duration increases two times
+    const remainingMinutesMovingAtDoubleSpeed = remainingDistanceInFeet / (feetPerMinute * 2);
+    const remainingMinutesSpentHustling =
+        Math.min(remainingMinutesMovingAtDoubleSpeed, hustleDurationInMinutes) +
+        Math.max(0, remainingMinutesMovingAtDoubleSpeed - hustleDurationInMinutes) * 2;
+
+    const hours = Math.floor(remainingMinutesSpentHustling / minutesPerHour);
+    const minutes = Math.round(remainingMinutesSpentHustling - hours * minutesPerHour);
     return {
         weeks,
         days,
@@ -234,8 +272,12 @@ function toTravelDuration(distanceInFeet: number, feetPerMinute: number): Travel
     };
 }
 
-export function calculateTravelDuration(journey: Trip[], velocity: Velocity): TravelDuration {
+export function calculateTravelDuration(
+    journey: Trip[],
+    velocity: Velocity,
+    hustleDurationInMinutes: number = 0,
+): TravelDuration {
     const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
     const feetPerMinute = toFeetPerMinute(velocity);
-    return toTravelDuration(distanceInFeet, feetPerMinute);
+    return toTravelDuration(distanceInFeet, feetPerMinute, hustleDurationInMinutes);
 }

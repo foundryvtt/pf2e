@@ -4,7 +4,6 @@ import {
     ActionData,
     ArmorData,
     BackpackData,
-    ClassData,
     ConditionData,
     ConsumableData,
     EquipmentData,
@@ -48,9 +47,6 @@ export class PF2EConsumable extends PF2EPhysicalItem {
 }
 export class PF2EEquipment extends PF2EPhysicalItem {
     data!: EquipmentData;
-}
-export class PF2EClass extends PF2EItem {
-    data!: ClassData;
 }
 export class PF2EFeat extends PF2EItem {
     data!: FeatData;

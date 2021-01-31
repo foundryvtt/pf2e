@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>When you roll initiative, you can yell a mighty battle cry and Demoralize an observed foe as a free action. If you're legendary in Intimidation, you can use a reaction to Demoralize your foe when you critically succeed at an attack roll.</p>"
+            "value": "<p>When you roll initiative, you can yell a mighty battle cry and <pf2-action action='demoralize' glyph='F'>Demoralize</pf2-action> an observed foe as a free action.</p>\n<p>If you're legendary in Intimidation, you can use a reaction to <pf2-action action='demoralize' glyph='R'>Demoralize</pf2-action> your foe when you critically succeed at an attack roll.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,18 +29,22 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "7"
+            "value": 7
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "master in Intimidation"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "master in Intimidation"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "initiative",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You can yell a mighty battle cry and <pf2-action action='demoralize' glyph='F'>Demoralize</pf2-action> an observed foe as a free action.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -58,6 +62,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Battle Cry",

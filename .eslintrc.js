@@ -36,6 +36,8 @@ module.exports = {
         Token: 'readonly',
         BasePlaceableHUD: 'readonly',
         FormApplication: 'readonly',
+        Collection: 'readonly',
+        EntityCollection: 'readonly',
     },
     parserOptions: {
         ecmaVersion: 2018,

@@ -1,6 +1,5 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
-import { ItemData } from '@item/data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2DamageDice } from '../../modifiers';
 
@@ -8,15 +7,6 @@ import { PF2DamageDice } from '../../modifiers';
  * @category RuleElement
  */
 export class PF2DamageDiceRuleElement extends PF2RuleElement {
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-
     onBeforePrepareData(actorData: CharacterData | NpcData, { damageDice }: PF2RuleElementSynthetics) {
         const value = duplicate(this.ruleData);
         delete value.key;

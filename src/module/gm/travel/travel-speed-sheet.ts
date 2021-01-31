@@ -80,6 +80,7 @@ interface FormActorData {
 
 interface TravelFormData {
     actors: FormActorData[];
+    hustleMinutes: number;
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
@@ -169,7 +170,7 @@ class TravelSpeedSheet extends FormApplication {
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
         return {
-            travelDuration: calculateTravelDuration(journey, velocity),
+            travelDuration: calculateTravelDuration(journey, velocity, data.hustleMinutes),
             distance: data.distance,
             actors: actorFormData,
             normalTerrainSlowdown: data.normalTerrainSlowdown,
@@ -178,6 +179,7 @@ class TravelSpeedSheet extends FormApplication {
             distanceUnit: data.distanceUnit,
             terrain: data.terrain,
             partySpeedInFeet,
+            hustleMinutes: data.hustleMinutes,
         };
     }
 
@@ -190,6 +192,7 @@ class TravelSpeedSheet extends FormApplication {
             difficultTerrainSlowdown: { denominator: 1, numerator: 2 },
             greaterDifficultTerrainSlowdown: { denominator: 1, numerator: 3 },
             distance: 1,
+            hustleMinutes: getHustleMinutes(actors),
         });
     }
 
@@ -250,6 +253,20 @@ function parseExplorationActivity(activity: ExplorationActivitiesData): Explorat
     } else {
         return ExplorationActivities.HALF_SPEED;
     }
+}
+
+/**
+ * You strain yourself to move at double your travel speed.
+ * You can Hustle only for a number of minutes equal to your Constitution modifier × 10 (minimum 10 minutes).
+ * @param actors
+ * @return possible minutes spent hustling
+ */
+function getHustleMinutes(actors: PF2EActor[]): number {
+    return Math.min(
+        ...actors.map((actor) => {
+            return Math.max(1, actor.data.data.abilities.con.mod) * 10;
+        }),
+    );
 }
 
 function hasFeat(actor: PF2EActor, name: string): boolean {

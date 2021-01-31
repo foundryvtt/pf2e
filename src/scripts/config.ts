@@ -6,11 +6,11 @@ import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
 import { PF2EAncestry } from '../module/item/ancestry';
 import { PF2EBackground } from '../module/item/background';
+import { PF2EClass } from '../module/item/class';
 import {
     PF2EAction,
     PF2EArmor,
     PF2EBackpack,
-    PF2EClass,
     PF2ECondition,
     PF2EConsumable,
     PF2EEquipment,
@@ -1794,17 +1794,21 @@ export const PF2ECONFIG = {
     loot: {
         subtitles: {
             take: 'PF2E.loot.TakeSubtitle',
-            stow: 'PF2E.loot.StowSubtitle',
+            deposit: 'PF2E.loot.DepositSubtitle',
             transfer: 'PF2E.loot.TransferSubtitle',
             sell: 'PF2E.loot.SellSubtitle',
             give: 'PF2E.loot.GiveSubtitle',
         },
         messages: {
             take: 'PF2E.loot.TakeMessage',
-            stow: 'PF2E.loot.StowMessage',
+            deposit: 'PF2E.loot.DepositMessage',
             transfer: 'PF2E.loot.TransferMessage',
             sell: 'PF2E.loot.SellMessage',
             give: 'PF2E.loot.GiveMessage',
+        },
+        errors: {
+            insufficient: 'PF2E.loot.InsufficientCurrencyError',
+            supervision: 'PF2E.loot.GMSupervisionError',
         },
     },
 

@@ -754,7 +754,7 @@ export class PF2EItem extends Item<PF2EActor> {
      */
     rollSpellAttack(event, multiAttackPenalty?) {
         let item: ItemData = this.data;
-        if (item.type === 'consumable' && item.data.spell) {
+        if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
@@ -798,7 +798,7 @@ export class PF2EItem extends Item<PF2EActor> {
      */
     rollSpellDamage(event) {
         let item: ItemData = this.data;
-        if (item.type === 'consumable' && item.data.spell) {
+        if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
@@ -857,7 +857,7 @@ export class PF2EItem extends Item<PF2EActor> {
         // Submit the roll to chat
         if (
             ['scroll', 'wand'].includes(item.data.consumableType.value) &&
-            item.data.spell &&
+            item.data.spell?.data &&
             this.actor instanceof PF2EActor &&
             canCastConsumable(this.actor, item)
         ) {
@@ -911,9 +911,9 @@ export class PF2EItem extends Item<PF2EActor> {
 
     protected async _castEmbeddedSpell() {
         if (this.data.type !== 'consumable' || !this.actor) return;
-        if (!this.data.data.spell) return;
+        if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
-        const spellData: any = this.data.data.spell.data.data;
+        const spellData = this.data.data.spell.data.data;
         let spellcastingEntries = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
@@ -1111,12 +1111,12 @@ export class PF2EItem extends Item<PF2EActor> {
             const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
             if (strikeAction && strikeAction.name === strikeName) {
-                const opts = actor.getRollOptions(['all', 'attack-roll']);
-                if (action === 'strikeAttack') strikeAction.variants[0].roll(ev, opts);
-                else if (action === 'strikeAttack2') strikeAction.variants[1].roll(ev, opts);
-                else if (action === 'strikeAttack3') strikeAction.variants[2].roll(ev, opts);
-                else if (action === 'strikeDamage') strikeAction.damage(ev, opts);
-                else if (action === 'strikeCritical') strikeAction.critical(ev, opts);
+                const options = actor.getRollOptions(['all', 'attack-roll']);
+                if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
+                else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
+                else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });
+                else if (action === 'strikeDamage') strikeAction.damage({ event: ev, options });
+                else if (action === 'strikeCritical') strikeAction.critical({ event: ev, options });
             }
         });
     }

@@ -568,7 +568,9 @@ export class PF2eConditionManager {
         PF2eConditionManager.processConditions(token);
     }
 
-    static async renderEffects(token: TokenPF2e) {
+    static async renderEffects(token: TokenPF2e): Promise<void> {
+        if (token.actor === null) return;
+
         const conditions = token.actor.data.items.filter(
             (appliedCondtion: ConditionData) =>
                 appliedCondtion.flags.pf2e?.condition && appliedCondtion.type === 'condition',
@@ -577,7 +579,7 @@ export class PF2eConditionManager {
         const updates = duplicate(token.data);
         let updated = false;
 
-        for (const condition of conditions) {
+        for await (const condition of conditions) {
             const url = condition.data.hud.img.useStatusName
                 ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
                 : condition.data.hud.img.value;
@@ -589,7 +591,7 @@ export class PF2eConditionManager {
         }
 
         if (updated) {
-            await token.update(updates); // eslint-disable-line no-await-in-loop
+            await token.update(updates);
         }
     }
 
