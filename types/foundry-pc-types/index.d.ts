@@ -11,6 +11,7 @@ import './types/apps/baseentitysheet';
 import './types/apps/form';
 import './types/apps/i18n';
 import './types/apps/templates';
+import './types/apps/chat-popout';
 
 import './types/apps/forms/actor';
 import './types/apps/forms/forms';
@@ -34,9 +35,11 @@ import './types/apps/journal/note-config';
 import './types/apps/placeables/placeables-config';
 import './types/apps/placeables/placeables-hud';
 
-import './types/apps/sidebar/apps/clientsettings';
 import './types/apps/sidebar/apps/rolltabledirectory';
-import './types/apps/sidebar/apps/actordirectory';
+import './types/apps/sidebar/apps/actor-directory';
+import './types/apps/sidebar/apps/item-directory';
+import './types/apps/sidebar/apps/chat-log';
+import './types/apps/sidebar/apps/clientsettings';
 import './types/apps/sidebar/apps/combattracker';
 import './types/apps/sidebar/apps/compendiumdirectory';
 
@@ -65,6 +68,7 @@ import './types/core/video';
 import './types/framework/collection';
 import './types/framework/compendium';
 import './types/framework/entity';
+import './types/framework/entity-collection';
 
 import './types/framework/entities/actor';
 import './types/framework/entities/chatmessage';

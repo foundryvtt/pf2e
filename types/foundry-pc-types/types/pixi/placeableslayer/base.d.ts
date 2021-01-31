@@ -9,8 +9,7 @@ declare interface LayerOptions {
 /**
  * The base PlaceablesLayer subclass of CanvasLayer
  */
-type _PlaceablesObject = PlaceableObject<PlaceablesLayer<_PlaceablesObject>>;
-declare abstract class PlaceablesLayer<PlaceableType extends _PlaceablesObject = _PlaceablesObject> extends CanvasLayer {
+declare abstract class PlaceablesLayer<PlaceableType extends PlaceableObject = PlaceableObject> extends CanvasLayer {
     /**
      * Placeable Layer Objects
      */
