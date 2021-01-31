@@ -7,7 +7,7 @@ import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EItem } from '../../item/item';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
+import { isPhysicalItem } from '@item/data-definitions';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**

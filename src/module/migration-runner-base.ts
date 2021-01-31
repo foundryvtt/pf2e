@@ -1,5 +1,5 @@
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { ItemData } from './item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {

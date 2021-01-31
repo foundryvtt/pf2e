@@ -8,12 +8,12 @@ import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
+import { ItemData, ConditionData, isPhysicalItem, SpellData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
-import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
+import { scrollFromSpell, wandFromSpell } from '@item/spell-consumables';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

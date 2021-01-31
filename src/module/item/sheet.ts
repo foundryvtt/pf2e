@@ -3,7 +3,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData } from './dataDefinitions';
+import { LoreDetailsData } from './data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.

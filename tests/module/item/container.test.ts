@@ -1,6 +1,6 @@
 import { getContainerMap, isCycle } from '../../../src/module/item/container';
 import { indexBulkItemsById, toBulkItems } from '../../../src/module/item/bulk';
-import { PhysicalItemData } from '../../../src/module/item/dataDefinitions';
+import { PhysicalItemData } from '@item/data-definitions';
 
 function createItem({
     id,

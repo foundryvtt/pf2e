@@ -1,4 +1,4 @@
-import { ItemData } from '../../item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { SKILL_EXPANDED } from '../../actor/actor';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';

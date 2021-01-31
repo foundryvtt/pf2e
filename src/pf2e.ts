@@ -33,7 +33,7 @@ import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
-import { ItemData } from './module/item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 

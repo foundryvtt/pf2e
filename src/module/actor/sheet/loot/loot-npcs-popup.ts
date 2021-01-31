@@ -1,6 +1,6 @@
 /* global canvas */
 
-import { isPhysicalItem } from '../../../item/dataDefinitions';
+import { isPhysicalItem } from '@item/data-definitions';
 import { PF2EActor } from '../../actor';
 
 interface PopupData extends FormApplicationData<PF2EActor> {

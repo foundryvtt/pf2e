@@ -1,7 +1,7 @@
 /* global game */
 
 import { PF2EActor } from '../../actor';
-import { SpellData } from '@item/dataDefinitions';
+import { SpellData } from '@item/data-definitions';
 
 /**
  * @category Other

@@ -1,4 +1,4 @@
-import { SpellcastingEntryData } from './dataDefinitions';
+import { SpellcastingEntryData } from './data-definitions';
 
 /**
  * @category Other

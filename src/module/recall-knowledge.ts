@@ -18,7 +18,7 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from './dc';
-import { Rarity } from './item/dataDefinitions';
+import { Rarity } from '@item/data-definitions';
 
 const identifySkills = new Map<string, string[]>();
 identifySkills.set('aberration', ['occ']);

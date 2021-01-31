@@ -1,9 +1,9 @@
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { ItemData } from '../item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 
 /**
  * This is the base class for a migration.
- * If you make a change to the database schema (i.e. anything in template.json or dataDefinitions.ts),
+ * If you make a change to the database schema (i.e. anything in template.json or data-definitions.ts),
  * you should create a migration. To do so, there are several steps:
  * - Bump the schema number in system.json
  * - Make a class that inherits this base class and implements `updateActor` or `updateItem` using the

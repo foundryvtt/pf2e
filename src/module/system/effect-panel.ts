@@ -1,7 +1,7 @@
 /* global canvas, game */
 import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData, EffectData } from '../item/dataDefinitions';
+import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];

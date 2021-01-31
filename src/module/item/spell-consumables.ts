@@ -1,6 +1,6 @@
 /* global game */
 import { PF2EActor } from '../actor/actor';
-import { ConsumableData, SpellcastingEntryData, SpellData } from './dataDefinitions';
+import { ConsumableData, SpellcastingEntryData, SpellData } from './data-definitions';
 
 export const scrollCompendiumIds = {
     1: 'RjuupS9xyXDLgyIr',

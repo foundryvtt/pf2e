@@ -1,4 +1,4 @@
-import {Rarity} from '../../src/module/item/dataDefinitions';
+import {Rarity} from '@item/data-definitions';
 import {NpcData} from '@actor/actor-data-definitions';
 import {identifyCreature} from '../../src/module/recall-knowledge';
 

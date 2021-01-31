@@ -1,6 +1,6 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics, PF2WeaponPotency } from '../rulesDataDefinitions';
-import { ItemData } from '../../item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2ModifierPredicate } from '../../modifiers';
 

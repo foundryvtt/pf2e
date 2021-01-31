@@ -1,6 +1,6 @@
 /* global canvas, game, getProperty, CONFIG */
 import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
+import { ConditionData } from '@item/data-definitions';
 
 declare let PF2e: any;
 

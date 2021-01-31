@@ -3,7 +3,7 @@ import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../src/module/migration-runner-base';
 import { Migration595AddItemSize } from '../src/module/migrations/595-item-sizes';
-import { ItemData } from '@item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { PF2EActor } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';

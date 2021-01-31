@@ -16,7 +16,7 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
-} from '../item/dataDefinitions';
+} from '@item/data-definitions';
 import {
     CharacterData,
     NpcData,

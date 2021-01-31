@@ -1,5 +1,5 @@
 /* global game, CONFIG */
-import { AncestryData, BackgroundData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
+import { AncestryData, BackgroundData, LoreData, MartialData, WeaponData } from '@item/data-definitions';
 import { PF2EItem } from '../item/item';
 import { getArmorBonus, getResiliencyBonus } from '../item/runes';
 import {
