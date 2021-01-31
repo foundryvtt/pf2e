@@ -110,11 +110,15 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
-    static get defaultImg() {
+    static get defaultImg(): string {
         const [typeName] = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(
             ([_key, cls]) => cls.name === this.name,
         );
         return `systems/pf2e/icons/default-icons/${typeName}.svg`;
+    }
+
+    get defaultImg(): string {
+        return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
     }
 
     /**
@@ -150,7 +154,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     _prepareTokenImg() {
         if (game.settings.get('pf2e', 'defaultTokenSettings')) {
-            if (this.data.token.img === 'icons/svg/mystery-man.svg' && this.data.token.img !== this.img) {
+            if (this.data.token.img === this.defaultImg && this.data.token.img !== this.img) {
                 this.data.token.img = this.img;
             }
         }
