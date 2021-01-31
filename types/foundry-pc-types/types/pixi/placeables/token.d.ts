@@ -62,7 +62,7 @@ interface TokenData<D extends ActorData = ActorData> extends PlaceableObjectData
     hidden: boolean;
     actorId: string;
     actorLink: boolean;
-    actorData?: D | {};
+    actorData?: this['actorLink'] extends true ? undefined : DeepPartial<D> | undefined;
     disposition: number;
     displayBars: number;
     bar1: Record<string, string>;
@@ -77,13 +77,17 @@ interface TokenData<D extends ActorData = ActorData> extends PlaceableObjectData
  * @param data An object of token data which is used to construct a new Token.
  * @param scene The parent Scene entity within which the Token resides.
  */
-declare class Token<ActorType extends Actor = Actor> extends PlaceableObject<TokenLayer<ActorType>> {
+declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /** @override */
     data: TokenData<ActorType['data']>;
 
     effects: PIXI.Container;
 
     hitArea: PIXI.Rectangle;
+
+    /** @override */
+    get layer(): TokenLayer<ActorType>
+
     /**
      * A Ray which represents the Token's current movement path
      */
@@ -120,7 +124,7 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject<Tok
      * If actorLink is true, then the entity is the true Actor entity
      * Otherwise, the Actor entity is a synthetic, constructed using the Token actorData
      */
-    actor: ActorType | undefined;
+    actor: ActorType | null;
 
     constructor(...args: any[]);
 

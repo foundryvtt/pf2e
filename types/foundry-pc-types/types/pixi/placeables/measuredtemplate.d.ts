@@ -9,6 +9,7 @@ interface MeasuredTemplateData extends PlaceableObjectData {
     texture: string;
 }
 
+
 /**
  * A MeasuredTemplate is an implementation of PlaceableObject which represents an area of the canvas grid which is
  * covered by some effect.
@@ -27,7 +28,7 @@ interface MeasuredTemplateData extends PlaceableObjectData {
  *   texture: "tiles/fire.jpg"
  * });
  */
-declare class MeasuredTemplate extends PlaceableObject<TemplateLayer> {
+declare class MeasuredTemplate extends PlaceableObject {
     /* -------------------------------------------- */
     /*  Properties                                  */
     /* -------------------------------------------- */
@@ -46,6 +47,12 @@ declare class MeasuredTemplate extends PlaceableObject<TemplateLayer> {
      * A convenience accessor for the fill color as a numeric hex code
      */
     get fillColor(): number;
+
+    /** @override */
+    static get layer(): TemplateLayer;
+
+    /** @override */
+    get layer(): TemplateLayer;
 
     /* -------------------------------------------- */
     /*  Rendering

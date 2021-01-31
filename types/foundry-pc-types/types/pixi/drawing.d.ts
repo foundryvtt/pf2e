@@ -1,1 +1,7 @@
-declare class Drawing extends PlaceableObject<DrawingLayer> {}
+declare class Drawing extends PlaceableObject {
+    /** @override */
+    get layer(): DrawingLayer;
+
+    /** @override */
+    static get layer(): DrawingLayer;
+}

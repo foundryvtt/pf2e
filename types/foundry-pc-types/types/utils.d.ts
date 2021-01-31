@@ -1,3 +1,7 @@
+declare type DeepPartial<T> = {
+    [P in keyof T]?: DeepPartial<T[P]>;
+};
+
 /**
  * Export data content to be saved to a local file
  * @param data		Data content converted to a string
