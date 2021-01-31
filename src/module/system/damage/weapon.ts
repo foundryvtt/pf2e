@@ -11,7 +11,7 @@ import { DamageCategory } from './damage';
 import { WeaponData } from '@item/data-definitions';
 import { AbilityString, ActorDataPF2e } from '@actor/actor-data-definitions';
 import { PF2RollNote } from '../../notes';
-import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
+import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definitions';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<

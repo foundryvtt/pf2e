@@ -33,7 +33,7 @@ import {
     PF2RuleElementSynthetics,
     PF2Striking,
     PF2WeaponPotency,
-} from '../rules/rulesDataDefinitions';
+} from '../rules/rules-data-definitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '../item/physical';
 import { PF2RollNote } from '../notes';

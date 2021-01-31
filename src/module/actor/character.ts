@@ -26,7 +26,7 @@ import {
     RawCharacterData,
 } from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
-import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
+import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '../utils';
 
 export class PF2ECharacter extends PF2EActor {

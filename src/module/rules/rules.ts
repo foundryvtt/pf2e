@@ -1,5 +1,5 @@
 import { ItemData } from '@item/data-definitions';
-import { PF2RuleElementData } from './rulesDataDefinitions';
+import { PF2RuleElementData } from './rules-data-definitions';
 import { PF2RuleElement } from './rule-element';
 import { PF2FlatModifierRuleElement } from './elements/flatmodifier';
 import { PF2MageArmorRuleElement } from './spells/mage-armor';

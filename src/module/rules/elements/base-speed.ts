@@ -1,6 +1,6 @@
 import { PF2RuleElement } from '../rule-element';
 import { ItemData } from '@item/data-definitions';
-import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
+import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
 
 /**
