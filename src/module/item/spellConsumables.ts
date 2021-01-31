@@ -54,7 +54,7 @@ export async function wandFromSpell(spellData: SpellData, heightenedLevel?: numb
 }
 
 export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boolean {
-    const spellData = item.data.spell?.data.data ?? null;
+    const spellData = item.data.spell?.data?.data ?? null;
     const spellcastingEntries = actor.data.items.filter(
         (i) => i.type === 'spellcastingEntry',
     ) as SpellcastingEntryData[];
