@@ -238,7 +238,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     /** Obtain the first equipped armor the character has. */
-    getFirstWornArmor(): ArmorData {
+    getFirstWornArmor(): ArmorData | undefined {
         return this.data.items
             .filter((item): item is ArmorData => item.type === 'armor')
             .filter((armor) => armor.data.armorType.value !== 'shield')
@@ -246,7 +246,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     /** Obtain the first equipped shield the character has. */
-    getFirstEquippedShield(): ArmorData {
+    getFirstEquippedShield(): ArmorData | undefined {
         return this.data.items
             .filter((item): item is ArmorData => item.type === 'armor')
             .filter((armor) => armor.data.armorType.value === 'shield')
@@ -729,14 +729,14 @@ export class PF2EActor extends Actor<PF2EItem> {
                 const save = $(ev.currentTarget).attr('data-save');
                 const itemTraits = item?.data?.data?.traits?.value;
 
-                if (actor.data.data.saves[save]?.roll) {
+                if (actor?.data.data.saves[save]?.roll) {
                     let opts = actor.getRollOptions(['all', 'saving-throw', save]);
                     if (itemTraits) {
                         opts = opts.concat(itemTraits);
                     }
                     actor.data.data.saves[save].roll(ev, opts);
                 } else {
-                    actor.rollSave(ev, save);
+                    actor?.rollSave(ev, save);
                 }
             }
         } else {
