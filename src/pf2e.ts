@@ -36,6 +36,7 @@ import { Migrations } from './module/migrations';
 import { ItemData } from './module/item/dataDefinitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
+import DOMPurify from 'dompurify';
 
 require('./styles/pf2e.scss');
 
@@ -617,4 +618,18 @@ Hooks.on('updateWorldTime', (total, diff) => {
 
 Hooks.on('updateCombat', (combat, diff, options, userID) => {
     game.pf2e.effectPanel.refresh();
+});
+
+Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
+    if (message.data.flags[game.system.id]?.unsafe) {
+        const unsafe = message.data.flags[game.system.id].unsafe;
+
+        // strip out script tags to prevent cross-site scripting
+        const safe = DOMPurify.sanitize(unsafe, {
+            ADD_TAGS: ['pf2-action'],
+            ADD_ATTR: ['glyph'],
+        });
+
+        html.find('.flavor-text').html(safe);
+    }
 });
