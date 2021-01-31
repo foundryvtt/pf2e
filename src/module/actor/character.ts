@@ -204,7 +204,7 @@ export class PF2ECharacter extends PF2EActor {
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'saving-throw', options: args.options ?? [], notes },
+                    { actor: this, type: 'saving-throw', options: args.options ?? [], dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -255,7 +255,7 @@ export class PF2ECharacter extends PF2EActor {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'perception-check', options: args.options ?? [], notes },
+                    { actor: this, type: 'perception-check', options: args.options ?? [], dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -400,7 +400,7 @@ export class PF2ECharacter extends PF2EActor {
                 });
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'skill-check', options: args.options ?? [], notes },
+                    { actor: this, type: 'skill-check', options: args.options ?? [], dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -445,7 +445,7 @@ export class PF2ECharacter extends PF2EActor {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'skill-check', options: args.options ?? [], notes },
+                        { actor: this, type: 'skill-check', options: args.options ?? [], dc: args.dc, notes },
                         args.event,
                         args.callback,
                     );
@@ -730,8 +730,9 @@ export class PF2ECharacter extends PF2EActor {
                         const options = (args.options ?? []).concat(defaultOptions);
                         PF2Check.roll(
                             new PF2CheckModifier(`Strike: ${action.name}`, strike),
-                            { actor: this, type: 'attack-roll', options, notes },
+                            { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                             args.event,
+                            args.callback,
                         );
                     });
                     action.roll = action.attack;
@@ -743,8 +744,9 @@ export class PF2ECharacter extends PF2EActor {
                                 const options = (args.options ?? []).concat(defaultOptions);
                                 PF2Check.roll(
                                     new PF2CheckModifier(`Strike: ${action.name}`, strike),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },
@@ -760,8 +762,9 @@ export class PF2ECharacter extends PF2EActor {
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },
@@ -777,8 +780,9 @@ export class PF2ECharacter extends PF2EActor {
                                             PF2ModifierType.UNTYPED,
                                         ),
                                     ]),
-                                    { actor: this, type: 'attack-roll', options, notes },
+                                    { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
+                                    args.callback,
                                 );
                             }),
                         },

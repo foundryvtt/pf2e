@@ -2,6 +2,7 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
+import { PF2CheckDC } from './check-degree-of-success';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -9,6 +10,8 @@ export interface RollParameters {
     event?: JQuery.Event;
     /** Any options which should be used in the roll. */
     options?: string[];
+    /** Optional DC data for the roll */
+    dc?: PF2CheckDC;
     /** Callback called when the roll occurs. */
     callback?: (roll: Roll) => void;
 }
