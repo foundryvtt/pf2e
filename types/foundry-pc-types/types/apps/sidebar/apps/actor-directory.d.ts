@@ -1,9 +1,8 @@
 /**
  * A directory list of Actor entities in the Sidebar
- * @type {SidebarDirectory}
  * @see {@link Actor}
  */
 declare class ActorDirectory extends SidebarDirectory {
-    //@TODO Declare Classes
+    /** @todo Declare properties */
     [key: string]: any;
 }
