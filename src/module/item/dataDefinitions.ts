@@ -333,8 +333,8 @@ export interface ConsumableDetailsData extends MagicItemData {
         _deprecated: boolean;
     };
     spell?: {
-        data: SpellData;
-        heightenedLevel: number;
+        data?: SpellData;
+        heightenedLevel?: number;
     };
 }
 
