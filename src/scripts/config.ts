@@ -26,7 +26,7 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
 
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
