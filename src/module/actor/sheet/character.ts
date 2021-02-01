@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
 import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';
@@ -39,9 +38,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const equippedShieldId: string = this.getEquippedShield(this.actor.data.items)?._id;
         if (equippedShieldId !== undefined) {
             const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
-            await shieldEntity.update({
-                'data.hp.value': formData['data.attributes.shield.hp.value'],
-            });
+            if (shieldEntity) {
+                await shieldEntity.update({
+                    'data.hp.value': formData['data.attributes.shield.hp.value'],
+                });
+            }
         }
         const previousLevel = this.actor.data.data.details.level.value;
         await super._updateObject(event, formData);

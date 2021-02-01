@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';

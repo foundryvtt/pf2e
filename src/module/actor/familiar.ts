@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';

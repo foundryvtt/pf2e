@@ -1,4 +1,3 @@
-/* global game, CONFIG, randomID */
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */

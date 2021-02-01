@@ -1,5 +1,3 @@
-/* global CONFIG */
-
 export class TraitChatEntry {
     label: string;
     description: string;

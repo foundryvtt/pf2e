@@ -1,4 +1,3 @@
-/* global game, canvas, CONFIG */
 /**
  * Override and extend the basic :class:`Item` implementation
  */
@@ -395,7 +394,7 @@ export class PF2EItem extends Item<PF2EActor> {
       }
     } */
 
-        let associatedWeapon = null;
+        let associatedWeapon: PF2EItem | null = null;
         if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
 
         // Feat properties
@@ -607,10 +606,10 @@ export class PF2EItem extends Item<PF2EActor> {
             parts,
             partsCritOnly,
             critical,
-            actor: this.actor,
+            actor: this.actor ? this.actor : undefined,
             data: rollData,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            speaker: ChatMessage.getSpeaker({ actor: this.actor ? this.actor : undefined }),
             dialogOptions: {
                 width: 400,
                 top: event.clientY - 80,

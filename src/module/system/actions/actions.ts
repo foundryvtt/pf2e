@@ -3,6 +3,9 @@ import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
+import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
+import { squeeze } from './acrobatics/squeeze';
+import { tumbleThrough } from './acrobatics/tumble-through';
 import { climb } from './athletics/climb';
 import { disarm } from './athletics/disarm';
 import { forceOpen } from './athletics/force-open';
@@ -12,6 +15,10 @@ import { longJump } from './athletics/long-jump';
 import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
+import { createADiversion } from './deception/create-a-diversion';
+import { feint } from './deception/feint';
+import { impersonate } from './deception/impersonate';
+import { lie } from './deception/lie';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 
@@ -32,6 +39,9 @@ export class PF2Actions {
 
         // acrobatics
         actions.balance = balance;
+        actions.maneuverInFlight = maneuverInFlight;
+        actions.squeeze = squeeze;
+        actions.tumbleThrough = tumbleThrough;
 
         // athletics
         actions.climb = climb;
@@ -43,6 +53,12 @@ export class PF2Actions {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+
+        // deception
+        actions.createADiversion = createADiversion;
+        actions.feint = feint;
+        actions.impersonate = impersonate;
+        actions.lie = lie;
 
         // intimidation
         actions.coerce = coerce;
@@ -95,7 +111,7 @@ export class PF2Actions {
                 );
             });
         } else {
-            ui.notifications.warn(game.i18n.localize('PF2E.ActionsCheck.WarningNoActor'));
+            ui.notifications.warn(game.i18n.localize('PF2E.ActionsWarning.NoActor'));
         }
     }
 }

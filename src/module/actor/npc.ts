@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2EItem } from '../item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';

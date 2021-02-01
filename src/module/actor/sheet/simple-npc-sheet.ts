@@ -1,5 +1,3 @@
-/* global ChatMessage */
-
 import { ActorSheetPF2eCreature } from './creature';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { DicePF2e } from '../../../scripts/dice';

@@ -1,4 +1,3 @@
-/* global getProperty */
 import { ItemData } from '@item/data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2RuleElement } from '../rule-element';

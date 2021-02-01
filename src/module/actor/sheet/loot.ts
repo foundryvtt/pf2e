@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
 import { PF2ELoot } from '../loot';
