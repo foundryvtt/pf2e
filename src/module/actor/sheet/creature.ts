@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { Coins, calculateWealth, calculateTotalWealth } from '../../item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';

@@ -1,5 +1,3 @@
-/* global game, CONFIG */
-
 import { PF2EActor, UserPF2e } from './actor';
 import { LootData } from './actorDataDefinitions';
 import { PF2EPhysicalItem } from '../item/physical';

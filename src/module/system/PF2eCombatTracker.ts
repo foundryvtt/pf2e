@@ -1,4 +1,3 @@
-/* global CombatTracker */
 export class PF2eCombatTracker extends CombatTracker {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {

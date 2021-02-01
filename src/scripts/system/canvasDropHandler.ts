@@ -1,5 +1,3 @@
-/* global canvas  */
-
 import { PF2ECharacter } from 'src/module/actor/character';
 import { PF2ELoot } from 'src/module/actor/loot';
 import { PF2ENPC } from 'src/module/actor/npc';

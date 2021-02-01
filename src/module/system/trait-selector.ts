@@ -1,5 +1,3 @@
-/* global getProperty */
-
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from '../item/item';
 

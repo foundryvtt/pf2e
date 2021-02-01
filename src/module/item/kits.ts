@@ -1,4 +1,3 @@
-/* global game */
 import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './dataDefinitions';
 import { PF2EPhysicalItem } from './physical';
 

@@ -1,5 +1,3 @@
-/* global game */
-
 import { PF2EPhysicalItem } from 'src/module/item/physical';
 import { addCoins, Coins } from '../../item/treasure';
 import { PF2EActor } from '../actor';
