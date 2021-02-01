@@ -19,20 +19,13 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
     }
 
     protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
-        const { itemId } = this.options;
-        const item = this.object.getOwnedItem(itemId);
-        if (!(item instanceof PF2EPhysicalItem)) {
-            throw Error(`PF2e | ${item.name} is not a physical item.`);
-        }
+        const item = this.getItem();
 
         item.setIsIdentified(true);
     }
 
     getData() {
-        const item = this.object.getOwnedItem(this.options.itemId);
-        if (!(item instanceof PF2EPhysicalItem)) {
-            throw Error(`PF2e | ${item.name} is not a physical item.`);
-        }
+        const item = this.getItem();
 
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
         const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
@@ -46,5 +39,15 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
             isAlchemical: dcs instanceof IdentifyAlchemyDCs,
             dcs,
         };
+    }
+
+    getItem(): any {
+        const { itemId } = this.options;
+        const item = this.object.getOwnedItem(itemId);
+        if (!item) {
+            throw Error(`PF2e | Could not load item with id: ${itemId} for identification`);
+        } else if (!(item instanceof PF2EPhysicalItem)) {
+            throw Error(`PF2e | ${item?.name} is not a physical item.`);
+        }
     }
 }
