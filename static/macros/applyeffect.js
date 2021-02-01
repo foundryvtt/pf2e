@@ -22,8 +22,10 @@ async function optionList() {
     return optionlist;
 }
 
-async function applyEffect(effectItem)
+async function applyEffect(effectid)
 {
+    let effectItem=effectList[effectid];
+    
     const item = await fromUuid(effectItem.UUID);
     for (const token of canvas.tokens.controlled) {
         let existing = token.actor.items.filter(i => i.type === item.type).find(e => e.name === item.name);
@@ -62,9 +64,8 @@ new Dialog({
   close: html => {
       if (applyChanges) {
         let effectid = html.find('[name="effectChoice"]')[0].value;
-        let effectItem=getEffectList()[effectid];
         //console.log(effectItem);
-        applyEffect(effectItem);
+        applyEffect(effectid);
 
     }
   }
