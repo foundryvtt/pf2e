@@ -37,6 +37,7 @@ import { ItemData } from './module/item/dataDefinitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
+import { PF2ActionElement } from './module/custom-elements/pf2-action';
 
 require('./styles/pf2e.scss');
 
@@ -626,8 +627,8 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
 
         // strip out script tags to prevent cross-site scripting
         const safe = DOMPurify.sanitize(unsafe, {
-            ADD_TAGS: ['pf2-action'],
-            ADD_ATTR: ['glyph'],
+            ADD_TAGS: [PF2ActionElement.tagName],
+            ADD_ATTR: [PF2ActionElement.observedAttributes],
         });
 
         html.find('.flavor-text').html(safe);

@@ -3,13 +3,18 @@ import { ActionGlyph } from '../system/actions/actions';
 const template = document.createElement('template');
 template.innerHTML = `<slot></slot>`;
 
-class PF2ActionElement extends HTMLElement {
+export class PF2ActionElement extends HTMLElement {
     action?: Function;
     glyph?: ActionGlyph;
+    variant?: string;
 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+    }
+
+    static get tagName(): string {
+        return 'pf2-action';
     }
 
     onClick(event: Event) {
@@ -17,6 +22,7 @@ class PF2ActionElement extends HTMLElement {
             this.action({
                 event,
                 glyph: this.glyph,
+                variant: this.variant,
             });
         }
     }
@@ -25,8 +31,8 @@ class PF2ActionElement extends HTMLElement {
     // Web Component methods
     ///////////////////////////////////////////////////////////////////////////
 
-    static get observedAttributes() {
-        return ['action', 'glyph'];
+    static get observedAttributes(): string[] {
+        return ['action', 'glyph', 'variant'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -36,6 +42,9 @@ class PF2ActionElement extends HTMLElement {
                 break;
             case 'glyph':
                 this.glyph = newValue;
+                break;
+            case 'variant':
+                this.variant = newValue;
                 break;
         }
     }
@@ -56,4 +65,4 @@ class PF2ActionElement extends HTMLElement {
     }
 }
 
-window.customElements.define('pf2-action', PF2ActionElement);
+window.customElements.define(PF2ActionElement.tagName, PF2ActionElement);
