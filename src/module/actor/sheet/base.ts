@@ -8,13 +8,13 @@ import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem, SpellData } from '@item/data-definitions';
+import { ConditionData, isPhysicalItem, ItemData, SpellData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
-import { scrollFromSpell, wandFromSpell } from '@item/spell-consumables';
+import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1310,16 +1310,18 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
                 return this.actor.createEmbeddedEntity('OwnedItem', itemData);
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
-                const popup = new ScrollWandPopup(this.actor, {}, async (heightenedLevel, itemType, spellData) => {
-                    if (itemType === 'scroll') {
-                        const item = await scrollFromSpell(itemData, heightenedLevel);
+                const popup = new ScrollWandPopup(
+                    this.actor,
+                    {},
+                    async (heightenedLevel, itemType, spellData) => {
+                        const consumableType =
+                            itemType == 'wand' ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
+
+                        const item = await createConsumableFromSpell(consumableType, itemData, heightenedLevel);
                         return this._onDropItemCreate(item);
-                    } else if (itemType === 'wand') {
-                        const item = await wandFromSpell(itemData, heightenedLevel);
-                        return this._onDropItemCreate(item);
-                    }
-                });
-                popup.spellData = itemData;
+                    },
+                    itemData,
+                );
                 popup.render(true);
                 return true;
             } else {
