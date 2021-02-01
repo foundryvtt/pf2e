@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You've researched many faiths enough to recognize notions about them that are unlikely to be true. If you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead. When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
+            "value": "<p>You've researched many faiths enough to recognize notions about them that are unlikely to be true.</p>\n<p>If you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.</p>\n<p>When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,7 +42,30 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:recall-knowledge",
+                        "action:decipher-writing"
+                    ]
+                },
+                "selector": "religion",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure at a Religion check to Decipher Writing of a religious nature or to Recall Knowledge about the tenets of faiths, you get a failure instead.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:recall-knowledge",
+                        "your-faith"
+                    ]
+                },
+                "selector": "religion",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When attempting to Recall Knowledge about the tenets of your own faith, if you roll a failure, you get a success instead, and if you roll a success, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +84,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Student of the Canon",

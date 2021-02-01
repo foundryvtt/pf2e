@@ -19,17 +19,60 @@
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
-        "prerequisites": {
-            "value": [
-                "expert in Religion",
-                "follower of a specific religion"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "expert in Religion",
+            "follower of a specific religion"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Request members of your faith)",
+                "predicate": {
+                    "all": [
+                        "action:request",
+                        "member-of-your-faith"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Coerce members of your faith)",
+                "predicate": {
+                    "all": [
+                        "action:coerce",
+                        "member-of-your-faith"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Request/Coerce members of your faith)",
+                "predicate": {
+                    "all": [
+                        "member-of-your-faith"
+                    ],
+                    "any": [
+                        "action:request",
+                        "action:coerce"
+                    ]
+                },
+                "selector": "religion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +86,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Exhort The Faithful",
