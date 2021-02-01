@@ -628,7 +628,7 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
         // strip out script tags to prevent cross-site scripting
         const safe = DOMPurify.sanitize(unsafe, {
             ADD_TAGS: [PF2ActionElement.tagName],
-            ADD_ATTR: [PF2ActionElement.observedAttributes],
+            ADD_ATTR: [...PF2ActionElement.observedAttributes],
         });
 
         html.find('.flavor-text').html(safe);
