@@ -13,8 +13,8 @@ declare let PF2e: any;
 export class PF2eStatus {
     status: string;
     active: boolean;
-    type: string;
-    value: number;
+    type?: string;
+    value?: number;
     source: string;
 
     constructor(statusName: string, source: string, value = 1, active = true) {
@@ -226,11 +226,17 @@ export class PF2eStatusEffects {
 
     static async _hookOnRenderTokenHUD(app, html, tokenData) {
         const token = canvas.tokens.get(tokenData._id);
+
+        if (!token) {
+            throw Error('PF2E | StatusEffects | Could not find token with id: ${tokenData._id}');
+        }
+
         const statusIcons = html.find('img.effect-control');
 
-        const affectingConditions = token.actor.data.items.filter(
-            (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
-        ) as ConditionData[];
+        const affectingConditions =
+            (token.actor?.data.items.filter(
+                (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
+            ) as ConditionData[]) ?? [];
 
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
@@ -288,7 +294,7 @@ export class PF2eStatusEffects {
             const status = $i.attr('data-effect');
             const conditionName = $i.attr('data-condition');
 
-            if (conditionName) {
+            if (conditionName && status) {
                 // Icon is a condition
 
                 const condition: ConditionData = appliedConditions.find((e) => e.name === conditionName);
@@ -340,8 +346,8 @@ export class PF2eStatusEffects {
     static _showStatusDescr(event) {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
-        if (f.attr('src').includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const statusName = f.attr('data-effect');
+        if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
+            const statusName = f.attr('data-effect') ?? 'undefined';
             statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
         }
     }
@@ -355,7 +361,13 @@ export class PF2eStatusEffects {
         const token: TokenPF2e = new Token(tokenData);
 
         if (token.owner) {
-            PF2eConditionManager.renderEffects(canvas.tokens.get(tokenData._id));
+            const token = canvas.tokens.get(tokenData._id);
+
+            if (!token) {
+                throw Error('PF2E | StatusEffects | Could not get token with id: ${tokenData._id}');
+            }
+
+            PF2eConditionManager.renderEffects(token);
         }
     }
 
@@ -390,7 +402,7 @@ export class PF2eStatusEffects {
         }
 
         const f = $(event.currentTarget);
-        const status = f.attr('data-condition');
+        const status = f.attr('data-condition') ?? 'undefined';
 
         const condition: ConditionData = token.actor.data.items.find(
             (i: ConditionData) =>
@@ -407,7 +419,7 @@ export class PF2eStatusEffects {
                 // CTRL key pressed.
                 // Remove all conditions.
 
-                const conditionIds = [];
+                const conditionIds: string[] = [];
 
                 token.statusEffectChanged = true;
 
@@ -464,7 +476,7 @@ export class PF2eStatusEffects {
                 i.data.references.parent === undefined,
         ) as ConditionData;
 
-        const conditionIds = [];
+        const conditionIds: string[] = [];
         if (event.type === 'contextmenu') {
             // Right click, remove
             if (event.ctrlKey) {
@@ -588,9 +600,9 @@ export class PF2eStatusEffects {
         const iconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
-        const promises = [];
+        const promises: Promise<BaseEntityData | BaseEntityData[]>[] = [];
         for (const scene of game.scenes.values()) {
-            const tokenUpdates = [];
+            const tokenUpdates: any[] = [];
 
             for (const tokenData of scene.data.tokens) {
                 const update = duplicate(tokenData);
@@ -654,7 +666,7 @@ export class PF2eStatusEffects {
      * Add status effects to a token
      * Legacy function
      */
-    static async setStatus(token, effects = []) {
+    static async setStatus(token, effects: any[] = []) {
         for (const status of Object.values(effects)) {
             const statusName = status.name;
             const value = status.value;

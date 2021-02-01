@@ -38,7 +38,7 @@ export const PF2ECONFIG = {
         effectsIconFolder: 'systems/pf2e/icons/conditions/',
         effectsIconFileType: 'png',
         keepFoundryStatusEffects: true,
-        foundryStatusEffects: [],
+        foundryStatusEffects: [] as string[],
     }, // Ability labels
 
     levels: {
