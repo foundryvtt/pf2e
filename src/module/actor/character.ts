@@ -1,6 +1,14 @@
-import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getResiliencyBonus } from '../item/runes';
+import {
+    PF2EItem,
+    AncestryData,
+    BackgroundData,
+    ClassData,
+    LoreData,
+    MartialData,
+    WeaponData,
+    getArmorBonus,
+    getResiliencyBonus,
+} from '@item';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -15,15 +23,16 @@ import {
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { PF2EActor, SKILL_DICTIONARY } from './actor';
 import {
+    PF2EActor,
+    SKILL_DICTIONARY,
     AbilityString,
     CharacterData,
     CharacterStrike,
     CharacterStrikeTrait,
     SkillData,
     RawCharacterData,
-} from './actorDataDefinitions';
+} from '@actor';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
 import { toNumber } from '../utils';

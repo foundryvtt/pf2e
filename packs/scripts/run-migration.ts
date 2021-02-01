@@ -3,10 +3,8 @@ import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
 import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
-import { ItemData } from '@item/dataDefinitions';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
-import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { PF2EActor, ActorDataPF2e } from '@actor';
+import { PF2EItem, ItemData } from '@item';
 
 const migrations = [new Migration595AddItemSize()];
 

@@ -33,13 +33,34 @@ const optimization: Optimization = isProductionBuild
               }),
               new CssMinimizerPlugin(),
           ],
+          splitChunks: {
+              chunks: 'all',
+              cacheGroups: {
+                  default: {
+                      name: 'main',
+                      test: 'src/pf2e.ts',
+                  },
+                  vendor: {
+                      name: 'vendor',
+                      test: /node_modules/,
+                  },
+              },
+          },
       }
     : undefined;
 
 const config: Configuration = {
     context: __dirname,
     mode: buildMode,
-    entry: './src/pf2e.ts',
+    entry: {
+        main: {
+            import: './src/pf2e.ts',
+            dependOn: ['document'],
+        },
+        document: {
+            import: ['./src/module/actor/index.ts', './src/module/item/index.ts'],
+        },
+    },
     module: {
         rules: [
             {
@@ -68,7 +89,9 @@ const config: Configuration = {
                     },
                     {
                         loader: 'sass-loader',
-                        options: { sourceMap: true },
+                        options: {
+                            sourceMap: true,
+                        },
                     },
                 ],
             },
@@ -107,7 +130,7 @@ const config: Configuration = {
     },
     output: {
         path: outDir,
-        filename: 'main.bundle.js',
+        filename: '[name].bundle.js',
     },
 };
 

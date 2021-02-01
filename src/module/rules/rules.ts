@@ -1,4 +1,4 @@
-import { ItemData } from '../item/dataDefinitions';
+import { ItemData } from '@item';
 import { PF2RuleElementData } from './rulesDataDefinitions';
 import { PF2RuleElement } from './rule-element';
 import { PF2FlatModifierRuleElement } from './elements/flatmodifier';

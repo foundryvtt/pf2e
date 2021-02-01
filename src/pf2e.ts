@@ -4,9 +4,8 @@ import { registerSettings } from './module/settings/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
-import { PF2EItem } from './module/item/item';
-import { PF2EActor } from './module/actor/actor';
-import { PF2ENPC } from './module/actor/npc';
+import { PF2EItem, ItemData } from '@item';
+import { PF2EActor, PF2ENPC, ActorDataPF2e, FamiliarData } from '@actor';
 import { PlayerConfigPF2e } from './module/user/playerconfig';
 import { PF2eSystem } from './module/pf2e-system';
 import { registerActors } from './module/register-actors';
@@ -16,7 +15,6 @@ import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/statusEffects';
 import { PF2eConditionManager } from './module/conditions';
-import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -33,13 +31,12 @@ import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
-import { ItemData } from './module/item/dataDefinitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 
-require('./styles/pf2e.scss');
+import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
@@ -145,7 +142,7 @@ Hooks.once('init', () => {
 });
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: PF2EActor = undefined) {
+function _updateMinionActors(master: PF2EActor | undefined = undefined) {
     game.actors.entities
         .filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
         .filter((minion) => !!minion.data.data?.master?.id)

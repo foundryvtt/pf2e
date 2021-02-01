@@ -5,10 +5,9 @@ import {
     PF2ModifierPredicate,
     PF2StatisticModifier,
 } from '../../modifiers';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
+import { WeaponData, getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item';
+import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor';
 import { DamageCategory } from './damage';
-import { WeaponData } from '@item/dataDefinitions';
-import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actorDataDefinitions';
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
 

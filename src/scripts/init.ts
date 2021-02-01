@@ -1,5 +1,5 @@
-import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
-import { PF2EItem } from '../module/item/item';
+import { PF2EActor, SKILL_DICTIONARY } from '@actor';
+import { PF2EItem } from '@item';
 
 /**
  * Create a Macro from an Item drop.

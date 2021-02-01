@@ -1,9 +1,6 @@
-import { Coins, calculateWealth, calculateTotalWealth } from '../../item/treasure';
+import { PF2EItem, PF2EPhysicalItem, Coins, calculateWealth, calculateTotalWealth } from '@item';
 import { ProficiencyModifier } from '../../modifiers';
-import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
-import { PF2EItem } from '../../item/item';
-import { PF2EPhysicalItem } from '../../item/physical';
+import { PF2EActor, ActorSheetPF2e } from '@actor';
 
 /**
  * Base class for NPC and character sheets

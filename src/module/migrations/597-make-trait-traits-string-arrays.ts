@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemData } from '@item/dataDefinitions';
+import { ItemData } from '@item';
 
 /** Change `delimiter`-delimited string traits into arrays of strings */
 export class Migration597MakeTraitTraitsArrays extends MigrationBase {

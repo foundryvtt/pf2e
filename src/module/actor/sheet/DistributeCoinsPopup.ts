@@ -1,10 +1,5 @@
-import {
-    addCoinsSimple,
-    attemptToRemoveCoinsByValue,
-    calculateValueOfCurrency,
-    removeCoinsSimple,
-} from '../../item/treasure';
-import { PF2EActor } from '../actor';
+import { addCoinsSimple, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoinsSimple } from '@item';
+import { PF2EActor } from '@actor';
 
 interface PopupData extends FormApplicationData<PF2EActor> {
     selection?: string[];

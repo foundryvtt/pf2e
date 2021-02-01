@@ -6,10 +6,9 @@ import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import { ProficiencyModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EActor } from '../actor/actor';
-import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
+import { PF2EActor } from '@actor';
+import { ItemData, ItemTraits, SpellcastingEntryData, canCastConsumable } from '@item';
 import { parseTraits, TraitChatEntry } from '../traits';
-import { canCastConsumable } from './spellConsumables';
 
 /**
  * @category PF2

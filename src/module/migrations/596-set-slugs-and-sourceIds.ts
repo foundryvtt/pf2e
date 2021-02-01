@@ -1,7 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemData } from '../item/dataDefinitions';
-import { PF2EItem } from '../item/item';
-import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EItem, PF2EPhysicalItem, ItemData } from '@item';
 
 type ItemMap = Map<string, PF2EItem>;
 type PackContent = Map<string, Promise<ItemMap>>;

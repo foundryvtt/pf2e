@@ -1,5 +1,5 @@
-import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
+import { CharacterData, FamiliarData, NpcData } from '@actor';
+import { ItemData } from '@item';
 import { PF2RuleElementSynthetics } from './rulesDataDefinitions';
 
 /**

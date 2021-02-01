@@ -1,19 +1,25 @@
 import { RemoveCoinsPopup } from './RemoveCoinsPopup';
-import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
-import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/MoveLootPopup';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { PF2EActor, ActorDataPF2e, SKILL_DICTIONARY } from '@actor';
 import { TraitSelector5e } from '../../system/trait-selector';
-import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
-import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
-import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
-import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import {
+    PF2EItem,
+    PF2EPhysicalItem,
+    ItemData,
+    ConditionData,
+    isPhysicalItem,
+    SpellData,
+    scrollFromSpell,
+    wandFromSpell,
+    addKit,
+    sellAllTreasureSimple,
+    sellTreasure,
+} from '@item';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

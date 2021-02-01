@@ -1,4 +1,4 @@
-import { PF2EActor } from '@actor/actor';
+import { PF2EActor } from '@actor';
 import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';

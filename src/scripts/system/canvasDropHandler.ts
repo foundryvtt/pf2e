@@ -1,7 +1,4 @@
-import { PF2ECharacter } from 'src/module/actor/character';
-import { PF2ELoot } from 'src/module/actor/loot';
-import { PF2ENPC } from 'src/module/actor/npc';
-import { ActorSheetPF2e } from 'src/module/actor/sheet/base';
+import { PF2ECharacter, PF2ELoot, PF2ENPC, ActorSheetPF2e } from '@actor';
 
 Hooks.on('dropCanvasData', async (c: typeof canvas, data) => {
     const target = c.tokens.placeables.find((token) => {

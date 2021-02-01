@@ -1,4 +1,4 @@
-import { LootTransfer, LootTransferData } from '../module/actor/loot';
+import { LootTransfer, LootTransferData } from '@actor';
 
 export type SocketEventCallback = [
     message: {

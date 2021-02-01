@@ -1,5 +1,5 @@
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '@actor/actor';
+import { PF2EActor } from '@actor';
 import { PF2RollNote } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 

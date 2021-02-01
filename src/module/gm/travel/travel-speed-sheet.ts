@@ -11,7 +11,7 @@ import {
     Trip,
 } from './travel-speed';
 import { Fraction, zip } from '../../utils';
-import { PF2EActor } from 'src/module/actor/actor';
+import { PF2EActor } from '@actor';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';

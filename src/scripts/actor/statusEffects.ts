@@ -1,8 +1,6 @@
-import { TokenPF2e } from '@actor/actor';
+import { TokenPF2e } from '@actor';
 import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
-
-declare let PF2e: any;
+import { ConditionData } from '@item';
 
 /**
  * Class PF2eStatus which defines the data structure of a status effects

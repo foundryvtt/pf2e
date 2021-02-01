@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem } from '../item/dataDefinitions';
+import { isPhysicalItem } from '@item';
 
 export class Migration595AddItemSize extends MigrationBase {
     static version = 0.595;

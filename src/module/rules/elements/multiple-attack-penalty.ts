@@ -1,6 +1,6 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics } from '../rulesDataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { CharacterData, NpcData } from '@actor';
 import { PF2ModifierPredicate } from '../../modifiers';
 
 /**

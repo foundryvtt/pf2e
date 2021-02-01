@@ -1,5 +1,5 @@
-import { ActorDataPF2e } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
+import { ActorDataPF2e } from '@actor';
+import { ItemData } from '@item';
 
 /**
  * This is the base class for a migration.

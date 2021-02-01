@@ -4,18 +4,10 @@
 import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { adaptRoll, PF2Check } from '../system/rolls';
-import { isCycle } from '../item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EItem } from '../item/item';
-import {
-    ItemData,
-    ConditionData,
-    ArmorData,
-    PhysicalItemData,
-    WeaponData,
-    isPhysicalItem,
-} from '../item/dataDefinitions';
+import { PF2EItem, isCycle } from '@item';
+import { ItemData, ConditionData, ArmorData, PhysicalItemData, WeaponData, isPhysicalItem } from '@item';
 import {
     CharacterData,
     NpcData,
@@ -34,7 +26,7 @@ import {
     PF2WeaponPotency,
 } from '../rules/rulesDataDefinitions';
 import { parseTraits } from '../traits';
-import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EPhysicalItem } from '@item';
 import { PF2RollNote } from '../notes';
 
 export const SKILL_DICTIONARY = Object.freeze({

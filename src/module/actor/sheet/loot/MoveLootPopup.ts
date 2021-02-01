@@ -1,4 +1,4 @@
-import { PF2EActor } from '@actor/actor';
+import { PF2EActor } from '@actor';
 
 interface MoveLootOptions extends FormApplicationOptions {
     maxQuantity: number;

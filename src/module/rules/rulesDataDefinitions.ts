@@ -1,5 +1,5 @@
 import { PF2DamageDice, PF2Modifier, PF2ModifierPredicate } from '../modifiers';
-import { WeaponData } from '../item/dataDefinitions';
+import { WeaponData } from '@item';
 import { PF2RollNote } from '../notes';
 
 export interface PF2RuleElementData {
