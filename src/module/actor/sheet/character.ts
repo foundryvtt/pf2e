@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { ActorSheetPF2eCreature } from './creature';
 import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '../../item/bulk';
 import { calculateEncumbrance } from '../../item/encumbrance';

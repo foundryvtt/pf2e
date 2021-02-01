@@ -1,4 +1,3 @@
-/* global game, canvas, TemplateLayer, PlaceablesLayer, MeasuredTemplate, Ray, toDegrees */
 // Code taken from Furyspark's Pathfinder 1st edition system with permission.
 // @ts-nocheck
 

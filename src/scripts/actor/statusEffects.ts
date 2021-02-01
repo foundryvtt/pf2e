@@ -1,4 +1,3 @@
-/* global canvas, game, getProperty, CONFIG */
 import { TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '../../module/item/dataDefinitions';

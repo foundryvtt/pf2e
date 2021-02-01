@@ -1,4 +1,3 @@
-/* global game, CONFIG, canvas, isObjectEmpty, getProperty */
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */

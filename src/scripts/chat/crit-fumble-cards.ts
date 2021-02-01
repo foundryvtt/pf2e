@@ -1,5 +1,3 @@
-/* global game */
-
 class PF2eCritFumbleCards {
     static critTable: any;
     static fumbleTable: any;

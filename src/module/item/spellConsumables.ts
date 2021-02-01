@@ -1,4 +1,3 @@
-/* global game */
 import { PF2EActor } from '../actor/actor';
 import { ConsumableData, SpellcastingEntryData, SpellData } from './dataDefinitions';
 
