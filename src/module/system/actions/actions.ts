@@ -16,6 +16,7 @@ import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
 import { createADiversion } from './deception/create-a-diversion';
+import { feint } from './deception/feint';
 import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
 import { coerce } from './intimidation/coerce';
@@ -55,6 +56,7 @@ export class PF2Actions {
 
         // deception
         actions.createADiversion = createADiversion;
+        actions.feint = feint;
         actions.impersonate = impersonate;
         actions.lie = lie;
 
