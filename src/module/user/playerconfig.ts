@@ -1,4 +1,3 @@
-/* global game, getProperty */
 /**
  * Extend the base PlayerConfig class to implement additional logic specialized for PF2e.
  */

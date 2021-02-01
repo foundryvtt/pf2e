@@ -1,5 +1,3 @@
-/* global canvas */
-
 import { PhysicalItemData } from '@item/dataDefinitions';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2EActor } from '../../actor';

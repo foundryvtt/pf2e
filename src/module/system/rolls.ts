@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';

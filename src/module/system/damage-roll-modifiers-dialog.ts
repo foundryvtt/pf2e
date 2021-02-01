@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
  */

@@ -1,4 +1,3 @@
-/* global canvas, game, CONFIG, getProperty, MeasuredTemplate */
 import { RemoveCoinsPopup } from './RemoveCoinsPopup';
 import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';

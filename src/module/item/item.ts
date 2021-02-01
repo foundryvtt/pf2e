@@ -1,4 +1,3 @@
-/* global game, canvas, CONFIG */
 /**
  * Override and extend the basic :class:`Item` implementation
  */

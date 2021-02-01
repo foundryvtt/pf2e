@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2EItem } from '../../item/item';
 import { PF2EFamiliar } from '../familiar';
