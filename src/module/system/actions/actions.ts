@@ -15,6 +15,7 @@ import { longJump } from './athletics/long-jump';
 import { shove } from './athletics/shove';
 import { swim } from './athletics/swim';
 import { trip } from './athletics/trip';
+import { createADiversion } from './deception/create-a-diversion';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 
@@ -49,6 +50,9 @@ export class PF2Actions {
         actions.shove = shove;
         actions.swim = swim;
         actions.trip = trip;
+
+        // deception
+        actions.createADiversion = createADiversion;
 
         // intimidation
         actions.coerce = coerce;
@@ -101,7 +105,7 @@ export class PF2Actions {
                 );
             });
         } else {
-            ui.notifications.warn(game.i18n.localize('PF2E.ActionsCheck.WarningNoActor'));
+            ui.notifications.warn(game.i18n.localize('PF2E.ActionsWarning.NoActor'));
         }
     }
 }
