@@ -30,7 +30,7 @@ import { Migration596SetSlugSourceIds } from './596-set-slugs-and-sourceIds';
 import { Migration597MakeTraitTraitsArrays } from './597-make-trait-traits-string-arrays';
 import { Migration598AddClassItem } from './598-make-class-item';
 import { Migration599AddTraditionTraits } from './599-add-tradition-traits-to-generated-scrolls-wands';
-import { Migration600Reach } from "./600-reach";
+import { Migration600Reach } from './600-reach';
 
 export class Migrations {
     private static list = [
