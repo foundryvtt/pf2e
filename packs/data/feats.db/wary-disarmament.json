@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,7 +42,32 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Wary Disarmament (vs. traps)",
+                "predicate": {
+                    "all": [
+                        "trap"
+                    ]
+                },
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Wary Disarmament (vs. traps)",
+                "predicate": {
+                    "all": [
+                        "trap"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -60,6 +86,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Wary Disarmament",
