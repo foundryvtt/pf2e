@@ -7,6 +7,25 @@ export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
+interface BaseBulk {
+    value: number;
+    weightless: boolean;
+}
+
+interface StackableBulk extends BaseBulk {
+    per: number;
+    stackGroup: string;
+}
+
+interface WearableBulk extends BaseBulk {
+    worn: number;
+}
+
+interface ContainerBulk extends WearableBulk {
+    capacity: number;
+    subtract: number;
+}
+
 export interface ItemTraits {
     rarity: { value: Rarity };
     value: string[];
@@ -40,6 +59,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
     };
+    bulk: BaseBulk;
     hp: {
         value: number;
     };
@@ -143,6 +163,7 @@ export interface MagicItemData extends PhysicalDetailsData {
 }
 
 export interface BackpackDetailsData extends PhysicalDetailsData {
+    bulk: ContainerBulk;
     capacity: {
         type: string;
         value: number;
@@ -158,6 +179,7 @@ export interface BackpackDetailsData extends PhysicalDetailsData {
 }
 
 export interface TreasureDetailsData extends PhysicalDetailsData {
+    bulk: StackableBulk;
     denomination: {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
@@ -236,6 +258,7 @@ export interface WeaponDetailsData extends MagicItemData {
 }
 
 export interface ArmorDetailsData extends MagicItemData {
+    bulk: WearableBulk;
     armor: {
         value: number;
     };
@@ -305,6 +328,7 @@ export interface MeleeDetailsData extends MagicItemData {
 }
 
 export interface ConsumableDetailsData extends MagicItemData {
+    bulk: StackableBulk;
     consumableType: {
         value: string;
     };
@@ -336,6 +360,10 @@ export interface ConsumableDetailsData extends MagicItemData {
         data?: SpellData;
         heightenedLevel?: number;
     };
+}
+
+export interface EquipmentDetailsData extends MagicItemData, ActivatedEffectData {
+    bulk: StackableBulk;
 }
 
 export interface ABCFeatureEntryData {
@@ -799,7 +827,7 @@ export interface ConsumableData
     type: 'consumable';
 }
 
-export interface EquipmentData extends BasePhysicalItemData<ActivatedEffectData & MagicItemData> {
+export interface EquipmentData extends BasePhysicalItemData<EquipmentDetailsData> {
     type: 'equipment';
 }
 
