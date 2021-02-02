@@ -4,7 +4,7 @@
 import { Spell } from './spell';
 import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
-import { ProficiencyModifier } from '../modifiers';
+import { ProficiencyModifier, PF2StatisticModifier } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
@@ -1056,11 +1056,11 @@ export class PF2EItem extends Item<PF2EActor> {
             if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
-            let actor;
+            let actor: PF2EActor | Actor<Item<_Actor>> | null;
             const tokenKey = card.attr('data-token-id');
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
-                let token;
+                let token: Token | undefined;
                 if (sceneId === canvas.scene._id) token = canvas.tokens.get(tokenId);
                 else {
                     const scene = game.scenes.get(sceneId);
@@ -1074,25 +1074,54 @@ export class PF2EItem extends Item<PF2EActor> {
 
             // Get the Item
             if (!actor) return;
-            const itemId = card.attr('data-item-id');
-            let itemData = (actor.getOwnedItem(itemId) || {}).data;
-            if (!itemData) {
+            const itemId = card.attr('data-item-id') ?? '';
+            let item = (actor as PF2EActor).getOwnedItem(itemId);
+            let itemData = item?.data;
+            if (item === undefined && itemId && !itemData) {
                 itemData = JSON.parse($(ev.target).parents('.item-card').attr('data-embedded-item') ?? '');
+                item = new PF2EItem(itemData as any, { actor });
             }
-            if (itemData) {
-                const item = new PF2EItem(itemData, { actor });
-                // Weapon attack
-                if (action === 'weaponAttack') item.rollWeaponAttack(ev);
-                else if (action === 'weaponAttack2') item.rollWeaponAttack(ev, 2);
-                else if (action === 'weaponAttack3') item.rollWeaponAttack(ev, 3);
-                else if (action === 'weaponDamage') item.rollWeaponDamage(ev);
-                else if (action === 'weaponDamageCritical') item.rollWeaponDamage(ev, true);
-                else if (action === 'npcAttack') item.rollNPCAttack(ev);
+            if (item && itemData) {
+                const strike: PF2StatisticModifier = actor.data.data?.actions?.find(
+                    (a: PF2StatisticModifier) => a.item === itemId,
+                );
+                const rollOptions = (actor as PF2EActor)?.getRollOptions(['all', 'attack-roll']);
+
+                if (action === 'weaponAttack') {
+                    if (strike && rollOptions) {
+                        strike.variants[0].roll({ event: ev, options: rollOptions });
+                    } else {
+                        item.rollWeaponAttack(ev);
+                    }
+                } else if (action === 'weaponAttack2') {
+                    if (strike && rollOptions) {
+                        strike.variants[1].roll({ event: ev, options: rollOptions });
+                    } else {
+                        item.rollWeaponAttack(ev, 2);
+                    }
+                } else if (action === 'weaponAttack3') {
+                    if (strike && rollOptions) {
+                        strike.variants[2].roll({ event: ev, options: rollOptions });
+                    } else {
+                        item.rollWeaponAttack(ev, 3);
+                    }
+                } else if (action === 'weaponDamage') {
+                    if (strike && rollOptions) {
+                        strike.damage({ event: ev, options: rollOptions });
+                    } else {
+                        item.rollWeaponDamage(ev);
+                    }
+                } else if (action === 'weaponDamageCritical' || action === 'criticalDamage') {
+                    if (strike && rollOptions) {
+                        strike.critical({ event: ev, options: rollOptions });
+                    } else {
+                        item.rollWeaponDamage(ev, true);
+                    }
+                } else if (action === 'npcAttack') item.rollNPCAttack(ev);
                 else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
                 else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
                 else if (action === 'npcDamage') item.rollNPCDamage(ev);
                 else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
-                else if (action === 'criticalDamage') item.rollWeaponDamage(ev, true);
                 // Spell actions
                 else if (action === 'spellAttack') item.rollSpellAttack(ev);
                 else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
@@ -1101,21 +1130,19 @@ export class PF2EItem extends Item<PF2EActor> {
                 // Consumable usage
                 else if (action === 'consume') item.rollConsumable(ev);
                 else if (action === 'save') PF2EActor.rollSave(ev, item);
+            } else {
+                const strikeIndex = card.attr('data-strike-index');
+                const strikeName = card.attr('data-strike-name');
+                const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
-                return;
-            }
-
-            const strikeIndex = card.attr('data-strike-index');
-            const strikeName = card.attr('data-strike-name');
-            const strikeAction = actor.data.data.actions[Number(strikeIndex)];
-
-            if (strikeAction && strikeAction.name === strikeName) {
-                const options = actor.getRollOptions(['all', 'attack-roll']);
-                if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
-                else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
-                else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });
-                else if (action === 'strikeDamage') strikeAction.damage({ event: ev, options });
-                else if (action === 'strikeCritical') strikeAction.critical({ event: ev, options });
+                if (strikeAction && strikeAction.name === strikeName) {
+                    const options = (actor as PF2EActor).getRollOptions(['all', 'attack-roll']);
+                    if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
+                    else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
+                    else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });
+                    else if (action === 'strikeDamage') strikeAction.damage({ event: ev, options });
+                    else if (action === 'strikeCritical') strikeAction.critical({ event: ev, options });
+                }
             }
         });
     }
