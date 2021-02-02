@@ -4,6 +4,7 @@ import {
     PF2ModifierType,
     PF2ModifierPredicate,
     PF2StatisticModifier,
+    PROFICIENCY_RANK_OPTION,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory } from './damage';
@@ -157,7 +158,7 @@ export class PF2WeaponDamage {
         traits: CharacterStrikeTrait[] = [],
         statisticsModifiers: Record<string, PF2Modifier[]>,
         damageDice: Record<string, PF2DamageDice[]>,
-        proficiencyRank = 0,
+        proficiencyRank = -1,
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
         weaponPotency: PF2WeaponPotency | null,
@@ -169,6 +170,9 @@ export class PF2WeaponDamage {
         let baseDamageDie = weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         options = traits.map((t) => t.name).concat(options); // always add all weapon traits to the options
+        if (proficiencyRank >= 0) {
+            options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
+        }
 
         // determine ability modifier
         let ability: AbilityString;
@@ -731,8 +735,10 @@ export class PF2WeaponDamage {
         if (ability) {
             selectors.push(`${ability}-damage`);
         }
-        const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
-        selectors.push(`${proficiencies[proficiencyRank]}-damage`);
+        if (proficiencyRank >= 0) {
+            const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
+            selectors.push(`${proficiencies[proficiencyRank]}-damage`);
+        }
         selectors.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
         return selectors.concat([`${weapon._id}-damage`, 'damage']);
     }
