@@ -1,30 +1,22 @@
 interface WorldClockData {
-    datetime?: string;
+    datetime: string;
+    options?: {};
 }
 
-export class WorldClockApplication extends Application {
-    constructor(options = {}) {
-        super(options);
-
-        // Set the time to current day if it's not already.
-        if (new Date(this.worldTimeMs).getFullYear() === 1969) {
-            const fromEpochTime = (Date.now() - this.worldTimeMs) / 1000;
-            game.time.advance(fromEpochTime);
-        }
-    }
-
+export class WorldClock extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
+            id: 'world-clock',
             template: 'systems/pf2e/templates/system/world-clock.html',
             title: 'PF2E.WorldClock.Title',
         });
     }
 
-    get worldTimeMs() {
+    private get worldTimeMs() {
         return game.time.worldTime * 1000;
     }
 
-    ordinalSuffix(number: number) {
+    private ordinalSuffix(number: number) {
         const rules = new Intl.PluralRules(game.i18n.lang, {
             type: 'ordinal',
         });
@@ -33,9 +25,7 @@ export class WorldClockApplication extends Application {
     }
 
     getData(options?: ApplicationOptions): WorldClockData {
-        const data: WorldClockData = super.getData(options);
-
-        const datetime = new Intl.DateTimeFormat(['en-US', 'default'], {
+        const dtParts = new Intl.DateTimeFormat(['en-US', 'default'], {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -45,25 +35,29 @@ export class WorldClockApplication extends Application {
         }).formatToParts(this.worldTimeMs);
 
         const translations = CONFIG.PF2E.WorldClock;
-        const adjustedYear =
-            parseInt(datetime.find((part) => part.type === 'year')!.value, 10) + translations.AR.yearOffset;
-        const golarionMonth = game.i18n.localize(
-            translations.AR.month[datetime.find((part) => part.type === 'month')!.value],
-        );
-        const dayOfMonth = parseInt(datetime.find((part) => part.type === 'day')!.value, 10);
 
-        data.datetime = game.i18n.format(translations.dateTime, {
-            year: adjustedYear,
+        const actualYear = new Date(Date.now()).getFullYear();
+        const epochOffset = actualYear - new Date(this.worldTimeMs).getFullYear();
+        const earthYear = epochOffset + parseInt(dtParts.find((part) => part.type === 'year')!.value, 10);
+        const golarionYear = earthYear + translations.AR.yearOffset;
+
+        const golarionMonth = game.i18n.localize(
+            translations.AR.month[dtParts.find((part) => part.type === 'month')!.value],
+        );
+        const dayOfMonth = parseInt(dtParts.find((part) => part.type === 'day')!.value, 10);
+
+        const datetime = game.i18n.format(translations.dateTime, {
+            year: golarionYear,
             month: golarionMonth,
             day: dayOfMonth,
             ordinalSuffix: this.ordinalSuffix(dayOfMonth),
-            hour: datetime.find((part) => part.type === 'hour')!.value,
-            minute: datetime.find((part) => part.type === 'minute')!.value,
-            second: datetime.find((part) => part.type === 'second')!.value,
-            dayPeriod: datetime.find((part) => part.type === 'dayPeriod')?.value ?? '',
+            hour: dtParts.find((part) => part.type === 'hour')!.value,
+            minute: dtParts.find((part) => part.type === 'minute')!.value,
+            second: dtParts.find((part) => part.type === 'second')!.value,
+            dayPeriod: dtParts.find((part) => part.type === 'dayPeriod')?.value ?? '',
         });
 
-        return data;
+        return { datetime, options };
     }
 
     protected activateListeners(html: JQuery) {

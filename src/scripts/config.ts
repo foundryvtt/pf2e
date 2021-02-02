@@ -1817,7 +1817,8 @@ export const PF2ECONFIG = {
 
     WorldClock: {
         AR: {
-            yearOffset: 2700,
+            yearOffset: 2700, // Relative to the current actual year
+            era: 'PF2E.WorldClock.AR.Era',
             month: {
                 January: 'PF2E.WorldClock.AR.Month.January',
                 February: 'PF2E.WorldClock.AR.Month.February',

@@ -25,7 +25,7 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
-import { WorldClockApplication } from './module/system/world-clock-application';
+import { WorldClock } from './module/system/world-clock';
 import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
@@ -54,7 +54,7 @@ require('./module/custom-elements/custom-elements');
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
         actions: { [key: string]: Function };
-        worldclock?: WorldClockApplication;
+        worldclock?: WorldClock;
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
         rollActionMacro: typeof rollActionMacro;
@@ -285,7 +285,7 @@ Hooks.once('ready', () => {
 
     // world clock singleton application
     if (game.user.isGM) {
-        game.pf2e.worldclock = new WorldClockApplication();
+        game.pf2e.worldclock = new WorldClock();
     }
 
     // effect panel singleton application
