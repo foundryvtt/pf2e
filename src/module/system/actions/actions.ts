@@ -1,5 +1,5 @@
 import { PF2EActor } from '@actor/actor';
-import { PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
+import { ensureProficiencyOption, PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
 import { PF2Check } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
@@ -67,7 +67,7 @@ export class PF2Actions {
 
     static simpleRollActionCheck(
         actors: PF2EActor | PF2EActor[] | undefined,
-        stat: string,
+        statName: string,
         actionGlyph: ActionGlyph | undefined,
         title: string,
         subtitle: string,
@@ -97,8 +97,10 @@ export class PF2Actions {
                 }
                 flavor += `<b>${game.i18n.localize(title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-                const check = new PF2CheckModifier(flavor, getProperty(actor, stat) as PF2StatisticModifier);
+                const stat = getProperty(actor, statName) as PF2StatisticModifier;
+                const check = new PF2CheckModifier(flavor, stat);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 PF2Check.roll(
                     check,
                     {

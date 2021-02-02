@@ -9,6 +9,12 @@ export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:legendary',
 ]);
 
+export function ensureProficiencyOption(options: string[], proficiencyRank: number) {
+    if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith('proficiency:'))) {
+        options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
+    }
+}
+
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
