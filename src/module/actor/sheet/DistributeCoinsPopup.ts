@@ -1,5 +1,3 @@
-/* global game */
-
 import {
     addCoinsSimple,
     attemptToRemoveCoinsByValue,

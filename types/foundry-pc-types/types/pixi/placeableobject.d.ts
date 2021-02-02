@@ -8,13 +8,11 @@ declare interface PlaceableObjectData {
     rotation?: number;
     locked: boolean;
 }
-type ExtendedAbstractClass<T> = (new (...args: unknown[]) => Record<string, unknown>) & T;
-type AbstractContructorParameters<T> = ConstructorParameters<ExtendedAbstractClass<T>>;
 
 /**
  * An Abstract Base Class which defines a Placeable Object which represents an Entity placed on the Canvas
  */
-declare abstract class PlaceableObject<LayerType extends PlaceablesLayer = PlaceablesLayer> extends PIXI.Container {
+declare abstract class PlaceableObject extends PIXI.Container {
     /**
      * The underlying data object which provides the basis for this placeable object
      */
@@ -94,7 +92,7 @@ declare abstract class PlaceableObject<LayerType extends PlaceablesLayer = Place
     /**
      * Return a reference to the singleton layer instance which contains placeables of this type
      */
-    get layer(): LayerType;
+    get layer(): PlaceablesLayer;
 
     /**
      * The line-of-sight polygon for the object, if it has been computed
@@ -205,8 +203,8 @@ declare abstract class PlaceableObject<LayerType extends PlaceablesLayer = Place
     refresh(): this;
 
     /** @extends {Entity.createEmbeddedEntity} */
-    static create<P extends PlaceableObject<PlaceablesLayer>>(
-        this: new(...args: AbstractContructorParameters<P>) => P,
+    static create<P extends PlaceableObject>(
+        this: new(data: P['data'], scene: Scene) => P,
         data: Partial<P['data']> | P['data'],
         options?: EntityCreateOptions
     ): Promise<P>;

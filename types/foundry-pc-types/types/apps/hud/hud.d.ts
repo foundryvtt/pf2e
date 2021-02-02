@@ -3,7 +3,7 @@
 /**
  * An abstract base class for displaying a heads-up-display interface bound to a Placeable Object on the canvas
  */
-declare abstract class BasePlaceableHUD<PlaceableType extends PlaceableObject<PlaceablesLayer>> extends Application {
+declare abstract class BasePlaceableHUD<PlaceableType extends PlaceableObject> extends Application {
     /**
      * Reference a PlaceableObject this HUD is currently bound to
      */

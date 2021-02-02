@@ -19,8 +19,9 @@
             "value": "skill"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "trained in Society"
@@ -29,6 +30,21 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Eye for Number (decipher numerical writing)",
+                "predicate": {
+                    "all": [
+                        "action:decipher-writing",
+                        "numerical"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,6 +58,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Eye For Numbers",

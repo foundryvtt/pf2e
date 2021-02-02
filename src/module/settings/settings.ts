@@ -1,4 +1,3 @@
-/* global game */
 import { compendiumBrowser } from './../packs/compendium-browser';
 import { variantRulesSettings } from './submenus/variantRulesSettings';
 import { Migrations } from '../migrations';

@@ -1,4 +1,3 @@
-/* global canvas, game */
 import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData, EffectData } from '../item/dataDefinitions';
