@@ -26,36 +26,19 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [
-            {
-                "key": "PF2E.RuleElement.ToggleProperty",
-                "label": "Using a weapon that you have Master proficiency in (Masterful Hunter)",
-                "property": "flags.pf2e.rollOptions.attack-roll.weapon-master"
-            },
+        "rules": [            
             {
                 "key": "PF2E.RuleElement.MultipleAttackPenalty",
                 "predicate": {
                     "all": [
-                        "agile",
-                        "hunted-prey",
-                        "weapon-master"
-                    ]
-                },
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "attack",
-                "value": -1
-            },
-            {
-                "key": "PF2E.RuleElement.MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "weapon-master"
+                        "hunted-prey"
                     ],
                     "not": [
                         "agile"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
                     ]
                 },
                 "roll-options": [
@@ -63,6 +46,24 @@
                 ],
                 "selector": "attack",
                 "value": -2
+            },            
+            {
+                "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -1
             }
         ],
         "source": {
