@@ -19,7 +19,8 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             traits.push('manipulate');
             break;
         default:
-            ui.notifications.error(game.i18n.localize('PF2E.ActionsWarning.DeceptionUnknownVariant'));
+            const msg = game.i18n.format('PF2E.ActionsWarning.DeceptionUnknownVariant', { variant: options.variant });
+            ui.notifications.error(msg);
             return;
     }
     PF2Actions.simpleRollActionCheck(
