@@ -1,4 +1,3 @@
-/* global game */
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { PF2EActor } from '../actor';

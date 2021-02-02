@@ -1,4 +1,3 @@
-/* global game, canvas, BaseGrid, SquareGrid  */
 import { PF2EActor, SKILL_DICTIONARY } from '../module/actor/actor';
 import { PF2EItem } from '../module/item/item';
 

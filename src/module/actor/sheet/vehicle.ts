@@ -1,5 +1,3 @@
-/* global game, CONFIG */
-
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';

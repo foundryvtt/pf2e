@@ -1,4 +1,3 @@
-/* global game, CONFIG */
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
 import { PF2EActor } from '@actor/actor';
 import { PF2RollNote } from '../notes';
@@ -149,6 +148,7 @@ export class CheckModifiersDialog extends Application {
                     pf2e: {
                         canReroll: !ctx.fate,
                         context: ctx,
+                        unsafe: flavor,
                     },
                 },
             },

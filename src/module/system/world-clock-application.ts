@@ -1,5 +1,3 @@
-/* global game */
-
 interface WorldClockData {
     datetime?: string;
 }

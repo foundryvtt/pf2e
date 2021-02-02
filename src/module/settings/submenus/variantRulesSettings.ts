@@ -1,5 +1,3 @@
-/* global game */
-
 const SETTINGS = {
     staminaVariant: {
         name: 'Stamina Variant Rules',

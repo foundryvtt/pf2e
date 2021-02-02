@@ -1,5 +1,3 @@
-/* global getProperty, fromUuid, flattenObject */
-
 import { PF2EItem } from './item';
 import { isPhysicalItem, PhysicalItemData } from './dataDefinitions';
 

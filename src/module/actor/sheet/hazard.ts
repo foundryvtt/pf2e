@@ -1,4 +1,3 @@
-/* global CONFIG */
 import { ActorSheetPF2e } from './base';
 import { PF2EHazard } from '../actor';
 

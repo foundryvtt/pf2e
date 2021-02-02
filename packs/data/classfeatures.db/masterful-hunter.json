@@ -13,30 +13,97 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have honed your abilities as a hunter to incredible levels. Your proficiency rank for your ranger class DC increases to master. When using a ranged weapon that you have master proficiency in, you can ignore the penalty if attacking your hunted prey within the weapon's second and third range increments.<br /></p>\n<p>If you have master proficiency in Perception, you gain a +4 circumstance bonus to Perception checks when you Seek your prey, and if you have master proficiency in Survival, you gain a +4 circumstance bonus to Survival checks when you Track your prey. You also gain an additional benefit depending on your hunter's edge.<br /></p>\n<p>See specific hunter's edges for more information</p>"
+            "value": "<p>You have honed your abilities as a hunter to incredible levels. Your proficiency rank for your ranger class DC increases to master. When using a ranged weapon that you have master proficiency in, you can ignore the penalty if attacking your hunted prey within the weapon's second and third range increments.</p>\n<p>If you have master proficiency in Perception, you gain a +4 circumstance bonus to Perception checks when you Seek your prey, and if you have master proficiency in Survival, you gain a +4 circumstance bonus to Survival checks when you Track your prey. You also gain an additional benefit depending on your hunter's edge.</p>\n<p>See specific hunter's edges for more information.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Track hunted prey (Masterful Hunter)",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "hunted-prey"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|data.skills.sur.rank"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Seek hunted prey (Masterful Hunter)",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "hunted-prey"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 4
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|data.attributes.perception.rank"
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "ranger"
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/masterful-hunter.jpg",
     "name": "Masterful Hunter",

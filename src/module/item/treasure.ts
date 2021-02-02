@@ -1,4 +1,3 @@
-/* global game */
 import { PF2EActor } from '../actor/actor';
 import { groupBy, isBlank } from '../utils';
 import { PF2EPhysicalItem } from './physical';

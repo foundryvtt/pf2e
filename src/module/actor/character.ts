@@ -1,10 +1,10 @@
-/* global game, CONFIG */
-import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getResiliencyBonus } from '../item/runes';
+import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '@item/dataDefinitions';
+import { PF2EItem } from '@item/item';
+import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
+    ensureProficiencyOption,
     PF2CheckModifier,
     PF2Modifier,
     PF2ModifierPredicate,
@@ -202,9 +202,11 @@ export class PF2ECharacter extends PF2EActor {
                 const label = game.i18n.format('PF2E.SavingThrowWithName', {
                     saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                 });
+                const options = args.options ?? [];
+                ensureProficiencyOption(options, save.rank);
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'saving-throw', options: args.options ?? [], dc: args.dc, notes },
+                    { actor: this, type: 'saving-throw', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -224,9 +226,10 @@ export class PF2ECharacter extends PF2EActor {
 
         // Perception
         {
+            const proficiencyRank = data.attributes.perception.rank || 0;
             const modifiers = [
                 WISDOM.withScore(data.abilities.wis.value),
-                ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.perception.rank || 0),
+                ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank),
             ];
             const notes = [] as PF2RollNote[];
             if (data.attributes.perception.item) {
@@ -253,9 +256,11 @@ export class PF2ECharacter extends PF2EActor {
             stat.value = stat.totalModifier;
             stat.roll = adaptRoll((args) => {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
+                const options = args.options ?? [];
+                ensureProficiencyOption(options, proficiencyRank);
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'perception-check', options: args.options ?? [], dc: args.dc, notes },
+                    { actor: this, type: 'perception-check', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -398,9 +403,11 @@ export class PF2ECharacter extends PF2EActor {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
                 });
+                const options = args.options ?? [];
+                ensureProficiencyOption(options, skill.rank);
                 PF2Check.roll(
                     new PF2CheckModifier(label, stat),
-                    { actor: this, type: 'skill-check', options: args.options ?? [], dc: args.dc, notes },
+                    { actor: this, type: 'skill-check', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
@@ -443,9 +450,11 @@ export class PF2ECharacter extends PF2EActor {
                     .join(', ');
                 stat.roll = adaptRoll((args) => {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
+                    const options = args.options ?? [];
+                    ensureProficiencyOption(options, rank);
                     PF2Check.roll(
                         new PF2CheckModifier(label, stat),
-                        { actor: this, type: 'skill-check', options: args.options ?? [], dc: args.dc, notes },
+                        { actor: this, type: 'skill-check', options, dc: args.dc, notes },
                         args.event,
                         args.callback,
                     );
@@ -592,12 +601,9 @@ export class PF2ECharacter extends PF2EActor {
                         }
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
-                    modifiers.push(
-                        ProficiencyModifier.fromLevelAndRank(
-                            data.details.level.value,
-                            proficiencies[item.data.weaponType.value]?.rank ?? 0,
-                        ),
-                    );
+
+                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [
                         'attack',
@@ -615,6 +621,7 @@ export class PF2ECharacter extends PF2EActor {
                     const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
                         .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
                         .concat(`${ability}-attack`);
+                    ensureProficiencyOption(defaultOptions, proficiencyRank);
                     const notes = [] as PF2RollNote[];
 
                     if (item.data.group?.value === 'bomb') {

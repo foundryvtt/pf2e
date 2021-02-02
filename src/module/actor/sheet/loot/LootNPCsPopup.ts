@@ -1,6 +1,5 @@
-/* global canvas */
-
-import { isPhysicalItem } from '../../../item/dataDefinitions';
+import { PhysicalItemData } from '@item/dataDefinitions';
+import { PF2EPhysicalItem } from '@item/physical';
 import { PF2EActor } from '../../actor';
 
 interface PopupData extends FormApplicationData<PF2EActor> {
@@ -25,23 +24,22 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
         return options;
     }
 
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
     }
 
-    async _updateObject(event: Event, formData: any) {
-        const itemData = [];
-        const selectionData = typeof formData.selection === 'boolean' ? [formData.selection] : formData.selection;
+    async _updateObject(_event: Event, formData: FormData & { selection?: boolean }): Promise<void> {
+        const itemData: PhysicalItemData[] = [];
+        const selectionData = Array.isArray(formData.selection) ? formData.selection : [formData.selection];
         for (let i = 0; i < selectionData.length; i++) {
-            if (selectionData[i]) {
-                const currentSource = Actor.fromToken(
-                    canvas.tokens.placeables.find((token) => token.id === this.form[i].id),
-                ) as PF2EActor;
-                const currentSourceItemData = currentSource.data.items.filter((item) => isPhysicalItem(item));
+            const token = canvas.tokens.placeables.find((token) => token.id === this.form[i]?.id);
+            const currentSource = token instanceof Token ? PF2EActor.fromToken(token) : undefined;
+            if (selectionData[i] && currentSource) {
+                const currentSourceItemData: PhysicalItemData[] = Array.from(
+                    currentSource.items.values(),
+                ).flatMap((item) => (item instanceof PF2EPhysicalItem ? item.data : []));
                 itemData.push(...duplicate(currentSourceItemData));
-                const idsToDelete = currentSourceItemData.map((item) => {
-                    return item._id;
-                });
+                const idsToDelete = currentSourceItemData.map((item) => item._id);
                 currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);
             }
         }
@@ -53,12 +51,12 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
     getData() {
         const sheetData: PopupData = super.getData();
         sheetData.tokenInfo = [];
-        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor._id !== this.object._id);
+        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor?._id !== this.object._id);
         for (let i = 0; i < selectedTokens.length; i++) {
             sheetData.tokenInfo.push({
                 id: selectedTokens[i].id,
                 name: selectedTokens[i].name,
-                checked: !selectedTokens[i].actor.hasPlayerOwner,
+                checked: !selectedTokens[i].actor?.hasPlayerOwner,
             });
         }
         return sheetData;

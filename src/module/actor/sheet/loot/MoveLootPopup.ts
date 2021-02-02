@@ -1,5 +1,3 @@
-/* global game */
-
 import { PF2EActor } from '@actor/actor';
 
 interface MoveLootOptions extends FormApplicationOptions {

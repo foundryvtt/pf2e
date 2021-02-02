@@ -1,4 +1,3 @@
-/* global CONFIG */
 import { isBlank, toNumber } from '../utils';
 import { DamageCategory, DamageDieSize } from '../system/damage/damage';
 import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './dataDefinitions';

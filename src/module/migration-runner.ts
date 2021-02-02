@@ -1,4 +1,3 @@
-/* global game */
 import { PF2EActor } from './actor/actor';
 import { PF2EItem } from './item/item';
 import { MigrationRunnerBase } from './migration-runner-base';
