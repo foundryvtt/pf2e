@@ -1,6 +1,6 @@
-import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '../item/dataDefinitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getResiliencyBonus } from '../item/runes';
+import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '@item/dataDefinitions';
+import { PF2EItem } from '@item/item';
+import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -9,6 +9,7 @@ import {
     PF2ModifierPredicate,
     PF2ModifierType,
     PF2StatisticModifier,
+    PROFICIENCY_RANK_OPTION,
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
@@ -591,12 +592,9 @@ export class PF2ECharacter extends PF2EActor {
                         }
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
-                    modifiers.push(
-                        ProficiencyModifier.fromLevelAndRank(
-                            data.details.level.value,
-                            proficiencies[item.data.weaponType.value]?.rank ?? 0,
-                        ),
-                    );
+
+                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [
                         'attack',
@@ -613,7 +611,8 @@ export class PF2ECharacter extends PF2EActor {
 
                     const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
                         .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
-                        .concat(`${ability}-attack`);
+                        .concat(`${ability}-attack`)
+                        .concat(PROFICIENCY_RANK_OPTION[proficiencyRank]);
                     const notes = [] as PF2RollNote[];
 
                     if (item.data.group?.value === 'bomb') {
