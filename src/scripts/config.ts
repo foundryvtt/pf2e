@@ -1815,6 +1815,42 @@ export const PF2ECONFIG = {
         },
     },
 
+    WorldClock: {
+        AR: {
+            yearOffset: 2700,
+            month: {
+                January: 'PF2E.WorldClock.AR.Month.January',
+                February: 'PF2E.WorldClock.AR.Month.February',
+                March: 'PF2E.WorldClock.AR.Month.March',
+                April: 'PF2E.WorldClock.AR.Month.April',
+                May: 'PF2E.WorldClock.AR.Month.May',
+                June: 'PF2E.WorldClock.AR.Month.June',
+                July: 'PF2E.WorldClock.AR.Month.July',
+                August: 'PF2E.WorldClock.AR.Month.August',
+                September: 'PF2E.WorldClock.AR.Month.September',
+                October: 'PF2E.WorldClock.AR.Month.October',
+                November: 'PF2E.WorldClock.AR.Month.November',
+                December: 'PF2E.WorldClock.AR.Month.December',
+            },
+            dayOfWeek: {
+                Monday: 'PF2E.WorldClock.AR.DayOfWeek.Monday',
+                Tuesday: 'PF2E.WorldClock.AR.DayOfWeek.Tuesday',
+                Wednesday: 'PF2E.WorldClock.AR.DayOfWeek.Wednesday',
+                Thursday: 'PF2E.WorldClock.AR.DayOfWeek.Thursday',
+                Friday: 'PF2E.WorldClock.AR.DayOfWeek.Friday',
+                Saturday: 'PF2E.WorldClock.AR.DayOfWeek.Saturday',
+                Sunday: 'PF2E.WorldClock.AR.DayOfWeek.Sunday',
+            },
+        },
+        dateTime: 'PF2E.WorldClock.DateTime',
+        ordinalSuffixes: {
+            one: 'PF2E.WorldClock.OrdinalSuffixes.One',
+            two: 'PF2E.WorldClock.OrdinalSuffixes.Two',
+            few: 'PF2E.WorldClock.OrdinalSuffixes.Few',
+            other: 'PF2E.WorldClock.OrdinalSuffixes.Other',
+        },
+    },
+
     monsterAbilities: () => {
         return {
             'All-Around Vision': {
