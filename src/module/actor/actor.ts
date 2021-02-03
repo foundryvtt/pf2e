@@ -1,13 +1,20 @@
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  */
-import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2ModifierPredicate, ProficiencyModifier } from '../modifiers';
+import {
+    ensureProficiencyOption,
+    PF2CheckModifier,
+    PF2DamageDice,
+    PF2Modifier,
+    PF2ModifierPredicate,
+    ProficiencyModifier,
+} from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
 import { adaptRoll, PF2Check } from '../system/rolls';
-import { isCycle } from '../item/container';
+import { isCycle } from '@item/container';
 import { TraitSelector5e } from '../system/trait-selector';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from '@item/item';
 import {
     ItemData,
     ConditionData,
@@ -34,7 +41,7 @@ import {
     PF2WeaponPotency,
 } from '../rules/rules-data-definitions';
 import { parseTraits } from '../traits';
-import { PF2EPhysicalItem } from '../item/physical';
+import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
 
 export const SKILL_DICTIONARY = Object.freeze({
@@ -186,12 +193,12 @@ export class PF2EActor extends Actor<PF2EItem> {
                 });
             (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
         });
-        const initValues = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
+        const initStat = initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill];
         const skillName = game.i18n.localize(
             initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill],
         );
 
-        const stat = new PF2CheckModifier('initiative', initValues, modifiers) as InitiativeData;
+        const stat = new PF2CheckModifier('initiative', initStat, modifiers) as InitiativeData;
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         stat.roll = adaptRoll((args) => {
@@ -201,6 +208,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             if (!options.includes(skillFullName)) {
                 options.push(skillFullName);
             }
+            ensureProficiencyOption(options, initStat.rank ?? -1);
             PF2Check.roll(
                 new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
                 { actor: this, type: 'initiative', options, notes, dc: args.dc },

@@ -1,6 +1,20 @@
 import { DamageDieSize } from './system/damage/damage';
 import { AbilityString } from '@actor/actor-data-definitions';
 
+export const PROFICIENCY_RANK_OPTION = Object.freeze([
+    'proficiency:untrained',
+    'proficiency:trained',
+    'proficiency:expert',
+    'proficiency:master',
+    'proficiency:legendary',
+]);
+
+export function ensureProficiencyOption(options: string[], proficiencyRank: number) {
+    if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith('proficiency:'))) {
+        options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
+    }
+}
+
 /**
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
@@ -179,7 +193,7 @@ export const AbilityModifier = Object.freeze({
 
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
-    atLevel: (level: number) => {
+    atLevel: (_level: number) => {
         const modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
         return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
     },

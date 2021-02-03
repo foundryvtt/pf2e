@@ -1,0 +1,87 @@
+{
+    "_id": "JhLncIB10GSQowWL",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<h2 class=\"title\">Masterful Hunter Upgrade<span style=\"float: right;\">Level 17</span></h2>\n<p>You can blend your weapon mastery with skillful targeting to make a series of precise attacks.</p>\n<p>If you have master proficiency with your weapon, your multiple attack penalty for attacks against your hunted prey is -2 (-1 with an agile weapon) on your second attack of the turn, and -4 (-2 with an agile weapon) on your third and subsequent attacks of the turn.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "level": {
+            "value": 17
+        },
+        "location": "",
+        "prerequisites": [
+            "Hunter's Edge: Flurry"
+        ],
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [            
+            {
+                "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "not": [
+                        "agile"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -2
+            },            
+            {
+                "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/classes/flurry.jpg",
+    "name": "Masterful Hunter (Flurry)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

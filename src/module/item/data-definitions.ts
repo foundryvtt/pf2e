@@ -362,6 +362,7 @@ export interface AncestryDetailsData extends ItemDescriptionData {
     };
     speed: number;
     size: Size;
+    reach: number;
 }
 
 export interface BackgroundDetailsData extends ItemDescriptionData {

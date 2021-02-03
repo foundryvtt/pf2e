@@ -1,0 +1,115 @@
+{
+    "_id": "BJYSUbFUGcTLaPDn",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<h2 class=\"title\">Masterful Hunter Upgrade<span style=\"float: right;\">Level 17</span></h2>\n<p>Your weapon mastery allows you to hit your prey's vital areas multiple times.</p>\n<p>The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "level": {
+            "value": 17
+        },
+        "location": "",
+        "prerequisites": [
+            "Hunter's Edge: Precision"
+        ],
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Second attack on hunted prey this round",
+                "property": "flags.pf2e.rollOptions.all.second-attack"
+            },
+            {
+                "damageType": "precision",
+                "dieSize": "d8",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "hunted-prey",
+                        "second-attack"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 18,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Third attack on hunted prey this round",
+                "property": "flags.pf2e.rollOptions.all.third-attack"
+            },
+            {
+                "damageType": "precision",
+                "dieSize": "d8",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "hunted-prey",
+                        "third-attack"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/classes/precision.jpg",
+    "name": "Masterful Hunter (Precision)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}
