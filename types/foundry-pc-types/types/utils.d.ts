@@ -102,7 +102,7 @@ declare function filterObject(
  * @param _d   Recursion depth, to prevent overflow
  * @return     A flattened object
  */
-declare function flattenObject(obj: object, _d?: number): object;
+declare function flattenObject(obj: {}, _d?: number): Record<string, unknown>;
 
 /**
  * Expand a flattened object to be a standard multi-dimensional nested Object by converting all dot-notation keys to

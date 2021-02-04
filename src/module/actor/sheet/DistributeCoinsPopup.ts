@@ -5,6 +5,7 @@ import {
     removeCoinsSimple,
 } from '../../item/treasure';
 import { PF2EActor } from '../actor';
+import { PF2ECharacter } from '@actor/character';
 
 interface PopupData extends FormApplicationData<PF2EActor> {
     selection?: string[];
@@ -15,8 +16,8 @@ interface PopupData extends FormApplicationData<PF2EActor> {
     }[];
 }
 
-interface PopupFormData {
-    selection: string[];
+interface PopupFormData extends FormData {
+    actorIds: string[];
     breakCoins: boolean;
 }
 
@@ -24,7 +25,8 @@ interface PopupFormData {
  * @category Other
  */
 export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
-    static get defaultOptions() {
+    /** @override */
+    static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = 'distribute-coins';
         options.classes = [];
@@ -34,15 +36,13 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
         return options;
     }
 
-    async _updateObject(_event: Event, formData: PopupFormData) {
+    /** @override */
+    async _updateObject(_event: Event, formData: PopupFormData): Promise<void> {
         const thisActor = this.object;
-        const selectedActors: PF2EActor[] = [];
-        for (let i = 0; i < formData.selection.length; i++) {
-            if (formData.selection[i]) {
-                const actor = game.actors.find((actor) => actor.id === this.form[i].id);
-                if (actor) selectedActors.push(actor);
-            }
-        }
+        const selectedActors: PF2ECharacter[] = formData.actorIds.flatMap((actorId) => {
+            const maybeActor = game.actors.get(actorId);
+            return maybeActor instanceof PF2ECharacter ? maybeActor : [];
+        });
         const playerCount = selectedActors.length;
         if (thisActor.data.items !== undefined) {
             const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
@@ -91,7 +91,8 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
             if (coinShare.gp !== 0) message += `${coinShare.gp} gp `;
             if (coinShare.sp !== 0) message += `${coinShare.sp} sp `;
             if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
-            message += `each from ${thisActor.name} to `;
+            const each = playerCount > 1 ? 'each ' : '';
+            message += `${each}from ${thisActor.name} to `;
             for (let x = 0; x < playerCount; x++) {
                 const actor = selectedActors[x];
 
@@ -108,18 +109,26 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
         }
     }
 
+    /** Prevent Foundry from converting the actor IDs to boolean values
+     * @override
+     */
+    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
+        const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
+            element instanceof HTMLInputElement && element.name === 'actorIds' && element.checked ? element.value : [],
+        );
+        options.updateData = mergeObject(options.updateData ?? {}, { actorIds: actorIds });
+        return super._onSubmit(event, options);
+    }
+
+    /** @override */
     getData(): PopupData {
         const sheetData: PopupData = super.getData();
-        sheetData.actorInfo = [];
-        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor.data.type === 'character');
-        const idsOfPlayerCharacters = game.users.players.map((x) => x.character?.id);
-        for (let i = 0; i < playerActors.length; i++) {
-            sheetData.actorInfo.push({
-                id: playerActors[i].id,
-                name: playerActors[i].name,
-                checked: idsOfPlayerCharacters.some((id) => id === playerActors[i].id),
-            });
-        }
+        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof PF2ECharacter);
+        sheetData.actorInfo = playerActors.map((actor) => ({
+            id: actor.id,
+            name: actor.name,
+            checked: game.users.players.some((user) => user.active && user.character?.id === actor.id),
+        }));
 
         return sheetData;
     }
