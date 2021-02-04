@@ -13,30 +13,49 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You specialize in explosions and other violent alchemical reactions. You start with the formulas for two 1st-level alchemical bombs in your formula book, in addition to your other formulas.<br /></p>\n<p>When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</p>\n<h2 class=\"title\">Field Discovery<span style=\"float: right;\">Level 5</span></h2>\n<p>When using advanced alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">Perpetual Infusions<span style=\"float: right;\">Level 7</span></h2>\n<p>Choose two of the following formulas: @Compendium[pf2e.equipment-srd.Acid Flask (Lesser)]{Acid Flask (Lesser)}, @Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire (Lesser)}, @Compendium[pf2e.equipment-srd.Bottled Lightning (Lesser)]{Bottled Lightning (Lesser)}, @Compendium[pf2e.equipment-srd.Frost Vial (Lesser)]{Frost Vial (Lesser)}, @Compendium[pf2e.equipment-srd.Tanglefoot Bag (Lesser)]{Tanglefoot Bag (Lesser)}, @Compendium[pf2e.equipment-srd.Thunderstone (Lesser)]{Thunderstone (Lesser)}.</p>\n<h2 class=\"title\">Perpetual Potency<span style=\"float: right;\">Level 11</span></h2>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">Greater Field Discovery<span style=\"float: right;\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @Compendium[pf2e.feats-srd.Expanded Splash]{Expanded Splash}.</p>\n<h2 class=\"title\">Perpetual Perfection<span style=\"float: right;\">Level 17</span></h2>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
+            "value": "<p>You specialize in explosions and other violent alchemical reactions. You start with the formulas for two 1st-level alchemical bombs in your formula book, in addition to your other formulas.</p>\n<p>When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</p>\n<h2 class=\"title\">Field Discovery<span style=\"float: right;\">Level 5</span></h2>\n<p>When using advanced alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">Perpetual Infusions<span style=\"float: right;\">Level 7</span></h2>\n<p>Choose two of the following formulas: @Compendium[pf2e.equipment-srd.Acid Flask (Lesser)]{Acid Flask (Lesser)}, @Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire (Lesser)}, @Compendium[pf2e.equipment-srd.Bottled Lightning (Lesser)]{Bottled Lightning (Lesser)}, @Compendium[pf2e.equipment-srd.Frost Vial (Lesser)]{Frost Vial (Lesser)}, @Compendium[pf2e.equipment-srd.Tanglefoot Bag (Lesser)]{Tanglefoot Bag (Lesser)}, @Compendium[pf2e.equipment-srd.Thunderstone (Lesser)]{Thunderstone (Lesser)}.</p>\n<h2 class=\"title\">Perpetual Potency<span style=\"float: right;\">Level 11</span></h2>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">Greater Field Discovery<span style=\"float: right;\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @Compendium[pf2e.feats-srd.Expanded Splash]{Expanded Splash}.</p>\n<h2 class=\"title\">Perpetual Perfection<span style=\"float: right;\">Level 17</span></h2>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "splash"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You can deal splash damage to only your primary target instead of the usual splash area.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "alchemist"
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/classes/bomber.jpg",
     "name": "Bomber",
