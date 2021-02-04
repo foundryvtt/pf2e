@@ -93,12 +93,11 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
             if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
             const each = playerCount > 1 ? 'each ' : '';
             message += `${each}from ${thisActor.name} to `;
-            for (let x = 0; x < playerCount; x++) {
-                const actor = selectedActors[x];
-
-                addCoinsSimple(actor, { coins: coinShare, combineStacks: true });
-                if (x === 0) message += `${actor.name}`;
-                else if (x < playerCount - 1) message += `, ${actor.name}`;
+            for await (const actor of selectedActors) {
+                await addCoinsSimple(actor, { coins: coinShare, combineStacks: true });
+                const index = selectedActors.indexOf(actor);
+                if (index === 0) message += `${actor.name}`;
+                else if (index < playerCount - 1) message += `, ${actor.name}`;
                 else message += ` and ${actor.name}.`;
             }
             ChatMessage.create({
