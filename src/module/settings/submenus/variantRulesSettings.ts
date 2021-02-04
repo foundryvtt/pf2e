@@ -132,9 +132,9 @@ export class variantRulesSettings extends FormApplication {
     /* -------------------------------------------- */
 
     /** @override */
-    async _onSubmit(event: Event, options: OnSubmitFormOptions) {
+    async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         event.preventDefault();
-        super._onSubmit(event, options);
+        return super._onSubmit(event, options);
     }
 
     /* -------------------------------------------- */
