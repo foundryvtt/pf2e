@@ -13,14 +13,15 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use @Compendium[pf2e.feats-srd.Quick Alchemy]{Quick Alchemy} to craft an @Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire}, and that bomb's level is at least 2 levels lower than your @Compendium[pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} level.</p>\n<hr />\n<p>Artokus developed a mixture of volatile materials that burns hotter and longer than typical alchemist's fire. You include this additive mixture when crafting your alchemist's fire. The alchemist's fire deals [[/r 1d4 #persistent fire]] persistent fire damage in addition to what the alchemist fire would normally cause (for instance, a moderate alchemist's fire deals 1d4+2 persistent fire damage). A creature taking persistent fire damage from the alchemist's fire requires two successful flat checks to end the persistent damage, or one check if the creature had an assisted recovery that reduces the flat check to DC 10. The enhanced alchemist's fire burns even underwater, and any attempts to end the persistent damage by using water have no effect.</p>"
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use @Compendium[pf2e.feats-srd.Quick Alchemy]{Quick Alchemy} to craft an @Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire}, and that bomb's level is at least 2 levels lower than your @Compendium[pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} level.</p>\n<hr />\n<p>Artokus developed a mixture of volatile materials that burns hotter and longer than typical alchemist's fire. You include this additive mixture when crafting your alchemist's fire.</p>\n<p>The alchemist's fire deals [[/r 1d4 #persistent fire]] persistent fire damage in addition to what the alchemist fire would normally cause (for instance, a moderate alchemist's fire deals 1d4+2 persistent fire damage).</p>\n<p>A creature taking persistent fire damage from the alchemist's fire requires two successful flat checks to end the persistent damage, or one check if the creature had an assisted recovery that reduces the flat check to DC 10.</p>\n<p>The enhanced alchemist's fire burns even underwater, and any attempts to end the persistent damage by using water have no effect.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 ""
@@ -29,6 +30,26 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Artokus's Fire",
+                "property": "flags.pf2e.rollOptions.attack-roll.artokuss-fire"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "fire",
+                        "artokuss-fire"
+                    ]
+                },
+                "selector": "attack-roll",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Your Alchemist's Fire deals an additonal 1d4 persistent fire damage, and creatuers must make two succesful flat checks to end the condition (or one check, if they had assisted recovery that reduces the flat check to DC 10). Your enhanced fire burns underwater, and water does not help to end the persistent damage.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -47,6 +68,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Artokus's Fire",
