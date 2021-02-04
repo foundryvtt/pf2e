@@ -282,6 +282,19 @@ export class PF2EActor extends Actor<PF2EItem> {
     onDeleteOwnedItem(child, options, userId) {
         if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
         if (!this.can(game.user, 'update')) return;
+        
+        // delete any rollOptions associated with the item _id
+        const optionUpdates = {};
+        for (const rollOption of SUPPORTED_ROLL_OPTIONS) {
+            for (const rollFlag in this.data.flags.pf2e.rollOptions[rollOption]) {
+                if rollFlag.startsWith(child._id) {
+                    const flag = `flags.pf2e.rollOptions.${rollOption}.-=${rollFlag}`;
+                    optionUpdates[flag] = null;
+                }
+            }
+        }
+        this.update(optionUpdates);
+
         const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};

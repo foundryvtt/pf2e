@@ -709,10 +709,10 @@ export class PF2ECharacter extends PF2EActor {
                             // look for toggleable traits
                             if (trait.startsWith('two-hand-')) {
                                 option.rollName = 'damage-roll';
-                                option.rollOption = 'trait:' + item._id + "-two-handed";
+                                option.rollOption = item._id + '-two-handed';
                             } else if (trait.startsWith('versatile-')) {
                                 option.rollName = 'damage-roll';
-                                option.rollOption = 'trait:' + item._id + "-" + trait;
+                                option.rollOption = item._id + '-' + trait;
                             }
 
                             // trait can be toggled on/off
