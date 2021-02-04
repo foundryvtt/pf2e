@@ -12,6 +12,9 @@ declare class DrawingConfig extends FormApplication {
      * Extend the application close method to clear any preview sound aura if one exists
      */
     close(): Promise<void>;
+
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
 }
 
 /**
@@ -20,7 +23,11 @@ declare class DrawingConfig extends FormApplication {
  * @param light		The AmbientLight object for which settings are being configured
  * @param options	LightConfig ui options (see Application)
  */
-declare class LightConfig extends FormApplication {}
+declare class LightConfig extends FormApplication {
+
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
+}
 
 /**
  * Ambient Sound Config Sheet
@@ -29,7 +36,10 @@ declare class LightConfig extends FormApplication {}
  * @param options			Additional application rendering options
  * @param options.preview	Configure a preview version of a sound which is not yet saved
  */
-declare class AmbientSoundConfig extends FormApplication {}
+declare class AmbientSoundConfig extends FormApplication {
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
+}
 /**
  * Tile Config Sheet
  *
@@ -37,7 +47,10 @@ declare class AmbientSoundConfig extends FormApplication {}
  * @param options			Additional application rendering options
  * @param options.preview	Configure a preview version of a tile which is not yet saved
  */
-declare class TileConfig extends FormApplication {}
+declare class TileConfig extends FormApplication {
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
+}
 
 /**
  * A Token Configuration Application
@@ -47,7 +60,10 @@ declare class TileConfig extends FormApplication {}
  *
  * @param options.configureDefault	Configure the default actor token on submit
  */
-declare class TokenConfig extends FormApplication {}
+declare class TokenConfig extends FormApplication {
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
+}
 
 /**
  * Wall Configuration Sheet
@@ -55,4 +71,7 @@ declare class TokenConfig extends FormApplication {}
  * @param object	The Wall object for which settings are being configured
  * @param options	Additional options which configure the rendering of the configuration sheet.
  */
-declare class WallConfig extends FormApplication {}
+declare class WallConfig extends FormApplication {
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
+}

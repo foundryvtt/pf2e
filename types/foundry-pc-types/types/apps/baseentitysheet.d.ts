@@ -20,4 +20,7 @@ declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication
      * @override
      */
     getData(options?: FormApplicationOptions): BaseEntitySheetData<EntityType>;
+
+    /** @override */
+    protected _updateObject(event: Event, formData: {}): Promise<void>;
 }
