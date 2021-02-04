@@ -1,6 +1,7 @@
 import { PF2EActor } from '../actor/actor';
 import { SpellcastingEntryData, SpellData } from './data-definitions';
-import { SpellcastingEntry } from './spellcasting-entry';
+import { SpellcastingEntry } from './spellcasting-e	ntry';
+import { TrickMagicItemCastData } from './spell-consumables';
 
 /**
  * @category Other

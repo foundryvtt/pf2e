@@ -15,7 +15,8 @@ import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData } from './data-definitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-import { canCastConsumable } from './spell-consumables';
+import { calculateTrickMagicItemDC, canCastConsumable } from './spell-consumables';
+import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2Check } from '../system/rolls';
 
@@ -919,19 +920,27 @@ export class PF2EItem extends Item<PF2EActor> {
     /**
      * Use a consumable item
      */
-    rollConsumable(ev) {
+    async rollConsumable(ev) {
         const item: ItemData = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
+        if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
 
         const itemData = item.data;
         // Submit the roll to chat
         if (
             ['scroll', 'wand'].includes(item.data.consumableType.value) &&
             item.data.spell?.data &&
-            this.actor instanceof PF2EActor &&
-            canCastConsumable(this.actor, item)
+            this.actor instanceof PF2EActor
         ) {
-            this._castEmbeddedSpell();
+            if (canCastConsumable(this.actor, item)) {
+                this._castEmbeddedSpell();
+            } else {
+                const DC = calculateTrickMagicItemDC(item);
+                const popup = new TrickMagicItemPopup(this.actor, DC);
+                popup.render(true);
+                const result = await popup.result;
+                console.log(result);
+            }
         } else {
             const cv = itemData.consume.value;
             const content = `Uses ${this.name}`;

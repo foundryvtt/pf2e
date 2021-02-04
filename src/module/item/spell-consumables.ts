@@ -1,4 +1,7 @@
+import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2EActor } from '../actor/actor';
+import { calculateDC, DCOptions } from '../dc';
+import { parseTraits } from '../traits';
 import { ConsumableData, SpellcastingEntryData, SpellData } from './data-definitions';
 
 export enum SpellConsumableTypes {
