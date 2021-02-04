@@ -126,21 +126,21 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
 
     /**
      * Handle unfocusing an input on form - maybe trigger an update if ``options.liveUpdate`` has been set to true
-     * @param event	The initial triggering event
+     * @param event The initial triggering event
      */
     protected _onUnfocus(event: Event | JQuery.Event): void;
 
     /**
      * This method is called upon form submission after form data is validated
-     * @param event		The initial triggering submission event
-     * @param formData	The object of validated form data with which to update the object
-     * @returns			A Promise which resolves once the update operation has completed
+     * @param event     The initial triggering submission event
+     * @param formData  The object of validated form data with which to update the object
+     * @returns         A Promise which resolves once the update operation has completed
      */
-    protected _updateObject(event: Event, formData: FormData): Promise<void>;
+    protected abstract _updateObject(event: Event, formData: {}): Promise<void>;
 
     /* -------------------------------------------- */
     /*  TinyMCE Editor
-	    /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Activate a TinyMCE editor instance present within the form

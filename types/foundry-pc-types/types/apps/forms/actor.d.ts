@@ -73,7 +73,7 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Handle a drop event for an existing Owned Item to sort that item
