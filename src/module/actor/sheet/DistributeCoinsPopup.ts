@@ -15,7 +15,7 @@ interface PopupData extends FormApplicationData<PF2EActor> {
     }[];
 }
 
-interface PopupFormData extends FormData {
+interface PopupFormData {
     selection: string[];
     breakCoins: boolean;
 }
