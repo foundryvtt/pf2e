@@ -242,7 +242,7 @@ Hooks.on('canvasInit', async () => {
     };
 
     // Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition
-    if (game.data.version === '0.7.9') {
+    if (game.data.version === '0.7.9' && Token.prototype._getBorderColor !== undefined) {
         Token.prototype._getBorderColor = function (this: Token) {
             const colors = CONFIG.Canvas.dispositionColors;
             if (this._controlled) return colors.CONTROLLED;
