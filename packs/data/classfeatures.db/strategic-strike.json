@@ -19,15 +19,65 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 5
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
