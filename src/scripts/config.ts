@@ -296,6 +296,7 @@ export const PF2ECONFIG = {
         rations: 'PF2E.StackGroupRations',
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
+        sacks: 'PF2E.StackGroupSacks',
     }, // Weakness Types
 
     weaknessTypes: {

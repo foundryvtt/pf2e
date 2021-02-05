@@ -24,7 +24,7 @@
     
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="data.weight.value" data-dtype="String">
+        <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
             {{#select data.weight.value}}
             <option value="-">Negligible</option>
             {{#each bulkTypes as |name type|}}
@@ -53,6 +53,18 @@
         {{#select data.size.value}}
         {{#each sizes as |name value|}}
         <option value="{{value}}">{{name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>{{localize "PF2E.StackGroupLabel"}}</label>
+      <select name="data.stackGroup.value" data-dtype="String">
+        {{#select data.stackGroup.value}}
+        <option value="">{{localize "PF2E.NoStackGroup"}}</option>
+        {{#each stackGroups as |name type|}}
+        <option value="{{type}}">{{localize name}}</option>
         {{/each}}
         {{/select}}
       </select>
