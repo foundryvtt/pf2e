@@ -34,6 +34,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 '.actions-pane',
                 '.spellbook-pane',
                 '.skillstab-pane',
+                '.crafting-pane',
             ],
         });
     }
