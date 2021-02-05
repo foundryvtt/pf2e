@@ -1,0 +1,104 @@
+<div class="form-group">
+  <label></label>
+  <select name="data.item.type" data-dtype="String">
+    {{#select data.item.type}}
+    <option value="weapon">weapon</option>
+    <option value="armor">armor</option>
+    <option value="equipment">equipment</option>
+    <option value="consumable">consumable</option>
+    <option value="wand">wand</option>
+    <option value="scroll">scroll</option>
+    {{/select}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.item.link" value="{{data.item.link}}" data-dtype="String"/>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.BulkLabel"}}</label>
+  <select name="item.bulk" data-dtype="String">
+    {{#select item.bulk}}
+    <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+    {{#each bulkTypes as |name type|}}
+    <option value="{{type}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.PriceLabel"}}</label>
+  <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="Number"/>
+  <select name="data.price.denomination" data-dtype="String">
+    {{#select data.price.denomination}}
+    {{#each currencies as |name type|}}
+    <option value="{{type}}">{{localize name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
+  <select name="data.item.preciousMaterial" data-dtype="String">
+    {{#select data.item.preciousMaterial}}
+    <option value=""></option>
+    {{#each preciousMaterials as |name type|}}
+    <option value="{{type}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.PreciousMaterialGradeLabel"}}</label>
+  <select name="data.item.preciousMaterialGrade" data-dtype="String">
+    {{#select data.item.preciousMaterialGrade}}
+    <option value=""></option>
+    {{#each preciousMaterialGrades as |name type|}}
+    <option value="{{type}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.dailyCraftQuantity" value="{{data.dailyCraftQuantity}}" data-dtype="Number"/>
+</div>
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.dailyCraftFactor" value="{{data.dailyCraftFactor}}" data-dtype="Number"/>
+</div>
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.quickCraftQuantity" value="{{data.quickCraftQuantity}}" data-dtype="Number"/>
+</div>
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.quickCraftFactor" value="{{data.quickCraftFactor}}" data-dtype="Number"/>
+</div>
+<div class="form-group">
+  <label></label>
+  <input type="text" name="data.craftQuantity" value="{{data.craftQuantity}}" data-dtype="Number"/>
+</div>
+<div class="form-group">
+  <label></label>
+  <input type="checkbox" name="data.isPerpetualInfusion" value="1" data-dtype="{{Boolean}}" {{checked data.isPerpetualInfusion}}/>
+</div>
+
+<div class="form-group-stacked">
+    <label for="data.traits">
+        {{localize "PF2E.TraitsLabel"}}
+        <a class="trait-selector" data-options="equipmentTraits"><i class="fas fa-edit"></i></a>
+    </label>
+    <ul class="traits-list pf-value pf-large">
+        {{#each data.traits.value as |v k|}}
+            <span class="tag {{k}}">{{v}}</span>
+        {{/each}}
+    </ul>
+</div>
+
