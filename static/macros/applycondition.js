@@ -25,8 +25,9 @@ async function optionList() {
     return optionlist;
 }
 
-async function applyCondition(conditionItem, applytype)
+async function applyCondition(conditionId, applytype)
 {
+    let conditionItem=conditionList[conditionId];
     const item = await fromUuid(conditionItem.UUID);
     for (const token of canvas.tokens.controlled) {
         let existing = token.actor.items.filter(i => i.type === item.type).find(e => e.name === item.name);
@@ -85,7 +86,6 @@ new Dialog({
       if (applyChanges) {
           var applytype="additive";
         let conditionid = html.find('[name="conditionChoice"]')[0].value;
-        let conditionItem=getConditionList()[conditionid];
         const radios=html.find('[name="applyType"]');
         for(var count=0;count<radios.length;count++){
             if(radios[count].checked){
@@ -93,7 +93,7 @@ new Dialog({
                 break;
             }
         }
-        applyCondition(conditionItem,applytype);
+        applyCondition(conditionid,applytype);
     }
   }
 }).render(true);
