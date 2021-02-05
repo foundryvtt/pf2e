@@ -26,6 +26,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/tabs/actor-character.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-actions.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/actor-crafting.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',
         'systems/pf2e/templates/actors/crb-style/tabs/inventory.html',
