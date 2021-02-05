@@ -1,6 +1,6 @@
 class PF2eCritFumbleCards {
-    static critTable: any;
-    static fumbleTable: any;
+    static critTable: RollTable;
+    static fumbleTable: RollTable;
     static diceSoNice: boolean;
 
     static async init() {
@@ -10,7 +10,7 @@ class PF2eCritFumbleCards {
 
         if (game.settings.get('pf2e', 'drawCritFumble')) {
             // Support diceSoNice module
-            this.diceSoNice = game.modules.get('dice-so-nice') && game.modules.get('dice-so-nice').active;
+            this.diceSoNice = !!game.modules.get('dice-so-nice')?.active;
             const hooksOn = this.diceSoNice ? 'diceSoNiceRollComplete' : 'createChatMessage';
 
             Hooks.on(hooksOn, this.handleRoll.bind(this));
