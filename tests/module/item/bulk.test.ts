@@ -856,16 +856,7 @@ describe('Bulk conversions', () => {
             }),
         );
     });
-
-    test('negligible items become L bulk after one increase unless they are tiny', () => {
-        expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
-            new Bulk({
-                light: 0,
-                normal: 2,
-            }),
-        );
-    });
-
+    
     test('L items become 1 bulk after one increase', () => {
         expect(convertBulkToSize(new Bulk({ light: 1 }), 'lg', 'med')).toEqual(
             new Bulk({
@@ -933,7 +924,7 @@ describe('Bulk conversions', () => {
         expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
             new Bulk({
                 light: 0,
-                normal: 2,
+                normal: 4,
             }),
         );
     });

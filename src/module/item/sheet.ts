@@ -404,10 +404,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         return this._onSubmit(event);
     }
 
-    _getSubmitData(updateData: any = {}) {
+    _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data = updateData ? mergeObject(fd.toObject(), updateData) : expandObject(fd.toObject());
+        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
+            ? mergeObject(fd.toObject(), updateData)
+            : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
         if (data?.data?.rules) {

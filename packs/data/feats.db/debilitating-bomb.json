@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use Quick Alchemy to craft an alchemical bomb that is at least 2 levels lower than your advanced alchemy level.</p>\n<hr />\n<p>Your bombs impose additional effects on your enemies. You mix a substance into the bomb that causes one of the following: dazzled, deafened, flat-footed, or a -5-foot status penalty to Speeds. If the attack with that bomb hits, the target must succeed at a Fortitude saving throw or suffer that effect until the start of your next turn. Use your class DC for this saving throw (even if someone else throws the bomb).</p>"
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Trigger</strong> You use Quick Alchemy to craft an alchemical bomb that is at least 2 levels lower than your advanced alchemy level.</p>\n<hr />\n<p>Your bombs impose additional effects on your enemies. You mix a substance into the bomb that causes one of the following: dazzled, deafened, flat-footed, or a -5-foot status penalty to Speeds.</p>\n<p>If the attack with that bomb hits, the target must succeed at a Fortitude saving throw or suffer that effect until the start of your next turn. Use your class DC for this saving throw (even if someone else throws the bomb).</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,6 +42,25 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Debilitating Bomb",
+                "property": "flags.pf2e.rollOptions.attack-roll.debilitating-bomb"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "debilitating-bomb"
+                    ]
+                },
+                "selector": "attack-roll",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @Compendium[pf2e.feats-srd.Debilitating Bomb]{effects}</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +79,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Debilitating Bomb",

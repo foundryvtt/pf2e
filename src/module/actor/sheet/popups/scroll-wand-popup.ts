@@ -45,11 +45,11 @@ export class ScrollWandPopup extends FormApplication<PF2EActor> {
         return sheetData;
     }
 
-    async _updateObject(_event: Event, formData: FormData & { itemType: string; level: number }) {
+    async _updateObject(_event: Event, formData: { itemType: string; level: number }) {
         if (formData.itemType === 'wand' && formData.level === 10) {
             ui.notifications.warn(game.i18n.localize('PF2E.ScrollWandPopup.10thLevelWand'));
         } else if (this.onSubmitCallback) {
-            this.onSubmitCallback(formData.level as number, formData.itemType as string, this.spellData);
+            this.onSubmitCallback(formData.level, formData.itemType, this.spellData);
         }
     }
 }

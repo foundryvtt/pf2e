@@ -11,7 +11,7 @@ declare interface FormApplicationData<O extends {} = {}> {
 }
 
 declare interface OnSubmitFormOptions {
-    updateData?: Record<string, unknown>;
+    updateData?: Record<string, unknown> | null;
     preventClose?: boolean
     preventRender?: boolean;
 }
@@ -62,7 +62,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
     object: ObjectType;
 
     /** A convenience reference to the form HTLMElement */
-    form: HTMLElement;
+    form: HTMLFormElement;
 
     /**
      * Keep track of any FilePicker instances which are associated with this form
@@ -99,7 +99,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      * Activate the default set of listeners for the Entity sheet
      * These listeners handle basic stuff like form submission or updating images
      *
-     * @param html	The rendered template ready to have listeners attached
+     * @param html The rendered template ready to have listeners attached
      */
     protected activateListeners(html: JQuery): void;
 
@@ -110,37 +110,43 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
 
     /**
      * Handle standard form submission steps
-     * @param {Event} event               The submit event which triggered this handler
-     * @param {Object|null} [updateData]  Additional specific data keys/values which override or extend the contents of
-     *                                    the parsed form. This can be used to update other flags or data fields at the
-     *                                    same time as processing a form submission to avoid multiple database operations.
-     * @param {boolean} [preventClose]    Override the standard behavior of whether to close the form on submit
-     * @param {boolean} [preventRender]   Prevent the application from re-rendering as a result of form submission
-     * @returns {Promise}                 A promise which resolves to the validated update data
-     * @private
+     * @param event           The submit event which triggered this handler
+     * @param [updateData]    Additional specific data keys/values which override or extend the contents of
+     *                        the parsed form. This can be used to update other flags or data fields at the
+     *                        same time as processing a form submission to avoid multiple database operations.
+     * @param [preventClose]  Override the standard behavior of whether to close the form on submit
+     * @param [preventRender] Prevent the application from re-rendering as a result of form submission
+     * @returns A promise which resolves to the validated update data
      */
     protected _onSubmit(
-        event: Event | JQuery.Event,
+        event: Event,
         { updateData, preventClose, preventRender }?: OnSubmitFormOptions
-    ): Promise<any>;
+    ): Promise<Record<string, unknown>>;
+
+    /**
+     * Get an object of update data used to update the form's target object
+     * @param updateData Additional data that should be merged with the form data
+     * @return The prepared update data
+     */
+    protected _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
 
     /**
      * Handle unfocusing an input on form - maybe trigger an update if ``options.liveUpdate`` has been set to true
-     * @param event	The initial triggering event
+     * @param event The initial triggering event
      */
     protected _onUnfocus(event: Event | JQuery.Event): void;
 
     /**
      * This method is called upon form submission after form data is validated
-     * @param event		The initial triggering submission event
-     * @param formData	The object of validated form data with which to update the object
-     * @returns			A Promise which resolves once the update operation has completed
+     * @param event     The initial triggering submission event
+     * @param formData  The object of validated form data with which to update the object
+     * @returns         A Promise which resolves once the update operation has completed
      */
-    protected _updateObject(event: Event, formData: FormData): Promise<void>;
+    protected abstract _updateObject(event: Event, formData: {}): Promise<void>;
 
     /* -------------------------------------------- */
     /*  TinyMCE Editor
-	    /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Activate a TinyMCE editor instance present within the form

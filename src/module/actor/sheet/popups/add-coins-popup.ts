@@ -1,10 +1,8 @@
-/* global game */
-
-import { PF2EPhysicalItem } from '@item/physical';
+import { PF2ETreasure } from '@item/others';
 import { addCoins, Coins } from '@item/treasure';
-import { PF2EActor } from '../../actor';
+import { PF2EActor } from '@actor/actor';
 
-interface AddCoinsFormData extends FormData, Coins {
+interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
 }
 
@@ -22,7 +20,7 @@ export class AddCoinsPopup extends FormApplication<PF2EActor> {
         return options;
     }
 
-    async _updateObject(event: Event, formData: AddCoinsFormData) {
+    async _updateObject(_event: Event, formData: AddCoinsFormData) {
         const actor = this.object;
         addCoins({
             coins: {
@@ -34,19 +32,16 @@ export class AddCoinsPopup extends FormApplication<PF2EActor> {
             updateItemQuantity: async (item, quantity) => {
                 const currentQuantity = item?.data?.quantity?.value || 0;
                 const ownedItem = actor.getOwnedItem(item._id);
-                await ownedItem?.update({ 'data.quantity.value': currentQuantity + quantity });
+                if (ownedItem instanceof PF2ETreasure) {
+                    await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
+                }
             },
             addFromCompendium: async (compendiumId, quantity) => {
-                const equipmentPackName = 'pf2e.equipment-srd';
-
-                const pack = game.packs.find((p) => p.collection === equipmentPackName);
-
-                if (pack) {
-                    const item = (await pack.getEntity(compendiumId)) as PF2EPhysicalItem;
+                const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
+                const item = await pack.getEntity(compendiumId);
+                if (item instanceof PF2ETreasure) {
                     item.data.data.quantity.value = quantity;
                     await actor.createOwnedItem(item.data);
-                } else {
-                    throw Error(`PF2e | Could not load pack ${equipmentPackName}`);
                 }
             },
             combineStacks: formData.combineStacks,
