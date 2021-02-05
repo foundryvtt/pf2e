@@ -56,6 +56,7 @@ import './types/core/diceterm';
 import './types/core/die';
 import './types/core/fonts';
 import './types/core/hooks';
+import './types/core/game-time';
 import './types/core/keyboard';
 import './types/core/roll';
 import './types/core/searchfilter';
@@ -86,14 +87,16 @@ import './types/framework/entities/user';
 
 // PIXI
 
-import './types/pixi/canvaslayer';
+import './types/pixi/canvas-layer';
+import './types/pixi/mouseinteractionmanager';
 import './types/pixi/placeableslayer/base';
 import './types/pixi/placeableslayer/drawinglayer';
 import './types/pixi/placeableslayer/gridlayer';
+import './types/pixi/placeableslayer/lighting-layer';
 import './types/pixi/placeableslayer/tileslayer';
 import './types/pixi/placeableslayer/templatelayer';
 import './types/pixi/placeableslayer/tokenlayer';
-import './types/pixi/mouseinteractionmanager';
+import './types/pixi/placeableslayer/point-source';
 
 import './types/pixi/helpers/controlicon';
 import './types/pixi/helpers/ray';
