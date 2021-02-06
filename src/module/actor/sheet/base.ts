@@ -1215,10 +1215,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                         const sortBefore = source.data.sort >= target.data.sort;
                         source.sortRelative({ target, siblings, sortBefore });
                     } else {
-                        if (dropId !== undefined) {
-                            if (this._moveSpell(itemData, dropId, targetLevel)) {
-                                return this.actor.updateOwnedItem(itemData);
-                            }
+                        if (this._moveSpell(itemData, targetLocation, targetLevel)) {
+                            return this.actor.updateOwnedItem(itemData);
                         }
                     }
                 }
@@ -1321,7 +1319,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
-            if (dropSlotType === 'spellLevel' || dropSlotType === 'spell') {
+            if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
