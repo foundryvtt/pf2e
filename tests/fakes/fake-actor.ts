@@ -25,6 +25,10 @@ export class FakeActor {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
+        if (this._data.items === undefined) {
+            this._data.items = [];
+        }
+
         for (const itemChanges of data) {
             let obj;
             if (type == 'OwnedItem') {
@@ -41,6 +45,10 @@ export class FakeActor {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
+        if (this._data.items === undefined) {
+            this._data.items = [];
+        }
+
         if (type == 'OwnedItem') {
             for (const obj of data) {
                 obj._id = 'item1';
@@ -55,7 +63,7 @@ export class FakeActor {
 
         if (type == 'OwnedItem') {
             for (const id of data) {
-                this._data.items = this._data.items.filter((x: any) => x._id !== id);
+                this._data.items = this._data.items?.filter((x: any) => x._id !== id);
             }
         }
     }
