@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You have learned enhanced techniques and alchemical secrets that allow you to expand the range of effects you can impose with your bombs. When you use Debilitating Bomb, add the following to the list you can choose from: @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1, or -10-foot status penalty to Speeds.</p>"
+            "value": "<p>You have learned enhanced techniques and alchemical secrets that allow you to expand the range of effects you can impose with your bombs.</p>\n<p>When you use @Compendium[pf2e.feats-srd.Debilitating Bomb]{Debilitating Bomb}, add the following to the list you can choose from: @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1, or -10-foot status penalty to Speeds.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,6 +42,20 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "debilitating-bomb"
+                    ]
+                },
+                "selector": "attack-roll",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @Compendium[pf2e.feats-srd.Greater Debilitating Bomb]{effects}</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -58,6 +73,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Greater Debilitating Bomb",

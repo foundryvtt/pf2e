@@ -1,24 +1,21 @@
-<form
-    class="loot-actor-popup"
-    autocomplete="off"
-    onsubmit="event.preventDefault();"
->
+<form class="loot-actor-popup" autocomplete="off" onsubmit="event.preventDefault();">
     <div class="checkboxes">
         <h1>{{localize "PF2E.loot.SplitCoinsPopupHeader"}}</h1>
         {{#each actorInfo as |info|}}
         <p>
-            <label class="selection" for="{{info.id}}">
-                <input type="checkbox"name="selection" id="{{info.id}}" {{#if info.checked}}checked="checked"{{/if}}/>
-                <span>{{info.name}}</span>
-            </label>
+          <label>
+            <input type="checkbox" name="actorIds" value="{{info.id}}" {{#if info.checked}}checked="checked"{{/if}}/>
+            <span>{{info.name}}</span>
+          </label>
         </p>
         {{/each}}
-        <hr>
+        <hr />
         <p>
-            <label class="break-coins" for="breakCoins">
-                <input type="checkbox" name="breakCoins" id="breakCoins" />
-                <span>Allow coin type conversion</span>
-            </label></p>
+          <label class="break-coins" for="breakCoins">
+            <input type="checkbox" name="breakCoins" />
+            <span>Allow coin type conversion</span>
+          </label>
+        </p>
     </div>
     <p>
         <button class="confirm-button" type="submit" name="submit" value="1">

@@ -73,10 +73,10 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
         data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
         data.usage = CONFIG.PF2E.usageTraits; // usage data
+        data.stackGroups = CONFIG.PF2E.stackGroups;
 
         if (type === 'treasure') {
             data.currencies = CONFIG.PF2E.currencies;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'consumable') {
@@ -404,10 +404,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         return this._onSubmit(event);
     }
 
-    _getSubmitData(updateData: any = {}) {
+    _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data = updateData ? mergeObject(fd.toObject(), updateData) : expandObject(fd.toObject());
+        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
+            ? mergeObject(fd.toObject(), updateData)
+            : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
         if (data?.data?.rules) {

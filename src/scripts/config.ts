@@ -296,6 +296,7 @@ export const PF2ECONFIG = {
         rations: 'PF2E.StackGroupRations',
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
+        sacks: 'PF2E.StackGroupSacks',
     }, // Weakness Types
 
     weaknessTypes: {
@@ -1011,8 +1012,10 @@ export const PF2ECONFIG = {
     hazardTraits: {
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
+        curse: 'PF2e.TraitCurse',
         haunt: 'PF2E.TraitHaunt',
         inhaled: 'PF2E.TraitInhaled',
+        magic: 'PF2E.TraitMagic',
         magical: 'PF2E.TraitMagical',
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
