@@ -34,6 +34,10 @@ export class Spell {
         return this.data.data.level.value;
     }
 
+    get heightenedLevel(): number {
+        return this.data.data.heightenedLevel?.value ?? this.spellLevel;
+    }
+
     get damage() {
         return this.data.data.damage;
     }
@@ -65,17 +69,13 @@ export class Spell {
         return this.data.data?.scaling || { formula: '', mode: '' };
     }
 
-    get heightenedLevel(): number | undefined {
-        return this.data.data.heightenedLevel?.value;
-    }
-
     // Automatically scale cantrips/focus spells to the character's max spell
     // level.
     get castLevel() {
         if (this.autoScalingSpell) {
             return Math.ceil(this.castingActor.level / 2);
         }
-        return this.heightenedLevel ?? this._castLevel;
+        return this._castLevel;
     }
 
     get autoScalingSpell() {
@@ -92,10 +92,6 @@ export class Spell {
 
     get isRitual(): boolean {
         return this.traditions.includes('ritual');
-    }
-
-    get canHeighten(): boolean {
-        return !this.isCantrip && !this.isFocusSpell && !this.isRitual;
     }
 
     get traditions() {
