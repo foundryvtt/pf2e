@@ -1,3 +1,4 @@
+import { TreasureData } from '../../../src/module/item/dataDefinitions';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
@@ -7,6 +8,44 @@ import {
     sellAllTreasure,
 } from '../../../src/module/item/treasure';
 
+function treasure({
+    id = 'unknown',
+    denomination = 'gp',
+    value = 1,
+    quantity = 1,
+    stackGroup = 'unknown',
+    containerId = undefined,
+    update = undefined,
+}): TreasureData {
+    return ({
+        _id: id,
+        type: 'treasure',
+        data: {
+            denomination: { value: denomination as 'cp' | 'sp' | 'gp' | 'pp' },
+            quantity: { value: quantity },
+            value: { value: value },
+            stackGroup: { value: stackGroup },
+            containerId: { value: containerId },
+        },
+        update: update,
+    } as any) as TreasureData;
+}
+function coin({
+    denomination,
+    quantity,
+    id = 'unknown',
+    containerId = undefined,
+    update = undefined,
+}: {
+    denomination: any;
+    quantity: number;
+    id?: string;
+    containerId?: any;
+    update?: any;
+}) {
+    return treasure({ denomination, value: 1, quantity, stackGroup: 'coins', id, containerId, update });
+}
+
 describe('should calculate wealth based on inventory', () => {
     test('empty inventory', () => {
         const items = [];
@@ -15,6 +54,25 @@ describe('should calculate wealth based on inventory', () => {
         expect(result).toEqual({
             pp: 0,
             gp: 0,
+            sp: 0,
+            cp: 0,
+        });
+    });
+
+    test('handles empty treasure data without failing', () => {
+        const items = [
+            {
+                _id: 'ignore',
+                type: 'no treasure type',
+                data: {},
+            },
+            coin({ denomination: 'gp', quantity: 1 }),
+        ];
+
+        const result = calculateWealth(items);
+        expect(result).toEqual({
+            pp: 0,
+            gp: 1,
             sp: 0,
             cp: 0,
         });
@@ -30,78 +88,17 @@ describe('should calculate wealth based on inventory', () => {
                         value: 'gp',
                     },
                     quantity: {
-                        value: 1,
+                        value: 1000,
                     },
                     value: {
-                        value: 1,
+                        value: 1000,
                     },
                 },
             },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {},
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'pp',
-                    },
-                    quantity: {
-                        value: 10,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 9,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'sp',
-                    },
-                    quantity: {
-                        value: 8,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'cp',
-                    },
-                    quantity: {
-                        value: 7,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
+            coin({ denomination: 'pp', quantity: 10 }),
+            coin({ denomination: 'gp', quantity: 9 }),
+            coin({ denomination: 'sp', quantity: 8 }),
+            coin({ denomination: 'cp', quantity: 7 }),
         ];
 
         const result = calculateWealth(items);
@@ -114,67 +111,12 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('adjusts value', () => {
+        // eslint-disable-next-line prettier/prettier
         const items = [
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'pp',
-                    },
-                    quantity: {
-                        value: 10,
-                    },
-                    value: {
-                        value: 2,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 9,
-                    },
-                    value: {
-                        value: 3,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'sp',
-                    },
-                    quantity: {
-                        value: 8,
-                    },
-                    value: {
-                        value: 4,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'cp',
-                    },
-                    quantity: {
-                        value: 7,
-                    },
-                    value: {
-                        value: 5,
-                    },
-                },
-            },
+            treasure({ denomination: 'pp', value: 10, quantity: 2 }),
+            treasure({ denomination: 'gp', value: 9, quantity: 3 }),
+            treasure({ denomination: 'sp', value: 8, quantity: 4 }),
+            treasure({ denomination: 'cp', value: 7, quantity: 5 }),
         ];
 
         const result = calculateWealth(items);
@@ -192,83 +134,10 @@ describe('should calculate wealth based on inventory', () => {
         await addCoins({
             items: [
                 // ignored because of only value 1 is taken
-                {
-                    type: 'treasure',
-                    _id: '1',
-                    data: {
-                        denomination: {
-                            value: 'gp',
-                        },
-                        quantity: {
-                            value: 7,
-                        },
-                        value: {
-                            value: 5,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                    },
-                },
-                {
-                    type: 'treasure',
-                    _id: '2',
-                    data: {
-                        denomination: {
-                            value: 'gp',
-                        },
-                        quantity: {
-                            value: 7,
-                        },
-                        value: {
-                            value: 1,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                    },
-                },
-                // ignored becase not added
-                {
-                    type: 'treasure',
-                    _id: '3',
-                    data: {
-                        denomination: {
-                            value: 'sp',
-                        },
-                        quantity: {
-                            value: 6,
-                        },
-                        value: {
-                            value: 1,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                    },
-                },
-                // ignored becase in a container
-                {
-                    type: 'treasure',
-                    _id: '4',
-                    data: {
-                        denomination: {
-                            value: 'cp',
-                        },
-                        quantity: {
-                            value: 6,
-                        },
-                        value: {
-                            value: 1,
-                        },
-                        stackGroup: {
-                            value: 'coins',
-                        },
-                        containerId: {
-                            value: 'yo',
-                        },
-                    },
-                },
+                treasure({ denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins', id: '1' }),
+                coin({ denomination: 'gp', quantity: 7, id: '2' }),
+                coin({ denomination: 'sp', quantity: 6, id: '3' }),
+                coin({ denomination: 'cp', quantity: 6, id: '4', containerId: 'yo' }),
             ],
             combineStacks: true,
             addFromCompendium: async (compendiumId, quantity) => {
@@ -297,26 +166,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('sell ignores coins', () => {
-        const value = sellAllTreasure([
-            {
-                type: 'treasure',
-                _id: '1',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 7,
-                    },
-                    value: {
-                        value: 5,
-                    },
-                    stackGroup: {
-                        value: 'coins',
-                    },
-                },
-            },
-        ]);
+        const value = sellAllTreasure([treasure({ denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })]);
 
         expect(value).toEqual({
             treasureIds: [],
@@ -346,71 +196,10 @@ describe('should calculate wealth based on inventory', () => {
                     },
                 },
             },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {},
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'pp',
-                    },
-                    quantity: {
-                        value: 10,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 9,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'sp',
-                    },
-                    quantity: {
-                        value: 8,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                _id: 'ignore',
-                type: 'treasure',
-                data: {
-                    denomination: {
-                        value: 'cp',
-                    },
-                    quantity: {
-                        value: 7,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
+            treasure({ denomination: 'pp', value: 1, quantity: 10 }),
+            treasure({ denomination: 'gp', value: 1, quantity: 9 }),
+            treasure({ denomination: 'sp', value: 1, quantity: 8 }),
+            treasure({ denomination: 'cp', value: 1, quantity: 7 }),
         ];
 
         const { coins } = sellAllTreasure(items);
@@ -421,40 +210,12 @@ describe('should calculate wealth based on inventory', () => {
 
     test('sell only finds treasure', () => {
         const items = [
+            treasure({ denomination: 'pp', value: 1, quantity: 10, stackGroup: '', id: 'treasure 1' }),
+            treasure({ denomination: 'gp', value: 1, quantity: 9, stackGroup: '', id: 'treasure 2' }),
             {
                 type: 'weapon',
                 _id: 'weapon',
                 data: {},
-            },
-            {
-                type: 'treasure',
-                _id: 'treasure 1',
-                data: {
-                    denomination: {
-                        value: 'pp',
-                    },
-                    quantity: {
-                        value: 10,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
-            },
-            {
-                type: 'treasure',
-                _id: 'treasure 2',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 9,
-                    },
-                    value: {
-                        value: 1,
-                    },
-                },
             },
             {
                 type: 'armor',
@@ -510,42 +271,8 @@ describe('should calculate wealth based on inventory', () => {
         const actor = {
             data: {
                 items: [
-                    {
-                        type: 'treasure',
-                        _id: '1',
-                        data: {
-                            denomination: {
-                                value: 'gp',
-                            },
-                            quantity: {
-                                value: 7,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                    },
-                    {
-                        type: 'treasure',
-                        _id: '2',
-                        data: {
-                            denomination: {
-                                value: 'gp',
-                            },
-                            quantity: {
-                                value: 9,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                    },
+                    coin({ id: '1', denomination: 'gp', quantity: 7 }),
+                    coin({ id: '2', denomination: 'gp', quantity: 9 }),
                 ],
             },
         };
@@ -564,63 +291,9 @@ describe('should calculate wealth based on inventory', () => {
             deleteEmbeddedEntity: jest.fn(),
             data: {
                 items: [
-                    {
-                        type: 'treasure',
-                        _id: '1',
-                        data: {
-                            denomination: {
-                                value: 'gp',
-                            },
-                            quantity: {
-                                value: 7,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                        update: updateFunction,
-                    },
-                    {
-                        type: 'treasure',
-                        _id: '2',
-                        data: {
-                            denomination: {
-                                value: 'gp',
-                            },
-                            quantity: {
-                                value: 9,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                        update: updateFunction,
-                    },
-                    {
-                        type: 'treasure',
-                        _id: '3',
-                        data: {
-                            denomination: {
-                                value: 'pp',
-                            },
-                            quantity: {
-                                value: 9,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                        update: updateFunction,
-                    },
+                    coin({ id: '1', denomination: 'gp', quantity: 7, update: updateFunction }),
+                    coin({ id: '2', denomination: 'gp', quantity: 9, update: updateFunction }),
+                    coin({ id: '3', denomination: 'pp', quantity: 9, update: updateFunction }),
                 ],
             },
         };
@@ -645,27 +318,7 @@ describe('should calculate wealth based on inventory', () => {
             deleteEmbeddedEntity: jest.fn(),
             createOwnedItem: jest.fn(),
             data: {
-                items: [
-                    {
-                        type: 'treasure',
-                        _id: '3',
-                        data: {
-                            denomination: {
-                                value: 'pp',
-                            },
-                            quantity: {
-                                value: 9,
-                            },
-                            value: {
-                                value: 1,
-                            },
-                            stackGroup: {
-                                value: 'coins',
-                            },
-                        },
-                        update: updateFunction,
-                    },
-                ],
+                items: [coin({ id: '3', denomination: 'pp', quantity: 9, update: updateFunction })],
             },
         };
         expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } })).toEqual(
