@@ -44,13 +44,13 @@ global.game = Object.freeze({
                 getEntity: (id) => {
                     switch (id) {
                         case 'JuNPeK5Qm1w6wpb4':
-                            return { data: { data: { quantity: { value: 1 }, type: 'pp' } } };
+                            return { data: { data: { quantity: { value: 1 }, denomination: { value: 'pp' } } } };
                         case 'B6B7tBWJSqOBz5zz':
-                            return { data: { data: { quantity: { value: 1 }, type: 'gp' } } };
+                            return { data: { data: { quantity: { value: 1 }, denomination: { value: 'gp' } } } };
                         case 'lzJ8AVhRcbFul5fh':
-                            return { data: { data: { quantity: { value: 1 }, type: 'sp' } } };
+                            return { data: { data: { quantity: { value: 1 }, denomination: { value: 'sp' } } } };
                         case '5Ew82vBF9YfaiY9f':
-                            return { data: { data: { quantity: { value: 1 }, type: 'cp' } } };
+                            return { data: { data: { quantity: { value: 1 }, denomination: { value: 'cp' } } } };
                     }
                 },
             });

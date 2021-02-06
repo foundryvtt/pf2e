@@ -1,8 +1,42 @@
 import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { FakeItem } from './fake-item';
+
+export type RecursivePartial<T> = {
+    [P in keyof T]?: T[P] extends Array<infer U> ? Array<Value<U>> : Value<T[P]>;
+};
+type AllowedPrimitives =
+    | boolean
+    | string
+    | number
+    | Date /* add any types than should be considered as a value, say, DateTimeOffset */;
+type Value<T> = T extends AllowedPrimitives ? T : RecursivePartial<T>;
+
+export class FakeActorItem {
+    actor: FakeActor;
+    id: string;
+    constructor(actor: FakeActor, id: string) {
+        this.actor = actor;
+        this.id = id;
+    }
+
+    get data() {
+        return this.actor._data.items?.find((x) => x._id == this.id) ?? {};
+    }
+
+    get name() {
+        return this.data?.name;
+    }
+
+    update(changes: object) {
+        for (const [k, v] of Object.entries(changes)) {
+            global.setProperty(this.data, k, v);
+        }
+    }
+}
 
 export class FakeActor {
-    _data: Partial<ActorDataPF2e>;
-    constructor(data: Partial<ActorDataPF2e>) {
+    _data: RecursivePartial<ActorDataPF2e>;
+    constructor(data: RecursivePartial<ActorDataPF2e>) {
         this._data = duplicate(data);
         this._data.items = this._data.items ?? [];
     }
@@ -15,10 +49,22 @@ export class FakeActor {
         return this._data.name;
     }
 
+    get items() {
+        return this._data.items?.map((x) => new FakeItem(x.data as any) as any);
+    }
+
     update(changes: object) {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._data, k, v);
         }
+    }
+
+    getOwnedItem(itemId: string) {
+        const item = this._data.items?.find((x) => x._id == itemId);
+        if (item !== undefined) {
+            return new FakeActorItem(this, item._id ?? '');
+        }
+        return undefined;
     }
 
     updateEmbeddedEntity(type: string, data: any | any[]) {
@@ -39,6 +85,10 @@ export class FakeActor {
                 global.setProperty(obj, k, v);
             }
         }
+    }
+
+    createOwnedItem(data: any | any[]) {
+        return this.createEmbeddedEntity('OwnedItem', data);
     }
 
     createEmbeddedEntity(type: string, data: any | any[]) {

@@ -1,3 +1,5 @@
+import { FakeActor } from 'tests/fakes/fake-actor';
+import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
 import { TreasureData } from '../../../src/module/item/dataDefinitions';
 import {
     addCoins,
@@ -15,7 +17,6 @@ function treasure({
     quantity = 1,
     stackGroup = 'unknown',
     containerId = undefined,
-    update = undefined,
 }): TreasureData {
     return ({
         _id: id,
@@ -27,7 +28,6 @@ function treasure({
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
         },
-        update: update,
     } as any) as TreasureData;
 }
 function coin({
@@ -35,18 +35,18 @@ function coin({
     quantity,
     id = 'unknown',
     containerId = undefined,
-    update = undefined,
 }: {
     denomination: any;
     quantity: number;
     id?: string;
     containerId?: any;
-    update?: any;
 }) {
-    return treasure({ denomination, value: 1, quantity, stackGroup: 'coins', id, containerId, update });
+    return treasure({ denomination, value: 1, quantity, stackGroup: 'coins', id, containerId });
 }
 
 describe('should calculate wealth based on inventory', () => {
+    populateFoundryUtilFunctions();
+
     test('empty inventory', () => {
         const items = [];
 
@@ -283,52 +283,42 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('attemptToRemoveCoinsByValue resolves to true if sufficient coins are available after updating coin counts', async () => {
-        const updateFunction = jest.fn();
-        const actor = {
-            getOwnedItem(id) {
-                return this.data.items.find((item) => item._id === id);
-            },
-            deleteEmbeddedEntity: jest.fn(),
-            data: {
-                items: [
-                    coin({ id: '1', denomination: 'gp', quantity: 7, update: updateFunction }),
-                    coin({ id: '2', denomination: 'gp', quantity: 9, update: updateFunction }),
-                    coin({ id: '3', denomination: 'pp', quantity: 9, update: updateFunction }),
-                ],
-            },
-        };
+        const actor = new FakeActor({
+            items: [
+                coin({ id: '1', denomination: 'gp', quantity: 7 }),
+                coin({ id: '2', denomination: 'gp', quantity: 9 }),
+                coin({ id: '3', denomination: 'pp', quantity: 9 }),
+            ],
+        });
         expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 0, gp: 98, sp: 0, cp: 0 } })).toEqual(
             true,
         );
-        expect(updateFunction.mock.calls.length).toEqual(1);
-        expect(updateFunction.mock.calls[0][0]).toEqual({ 'data.quantity.value': 8 });
-        expect(actor.deleteEmbeddedEntity.mock.calls.length).toEqual(2);
-        expect(actor.deleteEmbeddedEntity.mock.calls[0][0]).toEqual('OwnedItem');
-        expect(actor.deleteEmbeddedEntity.mock.calls[0][1]).toEqual(['3']);
-        expect(actor.deleteEmbeddedEntity.mock.calls[1][0]).toEqual('OwnedItem');
-        expect(actor.deleteEmbeddedEntity.mock.calls[1][1]).toEqual(['1']);
+        if (actor.data.items === undefined) {
+            throw Error('messed up');
+        }
+        expect(actor.data.items.length).toEqual(1);
+        expect((actor.data.items[0] as TreasureData).data.quantity.value).toEqual(8);
+        expect((actor.data.items[0] as TreasureData).data.denomination.value).toEqual('gp');
     });
 
     test('attemptToRemoveCoinsByValue breaks coins when needed', async () => {
-        const updateFunction = jest.fn();
-        const actor = {
-            getOwnedItem(id) {
-                return this.data.items.find((item) => item._id === id);
-            },
-            deleteEmbeddedEntity: jest.fn(),
-            createOwnedItem: jest.fn(),
-            data: {
-                items: [coin({ id: '3', denomination: 'pp', quantity: 9, update: updateFunction })],
-            },
-        };
+        const actor = new FakeActor({
+            items: [coin({ id: '3', denomination: 'pp', quantity: 9 })],
+        });
         expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } })).toEqual(
             true,
         );
-        expect(updateFunction.mock.calls.length).toEqual(1);
-        expect(updateFunction.mock.calls[0][0]).toEqual({ 'data.quantity.value': 7 });
-        expect(actor.createOwnedItem.mock.calls.length).toEqual(3);
-        expect(actor.createOwnedItem.mock.calls[0][0]).toEqual({ data: { quantity: { value: 10 }, type: 'gp' } });
-        expect(actor.createOwnedItem.mock.calls[1][0]).toEqual({ data: { quantity: { value: 10 }, type: 'cp' } });
-        expect(actor.createOwnedItem.mock.calls[2][0]).toEqual({ data: { quantity: { value: 10 }, type: 'sp' } });
+        if (actor.data.items === undefined) {
+            throw Error('messed up');
+        }
+        expect(actor.data.items.length).toEqual(4);
+        expect((actor.data.items[0] as TreasureData).data.quantity.value).toEqual(7);
+        expect((actor.data.items[0] as TreasureData).data.denomination.value).toEqual('pp');
+        expect((actor.data.items[1] as TreasureData).data.quantity.value).toEqual(10);
+        expect((actor.data.items[1] as TreasureData).data.denomination.value).toEqual('gp');
+        expect((actor.data.items[2] as TreasureData).data.quantity.value).toEqual(10);
+        expect((actor.data.items[2] as TreasureData).data.denomination.value).toEqual('cp');
+        expect((actor.data.items[3] as TreasureData).data.quantity.value).toEqual(10);
+        expect((actor.data.items[3] as TreasureData).data.denomination.value).toEqual('sp');
     });
 });
