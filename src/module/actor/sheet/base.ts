@@ -1189,7 +1189,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
-                if (itemId !== undefined && level !== undefined) {
+                if (typeof itemId === 'string' && typeof level === 'number') {
                     if (this._moveSpell(itemData as SpellData, itemId, level)) {
                         return this.actor.updateOwnedItem(itemData);
                     }
@@ -1205,7 +1205,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                     const targetLevel = target.data.data.heightenedLevel?.value ?? target.data.data.level.value;
                     const targetLocation = target.data.data.location.value;
 
-                    if (sourceLocation === targetLocation && sourceLevel === targetLevel) {
+                    if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
                         const siblings: any[] = (this.actor as any).items.entries.filter(
                             (i: PF2EItem) =>
                                 i.data.type === 'spell' &&
