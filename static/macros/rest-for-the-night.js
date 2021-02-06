@@ -10,7 +10,7 @@ const recover = () => {
     const tokens = canvas.tokens.controlled.filter((token) => token.actor instanceof Character);
 
     if (tokens.length === 0) {
-        ui.notifications.warning('Select at least one token.');
+        ui.notifications.warn('Select at least one token.');
     }
 
     for (const token of tokens) {
