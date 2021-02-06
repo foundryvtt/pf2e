@@ -7,13 +7,15 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem, SpellData } from '../../item/dataDefinitions';
+import { ItemData, ConditionData, isPhysicalItem, SpellData, SpellcastingEntryData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
 import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
 import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { Spell } from '@item/spell';
+import { SpellcastingEntry } from '@item/spellcastingEntry';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -124,7 +126,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
      * @private
      */
     _prepareSpell(actorData: ActorDataPF2e, spellbook, spell) {
-        const spellLvl = Number(spell.data.level.value) < 11 ? Number(spell.data.level.value) : 10;
+        const heightenedLevel = spell.data.heightenedLevel?.value;
+        const spellLvl = heightenedLevel ?? (Number(spell.data.level.value) < 11 ? Number(spell.data.level.value) : 10);
         let spellcastingEntry: any = null;
 
         if ((spell.data.location || {}).value) {
@@ -1183,26 +1186,54 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // if they are dragging onto another spell, it's just sorting the spells
         // or moving it from one spellcastingEntry to another
         if (itemData.type === 'spell') {
-            if (dropSlotType === 'spell') {
+            if (dropSlotType === 'spellLevel') {
+                const spell = new Spell(itemData as SpellData);
+                const { spellcastingEntryId, spellLevel } = spellTarget(event);
+                const spellcastingEntry = new SpellcastingEntry(
+                    this.actor.getOwnedItem(spellcastingEntryId).data as SpellcastingEntryData,
+                );
+
+                if (spell.canHeighten && spell.spellLevel <= spellLevel) {
+                    if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
+                        itemData.data.location = { value: spellcastingEntryId };
+                        itemData.data.heightenedLevel = { value: spellLevel };
+                        return this.actor.updateOwnedItem(itemData);
+                    }
+                }
+            } else if (dropSlotType === 'spell') {
                 const sourceId = itemData._id;
                 const dropId = $(event.target).parents('.item').attr('data-item-id');
                 if (sourceId !== dropId) {
                     const source: any = this.actor.getOwnedItem(sourceId);
-                    const sourceLevel = source.data.data.level.value;
+                    const sourceLevel = source.data.data.heightenedLevel?.value ?? source.data.data.level.value;
                     const sourceLocation = source.data.data.location.value;
                     const target: any = this.actor.getOwnedItem(dropId);
-                    const targetLevel = target.data.data.level.value;
+                    const targetLevel = target.data.data.heightenedLevel?.value ?? target.data.data.level.value;
                     const targetLocation = target.data.data.location.value;
 
-                    if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
-                        const siblings: any[] = (this.actor as any).items.entries.filter(
-                            (i: PF2EItem) =>
-                                i.data.type === 'spell' &&
-                                i.data.data.level.value === sourceLevel &&
-                                i.data.data.location.value === sourceLocation,
-                        );
-                        const sortBefore = source.data.sort >= target.data.sort;
-                        source.sortRelative({ target, siblings, sortBefore });
+                    if (sourceLocation === targetLocation) {
+                        if (sourceLevel === targetLevel) {
+                            const siblings: any[] = (this.actor as any).items.entries.filter(
+                                (i: PF2EItem) =>
+                                    i.data.type === 'spell' &&
+                                    i.data.data.level.value === sourceLevel &&
+                                    i.data.data.location.value === sourceLocation,
+                            );
+                            const sortBefore = source.data.sort >= target.data.sort;
+                            source.sortRelative({ target, siblings, sortBefore });
+                        } else {
+                            const spell = new Spell(itemData as SpellData);
+                            const spellcastingEntry = new SpellcastingEntry(
+                                this.actor.getOwnedItem(targetLocation).data as SpellcastingEntryData,
+                            );
+
+                            if (spell.canHeighten && spell.spellLevel <= targetLevel) {
+                                if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
+                                    itemData.data.heightenedLevel = { value: targetLevel };
+                                    return this.actor.updateOwnedItem(itemData);
+                                }
+                            }
+                        }
                     }
                 }
             } else if (dropSlotType === 'spellSlot') {
@@ -1298,13 +1329,27 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         }
 
         // get the item type of the drop target
-        const dropSlotType = $(event.target).parents('.item').addBack().attr('data-item-type');
+        const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
-            if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
+            if (dropSlotType === 'spellLevel' || dropSlotType === 'spell') {
+                const spell = new Spell(itemData as SpellData);
+                const { spellcastingEntryId, spellLevel } = spellTarget(event);
+                const spellcastingEntry = new SpellcastingEntry(
+                    this.actor.getOwnedItem(spellcastingEntryId).data as SpellcastingEntryData,
+                );
+
+                if (spell.canHeighten && spell.spellLevel <= spellLevel) {
+                    if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
+                        itemData.data.location = { value: spellcastingEntryId };
+                        itemData.data.heightenedLevel = { value: spellLevel };
+                        return this.actor.createOwnedItem(itemData);
+                    }
+                }
+            } else if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
                 const dropID = $(event.target).parents('.item-container').attr('data-container-id');
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
@@ -1935,4 +1980,14 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
     _onChangeInput(event) {
         this._onSubmit(event);
     }
+}
+
+function spellTarget(event: Event) {
+    const { level, spellLvl } = $(event.target).closest('.item').data();
+    const { containerId } = $(event.target).closest('.item-container').data();
+
+    return {
+        spellLevel: level ?? spellLvl,
+        spellcastingEntryId: containerId,
+    };
 }
