@@ -31,6 +31,7 @@ import { Migration597MakeTraitTraitsArrays } from './597-make-trait-traits-strin
 import { Migration598AddClassItem } from './598-make-class-item';
 import { Migration599AddTraditionTraits } from './599-add-tradition-traits-to-generated-scrolls-wands';
 import { Migration600Reach } from './600-reach';
+import { Migration601SplitEffectCompendia } from './601-migrate-effect-compendia';
 
 export class Migrations {
     private static list = [
@@ -66,6 +67,7 @@ export class Migrations {
         Migration598AddClassItem,
         Migration599AddTraditionTraits,
         Migration600Reach,
+        Migration601SplitEffectCompendia,
     ];
 
     static get latestVersion(): number {
