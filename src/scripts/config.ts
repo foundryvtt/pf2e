@@ -1815,35 +1815,49 @@ export const PF2ECONFIG = {
         },
     },
 
-    WorldClock: {
+    worldClock: {
+        title: 'PF2E.WorldClock.Title',
         AR: {
             yearOffset: 2700, // Relative to the current actual year
             era: 'PF2E.WorldClock.AR.Era',
-            month: {
-                January: 'PF2E.WorldClock.AR.Month.January',
-                February: 'PF2E.WorldClock.AR.Month.February',
-                March: 'PF2E.WorldClock.AR.Month.March',
-                April: 'PF2E.WorldClock.AR.Month.April',
-                May: 'PF2E.WorldClock.AR.Month.May',
-                June: 'PF2E.WorldClock.AR.Month.June',
-                July: 'PF2E.WorldClock.AR.Month.July',
-                August: 'PF2E.WorldClock.AR.Month.August',
-                September: 'PF2E.WorldClock.AR.Month.September',
-                October: 'PF2E.WorldClock.AR.Month.October',
-                November: 'PF2E.WorldClock.AR.Month.November',
-                December: 'PF2E.WorldClock.AR.Month.December',
+            months: {
+                January: 'PF2E.WorldClock.AR.Months.January',
+                February: 'PF2E.WorldClock.AR.Months.February',
+                March: 'PF2E.WorldClock.AR.Months.March',
+                April: 'PF2E.WorldClock.AR.Months.April',
+                May: 'PF2E.WorldClock.AR.Months.May',
+                June: 'PF2E.WorldClock.AR.Months.June',
+                July: 'PF2E.WorldClock.AR.Months.July',
+                August: 'PF2E.WorldClock.AR.Months.August',
+                September: 'PF2E.WorldClock.AR.Months.September',
+                October: 'PF2E.WorldClock.AR.Months.October',
+                November: 'PF2E.WorldClock.AR.Months.November',
+                December: 'PF2E.WorldClock.AR.Months.December',
             },
-            dayOfWeek: {
-                Monday: 'PF2E.WorldClock.AR.DayOfWeek.Monday',
-                Tuesday: 'PF2E.WorldClock.AR.DayOfWeek.Tuesday',
-                Wednesday: 'PF2E.WorldClock.AR.DayOfWeek.Wednesday',
-                Thursday: 'PF2E.WorldClock.AR.DayOfWeek.Thursday',
-                Friday: 'PF2E.WorldClock.AR.DayOfWeek.Friday',
-                Saturday: 'PF2E.WorldClock.AR.DayOfWeek.Saturday',
-                Sunday: 'PF2E.WorldClock.AR.DayOfWeek.Sunday',
+            weekdays: {
+                Monday: 'PF2E.WorldClock.AR.Weekdays.Monday',
+                Tuesday: 'PF2E.WorldClock.AR.Weekdays.Tuesday',
+                Wednesday: 'PF2E.WorldClock.AR.Weekdays.Wednesday',
+                Thursday: 'PF2E.WorldClock.AR.Weekdays.Thursday',
+                Friday: 'PF2E.WorldClock.AR.Weekdays.Friday',
+                Saturday: 'PF2E.WorldClock.AR.Weekdays.Saturday',
+                Sunday: 'PF2E.WorldClock.AR.Weekdays.Sunday',
             },
         },
-        dateTime: 'PF2E.WorldClock.DateTime',
+        IC: {
+            yearOffset: 5200,
+            era: 'PF2E.WorldClock.IC.Era',
+        },
+        AD: {
+            yearOffset: -95,
+            era: 'PF2E.WorldClock.AD.Era',
+        },
+        CE: {
+            yearOffset: 0,
+            era: 'PF2E.WorldClock.CE.Era',
+        },
+        date: 'PF2E.WorldClock.Date',
+        time: 'PF2E.WorldClock.Time',
         ordinalSuffixes: {
             one: 'PF2E.WorldClock.OrdinalSuffixes.One',
             two: 'PF2E.WorldClock.OrdinalSuffixes.Two',
@@ -2101,6 +2115,35 @@ export const PF2ECONFIG = {
                     '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>This sense allows a monster to feel vibrations caused by movement through a liquid. It\'s an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid.',
             },
         };
+    },
+
+    SETTINGS: {
+        worldClock: {
+            name: 'PF2E.SETTINGS.WorldClock.Name',
+            label: 'PF2E.SETTINGS.WorldClock.Label',
+            hint: 'PF2E.SETTINGS.WorldClock.Hint',
+            dateTheme: {
+                name: 'PF2E.SETTINGS.WorldClock.DateTheme.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.DateTheme.Hint',
+                AR: 'PF2E.SETTINGS.WorldClock.DateTheme.AR',
+                AD: 'PF2E.SETTINGS.WorldClock.DateTheme.AD',
+                CE: 'PF2E.SETTINGS.WorldClock.DateTheme.CE',
+            },
+            playersCanView: {
+                name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Hint',
+            },
+            syncDarkness: {
+                name: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Hint',
+                globalLightOn: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOn',
+                globalLightOff: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOff',
+            },
+            worldCreatedOn: {
+                name: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint',
+            },
+        },
     },
 
     Actor: {
