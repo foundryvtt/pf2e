@@ -1,4 +1,4 @@
-import { addCoinsSimple, Coins } from '@item/treasure';
+import { addCoins, Coins } from '@item/treasure';
 import { PF2EActor } from '@actor/actor';
 
 interface AddCoinsFormData extends Coins {
@@ -21,7 +21,7 @@ export class AddCoinsPopup extends FormApplication<PF2EActor> {
 
     async _updateObject(_event: Event, formData: AddCoinsFormData) {
         const actor = this.object;
-        addCoinsSimple(actor, {
+        addCoins(actor, {
             coins: {
                 pp: formData.pp,
                 gp: formData.gp,

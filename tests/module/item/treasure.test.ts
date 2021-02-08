@@ -2,12 +2,12 @@ import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
 import { TreasureData } from '../../../src/module/item/dataDefinitions';
 import {
-    addCoinsSimple,
+    addCoins,
     attemptToRemoveCoinsByValue,
     calculateValueOfCurrency,
     calculateTotalWealth,
     calculateWealth,
-    sellAllTreasureSimple,
+    sellAllTreasure,
 } from '../../../src/module/item/treasure';
 
 function treasure({
@@ -138,7 +138,7 @@ describe('should calculate wealth based on inventory', () => {
                 coin({ denomination: 'cp', quantity: 6, id: '4', containerId: 'yo' }),
             ],
         });
-        await addCoinsSimple(actor as any, {
+        await addCoins(actor as any, {
             coins: {
                 pp: 3,
                 gp: 6,
@@ -160,7 +160,7 @@ describe('should calculate wealth based on inventory', () => {
         const actor = new FakeActor({
             items: [treasure({ id: 'abcdef', denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })],
         });
-        await sellAllTreasureSimple(actor);
+        await sellAllTreasure(actor);
 
         expect(actor.data.items!.length).toBe(1);
         expect(actor.data.items![0]._id).toBe('abcdef');
@@ -191,7 +191,7 @@ describe('should calculate wealth based on inventory', () => {
             ],
         });
 
-        await sellAllTreasureSimple(actor);
+        await sellAllTreasure(actor);
         const wealth = calculateValueOfCurrency(actor.items!);
 
         expect(wealth).toEqual({
@@ -220,7 +220,7 @@ describe('should calculate wealth based on inventory', () => {
             ],
         });
 
-        await sellAllTreasureSimple(actor);
+        await sellAllTreasure(actor);
         expect(actor.data.items!.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
     });
 

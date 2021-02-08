@@ -196,7 +196,7 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
     }
 }
 
-export async function addCoinsSimple(
+export async function addCoins(
     actor: PF2EActor,
     {
         coins = {
@@ -226,7 +226,7 @@ export async function addCoinsSimple(
     }
 }
 
-export async function removeCoinsSimple(
+export async function removeCoins(
     actor: ActorPlaceholder,
     {
         coins = {
@@ -251,7 +251,7 @@ export async function removeCoinsSimple(
     }
 }
 
-export function sellAllTreasureSimple(actor: ActorPlaceholder): Promise<void[]> {
+export function sellAllTreasure(actor: ActorPlaceholder): Promise<void[]> {
     const treasureIds: string[] = [];
     const coins: Coins = actor.data.items
         .filter(
@@ -272,7 +272,7 @@ export function sellAllTreasureSimple(actor: ActorPlaceholder): Promise<void[]> 
 
     return Promise.all([
         actor.deleteEmbeddedEntity('OwnedItem', treasureIds),
-        addCoinsSimple(actor, {
+        addCoins(actor, {
             coins,
             combineStacks: true,
         }),
@@ -296,7 +296,7 @@ export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Pro
         const quantity = (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1);
         const coins = toCoins(item.data.data.denomination.value, quantity);
         await actor.deleteEmbeddedEntity('OwnedItem', itemId);
-        await addCoinsSimple(actor, {
+        await addCoins(actor, {
             coins,
             combineStacks: true,
         });
@@ -379,8 +379,8 @@ export async function attemptToRemoveCoinsByValue({
     coinsToRemove.pp = valueToRemoveInCopper / 1000;
 
     if (coinsBroken) {
-        await addCoinsSimple(actor, { coins: coinsToAdd });
+        await addCoins(actor, { coins: coinsToAdd });
     }
-    await removeCoinsSimple(actor, { coins: coinsToRemove });
+    await removeCoins(actor, { coins: coinsToRemove });
     return true;
 }
