@@ -148,7 +148,7 @@ describe('should calculate wealth based on inventory', () => {
             combineStacks: true,
         });
 
-        const items = actor.data.items.map((x) => x as TreasureData);
+        const items = actor.data.items!.map((x) => x as TreasureData);
         expect(items[1].data.quantity.value).toBe(13);
         expect(items[4].data.denomination.value).toBe('pp');
         expect(items[4].data.quantity.value).toBe(3);
@@ -162,8 +162,8 @@ describe('should calculate wealth based on inventory', () => {
         });
         await sellAllTreasureSimple(actor);
 
-        expect(actor.data.items.length).toBe(1);
-        expect(actor.data.items[0]._id).toBe('abcdef');
+        expect(actor.data.items!.length).toBe(1);
+        expect(actor.data.items![0]._id).toBe('abcdef');
     });
 
     test('sell without coins has the same value as calculateWealth', async () => {
@@ -192,7 +192,7 @@ describe('should calculate wealth based on inventory', () => {
         });
 
         await sellAllTreasureSimple(actor);
-        const wealth = calculateValueOfCurrency(actor.items);
+        const wealth = calculateValueOfCurrency(actor.items!);
 
         expect(wealth).toEqual({
             pp: 10,
@@ -221,7 +221,7 @@ describe('should calculate wealth based on inventory', () => {
         });
 
         await sellAllTreasureSimple(actor);
-        expect(actor.data.items.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
+        expect(actor.data.items!.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
     });
 
     test('calculateTotalWealth correctly combines all item types', () => {
