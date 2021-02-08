@@ -158,12 +158,13 @@ function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean
 
 async function addFromCompendium(actor: ActorPlaceholder, compendiumId: string, quantity: number) {
     const pack = game.packs.find<PF2EPhysicalItem>((p) => p.collection === 'pf2e.equipment-srd');
+    if (!pack) {
+        throw Error('unable to get pack!');
+    }
     const item = await pack.getEntity(compendiumId);
-    if (item.data.type === 'treasure') {
+    if (item !== null && item.data.type === 'treasure') {
         item.data.data.quantity.value = quantity;
         await actor.createOwnedItem(item.data);
-    } else {
-        throw new Error('Unknown');
     }
 }
 
@@ -176,7 +177,7 @@ async function increaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
 }
 
 async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlaceholder, quantityToRemove: number) {
-    const entitiesToDelete = [];
+    const entitiesToDelete: string[] = [];
     for (let x = 0; x < item.length && quantityToRemove > 0; x++) {
         const currentQuantity = item[x]?.data?.quantity?.value || 0;
         if (currentQuantity > quantityToRemove) {
@@ -216,7 +217,7 @@ export async function addCoinsSimple(
         const quantity = coins[denomination];
         if (quantity > 0) {
             if (coinsByDenomination.has(denomination)) {
-                await increaseItemQuantity(actor, coinsByDenomination.get(denomination)[0], quantity);
+                await increaseItemQuantity(actor, coinsByDenomination.get(denomination)![0], quantity);
             } else {
                 const compendiumId = coinCompendiumIds[denomination];
                 await addFromCompendium(actor, compendiumId, quantity);
@@ -251,7 +252,7 @@ export async function removeCoinsSimple(
 }
 
 export function sellAllTreasureSimple(actor: ActorPlaceholder): Promise<void[]> {
-    const treasureIds = [];
+    const treasureIds: string[] = [];
     const coins: Coins = actor.data.items
         .filter(
             (item: ItemPlaceholder) =>
