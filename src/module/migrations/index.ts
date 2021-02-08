@@ -32,6 +32,7 @@ import { Migration598AddClassItem } from './598-make-class-item';
 import { Migration599AddTraditionTraits } from './599-add-tradition-traits-to-generated-scrolls-wands';
 import { Migration600Reach } from './600-reach';
 import { Migration601SplitEffectCompendia } from './601-migrate-effect-compendia';
+import { Migration602UpdateDiehardFeat } from './602-update-diehard-feat';
 
 export class Migrations {
     private static list = [
@@ -68,6 +69,7 @@ export class Migrations {
         Migration599AddTraditionTraits,
         Migration600Reach,
         Migration601SplitEffectCompendia,
+        Migration602UpdateDiehardFeat,
     ];
 
     static get latestVersion(): number {
