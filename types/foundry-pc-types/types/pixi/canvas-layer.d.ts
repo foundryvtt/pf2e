@@ -51,7 +51,7 @@ declare abstract class CanvasLayer extends PIXI.Container {
      * Activate the CanvasLayer, deactivating other layers and marking this layer's children as interactive.
      * @return The layer instance, now activated
      */
-    activate(): this | undefined;
+    activate(): this | void;
 
     /**
      * Deactivate the CanvasLayer, removing interactivity from its children.
