@@ -85,6 +85,9 @@ import './types/framework/entities/rolltable';
 import './types/framework/entities/scene';
 import './types/framework/entities/user';
 
+import './types/framework/embedded-entity/base';
+import './types/framework/embedded-entity/active-effect';
+
 // PIXI
 
 import './types/pixi/canvas-layer';

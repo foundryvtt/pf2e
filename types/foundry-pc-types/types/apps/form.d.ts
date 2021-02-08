@@ -142,7 +142,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      * @param formData  The object of validated form data with which to update the object
      * @returns         A Promise which resolves once the update operation has completed
      */
-    protected abstract _updateObject(event: Event, formData: {}): Promise<void>;
+    protected abstract _updateObject(event: Event, formData: {}): Promise<unknown>;
 
     /* -------------------------------------------- */
     /*  TinyMCE Editor
