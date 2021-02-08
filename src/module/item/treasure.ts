@@ -13,6 +13,10 @@ export interface Coins {
     cp: number;
 }
 
+export function coinValueInCopper(coins: Coins) {
+    return coins.cp + coins.sp * 10 + coins.gp * 100 + coins.pp * 1000;
+}
+
 function toCoins(denomination: string, value: number): Coins {
     return {
         pp: denomination === 'pp' ? value : 0,

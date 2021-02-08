@@ -19,7 +19,7 @@
         padding: 2px;
         @include button;
         background-color: var(--sub);
-        margin: 0 0 8px;
+        margin: 0 0 1px;
 
         .denomination {
             width: 100%;
@@ -139,6 +139,33 @@
                 padding: 5px 6px 6px 10px;
             }
         }
+    }
+
+    .wealth {
+        display: flex;
+        margin-bottom: 10px;
+
+        h3 {
+            flex-grow: 1;
+            line-height: 1;
+            color: white;
+            margin-bottom: 0;
+            font-weight: bold;
+
+            span {
+                margin-left: 5px;
+                font-size: 12px;
+                font-weight: normal;
+                text-transform: uppercase;
+            }
+        }
+
+        ol {
+            padding-right: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            margin-right: 0;
+        };
     }
 
     .item-name {
@@ -303,7 +330,7 @@
         justify-content: flex-start;
         position: relative;
         overflow-y: scroll;
-        height: calc(100% - 100px);
+        height: calc(100% - 60px);
 
         .item-list {
             flex-direction: column;
@@ -442,7 +469,9 @@
     }
 
     .currency,
-    .encumbrance {
+    .encumbrance,
+    .treasure-wealth,
+    .wealth {
         margin-right: 23px;
     }
 
@@ -519,25 +548,5 @@
                 background-color: var(--primary) !important;
             }
         }
-    }
-    
-    .wealth {
-        position: relative;
-        width: 100%;
-        padding-right: 20px;
-        
-        h3 {
-            font-family: "Eczar", "Signika", Georgia, serif;
-            line-height: 1;
-            color: white;
-            margin-bottom: 0;
-        }
-
-        ol {
-            padding-right: 0;
-            padding-bottom: 0;
-            margin-bottom: 0;
-            margin-right: 0;
-        };
     }
 }
