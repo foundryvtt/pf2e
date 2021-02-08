@@ -190,12 +190,33 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         if (item.data?.description?.value) {
             item.data.description.value = item.data.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
-                function (full, first: string, replace: string, rest1: string, rest2: string, rest3: string): string {
+                function (full, first: string, replace: string, dot: string, itemId: string, rest: string): string {
                     let sRetVal =
-                        first + Migration601SplitEffectCompendia.effectLocations[rest2] + rest1 + rest2 + rest3;
+                        first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId + rest;
                     return sRetVal;
                 },
             );
         }
+        if (item.flags?.core?.sourceId) {
+            item.flags.core.sourceId = item.flags.core.sourceId.replace(
+                /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
+                function (full, first: string, replace: string, dot: string, itemId: string): string {
+                    let sRetVal = first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                    return sRetVal;
+                },
+            );
+        }
+    }
+
+    async migrate() {
+        game.macros.forEach((macro) => {
+            macro.data.command = macro.data.command.replace(
+                /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
+                function (full, first: string, replace: string, dot: string, itemId: string): string {
+                    let sRetVal = first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                    return sRetVal;
+                },
+            );
+        });
     }
 }
