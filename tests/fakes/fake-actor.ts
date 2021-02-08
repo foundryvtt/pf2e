@@ -36,6 +36,7 @@ export class FakeActorItem {
 
 export class FakeActor {
     _data: RecursivePartial<ActorDataPF2e>;
+    _itemGuid: number = 1;
     constructor(data: RecursivePartial<ActorDataPF2e>) {
         this._data = duplicate(data);
         this._data.items = this._data.items ?? [];
@@ -101,7 +102,8 @@ export class FakeActor {
 
         if (type == 'OwnedItem') {
             for (const obj of data) {
-                obj._id = 'item1';
+                obj._id = `item${this._itemGuid}`;
+                this._itemGuid += 1;
                 this._data.items.push(obj);
             }
         }

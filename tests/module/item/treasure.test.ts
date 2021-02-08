@@ -2,12 +2,12 @@ import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
 import { TreasureData } from '../../../src/module/item/dataDefinitions';
 import {
-    addCoins,
+    addCoinsSimple,
     attemptToRemoveCoinsByValue,
     calculateValueOfCurrency,
     calculateTotalWealth,
     calculateWealth,
-    sellAllTreasure,
+    sellAllTreasureSimple,
 } from '../../../src/module/item/treasure';
 
 function treasure({
@@ -129,9 +129,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('should be able to add coins to an existing stack', async () => {
-        const compendiumIdAndQuantity = new Map();
-        const itemIdAndQuantity = new Map();
-        await addCoins({
+        const actor = new FakeActor({
             items: [
                 // ignored because of only value 1 is taken
                 treasure({ denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins', id: '1' }),
@@ -139,95 +137,91 @@ describe('should calculate wealth based on inventory', () => {
                 coin({ denomination: 'sp', quantity: 6, id: '3' }),
                 coin({ denomination: 'cp', quantity: 6, id: '4', containerId: 'yo' }),
             ],
-            combineStacks: true,
-            addFromCompendium: async (compendiumId, quantity) => {
-                compendiumIdAndQuantity.set(compendiumId, quantity);
-            },
-            updateItemQuantity: async (item, quantity) => {
-                itemIdAndQuantity.set(item._id, quantity);
-            },
+        });
+        await addCoinsSimple(actor as any, {
             coins: {
                 pp: 3,
                 gp: 6,
                 sp: 0,
                 cp: 4,
             },
+            combineStacks: true,
         });
 
-        expect(itemIdAndQuantity.size).toBe(1);
-        expect(itemIdAndQuantity.has('2')).toBe(true);
-        expect(itemIdAndQuantity.get('2')).toBe(6);
-
-        expect(compendiumIdAndQuantity.size).toBe(2);
-        expect(compendiumIdAndQuantity.has('JuNPeK5Qm1w6wpb4')).toBe(true);
-        expect(compendiumIdAndQuantity.get('JuNPeK5Qm1w6wpb4')).toBe(3);
-        expect(compendiumIdAndQuantity.has('lzJ8AVhRcbFul5fh')).toBe(true);
-        expect(compendiumIdAndQuantity.get('lzJ8AVhRcbFul5fh')).toBe(4);
+        const items = actor.data.items.map((x) => x as TreasureData);
+        expect(items[1].data.quantity.value).toBe(13);
+        expect(items[4].data.denomination.value).toBe('pp');
+        expect(items[4].data.quantity.value).toBe(3);
+        expect(items[5].data.denomination.value).toBe('cp');
+        expect(items[5].data.quantity.value).toBe(4);
     });
 
-    test('sell ignores coins', () => {
-        const value = sellAllTreasure([treasure({ denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })]);
+    test('sell ignores coins', async () => {
+        const actor = new FakeActor({
+            items: [treasure({ id: 'abcdef', denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })],
+        });
+        await sellAllTreasureSimple(actor);
 
-        expect(value).toEqual({
-            treasureIds: [],
-            coins: {
-                pp: 0,
-                gp: 0,
-                sp: 0,
-                cp: 0,
-            },
+        expect(actor.data.items.length).toBe(1);
+        expect(actor.data.items[0]._id).toBe('abcdef');
+    });
+
+    test('sell without coins has the same value as calculateWealth', async () => {
+        const actor = new FakeActor({
+            items: [
+                {
+                    _id: 'ignore',
+                    type: 'equipment',
+                    data: {
+                        denomination: {
+                            value: 'gp',
+                        },
+                        quantity: {
+                            value: 1,
+                        },
+                        value: {
+                            value: 1,
+                        },
+                    },
+                } as any,
+                treasure({ denomination: 'pp', value: 1, quantity: 10 }),
+                treasure({ denomination: 'gp', value: 1, quantity: 9 }),
+                treasure({ denomination: 'sp', value: 1, quantity: 8 }),
+                treasure({ denomination: 'cp', value: 1, quantity: 7 }),
+            ],
+        });
+
+        await sellAllTreasureSimple(actor);
+        const wealth = calculateValueOfCurrency(actor.items);
+
+        expect(wealth).toEqual({
+            pp: 10,
+            gp: 9,
+            sp: 8,
+            cp: 7,
         });
     });
 
-    test('sell without coins has the same value as calculateWealth', () => {
-        const items = [
-            {
-                _id: 'ignore',
-                type: 'no treasure type',
-                data: {
-                    denomination: {
-                        value: 'gp',
-                    },
-                    quantity: {
-                        value: 1,
-                    },
-                    value: {
-                        value: 1,
-                    },
+    test('sell only finds treasure', async () => {
+        const actor = new FakeActor({
+            items: [
+                treasure({ denomination: 'pp', value: 1, quantity: 10, stackGroup: '', id: 'treasure 1' }),
+                treasure({ denomination: 'gp', value: 1, quantity: 9, stackGroup: '', id: 'treasure 2' }),
+                {
+                    type: 'weapon',
+                    _id: 'weapon',
+                    data: {},
                 },
-            },
-            treasure({ denomination: 'pp', value: 1, quantity: 10 }),
-            treasure({ denomination: 'gp', value: 1, quantity: 9 }),
-            treasure({ denomination: 'sp', value: 1, quantity: 8 }),
-            treasure({ denomination: 'cp', value: 1, quantity: 7 }),
-        ];
+                {
+                    type: 'armor',
+                    _id: 'armor',
+                    data: {},
+                },
+            ],
+        });
 
-        const { coins } = sellAllTreasure(items);
-        const wealth = calculateWealth(items);
-
-        expect(coins).toEqual(wealth);
-    });
-
-    test('sell only finds treasure', () => {
-        const items = [
-            treasure({ denomination: 'pp', value: 1, quantity: 10, stackGroup: '', id: 'treasure 1' }),
-            treasure({ denomination: 'gp', value: 1, quantity: 9, stackGroup: '', id: 'treasure 2' }),
-            {
-                type: 'weapon',
-                _id: 'weapon',
-                data: {},
-            },
-            {
-                type: 'armor',
-                _id: 'armor',
-                data: {},
-            },
-        ];
-
-        const { treasureIds } = sellAllTreasure(items);
-        treasureIds.sort();
-
-        expect(treasureIds).toEqual(['treasure 1', 'treasure 2']);
+        await sellAllTreasureSimple(actor);
+        expect(actor.data.items.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
     });
 
     test('calculateTotalWealth correctly combines all item types', () => {
@@ -305,20 +299,26 @@ describe('should calculate wealth based on inventory', () => {
         const actor = new FakeActor({
             items: [coin({ id: '3', denomination: 'pp', quantity: 9 })],
         });
-        expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } })).toEqual(
-            true,
-        );
+        const result = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } });
+        expect(result).toEqual(true);
         if (actor.data.items === undefined) {
             throw Error('messed up');
         }
-        expect(actor.data.items.length).toEqual(4);
-        expect((actor.data.items[0] as TreasureData).data.quantity.value).toEqual(7);
-        expect((actor.data.items[0] as TreasureData).data.denomination.value).toEqual('pp');
-        expect((actor.data.items[1] as TreasureData).data.quantity.value).toEqual(10);
-        expect((actor.data.items[1] as TreasureData).data.denomination.value).toEqual('gp');
-        expect((actor.data.items[2] as TreasureData).data.quantity.value).toEqual(10);
-        expect((actor.data.items[2] as TreasureData).data.denomination.value).toEqual('cp');
-        expect((actor.data.items[3] as TreasureData).data.quantity.value).toEqual(10);
-        expect((actor.data.items[3] as TreasureData).data.denomination.value).toEqual('sp');
+
+        //  9 0 0 0 =
+        //  8 9 9 10
+        // -1 3 2 1
+        // --------
+        //  7 6 7 9
+
+        const simpleItems = actor.data.items
+            .map((x) => x as TreasureData)
+            .map((x) => ({ quantity: x.data.quantity.value, denomination: x.data.denomination.value }));
+        expect(simpleItems).toEqual([
+            { quantity: 7, denomination: 'pp' },
+            { quantity: 6, denomination: 'gp' },
+            { quantity: 7, denomination: 'sp' },
+            { quantity: 9, denomination: 'cp' },
+        ]);
     });
 });

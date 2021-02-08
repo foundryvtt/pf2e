@@ -259,7 +259,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item1');
+        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item2');
     });
 
     test('migrations can reference previously added items on tokens', async () => {
@@ -278,7 +278,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item1');
+        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item3');
     });
 
     test('expect free migration function gets called', async () => {
