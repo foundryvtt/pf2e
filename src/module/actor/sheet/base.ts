@@ -1,5 +1,5 @@
 import { RemoveCoinsPopup } from './RemoveCoinsPopup';
-import { sellAllTreasureSimple, sellTreasure } from '../../item/treasure';
+import { sellAllTreasure, sellTreasure } from '../../item/treasure';
 import { AddCoinsPopup } from './AddCoinsPopup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
@@ -1752,7 +1752,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                         label: 'Yes',
                         callback: async () => {
                             console.log('PF2e | Selling all treasure: ', this.actor);
-                            sellAllTreasureSimple(this.actor);
+                            sellAllTreasure(this.actor);
                         },
                     },
                     cancel: {
