@@ -22,44 +22,12 @@ Hooks.on('preDeleteOwnedItem', (actor, item) => {
 /* *************************************************************************************
  *   The hooks call the methods below.
  ************************************************************************************* */
-Actor.prototype.itemBehaviour = async function itemBehaviour(item, create = true) {
-    if (item.name === 'Diehard') this.itemFeatDiehard(create);
-    else if (item.name === 'Toughness') this.itemFeatToughness(create);
+Actor.prototype.itemBehaviour = async function itemBehaviour(item: ItemData, create = true) {
+    if (item.name === 'Toughness') this.itemFeatToughness(create);
     else if (item.name === 'Mountain’s Stoutness' || item.name === "Mountain's Stoutness")
         this.itemFeatMountainsstoutness(create);
 };
 
-Actor.prototype.itemFeatDiehard = async function itemFeatDiehard(create = true) {
-    if (create) {
-        console.log('PF2e | Applying Feat effect: Diehard');
-        ui.notifications.info('Applied Diehard: your maximum dying/wounded/doomed level has increased');
-        await this.update({
-            // # Only use this if there are also other methods that affect when you die from the Dying condition.
-            //    'data.attributes.dying.max': this.data.data.attributes.dying.max + 1
-            'data.attributes.dying.max': 5,
-        });
-    } else {
-        console.log('PF2e | Removing Feat effect: Diehard');
-        ui.notifications.info('Removed Diehard: your maximum dying/wounded/doomed level has decreased');
-        if (this.data.data.attributes.dying.value > 4) this.data.data.attributes.dying.value = 4;
-        await this.update({
-            // # Only use this if there are also other methods that affect when you die from the Dying condition.
-            //     'data.attributes.dying.max': this.data.data.attributes.dying.max - 1
-            'data.attributes.dying.max': 4,
-            'data.attributes.dying.value': this.data.data.attributes.dying.value,
-        });
-        if (this.data.data.attributes.doomed.value > 3) this.data.data.attributes.doomed.value = 3;
-        await this.update({
-            'data.attributes.doomed.max': 3,
-            'data.attributes.doomed.value': this.data.data.attributes.doomed.value,
-        });
-        if (this.data.data.attributes.wounded.value > 3) this.data.data.attributes.wounded.value = 3;
-        await this.update({
-            'data.attributes.wounded.max': 3,
-            'data.attributes.wounded.value': this.data.data.attributes.wounded.value,
-        });
-    }
-};
 Actor.prototype.itemFeatToughness = async function itemFeatToughness(create = true) {
     if (create) {
         let recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
