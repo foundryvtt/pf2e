@@ -110,7 +110,7 @@ export class PF2ECharacter extends PF2EActor {
                     new PF2Modifier(
                         'PF2E.AbilityCon',
                         data.abilities.con.mod * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
+                        PF2ModifierType.ABILITY,
                     ),
                 );
             }
