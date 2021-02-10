@@ -86,11 +86,13 @@ export class PF2ECharacter extends PF2EActor {
 
         // Calculate HP and SP
         {
-            const modifiers = [new PF2Modifier('PF2E.AncestryHP', data.attributes.ancestryhp, PF2ModifierType.UNTYPED)];
+            const ancestryHP = data.attributes.ancestryhp ?? 0;
+            const classHP = data.attributes.classhp ?? 0;
+            const modifiers = [new PF2Modifier('PF2E.AncestryHP', ancestryHP, PF2ModifierType.UNTYPED)];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
-                const halfClassHp = Math.floor(data.attributes.classhp / 2);
+                const halfClassHp = Math.floor(classHP / 2);
 
                 data.attributes.sp.max =
                     (halfClassHp + data.abilities.con.mod) * data.details.level.value +
@@ -102,17 +104,13 @@ export class PF2ECharacter extends PF2EActor {
                 );
             } else {
                 modifiers.push(
-                    new PF2Modifier(
-                        'PF2E.ClassHP',
-                        data.attributes.classhp * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
-                    ),
+                    new PF2Modifier('PF2E.ClassHP', classHP * data.details.level.value, PF2ModifierType.UNTYPED),
                 );
                 modifiers.push(
                     new PF2Modifier(
                         'PF2E.AbilityCon',
                         data.abilities.con.mod * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
+                        PF2ModifierType.ABILITY,
                     ),
                 );
             }

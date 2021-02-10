@@ -1,4 +1,4 @@
-import { PF2EActor } from './actor/actor';
+import { PF2EActor, UserPF2e } from './actor/actor';
 import { PF2EItem } from './item/item';
 import { MigrationRunnerBase } from './migration-runner-base';
 import { MigrationBase } from './migrations/base';
@@ -57,6 +57,19 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
+    private async migrateUser(user: UserPF2e, migrations: MigrationBase[]): Promise<void> {
+        const baseUser = duplicate(user._data);
+        const updatedUser = await this.getUpdatedUser(baseUser, migrations);
+        try {
+            const changes = diffObject(user, updatedUser);
+            if (!isObjectEmpty(changes)) {
+                await user.update(changes, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     protected async migrateSceneToken(scene: Scene, tokenData: TokenData, migrations: MigrationBase[]) {
         try {
             if (tokenData.actorLink || !game.actors.has(tokenData.actorId)) {
@@ -86,7 +99,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async runMigrations(migrations: MigrationBase[]) {
-        let promises = [];
+        let promises: Promise<void>[] = [];
 
         // Migrate World Actors
         for (const actor of game.actors.entities) {
@@ -96,6 +109,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate World Items
         for (const item of game.items.entities) {
             promises.push(this.migrateWorldItem(item, migrations));
+        }
+
+        for (const user of game.users.entities) {
+            promises.push(this.migrateUser(user, migrations));
         }
 
         // call the free-form migration function. can really do anything

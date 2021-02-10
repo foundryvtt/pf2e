@@ -1,21 +1,9 @@
-import { compendiumBrowser } from './../packs/compendium-browser';
-import { variantRulesSettings } from './submenus/variantRulesSettings';
+import { compendiumBrowser } from '../packs/compendium-browser';
+import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
+import { WorldClockSettings } from './world-clock';
 
-/**
- * @ignore
- */
 export function registerSettings() {
-    (game.settings as any).registerMenu('pf2e', 'variantRulesSettings', {
-        name: 'Variant Rules',
-        label: 'Variant Rules Settings', // The text label used in the button
-        hint: 'Enable and configure variant rules like Proficiency Without Level or the Stamina system.',
-        icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
-        type: variantRulesSettings, // A FormApplication subclass which should be created
-        restricted: true, // Restrict this submenu to gamemaster only?
-    });
-    variantRulesSettings.registerSettings();
-
     game.settings.register('pf2e', 'worldSchemaVersion', {
         name: 'Actor Schema Version',
         hint:
@@ -116,18 +104,38 @@ export function registerSettings() {
         default: '{}',
         type: String,
         scope: 'world',
-        onChange: (settings) => {
+        onChange: () => {
             compendiumBrowser.loadSettings();
         },
     });
     game.settings.register(game.system.id, 'enabledRulesUI', {
         name: 'Advanced Rule Element UI',
         hint:
-            'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the ' +
-            'actors and items if you are not sure what you are doing or make a mistake.',
+            'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break ' +
+            'the actors and items if you are not sure what you are doing or make a mistake.',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
+
+    game.settings.registerMenu('pf2e', 'worldClock', {
+        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
+        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
+        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
+        icon: 'far fa-clock',
+        type: WorldClockSettings,
+        restricted: true,
+    });
+    WorldClockSettings.registerSettings();
+
+    game.settings.registerMenu('pf2e', 'variantRules', {
+        name: 'Variant Rules',
+        label: 'Variant Rules Settings', // The text label used in the button
+        hint: 'Enable and configure variant rules like Proficiency Without Level or the Stamina system.',
+        icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
+        type: VariantRulesSettings, // A FormApplication subclass which should be created
+        restricted: true, // Restrict this submenu to gamemaster only?
+    });
+    VariantRulesSettings.registerSettings();
 }

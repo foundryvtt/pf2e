@@ -1,162 +1,16 @@
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
 import { ActorDataPF2e } from '../../src/module/actor/actorDataDefinitions';
 import { MigrationRunner } from '../../src/module/migration-runner';
-import { ItemData } from '../../src/module/item/dataDefinitions';
 import { MigrationBase } from 'src/module/migrations/base';
+import { FakeActor } from 'tests/fakes/fake-actor';
+import { FakeItem } from 'tests/fakes/fake-item';
+import { FakeUser } from 'tests/fakes/fake-user';
+import { FakeScene } from 'tests/fakes/fake-scene';
 
 const characterData = require('../../packs/data/iconics.db/amiri-level-1.json');
 const itemData = require('../../packs/data/equipment.db/scale-mail.json');
 
 declare let game: any;
-
-class FakeActor {
-    _data: Partial<ActorDataPF2e>;
-    constructor(data: Partial<ActorDataPF2e>) {
-        this._data = duplicate(data);
-        this._data.items = this._data.items ?? [];
-    }
-
-    get data() {
-        return this._data;
-    }
-
-    get name() {
-        return this._data.name;
-    }
-
-    update(changes: object) {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._data, k, v);
-        }
-    }
-
-    updateEmbeddedEntity(type: string, data: any | any[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
-
-        for (const itemChanges of data) {
-            let obj;
-            if (type == 'OwnedItem') {
-                obj = this._data.items.find((x) => x._id === itemChanges._id);
-            }
-
-            for (const [k, v] of Object.entries(itemChanges)) {
-                global.setProperty(obj, k, v);
-            }
-        }
-    }
-
-    createEmbeddedEntity(type: string, data: any | any[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
-
-        if (type == 'OwnedItem') {
-            for (const obj of data) {
-                obj._id = 'item1';
-                this._data.items.push(obj);
-            }
-        }
-    }
-
-    deleteEmbeddedEntity(type: string, data: string | string[]) {
-        // make sure data is an array, since it expects multiple
-        data = data instanceof Array ? data : [data];
-
-        if (type == 'OwnedItem') {
-            for (const id of data) {
-                this._data.items = this._data.items.filter((x: any) => x._id !== id);
-            }
-        }
-    }
-}
-
-class FakeItem {
-    _data: Partial<ItemData>;
-    constructor(data: Partial<ItemData>) {
-        this._data = duplicate(data);
-    }
-
-    get data() {
-        return this._data;
-    }
-
-    get name() {
-        return this._data.name;
-    }
-
-    update(changes: object) {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._data, k, v);
-        }
-    }
-}
-
-class FakeScene {
-    data: Partial<SceneData>;
-    constructor(data?: Partial<SceneData>) {
-        this.data = data ?? {};
-        this.data.tokens = [];
-    }
-
-    get name() {
-        return this.data.name;
-    }
-
-    addToken(token: Partial<TokenData>) {
-        this.data.tokens.push({
-            _id: '',
-            flags: [],
-            x: 0,
-            y: 0,
-            height: 100,
-            width: 100,
-            locked: false,
-            brightLight: 0,
-            dimLight: 0,
-            lightAlpha: 0,
-            lightAngle: 0,
-            lightAnimation: { type: '', speed: 0, intensity: 0 },
-            lightColor: '',
-            name: 'test',
-            displayName: 1,
-            img: '',
-            scale: 1,
-            elevation: 0,
-            lockRotation: false,
-            effects: [],
-            overlayEffect: '',
-            vision: false,
-            dimSight: 0,
-            brightSight: 0,
-            sightAngle: 0,
-            hidden: false,
-            actorId: '',
-            actorLink: false,
-            actorData: {},
-            disposition: 0,
-            displayBars: 0,
-            bar1: {},
-            bar2: {},
-            ...token,
-        });
-    }
-
-    update(changes: object) {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this.data, k, v);
-        }
-    }
-
-    updateEmbeddedEntity(entityType: string, changes: any) {
-        let obj;
-        if (entityType === 'Token') {
-            obj = this.data.tokens.find((x) => x._id === changes._id);
-        }
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(obj, k, v);
-        }
-    }
-}
 
 describe('test migration runner', () => {
     populateFoundryUtilFunctions();
@@ -186,13 +40,19 @@ describe('test migration runner', () => {
             },
             has(id: string) {
                 return this.entities.some((x: FakeActor) => x._data._id === id);
-            }
+            },
         },
         items: {
             entities: [],
             get(id: string) {
                 return this.entities.find((x: FakeItem) => x._data._id === id);
             },
+        },
+        users: {
+            entities: [],
+            get(id: string) {
+                return this.entities.find((x: FakeUser) => x._data._id === id);
+            }
         },
         scenes: {
             entities: [],
@@ -406,7 +266,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item1');
+        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item2');
     });
 
     test('migrations can reference previously added items on tokens', async () => {
@@ -425,7 +285,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item1');
+        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item3');
     });
 
     test('expect free migration function gets called', async () => {

@@ -44,13 +44,13 @@ global.game = Object.freeze({
                 getEntity: (id) => {
                     switch (id) {
                         case 'JuNPeK5Qm1w6wpb4':
-                            return { data: { data: { quantity: { value: 1 }, type: 'pp' } } };
+                            return { data: require('../packs/data/equipment.db/platinum-pieces.json') };
                         case 'B6B7tBWJSqOBz5zz':
-                            return { data: { data: { quantity: { value: 1 }, type: 'gp' } } };
-                        case 'lzJ8AVhRcbFul5fh':
-                            return { data: { data: { quantity: { value: 1 }, type: 'sp' } } };
+                            return { data: require('../packs/data/equipment.db/gold-pieces.json') };
                         case '5Ew82vBF9YfaiY9f':
-                            return { data: { data: { quantity: { value: 1 }, type: 'cp' } } };
+                            return { data: require('../packs/data/equipment.db/silver-pieces.json') };
+                        case 'lzJ8AVhRcbFul5fh':
+                            return { data: require('../packs/data/equipment.db/copper-pieces.json') };
                     }
                 },
             });

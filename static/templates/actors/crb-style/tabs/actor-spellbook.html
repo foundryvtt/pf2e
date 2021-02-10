@@ -80,7 +80,7 @@
 
                     <!-- Add section for each spell level -->
                     {{#each entry.spellbook as |section lvl|}}
-                        <li class="item inventory-header spellbook-header" data-item-id="{{entry._id}}" data-level="{{lvl}}">
+                        <li class="item inventory-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{lvl}}">
                             <div class="item-name flexrow">
                                 <h3>{{section.label}}</h3>
 
@@ -95,7 +95,7 @@
                                             <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-type="Number"/>
                                         </span>
                                         &nbsp;
-                                        <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>   
+                                        <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
                                         {{else}}
                                         <span class="spell-slots">&infin;</span>
                                         <span class="flex0"> / </span>
@@ -137,10 +137,10 @@
                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                             </div>
                             {{/if}}
-                            
+
                             <div class="spell-cast">
                                 <button class="spell-slots-increment-down" data-item-id="{{entry._id}}"  data-level="{{lvl}}">Cast</button>
-                            </div>   
+                            </div>
                         </li>
                         {{/each}}
 
@@ -165,7 +165,7 @@
 
                 <!-- Add section for each level -->
                 {{#each entry.spellbook as |section lvl|}}
-                    <li class="item inventory-header spellbook-header" data-item-id="{{entry._id}}" data-level="{{lvl}}">
+                    <li class="item inventory-header spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{lvl}}">
                         <div class="item-name flexrow">
 
                         <div class="level-prepared-toggle-div">
@@ -250,7 +250,7 @@
                             {{#each section.spells as |item i|}}
                                 <li class="item spellbook-item" data-item-id="{{item._id}}" data-item-type="spell">
                                     <div class="item-name rollable">
-                                        
+
                                         <h4>{{item.name}}</h4>
                                     </div>
 
@@ -325,7 +325,7 @@
     </ol>
 
     {{#if actor.orphanedSpells}}
-    <ol class="inventory-list directory-list">        
+    <ol class="inventory-list directory-list">
         <li class="item inventory-header spellbook-header">
             <div class="item-name flexrow ">
                 <h3>{{localize "PF2E.OrphanedSpellsHeader"}}</h3>
@@ -339,7 +339,7 @@
                     <!-- <img class="item-image" src="{{item.img}}" alt="{{item.name}}"> -->
                     <h5>{{item.name}}</h5>
                 </div>
-    <!-- 
+    <!--
                 <div class="spell-school">{{item.data.school.str}}</div>
                 <div class="spell-action">{{item.data.time.value}}</div> -->
 
