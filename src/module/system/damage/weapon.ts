@@ -15,6 +15,7 @@ import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definition
 import { DegreeOfSuccess, DegreeOfSuccessMultipliers } from '../../degree-of-success';
 import { DamagePool } from './damage-pool';
 import { DamageEntry } from './damage-entry';
+import { groupBy } from '../../utils';
 
 /** Return true if the given damage type is non-null and not physical; false otherwise. */
 function isNonPhysicalDamage(damageType?: string): boolean {
@@ -362,9 +363,10 @@ export class PF2WeaponDamage {
         // add splash damage
         const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new PF2Modifier('PF2E.WeaponSplashDamageLabel', splashDamage, PF2ModifierType.UNTYPED),
-            );
+            const modifier = new PF2Modifier('PF2E.WeaponSplashDamageLabel', splashDamage, PF2ModifierType.UNTYPED);
+            modifier.damageCategory = 'splash';
+            modifier.multipliers = DegreeOfSuccessMultipliers.build({ [DegreeOfSuccess.CRITICAL_SUCCESS]: 1 });
+            numericModifiers.push(modifier);
         }
 
         // add bonus damage
@@ -518,20 +520,17 @@ export class PF2WeaponDamage {
             const modifiers: PF2Modifier[] = damage.numericModifiers.filter(
                 (nm) => nm.enabled && nm.multipliers[successDegree] > 0,
             );
-            Object.entries(
-                modifiers.reduce((accumulator, current) => {
-                    // split numeric modifiers into separate lists for each damage type
-                    const dmg = current.damageType ?? base.damageType;
-                    accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
-                    return accumulator;
-                }, {} as Record<string, PF2Modifier[]>),
-            )
-                .map(([damageType, damageTypeModifiers]) => {
+
+            const modifiersByDamageType = groupBy(modifiers, (current) => {
+                return current.damageType ?? base.damageType;
+            });
+
+            [...modifiersByDamageType]
+                .flatMap(([damageType, damageTypeModifiers]) => {
                     // apply stacking rules for numeric modifiers of each damage type separately
                     return new PF2StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers)
                         .modifiers;
                 })
-                .flatMap((nm) => nm)
                 .filter((nm) => nm.enabled)
                 .forEach((nm) => {
                     damagePool.entries.push(

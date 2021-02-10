@@ -1,4 +1,4 @@
-import { PF2EActor } from '@actor/actor';
+import { ApplyDamageData, PF2EActor } from '@actor/actor';
 
 class ChatDamageButtonsPF2e extends Application {
     init() {
@@ -50,9 +50,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 1, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 1, attribute: attribute });
                 }
             });
 
@@ -65,9 +65,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 0.5, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
                 }
             });
 
@@ -80,9 +80,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 2, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 2, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 2, attribute: attribute });
                 }
             });
 
@@ -95,9 +95,9 @@ class ChatDamageButtonsPF2e extends Application {
             fullHealingButton.click((ev) => {
                 ev.stopPropagation();
                 if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, -1);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: -1 });
                 } else {
-                    PF2EActor.applyDamage(html, -1);
+                    PF2EActor.applyDamage({ roll: html, multiplier: -1 });
                 }
             });
         });
@@ -121,9 +121,12 @@ class ChatDamageButtonsPF2e extends Application {
             const heal = $(
                 `<button style="flex: 1 1 0;" title="Apply full healing to selected tokens."><i class="fas fa-user-plus"></i></button>`,
             );
+            const splash = $(
+                `<button style="flex: 1 1 0;" title="Apply splash damage to selected tokens."><i class="fas fa-circle"></i></button>`,
+            );
 
             const buttons = $(`<div style="display: flex; margin-top: 3px;"></div>`);
-            buttons.append(full, half, double, shield, heal);
+            buttons.append(full, half, double, shield, heal, splash);
             html.append(buttons);
 
             // Handle button clicks
@@ -136,9 +139,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 1, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 1, attribute: attribute });
                 }
             });
 
@@ -151,9 +154,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 0.5, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
                 }
             });
 
@@ -166,9 +169,9 @@ class ChatDamageButtonsPF2e extends Application {
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
                 if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 2, attribute: attribute });
                 } else {
-                    PF2EActor.applyDamage(html, 2, attribute);
+                    PF2EActor.applyDamage({ roll: html, multiplier: 2, attribute: attribute });
                 }
             });
 
@@ -181,15 +184,32 @@ class ChatDamageButtonsPF2e extends Application {
             heal.on('click', (event) => {
                 event.stopPropagation();
                 if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage(html, -1);
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: -1 });
                 } else {
-                    PF2EActor.applyDamage(html, -1);
+                    PF2EActor.applyDamage({ roll: html, multiplier: -1 });
+                }
+            });
+
+            splash.on('click', (event) => {
+                event.stopPropagation();
+
+                let totalDamage = 0;
+                for (const categories of Object.values(damageRoll.types)) {
+                    for (const [category, damage] of Object.entries(<Object>categories)) {
+                        if (category == 'splash') totalDamage += damage;
+                    }
+                }
+
+                if (event.shiftKey) {
+                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, value: totalDamage });
+                } else {
+                    PF2EActor.applyDamage({ roll: html, multiplier: 1, value: totalDamage });
                 }
             });
         });
     }
 
-    static shiftModifyDamage(html, multiplier, attributePassed = 'attributes.hp') {
+    static shiftModifyDamage(args: ApplyDamageData) {
         new Dialog({
             title: game.i18n.localize('PF2E.UI.shiftModifyDamageTitle'),
             content: `<form>
@@ -208,12 +228,12 @@ class ChatDamageButtonsPF2e extends Application {
                     label: 'Ok',
                     callback: async (dialogHtml: JQuery) => {
                         // const diceTotal = parseFloat(html.find('.dice-total #value').text());
-                        let modifier = parseFloat(<string>dialogHtml.find('[name="modifier"]').val());
-                        if (Number.isNaN(modifier)) {
-                            modifier = 0;
+                        args.modifier = parseFloat(<string>dialogHtml.find('[name="modifier"]').val());
+                        if (Number.isNaN(args.modifier)) {
+                            args.modifier = 0;
                         }
-                        if (modifier !== undefined) {
-                            await PF2EActor.applyDamage(html, multiplier, attributePassed, modifier);
+                        if (args.modifier !== undefined) {
+                            await PF2EActor.applyDamage(args);
                         }
                     },
                 },

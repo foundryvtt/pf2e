@@ -98,6 +98,14 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'counteract-check',
 ]);
 
+export interface ApplyDamageData {
+    roll: JQuery;
+    multiplier: number;
+    attribute?: string;
+    value?: number;
+    modifier?: number;
+}
+
 /**
  * @category Actor
  */
@@ -698,9 +706,12 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
      * @return {Promise}
      */
-    static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
+    static async applyDamage({ roll, multiplier, attribute = 'attributes.hp', value, modifier = 0 }: ApplyDamageData) {
         if (canvas.tokens.controlled.length > 0) {
-            const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
+            value ??= parseFloat(roll.find('.dice-total').text());
+            value = Math.floor(value * multiplier) + modifier;
+            if (!value) return;
+
             const messageSender = roll.find('.message-sender').text();
             const flavorText = roll.find('.flavor-text').text();
             const shieldFlavor =
@@ -712,7 +723,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                     value > 0
                         ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
                         : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
-                const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
+                const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '' : '+'}${modifier}` : '';
                 const by = game.i18n.localize('PF2E.UI.applyDamage.by');
                 const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
                 const message = `
