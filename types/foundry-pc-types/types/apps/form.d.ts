@@ -76,7 +76,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     editors: Record<string, unknown>[];
 
-    constructor(object: ObjectType, options?: FormApplicationOptions);
+    constructor(object?: ObjectType, options?: FormApplicationOptions);
 
     /**
      * Assign the default options which are supported by the entity edit sheet

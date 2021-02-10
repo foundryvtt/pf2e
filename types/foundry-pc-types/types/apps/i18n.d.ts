@@ -71,5 +71,5 @@ declare class Localization {
      * const stringId = "MY_TEST_STRING"; // "Your name is {name}"
      * game.i18n.format("MY_TEST_STRING", {name: "Andrew"}); // Produces "Your name is Andrew"
      */
-    format(stringId: string, data?: { [key: string]: string | number | null }): string;
+    format(stringId: string, data?: { [key: string]: string | number | boolean | null }): string;
 }
