@@ -1,18 +1,12 @@
-declare type SocketEventCallback = [
-    message: {
-        request: string;
-        data: { [key: string]: any };
-    },
-    userId: string,
-];
-
 declare const socket: SocketIO.Socket | null;
 declare const keyboard: KeyboardManager;
 declare const ui: {
+    actors: ActorDirectory;
+    combat: CombatTracker;
+    controls: SceneControls;
     notifications: Notifications;
     tables: RollTableDirectory;
-    combat: CombatTracker;
-    actors: ActorDirectory;
+    windows: Record<number, Application>;
 };
 
 /**
@@ -53,10 +47,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     settings: ClientSettings;
 
     /** A reference to the open Socket.io connection */
-    socket: SocketIO.Socket & {
-        emit(message: Pick<SocketEventCallback, 0>): void;
-        on(event: string, ...message: SocketEventCallback): void;
-    };
+    socket: SocketIO.Socket;
 
     /**
      * A singleton GameTime instance which manages the progression of time within the game world.

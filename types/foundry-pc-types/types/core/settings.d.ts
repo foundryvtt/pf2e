@@ -130,7 +130,7 @@ declare class ClientSettings {
      * @param key   The setting key to retrieve
      * @param value The data to assign to the setting key
      */
-    set<T extends unknown>(module: string, key: string, value: T): Promise<T>;
+    set(module: string, key: string, value: unknown): Promise<unknown>;
 
     /**
      * Update the setting storage with a new value
