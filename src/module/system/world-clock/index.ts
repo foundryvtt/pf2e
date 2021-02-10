@@ -93,25 +93,23 @@ export class WorldClock extends Application {
 
     /** The month in the game */
     private get month(): string {
-        const month = this.worldTime.monthLong;
-
         switch (this.dateTheme) {
             case 'AR':
+                const month = this.worldTime.setLocale('en-US').monthLong;
                 return game.i18n.localize(this.translations.AR.months[month]);
             default:
-                return month;
+                return this.worldTime.monthLong;
         }
     }
 
     /** The day of the week in the game */
     private get weekday(): string {
-        const weekday = this.worldTime.weekdayLong;
-
         switch (this.dateTheme) {
             case 'AR':
+                const weekday = this.worldTime.setLocale('en-US').weekdayLong;
                 return game.i18n.localize(this.translations.AR.weekdays[weekday]);
             default:
-                return weekday;
+                return this.worldTime.weekdayLong;
         }
     }
 
