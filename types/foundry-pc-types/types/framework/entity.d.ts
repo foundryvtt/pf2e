@@ -302,12 +302,12 @@ declare class Entity {
      */
     static create<E extends Entity>(
         this: new (data: E['data'], options?: EntityConstructorOptions) => E,
-        data: Partial<E['data']> | E['data'],
+        data: Partial<E['data']>,
         options?: EntityCreateOptions,
     ): Promise<E>;
     static create<E extends Entity>(
         this: new (data: E['data'], options?: EntityConstructorOptions) => E,
-        data: Partial<E['data']>[] | E['data'][],
+        data: Partial<E['data']>[] | Partial<E['data']>,
         options?: EntityCreateOptions,
     ): Promise<E[] | E>;
 

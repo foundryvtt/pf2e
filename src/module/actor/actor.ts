@@ -127,6 +127,33 @@ export class PF2EActor extends Actor<PF2EItem> {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
     }
 
+    /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
+     *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
+     @override */
+    static create<A extends PF2EActor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: Partial<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A>;
+    static create<A extends PF2EActor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: Partial<A['data']>[] | Partial<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A[] | A>;
+    static async create<ActorType extends PF2EActor>(
+        data: Partial<ActorType['data']>[] | Partial<ActorType['data']>,
+        options: EntityCreateOptions = {},
+    ): Promise<ActorType[] | ActorType> {
+        const createData = Array.isArray(data) ? data : [data];
+        for (const datum of createData) {
+            if (datum.type === 'loot') {
+                // Make loot actors interactable by default
+                datum.permission = { default: 1 };
+            }
+        }
+        return super.create(data, options) as Promise<ActorType>;
+    }
+
     /**
      * Augment the basic actor data with additional dynamic data.
      */
