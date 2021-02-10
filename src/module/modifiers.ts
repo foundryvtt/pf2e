@@ -105,6 +105,8 @@ export class PF2Modifier {
     predicate: any;
     /** If true, this modifier is only active on a critical hit. */
     critical: boolean;
+    /** if true this modifier will not double on critical hit */
+    neverCritical: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
 
@@ -131,6 +133,7 @@ export class PF2Modifier {
         this.enabled = enabled;
         this.ignored = false;
         this.custom = false;
+        this.neverCritical = false;
         if (source) this.source = source;
         if (notes) this.notes = notes;
     }
