@@ -33,6 +33,7 @@ import { Migration599AddTraditionTraits } from './599-add-tradition-traits-to-ge
 import { Migration600Reach } from './600-reach';
 import { Migration601SplitEffectCompendia } from './601-migrate-effect-compendia';
 import { Migration602UpdateDiehardFeat } from './602-update-diehard-feat';
+import { Migration603ResetQuickRollDefault } from './603-reset-quick-roll-default';
 
 export class Migrations {
     private static list = [
@@ -70,6 +71,7 @@ export class Migrations {
         Migration600Reach,
         Migration601SplitEffectCompendia,
         Migration602UpdateDiehardFeat,
+        Migration603ResetQuickRollDefault,
     ];
 
     static get latestVersion(): number {
