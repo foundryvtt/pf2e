@@ -1,9 +1,11 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
     <ol class="currency">
-        {{#each totalTreasure as |value denomination|}}
+        <li class="label">
+            {{localize 'PF2E.StackGroupCoins'}}
+        </li>
+        {{#each totalCurrency as |value denomination|}}
         <li class="denomination {{denomination}}">
-            <div class="currency-image"></div>
-            {{!-- <label>{{value.label}}:</label> --}}
+            <div class="currency-image" title="{{value.label}}"></div>
             <span>{{value.value}}</span>
         </li>
         {{/each}}
@@ -13,10 +15,20 @@
         <li class="remove-coins-popup" title="{{localize 'PF2E.RemoveCoinsTitle'}}">
             <button type="button">-</button>
         </li>
-        <li class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
-            <button type="button"><i class="fas fa-coins"></i></button>
-        </li>
     </ol>
+
+    <div class="wealth">
+        <div class="wealth-label inventory-header">
+            <h3 class="item-name">
+                {{localize 'PF2E.TotalTreasure'}}
+                <span>{{totalTreasureGold}} {{localize 'PF2E.CurrencyAbbreviations.gp'}}</span>
+                <span class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
+                    <button type="button"><i class="fas fa-coins"></i></button>
+                </span>
+            </h3>
+            <h3 class="item-name">{{localize 'PF2E.TotalWealth'}} <span>{{totalWealthGold}} {{localize 'PF2E.CurrencyAbbreviations.gp'}}</span></h3>
+        </div>
+    </div>
 
     <ol class="inventory-list directory-list inventory-pane">
     {{#each actor.inventory as |section sid|}}
@@ -46,21 +58,6 @@
         </ol>
     {{/each}}
     </ol>
-
-  <div class="wealth">
-    <div class="wealth-label inventory-header">
-      <h3 class="item-name">{{localize 'PF2E.TotalWealth'}}</h3>
-    </div>
-    <ol class="currency">
-      {{#each totalWealth as |value denomination|}}
-      <li class="denomination {{denomination}}">
-        <div class="currency-image"></div>
-        {{!-- <label>{{value.label}}:</label> --}}
-        <span>{{value.value}}</span>
-      </li>
-      {{/each}}
-    </ol>
-  </div>
 
     {{#with data.attributes.encumbrance}}
     <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
