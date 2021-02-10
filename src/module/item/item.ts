@@ -334,7 +334,7 @@ export class PF2EItem extends Item<PF2EActor> {
             data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
             data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
         ];
-        data.spellLvl = (rollOptions || {}).spellLvl;
+        data.spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
         if (data.level.value < parseInt(data.spellLvl, 10)) {
             props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
         }
