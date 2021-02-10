@@ -4,6 +4,7 @@ import { MigrationRunner } from '../../src/module/migration-runner';
 import { MigrationBase } from 'src/module/migrations/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
+import { FakeUser } from 'tests/fakes/fake-user';
 import { FakeScene } from 'tests/fakes/fake-scene';
 
 const characterData = require('../../packs/data/iconics.db/amiri-level-1.json');
@@ -46,6 +47,12 @@ describe('test migration runner', () => {
             get(id: string) {
                 return this.entities.find((x: FakeItem) => x._data._id === id);
             },
+        },
+        users: {
+            entities: [],
+            get(id: string) {
+                return this.entities.find((x: FakeUser) => x._data._id === id);
+            }
         },
         scenes: {
             entities: [],
