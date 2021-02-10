@@ -1,5 +1,44 @@
 # Patch Notes:
 
+## Version 1.11.5
+
+Note that this release will change the default for the Quick Rolls client setting. This means that your setting might change if you have not previously set this explicitly.
+
+### Bug Fixes
+* (putty) Fix negligible bulk doubling for tiny items due to rule misunderstanding
+* (putty) Fix bulk calculation for sacks
+* (stwlam) Make the token border color monkey patch more resilient to broken Foundry installations
+* (stwlam) Prevent tall portrait images from overflowing on the CRB sheet
+* (TMun) Adds 'curse' and 'magic' traits to hazards (from Abomination Vaults)
+
+### New Features
+* (stwlam) Expand features of WorldClock application
+* (@maduin1) Heighten spontaneous spells
+
+### Content Changes
+* (TMun & rectulo) Correct entry of Calistria minor curse to point to Giant Wasp Venom instead of Giant Wasp
+* (TMun & rectulo) Remove incorrect prerequisites for quick reversal
+* (TMun) Add missing ritual from AoA book 6 and spells from EC books 5 and 6. Closes #1061
+* (TMun) Add note rule element to level 17 Resolve
+* (TMun) Correct a typographic error in the Overflowing Sorrow spell. Closes #1070
+* (Shandyan) Automating alchemist features & feats
+* (Shandyan) Automation for Investigator
+* (Shandyan) Automating barbarian feature & feats
+* (Shandyan) Adding rules elements for Hunter's Aim, based on original version by Dods
+* (Drental) Add support for Natural Medicine (only substitutes the roll), Chirurgeon (also substitutes the max rank), Risky Surgery, Magic Hands, and Medic dedication
+* (Drental) Fix Rest for the Night macro to use the proper warn notification
+* (Drental) Split the spell effects compendium into consumable, equipment, feats, features, and spell effects compendia
+* (profounddark) Fix issue with Rage damage and agile not interacting correctly
+
+### Core System Improvements
+* (stwlam) Renamed skill tab to proficiencies and changed the icon to make it more indicative of its purpose for new players
+* (stwlam) Change Diehard feat to use an active effect
+* (stwlam) Default quickrolls in player config to 'off'
+* (stwlam) Set default permission of Limited for loot actor type
+* (fryguy) Consolidate coins & treasure information on the inventory of the PC sheet
+* (nikolaj-a) Create a macro to toggle an effect when a link to the effect is dragged to the hotbar.
+
+
 ## Version 1.11.4
 ### Bug Fixes
 * (abrault) Fix chat card for rerolls to properly show the previous result
