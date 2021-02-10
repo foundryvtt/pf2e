@@ -61,7 +61,7 @@ export class PF2EClass extends PF2EItem {
         // we're working around a bug in foundry where you're not allowed to
         // call packs.get() multiple times concurrently, which this avoids.
         const classFeaturesToCreate: FeatData[] = [];
-        for (const feature of featuresToAdd) {
+        for await (const feature of featuresToAdd) {
             const featureData = await PF2EClass.getClassItemData(feature);
             if (featureData === undefined) {
                 continue;

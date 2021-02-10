@@ -70,7 +70,7 @@ const SETTINGS = {
     },
 };
 
-export class variantRulesSettings extends FormApplication {
+export class VariantRulesSettings extends FormApplication {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -116,35 +116,33 @@ export class variantRulesSettings extends FormApplication {
 
     /**
      * Handle button click to reset default settings
-     * @param event {Event}   The initial button click event
-     * @private
+     * @param event The initial button click event
      */
-    async _onResetDefaults(event: Event) {
+    protected async _onResetDefaults(event: Event): Promise<this> {
         event.preventDefault();
-        const updates = [];
-        for (const [k, v] of Object.entries(SETTINGS)) {
-            updates.push(game.settings.set('pf2e', k, (v as any).default));
+        for await (const [k, v] of Object.entries(SETTINGS)) {
+            await game.settings.set('pf2e', k, v?.default);
         }
-        await Promise.all(updates);
         return this.render();
     }
 
     /* -------------------------------------------- */
 
     /** @override */
-    async _onSubmit(event: Event, options: OnSubmitFormOptions) {
+    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         event.preventDefault();
-        super._onSubmit(event, options);
+        return super._onSubmit(event, options);
     }
 
     /* -------------------------------------------- */
 
     /** @override */
-    async _updateObject(_event: Event, formData: FormData) {
-        const updates = [];
-        for (const k of Object.keys(SETTINGS)) {
-            updates.push(game.settings.set('pf2e', k, formData[k]));
+    protected async _updateObject(
+        _event: Event,
+        data: { [K in keyof typeof SETTINGS]: typeof SETTINGS[K]['default'] },
+    ): Promise<void> {
+        for await (const k of Object.keys(SETTINGS)) {
+            game.settings.set('pf2e', k, data[k]);
         }
-        await Promise.all(updates);
     }
 }

@@ -17,12 +17,12 @@ export class PF2ELoot extends PF2EActor {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** Anyone with Observer permission can update a loot actor
+    /** Anyone with Limited permission can update a loot actor
      * @override
      */
     static can(user: User, action: string, target: PF2ELoot): boolean {
         if (action === 'update') {
-            return target.hasPerm(user, 'OBSERVER');
+            return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.can(user, action, target);
     }

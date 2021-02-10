@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You have perfected the formulas for bombs that impede your enemies. When you use Debilitating Bomb, your target avoids the condition the bomb imposes only if it critically succeeds at its saving throw.</p>"
+            "value": "<p>You have perfected the formulas for bombs that impede your enemies.</p>\n<p>When you use @Compendium[pf2e.feats-srd.Debilitating Bomb]{Debilitating Bomb}, your target avoids the condition the bomb imposes only if it critically succeeds at its saving throw.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "18"
+            "value": 18
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,7 +42,20 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "debilitating-bomb"
+                    ]
+                },
+                "selector": "attack-roll",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If your bomb hits, the target must critically succed at its Fortitude save to avoid the condition the bomb imposes.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +73,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Perfect Debilitation",

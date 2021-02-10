@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>Ever inventive, you have discovered increasingly devastating ways for your bombs to impede and hamper your foes. When you use Debilitating Bomb, add the following to the list you can choose from: @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2, or -15-foot status penalty to Speeds. If you instead apply one of the effects listed in Debilitating Bomb the target avoids the effect only if the result of its saving throw is a critical success.</p>"
+            "value": "<p>Ever inventive, you have discovered increasingly devastating ways for your bombs to impede and hamper your foes.</p>\n<p>When you use @Compendium[pf2e.feats-srd.Debilitating Bomb]{Debilitating Bomb}, add the following to the list you can choose from: @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2, or -15-foot status penalty to Speeds.</p>\n<p>If you instead apply one of the effects listed in Debilitating Bomb the target avoids the effect only if the result of its saving throw is a critical success.</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "14"
+            "value": 14
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,7 +42,20 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "debilitating-bomb"
+                    ]
+                },
+                "selector": "attack-roll",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If your bomb hits, the target must succed at a Fortitude save against your Class DC, or suffer one of the following @Compendium[pf2e.feats-srd.True Debilitating Bomb]{effects}. If you apply the effects of @Compendium[pf2e.feats-srd.Debilitating Bomb]{Debilitating Bomb}, the target must critically succeed at its save to avoid the condition.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +73,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "True Debilitating Bomb",

@@ -33,6 +33,19 @@ const optimization: Optimization = isProductionBuild
               }),
               new CssMinimizerPlugin(),
           ],
+          splitChunks: {
+              chunks: 'all',
+              cacheGroups: {
+                  default: {
+                      name: 'main',
+                      test: 'src/pf2e.ts',
+                  },
+                  vendor: {
+                      name: 'vendor',
+                      test: /node_modules/,
+                  },
+              },
+          },
       }
     : undefined;
 
@@ -107,7 +120,7 @@ const config: Configuration = {
     },
     output: {
         path: outDir,
-        filename: 'main.bundle.js',
+        filename: '[name].bundle.js',
     },
 };
 
