@@ -21,7 +21,7 @@ export class PlayerConfigPF2e extends FormApplication {
     static get DEFAULTS() {
         return {
             color: 'blue',
-            quickD20roll: true,
+            quickD20roll: false,
         };
     }
 
