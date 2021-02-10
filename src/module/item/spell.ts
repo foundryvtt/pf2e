@@ -34,6 +34,10 @@ export class Spell {
         return this.data.data.level.value;
     }
 
+    get heightenedLevel(): number {
+        return this.data.data.heightenedLevel?.value ?? this.spellLevel;
+    }
+
     get damage() {
         return this.data.data.damage;
     }
@@ -78,8 +82,16 @@ export class Spell {
         return this.spellLevel === 0 || this.spellLevel === 11 || this.isFocusSpell;
     }
 
+    get isCantrip(): boolean {
+        return this.spellLevel === 0;
+    }
+
     get isFocusSpell() {
         return this.traditions.includes('focus');
+    }
+
+    get isRitual(): boolean {
+        return this.traditions.includes('ritual');
     }
 
     get traditions() {
