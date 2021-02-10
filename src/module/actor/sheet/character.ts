@@ -33,7 +33,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
     }
 
-    async _updateObject(event, formData) {
+    async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
         const equippedShieldId: string = this.getEquippedShield(this.actor.data.items)?._id;
         if (equippedShieldId !== undefined) {
@@ -48,7 +48,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         await super._updateObject(event, formData);
 
         const updatedLevel = this.actor.data.data.details.level.value;
-        if (updatedLevel != previousLevel) {
+        const actorHasClass = Array.from(this.actor.items.values()).some((item) => item instanceof PF2EClass);
+        if (updatedLevel != previousLevel && actorHasClass) {
             await PF2EClass.ensureClassFeaturesForLevel(this.actor);
         }
     }
