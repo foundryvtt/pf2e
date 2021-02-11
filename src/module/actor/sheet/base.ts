@@ -929,7 +929,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         });
 
         // Update Item Name
-        html.find<HTMLInputElement>('.item-name-input').change(async (event) => {
+        html.find<HTMLInputElement>('.item-name-input').on('change', async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
             await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, name: event.target.value });
         });
