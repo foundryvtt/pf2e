@@ -39,6 +39,7 @@ import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
+import { PF2RuleElements } from './module/rules/rules';
 
 require('./styles/pf2e.scss');
 
@@ -519,6 +520,18 @@ Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
 // effect panel
 Hooks.on('updateUser', (user, diff, options, id) => {
     game[game.system.id].effectPanel?.refresh();
+});
+
+Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => {
+    const actor = game.actors.get(token.actorId);
+    if (actor) {
+        actor.items.forEach((item: PF2EItem) => {
+            const rules = PF2RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+            for (const rule of rules) {
+                rule.onCreateToken(actor.data, item.data, token);
+            }
+        });
+    }
 });
 
 Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
