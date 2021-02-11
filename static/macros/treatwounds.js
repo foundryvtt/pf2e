@@ -69,12 +69,15 @@ function applyChanges($html) {
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
+        const usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
         if (skill === 'cra') {
             med = token.actor.data.data.skills['cra'];
         }
-        const usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
         if (skill === 'nat') {
             med = token.actor.data.data.skills['nat'];
+            if (usedProf === 0) {
+                usedProf = 1;
+            }
         }
         const medicBonus = CheckFeat('medic-dedication') ? (usedProf - 1) * 5 : 0;
         const roll = [
@@ -92,8 +95,8 @@ function applyChanges($html) {
 if (token === undefined) {
     ui.notifications.warn('No token is selected.');
 } else {
-    const chirurgeon = CheckFeat('chirurgeon')
-    const naturalMedicine = CheckFeat('natural-medicine')
+    const chirurgeon = CheckFeat('chirurgeon');
+    const naturalMedicine = CheckFeat('natural-medicine');
     const dialog = new Dialog({
         title: 'Treat Wounds',
         content: `
@@ -109,17 +112,10 @@ ${
 <select id="skill" name="skill">
 <option value="med">Medicine</option>
 
-${
-    chirurgeon
-        ? `<option value="cra">Crafting</option>`
+${chirurgeon ? `<option value="cra">Crafting</option>` : ``}
+${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
+`
         : ``
-}
-${
-    naturalMedicine
-        ? `<option value="nat">Nature</option>`
-        : ``
-}
-` : ``
 }
 </select>
 </div>
