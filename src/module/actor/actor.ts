@@ -148,7 +148,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         for (const datum of createData) {
             if (datum.type === 'loot') {
                 // Make loot actors interactable by default
-                datum.permission = { default: 1 };
+                datum.permission = { default: CONST.ENTITY_PERMISSIONS.LIMITED };
             }
         }
         return super.create(data, options) as Promise<ActorType>;
