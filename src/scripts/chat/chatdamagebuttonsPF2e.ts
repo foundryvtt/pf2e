@@ -1,4 +1,5 @@
 import { ApplyDamageData, PF2EActor } from '../../module/actor/actor';
+import { DamageModifiersPopup } from '../../module/system/damage/damage-modifiers-popup';
 
 class ChatDamageButtonsPF2e extends Application {
     init() {
@@ -49,11 +50,7 @@ class ChatDamageButtonsPF2e extends Application {
                     html.find('.dice-total-shield-btn').toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 1, attribute: attribute });
-                }
+                this.shiftModifiedDamage(ev, { roll: html, multiplier: 1, attribute: attribute });
             });
 
             halfDamageButton.click((ev) => {
@@ -64,11 +61,7 @@ class ChatDamageButtonsPF2e extends Application {
                     html.find('.dice-total-shield-btn').toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
-                }
+                this.shiftModifiedDamage(ev, { roll: html, multiplier: 0.5, attribute: attribute });
             });
 
             doubleDamageButton.click((ev) => {
@@ -79,11 +72,7 @@ class ChatDamageButtonsPF2e extends Application {
                     html.find('.dice-total-shield-btn').toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 2, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 2, attribute: attribute });
-                }
+                this.shiftModifiedDamage(ev, { roll: html, multiplier: 2, attribute: attribute });
             });
 
             shieldButton.click((ev) => {
@@ -94,11 +83,7 @@ class ChatDamageButtonsPF2e extends Application {
 
             fullHealingButton.click((ev) => {
                 ev.stopPropagation();
-                if (ev.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: -1 });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: -1 });
-                }
+                this.shiftModifiedDamage(ev, { roll: html, multiplier: -1 });
             });
         });
 
@@ -138,11 +123,7 @@ class ChatDamageButtonsPF2e extends Application {
                     shield.toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 1, attribute: attribute });
-                }
+                this.shiftModifiedDamage(event, { roll: html, multiplier: 1, attribute: attribute });
             });
 
             half.on('click', (event) => {
@@ -153,11 +134,7 @@ class ChatDamageButtonsPF2e extends Application {
                     shield.toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 0.5, attribute: attribute });
-                }
+                this.shiftModifiedDamage(event, { roll: html, multiplier: 0.5, attribute: attribute });
             });
 
             double.on('click', (event) => {
@@ -168,11 +145,7 @@ class ChatDamageButtonsPF2e extends Application {
                     shield.toggleClass('shield-activated');
                     CONFIG.PF2E.chatDamageButtonShieldToggle = false;
                 }
-                if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 2, attribute: attribute });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 2, attribute: attribute });
-                }
+                this.shiftModifiedDamage(event, { roll: html, multiplier: 2, attribute: attribute });
             });
 
             shield.on('click', (event) => {
@@ -183,11 +156,7 @@ class ChatDamageButtonsPF2e extends Application {
 
             heal.on('click', (event) => {
                 event.stopPropagation();
-                if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: -1 });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: -1 });
-                }
+                this.shiftModifiedDamage(event, { roll: html, multiplier: -1 });
             });
 
             splash.on('click', (event) => {
@@ -200,47 +169,17 @@ class ChatDamageButtonsPF2e extends Application {
                     }
                 }
 
-                if (event.shiftKey) {
-                    ChatDamageButtonsPF2e.shiftModifyDamage({ roll: html, multiplier: 1, value: totalDamage });
-                } else {
-                    PF2EActor.applyDamage({ roll: html, multiplier: 1, value: totalDamage });
-                }
+                this.shiftModifiedDamage(event, { roll: html, multiplier: 1, value: totalDamage });
             });
         });
     }
 
-    static shiftModifyDamage(args: ApplyDamageData) {
-        new Dialog({
-            title: game.i18n.localize('PF2E.UI.shiftModifyDamageTitle'),
-            content: `<form>
-                    <div class="form-group">
-                        <label>${game.i18n.localize('PF2E.UI.shiftModifyDamageLabel')}</label>
-                        <input type="number" name="modifier" value="" placeholder="0">
-                    </div>
-                  </form>
-                  <script type="text/javascript">
-                    $(function () {
-                        $(".form-group input").focus();
-                    });
-                  </script>`,
-            buttons: {
-                ok: {
-                    label: 'Ok',
-                    callback: async (dialogHtml: JQuery) => {
-                        // const diceTotal = parseFloat(html.find('.dice-total #value').text());
-                        args.modifier = parseFloat(<string>dialogHtml.find('[name="modifier"]').val());
-                        if (Number.isNaN(args.modifier)) {
-                            args.modifier = 0;
-                        }
-                        if (args.modifier !== undefined) {
-                            await PF2EActor.applyDamage(args);
-                        }
-                    },
-                },
-            },
-            default: 'ok',
-            close: () => {},
-        }).render(true);
+    shiftModifiedDamage(event, data: ApplyDamageData) {
+        if (event.shiftKey) {
+            new DamageModifiersPopup(data).render(true);
+        } else {
+            PF2EActor.applyDamage(data);
+        }
     }
 }
 
