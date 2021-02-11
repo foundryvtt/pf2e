@@ -61,11 +61,9 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
     }
 
     onCreateToken(actorData: CharacterData | NpcData, item: ItemData, token: TokenData) {
-        if ((item.data.rules ?? []).some((rule) => rule.key === 'PF2E.RuleElement.TokenEffectIcon')) {
-            token.effects = token.effects ?? [];
-            if (!token.effects.includes(item.img)) {
-                token.effects.push(item.img);
-            }
+        token.effects = token.effects ?? [];
+        if (!token.effects.includes(item.img)) {
+            token.effects.push(item.img);
         }
     }
 }
