@@ -2129,6 +2129,12 @@ export const PF2ECONFIG = {
                 AD: 'PF2E.SETTINGS.WorldClock.DateTheme.AD',
                 CE: 'PF2E.SETTINGS.WorldClock.DateTheme.CE',
             },
+            timeConvention: {
+                name: 'PF2E.SETTINGS.WorldClock.TimeConvention.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.TimeConvention.Hint',
+                twentyFour: 'PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour',
+                twelve: 'PF2E.SETTINGS.WorldClock.TimeConvention.Twelve',
+            },
             playersCanView: {
                 name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
                 hint: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Hint',
