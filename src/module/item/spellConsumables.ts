@@ -1,7 +1,12 @@
 import { PF2EActor } from '../actor/actor';
 import { ConsumableData, SpellcastingEntryData, SpellData } from './dataDefinitions';
 
-export const scrollCompendiumIds = {
+export enum SpellConsumableTypes {
+    Scroll,
+    Wand,
+}
+
+const scrollCompendiumIds = {
     1: 'RjuupS9xyXDLgyIr',
     2: 'Y7UD64foDbDMV9sx',
     3: 'ZmefGBXGJF3CFDbn',
@@ -14,20 +19,7 @@ export const scrollCompendiumIds = {
     10: 'o1XIHJ4MJyroAHfF',
 };
 
-export async function scrollFromSpell(spellData: SpellData, heightenedLevel?: number): Promise<ConsumableData> {
-    heightenedLevel = heightenedLevel ?? spellData.data.level.value;
-    const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-    const scroll = (await pack.getEntry(scrollCompendiumIds[heightenedLevel])) as ConsumableData;
-    scroll.data.traits.value.push(...duplicate(spellData.data.traditions.value));
-    scroll.name = game.i18n.format('PF2E.ScrollFromSpell', { name: spellData.name, level: heightenedLevel });
-    scroll.data.spell = {
-        data: duplicate(spellData),
-        heightenedLevel: heightenedLevel,
-    };
-    return scroll;
-}
-
-export const wandCompendiumIds = {
+const wandCompendiumIds = {
     1: 'UJWiN0K3jqVjxvKk',
     2: 'vJZ49cgi8szuQXAD',
     3: 'wrDmWkGxmwzYtfiA',
@@ -39,17 +31,37 @@ export const wandCompendiumIds = {
     9: 'Fgv722039TVM5JTc',
 };
 
-export async function wandFromSpell(spellData: SpellData, heightenedLevel?: number): Promise<ConsumableData> {
+function getIdForSpellConsumable(type: SpellConsumableTypes, heightenedLevel: number): string {
+    if (type == SpellConsumableTypes.Scroll) {
+        return scrollCompendiumIds[heightenedLevel];
+    } else {
+        return wandCompendiumIds[heightenedLevel];
+    }
+}
+
+function getNameForSpellConsumable(type: SpellConsumableTypes, spellName: string, heightenedLevel: number): string {
+    if (type == SpellConsumableTypes.Scroll) {
+        return game.i18n.format('PF2E.ScrollFromSpell', { name: spellName, level: heightenedLevel });
+    } else {
+        return game.i18n.format('PF2E.WandFromSpell', { name: spellName, level: heightenedLevel });
+    }
+}
+
+export async function createConsumableFromSpell(
+    type: SpellConsumableTypes,
+    spellData: SpellData,
+    heightenedLevel?: number,
+): Promise<ConsumableData> {
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-    const wand = (await pack.getEntry(wandCompendiumIds[heightenedLevel])) as ConsumableData;
-    wand.data.traits.value.push(...duplicate(spellData.data.traditions.value));
-    wand.name = game.i18n.format('PF2E.WandFromSpell', { name: spellData.name, level: heightenedLevel });
-    wand.data.spell = {
+    const spellConsumable = (await pack?.getEntry(getIdForSpellConsumable(type, heightenedLevel))) as ConsumableData;
+    spellConsumable.data.traits.value.push(...duplicate(spellData.data.traditions.value));
+    spellConsumable.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
+    spellConsumable.data.spell = {
         data: duplicate(spellData),
         heightenedLevel: heightenedLevel,
     };
-    return wand;
+    return spellConsumable;
 }
 
 export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boolean {
