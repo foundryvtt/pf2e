@@ -2,8 +2,6 @@ import { TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '../../module/item/dataDefinitions';
 
-declare let PF2e: any;
-
 /**
  * Class PF2eStatus which defines the data structure of a status effects
  * Gets populated into Actor.data.data.statusEffects[]
@@ -250,6 +248,9 @@ export class PF2eStatusEffects {
             if (src.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
                 const condition = PF2eConditionManager.getConditionByStatusName(statusName);
+                if (condition === undefined) {
+                    continue;
+                }
 
                 i.attr('data-effect', statusName);
                 i.attr('data-condition', condition.name);
@@ -346,8 +347,10 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
         if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const statusName = f.attr('data-effect') ?? 'undefined';
-            statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
+            const statusName = f.attr('data-effect');
+            if (typeof statusName === 'string' && statusName in PF2e.DB.condition) {
+                statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
+            }
         }
     }
 
