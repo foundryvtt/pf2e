@@ -56,7 +56,7 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
             sheetData.tokenInfo.push({
                 id: selectedTokens[i].id,
                 name: selectedTokens[i].name,
-                checked: !(selectedTokens[i].actor?.hasPlayerOwner ?? false),
+                checked: !selectedTokens[i].actor!.hasPlayerOwner,
             });
         }
         return sheetData;
