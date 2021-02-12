@@ -169,6 +169,8 @@ async function createToggleEffectMacro(pack: string, effect: PF2EEffect, slot: n
 const ITEM_UUID = 'Compendium.${pack}.${effect.id}'; // ${effect.data.name}
 (async () => {
   const effect = duplicate(await fromUuid(ITEM_UUID));
+  effect.flags.core = effect.flags.core ?? {};
+  effect.flags.core.sourceId = effect.flags.core.sourceId ?? ITEM_UUID;
   for await (const token of canvas.tokens.controlled) {
     let existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
