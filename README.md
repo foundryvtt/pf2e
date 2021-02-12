@@ -11,7 +11,7 @@ A huge thanks to the large team of contributers and a special thanks to the foll
 - __[Fatman#0714](https://www.reddit.com/user/FatMani)__ for creating the amazing token markers for the Pathfinder conditions used in the system.
 - __Furyspark#7513__ and __Dan Gomme__ for the great work creating the Pathfinder measurement templates in the Pathfinder 1e system which I have incorporated into this system.
 - __[@fyjham-ts](https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB)__ for the raw data I used (and __FS#5443__ for pointing me to it).
-- __Felix#6196__ for the creation of [Spell Browser](https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
+- __Felix#6196__ for the creation of [Spell Browser](https://github.com/syl3r86/compendium-browser) and kind permission to allow me to incorporate it into this system.
 - __[u/baughberick](https://www.reddit.com/user/baughberick/)__ for the creation of the Pathfinder2eActions font.
 
 ## WIP and Feedback
