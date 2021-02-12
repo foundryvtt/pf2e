@@ -138,4 +138,14 @@ export function registerSettings() {
         restricted: true, // Restrict this submenu to gamemaster only?
     });
     VariantRulesSettings.registerSettings();
+
+    // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
+    game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
+        name: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint'),
+        scope: 'world',
+        config: true,
+        default: true,
+        type: Boolean,
+    });
 }
