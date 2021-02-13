@@ -89,7 +89,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: CompendiumCollection;
+    packs: Collection<Compendium>;
 
     constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 

@@ -17,20 +17,14 @@ declare interface UserActivityData {
  * The collection of User entities which is accessible through ``game.users``.
  * The array of User entities within this collection is accessible through ``game.users.entities``.
  */
-declare class Users<ActorType extends Actor = Actor> extends Collection<User<ActorType>> {
-    entities: User<ActorType>[];
-
-    /**
-     * Elements of the Users collection are instances of the User class
-     */
-    get object(): User<ActorType>;
+declare class Users<ActorType extends Actor = Actor> extends EntityCollection<User<ActorType>> {
+    /** @override */
+    get entity(): 'User';
 
     /**
      * Get the users with player roles
      */
     get players(): User<ActorType>[];
-
-    values(): IterableIterator<User<ActorType>>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

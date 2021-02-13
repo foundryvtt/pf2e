@@ -1,3 +1,7 @@
+interface ElementDragEvent extends DragEvent {
+    target: HTMLElement;
+    currentTarget: HTMLElement;
+}
 declare type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;
 };

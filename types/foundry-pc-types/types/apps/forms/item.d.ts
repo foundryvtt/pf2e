@@ -15,7 +15,7 @@ declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
  * @param options			Additional options which modify the rendering of the item.
  * @param options.editable	Is the item editable? Default is true.
  */
-declare class ItemSheet<ItemType extends Item, ActorType extends Actor> extends BaseEntitySheet<ItemType> {
+declare class ItemSheet<ItemType extends Item = Item, ActorType extends Actor = Actor> extends BaseEntitySheet<ItemType> {
     /**
      * Assign the default options which are supported by this Application
      */
