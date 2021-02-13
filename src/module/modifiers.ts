@@ -1,4 +1,4 @@
-import { DamageDieSize } from './system/damage/damage';
+import { DamageCategory, DamageDieSize } from './system/damage/damage';
 import { AbilityString } from '@actor/actor-data-definitions';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
@@ -462,6 +462,11 @@ export class PF2ModifierPredicate {
     }
 }
 
+interface PF2DamageDiceOverride {
+    dieSize?: DamageDieSize;
+    damageType?: string;
+}
+
 /**
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
@@ -476,7 +481,7 @@ export class PF2DamageDice {
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
-    dieSize: DamageDieSize;
+    dieSize?: DamageDieSize;
     /** If true, these dice only apply on a critical. */
     critical: boolean;
     /** The damage category of these dice. */
@@ -486,7 +491,7 @@ export class PF2DamageDice {
     /** Any traits which these dice add to the overall damage. */
     traits: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
-    override?: boolean;
+    override?: PF2DamageDiceOverride;
     /** If true, these custom dice are being ignored in the damage calculation. */
     ignored: boolean;
     /** If true, these custom dice should be considered in the damage calculation. */
@@ -496,28 +501,32 @@ export class PF2DamageDice {
     /** A predicate which limits when this damage dice is actually applied. */
     predicate?: PF2ModifierPredicate;
 
-    constructor(param: Partial<PF2DamageDice> & { options?: object }) {
-        if (param.selector) {
-            this.selector = param.selector;
+    constructor(params: Partial<PF2DamageDice> & Pick<PF2DamageDice, 'selector' | 'name'> & { options?: object }) {
+        if (params.selector) {
+            this.selector = params.selector;
         } else {
             throw new Error('selector is mandatory');
         }
-        if (param.name) {
-            this.name = param.name;
+        if (params.name) {
+            this.name = params.name;
         } else {
             throw new Error('name is mandatory');
         }
-        this.label = param?.label;
-        this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
-        this.dieSize = param?.dieSize;
-        this.critical = param?.critical ?? false;
-        this.category = param?.category;
-        this.damageType = param?.damageType;
-        this.traits = param?.traits ?? [];
-        this.override = param?.override; // maybe restrict this object somewhat?
-        this.predicate = new PF2ModifierPredicate(param?.predicate ?? param?.options ?? {}); // options is the old name for this field
+
+        this.label = params.label;
+        this.diceNumber = params.diceNumber ?? 0; // zero dice is allowed
+        this.dieSize = params.dieSize;
+        this.critical = params.critical ?? false;
+        this.damageType = params.damageType;
+        this.category = params.category;
+        this.traits = params.traits ?? [];
+        this.override = params.override;
+        this.custom = params.custom ?? false;
+
+        if (this.damageType) this.category ??= DamageCategory.fromDamageType(this.damageType);
+
+        this.predicate = new PF2ModifierPredicate(params?.predicate ?? params?.options ?? {}); // options is the old name for this field
         this.ignored = PF2ModifierPredicate.test(this.predicate, []);
         this.enabled = this.ignored;
-        this.custom = param?.custom;
     }
 }

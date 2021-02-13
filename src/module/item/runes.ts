@@ -1,6 +1,7 @@
 import { isBlank, toNumber } from '../utils';
-import { DamageCategory, DamageDieSize } from '../system/damage/damage';
+import { DamageDieSize } from '../system/damage/damage';
 import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
+import { PF2DamageDice } from '../modifiers';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -57,36 +58,25 @@ export function getResiliencyBonus(itemData: ArmorDetailsData): number {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
 }
 
-interface DiceModifier {
-    name: string;
-    diceNumber: number;
-    dieSize: DamageDieSize;
-    category: string;
-    damageType: string;
-    enabled: boolean;
-    traits: string[];
-}
-
 interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
     damageType?: string;
 }
 
-function toModifier(rune, { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier): DiceModifier {
+function toModifier(rune, { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier): PF2DamageDice {
     const traits = [];
     if (damageType !== undefined) {
         traits.push(damageType);
     }
-    return {
+    return new PF2DamageDice({
+        selector: 'damage',
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
         diceNumber,
         dieSize,
-        category: DamageCategory.fromDamageType(damageType),
         damageType,
-        enabled: true,
         traits,
-    };
+    });
 }
 
 const runeDamageModifiers = new Map<string, RuneDiceModifier>();
@@ -108,7 +98,7 @@ runeDamageModifiers.set('greaterFrost', { damageType: 'cold' });
 runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
 runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
-export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifier[] {
+export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): PF2DamageDice[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         if (runeDamageModifiers.has(rune)) {

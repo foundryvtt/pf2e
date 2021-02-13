@@ -7,7 +7,7 @@ import {
     PROFICIENCY_RANK_OPTION,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
-import { DamageCategory } from './damage';
+import { DamageCategory, DamageDieSize } from './damage';
 import { WeaponData } from '@item/data-definitions';
 import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actor-data-definitions';
 import { PF2RollNote } from '../../notes';
@@ -165,9 +165,9 @@ export class PF2WeaponDamage {
         striking: Record<string, PF2Striking[]>,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
-        const diceModifiers = [];
+        const diceModifiers: PF2DamageDice[] = [];
         const numericModifiers: PF2Modifier[] = [];
-        let baseDamageDie = weapon.data.damage.die;
+        let baseDamageDie = <DamageDieSize>weapon.data.damage.die;
         let baseDamageType = weapon.data.damage.damageType;
         options = traits.map((t) => t.name).concat(options); // always add all weapon traits to the options
         if (proficiencyRank >= 0) {
@@ -218,7 +218,7 @@ export class PF2WeaponDamage {
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
-            baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
+            baseDamageDie = <DamageDieSize>twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1);
         }
 
         // versatile trait
@@ -234,28 +234,33 @@ export class PF2WeaponDamage {
 
         // custom damage
         const normalDice = weapon.data?.property1?.dice ?? 0;
-        const weaponDamageType = baseDamageType;
         if (normalDice > 0) {
-            const damageType = weapon.data?.property1?.damageType ?? weaponDamageType;
-            diceModifiers.push({
-                name: 'PF2E.WeaponCustomDamageLabel',
-                diceNumber: normalDice,
-                dieSize: weapon.data?.property1?.die,
-                damageType: damageType ?? weaponDamageType,
-                traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-            });
+            const damageType = weapon.data?.property1?.damageType;
+            diceModifiers.push(
+                new PF2DamageDice({
+                    selector: 'damage',
+                    name: 'PF2E.WeaponCustomDamageLabel',
+                    diceNumber: normalDice,
+                    dieSize: <DamageDieSize>weapon.data?.property1?.die,
+                    damageType: damageType,
+                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
+                }),
+            );
         }
         const critDice = weapon.data?.property1?.critDice ?? 0;
         if (critDice > 0) {
-            const damageType = weapon.data?.property1?.critDamageType ?? weaponDamageType;
-            diceModifiers.push({
-                name: 'PF2E.WeaponCustomDamageLabel',
-                diceNumber: critDice,
-                dieSize: weapon.data?.property1?.critDie,
-                damageType: damageType ?? weaponDamageType,
-                critical: true,
-                traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-            });
+            const damageType = weapon.data?.property1?.critDamageType;
+            diceModifiers.push(
+                new PF2DamageDice({
+                    selector: 'damage',
+                    name: 'PF2E.WeaponCustomDamageLabel',
+                    diceNumber: critDice,
+                    dieSize: <DamageDieSize>weapon.data?.property1?.critDie,
+                    damageType: damageType,
+                    critical: true,
+                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
+                }),
+            );
         }
 
         // potency
@@ -283,12 +288,14 @@ export class PF2WeaponDamage {
                 );
                 effectDice += s.bonus;
                 strikingDice = s.bonus;
-                diceModifiers.push({
-                    name: s.label,
-                    diceNumber: s.bonus,
-                    enabled: true,
-                    traits: ['magical'],
-                });
+                diceModifiers.push(
+                    new PF2DamageDice({
+                        selector: 'damage',
+                        name: s.label,
+                        diceNumber: s.bonus,
+                        traits: ['magical'],
+                    }),
+                );
             }
         }
 
@@ -296,11 +303,13 @@ export class PF2WeaponDamage {
 
         // ghost touch
         if (hasGhostTouchRune(weapon)) {
-            diceModifiers.push({
-                name: 'PF2E.WeaponPropertyRuneGhostTouch',
-                enabled: true,
-                traits: ['ghostTouch'],
-            });
+            diceModifiers.push(
+                new PF2DamageDice({
+                    selector: 'damage',
+                    name: 'PF2E.WeaponPropertyRuneGhostTouch',
+                    traits: ['ghostTouch'],
+                }),
+            );
         }
 
         // backstabber trait
@@ -318,28 +327,33 @@ export class PF2WeaponDamage {
         traits
             .filter((t) => t.name.startsWith('deadly-'))
             .forEach((t) => {
-                diceModifiers.push({
-                    name: CONFIG.PF2E.weaponTraits[t.name],
-                    diceNumber: strikingDice > 1 ? strikingDice : 1,
-                    dieSize: t.name.substring(t.name.indexOf('-') + 1),
-                    critical: true,
-                    enabled: true,
-                });
+                diceModifiers.push(
+                    new PF2DamageDice({
+                        selector: 'damage',
+                        name: CONFIG.PF2E.weaponTraits[t.name],
+                        diceNumber: strikingDice > 1 ? strikingDice : 1,
+                        dieSize: <DamageDieSize>t.name.substring(t.name.indexOf('-') + 1),
+                        critical: true,
+                    }),
+                );
             });
 
         // fatal trait
         traits
             .filter((t) => t.name.startsWith('fatal-'))
             .forEach((t) => {
-                const dieSize = t.name.substring(t.name.indexOf('-') + 1);
-                diceModifiers.push({
-                    name: CONFIG.PF2E.weaponTraits[t.name],
-                    diceNumber: 1,
-                    dieSize,
-                    critical: true,
-                    enabled: true,
-                    override: { dieSize },
-                });
+                const dieSize = <DamageDieSize>t.name.substring(t.name.indexOf('-') + 1);
+                diceModifiers.push(
+                    new PF2DamageDice({
+                        selector: 'damage',
+                        name: CONFIG.PF2E.weaponTraits[t.name],
+                        diceNumber: 1,
+                        dieSize,
+                        critical: true,
+                        enabled: true,
+                        override: { dieSize },
+                    }),
+                );
             });
 
         // check for weapon specialization
@@ -469,24 +483,21 @@ export class PF2WeaponDamage {
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
     static getFormula(damage, critical: boolean) {
         const base = duplicate(damage.base);
+        const diceModifiers: PF2DamageDice[] = damage.diceModifiers;
 
         // override first, to ensure the dice stacking works properly
-        let overrideDieSize = null;
-        let overrideDamageType = null;
-        damage.diceModifiers
+        diceModifiers
             .filter((dm) => dm.enabled)
             .filter((dm) => dm.override)
             .forEach((dm) => {
                 if (critical && dm.critical) {
-                    overrideDieSize = dm.override.dieSize ?? overrideDieSize;
-                    overrideDamageType = dm.override.damageType ?? overrideDamageType;
+                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
+                    base.damageType = dm.override?.damageType ?? base.damageType;
                 } else if (!dm.critical) {
-                    overrideDieSize = dm.override.dieSize ?? overrideDieSize;
-                    overrideDamageType = dm.override.damageType ?? overrideDamageType;
+                    base.dieSize = dm.override?.dieSize ?? base.dieSize;
+                    base.damageType = dm.override?.damageType ?? base.damageType;
                 }
             });
-        base.dieSize = overrideDieSize ?? base.dieSize;
-        base.damageType = overrideDamageType ?? base.damageType;
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
@@ -501,7 +512,7 @@ export class PF2WeaponDamage {
         };
 
         // dice modifiers always stack
-        damage.diceModifiers
+        diceModifiers
             .filter((dm) => dm.enabled)
             .filter((dm) => !dm.critical || critical)
             .forEach((dm) => {
@@ -625,7 +636,7 @@ export class PF2WeaponDamage {
     public static addDice(
         pool: DamagePool,
         damageType: string,
-        category: string,
+        category: string | undefined,
         dieSize: string,
         count: number,
     ): DamagePool {
