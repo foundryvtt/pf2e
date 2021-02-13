@@ -311,7 +311,7 @@ declare class Application {
      * Close the application and un-register references to it within UI mappings
      * This function returns a Promise which resolves once the window closing animation concludes
      */
-    close(): Promise<any>;
+    close(): Promise<unknown>;
 
     /**
      * Minimize the pop-out window, collapsing it to a small tab
