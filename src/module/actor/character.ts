@@ -158,6 +158,51 @@ export class PF2ECharacter extends PF2EActor {
             data.attributes.hp = stat;
         }
 
+        // Recovery
+        {
+            // Link wounded value on character sheet to condition
+            data.attributes.wounded.value = 0;
+
+            (statisticsModifiers.wounded || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    if (!m.ignored) {
+                        data.attributes.wounded.value += m.modifier;
+                    }
+                });
+
+            // don't exceed max value, which causes problems on the sheet
+            data.attributes.wounded.value = Math.min(data.attributes.wounded.value, data.attributes.wounded.max);
+
+            // Link dying value on character sheet to condition
+            data.attributes.dying.value = 0;
+
+            (statisticsModifiers.dying || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    if (!m.ignored) {
+                        data.attributes.dying.value += m.modifier;
+                    }
+                });
+
+            // don't exceed max value, which causes problems on the sheet
+            data.attributes.dying.value = Math.min(data.attributes.dying.value, data.attributes.dying.max);
+
+            // Link doomed value on character sheet to condition
+            data.attributes.doomed.value = 0;
+
+            (statisticsModifiers.doomed || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    if (!m.ignored) {
+                        data.attributes.doomed.value += m.modifier;
+                    }
+                });
+
+            // don't exceed max value, which causes problems on the sheet
+            data.attributes.doomed.value = Math.min(data.attributes.doomed.value, data.attributes.doomed.max);
+        }
+
         // Saves
         const worn = this.getFirstWornArmor();
         for (const [saveName, save] of Object.entries(data.saves)) {
