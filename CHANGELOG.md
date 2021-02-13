@@ -3,7 +3,7 @@
 ## Version 1.11.6
 ### Bug Fixes
 * (stwlam) Prevent error from being thrown when unnamed effects are in the token HUD status effects menu
-* (stwlam) :monkey_face: :adhesive_bandage: EntityCollection class to fix Foundry bug occurring on Compendium import
+* (stwlam) 🐵🩹 EntityCollection class to fix Foundry bug occurring on Compendium import
 * (nikolaj-a) Ensure effects toggled from the hotbar has a source ID flag
 * (nikolaj-a) Remove duplicate action icon style from Tiny MCE. Closes #1057
 * (nikolaj-a) Initial support for NPC speed rule elements, including the `total` field for aligning with the PC structure
