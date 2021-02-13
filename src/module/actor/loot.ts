@@ -27,6 +27,13 @@ export class PF2ELoot extends PF2EActor {
         return super.can(user, action, target);
     }
 
+    /** A user can see a loot actor in the actor directory only if they have at least Observer permission
+     * @override
+     */
+    get visible(): boolean {
+        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    }
+
     isLootableBy(user: User) {
         return PF2ELoot.can(user, 'update', this);
     }

@@ -95,14 +95,14 @@ export class PF2eConditionManager {
     /**
      * Get a condition using the status name.
      *
-     * @param {string} statusName    A list of conditions
-     * @return {ConditionData}       The condition.
+     * @param statusName A list of conditions
      */
-    public static getConditionByStatusName(statusName: string): ConditionData {
+    public static getConditionByStatusName(statusName: string): ConditionData | undefined {
         if (PF2eConditionManager._customStatusNames.has(statusName)) {
             return duplicate(PF2eConditionManager._customStatusNames.get(statusName));
         } else {
-            return duplicate(PF2eConditionManager._compendiumConditionStatusNames.get(statusName));
+            const conditionData = PF2eConditionManager._compendiumConditionStatusNames.get(statusName);
+            return conditionData === undefined ? undefined : duplicate(conditionData);
         }
     }
 

@@ -12,12 +12,6 @@ export class WorldClock extends Application {
     /** Localization keys */
     private readonly translations = CONFIG.PF2E.worldClock;
 
-    /** Whether the locale has a 12- or 24-hour clock */
-    private readonly timeConvention = Intl.DateTimeFormat(navigator.language, { hour: 'numeric' }).resolvedOptions()
-        .hour12
-        ? 12
-        : 24;
-
     private readonly animateDarkness = animateDarkness;
 
     /** @override */
@@ -35,6 +29,15 @@ export class WorldClock extends Application {
     /** Setting: the date theme (Imperial Calendar not yet supported) */
     get dateTheme(): 'AR' | 'IC' | 'AD' | 'CE' {
         return game.settings.get('pf2e', 'worldClock.dateTheme');
+    }
+
+    /** Setting: display either a 24-hour or 12-hour clock */
+    get timeConvention(): 24 | 12 {
+        const setting = game.settings.get('pf2e', 'worldClock.timeConvention');
+        if (setting !== 24 && setting !== 12) {
+            throw Error('PF2e System | Unrecognized time convention');
+        }
+        return setting;
     }
 
     /** Setting: whether to keep the scene's darkness level synchronized with the world time */
@@ -137,9 +140,10 @@ export class WorldClock extends Application {
                       ordinalSuffix: this.ordinalSuffix,
                   });
 
-        const time = this.worldTime.toLocaleString(
-            this.timeConvention === 12 ? DateTime.TIME_WITH_SECONDS : DateTime.TIME_24_WITH_SECONDS,
-        );
+        const time =
+            this.timeConvention === 24
+                ? this.worldTime.toFormat('HH:mm:ss')
+                : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
 
         return { date, time, options, user: game.user };
     }
