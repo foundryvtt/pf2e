@@ -563,6 +563,7 @@ export class PF2ECharacter extends PF2EActor {
                     weaponType: { value: 'unarmed' },
                     bonus: { value: 0 },
                     damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
+                    group: { value: 'brawling' },
                     range: { value: 'melee' },
                     traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                     equipped: {
