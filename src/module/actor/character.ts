@@ -618,8 +618,13 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
+                    const traits = PF2EActor.traits(item?.data?.traits?.value);
+                    const melee =
+                        ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
+                        traits.some((t) => t.startsWith('thrown'));
                     const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
-                        .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
+                        .concat(...traits) // always add weapon traits as options
+                        .concat(melee ? 'melee' : 'ranged')
                         .concat(`${ability}-attack`);
                     ensureProficiencyOption(defaultOptions, proficiencyRank);
                     const notes = [] as PF2RollNote[];
