@@ -107,6 +107,7 @@ export class PF2Actions {
                         actor,
                         type: checkType,
                         options: finalOptions,
+                        notes: stat.notes ?? [],
                         traits,
                     },
                     event,

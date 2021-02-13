@@ -397,6 +397,7 @@ export class PF2ECharacter extends PF2EActor {
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
             stat.value = stat.totalModifier;
+            stat.notes = notes;
             stat.roll = adaptRoll((args) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
