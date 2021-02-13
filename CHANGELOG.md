@@ -14,7 +14,7 @@
 ### Content Changes
 * (Drental) Update spirit instinct to use normal rage damage as an option
 * (Drental) Fix ranger precision at level 11
-* (Drental) Nature gets access to treat wounds and crafting cannot set DC
+* (Drental) Added strict or permissive RAI settings to Treat Wounds macro
 * (Shandyan) Added toggle to dragon barbarian rage
 * (Shandyan) Make Precision Ranger easier to use
 * (Shandyan) Corrected Sticky Bombs
@@ -25,7 +25,7 @@
 * (SpartanCPA) Added a Compendium for monsters from Little Trouble in Big Absalom
 * (TMun) Add missing spike launcher from Abomination Vault. Closes #1075
 * (TMun) Adds new traits from Lost Omens Ancestry Guide
-* (TMun) Correct action on Kralgurn from Age of Aashes. Updates with new equipment. Closes #1077
+* (TMun) Correct action on Kralgurn from Age of Ashes. Updates with new equipment. Closes #1077
 * (stwlam) Fix drag and drop of Abomination Vaults items to the actor sheet. Closes #1068
 * (fryguy) Fix bestiary mistakes in Agents of Edgewatch
 
