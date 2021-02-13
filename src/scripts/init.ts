@@ -166,8 +166,9 @@ if (a) {
 }
 
 async function createToggleEffectMacro(pack: string, effect: PF2EEffect, slot: number) {
+    const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
-const ITEM_UUID = 'Compendium.${pack}.${effect.id}'; // ${effect.data.name}
+const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 (async () => {
   const effect = duplicate(await fromUuid(ITEM_UUID));
   effect.flags.core = effect.flags.core ?? {};
@@ -254,8 +255,9 @@ Hooks.on('canvasInit', async () => {
 Hooks.on('hotbarDrop', async (bar, data, slot) => {
     // check for item link
     let item: PF2EItem | undefined;
-    if (data.type === 'Item' && data.pack && data.id) {
-        item = (await fromUuid(`Compendium.${data.pack}.${data.id}`)) as PF2EItem;
+    if (data.type === 'Item' && data.id) {
+        const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
+        item = (await fromUuid(`${prefix}.${data.id}`)) as PF2EItem;
     }
 
     if (item instanceof PF2EEffect) {
