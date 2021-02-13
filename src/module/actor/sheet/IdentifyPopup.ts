@@ -48,5 +48,7 @@ export class IdentifyItemPopup extends FormApplication<PF2EActor> {
         } else if (!(item instanceof PF2EPhysicalItem)) {
             throw Error(`PF2e | ${item?.name} is not a physical item.`);
         }
+
+        return item;
     }
 }
