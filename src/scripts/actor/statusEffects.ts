@@ -130,7 +130,7 @@ export class PF2eStatusEffects {
                     ' condition panel.',
                 scope: 'world',
                 config: true,
-                default: true,
+                default: false,
                 type: Boolean,
                 onChange: () => {
                     window.location.reload(false);
