@@ -95,15 +95,6 @@ Hooks.once('init', () => {
     CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
     // configure the bundled TinyMCE editor with PF2-specific options
-    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
-    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-        title: 'Icons A D T F R',
-        inline: 'span',
-        classes: ['pf2-icon'],
-        wrapper: true,
-    });
-
-    // configure the bundled TinyMCE editor with PF2-specific options
     CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
     CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
     CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
