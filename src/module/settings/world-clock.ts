@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-type SettingsKey = 'dateTheme' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
+type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
 
 interface FormInputData extends ClientSettingsData {
     key: string;
@@ -15,6 +15,7 @@ type TemplateData = FormApplicationData & {
 
 interface UpdateData {
     dateTheme: string;
+    timeConvention: boolean;
     playersCanView: boolean;
     syncDarkness: boolean;
     worldCreatedOn: string;
@@ -62,6 +63,7 @@ export class WorldClockSettings extends FormApplication {
     /** Register World Clock settings */
     static registerSettings() {
         game.settings.register('pf2e', 'worldClock.dateTheme', this.settings.dateTheme);
+        game.settings.register('pf2e', 'worldClock.timeConvention', this.settings.timeConvention);
         game.settings.register('pf2e', 'worldClock.playersCanView', this.settings.playersCanView);
         game.settings.register('pf2e', 'worldClock.syncDarkness', this.settings.syncDarkness);
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
@@ -69,7 +71,13 @@ export class WorldClockSettings extends FormApplication {
 
     /** @override */
     protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
-        const keys: (keyof UpdateData)[] = ['dateTheme', 'playersCanView', 'syncDarkness', 'worldCreatedOn'];
+        const keys: (keyof UpdateData)[] = [
+            'dateTheme',
+            'timeConvention',
+            'playersCanView',
+            'syncDarkness',
+            'worldCreatedOn',
+        ];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
             const newValue = key === 'worldCreatedOn' ? DateTime.fromISO(data[key]) : data[key];
@@ -103,6 +111,18 @@ export class WorldClockSettings extends FormApplication {
                     AR: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AR,
                     AD: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AD,
                     CE: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.CE,
+                },
+            },
+            timeConvention: {
+                name: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.name,
+                hint: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.hint,
+                scope: 'world',
+                config: false,
+                default: 24,
+                type: Number,
+                choices: {
+                    24: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twentyFour,
+                    12: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twelve,
                 },
             },
             // Players can view the World Clock
