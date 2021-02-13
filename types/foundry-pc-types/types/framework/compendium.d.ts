@@ -104,6 +104,9 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
 
     constructor(metadata: object, options: object);
 
+    /** @override */
+    get title(): string;
+
     /**
      * The canonical Compendium name - comprised of the originating package and the pack name
      * @return The canonical collection name
@@ -123,7 +126,13 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * Create a new Compendium pack using provided
      * @param metadata The compendium metadata used to create the new pack
      */
-    static create(metadata: object): Promise<Compendium>;
+    static create(metadata: CompendiumMetadata, options?: {}): Promise<Compendium>;
+
+    /**
+     * Duplicate a compendium pack to the current World
+     * @param label
+     */
+    duplicate({label}?: {label?: string}): Promise<Compendium>;
 
     /**
      * Delete a world Compendium pack

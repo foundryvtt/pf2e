@@ -5,7 +5,7 @@ declare class SidebarTab extends Application {
     /**
      * Only close the pop-out version of the sidebar tab
      */
-    close(): any;
+    close(): Promise<void>;
 
     /**
      * Render the SidebarTab as a pop-out container
