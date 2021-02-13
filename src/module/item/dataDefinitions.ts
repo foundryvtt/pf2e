@@ -552,6 +552,9 @@ export interface SpellDetailsData extends ItemDescriptionData {
     heightenedLevel: {
         value: number;
     };
+    hasCounteractCheck: {
+        value: boolean;
+    };
     isSave?: boolean;
     damageLabel?: string;
     isAttack?: boolean;
