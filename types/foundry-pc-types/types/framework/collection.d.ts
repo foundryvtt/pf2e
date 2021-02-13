@@ -58,15 +58,6 @@ declare class Collection<T> extends Map {
     get directory(): any;
 
     /**
-     * Return a reference to the Entity subclass which should be used when creating elements of this Collection
-     *
-     * This should always be an explicit reference to the class which is used in this game to represent the entity,
-     * and not the base implementation of that entity type.
-     * For example :class:`Actor5e` not :class:`Actor`
-     */
-    get object(): T;
-
-    /**
      * Return the base Entity name which this collection manages.
      *
      * This should always be the primitive name of the entity type, not the name of a specific subclass implementation
@@ -147,16 +138,6 @@ declare class Collection<T> extends Map {
      * }, ""); // "ABC"
      */
     reduce<S>(evaluator: (state: S, val: T) => S, initial: S): S;
-
-    /**
-     * Import an Entity from a compendium collection, adding it to the current World
-     * @param collection	The name of the pack from which to import
-     * @param entryId		The ID of the compendium entry to import
-     * @param updateData	Data used to update the imported Entity before it is created in the World
-     * @return				A Promise containing the imported Entity
-     */
-
-    importFromCollection(collection: string, entryId: string, updateData?: object, options?: object): Promise<T>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */
