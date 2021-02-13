@@ -41,7 +41,35 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key":"PF2E.RuleElement.BaseSpeed",
+                "label":"Raging Athlete",
+                "predicate":{"all":["rage"]},
+                "roll-options":["all"],
+                "selector":"swim",
+                "type":"rage",
+                "value":"@attributes.speed.value"
+            },
+            {
+                "key":"PF2E.RuleElement.BaseSpeed",
+                "label":"Raging Athlete",
+                "predicate":{"all":["rage"]},
+                "roll-options":["all"],
+                "selector":"climb",
+                "type":"rage",
+                "value":"@attributes.speed.value"
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "property": "flags.pf2e.rollOptions.all.raging-athlete",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "retain": true
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
