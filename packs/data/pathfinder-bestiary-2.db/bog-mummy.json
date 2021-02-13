@@ -15,7 +15,7 @@
             "dex": {
                 "min": 3,
                 "mod": 2,
-                "value": 10
+                "value": 14
             },
             "int": {
                 "min": 3,
@@ -25,22 +25,26 @@
             "str": {
                 "min": 3,
                 "mod": 5,
-                "value": 10
+                "value": 20
             },
             "wis": {
                 "min": 3,
                 "mod": 1,
-                "value": 10
+                "value": 12
             }
         },
         "attributes": {
             "ac": {
+                "base": 21,
+                "breakdown": "Base Armor Class 10, Base Modifier +9, Dexterity +2",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "21"
+                "name": "ac",
+                "totalModifier": 11,
+                "value": 21
             },
             "allSaves": {
                 "value": ""
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +11, Wisdom +1",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 12,
                 "value": 12
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "20 feet"
+                "value": 20
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -208,26 +217,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +13, Constitution +0",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 13,
                 "value": 13
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 9,
+                "breakdown": "Base Modifier +7, Dexterity +2",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 9,
                 "value": 9
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 14,
+                "breakdown": "Base Modifier +13, Wisdom +1",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 14,
                 "value": 14
             }
         },
@@ -240,134 +258,245 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +7, Strength +5",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "3IrzjRB89Xfvuqf2",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 12,
+                "value": 12,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +0",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +0",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +0",
+                "expanded": "intimidation",
                 "item": 0,
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +0",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
+            },
+            "stealth-(+13-while-buried-in-a-bog)": {
+                "base": 11,
+                "breakdown": "Base Modifier +11, Intelligence +0",
+                "expanded": "stealth-(+13-while-buried-in-a-bog)",
+                "itemID": "bo6bsp0fKrJ9ddNK",
+                "label": "Stealth (+13 while buried in a bog)",
+                "lore": true,
+                "name": "Stealth (+13 while buried in a bog)",
+                "rank": 1,
+                "totalModifier": 11,
+                "value": 11,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             }
         },
         "spells": {
@@ -475,6 +604,7 @@
             }
         }
     },
+    "img": "icons/svg/mystery-man.svg",
     "items": [
         {
             "_id": "8SCH000Zv6X9BFPf",
@@ -529,6 +659,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -591,6 +724,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -644,6 +778,7 @@
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -693,7 +828,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature walks on top of a bog mummy that lies buried in the mud or peat below; <br />\n<b>Requirements</b> Initiative has not yet been rolled; <br />\n<b>Effect</b> The bog mummy automatically notices the creature and Burrows before rolling initiative."
+                    "value": "<p><strong>Trigger</strong> A creature walks on top of a bog mummy that lies buried in the mud or peat below; <br /><strong>Requirements</strong> Initiative has not yet been rolled; <br /><strong>Effect</strong> The bog mummy automatically notices the creature and @Compendium[pf2e.actionspf2e.Burrow]{Burrow}s before rolling initiative.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -702,10 +837,17 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -730,7 +872,7 @@
                     }
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Rise Up",
             "sort": 300000,
             "type": "action"
@@ -750,7 +892,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with remove curse or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be resurrected except by a 7th‑level resurrect ritual or similar magic; <br />\n<b>Saving Throw</b> DC 21 Fortitude; <br />\n<b>Stage 1</b> carrier with no ill effect (1 minute); <br />\n<b>Stage 2</b> [[/r 3d6 # negative damage]] negative damage and clumsy 1 (1 day)"
+                    "value": "<p>This affliction can't be reduced below stage 1, nor can the damage from it be healed, until it's successfully treated with @Compendium[pf2e.spells-srd.Remove Curse]{Remove Curse} or a similar effect; the affliction can then be removed as normal for a disease. A creature killed by bog rot melts into a noxious sludge and can't be resurrected except by a 7th‑level @Compendium[pf2e.spells-srd.Resurrect]{Resurrect} ritual or similar magic; <br /><strong>Saving Throw</strong> DC 21 Fortitude; <br /><strong>Stage 1</strong> carrier with no ill effect (1 minute); <br /><strong>Stage 2</strong> [[/r 3d6 # negative damage]] negative damage and clumsy 1 (1 day)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -759,10 +901,17 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -820,6 +969,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -838,11 +988,9 @@
             "type": "lore"
         },
         {
-            "_id": "bo6bsp0fKrJ9ddNK",
+            "_id": "hRtVj9LD40iGWEoE",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "featType": "",
@@ -858,21 +1006,37 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Buried",
+                        "predicate": {
+                            "all": [
+                                "buried"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "variants": {
+                    "0": {
+                        "label": "+13 while buried in a bog",
+                        "options": "buried"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+13 while buried in a bog)",
+            "name": "Stealth",
             "sort": 600000,
             "type": "lore"
         }

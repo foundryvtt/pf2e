@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
+                "mod": 10,
                 "value": 30
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 47,
+                "breakdown": "Base Armor Class 10, Base Modifier +30, Dexterity +7",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "47"
+                "name": "ac",
+                "totalModifier": 37,
+                "value": 47
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -60,11 +64,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "280",
+                "max": 280,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "280"
+                "value": 280
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 37,
+                "breakdown": "Base Modifier +29, Wisdom +8",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 37,
                 "value": 37
             },
             "resolve": {
@@ -104,7 +111,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": "70 feet"
+                "value": 70
             }
         },
         "currency": {
@@ -121,6 +128,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "LG"
@@ -150,13 +159,23 @@
             },
             "level": {
                 "min": 1,
-                "value": "20"
+                "value": 20
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=554",
             "recallKnowledgeText": "Recall Knowledge - Celestial : DC 45",
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 24"
+            }
+        },
+        "items": {
+            "CFncnCOk0MBxjpim": {
+                "data": {
+                    "spelldc": {
+                        "dc": 42,
+                        "value": 34
+                    }
+                }
             }
         },
         "martial": {
@@ -204,26 +223,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 38,
+                "breakdown": "Base Modifier +28, Constitution +10",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 38,
                 "value": 38
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 31,
+                "breakdown": "Base Modifier +24, Dexterity +7",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 31,
                 "value": 31
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +26, Wisdom +8",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 34,
                 "value": 34
             }
         },
@@ -236,134 +264,238 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +7",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 7,
+                "value": 7,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 38,
+                "breakdown": "Base Modifier +28, Strength +10",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "VvWdBUQSkH9G9mMG",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 38,
+                "value": 38,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +6",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +28, Charisma +6",
+                "expanded": "diplomacy",
                 "item": 0,
+                "itemID": "nsmQJuFe17ZRJOKI",
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Diplomacy",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +28, Charisma +6",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "TpQrryQeS3hpOJGU",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +8",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +8",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +6",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 32,
+                "breakdown": "Base Modifier +24, Wisdom +8",
+                "expanded": "religion",
                 "item": 0,
+                "itemID": "DHYD7JEG5QTeGMvt",
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Religion",
+                "rank": 1,
+                "totalModifier": 32,
+                "value": 32,
+                "visible": true
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +7",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 7,
+                "value": 7,
+                "visible": false
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +8",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +7",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 7,
+                "value": 7,
+                "visible": false
             }
         },
         "spells": {
@@ -447,6 +579,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -481,6 +614,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -546,11 +680,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "42",
+                    "dc": 42,
                     "item": 0,
                     "mod": 0,
                     "value": 34
@@ -565,6 +700,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Divine Innate Spells",
@@ -627,6 +763,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -684,9 +823,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -708,6 +849,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -739,10 +881,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -765,6 +909,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Bastion Aura",
@@ -794,10 +939,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -819,59 +966,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ultimate Sacrifice",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "VLvVaLJAJk7iGehu",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Retributive Strike",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -897,10 +996,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -917,6 +1018,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fast Healing",
@@ -946,10 +1048,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -966,6 +1070,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Archon's Door",
@@ -995,10 +1100,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1015,6 +1122,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Blinding Beams",
@@ -1044,10 +1152,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1066,6 +1176,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Entrench",
@@ -1082,12 +1193,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The bastion archon releases a blinding beam of holy light in a 500-foot line that deals [[/r 20d6 # good damage]] good damage to non-archons in the area, with a DC 38 Reflex save. The bastion archon can't use Holy Beam again for 1d4 rounds. <br /><b>Critical Success </b>The creature is unaffected. <br /><b>Success </b>The creature takes half damage. <br /><b>Failure </b>The creature takes full damage and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1d4 rounds. <br /><b>Critical Failure </b>The creature takes double damage and is blinded permanently."
+                    "value": "<p>The bastion archon releases a blinding beam of holy light in a 500-foot line that deals [[/r 20d6 # good damage]] good damage to non-archons in the area, with a DC 38 Reflex save. The bastion archon can't use Holy Beam again for [[/r 1d4 # Holy Beam cooldown]] rounds. <br /><strong>Critical Success </strong>The creature is unaffected. <br /><strong>Success </strong>The creature takes half damage. <br /><strong>Failure </strong>The creature takes full damage and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/r 1d4]] rounds. <br /><strong>Critical Failure </strong>The creature takes double damage and is blinded permanently.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1095,10 +1206,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1120,8 +1239,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Holy Beam",
             "sort": 1000000,
             "type": "action"
@@ -1147,6 +1267,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1157,6 +1279,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1184,6 +1307,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1194,6 +1319,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Diplomacy",
@@ -1221,6 +1347,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1231,6 +1359,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
@@ -1258,6 +1387,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1268,6 +1399,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
@@ -1275,7 +1407,66 @@
             "type": "lore"
         },
         {
-            "_id": "A6YGADbayePUHKG4",
+            "_id": "1rcq6NAPF2IO7yzT",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "retributive-strike",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.IQtb58p4EaeUzTN1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Retributive Strike",
+            "sort": 2700000,
+            "type": "action"
+        },
+        {
+            "_id": "M3T59yjY5KXove3B",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1287,6 +1478,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "4 40-foot bursts"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1302,19 +1496,19 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "6d10"
+                    "value": "7d10"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "fire"
+                    "value": "bludgeoning"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You call down four meteors that explode in a fiery blast. Each meteor deals 6d10 bludgeoning damage to any creatures in the 10-foot burst at the center of its area of effect before exploding, dealing 14d6 fire damage to any creatures in its 40-foot burst. The meteors' central 10-foot bursts can't overlap, and a creature takes the same amount of fire damage no matter how many overlapping explosions it's caught in. The saving throw applies to both the bludgeoning and the fire damage.</p>\n<hr />\n<p><strong>Heightened</strong>  The bludgeoning damage increases by 1d10, and the fire damage increases by 2d6.</p>"
+                    "value": "<p>You call down four meteors that explode in a fiery blast. Each meteor deals 6d10 bludgeoning damage to any creatures in the 10-foot burst at the center of its area of effect before exploding, dealing 14d6 fire damage to any creatures in its 40-foot burst. The meteors' central 10-foot bursts can't overlap, and a creature takes the same amount of fire damage no matter how many overlapping explosions it's caught in. The saving throw applies to both the bludgeoning and the fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d10, and the fire damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1324,7 +1518,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -1339,6 +1533,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1347,25 +1544,36 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "meteor-swarm",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=191"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1400,24 +1608,29 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "evocation",
                         "fire"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jrBa9deU2ULFWvSl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/meteor-swarm.jpg",
             "name": "Meteor Swarm",
-            "sort": 1500000,
+            "sort": 2800000,
             "type": "spell"
         },
         {
-            "_id": "6E5Zh0pfqO1uJw9B",
+            "_id": "rGjQnWn80o9Sfiv5",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1429,6 +1642,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1456,7 +1672,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You fire a blue-white ray of freezing air and swirling sleet from your finger that can chill your target to the bones. You must succeed at a spell attack roll to affect the target, which then takes 10d8 cold damage and is @Compendium[pf2e.conditionitems.Drained]{Drained} 2.</p>\n<hr />\n<p><strong>Heightened</strong>  The damage increases by 2d8.</p>"
+                    "value": "<p>You fire a blue-white ray of freezing air and sleet fthat deals 10d8 cold damage. Make a spell attack roll against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained} 2</p>\n<p><strong>Success</strong> The target takes full damage and is Drained 2</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1466,7 +1682,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -1481,6 +1697,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1489,6 +1708,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1504,10 +1724,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "polar-ray",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=224"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1515,7 +1745,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "utility"
+                    "value": "attack"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -1525,7 +1755,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -1542,24 +1772,30 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
+                        "attack",
                         "cold",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.BKIet436snMNcnez"
+                }
+            },
             "img": "systems/pf2e/icons/spells/polar-ray.jpg",
             "name": "Polar Ray",
-            "sort": 1600000,
+            "sort": 2900000,
             "type": "spell"
         },
         {
-            "_id": "ML0OlhzrnsPAFIvI",
+            "_id": "PsRX65v3YDmAu9Dh",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1571,6 +1807,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1586,7 +1825,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "8d10"
+                    "value": "11d10"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1598,7 +1837,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\r<p>\n<hr /><b>Critical Success</b> The creature or object is unaffected.</p>\r<p>\n<b>Success</b> The creature or object takes half damage.</p>\r<p>\n<b>Failure</b> The creature or object takes full damage.</p>\r<p>\n<b>Critical Failure</b> The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\r<p>\n<hr /><b>Heightened </b> The fire damage increases by 1d10, and the positive damage against undead increases by 1d10.</p>"
+                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The creature or object is unaffected.<p></p>\n<p>\n<b>Success</b>  The creature or object takes half damage.</p>\n<p>\n<b>Failure</b>  The creature or object takes full damage.</p>\n<p>\n<b>Critical Failure</b>  The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\n<p>\n</p><hr /><b>Heightened (+1)</b>  The fire damage increases by 1d10, and the positive damage against undead increases by 1d10.<p></p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1608,7 +1847,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -1623,6 +1862,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1631,25 +1873,36 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sunburst",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=326"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1684,6 +1937,9 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "evocation",
@@ -1691,19 +1947,21 @@
                         "light",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.a3aQxCpoj1q1NQxC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sunburst.jpg",
             "name": "Sunburst",
-            "sort": 1700000,
+            "sort": 3000000,
             "type": "spell"
         },
         {
-            "_id": "TvtRQlY4huOYFQCC",
+            "_id": "f9nMzV0ea81cgu38",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1715,6 +1973,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "30-foot cone"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1730,7 +1991,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": ""
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1742,7 +2003,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">A spray of rainbow light beams cascades from your open hand. Each creature in the area must roll 1d8 on the table below to see which beam affects it, then attempt a saving throw of the indicated type. The table notes any additional traits that apply to each type of ray. If a creature is struck by multiple beams, it uses the same d20 result for all its saving throws. For all rays, a successful saving throw negates the effect for that creature.</span></p>\n<h3><strong>Prismatic Spray</strong></h3>\n<table style=\"box-sizing: border-box; user-select: text; width: 365px; color: #191813; height: 155px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 25px; width: 26px; text-align: center; background-color: #522e2c;\"><strong style=\"box-sizing: border-box; user-select: text;\">1d8</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 66px; text-align: center; background-color: #522e2c; height: 25px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Color</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 64px; text-align: center; background-color: #522e2c; height: 25px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Save</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 25px; width: 208px; text-align: center; background-color: #522e2c;\"><strong style=\"box-sizing: border-box; user-select: text;\">Effects</strong> </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">1</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Red</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Reflex</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">50 fire damage </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\">Orange</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\">Reflex</td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\">60 acid damge </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Yellow</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Reflex</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">70 electricity damage </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 26px; text-align: center; background-color: #eee5c8;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Green</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Fortitude</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 208px; text-align: center; background-color: #eee5c8;\">30 poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 minute </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Blue</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Fortitude</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">Affected as if by <em>flest to stone</em></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Indigo</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Will</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\">Confused, as the <em>warp mind</em> spell </td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Violet</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Will</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">Slowed for 1 minute; if a critical failure, sent to another plane, as <em>plane shift </em></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">Potent beam</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text;\">-<br /></span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\"><span id=\"ctl00_MainContent_DetailedOutput\">Affected by two beams - roll twice, rerolling any duplicates or results of 8</span></td>\n</tr>\n</tbody>\n</table>\n<p></p>"
+                    "value": "<p><span>A spray of rainbow light beams cascades from your open hand. Each creature in the area must roll 1d8 on the table below to see which beam affects it, then attempt a saving throw of the indicated type. The table notes any additional traits that apply to each type of ray. If a creature is struck by multiple beams, it uses the same d20 result for all its saving throws. For all rays, a successful saving throw negates the effect for that creature.</span></p>\n<h3><strong>Prismatic Spray</strong></h3>\n<table style=\"box-sizing: border-box; user-select: text; width: 365px; color: #191813; height: 155px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 25px; width: 26px; text-align: center; background-color: #522e2c;\"><strong style=\"box-sizing: border-box; user-select: text;\">1d8</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 66px; text-align: center; background-color: #522e2c; height: 25px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Color</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 64px; text-align: center; background-color: #522e2c; height: 25px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Save</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 25px; width: 208px; text-align: center; background-color: #522e2c;\"><strong style=\"box-sizing: border-box; user-select: text;\">Effects (Traits)</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">1</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Red</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Reflex</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">50 fire damage (fire)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\">Orange</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\">Reflex</td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\">60 acid damge (acid)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Yellow</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Reflex</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">70 electricity damage (electricity)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 26px; text-align: center; background-color: #eee5c8;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text;\">Green</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text;\">Fortitude</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 208px; text-align: center; background-color: #eee5c8;\">30 poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 minute (poison)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Blue</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Fortitude</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">Affected as if by @Compendium[pf2e.spells-srd.Flesh to Stone]{Flesh to Stone}</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Indigo</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Will</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\">Confused, as the @Compendium[pf2e.spells-srd.Warp Mind]{Warp Mind} spell (mental)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #f6f1e1;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Violet</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Will</span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #f6f1e1;\">Slowed for 1 minute; if a critical failure, sent to another plane, as @Compendium[pf2e.spells-srd.Plane Shift]{Plane Shift}<em> </em>(teleportation)</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 26px; text-align: center; background-color: #eee5c8;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 66px; text-align: center; background-color: #eee5c8; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">Potent beam</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 64px; text-align: center; background-color: #eee5c8; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text;\">-<br /></span></td>\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 208px; text-align: center; background-color: #eee5c8;\"><span>Affected by two beams - roll twice, rerolling any duplicates or results of 8</span></td>\n</tr>\n</tbody>\n</table>\n<p></p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1767,6 +2028,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1775,6 +2039,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1790,10 +2055,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "prismatic-spray",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=233"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1828,24 +2103,29 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "evocation",
                         "light"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.d6o52BnjViNz7Gub"
+                }
+            },
             "img": "systems/pf2e/icons/spells/prismatic-spray.jpg",
             "name": "Prismatic Spray",
-            "sort": 1800000,
+            "sort": 3100000,
             "type": "spell"
         },
         {
-            "_id": "YiBOe1WSxW42tihG",
+            "_id": "n5AGd4Ew5VKZiIzA",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1857,6 +2137,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1884,7 +2167,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your target might avoid harm, then cast out a vision of that future to those around you. On the first attack roll made against the target during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the target being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
+                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe  might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1909,6 +2192,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1917,6 +2203,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1932,10 +2219,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-target",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=346"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1953,7 +2250,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature"
+                    "value": "4 creatures"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -1970,25 +2267,30 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "divination",
                         "fortune",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.AlbpWWN87yGegoAF"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-target.jpg",
             "name": "True Target",
-            "sort": 1900000,
+            "sort": 3200000,
             "type": "spell"
         },
         {
-            "_id": "ZICLafQE0wVO8K96",
+            "_id": "4W4XxBrH2NlxWQbi",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2000,6 +2302,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2027,7 +2332,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your target might avoid harm, then cast out a vision of that future to those around you. On the first attack roll made against the target during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the target being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
+                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe  might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2052,6 +2357,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2060,6 +2368,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2075,10 +2384,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-target",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=346"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2096,7 +2415,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature"
+                    "value": "4 creatures"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -2113,25 +2432,30 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "divination",
                         "fortune",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.AlbpWWN87yGegoAF"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-target.jpg",
             "name": "True Target",
-            "sort": 2000000,
+            "sort": 3300000,
             "type": "spell"
         },
         {
-            "_id": "GOdbxQQXFdCcCDrY",
+            "_id": "fDmcEEpxfQZyj8Nt",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2143,6 +2467,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2170,7 +2497,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your target might avoid harm, then cast out a vision of that future to those around you. On the first attack roll made against the target during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the target being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
+                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe  might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @Compendium[pf2e.conditionitems.Concealed]{Concealed} or @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2195,6 +2522,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2203,6 +2533,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2218,10 +2549,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-target",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=346"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2239,7 +2580,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature"
+                    "value": "4 creatures"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -2256,25 +2597,30 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "divination",
                         "fortune",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.AlbpWWN87yGegoAF"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-target.jpg",
             "name": "True Target",
-            "sort": 2100000,
+            "sort": 3400000,
             "type": "spell"
         },
         {
-            "_id": "10irF1KsEwL2CvWc",
+            "_id": "j3Jm22DityalD4jJ",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2286,6 +2632,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "10-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2313,7 +2662,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create a pattern of lights that pulses with intensity. Creatures are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} while inside the pattern. In addition, a creature must attempt a Will saving throw if it's inside the pattern when you cast it, enters the pattern, ends its turn within the pattern, or uses a Seek or Interact action on the pattern. A creature currently @Compendium[pf2e.conditionitems.Blinded]{Blinded} by the pattern doesn't need to attempt new saving throws.</p>\r<p>\n<hr /><b>Success</b> The creature is unaffected.</p>\r<p>\n<b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} by the pattern. If it exits the pattern, it can attempt a new save to recover from the @Compendium[pf2e.conditionitems.Blinded]{Blinded} condition at the end of each of its turns, to a maximum duration of 1 minute.</p>\r<p>\n<b>Critical Failure</b> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>"
+                    "value": "<p>You create a pattern of lights that pulses with intensity. Creatures are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} while inside the pattern. In addition, a creature must attempt a Will saving throw if it's inside the pattern when you cast it, enters the pattern, ends its turn within the pattern, or uses a Seek or Interact action on the pattern. A creature currently @Compendium[pf2e.conditionitems.Blinded]{Blinded} by the pattern doesn't need to attempt new saving throws.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is Blinded by the pattern. If it exits the pattern, it can attempt a new save to recover from the Blinded condition at the end of each of its turns, to a maximum duration of 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is Blinded for 1 minute.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2323,7 +2672,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -2338,6 +2687,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2346,11 +2698,12 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -2361,10 +2714,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vibrant-pattern",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=357"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2399,25 +2762,30 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "illusion",
                         "incapacitation",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.RQjSQVZRG497cJhX"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vibrant-pattern.jpg",
             "name": "Vibrant Pattern",
-            "sort": 2200000,
+            "sort": 3500000,
             "type": "spell"
         },
         {
-            "_id": "MXwiU917OAihqQuh",
+            "_id": "qKKullFB58MyQuO9",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2429,6 +2797,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2456,7 +2827,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong>  The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2481,6 +2852,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2489,6 +2863,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2504,10 +2879,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2542,24 +2927,29 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door ",
-            "sort": 2300000,
+            "name": "Dimension Door (At Will)",
+            "sort": 3600000,
             "type": "spell"
         },
         {
-            "_id": "aPaLtABqRwTOXxTs",
+            "_id": "za7CpHCs7E2KSAPq",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2571,6 +2961,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2608,7 +3001,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -2623,6 +3016,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2631,6 +3027,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2646,10 +3043,20 @@
                     "type": "String",
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=6"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2684,171 +3091,29 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "air",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/air-walk.jpg",
-            "name": "Air Walk ",
-            "sort": 2400000,
-            "type": "spell"
-        },
-        {
-            "_id": "fvkBc7taXeA9Ly37",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened</strong>  The duration is 8 hours.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 hour"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "10"
-                },
-                "location": {
-                    "value": "CFncnCOk0MBxjpim"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "touch"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "divination"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
+            "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
                 }
             },
-            "img": "systems/pf2e/icons/spells/tongues.jpg",
-            "name": "Tongues",
-            "sort": 2500000,
+            "img": "systems/pf2e/icons/spells/air-walk.jpg",
+            "name": "Air Walk (Constant)",
+            "sort": 3700000,
             "type": "spell"
         },
         {
-            "_id": "eqTszJkKccFotMtK",
+            "_id": "d0hZBcHc3Iff57r9",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2860,6 +3125,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2897,7 +3165,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "CFncnCOk0MBxjpim"
@@ -2912,6 +3180,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2920,6 +3191,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2935,10 +3207,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2975,20 +3257,193 @@
                 },
                 "traits": {
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing ",
-            "sort": 2600000,
+            "name": "True Seeing (Constant)",
+            "sort": 3800000,
+            "type": "spell"
+        },
+        {
+            "_id": "DjdCKngihrIAozJN",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": "1 hour"
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 10
+                },
+                "location": {
+                    "value": "CFncnCOk0MBxjpim"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "touch"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "div"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tongues",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": "1 creature"
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "type": "String",
+                    "value": [
+                        "divination"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
+                },
+                "dynamiceffects": {
+                    "alwaysActive": false,
+                    "equipActive": false
+                }
+            },
+            "img": "systems/pf2e/icons/spells/tongues.jpg",
+            "name": "Tongues (Constant)",
+            "sort": 3900000,
             "type": "spell"
         }
     ],
@@ -2997,7 +3452,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "H37tfTiLiUhpYxaS",
         "actorLink": false,
         "bar1": {
@@ -3016,6 +3470,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bastion Archon",
         "randomImg": false,

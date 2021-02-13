@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
+                "mod": 10,
                 "value": 30
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 45,
+                "breakdown": "Base Armor Class 10, Base Modifier +30, Dexterity +5",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "45"
+                "name": "ac",
+                "totalModifier": 35,
+                "value": 45
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -60,11 +64,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "375",
+                "max": 375,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "375"
+                "value": 375
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 36,
+                "breakdown": "Base Modifier +28, Wisdom +8",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 36,
                 "value": 36
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "60 feet"
+                "value": 60
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -155,13 +164,31 @@
             },
             "level": {
                 "min": 1,
-                "value": "20"
+                "value": 20
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=636",
             "recallKnowledgeText": "Recall Knowledge - Dragon : DC 45",
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 97"
+            }
+        },
+        "items": {
+            "DFZPLEk0MQcqSi9v": {
+                "data": {
+                    "spelldc": {
+                        "dc": 42,
+                        "value": 32
+                    }
+                }
+            },
+            "QjN3u2G28u81Hmuc": {
+                "data": {
+                    "spelldc": {
+                        "dc": 42,
+                        "value": 32
+                    }
+                }
             }
         },
         "martial": {
@@ -209,26 +236,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 35,
+                "breakdown": "Base Modifier +28, Constitution +7",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 35,
                 "value": 35
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 33,
+                "breakdown": "Base Modifier +28, Dexterity +5",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 33,
                 "value": 33
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 38,
+                "breakdown": "Base Modifier +30, Wisdom +8",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 38,
                 "value": 38
             }
         },
@@ -241,134 +277,244 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 33,
+                "breakdown": "Base Modifier +28, Dexterity +5",
+                "expanded": "acrobatics",
                 "item": 0,
+                "itemID": "D3ADe0u8LQnTgLYJ",
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Acrobatics",
+                "rank": 1,
+                "totalModifier": 33,
+                "value": 33,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 38,
+                "breakdown": "Base Modifier +28, Strength +10",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "hoAH4T8LI0tjkl26",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 38,
+                "value": 38,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +28, Charisma +6",
+                "expanded": "deception",
                 "item": 0,
+                "itemID": "TjZTM0EKGOVJ0S0X",
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Deception",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +6",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 36,
+                "breakdown": "Base Modifier +30, Charisma +6",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "hkuXxOxuPmTFWjDI",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 36,
+                "value": 36,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +8",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +26, Wisdom +8",
+                "expanded": "nature",
                 "item": 0,
+                "itemID": "7bhNad90ExDDqoOJ",
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Nature",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +6",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +8",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 8,
+                "value": 8,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +6",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 35,
+                "breakdown": "Base Modifier +30, Dexterity +5",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "34sEZPEBqssJnsdh",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 35,
+                "value": 35,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +26, Wisdom +8",
+                "expanded": "survival",
                 "item": 0,
+                "itemID": "AvdxOQerXrCnLU7o",
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +5",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             }
         },
         "spells": {
@@ -451,6 +597,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -485,6 +632,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -550,11 +698,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "42",
+                    "dc": 42,
                     "item": 0,
                     "mod": 0,
                     "value": 32
@@ -569,6 +718,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Primal Innate Spells",
@@ -604,6 +754,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -669,11 +820,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "42",
+                    "dc": 42,
                     "item": 0,
                     "mod": 0,
                     "value": 32
@@ -688,732 +840,12 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Rituals",
             "sort": 200000,
             "type": "spellcastingEntry"
-        },
-        {
-            "_id": "v52YPpCOMhgtODOs",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "9d6"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "negative"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the negative energy violently explodes back toward you, dealing an additional 30 negative damage to every creature in the line (even those above 17th level) and 30 negative damage to you.</p>\r<p>\n<hr /><b>Critical Success</b> The creature is unaffected.</p>\r<p>\n<b>Success</b> The creature takes 9d6 negative damage.</p>\r<p>\n<b>Failure</b> The creature takes 100 negative damage.</p>\r<p>\n<b>Critical Failure</b> The creature dies.</p>\r<p>\n<hr /><b>Heightened </b> The spell can affect creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "10"
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=186"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "death",
-                        "necromancy",
-                        "negative"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/massacre.jpg",
-            "name": "Massacre",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "AEt30BGRTZWB4yZB",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 20
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "material, somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong>  Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "9"
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "3"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "darkness",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/darkness.jpg",
-            "name": "Darkness",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "yJjsPf888FPVcW5r",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened</strong>  The damage increases by 10.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "9"
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=116"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 living creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "death",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/finger-of-death.jpg",
-            "name": "Finger of Death",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "5iJtf5GRG4SB1Vyo",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "12d6"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "negative"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened</strong>  The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "8"
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=353"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "death",
-                        "necromancy",
-                        "negative"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/vampiric-exsanguination.jpg",
-            "name": "Vampiric Exsanguination ",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "chZ14hf5D76sZSXJ",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 30
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally</p>\n<hr />\n<p><strong>Heightened</strong>  You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br ><strong>Heightened</strong>  As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "30-foot emination"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "detection",
-                        "cantrip",
-                        "divination"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/detect-magic.jpg",
-            "name": "Detect Magic - Cantrips ",
-            "sort": 700000,
-            "type": "spell"
         },
         {
             "_id": "A9SIfdrB8Hk28o23",
@@ -1473,6 +905,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1530,9 +965,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1553,6 +990,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -1613,6 +1051,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1670,9 +1111,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1693,6 +1136,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -1753,6 +1197,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1810,9 +1257,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1832,6 +1281,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -1892,6 +1342,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1949,9 +1402,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1972,6 +1427,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -2003,10 +1459,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2028,59 +1486,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Frightful Presence",
             "sort": 1200000,
-            "type": "action"
-        },
-        {
-            "_id": "kzIzh73EbyhFxiRu",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "Jaws only."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
-            "sort": 1300000,
             "type": "action"
         },
         {
@@ -2106,10 +1516,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2131,6 +1543,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Breath Weapon",
@@ -2160,10 +1573,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2180,6 +1595,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Draconic Frenzy",
@@ -2209,10 +1625,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2229,6 +1647,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Draconic Momentum",
@@ -2258,10 +1677,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2281,6 +1702,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Drain Vigor",
@@ -2310,10 +1732,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2333,6 +1757,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ghost Bane",
@@ -2360,6 +1785,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2370,6 +1797,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -2397,6 +1825,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2407,6 +1837,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -2434,6 +1865,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2444,6 +1877,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
@@ -2471,6 +1905,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2481,6 +1917,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
@@ -2508,6 +1945,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2518,6 +1957,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
@@ -2545,6 +1985,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2555,6 +1997,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -2582,6 +2025,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2592,6 +2037,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
@@ -2599,7 +2045,66 @@
             "type": "lore"
         },
         {
-            "_id": "A50z6V7sX45OAkJS",
+            "_id": "atCY8SqRe8QKscOK",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Jaws Only</p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Attack of Opportunity",
+            "sort": 2700000,
+            "type": "action"
+        },
+        {
+            "_id": "D4tQoOd3ljXHucX8",
             "data": {
                 "ability": {
                     "value": ""
@@ -2627,13 +2132,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>. </span></p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table style=\"width: 379px; user-select: text; color: #191813; font-size: 13px; height: 353px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 25px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 17px; width: 103px; text-align: center; background-color: #522e2c;\"><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Creature Level</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 165px; text-align: center; background-color: #522e2c; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Spell Level Required</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 110px; text-align: center; background-color: #522e2c; height: 17px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Cost</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\"><span id=\"ctl00_MainContent_DetailedOutput\">-1 or 0</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">2</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\">15 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #eee5c8;\"><span id=\"ctl00_MainContent_DetailedOutput\">1</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 17px;\">2<span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\"></span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\">60 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span id=\"ctl00_MainContent_DetailedOutput\">105 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 103px; text-align: center; background-color: #eee5c8;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">180 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">300 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">480 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">750 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">1,080 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">1,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">2,100 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">3,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">11</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">4,200 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">12</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">6,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">13</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">9,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">14</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">13,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">15</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">19,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">16</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">30,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">17</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span id=\"ctl00_MainContent_DetailedOutput\">45,000 gp</span></td>\n</tr>\n</tbody>\n</table>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"> <br /><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.<br /><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.<br /><strong>Failure</strong> You fail to create the undead.<br /><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</span><br /></span></p>"
+                    "value": "<p><span>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>. </span></p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table style=\"width: 379px; user-select: text; color: #191813; font-size: 13px; height: 353px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 25px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 17px; width: 103px; text-align: center; background-color: #522e2c;\"><span><strong>Creature Level</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 165px; text-align: center; background-color: #522e2c; height: 17px;\"><span><strong>Spell Level Required</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 110px; text-align: center; background-color: #522e2c; height: 17px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Cost</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\"><span>-1 or 0</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">2</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>15 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #eee5c8;\"><span>1</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 17px;\">2<span style=\"box-sizing: border-box; user-select: text; display: block;\"></span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 17px;\"><span>60 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>105 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 103px; text-align: center; background-color: #eee5c8;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>180 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>300 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>480 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>750 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>1,080 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>1,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>2,100 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>3,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">11</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>4,200 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">12</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>6,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">13</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>9,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">14</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>13,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">15</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>19,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">16</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>30,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">17</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>45,000 gp</span></td>\n</tr>\n</tbody>\n</table>\n<p><span><span><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</span></span></p>\n<p><span><span><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.</span></span></p>\n<p><span><span><strong>Failure</strong> You fail to create the undead.</span></span></p>\n<p><span><span><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</span><br /></span></p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "level": {
-                    "value": "2"
+                    "value": 2
                 },
                 "location": {
                     "value": "QjN3u2G28u81Hmuc"
@@ -2653,6 +2158,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -2670,6 +2176,7 @@
                 "secondarycheck": {
                     "value": "Religion"
                 },
+                "slug": "create-undead",
                 "source": {
                     "value": ""
                 },
@@ -2706,15 +2213,848 @@
                         "evil",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.c3b6LdLlQDPngNIb"
+                }
+            },
             "img": "systems/pf2e/icons/spells/create-undead.jpg",
-            "name": "Create Undead ",
-            "sort": 2600000,
+            "name": "Create Undead (Shadows Only)",
+            "sort": 2800000,
+            "type": "spell"
+        },
+        {
+            "_id": "q6o5k46FBsA5Uxb6",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "60-foot line"
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": "10d6"
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": "negative"
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the negative energy violently explodes back toward you, dealing an additional 30 negative damage to every creature in the line (even those above 17th level) and 30 negative damage to you.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The creature is unaffected.<p></p>\n<p>\n<b>Success</b>  The creature takes 9d6 negative damage.</p>\n<p>\n<b>Failure</b>  The creature takes 100 negative damage.</p>\n<p>\n<b>Critical Failure</b>  The creature dies.</p>\n<p>\n</p><hr /><b>Heightened (10th)</b>  The spell can affect creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.<p></p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 10
+                },
+                "location": {
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "massacre",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=186"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "save"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": ""
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "death",
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.10VcmSYNBrvBphu1"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/massacre.jpg",
+            "name": "Massacre",
+            "sort": 2900000,
+            "type": "spell"
+        },
+        {
+            "_id": "of2AlYv4fBO2Jh8E",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "label": "Area",
+                    "type": "String",
+                    "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "material, somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": "1 minute"
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 9
+                },
+                "location": {
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "120 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "evo"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": ""
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "3"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "darkness",
+                        "evocation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/darkness.jpg",
+            "name": "Darkness (At Will)",
+            "sort": 3000000,
+            "type": "spell"
+        },
+        {
+            "_id": "gWryDNNQkEncXBBM",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": "90"
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 negative damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 9
+                },
+                "location": {
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "30 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "finger-of-death",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=116"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "save"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "death",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/finger-of-death.jpg",
+            "name": "Finger of Death",
+            "sort": 3100000,
+            "type": "spell"
+        },
+        {
+            "_id": "MUpiY4z8UwyXhPES",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "30-foot cone"
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": "16d6"
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": "negative"
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 8
+                },
+                "location": {
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "2d6",
+                    "mode": "level1"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vampiric-exsanguination",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=353"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "save"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": ""
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "death",
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fd31tAHSSGXyOxW6"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/vampiric-exsanguination.jpg",
+            "name": "Vampiric Exsanguination (At Will)",
+            "sort": 3200000,
+            "type": "spell"
+        },
+        {
+            "_id": "iVV2oKv85u4TcVNT",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "label": "Area",
+                    "type": "String",
+                    "value": 30
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 0
+                },
+                "location": {
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "div"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": ""
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "detection",
+                        "cantrip",
+                        "divination"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.jpg",
+            "name": "Detect Magic",
+            "sort": 3300000,
             "type": "spell"
         }
     ],
@@ -2723,7 +3063,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "BSlvgDdLkTXU9hRF",
         "actorLink": false,
         "bar1": {
@@ -2742,6 +3081,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Ancient Umbral Dragon",
         "randomImg": false,

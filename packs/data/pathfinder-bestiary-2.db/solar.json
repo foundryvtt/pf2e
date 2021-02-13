@@ -5,42 +5,46 @@
             "cha": {
                 "min": 3,
                 "mod": 10,
-                "value": 10
+                "value": 30
             },
             "con": {
                 "min": 3,
                 "mod": 8,
-                "value": 10
+                "value": 26
             },
             "dex": {
                 "min": 3,
                 "mod": 6,
-                "value": 10
+                "value": 22
             },
             "int": {
                 "min": 3,
                 "mod": 5,
-                "value": 10
+                "value": 20
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
-                "value": 10
+                "mod": 10,
+                "value": 30
             },
             "wis": {
                 "min": 3,
                 "mod": 9,
-                "value": 10
+                "value": 28
             }
         },
         "attributes": {
             "ac": {
+                "base": 49,
+                "breakdown": "Base Armor Class 10, Base Modifier +33, Dexterity +6",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "49"
+                "name": "ac",
+                "totalModifier": 39,
+                "value": 49
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -60,7 +64,7 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "regeneration 20 (deactivated by evil)",
-                "max": "500",
+                "max": 500,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 40,
+                "breakdown": "Base Modifier +31, Wisdom +9",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 40,
                 "value": 40
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "35 feet"
+                "value": 35
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "NG"
@@ -154,13 +163,31 @@
             },
             "level": {
                 "min": 1,
-                "value": "23"
+                "value": 23
             },
             "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
                 "value": ""
+            }
+        },
+        "items": {
+            "ZuY8xngBTZhm5ag1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 46,
+                        "value": 36
+                    }
+                }
+            },
+            "u0ECBCkcFFfHWfRP": {
+                "data": {
+                    "spelldc": {
+                        "dc": 46,
+                        "value": 36
+                    }
+                }
             }
         },
         "martial": {
@@ -208,26 +235,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 40,
+                "breakdown": "Base Modifier +32, Constitution +8",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 40,
                 "value": 40
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 34,
+                "breakdown": "Base Modifier +28, Dexterity +6",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 34,
                 "value": 34
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 37,
+                "breakdown": "Base Modifier +28, Wisdom +9",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 37,
                 "value": 37
             }
         },
@@ -240,134 +276,242 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +6",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "base": 38,
+                "breakdown": "Base Modifier +33, Intelligence +5",
+                "expanded": "arcana",
                 "item": 0,
+                "itemID": "0UNU5vi6gSA2kx9L",
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Arcana",
+                "rank": 1,
+                "totalModifier": 38,
+                "value": 38,
+                "visible": true
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 43,
+                "breakdown": "Base Modifier +33, Strength +10",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "YiggoqLlx0A6GuZ9",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 43,
+                "value": 43,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +5",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +10",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 10,
+                "value": 10,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 43,
+                "breakdown": "Base Modifier +33, Charisma +10",
+                "expanded": "diplomacy",
                 "item": 0,
+                "itemID": "hkakPMVsDVEID6ud",
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Diplomacy",
+                "rank": 1,
+                "totalModifier": 43,
+                "value": 43,
+                "visible": true
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +10",
+                "expanded": "intimidation",
                 "item": 0,
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 10,
+                "value": 10,
+                "visible": false
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +9",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 9,
+                "value": 9,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +9",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 9,
+                "value": 9,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +5",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +10",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 10,
+                "value": 10,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 43,
+                "breakdown": "Base Modifier +34, Wisdom +9",
+                "expanded": "religion",
                 "item": 0,
+                "itemID": "rPk2kOiWW967TjNc",
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Religion",
+                "rank": 1,
+                "totalModifier": 43,
+                "value": 43,
+                "visible": true
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +5",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 36,
+                "breakdown": "Base Modifier +30, Dexterity +6",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "gIlL1o8ySUESyqKd",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 36,
+                "value": 36,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 46,
+                "breakdown": "Base Modifier +37, Wisdom +9",
+                "expanded": "survival",
                 "item": 0,
+                "itemID": "2z4TXBLacfcXwt1S",
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 46,
+                "value": 46,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +6",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             }
         },
         "spells": {
@@ -464,6 +608,7 @@
             }
         }
     },
+    "img": "icons/svg/mystery-man.svg",
     "items": [
         {
             "_id": "ZuY8xngBTZhm5ag1",
@@ -559,11 +704,12 @@
                         "value": 6
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "46",
+                    "dc": 46,
                     "item": 0,
                     "mod": 0,
                     "value": 36
@@ -679,11 +825,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "46",
+                    "dc": 46,
                     "item": 0,
                     "mod": 0,
                     "value": 36
@@ -706,7 +853,1271 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "GJjKg0RF2nAqWGVP",
+            "_id": "KO7ETr6PiZ0HJeHK",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "total": 44,
+                    "value": 44
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "die": "4d12+22"
+                },
+                "damageRolls": [
+                    {
+                        "damage": "4d12+22",
+                        "damageType": "slashing"
+                    },
+                    {
+                        "damage": "2d6",
+                        "damageType": "good"
+                    }
+                ],
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "(good, magical, versatile P)"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "good",
+                        "magical",
+                        "versatile P"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {}
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Holy Greatsword",
+            "sort": 3200000,
+            "type": "melee"
+        },
+        {
+            "_id": "ObPZcbNErqRJbu6p",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "arrow of mortality"
+                    ]
+                },
+                "bonus": {
+                    "total": 40,
+                    "value": 40
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "die": "4d8+17"
+                },
+                "damageRolls": [
+                    {
+                        "damage": "4d8+17",
+                        "damageType": "piercing"
+                    },
+                    {
+                        "damage": "2d6",
+                        "damageType": "good"
+                    }
+                ],
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "(deadly d10, good, magical, propulsive, range increment 100 feet, volley 30 feet)"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "deadly d10",
+                        "good",
+                        "magical",
+                        "propulsive",
+                        "range increment 100 feet",
+                        "volley 30 feet"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {}
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Holy Longbow",
+            "sort": 3300000,
+            "type": "melee"
+        },
+        {
+            "_id": "ZiB2QG6oo1w3v4H2",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "20 feet. Allies in the solar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to saves against effects from evil creatures. The bonus increases to +4 against control by evil creatures and attacks by evil summoned creatures. When the solar or an ally is hit by an attack from a creature in the aura, that foe must succeed at a DC 43 Will save or be blinded for 1 minute (this is an incapacitation effect). It's then temporarily immune for 1 minute."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "abjuration",
+                        "aura",
+                        "divine"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "defensive"
+                    }
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Aura of Protection",
+            "sort": 3400000,
+            "type": "action"
+        },
+        {
+            "_id": "Y9QK094iVscecdmW",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> The solar hits with a melee weapon Strike while Animate Weapon is not already in effect; <br /><strong>Effect</strong> The solar's weapon leaps into the air and moves with the solar as if held with both hands. The weapon gains the effects of the @Compendium[pf2e.equipment-srd.Dancing]{Dancing} weapon rune for 1 minute.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Animate Weapon",
+            "sort": 3500000,
+            "type": "action"
+        },
+        {
+            "_id": "CKEmC1LAVhCljvpf",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "The solar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes."
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "polymorph",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Change Shape",
+            "sort": 3600000,
+            "type": "action"
+        },
+        {
+            "_id": "gnL5MFzMfrbfAapT",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Any weapon gains the effect of a @Compendium[pf2e.equipment-srd.Holy]{Holy} property rune while a solar wields it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "divine",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Holy Armaments",
+            "sort": 3700000,
+            "type": "action"
+        },
+        {
+            "_id": "0UNU5vi6gSA2kx9L",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 38
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcana",
+            "sort": 3800000,
+            "type": "lore"
+        },
+        {
+            "_id": "YiggoqLlx0A6GuZ9",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 43
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Athletics",
+            "sort": 3900000,
+            "type": "lore"
+        },
+        {
+            "_id": "hkakPMVsDVEID6ud",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 43
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Diplomacy",
+            "sort": 4000000,
+            "type": "lore"
+        },
+        {
+            "_id": "rPk2kOiWW967TjNc",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 43
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Religion",
+            "sort": 4100000,
+            "type": "lore"
+        },
+        {
+            "_id": "gIlL1o8ySUESyqKd",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 36
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Stealth",
+            "sort": 4200000,
+            "type": "lore"
+        },
+        {
+            "_id": "2z4TXBLacfcXwt1S",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 46
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Survival",
+            "sort": 4300000,
+            "type": "lore"
+        },
+        {
+            "_id": "kb5HC9rXlkovUt4j",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.<br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "sword"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "label": "Item Level",
+                    "type": "Number",
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "label": "Price",
+                    "type": "String",
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "melee"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "greatsword",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.jpg",
+            "name": "+3 Major Striking Greatsword",
+            "sort": 4400000,
+            "type": "weapon"
+        },
+        {
+            "_id": "Sp05VR58kICGd0Yh",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "dex"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>This 5‑foot‑tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "bow"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "label": "Item Level",
+                    "type": "Number",
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "label": "Price",
+                    "type": "String",
+                    "value": "6 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "100"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "longbow",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "deadly-d10",
+                        "volley-30"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.MVAWttmT0QDa7LsV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longbow.png",
+            "name": "+3 Major Striking Longbow",
+            "sort": 4500000,
+            "type": "weapon"
+        },
+        {
+            "_id": "iuaQkGIziavS9GEC",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The solar doesn't need to provide ammunition for their bow. When they draw their bow, they create a magical arrow of light that sheds bright light in a 20-foot radius until the end of the solar's next turn. On a critical hit with the arrow, if the target has 75 or fewer Hit Points after taking the damage, it drops to 0 Hit Points and becomes dying 1 (or, if it was already dying, increases its dying value by 3).</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arrow of Mortality",
+            "sort": 4600000,
+            "type": "action"
+        },
+        {
+            "_id": "D9jOKCF6DVinDP3X",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -748,7 +2159,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (usually by Identifying Magic, page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (usually by Identifying Spells, page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -758,7 +2169,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -806,6 +2217,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "charm",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -858,20 +2270,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
-            "sort": 300000,
+            "sort": 4700000,
             "type": "spell"
         },
         {
-            "_id": "5K71e0ujjhnsAWry",
+            "_id": "UQmFDslpzyFUcrtt",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -913,7 +2326,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 13th or Lower The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1d6 rounds. 14th-15th The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round. 16th or Higher The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
+                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 13th or Lower The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1d6 rounds. 14th-15th The target is Stunned for 1 round. 16th or Higher The target is Stunned 1.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -923,7 +2336,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -971,6 +2384,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "power-word-stun",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1020,20 +2434,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7PJSqUeKxTqOVrPk"
+                }
+            },
             "img": "systems/pf2e/icons/spells/power-word-stun.jpg",
             "name": "Power Word Stun",
-            "sort": 400000,
+            "sort": 4800000,
             "type": "spell"
         },
         {
-            "_id": "Eq55qvkaMofiX5wL",
+            "_id": "XTABbIxUuDcGLcfq",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1085,7 +2500,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -1133,6 +2548,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "remove-curse",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1182,20 +2598,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OyFCwQuw8XRazsNr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/remove-curse.jpg",
             "name": "Remove Curse",
-            "sort": 500000,
+            "sort": 4900000,
             "type": "spell"
         },
         {
-            "_id": "TE6ieOZjnDkKgbpT",
+            "_id": "19cqwGPHDvWkRlTS",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1214,7 +2631,7 @@
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": " material, somatic, verbal"
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -1247,7 +2664,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -1295,6 +2712,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "remove-disease",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1344,20 +2762,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.RneiyehRO6f7LP44"
+                }
+            },
             "img": "systems/pf2e/icons/spells/remove-disease.jpg",
             "name": "Remove Disease",
-            "sort": 600000,
+            "sort": 5000000,
             "type": "spell"
         },
         {
-            "_id": "7CTDMRaHuVRemq9m",
+            "_id": "KlZBKGVzYcWRGwhx",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1457,6 +2876,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "revival",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1507,13 +2927,13 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.HpIJTVqgXorH9X0L"
+                },
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
@@ -1521,11 +2941,11 @@
             },
             "img": "systems/pf2e/icons/spells/revival.jpg",
             "name": "Revival",
-            "sort": 700000,
+            "sort": 5100000,
             "type": "spell"
         },
         {
-            "_id": "qh7ZaXTpEOLuiAUv",
+            "_id": "wSdy0FKcwS11UueH",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1567,7 +2987,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail. </span></p>"
+                    "value": "<p><span>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail. </span></p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1577,7 +2997,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -1625,6 +3045,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dispel-magic",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1675,20 +3096,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Dispel Magic"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
-            "name": "Dispel Magic (at will)",
-            "sort": 800000,
+            "name": "Dispel Magic (At Will)",
+            "sort": 5200000,
             "type": "spell"
         },
         {
-            "_id": "ut3MGDjuSLEXudPm",
+            "_id": "TpEGYPAg9zyq62Xk",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1718,7 +3140,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1730,7 +3152,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1740,7 +3162,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -1788,6 +3210,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "heal",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1839,20 +3262,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.jpg",
             "name": "Heal",
-            "sort": 900000,
+            "sort": 5300000,
             "type": "spell"
         },
         {
-            "_id": "56bUICf8m7j3IBIX",
+            "_id": "mFQptGbVzNJEy4OD",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1894,7 +3318,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You surround yourself with supernatural splendor, appearing to be a god or similarly majestic being. You choose the aspects of your new majestic appearance. This causes the targets to pay tribute to you by bowing or using some other action in keeping with your appearance. The number of times a target must do this depends on the result of their Will save. Paying tribute is a manipulate action or move action, as chosen by the creature paying tribute. A creature under this effect must pay tribute to you at least once on each of its turns if possible. While affected by this spell, a creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by you and can't use hostile actions against you. The target is then temporarily immune for 1 minute.</p>\r<p>\n<hr /><b>Critical Success</b>  The target is unaffected.</p>\r<p>\n<b>Success</b>  The target must pay tribute twice.</p>\r<p>\n<b>Failure</b>  The target must pay tribute six times.</p>\r<p>\n<b>Critical Failure</b>  As failure, and the target must spend all its actions paying tribute if possible.</p>"
+                    "value": "<p>You surround yourself with supernatural splendor, appearing to be a god or similarly majestic being. You choose the aspects of your new majestic appearance. This causes the targets to pay tribute to you by bowing or using some other action in keeping with your appearance. The number of times a target must do this depends on the result of their Will save. Paying tribute is a manipulate action or move action, as chosen by the creature paying tribute. A creature under this effect must pay tribute to you at least once on each of its turns if possible. While affected by this spell, a creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by you and can't use hostile actions against you. The target is then temporarily immune for 1 minute.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The target is unaffected.<p></p>\n<p>\n<b>Success</b>  The target must pay tribute twice.</p>\n<p>\n<b>Failure</b>  The target must pay tribute six times.</p>\n<p>\n<b>Critical Failure</b>  As failure, and the target must spend all its actions paying tribute if possible.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1952,6 +3376,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "overwhelming-presence",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2004,20 +3429,21 @@
                         "mental",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fkDeKktdmbeplYRY"
+                }
+            },
             "img": "systems/pf2e/icons/spells/overwhelming-presence.jpg",
             "name": "Overwhelming Presence",
-            "sort": 1000000,
+            "sort": 5400000,
             "type": "spell"
         },
         {
-            "_id": "NATZIRV6ozuUMXJk",
+            "_id": "Eh0qOylMAQTdRT0q",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2059,169 +3485,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You utter an arcane word of power that can make the target @Compendium[pf2e.conditionitems.Blinded]{Blinded} upon hearing it. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level.</p>\r<p>\n<hr /><b>11th or Lower</b>  The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\r<p>\n<b>12th-13th</b>  The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1d4 minutes.</p>\r<p>\n<b>14th or Higher</b>  The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\r<p>\n<hr /><b>Heightened (+1)</b>  The levels at which each outcome applies increase by 2.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "9"
-                },
-                "location": {
-                    "value": "ZuY8xngBTZhm5ag1"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "enc"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=226"
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "1"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
-                    "type": "String",
-                    "value": [
-                        "auditory",
-                        "enchantment",
-                        "mental"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/power-word-blind.jpg",
-            "name": "Power Word Blind",
-            "sort": 1100000,
-            "type": "spell"
-        },
-        {
-            "_id": "6ueKJvfMtdIUYfU9",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You utter the most powerful arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 14th or Lower The target dies instantly. 15th If the target has 50 Hit Points or fewer, it dies instantly; otherwise, it drops to 0 Hit Points and becomes @Compendium[pf2e.conditionitems.Dying]{Dying} 1, or increases its @Compendium[pf2e.conditionitems.Dying]{Dying} condition by 1 if it's already @Compendium[pf2e.conditionitems.Dying]{Dying}. 16th or Higher The target takes 50 damage; if this brings the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The levels at which each outcome applies increase by 2.</p>"
+                    "value": "<p>You utter an arcane word of power that can make the target @Compendium[pf2e.conditionitems.Blinded]{Blinded} upon hearing it. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level.</p>\n<hr />\n<p><strong>11th or Lower</strong> The target is Blinded permanently.</p>\n<p><strong>12th-13th</strong> The target is Blinded for 1d4 minutes.</p>\n<p><strong>14th or Higher</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2279,6 +3543,171 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "power-word-blind",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=226"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": "1 creature"
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "1"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "type": "String",
+                    "value": [
+                        "auditory",
+                        "enchantment",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Yk3t4ekEiFIoEz9c"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/power-word-blind.jpg",
+            "name": "Power Word Blind",
+            "sort": 5500000,
+            "type": "spell"
+        },
+        {
+            "_id": "b5H8T3NbWrLSwb20",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>You utter the most powerful arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 14th or Lower The target dies instantly. 15th If the target has 50 Hit Points or fewer, it dies instantly; otherwise, it drops to 0 Hit Points and becomes @Compendium[pf2e.conditionitems.Dying]{Dying} 1, or increases its Dying condition by 1 if it's already Dying. 16th or Higher The target takes 50 damage; if this brings the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The levels at which each outcome applies increase by 2.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": "varies"
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 9
+                },
+                "location": {
+                    "value": "ZuY8xngBTZhm5ag1"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "30 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "enc"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "power-word-kill",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2329,20 +3758,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.m3lcOFm400lQCUps"
+                }
+            },
             "img": "systems/pf2e/icons/spells/power-word-kill.jpg",
             "name": "Power Word Kill",
-            "sort": 1200000,
+            "sort": 5600000,
             "type": "spell"
         },
         {
-            "_id": "w2COK2VsYrLd9veW",
+            "_id": "vQHislAak17zDTuk",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2372,7 +3802,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "8d10"
+                    "value": "10d10"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -2384,7 +3814,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\r<p>\n<hr /><b>Critical Success</b>  The creature or object is unaffected.</p>\r<p>\n<b>Success</b>  The creature or object takes half damage.</p>\r<p>\n<b>Failure</b>  The creature or object takes full damage.</p>\r<p>\n<b>Critical Failure</b>  The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\r<p>\n<hr /><b>Heightened (+1)</b>  The fire damage increases by 1d10, and the positive damage against undead increases by 1d10.</p>"
+                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The creature or object is unaffected.<p></p>\n<p>\n<b>Success</b>  The creature or object takes half damage.</p>\n<p>\n<b>Failure</b>  The creature or object takes full damage.</p>\n<p>\n<b>Critical Failure</b>  The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\n<p>\n</p><hr /><b>Heightened (+1)</b>  The fire damage increases by 1d10, and the positive damage against undead increases by 1d10.<p></p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2394,7 +3824,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -2442,6 +3872,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "sunburst",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2493,20 +3924,21 @@
                         "light",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.a3aQxCpoj1q1NQxC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sunburst.jpg",
             "name": "Sunburst",
-            "sort": 1300000,
+            "sort": 5700000,
             "type": "spell"
         },
         {
-            "_id": "HqmetmDVKkuG6TEW",
+            "_id": "2lOTimxO8vpj9AGW",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2606,6 +4038,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "plane-shift",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2650,27 +4083,28 @@
                 "traits": {
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.jpg",
             "name": "Plane Shift",
-            "sort": 1400000,
+            "sort": 5800000,
             "type": "spell"
         },
         {
-            "_id": "lIxHDXUG1Di9arFJ",
+            "_id": "sjO1S73BQtL7VLXn",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2722,7 +4156,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -2770,6 +4204,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "remove-fear",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2819,20 +4254,21 @@
                     "value": [
                         "enchantment"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.EfFMLVbmkBWmzoLF"
+                }
+            },
             "img": "systems/pf2e/icons/spells/remove-fear.jpg",
-            "name": "Remove Fear (at will)",
-            "sort": 1500000,
+            "name": "Remove Fear (At Will)",
+            "sort": 5900000,
             "type": "spell"
         },
         {
-            "_id": "FCxVz4hLpx82fAo1",
+            "_id": "IuONXHjHdtxun78x",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2874,7 +4310,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2884,7 +4320,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -2932,6 +4368,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "restoration",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2982,20 +4419,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnaLVgxZ9ryUFmUr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/restoration.jpg",
-            "name": "Restoration (at will)",
-            "sort": 1600000,
+            "name": "Restoration (At Will)",
+            "sort": 6000000,
             "type": "spell"
         },
         {
-            "_id": "R0ag2b8OGAsFWMDY",
+            "_id": "c2wq5PYFRCuayhy0",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3037,7 +4475,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from <a class=\"entity-link\" data-pack=\"pf2e.conditionitems\" data-id=\"yZRUzMqrMmfLu0V1\" draggable=\"true\"><i class=\"fas fa-book-open\"></i> Dying</a> and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use breath of life if the triggering effect was disintegrate or a death effect.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from @Compendium[pf2e.conditionitems.Dying]{Dying} and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use breath of life if the triggering effect was disintegrate or a death effect.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3095,6 +4533,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "breath-of-life",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3144,20 +4583,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Hnc7eGi7vyZenAIm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/breath-of-life.jpg",
             "name": "Breath of Life",
-            "sort": 1700000,
+            "sort": 6100000,
             "type": "spell"
         },
         {
-            "_id": "rDeXXdP4kWDpA5RG",
+            "_id": "qiiH0u4YiP7AUTWp",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3257,6 +4697,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "death-ward",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3306,20 +4747,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.YvXKGlHOt7mdW2jZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/death-ward.jpg",
             "name": "Death Ward",
-            "sort": 1800000,
+            "sort": 6200000,
             "type": "spell"
         },
         {
-            "_id": "cdP1XrUlcnGeQQsH",
+            "_id": "526XxtyLhkltvP5L",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3361,7 +4803,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\r<p>\n<hr /><b>Critical Success</b>  The target is unaffected.</p>\r<p>\n<b>Success</b>  The effect's duration is 1 minute.</p>\r<p>\n<b>Failure</b>  The effect's duration is 10 minutes.</p>\r<p>\n<b>Critical Failure</b>  The effect's duration is 1 hour.</p>"
+                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The target is unaffected.<p></p>\n<p>\n<b>Success</b>  The effect's duration is 1 minute.</p>\n<p>\n<b>Failure</b>  The effect's duration is 10 minutes.</p>\n<p>\n<b>Critical Failure</b>  The effect's duration is 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3419,6 +4861,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dimensional-anchor",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3468,20 +4911,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ksLCg62cLOojw3gN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimensional-anchor.jpg",
-            "name": "Dimensional Anchor (at will)",
-            "sort": 1900000,
+            "name": "Dimensional Anchor (At Will)",
+            "sort": 6300000,
             "type": "spell"
         },
         {
-            "_id": "B99Hz96msV9F1O2v",
+            "_id": "llKiHbvnvVxP6VFm",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3581,6 +5025,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "invisibility",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3629,20 +5074,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility (at will, self only)",
-            "sort": 2000000,
+            "name": "Invisibility (At Will) (Self Only)",
+            "sort": 6400000,
             "type": "spell"
         },
         {
-            "_id": "PIp4A55QjrpQyGlI",
+            "_id": "vcrbJ4cRia5lhT7z",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3694,7 +5140,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -3742,6 +5188,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "detect-alignment",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3791,20 +5238,21 @@
                         "detection",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-alignment.jpg",
-            "name": "Detect Alignment (Constant)",
-            "sort": 2100000,
+            "name": "Detect Alignment (Constant) (Evil Only)",
+            "sort": 6500000,
             "type": "spell"
         },
         {
-            "_id": "Z7wSHXn7RdZeDEoG",
+            "_id": "OG0MvagvkM9pyxzy",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3856,7 +5304,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -3904,6 +5352,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "tongues",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3953,13 +5402,13 @@
                     "value": [
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
+                },
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
@@ -3967,11 +5416,11 @@
             },
             "img": "systems/pf2e/icons/spells/tongues.jpg",
             "name": "Tongues (Constant)",
-            "sort": 2200000,
+            "sort": 6600000,
             "type": "spell"
         },
         {
-            "_id": "cvklNpXFFqxT2S5k",
+            "_id": "hBDPdYHqUdikjuJa",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4023,7 +5472,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "ZuY8xngBTZhm5ag1"
@@ -4071,6 +5520,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4122,114 +5572,21 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
             "name": "True Seeing (Constant)",
-            "sort": 2300000,
+            "sort": 6700000,
             "type": "spell"
         },
         {
-            "_id": "RyU3euH9lsLXhND5",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "value": ""
-                },
-                "components": {
-                    "value": ""
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "duration": {
-                    "value": ""
-                },
-                "level": {
-                    "value": "1"
-                },
-                "location": {
-                    "value": "u0ECBCkcFFfHWfRP"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": ""
-                },
-                "school": {
-                    "value": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": ""
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": ""
-                },
-                "traditions": {
-                    "value": []
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "animate objects",
-            "sort": 2400000,
-            "type": "spell"
-        },
-        {
-            "_id": "rkiNWOLMmGBWGbl9",
+            "_id": "nKEnMPhL3DF2N7Gt",
             "data": {
                 "ability": {
                     "value": ""
@@ -4257,7 +5614,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You transport yourself to either a celestial plane or a world on the Material Plane where worshippers of your patron can be found. You must be of no higher level than double <em>angelic messenger's</em> spell level.<br /></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> As success, but if you've never visited that plane or world before, you appear right in front of the message's intended recipient.<br /><strong>Success</strong> You arrive on the target plane or world at the last location you visited on that plane or world, or to a random location within 10d10 miles of your message's intended recipient if you've never visited that plane or world before.<br /><strong>Failure</strong> You don't travel.<br /><strong>Critical Failure</strong> You accidentally travel to the wrong plane, possibly a dangerous plane.</span></p>"
+                    "value": "<p>You transport yourself to either a celestial plane or a world on the Material Plane where worshippers of your patron can be found. You must be of no higher level than double <em>angelic messenger's</em> spell level</p>\n<hr />\n<p><span><strong>Critical Success</strong> As success, but if you've never visited that plane or world before, you appear right in front of the message's intended recipient.</span></p>\n<p><span><strong>Success</strong> You arrive on the target plane or world at the last location you visited on that plane or world, or to a random location within 10d10 miles of your message's intended recipient if you've never visited that plane or world before.</span></p>\n<p><span><strong>Failure</strong> You don't travel.</span></p>\n<p><span><strong>Critical Failure</strong> You accidentally travel to the wrong plane, possibly a dangerous plane.</span></p>"
                 },
                 "duration": {
                     "value": ""
@@ -4301,6 +5658,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "angelic-messenger",
                 "source": {
                     "value": ""
                 },
@@ -4337,20 +5695,143 @@
                         "uncommon",
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.joEruBVz31Uxczzq"
+                }
+            },
             "img": "systems/pf2e/icons/spells/angelic-messenger.jpg",
             "name": "Angelic Messenger",
-            "sort": 2500000,
+            "sort": 6800000,
             "type": "spell"
         },
         {
-            "_id": "88gRcdmYshC8UmSH",
+            "_id": "3D4Wv8qCe075bhSI",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": ""
+                },
+                "cost": {
+                    "value": "rare oils, see Table 7-1"
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><span>You transform the target into an animated object with a level up to that allowed by Table 7-1 and of a type corresponding to the object (so a broom would become an animated broom).  </span></p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table style=\"width: 379px; user-select: text; color: #191813; font-size: 13px; height: 353px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 25px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 17px; width: 103px; text-align: center; background-color: #522e2c;\"><span><strong>Creature Level</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 165px; text-align: center; background-color: #522e2c; height: 17px;\"><span><strong>Spell Level Required</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 110px; text-align: center; background-color: #522e2c; height: 17px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Cost</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\"><span>-1 or 0</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">2</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>15 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #eee5c8;\"><span>1</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 17px;\">2<span style=\"box-sizing: border-box; user-select: text; display: block;\"></span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 17px;\"><span>60 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>105 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 103px; text-align: center; background-color: #eee5c8;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>180 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>300 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>480 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>750 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>1,080 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>1,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>2,100 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>3,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">11</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>4,200 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">12</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>6,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">13</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>9,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">14</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>13,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">15</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>19,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">16</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>30,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">17</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>45,000 gp</span></td>\n</tr>\n</tbody>\n</table>\n<p><span><span><strong>Critical Success</strong> The target becomes an animated object of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</span></span></p>\n<p><span><span><strong>Success</strong> As critical success, except an animated object that doesn't become your minion stays in place and attacks anyone that attacks it or tries to steal or move it, rather than following your command.</span></span></p>\n<p><span><span><strong>Failure</strong> You fail to create the animated object.</span></span></p>\n<p><span><span><strong>Critical Failure</strong> You create the animated object, but it goes berserk and attempts to destroy you. </span><br /></span></p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "u0ECBCkcFFfHWfRP"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Arcana (expert)"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "trs"
+                },
+                "secondarycasters": {
+                    "value": "1"
+                },
+                "secondarycheck": {
+                    "value": "Crafting"
+                },
+                "slug": "animate-object",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 object"
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sLzPzk7DJnfuORJ0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/animate-object.jpg",
+            "name": "Animate Object",
+            "sort": 6900000,
+            "type": "spell"
+        },
+        {
+            "_id": "xtCbpQgVb7oK8vmH",
             "data": {
                 "ability": {
                     "value": ""
@@ -4378,13 +5859,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.<br /></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.<br /><strong>Success</strong> You call the spirit.<br /><strong>Failure</strong> You fail to call a spirit.<br /><strong>Critical Failure</strong> One or more evil spirits appear and attack.</span></p>"
+                    "value": "<p>You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.</p>\n<hr />\n<p><span><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.</span></p>\n<p><span><strong>Success</strong> You call the spirit.</span></p>\n<p><span><strong>Failure</strong> You fail to call a spirit.</span></p>\n<p><span><strong>Critical Failure</strong> One or more evil spirits appear and attack.</span></p>"
                 },
                 "duration": {
                     "value": "up to 10 minutes"
                 },
                 "level": {
-                    "value": "1"
+                    "value": 5
                 },
                 "location": {
                     "value": "u0ECBCkcFFfHWfRP"
@@ -4422,6 +5903,7 @@
                 "secondarycheck": {
                     "value": "Occultism or Religion (whichever isn't used for the primary check)"
                 },
+                "slug": "call-spirit",
                 "source": {
                     "value": ""
                 },
@@ -4458,20 +5940,21 @@
                         "uncommon",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gsYEuWv04XTDxe91"
+                }
+            },
             "img": "systems/pf2e/icons/spells/call-spirit.jpg",
             "name": "Call Spirit",
-            "sort": 2600000,
+            "sort": 7000000,
             "type": "spell"
         },
         {
-            "_id": "mfr9POiKNVnEcTv2",
+            "_id": "EbtZnT5Mq2KfrkFB",
             "data": {
                 "ability": {
                     "value": ""
@@ -4498,13 +5981,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You perform a ritual to free a creature imprisoned, petrified, or otherwise put into stasis by any magical effects from all such effects, even effects like @Compendium[pf2e.spells-srd.Imprisonment]{Imprisonment} that don't have a duration, as long as <em>freedom</em>'s spell level is equal to or higher than the effect's spell level. To perform the ritual, you must be within 10 feet of the target, or within 10 feet of the place where the target was imprisoned (in the case of effects that trap the creature in an unreachable prison, like the oubliette form of @Compendium[pf2e.spells-srd.Imprisonment]{Imprisonment}). You must know the name of the creature and details of its background; if the creature is not a close associate, a failure or critical failure on a secondary Society check reduces even a critical success on the primary check to a failure.<br /></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis. It gains a +1 status bonus to saving throws to resist those same magical effects for 1 week.<br /><strong>Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis.<br /><strong>Failure</strong> You fail to free the target.<br /><strong>Critical Failure</strong> The magical effects imprisoning the target, petrifying the target, or putting it into stasis affect you and all secondary casters.</span></p>"
+                    "value": "<p>You perform a ritual to free a creature imprisoned, petrified, or otherwise put into stasis by any magical effects from all such effects, even effects like @Compendium[pf2e.spells-srd.Imprisonment]{Imprisonment} that don't have a duration, as long as <em>freedom</em>'s spell level is equal to or higher than the effect's spell level. To perform the ritual, you must be within 10 feet of the target, or within 10 feet of the place where the target was imprisoned (in the case of effects that trap the creature in an unreachable prison, like the oubliette form of Imprisonment). You must know the name of the creature and details of its background; if the creature is not a close associate, a failure or critical failure on a secondary Society check reduces even a critical success on the primary check to a failure.</p>\n<hr />\n<p><span><strong>Critical Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis. It gains a +1 status bonus to saving throws to resist those same magical effects for 1 week.</span></p>\n<p><span><strong>Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis.</span></p>\n<p><span><strong>Failure</strong> You fail to free the target.</span></p>\n<p><span><strong>Critical Failure</strong> The magical effects imprisoning the target, petrifying the target, or putting it into stasis affect you and all secondary casters.</span></p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "level": {
-                    "value": "1"
+                    "value": 8
                 },
                 "location": {
                     "value": "u0ECBCkcFFfHWfRP"
@@ -4542,6 +6025,7 @@
                 "secondarycheck": {
                     "value": "Society"
                 },
+                "slug": "freedom",
                 "source": {
                     "value": ""
                 },
@@ -4571,20 +6055,21 @@
                         "value": "uncommon"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Freedom"
+                }
+            },
             "img": "systems/pf2e/icons/spells/freedom.jpg",
             "name": "Freedom",
-            "sort": 2700000,
+            "sort": 7100000,
             "type": "spell"
         },
         {
-            "_id": "PvmXjL4ZjIHZ4nfS",
+            "_id": "NoU4ba5fBf5P9Vij",
             "data": {
                 "ability": {
                     "value": ""
@@ -4611,13 +6096,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.Freedom]{Freedom}. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</span></p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.Wish]{Wish} can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.Freedom]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} or @Compendium[pf2e.spells-srd.Haste]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.<br /><strong>Success</strong> You imprison the target.<br /><strong>Failure</strong> You fail to imprison the target.<br /><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.<br /><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
+                    "value": "<p><span>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.Freedom]{Freedom}. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</span></p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.Wish]{Wish} can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.4ddJSjC9Zz5DX0oG]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.9HpwDN4MYQJnW0LG]{Dispel Magic} or @Compendium[pf2e.spells-srd.Haste]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.</p>\n<p><strong>Success</strong> You imprison the target.</p>\n<p><strong>Failure</strong> You fail to imprison the target.</p>\n<p><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.</p>\n<p><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "level": {
-                    "value": "1"
+                    "value": 8
                 },
                 "location": {
                     "value": "u0ECBCkcFFfHWfRP"
@@ -4655,6 +6140,7 @@
                 "secondarycheck": {
                     "value": "Crafting, Society"
                 },
+                "slug": "imprisonment",
                 "source": {
                     "value": ""
                 },
@@ -4687,20 +6173,21 @@
                     "value": [
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2CNqkt2s2IYkVnv6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/imprisonment.jpg",
             "name": "Imprisonment",
-            "sort": 2800000,
+            "sort": 7200000,
             "type": "spell"
         },
         {
-            "_id": "BAn4jA8ovBMuSQhv",
+            "_id": "Dt1gISf8NIqzo3MM",
             "data": {
                 "ability": {
                     "value": ""
@@ -4728,13 +6215,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You attempt to call forth the target's soul and return it to its body. This requires the target's body to be present and relatively intact. The target must have died within the past year. If @Compendium[pf2e.deities.Pharasma]{Pharasma} has decided that the target's time has come or the target doesn't wish to return, this ritual automatically fails, but you discover this after the successful Religion check and can end the ritual without paying the cost.<br /></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> You resurrect the target. They return to life with full Hit Points and the same spells prepared and points in their pools they had when they died, and still suffering from any long-term debilitations of the old body. The target meets an agent of their deity during the resurrection who inspires them, granting them a +1 status bonus to attack rolls, Perception, saving throws, and skill checks for 1 week. The target is also permanently changed in some way by their time in the afterlife, such as gaining a slight personality shift, a streak of white in the hair, or a strange new birthmark.<br /><strong>Success</strong> As critical success, except the target returns to life with 1 Hit Point and no spells prepared or points in any pools, and still is affected by any long-term debilitations of the old body. Instead of inspiring them, the character's time in the Boneyard has left them temporarily debilitated. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, @Compendium[pf2e.conditionitems.Drained]{Drained} 1, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 week; these conditions can't be removed or reduced by any means until the week has passed.<br /><strong>Failure</strong> Your attempt is unsuccessful.<br /><strong>Critical Failure</strong> Something goes horribly wrong-an evil spirit possesses the body, the body transforms into a special kind of undead, or some worse fate befalls the target.</span></p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can resurrect a target of up to 12th level, and the base cost is 125 gp.<br /><strong>Heightened (7th)</strong> You can use resurrect even with only a small portion of the body; the ritual creates a new body on a success or critical success. The target must have died within the past decade. The ritual requires four secondary casters, each of whom must be at least half the target's level. The target can be up to 14th level, and the base cost is 200 gp.<br /><strong>Heightened (8th)</strong> As 7th level, but the target can be up to 16th level and the base cost is 300 gp.<br /><strong>Heightened (9th)</strong> You can use resurrect even without the body as long as you know the target's name and have touched a portion of its body at any time. The target must have died within the past century, and it doesn't gain the negative conditions on a success. The ritual requires eight secondary casters, each of whom must be at least half the target's level. The target can be up to 18th level, and the base cost is 600 gp.<br /><strong>Heightened (10th)</strong> As 9th level, except it doesn't matter how long ago the target died. The ritual requires 16 secondary casters, each of whom must be at least half the target's level. The target can be up to 20th level, and the ritual's base cost is 1,000 gp.</p>"
+                    "value": "<p>You attempt to call forth the target's soul and return it to its body. This requires the target's body to be present and relatively intact. The target must have died within the past year. If @Compendium[pf2e.deities.Pharasma]{Pharasma} has decided that the target's time has come or the target doesn't wish to return, this ritual automatically fails, but you discover this after the successful Religion check and can end the ritual without paying the cost.</p>\n<hr />\n<p><span><strong>Critical Success</strong> You resurrect the target. They return to life with full Hit Points and the same spells prepared and points in their pools they had when they died, and still suffering from any long-term debilitations of the old body. The target meets an agent of their deity during the resurrection who inspires them, granting them a +1 status bonus to attack rolls, Perception, saving throws, and skill checks for 1 week. The target is also permanently changed in some way by their time in the afterlife, such as gaining a slight personality shift, a streak of white in the hair, or a strange new birthmark.</span></p>\n<p><span><strong>Success</strong> As critical success, except the target returns to life with 1 Hit Point and no spells prepared or points in any pools, and still is affected by any long-term debilitations of the old body. Instead of inspiring them, the character's time in the Boneyard has left them temporarily debilitated. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, @Compendium[pf2e.conditionitems.Drained]{Drained} 1, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 week; these conditions can't be removed or reduced by any means until the week has passed.</span></p>\n<p><span><strong>Failure</strong> Your attempt is unsuccessful.</span></p>\n<p><span><strong>Critical Failure</strong> Something goes horribly wrong-an evil spirit possesses the body, the body transforms into a special kind of undead, or some worse fate befalls the target.</span></p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can resurrect a target of up to 12th level, and the base cost is 125 gp.</p>\n<p><strong>Heightened (7th)</strong> You can use resurrect even with only a small portion of the body; the ritual creates a new body on a success or critical success. The target must have died within the past decade. The ritual requires four secondary casters, each of whom must be at least half the target's level. The target can be up to 14th level, and the base cost is 200 gp.</p>\n<p><strong>Heightened (8th)</strong> As 7th level, but the target can be up to 16th level and the base cost is 300 gp.</p>\n<p><strong>Heightened (9th)</strong> You can use resurrect even without the body as long as you know the target's name and have touched a portion of its body at any time. The target must have died within the past century, and it doesn't gain the negative conditions on a success. The ritual requires eight secondary casters, each of whom must be at least half the target's level. The target can be up to 18th level, and the base cost is 600 gp.</p>\n<p><strong>Heightened (10th)</strong> As 9th level, except it doesn't matter how long ago the target died. The ritual requires 16 secondary casters, each of whom must be at least half the target's level. The target can be up to 20th level, and the ritual's base cost is 1,000 gp.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "level": {
-                    "value": "1"
+                    "value": 5
                 },
                 "location": {
                     "value": "u0ECBCkcFFfHWfRP"
@@ -4772,6 +6259,7 @@
                 "secondarycheck": {
                     "value": "Medicine, Society"
                 },
+                "slug": "resurrect",
                 "source": {
                     "value": ""
                 },
@@ -4809,973 +6297,18 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kqhPt9344UkcGVYO"
+                }
+            },
             "img": "systems/pf2e/icons/spells/resurrect.jpg",
             "name": "Resurrect",
-            "sort": 2900000,
+            "sort": 7300000,
             "type": "spell"
-        },
-        {
-            "_id": "tbwa34lzMZyejR1X",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+3 major striking greatsword",
-            "sort": 3000000,
-            "type": "equipment"
-        },
-        {
-            "_id": "5jqwsEyCiVMCkiCO",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+3 major striking longbow",
-            "sort": 3100000,
-            "type": "equipment"
-        },
-        {
-            "_id": "KO7ETr6PiZ0HJeHK",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 44,
-                    "value": 44
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "4d12+22"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "4d12+22",
-                        "damageType": "slashing"
-                    },
-                    {
-                        "damage": "2d6",
-                        "damageType": "good"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "(good, magical, versatile P)"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "good",
-                        "magical",
-                        "versatile P"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Holy Greatsword",
-            "sort": 3200000,
-            "type": "melee"
-        },
-        {
-            "_id": "ObPZcbNErqRJbu6p",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "arrow of mortality"
-                    ]
-                },
-                "bonus": {
-                    "total": 40,
-                    "value": 40
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "4d8+17"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "4d8+17",
-                        "damageType": "piercing"
-                    },
-                    {
-                        "damage": "2d6",
-                        "damageType": "good"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "(deadly d10, good, magical, propulsive, range increment 100 feet, volley 30 feet)"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "deadly d10",
-                        "good",
-                        "magical",
-                        "propulsive",
-                        "range increment 100 feet",
-                        "volley 30 feet"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Holy Longbow",
-            "sort": 3300000,
-            "type": "melee"
-        },
-        {
-            "_id": "ZiB2QG6oo1w3v4H2",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "20 feet. Allies in the solar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to saves against effects from evil creatures. The bonus increases to +4 against control by evil creatures and attacks by evil summoned creatures. When the solar or an ally is hit by an attack from a creature in the aura, that foe must succeed at a DC 43 Will save or be blinded for 1 minute (this is an incapacitation effect). It's then temporarily immune for 1 minute."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "abjuration",
-                        "aura",
-                        "divine"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Aura of Protection",
-            "sort": 3400000,
-            "type": "action"
-        },
-        {
-            "_id": "Y9QK094iVscecdmW",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Trigger</b> The solar hits with a melee weapon Strike while  is not already in effect; <br />\n<b>Effect</b> The solar's weapon leaps into the air and moves with the solar as if held with both hands. The weapon gains the effects of the dancing weapon rune for 1 minute.<br />\nArrow of Mortality The solar doesn't need to provide ammunition for their bow. When they draw their bow, they create a magical arrow of light that sheds bright light in a 20-foot radius until the end of the solar's next turn. On a critical hit with the arrow, if the target has [[/r 75 # or fewer Hit Points after taking the damage]] or fewer Hit Points after taking the damage, it drops to 0 Hit Points and becomes dying 1 (or, if it was already dying, increases its dying value by 3)."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Animate Weapon",
-            "sort": 3500000,
-            "type": "action"
-        },
-        {
-            "_id": "CKEmC1LAVhCljvpf",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The solar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph",
-                        "transmutation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Change Shape",
-            "sort": 3600000,
-            "type": "action"
-        },
-        {
-            "_id": "gnL5MFzMfrbfAapT",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "Any weapon gains the effect of a holy property rune while a solar wields it."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "divine",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Holy Armaments",
-            "sort": 3700000,
-            "type": "action"
-        },
-        {
-            "_id": "0UNU5vi6gSA2kx9L",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 38
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcana",
-            "sort": 3800000,
-            "type": "lore"
-        },
-        {
-            "_id": "YiggoqLlx0A6GuZ9",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 43
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics",
-            "sort": 3900000,
-            "type": "lore"
-        },
-        {
-            "_id": "hkakPMVsDVEID6ud",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 43
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Diplomacy",
-            "sort": 4000000,
-            "type": "lore"
-        },
-        {
-            "_id": "rPk2kOiWW967TjNc",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 43
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Religion",
-            "sort": 4100000,
-            "type": "lore"
-        },
-        {
-            "_id": "gIlL1o8ySUESyqKd",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 36
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth",
-            "sort": 4200000,
-            "type": "lore"
-        },
-        {
-            "_id": "2z4TXBLacfcXwt1S",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 46
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Survival",
-            "sort": 4300000,
-            "type": "lore"
         }
     ],
     "name": "Solar",
