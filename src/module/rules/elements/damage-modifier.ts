@@ -38,8 +38,9 @@ function mergeLabeledValues(
 /**
  * Use this rule in the following way:
  * {
- *     "key": "PF2E.RuleElement.DamageModifier"
+ *     "key": "PF2E.RuleElement.DamageModifier",
  *     "type": "resistance",  // could also be immunity or weakness
+ *     "damageType": "fire",  // any key of CONFIG.resistanceTypes, CONFIG.weaknessTypes, CONFIG.immunityTypes
  *     "value": 5, // could also be a bracket or string, similar to damage dice, unused if immunity
  *     "exceptions": "adamantine bludgeoning"  // only stacks with the same exception type, use null
  * }
