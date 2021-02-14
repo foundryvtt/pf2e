@@ -4,8 +4,6 @@
 declare class CombatEncounters<ActorType extends Actor> extends Collection<Combat<ActorType>> {
     entities: Combat<ActorType>[];
 
-    values(): IterableIterator<Combat<ActorType>>;
-
     /**
      * The currently active Combat instance
      */

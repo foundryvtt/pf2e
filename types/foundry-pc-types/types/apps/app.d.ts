@@ -289,19 +289,19 @@ declare class Application {
      * Callback actions which occur at the beginning of a drag start workflow.
      * @param event	The originating DragEvent
      */
-    protected _onDragStart(event: DragEvent): void;
+    protected _onDragStart(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is over a drop target.
      * @param event	The originating DragEvent
      */
-    protected _onDragOver(event: DragEvent): void;
+    protected _onDragOver(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is dropped on a target.
      * @param event	The originating DragEvent
      */
-    protected _onDrop(event: DragEvent): void;
+    protected _onDrop(event: ElementDragEvent): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */

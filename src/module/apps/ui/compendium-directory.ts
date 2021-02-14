@@ -50,6 +50,6 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** Atro's very special monkey-patched RegExp class method */
     private escape(text: string): string {
-        return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        return text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 }

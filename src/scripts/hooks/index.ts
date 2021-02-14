@@ -2,12 +2,13 @@ import * as CloseWorldClockSettings from './close-world-clock-settings';
 import * as UpdateScene from './update-scene';
 import * as RenderSettings from './render-settings';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace PF2E {
-    export namespace Hooks {
-        export function listen(): void {
+    export const Hooks = {
+        listen(): void {
             CloseWorldClockSettings.listen();
             RenderSettings.listen();
             UpdateScene.listen();
-        }
-    }
+        },
+    };
 }

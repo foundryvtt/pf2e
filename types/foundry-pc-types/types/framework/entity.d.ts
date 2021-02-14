@@ -83,7 +83,7 @@ declare class Entity {
      */
     compendium: Compendium;
 
-    constructor(data: BaseEntityData, options?: any);
+    constructor(data: BaseEntityData, options?: EntityConstructorOptions);
 
     /**
      * Configure the attributes of this Entity class

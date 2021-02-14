@@ -1,12 +1,12 @@
 /**
  * The collection of Scene entities
  */
-declare class Scenes extends Collection<Scene> {
-    // @TODO: Declare
+declare class Scenes extends EntityCollection<Scene> {
+    /** @override */
+    get entity(): 'Scene';
 }
 
 declare interface SceneData extends BaseEntityData {
-    img: string;
     tokens: TokenData[];
 }
 

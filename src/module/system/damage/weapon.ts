@@ -177,7 +177,7 @@ export class PF2WeaponDamage {
         // determine ability modifier
         let ability: AbilityString;
         {
-            let modifier: number = 0;
+            let modifier = 0;
             const melee =
                 ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
                 traits.some((t) => t.name.startsWith('thrown'));

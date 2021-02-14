@@ -6,14 +6,7 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import {
-    isPhysicalItem,
-    SpellData,
-    ItemData,
-    SpellcastingEntryData,
-    FeatData,
-    ClassData,
-} from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '../../item/dataDefinitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
 import { PF2EClass } from '../../item/class';
@@ -439,11 +432,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             // class
             else if (i.type === 'class') {
                 const classItem = i as ClassData;
-                function mapFeatLevels(featLevels: number[], prefix: string) {
+                const mapFeatLevels = (featLevels: number[], prefix: string) => {
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level: level, feat: undefined }));
-                }
+                        .map((level) => ({ id: `${prefix}-${level}`, level: level }));
+                };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels.value, 'ancestry');
                 featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels.value, 'class');
@@ -704,7 +697,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (item.data.type !== 'spellcastingEntry') {
                 return;
             }
-            let data: SpellcastingEntryData = duplicate(item.data);
+            const data = duplicate(item.data);
 
             if (data.data.slots == null) {
                 return;
@@ -732,7 +725,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 return;
             }
 
-            let data: SpellcastingEntryData = duplicate(item.data);
+            const data = duplicate(item.data);
 
             if (data.data.slots == null) {
                 return;
@@ -835,7 +828,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onDropItemCreate(itemData);
     }
 
-    protected async _onDropItem(event: Event, data: any) {
+    /** @override */
+    protected async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData,
+    ): Promise<(ItemData | null)[] | ItemData | null> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
@@ -855,7 +852,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         if (itemData.type === 'feat') {
             if (slotId !== undefined && featType === itemData.data?.featType?.value) {
                 itemData.data.location = slotId;
-                return Promise.all([
+                const items = await Promise.all([
                     this.actor.createEmbeddedEntity('OwnedItem', itemData),
                     this.actor.updateEmbeddedEntity(
                         'OwnedItem',
@@ -864,6 +861,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                             .map((x) => ({ _id: x._id, 'data.location': '' })),
                     ),
                 ]);
+                return items.flatMap((item) => item);
             }
         }
 
@@ -872,11 +870,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
     /**
      * Handle a drop event for an existing Owned Item to sort that item
-     * @param {Event} event
-     * @param {Object} itemData
-     * @private
+     * @param event
+     * @param itemData
      */
-    async _onSortItem(event: Event, itemData: ItemData) {
+    protected async _onSortItem(
+        event: ElementDragEvent,
+        itemData: ItemData,
+    ): Promise<(ItemData | null)[] | ItemData | null> {
         if (itemData.type === 'feat') {
             const { slotId, featType } =
                 event.target !== null
@@ -884,7 +884,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                     : { slotId: undefined, featType: undefined };
 
             if (itemData.data?.featType?.value === featType) {
-                return this.actor.updateEmbeddedEntity('OwnedItem', [
+                this.actor.updateEmbeddedEntity('OwnedItem', [
                     {
                         _id: itemData._id,
                         'data.location': slotId,
@@ -893,6 +893,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                         .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
                         .map((x) => ({ _id: x._id, 'data.location': '' })),
                 ]);
+                return itemData;
             } else {
                 // if they're dragging it away from a slot
                 if (itemData.data.location) {
@@ -903,7 +904,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 }
             }
         }
-        super._onSortItem(event, itemData);
+        return super._onSortItem(event, itemData);
     }
 
     _onSubmit(event: any): Promise<any> {
