@@ -10,9 +10,9 @@ async function getKitItemData(
 ): Promise<[PhysicalItemData, PhysicalItemData[]][]> {
     const kitItems = await Promise.all(
         Object.values(kitData.items).map(async (item) => {
-            let itemData: PhysicalItemData;
+            let itemData: PhysicalItemData | null;
             if (item.pack) {
-                const pack = game.packs.get<PF2EPhysicalItem>(item.pack);
+                const pack = game.packs.get<Compendium<PF2EPhysicalItem>>(item.pack);
                 itemData = await pack.getEntry(item.id);
             } else {
                 itemData = duplicate(game.items.get(item.id)?.data) as PhysicalItemData;

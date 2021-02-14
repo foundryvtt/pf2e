@@ -24,7 +24,7 @@ export class MigrationBase {
      * Setting requiresFlush to true will indicate that the migration runner should not call any more
      * migrations after this in a batch. Use this if you are adding items to actors for instance.
      */
-    requiresFlush: boolean = false;
+    requiresFlush = false;
 
     /**
      * Update the actor to the latest schema version.

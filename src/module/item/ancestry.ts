@@ -5,16 +5,20 @@ import { PF2EFeat } from './others';
 
 export class PF2EAncestry extends PF2EItem {
     data!: AncestryData;
+
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
-            const pack = game.packs.get<PF2EFeat>(entry.pack);
-            return pack.getEntry(entry.id);
+            const pack = game.packs.get<Compendium<PF2EFeat>>(entry.pack);
+            const entity = pack.getEntity(entry.id);
+            return entity instanceof PF2EFeat
+                ? entity._data
+                : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         } else {
             const feat = game.items.get(entry.id);
             if (feat?.data.type !== 'feat') {
-                throw Error('Invalid item type referenced in ABCFeatureEntryData');
+                return Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
             }
-            return duplicate(feat?.data);
+            return duplicate(feat.data);
         }
     }
 

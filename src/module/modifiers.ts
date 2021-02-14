@@ -121,7 +121,7 @@ export class PF2Modifier {
         name: string,
         modifier: number,
         type: string,
-        enabled: boolean = true,
+        enabled = true,
         source: string | undefined = undefined,
         notes: string | undefined = undefined,
     ) {
