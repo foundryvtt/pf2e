@@ -4,12 +4,20 @@
 import { Spell } from './spell';
 import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
-import { ProficiencyModifier, PF2StatisticModifier } from '../modifiers';
+import {
+    ProficiencyModifier,
+    PF2StatisticModifier,
+    PF2Modifier,
+    AbilityModifier,
+    ensureProficiencyOption,
+} from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
 import { parseTraits, TraitChatEntry } from '../traits';
 import { canCastConsumable } from './spellConsumables';
+import { AbilityString } from '@actor/actorDataDefinitions';
+import { PF2Check } from '../system/rolls';
 
 /**
  * @category PF2
@@ -843,6 +851,67 @@ export class PF2EItem extends Item<PF2EActor> {
         });
     }
 
+    /**
+     * Roll Counteract check
+     * Rely upon the DicePF2e.d20Roll logic for the core implementation
+     */
+    rollCounteract(event) {
+        let item: ItemData = this.data;
+        if (item.type === 'consumable' && item.data.spell?.data) {
+            item = item.data.spell.data;
+        }
+        if (item.type !== 'spell') throw new Error('Wrong item type!');
+
+        const itemData = item.data;
+        const spellcastingEntry = this.actor?.getOwnedItem(itemData.location.value);
+        if (!spellcastingEntry || spellcastingEntry.data.type !== 'spellcastingEntry')
+            throw new Error('Spell points to location that is not a spellcasting type');
+
+        const modifiers: PF2Modifier[] = [];
+        let ability: AbilityString = item.data.ability?.value || 'int';
+        let score = this.actor.data.data.abilities[ability]?.value ?? 0;
+        modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+
+        let proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
+
+        const rollOptions = ['all', 'counteract-check'];
+        const extraOptions = [];
+        const traits = item.data.traits.value;
+
+        let flavor = '<hr/>';
+        flavor += `<h3>${game.i18n.localize('PF2E.Counteract')}</h3>`;
+        flavor += `<hr/>`;
+
+        const addFlavor = (success: string, level: number) => {
+            const title = game.i18n.localize(`PF2E.${success}`);
+            const desc = game.i18n.format(`PF2E.CounteractDescription.${success}`, {
+                level: level,
+            });
+            flavor += `<b>${title}</b> ${desc}<br>`;
+        };
+        flavor += `<p>${game.i18n.localize('PF2E.CounteractDescription.Hint')}</p>`;
+        flavor += '<p>';
+        addFlavor('CritSuccess', itemData.level.value + 3);
+        addFlavor('Success', itemData.level.value + 1);
+        addFlavor('Failure', itemData.level.value);
+        addFlavor('CritFailure', 0);
+        flavor += '</p>';
+        const check = new PF2StatisticModifier(flavor, modifiers);
+        const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+        ensureProficiencyOption(finalOptions, proficiencyRank);
+        PF2Check.roll(
+            check,
+            {
+                actor: this.actor,
+                type: 'counteract-check',
+                options: finalOptions,
+                traits,
+            },
+            event,
+        );
+    }
+
     /* -------------------------------------------- */
 
     /**
@@ -1127,6 +1196,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
                 else if (action === 'spellAttack3') item.rollSpellAttack(ev, 3);
                 else if (action === 'spellDamage') item.rollSpellDamage(ev);
+                else if (action === 'spellCounteract') item.rollCounteract(ev);
                 // Consumable usage
                 else if (action === 'consume') item.rollConsumable(ev);
                 else if (action === 'save') PF2EActor.rollSave(ev, item);
