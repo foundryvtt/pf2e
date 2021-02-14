@@ -167,9 +167,13 @@ export abstract class PF2RuleElement {
                         bracket = getProperty(actorData, field.substring(0));
                 }
             }
-            value =
-                (valueData.brackets ?? []).find((b) => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
-                    ?.value ?? defaultValue;
+            if (valueData.brackets) {
+                value =
+                    valueData.brackets.find((b) => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
+                        ?.value ?? defaultValue;
+            } else {
+                value = bracket; // directly use the field value
+            }
         }
 
         if (typeof value === 'string') {
