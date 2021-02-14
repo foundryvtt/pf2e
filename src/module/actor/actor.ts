@@ -93,6 +93,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'perception',
     'initiative',
     'skill-check',
+    'counteract-check',
 ]);
 
 /**
