@@ -49,7 +49,6 @@ require('./scripts/actor/statusEffects.ts');
 require('./scripts/dice.ts');
 require('./scripts/chat/chatdamagebuttonsPF2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
-require('./scripts/actor/sheet/itemBehaviour.ts');
 require('./scripts/system/canvasDropHandler');
 require('./module/custom-elements/custom-elements');
 
