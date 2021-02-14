@@ -19,12 +19,12 @@
             },
             "int": {
                 "min": 3,
-                "mod": 0,
+                "mod": -5,
                 "value": 10
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 22,
+                "breakdown": "Base Armor Class 10, Base Modifier +8, Dexterity +4",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "22"
+                "name": "ac",
+                "totalModifier": 12,
+                "value": 22
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +64,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "80",
+                "max": 80,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "80"
+                "value": 80
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 8,
+                "breakdown": "Base Modifier +7, Wisdom +1",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 8,
                 "value": 8
             },
             "resolve": {
@@ -104,7 +111,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": "20 feet"
+                "value": 20
             }
         },
         "currency": {
@@ -121,6 +128,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -150,7 +159,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "5"
+                "value": 5
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=564",
             "recallKnowledgeText": "Recall Knowledge - Fungus : DC 20",
@@ -204,26 +213,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +9, Constitution +4",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 13,
                 "value": 13
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 11,
+                "breakdown": "Base Modifier +7, Dexterity +4",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 11,
                 "value": 11
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +11, Wisdom +1",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 12,
                 "value": 12
             }
         },
@@ -236,134 +254,234 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +9, Strength +4",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "YuQIr9mj4GEfu8SF",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 13,
+                "value": 13,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma -3",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma -3",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma -3",
+                "expanded": "intimidation",
                 "item": 0,
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma -3",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +9, Dexterity +4",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "PEfs4Ol5SVjXe74g",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 13,
+                "value": 13,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             }
         },
         "spells": {
@@ -445,6 +563,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -504,6 +623,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -561,9 +683,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -580,6 +704,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -603,7 +728,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Although a basidirond is immune to cold damage, any effect that deals cold damage causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1d4 rounds. During this time, it cannot use its Hallucinogenic Cloud or basidirond spores."
+                    "value": "<p>Although a basidirond is immune to cold damage, any effect that deals cold damage causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for [[/r 1d4]] rounds. During this time, it cannot use its Hallucinogenic Cloud or basidirond spores.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -611,10 +736,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -631,6 +764,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Cold Lethargy",
@@ -660,10 +794,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -682,6 +818,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Basidirond Spores",
@@ -698,12 +835,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The basidirond releases a cloud of invisible spores in a 20-foot emanation. Each creature in the area must succeed at a DC 22 Fortitude save or experience powerful hallucinations as long as it remains in the cloud, plus an additional 1d4 rounds after leaving the area. A creature must attempt a new save each round it remains within the area. The cloud persists for 5 rounds unless dispersed before then by a strong wind. Each hallucinating creature rolls 1d6 each round to determine what it hallucinates that round. <br /><b>1 </b>The target is sinking in quicksand. It falls @Compendium[pf2e.conditionitems.Prone]{Prone} and spends 1 action on its next turn flailing its limbs as if attempting to swim. <br /><b>2 </b>The target is attacked by a swarm of spiders. It spends 2 actions on its next turn attacking the floor with a melee weapon (drawing a weapon if needed). It is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks. <br /><b>3 </b>An item the target is holding turns into a viper. The target @Compendium[pf2e.actionspf2e.Release]{Release} the item and spends its next turn fleeing from it. <br /><b>4 </b>The target is suffocating. It holds its breath and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 3. <br /><b>5</b> The target shrinks to 1/10 its normal size. For 1 round it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 2 and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 4, and takes a -10-foot status penalty to its Speed. <br /><b>6</b> The target is melting. It drops everything it's holding and becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 2 and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 4 for 1 round."
+                    "value": "<p>The basidirond releases a cloud of invisible spores in a 20-foot emanation. Each creature in the area must succeed at a DC 22 Fortitude save or experience powerful hallucinations as long as it remains in the cloud, plus an additional [[/r 1d4]] rounds after leaving the area. A creature must attempt a new save each round it remains within the area. The cloud persists for 5 rounds unless dispersed before then by a strong wind. Each hallucinating creature rolls [[/r 1d6]] each round to determine what it hallucinates that round. <br /><strong>1 </strong>The target is sinking in quicksand. It falls @Compendium[pf2e.conditionitems.Prone]{Prone} and spends 1 action on its next turn flailing its limbs as if attempting to swim. <br /><strong>2 </strong>The target is attacked by a swarm of spiders. It spends 2 actions on its next turn attacking the floor with a melee weapon (drawing a weapon if needed). It is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks. <br /><strong>3 </strong>An item the target is holding turns into a viper. The target @Compendium[pf2e.actionspf2e.Release]{Release} the item and spends its next turn fleeing from it. <br /><strong>4 </strong>The target is suffocating. It holds its breath and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 3. <br /><strong>5</strong> The target shrinks to 1/10 its normal size. For 1 round it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 2 and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 4, and takes a -10-foot status penalty to its Speed. <br /><strong>6</strong> The target is melting. It drops everything it's holding and becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 2 and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 4 for 1 round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -711,10 +848,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -731,8 +876,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Hallucinogenic Cloud",
             "sort": 400000,
             "type": "action"
@@ -758,6 +904,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -768,6 +916,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -795,6 +944,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -805,6 +956,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -817,7 +969,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "bAaVfrdNLfFh7iHv",
         "actorLink": false,
         "bar1": {
@@ -836,6 +987,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Basidirond",
         "randomImg": false,

@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+7",
+                "mod": 7,
                 "value": 24
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 33,
+                "breakdown": "Base Armor Class 10, Base Modifier +19, Dexterity +4",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "33"
+                "name": "ac",
+                "totalModifier": 23,
+                "value": 33
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +64,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "215",
+                "max": 215,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "215"
+                "value": 215
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +18, Wisdom +4",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 22,
                 "value": 22
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "35 feet"
+                "value": 35
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -155,7 +164,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "12"
+                "value": 12
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=579",
             "recallKnowledgeText": "Recall Knowledge - Beast : DC 30",
@@ -209,26 +218,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 24,
+                "breakdown": "Base Modifier +18, Constitution +6",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 24,
                 "value": 24
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +16, Dexterity +4",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 20,
                 "value": 20
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +18, Wisdom +4",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 22,
                 "value": 22
             }
         },
@@ -241,134 +259,238 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 25,
+                "breakdown": "Base Modifier +18, Strength +7",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "n1h3WbQIKj2qkLO1",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 25,
+                "value": 25,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +2",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +2",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +18, Charisma +2",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "MsMFrTVX1n1oLXOA",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 20,
+                "value": 20,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +2",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +18, Dexterity +4",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "w2BCKUoJdnaAE7ty",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 22,
+                "value": 22,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +16, Wisdom +4",
+                "expanded": "survival",
                 "item": 0,
+                "itemID": "Rs4rgNWepnTWtlzl",
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 20,
+                "value": 20,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             }
         },
         "spells": {
@@ -446,6 +568,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -502,6 +625,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -560,9 +686,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -582,6 +710,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -642,6 +771,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -699,9 +831,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -721,6 +855,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -781,6 +916,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -838,9 +976,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -859,6 +999,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -882,7 +1023,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "30 feet. A creature entering the aura or starting its turn in the aura must succeed at a DC 30 Fortitude save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (plus slowed 1 for as long as itʼs sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute."
+                    "value": "<p>30 feet. A creature entering the aura or starting its turn in the aura must succeed at a DC 30 Fortitude save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for as long as itʼs sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -890,10 +1031,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -914,59 +1063,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stench",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "mEbtfrlAFQ5Cg7YR",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Ferocity",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -979,12 +1080,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The catoblepas breathes a 60-foot cone of horrid fumes, dealing [[/r 13d6 # poison damage]] poison damage (DC 32 basic Fortitude save). The area of this cone is reduced to 30 feet underwater. Targets that fail their saving throw also become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (sickened 2 on a critical failure). The catoblepas can't use its Breath Weapon again for 1d4 rounds."
+                    "value": "<p>The catoblepas breathes a 60-foot cone of horrid fumes, dealing [[/r 13d6 # poison damage]] poison damage (DC 32 basic Fortitude save). The area of this cone is reduced to 30 feet underwater. Targets that fail their saving throw also become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (sickened 2 on a critical failure). The catoblepas can't use its Breath Weapon again for [[/r 1d4]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -992,10 +1093,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1016,8 +1125,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 600000,
             "type": "action"
@@ -1045,10 +1155,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1065,6 +1177,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Trample",
@@ -1092,6 +1205,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1102,6 +1217,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1129,6 +1245,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1139,6 +1257,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
@@ -1166,6 +1285,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Swamps",
+                        "predicate": {
+                            "all": [
+                                "swamps"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1174,8 +1307,15 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in swamps",
+                        "options": "swamps"
+                    }
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -1203,6 +1343,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1213,11 +1355,71 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
             "sort": 1100000,
             "type": "lore"
+        },
+        {
+            "_id": "X6J47jtVndBtneRv",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{wounded 3}, it can no longer use this ability</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "ferocity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Ferocity",
+            "sort": 1200000,
+            "type": "action"
         }
     ],
     "name": "Catoblepas",
@@ -1225,7 +1427,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "BJoM8LAVP8MA5o8v",
         "actorLink": false,
         "bar1": {
@@ -1244,6 +1445,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Catoblepas",
         "randomImg": false,

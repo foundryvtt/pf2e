@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 28,
+                "breakdown": "Base Armor Class 10, Base Modifier +16, Dexterity +2",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "28"
+                "name": "ac",
+                "totalModifier": 18,
+                "value": 28
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +64,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "155",
+                "max": 155,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "155"
+                "value": 155
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +13, Wisdom +5",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 18,
                 "value": 18
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "20 feet"
+                "value": 20
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -155,7 +164,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "9"
+                "value": 9
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=565",
             "recallKnowledgeText": "Recall Knowledge - Beast : DC 28<br />Recall Knowledge - Dragon : DC 28",
@@ -209,26 +218,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +15, Constitution +5",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 20,
                 "value": 20
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 17,
+                "breakdown": "Base Modifier +15, Dexterity +2",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 17,
                 "value": 17
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 18,
+                "breakdown": "Base Modifier +13, Wisdom +5",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 18,
                 "value": 18
             }
         },
@@ -241,134 +259,238 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 17,
+                "breakdown": "Base Modifier +15, Dexterity +2",
+                "expanded": "acrobatics",
                 "item": 0,
+                "itemID": "0MhzhkarMs2ZDKgz",
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Acrobatics",
+                "rank": 1,
+                "totalModifier": 17,
+                "value": 17,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -3",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 21,
+                "breakdown": "Base Modifier +15, Strength +6",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "RpIdozSI8gaXv29A",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 21,
+                "value": 21,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -3",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "intimidation",
                 "item": 0,
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -3",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence -3",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -3,
+                "value": -3,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "base": 17,
+                "breakdown": "Base Modifier +15, Dexterity +2",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "X8rWLxO3gyBZN3ak",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 17,
+                "value": 17,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 20,
+                "breakdown": "Base Modifier +15, Wisdom +5",
+                "expanded": "survival",
                 "item": 0,
+                "itemID": "Kjnn907wCwU1waU3",
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 20,
+                "value": 20,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             }
         },
         "spells": {
@@ -451,6 +573,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -507,6 +630,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -565,9 +691,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -584,6 +712,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -644,6 +773,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -701,9 +833,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -722,6 +856,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -745,7 +880,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A dracolisk has resistance [[/r 10 # to the type of damage]] to the type of damage it produces with its breath weapon."
+                    "value": "<p>A dracolisk has resistance 10 to the type of damage it produces with its breath weapon.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -753,10 +888,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -773,6 +916,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Draconic Resistance",
@@ -786,7 +930,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -802,10 +946,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -827,9 +979,10 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Petrifying Glance ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Petrifying Glance",
             "sort": 400000,
             "type": "action"
         },
@@ -843,12 +996,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The dracolisk breathes a gout of energy based on its draconic heritage, as noted below. This breath weapon deals [[/r 6d10 # damage]] damage of the appropriate type, with a DC 28 basic save of a type indicated in parenthesis below. The dracolisk can't use Breath Weapon again for 1d4 rounds. <br /><b>Black </b> (acid) 60-foot line of acid (Reflex) <br /><b>Blue </b> (electricity) 60-foot line of electricity (Reflex) <br /><b>Green </b> (poison) 30-foot cone of poison (Fortitude) <br /><b>Red </b> (fire) 30-foot cone of fire (Reflex) <br /><b>White </b> (cold) 30-foot cone of cold (Reflex)"
+                    "value": "<p>The dracolisk breathes a gout of energy based on its draconic heritage, as noted below. This breath weapon deals [[/r 6d10]] damage of the appropriate type, with a DC 28 basic save of a type indicated in parenthesis below. The dracolisk can't use Breath Weapon again for [[/r 1d4]] rounds. <br /><strong>Black </strong> (acid) 60-foot line of acid (Reflex) <br /><strong>Blue </strong> (electricity) 60-foot line of electricity (Reflex) <br /><strong>Green </strong> (poison) 30-foot cone of poison (Fortitude) <br /><strong>Red </strong> (fire) 30-foot cone of fire (Reflex) <br /><strong>White </strong> (cold) 30-foot cone of cold (Reflex)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -856,10 +1009,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -879,8 +1040,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 500000,
             "type": "action"
@@ -895,12 +1057,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The dracolisk stares at a creature it can see within 30 feet. That creature must attempt a DC 28 Fortitude save. If it fails and has not already been slowed by Petrifying Glance or this ability, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1. If the creature already was slowed by this ability or Petrifying Glance, a failed save causes the creature to be @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.<br /><br /> A creature petrified in this manner can be instantly restored to flesh by being coated (not just splashed) with fresh dracolisk or basilisk blood no more than 1 hour old. A single dracolisk contains enough blood to coat 1d4+2 Medium creatures in this manner."
+                    "value": "<p>The dracolisk stares at a creature it can see within 30 feet. That creature must attempt a DC 28 Fortitude save. If it fails and has not already been slowed by Petrifying Glance or this ability, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1. If the creature already was slowed by this ability or Petrifying Glance, a failed save causes the creature to be @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.<br /><br />A creature petrified in this manner can be instantly restored to flesh by being coated (not just splashed) with fresh dracolisk or basilisk blood no more than 1 hour old. A single dracolisk contains enough blood to coat [[/r 1d4+2]] Medium creatures in this manner.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -908,10 +1070,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -934,8 +1104,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Petrifying Gaze",
             "sort": 600000,
             "type": "action"
@@ -963,10 +1134,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -985,6 +1158,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Savage Jaws",
@@ -1012,6 +1186,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1022,6 +1198,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -1049,6 +1226,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1059,6 +1238,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1086,6 +1266,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1096,6 +1278,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -1123,6 +1306,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1133,6 +1318,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
@@ -1145,7 +1331,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7kAbAOHJBq28FOXJ",
         "actorLink": false,
         "bar1": {
@@ -1164,6 +1349,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Dracolisk",
         "randomImg": false,
