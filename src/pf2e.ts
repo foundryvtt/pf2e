@@ -39,6 +39,7 @@ import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
+import { PF2RuleElements } from './module/rules/rules';
 
 require('./styles/pf2e.scss');
 
@@ -92,15 +93,6 @@ Hooks.once('init', () => {
     CONFIG.ui.combat = PF2eCombatTracker;
     // Assign the PF2e CompendiumDirectory
     CONFIG.ui.compendium = CompendiumDirectoryPF2e;
-
-    // configure the bundled TinyMCE editor with PF2-specific options
-    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
-    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-        title: 'Icons A D T F R',
-        inline: 'span',
-        classes: ['pf2-icon'],
-        wrapper: true,
-    });
 
     // configure the bundled TinyMCE editor with PF2-specific options
     CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
@@ -519,6 +511,18 @@ Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
 // effect panel
 Hooks.on('updateUser', (user, diff, options, id) => {
     game[game.system.id].effectPanel?.refresh();
+});
+
+Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => {
+    const actor = game.actors.get(token.actorId);
+    if (actor) {
+        actor.items.forEach((item: PF2EItem) => {
+            const rules = PF2RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+            for (const rule of rules) {
+                rule.onCreateToken(actor.data, item.data, token);
+            }
+        });
+    }
 });
 
 Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {

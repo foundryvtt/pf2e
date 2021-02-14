@@ -7,12 +7,12 @@ import { MoveLootPopup } from './loot/MoveLootPopup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ItemData, ConditionData, isPhysicalItem, SpellData, SpellcastingEntryData } from '../../item/dataDefinitions';
+import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '../../item/dataDefinitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './IdentifyPopup';
 import { PF2EPhysicalItem } from '../../item/physical';
 import { ScrollWandPopup } from './scroll-wand-popup';
-import { scrollFromSpell, wandFromSpell } from '../../item/spellConsumables';
+import { createConsumableFromSpell, SpellConsumableTypes } from '../../item/spellConsumables';
 import { ActorDataPF2e } from '@actor/actorDataDefinitions';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcastingEntry';
@@ -929,7 +929,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         });
 
         // Update Item Name
-        html.find<HTMLInputElement>('.item-name-input').change(async (event) => {
+        html.find<HTMLInputElement>('.item-name-input').on('change', async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
             await this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, name: event.target.value });
         });
@@ -1345,13 +1345,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                     {},
                     itemData,
                     async (heightenedLevel, itemType, spellData) => {
-                        if (itemType === 'scroll') {
-                            const item = await scrollFromSpell(itemData, heightenedLevel);
-                            return this._onDropItemCreate(item);
-                        } else if (itemType === 'wand') {
-                            const item = await wandFromSpell(itemData, heightenedLevel);
-                            return this._onDropItemCreate(item);
-                        }
+                        const consumableType =
+                            itemType == 'wand' ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
+
+                        const item = await createConsumableFromSpell(consumableType, itemData, heightenedLevel);
+                        return this._onDropItemCreate(item);
                     },
                 );
                 popup.render(true);

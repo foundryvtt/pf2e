@@ -397,6 +397,7 @@ export class PF2ECharacter extends PF2EActor {
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
             stat.value = stat.totalModifier;
+            stat.notes = notes;
             stat.roll = adaptRoll((args) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
@@ -562,6 +563,7 @@ export class PF2ECharacter extends PF2EActor {
                     weaponType: { value: 'unarmed' },
                     bonus: { value: 0 },
                     damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
+                    group: { value: 'brawling' },
                     range: { value: 'melee' },
                     traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                     equipped: {
@@ -616,8 +618,13 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
+                    const traits = PF2EActor.traits(item?.data?.traits?.value);
+                    const melee =
+                        ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
+                        traits.some((t) => t.startsWith('thrown'));
                     const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
-                        .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
+                        .concat(...traits) // always add weapon traits as options
+                        .concat(melee ? 'melee' : 'ranged')
                         .concat(`${ability}-attack`);
                     ensureProficiencyOption(defaultOptions, proficiencyRank);
                     const notes = [] as PF2RollNote[];
