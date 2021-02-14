@@ -10,7 +10,9 @@ interface WorldClockData {
 
 export class WorldClock extends Application {
     /** Localization keys */
-    private readonly translations = CONFIG.PF2E.worldClock;
+    private get translations() {
+        return game.i18n.translations.PF2E.WorldClock;
+    }
 
     private readonly animateDarkness = animateDarkness;
 
@@ -70,7 +72,7 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case 'AR': // Absalom Reckoning
-                return game.i18n.localize(this.translations.AR.era);
+                return game.i18n.localize(this.translations.AR.Era);
             case 'AD': // Earth on the Material Plane
                 return this.worldTime.toFormat('G');
             default:
@@ -85,9 +87,9 @@ export class WorldClock extends Application {
 
         switch (this.dateTheme) {
             case 'AR':
-                return actualYear + this.translations.AR.yearOffset;
+                return actualYear + CONFIG.PF2E.worldClock.AR.yearOffset;
             case 'AD':
-                return Math.abs(actualYear + this.translations.AD.yearOffset);
+                return Math.abs(actualYear + CONFIG.PF2E.worldClock.AD.yearOffset);
             default:
                 // 'CE'
                 return actualYear;
@@ -99,7 +101,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const month = this.worldTime.setLocale('en-US').monthLong;
-                return game.i18n.localize(this.translations.AR.months[month]);
+                return game.i18n.localize(this.translations.AR.Months[month]);
             }
             default:
                 return this.worldTime.monthLong;
@@ -111,7 +113,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const weekday = this.worldTime.setLocale('en-US').weekdayLong;
-                return game.i18n.localize(this.translations.AR.weekdays[weekday]);
+                return game.i18n.localize(this.translations.AR.Weekdays[weekday]);
             }
             default:
                 return this.worldTime.weekdayLong;
@@ -123,9 +125,8 @@ export class WorldClock extends Application {
         const rule = new Intl.PluralRules(game.i18n.lang, {
             type: 'ordinal',
         }).select(this.worldTime.day);
-        const translationKey = this.translations.ordinalSuffixes[rule];
-
-        return game.i18n.localize(translationKey);
+        const ruleKey = rule[0].toUpperCase() + rule.slice(1);
+        return game.i18n.localize(this.translations.OrdinalSuffixes[ruleKey]);
     }
 
     /** @override */
@@ -133,7 +134,7 @@ export class WorldClock extends Application {
         const date =
             this.dateTheme === 'CE'
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
-                : game.i18n.format(this.translations.date, {
+                : game.i18n.format(this.translations.Date, {
                       era: this.era,
                       year: this.year,
                       month: this.month,

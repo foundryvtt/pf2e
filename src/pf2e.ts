@@ -41,7 +41,8 @@ import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 
-require('./styles/pf2e.scss');
+import * as enJSON from '../static/lang/en.json';
+import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
@@ -65,6 +66,11 @@ interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     socket: SocketIO.Socket & {
         emit(message: Pick<SocketEventCallback, 0>): void;
         on(event: string, ...message: SocketEventCallback): void;
+    };
+
+    i18n: Localization & {
+        readonly translations: Localization['translations'] & typeof enJSON;
+        _fallback: { PF2E?: unknown };
     };
 }
 
