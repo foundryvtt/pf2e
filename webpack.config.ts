@@ -64,6 +64,9 @@ const config: Configuration = {
                             configFile: path.resolve(__dirname, 'tsconfig.json'),
                             experimentalWatchApi: !isProductionBuild,
                             happyPackMode: true,
+                            compilerOptions: {
+                                noEmit: false,
+                            },
                         },
                     },
                 ],
