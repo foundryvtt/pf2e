@@ -5,42 +5,46 @@
             "cha": {
                 "min": 3,
                 "mod": 7,
-                "value": 10
+                "value": 24
             },
             "con": {
                 "min": 3,
                 "mod": 4,
-                "value": 10
+                "value": 18
             },
             "dex": {
                 "min": 3,
                 "mod": 6,
-                "value": 10
+                "value": 22
             },
             "int": {
                 "min": 3,
                 "mod": 3,
-                "value": 10
+                "value": 16
             },
             "str": {
                 "min": 3,
                 "mod": 6,
-                "value": 10
+                "value": 22
             },
             "wis": {
                 "min": 3,
                 "mod": 5,
-                "value": 10
+                "value": 20
             }
         },
         "attributes": {
             "ac": {
+                "base": 34,
+                "breakdown": "Base Armor Class 10, Base Modifier +18, Dexterity +6",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "34"
+                "name": "ac",
+                "totalModifier": 24,
+                "value": 34
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 26,
+                "breakdown": "Base Modifier +21, Wisdom +5",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 26,
                 "value": 26
             },
             "resolve": {
@@ -109,7 +116,7 @@
                     }
                 ],
                 "special": "",
-                "value": "25 feet"
+                "value": 25
             }
         },
         "currency": {
@@ -126,6 +133,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -209,6 +218,22 @@
                         "value": 24
                     }
                 }
+            },
+            "5RHTa6Ml3zvYtqVN": {
+                "data": {
+                    "spelldc": {
+                        "dc": 34,
+                        "value": 24
+                    }
+                }
+            },
+            "6mCb1o0EW6yQ0NfB": {
+                "data": {
+                    "spelldc": {
+                        "dc": 34,
+                        "value": 24
+                    }
+                }
             }
         },
         "martial": {
@@ -256,26 +281,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 21,
+                "breakdown": "Base Modifier +17, Constitution +4",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 21,
                 "value": 21
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 23,
+                "breakdown": "Base Modifier +17, Dexterity +6",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 23,
                 "value": 23
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 26,
+                "breakdown": "Base Modifier +21, Wisdom +5",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 26,
                 "value": 26
             }
         },
@@ -288,134 +322,251 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +6",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +19, Intelligence +3",
+                "expanded": "arcana",
                 "item": 0,
+                "itemID": "NmXc3S0j7VRZX4kS",
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Arcana",
+                "rank": 1,
+                "totalModifier": 22,
+                "value": 22,
+                "visible": true
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Strength +6",
+                "expanded": "athletics",
                 "item": 0,
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
+                "name": "Athletics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +3",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 26,
+                "breakdown": "Base Modifier +19, Charisma +7",
+                "expanded": "deception",
                 "item": 0,
+                "itemID": "J5Mah1mfPaLkZmjC",
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Deception",
+                "rank": 1,
+                "totalModifier": 26,
+                "value": 26,
+                "visible": true
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +7",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 7,
+                "value": 7,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 26,
+                "breakdown": "Base Modifier +19, Charisma +7",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "NVxnNVFpqoe8Qdvh",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 26,
+                "value": 26,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +3",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +7",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 7,
+                "value": 7,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +17, Wisdom +5",
+                "expanded": "religion",
                 "item": 0,
+                "itemID": "MyPP3fspaRFbp363",
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Religion",
+                "rank": 1,
+                "totalModifier": 22,
+                "value": 22,
+                "visible": true
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +3",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +6",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
+            },
+            "styx-lore": {
+                "base": 24,
+                "breakdown": "Base Modifier +21, Intelligence +3",
+                "expanded": "styx-lore",
+                "itemID": "MgWcgCTxwxAVsQWD",
+                "label": "Styx Lore",
+                "lore": true,
+                "name": "Styx Lore",
+                "rank": 1,
+                "totalModifier": 24,
+                "value": 24,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +5",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +6",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             }
         },
         "spells": {
@@ -513,6 +664,7 @@
             }
         }
     },
+    "img": "icons/svg/mystery-man.svg",
     "items": [
         {
             "_id": "6mCb1o0EW6yQ0NfB",
@@ -608,11 +760,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "34",
+                    "dc": 34,
                     "item": 0,
                     "mod": 0,
                     "value": 24
@@ -728,11 +881,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "34",
+                    "dc": 34,
                     "item": 0,
                     "mod": 0,
                     "value": 24
@@ -755,7 +909,1095 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "6DB8WMUrvUGJcrDr",
+            "_id": "PwSEiS1mqX6rqjJa",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Draining Strike"
+                    ]
+                },
+                "bonus": {
+                    "total": 28,
+                    "value": "28"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "die": "3d8+14"
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d8+14",
+                        "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "negative"
+                    },
+                    "2": {
+                        "damage": "1d6",
+                        "damageType": "evil"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "value": [
+                        "evil",
+                        "magical",
+                        "parry",
+                        "reach-10",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {}
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Bo Staff",
+            "sort": 1700000,
+            "type": "melee"
+        },
+        {
+            "_id": "KYPHjX89IxHU4Sz3",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Draining Strike"
+                    ]
+                },
+                "bonus": {
+                    "total": 27,
+                    "value": "27"
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "die": "3d6+14"
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6+14",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "evil"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": false
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "agile",
+                        "evil",
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {}
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Claw",
+            "sort": 1800000,
+            "type": "melee"
+        },
+        {
+            "_id": "5fPhzfjVfDH0Ssgz",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it must attempt a DC 30 Will save. If the creature fails, it becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2. The creature is then temporarily immune to terrifying gaze (but not Focus Gaze) for 24 hours.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "emotion",
+                        "enchantment",
+                        "fear",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "defensive"
+                    }
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Terrifying Gaze",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "yHiEUWvnlHVJLlCA",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When a thanadaemon damages a living creature with a melee Strike, the creature must succeed at a DC 33 Fortitude save or become @Compendium[pf2e.conditionitems.Drained]{Drained} 1. Further damage dealt by the thanadaemon increases the drained condition value by 1 on a failed save, to a maximum of drained 4.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Draining Strike",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "e7rgKN11dqX1fsSq",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The thanadaemon glares at a single creature they can see within 30 feet. The target must immediately attempt a DC 33 Will save against the thanadaemon's terrifying gaze. If the target was already @Compendium[pf2e.conditionitems.Frightened]{Frightened}, a failed save causes it to become @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for [[/r 1d4]] rounds. After attempting its save, the creature is temporarily immune to this ability until the start of the thanadaemon's next turn.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "divine",
+                        "fear",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Focus Gaze",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "mKh47XLxTvXG71TF",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The thanadaemon has a soul gem; </p>\n<p><strong>Effect</strong> The thanadaemon crushes the soul gem in one hand and gains fast healing 15 for 1 minute.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "pf2e_updatednpcsheet": {
+                    "npcActionType": {
+                        "value": "offensive"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "name": "Soul Crush",
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
+            "_id": "NmXc3S0j7VRZX4kS",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Arcana",
+            "sort": 2300000,
+            "type": "lore"
+        },
+        {
+            "_id": "J5Mah1mfPaLkZmjC",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Deception",
+            "sort": 2400000,
+            "type": "lore"
+        },
+        {
+            "_id": "NVxnNVFpqoe8Qdvh",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Intimidation",
+            "sort": 2500000,
+            "type": "lore"
+        },
+        {
+            "_id": "MyPP3fspaRFbp363",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Religion",
+            "sort": 2600000,
+            "type": "lore"
+        },
+        {
+            "_id": "MgWcgCTxwxAVsQWD",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "featType": "",
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Styx Lore",
+            "sort": 2700000,
+            "type": "lore"
+        },
+        {
+            "_id": "to0m6P6gu6ec9H8w",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d8",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>This strong but slender staff is tapered at the ends and well balanced. It's designed to be an offensive and defensive weapon.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "club"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "label": "Item Level",
+                    "type": "Number",
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": "1"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "label": "Price",
+                    "type": "String",
+                    "value": "2 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "reach"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "bo-staff",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "monk",
+                        "parry",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hMYdSFmMWzidzHih"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bo-staff.png",
+            "name": "+1 Striking Bo Staff",
+            "sort": 2800000,
+            "type": "weapon"
+        },
+        {
+            "_id": "zrOc6HssKzGVZtMQ",
+            "data": {
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "denomination": {
+                    "value": "gp"
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "level": {
+                    "value": "0"
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "quantity": {
+                    "value": 2
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "value": {
+                    "value": 0
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Soul Gem",
+            "sort": 2900000,
+            "type": "treasure"
+        },
+        {
+            "_id": "qyd0GVbIjt8Jno43",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -855,6 +2097,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "finger-of-death",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -904,20 +2147,21 @@
                         "death",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Z9OrRXKgAPv6Hn5l"
+                }
+            },
             "img": "systems/pf2e/icons/spells/finger-of-death.jpg",
             "name": "Finger of Death",
-            "sort": 300000,
+            "sort": 3000000,
             "type": "spell"
         },
         {
-            "_id": "LWvLCUPptWwI8fdp",
+            "_id": "q6J3MGrcYHH02bgi",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1017,6 +2261,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "plane-shift",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1061,27 +2306,28 @@
                 "traits": {
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.jpg",
-            "name": "Plane Shift (at will; self plus skiff and passengers only; Astral, Ethereal, and evil planes only)",
-            "sort": 400000,
+            "name": "Plane Shift (At Will) (Self Plus Skiff and Passengers Only) (Astral, Ethereal, and Evil Planes Only)",
+            "sort": 3100000,
             "type": "spell"
         },
         {
-            "_id": "7lHp20fFk5WA946g",
+            "_id": "xuxcD3IxM5AA63Rh",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1100,7 +2346,7 @@
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": " material, somatic, verbal"
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -1133,7 +2379,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "6mCb1o0EW6yQ0NfB"
@@ -1181,6 +2427,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "teleport",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1230,20 +2477,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/teleport.jpg",
             "name": "Teleport",
-            "sort": 500000,
+            "sort": 3200000,
             "type": "spell"
         },
         {
-            "_id": "4dKnFeDTbMrdSI5z",
+            "_id": "QARQlsy3F4hQ6ott",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1285,7 +2533,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\r<p>\n<hr /><b>Critical Success</b>  The target is unaffected.</p>\r<p>\n<b>Success</b>  The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 round.</p>\r<p>\n<b>Failure</b>  The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 minute.</p>\r<p>\n<b>Critical Failure</b>  The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 2 for 1 minute.</p>\r<p>\n<hr /><b>Heightened (6th)</b>  You can target up to 10 creatures.</p>"
+                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 round.</p>\n<p><strong>Failure</strong> The target is Slowed 1 for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Slowed 2 for 1 minute.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1295,7 +2543,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "6mCb1o0EW6yQ0NfB"
@@ -1343,6 +2591,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "slow",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1392,20 +2641,21 @@
                     "value": [
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WsUwpfmhKrKwoIe3"
+                }
+            },
             "img": "systems/pf2e/icons/spells/slow.jpg",
             "name": "Slow",
-            "sort": 600000,
+            "sort": 3300000,
             "type": "spell"
         },
         {
-            "_id": "wRyCy79i7Pnp1RQn",
+            "_id": "aOLNnU165PIKFgLw",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1505,6 +2755,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "vampiric-exsanguination",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1556,20 +2807,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fd31tAHSSGXyOxW6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.jpg",
             "name": "Vampiric Exsanguination",
-            "sort": 700000,
+            "sort": 3400000,
             "type": "spell"
         },
         {
-            "_id": "dCzA19qm8p57LCAg",
+            "_id": "tsJQw1WpzBqt2b49",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1669,6 +2921,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "vampiric-exsanguination",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1720,182 +2973,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fd31tAHSSGXyOxW6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.jpg",
             "name": "Vampiric Exsanguination",
-            "sort": 800000,
+            "sort": 3500000,
             "type": "spell"
         },
         {
-            "_id": "qd1386vXeR6f2imz",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "5"
-                },
-                "location": {
-                    "value": "6mCb1o0EW6yQ0NfB"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "con"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "conjuration",
-                        "teleportation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "XRzWda0sS7WjNqvP",
+            "_id": "okwspmBZGsiRzVEG",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1995,6 +3087,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2044,20 +3137,185 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door (at will)",
-            "sort": 1000000,
+            "name": "Dimension Door (At Will)",
+            "sort": 3600000,
             "type": "spell"
         },
         {
-            "_id": "10r4EanNBc3vWWkm",
+            "_id": "6J0NYHfCHdwxb9hx",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "label": "Area",
+                    "type": "String",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": ""
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 4
+                },
+                "location": {
+                    "value": "6mCb1o0EW6yQ0NfB"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "120 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "con"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "utility"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": ""
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "2"
+                },
+                "traditions": {
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "conjuration",
+                        "teleportation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dimension-door.jpg",
+            "name": "Dimension Door",
+            "sort": 3700000,
+            "type": "spell"
+        },
+        {
+            "_id": "x7Rj9AcSMlm0Wqcb",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2157,6 +3415,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "detect-alignment",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2206,20 +3465,21 @@
                         "detection",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-alignment.jpg",
-            "name": "Detect Alignment (good only; at will)",
-            "sort": 1100000,
+            "name": "Detect Alignment (At Will) (Good Only)",
+            "sort": 3800000,
             "type": "spell"
         },
         {
-            "_id": "tf8o8sZLnKu7glz9",
+            "_id": "j6LBR2I9l82fKnrW",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2271,7 +3531,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "6mCb1o0EW6yQ0NfB"
@@ -2319,6 +3579,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "air-walk",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2368,20 +3629,21 @@
                         "air",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/air-walk.jpg",
             "name": "Air Walk (Constant)",
-            "sort": 1200000,
+            "sort": 3900000,
             "type": "spell"
         },
         {
-            "_id": "c24xey2fXguxyY2S",
+            "_id": "DvtMoGp3M56bie8W",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2433,7 +3695,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "6mCb1o0EW6yQ0NfB"
@@ -2481,6 +3743,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2532,20 +3795,21 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
             "name": "True Seeing (Constant)",
-            "sort": 1300000,
+            "sort": 4000000,
             "type": "spell"
         },
         {
-            "_id": "bOSNCqX9uW2Z3Ab1",
+            "_id": "HPi5YLaL8I65mWbh",
             "data": {
                 "ability": {
                     "value": ""
@@ -2572,7 +3836,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your magic dredges up a corpse or skeleton and fills it with necromantic life, and you force the dead to fight at your command. You summon a common creature that has the undead trait and whose level is -1; this creature gains the summoned trait. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1.<br /><strong>Heightened (3rd)</strong> Level 2.<br /><strong>Heightened (4th)</strong> Level 3.<br /><strong>Heightened (5th)</strong> Level 5.<br /><strong>Heightened (6th)</strong> Level 7.<br /><strong>Heightened (7th)</strong> Level 9.<br /><strong>Heightened (8th)</strong> Level 11.<br /><strong>Heightened (9th)</strong> Level 13.<br /><strong>Heightened (10th)</strong> Level 15.</p>"
+                    "value": "<p>Your magic dredges up a corpse or skeleton and fills it with necromantic life, and you force the dead to fight at your command. You summon a common creature that has the undead trait and whose level is -1; this creature gains the summoned trait. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Level 1.</p>\n<p><strong>Heightened (3rd)</strong> Level 2.</p>\n<p><strong>Heightened (4th)</strong> Level 3.</p>\n<p><strong>Heightened (5th)</strong> Level 5.</p>\n<p><strong>Heightened (6th)</strong> Level 7.</p>\n<p><strong>Heightened (7th)</strong> Level 9.</p>\n<p><strong>Heightened (8th)</strong> Level 11.</p>\n<p><strong>Heightened (9th)</strong> Level 13.</p>\n<p><strong>Heightened (10th)</strong> Level 15.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -2593,7 +3857,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "30 feet "
+                    "value": "30 feet"
                 },
                 "rarity": {
                     "value": "common"
@@ -2616,6 +3880,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "animate-dead",
                 "source": {
                     "value": ""
                 },
@@ -2652,943 +3917,18 @@
                     "value": [
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9WGeBwIIbbUuWKq0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/animate-dead.jpg",
             "name": "Animate Dead",
-            "sort": 1400000,
+            "sort": 4100000,
             "type": "spell"
-        },
-        {
-            "_id": "BvY87JaVUkXvE5zV",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 striking bo staff",
-            "sort": 1500000,
-            "type": "equipment"
-        },
-        {
-            "_id": "UDscr3c6zsRSHTub",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "soul gem (2)",
-            "sort": 1600000,
-            "type": "equipment"
-        },
-        {
-            "_id": "PwSEiS1mqX6rqjJa",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "draining strike"
-                    ]
-                },
-                "bonus": {
-                    "total": 28,
-                    "value": 28
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "3d8+14"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "3d8+14",
-                        "damageType": "bludgeoning"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "negative"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "evil"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "(evil, magical, parry, reach 10 feet, trip)"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "evil",
-                        "magical",
-                        "parry",
-                        "reach 10 feet",
-                        "trip"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Bo Staff",
-            "sort": 1700000,
-            "type": "melee"
-        },
-        {
-            "_id": "KYPHjX89IxHU4Sz3",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": [
-                        "draining strike"
-                    ]
-                },
-                "bonus": {
-                    "total": 27,
-                    "value": 27
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "3d6+14"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "3d6+14",
-                        "damageType": "slashing"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "evil"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "(agile, evil, finesse, magical)"
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "agile",
-                        "evil",
-                        "finesse",
-                        "magical"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Claw",
-            "sort": 1800000,
-            "type": "melee"
-        },
-        {
-            "_id": "5fPhzfjVfDH0Ssgz",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "30 feet. When a creature ends its turn in the aura, it must attempt a DC 30 Will save. If the creature fails, it becomes frightened 2. The creature is then temporarily immune to terrifying gaze (but not Focus Gaze) for 24 hours."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "emotion",
-                        "enchantment",
-                        "fear",
-                        "mental",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Terrifying Gaze",
-            "sort": 1900000,
-            "type": "action"
-        },
-        {
-            "_id": "yHiEUWvnlHVJLlCA",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "When a thanadaemon damages a living creature with a melee Strike, the creature must succeed at a DC 33 Fortitude save or become drained 1. Further damage dealt by the thanadaemon increases the drained condition value by 1 on a failed save, to a maximum of drained 4."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Draining Strike",
-            "sort": 2000000,
-            "type": "action"
-        },
-        {
-            "_id": "e7rgKN11dqX1fsSq",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The thanadaemon glares at a single creature they can see within 30 feet. The target must immediately attempt a DC 33 Will save against the thanadaemon's terrifying gaze. If the target was already frightened, a failed save causes it to become fleeing for 1d4 rounds. After attempting its save, the creature is temporarily immune to this ability until the start of the thanadaemon's next turn."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "fear",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Focus Gaze",
-            "sort": 2100000,
-            "type": "action"
-        },
-        {
-            "_id": "mKh47XLxTvXG71TF",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Requirements</b> The thanadaemon has a soul gem; <br />\n<b>Effect</b> The thanadaemon crushes the soul gem in one hand and gains fast healing 15 for 1 minute."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "manipulate"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Soul Crush",
-            "sort": 2200000,
-            "type": "action"
-        },
-        {
-            "_id": "NmXc3S0j7VRZX4kS",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcana",
-            "sort": 2300000,
-            "type": "lore"
-        },
-        {
-            "_id": "J5Mah1mfPaLkZmjC",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Deception",
-            "sort": 2400000,
-            "type": "lore"
-        },
-        {
-            "_id": "NVxnNVFpqoe8Qdvh",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Intimidation",
-            "sort": 2500000,
-            "type": "lore"
-        },
-        {
-            "_id": "MyPP3fspaRFbp363",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Religion",
-            "sort": 2600000,
-            "type": "lore"
-        },
-        {
-            "_id": "MgWcgCTxwxAVsQWD",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Styx Lore",
-            "sort": 2700000,
-            "type": "lore"
         }
     ],
     "name": "Thanadaemon",
