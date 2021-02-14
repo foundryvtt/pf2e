@@ -41,6 +41,33 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mountain's Stoutness",
+                "predicate":{"not":["feat-toughness"]},
+                "roll-options":["all"],
+                "selector": "recovery-dc",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mountain's Stoutness & Toughness",
+                "predicate":{"all":["feat-toughness"]},
+                "roll-options":["all"],
+                "selector": "recovery-dc",
+                "value": -4
+            },               
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "property": "flags.pf2e.rollOptions.all.feat-mountains-stoutness",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "retain": true
+            }              
+        ],
         "source": {
             "label": "Source",
             "type": "String",
