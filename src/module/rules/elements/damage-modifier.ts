@@ -1,13 +1,15 @@
 import { PF2RuleElement } from '../rules';
 import { RuleValue } from '../rule-element';
 import { CharacterData, FamiliarData, LabeledValue, NpcData } from '../../actor/actorDataDefinitions';
-import { groupBy, max, toNumber } from '../../utils';
+import { RulePredicate } from '../../modifiers';
+import { mergeResistancesOrWeaknesses } from '../../damage-modifiers';
 
 interface RuleConfiguration {
     type: 'resistance' | 'immunity' | 'weakness';
     damageType: string;
     value?: RuleValue;
     exceptions?: string;
+    predicate: RulePredicate;
 }
 
 function mergeLabeledValues(
@@ -17,21 +19,14 @@ function mergeLabeledValues(
     exceptions: string | undefined,
 ): LabeledValue[] {
     const damageOrResistanceTypes = Object.assign({}, CONFIG.PF2E.resistanceTypes, CONFIG.PF2E.weaknessTypes);
-    const mergedValues = values.concat({
-        label: damageOrResistanceTypes[damageType],
-        value: value,
-        type: damageType,
-        exceptions: exceptions,
-    });
-    const valuesByType = groupBy(mergedValues, (value) => value.type);
-    return Array.from(valuesByType.entries()).flatMap(([, value]) => {
-        // fire resistance 5 and fire resistance 10 collapse to fire resistance 10
-        // physical 5 (except silver) and physical 5 (except adamantine) are kept
-        const groupedByException = groupBy(value, (value) => value.exceptions ?? null);
-        return Array.from(groupedByException.entries()).map(([, value]) => {
-            return max(value, (val) => toNumber(val.value) ?? 0);
-        });
-    });
+    return mergeResistancesOrWeaknesses(
+        values.concat({
+            label: damageOrResistanceTypes[damageType],
+            value: value,
+            type: damageType,
+            exceptions: exceptions,
+        }),
+    );
 }
 
 /**
@@ -41,7 +36,8 @@ function mergeLabeledValues(
  *     "type": "resistance",  // could also be immunity or weakness
  *     "damageType": "fire",  // any key of CONFIG.resistanceTypes, CONFIG.weaknessTypes, CONFIG.immunityTypes
  *     "value": 5, // could also be a bracket or string, similar to damage dice, unused if immunity
- *     "exceptions": "adamantine bludgeoning"  // only stacks with the same exception type, use null
+ *     "exceptions": "adamantine bludgeoning",  // only stacks with the same exception type, use null,
+ *     "predicate": {...}  // optional predicate
  * }
  */
 export class DamageModifierRuleElement extends PF2RuleElement {
@@ -49,6 +45,7 @@ export class DamageModifierRuleElement extends PF2RuleElement {
         const traits = actorData.data.traits;
         const value = duplicate(this.ruleData) as RuleConfiguration;
 
+        // TODO: implement predicate
         if (value.type === 'resistance' || value.type === 'weakness') {
             const modifierValue = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
             if (value.type === 'resistance') {
