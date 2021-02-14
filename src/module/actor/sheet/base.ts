@@ -606,10 +606,8 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Toggle Levels of stats (like proficiencies conditions or hero points)
         html.find('.click-stat-level').on('click contextmenu', this._onClickStatLevel.bind(this));
 
-        // Bind wounded/doomed/dying status effects to character sheet
-        html.find('.dying-click').on('click contextmenu', PF2eStatusEffects._setStatusValue.bind(this.token));
-        html.find('.doomed-click').on('click contextmenu', PF2eStatusEffects._setStatusValue.bind(this.token));
-        html.find('.wounded-click').on('click contextmenu', PF2eStatusEffects._setStatusValue.bind(this.token));
+        // Bind elements on character sheet to status effects (condition chosen by data-condition attribute)
+        html.find('.linked-condition').on('click contextmenu', PF2eStatusEffects._setStatusValue.bind(this.token));
 
         // Remove Spell Slot
         html.find('.item-unprepare').click((ev) => {
