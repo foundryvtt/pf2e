@@ -188,7 +188,7 @@ export abstract class PF2RuleElement {
         if (typeof value === 'string') {
             const roll = new Roll(value, { ...actorData.data, item: item.data });
             roll.roll();
-            value = roll.total;
+            value = roll.total ?? 0;
         }
 
         if (Number.isInteger(Number(value))) {

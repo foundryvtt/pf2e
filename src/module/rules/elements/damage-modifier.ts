@@ -1,5 +1,4 @@
 import { PF2RuleElement } from '../rules';
-import { PF2RuleElementSynthetics } from '../rulesDataDefinitions';
 import { RuleValue } from '../rule-element';
 import { CharacterData, FamiliarData, LabeledValue, NpcData } from '../../actor/actorDataDefinitions';
 import { groupBy, max, toNumber } from '../../utils';
@@ -15,7 +14,7 @@ function mergeLabeledValues(
     values: LabeledValue[],
     damageType: string,
     value: number,
-    exceptions: string,
+    exceptions: string | undefined,
 ): LabeledValue[] {
     const damageOrResistanceTypes = Object.assign({}, CONFIG.PF2E.resistanceTypes, CONFIG.PF2E.weaknessTypes);
     const mergedValues = values.concat({
@@ -46,7 +45,7 @@ function mergeLabeledValues(
  * }
  */
 export class DamageModifierRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData) {
         const traits = actorData.data.traits;
         const value = duplicate(this.ruleData) as RuleConfiguration;
 
