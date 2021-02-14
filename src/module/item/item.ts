@@ -868,11 +868,11 @@ export class PF2EItem extends Item<PF2EActor> {
             throw new Error('Spell points to location that is not a spellcasting type');
 
         const modifiers: PF2Modifier[] = [];
-        let ability: AbilityString = item.data.ability?.value || 'int';
-        let score = this.actor.data.data.abilities[ability]?.value ?? 0;
+        const ability: AbilityString = item.data.ability?.value || 'int';
+        const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
 
-        let proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
+        const proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
 
         const rollOptions = ['all', 'counteract-check'];
