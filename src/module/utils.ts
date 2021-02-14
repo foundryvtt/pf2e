@@ -158,5 +158,15 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
  * @param sortValue
  */
 export function max<T>(values: T[], sortValue: (value: T) => number): T {
-    return values.sort((a, b) => sortValue(a) - sortValue(b)).reverse()[0];
+    let maxIndex = 0;
+    let maxValue = Number.MIN_VALUE;
+    for (let i = 0; i < values.length; i += 1) {
+        const value = values[i];
+        const sort = sortValue(value);
+        if (sort >= maxValue) {
+            maxValue = sort;
+            maxIndex = i;
+        }
+    }
+    return values[maxIndex];
 }
