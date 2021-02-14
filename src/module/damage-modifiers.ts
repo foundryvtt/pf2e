@@ -333,11 +333,6 @@ function applyResistances({
 
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
- *
- * @param damage
- * @param immunities
- * @param resistances
- * @param weaknesses
  */
 export function calculateDamage({
     isCriticalHit,
