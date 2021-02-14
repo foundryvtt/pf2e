@@ -2,7 +2,7 @@ import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2EActor } from '../actor/actor';
 import { calculateDC, DCOptions } from '../dc';
 import { parseTraits } from '../traits';
-import { ConsumableData, SpellcastingEntryData, SpellData } from './data-definitions';
+import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 
 export enum SpellConsumableTypes {
     Scroll,
@@ -77,4 +77,29 @@ export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boole
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
             .filter((i) => spellData?.traditions?.value.includes(i.data.tradition.value)).length > 0
     );
+}
+
+export interface TrickMagicItemDifficultyData {
+    arc?: number;
+    rel?: number;
+    occ?: number;
+    nat?: number;
+}
+
+const TraditionSkills = {
+    arcane: 'Arc',
+    divine: 'Rel',
+    occult: 'Occ',
+    primal: 'Nat',
+};
+
+export function calculateTrickMagicItemCheckDC(
+    itemData: ConsumableData,
+    options: DCOptions = { proficiencyWithoutLevel: false },
+): TrickMagicItemDifficultyData {
+    const DC = calculateDC(itemData.data.level.value, options);
+    const skills: [string, number][] = parseTraits(itemData?.data?.traits?.value)
+        .filter((t) => ['arcane', 'primal', 'divine', 'occult'].includes(t))
+        .map((s) => [TraditionSkills[s], DC]);
+    return Object.fromEntries(skills);
 }

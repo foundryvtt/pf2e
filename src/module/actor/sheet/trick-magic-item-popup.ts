@@ -1,5 +1,6 @@
-import { TrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spellConsumables';
-import { PF2EActor } from '../actor';
+import { PF2EActor } from '@actor/actor';
+import { TrickMagicItemCastData } from '@item/dataDefinitions';
+import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spellConsumables';
 
 /**
  * @category Other
@@ -54,7 +55,7 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
 
     async _updateObject(event: any, formData: FormData & { itemType: string; level: number }) {
         if (event.submitter?.name) {
-            this.result = { ability: event.submitter.name.toLowerCase() };
+            this.result = calculateTrickMagicItemCastData(this.object, event.submitter.name.toLowerCase());
         } else {
             this.result = false;
         }

@@ -1,7 +1,6 @@
 import { PF2EActor } from '../actor/actor';
 import { SpellcastingEntryData, SpellData } from './data-definitions';
-import { SpellcastingEntry } from './spellcasting-e	ntry';
-import { TrickMagicItemCastData } from './spell-consumables';
+import { SpellcastingEntry } from './spellcasting-entry';
 
 /**
  * @category Other
@@ -10,9 +9,9 @@ export class Spell {
     data: SpellData;
     castingActor: PF2EActor;
     _castLevel: number;
-    _spellcastingEntry: SpellcastingEntry;
+    _spellcastingEntry?: SpellcastingEntry;
 
-    constructor(data: SpellData, scope: { castingActor?: PF2EActor; castLevel?: number } = {}) {
+    constructor(data: SpellData, scope: { castingActor: PF2EActor; castLevel?: number }) {
         this.data = data;
         this.castingActor = scope?.castingActor;
         this._castLevel = scope?.castLevel || this.spellLevel;
@@ -25,7 +24,7 @@ export class Spell {
     get spellcastingEntry() {
         if (!this._spellcastingEntry) {
             this._spellcastingEntry = new SpellcastingEntry(
-                this.castingActor?.getOwnedItem(this.spellcastingEntryId).data as SpellcastingEntryData,
+                this.castingActor?.getOwnedItem(this.spellcastingEntryId)?.data as SpellcastingEntryData,
             );
         }
         return this._spellcastingEntry;
@@ -54,7 +53,11 @@ export class Spell {
         const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
         if (this.damage.applyMod) {
-            parts.push(this.castingActor.getAbilityMod(this.spellcastingEntry.ability));
+            if (!this.spellcastingEntry.data && this.data.data.trickMagicItemData) {
+                parts.push(this.castingActor.getAbilityMod(this.data.data.trickMagicItemData.ability));
+            } else {
+                parts.push(this.castingActor.getAbilityMod(this.spellcastingEntry.ability));
+            }
         }
         if (this.data.data.duration.value === '' && this.castingActor?.items) {
             const featDangerousSorcery = this.castingActor.items.find((it) => it.name === 'Dangerous Sorcery');
