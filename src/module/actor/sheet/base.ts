@@ -16,6 +16,7 @@ import { createConsumableFromSpell, SpellConsumableTypes } from '../../item/spel
 import { ActorDataPF2e } from '@actor/actorDataDefinitions';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcastingEntry';
+import { PF2ECondition } from '@item/others';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -720,91 +721,106 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         });
 
         // Delete Inventory Item
-        html.find('.item-delete').click(async (ev) => {
-            const li = $(ev.currentTarget).parents('.item');
-            const itemId = li.attr('data-item-id');
-            const item = new PF2EItem(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
+        html.find('.item-delete').on(
+            'click',
+            async (event): Promise<void> => {
+                const li = $(event.currentTarget).parents('.item');
+                const itemId = li.attr('data-item-id');
+                const item = this.actor.getOwnedItem(itemId ?? '');
 
-            if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
-                // Condition Item.
+                if (item instanceof PF2ECondition && item.getFlag(game.system.id, 'condition')) {
+                    // Condition Item.
 
-                const condition = item.data as ConditionData;
-                const list: string[] = [];
-                const references = li.find('.condition-references');
+                    const condition = item.data as ConditionData;
+                    const list: string[] = [];
+                    const references = li.find('.condition-references');
 
-                console.log(references.html());
+                    const deleteCondition = async (): Promise<void> => {
+                        this.actor.data.items
+                            .filter(
+                                (i) =>
+                                    i.type === 'condition' &&
+                                    i.flags.pf2e?.condition &&
+                                    i.data.base === condition.data.base &&
+                                    i.data.value.value === condition.data.value.value,
+                            )
+                            .forEach((i: ConditionData) => {
+                                list.push(i._id);
+                            });
 
-                const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {
-                    name: item.name,
-                    ref: references.html(),
-                });
-                new Dialog({
-                    title: 'Remove Condition',
-                    content,
-                    buttons: {
-                        Yes: {
-                            icon: '<i class="fa fa-check"></i>',
-                            label: 'Yes',
-                            callback: async () => {
-                                this.actor.data.items
-                                    .filter(
-                                        (i) =>
-                                            i.type === 'condition' &&
-                                            i.flags.pf2e?.condition &&
-                                            i.data.base === condition.data.base &&
-                                            i.data.value.value === condition.data.value.value,
-                                    )
-                                    .forEach((i: ConditionData) => {
-                                        list.push(i._id);
-                                    });
+                        await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                    };
+                    if (event.ctrlKey) {
+                        deleteCondition();
+                        return;
+                    }
 
-                                await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                    const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {
+                        name: item.name,
+                        ref: references.html(),
+                    });
+                    new Dialog({
+                        title: 'Remove Condition',
+                        content,
+                        buttons: {
+                            Yes: {
+                                icon: '<i class="fa fa-check"></i>',
+                                label: 'Yes',
+                                callback: deleteCondition,
+                            },
+                            cancel: {
+                                icon: '<i class="fas fa-times"></i>',
+                                label: 'Cancel',
                             },
                         },
-                        cancel: {
-                            icon: '<i class="fas fa-times"></i>',
-                            label: 'Cancel',
-                        },
-                    },
-                    default: 'Yes',
-                }).render(true);
-            } else {
-                const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {
-                    name: item.name,
-                });
-                new Dialog({
-                    title: 'Delete Confirmation',
-                    content,
-                    buttons: {
-                        Yes: {
-                            icon: '<i class="fa fa-check"></i>',
-                            label: 'Yes',
-                            callback: async () => {
-                                await this.actor.deleteOwnedItem(itemId);
-                                if (item.type === 'lore') {
-                                    // normalize skill name to lower-case and dash-separated words
-                                    const skill = item.name.toLowerCase().replace(/\s+/g, '-');
-                                    // remove derived skill data
-                                    await this.actor.update({ [`data.skills.-=${skill}`]: null });
-                                } else {
-                                    // clean up any individually targeted modifiers to attack and damage
-                                    await this.actor.update({
-                                        [`data.customModifiers.-=${itemId}-attack`]: null,
-                                        [`data.customModifiers.-=${itemId}-damage`]: null,
-                                    });
-                                }
-                                li.slideUp(200, () => this.render(false));
+                        default: 'Yes',
+                    }).render(true);
+                } else if (item instanceof PF2EItem) {
+                    const deleteItem = async (): Promise<void> => {
+                        await this.actor.deleteOwnedItem(itemId);
+                        if (item.type === 'lore') {
+                            // normalize skill name to lower-case and dash-separated words
+                            const skill = item.name.toLowerCase().replace(/\s+/g, '-');
+                            // remove derived skill data
+                            await this.actor.update({ [`data.skills.-=${skill}`]: null });
+                        } else {
+                            // clean up any individually targeted modifiers to attack and damage
+                            await this.actor.update({
+                                [`data.customModifiers.-=${itemId}-attack`]: null,
+                                [`data.customModifiers.-=${itemId}-damage`]: null,
+                            });
+                        }
+                        li.slideUp(200, () => this.render(false));
+                    };
+                    if (event.ctrlKey) {
+                        deleteItem();
+                        return;
+                    }
+
+                    const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {
+                        name: item.name,
+                    });
+                    new Dialog({
+                        title: 'Delete Confirmation',
+                        content,
+                        buttons: {
+                            Yes: {
+                                icon: '<i class="fa fa-check"></i>',
+                                label: 'Yes',
+                                callback: deleteItem,
+                            },
+                            cancel: {
+                                icon: '<i class="fas fa-times"></i>',
+                                label: 'Cancel',
                             },
                         },
-                        cancel: {
-                            icon: '<i class="fas fa-times"></i>',
-                            label: 'Cancel',
-                        },
-                    },
-                    default: 'Yes',
-                }).render(true);
-            }
-        });
+                        default: 'Yes',
+                    }).render(true);
+                } else {
+                    return Promise.reject(new Error('PF2E System | Item not found'));
+                }
+            },
+        );
 
         // Increase Item Quantity
         html.find('.item-increase-quantity').click((event) => {
