@@ -522,10 +522,9 @@ export class PF2EItem extends Item<PF2EActor> {
         let twohandedTrait = false;
         let twohandedDie = '';
         let thrownTrait = false;
-        const len = traits.length;
-        const critRegex = '(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)';
-        const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
-        const thrownRegex = '(\\bthrown\\b)-(\\d+)';
+        const critRegex = /\b(deadly|fatal)-(d\d+)/;
+        const twohandedRegex = /\b(two-hand)-(d\d+)/;
+        const thrownRegex = /\b(thrown)-(\d+)/;
         const hasThiefRacket =
             this.actor.data.items.filter((e) => e.type === 'feat' && e.name === 'Thief Racket').length > 0;
         const strikingDice = getStrikingDice(itemData);
@@ -533,14 +532,17 @@ export class PF2EItem extends Item<PF2EActor> {
         if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
 
         // Find detailed trait information
-        for (let i = 0; i < len; i++) {
-            if (traits[i].match(critRegex)) {
-                critTrait = traits[i].match(critRegex)[1];
-                critDie = traits[i].match(critRegex)[2];
-            } else if (traits[i].match(twohandedRegex)) {
+        for (const trait of traits) {
+            const critMatch = critRegex.exec(trait);
+            const twoHandedMatch = twohandedRegex.exec(trait);
+            const thrownMatch = thrownRegex.exec(trait);
+            if (Array.isArray(critMatch) && typeof critMatch[1] === 'string' && typeof critMatch[2] === 'string') {
+                critTrait = critMatch[1];
+                critDie = critMatch[2];
+            } else if (Array.isArray(twoHandedMatch) && typeof twoHandedMatch[2] === 'string') {
                 twohandedTrait = true;
-                twohandedDie = traits[i].match(twohandedRegex)[2];
-            } else if (traits[i].match(thrownRegex)) {
+                twohandedDie = twoHandedMatch[2];
+            } else if (Array.isArray(thrownMatch)) {
                 thrownTrait = true;
             }
         }
