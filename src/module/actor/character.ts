@@ -190,7 +190,7 @@ export class PF2ECharacter extends PF2EActor {
             // Begin build the modifiers for the Recovery DC
             const modifiers = [new PF2Modifier('PF2E.SaveDCLabel', 10, PF2ModifierType.UNTYPED)];
 
-            (statisticsModifiers['recovery-dc'] || [])
+            (statisticsModifiers['recovery'] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => {
                     modifiers.push(m);
