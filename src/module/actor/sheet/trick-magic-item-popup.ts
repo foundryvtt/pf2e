@@ -1,6 +1,7 @@
-import { PF2EActor } from '@actor/actor';
+import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
 import { TrickMagicItemCastData } from '@item/dataDefinitions';
 import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spellConsumables';
+import { /*PF2CheckModifier,*/ PF2StatisticModifier } from '../../modifiers';
 
 /**
  * @category Other
@@ -13,10 +14,10 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
         super(object, options);
         this.skilloptions = skilloptions;
         let setter = (value: TrickMagicItemCastData | false) => {
-            return;
+            this.result = value;
         };
         // Build a promise to pass out the result with
-        const promise = new Promise<TrickMagicItemCastData | false>((resolve, reject) => {
+        const promise = new Promise<TrickMagicItemCastData | false>((resolve) => {
             setter = (value) => {
                 if (value) {
                     resolve(value);
@@ -35,7 +36,7 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
         const options = super.defaultOptions;
 
         options.classes = [];
-        options.title = game.i18n.localize('PF2E.TrickMagicItemPopup.title');
+        options.title = game.i18n.localize('PF2E.TrickMagicItemPopup.Title');
         options.template = 'systems/pf2e/templates/popups/trick-magic-item-popup.html';
         options.width = 'auto';
         options.submitOnClose = true;
@@ -53,9 +54,23 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
         return sheetData;
     }
 
-    async _updateObject(event: any, formData: FormData & { itemType: string; level: number }) {
+    async _updateObject(event: any) {
         if (event.submitter?.name) {
-            this.result = calculateTrickMagicItemCastData(this.object, event.submitter.name.toLowerCase());
+            const skill = event.submitter.name;
+            const lowerSkill = skill.toLowerCase();
+            const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[lowerSkill]);
+            //const flavor = `<span class="pf2-icon">A</span> `;
+            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as PF2StatisticModifier;
+            //const check = new PF2CheckModifier(flavor, stat);
+            stat.roll({
+                actor: this.object,
+                event: event,
+                options: options,
+                notes: stat.notes,
+                type: 'skill-check',
+                dc: { value: this.skilloptions[skill] },
+            });
+            this.result = calculateTrickMagicItemCastData(this.object, lowerSkill);
         } else {
             this.result = false;
         }

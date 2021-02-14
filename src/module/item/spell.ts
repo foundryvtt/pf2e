@@ -11,7 +11,7 @@ export class Spell {
     _castLevel: number;
     _spellcastingEntry?: SpellcastingEntry;
 
-    constructor(data: SpellData, scope: { castingActor: PF2EActor; castLevel?: number }) {
+    constructor(data: SpellData, scope?: { castingActor: PF2EActor; castLevel?: number }) {
         this.data = data;
         this.castingActor = scope?.castingActor;
         this._castLevel = scope?.castLevel || this.spellLevel;

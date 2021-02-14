@@ -80,10 +80,10 @@ export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boole
 }
 
 export interface TrickMagicItemDifficultyData {
-    arc?: number;
-    rel?: number;
-    occ?: number;
-    nat?: number;
+    Arc?: number;
+    Rel?: number;
+    Occ?: number;
+    Nat?: number;
 }
 
 const TraditionSkills = {
