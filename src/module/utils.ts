@@ -149,3 +149,14 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
     }
     return result;
 }
+
+/**
+ * Given a list of values, use the function to get the sortValue and
+ * return the maximum element
+ *
+ * @param values must have at list one value
+ * @param sortValue
+ */
+export function max<T>(values: T[], sortValue: (value: T) => number): T {
+    return values.sort((a, b) => sortValue(a) - sortValue(b))[0];
+}
