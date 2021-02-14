@@ -44,19 +44,21 @@ export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('strip_tags', (value, options) => {
         // eslint-disable-next-line camelcase
         function strip_tags(input, allowed?) {
-            const _phpCastString = (phpValue) => {
+            const _phpCastString = (phpValue: unknown): string => {
+                if (typeof phpValue === 'string') {
+                    return phpValue;
+                }
+
                 const type = typeof phpValue;
                 switch (type) {
                     case 'boolean':
                         return phpValue ? '1' : '';
-                    case 'string':
-                        return phpValue;
                     case 'number':
                         if (Number.isNaN(phpValue)) {
                             return 'NAN';
                         }
 
-                        if (!Number.isFinite(phpValue)) {
+                        if (phpValue === Infinity) {
                             return `${phpValue < 0 ? '-' : ''}INF`;
                         }
 
@@ -91,8 +93,9 @@ export function registerHandlebarsHelpers() {
             after = after.substring(after.length - 1) === '<' ? after.substring(0, after.length - 1) : after;
 
             // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
-            while (true) {
-                const before = after;
+            let before: string;
+            do {
+                before = after;
                 after = before
                     .replace(commentsAndPhpTags, '')
                     .replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
@@ -101,7 +104,7 @@ export function registerHandlebarsHelpers() {
                 if (before === after) {
                     return after;
                 }
-            }
+            } while (before !== after);
         }
 
         return strip_tags(String(value));
