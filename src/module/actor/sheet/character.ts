@@ -433,15 +433,18 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             else if (i.type === 'class') {
                 const classItem = i as ClassData;
                 const mapFeatLevels = (featLevels: number[], prefix: string) => {
+                    if (!featLevels) {
+                        return [];
+                    }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
                         .map((level) => ({ id: `${prefix}-${level}`, level: level }));
                 };
 
-                featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels.value, 'ancestry');
-                featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels.value, 'class');
-                featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels.value, 'skill');
-                featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels.value, 'general');
+                featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, 'ancestry');
+                featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, 'class');
+                featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, 'skill');
+                featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, 'general');
             }
         }
 
