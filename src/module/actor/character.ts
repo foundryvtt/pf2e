@@ -24,6 +24,7 @@ import {
     CharacterStrikeTrait,
     SkillData,
     RawCharacterData,
+    DifficultyClassData,
 } from './actorDataDefinitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
@@ -158,12 +159,12 @@ export class PF2ECharacter extends PF2EActor {
             data.attributes.hp = stat;
         }
 
-        // Recovery
+        // Recovery and Doomed, Wounded, Dying conditions
         {
             // Link wounded value on character sheet to condition
             data.attributes.wounded.value = 0;
 
-            (statisticsModifiers.wounded || [])
+            (statisticsModifiers['condition-wounded'] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => {
                     if (!m.ignored) {
@@ -171,27 +172,12 @@ export class PF2ECharacter extends PF2EActor {
                     }
                 });
 
-            // don't exceed max value, which causes problems on the sheet
-            data.attributes.wounded.value = Math.min(data.attributes.wounded.value, data.attributes.wounded.max);
-
-            // Link dying value on character sheet to condition
-            data.attributes.dying.value = 0;
-
-            (statisticsModifiers.dying || [])
-                .map((m) => duplicate(m))
-                .forEach((m) => {
-                    if (!m.ignored) {
-                        data.attributes.dying.value += m.modifier;
-                    }
-                });
-
-            // don't exceed max value, which causes problems on the sheet
-            data.attributes.dying.value = Math.min(data.attributes.dying.value, data.attributes.dying.max);
+            data.attributes.wounded.value = Math.min(data.attributes.wounded.value, data.attributes.wounded.max); // don't exceed max value, which causes problems on the sheet
 
             // Link doomed value on character sheet to condition
             data.attributes.doomed.value = 0;
 
-            (statisticsModifiers.doomed || [])
+            (statisticsModifiers['condition-doomed'] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => {
                     if (!m.ignored) {
@@ -199,8 +185,69 @@ export class PF2ECharacter extends PF2EActor {
                     }
                 });
 
-            // don't exceed max value, which causes problems on the sheet
-            data.attributes.doomed.value = Math.min(data.attributes.doomed.value, data.attributes.doomed.max);
+            data.attributes.doomed.value = Math.min(data.attributes.doomed.value, data.attributes.doomed.max); // don't exceed max value, which causes problems on the sheet
+
+            // Begin build the modifiers for the Recovery DC
+            const modifiers = [new PF2Modifier('PF2E.SaveDCLabel', 10, PF2ModifierType.UNTYPED)];
+
+            (statisticsModifiers['recovery-dc'] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    modifiers.push(m);
+                });
+
+            // Link dying value on character sheet to condition, and add modifier values to Recovery DC
+            data.attributes.dying.value = 0;
+
+            (statisticsModifiers['condition-dying'] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    modifiers.push(m);
+
+                    if (!m.ignored) {
+                        data.attributes.dying.value += m.modifier;
+                    }
+                });
+
+            data.attributes.dying.value = Math.min(data.attributes.dying.value, data.attributes.dying.max); // don't exceed max value, which causes problems on the sheet
+
+            const notes = [] as PF2RollNote[];
+
+            // Build and assign the modifier for the Recovery DC
+            const stat = mergeObject<DifficultyClassData>(
+                new PF2StatisticModifier('recovery', modifiers) as DifficultyClassData,
+                data.attributes.recovery,
+                { overwrite: false },
+            );
+            stat.breakdown = stat.modifiers
+                .filter((m) => m.enabled)
+                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                .join(', ');
+            stat.value = stat.totalModifier;
+            stat.roll = adaptRoll((args) => {
+                const label = game.i18n.format('PF2E.Recovery.rollingDescription', {
+                    dc: stat.totalModifier,
+                    dying: data.attributes.dying.value,
+                });
+                const options = args.options ?? [];
+
+                PF2Check.roll(
+                    new PF2CheckModifier(label, new PF2StatisticModifier('flat-check', [])),
+                    {
+                        actor: this,
+                        type: 'saving-throw',
+                        options,
+                        dc: {
+                            value: stat.totalModifier,
+                        },
+                        notes,
+                    },
+                    args.event,
+                    args.callback,
+                );
+            });
+
+            data.attributes.recovery = stat;
         }
 
         // Saves
