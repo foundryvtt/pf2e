@@ -110,13 +110,13 @@ export class PF2EPhysicalItem extends PF2EItem {
         await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
     }
-    
-    static async createPhysicalItemFromCompendiumId(id: string) : Promise<PF2EPhysicalItem> {
+
+    static async createPhysicalItemFromCompendiumId(id: string): Promise<PF2EPhysicalItem | null> {
         const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
         if (!pack) {
             throw Error('unable to get pack!');
         }
-        
+
         return pack.getEntity(id);
     }
 }

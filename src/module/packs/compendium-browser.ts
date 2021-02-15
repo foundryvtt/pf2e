@@ -90,7 +90,6 @@ class CompendiumBrowser extends Application {
     settings: TabData<{ [key: string]: PackInfo }>;
     navigationTab: any;
     data: TabData<object>;
-    canPurchaseItems: boolean;
 
     constructor(options = {}) {
         super(options);
@@ -133,7 +132,6 @@ class CompendiumBrowser extends Application {
         }
 
         this.settings = settings;
-        this.canPurchaseItems = !game.user.isGM;
     }
 
     loadSettings() {
@@ -768,8 +766,12 @@ class CompendiumBrowser extends Application {
             const id = entry.entryId;
 
             PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
-                if (item !== null) {
-                    game.user.character.createOwnedItem(item.data);
+                const userCharacter = game.user?.character;
+
+                if (item !== null && userCharacter !== undefined) {
+                    userCharacter.createOwnedItem(item.data);
+                } else {
+                    ui.notifications.warn(game.i18n.format('PF2E.ErrorMessage.NoActorAssignedToUser'), {});
                 }
             });
         });
