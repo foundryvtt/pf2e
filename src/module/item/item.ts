@@ -1222,6 +1222,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
                 else if (action === 'spellAttack3') item.rollSpellAttack(ev, 3);
                 else if (action === 'spellDamage') item.rollSpellDamage(ev);
+                else if (action === 'spellCounteract') item.rollCounteract(ev);
                 // Consumable usage
                 else if (action === 'consume') item.rollConsumable(ev);
                 else if (action === 'save') PF2EActor.rollSave(ev, item);
