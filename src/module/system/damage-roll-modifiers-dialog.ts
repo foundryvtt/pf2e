@@ -6,6 +6,9 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorPF2e } from "@actor/index";
 import type { ItemPF2e } from "@item";
 import { DamageRollFlag } from "@module/chat-message/data";
+import { DamageFormula } from "@system/damage/damage-formula";
+import { groupBy } from "@util";
+import { ExtendedCheckModifersContext } from "./rolls";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -46,7 +49,7 @@ export class DamageRollModifiersDialog extends Application {
         this.callback = callback;
     }
 
-    static roll(damage: DamageTemplate, context: any, callback: any) {
+    static roll(damage: DamageTemplate, context: ExtendedCheckModifersContext, callback: any) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? "success") as DegreeOfSuccessString;
 
@@ -99,11 +102,7 @@ export class DamageRollModifiersDialog extends Application {
             .join("<br />");
         flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[outcome]);
-        if (!formula) {
-            ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
-            return;
-        }
+        const damagePool = damage.damagePool[ctx.outcome ?? "success"];
 
         const rollData: DamageRollFlag = {
             outcome,
@@ -118,24 +117,32 @@ export class DamageRollModifiersDialog extends Application {
         let content = `
     <div class="dice-roll">
         <div class="dice-result">
-            <div class="dice-formula">${formula.formula}</div>
+            <div class="dice-formula">${new DamageFormula(damagePool.terms)}</div>
             <div class="dice-tooltip" style="display: none;">`;
-        for (const [damageType, categories] of Object.entries(formula.partials)) {
+
+        const damageByType = groupBy(damagePool.terms, (entry) => entry.damageType);
+        for (const [damageType, categoryEntries] of damageByType) {
             content += `<div class="damage-type ${damageType}">`;
             content += `<h3 class="flexrow"><span>${damageType}</span><i class="fa fa-${DamageRollModifiersDialog.getDamageTypeIcon(
                 damageType
             )}"></i></h3>`;
+
             rollData.diceResults[damageType] = {};
-            for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll = new Roll(partial, formula.data).evaluate({ async: false });
+            const damageByCategory = groupBy(categoryEntries, (entry) => entry.damageCategory);
+
+            for (const [damageCategory, entries] of damageByCategory) {
+                const formula = new DamageFormula(entries).toString();
+                const roll = new Roll(formula, damagePool.data).evaluate({ async: false });
                 rolls.push(roll);
+
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
                 rollData.types[damageType] = damageValue;
                 rollData.total += roll.total;
                 rollData.diceResults[damageType][damageCategory] = [];
+
                 const dice = roll.dice
-                    .flatMap((d) =>
+                    .flatMap((d: DiceTerm) =>
                         d.results.map((r) => {
                             rollData.diceResults[damageType][damageCategory].push(r.result);
                             return `<li class="roll die d${d.faces}">${r.result}</li>`;
@@ -146,7 +153,7 @@ export class DamageRollModifiersDialog extends Application {
             <section class="tooltip-part">
                 <div class="dice">
                     <header class="part-header flexrow">
-                        <span class="part-formula">${partial}</span>
+                        <span class="part-formula">${formula}</span>
                         <span class="part-flavor">${damageCategory}</span>
                         <span class="part-total">${roll.total}</span>
                     </header>
@@ -168,7 +175,7 @@ export class DamageRollModifiersDialog extends Application {
         })();
 
         const speaker: { actor?: ActorPF2e } = {
-            actor: ctx.actor,
+            actor: <ActorPF2e | undefined>ctx.actor,
         };
 
         const item: ItemPF2e | null = context.item ?? null;

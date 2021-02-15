@@ -38,6 +38,8 @@ global.game = Object.freeze({
                     return "ProficiencyWithLevel";
                 case "automaticBonusVariant":
                     return "automaticBonusVariant";
+                case "critRule":
+                    return "doubledamage";
                 default:
                     throw new Error("Undefined setting.");
             }
