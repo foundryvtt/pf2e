@@ -1,4 +1,5 @@
 import { Progress } from '../progress';
+import { PF2EPhysicalItem } from '@item/physical';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -89,6 +90,7 @@ class CompendiumBrowser extends Application {
     settings: TabData<{ [key: string]: PackInfo }>;
     navigationTab: any;
     data: TabData<object>;
+    canPurchaseItems: boolean;
 
     constructor(options = {}) {
         super(options);
@@ -131,6 +133,7 @@ class CompendiumBrowser extends Application {
         }
 
         this.settings = settings;
+        this.canPurchaseItems = !game.user.isGM;
     }
 
     loadSettings() {
@@ -758,6 +761,17 @@ class CompendiumBrowser extends Application {
                 }
             }
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
+        });
+
+        html.on('click', '.purchase-item', (_ev) => {
+            const entry = _ev.currentTarget.closest('.spell').dataset;
+            const id = entry.entryId;
+
+            PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
+                if (item !== null) {
+                    game.user.character.createOwnedItem(item.data);
+                }
+            });
         });
     }
 
