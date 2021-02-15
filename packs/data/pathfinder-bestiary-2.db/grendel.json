@@ -35,7 +35,6 @@
         },
         "attributes": {
             "ac": {
-                "base": 44,
                 "breakdown": "Base Armor Class 10, Base Modifier +29, Dexterity +5",
                 "check": 0,
                 "details": "",
@@ -83,7 +82,6 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "base": 35,
                 "breakdown": "Base Modifier +29, Wisdom +6",
                 "item": 0,
                 "name": "perception",
@@ -218,7 +216,6 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "base": 36,
                 "breakdown": "Base Modifier +29, Constitution +7",
                 "item": 0,
                 "name": "fortitude",
@@ -229,7 +226,6 @@
             },
             "reflex": {
                 "ability": "dex",
-                "base": 32,
                 "breakdown": "Base Modifier +27, Dexterity +5",
                 "item": 0,
                 "name": "reflex",
@@ -240,7 +236,6 @@
             },
             "will": {
                 "ability": "wis",
-                "base": 31,
                 "breakdown": "Base Modifier +25, Wisdom +6",
                 "item": 0,
                 "name": "will",
@@ -259,7 +254,6 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "base": 34,
                 "breakdown": "Base Modifier +29, Dexterity +5",
                 "expanded": "acrobatics",
                 "item": 0,
@@ -290,7 +284,6 @@
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "base": 39,
                 "breakdown": "Base Modifier +29, Strength +10",
                 "expanded": "athletics",
                 "item": 0,
@@ -348,7 +341,6 @@
             },
             "itm": {
                 "ability": "cha",
-                "base": 34,
                 "breakdown": "Base Modifier +29, Charisma +5",
                 "expanded": "intimidation",
                 "item": 0,
@@ -449,7 +441,6 @@
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "base": 34,
                 "breakdown": "Base Modifier +29, Dexterity +5",
                 "expanded": "stealth",
                 "item": 0,
@@ -465,7 +456,6 @@
             },
             "sur": {
                 "ability": "wis",
-                "base": 33,
                 "breakdown": "Base Modifier +27, Wisdom +6",
                 "expanded": "survival",
                 "item": 0,
@@ -575,7 +565,16 @@
     },
     "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -592,7 +591,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -610,12 +609,12 @@
                     "damageType": "bludgeoning",
                     "die": "4d8+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d8+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -738,7 +737,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -756,12 +755,12 @@
                     "damageType": "piercing",
                     "die": "4d10+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d10+18",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -884,7 +883,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -902,12 +901,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -997,9 +996,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "brutal",
-                        "range increment 150 feet"
+                        "range-increment-150"
                     ]
                 },
                 "usage": {
@@ -1088,7 +1088,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "60 feet, DC 38.<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <b>Critical Success</b> The creature is unaffected by the presence.<br /> <b>Success</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <b>Critical Failure</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4."
+                    "value": "<p>60 feet, DC 38.</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1097,6 +1097,12 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -1126,7 +1132,7 @@
             "type": "action"
         },
         {
-            "_id": "ijNZqnIXgFC378Vg",
+            "_id": "5djM8sO4U2PY23bG",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1140,7 +1146,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Grendel gains an extra reaction at the start of each of his turns that he can use only to make an Attack of Opportunity with his claw. He can't use more than one Attack of Opportunity triggered by the same action."
+                    "value": "<p><strong>Trigger</strong> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied};</p>\n<p><strong>Effect</strong> The persistent damage or condition from the triggering effect doesn't affect Grendel.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1149,6 +1155,12 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -1172,59 +1184,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "5djM8sO4U2PY23bG",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Trigger</b> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied}; <b>Effect</b> The persistent damage or condition from the triggering effect doesn't affect Grendel."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Unstoppable",
             "sort": 800000,
             "type": "action"
@@ -1291,12 +1251,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> Grendel is grabbing a creature; <b>Effect</b> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes 2d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect."
+                    "value": "<p><strong>Requirements</strong> Grendel is grabbing a creature;</p>\n<p><strong>Effect</strong> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes [[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1305,6 +1265,12 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -1330,61 +1296,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Tooth Grind",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "2OFUCSMwLtD6PXwF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Throw Rock",
-            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1696,6 +1610,124 @@
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
             "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "gc8APIBNlW4qQDQb",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><span style=\"color: var(--body);\">Grendel gains an extra reaction at the start of each of his turns that he can use only to make an Attack of Opportunity with his claw. He can't use more than one Attack of Opportunity triggered by the same action.</span></p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Attack of Opportunity",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "tUO2Aa40ij9EGQJi",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "throw-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Throw Rock",
+            "sort": 2000000,
             "type": "action"
         }
     ],

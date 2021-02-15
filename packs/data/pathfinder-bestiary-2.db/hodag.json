@@ -35,7 +35,6 @@
         },
         "attributes": {
             "ac": {
-                "base": 24,
                 "breakdown": "Base Armor Class 10, Base Modifier +10, Dexterity +4",
                 "check": 0,
                 "details": "",
@@ -83,7 +82,6 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "base": 14,
                 "breakdown": "Base Modifier +10, Wisdom +4",
                 "item": 0,
                 "name": "perception",
@@ -227,7 +225,6 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "base": 17,
                 "breakdown": "Base Modifier +12, Constitution +5",
                 "item": 0,
                 "name": "fortitude",
@@ -238,7 +235,6 @@
             },
             "reflex": {
                 "ability": "dex",
-                "base": 14,
                 "breakdown": "Base Modifier +10, Dexterity +4",
                 "item": 0,
                 "name": "reflex",
@@ -249,7 +245,6 @@
             },
             "will": {
                 "ability": "wis",
-                "base": 12,
                 "breakdown": "Base Modifier +8, Wisdom +4",
                 "item": 0,
                 "name": "will",
@@ -297,7 +292,6 @@
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "base": 15,
                 "breakdown": "Base Modifier +10, Strength +5",
                 "expanded": "athletics",
                 "item": 0,
@@ -454,7 +448,6 @@
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "base": 14,
                 "breakdown": "Base Modifier +10, Dexterity +4",
                 "expanded": "stealth",
                 "item": 0,
@@ -470,7 +463,6 @@
             },
             "sur": {
                 "ability": "wis",
-                "base": 12,
                 "breakdown": "Base Modifier +8, Wisdom +4",
                 "expanded": "survival",
                 "item": 0,
@@ -877,7 +869,7 @@
                 },
                 "bonus": {
                     "total": 17,
-                    "value": 17
+                    "value": "17"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -895,12 +887,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d6+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+8",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1168,58 +1160,6 @@
             "type": "action"
         },
         {
-            "_id": "Fbz0vN6AfjN67K26",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Requirements</b> The monster's last action was a success with a Strike that lists Knockdown in its damage entry. <b>Effect</b> The monster knocks the target prone."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Knockdown",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
             "_id": "IqJWeigyORBMo2Go",
             "data": {
                 "description": {
@@ -1280,7 +1220,19 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1290,6 +1242,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "effects": [],
@@ -1396,6 +1354,65 @@
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
             "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "mfp2YgspIg4nIbIC",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{prone}.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Knockdown",
+            "sort": 1300000,
             "type": "action"
         }
     ],
