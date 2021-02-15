@@ -193,7 +193,6 @@ function applyImmunities({
     });
 
     // check if precision damage is ignored
-    // FIXME: immunities use 'precision-damage' instead of 'precision' !!!
     ifImmunityApplies(immunitiesByType, damage, attackTraits, 'precision-damage', () => {
         damage.delete('precision');
     });
@@ -206,6 +205,12 @@ function applyImmunities({
                 damage.delete(damageType);
             });
         });
+
+    // if the target is immune to physical attacks, precision damage doesn't apply
+    if (!hasPhysicalDamage(damage)) {
+        damage.delete('precision');
+    }
+
     return damage;
 }
 
@@ -356,10 +361,10 @@ export function parseImmunities(values: LabeledValue[]): Immunities {
 //     applyWeaknessIfPositive(damage, 'piercing', config.value);
 // }
 //
-// // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function hasPhysicalDamage(damage: Damage) {
-//     return damage.has('piercing') || damage.has('slashing') || damage.has('bludgeoning');
-// }
+
+function hasPhysicalDamage(damage: Damage): boolean {
+    return damage.has('piercing') || damage.has('slashing') || damage.has('bludgeoning');
+}
 
 // function applyWeaknesses({
 //     damage,
