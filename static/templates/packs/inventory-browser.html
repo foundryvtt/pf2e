@@ -127,6 +127,9 @@
             <div class="spell-tags">
                 <span title="Item level">{{item.data.level.value}}</span>
             </div>
+            {{#unless user.isGM}}
+            <input type="button" class="purchase-item" value="{{localize 'PF2E.CompendiumBrowser.TakeLabel'}}"/>
+            {{/unless}}
         </li>
         {{/each}}
     </ul>
