@@ -1,5 +1,11 @@
-import { mergeImmunities, mergeResistancesOrWeaknesses, parseExceptions } from '../../src/module/damage-modifiers';
-import { LabeledValue } from '@actor/actorDataDefinitions';
+import {
+    Alive,
+    mergeImmunities,
+    mergeResistancesOrWeaknesses,
+    parseExceptions,
+    removeAlignmentDamage, removeUndeadLivingDamage,
+} from '../../src/module/damage-modifiers';
+import { Alignment, LabeledValue } from '../../src/module/actor/actorDataDefinitions';
 
 function createLabeledValue(type: string, value: number, exceptions?: string): LabeledValue {
     return {
@@ -131,6 +137,51 @@ describe('Test Parsing Exceptions', () => {
     testCases.forEach((testCase) => {
         test(`test ${testCase.exception}`, () => {
             expect(parseExceptions(testCase.exception)).toEqual(testCase.expected);
+        });
+    });
+});
+
+describe('Test Alignment Removal', () => {
+    const testCases: { alignment: Alignment; expected: Set<string> }[] = [
+        { alignment: 'LG', expected: new Set(['evil', 'chaotic']) },
+        { alignment: 'NG', expected: new Set(['evil']) },
+        { alignment: 'CG', expected: new Set(['evil', 'lawful']) },
+        { alignment: 'LN', expected: new Set(['chaotic']) },
+        { alignment: 'N', expected: new Set() },
+        { alignment: 'CN', expected: new Set(['lawful']) },
+        { alignment: 'LE', expected: new Set(['good', 'chaotic']) },
+        { alignment: 'NE', expected: new Set(['good']) },
+        { alignment: 'CE', expected: new Set(['good', 'lawful']) },
+    ];
+    testCases.forEach((testCase) => {
+        test(`test ${testCase.alignment}`, () => {
+            const damage = new Map();
+            damage.set('lawful', 3);
+            damage.set('good', 3);
+            damage.set('chaotic', 3);
+            damage.set('evil', 3);
+
+            removeAlignmentDamage(damage, testCase.alignment);
+            expect(Array.from(damage.keys()).sort()).toEqual(Array.from(testCase.expected).sort());
+        });
+    });
+});
+
+describe('Test Living/Undead Removal', () => {
+    const testCases = [
+        { alive: 'living', expected: new Set(['negative', 'bleed']) },
+        { alive: 'undead', expected: new Set(['positive']) },
+        { alive: 'neither', expected: new Set(['bleed']) },
+    ];
+    testCases.forEach((testCase) => {
+        test(`test ${testCase.alive}`, () => {
+            const damage = new Map();
+            damage.set('positive', 3);
+            damage.set('bleed', 3);
+            damage.set('negative', 3);
+
+            removeUndeadLivingDamage(damage, testCase.alive as Alive);
+            expect(Array.from(damage.keys()).sort()).toEqual(Array.from(testCase.expected).sort());
         });
     });
 });

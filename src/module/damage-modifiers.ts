@@ -1,5 +1,6 @@
 import { Alignment, DamageImmunities, LabeledValue } from '@actor/actorDataDefinitions';
 import { groupBy, max, toNumber } from './utils';
+import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 
 /**
  * Looks through all values and only keeps the highest ones
@@ -46,6 +47,8 @@ export type DamageType =
     | 'lawful'
     | 'good'
     | 'evil';
+
+export type Alive = 'living' | 'undead' | 'neither';
 
 const damageTypes = new Set();
 damageTypes.add('acid');
@@ -146,33 +149,35 @@ interface SplashDamage {
 // return damage;
 // }
 
-// function removeAlignmentDamage(alignment: Alignment, damage: Damage) {
-//     if (!isEvil(alignment)) {
-//         damage.delete('good');
-//     }
-//     if (!isGood(alignment)) {
-//         damage.delete('evil');
-//     }
-//     if (!isLawful(alignment)) {
-//         damage.delete('chaotic');
-//     }
-//     if (!isChaotic(alignment)) {
-//         damage.delete('lawful');
-//     }
-// }
+export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
+    if (!isEvil(alignment)) {
+        damage.delete('good');
+    }
+    if (!isGood(alignment)) {
+        damage.delete('evil');
+    }
+    if (!isLawful(alignment)) {
+        damage.delete('chaotic');
+    }
+    if (!isChaotic(alignment)) {
+        damage.delete('lawful');
+    }
+}
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function removeUndeadLivingDamage(damage: Damage, isLiving: boolean, isUndead: boolean) {
-//     if (isLiving) {
-//         damage.delete('positive');
-//     } else if (isUndead) {
-//         damage.delete('negative');
-//         // Another special type of physical damage is bleed damage.
-//         // This is persistent damage that represents loss of blood. As such, it has
-//         // no effect on nonliving creatures or living creatures that don't need blood to live.
-//         damage.delete('bleed');
-//     }
-// }
+export function removeUndeadLivingDamage(damage: Damage, alive: Alive) {
+    if (alive === 'living') {
+        damage.delete('positive');
+    } else if (alive === 'undead') {
+        damage.delete('negative');
+        // Another special type of physical damage is bleed damage.
+        // This is persistent damage that represents loss of blood. As such, it has
+        // no effect on nonliving creatures or living creatures that don't need blood to live.
+        damage.delete('bleed');
+    } else {
+        damage.delete('negative');
+        damage.delete('positive');
+    }
+}
 
 export interface Resistance {
     damageType: string;
@@ -200,18 +205,14 @@ export type Immunities = Immunity[];
 /**
  * This method needs to deal with the following string value crap:
  * * physical 10 (except magical silver)
- * * physical 24 (except bludgeoning adamantine)
- * * physical 15 (except magic bludgeoning)
  * * all 5 (except force, ghost touch, or positive; double resistance vs. non-magical)
- * * physical 20 (except vorpal adamantine)
- * * all 5 (except force, ghost touch, or negative; double resistance vs. non-magical)
  * * physical 12 (except adamantine or bludgeoning)
  * * physical 15 (except cold iron)
  * * physical 5 (except magical)
  * * all 15 (except unarmed attacks)
  * * all 15 (except non-magical)
  * * all 5 (except force or ghost touch)
- * @param exceptions
+ * @param exceptions string as listed above
  */
 export function parseExceptions(
     exceptions: string | undefined,
@@ -374,8 +375,7 @@ export function calculateDamage({
     reduceResistances,
     ignoreImmunities,
     attackTraits,
-    isUndead,
-    isLiving,
+    alive,
     alignment,
     immunities,
     resistances,
@@ -391,8 +391,7 @@ export function calculateDamage({
     reduceResistances: Damage; // oracle and druid have metamagic that allows them to ignore resistance up to a value
     ignoreImmunities: Set<string>;
     attackTraits: Set<AttackTraits>;
-    isUndead: boolean;
-    isLiving: boolean;
+    alive: Alive;
     immunities: Immunities;
     resistances: Weaknesses;
     weaknesses: Resistances;
