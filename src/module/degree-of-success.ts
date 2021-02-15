@@ -14,6 +14,25 @@ export enum DegreeOfSuccess {
     CRITICAL_SUCCESS,
 }
 
+export class DegreeOfSuccessMultipliers {
+    static getDefault() {
+        return {
+            [DegreeOfSuccess.CRITICAL_SUCCESS]: 2,
+            [DegreeOfSuccess.SUCCESS]: 1,
+            [DegreeOfSuccess.FAILURE]: 0,
+            [DegreeOfSuccess.CRITICAL_FAILURE]: 0,
+        };
+    }
+
+    static criticalOnly() {
+        return this.build({ [DegreeOfSuccess.CRITICAL_SUCCESS]: 1, [DegreeOfSuccess.SUCCESS]: 0 });
+    }
+
+    static build(updated: Partial<Record<DegreeOfSuccess, number>>) {
+        return Object.assign(this.getDefault(), updated);
+    }
+}
+
 export enum DegreeAdjustment {
     LOWER,
     INCREASE,

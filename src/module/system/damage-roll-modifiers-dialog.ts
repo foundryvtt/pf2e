@@ -2,6 +2,10 @@
  * Dialog for excluding certain modifiers before rolling for damage.
  */
 
+import { DamagePool } from './damage/damage-pool';
+import { groupBy } from '../utils';
+import { DamageFormula } from './damage/damage-formula';
+
 /**
  * @category Other
  */
@@ -102,7 +106,7 @@ export class DamageRollModifiersDialog extends Application {
         const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
         flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[ctx.outcome ?? 'success']);
+        const damagePool: DamagePool = damage.formula[ctx.outcome ?? 'success'];
         const rollData: any = {
             outcome: ctx.outcome ?? 'success',
             rollMode: ctx.rollMode ?? 'roll',
@@ -114,25 +118,36 @@ export class DamageRollModifiersDialog extends Application {
         };
         const rolls: Roll[] = [];
         const dsnData: any = { throws: [{ dice: [] }] };
+
         let content = `
     <div class="dice-roll">
         <div class="dice-result">
-            <div class="dice-formula">${formula.formula}</div>
+            <div class="dice-formula">${new DamageFormula(damagePool.entries)}</div>
             <div class="dice-tooltip" style="display: none;">`;
-        for (const [damageType, categories] of Object.entries(formula.partials)) {
+
+        const damageByType = groupBy(damagePool.entries, (entry) => entry.damageType);
+        for (const [damageType, categoryEntries] of damageByType.entries()) {
             content += `<div class="damage-type ${damageType}">`;
             content += `<h3 class="flexrow"><span>${damageType}</span><i class="fa fa-${DamageRollModifiersDialog.getDamageTypeIcon(
                 damageType,
             )}"></i></h3>`;
+
             rollData.diceResults[damageType] = {};
-            for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll: any = new Roll(partial as string, formula.data).roll();
+            const damageByCategory = groupBy(categoryEntries, (entry) => entry.category);
+
+            for (const [damageCategory, entries] of damageByCategory) {
+                const roll: any = new Roll(new DamageFormula(entries).toString(), damagePool.data);
+                const formula = roll.formula;
+
+                roll.roll();
                 rolls.push(roll);
+
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
                 rollData.types[damageType] = damageValue;
                 rollData.total += roll.total;
                 rollData.diceResults[damageType][damageCategory] = [];
+
                 const dice = roll.dice
                     .flatMap((d) =>
                         d.results.map((r) => {
@@ -148,11 +163,12 @@ export class DamageRollModifiersDialog extends Application {
                         }),
                     )
                     .join('\n');
+
                 content += `
             <section class="tooltip-part">
                 <div class="dice">
                     <header class="part-header flexrow">
-                        <span class="part-formula">${partial}</span>
+                        <span class="part-formula">${formula}</span>
                         <span class="part-flavor">${damageCategory}</span>
                         <span class="part-total">${roll.total}</span>
                     </header>

@@ -1,5 +1,6 @@
 import { DamageCategory, DamageDieSize } from './system/damage/damage';
 import { AbilityString } from '@actor/actor-data-definitions';
+import { PF2BaseModifier } from './modifiers/pf2-base-modifier';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',
@@ -78,35 +79,21 @@ export const PF2ModifierType = Object.freeze({
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
  * @category PF2
  */
-export class PF2Modifier {
-    /** The name of this modifier; should generally be a localization key (see en.json). */
-    name: string;
-    /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
-    label?: string;
+export class PF2Modifier extends PF2BaseModifier {
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type: string;
-    /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
-    enabled: boolean;
     /** The source which this modifier originates from, if any. */
     source: string;
     /** Any notes about this modifier. */
     notes: string;
     /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
-    ignored: boolean;
-    /** If true, this modifier is a custom player-provided modifier. */
-    custom: boolean;
-    /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType: string;
     /** The damage category */
     damageCategory: string;
     /** A predicate which determines when this modifier is active. */
     predicate: any;
-    /** If true, this modifier is only active on a critical hit. */
-    critical: boolean;
-    /** The list of traits that this modifier gives to the underlying attack, if any. */
-    traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
     automation: { key: string | null; enabled: boolean } = {
         key: null,
@@ -130,12 +117,9 @@ export class PF2Modifier {
         source: string | undefined = undefined,
         notes: string | undefined = undefined,
     ) {
-        this.name = name;
+        super({ name: name, enabled: enabled });
         this.modifier = modifier;
         this.type = type;
-        this.enabled = enabled;
-        this.ignored = false;
-        this.custom = false;
         if (source) this.source = source;
         if (notes) this.notes = notes;
     }
@@ -471,57 +455,35 @@ interface PF2DamageDiceOverride {
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class PF2DamageDice {
+export class PF2DamageDice extends PF2BaseModifier {
     /** The selector used to determine when   */
     selector: string;
-    /** The name of this damage dice; used as an identifier. */
-    name: string;
-    /** The display name of this damage dice, overriding the name field if specified. */
-    label?: string;
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
     dieSize?: DamageDieSize;
-    /** If true, these dice only apply on a critical. */
-    critical: boolean;
     /** The damage category of these dice. */
     category?: string;
     /** The damage type of these damage dice. */
     damageType?: string;
-    /** Any traits which these dice add to the overall damage. */
-    traits: string[];
-    /** If true, these dice overide the base damage dice of the weapon. */
+    /** If true, these dice override the base damage dice of the weapon. */
     override?: PF2DamageDiceOverride;
-    /** If true, these custom dice are being ignored in the damage calculation. */
-    ignored: boolean;
-    /** If true, these custom dice should be considered in the damage calculation. */
-    enabled: boolean;
-    /** If true, these dice are user-provided/custom. */
-    custom: boolean;
     /** A predicate which limits when this damage dice is actually applied. */
     predicate?: PF2ModifierPredicate;
 
     constructor(params: Partial<PF2DamageDice> & Pick<PF2DamageDice, 'selector' | 'name'> & { options?: object }) {
+        super(params);
         if (params.selector) {
             this.selector = params.selector;
         } else {
             throw new Error('selector is mandatory');
         }
-        if (params.name) {
-            this.name = params.name;
-        } else {
-            throw new Error('name is mandatory');
-        }
 
-        this.label = params.label;
         this.diceNumber = params.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = params.dieSize;
-        this.critical = params.critical ?? false;
         this.damageType = params.damageType;
         this.category = params.category;
-        this.traits = params.traits ?? [];
         this.override = params.override;
-        this.custom = params.custom ?? false;
 
         if (this.damageType) this.category ??= DamageCategory.fromDamageType(this.damageType);
 

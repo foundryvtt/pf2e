@@ -33,6 +33,8 @@ global.game = Object.freeze({
                 /* Variant rules */
                 case 'proficiencyVariant':
                     return 'ProficiencyWithLevel';
+                case 'critRule':
+                    return 'doubledamage';
                 default:
                     throw new Error('Undefined setting.');
             }
