@@ -474,6 +474,9 @@ export function calculateDamage({
     // removeUndeadLivingDamage(damage, isLiving, isUndead);
     // removeAlignmentDamage(alignment, damage);
     // applyWeaknesses({ damage, weaknesses, attackTraits, splashDamage, isAreaDamage });
-    // return applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackType });
+    // applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackType });
+    // TODO: check here if precision damage is used at all
+    // combineDamage()
+    // TODO: check here for critical hit resistance
     return 0;
 }
