@@ -1,5 +1,5 @@
 import { Alignment, DamageImmunities, LabeledValue } from '@actor/actorDataDefinitions';
-import { groupBy, max, toNumber } from './utils';
+import { combineMaps, groupBy, max, toNumber } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 
 /**
@@ -77,9 +77,7 @@ export function isDamageType(value: string): value is DamageType {
 
 type Damage = Map<DamageType, number>;
 
-export type AttackType = 'unarmed' | 'melee' | 'ranged' | 'spell';
-
-export type AttackTraits =
+export type AttackTrait =
     | 'nonlethal'
     | 'magical'
     | 'adamantine'
@@ -89,65 +87,127 @@ export type AttackTraits =
     | 'mithral'
     | 'silver'
     | 'orichalcum'
-    | 'vorpal';
+    | 'vorpal'
+    | 'unarmed'
+    | 'spell';
 
 interface SplashDamage {
     type: DamageType;
     value: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function combineDamages(damages: Damage[]): Damage {
-//     return damages.reduce((previous, current) => {
-//         return combineMaps(previous, current, (a, b) => a + b);
-//     }, new Map());
-// }
+function combineDamages(damages: Damage[]): Damage {
+    return damages.reduce((previous, current) => {
+        return combineMaps(previous, current, (a, b) => a + b);
+    }, new Map());
+}
 
-// function applyImmunities({
-//     normalDamage,
-//     criticalDamage,
-//     additionalCriticalDamage,
-//     ignoreImmunities,
-//     attackTraits,
-//     immunities,
-//     splashDamage,
-// }: {
-//     normalDamage: Damage;
-//     splashDamage?: SplashDamage;
-//     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
-//     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
-//     attackTraits: Set<string>;
-//     immunities: Immunities;
-//     ignoreImmunities: Set<string>;
-// }) {
-// // build immunities based on immunities that add immunities
-// const copiedImmunities = new Set(...immunities);
-// if (copiedImmunities.has('object-immunities')) {
-//     ['bleed', 'poison', 'nonlethal attacks'].forEach((immunity) => copiedImmunities.add(immunity));
-// }
-// ignoreImmunities.forEach((ignoredImmunity) => copiedImmunities.delete(ignoredImmunity));
-//
-// // apply immunities to damage
-// let damage = combineDamages([normalDamage, additionalCriticalDamage]);
-// if (splashDamage !== undefined) {
-//     const splash = new Map();
-//     splash.set(splashDamage.type, splashDamage.value);
-//     damage = combineDamages([damage, splash]);
-// }
-// if (!copiedImmunities.has('critical-hits')) {
-//     // immunity to critical hits still triggers deadly but doesn't add double damage
-//     damage = combineDamages([damage, criticalDamage]);
-// }
-// if (attackTraits.has('nonlethal') && copiedImmunities.has('nonlethal attacks')) {
-//     damage.clear();
-// }
-// copiedImmunities.forEach((immunity) => {
-//     if (isDamageType(immunity)) {
-//         damage.delete(immunity);
-//     }
-// });
-// return damage;
-// }
+/**
+ * A single trait or damage combination can disable all resistance/weaknesses/immunities
+ *
+ * @param except
+ * @param attackTraits
+ * @param damageTypes
+ */
+function damageApplies(
+    except: DamageExceptions,
+    attackTraits: Set<AttackTrait>,
+    damageTypes: Set<DamageType>,
+): boolean {
+    const combinedTraits = new Set(...attackTraits, ...damageTypes);
+    return except.some((traitCombination) =>
+        Array.from(traitCombination).every((trait) => {
+            if (trait === 'non-magical') {
+                return !combinedTraits.has('magical');
+            } else {
+                return combinedTraits.has(trait);
+            }
+        }),
+    );
+}
+
+function ifImmunityApplies(
+    immunitiesByType: Map<string, Immunities>,
+    damage: Damage,
+    attackTraits: Set<AttackTrait>,
+    damageType: string,
+    applyImmunity: () => void,
+) {
+    const immunities = immunitiesByType.get(damageType) ?? [];
+    const allDamageTypes = new Set(damage.keys());
+    const applicableImmunities = immunities.filter((immunity) =>
+        damageApplies(immunity.except, attackTraits, allDamageTypes),
+    );
+    if (applicableImmunities.length > 0) {
+        applyImmunity();
+    }
+}
+
+function applyImmunities({
+    normalDamage,
+    criticalDamage,
+    additionalCriticalDamage,
+    ignoreImmunities,
+    attackTraits,
+    immunities,
+    splashDamage,
+}: {
+    normalDamage: Damage;
+    splashDamage?: SplashDamage;
+    criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
+    additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
+    attackTraits: Set<AttackTrait>;
+    immunities: Immunities;
+    ignoreImmunities: Set<string>;
+}) {
+    // replace object-immunities with their respective immunities
+    const expandedImmunities = immunities.flatMap((immunity) => {
+        if (immunity.damageType === 'object-immunities') {
+            return ['bleed', 'poison', 'nonlethal attacks', 'mental'].map((type) => {
+                return { damageType: type, except: immunity.except };
+            });
+        } else {
+            return [immunity];
+        }
+    });
+    const immunitiesByType = groupBy(expandedImmunities, (immunity: Immunity) => immunity.damageType);
+    ignoreImmunities.forEach((ignoredImmunity) => immunitiesByType.delete(ignoredImmunity));
+
+    // splash damage and additional critical damage like deadly always get added
+    let damage = combineDamages([normalDamage, additionalCriticalDamage]);
+    if (splashDamage !== undefined) {
+        const splash = new Map();
+        splash.set(splashDamage.type, splashDamage.value);
+        damage = combineDamages([damage, splash]);
+    }
+
+    // check if critical damage is ignored otherwise combine it with normal damage
+    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'critical-hits', () => {
+        criticalDamage = new Map();
+    });
+    damage = combineDamages([damage, criticalDamage]);
+
+    // if nonlethal trait is present and monster is immune, throw away everything
+    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'nonlethal attacks', () => {
+        damage.clear();
+    });
+
+    // check if precision damage is ignored
+    // FIXME: immunities use 'precision-damage' instead of 'precision' !!!
+    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'precision-damage', () => {
+        damage.delete('precision');
+    });
+
+    // apply normal damage immunities
+    Array.from(damage.keys())
+        .filter((damageType) => damageType !== 'precision')
+        .forEach((damageType) => {
+            ifImmunityApplies(immunitiesByType, damage, attackTraits, damageType, () => {
+                damage.delete(damageType);
+            });
+        });
+    return damage;
+}
 
 export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     if (!isEvil(alignment)) {
@@ -179,11 +239,13 @@ export function removeUndeadLivingDamage(damage: Damage, alive: Alive) {
     }
 }
 
+type DamageExceptions = Set<AttackTrait & DamageType>[];
+
 export interface Resistance {
     damageType: string;
     value: number;
     doubleResistanceVsNonMagical: boolean;
-    except: Set<string>[];
+    except: DamageExceptions;
 }
 
 export type Resistances = Resistance[];
@@ -197,7 +259,7 @@ export type Weaknesses = Weakness[];
 
 export interface Immunity {
     damageType: string;
-    except: Set<string>[];
+    except: DamageExceptions;
 }
 
 export type Immunities = Immunity[];
@@ -216,7 +278,7 @@ export type Immunities = Immunity[];
  */
 export function parseExceptions(
     exceptions: string | undefined,
-): { doubleResistanceVsNonMagical: boolean; except: Set<string>[] } {
+): { doubleResistanceVsNonMagical: boolean; except: DamageExceptions } {
     if (exceptions === undefined) {
         return {
             doubleResistanceVsNonMagical: false,
@@ -242,7 +304,7 @@ export function parseExceptions(
             except: traitCombinations.map((traitCombination) => {
                 // assume traits to be separated by space
                 return new Set(traitCombination.split(' '));
-            }),
+            }) as DamageExceptions,
         };
     }
 }
@@ -366,7 +428,6 @@ export function parseImmunities(values: LabeledValue[]): Immunities {
  */
 export function calculateDamage({
     isCriticalHit,
-    attackType,
     isAreaDamage,
     normalDamage,
     splashDamage,
@@ -382,7 +443,6 @@ export function calculateDamage({
     weaknesses,
 }: {
     isCriticalHit: boolean; // some monsters have weaknesses or resistances to critical hits
-    attackType: AttackType; // some monsters have resistance to everything except unarmed attacks or spells
     isAreaDamage: boolean;
     normalDamage: Damage;
     splashDamage?: SplashDamage;
@@ -390,7 +450,7 @@ export function calculateDamage({
     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
     reduceResistances: Damage; // oracle and druid have metamagic that allows them to ignore resistance up to a value
     ignoreImmunities: Set<string>;
-    attackTraits: Set<AttackTraits>;
+    attackTraits: Set<AttackTrait>;
     alive: Alive;
     immunities: Immunities;
     resistances: Weaknesses;
