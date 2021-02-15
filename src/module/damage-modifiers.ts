@@ -204,14 +204,14 @@ export type Immunities = Immunity[];
 
 /**
  * This method needs to deal with the following string value crap:
- * * physical 10 (except magical silver)
- * * all 5 (except force, ghost touch, or positive; double resistance vs. non-magical)
- * * physical 12 (except adamantine or bludgeoning)
- * * physical 15 (except cold iron)
- * * physical 5 (except magical)
- * * all 15 (except unarmed attacks)
- * * all 15 (except non-magical)
- * * all 5 (except force or ghost touch)
+ * * except magical silver
+ * * except force, ghost touch, or positive; double resistance vs. non-magical
+ * * except adamantine or bludgeoning
+ * * except cold iron
+ * * except magical
+ * * except unarmed attacks
+ * * except non-magical
+ * * except force or ghost touch
  * @param exceptions string as listed above
  */
 export function parseExceptions(
