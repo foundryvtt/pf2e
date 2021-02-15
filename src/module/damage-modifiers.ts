@@ -109,7 +109,7 @@ function combineDamages(damages: Damage[]): Damage {
  * @param attackTraits
  * @param damageTypes
  */
-function damageApplies(
+function exceptionApplies(
     except: DamageExceptions,
     attackTraits: Set<AttackTrait>,
     damageTypes: Set<DamageType>,
@@ -135,8 +135,8 @@ function ifImmunityApplies(
 ) {
     const immunities = immunitiesByType.get(damageType) ?? [];
     const allDamageTypes = new Set(damage.keys());
-    const applicableImmunities = immunities.filter((immunity) =>
-        damageApplies(immunity.except, attackTraits, allDamageTypes),
+    const applicableImmunities = immunities.filter(
+        (immunity) => !exceptionApplies(immunity.except, attackTraits, allDamageTypes),
     );
     if (applicableImmunities.length > 0) {
         applyImmunity();
