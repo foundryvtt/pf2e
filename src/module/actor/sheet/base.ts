@@ -608,9 +608,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         html.find('.click-stat-level').on('click contextmenu', this._onClickStatLevel.bind(this));
 
         // Bind elements on character sheet to status effects (condition chosen by data-condition attribute)
-        html.find('.linked-condition').on(
-            'click contextmenu',
-            null,
+        html.find('.linked-condition').click(
+            PF2eStatusEffects._setStatusValue.bind(mergeObject(this.token, { statusEffectChanged: false })),
+        );
+
+        html.find('.linked-condition').contextmenu(
             PF2eStatusEffects._setStatusValue.bind(mergeObject(this.token, { statusEffectChanged: false })),
         );
 
