@@ -24,7 +24,7 @@ export type DamageType =
     | 'lawful'
     | 'good'
     | 'evil'
-    | 'untyped';
+    | 'untyped'; // overwritten by critical damage weaknesses if present
 
 const allDamageTypes = new Set<string>();
 allDamageTypes.add('acid');
