@@ -694,7 +694,7 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [

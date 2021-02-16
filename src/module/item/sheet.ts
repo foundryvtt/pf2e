@@ -223,10 +223,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'tool') {
-            // Tool-specific data
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
