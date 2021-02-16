@@ -611,7 +611,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         html.find('.linked-condition').on(
             'click contextmenu',
             null,
-            PF2eStatusEffects._setStatusValue.bind(this.token),
+            PF2eStatusEffects._setStatusValue.bind(mergeObject(this.token, { statusEffectChanged: false })),
         );
 
         // Remove Spell Slot
