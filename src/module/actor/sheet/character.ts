@@ -831,6 +831,18 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onDropItemCreate(itemData);
     }
 
+    protected _isFeatValidInFeatSlot(_slotId: string, featType: string, feat: FeatData) {
+        return featType === feat.data?.featType?.value;
+    }
+
+    protected _getNearestSlotId(event: ElementDragEvent) {
+        const data = $(event.target).closest('.item').data();
+        if (!data) {
+            return { slotId: undefined, featType: undefined };
+        }
+        return data;
+    }
+
     /** @override */
     protected async _onDropItem(
         event: ElementDragEvent,
@@ -847,13 +859,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
 
-        const { slotId, featType } =
-            event.target !== null
-                ? $(event.target).closest('.item').data()
-                : { slotId: undefined, featType: undefined };
+        const { slotId, featType } = this._getNearestSlotId(event);
 
         if (itemData.type === 'feat') {
-            if (slotId !== undefined && featType === itemData.data?.featType?.value) {
+            if (slotId !== undefined && this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
                     this.actor.createEmbeddedEntity('OwnedItem', itemData),
@@ -881,12 +890,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         itemData: ItemData,
     ): Promise<(ItemData | null)[] | ItemData | null> {
         if (itemData.type === 'feat') {
-            const { slotId, featType } =
-                event.target !== null
-                    ? $(event.target).closest('.item').data()
-                    : { slotId: undefined, featType: undefined };
+            const { slotId, featType } = this._getNearestSlotId(event);
 
-            if (itemData.data?.featType?.value === featType) {
+            if (this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 this.actor.updateEmbeddedEntity('OwnedItem', [
                     {
                         _id: itemData._id,
