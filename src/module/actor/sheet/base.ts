@@ -610,7 +610,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Bind elements on character sheet to status effects (condition chosen by data-condition attribute)
         html.find('.linked-condition').on(
             'click contextmenu',
-            PF2eStatusEffects._setStatusValue.bind(mergeObject(this.token, {statusEffectChanged: false})),
+            PF2eStatusEffects._setStatusValue.bind(mergeObject(this.token, { statusEffectChanged: false })),
         );
 
         // Remove Spell Slot
