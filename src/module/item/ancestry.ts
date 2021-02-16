@@ -9,7 +9,7 @@ export class PF2EAncestry extends PF2EItem {
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
             const pack = game.packs.get<Compendium<PF2EFeat>>(entry.pack);
-            const entity = pack.getEntity(entry.id);
+            const entity = await pack.getEntity(entry.id);
             return entity instanceof PF2EFeat
                 ? entity._data
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
