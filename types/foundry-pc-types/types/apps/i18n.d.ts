@@ -1,3 +1,5 @@
+declare type TranslationDictionaryValue = string | { [key: string]: TranslationDictionaryValue };
+
 /**
  * A helper class which assists with localization and string translation
  */
@@ -10,13 +12,12 @@ declare class Localization {
     /**
      * The translation dictionary for the target language
      */
-    translations: any;
+    translations: Record<string, TranslationDictionaryValue>;
 
     /**
      * Fallback translations if the target keys are not found
-     * @type {Object}
      */
-    _fallback: any;
+    _fallback: {};
 
     constructor();
 

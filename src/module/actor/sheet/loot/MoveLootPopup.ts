@@ -47,7 +47,7 @@ export class MoveLootPopup extends FormApplication {
         // Subscribe to events
     }
 
-    async _updateObject(_event: DragEvent, formData: MoveLootFormData) {
+    async _updateObject(_event: ElementDragEvent, formData: MoveLootFormData) {
         if (this.onSubmitCallback) {
             this.onSubmitCallback(formData.quantity);
         }

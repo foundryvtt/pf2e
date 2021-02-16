@@ -1,7 +1,7 @@
 declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEntitySheetData<A> {
     actor: A;
-    data: A['data'];
-    items: I[];
+    data: A['data']['data'];
+    items: I['data'][];
 }
 
 /**
@@ -12,11 +12,14 @@ declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEn
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Actor.sheetClass``.
  *
- * @param actor				The Actor instance being displayed within the sheet.
- * @param options			Additional options which modify the rendering of the Actor's sheet.
- * @param options.editable	Is the Actor editable? Default is true.
+ * @param actor            The Actor instance being displayed within the sheet.
+ * @param options          Additional options which modify the rendering of the Actor's sheet.
+ * @param options.editable Is the Actor editable? Default is true.
  */
-declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends BaseEntitySheet<ActorType> {
+declare class ActorSheet<
+    ActorType extends Actor = Actor,
+    ItemType extends Item = Item
+> extends BaseEntitySheet<ActorType> {
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
@@ -51,17 +54,17 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
     /**
      * Default handler for beginning a drag-drop workflow of an Owned Item on an Actor Sheet
      */
-    protected _onDragItemStart(event: DragEvent): boolean;
+    protected _onDragItemStart(event: ElementDragEvent): boolean;
 
     /**
      * Allow the Actor sheet to be a displayed as a valid drop-zone
      */
-    protected _onDragOver(event: DragEvent): boolean;
+    protected _onDragOver(event: ElementDragEvent): boolean;
 
     /**
      * Handle dropped data on the Actor sheet
      */
-    protected _onDrop(event: DragEvent): Promise<boolean | any>;
+    protected _onDrop(event: ElementDragEvent): Promise<boolean | any>;
 
     /**
      * Handle the final creation of dropped Item data on the Actor.
@@ -69,7 +72,7 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
      * @param itemData     The item data requested for creation
      * @private
      */
-    protected _onDropItemCreate(itemData: ItemType['data']): Promise<ItemType['data']>;
+    protected _onDropItemCreate(itemData: ItemType['data']): Promise<ItemType['data'] | null>;
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
@@ -78,7 +81,10 @@ declare class ActorSheet<ActorType extends Actor, ItemType extends Item> extends
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      */
-    protected _onSortItem(event: Event, itemData: ItemType['data']): Promise<ItemType>;
+    protected _onSortItem(
+        event: DragEvent,
+        itemData: ItemType['data']
+    ): Promise<(ItemType['data'] | null)[] | ItemType['data'] | null>;
 
     protected _getSortSiblings(source: any): any;
 }

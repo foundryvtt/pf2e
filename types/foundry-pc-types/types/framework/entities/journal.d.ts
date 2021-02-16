@@ -1,6 +1,6 @@
-declare class Journal extends Collection<JournalEntry> {
-    // @TODO Add Journal class
-    [key: string]: any;
+declare class Journal extends EntityCollection<JournalEntry> {
+    /** @override */
+    get entity(): 'JournalEntry';
 }
 
 declare interface JournalEntryData extends Omit<BaseEntityData, 'type'> {

@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 1.11.7
+### Bug Fixes
+* (Trollderim) Add missing return statement for items in IdentifyPopup
+* (nikolaj-a) Fix drag and drop of effects from the item directory to the hotbar
+* (stwlam) Make spellcasting entry name input at least long enough to show default names
+
+### Content Changes
+* (TMun) Move Grolna from Agents of Edgewatch bestiary compendium to equipment compendium
+
+
 ## Version 1.11.6
 ### Bug Fixes
 * (stwlam) Prevent error from being thrown when unnamed effects are in the token HUD status effects menu
