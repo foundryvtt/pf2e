@@ -156,10 +156,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         // Spellcasting Entries
         const spellcastingEntries = [];
 
+        let backgroundItemId = undefined;
+
         // Feats
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: number; feat?: FeatData }[];
+            feats: { id: string; level: string; feat?: FeatData }[];
             bonusFeats: FeatData[];
         }
         const tempFeats: FeatData[] = [];
@@ -429,6 +431,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 }
             }
 
+            // background
+            else if (i.type === 'background') {
+                backgroundItemId = i._id;
+            }
+
             // class
             else if (i.type === 'class') {
                 const classItem = i as ClassData;
@@ -438,7 +445,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                     }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level: level }));
+                        .map((level) => ({ id: `${prefix}-${level}`, level: `${level}` }));
                 };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, 'ancestry');
@@ -446,6 +453,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, 'skill');
                 featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, 'general');
             }
+        }
+
+        if (backgroundItemId !== undefined) {
+            featSlots.skill.feats.unshift({
+                id: backgroundItemId,
+                level: game.i18n.localize('PF2E.FeatBackgroundShort'),
+            });
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
