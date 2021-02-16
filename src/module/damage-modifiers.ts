@@ -127,7 +127,7 @@ function exceptionApplies(
 }
 
 function ifImmunityApplies(
-    immunitiesByType: Map<string, Immunities>,
+    immunitiesByType: Map<string, Immunity[]>,
     damage: Damage,
     attackTraits: Set<AttackTrait>,
     damageType: string,
@@ -157,7 +157,7 @@ function applyImmunities({
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
     attackTraits: Set<AttackTrait>;
-    immunities: Immunities;
+    immunities: Immunity[];
     ignoreImmunities: Set<string>;
 }) {
     // replace object-immunities with their respective immunities
@@ -253,21 +253,16 @@ export interface Resistance {
     except: DamageExceptions;
 }
 
-export type Resistances = Resistance[];
-
 export interface Weakness {
     damageType: string;
     value: number;
+    except: DamageExceptions;
 }
-
-export type Weaknesses = Weakness[];
 
 export interface Immunity {
     damageType: string;
     except: DamageExceptions;
 }
-
-export type Immunities = Immunity[];
 
 /**
  * This method needs to deal with the following string value crap:
@@ -314,7 +309,7 @@ export function parseExceptions(
     }
 }
 
-export function parseResistances(values: LabeledValue[]): Resistances {
+export function parseResistances(values: LabeledValue[]): Resistance[] {
     return values.map((value) => {
         const { doubleResistanceVsNonMagical, except } = parseExceptions(value.exceptions);
         return {
@@ -326,7 +321,7 @@ export function parseResistances(values: LabeledValue[]): Resistances {
     });
 }
 
-export function parseWeakness(values: LabeledValue[]): Weaknesses {
+export function parseWeakness(values: LabeledValue[]): Weakness[] {
     return values.map((value) => {
         const { except } = parseExceptions(value.exceptions);
         return {
@@ -337,7 +332,7 @@ export function parseWeakness(values: LabeledValue[]): Weaknesses {
     });
 }
 
-export function parseImmunities(values: LabeledValue[]): Immunities {
+export function parseImmunities(values: LabeledValue[]): Immunity[] {
     return values.map((value) => {
         const { except } = parseExceptions(value.exceptions);
         return {
@@ -432,7 +427,6 @@ function hasPhysicalDamage(damage: Damage): boolean {
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  */
 export function calculateDamage({
-    isCriticalHit,
     isAreaDamage,
     normalDamage,
     splashDamage,
@@ -447,21 +441,21 @@ export function calculateDamage({
     resistances,
     weaknesses,
 }: {
-    isCriticalHit: boolean; // some monsters have weaknesses or resistances to critical hits
     isAreaDamage: boolean;
     normalDamage: Damage;
     splashDamage?: SplashDamage;
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
-    additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
+    additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage, e.g. deadly
     reduceResistances: Damage; // oracle and druid have metamagic that allows them to ignore resistance up to a value
     ignoreImmunities: Set<string>;
     attackTraits: Set<AttackTrait>;
     alive: Alive;
-    immunities: Immunities;
-    resistances: Weaknesses;
-    weaknesses: Resistances;
+    immunities: Immunity[];
+    resistances: Weakness[];
+    weaknesses: Resistance[];
     alignment: Alignment;
 }): number {
+    const isCriticalHit = criticalDamage.size > 0;
     // const damage = applyImmunities({
     //     normalDamage,
     //     criticalDamage,
