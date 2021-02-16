@@ -129,10 +129,6 @@ function sumDamage(damage: Damage): number {
     return sum(Array.from(damage.values()));
 }
 
-function hasPhysicalDamage(damage: Damage): boolean {
-    return damage.has('piercing') || damage.has('slashing') || damage.has('bludgeoning');
-}
-
 function combineDamages(damages: Damage[]): Damage {
     return damages.reduce((previous, current) => {
         return combineMaps(previous, current, (a, b) => a + b);
@@ -203,6 +199,7 @@ function ifModifierApplies<T extends HasDamageExceptions>({
 }
 
 function applyImmunities({
+    isCriticalHit,
     normalDamage,
     criticalDamage,
     additionalCriticalDamage,
@@ -211,6 +208,7 @@ function applyImmunities({
     immunities,
     splashDamage,
 }: {
+    isCriticalHit: boolean;
     normalDamage: Damage;
     splashDamage?: SplashDamage;
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
@@ -241,31 +239,27 @@ function applyImmunities({
     }
 
     // check if critical damage is ignored otherwise combine it with normal damage
-    ifModifierApplies({
-        modifiersByType: immunitiesByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['critical-hits'],
-        applyModifier: () => {
-            if (criticalDamage.size > 0) {
-                criticalDamage = new Map();
-            }
-        },
-    });
+    if (isCriticalHit) {
+        ifModifierApplies({
+            modifiersByType: immunitiesByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['critical-hits'],
+            applyModifier: () => (criticalDamage = new Map()),
+        });
+    }
     damage = combineDamages([damage, criticalDamage]);
 
     // if nonlethal trait is present and monster is immune, throw away everything
-    ifModifierApplies({
-        modifiersByType: immunitiesByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['nonlethal attacks'],
-        applyModifier: () => {
-            if (attackTraits.has('nonlethal')) {
-                damage.clear();
-            }
-        },
-    });
+    if (attackTraits.has('nonlethal')) {
+        ifModifierApplies({
+            modifiersByType: immunitiesByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['nonlethal attacks'],
+            applyModifier: () => damage.clear(),
+        });
+    }
 
     // check if precision damage is ignored, needed separately because weakness string is different from damage type
     ifModifierApplies({
@@ -288,11 +282,6 @@ function applyImmunities({
                 applyModifier: () => damage.delete(damageType),
             });
         });
-
-    // if the target is immune to physical attacks, precision damage doesn't apply
-    if (!hasPhysicalDamage(damage)) {
-        damage.delete('precision');
-    }
 
     return damage;
 }
@@ -451,53 +440,53 @@ function applyWeaknesses({
 
     const modifiersByType = groupBy(weaknesses, (weakness: Weakness) => weakness.damageType);
 
-    ifModifierApplies({
-        modifiersByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['vorpal weapons'],
-        applyModifier: (modifier) => {
-            if (attackTraits.has('vorpal')) {
+    if (attackTraits.has('vorpal')) {
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['vorpal weapons'],
+            applyModifier: (modifier) => {
                 addDamageIfPresent(damage, modifier.value, ['slashing', 'piercing', 'bludgeoning']);
-            }
-        },
-    });
+            },
+        });
+    }
 
-    ifModifierApplies({
-        modifiersByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['critical hits'],
-        applyModifier: (modifier) => {
-            if (isCriticalHit) {
+    if (isCriticalHit) {
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['critical hits'],
+            applyModifier: (modifier) => {
                 damage.set('untyped', modifier.value);
-            }
-        },
-    });
+            },
+        });
+    }
 
-    ifModifierApplies({
-        modifiersByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['splash-damage'],
-        applyModifier: (modifier) => {
-            if (splashDamage !== undefined) {
+    if (splashDamage !== undefined) {
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['splash-damage'],
+            applyModifier: (modifier) => {
                 addDamageIfPresent(damage, modifier.value, [splashDamage.type]);
-            }
-        },
-    });
+            },
+        });
+    }
 
-    ifModifierApplies({
-        modifiersByType,
-        damage,
-        attackTraits,
-        applicableModifierTypes: ['area-damage'],
-        applyModifier: (modifier) => {
-            if (areaDamage !== undefined) {
+    if (areaDamage !== undefined) {
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['area-damage'],
+            applyModifier: (modifier) => {
                 addDamageIfPresent(damage, modifier.value, [areaDamage]);
-            }
-        },
-    });
+            },
+        });
+    }
 
     Array.from(damage.keys()).forEach((damageType) => {
         const applicableTypes = [damageType, 'all'];
@@ -537,6 +526,7 @@ function applyResistances({
     console.log(attackTraits);
     console.log(reduceResistances);
     console.log(resistances);
+    // TODO: don't forget that if physical damage is reduced to 0, precision damage does not apply
     // TODO: don't forget to that precision damage is moved over to physical damage
     // TODO: don't forget to reduce resistances
     const totalDamage = sumDamage(damage);
@@ -579,6 +569,7 @@ export function calculateDamage({
 }): number {
     const isCriticalHit = criticalDamage.size > 0;
     const damage = applyImmunities({
+        isCriticalHit,
         normalDamage,
         criticalDamage,
         additionalCriticalDamage,
