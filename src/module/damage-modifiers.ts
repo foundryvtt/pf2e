@@ -55,6 +55,12 @@ export function isPhysicalDamageType(value: string): boolean {
     return value === 'piercing' || value === 'bludgeoning' || value === 'slashing';
 }
 
+const physicalDamage: DamageType[] = ['piercing', 'bludgeoning', 'slashing'];
+
+export function getMainDamageType(damage: Damage): boolean {
+    return physicalDamage.filter((type) => damage.has(type))[0] ?? damage.keys()[0];
+}
+
 export type DamageExceptions = Set<AttackTrait & DamageType>[];
 
 interface HasDamageExceptions {
@@ -507,30 +513,88 @@ function applyWeaknesses({
     });
 }
 
+function reduceResistance(
+    reduceResistances: Map<string, number>,
+    applicableResistanceTypes: string[],
+    resistanceValue: number,
+): number {
+    const ignoreResistanceBy = Math.max(...applicableResistanceTypes.map((type) => reduceResistances.get(type) ?? 0));
+    return Math.max(0, resistanceValue - ignoreResistanceBy);
+}
+
 function applyResistances({
     damage,
     isCriticalHit,
     attackTraits,
     reduceResistances,
     resistances,
+    mainDamageType,
 }: {
     damage: Damage;
     isCriticalHit: boolean;
     attackTraits: Set<AttackTrait>;
-    reduceResistances: Damage;
-    resistances: Weakness[];
+    reduceResistances: Map<string, number>;
+    resistances: Resistance[];
+    mainDamageType: DamageType;
 }): number {
-    // TODO
+    const modifiersByType = groupBy(resistances, (resistance: Weakness) => resistance.damageType);
+
     console.log(damage);
     console.log(isCriticalHit);
     console.log(attackTraits);
     console.log(reduceResistances);
     console.log(resistances);
+
+    // precision damage resistance applies first because it spills into the damage afterwards
+    ifModifierApplies({
+        modifiersByType: modifiersByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['precision-damage'],
+        applyModifier: (modifier) => {
+            const value = reduceResistance(reduceResistances, ['precision-damage'], modifier.value);
+            addDamageIfPresent(damage, value, [mainDamageType]);
+            damage.delete('precision');
+        },
+    });
+
+    Array.from(damage.keys()).forEach((damageType) => {
+        const applicableTypes = [damageType, 'all'];
+        if (isPhysicalDamageType(damageType)) {
+            applicableTypes.push('physical');
+            // physical attacks also trigger resistances for materials if present
+            physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
+        }
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: applicableTypes,
+            applyModifier: (modifier) => {
+                const value = reduceResistance(reduceResistances, applicableTypes, modifier.value);
+                addDamageIfPresent(damage, value, [damageType]);
+            },
+        });
+    });
+
     // TODO: don't forget that if physical damage is reduced to 0, precision damage does not apply
     // TODO: don't forget to that precision damage is moved over to physical damage
-    // TODO: don't forget to reduce resistances
-    const totalDamage = sumDamage(damage);
-    // TODO: don't forget to reduce overall damage if critical hit but resistant to critical damage
+    // TODO: don't forget to reduce resistances based on the the applied resistance types
+
+    let totalDamage = sumDamage(damage);
+    // critical hits resistance
+    if (isCriticalHit) {
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: ['critical-hits'],
+            applyModifier: (modifier) => {
+                const value = reduceResistance(reduceResistances, ['critical-hits'], modifier.value);
+                totalDamage = Math.max(0, totalDamage - value);
+            },
+        });
+    }
     return totalDamage;
 }
 
@@ -557,17 +621,17 @@ export function calculateDamage({
     splashDamage?: SplashDamage;
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage, e.g. deadly
-    // FIXME: reduce resistances acts based on resistance type, not damage type
-    reduceResistances: Damage; // oracle and druid have metamagic that allows them to ignore resistance up to a value
+    reduceResistances: Map<string, number>; // oracle and druid have metamagic that allows them to ignore resistance up to a value
     ignoreImmunities: Set<string>;
     attackTraits: Set<AttackTrait>;
     alive: Alive;
     immunities: Immunity[];
-    resistances: Weakness[];
-    weaknesses: Resistance[];
+    resistances: Resistance[];
+    weaknesses: Weakness[];
     alignment: Alignment;
 }): number {
     const isCriticalHit = criticalDamage.size > 0;
+    const mainDamageType = getMainDamageType(normalDamage);
     const damage = applyImmunities({
         isCriticalHit,
         normalDamage,
@@ -581,7 +645,7 @@ export function calculateDamage({
     removeUndeadLivingDamage(damage, alive);
     removeAlignmentDamage(damage, alignment);
     applyWeaknesses({ isCriticalHit, damage, weaknesses, attackTraits, splashDamage, areaDamage });
-    return applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackTraits });
+    return applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackTraits, mainDamageType });
 }
 
 /**
