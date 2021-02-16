@@ -8,19 +8,22 @@ import {
 } from '../../src/module/damage-modifiers';
 import { Alignment, LabeledValue } from '../../src/module/actor/actorDataDefinitions';
 
-function createLabeledValue(type: string, value: number, exceptions?: string): LabeledValue {
+function createLabeledValue(type: string, value = 0, exceptions?: string, label = 'Label'): LabeledValue {
     return {
         exceptions,
         type,
         value,
-        label: 'Label',
+        label,
     };
 }
 
 describe('Test Damage Modifiers', () => {
     test('should merge immunities', () => {
-        const result = immunityToLabeledValue({ value: ['fire', 'cold'], custom: 'cold' }, ['cold', 'electricity']);
-        expect(result).toEqual(['fire', 'cold', 'electricity']);
+        const result = immunityToLabeledValue({ value: ['fire', 'cold'], custom: 'electricity' });
+        expect(result).toEqual([
+            createLabeledValue('fire', 0, undefined, 'fire'),
+            createLabeledValue('cold', 0, undefined, 'cold'),
+        ]);
     });
 
     test('should merge resistances and weaknesses', () => {
