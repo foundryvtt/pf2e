@@ -1,7 +1,7 @@
 import {
     Alive,
-    mergeImmunities,
-    mergeResistancesOrWeaknesses,
+    immunityToLabeledValue,
+    mergeLabeledValues,
     parseExceptions,
     removeAlignmentDamage, removeUndeadLivingDamage,
 } from '../../src/module/damage-modifiers';
@@ -18,7 +18,7 @@ function createLabeledValue(type: string, value: number, exceptions?: string): L
 
 describe('Test Damage Modifiers', () => {
     test('should merge immunities', () => {
-        const result = mergeImmunities({ value: ['fire', 'cold'], custom: 'cold' }, ['cold', 'electricity']);
+        const result = immunityToLabeledValue({ value: ['fire', 'cold'], custom: 'cold' }, ['cold', 'electricity']);
         expect(result).toEqual(['fire', 'cold', 'electricity']);
     });
 
@@ -29,7 +29,7 @@ describe('Test Damage Modifiers', () => {
             createLabeledValue('cold', 5, 'silver'),
             createLabeledValue('fire', 3),
         ];
-        const result = mergeResistancesOrWeaknesses(values);
+        const result = mergeLabeledValues(values);
         expect(result).toEqual([
             createLabeledValue('cold', 15),
             createLabeledValue('cold', 5, 'silver'),

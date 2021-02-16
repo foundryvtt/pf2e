@@ -1,5 +1,5 @@
 import { Alignment, DamageImmunities, LabeledValue } from '@actor/actorDataDefinitions';
-import { combineMaps, groupBy, max, toNumber } from './utils';
+import { combineMaps, groupBy, max, sum, toNumber } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 
 export type Alive = 'living' | 'undead' | 'neither';
@@ -23,9 +23,10 @@ export type DamageType =
     | 'chaotic'
     | 'lawful'
     | 'good'
-    | 'evil';
+    | 'evil'
+    | 'untyped';
 
-const allDamageTypes = new Set();
+const allDamageTypes = new Set<string>();
 allDamageTypes.add('acid');
 allDamageTypes.add('bludgeoning');
 allDamageTypes.add('cold');
@@ -50,24 +51,29 @@ export function isDamageType(value: string): value is DamageType {
     return allDamageTypes.has(value);
 }
 
+export function isPhysicalDamageType(value: string): boolean {
+    return value === 'piercing' || value === 'bludgeoning' || value === 'slashing';
+}
+
 export type DamageExceptions = Set<AttackTrait & DamageType>[];
 
-export interface Resistance {
+interface HasDamageExceptions {
+    except: DamageExceptions;
+}
+
+export interface Resistance extends HasDamageExceptions {
     damageType: string;
     value: number;
     doubleResistanceVsNonMagical: boolean;
-    except: DamageExceptions;
 }
 
-export interface Weakness {
+export interface Weakness extends HasDamageExceptions {
     damageType: string;
     value: number;
-    except: DamageExceptions;
 }
 
-export interface Immunity {
+export interface Immunity extends HasDamageExceptions {
     damageType: string;
-    except: DamageExceptions;
 }
 
 export type AttackTrait =
@@ -81,8 +87,7 @@ export type AttackTrait =
     | 'silver'
     | 'orichalcum'
     | 'vorpal'
-    | 'unarmed'
-    | 'spell';
+    | 'unarmed';
 
 const allAttackTraits = new Set<string>();
 allAttackTraits.add('nonlethal');
@@ -98,6 +103,17 @@ allAttackTraits.add('vorpal');
 allAttackTraits.add('unarmed');
 allAttackTraits.add('spell');
 
+const physicalAttackTraits: AttackTrait[] = [
+    'adamantine',
+    'coldiron',
+    'darkwood',
+    'mithral',
+    'silver',
+    'orichalcum',
+    'vorpal',
+    'unarmed',
+];
+
 export function isAttackTrait(value: string): value is DamageType {
     return allAttackTraits.has(value);
 }
@@ -109,6 +125,14 @@ export interface SplashDamage {
 
 export type Damage = Map<DamageType, number>;
 
+function sumDamage(damage: Damage): number {
+    return sum(Array.from(damage.values()));
+}
+
+function hasPhysicalDamage(damage: Damage): boolean {
+    return damage.has('piercing') || damage.has('slashing') || damage.has('bludgeoning');
+}
+
 function combineDamages(damages: Damage[]): Damage {
     return damages.reduce((previous, current) => {
         return combineMaps(previous, current, (a, b) => a + b);
@@ -116,11 +140,12 @@ function combineDamages(damages: Damage[]): Damage {
 }
 
 /**
- * A single trait or damage combination can disable all resistance/weaknesses/immunities
+ * A single trait or damage combination can disable all resistance/weaknesses/immunities.
  *
  * @param except
  * @param attackTraits
  * @param damageTypes
+ * @return true if the current exception applies
  */
 function exceptionApplies(
     except: DamageExceptions,
@@ -139,20 +164,41 @@ function exceptionApplies(
     );
 }
 
-function ifImmunityApplies(
-    immunitiesByType: Map<string, Immunity[]>,
-    damage: Damage,
-    attackTraits: Set<AttackTrait>,
-    damageType: string,
-    applyImmunity: () => void,
-) {
-    const immunities = immunitiesByType.get(damageType) ?? [];
+/**
+ * This function is responsible for going through a list of possible modifiers, evaluating them against their
+ * exceptions based on the given attackTraits and damage types present in the damage parameter, retrieving
+ * the highest applicable value and calling the applyModifier callback
+ *
+ * @param modifiersByType immunties/resistances/weaknesses grouped by damage type
+ * @param damage the dealt damage
+ * @param attackTraits traits of the attack, only used to determine if an exception applies
+ * @param applicableDamageTypes which values from the given modifiersByType map should be used to find the highest one
+ * @param applyModifier callback that receives the highest applicable modifier
+ * @param sortField callback that returns a number to sort all applicable modifiers by value, optional
+ */
+function ifModifierApplies<T extends HasDamageExceptions>({
+    modifiersByType,
+    damage,
+    attackTraits,
+    applicableModifierTypes,
+    applyModifier,
+    sortField = () => 0,
+}: {
+    modifiersByType: Map<string, T[]>;
+    damage: Damage;
+    attackTraits: Set<AttackTrait>;
+    applicableModifierTypes: string[];
+    applyModifier: (modifier: T) => void;
+    sortField?: (modifier: T) => number;
+}) {
+    const modifiers = applicableModifierTypes.flatMap((damageType) => modifiersByType.get(damageType) ?? []);
     const damageTypes = new Set(damage.keys());
-    const applicableImmunities = immunities.filter(
-        (immunity) => !exceptionApplies(immunity.except, attackTraits, damageTypes),
-    );
-    if (applicableImmunities.length > 0) {
-        applyImmunity();
+    const highestApplicableModifier = modifiers
+        .filter((immunity) => !exceptionApplies(immunity.except, attackTraits, damageTypes))
+        .sort((a, b) => sortField(a) - sortField(b))
+        .reverse()[0];
+    if (highestApplicableModifier !== undefined) {
+        applyModifier(highestApplicableModifier);
     }
 }
 
@@ -195,27 +241,51 @@ function applyImmunities({
     }
 
     // check if critical damage is ignored otherwise combine it with normal damage
-    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'critical-hits', () => {
-        criticalDamage = new Map();
+    ifModifierApplies({
+        modifiersByType: immunitiesByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['critical-hits'],
+        applyModifier: () => {
+            if (criticalDamage.size > 0) {
+                criticalDamage = new Map();
+            }
+        },
     });
     damage = combineDamages([damage, criticalDamage]);
 
     // if nonlethal trait is present and monster is immune, throw away everything
-    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'nonlethal attacks', () => {
-        damage.clear();
+    ifModifierApplies({
+        modifiersByType: immunitiesByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['nonlethal attacks'],
+        applyModifier: () => {
+            if (attackTraits.has('nonlethal')) {
+                damage.clear();
+            }
+        },
     });
 
-    // check if precision damage is ignored
-    ifImmunityApplies(immunitiesByType, damage, attackTraits, 'precision-damage', () => {
-        damage.delete('precision');
+    // check if precision damage is ignored, needed separately because weakness string is different from damage type
+    ifModifierApplies({
+        modifiersByType: immunitiesByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['precision-damage'],
+        applyModifier: () => damage.delete('precision'),
     });
 
     // apply normal damage immunities
     Array.from(damage.keys())
         .filter((damageType) => damageType !== 'precision')
         .forEach((damageType) => {
-            ifImmunityApplies(immunitiesByType, damage, attackTraits, damageType, () => {
-                damage.delete(damageType);
+            ifModifierApplies({
+                modifiersByType: immunitiesByType,
+                damage,
+                attackTraits,
+                applicableModifierTypes: [damageType],
+                applyModifier: () => damage.delete(damageType),
             });
         });
 
@@ -335,92 +405,150 @@ export function parseImmunities(values: LabeledValue[]): Immunity[] {
     });
 }
 
-// function applyWeaknessIfPositive(damage: Damage, type: DamageType, value: number) {
-//     const existingValue = damage.get(type);
-//     if (existingValue !== undefined && existingValue > 0) {
-//         damage.set(type, existingValue + value);
-//     }
-// }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// function increasePhysicalDamage(damage: Damage, config: Weakness) {
-//     applyWeaknessIfPositive(damage, 'slashing', config.value);
-//     applyWeaknessIfPositive(damage, 'bludgeoning', config.value);
-//     applyWeaknessIfPositive(damage, 'piercing', config.value);
-// }
-//
-
-function hasPhysicalDamage(damage: Damage): boolean {
-    return damage.has('piercing') || damage.has('slashing') || damage.has('bludgeoning');
+/**
+ * Applies a weakness or resistance to an existing damage value
+ *
+ * @param damage complete damage
+ * @param value increases damage of positive, reduces damage if negative. If the result
+ * value is ever 0 or negative, the damage type will be removed from the damage
+ * map
+ * @param damageTypes a list of types to increase damage; usually an array with 1 element
+ * but can be multiple in case of slashing, bludgeoning or piercing
+ */
+function addDamageIfPresent(damage: Damage, value: number, damageTypes: DamageType[]) {
+    for (const damageType of damageTypes) {
+        const damageValue = damage.get(damageType);
+        if (damageValue !== undefined) {
+            const targetValue = damageValue + value;
+            if (targetValue > 0) {
+                damage.set(damageType, targetValue);
+            } else {
+                damage.delete(damageType);
+            }
+        }
+    }
 }
 
-// function applyWeaknesses({
-//     damage,
-//     isAreaDamage,
-//     splashDamage,
-//     weaknesses,
-//     attackTraits,
-// }: {
-//     damage: Damage;
-//     isAreaDamage: boolean;
-//     splashDamage?: SplashDamage;
-//     attackTraits: Set<string>;
-//     weaknesses: Resistances;
-// }) {
-// const firstDamageType = damage.keys()[0];
-// for (const [type, config] of weaknesses.entries()) {
-//     if (type === 'vorpal weapons' && attackTraits.has('vorpal')) {
-//         increasePhysicalDamage(damage, config);
-//     } else if (attackTraits.has(type)) {
-//         increasePhysicalDamage(damage, config);
-//     } else if (type === 'critical hits') {
-//         // https://2e.aonprd.com/MonsterFamilies.aspx?ID=103 lists critical weaknesses
-//         // if physical damage is there, increase that, otherwise simply take the first
-//         // damage type and increase it
-//         if (hasPhysicalDamage(damage)) {
-//             increasePhysicalDamage(damage, config);
-//         } else {
-//             applyWeaknessIfPositive(damage, firstDamageType, config.value);
-//         }
-//     } else if (type === 'splash-damage' && splashDamage !== undefined) {
-//         applyWeaknessIfPositive(damage, splashDamage.type, config.value);
-//     } else if (type === 'area-damage' && isAreaDamage) {
-//         applyWeaknessIfPositive(damage, firstDamageType, config.value);
-//     } else {
-//         if (isDamageType(type)) {
-//             applyWeaknessIfPositive(damage, type, config.value);
-//         }
-//     }
-// }
-// }
+function applyWeaknesses({
+    damage,
+    isCriticalHit,
+    splashDamage,
+    weaknesses,
+    attackTraits,
+    areaDamage,
+}: {
+    damage: Damage;
+    isCriticalHit: boolean;
+    areaDamage?: DamageType;
+    splashDamage?: SplashDamage;
+    attackTraits: Set<AttackTrait>;
+    weaknesses: Weakness[];
+}) {
+    // weaknesses don't trigger if all damage was reduced
+    if (sumDamage(damage) === 0) {
+        return;
+    }
 
-// function applyResistances({
-//     damage,
-//     isCriticalHit,
-//     attackType,
-//     reduceResistances,
-//     resistances,
-// }: {
-//     damage: Damage;
-//     isCriticalHit: boolean;
-//     attackType: AttackType;
-//     reduceResistances: Damage;
-//     resistances: Weaknesses;
-// }): number {
-//     // TODO
-//     console.log(damage);
-//     console.log(isCriticalHit);
-//     console.log(attackType);
-//     console.log(reduceResistances);
-//     console.log(resistances);
-//     return 0;
-// }
+    const modifiersByType = groupBy(weaknesses, (weakness: Weakness) => weakness.damageType);
+
+    ifModifierApplies({
+        modifiersByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['vorpal weapons'],
+        applyModifier: (modifier) => {
+            if (attackTraits.has('vorpal')) {
+                addDamageIfPresent(damage, modifier.value, ['slashing', 'piercing', 'bludgeoning']);
+            }
+        },
+    });
+
+    ifModifierApplies({
+        modifiersByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['critical hits'],
+        applyModifier: (modifier) => {
+            if (isCriticalHit) {
+                damage.set('untyped', modifier.value);
+            }
+        },
+    });
+
+    ifModifierApplies({
+        modifiersByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['splash-damage'],
+        applyModifier: (modifier) => {
+            if (splashDamage !== undefined) {
+                addDamageIfPresent(damage, modifier.value, [splashDamage.type]);
+            }
+        },
+    });
+
+    ifModifierApplies({
+        modifiersByType,
+        damage,
+        attackTraits,
+        applicableModifierTypes: ['area-damage'],
+        applyModifier: (modifier) => {
+            if (areaDamage !== undefined) {
+                addDamageIfPresent(damage, modifier.value, [areaDamage]);
+            }
+        },
+    });
+
+    Array.from(damage.keys()).forEach((damageType) => {
+        const applicableTypes = [damageType, 'all'];
+        if (isPhysicalDamageType(damageType)) {
+            applicableTypes.push('physical');
+            // physical attacks also trigger weaknesses for materials if present
+            physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
+        }
+        ifModifierApplies({
+            modifiersByType,
+            damage,
+            attackTraits,
+            applicableModifierTypes: applicableTypes,
+            applyModifier: (modifier) => {
+                addDamageIfPresent(damage, modifier.value, [damageType]);
+            },
+        });
+    });
+}
+
+function applyResistances({
+    damage,
+    isCriticalHit,
+    attackTraits,
+    reduceResistances,
+    resistances,
+}: {
+    damage: Damage;
+    isCriticalHit: boolean;
+    attackTraits: Set<AttackTrait>;
+    reduceResistances: Damage;
+    resistances: Weakness[];
+}): number {
+    // TODO
+    console.log(damage);
+    console.log(isCriticalHit);
+    console.log(attackTraits);
+    console.log(reduceResistances);
+    console.log(resistances);
+    // TODO: don't forget to that precision damage is moved over to physical damage
+    // TODO: don't forget to reduce resistances
+    const totalDamage = sumDamage(damage);
+    // TODO: don't forget to reduce overall damage if critical hit but resistant to critical damage
+    return totalDamage;
+}
 
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  */
 export function calculateDamage({
-    isAreaDamage,
+    areaDamage,
     normalDamage,
     splashDamage,
     criticalDamage,
@@ -434,11 +562,12 @@ export function calculateDamage({
     resistances,
     weaknesses,
 }: {
-    isAreaDamage: boolean;
+    areaDamage?: DamageType;
     normalDamage: Damage;
     splashDamage?: SplashDamage;
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage, e.g. deadly
+    // FIXME: reduce resistances acts based on resistance type, not damage type
     reduceResistances: Damage; // oracle and druid have metamagic that allows them to ignore resistance up to a value
     ignoreImmunities: Set<string>;
     attackTraits: Set<AttackTrait>;
@@ -449,34 +578,35 @@ export function calculateDamage({
     alignment: Alignment;
 }): number {
     const isCriticalHit = criticalDamage.size > 0;
-    // const damage = applyImmunities({
-    //     normalDamage,
-    //     criticalDamage,
-    //     additionalCriticalDamage,
-    //     attackTraits,
-    //     immunities,
-    //     ignoreImmunities,
-    //     splashDamage,
-    // });
-    // removeUndeadLivingDamage(damage, isLiving, isUndead);
-    // removeAlignmentDamage(alignment, damage);
-    // applyWeaknesses({ damage, weaknesses, attackTraits, splashDamage, isAreaDamage });
-    // applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackType });
-    // TODO: check here if precision damage is used at all
-    // combineDamage()
-    // TODO: check here for critical hit resistance
-    return 0;
+    const damage = applyImmunities({
+        normalDamage,
+        criticalDamage,
+        additionalCriticalDamage,
+        attackTraits,
+        immunities,
+        ignoreImmunities,
+        splashDamage,
+    });
+    removeUndeadLivingDamage(damage, alive);
+    removeAlignmentDamage(damage, alignment);
+    applyWeaknesses({ isCriticalHit, damage, weaknesses, attackTraits, splashDamage, areaDamage });
+    return applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackTraits });
 }
 
 /**
- * Looks through all values and only keeps the highest ones
- * @param values
+ * Looks through all values and only keeps the highest ones. In case of exceptions,
+ * only the exact same exception will be grouped together, e.g.
+ * physical 5 (except silver) and physical 5 (except silver) will be collapsed but not
+ * physical 5 (except silver) and physical 5 (except adamantine)
+ *
+ * This function is mainly used to render the actual values into the character sheet.
+ * The actual damage reduction code can deal with multiple labels of the same category.
+ *
+ * @param values immunities, resistances or weaknesses
  */
-export function mergeResistancesOrWeaknesses(values: LabeledValue[]): LabeledValue[] {
+export function mergeLabeledValues(values: LabeledValue[]): LabeledValue[] {
     const valuesByType = groupBy(values, (value) => value.type);
     return Array.from(valuesByType.entries()).flatMap(([, value]) => {
-        // fire resistance 5 and fire resistance 10 collapse to fire resistance 10
-        // physical 5 (except silver) and physical 5 (except adamantine) are kept
         const groupedByException = groupBy(value, (value) => value.exceptions ?? null);
         return Array.from(groupedByException.entries()).map(([, value]) => {
             return max(value, (val) => toNumber(val.value) ?? 0);
@@ -485,10 +615,17 @@ export function mergeResistancesOrWeaknesses(values: LabeledValue[]): LabeledVal
 }
 
 /**
- * Only keeps unique immunities
+ * Immunities aren't LabeledValue[] atm but they should be. This function transforms an immunity
+ * into a LabeledValue
+ *
  * @param values
- * @param additionalImmunities
  */
-export function mergeImmunities(values: DamageImmunities, additionalImmunities: string[] = []): string[] {
-    return Array.from(new Set(values.value.concat(values.custom).concat(...additionalImmunities)));
+export function immunityToLabeledValue(values: DamageImmunities): LabeledValue[] {
+    return values.value.map((value) => {
+        return {
+            type: value,
+            value: 0,
+            label: value,
+        };
+    });
 }
