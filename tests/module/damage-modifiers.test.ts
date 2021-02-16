@@ -3,7 +3,8 @@ import {
     immunityToLabeledValue,
     mergeLabeledValues,
     parseExceptions,
-    removeAlignmentDamage, removeUndeadLivingDamage,
+    removeAlignmentDamage,
+    removeUndeadLivingDamage,
 } from '../../src/module/damage-modifiers';
 import { Alignment, LabeledValue } from '../../src/module/actor/actorDataDefinitions';
 
